@@ -8695,6 +8695,48 @@ def _python_file_index_evidence_command(file_id: str) -> str:
     return f"jq '.files[] | select(.path==\"{file_id}\")' codex/standards/std_python_scope_index.json"
 
 
+def _python_upstream_doctrine_route(
+    canonical_source: str,
+    *,
+    route_kind: str,
+    source_compile_command: str,
+    receipt_lane: str,
+    parent_file_command: str | None = None,
+) -> dict[str, Any]:
+    route_commands = {
+        "source": source_compile_command,
+        "scope_index": "./repo-python kernel.py --option-surface standards --band card --ids std_python_scope_index",
+        "standard": "./repo-python kernel.py --option-surface standards --band card --ids std_python",
+        "doctrine": "./repo-python kernel.py --paper-module navigation_hologram_theory",
+        "skill": "./repo-python kernel.py --option-surface skills --band card --ids profile_governed_compression",
+    }
+    if parent_file_command:
+        route_commands["parent_file"] = parent_file_command
+    return {
+        "schema": "python_upstream_doctrine_route_v0",
+        "status": "available",
+        "route_kind": route_kind,
+        "canonical_source": canonical_source,
+        "authority_layer": "operational",
+        "authority_tier": "owner_surface_route_not_source_authority",
+        "authority_boundary": "route_metadata_only_open_canonical_source_before_mutation",
+        "source_projection": str(PYTHON_SCOPE_INDEX),
+        "governing_standard": str(PYTHON_STANDARD),
+        "governing_doctrine": str(NAVIGATION_THEORY),
+        "governing_skill": str(PROFILE_SKILL),
+        "override_semantics": "This route cannot override Python source, std_python.py, or the scope-index builder; it only exposes the legal drilldown chain.",
+        "runtime_consumers": [
+            "python_files.card",
+            "python_scopes.card",
+            "navigation_context_pack.selected_rows",
+        ],
+        "evaluator_lane": source_compile_command,
+        "receipt_lane": receipt_lane,
+        "proof_path": [source_compile_command, receipt_lane],
+        "route_commands": route_commands,
+    }
+
+
 def _python_file_currentness(index: dict[str, Any], *, repo_root: Path) -> dict[str, Any]:
     meta = index.get("__meta") if isinstance(index.get("__meta"), dict) else {}
     return {
@@ -8864,6 +8906,12 @@ def _python_file_card_row(
                 _python_file_evidence_command(file_id),
                 _python_file_index_evidence_command(file_id),
             ],
+            "upstream_doctrine_route": _python_upstream_doctrine_route(
+                file_id,
+                route_kind="python_file",
+                source_compile_command=_python_file_evidence_command(file_id),
+                receipt_lane=_python_file_index_evidence_command(file_id),
+            ),
             "omission_receipt": _python_file_omission_receipt(entry, band="card"),
         }
     )
@@ -9367,6 +9415,13 @@ def _python_scope_card_row(
                 f"./repo-python kernel.py --compile {path}",
                 parent_file_command,
             ],
+            "upstream_doctrine_route": _python_upstream_doctrine_route(
+                f"{path}::{row['name']}",
+                route_kind="python_scope",
+                source_compile_command=f"./repo-python kernel.py --compile {path}",
+                receipt_lane=evidence_command,
+                parent_file_command=parent_file_command,
+            ),
             "omission_receipt": _python_scope_omission_receipt(
                 scope, band="card", evidence_command=evidence_command
             ),
@@ -10545,6 +10600,7 @@ def _compression_profile_card_row(
             "authority_boundary": pointer.get("authority_boundary"),
         },
         "owner_routes": owner_routes,
+        "compression_passport": dict(pointer.get("compression_passport") or {}),
         "route_summary": {
             "has_refresh_command": bool(owner_routes.get("refresh_command")),
             "has_check_command": bool(owner_routes.get("check_command")),
@@ -10735,6 +10791,45 @@ def _frontend_component_source_evidence_command(component: dict[str, Any]) -> st
     return f"cat {path}" if path else "true"
 
 
+def _frontend_component_upstream_doctrine_route(component: dict[str, Any]) -> dict[str, Any]:
+    component_id = str(component.get("component_id") or "")
+    path = str(component.get("path") or component.get("source_ref") or "")
+    source_command = _frontend_component_source_evidence_command(component)
+    projection_command = _frontend_component_evidence_command(component_id)
+    return {
+        "schema": "frontend_component_upstream_doctrine_route_v0",
+        "status": "available",
+        "route_kind": "frontend_component",
+        "canonical_source": path,
+        "authority_layer": "operational",
+        "authority_tier": "owner_surface_route_not_source_authority",
+        "authority_boundary": "route_metadata_only_open_tsx_source_and_frontend_standard_before_mutation",
+        "source_projection": str(FRONTEND_COMPONENT_INDEX),
+        "governing_standard": str(FRONTEND_COMPONENT_STANDARD),
+        "governing_doctrine": "codex/doctrine/paper_modules/frontend_station_cockpit.md",
+        "governing_extractor": str(FRONTEND_COMPONENT_EXTRACTOR),
+        "override_semantics": (
+            "This route cannot override TSX source, the frontend component standard, or the extractor; "
+            "it only exposes the legal drilldown chain."
+        ),
+        "runtime_consumers": [
+            "frontend_components.card",
+            "navigation_context_pack.selected_rows",
+        ],
+        "evaluator_lane": f"./repo-python {FRONTEND_COMPONENT_EXTRACTOR} --summary",
+        "receipt_lane": projection_command,
+        "proof_path": [source_command, projection_command, f"./repo-python {FRONTEND_COMPONENT_EXTRACTOR} --summary"],
+        "route_commands": {
+            "source": source_command,
+            "projection": projection_command,
+            "standard": "./repo-python kernel.py --option-surface standards --band card --ids std_frontend_component_index",
+            "doctrine": "./repo-python kernel.py --paper-module frontend_station_cockpit",
+            "extractor_summary": f"./repo-python {FRONTEND_COMPONENT_EXTRACTOR} --summary",
+            "freshness_check": f"./repo-python {FRONTEND_COMPONENT_EXTRACTOR} --check",
+        },
+    }
+
+
 def _frontend_component_flag_summary(component: dict[str, Any]) -> str:
     display = str(component.get("display_name") or component.get("export_name") or "")
     declaration = str(component.get("declaration_kind") or "")
@@ -10917,6 +11012,7 @@ def _frontend_component_card_row(
                 _frontend_component_evidence_command(component_id),
                 _frontend_component_source_evidence_command(component),
             ],
+            "upstream_doctrine_route": _frontend_component_upstream_doctrine_route(component),
             "omission_receipt": _frontend_component_omission_receipt(band="card"),
         }
     )
@@ -11897,6 +11993,10 @@ def _route_affordance_gap_payload(
 # other surfaces.
 TASK_LEDGER_CLUSTER_FULL_TOP_IDS_THRESHOLD = 12
 TASK_LEDGER_CLUSTER_DIGEST_TOP_IDS = 3
+TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD = 2_000_000
+TASK_LEDGER_COMPACT_VIEW_SAMPLE_LIMIT = TASK_LEDGER_CLUSTER_FULL_TOP_IDS_THRESHOLD + 1
+TASK_LEDGER_COMPACT_VIEW_PREFIX_BYTES = 1_048_576
+TASK_LEDGER_COMPACT_VIEW_SUFFIX_BYTES = 524_288
 
 TASK_LEDGER_VIEW_DEFS: tuple[tuple[str, str, str], ...] = (
     ("execution_menu", "Execution Menu", "explicitly promoted or claimed WorkItems eligible for execution"),
@@ -11930,6 +12030,11 @@ TASK_LEDGER_VIEW_DEFS: tuple[tuple[str, str, str], ...] = (
         "Cap Cartography",
         "map-ready cap-universe read model with clusters, representative nodes, typed edges, lineage, and level-of-detail hints",
     ),
+    (
+        "workitem_cartography",
+        "WorkItem Cartography",
+        "map-ready WorkItem read model with actor, route, signoff, dependency, and cluster overlays",
+    ),
     ("capture_triage", "Capture Triage", "captured items grouped by shaping and merge/retire needs"),
     (
         "capture_inbox",
@@ -11947,8 +12052,23 @@ TASK_LEDGER_VIEW_DEFS: tuple[tuple[str, str, str], ...] = (
     ("prompt_trace_unlinked", "Prompt Trace Unlinked", "WorkItems without adopted prompt trace provenance"),
     ("work_ledger_unlinked", "Work Ledger Unlinked", "WorkItems without execution/concurrency linkage"),
     ("stale_review", "Stale Review", "aging traces that need defer, refresh, merge, block, or retire decisions"),
+    (
+        "stale_fixed_candidates",
+        "Stale Fixed Candidates",
+        "stale captured WorkItems selected by the commitment-discipline decay pass for fixed-cap sweeper triage",
+    ),
     ("recent_events", "Recent Events", "latest Task Ledger event stream for organizer replay"),
     ("signoffs", "Signoffs", "completed WorkItem signoff records for consolidation review"),
+)
+TASK_LEDGER_VIEW_IDS = frozenset(view_id for view_id, _label, _purpose in TASK_LEDGER_VIEW_DEFS)
+TASK_LEDGER_SELECTED_CARD_LARGE_VIEW_IDS = frozenset(
+    {
+        "dependency_graph",
+        "cap_census",
+        "capture_triage",
+        "capture_inbox",
+        "propagation_needed",
+    }
 )
 
 TASK_LEDGER_DEFAULT_ORGANIZER_ROUTE: dict[str, Any] = {
@@ -11960,24 +12080,29 @@ TASK_LEDGER_DEFAULT_ORGANIZER_ROUTE: dict[str, Any] = {
 }
 
 TASK_LEDGER_EVENT_COMMAND_HINTS: dict[str, str] = {
-    "work_item.captured": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title <title> --statement <statement> --rebuild",
-    "work_item.triaged": "./repo-python tools/meta/factory/task_ledger_apply.py triage --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.promoted": "./repo-python tools/meta/factory/task_ledger_apply.py promote --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.shaped": "./repo-python tools/meta/factory/task_ledger_apply.py shape --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.claimed": "./repo-python tools/meta/factory/task_ledger_apply.py claim --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.released": "./repo-python tools/meta/factory/task_ledger_apply.py release --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.note_added": "./repo-python tools/meta/factory/task_ledger_apply.py note --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.state_transitioned": "./repo-python tools/meta/factory/task_ledger_apply.py transition --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.blocked": "./repo-python tools/meta/factory/task_ledger_apply.py block --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.unblocked": "./repo-python tools/meta/factory/task_ledger_apply.py unblock --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.rerank_proposed": "./repo-python tools/meta/factory/task_ledger_apply.py rerank-propose --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.rerank_committed": "./repo-python tools/meta/factory/task_ledger_apply.py rerank-commit --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.signoff_recorded": "./repo-python tools/meta/factory/task_ledger_apply.py sign-off --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.bridge_delegated": "./repo-python tools/meta/factory/task_ledger_apply.py bridge-delegate --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.provider_job_created": "./repo-python tools/meta/factory/task_ledger_apply.py provider-job-create --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.schema_migrated": "./repo-python tools/meta/factory/task_ledger_apply.py schema-migrate --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.propagation_recorded": "./repo-python tools/meta/factory/task_ledger_apply.py propagate --subject-id <work_item_id> --payload-json '<json>' --rebuild",
-    "work_item.retired": "./repo-python tools/meta/factory/task_ledger_apply.py retire --subject-id <work_item_id> --payload-json '<json>' --rebuild",
+    "work_item.captured": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title <title> --statement <statement> --created-by <agent_id>",
+    "work_item.triaged": "./repo-python tools/meta/factory/task_ledger_apply.py triage --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.promoted": "./repo-python tools/meta/factory/task_ledger_apply.py promote --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.shaped": "./repo-python tools/meta/factory/task_ledger_apply.py shape --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.claimed": "./repo-python tools/meta/factory/task_ledger_apply.py claim --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.released": "./repo-python tools/meta/factory/task_ledger_apply.py release --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.note_added": "./repo-python tools/meta/factory/task_ledger_apply.py note --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.state_transitioned": "./repo-python tools/meta/factory/task_ledger_apply.py transition --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.blocked": "./repo-python tools/meta/factory/task_ledger_apply.py block --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.unblocked": "./repo-python tools/meta/factory/task_ledger_apply.py unblock --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.rerank_proposed": "./repo-python tools/meta/factory/task_ledger_apply.py rerank-propose --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.rerank_committed": "./repo-python tools/meta/factory/task_ledger_apply.py rerank-commit --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.signoff_recorded": "./repo-python tools/meta/factory/task_ledger_apply.py sign-off --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.bridge_delegated": "./repo-python tools/meta/factory/task_ledger_apply.py bridge-delegate --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.provider_job_created": "./repo-python tools/meta/factory/task_ledger_apply.py provider-job-create --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.schema_migrated": "./repo-python tools/meta/factory/task_ledger_apply.py schema-migrate --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.propagation_recorded": "./repo-python tools/meta/factory/task_ledger_apply.py propagate --subject-id <work_item_id> --payload-json '<json>'",
+    "work_item.retired": "./repo-python tools/meta/factory/task_ledger_apply.py retire --subject-id <work_item_id> --payload-json '<json>'",
+}
+TASK_LEDGER_PROJECTION_SETTLEMENT_HINT: dict[str, str] = {
+    "rule": "Event command hints append authority first; add --rebuild only when projection/card visibility is required and the projection lane is uncontended.",
+    "settle_deferred_rebuilds": "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1",
+    "settle_generated_state": "./repo-python tools/meta/control/generated_state_drainer.py settle --owner-id task_ledger_projection --dry-run",
 }
 
 TASK_LEDGER_ORGANIZER_ROUTES: dict[str, dict[str, Any]] = {
@@ -12119,6 +12244,28 @@ TASK_LEDGER_ORGANIZER_ROUTES: dict[str, dict[str, Any]] = {
         "recommended_next_events": ["work_item.note_added", "work_item.blocked", "work_item.retired"],
         "common_source_surfaces": [str(TASK_LEDGER_EVENTS), str(TASK_LEDGER_LEDGER)],
         "common_file_hints": [str(TASK_LEDGER_STANDARD), str(TASK_LEDGER_SKILL)],
+    },
+    "stale_fixed_candidates": {
+        "organizer_role": "stale_fixed_candidate_sweeper",
+        "cluster_claim": (
+            "Commitment-discipline decay found stale captures that may be already fixed, "
+            "obsolete, or ready for explicit retirement."
+        ),
+        "organizer_actions": ["verify_fixed_or_obsolete", "retire", "refresh", "block"],
+        "recommended_next_events": ["work_item.retired", "work_item.note_added", "work_item.blocked"],
+        "common_source_surfaces": [
+            str(TASK_LEDGER_EVENTS),
+            str(TASK_LEDGER_VIEWS_ROOT / "stale_fixed_candidates.json"),
+        ],
+        "common_file_hints": [
+            "tools/meta/control/commitment_discipline.py",
+            str(TASK_LEDGER_SKILL),
+        ],
+        "governance_route": {
+            "owner_view": str(TASK_LEDGER_VIEWS_ROOT / "stale_fixed_candidates.json"),
+            "owner_report": "commitment_discipline.py decay::stale_fixed_cap_sweeper",
+            "review_required_for": ["retiring open captures", "fixed-cap proof", "obsolete trace cleanup"],
+        },
     },
     "prompt_trace_unlinked": {
         "organizer_role": "provenance_linkage",
@@ -12297,6 +12444,24 @@ TASK_LEDGER_ORGANIZER_ROUTES: dict[str, dict[str, Any]] = {
         ],
         "salience_boundary": "This view is map-ready substrate for downstream exposition; it is not a frontend route, cap CRUD surface, or source authority.",
     },
+    "workitem_cartography": {
+        "organizer_role": "workitem_cartography_review",
+        "cluster_claim": "WorkItem Cartography is the frontend-agnostic map contract for WorkItem routing, actor, signoff, dependency, and anomaly overlays.",
+        "organizer_actions": ["inspect_projection", "select_cluster", "trace_route_reason", "shape_or_signoff"],
+        "recommended_next_events": ["work_item.shaped", "work_item.note_added", "work_item.signoff_recorded"],
+        "common_source_surfaces": [
+            str(TASK_LEDGER_EVENTS),
+            str(TASK_LEDGER_VIEWS_ROOT / "workitem_cartography.json"),
+            str(TASK_LEDGER_VIEWS_ROOT / "cap_census.json"),
+            str(TASK_LEDGER_VIEWS_ROOT / "signoffs.json"),
+        ],
+        "common_file_hints": [
+            "system/lib/task_ledger_events.py",
+            "system/lib/standard_option_surface.py",
+            str(TASK_LEDGER_STANDARD),
+        ],
+        "salience_boundary": "This view is a projection over Task Ledger authority; it helps choose drilldowns but does not create WorkItems or replace signoff/progression events.",
+    },
     "legacy_snapshot_unmodeled": {
         "organizer_role": "migration_review",
         "cluster_claim": "Legacy fields need adoption into event payloads or retirement as old evidence.",
@@ -12336,6 +12501,8 @@ def _task_ledger_items(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
     items = payload.get("work_items")
     if not isinstance(items, list):
         items = payload.get("items")
+    if not isinstance(items, list):
+        items = payload.get("candidates")
     return [item for item in items or [] if isinstance(item, dict)]
 
 
@@ -12421,6 +12588,21 @@ def _task_ledger_view_item_ids(items: list[dict[str, Any]]) -> list[str]:
     return list(dict.fromkeys(ids))
 
 
+def _task_ledger_view_drilldown_command(
+    view_id: str,
+    top_ids: list[str],
+    by_id: Mapping[str, Mapping[str, Any]],
+) -> str:
+    if not top_ids:
+        return "./repo-python kernel.py --option-surface task_ledger --band flag"
+    if all(str(item_id) in by_id for item_id in top_ids):
+        return "./repo-python kernel.py --option-surface task_ledger --band flag --ids <top_ids>"
+    return (
+        "./repo-python kernel.py --option-surface task_ledger "
+        f"--band cluster_flag --ids {view_id}"
+    )
+
+
 def _task_ledger_source_surface(ref: str) -> str:
     lowered = ref.lower()
     if ref.startswith("state/task_ledger/events.jsonl::"):
@@ -12499,12 +12681,17 @@ def _task_ledger_organizer_routing(
     purpose: str,
     item_ids: list[str],
     by_id: Mapping[str, Mapping[str, Any]],
+    include_common_hints: bool = True,
 ) -> dict[str, Any]:
     route = {
         **TASK_LEDGER_DEFAULT_ORGANIZER_ROUTE,
         **TASK_LEDGER_ORGANIZER_ROUTES.get(view_id, {}),
     }
-    derived = _task_ledger_common_item_hints(item_ids, by_id)
+    derived = (
+        _task_ledger_common_item_hints(item_ids, by_id)
+        if include_common_hints
+        else {"source_surfaces": [], "integration_paths": []}
+    )
     source_surfaces = list(
         dict.fromkeys(list(route.get("common_source_surfaces") or []) + derived["source_surfaces"])
     )[:12]
@@ -12565,6 +12752,15 @@ def _task_ledger_mechanism_cluster_rows(
     if not mechanisms:
         return []
     selected_ids = {str(item) for item in (selected_cluster_ids or []) if str(item or "")}
+    if selected_ids:
+        mechanisms = [
+            mechanism
+            for mechanism in mechanisms
+            if str(mechanism.get("id") or "") in selected_ids
+            or f"mechanism:{mechanism.get('id') or ''}" in selected_ids
+        ]
+        if not mechanisms and "mechanism:unclassified_pressure" not in selected_ids:
+            return []
     match_index, unclassified = _mechanism_workitem_match_index(
         repo_root,
         mechanisms,
@@ -12680,6 +12876,70 @@ def _task_ledger_mechanism_cluster_rows(
     return rows
 
 
+def _task_ledger_deferred_mechanism_cluster_overview(repo_root: Path) -> dict[str, Any]:
+    mechanism_count = len(_mechanism_entries(repo_root))
+    return {
+        "status": "deferred_for_bare_contents_page",
+        "available_count": None,
+        "emitted_row_count": 0,
+        "potential_mechanism_count": mechanism_count,
+        "default_row_policy": (
+            "bare task_ledger cluster_flag defers mechanism affinity matching; "
+            "exact mechanism:<mech_id> drilldowns compute the selected cluster"
+        ),
+        "top_clusters": [],
+        "deferred_reason": (
+            "mechanism affinity requires scanning every WorkItem against mechanism text; "
+            "the contents page stays bounded by exposing the exact drilldown route"
+        ),
+        "exact_drilldown_command": (
+            "./repo-python kernel.py --option-surface task_ledger "
+            "--band cluster_flag --ids mechanism:<mech_id>"
+        ),
+    }
+
+
+def _task_ledger_mechanism_overview_from_rows(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    mechanism_rows = [
+        row
+        for row in rows
+        if isinstance(row, Mapping)
+        and row.get("artifact_kind") == "task_ledger_mechanism_cluster"
+    ]
+    top_clusters = []
+    unclassified_count = 0
+    for row in mechanism_rows[:MECHANISM_WORKITEM_CLUSTER_COMPACT_OVERVIEW_LIMIT]:
+        cluster_id = str(row.get("cluster_id") or "")
+        if cluster_id == "mechanism:unclassified_pressure":
+            unclassified_count = int(row.get("count") or 0)
+        top_clusters.append(
+            {
+                "cluster_id": cluster_id,
+                "mechanism_id": row.get("mechanism_id"),
+                "mechanism_title": row.get("mechanism_title"),
+                "count": int(row.get("count") or 0),
+                "top_ids": list(row.get("top_ids") or [])[
+                    :MECHANISM_WORKITEM_CLUSTER_COMPACT_TOP_IDS
+                ],
+                "drilldown_command": (
+                    "./repo-python kernel.py --option-surface task_ledger "
+                    f"--band cluster_flag --ids {cluster_id}"
+                ),
+            }
+        )
+    return {
+        "status": "selected_mechanism_cluster",
+        "available_count": len(mechanism_rows),
+        "emitted_row_count": len(mechanism_rows),
+        "default_row_policy": (
+            "exact mechanism affinity drilldowns compute only the selected cluster"
+        ),
+        "overview_limit": MECHANISM_WORKITEM_CLUSTER_COMPACT_OVERVIEW_LIMIT,
+        "top_clusters": top_clusters,
+        "unclassified_count": unclassified_count,
+    }
+
+
 def _task_ledger_mechanism_cluster_overview(
     repo_root: Path,
     ledger_items: Sequence[Mapping[str, Any]],
@@ -12741,16 +13001,353 @@ def _task_ledger_mechanism_cluster_overview(
     }
 
 
-def _task_ledger_views(repo_root: Path) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+def _skip_json_whitespace(text: str, index: int) -> int:
+    text_len = len(text)
+    while index < text_len and text[index].isspace():
+        index += 1
+    return index
+
+
+def _json_top_level_value_starts(
+    text: str,
+    *,
+    stop_after_keys: set[str] | None = None,
+) -> dict[str, int]:
+    decoder = json.JSONDecoder()
+    starts: dict[str, int] = {}
+    depth = 0
+    in_string = False
+    escaped = False
+    index = 0
+    text_len = len(text)
+    while index < text_len:
+        char = text[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            index += 1
+            continue
+        if char == '"' and depth == 1:
+            try:
+                key, cursor = decoder.raw_decode(text, index)
+            except json.JSONDecodeError:
+                key = None
+                cursor = index + 1
+            cursor = _skip_json_whitespace(text, cursor)
+            if cursor < text_len and text[cursor] == ":":
+                key_text = str(key)
+                starts[key_text] = cursor + 1
+                if stop_after_keys and key_text in stop_after_keys:
+                    break
+                index = cursor + 1
+                continue
+            index = cursor
+            continue
+        if char == '"':
+            in_string = True
+        elif char in "{[":
+            depth += 1
+        elif char in "}]":
+            depth -= 1
+        index += 1
+    return starts
+
+
+def _json_top_level_value_start(text: str, key: str) -> int | None:
+    return _json_top_level_value_starts(text).get(key)
+
+
+_JSON_MISSING = object()
+
+
+def _json_decode_at(text: str, start: int | None) -> Any:
+    if start is None:
+        return None
+    value, _end = json.JSONDecoder().raw_decode(text, _skip_json_whitespace(text, start))
+    return value
+
+
+def _json_try_decode_at(text: str, start: int | None) -> Any:
+    if start is None:
+        return _JSON_MISSING
+    try:
+        return _json_decode_at(text, start)
+    except json.JSONDecodeError:
+        return _JSON_MISSING
+
+
+def _json_top_level_value(text: str, key: str) -> Any:
+    return _json_decode_at(text, _json_top_level_value_start(text, key))
+
+
+def _json_fragment_value_start(text: str, key: str, *, last: bool = True) -> int | None:
+    matches = re.finditer(rf'{re.escape(json.dumps(key))}\s*:', text)
+    selected: re.Match[str] | None = None
+    for match in matches:
+        selected = match
+        if not last:
+            break
+    return selected.end() if selected else None
+
+
+def _json_fragment_value(text: str, key: str, *, last: bool = True) -> Any:
+    return _json_decode_at(text, _json_fragment_value_start(text, key, last=last))
+
+
+def _json_fragment_try_value(text: str, key: str, *, last: bool = True) -> Any:
+    return _json_try_decode_at(text, _json_fragment_value_start(text, key, last=last))
+
+
+def _json_fragment_first_value(text: str, key: str) -> Any:
+    return _json_fragment_value(text, key, last=False)
+
+
+def _json_fragment_first_value_start(text: str, key: str) -> int | None:
+    return _json_fragment_value_start(text, key, last=False)
+
+
+def _json_array_sample(text: str, start: int, *, limit: int) -> list[dict[str, Any]]:
+    cursor = start
+    text_len = len(text)
+    while cursor < text_len and text[cursor].isspace():
+        cursor += 1
+    if cursor >= text_len or text[cursor] != "[":
+        return []
+    cursor += 1
+    decoder = json.JSONDecoder()
+    rows: list[dict[str, Any]] = []
+    while len(rows) < limit:
+        while cursor < text_len and text[cursor].isspace():
+            cursor += 1
+        if cursor >= text_len or text[cursor] == "]":
+            break
+        value, cursor = decoder.raw_decode(text, cursor)
+        if isinstance(value, dict):
+            rows.append(value)
+        while cursor < text_len and text[cursor].isspace():
+            cursor += 1
+        if cursor < text_len and text[cursor] == ",":
+            cursor += 1
+            continue
+        break
+    return rows
+
+
+def _task_ledger_compact_view_payload(path: Path) -> dict[str, Any]:
+    size = path.stat().st_size
+    with path.open("rb") as handle:
+        prefix = handle.read(TASK_LEDGER_COMPACT_VIEW_PREFIX_BYTES).decode("utf-8", errors="ignore")
+        if size > TASK_LEDGER_COMPACT_VIEW_PREFIX_BYTES:
+            handle.seek(max(0, size - TASK_LEDGER_COMPACT_VIEW_SUFFIX_BYTES))
+            suffix = handle.read(TASK_LEDGER_COMPACT_VIEW_SUFFIX_BYTES).decode("utf-8", errors="ignore")
+        else:
+            suffix = prefix
+    prefix_top_level_starts = _json_top_level_value_starts(
+        prefix,
+        stop_after_keys={"items", "work_items", "candidates", "rows"},
+    )
+    sample_source_key = next(
+        (
+            key
+            for key in ("items", "work_items", "candidates", "rows")
+            if key in prefix_top_level_starts
+        ),
+        None,
+    )
+    items_start = (
+        prefix_top_level_starts[sample_source_key]
+        if sample_source_key is not None
+        else None
+    )
+    sample_items = (
+        _json_array_sample(prefix, items_start, limit=TASK_LEDGER_COMPACT_VIEW_SAMPLE_LIMIT)
+        if items_start is not None
+        else []
+    )
+
+    def top_value(key: str) -> Any:
+        prefix_value = _json_try_decode_at(prefix, prefix_top_level_starts.get(key))
+        if prefix_value is not _JSON_MISSING:
+            return prefix_value
+        suffix_value = _json_fragment_try_value(suffix, key)
+        return None if suffix_value is _JSON_MISSING else suffix_value
+
+    payload: dict[str, Any] = {
+        "kind": top_value("kind"),
+        "schema_version": top_value("schema_version"),
+        "view_id": top_value("view_id") or path.stem,
+        "items": sample_items,
+        "count": top_value("count") or len(sample_items),
+        "_cluster_view_compact_read": {
+            "enabled": True,
+            "source_size_bytes": size,
+            "prefix_bytes": min(size, TASK_LEDGER_COMPACT_VIEW_PREFIX_BYTES),
+            "suffix_bytes": min(size, TASK_LEDGER_COMPACT_VIEW_SUFFIX_BYTES),
+            "sample_source_key": sample_source_key,
+            "sample_item_count": len(sample_items),
+            "sample_limit": TASK_LEDGER_COMPACT_VIEW_SAMPLE_LIMIT,
+            "full_item_payload_omitted": True,
+        },
+    }
+    for key in (
+        "count_semantics",
+        "projection_semantics",
+        "total_capture_count",
+        "raw_capture_inbox_count",
+        "active_raw_capture_count",
+        "closed_or_signed_off_count",
+    ):
+        value = top_value(key)
+        if value not in (None, [], {}, ""):
+            payload[key] = value
+    return payload
+
+
+def _task_ledger_view_payload(path: Path, *, compact_cluster: bool) -> dict[str, Any]:
+    if compact_cluster and path.stat().st_size >= TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD:
+        return _task_ledger_compact_view_payload(path)
+    return _load_json(path)
+
+
+def _task_ledger_selected_view_payload(
+    path: Path,
+    *,
+    selected_work_item_ids: set[str],
+) -> dict[str, Any]:
+    if path.stat().st_size < TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD:
+        return _load_json(path)
+    raw = path.read_bytes()
+    if not any(item_id.encode("utf-8") in raw for item_id in selected_work_item_ids):
+        return {
+            "view_id": path.stem,
+            "items": [],
+            "_selected_view_fast_read": {
+                "enabled": True,
+                "source_size_bytes": len(raw),
+                "full_payload_omitted": True,
+                "selected_id_hit": False,
+            },
+        }
+    text = raw.decode("utf-8")
+    items = _task_ledger_selected_items_from_view_text(text, selected_work_item_ids)
+    if items:
+        return {
+            "view_id": path.stem,
+            "items": items,
+            "_selected_view_fast_read": {
+                "enabled": True,
+                "source_size_bytes": len(raw),
+                "full_payload_omitted": True,
+                "selected_id_hit": True,
+                "selected_item_count": len(items),
+            },
+        }
+    payload = json.loads(text)
+    items = [
+        row
+        for row in _task_ledger_items(payload)
+        if str(row.get("id") or "") in selected_work_item_ids
+    ]
+    return {
+        **payload,
+        "items": items,
+        "work_items": items if "work_items" in payload else payload.get("work_items"),
+        "candidates": items if "candidates" in payload else payload.get("candidates"),
+        "_selected_view_fast_read": {
+            "enabled": True,
+            "source_size_bytes": len(raw),
+            "full_payload_omitted": False,
+            "selected_id_hit": bool(items),
+            "selected_item_count": len(items),
+        },
+    }
+
+
+def _task_ledger_json_object_at_marker(text: str, marker_index: int) -> dict[str, Any] | None:
+    decoder = json.JSONDecoder()
+    start = text.rfind("{", 0, marker_index)
+    while start >= 0:
+        try:
+            value, end = decoder.raw_decode(text[start:])
+        except json.JSONDecodeError:
+            start = text.rfind("{", 0, start)
+            continue
+        if isinstance(value, Mapping) and end >= marker_index - start:
+            return dict(value)
+        start = text.rfind("{", 0, start)
+    return None
+
+
+def _task_ledger_selected_items_from_view_text(
+    text: str,
+    selected_work_item_ids: set[str],
+) -> list[dict[str, Any]]:
+    selected: dict[str, dict[str, Any]] = {}
+    for item_id in selected_work_item_ids:
+        markers = (f'"id": "{item_id}"', f'"id":"{item_id}"')
+        marker_index = next((index for marker in markers if (index := text.find(marker)) >= 0), -1)
+        if marker_index < 0:
+            continue
+        row = _task_ledger_json_object_at_marker(text, marker_index)
+        if row is not None and str(row.get("id") or "") == item_id:
+            selected[item_id] = row
+    return [selected[item_id] for item_id in selected_work_item_ids if item_id in selected]
+
+
+def _task_ledger_selected_card_view_ids(repo_root: Path) -> list[str]:
+    selected: list[str] = []
+    for view_id, _label, _purpose in TASK_LEDGER_VIEW_DEFS:
+        path = repo_root / TASK_LEDGER_VIEWS_ROOT / f"{view_id}.json"
+        if (
+            view_id in TASK_LEDGER_SELECTED_CARD_LARGE_VIEW_IDS
+            or not path.exists()
+            or path.stat().st_size < TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD
+        ):
+            selected.append(view_id)
+    return selected
+
+
+def _task_ledger_views(
+    repo_root: Path,
+    *,
+    compact_cluster: bool = False,
+    selected_view_ids: Sequence[str] | None = None,
+    selected_work_item_ids: Sequence[str] | None = None,
+) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
     view_payloads: dict[str, dict[str, Any]] = {}
     overlays: dict[str, dict[str, Any]] = {}
+    selected = {str(view_id) for view_id in selected_view_ids or [] if str(view_id) in TASK_LEDGER_VIEW_IDS}
+    selected_items = {
+        str(item_id)
+        for item_id in selected_work_item_ids or []
+        if str(item_id)
+    }
     for view_id, _label, _purpose in TASK_LEDGER_VIEW_DEFS:
+        if selected_view_ids is not None and view_id not in selected:
+            continue
         path = repo_root / TASK_LEDGER_VIEWS_ROOT / f"{view_id}.json"
         if not path.exists():
             continue
-        payload = _load_json(path)
+        payload = (
+            _task_ledger_selected_view_payload(path, selected_work_item_ids=selected_items)
+            if selected_items and not compact_cluster
+            else _task_ledger_view_payload(path, compact_cluster=compact_cluster)
+        )
         view_payloads[view_id] = payload
-        for index, row in enumerate(_task_ledger_items(payload), start=1):
+        if compact_cluster:
+            continue
+        items = _task_ledger_items(payload)
+        if selected_items:
+            items = [
+                row
+                for row in items
+                if str(row.get("id") or "") in selected_items
+            ]
+        for index, row in enumerate(items, start=1):
             work_item_id = str(row.get("id") or "")
             if not work_item_id:
                 continue
@@ -12796,10 +13393,11 @@ def _task_ledger_cluster_rows(
         payload = view_payloads.get(view_id) or {}
         items = _task_ledger_items(payload)
         item_ids = _task_ledger_view_item_ids(items)
+        count = int(payload.get("count") or len(items))
         # Surface every id when the cluster is small enough to enumerate
         # (≤ TASK_LEDGER_CLUSTER_FULL_TOP_IDS_THRESHOLD); otherwise keep the
         # compact digest so the projection stays bounded for huge clusters.
-        if len(item_ids) <= TASK_LEDGER_CLUSTER_FULL_TOP_IDS_THRESHOLD:
+        if count <= TASK_LEDGER_CLUSTER_FULL_TOP_IDS_THRESHOLD and len(item_ids) <= count:
             top_ids = list(item_ids)
         else:
             top_ids = item_ids[:TASK_LEDGER_CLUSTER_DIGEST_TOP_IDS]
@@ -12808,6 +13406,7 @@ def _task_ledger_cluster_rows(
             purpose=purpose,
             item_ids=item_ids,
             by_id=by_id,
+            include_common_hints=False,
         )
         # Some task_ledger views (e.g. dependency_anomalies) carry an
         # anomaly_type field on each item rather than the standard work-item
@@ -12829,20 +13428,19 @@ def _task_ledger_cluster_rows(
             "purpose": purpose,
             "artifact_kind": "task_ledger_view",
             "band": "cluster_flag",
-            "count": int(payload.get("count") or len(items)),
+            "count": count,
             "top_ids": top_ids,
             "state_counts": dict(Counter(str(item.get("state") or "unknown") for item in items)),
             "triage_counts": dict(Counter(str(item.get("triage_status") or "untriaged") for item in items)),
-            "drilldown_command": (
-                "./repo-python kernel.py --option-surface task_ledger --band flag --ids <top_ids>"
-                if top_ids
-                else "./repo-python kernel.py --option-surface task_ledger --band flag"
-            ),
+            "drilldown_command": _task_ledger_view_drilldown_command(view_id, top_ids, by_id),
             "source_ref": f"{TASK_LEDGER_VIEWS_ROOT}/{view_id}.json",
             "organizer_routing": _task_ledger_organizer_routing_cluster_summary(
                 organizer_routing
             ),
         }
+        compact_read = payload.get("_cluster_view_compact_read")
+        if isinstance(compact_read, Mapping):
+            row["projection_read"] = compact_read
         for key in (
             "count_semantics",
             "projection_semantics",
@@ -12954,6 +13552,124 @@ def _task_ledger_card_row(item: Mapping[str, Any], *, overlay: Mapping[str, Any]
     return row
 
 
+def _task_ledger_projection_browse_health(
+    repo_root: Path,
+    *,
+    ledger_items: Sequence[Mapping[str, Any]] | None = None,
+    selected_ids: Sequence[str] | None = None,
+    reason: str | None = None,
+) -> dict[str, Any]:
+    ledger_path = repo_root / TASK_LEDGER_LEDGER
+    work_items = (
+        list(ledger_items)
+        if ledger_items is not None
+        else _task_ledger_items(_load_json(ledger_path))
+        if ledger_path.exists()
+        else []
+    )
+    source_event_ids = {
+        str(event_id)
+        for item in work_items
+        for event_id in (item.get("source_event_ids") or [])
+        if str(event_id).strip()
+    }
+    event_log_path = repo_root / TASK_LEDGER_EVENTS
+    audit_path = repo_root / "state/task_ledger/events_audit.jsonl"
+    by_id = {str(item.get("id") or ""): item for item in work_items}
+    normalized_selected_ids = [str(item).strip() for item in selected_ids or [] if str(item).strip()]
+    health = {
+        "schema": "task_ledger_projection_browse_health_v0",
+        "ok": True,
+        "status": "projection_browse_summary",
+        "full_authority_scan": False,
+        "reason": reason or (
+            "Bare cluster_flag is a high-cardinality contents page; it trusts the "
+            "current projection and defers event/audit reconciliation to the owner check."
+        ),
+        "projection_work_item_count": len(work_items),
+        "projection_source_event_id_count": len(source_event_ids),
+        "paths": {
+            "event_log": str(TASK_LEDGER_EVENTS),
+            "event_log_exists": event_log_path.exists(),
+            "audit_journal": "state/task_ledger/events_audit.jsonl",
+            "audit_journal_exists": audit_path.exists(),
+            "projection": str(TASK_LEDGER_LEDGER),
+            "projection_exists": ledger_path.exists(),
+        },
+        "next_step": "./repo-python tools/meta/factory/task_ledger_apply.py authority-health",
+        "full_authority_check_command": (
+            "./repo-python tools/meta/factory/task_ledger_apply.py authority-health"
+        ),
+    }
+    if normalized_selected_ids:
+        health["selected_ids"] = normalized_selected_ids
+        health["selected_card_visibility"] = {
+            item_id: {
+                "visible": item_id in by_id,
+                "state": by_id[item_id].get("state") if item_id in by_id else None,
+                "source_event_ids": list(by_id[item_id].get("source_event_ids") or []) if item_id in by_id else [],
+            }
+            for item_id in normalized_selected_ids
+        }
+        unrecovered_authority_gap_ids = _task_ledger_selected_unrecovered_authority_gap_ids(
+            repo_root,
+            normalized_selected_ids,
+        )
+        health["unrecovered_authority_gap_ids"] = unrecovered_authority_gap_ids
+        health["lost_subject_ids"] = unrecovered_authority_gap_ids
+        if unrecovered_authority_gap_ids:
+            health["ok"] = False
+            health["status"] = "authority_recovery_required"
+            health["reason"] = (
+                "Selected card ids include audit-journal events missing from events.jsonl; "
+                "projection card browse stays bounded and routes recovery to the Task Ledger owner."
+            )
+            health["next_step"] = (
+                "./repo-python tools/meta/factory/task_ledger_apply.py audit-recover --replay && "
+                "./repo-python tools/meta/factory/task_ledger_apply.py rebuild"
+            )
+    return health
+
+
+def _task_ledger_selected_unrecovered_authority_gap_ids(
+    repo_root: Path,
+    selected_ids: Sequence[str],
+) -> list[str]:
+    selected = [str(item).strip() for item in selected_ids if str(item).strip()]
+    if not selected:
+        return []
+    selected_set = set(selected)
+    events_path = repo_root / TASK_LEDGER_EVENTS
+    audit_path = repo_root / "state/task_ledger/events_audit.jsonl"
+    if not audit_path.exists():
+        return []
+    authority_event_ids: set[str] = set()
+    if events_path.exists():
+        for line in events_path.read_text(encoding="utf-8").splitlines():
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            event_id = str(row.get("event_id") or "")
+            if event_id:
+                authority_event_ids.add(event_id)
+    gap_ids: set[str] = set()
+    for line in audit_path.read_text(encoding="utf-8").splitlines():
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        event_id = str(row.get("event_id") or "")
+        if not event_id or event_id in authority_event_ids:
+            continue
+        subject_id = str(row.get("subject_id") or "")
+        if subject_id in selected_set:
+            gap_ids.add(subject_id)
+            if len(gap_ids) == len(selected_set):
+                break
+    return [item for item in selected if item in gap_ids]
+
+
 def build_task_ledger_option_surface(
     repo_root: Path,
     *,
@@ -12971,11 +13687,16 @@ def build_task_ledger_option_surface(
             generated_at=generated_at,
         )
 
-    authority_ids = [] if band == "cluster_flag" else ids
-    authority_health = task_ledger_events.authority_health(repo_root, ids=authority_ids)
+    use_projection_browse_health = (band == "cluster_flag" and not ids) or (band == "card" and bool(ids))
 
     ledger_path = repo_root / TASK_LEDGER_LEDGER
     if not ledger_path.exists():
+        authority_ids = [] if band == "cluster_flag" else ids
+        authority_health = (
+            _task_ledger_projection_browse_health(repo_root, ledger_items=[])
+            if use_projection_browse_health
+            else task_ledger_events.authority_health(repo_root, ids=authority_ids)
+        )
         payload = _profile_gap_payload(
             repo_root=repo_root,
             artifact_kind="task_ledger",
@@ -12995,8 +13716,35 @@ def build_task_ledger_option_surface(
 
     ledger = _load_json(ledger_path)
     ledger_items = _task_ledger_items(ledger)
+    authority_ids = [] if band == "cluster_flag" else ids
+    authority_health = (
+        _task_ledger_projection_browse_health(
+            repo_root,
+            ledger_items=ledger_items,
+            selected_ids=ids if band == "card" else None,
+            reason=(
+                "Selected card drilldowns are projection-browse read models; they defer "
+                "the full event/audit reconciliation scan to the owner check."
+            )
+            if band == "card"
+            else None,
+        )
+        if use_projection_browse_health
+        else task_ledger_events.authority_health(repo_root, ids=authority_ids)
+    )
     by_id = {str(item.get("id") or ""): item for item in ledger_items}
-    view_payloads, overlays = _task_ledger_views(repo_root)
+    if band == "cluster_flag" and ids:
+        selected_view_ids = [item for item in ids if item in TASK_LEDGER_VIEW_IDS]
+    elif band == "card" and ids:
+        selected_view_ids = _task_ledger_selected_card_view_ids(repo_root)
+    else:
+        selected_view_ids = None
+    view_payloads, overlays = _task_ledger_views(
+        repo_root,
+        compact_cluster=band == "cluster_flag",
+        selected_view_ids=selected_view_ids,
+        selected_work_item_ids=ids if ids and band != "cluster_flag" else None,
+    )
 
     if ids and band != "cluster_flag":
         rows_source = [by_id[item] for item in ids if item in by_id]
@@ -13052,11 +13800,6 @@ def build_task_ledger_option_surface(
 
     state_counts = Counter(str(item.get("state") or "unknown") for item in ledger_items)
     type_counts = Counter(str(item.get("work_item_type") or "unknown") for item in ledger_items)
-    mechanism_cluster_overview = (
-        _task_ledger_mechanism_cluster_overview(repo_root, ledger_items)
-        if band == "cluster_flag"
-        else {}
-    )
     mechanism_cluster_row_count = (
         sum(
             1
@@ -13068,10 +13811,19 @@ def build_task_ledger_option_surface(
         else None
     )
     if band == "cluster_flag":
+        if mechanism_cluster_row_count:
+            mechanism_cluster_overview = _task_ledger_mechanism_overview_from_rows(rows)
+        elif ids:
+            mechanism_cluster_overview = _task_ledger_deferred_mechanism_cluster_overview(repo_root)
+        else:
+            mechanism_cluster_overview = _task_ledger_deferred_mechanism_cluster_overview(repo_root)
+    else:
+        mechanism_cluster_overview = {}
+    if band == "cluster_flag":
         mechanism_cluster_overview = dict(mechanism_cluster_overview)
         mechanism_cluster_overview["emitted_row_count"] = mechanism_cluster_row_count or 0
     warnings: list[dict[str, Any]] = []
-    if authority_health.get("status") != "clean":
+    if authority_health.get("ok") is False:
         warnings.append(
             {
                 "kind": "task_ledger_authority_recovery_required",
@@ -13149,6 +13901,9 @@ def build_task_ledger_option_surface(
         "event_command_hints": dict(TASK_LEDGER_EVENT_COMMAND_HINTS)
         if band == "cluster_flag"
         else {},
+        "projection_settlement_hint": dict(TASK_LEDGER_PROJECTION_SETTLEMENT_HINT)
+        if band == "cluster_flag"
+        else {},
         "cluster_organizer_routing_omission_receipt": {
             "omitted": [
                 "per-row supported command templates",
@@ -13192,8 +13947,11 @@ def build_task_ledger_option_surface(
                 "reason": "Open the selected WorkItem with contracts, source refs, linkage, and acceptance checks.",
             },
             {
-                "command": "./repo-python tools/meta/factory/task_ledger_apply.py validate",
-                "reason": "Validate the event log and deterministic projections before mutating WorkItems.",
+                "command": "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
+                "reason": (
+                    "Validate the event log and deterministic projections before mutating WorkItems; "
+                    "warning-only historical evidence durability rows should not fail pre-mutation flow."
+                ),
             },
         ],
         "warnings": warnings,

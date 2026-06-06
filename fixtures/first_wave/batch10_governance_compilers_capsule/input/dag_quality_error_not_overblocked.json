@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "case_id": "dag_quality_error_not_overblocked",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "quality_error_softened",
+  "error_codes": [
+    "BATCH10_DAG_QUALITY_ERROR_NOT_OVERBLOCKED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "role_aware_dag_block_propagation",
+  "probe_input": {
+    "downstream_role": "probe",
+    "upstream_status": "quality_error"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

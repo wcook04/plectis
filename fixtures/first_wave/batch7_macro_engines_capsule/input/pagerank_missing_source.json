@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "pagerank_missing_source",
+  "error_codes": [
+    "BATCH7_PAGERANK_MISSING_SOURCE_REFUSED"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

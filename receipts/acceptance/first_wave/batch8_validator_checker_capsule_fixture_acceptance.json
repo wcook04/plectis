@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 8 Validator Checker imports the real idea_microcosm validators.py body and exercises individual checker functions for status collapse, specimen gates, release gates, private-boundary scanning, and the validate entrypoint. It is not a public release, not a hosted-public claim, not a complete validator-suite proof, and not source mutation authority.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch8_validator_checker_capsule",
+  "organ_id": "batch8_validator_checker_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json"
+}

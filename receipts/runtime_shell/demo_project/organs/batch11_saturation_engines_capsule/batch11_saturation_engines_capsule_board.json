@@ -1,0 +1,31 @@
+{
+  "anti_claim": "Batch 11 validates source-open or source-faithful public ports for run affinity, calculator insight derivation, std_python ratchet gating, exogenous navigation grading, portability supersession, shard browse sectioning, research evidence selection, projection secret scanning, quant presentation mart normalization, macro-regime bucketing, frontend wayfinding, session diagnostics, and demo-take coverage scoring. It is not live Work Ledger truth, not navigation authority, not complete secret detection, not live market data, not investment advice, not raw transcript authority, not video capture, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch11_saturation_engines_capsule_not_live_runtime_release_or_market_authority",
+    "complete_secret_detection_claim": false,
+    "market_advice": false,
+    "model_dispatch": false,
+    "navigation_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "raw_session_truth": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "video_capture_authority": false,
+    "work_ledger_authority": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 13,
+    "source_module_count": 12
+  },
+  "organ_id": "batch11_saturation_engines_capsule",
+  "schema_version": "batch11_saturation_engines_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 11 Saturation Engines Capsule",
+  "verdict": "pass"
+}

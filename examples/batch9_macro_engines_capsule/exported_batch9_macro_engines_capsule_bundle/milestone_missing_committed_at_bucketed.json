@@ -1,0 +1,34 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "milestone_missing_committed_at_bucketed",
+  "error_codes": [
+    "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "milestone_quality": {
+      "runs": [
+        {
+          "milestone_at": "2026-05-01T00:00:00+00:00"
+        },
+        {
+          "run_at": "2026-05-02T00:00:00+00:00",
+          "apply_green_commit": {
+            "applied_count": 2
+          },
+          "projection_consumed": true
+        },
+        {
+          "run_at": "2026-05-03T00:00:00+00:00",
+          "apply_green_commit": {
+            "applied_count": 1,
+            "status": "green",
+            "committed_at": "2026-05-03T01:00:00+00:00"
+          },
+          "projection_consumed": true
+        }
+      ]
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

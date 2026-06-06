@@ -17,21 +17,27 @@
   "body_material_status": "copied_non_secret_macro_strategy_atlas_body_floor_with_provenance",
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out microcosm-substrate/receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer --card",
+  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
   "copied_source_artifact_count": 8,
-  "created_at": "2026-05-27T13:46:05+00:00",
+  "created_at": "2026-06-01T21:14:22+00:00",
   "error_codes": [
     "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
+    "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN",
     "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
     "MATH_STRATEGY_PROOF_BODY_FORBIDDEN",
     "MATH_STRATEGY_RELEASE_OVERCLAIM",
+    "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED",
+    "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED",
     "MATH_STRATEGY_UNKNOWN_ID"
   ],
   "expected_negative_cases": [
+    "missing_rich_strategy_card_fields",
     "oracle_strategy_label_leakage",
     "post_oracle_strategy_selection",
     "proof_body_with_strategy",
     "release_overclaim",
+    "retrieval_bonus_ceiling_overclaim",
+    "superficial_overlap_only_scoring",
     "unknown_strategy_id"
   ],
   "findings": [
@@ -74,13 +80,40 @@
       "negative_case_id": "release_overclaim",
       "subject_id": "formal_proof_authority,provider_calls_authorized,publication_authorized,release_authorized,test_split_tuning_authorized",
       "subject_kind": "authority_ceiling"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN",
+      "message": "Strategy ranking cannot use legacy unweighted overlap as the decision rule.",
+      "negative_case_id": "superficial_overlap_only_scoring",
+      "subject_id": "legacy_feature_overlap_count",
+      "subject_kind": "scoring_model"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED",
+      "message": "Weighted strategy scoring requires rich strategy-card fields, not only legacy match_features.",
+      "negative_case_id": "missing_rich_strategy_card_fields",
+      "subject_id": "legacy_sparse_overlap_card",
+      "subject_kind": "strategy_card"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED",
+      "message": "Retrieval-term matches are a bounded bonus and cannot dominate trigger and negative-trigger evidence.",
+      "negative_case_id": "retrieval_bonus_ceiling_overclaim",
+      "subject_id": "retrieval_keyword_volume",
+      "subject_kind": "scoring_model"
     }
   ],
   "fixture_id": "first_wave.mathematical_strategy_atlas_hypothesis_scorer",
-  "hypothesis_case_count": 3,
+  "hypothesis_case_count": 5,
   "input_mode": "first_wave_fixture",
   "missing_negative_cases": [],
   "observed_negative_cases": {
+    "missing_rich_strategy_card_fields": [
+      "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED"
+    ],
     "oracle_strategy_label_leakage": [
       "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN"
     ],
@@ -92,6 +125,12 @@
     ],
     "release_overclaim": [
       "MATH_STRATEGY_RELEASE_OVERCLAIM"
+    ],
+    "retrieval_bonus_ceiling_overclaim": [
+      "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED"
+    ],
+    "superficial_overlap_only_scoring": [
+      "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN"
     ],
     "unknown_strategy_id": [
       "MATH_STRATEGY_UNKNOWN_ID"
@@ -114,10 +153,10 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 17,
+    "scanned_path_count": 20,
     "status": "pass"
   },
-  "problem_count": 3,
+  "problem_count": 5,
   "receipt_id": "mathematical_strategy_atlas_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_result.json",
@@ -129,6 +168,345 @@
   "scored_cases": [
     {
       "body_redacted": true,
+      "candidate_scores": [
+        {
+          "feature_overlap_count": 3,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "equivalence",
+            "implication",
+            "intro"
+          ],
+          "score": 14,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 3,
+            "trigger_feature_hit_count": 3,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "iff_split",
+          "strategy_order": 0,
+          "trigger_feature_hits": [
+            "bidirectional_reasoning",
+            "equivalence",
+            "iff_goal"
+          ]
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "Nat.add_assoc",
+            "Nat.add_comm",
+            "Nat.mul_comm",
+            "arithmetic",
+            "associativity",
+            "commutativity",
+            "normalization"
+          ],
+          "score": 2,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 7,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "arithmetic_normalization",
+          "strategy_order": 2,
+          "trigger_feature_hits": []
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "Iff.intro",
+            "Nat.add_assoc",
+            "Nat.add_comm",
+            "Nat.mul_comm",
+            "arithmetic",
+            "associativity",
+            "commutativity",
+            "equivalence",
+            "implication",
+            "intro",
+            "normalization"
+          ],
+          "score": 2,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 11,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "retrieval_keyword_sponge",
+          "strategy_order": 5,
+          "trigger_feature_hits": []
+        }
+      ],
+      "candidate_strategy_ids": [
+        "retrieval_keyword_sponge",
+        "arithmetic_normalization",
+        "iff_split"
+      ],
+      "case_id": "cap_retrieval_bonus_under_trigger_match",
+      "classifier": "matched_strategy",
+      "expectation_met": true,
+      "expected_strategy_id": "iff_split",
+      "feature_overlap_count": 3,
+      "feature_tags": [
+        "bidirectional_reasoning",
+        "equivalence",
+        "iff_goal"
+      ],
+      "negative_trigger_hits": [],
+      "pre_oracle": true,
+      "problem_id": "toy_iff_with_arithmetic_retrieval_noise",
+      "retrieval_bonus": 2,
+      "retrieval_query_terms": [
+        "Iff.intro",
+        "Nat.add_assoc",
+        "Nat.add_comm",
+        "Nat.mul_comm",
+        "arithmetic",
+        "associativity",
+        "commutativity",
+        "equivalence",
+        "implication",
+        "intro",
+        "normalization"
+      ],
+      "retrieval_term_additions": [
+        "Iff.intro",
+        "Iff.mp",
+        "Iff.mpr"
+      ],
+      "retrieval_term_hits": [
+        "equivalence",
+        "implication",
+        "intro"
+      ],
+      "score": 14,
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
+      "selected_strategy_id": "iff_split",
+      "trigger_feature_hits": [
+        "bidirectional_reasoning",
+        "equivalence",
+        "iff_goal"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "candidate_scores": [
+        {
+          "feature_overlap_count": 3,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "length",
+            "orientation"
+          ],
+          "score": 14,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 2,
+            "trigger_feature_hit_count": 3,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "symmetry_or_orientation",
+          "strategy_order": 4,
+          "trigger_feature_hits": [
+            "length_append",
+            "reversed_orientation",
+            "symmetry_needed"
+          ]
+        },
+        {
+          "feature_overlap_count": 4,
+          "negative_trigger_hits": [
+            "reversed_orientation"
+          ],
+          "retrieval_bonus": 1,
+          "retrieval_term_hits": [
+            "length"
+          ],
+          "score": 10,
+          "score_components": {
+            "negative_trigger_hit_count": 1,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 1,
+            "trigger_feature_hit_count": 3,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "equality_normal_form",
+          "strategy_order": 3,
+          "trigger_feature_hits": [
+            "equality_target",
+            "length_append",
+            "nat_add"
+          ]
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "arithmetic_normalization",
+          "strategy_order": 2,
+          "trigger_feature_hits": []
+        }
+      ],
+      "candidate_strategy_ids": [
+        "equality_normal_form",
+        "symmetry_or_orientation",
+        "arithmetic_normalization"
+      ],
+      "case_id": "prefer_orientation_over_superficial_overlap",
+      "classifier": "matched_strategy",
+      "expectation_met": true,
+      "expected_strategy_id": "symmetry_or_orientation",
+      "feature_overlap_count": 3,
+      "feature_tags": [
+        "equality_target",
+        "length_append",
+        "nat_add",
+        "reversed_orientation",
+        "symmetry_needed"
+      ],
+      "negative_trigger_hits": [],
+      "pre_oracle": true,
+      "problem_id": "toy_reversed_length_append",
+      "retrieval_bonus": 2,
+      "retrieval_query_terms": [
+        "length",
+        "orientation"
+      ],
+      "retrieval_term_additions": [
+        "Eq.symm",
+        "List.length_append"
+      ],
+      "retrieval_term_hits": [
+        "length",
+        "orientation"
+      ],
+      "score": 14,
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
+      "selected_strategy_id": "symmetry_or_orientation",
+      "trigger_feature_hits": [
+        "length_append",
+        "reversed_orientation",
+        "symmetry_needed"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "candidate_scores": [
+        {
+          "feature_overlap_count": 3,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "equivalence",
+            "iff",
+            "intro"
+          ],
+          "score": 14,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 3,
+            "trigger_feature_hit_count": 3,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "iff_split",
+          "strategy_order": 0,
+          "trigger_feature_hits": [
+            "bidirectional_reasoning",
+            "equivalence",
+            "iff_goal"
+          ]
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "recursive_data_induction",
+          "strategy_order": 1,
+          "trigger_feature_hits": []
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "arithmetic_normalization",
+          "strategy_order": 2,
+          "trigger_feature_hits": []
+        }
+      ],
       "candidate_strategy_ids": [
         "iff_split",
         "recursive_data_induction",
@@ -145,17 +523,110 @@
         "equivalence",
         "iff_goal"
       ],
+      "negative_trigger_hits": [],
       "pre_oracle": true,
       "problem_id": "toy_iff_equivalence",
+      "retrieval_bonus": 2,
+      "retrieval_query_terms": [
+        "equivalence",
+        "iff",
+        "intro"
+      ],
       "retrieval_term_additions": [
         "Iff.intro",
         "Iff.mp",
         "Iff.mpr"
       ],
-      "selected_strategy_id": "iff_split"
+      "retrieval_term_hits": [
+        "equivalence",
+        "iff",
+        "intro"
+      ],
+      "score": 14,
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
+      "selected_strategy_id": "iff_split",
+      "trigger_feature_hits": [
+        "bidirectional_reasoning",
+        "equivalence",
+        "iff_goal"
+      ]
     },
     {
       "body_redacted": true,
+      "candidate_scores": [
+        {
+          "feature_overlap_count": 3,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 2,
+          "retrieval_term_hits": [
+            "append",
+            "length",
+            "list"
+          ],
+          "score": 14,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 3,
+            "trigger_feature_hit_count": 3,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "recursive_data_induction",
+          "strategy_order": 1,
+          "trigger_feature_hits": [
+            "induction_candidate",
+            "list_structure",
+            "recursive_data"
+          ]
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "iff_split",
+          "strategy_order": 0,
+          "trigger_feature_hits": []
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "arithmetic_normalization",
+          "strategy_order": 2,
+          "trigger_feature_hits": []
+        }
+      ],
       "candidate_strategy_ids": [
         "iff_split",
         "recursive_data_induction",
@@ -171,17 +642,102 @@
         "list_structure",
         "recursive_data"
       ],
+      "negative_trigger_hits": [],
       "pre_oracle": true,
       "problem_id": "toy_list_append_length",
+      "retrieval_bonus": 2,
+      "retrieval_query_terms": [
+        "append",
+        "length",
+        "list"
+      ],
       "retrieval_term_additions": [
         "List.length_append",
         "List.map_append",
         "List.append_assoc"
       ],
-      "selected_strategy_id": "recursive_data_induction"
+      "retrieval_term_hits": [
+        "append",
+        "length",
+        "list"
+      ],
+      "score": 14,
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
+      "selected_strategy_id": "recursive_data_induction",
+      "trigger_feature_hits": [
+        "induction_candidate",
+        "list_structure",
+        "recursive_data"
+      ]
     },
     {
       "body_redacted": true,
+      "candidate_scores": [
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "iff_split",
+          "strategy_order": 0,
+          "trigger_feature_hits": []
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "recursive_data_induction",
+          "strategy_order": 1,
+          "trigger_feature_hits": []
+        },
+        {
+          "feature_overlap_count": 0,
+          "negative_trigger_hits": [],
+          "retrieval_bonus": 0,
+          "retrieval_term_hits": [],
+          "score": 0,
+          "score_components": {
+            "negative_trigger_hit_count": 0,
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "retrieval_term_hit_count": 0,
+            "trigger_feature_hit_count": 0,
+            "trigger_feature_weight": 4
+          },
+          "strategy_id": "arithmetic_normalization",
+          "strategy_order": 2,
+          "trigger_feature_hits": []
+        }
+      ],
       "candidate_strategy_ids": [
         "iff_split",
         "recursive_data_induction",
@@ -196,20 +752,37 @@
         "topology_like",
         "unmapped_goal_shape"
       ],
+      "negative_trigger_hits": [],
       "pre_oracle": true,
       "problem_id": "toy_unclassified_shape",
+      "retrieval_bonus": 0,
+      "retrieval_query_terms": [
+        "unmapped"
+      ],
       "retrieval_term_additions": [],
-      "selected_strategy_id": "unknown"
+      "retrieval_term_hits": [],
+      "score": 0,
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
+      "selected_strategy_id": "unknown",
+      "trigger_feature_hits": []
     }
   ],
   "selected_strategy_ids": [
     "iff_split",
     "recursive_data_induction",
+    "symmetry_or_orientation",
     "unknown"
   ],
   "source_module_import_count": 8,
   "source_module_import_status": "copied_strategy_atlas_macro_body_floor_verified",
-  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
+  "source_module_manifest_ref": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
   "source_modules_pass": true,
   "source_pattern_ids": [
     "mathematical_strategy_atlas_hypothesis_scorer"
@@ -260,18 +833,22 @@
         "not_a_complete_secret_scan": true,
         "scope_id": "synthetic_sentinel_and_declared_import_policy"
       },
-      "scanned_path_count": 17,
+      "scanned_path_count": 20,
       "status": "pass"
     },
     "public_contract": {
       "body_redacted": true,
       "drilldown_regression_not_product_organ": true,
+      "feature_overlap_is_diagnostic_only": true,
       "known_strategy_ids_only": true,
+      "negative_triggers_penalized": true,
       "oracle_labels_excluded": true,
       "proof_bodies_excluded": true,
+      "retrieval_bonus_capped": true,
       "strategy_is_hypothesis_not_proof": true,
       "strategy_selected_pre_oracle": true,
-      "unknown_strategy_is_typed_miss": true
+      "unknown_strategy_is_typed_miss": true,
+      "weighted_trigger_scoring": true
     },
     "schema_version": "mathematical_strategy_atlas_board_v1",
     "selected_pattern_ids": [
@@ -288,7 +865,7 @@
       ],
       "source_module_import_count": 8,
       "source_module_import_status": "copied_strategy_atlas_macro_body_floor_verified",
-      "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
+      "source_module_manifest_ref": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
       "source_modules_pass": true,
       "source_refs": [
         "tools/meta/factory/run_prover_graph_benchmark.py",
@@ -301,24 +878,363 @@
         "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json"
       ],
       "target_refs": [
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_graph_benchmark_harness.py",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_provider_strategy_classification_reducer.py",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/codex/standards/std_compute_provider.json",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
-        "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json"
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_graph_benchmark_harness.py",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_provider_strategy_classification_reducer.py",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/codex/standards/std_compute_provider.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json"
       ]
     },
     "status": "pass",
     "strategy_projection": {
       "body_redacted": true,
-      "hypothesis_case_count": 3,
-      "problem_count": 3,
+      "hypothesis_case_count": 5,
+      "problem_count": 5,
       "scored_cases": [
         {
           "body_redacted": true,
+          "candidate_scores": [
+            {
+              "feature_overlap_count": 3,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "equivalence",
+                "implication",
+                "intro"
+              ],
+              "score": 14,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 3,
+                "trigger_feature_hit_count": 3,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "iff_split",
+              "strategy_order": 0,
+              "trigger_feature_hits": [
+                "bidirectional_reasoning",
+                "equivalence",
+                "iff_goal"
+              ]
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "Nat.add_assoc",
+                "Nat.add_comm",
+                "Nat.mul_comm",
+                "arithmetic",
+                "associativity",
+                "commutativity",
+                "normalization"
+              ],
+              "score": 2,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 7,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "arithmetic_normalization",
+              "strategy_order": 2,
+              "trigger_feature_hits": []
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "Iff.intro",
+                "Nat.add_assoc",
+                "Nat.add_comm",
+                "Nat.mul_comm",
+                "arithmetic",
+                "associativity",
+                "commutativity",
+                "equivalence",
+                "implication",
+                "intro",
+                "normalization"
+              ],
+              "score": 2,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 11,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "retrieval_keyword_sponge",
+              "strategy_order": 5,
+              "trigger_feature_hits": []
+            }
+          ],
+          "candidate_strategy_ids": [
+            "retrieval_keyword_sponge",
+            "arithmetic_normalization",
+            "iff_split"
+          ],
+          "case_id": "cap_retrieval_bonus_under_trigger_match",
+          "classifier": "matched_strategy",
+          "expectation_met": true,
+          "expected_strategy_id": "iff_split",
+          "feature_overlap_count": 3,
+          "feature_tags": [
+            "bidirectional_reasoning",
+            "equivalence",
+            "iff_goal"
+          ],
+          "negative_trigger_hits": [],
+          "pre_oracle": true,
+          "problem_id": "toy_iff_with_arithmetic_retrieval_noise",
+          "retrieval_bonus": 2,
+          "retrieval_query_terms": [
+            "Iff.intro",
+            "Nat.add_assoc",
+            "Nat.add_comm",
+            "Nat.mul_comm",
+            "arithmetic",
+            "associativity",
+            "commutativity",
+            "equivalence",
+            "implication",
+            "intro",
+            "normalization"
+          ],
+          "retrieval_term_additions": [
+            "Iff.intro",
+            "Iff.mp",
+            "Iff.mpr"
+          ],
+          "retrieval_term_hits": [
+            "equivalence",
+            "implication",
+            "intro"
+          ],
+          "score": 14,
+          "scoring_model": {
+            "feature_overlap_is_diagnostic_only": true,
+            "model_id": "weighted_trigger_negative_retrieval_v1",
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "trigger_feature_weight": 4
+          },
+          "selected_strategy_id": "iff_split",
+          "trigger_feature_hits": [
+            "bidirectional_reasoning",
+            "equivalence",
+            "iff_goal"
+          ]
+        },
+        {
+          "body_redacted": true,
+          "candidate_scores": [
+            {
+              "feature_overlap_count": 3,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "length",
+                "orientation"
+              ],
+              "score": 14,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 2,
+                "trigger_feature_hit_count": 3,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "symmetry_or_orientation",
+              "strategy_order": 4,
+              "trigger_feature_hits": [
+                "length_append",
+                "reversed_orientation",
+                "symmetry_needed"
+              ]
+            },
+            {
+              "feature_overlap_count": 4,
+              "negative_trigger_hits": [
+                "reversed_orientation"
+              ],
+              "retrieval_bonus": 1,
+              "retrieval_term_hits": [
+                "length"
+              ],
+              "score": 10,
+              "score_components": {
+                "negative_trigger_hit_count": 1,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 1,
+                "trigger_feature_hit_count": 3,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "equality_normal_form",
+              "strategy_order": 3,
+              "trigger_feature_hits": [
+                "equality_target",
+                "length_append",
+                "nat_add"
+              ]
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "arithmetic_normalization",
+              "strategy_order": 2,
+              "trigger_feature_hits": []
+            }
+          ],
+          "candidate_strategy_ids": [
+            "equality_normal_form",
+            "symmetry_or_orientation",
+            "arithmetic_normalization"
+          ],
+          "case_id": "prefer_orientation_over_superficial_overlap",
+          "classifier": "matched_strategy",
+          "expectation_met": true,
+          "expected_strategy_id": "symmetry_or_orientation",
+          "feature_overlap_count": 3,
+          "feature_tags": [
+            "equality_target",
+            "length_append",
+            "nat_add",
+            "reversed_orientation",
+            "symmetry_needed"
+          ],
+          "negative_trigger_hits": [],
+          "pre_oracle": true,
+          "problem_id": "toy_reversed_length_append",
+          "retrieval_bonus": 2,
+          "retrieval_query_terms": [
+            "length",
+            "orientation"
+          ],
+          "retrieval_term_additions": [
+            "Eq.symm",
+            "List.length_append"
+          ],
+          "retrieval_term_hits": [
+            "length",
+            "orientation"
+          ],
+          "score": 14,
+          "scoring_model": {
+            "feature_overlap_is_diagnostic_only": true,
+            "model_id": "weighted_trigger_negative_retrieval_v1",
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "trigger_feature_weight": 4
+          },
+          "selected_strategy_id": "symmetry_or_orientation",
+          "trigger_feature_hits": [
+            "length_append",
+            "reversed_orientation",
+            "symmetry_needed"
+          ]
+        },
+        {
+          "body_redacted": true,
+          "candidate_scores": [
+            {
+              "feature_overlap_count": 3,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "equivalence",
+                "iff",
+                "intro"
+              ],
+              "score": 14,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 3,
+                "trigger_feature_hit_count": 3,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "iff_split",
+              "strategy_order": 0,
+              "trigger_feature_hits": [
+                "bidirectional_reasoning",
+                "equivalence",
+                "iff_goal"
+              ]
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "recursive_data_induction",
+              "strategy_order": 1,
+              "trigger_feature_hits": []
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "arithmetic_normalization",
+              "strategy_order": 2,
+              "trigger_feature_hits": []
+            }
+          ],
           "candidate_strategy_ids": [
             "iff_split",
             "recursive_data_induction",
@@ -335,17 +1251,110 @@
             "equivalence",
             "iff_goal"
           ],
+          "negative_trigger_hits": [],
           "pre_oracle": true,
           "problem_id": "toy_iff_equivalence",
+          "retrieval_bonus": 2,
+          "retrieval_query_terms": [
+            "equivalence",
+            "iff",
+            "intro"
+          ],
           "retrieval_term_additions": [
             "Iff.intro",
             "Iff.mp",
             "Iff.mpr"
           ],
-          "selected_strategy_id": "iff_split"
+          "retrieval_term_hits": [
+            "equivalence",
+            "iff",
+            "intro"
+          ],
+          "score": 14,
+          "scoring_model": {
+            "feature_overlap_is_diagnostic_only": true,
+            "model_id": "weighted_trigger_negative_retrieval_v1",
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "trigger_feature_weight": 4
+          },
+          "selected_strategy_id": "iff_split",
+          "trigger_feature_hits": [
+            "bidirectional_reasoning",
+            "equivalence",
+            "iff_goal"
+          ]
         },
         {
           "body_redacted": true,
+          "candidate_scores": [
+            {
+              "feature_overlap_count": 3,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 2,
+              "retrieval_term_hits": [
+                "append",
+                "length",
+                "list"
+              ],
+              "score": 14,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 3,
+                "trigger_feature_hit_count": 3,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "recursive_data_induction",
+              "strategy_order": 1,
+              "trigger_feature_hits": [
+                "induction_candidate",
+                "list_structure",
+                "recursive_data"
+              ]
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "iff_split",
+              "strategy_order": 0,
+              "trigger_feature_hits": []
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "arithmetic_normalization",
+              "strategy_order": 2,
+              "trigger_feature_hits": []
+            }
+          ],
           "candidate_strategy_ids": [
             "iff_split",
             "recursive_data_induction",
@@ -361,17 +1370,102 @@
             "list_structure",
             "recursive_data"
           ],
+          "negative_trigger_hits": [],
           "pre_oracle": true,
           "problem_id": "toy_list_append_length",
+          "retrieval_bonus": 2,
+          "retrieval_query_terms": [
+            "append",
+            "length",
+            "list"
+          ],
           "retrieval_term_additions": [
             "List.length_append",
             "List.map_append",
             "List.append_assoc"
           ],
-          "selected_strategy_id": "recursive_data_induction"
+          "retrieval_term_hits": [
+            "append",
+            "length",
+            "list"
+          ],
+          "score": 14,
+          "scoring_model": {
+            "feature_overlap_is_diagnostic_only": true,
+            "model_id": "weighted_trigger_negative_retrieval_v1",
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "trigger_feature_weight": 4
+          },
+          "selected_strategy_id": "recursive_data_induction",
+          "trigger_feature_hits": [
+            "induction_candidate",
+            "list_structure",
+            "recursive_data"
+          ]
         },
         {
           "body_redacted": true,
+          "candidate_scores": [
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "iff_split",
+              "strategy_order": 0,
+              "trigger_feature_hits": []
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "recursive_data_induction",
+              "strategy_order": 1,
+              "trigger_feature_hits": []
+            },
+            {
+              "feature_overlap_count": 0,
+              "negative_trigger_hits": [],
+              "retrieval_bonus": 0,
+              "retrieval_term_hits": [],
+              "score": 0,
+              "score_components": {
+                "negative_trigger_hit_count": 0,
+                "negative_trigger_penalty": 3,
+                "retrieval_bonus_cap": 2,
+                "retrieval_term_bonus": 1,
+                "retrieval_term_hit_count": 0,
+                "trigger_feature_hit_count": 0,
+                "trigger_feature_weight": 4
+              },
+              "strategy_id": "arithmetic_normalization",
+              "strategy_order": 2,
+              "trigger_feature_hits": []
+            }
+          ],
           "candidate_strategy_ids": [
             "iff_split",
             "recursive_data_induction",
@@ -386,22 +1480,50 @@
             "topology_like",
             "unmapped_goal_shape"
           ],
+          "negative_trigger_hits": [],
           "pre_oracle": true,
           "problem_id": "toy_unclassified_shape",
+          "retrieval_bonus": 0,
+          "retrieval_query_terms": [
+            "unmapped"
+          ],
           "retrieval_term_additions": [],
-          "selected_strategy_id": "unknown"
+          "retrieval_term_hits": [],
+          "score": 0,
+          "scoring_model": {
+            "feature_overlap_is_diagnostic_only": true,
+            "model_id": "weighted_trigger_negative_retrieval_v1",
+            "negative_trigger_penalty": 3,
+            "retrieval_bonus_cap": 2,
+            "retrieval_term_bonus": 1,
+            "trigger_feature_weight": 4
+          },
+          "selected_strategy_id": "unknown",
+          "trigger_feature_hits": []
         }
       ],
+      "scoring_model": {
+        "feature_overlap_is_diagnostic_only": true,
+        "model_id": "weighted_trigger_negative_retrieval_v1",
+        "negative_trigger_penalty": 3,
+        "retrieval_bonus_cap": 2,
+        "retrieval_term_bonus": 1,
+        "trigger_feature_weight": 4
+      },
       "selected_strategy_ids": [
         "iff_split",
         "recursive_data_induction",
+        "symmetry_or_orientation",
         "unknown"
       ],
-      "strategy_count": 4,
+      "strategy_count": 7,
       "strategy_ids": [
         "iff_split",
         "recursive_data_induction",
         "arithmetic_normalization",
+        "equality_normal_form",
+        "symmetry_or_orientation",
+        "retrieval_keyword_sponge",
         "unknown"
       ],
       "strategy_selection_miss_case_ids": [
@@ -409,11 +1531,14 @@
       ]
     }
   },
-  "strategy_count": 4,
+  "strategy_count": 7,
   "strategy_ids": [
     "iff_split",
     "recursive_data_induction",
     "arithmetic_normalization",
+    "equality_normal_form",
+    "symmetry_or_orientation",
+    "retrieval_keyword_sponge",
     "unknown"
   ],
   "strategy_selection_miss_case_ids": [

@@ -22,13 +22,14 @@
   "body_material_status": "",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
-  "cp1_branch_count": 2,
+  "cp1_branch_count": 3,
   "cp1_selected_branch_ids": [
     "cp1_alpha_up_over_flat",
-    "cp1_beta_down_over_up"
+    "cp1_beta_down_over_up",
+    "cp1_gamma_flat_over_up"
   ],
-  "cp2_prediction_count": 2,
-  "created_at": "2026-05-29T05:46:50+00:00",
+  "cp2_prediction_count": 3,
+  "created_at": "2026-06-01T20:20:11+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -38,18 +39,42 @@
     "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
     "PREDICTION_DOSSIER_MUTATION_UNSAFE",
     "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
+    "PREDICTION_ORACLE_ASSET_CLASS_SPLIT_PRESERVED",
+    "PREDICTION_ORACLE_DEGRADED_FEED_HEALTH_GATED",
+    "PREDICTION_ORACLE_MISSING_REALIZED_TRUTH_NOT_GRADED",
+    "PREDICTION_ORACLE_NUMERIC_LARGE_MISS_SURFACED",
     "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
     "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM"
   ],
   "expected_negative_cases": [
+    "asset_class_split_required",
+    "degraded_feed_health_gates_numeric_truth",
     "invalid_cp2_target",
     "missing_bifurcation_resolution",
+    "missing_realized_numeric_truth",
+    "numeric_large_miss_direction_hit",
     "post_t_evidence_ref",
     "trading_advice_overclaim",
     "unconfirmed_equity_lane_claim",
     "unsafe_dossier_mutation"
   ],
   "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "PREDICTION_ORACLE_ASSET_CLASS_SPLIT_PRESERVED",
+      "message": "Numeric reconciliation must preserve STOCK and ETF asset-class splits.",
+      "negative_case_id": "asset_class_split_required",
+      "subject_id": "negative_asset_class_split_required",
+      "subject_kind": "oracle_numeric_reconciliation"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "PREDICTION_ORACLE_DEGRADED_FEED_HEALTH_GATED",
+      "message": "Degraded feed-health rows must be gated out of numeric truth grading.",
+      "negative_case_id": "degraded_feed_health_gates_numeric_truth",
+      "subject_id": "oracle_alpha_degraded",
+      "subject_kind": "oracle_numeric_reconciliation"
+    },
     {
       "body_in_receipt": false,
       "error_code": "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
@@ -65,6 +90,22 @@
       "negative_case_id": "missing_bifurcation_resolution",
       "subject_id": "cp1_alpha_unresolved",
       "subject_kind": "cp1_branch"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "PREDICTION_ORACLE_MISSING_REALIZED_TRUTH_NOT_GRADED",
+      "message": "Rows missing realized numeric truth must not be fabricated into graded reconciliation rows.",
+      "negative_case_id": "missing_realized_numeric_truth",
+      "subject_id": "oracle_alpha_missing_realized",
+      "subject_kind": "oracle_numeric_reconciliation"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "PREDICTION_ORACLE_NUMERIC_LARGE_MISS_SURFACED",
+      "message": "Direction-only hits must still surface large numeric misses.",
+      "negative_case_id": "numeric_large_miss_direction_hit",
+      "subject_id": "oracle_alpha_large_miss",
+      "subject_kind": "oracle_numeric_reconciliation"
     },
     {
       "body_in_receipt": false,
@@ -102,12 +143,87 @@
   "fixture_id": "first_wave.prediction_oracle_reconciliation",
   "input_mode": "first_wave_fixture",
   "missing_negative_cases": [],
+  "numeric_reconciliation_row_count": 2,
+  "numeric_reconciliation_rows": [
+    {
+      "absolute_delta": 20.0,
+      "asset_class": "ETF",
+      "body_in_receipt": false,
+      "directional_correct": true,
+      "large_numeric_miss": true,
+      "percent_delta": 10.0,
+      "predicted_target_price": 190.0,
+      "prediction_direction": "DOWN",
+      "prediction_id": "pred_beta_direction",
+      "rank": 1,
+      "realized_truth_price": 170.0,
+      "subject_snapshot_price": 200.0,
+      "target_id": "SYNTH_TARGET_BETA"
+    },
+    {
+      "absolute_delta": 1.0,
+      "asset_class": "STOCK",
+      "body_in_receipt": false,
+      "directional_correct": true,
+      "large_numeric_miss": false,
+      "percent_delta": 1.0,
+      "predicted_target_price": 104.0,
+      "prediction_direction": "UP",
+      "prediction_id": "pred_alpha_direction",
+      "rank": 2,
+      "realized_truth_price": 105.0,
+      "subject_snapshot_price": 100.0,
+      "target_id": "SYNTH_TARGET_ALPHA"
+    }
+  ],
+  "numeric_reconciliation_source": {
+    "body_in_receipt": false,
+    "schema_version": "prediction_oracle_numeric_source_provenance_v1",
+    "source_body_invoked": true,
+    "source_faithful_fallback_used": false,
+    "source_helper_names": [
+      "_build_prediction_reconciliation_rows",
+      "_build_prediction_reconciliation_summary"
+    ],
+    "source_module_manifest_ref": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json",
+    "source_module_ref": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/tools/oracle/truth_diff_equity.py"
+  },
+  "numeric_reconciliation_summary": {
+    "asset_class_counts": {
+      "ETF": 1,
+      "STOCK": 1
+    },
+    "body_in_receipt": false,
+    "degraded_feed_gate_count": 1,
+    "direction_hit_numeric_miss_count": 1,
+    "directionally_correct_count": 2,
+    "directionally_incorrect_count": 0,
+    "large_numeric_miss_count": 1,
+    "largest_absolute_miss_target": "SYNTH_TARGET_BETA",
+    "largest_percent_miss_target": "SYNTH_TARGET_BETA",
+    "missing_realized_truth_count": 0,
+    "row_count": 2,
+    "source_body_invoked": true,
+    "source_faithful_fallback_used": false
+  },
   "observed_negative_cases": {
+    "asset_class_split_required": [
+      "PREDICTION_ORACLE_ASSET_CLASS_SPLIT_PRESERVED"
+    ],
+    "degraded_feed_health_gates_numeric_truth": [
+      "PREDICTION_ORACLE_DEGRADED_FEED_HEALTH_GATED"
+    ],
     "invalid_cp2_target": [
       "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE"
     ],
     "missing_bifurcation_resolution": [
       "PREDICTION_CP1_BIFURCATION_UNRESOLVED"
+    ],
+    "missing_realized_numeric_truth": [
+      "PREDICTION_ORACLE_MISSING_REALIZED_TRUTH_NOT_GRADED"
+    ],
+    "numeric_large_miss_direction_hit": [
+      "PREDICTION_ORACLE_NUMERIC_LARGE_MISS_SURFACED"
     ],
     "post_t_evidence_ref": [
       "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN"
@@ -123,7 +239,7 @@
     ]
   },
   "oracle_diff_graded_count": 2,
-  "oracle_diff_hit_count": 1,
+  "oracle_diff_hit_count": 2,
   "organ_id": "prediction_oracle_reconciliation",
   "packet_id": "public_prediction_oracle_reconciliation_fixture",
   "projection_receipt_refs": [
@@ -144,30 +260,70 @@
   ],
   "reconciliation_rows": [
     {
+      "absolute_delta": 1.0,
+      "asset_class": "STOCK",
       "body_in_receipt": false,
       "confidence_band": "medium",
       "cp1_branch_id": "cp1_alpha_up_over_flat",
       "direction": "up",
       "direction_hit": true,
+      "large_numeric_miss": false,
       "mutation_ids": [
         "mutation_beta_confidence_revision"
       ],
+      "numeric_graded": true,
+      "numeric_rank": 2,
       "oracle_feed_health": "ok",
+      "percent_delta": 1.0,
+      "predicted_target_price": 104.0,
       "prediction_id": "pred_alpha_direction",
+      "realized_truth_price": 105.0,
+      "subject_snapshot_price": 100.0,
       "target_id": "SYNTH_TARGET_ALPHA"
     },
     {
+      "absolute_delta": 20.0,
+      "asset_class": "ETF",
       "body_in_receipt": false,
       "confidence_band": "low_medium",
       "cp1_branch_id": "cp1_beta_down_over_up",
       "direction": "down",
-      "direction_hit": false,
+      "direction_hit": true,
+      "large_numeric_miss": true,
       "mutation_ids": [
         "mutation_beta_confidence_revision"
       ],
+      "numeric_graded": true,
+      "numeric_rank": 1,
       "oracle_feed_health": "ok",
+      "percent_delta": 10.0,
+      "predicted_target_price": 190.0,
       "prediction_id": "pred_beta_direction",
+      "realized_truth_price": 170.0,
+      "subject_snapshot_price": 200.0,
       "target_id": "SYNTH_TARGET_BETA"
+    },
+    {
+      "absolute_delta": null,
+      "asset_class": null,
+      "body_in_receipt": false,
+      "confidence_band": "low",
+      "cp1_branch_id": "cp1_gamma_flat_over_up",
+      "direction": "flat",
+      "direction_hit": null,
+      "large_numeric_miss": null,
+      "mutation_ids": [
+        "mutation_beta_confidence_revision"
+      ],
+      "numeric_graded": false,
+      "numeric_rank": null,
+      "oracle_feed_health": "degraded",
+      "percent_delta": null,
+      "predicted_target_price": null,
+      "prediction_id": "pred_gamma_direction",
+      "realized_truth_price": null,
+      "subject_snapshot_price": null,
+      "target_id": "SYNTH_TARGET_GAMMA"
     }
   ],
   "schema_version": "prediction_oracle_reconciliation_fixture_acceptance_v1",
@@ -193,7 +349,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 7,
+    "scanned_path_count": 11,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -229,7 +385,8 @@
   "trading_or_advice_authorized": false,
   "valid_prediction_targets": [
     "SYNTH_TARGET_ALPHA",
-    "SYNTH_TARGET_BETA"
+    "SYNTH_TARGET_BETA",
+    "SYNTH_TARGET_GAMMA"
   ],
   "validator_id": "validator.microcosm.organs.prediction_oracle_reconciliation"
 }

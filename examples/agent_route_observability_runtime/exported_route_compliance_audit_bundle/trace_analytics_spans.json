@@ -1,0 +1,199 @@
+{
+  "schema_version": "agent_route_observability_runtime_trace_analytics_spans_v1",
+  "privacy_boundary": "synthetic_observable_action_spans_only_no_prompt_body_no_provider_payload_no_transcript",
+  "sessions": [
+    {
+      "session_id": "synthetic_route_compliant_ladder",
+      "started_at": "2026-05-25T20:29:00Z",
+      "ended_at": "2026-05-25T20:29:03Z",
+      "expected": {
+        "route_compliance_score": 1.0,
+        "required_anti_patterns": [
+          "positive_kernel_ladder_climb"
+        ],
+        "required_mode_signals": []
+      },
+      "spans": [
+        {
+          "span_id": "span_preflight",
+          "agent": "codex",
+          "session_id": "synthetic_route_compliant_ladder",
+          "action_kind": "kernel_command",
+          "start_ts": "2026-05-25T20:29:00Z",
+          "end_ts": "2026-05-25T20:29:01Z",
+          "duration_ms": 1000,
+          "sequence_index": 0,
+          "tool_name": "shell",
+          "command": "./repo-python kernel.py --preflight",
+          "normalized_command": "./repo-python kernel.py --preflight",
+          "kernel_flags": [
+            "--preflight"
+          ],
+          "is_kernel_shape": true,
+          "output_byte_count": 512,
+          "output_line_count": 12
+        },
+        {
+          "span_id": "span_entry",
+          "agent": "codex",
+          "session_id": "synthetic_route_compliant_ladder",
+          "action_kind": "kernel_command",
+          "start_ts": "2026-05-25T20:29:01Z",
+          "end_ts": "2026-05-25T20:29:02Z",
+          "duration_ms": 1000,
+          "sequence_index": 1,
+          "tool_name": "shell",
+          "command": "./repo-python kernel.py --entry \"microcosm route\" --context-budget 12000",
+          "normalized_command": "./repo-python kernel.py --entry \"microcosm route\" --context-budget 12000",
+          "kernel_flags": [
+            "--entry"
+          ],
+          "is_kernel_shape": true,
+          "output_byte_count": 1200,
+          "output_line_count": 24
+        },
+        {
+          "span_id": "span_direct_read",
+          "agent": "codex",
+          "session_id": "synthetic_route_compliant_ladder",
+          "action_kind": "bash_other",
+          "start_ts": "2026-05-25T20:29:02Z",
+          "end_ts": "2026-05-25T20:29:03Z",
+          "duration_ms": 1000,
+          "sequence_index": 2,
+          "tool_name": "shell",
+          "command": "sed -n '1,120p' microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "normalized_command": "sed -n '1,120p' microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "target_paths": [
+            "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
+          ],
+          "output_byte_count": 2048,
+          "output_line_count": 120
+        }
+      ]
+    },
+    {
+      "session_id": "synthetic_grep_before_kernel",
+      "started_at": "2026-05-25T20:30:00Z",
+      "ended_at": "2026-05-25T20:30:02Z",
+      "expected": {
+        "route_compliance_score": 0.9,
+        "required_anti_patterns": [
+          "anti_pattern_grep_before_kernel"
+        ],
+        "required_mode_signals": []
+      },
+      "spans": [
+        {
+          "span_id": "span_grep_first",
+          "agent": "codex",
+          "session_id": "synthetic_grep_before_kernel",
+          "action_kind": "bash_other",
+          "start_ts": "2026-05-25T20:30:00Z",
+          "end_ts": "2026-05-25T20:30:01Z",
+          "duration_ms": 1000,
+          "sequence_index": 0,
+          "tool_name": "shell",
+          "command": "rg route_compliance microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "normalized_command": "rg route_compliance microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "target_paths": [
+            "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
+          ],
+          "is_grep_shape": true,
+          "output_byte_count": 1600,
+          "output_line_count": 18
+        },
+        {
+          "span_id": "span_kernel_after_grep",
+          "agent": "codex",
+          "session_id": "synthetic_grep_before_kernel",
+          "action_kind": "kernel_command",
+          "start_ts": "2026-05-25T20:30:01Z",
+          "end_ts": "2026-05-25T20:30:02Z",
+          "duration_ms": 1000,
+          "sequence_index": 1,
+          "tool_name": "shell",
+          "command": "./repo-python kernel.py --pulse",
+          "normalized_command": "./repo-python kernel.py --pulse",
+          "kernel_flags": [
+            "--pulse"
+          ],
+          "is_kernel_shape": true,
+          "output_byte_count": 1800,
+          "output_line_count": 30
+        }
+      ]
+    },
+    {
+      "session_id": "synthetic_route_lease_output_bloat",
+      "started_at": "2026-05-25T20:31:00Z",
+      "ended_at": "2026-05-25T20:31:03Z",
+      "expected": {
+        "route_compliance_score": 1.0,
+        "required_anti_patterns": [],
+        "required_mode_signals": [
+          "full_output_kernel_bloat"
+        ]
+      },
+      "spans": [
+        {
+          "span_id": "span_entry_lease",
+          "agent": "codex",
+          "session_id": "synthetic_route_lease_output_bloat",
+          "action_kind": "kernel_command",
+          "start_ts": "2026-05-25T20:31:00Z",
+          "end_ts": "2026-05-25T20:31:01Z",
+          "duration_ms": 1000,
+          "sequence_index": 0,
+          "tool_name": "shell",
+          "command": "./repo-python kernel.py --entry \"route lease\" --context-budget 12000",
+          "normalized_command": "./repo-python kernel.py --entry \"route lease\" --context-budget 12000",
+          "kernel_flags": [
+            "--entry"
+          ],
+          "is_kernel_shape": true,
+          "output_byte_count": 4096,
+          "output_line_count": 80
+        },
+        {
+          "span_id": "span_full_output_kernel",
+          "agent": "codex",
+          "session_id": "synthetic_route_lease_output_bloat",
+          "action_kind": "kernel_command",
+          "start_ts": "2026-05-25T20:31:01Z",
+          "end_ts": "2026-05-25T20:31:02Z",
+          "duration_ms": 1000,
+          "sequence_index": 1,
+          "tool_name": "shell",
+          "command": "./repo-python kernel.py --info 2>&1 | head -150",
+          "normalized_command": "./repo-python kernel.py --info 2>&1 | head -150",
+          "kernel_flags": [
+            "--info"
+          ],
+          "is_kernel_shape": true,
+          "output_byte_count": 12000,
+          "output_line_count": 150
+        },
+        {
+          "span_id": "span_direct_rg",
+          "agent": "codex",
+          "session_id": "synthetic_route_lease_output_bloat",
+          "action_kind": "bash_other",
+          "start_ts": "2026-05-25T20:31:02Z",
+          "end_ts": "2026-05-25T20:31:03Z",
+          "duration_ms": 1000,
+          "sequence_index": 2,
+          "tool_name": "shell",
+          "command": "rg route_lease system/lib/agent_execution_trace.py",
+          "normalized_command": "rg route_lease system/lib/agent_execution_trace.py",
+          "target_paths": [
+            "system/lib/agent_execution_trace.py"
+          ],
+          "is_grep_shape": true,
+          "output_byte_count": 2048,
+          "output_line_count": 24
+        }
+      ]
+    }
+  ]
+}

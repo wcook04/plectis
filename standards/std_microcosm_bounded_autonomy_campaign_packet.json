@@ -1,0 +1,189 @@
+{
+  "anti_claim": "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+  "authority_boundary": "public_microcosm_crown_jewel_organ_projection_with_copied_non_secret_macro_body_floor",
+  "authority_ceiling": {
+    "authority_ceiling": "self_proposal_campaign_packet_only",
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "self_repair_authorized": false,
+    "source_write_packet_authorized": false,
+    "status": "pass",
+    "unsupervised_source_mutation_authorized": false
+  },
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "private repo bodies outside copied public fixtures",
+      "provider payload bodies",
+      "credential or account-bound material",
+      "operator private notes or raw thread bodies"
+    ],
+    "public_inputs": "public synthetic fixtures, copied non-secret macro source bodies, hashes, anchors, validator refs, and generated receipts",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 3,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "candidate_id_prefix_required": "real_builder::",
+    "candidate_packet_witness_status_required": "pass",
+    "real_campaign_builder_witness_required": true,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "repeated_failed_campaign_digest",
+      "source_write_campaign_packet"
+    ],
+    "secret_exclusion_scan_required": true,
+    "semantic_negative_case_evaluator_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "bounded_autonomy_campaign_packet_result.json",
+    "bounded_autonomy_campaign_packet_board.json",
+    "bounded_autonomy_campaign_packet_validation_receipt.json",
+    "bounded_autonomy_campaign_packet_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
+    ],
+    "used_by_organs": [
+      "bounded_autonomy_campaign_packet"
+    ]
+  },
+  "required_fields": [
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "status",
+    "source_module_manifest",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
+    "tests/test_bounded_autonomy_campaign_packet.py",
+    "fixtures/first_wave/bounded_autonomy_campaign_packet/input",
+    "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle",
+    "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
+    "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_result.json",
+    "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_board.json",
+    "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json",
+    "receipts/acceptance/first_wave/bounded_autonomy_campaign_packet_fixture_acceptance.json",
+    "paper_modules/bounded_autonomy_campaign_packet.md"
+  ],
+  "standard_id": "std_microcosm_bounded_autonomy_campaign_packet",
+  "standard_payload": {
+    "anti_purpose": "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+    "compression_bands": [
+      "fixture",
+      "source_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling",
+      "receipt"
+    ],
+    "failure_modes": [
+      "repeated_failed_campaign_digest",
+      "source_write_campaign_packet"
+    ],
+    "ontology": "A public Microcosm organ for bounded autonomy campaign packet.",
+    "teleology": "Turns synthetic coverage gaps into a draft candidate packet in a subprocess and records the boundary that it proposes work but cannot repair itself or write source.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_bounded_autonomy_campaign_packet_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
+        "tests/test_bounded_autonomy_campaign_packet.py",
+        "validator.microcosm.organs.bounded_autonomy_campaign_packet"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.bounded_autonomy_campaign_packet"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "Positive fixture inputs must produce pass receipts with real_substrate_disposition=real_substrate_capsule.",
+    "Expected negative cases must emit their stable error codes without blocking positive execution.",
+    "source_module_manifest.json must match copied bodies by digest, line count, and required anchors.",
+    "Receipts must carry refs, hashes, counts, verdicts, and anti-claims without embedding copied macro body text.",
+    "Receipts must carry exercise.real_campaign_builder_witness.status=pass, candidate_packet.real_campaign_builder_witness_status=pass, and candidate_id values prefixed with real_builder::.",
+    "Negative cases must be validated by the semantic negative-case evaluator rather than fixture-declared status/error_codes.",
+    "The authority ceiling must reject the organ-specific overclaim classes declared in this standard."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.bounded_autonomy_campaign_packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet --acceptance-out receipts/acceptance/first_wave/bounded_autonomy_campaign_packet_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.bounded_autonomy_campaign_packet",
+    "runtime_bundle_command": "python -m microcosm_core.organs.bounded_autonomy_campaign_packet run-bounded-autonomy-bundle --input examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle --out receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
+    "tests/test_bounded_autonomy_campaign_packet.py",
+    "validator.microcosm.organs.bounded_autonomy_campaign_packet"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Bounded autonomy campaign packet instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Bounded autonomy campaign packet without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_bounded_autonomy_campaign_packet and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_bounded_autonomy_campaign_packet.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.bounded_autonomy_campaign_packet"
+  ],
+  "anti_claims": [
+    "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_bounded_autonomy_campaign_packet",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_bounded_autonomy_campaign_packet_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.bounded_autonomy_campaign_packet",
+    "receipt_id": "receipt.microcosm.bounded_autonomy_campaign_packet",
+    "validator_refs": [
+      "src/microcosm_core/organs/bounded_autonomy_campaign_packet.py",
+      "tests/test_bounded_autonomy_campaign_packet.py",
+      "validator.microcosm.organs.bounded_autonomy_campaign_packet"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.bounded_autonomy_campaign_packet"
+    ]
+  }
+}

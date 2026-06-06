@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "taskpolicy_missing_binary", "error_codes": ["BATCH4_TASKPOLICY_UNAVAILABLE_PASSTHROUGH"], "runtime_probe": {"observer_id": "taskpolicy_unavailable_passthrough_anchor", "source_module_id": "metabolismd", "required_text": "taskpolicy_unavailable"}, "body_in_receipt": false}

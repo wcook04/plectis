@@ -1,0 +1,363 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_feature_registry_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record the transformation/proof commitment that carried the pressure; a mechanism row cannot pass as feature prose or a frontend plan.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "mechanism_role",
+      "concept_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+    "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+    "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_mechanism_json_seeded_from_mechanism_registry_not_authority_flip_until_parity_receipt",
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+      "resolution": "resolved",
+      "role": "Runtime + receipt-writing locus for the public forecast-evaluation fixture and exported bundle.",
+      "symbols": [
+        "run",
+        "run_finance_forecast_bundle"
+      ]
+    }
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
+  "id": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
+  "kind": "mechanism",
+  "mechanism_payload": {
+    "contract_version": "microcosm_mechanism_instance_payload_v1",
+    "guardrails": [
+      "finance_forecast_evaluation_scope_is_synthetic_market_shaped_fixture_only",
+      "live_market_data_investment_advice_track_record_optimizer_mutation_and_trading_claims_forbidden",
+      "source_digest_negative_cases_body_free_receipts_and_authority_ceiling_required",
+      "release_publication_private_root_equivalence_and_whole_system_correctness_claims_forbidden"
+    ],
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/mechanism_sources.json"
+    },
+    "population_binding": {
+      "anti_claims": [
+        "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+        "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+        "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+        "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+      ],
+      "concept_pair_ref": "research_and_science_replay_evidence_bundle.concept_binding",
+      "mechanism_role": "family validators that check research, forecasting, chemistry, and world-model replay evidence without exporting private bodies",
+      "omission_receipt": {
+        "drilldown": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+        "omitted": [
+          "private macro source bodies",
+          "raw operator voice",
+          "provider payload bodies",
+          "runtime outputs beyond named public receipt refs"
+        ],
+        "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+        "residual_pressure": [
+          {
+            "gap_class": "mechanism_selective_edges_unpopulated",
+            "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+            "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+          }
+        ]
+      },
+      "source_refs": [
+        "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[9:research_and_science_replay_evidence_bundle]"
+      ],
+      "state_or_proof_effect": "research claims remain scoped to public replay evidence and known gaps instead of becoming external scientific truth claims",
+      "transformation_shape": "public research or science replay bundle -> validator -> accepted/rejected evidence receipt and claim ceiling",
+      "validator_refs": [
+        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+      ]
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.md",
+      "markdown_status": "generated_projection",
+      "registry_status": "current_source_of_record_until_parity_flip",
+      "source_json_rel": "mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json"
+    },
+    "projection_hooks": [
+      "markdown_reference",
+      "mermaid_graph",
+      "atlas_card",
+      "coverage_health",
+      "source_language_inventory"
+    ],
+    "resolution_evidence": {
+      "authority_class": "verified_macro_body_import",
+      "evidence_rank": 5,
+      "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run-finance-forecast-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out /tmp/finance_forecast_evaluation_spine_bundle_receipts",
+      "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_finance_forecast_evaluation_spine.py -q",
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+    },
+    "source_registry_row": {
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+          "resolution": "resolved",
+          "role": "Runtime + receipt-writing locus for the public forecast-evaluation fixture and exported bundle.",
+          "symbols": [
+            "run",
+            "run_finance_forecast_bundle"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.research_and_science_replay_evidence_bundle"
+      ],
+      "guardrails": [
+        "finance_forecast_evaluation_scope_is_synthetic_market_shaped_fixture_only",
+        "live_market_data_investment_advice_track_record_optimizer_mutation_and_trading_claims_forbidden",
+        "source_digest_negative_cases_body_free_receipts_and_authority_ceiling_required",
+        "release_publication_private_root_equivalence_and_whole_system_correctness_claims_forbidden"
+      ],
+      "id": "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
+      "input_refs": [
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
+      ],
+      "kind": "mechanism",
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "receipt_refs": [
+        "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+        "receipts/runtime_shell/demo_project/organs/finance_forecast_evaluation_spine/exported_finance_forecast_evaluation_spine_bundle_validation_result.json",
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "resolution_evidence": {
+        "authority_class": "verified_macro_body_import",
+        "evidence_rank": 5,
+        "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run-finance-forecast-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out /tmp/finance_forecast_evaluation_spine_bundle_receipts",
+        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_finance_forecast_evaluation_spine.py -q",
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+      },
+      "runs_in": [
+        "finance_forecast_evaluation_spine"
+      ],
+      "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+      "statement": "The finance forecast evaluation spine validates copied public finance-evaluation helpers over synthetic market-shaped fixtures through Diebold-Mariano, HLN refusal, SPA/reality-check bootstrap, stationary-bootstrap and MCS exercises, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without live market data, investment advice, track-record claims, optimizer mutation, release, or publication authority.",
+      "status": "active",
+      "upstream_of": [
+        "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
+        "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation"
+      ]
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "code_locus_and_registry_grounding_computed_in_projection_not_asserted_as_correctness"
+    }
+  },
+  "omission_receipt": {
+    "drilldown": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipt refs"
+    ],
+    "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+    "residual_pressure": [
+      {
+        "gap_class": "mechanism_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+      }
+    ]
+  },
+  "organ_refs": [
+    "finance_forecast_evaluation_spine"
+  ],
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/finance_forecast_evaluation_spine/exported_finance_forecast_evaluation_spine_bundle_validation_result.json",
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+        "resolution": "resolved",
+        "role": "Runtime + receipt-writing locus for the public forecast-evaluation fixture and exported bundle.",
+        "symbols": [
+          "run",
+          "run_finance_forecast_bundle"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.research_and_science_replay_evidence_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].code_loci[0]",
+          "summary": "Mechanism registry row names this code locus as the runtime grounding path."
+        },
+        "relation_id": "mechanism.grounded_in.code_locus",
+        "relation_verb": "grounded_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].runs_in",
+          "summary": "Mechanism registry row names this organ as the runtime host."
+        },
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operates_through",
+        "target_id": "finance_forecast_evaluation_spine",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.research_and_science_replay_evidence_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "runs_in": [
+      "finance_forecast_evaluation_spine"
+    ],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
+      "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation"
+    ]
+  },
+  "schema_version": "microcosm_mechanism_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/mechanism_sources.json::mechanisms[62:mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine]",
+      "role": "mechanism_registry_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "mechanisms/mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+      "role": "mechanism_input_ref"
+    }
+  ],
+  "statement": "The finance forecast evaluation spine validates copied public finance-evaluation helpers over synthetic market-shaped fixtures through Diebold-Mariano, HLN refusal, SPA/reality-check bootstrap, stationary-bootstrap and MCS exercises, source-module digest anchors, negative cases, body-free receipts, and authority ceilings without live market data, investment advice, track-record claims, optimizer mutation, release, or publication authority.",
+  "status": "active",
+  "title": "validates public finance forecast evaluation spine",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

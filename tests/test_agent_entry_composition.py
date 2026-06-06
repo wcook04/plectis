@@ -1,0 +1,477 @@
+from __future__ import annotations
+
+import copy
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+from microcosm_core.projections.agent_entry_composition import (
+    MACRO_IMPORT_ROUTE_ORGANS,
+    ORGAN_DISCOVERABILITY_MATRIX_COMMAND,
+    ORGAN_DISCOVERABILITY_MATRIX_REF,
+    ORGAN_GLANCE_REF,
+    PROJECTION_AUTHORITY_POSTURE,
+    SELECT_VIEWER_COMMAND,
+    SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND,
+    build_agent_entry_composition,
+    compact_agent_entry_card,
+    compile_paths,
+    validate_agent_entry_composition,
+)
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _build() -> dict:
+    return build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="Microcosm agent entry composition projection",
+        command="pytest",
+    )
+
+
+def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> None:
+    payload = _build()
+
+    assert payload["status"] == "pass"
+    assert payload["authority_posture"] == PROJECTION_AUTHORITY_POSTURE
+    assert payload["release_authority"] is False
+    assert payload["source_mutation_authority"] is False
+    assert payload["provider_call_authority"] is False
+    assert payload["private_root_equivalence_authority"] is False
+    assert payload["selected_viewer"] == "all"
+    assert payload["selected_viewer_entry"]["viewer"] == "all"
+    assert payload["selected_viewer_route"]["route_kind"] == "viewer_route_set"
+    assert set(payload["selected_viewer_route"]["routes"]) == {"type_a_agent", "human"}
+    assert payload["selected_viewer_route"]["selection_command"] == SELECT_VIEWER_COMMAND
+    assert payload["selected_viewer_route"]["source_checkout_selection_command"] == (
+        SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND
+    )
+
+    first_screen = payload["first_screen_type_a_route"]
+    assert first_screen["reader_id"] == "type_a_agent"
+    assert first_screen["route_command"] == "microcosm first-screen --card <project>"
+    assert "source-mutation" in first_screen["anti_overread"]
+    assert "reader_first_screen_routes" in first_screen["source_ref"]
+
+    task_route = payload["task_route"]
+    assert task_route["task_class"] == "agent-entry"
+    assert task_route["primary_organ_id"] == "cold_reader_route_map"
+    assert task_route["first_command"].startswith("microcosm cold-reader-route-map ")
+    assert task_route["evidence_ref"].endswith("[organ_id=cold_reader_route_map]")
+    assert task_route["relevant_organs"]
+    assert all(row["command_runnable_shape"] for row in task_route["relevant_organs"])
+
+    macro_by_id = {row["organ_id"]: row for row in payload["macro_import_route_body_floor"]}
+    assert set(MACRO_IMPORT_ROUTE_ORGANS) <= set(macro_by_id)
+    for organ_id in MACRO_IMPORT_ROUTE_ORGANS:
+        row = macro_by_id[organ_id]
+        assert row["command_runnable_shape"] is True
+        assert row["evidence_refs"]["current_authority_receipt"]
+        assert row["evidence_refs"]["receipt_refs"]
+        assert row["standards"]["standard_ref"].endswith(f"{organ_id}.json")
+        assert row["standards"]["mechanism_ref"] == (
+            f"organ_doctrine_row:{organ_id}.mechanism_binding"
+        )
+
+    assert payload["read_run_order"][0]["kind"] == "selected_viewer_route"
+    assert payload["read_run_order"][0]["run"] == {
+        "type_a_agent": "microcosm first-screen --card <project>",
+        "human": "microcosm hello <project>",
+    }
+    assert payload["read_run_order"][1]["run"] == first_screen["route_command"]
+    assert payload["read_run_order"][2]["run"] == task_route["first_command"]
+    organ_glance = payload["accepted_organ_glance"]
+    assert organ_glance["source_ref"] == ORGAN_GLANCE_REF
+    assert organ_glance["first_family_label"] == "Entry & Reveal"
+    assert organ_glance["family_count"] == 7
+    assert organ_glance["organ_count"] == 82
+    assert organ_glance["capsule_accounting"]["accepted_organ_count"] == 82
+    assert organ_glance["capsule_join_status_counts"] == {
+        "direct": 75,
+        "paper_module_ref_bridge": 7,
+    }
+    assert sum(len(family["organs"]) for family in organ_glance["families"]) == 82
+    cold_reader = organ_glance["families"][0]["organs"][0]
+    assert cold_reader["organ_id"] == "cold_reader_route_map"
+    assert cold_reader["one_line"]
+    assert cold_reader["card"]
+    assert cold_reader["authority_ceiling"]
+    assert cold_reader["claim_ceiling_restated"] == cold_reader["authority_ceiling"]
+    assert cold_reader["first_command"].startswith("microcosm cold-reader-route-map ")
+    assert cold_reader["paper_module_ref"].endswith("cold_reader_route_map.md")
+    assert cold_reader["capsule_id"] == "paper_module.cold_reader_route_map"
+    assert cold_reader["capsule_join_status"] == "direct"
+    assert cold_reader["card_ref"] == "ORGANS.md#cold-reader-route-map"
+    assert cold_reader["drilldown_target"] == "ORGANS.md#cold-reader-route-map"
+    assert payload["read_run_order"][3]["kind"] == "accepted_organ_glance"
+    assert payload["read_run_order"][3]["read"] == [
+        ORGAN_GLANCE_REF,
+        "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line",
+    ]
+    discoverability_route = payload["organ_discoverability_matrix_route"]
+    assert discoverability_route["run"] == ORGAN_DISCOVERABILITY_MATRIX_COMMAND
+    assert ORGAN_DISCOVERABILITY_MATRIX_REF in discoverability_route["read"]
+    assert payload["read_run_order"][4]["kind"] == "organ_discoverability_matrix"
+    assert payload["read_run_order"][4]["run"] == ORGAN_DISCOVERABILITY_MATRIX_COMMAND
+    assert payload["read_run_order"][5]["kind"] == "macro_body_floor"
+    assert "re-entry" in payload["omission_receipt"]["reentry_condition"].lower()
+
+
+def test_agent_entry_card_dogfoods_type_a_and_human_viewer_routes() -> None:
+    payload = _build()
+
+    viewer_modes = {row["viewer"]: row for row in payload["viewer_modes"]}
+    assert set(viewer_modes) == {"type_a_agent", "human"}
+    router = payload["viewer_first_action_router"]
+    assert router["schema"] == "microcosm_viewer_first_action_router_v0"
+    assert set(router["viewer_families"]) == {"type_a_agent", "human"}
+    assert router["select_viewer_command"] == SELECT_VIEWER_COMMAND
+    assert router["source_checkout_select_viewer_command"] == (
+        SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND
+    )
+    assert "no-install invocation hint" in router["source_checkout_boundary"]
+    assert "release" in router["source_checkout_boundary"]
+    assert router["routes"]["type_a_agent"]["first_safe_action"] == (
+        "microcosm first-screen --card <project>"
+    )
+    assert router["routes"]["human"]["first_safe_action"] == "microcosm hello <project>"
+
+    type_a = viewer_modes["type_a_agent"]
+    assert type_a["first_safe_action"] == "microcosm first-screen --card <project>"
+    assert type_a["next_action"] == "microcosm organ-surface-contract --card --root ."
+    assert "source mutation" in type_a["authority_boundary"]
+    assert type_a["evidence_refs"]
+    assert "re-entry" in type_a["reentry_condition"].lower()
+    assert "not" in type_a["anti_overread_warning"].lower()
+
+    human = viewer_modes["human"]
+    assert human["first_safe_action"] == "microcosm hello <project>"
+    assert human["next_action"] == "microcosm tour --card <project>"
+    assert "interpretive/read authority" in human["authority_boundary"]
+    assert "README.md::Public Repo Map" in human["drilldown_if_needed"]
+    assert human["evidence_refs"]
+
+    checks = {row["viewer"]: row for row in payload["entry_experience_checks"]}
+    assert set(checks) == {"type_a_agent", "human"}
+    for check in checks.values():
+        assert check["status"] == "pass"
+        assert check["route_scent"] == "strong"
+        assert check["first_action_visible"] is True
+        assert check["authority_boundary_visible"] is True
+        assert check["evidence_ref_visible"] is True
+        assert check["stop_condition_visible"] is True
+        assert check["reentry_condition_visible"] is True
+        assert check["anti_overread_warning_visible"] is True
+        assert check["failure_codes"] == []
+
+
+def test_agent_entry_card_keeps_human_viewer_first_when_selected() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="agent-entry",
+        viewer="human",
+        command="pytest",
+    )
+
+    assert payload["status"] == "pass"
+    assert payload["selected_viewer"] == "human"
+    assert payload["selected_viewer_entry"]["viewer"] == "human"
+    assert payload["selected_viewer_route"]["viewer"] == "human"
+    assert payload["read_run_order"][0]["kind"] == "selected_viewer_route"
+    assert payload["read_run_order"][0]["run"] == "microcosm hello <project>"
+    assert payload["read_run_order"][1]["kind"] == "optional_drilldown_after_human_first_action"
+    assert {
+        row["kind"] for row in payload["read_run_order"][:2]
+    } == {
+        "selected_viewer_route",
+        "optional_drilldown_after_human_first_action",
+    }
+
+
+def test_agent_entry_card_rejects_missing_human_viewer_route() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["viewer_modes"] = [
+        row for row in bad_payload["viewer_modes"] if row["viewer"] != "human"
+    ]
+    bad_payload["entry_experience_checks"] = [
+        row for row in bad_payload["entry_experience_checks"] if row["viewer"] != "human"
+    ]
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert "missing_viewer_mode" in {error["code"] for error in result["errors"]}
+    assert "viewer_entry_experience_check_not_passed" in {
+        error["code"] for error in result["errors"]
+    }
+
+
+def test_agent_entry_card_rejects_weak_viewer_route_scent() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["viewer_modes"][0]["branch_label"] = "reader"
+    bad_payload["entry_experience_checks"] = [
+        row
+        for row in bad_payload["entry_experience_checks"]
+        if row["viewer"] != "type_a_agent"
+    ]
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert "viewer_entry_experience_blocked" in {
+        error["code"] for error in result["errors"]
+    }
+    assert "viewer_entry_experience_check_not_passed" in {
+        error["code"] for error in result["errors"]
+    }
+
+
+def test_agent_entry_card_rejects_undereferenced_macro_body_floor() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["macro_import_route_body_floor"] = [
+        row
+        for row in bad_payload["macro_import_route_body_floor"]
+        if row["organ_id"] != "standards_meta_diagnostics"
+    ]
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert "missing_macro_import_route_body" in {error["code"] for error in result["errors"]}
+
+
+def test_agent_entry_card_rejects_non_runnable_task_command() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["task_route"]["first_command"] = "see AGENT_ROUTES.md"
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert "task_route_command_not_runnable_shape" in {
+        error["code"] for error in result["errors"]
+    }
+
+
+def test_agent_entry_card_allows_selected_public_task_route() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="ai-safety",
+        viewer="human",
+        command="pytest",
+    )
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == "ai-safety"
+    assert payload["task_route"]["selected_task_class"] == "ai-safety"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "ai-safety"
+    assert payload["task_route"]["primary_organ_id"] == (
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    assert payload["validation"]["errors"] == []
+
+
+def test_agent_entry_card_aliases_skeptical_review_to_safety_route() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="skeptical-review",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "ai-safety"
+    assert payload["task_route"]["task_class"] == "ai-safety"
+    assert card["task_route"]["selected_task_class"] == "ai-safety"
+    assert "agent-entry-composition --task ai-safety" in card["drilldowns"]["full_json"]
+
+
+def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="not-a-real-task-class",
+        viewer="human",
+        command="pytest",
+    )
+
+    assert payload["status"] == "blocked"
+    assert payload["task_route"]["selected_task_class"] == "not-a-real-task-class"
+    assert payload["task_route"]["selected_task_route_found"] is False
+    assert payload["task_route"]["task_class"] == "agent-entry"
+    assert "missing_selected_task_route" in {
+        error["code"] for error in payload["validation"]["errors"]
+    }
+
+
+def test_agent_entry_card_rejects_hidden_discoverability_matrix_route() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["organ_discoverability_matrix_route"]["run"] = "see ORGANS.md"
+    bad_payload["organ_discoverability_matrix_route"]["read"] = []
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert {
+        "discoverability_matrix_command_not_runnable_shape",
+        "discoverability_matrix_source_ref_missing",
+    } <= {error["code"] for error in result["errors"]}
+
+
+def test_agent_entry_card_rejects_incomplete_accepted_organ_glance() -> None:
+    payload = _build()
+    bad_payload = copy.deepcopy(payload)
+    bad_payload["accepted_organ_glance"]["families"][0]["organs"][0]["one_line"] = ""
+
+    result = validate_agent_entry_composition(bad_payload)
+
+    assert result["status"] == "blocked"
+    assert "accepted_organ_glance_row_incomplete" in {
+        error["code"] for error in result["errors"]
+    }
+
+
+def test_agent_entry_card_cli_writes_projection_and_receipt(tmp_path: Path) -> None:
+    payload = compile_paths(
+        root=MICROCOSM_ROOT,
+        task="agent-entry",
+        out=tmp_path,
+        command="pytest",
+    )
+
+    card_path = tmp_path / "agent_entry_composition_card.json"
+    receipt_path = tmp_path / "agent_entry_composition_receipt.json"
+    assert payload["status"] == "pass"
+    assert card_path.exists()
+    assert receipt_path.exists()
+
+    card = json.loads(card_path.read_text(encoding="utf-8"))
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert card["task_route"]["task_class"] == "agent-entry"
+    assert receipt["selected_task_class"] == "agent-entry"
+    assert receipt["selected_viewer"] == "all"
+    assert receipt["selected_viewer_route_kind"] == "viewer_route_set"
+    assert card["artifact_paths"]["card_path"].startswith("<repo-root>/")
+    assert card["artifact_paths"]["receipt_path"].startswith("<repo-root>/")
+    assert card["artifact_paths"]["card_path"].endswith(
+        "/agent_entry_composition_card.json"
+    )
+    assert card["artifact_paths"]["receipt_path"].endswith(
+        "/agent_entry_composition_receipt.json"
+    )
+    assert receipt["artifact_paths"]["card_path"].startswith("<repo-root>/")
+    assert receipt["artifact_paths"]["receipt_path"].startswith("<repo-root>/")
+    assert receipt["artifact_paths"]["card_path"].endswith(
+        "/agent_entry_composition_card.json"
+    )
+    assert receipt["artifact_paths"]["receipt_path"].endswith(
+        "/agent_entry_composition_receipt.json"
+    )
+    assert receipt["card_path"].startswith("<repo-root>/")
+    assert receipt["receipt_path"].startswith("<repo-root>/")
+    assert receipt["card_path"].endswith("/agent_entry_composition_card.json")
+    assert receipt["receipt_path"].endswith("/agent_entry_composition_receipt.json")
+    assert receipt["validation"]["status"] == "pass"
+    assert receipt["validation"]["errors"] == []
+    assert receipt["validation_errors"] == []
+    assert receipt["accepted_organ_glance"] == {
+        "source_ref": ORGAN_GLANCE_REF,
+        "family_count": 7,
+        "organ_count": 82,
+        "capsule_join_status_counts": {
+            "direct": 75,
+            "paper_module_ref_bridge": 7,
+        },
+        "drilldown": "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line",
+    }
+    assert set(receipt["viewer_modes"]) == {"type_a_agent", "human"}
+    assert all(row["status"] == "pass" for row in receipt["entry_experience_checks"])
+    assert receipt["macro_import_route_body_floor"] == list(MACRO_IMPORT_ROUTE_ORGANS)
+
+
+def test_microcosm_cli_exposes_agent_entry_composition_card(tmp_path: Path) -> None:
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(MICROCOSM_ROOT / "src")
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "microcosm_core",
+            "agent-entry-composition",
+            "--root",
+            str(MICROCOSM_ROOT),
+            "--task",
+            "agent-entry",
+            "--viewer",
+            "human",
+            "--out",
+            str(tmp_path),
+            "--check",
+        ],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "pass"
+    assert payload["selected_viewer"] == "human"
+    assert payload["selected_viewer_route"]["viewer"] == "human"
+    assert payload["selected_viewer_route"]["first_safe_action"] == "microcosm hello <project>"
+    assert payload["viewer_first_action_router"]["source_checkout_select_viewer_command"] == (
+        SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND
+    )
+    assert payload["read_run_order"][0]["kind"] == "selected_viewer_route"
+    assert payload["read_run_order"][0]["run"] == "microcosm hello <project>"
+    assert payload["task_route"]["task_class"] == "agent-entry"
+    assert payload["first_screen_type_a_route"]["reader_id"] == "type_a_agent"
+    assert {row["viewer"] for row in payload["viewer_modes"]} == {
+        "type_a_agent",
+        "human",
+    }
+    assert "cold_reader_route_map" in {
+        row["organ_id"] for row in payload["macro_import_route_body_floor"]
+    }
+    assert (tmp_path / "agent_entry_composition_card.json").exists()
+    assert (tmp_path / "agent_entry_composition_receipt.json").exists()
+
+
+def test_microcosm_cli_agent_entry_composition_card_is_compact() -> None:
+    payload = _build()
+    card = compact_agent_entry_card(payload)
+
+    assert card["schema"] == "microcosm_agent_entry_composition_compact_card_v0"
+    assert card["compact_projection_of"] == "microcosm_agent_entry_composition_projection_v0"
+    assert card["status"] == "pass"
+    assert len(json.dumps(card, sort_keys=True)) < 16000
+    assert "null" not in json.dumps(card, sort_keys=True)
+    assert card["viewer_first_action_router"]["select_viewer_command"] == (
+        "microcosm agent-entry-composition --task agent-entry "
+        "--viewer {type_a_agent|human} --card"
+    )
+    assert card["task_route"]["primary_organ_id"] == "cold_reader_route_map"
+    assert "relevant_organs" not in card["task_route"]
+    assert card["accepted_organ_glance"]["organ_count"] == 82
+    assert "families" not in card["accepted_organ_glance"]
+    assert {
+        row["organ_id"] for row in card["macro_import_route_body_floor"]
+    } == set(MACRO_IMPORT_ROUTE_ORGANS)
+    assert "receipt_refs" in card["macro_import_route_body_floor"][0]
+    assert card["authority_ceiling"] == {
+        "release_authority": False,
+        "source_mutation_authority": False,
+        "provider_call_authority": False,
+        "private_root_equivalence_authority": False,
+    }

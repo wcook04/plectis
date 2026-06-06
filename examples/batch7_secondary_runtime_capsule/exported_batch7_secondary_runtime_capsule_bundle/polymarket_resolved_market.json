@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "polymarket_resolved_market",
+  "error_codes": [
+    "BATCH7_SECONDARY_POLYMARKET_RESOLVED_MARKET_GATED"
+  ],
+  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
+}

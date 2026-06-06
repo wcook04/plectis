@@ -1,0 +1,186 @@
+{
+  "anti_claim": "This Batch-8 structural_theses fixture accepts exact copied macro-source digest evidence, public synthetic structural-thesis exercises, and stable negative-case codes only. It does not authorize financial advice, investment recommendations, live market data, provider dispatch, portfolio action, publication, or release.",
+  "authority_boundary": "public_structural_thesis_fixture_over_exact_macro_source_not_financial_advice_or_release_authority",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_structural_theses_public_fixture_not_financial_advice_or_release_authority",
+    "financial_advice_authorized": false,
+    "investment_recommendation_authorized": false,
+    "live_market_data_authorized": false,
+    "portfolio_action_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "python_import": true,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "batch8_structural_theses_capsule",
+  "kind_name": "Batch 8 Structural Theses capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public synthetic structural thesis rows",
+      "synthetic realized return rows",
+      "sampling-frame counters",
+      "source refs and digests",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_macro_source_runtime_fixture",
+    "forbidden_public_inputs": [
+      "live market data",
+      "provider payload bodies",
+      "portfolio holdings",
+      "recipient or publication state",
+      "keys",
+      "credentials"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "thesis_result_count",
+      "family_memory_count",
+      "negative_exercises",
+      "source_module_manifest",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch8_structural_theses_capsule",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch8_structural_theses_capsule_result.json",
+    "batch8_structural_theses_capsule_board.json",
+    "batch8_structural_theses_capsule_validation_receipt.json",
+    "batch8_structural_theses_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch8_structural_theses_capsule",
+    "source_pattern_id_sample": [
+      "structural_theses_cp1_cp2_family"
+    ],
+    "used_by_organs": [
+      "batch8_structural_theses_capsule"
+    ]
+  },
+  "required_fields": [
+    "theses",
+    "realized_returns",
+    "sampling_frame",
+    "negative_exercises",
+    "source_module_manifest",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch8_structural_theses_capsule/input",
+      "role": "public_structural_theses_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_source_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch8_structural_theses_capsule",
+  "standard_payload": {
+    "anti_purpose": "Financial advice, investment recommendation, live market-data validation, provider dispatch, portfolio action, publication approval, release approval, or fixture-only source pointers without copied body evidence.",
+    "failure_modes": [
+      "copied structural_theses.py body drifts from source",
+      "required structural-thesis anchors disappear",
+      "winner/loser/control semantics no longer validate",
+      "loser evidence is dropped from the family",
+      "negative control leaks into confirmed-claim state",
+      "forward gate admits a refuted pattern",
+      "survivor-only corpora pass validation",
+      "receipts include source bodies, provider payloads, or private runtime state"
+    ],
+    "ontology": "A public-safe exact-source runtime exercise of the structural_theses CP1/CP2 family builder and validator.",
+    "teleology": "Let a cold reader rerun the structural-thesis winner, loser, and negative-control guardrails without live data, provider calls, portfolio state, or publication authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch8_structural_theses_capsule",
+      "receipt_id": "receipt.microcosm.batch8_structural_theses_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exact copied structural_theses.py source",
+    "verify required source anchors",
+    "build a public fixture family with winners, loser, and negative control",
+    "require loser evidence to flow through as valid evidence",
+    "require negative control to stay outside confirmed-claim state",
+    "reject survivor-only, forward-gate-breach, and control-leak cases",
+    "keep financial advice, investment recommendation, live market data, provider calls, portfolio action, publication, and release authority false"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_structural_theses_capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 3,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_structural_theses_capsule validate-bundle --input examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle --out /tmp/batch8_structural_theses_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch8_structural_theses_capsule"
+  },
+  "wave": "w1_batch8_structural_theses_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch8_structural_theses_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 8 Structural Theses capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch8_structural_theses_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 8 Structural Theses capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch8_structural_theses_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch8_structural_theses_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch8_structural_theses_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch8_structural_theses_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch8_structural_theses_capsule"
+  ],
+  "anti_claims": [
+    "This Batch-8 structural_theses fixture accepts exact copied macro-source digest evidence, public synthetic structural-thesis exercises, and stable negative-case codes only. It does not authorize financial advice, investment recommendations, live market data, provider dispatch, portfolio action, publication, or release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch8_structural_theses_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch8_structural_theses_capsule",
+    "receipt_id": "receipt.microcosm.batch8_structural_theses_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, and public_private_boundary."
+  }
+}

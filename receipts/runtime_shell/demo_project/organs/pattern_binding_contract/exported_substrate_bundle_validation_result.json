@@ -391,7 +391,7 @@
   "card_schema_version": "pattern_binding_contract_card_v1",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "counts_as_real_substrate_progress": true,
-  "created_at": "2026-05-30T21:36:33+00:00",
+  "created_at": "2026-05-31T10:07:16+00:00",
   "duplicate_pattern_ids": [],
   "error_codes": [],
   "expected_negative_cases": {},
@@ -574,12 +574,12 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1780164529898363951,
+      "mtime_ns": 1780216864745759522,
       "path": "src/microcosm_core/organs/pattern_binding_contract.py",
-      "size_bytes": 82208
+      "size_bytes": 82387
     }
   ],
-  "freshness_digest": "sha256:b353d04064ec3d13c1ea7ee67067ac1307c276af14e72de9fd071a975952f006",
+  "freshness_digest": "sha256:6d6e5571465ac3f2419455312578206237507dcad01fe5c5584a77db8c620a6f",
   "freshness_status": "current",
   "input_mode": "exported_substrate_bundle",
   "legacy_runtime_metadata_only_row_count": 2,

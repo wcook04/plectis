@@ -50,6 +50,11 @@ by hand:
 
 ```bash
 microcosm hello .
+microcosm hello --reader cold_cloner .
+microcosm hello --reader reviewer .
+microcosm hello --reader skeptical_reviewer .
+microcosm hello --reader agent .
+microcosm hello --reader domain_specialist .
 microcosm first-screen --card .
 microcosm tour --card .
 microcosm status --card .
@@ -57,6 +62,15 @@ microcosm authority --card
 microcosm workingness --card
 microcosm legibility-scorecard
 ```
+
+The reader aliases are shortcuts into existing first-screen branches, not new
+routes: `cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch,
+`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch,
+and `agent` / `type-a-agent` maps to the repo-reading agent branch.
+`domain_specialist` / `domain-specialist` is the specialty reader branch; it
+points to the generated organ specialty index without claiming domain
+correctness or expert review. The card echoes the requested alias or route id
+for copy/paste while resolving it to the selected branch.
 
 Read those outputs as the first contract: `microcosm hello` is the no-write
 human card, `microcosm first-screen --card` is the compact JSON reader map,
@@ -78,6 +92,14 @@ Do not launch multiple raw `pytest` processes against this root in parallel
 unless each one uses its own `--basetemp`. The Makefile targets already isolate
 pytest scratch roots per run; direct parallel subsets must do the same or they
 can race while copying fixture trees under `.microcosm/test-tmp/pytest`.
+
+The standalone clone does not currently provision Black or Ruff in the default
+or `.[test]` dependency path. Treat a missing `python -m black` / formatter
+module as expected unless `pyproject.toml` changes. For organ edits, preserve
+local style and verify with `python -m py_compile` for touched Python files,
+focused pytest with an isolated `--basetemp`, JSON validity or owner builders,
+and the relevant checker commands. Do not add formatter commands to closeout
+claims unless package metadata provides them.
 
 If you need a bounded standalone review artifact, run
 `make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export`. This
@@ -151,61 +173,33 @@ evidence boundaries, not trading or financial advice.
 
 Do not read organs from this index alone. The generated atlas is the contract:
 
+- **[AGENT_ROUTES.md](AGENT_ROUTES.md)** — the generated task-class route
+  table for agents: task class, relevant organ(s), first command, authority
+  ceiling, evidence/receipt ref, stop condition, and drilldown target.
+- **[ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line)** —
+  the generated one-line organ ladder, grouped by canonical family order with
+  Entry & Reveal first.
 - **[ORGANS.md](ORGANS.md)** — the comprehension card for every organ: what it
   makes visible (plain language), what an agent runs it for, its first command,
   its evidence class, and what it does **not** authorize.
+- **[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)** — the
+  generated human specialty index; use it when the reader starts from a domain
+  rather than an agent task class.
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — the system at a glance: the local
   runtime loop, the claim/evidence loop, the kernel primitives, and how the
   seven families sit on one shared spine.
 
 The atlas is regenerated from substrate with
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write` and gated by
-`tests/test_organ_atlas.py`; do not hand-edit `ORGANS.md`/`ARCHITECTURE.md`.
+`tests/test_organ_atlas.py`; do not hand-edit `AGENT_ROUTES.md`,
+`ORGANS.md`, `ARCHITECTURE.md`, or `atlas/agent_task_routes.json`.
 Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation` are
-documented per organ in [ORGANS.md](ORGANS.md). The accepted organs cluster into seven
-families:
-
-### Entry & Reveal (2)
-
-How a cold human or agent first meets Microcosm and what the short guided path actually proves.
-
-`cold_reader_route_map`, `public_reveal_walkthrough`
-
-### Architecture & Navigation (8)
-
-The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
-
-`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`, `routing_anti_patterns_registry`
-
-### Formal Math & Proof (17)
-
-The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.
-
-`proof_diagnostic_evidence_spine`, `formal_math_readiness_gate`, `corpus_readiness_mathlib_absence_gate`, `mathematical_strategy_atlas_hypothesis_scorer`, `tactic_portfolio_availability_probe`, `target_shape_tactic_routing_gate`, `lean_std_premise_index`, `formal_math_premise_retrieval`, `formal_math_verifier_trace_repair_loop`, `formal_evidence_cell_anchor_resolver`, `undeclared_library_prior_symbol_classifier`, `ring2_premise_retrieval_precision_recall_harness`, `formal_math_lean_proof_witness`, `verifier_lab_kernel`, `verifier_lab_execution_spine`, `certificate_kernel_execution_lab`, `proof_derived_governed_mutation_authorization`
-
-### Agent Reliability & Safety Replays (12)
-
-Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.
-
-`agent_benchmark_integrity_anti_gaming_replay`, `agent_monitor_redteam_falsification_replay`, `agent_sabotage_scheming_monitor_replay`, `agent_memory_temporal_conflict_replay`, `sleeper_memory_poisoning_quarantine_replay`, `mcp_tool_authority_replay`, `belief_state_process_reward_replay`, `agent_sandbox_policy_escape_replay`, `indirect_prompt_injection_information_flow_policy_replay`, `agentic_vulnerability_discovery_patch_proof_replay`, `agent_route_observability_runtime`, `provider_context_recipe_budget_policy`
-
-### Research & Science Replays (5)
-
-Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.
-
-`research_replication_rubric_artifact_replay`, `spatial_world_model_counterfactual_simulation_replay`, `materials_chemistry_closed_loop_lab_safety_replay`, `mechanistic_interpretability_circuit_attribution_replay`, `prediction_oracle_reconciliation`
-
-### Import, Projection & Drift (2)
-
-The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.
-
-`macro_projection_import_protocol`, `world_model_projection_drift_control_room`
-
-### Work, Landing & Continuity (3)
-
-How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.
-
-`mission_transaction_work_spine`, `durable_agent_work_landing_replay`, `bridge_phase_continuity_runtime`
+documented per organ in [ORGANS.md](ORGANS.md). The accepted organs cluster into
+generated families in [ORGANS.md#families](ORGANS.md#families). Do not copy that
+family inventory into AGENTS; agents enter through [AGENT_ROUTES.md](AGENT_ROUTES.md),
+while the first faithful inventory pass is the generated
+[one-line organ ladder](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line)
+and humans can also browse through [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty).
 
 ## Concept And Mechanism Entry
 

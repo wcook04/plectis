@@ -59,6 +59,18 @@
       "role": "negative case: unprobed tactic admitted"
     },
     {
+      "path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/shape_preferred_tactic_overridden.json",
+      "role": "negative case: declared tactic overrides computed target-shape preference"
+    },
+    {
+      "path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unknown_shape_fallback.json",
+      "role": "negative case: unknown target shape bypasses default fallback preference"
+    },
+    {
+      "path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/preferred_unavailable_fallback.json",
+      "role": "negative case: unavailable preferred tactic bypasses fallback selection"
+    },
+    {
       "path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/proof_body_leakage.json",
       "role": "negative case: proof body leakage"
     },
@@ -82,6 +94,9 @@
   "negative_case_ids": [
     "unavailable_tactic_admitted",
     "unprobed_tactic_allowed",
+    "shape_preferred_tactic_overridden",
+    "unknown_shape_fallback",
+    "preferred_unavailable_fallback",
     "proof_body_leakage",
     "post_execution_route",
     "release_overclaim"

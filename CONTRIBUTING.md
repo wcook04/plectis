@@ -21,6 +21,10 @@ make test
 make ci
 ```
 
+Before a commit, `make validate` runs the full `ci` floor plus the
+doctrine-lattice drift check in one command, and `make check` is a sub-second
+organ-registry integrity preflight you can run on every save.
+
 Before choosing a file to edit, use the README
 [Public Repo Map](README.md#public-repo-map) and
 [Component Map](README.md#component-map). Treat those sections as the
@@ -39,6 +43,11 @@ cards into CI logs. A healthy terminal summary includes
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core hello --reader cold_cloner .
+PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .
+PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
+PYTHONPATH=src python3 -m microcosm_core hello --reader domain_specialist .
+PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card
@@ -47,6 +56,13 @@ PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
+
+The reader-specific `hello` rows in that source-form smoke are branch checks,
+not new doctrine: `cold_cloner` / `cold-cloner`, `skeptical_reviewer` /
+`skeptical-reviewer`, and `agent` / `type-a-agent` are aliases for existing
+first-screen routes, while `domain_specialist` / `domain-specialist` is the
+specialty-reader branch that points back to the generated organ specialty
+index.
 
 `make clean` removes the smoke receipt directory and the shared pytest scratch
 root while leaving the rest of project-local `.microcosm/` state alone.
@@ -91,6 +107,7 @@ After install, the fuller first-screen route is:
 
 ```bash
 .venv/bin/microcosm hello .
+.venv/bin/microcosm first-screen --card .
 .venv/bin/microcosm tour --card .
 .venv/bin/microcosm status --card .
 .venv/bin/microcosm authority --card
@@ -103,13 +120,18 @@ source form:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core hello --reader cold_cloner .
+PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .
+PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
+PYTHONPATH=src python3 -m microcosm_core hello --reader domain_specialist .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
 ```
 
-That is the source-only minimum: map, behavior proof, then status card. The
-smoke section above lists the fuller source-form check set when you need the
-authority, workingness, legibility, version, and stripping-boundary cards too.
+That is the source-only minimum: map, reader branches, behavior proof, then
+status card. The smoke section above lists the fuller source-form check set
+when you need the authority, workingness, legibility, version, and
+stripping-boundary cards too.
 
 ## Standalone Candidate Export
 

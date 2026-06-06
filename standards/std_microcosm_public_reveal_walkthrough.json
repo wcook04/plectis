@@ -14,7 +14,16 @@
     "release_authority": false,
     "source_body_authority": "only_when_digest_verified_by_source_module_manifest_and_validator",
     "standard_authority": "walkthrough_schema_and_validator_expectation_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#public_reveal_walkthrough",
+    "claim_ceiling_ref": "core/organ_registry.json#public_reveal_walkthrough.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "public_reveal_walkthrough",
@@ -34,6 +43,8 @@
     "rule": "walkthrough receipts must list omitted authority surfaces"
   },
   "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.public_reveal_walkthrough",
+    "mechanism_ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
     "module_slug": "public_reveal_walkthrough",
     "required": true
   },
@@ -77,7 +88,11 @@
     "receipt must cite the ten-minute steps, command refs, evidence refs, public runtime refs, negative-case coverage, secret-exclusion scan, real-runtime receipt status, and anti-claim"
   ],
   "receipt_refs": [
-    "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json"
+    "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+    "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+    "receipt.microcosm.public_reveal_walkthrough"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#public_reveal_walkthrough",
@@ -103,7 +118,7 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "walkthrough refs must stay public-root relative or explicit localhost URLs"
@@ -125,6 +140,43 @@
       "role": "copied_non_secret_macro_body_floor_manifest"
     }
   ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "hosted_deployment_authorized": false,
+      "private_root_equivalence_authorized": false,
+      "provider_payload_exported": false,
+      "public_release_authorized": false,
+      "recipient_send_authorized": false,
+      "secret_or_credential_material_exported": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "public_reveal_first_slice_execution_receipt_body_import",
+      "public_reveal_runtime_shell_reorientation_receipt_body_import",
+      "public_reveal_clean_clone_state_fixture_receipt_body_import",
+      "public_reveal_public_substrate_boundary_policy_body_import",
+      "public_reveal_walkthrough_control_plane_source_body_import"
+    ],
+    "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body",
+      "public_python_source_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported public reveal bundle for copied macro reconstruction receipt, boundary-policy, and public organ source bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "public_reveal_walkthrough_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "standard_id": "std_microcosm_public_reveal_walkthrough",
   "standard_payload": {
     "anti_purpose": "Marketing-only reveal copy without runnable command or evidence refs.",
@@ -141,15 +193,54 @@
     ],
     "ontology": "A short public entry path that ties product claim, commands, substrate refs, evidence refs, and authority ceiling.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm legible to a cold technical reader in under ten minutes."
+    "teleology": "Make Microcosm legible to a cold technical reader in under ten minutes.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": null,
+      "receipt_id": null,
+      "organ_authority_receipt": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "bounded public reveal runtime and digest-verified body-import witness only; accepted organ registry and receipt anchors do not grant release, provider dispatch, private-root equivalence, whole-system correctness, or general product authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_by_live_work_ledger_collision",
+    "atlas_reentry_refs": [
+      "cap_quick_public_reveal_atlas_edge_population_wait_147e39c7a896",
+      "core/organ_atlas.json::organs[organ_id=public_reveal_walkthrough].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=public_reveal_walkthrough].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=public_reveal_walkthrough].code_loci"
+    ],
+    "authority_boundary": "Structured doctrine population binds source-backed capsule, mechanism, standard, Markdown projection, and exact source-module manifest evidence while deferring the atlas source-row edit to avoid a live Work Ledger collision; generated atlas docs, generated coverage projections, copied body presence, reveal visuals, evidence totals, provider payloads, secret material, release claims, and private-root equivalence remain outside this standard's authority.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_public_reveal_walkthrough_population_has_capsule_mechanism_and_manifest_hygiene",
+      "tests/test_public_reveal_walkthrough.py",
+      "microcosm_core.organs.public_reveal_walkthrough run",
+      "microcosm_core.organs.public_reveal_walkthrough run-reveal-bundle"
+    ]
+  },
   "validation_rules": [
     "require at least five walkthrough steps within a ten-minute budget",
     "require commands and evidence refs for each reveal move",
     "reject release, hosting, publication, provider, private-equivalence, and whole-system-correctness overclaims",
     "require secret-exclusion scan and real-runtime receipts with bodies outside receipt payloads",
-    "require exported reveal bundles to verify copied macro reconstruction receipt and boundary-policy bodies through source_module_manifest.json"
+    "require fixture cards to carry a passing exported-bundle real_lane_witness",
+    "require exported reveal bundles to verify copied macro reconstruction receipt, boundary-policy, and public organ source bodies through source_module_manifest.json",
+    "require focused tests to exercise the advertised microcosm compile/explain scratch path"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -158,13 +249,37 @@
       "evidence_ref_presence",
       "negative_case_coverage",
       "authority_ceiling",
-      "source_module_manifest_digest_and_anchor_verification"
+      "source_module_manifest_digest_and_anchor_verification",
+      "real_lane_witness",
+      "scratch_compile_explain_commands"
     ],
     "required": true,
     "validator_id": "validator.microcosm.public_reveal_walkthrough"
   },
   "validator_refs": [
-    "microcosm_core.organs.public_reveal_walkthrough"
+    "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+    "python -m microcosm_core.organs.public_reveal_walkthrough run-reveal-bundle --input examples/public_reveal_walkthrough/exported_public_reveal_bundle --out receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough",
+    "tests/test_public_reveal_walkthrough.py::test_public_reveal_scratch_compile_explain_commands_are_copy_paste_valid",
+    "validator.microcosm.public_reveal_walkthrough"
   ],
-  "wave": "w1_public_reveal_legibility"
+  "wave": "w1_public_reveal_legibility",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.public_reveal_walkthrough.author",
+      "status": "planned",
+      "purpose": "create a valid Public reveal walkthrough instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.public_reveal_walkthrough.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Public reveal walkthrough without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.public_reveal_walkthrough.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_public_reveal_walkthrough and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

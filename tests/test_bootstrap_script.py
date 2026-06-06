@@ -91,6 +91,7 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
     fake_python.chmod(0o755)
 
     env = os.environ.copy()
+    env.pop("PYTHONPATH", None)
     env["MICROCOSM_PYTHON"] = str(fake_python)
     env["MICROCOSM_FAKE_PYTHON_ARGS"] = str(argv_log)
 
@@ -110,9 +111,11 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
         "suite: first-wave",
         f"receipt: {receipt}",
         f"python: {fake_python}",
+        "pythonpath: src",
         (
-            f"command: {fake_python} -m microcosm_core.cold_clone_probe "
-            f"--suite first-wave --emit {receipt}"
+            f"command: PYTHONPATH=src {fake_python} -m "
+            f"microcosm_core.cold_clone_probe --suite first-wave "
+            f"--emit {receipt}"
         ),
         "next: README.md#public-repo-map and README.md#component-map",
     ]

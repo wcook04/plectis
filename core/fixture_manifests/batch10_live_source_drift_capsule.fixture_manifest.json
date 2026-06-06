@@ -1,0 +1,41 @@
+{
+  "fixture_id": "first_wave.batch10_live_source_drift_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch10_live_source_drift_capsule/input",
+  "organ_id": "batch10_live_source_drift_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_mission_transaction_authority": false,
+      "live_route_selection_authority": false,
+      "live_work_ledger_authority": false,
+      "private_runtime_state_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 4,
+    "body_material_ids": [
+      "standard_option_surface_source",
+      "mission_transaction_landing_preflight_source",
+      "work_landing_tool_source",
+      "work_ledger_tool_source"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_workflow_tool_body",
+      "public_macro_work_ledger_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/... inside the exported Batch10 live source drift bundle for copied option-surface, mission-transaction, work-landing, and Work Ledger bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "source_manifest_refs": [
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

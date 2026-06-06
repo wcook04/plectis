@@ -1,0 +1,197 @@
+{
+  "anti_claim": "The Engine Room demo validates bounded public capsule composition only. It does not export private macro run state, credentials, provider/browser state, raw operator threads, third-party clones, release approval, publication authority, or private-root equivalence.",
+  "authority_boundary": "public_engine_room_composition_demo_not_release_or_private_root_authority",
+  "authority_ceiling": {
+    "complete_security_proof": false,
+    "frontier_theorem_prover": false,
+    "private_root_equivalence": false,
+    "production_ready": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "engine_room_demo",
+  "kind_name": "Engine Room demo",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public capsule ids and target ids",
+      "public fixture case ids and stable error codes",
+      "bounded fixture execution summaries",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_engine_room_composition_demo",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private macro run state",
+      "third-party cloned corpus content",
+      "publication operation state"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "expected_jewel_targets",
+      "case_count",
+      "positive_case_count",
+      "negative_case_count",
+      "observed_negative_case_count",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.engine_room_demo",
+    "required": true
+  },
+  "receipt_expectations": [
+    "engine_room_demo_result.json",
+    "engine_room_demo_board.json",
+    "engine_room_demo_validation_receipt.json",
+    "engine_room_demo_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#engine_room_demo",
+    "covered_engine_room_targets": [
+      "lean_and_or_proof_search",
+      "lean_statement_only_hammer",
+      "lean_adversarial_ablation",
+      "lean_blind_tactic_policy",
+      "metabolism_runtime",
+      "metabolism_reconciler",
+      "command_run_singleflight",
+      "generated_projection_drift_gate",
+      "derived_fact_provider_engine",
+      "public_projection_leak_gate",
+      "egress_self_compliance_gate",
+      "navigation_fitness_benchmark",
+      "bridge_campaign_dag",
+      "annex_knowledge_router"
+    ],
+    "used_by_organs": [
+      "engine_room_demo"
+    ]
+  },
+  "required_fields": [
+    "expected_jewel_targets",
+    "positive_case_count",
+    "negative_case_count",
+    "observed_negative_case_count",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "composition_runner",
+      "path": "src/microcosm_core/engine_room/demo.py",
+      "role": "staged_engine_room_capsule_demo_and_audit_source"
+    },
+    {
+      "field": "accepted_organ_wrapper",
+      "path": "src/microcosm_core/organs/engine_room_demo.py",
+      "role": "accepted_microcosm_organ_receipt_writer"
+    },
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/engine_room_demo/input",
+      "role": "positive_and_negative_demo_contract_cases"
+    }
+  ],
+  "standard_id": "std_microcosm_engine_room_demo",
+  "standard_payload": {
+    "anti_purpose": "A green receipt that hides missing capsule surfaces, omits the negative target-missing case, treats staged exercises as production readiness, or implies private-root equivalence.",
+    "failure_modes": [
+      "expected jewel target inventory drifts from the 14 Engine Room targets",
+      "one or more staged capsule source, fixture, manifest, paper, standard, or test surfaces goes missing",
+      "positive controller audit passes without running the staged capsule exercise chain",
+      "negative missing-target fixture stops producing ENGINE_ROOM_EXPECTED_TARGET_MISSING",
+      "composition organ is absent from registry, acceptance, or atlas shared surfaces",
+      "receipt claims production readiness, release authority, frontier theorem-proving, complete security proof, provider dispatch, or private-root equivalence",
+      "receipt exports private macro run state, credentials, provider/browser state, raw operator threads, or copied body text"
+    ],
+    "ontology": "A public-safe accepted composition organ that folds the staged Engine Room capsule audit into one runnable Microcosm surface with positive and negative fixture cases.",
+    "teleology": "Let a cold reader run one command that proves the 14 Engine Room jewel targets are present, public-safe, fixture-exercised, shared-surface integrated, and bounded by explicit anti-claims.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.engine_room_demo",
+      "receipt_id": "receipt.microcosm.engine_room_demo",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly 14 covered Engine Room jewel targets",
+    "execute the staged Engine Room capsule demo over public fixtures",
+    "verify every staged capsule owns its module, fixture manifest, standard, paper module, fixture input, and test surface",
+    "observe the missing-target negative fixture",
+    "keep production_ready, private_root_equivalence, frontier_theorem_prover, complete_security_proof, provider_dispatch, publication_authorized, release_authorized, and source_mutation_authorized false",
+    "receipts may expose refs, counts, target ids, case ids, and omission-safe summaries but not private macro run state or copied body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+    "expected_jewel_count": 14,
+    "expected_negative_case_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.engine_room_demo run-engine-room-demo-bundle --input fixtures/first_wave/engine_room_demo/input --out /tmp/engine_room_demo_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.engine_room_demo"
+  },
+  "wave": "w1_engine_room_demo",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.engine_room_demo.author",
+      "status": "planned",
+      "purpose": "create a valid Engine Room demo instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.engine_room_demo.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Engine Room demo without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.engine_room_demo.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_engine_room_demo and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_engine_room_demo.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.engine_room_demo"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.engine_room_demo"
+  ],
+  "anti_claims": [
+    "The Engine Room demo validates bounded public capsule composition only. It does not export private macro run state, credentials, provider/browser state, raw operator threads, third-party clones, release approval, publication authority, or private-root equivalence.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_engine_room_demo",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.engine_room_demo",
+    "receipt_id": "receipt.microcosm.engine_room_demo",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

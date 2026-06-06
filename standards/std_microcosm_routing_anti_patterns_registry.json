@@ -69,7 +69,7 @@
     "negative_case_ids",
     "authority_ceiling"
   ],
-  "schema_version": "std_microcosm_routing_anti_patterns_registry_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     "src/microcosm_core/organs/routing_anti_patterns_registry.py",
     "tests/test_routing_anti_patterns_registry.py",
@@ -101,9 +101,26 @@
       "receipt embeds copied macro body text instead of carrying public refs, hashes, counts, and verdicts"
     ],
     "ontology": "A public routing anti-pattern registry organ that validates typed navigation failure rows, negative cases, secret-exclusion policy, and copied non-secret macro registry body.",
-    "teleology": "Show how the macro system names reusable navigation failure modes without leaking private route material or pretending a registry card can mutate or release work."
+    "teleology": "Show how the macro system names reusable navigation failure modes without leaking private route material or pretending a registry card can mutate or release work.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_routing_anti_patterns_registry_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "src/microcosm_core/organs/routing_anti_patterns_registry.py",
+        "tests/test_routing_anti_patterns_registry.py",
+        "validator.microcosm.organs.routing_anti_patterns_registry"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.routing_anti_patterns_registry"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "status": "accepted_public_runtime_standard",
+  "status": "active",
   "validation_rules": [
     "The registry must declare kind=routing_anti_patterns and a positive integer version.",
     "Every anti-pattern row must carry a stable unique id and explanatory text.",
@@ -118,6 +135,58 @@
   },
   "validator_refs": [
     "src/microcosm_core/organs/routing_anti_patterns_registry.py",
-    "tests/test_routing_anti_patterns_registry.py"
-  ]
+    "tests/test_routing_anti_patterns_registry.py",
+    "validator.microcosm.organs.routing_anti_patterns_registry"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Routing anti-pattern registry instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Routing anti-pattern registry without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_routing_anti_patterns_registry and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_routing_anti_patterns_registry.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.routing_anti_patterns_registry"
+  ],
+  "anti_claims": [
+    "Routing anti-pattern registry rows validate a public navigation failure taxonomy only; they do not authorize route mutation, source mutation, release, provider calls, private-data equivalence, account/session export, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_routing_anti_patterns_registry",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_routing_anti_patterns_registry_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.routing_anti_patterns_registry",
+    "receipt_id": "receipt.microcosm.routing_anti_patterns_registry",
+    "validator_refs": [
+      "src/microcosm_core/organs/routing_anti_patterns_registry.py",
+      "tests/test_routing_anti_patterns_registry.py",
+      "validator.microcosm.organs.routing_anti_patterns_registry"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.routing_anti_patterns_registry"
+    ]
+  }
 }

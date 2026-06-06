@@ -1,0 +1,42 @@
+{
+  "schema_version": "microcosm_axiom_support_freshness_state_order_v1",
+  "component_id": "freshness_state",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover freshness-state ordering; it classifies reproducible support-case basis state and explicitly refuses to certify live freshness without a source-owned refresh contract.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=freshness_state]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._freshness_state_component",
+  "order_values": [
+    "unknown_live_freshness_no_refresh_contract",
+    "source_refresh_contract_checked"
+  ],
+  "order_semantics": {
+    "unknown_live_freshness_no_refresh_contract": {
+      "rank": 0,
+      "meaning": "The evaluator has deterministic basis and rederive metadata, but no source-owned freshness contract or live refresh check for the cited support material.",
+      "claim_effect": "Keeps the freshness component uncomputed for support strength; it is an ordered unknown, not proof."
+    },
+    "source_refresh_contract_checked": {
+      "rank": 1,
+      "meaning": "Reserved for a future source-owned refresh contract whose checker verifies support material freshness against declared invalidation rules.",
+      "claim_effect": "May classify freshness only when a validator consumes the refresh contract; it still cannot bypass evidence, provenance, domain, authority, projection, or rejection-mapping ceilings."
+    }
+  },
+  "material_inputs": [
+    "support_case.basis_env.basis_digest",
+    "support_case.basis_env.rederive",
+    "support_case.basis_env.as_of"
+  ],
+  "non_laundering_rules": [
+    "A deterministic basis digest is reproducibility metadata, not live freshness proof.",
+    "Current file existence, endpoint coverage, receipt presence, generated support output, and generated projections cannot become freshness proof.",
+    "The reserved source_refresh_contract_checked value cannot be emitted until a source-owned refresh contract and validator check exist.",
+    "Freshness classification cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "When no source-owned refresh contract exists, the validator emits unknown_live_freshness_no_refresh_contract as an ordered unknown and keeps a ceiling_component_uncomputed:freshness_state witness gap.",
+  "anti_claims": [
+    "This registry removes the no-order-owner gap for freshness_state; it does not certify live freshness.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping.",
+    "This registry does not authorize public release, source mutation, or strong axiom claims."
+  ]
+}

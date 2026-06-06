@@ -1,0 +1,91 @@
+{
+  "schema_version": "microcosm_rank_saturation_rerank_binding_receipt_v1",
+  "generated_at": "2026-06-05T06:57:18Z",
+  "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+  "component": "mathematical_strategy_atlas_hypothesis_scorer",
+  "target_class": "rung_delta",
+  "binding_status": "already_satisfied_bound_by_receipt",
+  "public_safety_boundary": {
+    "provider_calls_authorized": false,
+    "oracle_label_visibility_authorized": false,
+    "proof_body_export_authorized": false,
+    "source_body_embedded_in_receipt": false,
+    "authority_ceiling": "strategy_hypothesis_projection_not_substrate_or_proof_authority"
+  },
+  "rank_saturation_claim": {
+    "score_and_verdict_recomputed_from_real_fields": true,
+    "baked_expected_labels_used_as_authority": false,
+    "declared_outcomes_checked_for_staleness": true,
+    "mutation_cases_change_verdict_or_score": true
+  },
+  "source_evidence": {
+    "implementation_path": "microcosm-substrate/src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
+    "test_path": "microcosm-substrate/tests/test_mathematical_strategy_atlas_hypothesis_scorer.py",
+    "recomputed_fields": [
+      "problem_features.problems[].feature_tags",
+      "problem_features.problems[].retrieval_query_terms",
+      "hypothesis_cases.cases[].candidate_strategy_ids",
+      "hypothesis_cases.cases[].retrieval_query_terms",
+      "strategy_atlas.strategies[].trigger_features",
+      "strategy_atlas.strategies[].negative_triggers",
+      "strategy_atlas.strategies[].retrieval_expansion_terms"
+    ],
+    "proof_tests": [
+      "test_mathematical_strategy_atlas_recomputes_when_problem_features_change",
+      "test_mathematical_strategy_atlas_recomputes_when_strategy_evidence_changes",
+      "test_mathematical_strategy_atlas_rejects_stale_declared_outcomes",
+      "test_mathematical_strategy_atlas_scorer_covers_negative_cases"
+    ],
+    "real_good_case": {
+      "test": "test_mathematical_strategy_atlas_scorer_covers_negative_cases",
+      "case_id": "prefer_orientation_over_superficial_overlap",
+      "expected_selected_strategy_id": "symmetry_or_orientation",
+      "expected_score": 14
+    },
+    "real_bad_mutated_cases": [
+      {
+        "test": "test_mathematical_strategy_atlas_recomputes_when_problem_features_change",
+        "mutation": "problem feature tags are changed away from the orientation evidence",
+        "expected_status": "blocked",
+        "changed_selected_strategy_id": "equality_normal_form",
+        "changed_score": 13
+      },
+      {
+        "test": "test_mathematical_strategy_atlas_recomputes_when_strategy_evidence_changes",
+        "mutation": "strategy trigger evidence is changed for symmetry_or_orientation",
+        "expected_status": "blocked",
+        "changed_selected_strategy_id": "equality_normal_form",
+        "changed_score": 10
+      },
+      {
+        "test": "test_mathematical_strategy_atlas_rejects_stale_declared_outcomes",
+        "mutation": "declared selected_strategy_id, score, classifier, and candidate_scores contradict recomputed evidence",
+        "expected_status": "blocked",
+        "expected_error_codes": [
+          "MATH_STRATEGY_DECLARED_SELECTION_STALE",
+          "MATH_STRATEGY_DECLARED_SCORE_STALE",
+          "MATH_STRATEGY_DECLARED_VERDICT_STALE",
+          "MATH_STRATEGY_DECLARED_RANKING_STALE"
+        ]
+      }
+    ]
+  },
+  "validation": [
+    {
+      "command": "./repo-pytest microcosm-substrate/tests/test_mathematical_strategy_atlas_hypothesis_scorer.py",
+      "status": "pass",
+      "summary": "15 passed in 0.77s"
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
+      "status": "pass",
+      "summary": "py_compile completed without output"
+    }
+  ],
+  "thread_impact_card": {
+    "changed_state": "Added narrow rerank-binding receipt only; scorer source and focused tests were already saturated.",
+    "validated_state": "Focused pytest and py_compile passed.",
+    "blocked_state": "none",
+    "next_reader_hint": "Use this receipt as the rung_delta binding; no source/test rerank patch is required unless the focused tests regress."
+  }
+}

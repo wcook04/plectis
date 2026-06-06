@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_axiom_support_authority_scope_order_v1",
+  "component_id": "authority_scope",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover authority-scope ordering; it classifies only the authority carried by source bindings plus this read-only validator and does not certify source mutation authority, release authority, public readiness, or anti-axiom rejection.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=authority_scope]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._authority_scope_component",
+  "order_values": [
+    "read_only_validator_projection_authority",
+    "source_binding_with_read_only_validator_authority"
+  ],
+  "order_semantics": {
+    "read_only_validator_projection_authority": {
+      "rank": 0,
+      "meaning": "The evaluator can state its own read-only projection boundary, but no obligation witness binding material is present.",
+      "claim_effect": "Classifies validator authority only; it cannot witness axiom support."
+    },
+    "source_binding_with_read_only_validator_authority": {
+      "rank": 1,
+      "meaning": "The obligation binds source-row material and the evaluator only computes a read-only support projection over it.",
+      "claim_effect": "Classifies the strongest authority scope currently ordered; it still cannot authorize source mutation, release, public copy, or anti-axiom rejection."
+    }
+  },
+  "material_inputs": [
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_organs",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_surfaces",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes",
+    "validator.microcosm.axiom_support_cover read-only authority boundary"
+  ],
+  "non_laundering_rules": [
+    "Authority-scope classification is not source mutation authority, release authority, public-readiness authority, or policy approval.",
+    "A source binding plus validator readback cannot become proof that an anti-axiom is rejected for a specific obligation.",
+    "Generated support-cover output and generated doctrine-lattice projections are never evidence for this registry.",
+    "A higher authority-scope class cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "If a computed authority-scope value is outside this source registry, the validator emits unknown_authority_scope_not_in_source_order rather than support.",
+  "anti_claims": [
+    "This registry makes validator authority boundaries computed; it does not grant source mutation or release authority.",
+    "This registry does not resolve freshness_state, domain_scope, or projection_scope.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping."
+  ]
+}

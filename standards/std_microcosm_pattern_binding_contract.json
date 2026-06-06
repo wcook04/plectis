@@ -14,7 +14,16 @@
     "release_authority": false,
     "source_body_authority": "only_when_digest_verified_by_source_module_manifest_and_validator",
     "standard_authority": "schema_contract_and_validator_expectation_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#pattern_binding_contract",
+    "claim_ceiling_ref": "core/organ_registry.json#pattern_binding_contract.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "pattern_binding_contract",
@@ -33,8 +42,71 @@
     "rule": "compressed views must distinguish secret-class exclusion from ordinary non-secret substrate import"
   },
   "paper_module_contract": {
-    "module_slug": "pattern_binding_contract_standard",
-    "required": true
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.pattern_binding_contract",
+    "mechanism_ref": "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+    "module_slug": "pattern_binding_contract",
+    "required": true,
+    "source_authority": "json_capsule"
+  },
+  "doctrine_population_status": {
+    "atlas_binding_status": "populated",
+    "authority_boundary": "semantic-validator evidence ceiling; pattern rows remain organ-first and fixture-bound, not standalone public leaves or release authority",
+    "coverage_projection": "regenerated_by_microcosm_core.doctrine_lattice",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_pattern_binding_contract_population_has_capsule_and_mechanism_source",
+      "tests/test_pattern_binding_contract.py"
+    ]
+  },
+  "organ_binding_contract": {
+    "organ_id": "pattern_binding_contract",
+    "organ_registry_ref": "core/organ_registry.json::implemented_organs[pattern_binding_contract]",
+    "organ_atlas_ref": "core/organ_atlas.json::organs[pattern_binding_contract]",
+    "runner": "microcosm_core.organs.pattern_binding_contract",
+    "evidence_class_ref": "core/organ_evidence_classes.json::organ_evidence_classes[pattern_binding_contract]",
+    "evidence_strength_rank": 5,
+    "current_authority_receipt": "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
+    "first_commands": [
+      "PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+      "PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate-substrate-bundle --input examples/pattern_binding_contract/exported_substrate_bundle --out receipts/first_wave/pattern_binding_contract",
+      "PYTHONPATH=src python3 -m microcosm_core.organs.pattern_binding_contract validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out receipts/first_wave/pattern_binding_contract/route_readiness"
+    ],
+    "paper_module_path": "paper_modules/pattern_binding_contract.md",
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/pattern_binding_contract.py",
+        "symbols": [
+          "validate_source_module_imports",
+          "validate_pattern_bindings",
+          "validate_source_capsules",
+          "validate_reference_capsules",
+          "validate_authority_chain_handle_resolver",
+          "validate_authority_ceiling",
+          "validate",
+          "validate_substrate_bundle",
+          "main"
+        ],
+        "role": "Runtime and receipt-writing authority for pattern-binding fixtures, source-module imports, and exported substrate bundle validation.",
+        "resolution": "resolved"
+      },
+      {
+        "path": "src/microcosm_core/macro_tools/pattern_route_readiness.py",
+        "symbols": [
+          "validate_route_readiness_bundle"
+        ],
+        "role": "Route-readiness selector validator consumed by the pattern-binding organ.",
+        "resolution": "resolved"
+      }
+    ],
+    "mechanism_ref": "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+    "mechanism_ref_status": "resolved",
+    "mechanism_ref_reentry_condition": "If this mechanism row is removed or its receipt set changes, downgrade this field to planned_unresolved until core/mechanism_sources.json and core/organ_atlas.json carry matching resolved refs again.",
+    "required_lattice_edges": [
+      "paper_module_ref",
+      "mechanism_refs",
+      "code_loci"
+    ]
   },
   "public_private_boundary": {
     "allowed_public_inputs": [
@@ -82,7 +154,13 @@
     "receipt.microcosm.pattern_binding_contract",
     "receipt must cite validator_id, input fixture ids, output artifact refs, public runtime refs, secret-exclusion status, body_in_receipt, real_runtime_receipt, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipt.microcosm.pattern_binding_contract"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 48,
@@ -128,12 +206,17 @@
     "anti_claims",
     "pattern_binding_contract_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
   },
   "source_refs": [
+    {
+      "field": "paper_module_capsule",
+      "path": "core/paper_module_capsules.json#paper_module.pattern_binding_contract",
+      "role": "json_capsule_source_authority_for_doctrine_population"
+    },
     {
       "field": "standards[standard_id=std_microcosm_pattern_binding_contract]",
       "path": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
@@ -153,6 +236,36 @@
       "field": "source_module_manifest",
       "path": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json",
       "role": "digest_verified_copied_non_secret_macro_body_floor"
+    },
+    {
+      "field": "organ_runtime",
+      "path": "microcosm-substrate/src/microcosm_core/organs/pattern_binding_contract.py",
+      "role": "public_runtime_validator_and_receipt_writer"
+    },
+    {
+      "field": "route_readiness_runtime",
+      "path": "microcosm-substrate/src/microcosm_core/macro_tools/pattern_route_readiness.py",
+      "role": "public_route_readiness_selector_validator"
+    },
+    {
+      "field": "focused_regression",
+      "path": "microcosm-substrate/tests/test_pattern_binding_contract.py",
+      "role": "focused_regression_for_fixture_validation_source_module_imports_route_readiness_and_negative_cases"
+    },
+    {
+      "field": "primary_runtime_receipt",
+      "path": "microcosm-substrate/receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+      "role": "fixture_binding_validation_receipt"
+    },
+    {
+      "field": "substrate_bundle_receipt",
+      "path": "microcosm-substrate/receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
+      "role": "real_pattern_ledger_and_source_open_body_import_receipt"
+    },
+    {
+      "field": "route_readiness_receipt",
+      "path": "microcosm-substrate/receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
+      "role": "route_readiness_selector_receipt"
     },
     {
       "role": "id_refs_only_no_source_bodies",
@@ -222,18 +335,38 @@
     ],
     "ontology": "The row-to-source-to-organ contract that makes a pattern portable and auditable.",
     "rebuild_action": "draft",
-    "teleology": "Prevent pattern rows from becoming ungrounded ideas."
+    "teleology": "Prevent pattern rows from becoming ungrounded ideas.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": null,
+      "receipt_id": null,
+      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares explicit regression-harness or negative-case role",
     "reject authority upgrades not backed by receipt_refs",
     "require public_private_boundary and secret_exclusion_scan before public projection",
-    "reject route-readiness selector drift, unknown pattern refs, missing fixture contracts, dependency cycles, hard no-standalone selectable rows, and missing companion overlays"
-    ,
+    "reject route-readiness selector drift, unknown pattern refs, missing fixture contracts, dependency cycles, hard no-standalone selectable rows, and missing companion overlays",
     "require source_module_manifest.json digest verification before counting copied macro bodies as source_open_body_imports",
-    "count copied body material from source_open_body_imports rather than source refs, accepted row count, or route-readiness metadata alone"
+    "count copied body material from source_open_body_imports rather than source refs, accepted row count, or route-readiness metadata alone",
+    "require paper modules to cite existing runtime receipts instead of missing acceptance receipt paths",
+    "require code-locus claims to resolve to src/microcosm_core/organs/pattern_binding_contract.py or src/microcosm_core/macro_tools/pattern_route_readiness.py",
+    "require mechanism_ref to resolve in core/mechanism_sources.json and core/organ_atlas.json before this standard claims resolved mechanism coverage"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -245,6 +378,28 @@
     "required": true,
     "validator_id": "validator.microcosm.pattern_binding_contract"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+    "validator.microcosm.pattern_binding_contract"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.pattern_binding_contract.author",
+      "status": "planned",
+      "purpose": "create a valid Pattern binding contract instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.pattern_binding_contract.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Pattern binding contract without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.pattern_binding_contract.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_pattern_binding_contract and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

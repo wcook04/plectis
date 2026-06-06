@@ -1,0 +1,119 @@
+{
+  "anti_claim": "The Crown Jewel demo runs public fixture exercises and runtime-safety checks only. It does not claim production release, live market data, investment advice, provider execution, full concurrent-mutation protection, source mutation authority, or private-root equivalence.",
+  "body_in_receipt": false,
+  "command": "microcosm crown-jewel-demo run",
+  "created_at": "2026-06-01T02:10:30+00:00",
+  "organ_count": 5,
+  "organ_failures": [],
+  "organ_pass_count": 5,
+  "organs": [
+    {
+      "anti_claim": "Closeout faithfulness audit verifies that a referenced public fixture commit object, ledger row, or pytest span exists and records whether a span passed only when pass status is explicitly checked. It does not prove arbitrary live commits landed, close Task Ledger work, mutate Git, run providers, or authorize release.",
+      "body_in_receipt": false,
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 3,
+      "organ_id": "agent_closeout_faithfulness_audit",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/organs/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle_validation_result.json",
+        "receipts/first_wave/crown_jewel_demo/organs/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json",
+        "receipts/first_wave/crown_jewel_demo/organs/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json"
+      ],
+      "result_digest": "1dbf55548dd66d6515f2d4e62f51f34c8d65e0a26186909d75fd8ae22cb6146a",
+      "status": "pass"
+    },
+    {
+      "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, and DAG references. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+      "body_in_receipt": false,
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 3,
+      "organ_id": "doctrine_fact_claim_audit",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/organs/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle_validation_result.json",
+        "receipts/first_wave/crown_jewel_demo/organs/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
+        "receipts/first_wave/crown_jewel_demo/organs/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json"
+      ],
+      "result_digest": "ab3236a8bffbfa3095fdf8acc258f7ed1d5a34a7af9dc663bd28ec831972cd5d",
+      "status": "pass"
+    },
+    {
+      "anti_claim": "Self-ignorance coverage ledger projects known coverage debt between public fixture Kind Atlas rows and materialized Atlas entities. It does not claim literal unknown-unknown omniscience, absence proof, source mutation, or release authority.",
+      "body_in_receipt": false,
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 1,
+      "organ_id": "self_ignorance_coverage_ledger",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/organs/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle_validation_result.json",
+        "receipts/first_wave/crown_jewel_demo/organs/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_board.json",
+        "receipts/first_wave/crown_jewel_demo/organs/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_validation_receipt.json"
+      ],
+      "result_digest": "232d94a0be05959915e2bee6a3c884581ae4bdec48aa0c0cd32c2d1b9b00b290",
+      "status": "pass"
+    },
+    {
+      "anti_claim": "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+      "body_in_receipt": false,
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 2,
+      "organ_id": "bounded_autonomy_campaign_packet",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/organs/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle_validation_result.json",
+        "receipts/first_wave/crown_jewel_demo/organs/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_board.json",
+        "receipts/first_wave/crown_jewel_demo/organs/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json"
+      ],
+      "result_digest": "dc63536eca3a8db108cb5dcb1ac12b26e4f64445b58bd92427795f85cfc213c8",
+      "status": "pass"
+    },
+    {
+      "anti_claim": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+      "body_in_receipt": false,
+      "missing_negative_cases": [],
+      "observed_negative_case_count": 3,
+      "organ_id": "finance_forecast_evaluation_spine",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/organs/finance_forecast_evaluation_spine/exported_finance_forecast_evaluation_spine_bundle_validation_result.json",
+        "receipts/first_wave/crown_jewel_demo/organs/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+        "receipts/first_wave/crown_jewel_demo/organs/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
+      ],
+      "result_digest": "ff09e32d909e5a2fd226767ffd7abb83ace1c513a382b0658e2969f37dea504d",
+      "status": "pass"
+    }
+  ],
+  "receipt_ref": "receipts/first_wave/crown_jewel_demo/crown_jewel_demo_receipt.json",
+  "runtime_hard_failures": [],
+  "runtime_safety_check_count": 3,
+  "runtime_safety_checks": [
+    {
+      "anti_claim": "Durable agent work-landing replay emits real runtime receipts over imported work-landing rows, macro tool refs, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD advance evidence, export credential/account-bound bodies, run providers, publish, host, or authorize release.",
+      "body_in_receipt": false,
+      "check_id": "durable_agent_work_landing_replay",
+      "digest": "bad514e2eb5e90430c5497ce91e54e7815e840758cc29dbcdd0b31b7c645b739",
+      "receipt_refs": [
+        "receipts/first_wave/crown_jewel_demo/runtime_safety/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "anti_claim": "Sidecar containment proves bounded output routing for this fixture only.",
+      "body_in_receipt": false,
+      "check_id": "command_output_sidecar",
+      "digest": "a5be8bac1c793b4cb2fc3d68eb9b79a99b7b11fd00fe3d360316cbce22764425",
+      "receipt_ref": "receipts/first_wave/crown_jewel_demo/sidecar_workspace/state/command_outputs/navigation_metabolism.full/20260601T021030Z_a5be8bac1c79.json",
+      "status": "written_to_sidecar"
+    },
+    {
+      "anti_claim": "The work-landing control spine validates copied non-secret macro control-plane source for local inspection. It does not run live Git mutations, mutate Task Ledger or Work Ledger state, release claims, stage broadly, call providers, export credentials, publish, or authorize release.",
+      "body_in_receipt": false,
+      "check_id": "work_landing_control_spine",
+      "digest": "2cd4d413e34374a92d21ad657ff2b1d0f628fb381c7d068f02feea4e0e5e7e2b",
+      "known_blocker": true,
+      "receipt_refs": [
+        "receipts/exported_work_landing_control_bundle_validation_result.json"
+      ],
+      "status": "blocked",
+      "stdout_digest": "49ae8f6a20aed4a00d76dc07eb13b3ec71aaac563fa50520fc21256c9dfb0b79"
+    }
+  ],
+  "runtime_safety_known_blocker_count": 1,
+  "schema_version": "microcosm_crown_jewel_demo_receipt_v1",
+  "status": "pass"
+}

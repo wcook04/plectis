@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "hotkey_wrong_modifier",
+  "error_codes": [
+    "BATCH7_DEMO_TAKE_HOTKEY_MODIFIERS_REQUIRED"
+  ],
+  "schema_version": "batch7_demo_take_console_negative_case_v1"
+}

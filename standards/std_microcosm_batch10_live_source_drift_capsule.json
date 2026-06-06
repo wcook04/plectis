@@ -1,0 +1,180 @@
+{
+  "anti_claim": "Batch10 live source drift capsule verifies exact copied non-secret source modules and public drift-refresh behavior only. It does not authorize live source mutation, Work Ledger mutation, mission landing, route selection, private-root equivalence, publication, or release.",
+  "authority_boundary": "public_batch10_live_source_drift_source_open_capsule_not_live_mutation_or_route_authority",
+  "authority_ceiling": {
+    "browser_or_hud_authority": false,
+    "live_mission_transaction_authority": false,
+    "live_route_selection_authority": false,
+    "live_work_ledger_authority": false,
+    "private_root_equivalence_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "kind_id": "batch10_live_source_drift_capsule",
+  "kind_name": "Batch 10 Live Source Drift capsule",
+  "organ_id": "batch10_live_source_drift_capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret macro control-plane modules",
+      "source refs, digests, line counts, and required anchors",
+      "public synthetic stale-drift fixtures",
+      "stable negative-case ids and validator verdicts",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_refresh_capsule_with_non_secret_control_plane_modules",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private artifact bodies",
+      "live Work Ledger mutation state",
+      "private runtime state"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 4,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch10_live_source_drift_capsule",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch10_live_source_drift_capsule_result.json",
+    "batch10_live_source_drift_capsule_board.json",
+    "batch10_live_source_drift_capsule_validation_receipt.json",
+    "batch10_live_source_drift_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch10_live_source_drift_capsule",
+    "used_by_organs": [
+      "batch10_live_source_drift_capsule"
+    ]
+  },
+  "required_negative_cases": [
+    "stale_digest_replay",
+    "compile_bypass",
+    "private_runtime_state_export",
+    "live_mutation_authority_claim"
+  ],
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "system/lib/standard_option_surface.py",
+    "system/lib/mission_transaction_landing_preflight.py",
+    "tools/meta/control/work_landing.py",
+    "tools/meta/factory/work_ledger.py"
+  ],
+  "standard_id": "std_microcosm_batch10_live_source_drift_capsule",
+  "standard_payload": {
+    "anti_purpose": "A receipt-only drift-refresh claim, live Work Ledger mutation, private source dump, route-selection authority claim, mission-landing authority claim, or source-body copy without digest equality and negative cases.",
+    "failure_modes": [
+      "source module digest drifts from the macro source without a refreshed copied body and manifest",
+      "copied source module lacks required anchors for option-surface routing, mission-transaction landing preflight, work landing, or Work Ledger control",
+      "refresh helper claims live source mutation or Work Ledger mutation authority instead of exact-copy drift inspection",
+      "validator accepts a stale digest replay as current body evidence",
+      "validator bypasses Python compile checks over copied modules",
+      "receipts include copied body text, raw operator transcripts, private runtime state, provider payload bodies, credentials, or live ledger state",
+      "capsule is treated as route-selection, mission-landing, publication, release, private-root equivalence, or whole-system correctness authority"
+    ],
+    "ontology": "A public-safe exact-copy drift-refresh capsule for four non-secret control-plane bodies: standard option-surface routing, mission-transaction landing preflight, durable work landing, and Work Ledger control.",
+    "teleology": "Let a cold reader inspect and rerun live-source drift evidence for real control-plane mechanics without granting live mutation, ledger, route, mission, publication, release, or private-root authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch10_live_source_drift_capsule",
+      "receipt_id": "receipt.microcosm.batch10_live_source_drift_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly four copied macro source modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "execute the public drift-refresh exercise without mutating live source or live Work Ledger state",
+    "require stable negative-case codes for stale digest replay, compile bypass, private runtime export, and live mutation-authority overclaim",
+    "keep provider dispatch, browser/HUD authority, live route selection, live mission transaction, live Work Ledger authority, source mutation, publication, release, private-root equivalence, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_live_source_drift_capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 4,
+    "expected_source_module_count": 4,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_live_source_drift_capsule validate-bundle --input examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle --out /tmp/batch10_live_source_drift_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch10_live_source_drift_capsule"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch10_live_source_drift_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 10 Live Source Drift capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch10_live_source_drift_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 10 Live Source Drift capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch10_live_source_drift_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch10_live_source_drift_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch10_live_source_drift_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch10_live_source_drift_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch10_live_source_drift_capsule"
+  ],
+  "anti_claims": [
+    "Batch10 live source drift capsule verifies exact copied non-secret source modules and public drift-refresh behavior only. It does not authorize live source mutation, Work Ledger mutation, mission landing, route selection, private-root equivalence, publication, or release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch10_live_source_drift_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch10_live_source_drift_capsule",
+    "receipt_id": "receipt.microcosm.batch10_live_source_drift_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch10_live_source_drift_capsule_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "_doc": "Generated Microcosm-local agent entry card for doctrine-lattice population. Source authority remains the JSON standards, registries, organ atlas, paper capsules, and coverage builder.",
+  "agent_band_ladder": [
+    {
+      "band": "atom",
+      "command": "microcosm doctrine-lattice entry-card --root .",
+      "use": "Confirm the Microcosm-local scope and current pass/fail chips."
+    },
+    {
+      "band": "flag",
+      "command": "microcosm doctrine-lattice status --root .",
+      "use": "Read the compact status card before touching source rows."
+    },
+    {
+      "band": "card",
+      "command": "microcosm doctrine-lattice write-entry-card --root .",
+      "use": "Open generated coverage and the top population targets."
+    },
+    {
+      "band": "context",
+      "command": "microcosm doctrine-lattice check --root .",
+      "use": "Validate coverage reproducibility from current source."
+    },
+    {
+      "band": "evidence",
+      "refs": [
+        "core/doctrine_lattice_coverage.json",
+        "core/mechanism_sources.json",
+        "core/paper_module_capsules.json"
+      ],
+      "use": "Inspect source registries and copied capsule receipts named by the card."
+    }
+  ],
+  "agent_entry_definition": "Microcosm agent entry means this public substrate's local entry/status surface, not the private macro-system bootstrap or provider-specific AGENTS/CODEX entry.",
+  "anti_claim": "This card routes a cold Microcosm agent to current doctrine-lattice evidence. It does not make generated counts source doctrine, count planned rows as resolved, authorize publication, or replace coverage validation.",
+  "authority_boundary": "generated_entry_card_not_source_authority_release_authority_proof_authority_doctrine_promotion_authority_or_macro_bootstrap",
+  "card_id": "microcosm_doctrine_lattice_agent_entry",
+  "current_counts": {
+    "accepted_current_authority_organ_count": 82,
+    "anti_principle_json_instance_count": 17,
+    "anti_principle_json_missing_count": 0,
+    "anti_principle_json_parity_status": "pass",
+    "axiom_json_instance_count": 12,
+    "axiom_json_missing_count": 0,
+    "axiom_json_parity_status": "pass",
+    "code_locus_walkability_gap_count": 0,
+    "code_locus_walkable_node_count": 99,
+    "concept_json_instance_count": 11,
+    "concept_json_missing_count": 0,
+    "concept_json_parity_status": "pass",
+    "concept_unpopulated_selective_relation_count": 0,
+    "doctrine_kind_gap_count": 0,
+    "doctrine_kind_inbound_edge_count": 546,
+    "doctrine_kind_walkable_node_count": 133,
+    "expected_anti_principle_count": 17,
+    "expected_axiom_count": 12,
+    "expected_concept_count": 11,
+    "expected_mechanism_count": 99,
+    "expected_organ_count": 82,
+    "expected_paper_module_count": 99,
+    "expected_principle_count": 20,
+    "expected_skill_count": 401,
+    "expected_standard_count": 145,
+    "mechanism_capsule_dependency_upstream_covered_edge_count": 200,
+    "mechanism_capsule_dependency_upstream_missing_count": 0,
+    "mechanism_capsule_dependency_upstream_unresolved_dependency_count": 1,
+    "mechanism_json_instance_count": 99,
+    "mechanism_json_missing_count": 0,
+    "mechanism_json_parity_status": "pass",
+    "mechanism_unpopulated_selective_relation_count": 37,
+    "mechanism_without_code_loci_count": 0,
+    "organ_json_instance_count": 82,
+    "organ_json_missing_count": 0,
+    "organ_json_parity_status": "pass",
+    "organ_required_relation_gap_count": 0,
+    "organ_unpopulated_selective_relation_count": 29,
+    "organs_missing_code_loci": 0,
+    "organs_missing_mechanism_ref": 0,
+    "organs_missing_paper_module_ref": 0,
+    "paper_module_json_instance_count": 99,
+    "paper_module_json_missing_count": 0,
+    "paper_module_json_parity_status": "pass",
+    "paper_module_legacy_only_count": 3,
+    "paper_module_required_subject_gap_count": 3,
+    "paper_module_unpopulated_selective_relation_count": 41,
+    "planned_code_locus_count": 0,
+    "planned_mechanism_count": 0,
+    "principle_json_instance_count": 20,
+    "principle_json_missing_count": 0,
+    "principle_json_parity_status": "pass",
+    "receipt_missing_ref_count": 0,
+    "receipt_unresolved_nonlocal_ref_count": 0,
+    "receipt_walkable_node_count": 616,
+    "resolved_code_locus_count": 84,
+    "resolved_mechanism_count": 82,
+    "skill_json_instance_count": 401,
+    "skill_json_missing_count": 0,
+    "skill_json_parity_status": "pass",
+    "skill_required_relation_gap_count": 0,
+    "skill_unpopulated_selective_relation_count": 6,
+    "standard_governs_kind_missing_required_count": 0,
+    "standard_governs_kind_resolved_edge_count": 145,
+    "standard_governs_kind_unresolved_edge_count": 0,
+    "standard_json_instance_count": 145,
+    "standard_json_missing_count": 0,
+    "standard_json_parity_status": "pass",
+    "standard_legacy_or_draft_contract_count": 11,
+    "standard_missing_standard_id_file_count": 0,
+    "standard_required_relation_gap_count": 0,
+    "standard_required_relation_gap_instance_count": 0,
+    "standard_triad_skill_missing_required_count": 0,
+    "standard_triad_skill_planned_unresolved_edge_count": 0,
+    "standard_triad_skill_resolved_edge_count": 435,
+    "standard_triad_skill_unresolved_edge_count": 0,
+    "standard_unregistered_file_count": 0,
+    "standard_used_by_organ_edge_count": 247,
+    "standard_used_by_organ_missing_accepted_target_count": 28,
+    "standard_used_by_organ_resolved_edge_count": 219,
+    "standard_used_by_organ_unresolved_edge_count": 28,
+    "with_code_loci": 82,
+    "with_mechanism_ref": 82,
+    "with_paper_module_ref": 82
+  },
+  "entry_scope": "microcosm_substrate_local_agent_entry_only",
+  "fake_green_guards": [
+    {
+      "current_planned_count": 0,
+      "current_resolved_count": 82,
+      "guard_id": "planned_mechanism_not_resolved",
+      "rule": "resolution_status=planned_unresolved increments planned_mechanism_count and never resolved_mechanism_count."
+    },
+    {
+      "guard_id": "coverage_projection_not_source",
+      "rule": "Act on source refs, then regenerate and validate; do not hand-edit generated coverage or this card."
+    },
+    {
+      "guard_id": "axiom_json_parity_not_authority_flip",
+      "rule": "Axiom JSON instances are migration progress; routing registry remains source-of-record until parity receipts justify an authority flip."
+    },
+    {
+      "guard_id": "principle_json_parity_not_edge_completion",
+      "rule": "Principle and anti-principle JSON parity resolves legacy corpus targets, but unpopulated governs/negates edges remain residual pressure."
+    },
+    {
+      "guard_id": "concept_mechanism_json_parity_not_lattice_completion",
+      "rule": "Concept and mechanism JSON parity resolves corpus migration only; unpopulated selective neighbours and code-locus gaps remain explicit residual pressure."
+    },
+    {
+      "guard_id": "paper_dependency_not_reverse_mechanism_upstream_edge",
+      "rule": "paper_module A depends_on paper_module B maps only to mechanism(B).upstream_of mechanism(A); it cannot justify mechanism(A).upstream_of mechanism(B)."
+    },
+    {
+      "guard_id": "organ_json_parity_not_lattice_completion",
+      "rule": "Organ JSON parity resolves atlas/registry migration only; missing required links and selective doctrine constraints remain residual pressure."
+    },
+    {
+      "guard_id": "standard_inventory_not_contract_completion",
+      "rule": "Registry-backed standard JSON presence is inventory coverage only; legacy/draft contracts and unresolved triad skills remain residual pressure."
+    },
+    {
+      "guard_id": "population_deficit_not_release_gate",
+      "rule": "population_status=deficit keeps release_readiness_status at not_ready_population_deficit."
+    }
+  ],
+  "generation": {
+    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
+    "coverage_projection_digest": "d1aead53a6e77057b92c2dcf42cfd418d16127b115d12d028bcffbb91ec068a2",
+    "generated_at": "2026-06-06T14:50:51.908754Z",
+    "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
+  },
+  "next_population_targets": [],
+  "reentry_condition": "Resume at the first next_population_targets row whose deficits still appear after `microcosm doctrine-lattice check --root .` passes.",
+  "schema_version": "microcosm_doctrine_lattice_entry_card_v1",
+  "source_refs": {
+    "anti_principle_instances": "anti_principles/*.json",
+    "anti_principles_legacy_markdown": "ANTI_PRINCIPLES.md",
+    "axiom_instances": "axioms/*.json",
+    "axiom_routing": "core/axiom_organ_routing.json",
+    "concept_entry_packet": "atlas/entry_packet.json",
+    "concept_instances": "concepts/*.json",
+    "coverage_projection": "core/doctrine_lattice_coverage.json",
+    "doctrine_health": "atlas/doctrine_lattice_health.json",
+    "doctrine_projection": "atlas/doctrine_lattice_projection.json",
+    "entry_route": "atlas/entry_packet.json::doctrine_lattice_route",
+    "mechanism_instances": "mechanisms/*.json",
+    "mechanism_registry": "core/mechanism_sources.json",
+    "organ_atlas": "core/organ_atlas.json",
+    "organ_instances": "organs/*.json",
+    "organ_registry": "core/organ_registry.json",
+    "paper_module_capsules": "core/paper_module_capsules.json",
+    "paper_module_instances": "paper_modules/*.json",
+    "principle_instances": "principles/*.json",
+    "principles_legacy_markdown": "PRINCIPLES.md",
+    "public_surface_manifest": "core/public_surface_manifest.json",
+    "relation_registry": "core/doctrine_lattice_relations.json",
+    "skill_instances": "skills/*.json",
+    "skills_legacy_markdown": "skills/*.md",
+    "standard_instances": "standards/std_microcosm_*.json",
+    "standards_registry": "core/standards_registry.json"
+  },
+  "status": "pass",
+  "status_card": {
+    "contract_status": "pass",
+    "deficit_summary": {
+      "concept_json_missing_count": 0,
+      "concept_unpopulated_selective_relation_count": 0,
+      "mechanism_json_missing_count": 0,
+      "mechanism_unpopulated_selective_relation_count": 37,
+      "mechanism_without_code_loci_count": 0,
+      "organ_json_missing_count": 0,
+      "organ_required_relation_gap_count": 0,
+      "organ_unpopulated_selective_relation_count": 29,
+      "organs_missing_code_loci": 0,
+      "organs_missing_mechanism_ref": 0,
+      "organs_missing_paper_module_ref": 0,
+      "paper_module_json_missing_count": 0,
+      "paper_module_legacy_only_count": 3,
+      "paper_module_required_subject_gap_count": 3,
+      "paper_module_unpopulated_selective_relation_count": 41,
+      "paper_module_without_json_capsule_count": 3,
+      "registry_atlas_join_error_count": 0,
+      "skill_json_missing_count": 0,
+      "skill_required_relation_gap_count": 0,
+      "skill_unpopulated_selective_relation_count": 6,
+      "standard_governs_kind_resolved_edge_count": 145,
+      "standard_json_missing_count": 0,
+      "standard_legacy_or_draft_contract_count": 11,
+      "standard_required_relation_gap_count": 0,
+      "standard_triad_skill_missing_required_count": 0,
+      "standard_triad_skill_planned_unresolved_edge_count": 0,
+      "standard_triad_skill_resolved_edge_count": 435,
+      "standard_unregistered_file_count": 0,
+      "standard_used_by_organ_unresolved_edge_count": 28,
+      "unregistered_lattice_edges": 0
+    },
+    "next_population_targets": [],
+    "population_status": "complete",
+    "projection_reproducibility_status": "fresh_at_generation",
+    "public_brand_guard_status": "pass",
+    "relation_registry_status": "pass",
+    "release_readiness_status": "ready_for_separate_release_gate",
+    "schema_version": "microcosm_doctrine_lattice_status_card_v1",
+    "status": "pass"
+  },
+  "status_chips": [
+    {
+      "chip_id": "contract",
+      "status": "pass"
+    },
+    {
+      "chip_id": "population",
+      "status": "complete"
+    },
+    {
+      "chip_id": "release_readiness",
+      "status": "ready_for_separate_release_gate"
+    },
+    {
+      "chip_id": "public_brand_guard",
+      "status": "pass"
+    }
+  ],
+  "surface_id": "microcosm_doctrine_lattice"
+}

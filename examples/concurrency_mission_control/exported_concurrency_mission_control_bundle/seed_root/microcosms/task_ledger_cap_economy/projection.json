@@ -1,0 +1,1144 @@
+{
+  "authority": {
+    "authority_class": "fixture_validator_and_receipt_gate",
+    "evaluator_authority_count": 3,
+    "fail_closed_gates": [
+      "private_task_ledger_export_gate",
+      "broad_staging_gate",
+      "public_release_gate"
+    ],
+    "forbidden_promotions": [
+      "private_root_equivalence",
+      "public_release_ready",
+      "hosted_public_ci_ready",
+      "publication_permission"
+    ],
+    "public_claims_blocked": [
+      "fixture ledger proves private Task Ledger readiness",
+      "work item status can be inferred from prose alone",
+      "a scoped claim authorizes broad staging",
+      "local receipt grants public release readiness"
+    ],
+    "self_attestation_count": 0
+  },
+  "authority_posture": "public_safe_synthetic_fixture_not_private_task_ledger_authority",
+  "builder_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+  "claim_boundary": "Fixture-level proof that validation failures and side findings become durable work events before closeout prose.",
+  "cross_links": {
+    "branch_graph_ref": "microcosms/specimen_suite/release_branch_graph.json",
+    "next_refinement": "Route provider repair residual events back into concurrency stale-lease replay cases.",
+    "pattern_transfer_ref": "microcosms/demo_receipt_storyboard/storyboard.json::pattern.work_metabolism_to_cap_economy",
+    "portfolio_ref": "state/release_candidate_portfolio.json",
+    "receipt_ref": "microcosms/task_ledger_cap_economy/receipt.json",
+    "related_microcosms": [
+      "provider_harness_evaluator_authority_split_microcosm",
+      "concurrency_transaction_mission_control_microcosm",
+      "demo_receipt_storyboard_microcosm",
+      "cold_start_agent_skills_pack_microcosm"
+    ]
+  },
+  "event_count": 13,
+  "event_type_counts": {
+    "capture": 1,
+    "claim": 1,
+    "closeout": 1,
+    "mutation": 1,
+    "receipt": 1,
+    "shape": 1,
+    "side_finding": 1,
+    "transaction_open": 1,
+    "validation": 1,
+    "validation_failure": 1,
+    "work_item": 3
+  },
+  "failure_routing_status": "all_failures_have_work_items",
+  "failures": [],
+  "generated_at": "2026-05-13T00:20:00Z",
+  "generated_by": {
+    "builder": "idea_microcosm.task_ledger_specimen.build_task_ledger_specimen",
+    "projection_not_authority": true,
+    "source_refs": [
+      "microcosms/task_ledger_cap_economy/events.jsonl",
+      "microcosms/concurrency_mission_control/provider_repair_bridge.json"
+    ]
+  },
+  "kind": "task_ledger_cap_economy_projection",
+  "layman_summary": "A loose request turns into tracked work, claimed paths, a transaction, validation evidence, closeout, and a next cap instead of disappearing into chat.",
+  "mechanism": {
+    "cases": [
+      {
+        "anti_claims": [
+          "fixture ledger proves private Task Ledger readiness",
+          "work item status can be inferred from prose alone",
+          "a scoped claim authorizes broad staging",
+          "local receipt grants public release readiness"
+        ],
+        "case_id": "case.cap_cap_economy_to_concurrency_bridge",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/work_metabolism_bridge.json",
+          "tle_011"
+        ],
+        "input_or_trigger": "Bridge cap-economy claims into concurrency transaction replay cases.",
+        "next_case": null,
+        "outcome": "open",
+        "repair_route": [],
+        "restart_point": "claim_or_work_item_event",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "event preserved as public-safe cap-economy evidence"
+        },
+        "source_clip": "{\"acceptance_checks\":[\"connect cap claim to concurrency transaction replay\"],\"event_id\":\"tle_012\",\"event_type\":\"work_item\",\"evidence_refs\":[\"tle_011\",\"microcosms/concurrency_mission_control/work_metabolism_bridge.json\"],\"signal\":\"Bridge cap-economy claims into concurrency transaction replay cases.\",\"status\":\"open\",\"subject_id\":\"cap_cap_economy_to_concurrency_bridge\"}",
+        "source_clip_hash": "2bca2d6701cec0358c3bf2e9246759c7d06d1e2914708560a3a993250e0a17d4",
+        "teaching_rule": "Loose intent should become a claimed, validated, receipt-backed work event chain before prose closeout.",
+        "transformation": "work_item"
+      },
+      {
+        "anti_claims": [
+          "fixture ledger proves private Task Ledger readiness",
+          "work item status can be inferred from prose alone",
+          "a scoped claim authorizes broad staging",
+          "local receipt grants public release readiness"
+        ],
+        "case_id": "case.cap_release_root_scope",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "AXIOMS.md",
+          "RELEASE_SCOPE.md",
+          "microcosms/task_ledger_cap_economy/projection.json",
+          "microcosms/task_ledger_cap_economy/receipt.json",
+          "registry/release_candidates.json",
+          "tle_001",
+          "tle_002",
+          "tle_003",
+          "tle_004",
+          "tle_006",
+          "tle_008"
+        ],
+        "input_or_trigger": "The release root must not claim private-root equivalence.",
+        "next_case": "cap_cap_economy_to_concurrency_bridge",
+        "outcome": "closed",
+        "repair_route": [
+          "repair_route.tle_006.tle_007",
+          "repair_route.tle_008.tle_009"
+        ],
+        "restart_point": "receipt_gate",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "loose request became a durable cap event"
+        },
+        "source_clip": "{\"event_id\":\"tle_001\",\"event_type\":\"capture\",\"evidence_refs\":[\"RELEASE_SCOPE.md\"],\"signal\":\"The release root must not claim private-root equivalence.\",\"status\":\"captured\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "4c3d0c484991005467f0763aba6d36864dfde6036010aab8f1d389bf9692dfed",
+        "teaching_rule": "Loose intent should become a claimed, validated, receipt-backed work event chain before prose closeout.",
+        "transformation": "capture -> shape -> claim -> transaction_open -> mutation -> validation_failure -> work_item -> side_finding -> work_item -> validation -> closeout -> receipt"
+      }
+    ],
+    "provider_repair_residual_cases": [
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.good_json_answer",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.bad_json_self_attested_pass",
+        "outcome": "receipt_only_residual_closed",
+        "repair_route": {
+          "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+          "owner_lane": "receipt_gate",
+          "repair_required": false,
+          "restart_point": "receipt_record",
+          "route_id": "provider_repair_residual_route.good_json_answer",
+          "status": "receipt_record_closed",
+          "transaction_repair": "record provider pass receipt without promoting it to public or hosted authority"
+        },
+        "restart_point": "receipt_record",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.good_json_answer",
+          "provider_evaluator_status": "pass",
+          "provider_failure_class": null,
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": false,
+          "residual_event_type": "receipt",
+          "residual_status": "receipt_only_residual_closed",
+          "restart_point": "receipt_record",
+          "source_bridge_case_id": "provider_concurrency.case.good_json_answer",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "complete",
+          "transaction_status": "provider_pass_recorded_as_receipt_only",
+          "upstream_source_clip_hash": "45602d40dc6192e5c5984b2c968ff6d7c834bbd3d51db64c493523e5e78761b0"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.good_json_answer\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_pass_recorded_as_receipt_only\",\"provider_case_id\":\"case.good_json_answer\",\"provider_evaluator_result\":{\"evaluator_status\":\"pass\",\"failure_class\":null,\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":null,\"next_action\":\"record_fixture_pass_without_public_or_hosted_claim\",\"owner_lane\":\"receipt_gate\",\"restart_from\":\"receipt_record\",\"transaction_repair\":\"record provider pass receipt without promoting it to public or hosted authority\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.good_json_answer\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/receipt.json\"],\"receipt_ref\":\"microcosms/provider_harness_canary/receipt.json\",\"requested_status\":\"complete\"},\"upstream_source_clip_hash\":\"45602d40dc6192e5c5984b2c968ff6d7c834bbd3d51db64c493523e5e78761b0\"}",
+        "source_clip_hash": "273b9c3cd763e589be8bce05bb090b68122de5188da8b4d91c2961534723dbdc",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.good_json_answer",
+          "event_id": "provider_repair_residual.good_json_answer",
+          "event_type": "receipt",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.good_json_answer",
+          "status": "receipt_only_residual_closed",
+          "subject_id": "cap_provider_repair_residual.good_json_answer"
+        },
+        "teaching_rule": "Provider passes become receipt-only residual records and still grant no public, hosted, or private-runtime authority.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.bad_json_self_attested_pass",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.wrong_answer_self_attested_pass",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "repair_output_schema_contract_before_answer_evaluation",
+          "owner_lane": "schema_adapter",
+          "repair_required": true,
+          "restart_point": "schema_validation",
+          "route_id": "provider_repair_residual_route.bad_json_self_attested_pass",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "schema_validation",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_evaluator_status": "fail",
+          "provider_failure_class": "schema_failure",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "schema_validation",
+          "source_bridge_case_id": "provider_concurrency.case.bad_json_self_attested_pass",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "e1ef4a1b0cc33eceae0fd1d6d0bdaee61ae7b710b1e48d88414fa2a38461229d"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.bad_json_self_attested_pass\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.bad_json_self_attested_pass\",\"provider_evaluator_result\":{\"evaluator_status\":\"fail\",\"failure_class\":\"schema_failure\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"schema_failure\",\"next_action\":\"repair_output_schema_contract_before_answer_evaluation\",\"owner_lane\":\"schema_adapter\",\"restart_from\":\"schema_validation\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.bad_json_self_attested_pass\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"src/idea_microcosm/provider_harness_canary_specimen.py\",\"microcosms/provider_harness_canary/canary_board.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"e1ef4a1b0cc33eceae0fd1d6d0bdaee61ae7b710b1e48d88414fa2a38461229d\"}",
+        "source_clip_hash": "9a83002806157e3fa7aa68a2fdc5ba239ec85637264524525294eb94930962b9",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.bad_json_self_attested_pass",
+          "event_id": "provider_repair_residual.bad_json_self_attested_pass",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "src/idea_microcosm/provider_harness_canary_specimen.py",
+            "microcosms/provider_harness_canary/canary_board.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.bad_json_self_attested_pass",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.bad_json_self_attested_pass"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.wrong_answer_self_attested_pass",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.timeout",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+          "owner_lane": "provider_prompt_or_model_output",
+          "repair_required": true,
+          "restart_point": "provider_call_with_same_schema_contract",
+          "route_id": "provider_repair_residual_route.wrong_answer_self_attested_pass",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "provider_call_with_same_schema_contract",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_evaluator_status": "fail",
+          "provider_failure_class": "answer_mismatch",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "provider_call_with_same_schema_contract",
+          "source_bridge_case_id": "provider_concurrency.case.wrong_answer_self_attested_pass",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "041eb100f58a122bb97d1c45b551edb2c15440116db513174f780c9b3ae6b1e7"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.wrong_answer_self_attested_pass\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.wrong_answer_self_attested_pass\",\"provider_evaluator_result\":{\"evaluator_status\":\"fail\",\"failure_class\":\"answer_mismatch\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"answer_mismatch\",\"next_action\":\"rerun_or_mutate_provider_output_then_reapply_evaluator\",\"owner_lane\":\"provider_prompt_or_model_output\",\"restart_from\":\"provider_call_with_same_schema_contract\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.wrong_answer_self_attested_pass\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"041eb100f58a122bb97d1c45b551edb2c15440116db513174f780c9b3ae6b1e7\"}",
+        "source_clip_hash": "ec7d668e08d3d2f7751d2291e91f14220472d65f77f6f6de1bef353d1750735b",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.wrong_answer_self_attested_pass",
+          "event_id": "provider_repair_residual.wrong_answer_self_attested_pass",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.wrong_answer_self_attested_pass",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.wrong_answer_self_attested_pass"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.timeout",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.closeout",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+          "owner_lane": "provider_transport",
+          "repair_required": true,
+          "restart_point": "provider_call",
+          "route_id": "provider_repair_residual_route.timeout",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "provider_call",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.timeout",
+          "provider_evaluator_status": "block",
+          "provider_failure_class": "provider_route_unavailable",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "provider_call",
+          "source_bridge_case_id": "provider_concurrency.case.timeout",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "87811715329dcfabc8fbff0ec17fb453daf0871563f71b50c994a6cf17529ef0"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.timeout\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.timeout\",\"provider_evaluator_result\":{\"evaluator_status\":\"block\",\"failure_class\":\"provider_route_unavailable\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"provider_route_unavailable\",\"next_action\":\"retry_or_replace_provider_route_before_schema_or_answer_evaluation\",\"owner_lane\":\"provider_transport\",\"restart_from\":\"provider_call\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.timeout\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"87811715329dcfabc8fbff0ec17fb453daf0871563f71b50c994a6cf17529ef0\"}",
+        "source_clip_hash": "a41677fba7743ecbd90d850e943b6e998dc6528676629eb939993a4fd33ba77c",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.timeout",
+          "event_id": "provider_repair_residual.timeout",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/receipt.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.timeout",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.timeout"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      }
+    ],
+    "repair_routes": [
+      {
+        "evidence_refs": [
+          "registry/release_candidates.json"
+        ],
+        "failure_class": "missing_specimen_receipt",
+        "next_move_event_id": "tle_007",
+        "next_move_statement": "Build the Task Ledger cap-economy specimen and receipt.",
+        "repair_status": "routed_to_work_item",
+        "restart_point": "receipt_gate",
+        "route_id": "repair_route.tle_006.tle_007",
+        "source_event_id": "tle_006",
+        "teaching_rule": "Failures and side findings must resolve to durable work events before they appear in closeout prose."
+      },
+      {
+        "evidence_refs": [
+          "tle_006"
+        ],
+        "failure_class": "side_finding",
+        "next_move_event_id": "tle_009",
+        "next_move_statement": "Keep the closeout rule visible in the specimen README.",
+        "repair_status": "routed_to_work_item",
+        "restart_point": "closeout_before_prose",
+        "route_id": "repair_route.tle_008.tle_009",
+        "source_event_id": "tle_008",
+        "teaching_rule": "Failures and side findings must resolve to durable work events before they appear in closeout prose."
+      }
+    ],
+    "transaction_trace": [
+      {
+        "claim_id": "claim.cap_release_root_scope.task_ledger_fixture",
+        "evaluator_or_validator": "task_ledger_fixture_projection",
+        "event_id": "tle_003",
+        "event_type": "claim",
+        "evidence_refs": [
+          "tle_001",
+          "tle_002"
+        ],
+        "owned_paths": [
+          "microcosms/task_ledger_cap_economy/events.jsonl",
+          "microcosms/task_ledger_cap_economy/projection.json",
+          "microcosms/task_ledger_cap_economy/receipt.json"
+        ],
+        "status": "claimed",
+        "transaction_id": null
+      },
+      {
+        "claim_id": "claim.cap_release_root_scope.task_ledger_fixture",
+        "evaluator_or_validator": "task_ledger_fixture_projection",
+        "event_id": "tle_004",
+        "event_type": "transaction_open",
+        "evidence_refs": [
+          "tle_003"
+        ],
+        "owned_paths": [
+          "microcosms/task_ledger_cap_economy/events.jsonl",
+          "microcosms/task_ledger_cap_economy/projection.json",
+          "microcosms/task_ledger_cap_economy/receipt.json"
+        ],
+        "status": "open",
+        "transaction_id": "txn.cap_release_root_scope.fixture"
+      },
+      {
+        "claim_id": "claim.cap_release_root_scope.task_ledger_fixture",
+        "evaluator_or_validator": "task_ledger_fixture_projection",
+        "event_id": "tle_005",
+        "event_type": "mutation",
+        "evidence_refs": [
+          "tle_004"
+        ],
+        "owned_paths": [
+          "microcosms/task_ledger_cap_economy/events.jsonl",
+          "microcosms/task_ledger_cap_economy/projection.json"
+        ],
+        "status": "mutated",
+        "transaction_id": "txn.cap_release_root_scope.fixture"
+      },
+      {
+        "claim_id": null,
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "event_id": "tle_010",
+        "event_type": "validation",
+        "evidence_refs": [
+          "microcosms/task_ledger_cap_economy/projection.json",
+          "microcosms/task_ledger_cap_economy/receipt.json"
+        ],
+        "owned_paths": [],
+        "status": "accepted",
+        "transaction_id": "txn.cap_release_root_scope.fixture"
+      },
+      {
+        "claim_id": null,
+        "evaluator_or_validator": "task_ledger_fixture_projection",
+        "event_id": "tle_011",
+        "event_type": "closeout",
+        "evidence_refs": [
+          "microcosms/task_ledger_cap_economy/projection.json",
+          "microcosms/task_ledger_cap_economy/receipt.json"
+        ],
+        "owned_paths": [],
+        "status": "closed",
+        "transaction_id": "txn.cap_release_root_scope.fixture"
+      }
+    ]
+  },
+  "microcosm_id": "task_ledger_cap_economy_microcosm",
+  "microcosm_status": {
+    "blocked_claim_count": 4,
+    "capsule_count": 13,
+    "case_count": 2,
+    "evidence_ref_count": 13,
+    "missing_ref_count": 0,
+    "next_gap": "task_ledger_residuals_to_concurrency_stale_lease_replay",
+    "next_owner": "idea_microcosm.concurrency_mission_control_specimen",
+    "provider_repair_residual_case_count": 4,
+    "provider_repair_residual_open_count": 3,
+    "provider_repair_residual_repair_route_count": 3,
+    "provider_repair_residual_self_attestation_authority_count": 0,
+    "provider_repair_residual_teaching_rule_count": 4,
+    "repair_route_count": 2,
+    "self_error_capture_blocked_until_capture_count": 1,
+    "self_error_capture_case_count": 5,
+    "self_error_capture_publication_permission_count": 0,
+    "self_error_capture_typed_nothing_to_refine_count": 1,
+    "teaching_rule_count": 4,
+    "validation_status": "ok"
+  },
+  "pattern_family": "durable_work_and_residual_routing",
+  "projection_rule": "append-only fixture events become subject status, next moves, and receipt boundaries",
+  "prose_only_finding_count": 0,
+  "provider_repair_residual_bridge_ref": "microcosms/task_ledger_cap_economy/provider_repair_residual_bridge.json",
+  "provider_repair_residual_bridge_summary": {
+    "blocked_public_claim_count": 5,
+    "case_count": 4,
+    "closed_residual_count": 1,
+    "evaluator_authority_count": 4,
+    "evidence_ref_count": 4,
+    "missing_ref_count": 0,
+    "open_residual_count": 3,
+    "repair_route_count": 3,
+    "restart_point_count": 4,
+    "self_attestation_authority_count": 0,
+    "semantic_carryforward_count": 4,
+    "source_capsule_count": 4,
+    "teaching_rule_count": 4,
+    "validation_status": "ok"
+  },
+  "public_safety_boundary": "Synthetic public-safe events only; this is not the private Task Ledger, a private-root export, or publication authority.",
+  "route": {
+    "cold_agent_instruction": "Run the builder, inspect projection.source_capsule_provenance, then verify authority.self_attestation_count is zero before citing the receipt.",
+    "expected_output": "microcosms/task_ledger_cap_economy/projection.json",
+    "first_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+    "first_evidence": "microcosms/task_ledger_cap_economy/events.jsonl",
+    "next_artifact": "microcosms/task_ledger_cap_economy/receipt.json",
+    "next_microcosm": "concurrency_transaction_mission_control_microcosm"
+  },
+  "schema_version": "task_ledger_cap_economy_projection_v1",
+  "selected_native_pattern": "loose intent becomes claimed transaction work with source capsules, evaluator authority, closeout, and residual routing",
+  "self_error_capture_repair_extension": {
+    "authority": {
+      "authority_class": "fixture_capture_reflex_validator",
+      "fail_closed_gates": [
+        "capture_before_prose_gate",
+        "projection_visibility_gate",
+        "scoped_commit_gate",
+        "publication_gate"
+      ],
+      "forbidden_promotions": [
+        "chat_apology_to_backlog",
+        "capture_projection_to_source_authority",
+        "side_finding_to_broad_staging_permission",
+        "capture_receipt_to_public_release_ready",
+        "capture_receipt_to_publication_permission"
+      ],
+      "private_task_ledger_export_count": 0,
+      "prose_authority_granted_count": 0,
+      "self_attestation_count": 0
+    },
+    "authority_posture": "synthetic_capture_reflex_gate_not_private_task_ledger_authority",
+    "builder_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+    "cases": [
+      {
+        "allowed_to_appear_in_prose": false,
+        "anti_claims": [
+          "capture id proves private Task Ledger contents",
+          "capture projection is source authority",
+          "captured side finding authorizes broad staging",
+          "capture receipt grants publication permission"
+        ],
+        "capture_before_prose_required": true,
+        "capture_ref": null,
+        "case_id": "self_error_capture.prose_without_capture_attempt",
+        "disposition": "blocked_missing_capture",
+        "durable_patch_ref": null,
+        "input_or_trigger": "Agent is about to mention a mistake or side finding in closeout prose before a durable capture exists.",
+        "outcome": "blocked_until_capture",
+        "private_task_ledger_export": false,
+        "projection_not_authority": true,
+        "prose_authority_granted": false,
+        "public_release_permission": false,
+        "publication_permission": false,
+        "rebuild_or_visibility_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --rebuild ...",
+        "repair_route": "run_quick_capture_before_prose",
+        "repair_status": "blocked",
+        "semantic_carryforward": "The system refuses the prose surface until a Task Ledger capture id exists.",
+        "source_clip": "{\"allowed_to_appear_in_prose\":false,\"capture_ref\":null,\"case_id\":\"self_error_capture.prose_without_capture_attempt\",\"disposition\":\"blocked_missing_capture\",\"input_or_trigger\":\"Agent is about to mention a mistake or side finding in closeout prose before a durable capture exists.\",\"outcome\":\"blocked_until_capture\",\"repair_route\":\"run_quick_capture_before_prose\",\"semantic_carryforward\":\"The system refuses the prose surface until a Task Ledger capture id exists.\"}",
+        "source_clip_hash": "d6bbb159d85a0fcaa9ecd359e524ef9bd842a036130dcf325793c6c6902b3db1",
+        "teaching_rule": "Mistakes, side findings, and no-op stewardship claims must become durable capture state before they appear in prose.",
+        "validator": "validator.task_ledger_cap_economy_specimen"
+      },
+      {
+        "allowed_to_appear_in_prose": true,
+        "anti_claims": [
+          "capture id proves private Task Ledger contents",
+          "capture projection is source authority",
+          "captured side finding authorizes broad staging",
+          "capture receipt grants publication permission"
+        ],
+        "capture_before_prose_required": true,
+        "capture_ref": "synthetic_cap_shared_index_side_finding",
+        "case_id": "self_error_capture.shared_index_side_finding",
+        "disposition": "safe_exclusion",
+        "durable_patch_ref": "scoped_commit_pathspec",
+        "input_or_trigger": "Agent notices unrelated staged shared-index state while preparing a scoped microcosm commit.",
+        "outcome": "captured_then_excluded_from_scoped_commit",
+        "private_task_ledger_export": false,
+        "projection_not_authority": true,
+        "prose_authority_granted": false,
+        "public_release_permission": false,
+        "publication_permission": false,
+        "rebuild_or_visibility_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --rebuild --tag shared_index ...",
+        "repair_route": "cite_capture_and_leave_unowned_index_state_untouched",
+        "repair_status": "captured",
+        "semantic_carryforward": "The side finding can be mentioned only as a captured exclusion, not as a reason to stage unrelated work.",
+        "source_clip": "{\"allowed_to_appear_in_prose\":true,\"capture_ref\":\"synthetic_cap_shared_index_side_finding\",\"case_id\":\"self_error_capture.shared_index_side_finding\",\"disposition\":\"safe_exclusion\",\"input_or_trigger\":\"Agent notices unrelated staged shared-index state while preparing a scoped microcosm commit.\",\"outcome\":\"captured_then_excluded_from_scoped_commit\",\"repair_route\":\"cite_capture_and_leave_unowned_index_state_untouched\",\"semantic_carryforward\":\"The side finding can be mentioned only as a captured exclusion, not as a reason to stage unrelated work.\"}",
+        "source_clip_hash": "5c29bf04f67e0c4aba5937b68eda7b02b5f87c1a8e496ba8362d3eb72b9ba39e",
+        "teaching_rule": "Mistakes, side findings, and no-op stewardship claims must become durable capture state before they appear in prose.",
+        "validator": "validator.task_ledger_cap_economy_specimen"
+      },
+      {
+        "allowed_to_appear_in_prose": true,
+        "anti_claims": [
+          "capture id proves private Task Ledger contents",
+          "capture projection is source authority",
+          "captured side finding authorizes broad staging",
+          "capture receipt grants publication permission"
+        ],
+        "capture_before_prose_required": true,
+        "capture_ref": "synthetic_cap_invalid_capture_command",
+        "case_id": "self_error_capture.capture_command_misuse",
+        "disposition": "repair_required",
+        "durable_patch_ref": "operator_skill_reflex_patch_or_noop_receipt",
+        "input_or_trigger": "Agent uses the wrong capture CLI argument while trying to obey capture-before-prose.",
+        "outcome": "captured_as_self_error_then_repaired",
+        "private_task_ledger_export": false,
+        "projection_not_authority": true,
+        "prose_authority_granted": false,
+        "public_release_permission": false,
+        "publication_permission": false,
+        "rebuild_or_visibility_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --statement ... --problem ... --impact ... --acceptance ... --rebuild",
+        "repair_route": "rerun_quick_capture_with_statement_problem_impact_acceptance",
+        "repair_status": "captured",
+        "semantic_carryforward": "Even the failed repair attempt becomes captured state before being summarized.",
+        "source_clip": "{\"allowed_to_appear_in_prose\":true,\"capture_ref\":\"synthetic_cap_invalid_capture_command\",\"case_id\":\"self_error_capture.capture_command_misuse\",\"disposition\":\"repair_required\",\"input_or_trigger\":\"Agent uses the wrong capture CLI argument while trying to obey capture-before-prose.\",\"outcome\":\"captured_as_self_error_then_repaired\",\"repair_route\":\"rerun_quick_capture_with_statement_problem_impact_acceptance\",\"semantic_carryforward\":\"Even the failed repair attempt becomes captured state before being summarized.\"}",
+        "source_clip_hash": "d40b3a51037ae4c8e919dc23358ca58c66fc791ad39a9f9155a95a84ad227ba4",
+        "teaching_rule": "Mistakes, side findings, and no-op stewardship claims must become durable capture state before they appear in prose.",
+        "validator": "validator.task_ledger_cap_economy_specimen"
+      },
+      {
+        "allowed_to_appear_in_prose": true,
+        "anti_claims": [
+          "capture id proves private Task Ledger contents",
+          "capture projection is source authority",
+          "captured side finding authorizes broad staging",
+          "capture receipt grants publication permission"
+        ],
+        "capture_before_prose_required": true,
+        "capture_ref": "synthetic_cap_noop_stewardship",
+        "case_id": "self_error_capture.no_change_stewardship_receipt",
+        "disposition": "nothing_to_refine",
+        "durable_patch_ref": null,
+        "input_or_trigger": "Agent verifies a suspected issue and finds no durable patch is justified.",
+        "outcome": "typed_nothing_to_refine",
+        "private_task_ledger_export": false,
+        "projection_not_authority": true,
+        "prose_authority_granted": false,
+        "public_release_permission": false,
+        "publication_permission": false,
+        "rebuild_or_visibility_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --rebuild --tag nothing_to_refine ...",
+        "repair_route": "record_stewardship_checked_next_best_lane_checked_reentry_condition",
+        "repair_status": "captured",
+        "semantic_carryforward": "No-edit work is still closed through a typed stewardship receipt instead of a chat-only shrug.",
+        "source_clip": "{\"allowed_to_appear_in_prose\":true,\"capture_ref\":\"synthetic_cap_noop_stewardship\",\"case_id\":\"self_error_capture.no_change_stewardship_receipt\",\"disposition\":\"nothing_to_refine\",\"input_or_trigger\":\"Agent verifies a suspected issue and finds no durable patch is justified.\",\"outcome\":\"typed_nothing_to_refine\",\"repair_route\":\"record_stewardship_checked_next_best_lane_checked_reentry_condition\",\"semantic_carryforward\":\"No-edit work is still closed through a typed stewardship receipt instead of a chat-only shrug.\"}",
+        "source_clip_hash": "2b8c5810455d023b1aedd6a0d29c3d82885e19f61472041ffce3d045665babf2",
+        "teaching_rule": "Mistakes, side findings, and no-op stewardship claims must become durable capture state before they appear in prose.",
+        "validator": "validator.task_ledger_cap_economy_specimen"
+      },
+      {
+        "allowed_to_appear_in_prose": true,
+        "anti_claims": [
+          "capture id proves private Task Ledger contents",
+          "capture projection is source authority",
+          "captured side finding authorizes broad staging",
+          "capture receipt grants publication permission"
+        ],
+        "capture_before_prose_required": true,
+        "capture_ref": "synthetic_cap_visibility_receipt",
+        "case_id": "self_error_capture.visibility_rebuild_receipt",
+        "disposition": "projection_visibility_checked",
+        "durable_patch_ref": "state/task_ledger/views/capture_inbox.json",
+        "input_or_trigger": "Agent needs proof that the captured item survived into the rebuilt Task Ledger projection.",
+        "outcome": "capture_visible_after_rebuild",
+        "private_task_ledger_export": false,
+        "projection_not_authority": true,
+        "prose_authority_granted": false,
+        "public_release_permission": false,
+        "publication_permission": false,
+        "rebuild_or_visibility_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --rebuild ...",
+        "repair_route": "inspect_visibility_receipt_and_cite_cap_id",
+        "repair_status": "captured",
+        "semantic_carryforward": "The capture is not complete until authority and projection visibility agree.",
+        "source_clip": "{\"allowed_to_appear_in_prose\":true,\"capture_ref\":\"synthetic_cap_visibility_receipt\",\"case_id\":\"self_error_capture.visibility_rebuild_receipt\",\"disposition\":\"projection_visibility_checked\",\"input_or_trigger\":\"Agent needs proof that the captured item survived into the rebuilt Task Ledger projection.\",\"outcome\":\"capture_visible_after_rebuild\",\"repair_route\":\"inspect_visibility_receipt_and_cite_cap_id\",\"semantic_carryforward\":\"The capture is not complete until authority and projection visibility agree.\"}",
+        "source_clip_hash": "e981decfe7d9e750eaa2fac168c767a4fbb7ddeccfdcf3362115eb2c9aeed61c",
+        "teaching_rule": "Mistakes, side findings, and no-op stewardship claims must become durable capture state before they appear in prose.",
+        "validator": "validator.task_ledger_cap_economy_specimen"
+      }
+    ],
+    "claim_ceiling": "fixture_validated_capture_before_prose_behavior_only; not private Task Ledger export, not issue-tracker replacement claim, not public-release approval, and not publication permission",
+    "generated_at": "2026-05-13T00:20:00Z",
+    "kind": "self_error_capture_repair_extension",
+    "layman_summary": "The system does not let an agent merely apologize or flag a finding in chat; it first turns the event into captured work with a visible receipt boundary.",
+    "microcosm_id": "task_ledger_cap_economy_microcosm",
+    "novelty_primitive": "capture_before_prose_self_error_metabolism",
+    "route": {
+      "cold_agent_instruction": "Inspect blocked_until_capture cases first, then confirm every prose-eligible case has a capture_ref, rebuild command, source hash, and zero publication authority.",
+      "expected_output": "microcosms/task_ledger_cap_economy/projection.json:self_error_capture_repair_extension",
+      "first_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+      "first_evidence": "microcosms/task_ledger_cap_economy/events.jsonl",
+      "next_artifact": "microcosms/task_ledger_cap_economy/receipt.json"
+    },
+    "schema_version": "self_error_capture_repair_extension_v0",
+    "selected_native_pattern": "mistakes and side findings become captured work before prose, then rebuild into visible projections",
+    "source_owner": "microcosms/task_ledger_cap_economy/events.jsonl",
+    "status": "ok",
+    "summary": {
+      "blocked_until_capture_count": 1,
+      "capture_before_prose_required_count": 5,
+      "captured_case_count": 4,
+      "case_count": 5,
+      "private_task_ledger_export_count": 0,
+      "prose_authority_granted_count": 0,
+      "public_release_permission_count": 0,
+      "publication_permission_count": 0,
+      "rebuild_or_visibility_command_count": 5,
+      "semantic_carryforward_count": 5,
+      "source_capsule_count": 5,
+      "typed_nothing_to_refine_count": 1,
+      "validation_status": "ok"
+    },
+    "technical_summary": "Synthetic self-error cases require capture-before-prose, source hashes, visibility rebuild commands, typed no-op disposition, and zero prose/publication authority.",
+    "validators": [
+      {
+        "expected": 5,
+        "id": "validator.self_error_capture_requires_capture_before_prose",
+        "observed": 5,
+        "status": "pass"
+      },
+      {
+        "expected_min": 1,
+        "id": "validator.self_error_capture_blocks_uncaptured_prose",
+        "observed": 1,
+        "status": "pass"
+      },
+      {
+        "expected": 5,
+        "id": "validator.self_error_capture_rebuild_visibility_named",
+        "observed": 5,
+        "status": "pass"
+      },
+      {
+        "expected": 0,
+        "id": "validator.self_error_capture_grants_no_public_authority",
+        "observed": 0,
+        "status": "pass"
+      }
+    ]
+  },
+  "side_finding_count": 1,
+  "source_capsule_provenance": {
+    "schema_version": "source_capsule_provenance_v0",
+    "source_capsules": [
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_001",
+        "event_id": "tle_001",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "loose request became a durable cap event"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_001\",\"event_type\":\"capture\",\"evidence_refs\":[\"RELEASE_SCOPE.md\"],\"signal\":\"The release root must not claim private-root equivalence.\",\"status\":\"captured\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "4c3d0c484991005467f0763aba6d36864dfde6036010aab8f1d389bf9692dfed",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_002",
+        "event_id": "tle_002",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "cap gained satisfaction checks and evidence boundaries"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_002\",\"event_type\":\"shape\",\"evidence_refs\":[\"AXIOMS.md\",\"registry/release_candidates.json\"],\"signal\":\"shaped\",\"status\":\"shaped\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "f50f608ee6dff683d64e3dfaced004ef0ffe97b6702e23de8549a8e73cb8aa9d",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_003",
+        "event_id": "tle_003",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "work moved under an explicit lease and path-ownership claim"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"claim_id\":\"claim.cap_release_root_scope.task_ledger_fixture\",\"claimed_paths\":[\"microcosms/task_ledger_cap_economy/events.jsonl\",\"microcosms/task_ledger_cap_economy/projection.json\",\"microcosms/task_ledger_cap_economy/receipt.json\"],\"event_id\":\"tle_003\",\"event_type\":\"claim\",\"evidence_refs\":[\"tle_001\",\"tle_002\"],\"lease_minutes\":120,\"signal\":\"Claim the public-safe cap-economy specimen paths before mutation.\",\"status\":\"claimed\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "fe060420116b91f530202b538d7ba49651163b24ee0077454c390d0940da2508",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_004",
+        "event_id": "tle_004",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "owned paths and excluded ambient state became a transaction boundary"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"claim_id\":\"claim.cap_release_root_scope.task_ledger_fixture\",\"event_id\":\"tle_004\",\"event_type\":\"transaction_open\",\"evidence_refs\":[\"tle_003\"],\"owned_paths\":[\"microcosms/task_ledger_cap_economy/events.jsonl\",\"microcosms/task_ledger_cap_economy/projection.json\",\"microcosms/task_ledger_cap_economy/receipt.json\"],\"signal\":\"open\",\"status\":\"open\",\"subject_id\":\"cap_release_root_scope\",\"transaction_id\":\"txn.cap_release_root_scope.fixture\"}",
+        "source_clip_hash": "9573c58034f5048fd7bf7eb1f1b633a213e5920c22c30e7e704417870791ecd6",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_005",
+        "event_id": "tle_005",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "claimed paths carried the bounded source change"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"claim_id\":\"claim.cap_release_root_scope.task_ledger_fixture\",\"event_id\":\"tle_005\",\"event_type\":\"mutation\",\"evidence_refs\":[\"tle_004\"],\"owned_paths\":[\"microcosms/task_ledger_cap_economy/events.jsonl\",\"microcosms/task_ledger_cap_economy/projection.json\"],\"signal\":\"Append source-backed cap lifecycle events and keep output generated by the builder.\",\"status\":\"mutated\",\"subject_id\":\"cap_release_root_scope\",\"transaction_id\":\"txn.cap_release_root_scope.fixture\"}",
+        "source_clip_hash": "e6e6a8970fc0eb6092a22f263bde2b19ba2a78822fb05a91b312de3898ae1128",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_006",
+        "event_id": "tle_006",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "validator failure became a routed work item instead of prose"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_006\",\"event_type\":\"validation_failure\",\"evidence_refs\":[\"registry/release_candidates.json\"],\"next_move_event_id\":\"tle_007\",\"restart_point\":\"receipt_gate\",\"signal\":\"A candidate cannot move from internal_runnable to cold_sandbox_passed without a specimen receipt.\",\"status\":\"blocked\",\"subject_id\":\"cap_release_root_scope\",\"validator_id\":\"validator.release_candidates\"}",
+        "source_clip_hash": "6a9cae71b52230e8b7c010676e46a23bfabe7c6bf0753e2c6b2ba34287850662",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_007",
+        "event_id": "tle_007",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "event preserved as public-safe cap-economy evidence"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"acceptance_checks\":[\"build-task-ledger-specimen\",\"validate\"],\"event_id\":\"tle_007\",\"event_type\":\"work_item\",\"evidence_refs\":[\"tle_006\"],\"signal\":\"Build the Task Ledger cap-economy specimen and receipt.\",\"status\":\"closed\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "ceda39b338a7b76bd79de4694acdf2a58f3e5537159e9edd907281e3a4ceb6c2",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_008",
+        "event_id": "tle_008",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "side finding became a routed work item before closeout prose"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_008\",\"event_type\":\"side_finding\",\"evidence_refs\":[\"tle_006\"],\"next_move_event_id\":\"tle_009\",\"restart_point\":\"closeout_before_prose\",\"signal\":\"Side findings must become work events before they appear in closeout prose.\",\"status\":\"routed\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "f96cdaabb59bcaa153584535f88d03615b0b7392afa5ddab713742f683dc838f",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_009",
+        "event_id": "tle_009",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "event preserved as public-safe cap-economy evidence"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"acceptance_checks\":[\"README names prose-only finding boundary\"],\"event_id\":\"tle_009\",\"event_type\":\"work_item\",\"evidence_refs\":[\"tle_008\"],\"signal\":\"Keep the closeout rule visible in the specimen README.\",\"status\":\"closed\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "1c48958639a3393442a85521a0473a0c1c9be541ac39b29285d99aa801907050",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_010",
+        "event_id": "tle_010",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "evaluator result, not self-attestation, drove acceptance"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_010\",\"event_type\":\"validation\",\"evidence_refs\":[\"microcosms/task_ledger_cap_economy/projection.json\",\"microcosms/task_ledger_cap_economy/receipt.json\"],\"signal\":\"The fixture passes only because routed findings resolve to work_item events and the receipt carries evidence refs.\",\"status\":\"accepted\",\"subject_id\":\"cap_release_root_scope\",\"transaction_id\":\"txn.cap_release_root_scope.fixture\",\"validator_id\":\"validator.task_ledger_cap_economy_specimen\"}",
+        "source_clip_hash": "61ba41d8b112d8f47c6d653721a176ee6fcee5e405ab8854fcade70ae6ac1cc9",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_011",
+        "event_id": "tle_011",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "closeout bound evidence, exclusions, and residuals"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_011\",\"event_type\":\"closeout\",\"evidence_refs\":[\"microcosms/task_ledger_cap_economy/projection.json\",\"microcosms/task_ledger_cap_economy/receipt.json\"],\"signal\":\"The cap closes with evidence refs, excluded promotions, and a named next cap instead of prose-only completion.\",\"status\":\"closed\",\"subject_id\":\"cap_release_root_scope\",\"transaction_id\":\"txn.cap_release_root_scope.fixture\"}",
+        "source_clip_hash": "745158f78b0742b4fc8072505609e8b19cf98dd2800818d3432c33d6258fec93",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_012",
+        "event_id": "tle_012",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "event preserved as public-safe cap-economy evidence"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"acceptance_checks\":[\"connect cap claim to concurrency transaction replay\"],\"event_id\":\"tle_012\",\"event_type\":\"work_item\",\"evidence_refs\":[\"tle_011\",\"microcosms/concurrency_mission_control/work_metabolism_bridge.json\"],\"signal\":\"Bridge cap-economy claims into concurrency transaction replay cases.\",\"status\":\"open\",\"subject_id\":\"cap_cap_economy_to_concurrency_bridge\"}",
+        "source_clip_hash": "2bca2d6701cec0358c3bf2e9246759c7d06d1e2914708560a3a993250e0a17d4",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      },
+      {
+        "authority_boundary": "source capsule is evidence provenance, not status authority",
+        "capsule_id": "source_capsule.tle_013",
+        "event_id": "tle_013",
+        "semantic_carryforward": {
+          "preserved_fields": [
+            "event_id",
+            "event_type",
+            "subject_id",
+            "status",
+            "evidence_refs"
+          ],
+          "projection_boundary": "capsule hashes public-safe fixture events only; it is not a private Task Ledger export",
+          "summary": "receipt recorded the fixture-level authority boundary"
+        },
+        "source_class": "public_safe_task_ledger_fixture_event",
+        "source_clip": "{\"event_id\":\"tle_013\",\"event_type\":\"receipt\",\"evidence_refs\":[\"microcosms/task_ledger_cap_economy/projection.json\"],\"signal\":\"fixture-level cap economy proof only\",\"status\":\"closed\",\"subject_id\":\"cap_release_root_scope\"}",
+        "source_clip_hash": "853d1356b20b4a09e384e223de1b990cfd7890b7940f72f1f0365de686f5ced8",
+        "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl"
+      }
+    ],
+    "summary": {
+      "projection_not_authority": true,
+      "semantic_carryforward_count": 13,
+      "source_capsule_count": 13,
+      "source_owner": "microcosms/task_ledger_cap_economy/events.jsonl"
+    }
+  },
+  "source_owner": "microcosms/task_ledger_cap_economy/events.jsonl",
+  "source_ref": "microcosms/task_ledger_cap_economy/events.jsonl",
+  "status": "ok",
+  "subject_count": 2,
+  "subjects": [
+    {
+      "event_count": 1,
+      "evidence_refs": [
+        "microcosms/concurrency_mission_control/work_metabolism_bridge.json",
+        "tle_011"
+      ],
+      "latest_event_id": "tle_012",
+      "latest_status": "open",
+      "open_work_item_event_ids": [
+        "tle_012"
+      ],
+      "subject_id": "cap_cap_economy_to_concurrency_bridge"
+    },
+    {
+      "event_count": 12,
+      "evidence_refs": [
+        "AXIOMS.md",
+        "RELEASE_SCOPE.md",
+        "microcosms/task_ledger_cap_economy/projection.json",
+        "microcosms/task_ledger_cap_economy/receipt.json",
+        "registry/release_candidates.json",
+        "tle_001",
+        "tle_002",
+        "tle_003",
+        "tle_004",
+        "tle_006",
+        "tle_008"
+      ],
+      "latest_event_id": "tle_013",
+      "latest_status": "closed",
+      "open_work_item_event_ids": [],
+      "subject_id": "cap_release_root_scope"
+    }
+  ],
+  "technical_summary": "Public-safe JSONL events are projected into source capsules, a cap lifecycle trace, repair routes, authority counters, and runnable command links.",
+  "validation_failure_count": 1,
+  "work_item_count": 3
+}

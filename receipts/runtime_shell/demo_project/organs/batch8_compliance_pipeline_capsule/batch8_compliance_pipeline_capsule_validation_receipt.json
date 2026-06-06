@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 8 imports and exercises public-safe macro bodies for the compliance adapter registry, scanner coverage self-audit, baseline scanner, Microcosm compliance adapter, compliance ledger builder, and the observe pipeline extract/select/emit/compile/execute/process stages. It is not a full compliance-ledger refresh, not provider dispatch, not raw-seed mutation authority, not public release approval, and not proof that every standard or pipeline branch is covered.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch8_compliance_pipeline_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch8_compliance_pipeline_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_compliance_pipeline_capsule"
+}

@@ -1,13 +1,15 @@
 {
-  "anti_claim": "Proof-derived governed mutation authorization validates a synthetic mutation-authorization contract: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "accepted_real_record_count": 3,
+  "anti_claim": "Proof-derived governed mutation authorization validates public-safe real governed-mutation records bound to redacted mutation-authorization metadata: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_proof_derived_governed_mutation_authorization_receipts_only",
+    "authority_ceiling": "public_safe_real_governed_mutation_records_plus_redacted_fixture_metadata_only",
     "benchmark_score_claim_authorized": false,
     "hidden_policy_votes_authorized": false,
     "irreversible_mutation_authorized": false,
     "live_cloud_account_authorized": false,
     "policy_after_execution_authorized": false,
     "provider_calls_authorized": false,
+    "real_public_safe_record_required": true,
     "release_authorized": false,
     "source_mutation_authorized": false,
     "standing_credentials_authorized": false,
@@ -49,6 +51,110 @@
       "proposal_id": "proposal.rollback_config_change",
       "replay_id": "cold.rollback_config_change.v1",
       "status": "pass"
+    }
+  ],
+  "governed_mutation_record_rows": [
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "derived_rollback_receipt_ref": "",
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "proposal.inspect_repo_state",
+      "real_evidence_ref_digest": "sha256:cb3f71b79912f4765900d9b20f356d97508c8db2671b10b4d8b6dce9fe1a18db",
+      "reason_codes": [],
+      "record_id": "real_record.inspect_repo_state.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "",
+      "side_effect_diff_ref": "",
+      "source_record_class": "real_repo_mission_transaction_record",
+      "source_ref_count": 5,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.rollback_config_change",
+      "real_evidence_ref_digest": "sha256:26c61e03e382a204a7afff4903d47e8348e985fac5f3c4641c14811b2f76154e",
+      "reason_codes": [],
+      "record_id": "real_record.rollback_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_diff_ref": "diff.synthetic_rollback.v1",
+      "source_record_class": "real_repo_work_landing_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.scoped_config_change",
+      "real_evidence_ref_digest": "sha256:06ee65100cffc4ffae9dbe3bb26f4b1a3fbf38cdfafe2cdcf97d0ebefc33853b",
+      "reason_codes": [],
+      "record_id": "real_record.scoped_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1",
+      "source_record_class": "real_repo_scoped_commit_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
     }
   ],
   "input_mode": "fixture",
@@ -153,7 +259,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 16,
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "proof_cell_rows": [
@@ -265,11 +371,13 @@
       "side_effect_diff_ref": "diff.synthetic_config_write.v1"
     }
   ],
+  "real_record_count": 3,
+  "real_record_status": "real_public_safe_governed_mutation_record_bound",
   "receipt_paths": [
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
   "rollback_rows": [
     {

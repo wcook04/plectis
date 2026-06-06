@@ -22,12 +22,14 @@ from microcosm_core.schemas import read_json_strict
 CHECKER_ID = "checker.microcosm.validators.fixture_freshness"
 ACCEPTANCE_SUMMARY_REL = "receipts/first_wave/acceptance_summary.json"
 EVIDENCE_CLASS_REGISTRY_REL = "core/organ_evidence_classes.json"
+ORGAN_REGISTRY_REL = "core/organ_registry.json"
 TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS = {
     "real_runtime_receipt": "real_runtime_receipt_count",
     "copied_non_secret_macro_body": "copied_non_secret_macro_body_count",
     "source_faithful_refactor": "source_faithful_refactor_count",
     "real_import_validation": "real_import_validation_count",
     "regression_negative_fixture": "regression_negative_fixture_count",
+    "external_fixture_witness": "external_fixture_witness_count",
     "blocked_import_debt": "blocked_import_debt_count",
     "secret_exclusion": "secret_exclusion_count",
     "legacy_adapter_or_synthetic_placeholder": (
@@ -43,6 +45,18 @@ REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
         "real_import_validation",
     }
 )
+ALLOWED_REAL_SUBSTRATE_DISPOSITIONS = frozenset(
+    {
+        "real_substrate_capsule",
+        "retained_regression_validator",
+        "deleted_or_demoted_historical_artifact",
+        "blocked_secret_only",
+    }
+)
+REAL_SUBSTRATE_DISPOSITION = "real_substrate_capsule"
+RETAINED_REGRESSION_VALIDATOR_DISPOSITION = "retained_regression_validator"
+SYNTHETIC_EVIDENCE_CLASSES = frozenset({"fixture_echo_smoke"})
+SYNTHETIC_TRUTH_BUCKETS = frozenset({"regression_negative_fixture"})
 HASH_CHUNK_SIZE = 1024 * 1024
 
 
@@ -126,7 +140,7 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _load_registry(public_root: Path) -> dict[str, Any]:
-    return read_json_strict(public_root / "core/organ_registry.json")
+    return read_json_strict(public_root / ORGAN_REGISTRY_REL)
 
 
 def _accepted_organs(registry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -135,6 +149,14 @@ def _accepted_organs(registry: dict[str, Any]) -> list[dict[str, Any]]:
         for row in _rows(registry, "implemented_organs")
         if row.get("status") == "accepted_current_authority"
     ]
+
+
+def _accepted_registry_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("organ_id")): row
+        for row in _accepted_organs(_load_registry(public_root))
+        if row.get("organ_id")
+    }
 
 
 def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
@@ -151,24 +173,41 @@ def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
 
     profiles: dict[str, dict[str, Any]] = {}
     duplicate_organs: set[str] = set()
+    registry_profiles = _accepted_registry_profiles_by_organ(public_root)
     for row in rows:
         if not isinstance(row, dict):
             raise ValueError("organ evidence-class row must be a JSON object")
         organ_id = str(row.get("organ_id") or "")
-        evidence_class = str(row.get("evidence_class") or "")
+        registry_profile = registry_profiles.get(organ_id, {})
+        evidence_class = str(
+            registry_profile.get("evidence_class") or row.get("evidence_class") or ""
+        )
         class_profile = class_profiles.get(evidence_class)
         if not organ_id or not isinstance(class_profile, dict):
             raise ValueError(f"invalid evidence-class row for organ {organ_id!r}")
         if organ_id in profiles:
             duplicate_organs.add(organ_id)
-        truth_bucket = str(class_profile.get("truth_accounting_bucket") or "")
+        truth_bucket = str(
+            registry_profile.get("truth_accounting_bucket")
+            or class_profile.get("truth_accounting_bucket")
+            or ""
+        )
         if truth_bucket not in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS:
             raise ValueError(
                 f"evidence_class {evidence_class!r} uses unknown truth bucket "
                 f"{truth_bucket!r}"
             )
-        counts_as_progress = truth_bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
-        if class_profile.get("counts_as_real_substrate_progress") is not counts_as_progress:
+        registry_progress = registry_profile.get("counts_as_real_substrate_progress")
+        counts_as_progress = (
+            registry_progress
+            if isinstance(registry_progress, bool)
+            else truth_bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
+        )
+        if (
+            not registry_profile.get("truth_accounting_bucket")
+            and class_profile.get("counts_as_real_substrate_progress")
+            is not counts_as_progress
+        ):
             raise ValueError(
                 f"evidence_class {evidence_class!r} has inconsistent progress flag"
             )
@@ -177,15 +216,93 @@ def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
             "evidence_class": evidence_class,
             "truth_accounting_bucket": truth_bucket,
             "counts_as_real_substrate_progress": counts_as_progress,
-            "evidence_strength_rank": class_profile.get("evidence_strength_rank"),
-            "claim_ceiling": class_profile.get("claim_ceiling"),
-            "classification_basis": row.get("classification_basis"),
+            "evidence_strength_rank": registry_profile.get("evidence_strength_rank")
+            or class_profile.get("evidence_strength_rank"),
+            "claim_ceiling": registry_profile.get("claim_ceiling")
+            or class_profile.get("claim_ceiling"),
+            "classification_basis": registry_profile.get("classification_basis")
+            or row.get("classification_basis"),
         }
     if duplicate_organs:
         raise ValueError(
             "duplicate organ evidence-class rows: " + ", ".join(sorted(duplicate_organs))
         )
     return profiles
+
+
+def _synthetic_disposition_value(row: dict[str, Any]) -> str:
+    value = row.get("synthetic_acceptance_disposition")
+    if isinstance(value, dict):
+        return str(value.get("disposition") or "")
+    if isinstance(value, str):
+        return value
+    return ""
+
+
+def _is_synthetic_acceptance_row(row: dict[str, Any]) -> bool:
+    return (
+        row.get("evidence_class") in SYNTHETIC_EVIDENCE_CLASSES
+        or row.get("truth_accounting_bucket") in SYNTHETIC_TRUTH_BUCKETS
+        or row.get("counts_as_real_substrate_progress") is False
+    )
+
+
+def _disposition_coverage(accepted: list[dict[str, Any]]) -> dict[str, Any]:
+    disposition_counts = Counter(
+        str(row.get("real_substrate_disposition") or "missing") for row in accepted
+    )
+    missing: list[str] = []
+    invalid: list[str] = []
+    mismatch: list[str] = []
+    synthetic_organs: list[str] = []
+    for row in accepted:
+        organ_id = str(row.get("organ_id") or "")
+        disposition = str(row.get("real_substrate_disposition") or "")
+        synthetic_disposition = _synthetic_disposition_value(row)
+        is_synthetic = _is_synthetic_acceptance_row(row)
+        counts_as_progress = row.get("counts_as_real_substrate_progress") is True
+        if not disposition:
+            missing.append(organ_id)
+        if disposition and disposition not in ALLOWED_REAL_SUBSTRATE_DISPOSITIONS:
+            invalid.append(organ_id)
+        if is_synthetic:
+            synthetic_organs.append(organ_id)
+            if not synthetic_disposition:
+                missing.append(organ_id)
+            elif (
+                synthetic_disposition
+                != RETAINED_REGRESSION_VALIDATOR_DISPOSITION
+            ):
+                invalid.append(organ_id)
+            if counts_as_progress:
+                mismatch.append(organ_id)
+            if disposition and disposition != RETAINED_REGRESSION_VALIDATOR_DISPOSITION:
+                mismatch.append(organ_id)
+        elif counts_as_progress and disposition and disposition != REAL_SUBSTRATE_DISPOSITION:
+            mismatch.append(organ_id)
+        elif not counts_as_progress and disposition == REAL_SUBSTRATE_DISPOSITION:
+            mismatch.append(organ_id)
+
+    missing = sorted(set(missing))
+    invalid = sorted(set(invalid))
+    mismatch = sorted(set(mismatch))
+    covered_count = len(accepted) - len(set(missing) | set(invalid) | set(mismatch))
+    status = PASS if covered_count == len(accepted) else "blocked"
+    return {
+        "schema_version": "microcosm_real_substrate_disposition_coverage_v1",
+        "status": status,
+        "allowed_dispositions": sorted(ALLOWED_REAL_SUBSTRATE_DISPOSITIONS),
+        "required_registry_field": "real_substrate_disposition",
+        "required_synthetic_field": "synthetic_acceptance_disposition",
+        "accepted_organ_count": len(accepted),
+        "covered_count": covered_count,
+        "synthetic_accepted_count": len(synthetic_organs),
+        "synthetic_retained_regression_validator_organs": sorted(synthetic_organs),
+        "disposition_counts": dict(sorted(disposition_counts.items())),
+        "missing_synthetic_acceptance_dispositions": missing,
+        "invalid_synthetic_acceptance_disposition": invalid,
+        "synthetic_acceptance_progress_flag_mismatch": mismatch,
+    }
 
 
 def _acceptance_truth_accounting(
@@ -204,8 +321,10 @@ def _acceptance_truth_accounting(
     real_organs: list[str] = []
     non_progress_organs: list[str] = []
     evidence_rows: list[dict[str, Any]] = []
+    accepted_by_id = {str(row.get("organ_id") or ""): row for row in accepted}
     for organ_id in accepted_ids:
         profile = evidence_profiles[organ_id]
+        accepted_row = accepted_by_id[organ_id]
         truth_bucket = str(profile["truth_accounting_bucket"])
         counts[truth_bucket] += 1
         class_counts[str(profile["evidence_class"])] += 1
@@ -213,16 +332,23 @@ def _acceptance_truth_accounting(
             real_organs.append(organ_id)
         else:
             non_progress_organs.append(organ_id)
-        evidence_rows.append(profile)
+        evidence_row = dict(profile)
+        evidence_row["real_substrate_disposition"] = accepted_row.get(
+            "real_substrate_disposition"
+        )
+        if accepted_row.get("synthetic_acceptance_disposition") is not None:
+            evidence_row["synthetic_acceptance_disposition"] = accepted_row.get(
+                "synthetic_acceptance_disposition"
+            )
+        evidence_rows.append(evidence_row)
 
     count_fields = {
         count_key: counts[bucket]
         for bucket, count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.items()
     }
-    real_substrate_progress_count = sum(
-        counts[bucket] for bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
-    )
-    non_progress_count = len(accepted_ids) - real_substrate_progress_count
+    real_substrate_progress_count = len(real_organs)
+    non_progress_count = len(non_progress_organs)
+    disposition_coverage = _disposition_coverage(accepted)
     return {
         "schema_version": "microcosm_acceptance_truth_accounting_v1",
         "source_ref": EVIDENCE_CLASS_REGISTRY_REL,
@@ -234,9 +360,175 @@ def _acceptance_truth_accounting(
         "evidence_class_counts": dict(sorted(class_counts.items())),
         "real_substrate_progress_organs": real_organs,
         "non_progress_organs": non_progress_organs,
+        "disposition_coverage": disposition_coverage,
         "accepted_current_authority_evidence": evidence_rows,
         **count_fields,
     }
+
+
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, (str, int, float))]
+
+
+def _int_value(value: Any) -> int:
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str) and value.isdigit():
+        return int(value)
+    return 0
+
+
+def _normalize_public_ref(value: Any) -> str:
+    text = str(value or "")
+    public_root_prefix = "microcosm-substrate/"
+    if text.startswith(public_root_prefix):
+        return text[len(public_root_prefix) :]
+    return text
+
+
+def _source_body_import_coverage(
+    public_root: Path,
+    accepted: list[dict[str, Any]],
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    missing_source_manifest_refs: list[dict[str, str]] = []
+    body_in_receipt_organs: list[str] = []
+    material_class_counts: Counter[str] = Counter()
+    disposition_body_counts: Counter[str] = Counter()
+    body_material_count = 0
+    source_manifest_ref_count = 0
+
+    for accepted_row in accepted:
+        organ_id = str(accepted_row.get("organ_id") or "")
+        if not organ_id:
+            continue
+        manifest_path = public_root / "core/fixture_manifests" / (
+            f"{organ_id}.fixture_manifest.json"
+        )
+        if not manifest_path.is_file():
+            continue
+        manifest = read_json_strict(manifest_path)
+        if not isinstance(manifest, dict):
+            continue
+        source_open = manifest.get("source_open_body_imports")
+        if not isinstance(source_open, dict):
+            continue
+
+        source_manifest_refs = [
+            _normalize_public_ref(ref)
+            for ref in _string_list(source_open.get("source_manifest_refs"))
+        ]
+        material_classes = _string_list(source_open.get("material_classes"))
+        body_material_ids = _string_list(source_open.get("body_material_ids"))
+        row_body_count = _int_value(source_open.get("body_material_count"))
+        if not row_body_count:
+            row_body_count = _int_value(manifest.get("body_copied_material_count"))
+        if not row_body_count:
+            row_body_count = len(body_material_ids)
+
+        for ref in source_manifest_refs:
+            if not (public_root / ref).is_file():
+                missing_source_manifest_refs.append(
+                    {"organ_id": organ_id, "source_manifest_ref": ref}
+                )
+        for material_class in material_classes:
+            material_class_counts[material_class] += 1
+
+        body_material_count += row_body_count
+        source_manifest_ref_count += len(source_manifest_refs)
+        disposition = str(
+            accepted_row.get("real_substrate_disposition") or "missing"
+        )
+        disposition_body_counts[disposition] += row_body_count
+        if source_open.get("body_in_receipt") is True:
+            body_in_receipt_organs.append(organ_id)
+
+        preview = source_manifest_refs[:8]
+        rows.append(
+            {
+                "organ_id": organ_id,
+                "evidence_class": accepted_row.get("evidence_class"),
+                "truth_accounting_bucket": accepted_row.get("truth_accounting_bucket"),
+                "real_substrate_disposition": accepted_row.get(
+                    "real_substrate_disposition"
+                ),
+                "counts_as_real_substrate_progress": accepted_row.get(
+                    "counts_as_real_substrate_progress"
+                ),
+                "body_material_status": source_open.get("body_material_status")
+                or manifest.get("body_material_status")
+                or source_open.get("source_import_class"),
+                "body_material_count": row_body_count,
+                "material_classes": material_classes,
+                "source_manifest_ref_count": len(source_manifest_refs),
+                "source_manifest_refs_preview": preview,
+                "source_manifest_refs_omitted": max(
+                    len(source_manifest_refs) - len(preview),
+                    0,
+                ),
+                "aggregate_floor_ref": _normalize_public_ref(
+                    source_open.get("aggregate_floor_ref")
+                ),
+                "body_in_receipt": source_open.get("body_in_receipt") is True,
+            }
+        )
+
+    status = (
+        PASS
+        if not missing_source_manifest_refs and not body_in_receipt_organs
+        else "blocked"
+    )
+    return {
+        "schema_version": "microcosm_source_body_import_coverage_v1",
+        "status": status,
+        "accepted_organ_count": len(accepted),
+        "source_body_import_organ_count": len(rows),
+        "body_material_count": body_material_count,
+        "source_manifest_ref_count": source_manifest_ref_count,
+        "material_class_counts": dict(sorted(material_class_counts.items())),
+        "body_material_count_by_real_substrate_disposition": dict(
+            sorted(disposition_body_counts.items())
+        ),
+        "body_in_receipt": bool(body_in_receipt_organs),
+        "body_in_receipt_organs": sorted(body_in_receipt_organs),
+        "missing_source_manifest_refs": sorted(
+            missing_source_manifest_refs,
+            key=lambda row: (row["organ_id"], row["source_manifest_ref"]),
+        ),
+        "rows": rows,
+    }
+
+
+def _source_module_manifest_coverage(
+    source_body_imports: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_source_module_manifest_coverage_v1",
+        "status": source_body_imports["status"],
+        "source_body_import_organ_count": source_body_imports[
+            "source_body_import_organ_count"
+        ],
+        "source_manifest_ref_count": source_body_imports["source_manifest_ref_count"],
+        "missing_source_manifest_refs": source_body_imports[
+            "missing_source_manifest_refs"
+        ],
+        "body_in_receipt": source_body_imports["body_in_receipt"],
+        "body_in_receipt_organs": source_body_imports["body_in_receipt_organs"],
+    }
+
+
+def _acceptance_summary_blockers(
+    disposition_coverage: dict[str, Any],
+    source_body_imports: dict[str, Any],
+) -> list[str]:
+    blockers: list[str] = []
+    if disposition_coverage.get("status") != PASS:
+        blockers.append("disposition_coverage")
+    if source_body_imports.get("status") != PASS:
+        blockers.append("source_body_imports")
+    return blockers
 
 
 def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> Path:
@@ -274,15 +566,44 @@ def _write_acceptance_summary(
         accepted,
         _evidence_profiles_by_organ(public_root),
     )
+    source_body_imports = _source_body_import_coverage(public_root, accepted)
+    truth_accounting["source_body_imports"] = source_body_imports
+    disposition_coverage = truth_accounting["disposition_coverage"]
+    source_module_manifest_coverage = _source_module_manifest_coverage(
+        source_body_imports
+    )
+    acceptance_summary_blockers = _acceptance_summary_blockers(
+        disposition_coverage,
+        source_body_imports,
+    )
+    summary_status = PASS if not acceptance_summary_blockers else "blocked"
+    substrate_ledger_path = public_root / "core/substrate_substitution_ledger.json"
+    substrate_ledger = (
+        read_json_strict(substrate_ledger_path)
+        if substrate_ledger_path.is_file()
+        else {}
+    )
+    substrate_summary = (
+        substrate_ledger.get("summary", {})
+        if isinstance(substrate_ledger, dict)
+        and isinstance(substrate_ledger.get("summary"), dict)
+        else {}
+    )
     payload = {
         "schema_version": "first_wave_acceptance_summary_receipt_v1",
         "checker_id": CHECKER_ID,
-        "status": PASS,
+        "status": summary_status,
+        "acceptance_summary_blockers": acceptance_summary_blockers,
         "accepted_current_authority_organs": [row.get("organ_id") for row in accepted],
         "accepted_count": len(accepted),
         "accepted_current_authority_count": len(accepted),
         "accepted_count_is_product_progress": False,
         "truth_accounting": truth_accounting,
+        "disposition_coverage": disposition_coverage,
+        "source_body_imports": source_body_imports,
+        "source_module_manifest_coverage": source_module_manifest_coverage,
+        "substrate_substitution_ledger_ref": "core/substrate_substitution_ledger.json",
+        "substrate_substitution": substrate_summary,
         "deferred_organs": [],
         "dependency_preflight_receipt": dependency_preflight_ref,
         "fixture_freshness_receipt": fixture_freshness_ref,
@@ -401,6 +722,21 @@ def run_fixture_freshness(
         secret_exclusion_scan=acceptance_summary_scan,
     )
     receipt_paths.append(_display(acceptance_summary_path, public_root=public_root))
+    summary_blockers = _string_list(
+        acceptance_summary.get("acceptance_summary_blockers")
+    )
+    if acceptance_summary["status"] != PASS and not summary_blockers:
+        summary_blockers = ["unknown"]
+    stale_codes = sorted(
+        set(
+            stale_codes
+            + [
+                f"ACCEPTANCE_SUMMARY_BLOCKED:{blocker}"
+                for blocker in summary_blockers
+            ]
+        )
+    )
+    status = PASS if not stale_codes else "blocked"
 
     receipt = {
         "schema_version": "fixture_runner_freshness_receipt_v1",

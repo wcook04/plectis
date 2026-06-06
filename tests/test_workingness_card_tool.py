@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+from microcosm_core.runtime_shell import RuntimeShell
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = MICROCOSM_ROOT / "scripts/workingness_card.py"
@@ -75,3 +77,36 @@ def test_workingness_card_cli_outputs_compact_json(
     assert payload["full_endpoint"] == "/workingness"
     assert payload["output_economy"]["compact_route_for_first_screen"] is True
     assert payload["output_economy"]["receipt_persisted"] is False
+
+
+def test_workingness_card_counts_crown_jewel_source_body_imports(
+    workingness_card_module,
+) -> None:
+    workingness = RuntimeShell(MICROCOSM_ROOT).workingness_map()
+    rows_by_id = {row["thing_id"]: row for row in workingness["thing_failure_map"]}
+
+    batch8_imports = rows_by_id["batch8_compliance_pipeline_capsule"][
+        "source_open_body_imports"
+    ]
+    assert batch8_imports["status"] == "pass"
+    assert batch8_imports["body_material_count"] == 11
+    assert "system/lib/pipeline/stage_process.py" in batch8_imports[
+        "body_material_ids"
+    ]
+    assert batch8_imports["body_text_exported_in_workingness"] is False
+    assert batch8_imports["body_text_exported_in_receipts"] is False
+
+    engine_room_imports = rows_by_id["engine_room_demo"]["source_open_body_imports"]
+    assert engine_room_imports["status"] == "pass"
+    assert engine_room_imports["body_material_count"] == 2
+    assert "engine_room_demo_controller_public_package_body" in engine_room_imports[
+        "body_material_ids"
+    ]
+    assert engine_room_imports["body_text_exported_in_workingness"] is False
+    assert engine_room_imports["body_text_exported_in_receipts"] is False
+
+    card = workingness_card_module.workingness_card(MICROCOSM_ROOT)
+    assert card["surface_counts"]["rows_with_source_body_imports"] == (
+        _accepted_organ_count()
+    )
+    assert card["source_body_import_exception_preview"]["count"] == 0

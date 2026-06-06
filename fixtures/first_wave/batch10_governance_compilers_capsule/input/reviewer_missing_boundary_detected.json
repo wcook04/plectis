@@ -1,0 +1,16 @@
+{
+  "body_in_receipt": false,
+  "case_id": "reviewer_missing_boundary_detected",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "missing_boundary_status",
+  "error_codes": [
+    "BATCH10_REVIEWER_MISSING_BOUNDARY_DETECTED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "flagship_reviewer_persona_gauntlet_adjudicator",
+  "probe_input": {
+    "boundary_doc_exists": false
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

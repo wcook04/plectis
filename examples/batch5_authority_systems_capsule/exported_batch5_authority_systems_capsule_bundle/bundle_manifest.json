@@ -1,0 +1,21 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "exported_batch5_authority_systems_capsule_bundle",
+  "organ_id": "batch5_authority_systems_capsule",
+  "input_mode": "exported_batch5_authority_systems_capsule_bundle",
+  "public_safe": true,
+  "body_in_receipt": false,
+  "source_module_manifest": "source_module_manifest.json",
+  "exercise_manifest": "batch5_exercise_manifest.json",
+  "negative_cases": [
+    "receipt_provider_context_drift.json",
+    "irrelevant_context_no_replay.json",
+    "proof_contract_sorry.json",
+    "live_descendant_never_signal.json",
+    "nonconverging_residual_classified.json",
+    "trace_omission_receipt_required.json",
+    "blast_radius_leaf_empty.json",
+    "doctrine_deleted_path_drift.json"
+  ],
+  "authority_boundary": "Exact copied macro source bodies plus public-safe fixture exercises; no live provider, process signal, generated-state mutation, or release authority."
+}

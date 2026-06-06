@@ -17,7 +17,7 @@
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.verifier_lab_kernel run :: component formal_math_lean_proof_witness",
   "compiled_declaration_count": 8,
-  "created_at": "2026-05-26T22:59:07+00:00",
+  "created_at": "2026-06-02T02:56:05+00:00",
   "error_codes": [
     "LEAN_WITNESS_FORBIDDEN_IMPORT",
     "LEAN_WITNESS_INVALID_PROOF_REJECTED",
@@ -74,7 +74,8 @@
     "return_code": 0,
     "stderr_line_count": 2,
     "stdout_line_count": 1,
-    "timed_out": false
+    "timed_out": false,
+    "timeout_seconds": 90
   },
   "lean_build_status": "pass",
   "lean_witness_board": {
@@ -210,11 +211,12 @@
         "lake",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
-      "timed_out": false
+      "timed_out": false,
+      "timeout_seconds": 30
     },
     "lean_available": true,
     "lean_version_command": {
@@ -222,11 +224,12 @@
         "lean",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
-      "timed_out": false
+      "timed_out": false,
+      "timeout_seconds": 30
     }
   },
   "validator_cache_version": "formal_math_lean_proof_witness_validator_cache_v2_source_module_scan",

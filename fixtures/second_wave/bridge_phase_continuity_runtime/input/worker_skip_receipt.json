@@ -1,5 +1,5 @@
 {
-  "schema_version": "microcosm_bridge_fake_transport_worker_skip_receipts_v1",
+  "schema_version": "microcosm_bridge_synthetic_transport_worker_skip_receipts_v1",
   "fixture_scope": "synthetic_bridge_continuity_base_manifest",
   "skip_receipts": [
     {

@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "work_item",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.voice_to_doctrine_self_improvement_loop_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.work_item.refine_instance",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.work_item.refine_instance.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_work_item",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "work_item",
+    "concept_refs": [
+      "concept.voice_to_doctrine_self_improvement_loop_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_item.refine_instance.md::typed_skill_mapping.operates_standard",
+          "summary": "This markdown maps work-item instance refinement to std_microcosm_work_item, the work_item doctrine kind, and durable work-landing replay because state and closure corrections must be receipt- and evidence-bound rather than status-label laundering."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_work_item",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_item.refine_instance.md::typed_skill_mapping.acts_on_kind",
+          "summary": "This markdown maps work-item instance refinement to std_microcosm_work_item, the work_item doctrine kind, and durable work-landing replay because state and closure corrections must be receipt- and evidence-bound rather than status-label laundering."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "work_item",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_item.refine_instance.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.voice_to_doctrine_self_improvement_loop_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_item.refine_instance.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
+    ],
+    "operates_standard": "std_microcosm_work_item",
+    "source_markdown_digest": "0a7a624fca330125cc8d0dce12996ac3cdd6d1530841c5aaeba17169ab3727d6",
+    "source_markdown_line_count": 39,
+    "source_markdown_ref": "skills/microcosm.work_item.refine_instance.md",
+    "triad_role": "refine_instance",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "This markdown maps work-item instance refinement to std_microcosm_work_item, the work_item doctrine kind, and durable work-landing replay because state and closure corrections must be receipt- and evidence-bound rather than status-label laundering.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.work_item.refine_instance.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.work_item.refine_instance.json"
+    },
+    "source_markdown_digest": "0a7a624fca330125cc8d0dce12996ac3cdd6d1530841c5aaeba17169ab3727d6",
+    "source_markdown_line_count": 39,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.work_item.refine_instance.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.work_item.refine_instance.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Work Item Refine Instance",
+  "status": "active",
+  "title": "Microcosm Work Item Refine Instance",
+  "triad_role": "refine_instance",
+  "triggers": [
+    "A governed work item has stale state, ambiguous subject, weak dependency semantics, missing acceptance, missing receipt refs, stale re-entry, or a claim ceiling that outruns evidence.",
+    "The correction can be scoped from source refs, Work Ledger claims, Task Ledger authority, execution receipts, generated views, validator output, or doctrine lattice health without changing std_microcosm_work_item itself."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Inspect the work-item source refs, related Task Ledger record, Work Ledger session, receipts, dependency graph, generated views, and downstream claims before mutation.",
+    "Change only fields that clarify state, evidence, dependency, acceptance, re-entry, receipt linkage, or authority boundary from source evidence.",
+    "Regenerate through the builder and keep unsupported completion, validation, release, private-equivalence, or projection-freshness claims as typed residual pressure."
+  ]
+}

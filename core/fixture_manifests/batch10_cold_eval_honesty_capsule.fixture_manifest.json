@@ -1,0 +1,38 @@
+{
+  "fixture_id": "first_wave.batch10_cold_eval_honesty_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch10_cold_eval_honesty_capsule/input",
+  "organ_id": "batch10_cold_eval_honesty_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_win_claim": false,
+      "body_text_in_receipt": false,
+      "browser_or_wallet_access": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_agent_result_claim": false,
+      "model_dispatch": false,
+      "navigation_truth_authority": false,
+      "private_runtime_state_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 1,
+    "body_material_ids": [
+      "cold_eval_source"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "material_classes": [
+      "public_macro_cold_eval_python_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/... inside the exported Batch10 cold eval honesty bundle for the copied cold_eval.py body; receipts carry refs, hashes, counts, and verdicts only.",
+    "source_manifest_refs": [
+      "examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

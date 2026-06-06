@@ -22,6 +22,33 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle"
 )
+SOURCE_RUN = (
+    MICROCOSM_ROOT.parent
+    / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+)
+
+
+def _copy_fixture_input_with_source_artifact(tmp_path: Path) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    input_dir = public_root / "fixtures/first_wave/formal_math_premise_retrieval/input"
+    source_target = (
+        tmp_path
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    )
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/formal_math_premise_retrieval",
+        public_root / "fixtures/first_wave/formal_math_premise_retrieval",
+    )
+    shutil.copytree(SOURCE_RUN, source_target)
+    return input_dir
+
+
+def _rewrite_json(path: Path, payload: Any) -> None:
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -54,15 +81,176 @@ def test_formal_math_premise_retrieval_observes_negative_cases(
     assert result["missing_negative_cases"] == []
     assert result["premise_count"] == 11
     assert result["query_count"] == 4
+    assert result["source_index_size"] == 11
+    assert result["retrieval_candidates_considered"] == 44
     assert result["recipe_count"] == 3
     assert result["strategy_case_count"] == 4
     assert result["mean_public_retrieval_recall"] == 1.0
     assert result["body_copied_material_count"] == 6
+    for row in result["retrievals"]:
+        assert row["source_index_size"] == 11
+        assert row["retrieval_candidates_considered"] == 11
+        assert row["top_retrieval_rows"]
+        assert "field_hits" in row["top_retrieval_rows"][0]
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is False
     assert result["authority_ceiling"]["proof_bodies_allowed"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_formal_math_premise_retrieval_scores_name_and_statement_haystack() -> None:
+    premise_index = {
+        "premises": [
+            {
+                "premise_id": "premise_candidate",
+                "namespace": "Algebra",
+                "theorem_or_def_name": "Hidden.left_identity_bridge",
+                "statement_excerpt": "The neutral carrier has an absorbing witness.",
+                "retrieval_terms": ["ordinary", "metadata"],
+                "allowed_for_split": ["train"],
+                "strategy_tags": [],
+                "source_ref": "lean-toolchain://public/synthetic/Algebra.lean",
+            },
+            {
+                "premise_id": "premise_decoy",
+                "namespace": "Algebra",
+                "theorem_or_def_name": "Hidden.unrelated",
+                "statement_excerpt": "A decoy descriptor with no useful query terms.",
+                "retrieval_terms": ["ordinary", "metadata"],
+                "allowed_for_split": ["train"],
+                "strategy_tags": [],
+                "source_ref": "lean-toolchain://public/synthetic/Algebra.lean",
+            },
+        ]
+    }
+    premises = premise_module.validate_premise_index(premise_index)["premises"]
+    retrieval = premise_module.validate_retrieval_queries(
+        {
+            "queries": [
+                {
+                    "query_id": "q_theorem_name_only",
+                    "split": "train",
+                    "query_terms": ["left_identity_bridge"],
+                    "strategy_id": "public_field_probe",
+                    "top_k": 1,
+                    "expected_public_premise_ids": ["premise_candidate"],
+                },
+                {
+                    "query_id": "q_statement_excerpt_only",
+                    "split": "train",
+                    "query_terms": ["absorbing", "witness"],
+                    "strategy_id": "public_field_probe",
+                    "top_k": 1,
+                    "expected_public_premise_ids": ["premise_candidate"],
+                },
+            ]
+        },
+        premises=premises,
+        allowed_strategy_ids=["public_field_probe"],
+    )
+
+    rows = {row["query_id"]: row for row in retrieval["retrievals"]}
+    assert retrieval["status"] == "pass"
+    assert retrieval["source_index_size"] == 2
+    assert retrieval["retrieval_candidates_considered"] == 4
+    assert retrieval["mean_public_retrieval_recall"] == 1.0
+    assert rows["q_theorem_name_only"]["retrieved_premise_ids"] == ["premise_candidate"]
+    assert rows["q_statement_excerpt_only"]["retrieved_premise_ids"] == [
+        "premise_candidate"
+    ]
+    assert rows["q_theorem_name_only"]["top_retrieval_rows"][0]["field_hits"] == [
+        {"field": "theorem_or_def_name", "hit_terms": ["left_identity_bridge"]}
+    ]
+    assert rows["q_statement_excerpt_only"]["top_retrieval_rows"][0]["field_hits"] == [
+        {"field": "statement_excerpt", "hit_terms": ["absorbing", "witness"]}
+    ]
+
+
+def test_formal_math_premise_retrieval_input_row_mutation_moves_rank_and_recall() -> None:
+    baseline_premise_index = {
+        "premises": [
+            {
+                "premise_id": "premise_candidate",
+                "namespace": "Algebra",
+                "theorem_or_def_name": "Hidden.left_identity_bridge",
+                "statement_excerpt": "The neutral carrier has an absorbing witness.",
+                "retrieval_terms": ["left_identity_bridge", "absorbing", "witness"],
+                "allowed_for_split": ["train"],
+                "strategy_tags": [],
+                "source_ref": "lean-toolchain://public/synthetic/Algebra.lean",
+            },
+            {
+                "premise_id": "premise_decoy",
+                "namespace": "Algebra",
+                "theorem_or_def_name": "Hidden.unrelated",
+                "statement_excerpt": "A decoy descriptor with no useful query terms.",
+                "retrieval_terms": ["ordinary", "metadata"],
+                "allowed_for_split": ["train"],
+                "strategy_tags": [],
+                "source_ref": "lean-toolchain://public/synthetic/Algebra.lean",
+            },
+        ]
+    }
+    mutated_premise_index = {
+        "premises": [
+            {
+                **baseline_premise_index["premises"][0],
+                "theorem_or_def_name": "Hidden.unrelated_candidate",
+                "statement_excerpt": "A candidate descriptor with no useful query terms.",
+                "retrieval_terms": ["ordinary", "metadata"],
+            },
+            {
+                **baseline_premise_index["premises"][1],
+                "theorem_or_def_name": "Hidden.left_identity_bridge_decoy",
+                "statement_excerpt": "The decoy carries the absorbing witness terms.",
+                "retrieval_terms": ["left_identity_bridge", "absorbing", "witness"],
+            },
+        ]
+    }
+    retrieval_queries = {
+        "queries": [
+            {
+                "query_id": "q_input_moves_rank",
+                "split": "train",
+                "query_terms": ["left_identity_bridge", "absorbing", "witness"],
+                "strategy_id": "public_field_probe",
+                "top_k": 1,
+                "expected_public_premise_ids": ["premise_candidate"],
+            }
+        ]
+    }
+
+    baseline = premise_module.validate_retrieval_queries(
+        retrieval_queries,
+        premises=premise_module.validate_premise_index(baseline_premise_index)["premises"],
+        allowed_strategy_ids=["public_field_probe"],
+    )
+    mutated = premise_module.validate_retrieval_queries(
+        retrieval_queries,
+        premises=premise_module.validate_premise_index(mutated_premise_index)["premises"],
+        allowed_strategy_ids=["public_field_probe"],
+    )
+    baseline_row = baseline["retrievals"][0]
+    mutated_row = mutated["retrievals"][0]
+
+    assert baseline["status"] == "pass"
+    assert baseline["mean_public_retrieval_recall"] == 1.0
+    assert baseline_row["retrieved_premise_ids"] == ["premise_candidate"]
+    assert baseline_row["top_retrieval_rows"][0]["premise_id"] == "premise_candidate"
+    assert baseline_row["top_retrieval_rows"][0]["score"] > 0
+    assert mutated["status"] == "blocked"
+    assert mutated["mean_public_retrieval_recall"] == 0.0
+    assert mutated_row["retrieved_premise_ids"] == ["premise_decoy"]
+    assert mutated_row["retrieved_premise_ids"] != baseline_row["retrieved_premise_ids"]
+    assert mutated_row["top_retrieval_rows"] != baseline_row["top_retrieval_rows"]
+    assert mutated_row["top_retrieval_rows"][0]["premise_id"] == "premise_decoy"
+    assert mutated_row["top_retrieval_rows"][0]["score"] > 0
+    assert {
+        row["error_code"]
+        for row in mutated["findings"]
+        if row["subject_id"] == "q_input_moves_rank"
+    } == {"FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED"}
 
 
 def test_formal_math_premise_retrieval_receipts_are_public_relative_and_secret_scanned(
@@ -126,6 +314,123 @@ def test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape(
     assert result["body_copied_material_count"] == 6
     assert result["premise_retrieval_board"]["formal_proof_authority"] is False
     assert result["secret_exclusion_scan"]["scanned_path_count"] == 11
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_verified_target_count"] >= 6
+    assert all(
+        target["sha256_match"]
+        for row in result["source_module_results"]
+        for target in row["verified_targets"]
+    )
+
+
+def test_formal_math_premise_retrieval_exported_bundle_rejects_mutated_real_premise_copy(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    premise_index_path = bundle / "premise_index.json"
+    payload = json.loads(premise_index_path.read_text(encoding="utf-8"))
+    for row in payload["premises"]:
+        if row["premise_id"] == "premise_nat_add_comm":
+            row["namespace"] = "Algebra"
+            row["theorem_or_def_name"] = "Hidden.alias"
+            row["statement_excerpt"] = "An unrelated hidden alias with no commutativity fact."
+            row["retrieval_terms"] = ["hidden", "alias", "unrelated"]
+            break
+    premise_index_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_retrieval_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+        command="pytest mutated-real premise copy",
+    )
+
+    mismatch = next(
+        row
+        for row in result["source_module_results"]
+        if row["module_id"] == "lean_std_toolchain_premise_index_body_import"
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "FORMAL_RETRIEVAL_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert mismatch["verified_targets"]
+    assert any(target["sha256_match"] is False for target in mismatch["verified_targets"])
+
+
+def test_formal_math_premise_retrieval_exported_bundle_rejects_recall_miss(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    baseline = run_retrieval_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval_baseline",
+        command="pytest baseline query recall floor",
+    )
+    baseline_row = next(
+        row
+        for row in baseline["retrievals"]
+        if row["query_id"] == "q_ring2_nat_add_comm"
+    )
+    query_path = bundle / "retrieval_queries.json"
+    payload = json.loads(query_path.read_text(encoding="utf-8"))
+    payload["queries"][0]["query_terms"] = ["boolean", "double", "negation"]
+    query_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    result = run_retrieval_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+        command="pytest wrong-query recall floor",
+    )
+
+    mutated = next(
+        row
+        for row in result["retrievals"]
+        if row["query_id"] == "q_ring2_nat_add_comm"
+    )
+    finding = next(
+        row
+        for row in result["findings"]
+        if row["error_code"] == "FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED"
+    )
+    query_module = next(
+        row
+        for row in result["source_module_results"]
+        if row["module_id"] == "formal_math_public_retrieval_query_slice_body_import"
+    )
+
+    assert baseline["status"] == "pass"
+    assert baseline["source_module_manifest_status"] == "pass"
+    assert baseline["mean_public_retrieval_recall"] == 1.0
+    assert baseline_row["public_retrieval_recall"] == 1.0
+    assert baseline_row["retrieved_premise_ids"] == [
+        "premise_nat_add_comm",
+        "premise_nat_add_assoc",
+        "premise_nat_add_zero",
+    ]
+    assert result["status"] == "blocked"
+    assert result["freshness_digest"] != baseline["freshness_digest"]
+    assert result["source_module_manifest_status"] == "blocked"
+    assert result["mean_public_retrieval_recall"] == 0.75
+    assert result["retrieval_query_blocking_finding_count"] == 1
+    assert "FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED" in result["error_codes"]
+    assert "FORMAL_RETRIEVAL_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert mutated["public_retrieval_recall"] == 0.0
+    assert mutated["retrieved_premise_ids"] != baseline_row["retrieved_premise_ids"]
+    assert mutated["top_retrieval_rows"] != baseline_row["top_retrieval_rows"]
+    assert "premise_nat_add_comm" not in mutated["retrieved_premise_ids"]
+    assert any(target["sha256_match"] is False for target in query_module["verified_targets"])
+    assert finding["negative_case_id"] == "retrieval_query_recall_floor"
+    assert finding["subject_id"] == "q_ring2_nat_add_comm"
+    assert finding["subject_kind"] == "retrieval_query"
 
 
 def test_formal_math_premise_retrieval_cli_card_compacts_exported_bundle(
@@ -414,6 +719,63 @@ def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> Non
     assert copied["classification"] == "copied_non_secret_macro_body_with_provenance"
     assert copied["body_copied"] is True
     assert copied["source_sha256"] == premise_index["source_sha256"]
+
+
+def test_formal_math_premise_retrieval_primary_run_rejects_mutated_real_premise_row(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
+    baseline = run(
+        input_dir,
+        tmp_path / "receipts/baseline/formal_math_premise_retrieval",
+        command="pytest baseline primary source artifact",
+    )
+    baseline_row = next(
+        row
+        for row in baseline["retrievals"]
+        if row["query_id"] == "q_ring2_nat_add_comm"
+    )
+
+    premise_index_path = input_dir / "premise_index.json"
+    payload = json.loads(premise_index_path.read_text(encoding="utf-8"))
+    for row in payload["premises"]:
+        if row["premise_id"] == "premise_nat_add_comm":
+            row["namespace"] = "Algebra"
+            row["theorem_or_def_name"] = "Hidden.alias"
+            row["statement_excerpt"] = "An unrelated hidden alias with no commutativity fact."
+            row["retrieval_terms"] = ["hidden", "alias", "unrelated"]
+            break
+    _rewrite_json(premise_index_path, payload)
+
+    mutated = run(
+        input_dir,
+        tmp_path / "receipts/mutated/formal_math_premise_retrieval",
+        command="pytest mutated primary source artifact",
+    )
+    mutated_row = next(
+        row
+        for row in mutated["retrievals"]
+        if row["query_id"] == "q_ring2_nat_add_comm"
+    )
+
+    assert baseline["status"] == "pass"
+    assert baseline["source_artifact_status"] == "pass"
+    assert baseline["source_artifact_premise_count"] == 11
+    assert baseline["mean_public_retrieval_recall"] == 1.0
+    assert baseline_row["retrieved_premise_ids"] == [
+        "premise_nat_add_comm",
+        "premise_nat_add_assoc",
+        "premise_nat_add_zero",
+    ]
+    assert mutated["status"] == "blocked"
+    assert mutated["source_artifact_status"] == "blocked"
+    assert mutated["source_artifact_premise_count"] == 11
+    assert mutated["mean_public_retrieval_recall"] == 0.75
+    assert mutated_row["public_retrieval_recall"] == 0.0
+    assert mutated_row["retrieved_premise_ids"] != baseline_row["retrieved_premise_ids"]
+    assert "premise_nat_add_comm" not in mutated_row["retrieved_premise_ids"]
+    assert "FORMAL_RETRIEVAL_SOURCE_ARTIFACT_ROW_MISMATCH" in mutated["error_codes"]
+    assert "FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED" in mutated["error_codes"]
 
 
 def test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor() -> None:

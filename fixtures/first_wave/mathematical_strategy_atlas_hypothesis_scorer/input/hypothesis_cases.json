@@ -1,5 +1,5 @@
 {
-  "schema_version": "mathematical_strategy_hypothesis_cases_v1",
+  "schema_version": "mathematical_strategy_hypothesis_cases_v2",
   "cases": [
     {
       "case_id": "select_iff_split",
@@ -37,7 +37,31 @@
       "expected_classifier": "STRATEGY_SELECTION_MISS",
       "pre_oracle": true,
       "body_redacted": true
+    },
+    {
+      "case_id": "prefer_orientation_over_superficial_overlap",
+      "problem_id": "toy_reversed_length_append",
+      "candidate_strategy_ids": [
+        "equality_normal_form",
+        "symmetry_or_orientation",
+        "arithmetic_normalization"
+      ],
+      "expected_strategy_id": "symmetry_or_orientation",
+      "pre_oracle": true,
+      "body_redacted": true
+    },
+    {
+      "case_id": "cap_retrieval_bonus_under_trigger_match",
+      "problem_id": "toy_iff_with_arithmetic_retrieval_noise",
+      "candidate_strategy_ids": [
+        "retrieval_keyword_sponge",
+        "arithmetic_normalization",
+        "iff_split"
+      ],
+      "expected_strategy_id": "iff_split",
+      "pre_oracle": true,
+      "body_redacted": true
     }
   ],
-  "anti_claim": "Hypothesis cases validate pre-oracle strategy choice and miss classification only."
+  "anti_claim": "Hypothesis cases validate pre-oracle strategy choice, weighted scoring traps, and miss classification only."
 }

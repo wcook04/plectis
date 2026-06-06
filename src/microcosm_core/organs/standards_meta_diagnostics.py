@@ -70,6 +70,7 @@ INPUT_NAMES = (
     "organ_runtime_contracts.json",
     "diagnostic_policy.json",
 )
+DIAGNOSTICS_INPUT_SCHEMA = "standards_meta_diagnostics_input_projection_v1"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
@@ -162,19 +163,53 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     return [row for row in rows if isinstance(row, dict)]
 
 
-def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+def _input_paths(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    project_positive_from_live: bool,
+) -> list[Path]:
+    positive_names = () if project_positive_from_live else INPUT_NAMES
+    names = (*positive_names, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
 
 
-def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    paths = _input_paths(input_dir, include_negative=include_negative)
+def _freshness_input_paths(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    project_positive_from_live: bool,
+) -> list[Path]:
+    paths = _input_paths(
+        input_dir,
+        include_negative=include_negative,
+        project_positive_from_live=project_positive_from_live,
+    )
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
     public_root = _public_root_for_path(input_dir)
+    if project_positive_from_live:
+        paths.extend(_live_diagnostics_authority_paths(public_root))
     paths.extend(_source_module_paths(input_dir, public_root=public_root))
     paths.append(Path(__file__).resolve())
+    return paths
+
+
+def _live_diagnostics_authority_paths(public_root: Path) -> list[Path]:
+    paths = [
+        public_root / "core/organ_registry.json",
+        public_root / "core/standards_registry.json",
+        public_root / "src/microcosm_core/runtime_shell.py",
+    ]
+    try:
+        rows = _accepted_registry_rows(public_root)
+    except (OSError, ValueError, TypeError):
+        return paths
+    for row in rows:
+        organ_id = str(row.get("organ_id") or "")
+        if organ_id:
+            paths.append(public_root / _diagnostics_standard_ref(organ_id))
     return paths
 
 
@@ -208,6 +243,11 @@ def _source_module_target_path(
     return public_root / normalized
 
 
+def _source_module_source_path(source_ref: str, *, public_root: Path) -> Path:
+    normalized = source_ref.removeprefix("microcosm-substrate/")
+    return public_root.parent / normalized
+
+
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -218,6 +258,11 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     except Exception:
         return paths
     for row in _rows(manifest, "modules"):
+        source_ref = str(row.get("source_ref") or "")
+        if source_ref:
+            paths.append(
+                _source_module_source_path(source_ref, public_root=public_root)
+            )
         target_ref = str(row.get("target_ref") or row.get("path") or "")
         if target_ref:
             paths.append(
@@ -230,13 +275,27 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     return paths
 
 
-def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+def _scan_paths_for_input(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    project_positive_from_live: bool,
+) -> list[Path]:
     public_root = _public_root_for_path(input_dir)
     return [
-        *_input_paths(input_dir, include_negative=include_negative),
+        *_input_paths(
+            input_dir,
+            include_negative=include_negative,
+            project_positive_from_live=project_positive_from_live,
+        ),
         *(
             [input_dir / "bundle_manifest.json"]
             if (input_dir / "bundle_manifest.json").is_file()
+            else []
+        ),
+        *(
+            _live_diagnostics_authority_paths(public_root)
+            if project_positive_from_live
             else []
         ),
         *_source_module_paths(input_dir, public_root=public_root),
@@ -272,6 +331,8 @@ def _source_module_manifest_result(
             "module_ids": [],
             "material_classes": [],
             "body_material_classes": {},
+            "source_authority_refs": [],
+            "live_source_ref_count": 0,
             "body_in_receipt": False,
             "source_refs": [],
             "findings": findings,
@@ -282,6 +343,7 @@ def _source_module_manifest_result(
     modules = _rows(manifest, "modules")
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
+    source_authority_refs: list[str] = []
     source_refs = [_display(manifest_path, public_root=public_root)]
 
     if not isinstance(manifest, dict):
@@ -372,6 +434,31 @@ def _source_module_manifest_result(
                 )
             )
         target_ref = str(row.get("target_ref") or row.get("path") or "")
+        source_ref = str(row.get("source_ref") or "")
+        source = _source_module_source_path(source_ref, public_root=public_root)
+        if not source_ref:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_SOURCE_REF_REQUIRED",
+                    "Source module rows must bind copied bodies to a live source_ref.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_ref",
+                )
+            )
+        elif not source.is_file():
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_SOURCE_REF_MISSING",
+                    "Source module source_ref must resolve to a live source authority file.",
+                    case_id="source_module_manifest",
+                    subject_id=source_ref,
+                    subject_kind="source_ref",
+                )
+            )
+        else:
+            source_authority_refs.append(source_ref)
+            source_refs.append(source_ref)
         target = _source_module_target_path(
             target_ref,
             input_dir=input_dir,
@@ -388,22 +475,40 @@ def _source_module_manifest_result(
                 )
             )
             continue
-        actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        target_actual = _sha256(target)
+        digest_values = {
+            name: str(row.get(name) or "")
+            for name in ("sha256", "source_sha256", "target_sha256")
         }
-        if actual not in expected_values or "" in expected_values:
+        if (
+            digest_values["sha256"] != target_actual
+            or digest_values["target_sha256"] != target_actual
+        ):
             findings.append(
                 _finding(
                     "STANDARDS_META_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Source module digest declarations must match the copied target body.",
+                    "Copied target body digest declarations must match the copied target body.",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
                 )
             )
+        if source.is_file():
+            source_actual = _sha256(source)
+            if (
+                digest_values["source_sha256"] != source_actual
+                or source_actual != target_actual
+            ):
+                findings.append(
+                    _finding(
+                        "STANDARDS_META_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                        "Source module source_ref digest must match the live source "
+                        "file and copied target body.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_ref",
+                    )
+                )
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
@@ -437,6 +542,8 @@ def _source_module_manifest_result(
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),
         "body_material_classes": material_class_counts,
+        "source_authority_refs": source_authority_refs,
+        "live_source_ref_count": len(source_authority_refs),
         "body_in_receipt": False,
         "source_refs": source_refs,
         "findings": findings,
@@ -465,6 +572,11 @@ def _source_open_body_import_summary(
         "source_manifest_refs": [str(manifest_ref)]
         if imported and manifest_ref
         else [],
+        "source_authority_ref_count": int(
+            source_module_result.get("live_source_ref_count") or 0
+        )
+        if imported
+        else 0,
         "aggregate_floor_ref": f"{manifest_ref}::modules"
         if imported and manifest_ref
         else "",
@@ -490,14 +602,23 @@ def _source_open_body_import_summary(
     }
 
 
-def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+def _freshness_basis(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    project_positive_from_live: bool,
+) -> dict[str, Any]:
     source = Path(input_dir)
     if not source.is_absolute():
         source = Path.cwd() / source
     public_root = _public_root_for_path(source)
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
-    for path in _freshness_input_paths(source, include_negative=include_negative):
+    for path in _freshness_input_paths(
+        source,
+        include_negative=include_negative,
+        project_positive_from_live=project_positive_from_live,
+    ):
         display = _display(path, public_root=public_root)
         if path.is_file():
             rows.append(
@@ -514,6 +635,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
             {
                 "card_schema_version": CARD_SCHEMA_VERSION,
                 "include_negative": include_negative,
+                "project_positive_from_live": project_positive_from_live,
                 "inputs": rows,
                 "missing_inputs": missing,
                 "validator_schema_version": (
@@ -530,6 +652,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
         "basis_digest": f"sha256:{basis_digest}",
         "card_schema_version": CARD_SCHEMA_VERSION,
         "include_negative": include_negative,
+        "project_positive_from_live": project_positive_from_live,
         "input_count": len(rows),
         "missing_path_count": len(missing),
         "validator_schema_version": (
@@ -552,7 +675,11 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
         return None
     if not isinstance(payload, dict):
         return None
-    basis = _freshness_basis(input_dir, include_negative=False)
+    basis = _freshness_basis(
+        input_dir,
+        include_negative=False,
+        project_positive_from_live=False,
+    )
     existing_basis = payload.get("freshness_basis")
     if not isinstance(existing_basis, dict):
         return None
@@ -566,9 +693,24 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
     return reused
 
 
-def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
+def _load_payloads(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    project_positive_from_live: bool,
+) -> dict[str, Any]:
+    payloads: dict[str, Any] = {}
+    if project_positive_from_live:
+        public_root = _public_root_for_path(input_dir)
+        for name, payload in build_diagnostics_input_payloads(public_root).items():
+            payloads[Path(name).stem] = payload
+    else:
+        for name in INPUT_NAMES:
+            payloads[Path(name).stem] = read_json_strict(input_dir / name)
+    if include_negative:
+        for name in NEGATIVE_INPUT_NAMES:
+            payloads[Path(name).stem] = read_json_strict(input_dir / name)
+    return payloads
 
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
@@ -637,6 +779,209 @@ def _inventory_rows(payload: object) -> list[dict[str, Any]]:
     return _rows(payload, "rows")
 
 
+def _accepted_registry_rows(public_root: Path) -> list[dict[str, Any]]:
+    registry = read_json_strict(public_root / "core/organ_registry.json")
+    return [
+        row
+        for row in _rows(registry, "implemented_organs")
+        if row.get("status") == "accepted_current_authority"
+    ]
+
+
+def _standards_registry_by_id(public_root: Path) -> dict[str, dict[str, Any]]:
+    registry = read_json_strict(public_root / "core/standards_registry.json")
+    return {
+        str(row.get("standard_id") or ""): row
+        for row in _rows(registry, "standards")
+        if row.get("standard_id")
+    }
+
+
+def _standard_payload_summary(path: Path, *, organ_id: str) -> dict[str, Any]:
+    if not path.is_file():
+        return {
+            "standard_payload_standard_id": "",
+            "standard_payload_used_by_organ": False,
+            "standard_payload_status": "missing",
+        }
+    payload = read_json_strict(path)
+    if not isinstance(payload, dict):
+        return {
+            "standard_payload_standard_id": "",
+            "standard_payload_used_by_organ": False,
+            "standard_payload_status": "invalid",
+        }
+    relationships = payload.get("relationships", {})
+    used_by = []
+    if isinstance(relationships, dict):
+        used_by = _strings(relationships.get("used_by_organs"))
+    top_level_organ = str(payload.get("organ_id") or "")
+    return {
+        "standard_payload_standard_id": str(payload.get("standard_id") or ""),
+        "standard_payload_used_by_organ": organ_id in used_by
+        or top_level_organ == organ_id,
+        "standard_payload_status": str(payload.get("authority_ceiling", {}).get("status") or "")
+        if isinstance(payload.get("authority_ceiling"), dict)
+        else "",
+    }
+
+
+def _runtime_step_ids() -> set[str]:
+    from microcosm_core import runtime_shell
+
+    return {str(step.organ_id) for step in runtime_shell.RUNTIME_STEPS}
+
+
+def _diagnostics_standard_ref(organ_id: str) -> str:
+    return f"standards/std_microcosm_{organ_id}.json"
+
+
+def _diagnostics_acceptance_ref(organ_id: str) -> str:
+    return f"receipts/acceptance/first_wave/{organ_id}_fixture_acceptance.json"
+
+
+def _diagnostics_policy(organ_ids: list[str]) -> dict[str, Any]:
+    return {
+        "schema_version": "standards_meta_diagnostics_policy_v1",
+        "generated_from": DIAGNOSTICS_INPUT_SCHEMA,
+        "accepted_organ_ids": organ_ids,
+        "minimum_runtime_contract_count": len(organ_ids),
+        "minimum_standard_mapping_count": len(organ_ids),
+        "body_in_receipt": False,
+        "release_authorized": False,
+        "publication_authorized": False,
+        "provider_calls_authorized": False,
+        "trading_or_financial_advice_authorized": False,
+        "private_data_equivalence_claim": False,
+        "whole_system_correctness_claim": False,
+    }
+
+
+def _diagnostics_standards_inventory(
+    public_root: Path,
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    inventory_rows: list[dict[str, Any]] = []
+    standards_by_id = _standards_registry_by_id(public_root)
+    for ordinal, row in enumerate(rows, start=1):
+        organ_id = str(row.get("organ_id") or "")
+        expected_standard_id = f"std_microcosm_{organ_id}"
+        standard_ref = _diagnostics_standard_ref(organ_id)
+        standard_path = public_root / standard_ref
+        standard_file_present = standard_path.is_file()
+        registry_row = standards_by_id.get(expected_standard_id, {})
+        registry_used_by_organs = _strings(registry_row.get("used_by_organs"))
+        standard_summary = _standard_payload_summary(standard_path, organ_id=organ_id)
+        inventory_rows.append(
+            {
+                "ordinal": ordinal,
+                "organ_id": organ_id,
+                "standard_id": expected_standard_id if standard_file_present else "",
+                "standard_ref": standard_ref if standard_file_present else "",
+                "registry_row_ref": (
+                    "core/standards_registry.json::standards"
+                    f"[{expected_standard_id}]"
+                )
+                if registry_row
+                else "",
+                "registry_standard_id": str(registry_row.get("standard_id") or ""),
+                "registry_path": str(registry_row.get("path") or ""),
+                "registry_used_by_organ": organ_id in registry_used_by_organs,
+                "registry_status": str(registry_row.get("status") or ""),
+                "standard_payload_standard_id": standard_summary[
+                    "standard_payload_standard_id"
+                ],
+                "standard_payload_used_by_organ": standard_summary[
+                    "standard_payload_used_by_organ"
+                ],
+                "standard_payload_status": standard_summary[
+                    "standard_payload_status"
+                ],
+                "pressure_row_ref": (
+                    f"core/public_standard_pressure.json::rows[{organ_id}_public_pressure]"
+                ),
+                "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+                "authority_ceiling_ref": _diagnostics_acceptance_ref(organ_id),
+                "receipt_refs": row.get("generated_receipts", []),
+                "body_in_receipt": False,
+            }
+        )
+    return {
+        "schema_version": "standards_meta_diagnostics_inventory_v1",
+        "generated_from": DIAGNOSTICS_INPUT_SCHEMA,
+        "standards_inventory": inventory_rows,
+    }
+
+
+def _diagnostics_runtime_contracts(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    runtime_step_ids = _runtime_step_ids()
+    contracts: list[dict[str, Any]] = []
+    for ordinal, row in enumerate(rows, start=1):
+        organ_id = str(row.get("organ_id") or "")
+        generated_receipts = row.get("generated_receipts", [])
+        if not isinstance(generated_receipts, list):
+            generated_receipts = []
+        contracts.append(
+            {
+                "ordinal": ordinal,
+                "organ_id": organ_id,
+                "cli_command": str(row.get("validator_command") or ""),
+                "runtime_step": f"microcosm_core.runtime_shell.RUNTIME_STEPS::{organ_id}",
+                "runtime_step_present": organ_id in runtime_step_ids,
+                "current_authority_receipt": str(
+                    row.get("current_authority_receipt")
+                    or _diagnostics_acceptance_ref(organ_id)
+                ),
+                "runtime_receipt_count": len(generated_receipts),
+                "body_in_receipt": False,
+            }
+        )
+    return {
+        "schema_version": "standards_meta_diagnostics_runtime_contracts_v1",
+        "generated_from": DIAGNOSTICS_INPUT_SCHEMA,
+        "runtime_contracts": contracts,
+    }
+
+
+def build_diagnostics_input_payloads(public_root: str | Path) -> dict[str, dict[str, Any]]:
+    """Project standards diagnostics inputs from live organ authority.
+
+    The diagnostics input files are public fixtures, but their accepted-organ
+    coverage must come from the live registry/runtime contract. Otherwise every
+    new organ has to be hand-added to three stale JSON lists.
+    """
+    root = Path(public_root).resolve(strict=False)
+    rows = _accepted_registry_rows(root)
+    organ_ids = [str(row.get("organ_id") or "") for row in rows]
+    return {
+        "diagnostic_policy.json": _diagnostics_policy(organ_ids),
+        "standards_inventory.json": _diagnostics_standards_inventory(root, rows),
+        "organ_runtime_contracts.json": _diagnostics_runtime_contracts(rows),
+    }
+
+
+def write_diagnostics_input_payloads(
+    public_root: str | Path,
+    output_dir: str | Path,
+) -> dict[str, Any]:
+    output = Path(output_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    payloads = build_diagnostics_input_payloads(public_root)
+    written: list[str] = []
+    for filename in INPUT_NAMES:
+        path = output / filename
+        write_json_atomic(path, payloads[filename])
+        written.append(path.as_posix())
+    return {
+        "schema_version": DIAGNOSTICS_INPUT_SCHEMA,
+        "status": PASS,
+        "accepted_organ_count": len(
+            payloads["diagnostic_policy.json"]["accepted_organ_ids"]
+        ),
+        "written_files": written,
+    }
+
+
 def _positive_findings(
     *,
     inventory_rows: list[dict[str, Any]],
@@ -663,6 +1008,8 @@ def _positive_findings(
     for organ_id in accepted_organs:
         row = inventory_by_id.get(organ_id)
         runtime = runtime_by_id.get(organ_id)
+        expected_standard_id = f"std_microcosm_{organ_id}"
+        expected_standard_ref = _diagnostics_standard_ref(organ_id)
         if row is None:
             _record(
                 findings,
@@ -685,6 +1032,58 @@ def _positive_findings(
                     subject_id=organ_id,
                     subject_kind=field,
                 )
+        if row.get("standard_id") != expected_standard_id or row.get(
+            "standard_ref"
+        ) != expected_standard_ref:
+            _record(
+                findings,
+                observed,
+                "STANDARDS_META_MISSING_STANDARD_REF",
+                "Accepted organ standard identity must match its live standard file.",
+                case_id="positive_inventory",
+                subject_id=organ_id,
+                subject_kind="standard_identity",
+            )
+        has_registry_projection = any(
+            key in row
+            for key in (
+                "registry_standard_id",
+                "registry_path",
+                "registry_used_by_organ",
+            )
+        )
+        if has_registry_projection and (
+            row.get("registry_standard_id") != expected_standard_id
+            or row.get("registry_path") != expected_standard_ref
+        ):
+            _record(
+                findings,
+                observed,
+                "STANDARDS_META_STANDARD_REGISTRY_MISMATCH",
+                "Each accepted organ standard must be backed by the live standards registry row.",
+                case_id="positive_inventory",
+                subject_id=organ_id,
+                subject_kind="standards_registry",
+            )
+        has_standard_payload_projection = any(
+            key in row
+            for key in (
+                "standard_payload_standard_id",
+                "standard_payload_used_by_organ",
+            )
+        )
+        if has_standard_payload_projection and (
+            row.get("standard_payload_standard_id") != expected_standard_id
+        ):
+            _record(
+                findings,
+                observed,
+                "STANDARDS_META_STANDARD_PAYLOAD_MISMATCH",
+                "Each accepted organ standard file must carry matching standard identity and organ usage.",
+                case_id="positive_inventory",
+                subject_id=organ_id,
+                subject_kind="standard_payload",
+            )
         receipts = row.get("receipt_refs", [])
         if not isinstance(receipts, list) or not receipts:
             _record(
@@ -910,9 +1309,14 @@ def _build_result(
     command: str,
     input_mode: str,
     include_negative: bool,
+    project_positive_from_live: bool,
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
-    payloads = _load_payloads(input_dir, include_negative=include_negative)
+    payloads = _load_payloads(
+        input_dir,
+        include_negative=include_negative,
+        project_positive_from_live=project_positive_from_live,
+    )
     negative_payloads = {
         name: payloads[name] for name in NEGATIVE_INPUT_STEMS if name in payloads
     }
@@ -924,7 +1328,11 @@ def _build_result(
     source_open_body_imports = _source_open_body_import_summary(source_module_result)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = scan_paths(
-        _scan_paths_for_input(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(
+            input_dir,
+            include_negative=include_negative,
+            project_positive_from_live=project_positive_from_live,
+        ),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1082,8 +1490,13 @@ def run(
         command=command,
         input_mode="first_wave_fixture",
         include_negative=True,
+        project_positive_from_live=True,
     )
-    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["freshness_basis"] = _freshness_basis(
+        Path(input_dir),
+        include_negative=True,
+        project_positive_from_live=True,
+    )
     result["receipt_reused"] = False
     return _write_receipts(
         result,
@@ -1114,8 +1527,13 @@ def run_diagnostics_bundle(
         command=command,
         input_mode="exported_standards_meta_diagnostics_bundle",
         include_negative=False,
+        project_positive_from_live=False,
     )
-    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["freshness_basis"] = _freshness_basis(
+        source,
+        include_negative=False,
+        project_positive_from_live=False,
+    )
     result["receipt_reused"] = False
     path = target / BUNDLE_RESULT_NAME
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -1151,6 +1569,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             ),
             "freshness_missing_path_count": (
                 result.get("freshness_basis", {}).get("missing_path_count")
+                if isinstance(result.get("freshness_basis"), dict)
+                else None
+            ),
+            "project_positive_from_live": (
+                result.get("freshness_basis", {}).get("project_positive_from_live")
                 if isinstance(result.get("freshness_basis"), dict)
                 else None
             ),
@@ -1212,11 +1635,18 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
     bundle_parser.add_argument("--card", action="store_true")
+    build_parser = sub.add_parser("build-inputs")
+    build_parser.add_argument("--root", default=".")
+    build_parser.add_argument("--out", required=True)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if args.command == "build-inputs":
+        result = write_diagnostics_input_payloads(args.root, args.out)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["status"] == PASS else 1
     if args.command == "run":
         card_suffix = " --card" if args.card else ""
         command = (

@@ -8,6 +8,7 @@ import system.lib.agent_observability as agent_observability
 from system.lib.agent_observability import (
     AgentObservabilitySampler,
     AgentTraceStore,
+    build_agent_trace_retention_status,
     _codex_session_id_from_record,
     _jsonl_tail,
     discover_claude_code_app_sessions,
@@ -135,6 +136,27 @@ def test_agent_trace_store_rotates_large_trace_file_before_append(tmp_path: Path
     assert len(archives) == 1
     with gzip.open(archives[0], "rt", encoding="utf-8") as handle:
         assert '"old"' in handle.read()
+
+
+def test_agent_trace_retention_status_reports_rotation_budget(tmp_path: Path, monkeypatch) -> None:
+    trace_path = tmp_path / "events.jsonl"
+    trace_path.write_text(json.dumps({"seq": 1, "payload": "x" * 200}) + "\n", encoding="utf-8")
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir()
+    (archive_dir / "events_20260531T010000000000Z_1024.jsonl.gz").write_bytes(b"archive")
+    monkeypatch.setattr(agent_observability, "MAX_TRACE_FILE_BYTES", 1024)
+    monkeypatch.setattr(agent_observability, "MAX_TRACE_ARCHIVES", 2)
+
+    payload = build_agent_trace_retention_status(tmp_path, trace_path=trace_path)
+
+    assert payload["schema_version"] == "agent_trace_retention_status_v0"
+    assert payload["status"] == "within_writer_rotation_budget"
+    assert payload["active_file"]["path"] == "events.jsonl"
+    assert payload["active_file"]["bytes_until_rotation"] > 0
+    assert payload["archives"]["count"] == 1
+    assert payload["archives"]["max_trace_archives"] == 2
+    assert payload["privacy_boundary"].startswith("Retention status uses file metadata")
+    assert payload["next_actions"]["status_command"].endswith("agent_trace_retention --json")
 
 
 def test_jsonl_tail_reads_latest_records_without_full_history_read(tmp_path: Path, monkeypatch) -> None:
@@ -440,7 +462,7 @@ def test_discovers_running_claude_code_app_sessions(tmp_path: Path, monkeypatch)
         + "\n",
         encoding="utf-8",
     )
-    transcript = projects_root / "-Users-willcook-src-ai-workflow" / f"{session_id}.jsonl"
+    transcript = projects_root / "-Users-example-src-ai-workflow" / f"{session_id}.jsonl"
     transcript.parent.mkdir(parents=True)
     transcript.write_text(
         json.dumps({"type": "user", "message": {"role": "user", "content": "investigate annex coverage and parallelism"}})
@@ -562,7 +584,7 @@ def test_codex_session_id_resolver_falls_back_to_rollout_filename() -> None:
         "type": "response_item",
         "payload": {"role": "assistant", "content": "hi"},
     }
-    rollout = "/Users/x/.codex/sessions/2026/05/09/rollout-2026-05-09T23-49-06-019e0eee-1c35-71a0-9e79-33bbf740fa33.jsonl"
+    rollout = "/Users/example/.codex/sessions/2026/05/09/rollout-2026-05-09T23-49-06-019e0eee-1c35-71a0-9e79-33bbf740fa33.jsonl"
     assert _codex_session_id_from_record(record, record["payload"], rollout_path=rollout) == \
         "019e0eee-1c35-71a0-9e79-33bbf740fa33"
     # No rollout_path AND no payload id means we honestly return None rather

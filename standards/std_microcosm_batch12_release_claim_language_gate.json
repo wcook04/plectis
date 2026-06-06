@@ -1,0 +1,208 @@
+{
+  "anti_claim": "Batch 12 release claim-language gate validation executes copied macro lexical gate code over public-safe markdown fixtures only. It is not release approval, publication authority, semantic NLP truth, complete secret detection, portability proof, or whole-system correctness.",
+  "authority_boundary": "public_batch12_release_claim_language_gate_not_release_or_publication_authority",
+  "authority_ceiling": {
+    "status": "pass",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "nlp_semantic_truth": false,
+    "portability_gate_passed": false,
+    "secret_scan_passed": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false
+  },
+  "research_bet_contract": {
+    "governing_mechanism": "mech_036",
+    "positive_claim": "Public claim language is gated against typed evidence ceilings, boundary context, receipt body scans, and stable negative cases.",
+    "required_witnesses": [
+      "evidence_class",
+      "authority_ceiling",
+      "receipt_body_scan",
+      "source_module_manifest",
+      "negative_case_codes"
+    ],
+    "negative_floor": [
+      "affirmative_open_source_production_ready_blocks",
+      "assert_clear_returns_exit_2",
+      "bare production-ready claim blocked without release authority"
+    ],
+    "denied_authority": [
+      "release approval",
+      "publication authority",
+      "semantic NLP truth",
+      "complete secret detection",
+      "private-root equivalence",
+      "whole-system correctness"
+    ]
+  },
+  "body_import_policy": {
+    "body_in_receipt": false,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_refs": [
+      "tools/meta/dissemination/release_claim_language_gate.py"
+    ],
+    "source_to_target_relation": "exact_copy"
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "first_wave_required": true,
+  "kind_id": "batch12_release_claim_language_gate",
+  "kind_name": "Batch 12 release claim-language gate",
+  "mechanisms": [
+    "release_claim_language_gate"
+  ],
+  "negative_case_codes": [
+    "BATCH12_RELEASE_CLAIM_ACTIVE_BLOCKER",
+    "BATCH12_RELEASE_CLAIM_ASSERT_CLEAR_EXIT_2"
+  ],
+  "organ_id": "batch12_release_claim_language_gate",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded public fixture inputs and stable negative-case ids",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_batch12_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "raw operator transcripts",
+      "private root paths",
+      "live market or release state",
+      "source body text in receipts"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch12_release_claim_language_gate",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch12_release_claim_language_gate_result.json",
+    "batch12_release_claim_language_gate_board.json",
+    "batch12_release_claim_language_gate_validation_receipt.json",
+    "batch12_release_claim_language_gate_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch12_release_claim_language_gate",
+    "used_by_organs": [
+      "batch12_release_claim_language_gate"
+    ]
+  },
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "required_negative_cases": [
+    "affirmative_open_source_production_ready_blocks",
+    "assert_clear_returns_exit_2"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "tools/meta/dissemination/release_claim_language_gate.py"
+  ],
+  "standard_id": "std_microcosm_batch12_release_claim_language_gate",
+  "standard_payload": {
+    "anti_purpose": "A copied macro body, fixture validator, or green receipt inflated into live authority, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "failure_modes": [
+      "source module digest drifts without refreshing the exact copy and manifest",
+      "validator accepts missing or malformed required fixture inputs",
+      "validator accepts stable negative-case regressions",
+      "receipts include copied body text, private refs, provider payload bodies, credentials, or live state",
+      "capsule is treated as release, source-mutation, private-root, provider, or whole-system authority"
+    ],
+    "ontology": "A public-safe exact-copy Batch-12 capsule for a bounded non-secret macro mechanism.",
+    "teleology": "Let a cold reader rerun the copied mechanism over public fixtures while preserving strict claim ceilings.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch12_release_claim_language_gate",
+      "receipt_id": "receipt.microcosm.batch12_release_claim_language_gate",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require copied macro source modules and source_module_manifest provenance",
+    "verify source-to-target digest equality and required anchors",
+    "execute the public fixture exercise without invoking providers, live accounts, or source mutation",
+    "require stable negative-case ids and error codes",
+    "keep release, publication, provider dispatch, private-root equivalence, source mutation, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts expose refs, hashes, counts, verdicts, and omissions but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json",
+    "expected_negative_case_count": 2,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_release_claim_language_gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out /tmp/batch12_release_claim_language_gate_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch12_release_claim_language_gate"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch12_release_claim_language_gate.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 12 release claim-language gate instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch12_release_claim_language_gate.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 12 release claim-language gate without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch12_release_claim_language_gate.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch12_release_claim_language_gate and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch12_release_claim_language_gate.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch12_release_claim_language_gate"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch12_release_claim_language_gate"
+  ],
+  "anti_claims": [
+    "Batch 12 release claim-language gate validation executes copied macro lexical gate code over public-safe markdown fixtures only. It is not release approval, publication authority, semantic NLP truth, complete secret detection, portability proof, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch12_release_claim_language_gate",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch12_release_claim_language_gate",
+    "receipt_id": "receipt.microcosm.batch12_release_claim_language_gate",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch12_release_claim_language_gate_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

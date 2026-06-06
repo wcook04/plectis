@@ -1,12 +1,29 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_certificate_kernel_execution_lab",
   "kind_id": "certificate_kernel_execution_lab",
   "kind_name": "Certificate kernel execution lab",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_certificate_kernel_execution_lab",
   "authority_boundary": "public_bounded_certificate_kernel_execution_receipt_not_general_proof_authority",
+  "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.certificate_kernel_execution_lab",
+    "mechanism_ref": "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
+    "module_slug": "certificate_kernel_execution_lab",
+    "required": true,
+    "source_authority": "json_capsule_with_authored_markdown_projection_and_receipts"
+  },
+  "doctrine_population_status": {
+    "atlas_binding_status": "populated",
+    "coverage_projection_status": "required_edges_populated",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "source_module_manifest_status": "populated"
+  },
+  "body_copied_material_count": 9,
+  "body_import_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+  "body_in_receipt": false,
   "source_refs": [
     {
       "path": "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
@@ -22,6 +39,21 @@
       "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
       "field": "source_module_manifest",
       "role": "copied_non_secret_macro_body_manifest"
+    },
+    {
+      "path": "paper_modules/certificate_kernel_execution_lab.md",
+      "field": "paper_module_contract.module_slug",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "path": "core/paper_module_capsules.json#paper_module.certificate_kernel_execution_lab",
+      "field": "paper_module_contract.capsule_ref",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "path": "core/mechanism_sources.json#mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
+      "field": "paper_module_contract.mechanism_ref",
+      "role": "mechanism_source"
     }
   ],
   "relationships": {
@@ -69,6 +101,70 @@
     "receipt.microcosm.certificate_kernel_execution_lab",
     "receipt must cite certificate ids, source refs, source pattern ids, projection receipts, public runtime refs, source-module import status, source-open body imports, transition trace, CP2 translation trace, Evolve mutation trace, authority counters, receipt transparency contract, secret-exclusion scan, negative-case coverage, and anti-claim"
   ],
+  "source_coupling_contract": {
+    "minimum_source_open_body_import_count": 9,
+    "required": true,
+    "required_manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+    "rule": "runtime bundle must carry copied non-secret Lean/tool/profile body imports under source_modules plus digest-verified source_module_manifest refs; receipts and cards may carry only refs, hashes, counts, anchors, and verdicts"
+  },
+  "source_module_manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+  "source_module_manifest_contract": {
+    "body_material_count": 9,
+    "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "bundle_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle",
+    "manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle_validation_result.json",
+    "required": true,
+    "verified_source_module_count": 9
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_proof_body": 4,
+      "public_macro_receipt_body": 2,
+      "public_macro_tool_body": 3
+    },
+    "body_material_count": 9,
+    "body_material_ids": [
+      "period_noncollapse_strike_runner_body_import",
+      "period_noncollapse_lakefile_body_import",
+      "period_noncollapse_toolchain_body_import",
+      "period_noncollapse_root_module_body_import",
+      "certificate_kernel_lean_body_import",
+      "generated_certificates_lean_body_import",
+      "generated_certificate_shard_b10_l6_a11_body_import",
+      "certificate_kernel_profile_receipt_body_import",
+      "generated_certificates_profile_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported certificate-kernel bundle for copied macro Lean kernel, generated certificate, strike-runner, toolchain, and Lean profile receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "certificate_kernel_execution_lab_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "negative_cases": {
+    "coverage_status": "all_observed",
+    "expected": [
+      "certificate_manifest_private_source_ref",
+      "cp2_certificate_contains_proof_body",
+      "evolve_certificate_mutates_source",
+      "transition_provider_oracle_visible"
+    ],
+    "receipt_ref": "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json"
+  },
   "validator_contract": {
     "required": true,
     "validator_id": "validator.microcosm.organs.certificate_kernel_execution_lab",
@@ -188,7 +284,7 @@
     "Keep copied macro body text under source_modules while receipts expose only refs, hashes, classes, counts, anchors, and verdicts."
   ],
   "authority_ceiling": {
-    "status": "pass",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
     "lean_lake_execution_authorized": true,
     "formal_proof_authority": "bounded_public_certificate_kernel_fixture_rows_only",
     "private_body_import_authorized": false,
@@ -196,7 +292,36 @@
     "oracle_forward_success_increment_authorized": false,
     "proof_bodies_allowed_in_receipts": false,
     "source_mutation_authorized": false,
-    "release_authorized": false
+    "release_authorized": false,
+    "accepted_organ_ref": "core/organ_registry.json#certificate_kernel_execution_lab",
+    "claim_ceiling_ref": "core/organ_registry.json#certificate_kernel_execution_lab.claim_ceiling",
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
+  },
+  "research_bet_contract": {
+    "governing_mechanism": "mech_036",
+    "positive_claim": "Finite certificate rows are checked by a runnable Lean/Lake verifier route; acceptance requires the declared Lean execution to return success for the public bundle.",
+    "required_witnesses": [
+      "Lean/Lake command identity and return code",
+      "certificate row ids and source hashes",
+      "source-module manifest refs for copied non-secret macro body material",
+      "negative-case coverage"
+    ],
+    "negative_floor": [
+      "wrong arithmetic certificate rejected",
+      "wrong bounded-order certificate rejected",
+      "proof/provider/oracle bodies rejected from receipts"
+    ],
+    "denied_authority": [
+      "general theorem correctness",
+      "benchmark solve-rate",
+      "private proof body export",
+      "provider or oracle authority",
+      "release authority"
+    ]
   },
   "receipt_transparency_contract": {
     "required": true,
@@ -263,7 +388,25 @@
       "private source path, stdout/stderr body, credential, or account-bound payload leaks into public receipt",
       "certificate fixture is promoted to benchmark solve-rate, release, or general theorem authority"
     ],
-    "rebuild_action": "rerun certificate kernel execution lab, proof-lab, status card, and workingness map before widening any proof-adjacent claim"
+    "rebuild_action": "rerun certificate kernel execution lab, proof-lab, status card, and workingness map before widening any proof-adjacent claim",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.certificate_kernel_execution_lab",
+      "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "organ_evidence_class": "external_subprocess_witness",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
   "omission_receipt": {
     "omitted": [
@@ -274,5 +417,35 @@
     ],
     "reason": "The public Microcosm lab transfers the certificate-kernel pattern and receipt discipline, not private theorem bodies.",
     "drilldown": "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json"
-  }
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.certificate_kernel_execution_lab.author",
+      "status": "planned",
+      "purpose": "create a valid Certificate kernel execution lab instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.certificate_kernel_execution_lab.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Certificate kernel execution lab without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.certificate_kernel_execution_lab.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_certificate_kernel_execution_lab and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.certificate_kernel_execution_lab",
+    "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.certificate_kernel_execution_lab",
+    "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json"
+  ]
 }

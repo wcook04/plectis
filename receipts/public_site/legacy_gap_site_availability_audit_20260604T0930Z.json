@@ -1,0 +1,104 @@
+{
+  "schema_version": "microcosm_public_site_availability_audit_v1",
+  "audit_id": "site_availability.legacy_paper_module_gaps.20260604T0930Z",
+  "generated_at": "2026-06-04T09:30:50Z",
+  "scope": {
+    "source_coverage_ref": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus.legacy_only_ids",
+    "public_site_refs": [
+      "sites/microcosm/content-graph.json::paper_module_availability_gaps",
+      "sites/microcosm/object-map.json::objects[kind=paper_module_gap]",
+      "sites/microcosm/docs/paper-modules.html#availability-gaps"
+    ],
+    "authority_ceiling": "Dated availability audit only; no source-record promotion, no generated-site write, no public release approval, no publication approval, and no claim that stale extra site rows are current source authority."
+  },
+  "coverage_to_site_result": {
+    "status": "current_legacy_gaps_visible_with_stale_extras",
+    "coverage_legacy_gap_count": 14,
+    "site_availability_gap_count": 17,
+    "coverage_not_in_site": [],
+    "site_not_in_current_coverage": [
+      "paper_module.batch5_authority_systems_capsule",
+      "paper_module.batch7_demo_take_console_capsule",
+      "paper_module.batch7_oracle_sibling_capsule"
+    ],
+    "current_coverage_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_command_run_singleflight",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_generated_projection_drift_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "route_contract": {
+      "current_gap_route_count": 14,
+      "all_current_gap_routes_searchable": true,
+      "all_current_gap_routes_source_linked": true,
+      "route_template": "paper-modules.html#paper-module-gap-<stable-public-gap-key>"
+    }
+  },
+  "object_map_receipt": {
+    "kind": "paper_module_gap",
+    "current_coverage_objects_present": true,
+    "current_coverage_objects_searchable": true,
+    "current_coverage_objects_source_linked": true,
+    "representative_routes": [
+      "paper_module.cold_clone_probe -> paper-modules.html#paper-module-gap-99d1c6e0f18e",
+      "paper_module.first_screen_composition_root -> paper-modules.html#paper-module-gap-feb79e923063",
+      "paper_module.microcosm_axiom_substrate -> paper-modules.html#paper-module-gap-9fb3a85eba6e"
+    ]
+  },
+  "site_write_decision": {
+    "status": "deferred_handoff_captured",
+    "reason": "The public site graph is generated and currently carries stale extra gap rows. Live source and site surfaces are also in concurrent motion, including an active owner claim on microcosm-substrate/core/paper_module_capsules.json and unrelated dirty site shell files.",
+    "active_source_owner_observed": {
+      "session_id": "codex_20260604T0926Z_microcosm_batch7_paper_module_law_bindings",
+      "held_surface": "microcosm-substrate/core/paper_module_capsules.json",
+      "leased_until": "2026-06-04T09:58:38.458652+00:00"
+    },
+    "dirty_live_site_paths_observed": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/style.css",
+      "sites/microcosm/index.html"
+    ],
+    "task_ledger_capture": {
+      "subject_id": "cap_quick_microcosm_public_site_has_stale_extra_pa_b6f0e7da5e9a",
+      "event_id": "wie_20260604T093029Z_043d46af"
+    },
+    "safe_reentry_condition": "After the active paper-module capsule owner lands or releases, run the existing public-site builder and verify coverage legacy ids exactly match content-graph paper_module_availability_gaps before committing generated site outputs."
+  },
+  "proof_commands": [
+    "jq -r '.paper_module_instance_corpus.legacy_only_ids[]' microcosm-substrate/core/doctrine_lattice_coverage.json | sort",
+    "jq -r '.paper_module_availability_gaps[]?.paper_module_id' sites/microcosm/content-graph.json | sort",
+    "comm -23 /tmp/microcosm_legacy_ids.txt /tmp/microcosm_gap_ids.txt",
+    "comm -13 /tmp/microcosm_legacy_ids.txt /tmp/microcosm_gap_ids.txt",
+    "jq -r '.objects[]? | select(.kind==\"paper_module_gap\") | .source_id + \" \" + .route + \" searchable=\" + (.searchable|tostring) + \" source_linked=\" + (.source_linked|tostring)' sites/microcosm/object-map.json | sort"
+  ],
+  "handoff_commands": [
+    "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --session-summary --limit 12 --cards-only --path microcosm-substrate/core/paper_module_capsules.json --path sites/microcosm",
+    "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+    "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "jq -r '.paper_module_instance_corpus.legacy_only_ids[]' microcosm-substrate/core/doctrine_lattice_coverage.json | sort > /tmp/microcosm_legacy_ids.txt",
+    "jq -r '.paper_module_availability_gaps[]?.paper_module_id' sites/microcosm/content-graph.json | sort > /tmp/microcosm_gap_ids.txt",
+    "comm -23 /tmp/microcosm_legacy_ids.txt /tmp/microcosm_gap_ids.txt",
+    "comm -13 /tmp/microcosm_legacy_ids.txt /tmp/microcosm_gap_ids.txt"
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false,
+    "source_gap_inflated_into_capsule": false
+  }
+}

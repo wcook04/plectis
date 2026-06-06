@@ -1,0 +1,39 @@
+{
+  "schema_version": "microcosm_concept_mechanism_corpus_projection_overlay_reentry_receipt_v1",
+  "receipt_id": "corpus_projection_overlay_reentry_receipt_20260605T1735Z",
+  "created_at": "2026-06-05T17:35:00Z",
+  "result": "queued_controller_reentry",
+  "validator_id": "validator.microcosm.concept_mechanism_population",
+  "evidence_refs": [
+    "microcosm-substrate/concepts/*.json::receipt_refs",
+    "microcosm-substrate/mechanisms/*.json::receipt_refs",
+    "microcosm-substrate/mechanisms/*.json::mechanism_payload.population_binding",
+    "microcosm-substrate/core/mechanism_sources.json::mechanisms[].planned_targets",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-concept-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-mechanism-corpus",
+    "microcosm-substrate/concepts/*.json::cluster_flag",
+    "microcosm-substrate/standards/std_microcosm_concept.json::cluster_flag_contract",
+    "receipts/concept_mechanism_population/concept_cluster_flag_receipt_20260605T1804Z.json"
+  ],
+  "blocked_owner_surface": "microcosm-substrate/src/microcosm_core/doctrine_lattice.py",
+  "blocked_reason": "The active concept/mechanism records now carry required population receipts, concept cluster_flags, mechanism population bindings, and planned target statuses. The current corpus writer does not yet derive those overlays from source rows, and this work item explicitly forbids doctrine_lattice.py edits.",
+  "queued_controller_change": {
+    "owner": "controller_serialized_lattice_builder_lane",
+    "spec": [
+      "Teach concept corpus generation to source receipt_refs or declared record receipts without hand-overlay drift.",
+      "Teach concept markdown projection to expose cluster_flag as a compact route row without making it source authority.",
+      "Teach concept corpus generation to derive cluster_flag from concept relationships and source specimen rows.",
+      "Teach mechanism corpus generation to derive mechanism_payload.population_binding from registry/source row evidence.",
+      "Teach mechanism edge target_status derivation to honor source planned_targets for unresolved organ targets.",
+      "Regenerate concept/mechanism markdown projections after the writer can reproduce JSON overlays.",
+      "Then rerun --check-concept-corpus and --check-mechanism-corpus as green corpus parity gates."
+    ]
+  },
+  "authority_ceiling": {
+    "status": "reentry_receipt_not_builder_merge",
+    "builder_change_authority": false,
+    "shared_lattice_merge_authority": false,
+    "release_authority": false
+  },
+  "reentry_condition": "After controller releases the doctrine_lattice.py corpus writer update, rerun concept/mechanism corpus writes, rerun parity checks, rerun the concept/mechanism validator, and refresh markdown projections through the owner builder, including concept cluster_flag projection."
+}

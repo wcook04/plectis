@@ -27,6 +27,9 @@ BUNDLE_INPUT = (
     "exported_governed_mutation_authorization_bundle"
 )
 SOURCE_ROOT = MICROCOSM_ROOT.parent
+REAL_RECORD_COMMIT = "67ac353d969750050ac4b46157dc4ba93a900ade"
+REAL_RECORD_PARENT_COMMIT = "e6df7a88bf023c44e17348c570717ec0aee3dd9b"
+REAL_RECORD_PARENT_SUBJECT = "Broaden Microcosm credential token policy gate"
 
 
 def _sha256(path: Path) -> str:
@@ -45,6 +48,32 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def _proposal_row(result: dict[str, Any], proposal_id: str) -> dict[str, Any]:
+    return next(
+        row for row in result["proposal_rows"] if row["proposal_id"] == proposal_id
+    )
+
+
+def _real_record_row(result: dict[str, Any], proposal_id: str) -> dict[str, Any]:
+    return next(
+        row
+        for row in result["governed_mutation_record_rows"]
+        if row["proposal_id"] == proposal_id
+    )
+
+
+def _assert_authority_boundary_denies_overclaims(boundary: dict[str, Any]) -> None:
+    assert boundary["live_cloud_account_authorized"] is False
+    assert boundary["standing_credentials_authorized"] is False
+    assert boundary["source_mutation_authorized"] is False
+    assert boundary["irreversible_mutation_authorized"] is False
+    assert boundary["policy_after_execution_authorized"] is False
+    assert boundary["hidden_policy_votes_authorized"] is False
+    assert boundary["provider_calls_authorized"] is False
+    assert boundary["benchmark_score_claim_authorized"] is False
+    assert boundary["release_authorized"] is False
 
 
 def test_governed_mutation_authorization_observes_negative_cases(
@@ -66,6 +95,16 @@ def test_governed_mutation_authorization_observes_negative_cases(
     assert result["proposal_count"] == 3
     assert result["authorized_mutation_count"] == 3
     assert result["write_or_rollback_count"] == 2
+    assert result["real_record_status"] == (
+        "real_public_safe_governed_mutation_record_bound"
+    )
+    assert result["real_record_count"] == 3
+    assert result["accepted_real_record_count"] == 3
+    assert result["anti_bake_positive_mutation_proof_status"] == (
+        "real_record_refs_derived_from_git_scope_and_fixture_indices"
+    )
+    assert result["anti_bake_positive_record_count"] == 3
+    assert result["missing_real_record_proposal_ids"] == []
     assert result["proof_cell_count"] == 3
     assert result["accepted_proof_cell_count"] == 3
     assert result["policy_verdict_count"] == 6
@@ -73,12 +112,772 @@ def test_governed_mutation_authorization_observes_negative_cases(
     assert result["logged_side_effect_count"] == 2
     assert result["rollback_pass_count"] == 2
     assert result["cold_replay_pass_count"] == 3
-    assert result["authority_ceiling"]["live_cloud_account_authorized"] is False
-    assert result["authority_ceiling"]["standing_credentials_authorized"] is False
-    assert result["authority_ceiling"]["source_mutation_authorized"] is False
+    _assert_authority_boundary_denies_overclaims(result["authority_ceiling"])
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_governed_mutation_authorization_resolves_real_commit_and_derives_refs(
+    tmp_path: Path,
+) -> None:
+    result = run(
+        FIXTURE_INPUT,
+        tmp_path
+        / "receipts/first_wave/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    write_record = _real_record_row(result, "proposal.scoped_config_change")
+    rollback_record = _real_record_row(result, "proposal.rollback_config_change")
+
+    assert result["status"] == "pass"
+    assert write_record["resolved_commit_ref"] == REAL_RECORD_COMMIT
+    assert write_record["commit_scope_verified"] is True
+    assert {
+        "microcosm-substrate/src/microcosm_core/organs/"
+        "proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/"
+        "test_proof_derived_governed_mutation_authorization.py",
+    }.issubset(set(write_record["verified_commit_touched_paths"]))
+    assert write_record["derived_proof_cell_refs"] == [
+        "proof.write.scoped_config.v1"
+    ]
+    assert write_record["derived_policy_verdict_refs"] == [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1",
+    ]
+    assert write_record["derived_rollback_receipt_ref"] == (
+        "rollback.synthetic_config_write.v1"
+    )
+    assert write_record["resolved_proof_cell_record_refs"] == [
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "proof_evidence_cells.json::proof_cell_id=proof.write.scoped_config.v1"
+    ]
+    assert write_record["resolved_policy_verdict_record_refs"] == [
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "policy_verdicts.json::verdict_id=verdict.write.policy.v1",
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "policy_verdicts.json::verdict_id=verdict.write.owner.v1",
+    ]
+    assert write_record["resolved_side_effect_record_ref"] == (
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "side_effect_ledger.json::proposal_id=proposal.scoped_config_change"
+    )
+    assert write_record["resolved_rollback_record_ref"] == (
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "rollback_receipts.json::rollback_receipt_ref="
+        "rollback.synthetic_config_write.v1"
+    )
+    assert write_record["resolved_cold_replay_record_refs"] == [
+        "fixtures/first_wave/"
+        "proof_derived_governed_mutation_authorization/input/"
+        "cold_replay.json::replay_id=cold.scoped_config_write.v1"
+    ]
+    assert write_record["resolved_record_digests"]["proof_cells"][
+        "proof.write.scoped_config.v1"
+    ].startswith("sha256:")
+    assert write_record["resolved_record_digests"]["policy_verdicts"][
+        "verdict.write.policy.v1"
+    ].startswith("sha256:")
+    assert write_record["resolved_record_digests"]["rollback"].startswith("sha256:")
+    assert write_record["resolved_record_digests"]["cold_replay"][
+        "cold.scoped_config_write.v1"
+    ].startswith("sha256:")
+    assert write_record["declared_refs_match_derived"] is True
+    assert write_record["anti_bake_proof_status"] == (
+        "real_record_refs_derived_from_git_scope_and_fixture_indices"
+    )
+    assert rollback_record["derived_rollback_receipt_ref"] == (
+        "rollback.rollback_verification.v1"
+    )
+    assert write_record["real_evidence_ref_digest"].startswith("sha256:")
+
+
+def test_governed_mutation_authorization_rejects_positive_proposal_without_proof_cell(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    proposals["mutation_proposals"][0]["proof_cell_refs"] = []
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = next(
+        row
+        for row in result["proposal_rows"]
+        if row["proposal_id"] == "proposal.inspect_repo_state"
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert "consensus_without_evidence" in mutated_row["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_positive_proposal_with_one_visible_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    proposals["mutation_proposals"][0]["policy_verdict_refs"] = [
+        proposals["mutation_proposals"][0]["policy_verdict_refs"][0]
+    ]
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = next(
+        row
+        for row in result["proposal_rows"]
+        if row["proposal_id"] == "proposal.inspect_repo_state"
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert mutated_row["policy_verdict_refs"] == ["verdict.inspect.policy.v1"]
+    assert "consensus_without_evidence" in mutated_row["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_cross_proposal_proof_cell(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    proposals["mutation_proposals"][0]["proof_cell_refs"] = [
+        "proof.write.scoped_config.v1"
+    ]
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = next(
+        row
+        for row in result["proposal_rows"]
+        if row["proposal_id"] == "proposal.inspect_repo_state"
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert mutated_row["proof_cell_refs"] == ["proof.write.scoped_config.v1"]
+    assert "consensus_without_evidence" in mutated_row["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_cross_proposal_policy_verdicts(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    proposals["mutation_proposals"][0]["policy_verdict_refs"] = [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1",
+    ]
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = next(
+        row
+        for row in result["proposal_rows"]
+        if row["proposal_id"] == "proposal.inspect_repo_state"
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE" in result["error_codes"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert mutated_row["policy_verdict_refs"] == [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1",
+    ]
+    assert "consensus_without_evidence" in mutated_row["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_policy_verdict_with_forged_proof_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+
+    verdict_path = input_dir / "policy_verdicts.json"
+    verdicts = json.loads(verdict_path.read_text(encoding="utf-8"))
+    verdicts["verdicts"][0]["evidence_refs"] = ["proof.forged.policy.v1"]
+    verdict_path.write_text(
+        json.dumps(verdicts, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    mutated_row = next(
+        row
+        for row in result["proposal_rows"]
+        if row["proposal_id"] == "proposal.inspect_repo_state"
+    )
+    verdict_row = next(
+        row
+        for row in result["policy_verdict_rows"]
+        if row["verdict_id"] == "verdict.inspect.policy.v1"
+    )
+    real_record = _real_record_row(result, "proposal.inspect_repo_state")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_POLICY_VERDICT_INVALID" in result["error_codes"]
+    assert "GOV_MUT_REAL_RECORD_POLICY_REF_INVALID" in result["error_codes"]
+    assert verdict_row["computed_verdict"] == "blocked"
+    assert verdict_row["reason_codes"] == ["evidence_ref_unresolved"]
+    assert mutated_row["computed_verdict"] == "blocked"
+    assert "consensus_without_evidence" in mutated_row["reason_codes"]
+    assert real_record["computed_verdict"] == "blocked"
+    assert real_record["derived_policy_verdict_refs"] == [
+        "verdict.inspect.owner.v1"
+    ]
+    assert "policy_verdict_ref_invalid" in real_record["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_forged_real_record_policy_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["accepted_real_record_count"] == 3
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    records["governed_mutation_records"][0]["policy_verdict_refs"] = [
+        "verdict.forged.policy.v1",
+        "verdict.inspect.owner.v1",
+    ]
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_POLICY_REF_INVALID" in result["error_codes"]
+    assert "GOV_MUT_REAL_RECORD_FLOOR_MISSING" in result["error_codes"]
+    assert result["missing_real_record_proposal_ids"] == [
+        "proposal.inspect_repo_state"
+    ]
+    assert _proposal_row(result, "proposal.inspect_repo_state")[
+        "computed_verdict"
+    ] == "blocked"
+    assert "real_governed_mutation_record_missing" in _proposal_row(
+        result,
+        "proposal.inspect_repo_state",
+    )["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_baked_real_record_proof_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["anti_bake_positive_record_count"] == 3
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    records["governed_mutation_records"][1]["proof_cell_refs"] = [
+        "proof.inspect.repo_state.v1"
+    ]
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    record = _real_record_row(result, "proposal.scoped_config_change")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert result["anti_bake_positive_mutation_proof_status"] == "blocked"
+    assert result["anti_bake_positive_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_PROOF_REF_INVALID" in result["error_codes"]
+    assert "GOV_MUT_REAL_RECORD_FLOOR_MISSING" in result["error_codes"]
+    assert record["computed_verdict"] == "blocked"
+    assert record["declared_refs_match_derived"] is False
+    assert record["anti_bake_proof_status"] == "blocked"
+    assert "proof_cell_ref_invalid" in record["reason_codes"]
+    assert "real_governed_mutation_record_missing" in _proposal_row(
+        result,
+        "proposal.scoped_config_change",
+    )["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_stale_evidence_chain_hash(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert _proposal_row(
+        baseline,
+        "proposal.scoped_config_change",
+    )["evidence_chain_hash_matches"] is True
+
+    proposal_path = input_dir / "mutation_proposals.json"
+    proposals = json.loads(proposal_path.read_text(encoding="utf-8"))
+    proposals["mutation_proposals"][1]["evidence_chain_hash"] = (
+        "sha256:" + ("0" * 64)
+    )
+    proposal_path.write_text(
+        json.dumps(proposals, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    proposal = _proposal_row(result, "proposal.scoped_config_change")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert "GOV_MUT_EVIDENCE_CHAIN_HASH_MISMATCH" in result["error_codes"]
+    assert proposal["computed_verdict"] == "blocked"
+    assert proposal["evidence_chain_hash_matches"] is False
+    assert proposal["derived_evidence_chain_hash"].startswith("sha256:")
+    assert "evidence_chain_hash_mismatch" in proposal["reason_codes"]
+
+
+def test_governed_mutation_authorization_removing_source_proof_cell_moves_authorization(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["authorized_mutation_count"] == 3
+    assert baseline["accepted_real_record_count"] == 3
+
+    proof_path = input_dir / "proof_evidence_cells.json"
+    proof_cells = json.loads(proof_path.read_text(encoding="utf-8"))
+    proof_cells["proof_cells"] = [
+        row
+        for row in proof_cells["proof_cells"]
+        if row["proof_cell_id"] != "proof.write.scoped_config.v1"
+    ]
+    proof_path.write_text(
+        json.dumps(proof_cells, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    proposal = _proposal_row(result, "proposal.scoped_config_change")
+    record = _real_record_row(result, "proposal.scoped_config_change")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_PROOF_CELL_FLOOR_MISSING" in result["error_codes"]
+    assert "GOV_MUT_POLICY_VERDICT_INVALID" in result["error_codes"]
+    assert "GOV_MUT_REAL_RECORD_PROOF_REF_INVALID" in result["error_codes"]
+    assert "GOV_MUT_REAL_RECORD_FLOOR_MISSING" in result["error_codes"]
+    assert proposal["computed_verdict"] == "blocked"
+    assert proposal["evidence_chain_hash_matches"] is False
+    assert "consensus_without_evidence" in proposal["reason_codes"]
+    assert record["computed_verdict"] == "blocked"
+    assert record["derived_proof_cell_refs"] == []
+    assert record["derived_policy_verdict_refs"] == []
+    assert "proof_cell_ref_invalid" in record["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_baked_real_label_without_commit(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    records["governed_mutation_records"][1]["commit_ref"] = "f" * 40
+    records["governed_mutation_records"][1]["commit_subject"] = (
+        "Bind governed mutation evidence to proposals"
+    )
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    record = _real_record_row(result, "proposal.scoped_config_change")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_COMMIT_REF_UNVERIFIED" in result["error_codes"]
+    assert record["computed_verdict"] == "blocked"
+    assert "commit_ref_unverified" in record["reason_codes"]
+    assert "real_governed_mutation_record_missing" in _proposal_row(
+        result,
+        "proposal.scoped_config_change",
+    )["reason_codes"]
+
+
+def test_governed_mutation_authorization_commit_scope_perturbation_moves_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert _proposal_row(
+        baseline,
+        "proposal.scoped_config_change",
+    )["computed_verdict"] == "authorized_synthetic_mutation_metadata"
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    record = records["governed_mutation_records"][1]
+    record["commit_ref"] = REAL_RECORD_PARENT_COMMIT
+    record["commit_subject"] = REAL_RECORD_PARENT_SUBJECT
+    record["source_refs"] = [
+        REAL_RECORD_PARENT_COMMIT
+        if ref.startswith("git:")
+        else ref
+        for ref in record["source_refs"]
+    ]
+    record["source_refs"][0] = f"git:{REAL_RECORD_PARENT_COMMIT}"
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    proposal = _proposal_row(result, "proposal.scoped_config_change")
+    real_record = _real_record_row(result, "proposal.scoped_config_change")
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_COMMIT_SCOPE_UNVERIFIED" in result["error_codes"]
+    assert real_record["resolved_commit_ref"] == REAL_RECORD_PARENT_COMMIT
+    assert real_record["commit_scope_verified"] is False
+    assert "commit_scope_unverified" in real_record["reason_codes"]
+    assert proposal["computed_verdict"] == "blocked"
+    assert "real_governed_mutation_record_missing" in proposal["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_missing_real_record_rollback(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["rollback_pass_count"] == 2
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    records["governed_mutation_records"][1]["rollback_receipt_present"] = False
+    records["governed_mutation_records"][1]["rollback_receipt_ref"] = ""
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_ROLLBACK_RECEIPT_MISSING" in result["error_codes"]
+    assert result["missing_real_record_proposal_ids"] == [
+        "proposal.scoped_config_change"
+    ]
+    assert "real_governed_mutation_record_missing" in _proposal_row(
+        result,
+        "proposal.scoped_config_change",
+    )["reason_codes"]
+
+
+def test_governed_mutation_authorization_rejects_unlogged_real_record_side_effect(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/proof_derived_governed_mutation_authorization/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+
+    baseline = run(
+        input_dir,
+        public_root
+        / "receipts/good/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["logged_side_effect_count"] == 2
+
+    records_path = input_dir / "governed_mutation_records.json"
+    records = json.loads(records_path.read_text(encoding="utf-8"))
+    records["governed_mutation_records"][2]["side_effect_logged"] = False
+    records["governed_mutation_records"][2]["side_effect_diff_ref"] = ""
+    records_path.write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        input_dir,
+        public_root
+        / "receipts/bad/proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["authorized_mutation_count"] == 2
+    assert result["accepted_real_record_count"] == 2
+    assert "GOV_MUT_REAL_RECORD_SIDE_EFFECT_UNLOGGED" in result["error_codes"]
+    assert result["missing_real_record_proposal_ids"] == [
+        "proposal.rollback_config_change"
+    ]
+    assert "real_governed_mutation_record_missing" in _proposal_row(
+        result,
+        "proposal.rollback_config_change",
+    )["reason_codes"]
 
 
 def test_governed_mutation_authorization_receipts_are_public_relative_and_redacted(
@@ -146,10 +945,113 @@ def test_governed_mutation_authorization_exported_bundle_validates_runtime_shape
     )
     assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert result["authorized_mutation_count"] == 3
+    assert result["real_record_status"] == (
+        "real_public_safe_governed_mutation_record_bound"
+    )
+    assert result["accepted_real_record_count"] == 3
     assert result["logged_side_effect_count"] == 2
     assert result["rollback_pass_count"] == 2
     assert result["cold_replay_pass_count"] == 3
-    assert result["authority_ceiling"]["live_cloud_account_authorized"] is False
+    _assert_authority_boundary_denies_overclaims(result["authority_ceiling"])
+
+
+def test_governed_mutation_authorization_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_derived_governed_mutation_authorization",
+        public_root / "examples/proof_derived_governed_mutation_authorization",
+    )
+    bundle = (
+        public_root
+        / "examples/proof_derived_governed_mutation_authorization/"
+        "exported_governed_mutation_authorization_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    bad_digest = "sha256:" + ("0" * 64)
+    manifest["modules"][0]["sha256"] = bad_digest
+    manifest["modules"][0]["source_sha256"] = bad_digest
+    manifest["modules"][0]["target_sha256"] = bad_digest
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_authorization_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "GOV_MUT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_governed_mutation_authorization_rejects_partial_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_derived_governed_mutation_authorization",
+        public_root / "examples/proof_derived_governed_mutation_authorization",
+    )
+    bundle = (
+        public_root
+        / "examples/proof_derived_governed_mutation_authorization/"
+        "exported_governed_mutation_authorization_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_authorization_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "GOV_MUT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_governed_mutation_authorization_rejects_partial_target_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_derived_governed_mutation_authorization",
+        public_root / "examples/proof_derived_governed_mutation_authorization",
+    )
+    bundle = (
+        public_root
+        / "examples/proof_derived_governed_mutation_authorization/"
+        "exported_governed_mutation_authorization_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_authorization_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "proof_derived_governed_mutation_authorization",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "GOV_MUT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports() -> None:
@@ -209,7 +1111,7 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 18
+    assert first_card["command_speed"]["freshness_input_count"] == 19
     assert (
         first_card["validation"]["bundle_id"]
         == "proof_derived_governed_mutation_authorization_runtime_example"
@@ -224,6 +1126,11 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert auth["proposal_count"] == 3
     assert auth["authorized_mutation_count"] == 3
     assert auth["write_or_rollback_count"] == 2
+    assert auth["real_record_status"] == (
+        "real_public_safe_governed_mutation_record_bound"
+    )
+    assert auth["real_record_count"] == 3
+    assert auth["accepted_real_record_count"] == 3
     assert auth["proof_cell_count"] == 3
     assert auth["policy_verdict_count"] == 6
     assert auth["logged_side_effect_count"] == 2
@@ -231,6 +1138,19 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert auth["cold_replay_pass_count"] == 3
     assert first_card["negative_case_coverage"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert (
+        first_card["validation"]["real_record_status"]
+        == "real_public_safe_governed_mutation_record_bound"
+    )
+    assert first_card["validation"]["missing_real_record_proposal_count"] == 0
+    assert first_card["governed_mutation_authorization"][
+        "anti_bake_positive_mutation_proof_status"
+    ] == "real_record_refs_derived_from_git_scope_and_fixture_indices"
+    assert first_card["governed_mutation_authorization"][
+        "anti_bake_positive_record_count"
+    ] == 3
+    _assert_authority_boundary_denies_overclaims(first_card["authority_boundary"])
+    assert "governed_mutation_record_rows" not in _walk_keys(first_card)
     assert "proof_cell_rows" not in _walk_keys(first_card)
     assert "policy_verdict_rows" not in _walk_keys(first_card)
     assert "proposal_rows" not in _walk_keys(first_card)

@@ -43,13 +43,13 @@
     "source-faithful public agent-execution trace projection"
   ],
   "source_open_body_import_refs": [
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/system/lib/strict_json.py"
   ],
   "source_pattern_ids": [
     "agent_sandbox_policy_escape_replay_compound"
@@ -59,6 +59,7 @@
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_sandbox_policy_escape_replay_growth_v1",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "codex/standards/std_agent_execution_trace.json"
   ],
   "source_symbols": [

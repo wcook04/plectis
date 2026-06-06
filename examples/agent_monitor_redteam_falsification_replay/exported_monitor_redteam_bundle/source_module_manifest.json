@@ -6,10 +6,10 @@
   "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
   "source_import_class": "copied_non_secret_macro_body",
   "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
-  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_safety_monitor_bundle",
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_and_sanitized_public_dogfood_trace_slices_copied_into_public_safety_monitor_bundle",
   "body_in_receipt": false,
-  "module_count": 1,
-  "anti_claim": "These copied pattern provenance bodies make the public monitor-redteam drilldown accountable to real macro ledger rows. They do not authorize monitor product performance, live agent traffic, private reasoning, exploit instructions, credentials, provider calls, source mutation, release, or safety validation claims.",
+  "module_count": 2,
+  "anti_claim": "These copied pattern provenance bodies and sanitized public dogfood trace slices make the public monitor-redteam drilldown accountable to real macro ledger rows and real release-visible CLI evidence. They do not authorize monitor product performance, live agent traffic, private reasoning, exploit instructions, credentials, provider calls, source mutation, release, or safety validation claims.",
   "secret_exclusion_boundary": [
     "no keys or credentials",
     "no account/session/cookie material",
@@ -36,6 +36,28 @@
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "validation_refs": [
         "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_verified",
+        "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "module_id": "agent_monitor_redteam_public_dogfood_safety_evals_trace_slice_import",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
+      "source_trace_sha256": "sha256:24487cf8edb0779cfdd460b04a4ea7701805686545069f9e1c5767250c223cd3",
+      "target_ref": "microcosm-substrate/examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
+      "material_class": "public_dogfood_command_trace_slice",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "source_faithful_sanitized_json_slice",
+      "public_safe_mode": "sanitized_public_cli_trace_slice",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "line_count": 106,
+      "sha256": "sha256:88493225f908f3f8892d187370d30231cb4e292b43bed202b462b6a6888e1eb0",
+      "source_open_payload_boundary": "sanitized_public_trace_slice_in_bundle_source_artifacts_not_receipts_no_argv_no_stdout_preview_no_stderr_preview_no_temp_paths_no_provider_payload_no_live_traffic",
+      "validation_refs": [
+        "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_dogfood_trace_slice_derives_from_source_receipt",
         "tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_falsification_replay_exported_bundle_validates_runtime_shape"
       ]
     }

@@ -1,0 +1,37 @@
+{
+  "body_in_receipt": false,
+  "expected_fact_count": 3,
+  "facts": [
+    {
+      "code_loci": [
+        {
+          "anchor": "FactAssertion",
+          "path": "source_modules/system/lib/derived_fact_hologram.py"
+        }
+      ],
+      "fact_id": "fact.derived_fact_projection",
+      "statement": "Derived fact projections are generated surfaces, not source authority."
+    },
+    {
+      "code_loci": [
+        {
+          "anchor": "paper",
+          "path": "source_modules/system/lib/paper_modules.py"
+        }
+      ],
+      "fact_id": "fact.paper_module_index",
+      "statement": "Paper module rows carry source refs and metadata."
+    },
+    {
+      "code_loci": [
+        {
+          "anchor": "fact",
+          "path": "source_modules/system/lib/derived_fact_hologram.py"
+        }
+      ],
+      "fact_id": "fact.authority_boundary",
+      "statement": "Fact truth gates are bounded to code loci and DAG edges."
+    }
+  ],
+  "schema_version": "doctrine_fact_assertion_table_v1"
+}

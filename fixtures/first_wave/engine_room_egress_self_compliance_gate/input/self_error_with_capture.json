@@ -1,0 +1,5 @@
+{
+  "case_id": "self_error_with_capture",
+  "expected_status": "green",
+  "text": "My mistake is captured in cap_quick_example_self_error as a failure mode before this note."
+}

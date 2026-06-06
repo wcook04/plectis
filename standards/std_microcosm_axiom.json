@@ -68,7 +68,9 @@
     "receipt.microcosm.axiom",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipt.microcosm.axiom"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 309,
@@ -113,7 +115,7 @@
     "anti_claims",
     "axiom_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -165,7 +167,7 @@
     "rebuild_action": "draft",
     "teleology": "Give the rebuilt public roof a small, load-bearing law set derived from repeated patterns."
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -182,6 +184,388 @@
     "required": true,
     "validator_id": "validator.microcosm.axiom"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "validator.microcosm.axiom"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/axioms/*.json",
+  "doctrine_kind_envelope": {
+    "governed_by": "std_microcosm_standard",
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown/mermaid/atlas are generated projections of this JSON source."
+  },
+  "instance_schema": {
+    "required_keys": [
+      "id",
+      "kind",
+      "statement",
+      "status"
+    ],
+    "optional_keys": [
+      "provenance",
+      "rationale",
+      "guards",
+      "tags"
+    ],
+    "field_semantics": {
+      "id": "ax_NNN stable id",
+      "statement": "single imposed constitutional law",
+      "status": "active (imposed; no proof required)",
+      "provenance": "optional origin note, never an evidence gate"
+    },
+    "note": "Axioms are imposed, not derived. Provenance is optional; proof is NOT required to admit an axiom."
+  },
+  "lattice_edges": {
+    "required": [],
+    "selective": [
+      {
+        "to_kind": "organ",
+        "relation_verb": "witnessed_by",
+        "reverse_verb": "witnesses",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      }
+    ],
+    "note": "Root constitutional law. Imposed and substantive; carries no upward edge and never requires proof.",
+    "edge_shape": [
+      "to_kind",
+      "relation_verb",
+      "reverse_verb",
+      "cardinality",
+      "requirement"
+    ],
+    "cardinality_enum": [
+      "one_to_one",
+      "one_to_many",
+      "zero_to_one",
+      "zero_to_many"
+    ],
+    "requirement_enum": [
+      "required",
+      "selective",
+      "forbidden"
+    ],
+    "bidirectional_gloss_required": true
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.axiom.author",
+      "status": "planned",
+      "purpose": "create a valid axiom instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.axiom.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing axiom without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.axiom.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_axiom and propagate through every governed artifact + projection"
+    }
+  },
+  "projections": {
+    "markdown": {
+      "generated": true,
+      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py (PLANNED)",
+      "path_pattern": "microcosm-substrate/axioms/<id>.md",
+      "note": "human-readable projection; never source"
+    },
+    "mermaid": {
+      "generated": true,
+      "compiled_from": "lattice_edges + instance edges",
+      "note": "diagram projection; never source"
+    },
+    "atlas_card": {
+      "generated": true,
+      "surface": "agent entry / option-surface band / atlas card",
+      "note": "agent-routing projection; must link back to JSON source"
+    }
+  },
+  "validation": {
+    "schema_check": {
+      "required": true,
+      "validator_id": "validator.microcosm.axiom",
+      "rule": "instance validates against instance_schema"
+    },
+    "link_resolution": {
+      "required": true,
+      "rule": "every required/selective lattice edge target must resolve to an existing instance id OR be marked planned"
+    },
+    "projection_freshness": {
+      "required": true,
+      "rule": "generated markdown/mermaid/atlas must be regenerable from JSON source; a stale projection is a trust downgrade, not source authority"
+    }
+  },
+  "compression": {
+    "rule": "Russian-rule fan-in-weighted compression (see macro std_paper_module.compression_formula)",
+    "required_on_instance": [
+      "one_line"
+    ],
+    "one_line_max_chars": 160,
+    "bands": [
+      "one_line",
+      "card",
+      "tldr"
+    ],
+    "purpose": "one_line drives the compressed per-instance row projection (e.g. the 77-organ atlas) for agent entry + routing"
+  },
+  "provisional_policy": {
+    "public_source_status": "active",
+    "proof_required_for_axiom": false,
+    "axiom_posture": "imposed constitutional commitment; provenance optional; never evidence-gated",
+    "principle_posture": "operative commitment authored substantively",
+    "forbidden_shipped_status": [
+      "candidate",
+      "provisional",
+      "seed",
+      "draft"
+    ],
+    "candidate_lane": "candidate/provisional doctrine may exist ONLY in an explicit import/drafting lane OUTSIDE public source, never as a shipped public-doctrine status",
+    "overrides": "macro candidate-axiom 'pressure only / not active law' posture does NOT apply to shipped microcosm public doctrine"
+  },
+  "axiom_payload_contract": {
+    "contract_version": "microcosm_axiom_payload_contract_v1",
+    "purpose": "Define the law calculus every axiom instance, routing row, principle grounding, and projection obeys. Gives the named-but-undefined required_fields entry 'axiom_payload' a shape, additively, without altering required_fields or instance_schema.",
+    "schema_reconciliation": {
+      "required_fields_axiom_payload": "Satisfied by an object conforming to this contract (admission_contract + formal_model.obligations + support_contract + projection_contract).",
+      "instance_schema_relationship": "instance_schema.required_keys [id, kind, statement, status] remain the minimal admission record; axiom_payload is the support/derivation envelope layered on top, not a replacement.",
+      "authority_posture": "additive_v2; required_fields and instance_schema preserved verbatim"
+    },
+    "admission_contract": {
+      "admission_judgment": "admitted(A)",
+      "mode": "imposed_constitutional_root",
+      "proof_required_for_admission": false,
+      "anti_claim": "Admission as root law is not evidence that the axiom is witnessed, strong, complete, enforced, or release-authorizing."
+    },
+    "support_contract": {
+      "support_judgment": "witnessed(A, obligation_ref, scope) -> claim_ceiling",
+      "support_requires": [
+        "obligation_ref",
+        "support_case (organ|surface|example|fixture|source ref)",
+        "code_predicate_ref",
+        "validator_or_checker_ref",
+        "receipt_ref",
+        "negative_case_ref_or_layer_debt",
+        "basis_digest",
+        "authority_ceiling",
+        "anti_claim"
+      ],
+      "unknown_is_not_bottom": true,
+      "rank_is_projection_not_authority": true,
+      "ax12_reconciliation": "AX-12 holds because the CLAIM that an axiom is witnessed/strong passes the same admissibility relation (AX-1) as any external claim; only admission-as-law is exempt from proof."
+    },
+    "formal_model": {
+      "obligation_shape": [
+        "obligation_id",
+        "predicate",
+        "required",
+        "binding",
+        "coverage_status"
+      ],
+      "coverage_tag_enum_computed": [
+        "strong",
+        "partial",
+        "blocked",
+        "unknown",
+        "layer_debt"
+      ],
+      "note": "Each axiom formal_clause decomposes into required obligations. coverage_tag is COMPUTED by the cover evaluator, never hand-asserted (hand-stamping a tag is the AP-1 label-echo this calculus forbids). 'unknown' (AX-6 out-of-declared-domain) is a coverage tag, NOT a support value, and is kept distinct from 'blocked' (AX-5 fail-closed: an in-domain required obligation with no admissible witness)."
+    },
+    "evidence_ceiling_lattice": {
+      "shape": "product_lattice_component_wise_meet",
+      "components": [
+        "evidence_class",
+        "checker_scope",
+        "provenance_class",
+        "freshness_state",
+        "domain_scope",
+        "negative_case_status",
+        "authority_scope",
+        "projection_scope"
+      ],
+      "evidence_class_order_ref": "core/organ_evidence_classes.json::evidence_strength_rank (ordinal disclosure aid, bottomed by no-witness)",
+      "rank_laundering_guard": "The display rank is a projection of the ceiling vector; a high evidence_class must never launder authority in an uncovered provenance/freshness/scope component."
+    },
+    "support_case_shape": {
+      "purpose": "Standard-owned ABI for the support cases compiled by validator.microcosm.axiom_support_cover, so the evaluator code does not become a hidden de-facto schema (AX-11 executable grammar before authority; AX-12 the evaluator obeys the same floor).",
+      "required_fields": [
+        "case_id",
+        "axiom_ref",
+        "obligation_ref",
+        "relation_kind",
+        "subject",
+        "code_logic",
+        "materials",
+        "ceiling_vector",
+        "basis_env",
+        "anti_claims"
+      ],
+      "relation_kind_enum": [
+        "bound_witness",
+        "partial_witness_layer_debt",
+        "negative_gate",
+        "illustrative_only"
+      ],
+      "materials_fields": [
+        "witness_organs",
+        "source_refs",
+        "example_bundle_refs",
+        "receipt_refs",
+        "negative_case_refs",
+        "checker_provenance_refs"
+      ],
+      "forbidden": [
+        "a principle ref on the witness path",
+        "a generated projection used as its own source evidence"
+      ],
+      "anti_claim": "A schema-valid support case is a citation/attestation envelope, not an admissible support cover. Admissibility additionally requires resolved refs, owner-backed ordered dimensions, passing negative gates, and basis compatibility."
+    },
+    "ceiling_dimension_owner_contract": {
+      "purpose": "Each ceiling component must name a real order owner in the source registry before it contributes to support; unowned components stay unknown and never launder authority.",
+      "source_registry_ref": "core/axiom_support_ceiling_dimensions.json",
+      "registry_status": "materialized_source_contract_consumed_by_validator.microcosm.axiom_support_cover",
+      "order_owned": {
+        "evidence_class": "core/axiom_support_ceiling_dimensions.json::components[evidence_class] -> core/organ_evidence_classes.json::class_profiles[].evidence_strength_rank",
+        "checker_scope": "core/axiom_support_ceiling_dimensions.json::components[checker_scope] -> core/axiom_support_checker_scope_order.json::order_values",
+        "provenance_class": "core/axiom_support_ceiling_dimensions.json::components[provenance_class] -> core/axiom_support_provenance_order.json::order_values",
+        "freshness_state": "core/axiom_support_ceiling_dimensions.json::components[freshness_state] -> core/axiom_support_freshness_state_order.json::order_values; current value is an ordered unknown until a source refresh contract exists",
+        "domain_scope": "core/axiom_support_ceiling_dimensions.json::components[domain_scope] -> core/axiom_support_domain_scope_order.json::order_values",
+        "negative_case_status": "core/axiom_support_ceiling_dimensions.json::components[negative_case_status] -> core/axiom_organ_routing.json::rows[].negative_case_codes resolved against the bound checker/test surfaces; order absent < declared_only < referenced_in_bound_checker",
+        "authority_scope": "core/axiom_support_ceiling_dimensions.json::components[authority_scope] -> core/axiom_support_authority_scope_order.json::order_values",
+        "projection_scope": "core/axiom_support_ceiling_dimensions.json::components[projection_scope] -> core/axiom_support_projection_scope_order.json::order_values"
+      },
+      "unknown_no_order_owner": [],
+      "unknown_dimension_policy": "A component can be order-owned and still compute an unknown or unverified value. unknown_no_order_owner is reserved for missing source order owners; ordered unknown values such as freshness_state remain witness gaps and cannot become strong.",
+      "anti_claim": "Adding or source-registering a dimension order is evaluator grammar, not release authority; a high component cannot launder authority across an unknown component."
+    },
+    "anti_axiom_rejection_contract": {
+      "purpose": "A negative case is not merely a code/path; 'strong' (per strength_scale) requires the named anti-axiom to be REJECTED. The rejection judgment is tracked as a separate axis from positive support (a bilattice-style split): an obligation can have positive witness debt while its anti-axiom has independent rejection evidence, and vice versa.",
+      "anti_axiom_ref_source": "core/axiom_organ_routing.json::rows[].anti_axiom",
+      "tier_order": [
+        "absent",
+        "declared_only",
+        "referenced_in_bound_checker",
+        "organ_receipt_coverage_present"
+      ],
+      "rejection_requires_mapping": "No tier above certifies per-obligation rejection. organ_receipt_coverage_present means a witness organ's first-wave validation receipt records a complete passing negative-case suite, but mapping that endpoint/shape coverage to a specific obligation's anti-axiom slice (e.g. AX-8.O1 general propagation vs endpoint catches) must be verified before 'strong'. Until verified, mapping_verified is false.",
+      "anti_axiom_rejection_mapping_shape": {
+        "purpose": "Map receipt-observed negative-case coverage to a specific obligation's anti-axiom slice without laundering organ-level or endpoint coverage into general rejection.",
+        "required_fields": [
+          "mapping_id",
+          "axiom_ref",
+          "obligation_ref",
+          "anti_axiom_ref",
+          "receipt_ref",
+          "observed_negative_case_refs",
+          "receipt_coverage_basis",
+          "obligation_failure_shape",
+          "mapping_relation",
+          "checker_boundary",
+          "basis_env",
+          "mapping_verified",
+          "anti_claims"
+        ],
+        "mapping_relation_enum": [
+          "unmapped",
+          "orthogonal",
+          "illustrative_only",
+          "partial_overlap",
+          "subsumes_obligation",
+          "exact_obligation_rejection",
+          "conflict_detected"
+        ],
+        "strong_gate_rule": "Strong requires positive support and verified anti-axiom rejection for every required obligation under a compatible basis. exact_obligation_rejection is sufficient only when declared by a standard-owned mapping rule; subsumes_obligation is sufficient only when the mapping row explicitly says it is standard-declared and conflict-free.",
+        "source_owned_mapping_row_ref": "core/axiom_organ_routing.json::rows[].anti_axiom_rejection_mappings[]",
+        "source_owned_mapping_row_rule": "The evaluator must consume source-owned mapping rows before any code-inferred fallback. Non-exact relations such as unmapped, illustrative_only, and partial_overlap remain non-certifying and must keep mapping_verified false.",
+        "forbidden": [
+          "organ_receipt_coverage_present promoted directly to rejection",
+          "endpoint coverage treated as general propagation proof",
+          "generated support-cover output read back as source evidence"
+        ],
+        "anti_claim": "The mapping subview is a read-only evaluator projection over source rows and receipts. It can expose partial or illustrative overlap, but it cannot certify exact or subsuming rejection without a declared source-owned mapping row."
+      },
+      "reserved_states": [
+        "conflict_detected"
+      ],
+      "anti_claim": "Organ-level negative-case coverage must never launder into per-obligation anti-axiom rejection; endpoint coverage is not propagation rejection."
+    },
+    "cover_calculus": {
+      "support_obligation_rule": "support(O) = join over admissible support cases binding O of ceiling(case); blocked if none in declared domain",
+      "support_axiom_rule": "support(A) = join over VALID covers S (sets of cases whose union covers the required obligations, mutually compatible under one basis/domain, negative gates satisfied, refs resolved-or-layer_debt) of (meet over case in S of ceiling(case))",
+      "support_principle_rule": "support(P) is bounded by the covers of the SPECIFIC axiom obligations grounding P, never by whole-axiom labels",
+      "support_projection_rule": "claim_ceiling(projection) <= meet(source_support, freshness, provenance, grammar_validity, anti_claim_floor)",
+      "boundedness": "Covers are finite, basis-digested, and non-recursive; the generated coverage projection is never readmitted as its own source evidence (AX-12 reflexivity is self-report, not circular proof)."
+    },
+    "substrate_reciprocity_contract": {
+      "purpose": "Make the bidirectional law/substrate route explicit without turning substrate examples into proof of law. Axioms determine substrate through governance/constrained-by edges; substrate determines future axiom refinement only by source-owned obligation, witness, negative-case, and layer-debt changes.",
+      "instance_payload_field": "axiom_payload.substrate_reciprocity_contract",
+      "law_to_substrate_fields": [
+        "grounded_principle_ids",
+        "guarded_by_anti_principle_ids",
+        "substrate_constraint_relation",
+        "projection_edge_relation_ids",
+        "rule"
+      ],
+      "substrate_to_law_fields": [
+        "witness_organs",
+        "witness_surfaces",
+        "negative_case_codes",
+        "layer_debt_ids",
+        "refinement_rule"
+      ],
+      "non_laundering_rules": [
+        "governance edges do not compute support",
+        "witness organs and negative cases are support inputs, not support claims",
+        "generated projections are never source evidence",
+        "substrate feedback may refine obligation grammar and claim ceilings but cannot silently de-admit an axiom"
+      ]
+    },
+    "anti_inflation_contract": {
+      "witness_vs_constraint": "Witness edges (witness_organs / support cases) COMPUTE an obligation and stay rare; broad coverage uses organ.constrained_by.axiom / *.abides_by.axiom governance edges with edge_justification_required.",
+      "count_theater_guard": "More examples raise support ONLY by covering an uncovered required obligation, raising a sub-maximal ceiling component, or adding a missing negative-case gate; redundant cases under the same basis/checker are inert.",
+      "anti_axiom": "rank_or_example_count_treated_as_axiom_maturity"
+    },
+    "projection_contract": {
+      "markdown_status": "projection_only",
+      "routing_json_status": "current_source_of_record_for_axiom_witness_routes",
+      "no_projection_exceeds_source_support_ceiling": true
+    },
+    "migration_contract": {
+      "current_source_of_record": "core/axiom_organ_routing.json",
+      "authority_flip_rule": "microcosm-substrate/axioms/*.json may become source authority ONLY after a projection-parity validator and receipts prove equivalence to the routing source of record",
+      "until_parity": "routing JSON remains source_of_record; AXIOMS.md and generated coverage remain projections below it"
+    },
+    "pilot_status": {
+      "piloted_axioms": [
+        "AX-1",
+        "AX-2",
+        "AX-3",
+        "AX-4",
+        "AX-5",
+        "AX-6",
+        "AX-7",
+        "AX-8",
+        "AX-9",
+        "AX-10",
+        "AX-11",
+        "AX-12"
+      ],
+      "pilot_surface": "core/axiom_organ_routing.json::rows[].obligations + obligation_pilot",
+      "evaluator_status": "validator.microcosm.axiom_support_cover LANDED v0: computes support verdicts, principle support, candidate pressure, per-obligation claim ceilings, support cases, and all eight source-owned ceiling dimensions. Freshness remains an ordered unknown until a source-owned refresh contract exists, and anti-axiom rejection mapping remains separate from positive support.",
+      "cap": "cap_quick_axiom_obligation_decomposition_axiom_pay_4e60d1af1075"
+    },
+    "advisory_inputs": "Type B pressure (SACM/PROV/SLSA/in-toto/PCC/Lean/semiring-provenance) shaped this contract; the load-bearing core is the obligation-cover calculus and the admission/support split, not the external standards."
+  },
+  "refinement_provenance": {
+    "refined_by": "claude_code",
+    "wave": "microcosm_doctrine_kind_envelope_v2",
+    "workflow_run": "wf_7540e090-390",
+    "cap": "cap_quick_microcosm_doctrine_kind_standard_refinem_1a57b8a34ca3",
+    "base": "public_microcosm_standard_v1 @ git HEAD",
+    "method": "additive_envelope_merge; required_fields/authority_ceiling/anti_claims preserved verbatim; envelope landed as new keys (not via required_fields)"
+  }
 }

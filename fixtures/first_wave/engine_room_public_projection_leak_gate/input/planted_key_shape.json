@@ -1,0 +1,22 @@
+{
+  "case_id": "planted_key_shape",
+  "expected_status": "red",
+  "files": [
+    {
+      "path": "config.txt",
+      "text_parts": [
+        "credential=",
+        {
+          "join": [
+            "sk",
+            "engine",
+            "room",
+            "abcdefghijklmnopqrstuvwxyz123456"
+          ],
+          "sep": "-"
+        },
+        "\n"
+      ]
+    }
+  ]
+}

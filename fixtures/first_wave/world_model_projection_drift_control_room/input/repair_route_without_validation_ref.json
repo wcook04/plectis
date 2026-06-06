@@ -12,6 +12,23 @@
     "source_authority_claim": false,
     "live_repair_authorized": false,
     "source_mutation_authorized": false,
-    "automatic_doctrine_promotion_authorized": false
+    "automatic_doctrine_promotion_authorized": false,
+    "fact_authority": {
+      "authority_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::view_quality_all_view_action_map",
+      "appearance_refs": [
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::view_quality_all_view_action_map",
+        "receipts/runtime_shell/public_view_quality_action_map_lens.json"
+      ],
+      "derivation_path": [
+        "source_ref",
+        "source_signal",
+        "repair_route",
+        "target_ref",
+        "validation_ref"
+      ],
+      "guard_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
+      "treatment": "guarded_public_projection",
+      "residual_route": "microcosm view-quality -> microcosm drift-control"
+    }
   }
 }

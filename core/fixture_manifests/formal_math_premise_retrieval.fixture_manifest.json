@@ -4,7 +4,7 @@
   "organ_id": "formal_math_premise_retrieval",
   "fixture_id": "fixture::formal_math_premise_retrieval::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a source-available formal-math premise retrieval slice imported through the macro projection protocol: Lean/Std premise index metadata, term scoring, context-budget recipes, strategy gating, and negative-case leakage controls.",
+  "purpose": "Validate a source-available formal-math premise retrieval slice imported through the macro projection protocol: Lean/Std premise index metadata, public field-haystack term scoring, context-budget recipes, strategy gating, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
     "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
@@ -119,6 +119,8 @@
     "body_material_status",
     "premise_count",
     "query_count",
+    "source_index_size",
+    "retrieval_candidates_considered",
     "mean_public_retrieval_recall"
   ],
   "secret_exclusion_rules": {

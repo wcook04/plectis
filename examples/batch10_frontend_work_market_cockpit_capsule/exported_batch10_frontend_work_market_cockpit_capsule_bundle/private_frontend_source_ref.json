@@ -1,0 +1,8 @@
+{
+  "case_id": "private_frontend_source_ref",
+  "error_codes": [
+    "BATCH10_FRONTEND_PRIVATE_REF_REJECTED"
+  ],
+  "blocked_claim": "The public capsule may reference repo-relative frontend source paths, not private host roots, live browser state, wallet state, or provider payloads.",
+  "body_in_receipt": false
+}

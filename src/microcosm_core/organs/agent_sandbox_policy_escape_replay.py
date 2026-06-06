@@ -46,6 +46,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "side_effect_rows",
     "rollback_rows",
     "cold_replay_rows",
+    "derived_policy_verdict_rows",
     "authority_ceiling",
     "anti_claim",
     "source_module_imports",
@@ -142,6 +143,68 @@ FORBIDDEN_KEYS = (
     "host_absolute_path",
     "provider_payload",
     "real_target_identifier",
+)
+EXPECTED_ACTION_POLICY = {
+    "secret_access": (
+        "block",
+        "rule:no_secret_or_env_read_from_untrusted_context",
+    ),
+    "network_exfiltration": (
+        "block",
+        "rule:no_live_network_from_untrusted_context",
+    ),
+    "destructive_filesystem_mutation": (
+        "block",
+        "rule:no_destructive_filesystem_mutation",
+    ),
+    "escape_payload_obfuscation": (
+        "block",
+        "rule:no_executable_escape_payload_or_obfuscation",
+    ),
+    "low_risk_public_fixture_mutation": (
+        "allow",
+        "rule:public_fixture_write_with_diff_receipt",
+    ),
+    "review_required_side_effect": (
+        "review",
+        "rule:side_effect_requires_approval_and_rollback",
+    ),
+}
+EXPECTED_ACTION_POLICY_SHAPES = {
+    "secret_access": {
+        "action_kinds": {"environment_secret_read"},
+        "requested_capabilities": {"environment_read"},
+        "source_trust_labels": {"untrusted_tool_output"},
+    },
+    "network_exfiltration": {
+        "action_kinds": {"network_request"},
+        "requested_capabilities": {"outbound_network"},
+        "source_trust_labels": {"untrusted_tool_output"},
+    },
+    "destructive_filesystem_mutation": {
+        "action_kinds": {"filesystem_delete"},
+        "requested_capabilities": {"filesystem_write"},
+        "source_trust_labels": {"untrusted_repo_file"},
+    },
+    "escape_payload_obfuscation": {
+        "action_kinds": {"shell_command"},
+        "requested_capabilities": {"shell_exec"},
+        "source_trust_labels": {"untrusted_tool_output"},
+    },
+    "low_risk_public_fixture_mutation": {
+        "action_kinds": {"filesystem_write"},
+        "requested_capabilities": {"public_fixture_write"},
+        "source_trust_labels": {"trusted_user_request"},
+    },
+    "review_required_side_effect": {
+        "action_kinds": {"mock_database_update"},
+        "requested_capabilities": {"mock_database_write"},
+        "source_trust_labels": {"trusted_operator_approval_ref"},
+    },
+}
+FAIL_CLOSED_POLICY_SEMANTICS = (
+    "block",
+    "rule:sandbox_policy_fail_closed_unrecognized_action",
 )
 
 AUTHORITY_CEILING = {
@@ -468,6 +531,7 @@ def _source_module_manifest_result(
             "findings": findings,
             "observed_negative_cases": {},
             "body_in_receipt": False,
+            "body_text_in_receipt": False,
         }
 
     manifest = read_json_strict(manifest_path)
@@ -507,6 +571,16 @@ def _source_module_manifest_result(
                     case_id="source_module_manifest_floor",
                     subject_id=manifest_ref,
                     subject_kind="body_in_receipt",
+                )
+            )
+        if manifest.get("body_text_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "SANDBOX_POLICY_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_text_in_receipt",
                 )
             )
         if int(manifest.get("module_count") or 0) != len(modules):
@@ -582,12 +656,12 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        expected_digests = {
+            "sha256": str(row.get("sha256") or ""),
+            "source_sha256": str(row.get("source_sha256") or ""),
+            "target_sha256": str(row.get("target_sha256") or ""),
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in expected_digests.values()):
             findings.append(
                 _finding(
                     "SANDBOX_POLICY_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -636,6 +710,7 @@ def _source_module_manifest_result(
         "findings": findings,
         "observed_negative_cases": {},
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
     }
 
 
@@ -699,6 +774,35 @@ def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     return any(key in row for key in FORBIDDEN_KEYS)
+
+
+def _policy_shape_mismatches(row: dict[str, Any]) -> list[str]:
+    risk_class = str(row.get("risk_class") or "")
+    shape = EXPECTED_ACTION_POLICY_SHAPES.get(risk_class)
+    if not shape:
+        return []
+    mismatches: list[str] = []
+    checks = (
+        ("action_kind", "action_kinds"),
+        ("requested_capability", "requested_capabilities"),
+        ("source_trust_label", "source_trust_labels"),
+    )
+    for field, shape_key in checks:
+        allowed = shape.get(shape_key, set())
+        if allowed and str(row.get(field) or "") not in allowed:
+            mismatches.append(field)
+    return mismatches
+
+
+def _derived_sandbox_policy_verdict(row: dict[str, Any]) -> tuple[str, str]:
+    risk_class = str(row.get("risk_class") or "")
+    if risk_class in EXPECTED_ACTION_POLICY and not _policy_shape_mismatches(row):
+        return EXPECTED_ACTION_POLICY[risk_class]
+    return FAIL_CLOSED_POLICY_SEMANTICS
+
+
+def _expected_action_policy(row: dict[str, Any]) -> tuple[str, str]:
+    return _derived_sandbox_policy_verdict(row)
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
@@ -847,6 +951,7 @@ def validate_action_requests(payload: object) -> dict[str, Any]:
     exported: list[dict[str, Any]] = []
     for row in rows:
         request_id = str(row.get("request_id") or "")
+        shape_mismatches = _policy_shape_mismatches(row)
         if (
             _missing(row, REQUIRED_ACTION_FIELDS)
             or _has_forbidden_key(row)
@@ -864,6 +969,19 @@ def validate_action_requests(payload: object) -> dict[str, Any]:
                     subject_kind="action_request",
                 )
             )
+        if shape_mismatches:
+            findings.append(
+                {
+                    **_finding(
+                        "SANDBOX_POLICY_ACTION_POLICY_SHAPE_MISMATCH",
+                        "Action request risk class must match the action kind, requested capability, and trust-shape policy derivation inputs.",
+                        case_id="action_request_floor",
+                        subject_id=request_id or "action_request",
+                        subject_kind="action_request",
+                    ),
+                    "mismatched_fields": shape_mismatches,
+                }
+            )
         exported.append(
             {
                 "request_id": request_id,
@@ -873,6 +991,7 @@ def validate_action_requests(payload: object) -> dict[str, Any]:
                 "requested_capability": row.get("requested_capability"),
                 "risk_class": row.get("risk_class"),
                 "intended_side_effect_ref": row.get("intended_side_effect_ref"),
+                "policy_shape_passed": not shape_mismatches,
                 "body_in_receipt": False,
             }
         )
@@ -891,15 +1010,28 @@ def validate_policy_verdicts(
     payload: object,
     policy: object,
     request_ids: set[str],
+    actions_by_request: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     rows = _rows(payload, "policy_verdicts")
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_verdicts")))
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
+    derived_rows: list[dict[str, Any]] = []
+    seen_request_ids: set[str] = set()
     for row in rows:
         request_id = str(row.get("request_id") or "")
+        seen_request_ids.add(request_id)
         verdict = str(row.get("verdict") or "")
+        derived_verdict, derived_rule_ref = _derived_sandbox_policy_verdict(
+            actions_by_request.get(request_id, {})
+        )
+        declared_rule_refs = _strings(row.get("rule_refs"))
+        policy_derivation_passed = (
+            request_id in actions_by_request
+            and verdict == derived_verdict
+            and derived_rule_ref in declared_rule_refs
+        )
         if (
             _missing(row, REQUIRED_VERDICT_FIELDS)
             or _has_forbidden_key(row)
@@ -907,7 +1039,7 @@ def validate_policy_verdicts(
             or verdict not in allowed
             or row.get("pre_execution") is not True
             or row.get("body_redacted") is not True
-            or not _strings(row.get("rule_refs"))
+            or not declared_rule_refs
         ):
             findings.append(
                 _finding(
@@ -918,25 +1050,102 @@ def validate_policy_verdicts(
                     subject_kind="policy_verdict",
                 )
             )
+        if request_id in actions_by_request and not policy_derivation_passed:
+            findings.append(
+                _finding(
+                    "SANDBOX_POLICY_VERDICT_SEMANTIC_MISMATCH",
+                    "Policy verdicts must match the derived request action/risk semantics and cite the matching policy rule.",
+                    case_id="policy_verdict_floor",
+                    subject_id=request_id,
+                    subject_kind="policy_verdict",
+                )
+            )
+        derived_rows.append(
+            {
+                "request_id": request_id,
+                "action_kind": actions_by_request.get(request_id, {}).get("action_kind"),
+                "requested_capability": actions_by_request.get(request_id, {}).get(
+                    "requested_capability"
+                ),
+                "risk_class": actions_by_request.get(request_id, {}).get("risk_class"),
+                "derived_policy_verdict": derived_verdict,
+                "derived_rule_ref": derived_rule_ref,
+                "declared_policy_verdict": verdict,
+                "declared_rule_refs": declared_rule_refs,
+                "policy_derivation_passed": policy_derivation_passed,
+                "body_in_receipt": False,
+            }
+        )
         exported.append(
             {
                 "request_id": request_id,
                 "policy_version": row.get("policy_version"),
                 "verdict": verdict,
-                "rule_refs": _strings(row.get("rule_refs")),
+                "rule_refs": declared_rule_refs,
+                "derived_policy_verdict": derived_verdict,
+                "derived_rule_ref": derived_rule_ref,
+                "policy_derivation_passed": policy_derivation_passed,
                 "pre_execution": row.get("pre_execution"),
                 "approval_ref": row.get("approval_ref"),
                 "decision_reason_ref": row.get("decision_reason_ref"),
                 "body_in_receipt": False,
             }
         )
+    for request_id in sorted(request_ids - seen_request_ids):
+        derived_verdict, derived_rule_ref = _derived_sandbox_policy_verdict(
+            actions_by_request.get(request_id, {})
+        )
+        findings.append(
+            _finding(
+                "SANDBOX_POLICY_VERDICT_MISSING",
+                "Every action request must have a policy verdict row before execution.",
+                case_id="policy_verdict_floor",
+                subject_id=request_id,
+                subject_kind="policy_verdict",
+            )
+        )
+        derived_rows.append(
+            {
+                "request_id": request_id,
+                "action_kind": actions_by_request.get(request_id, {}).get("action_kind"),
+                "requested_capability": actions_by_request.get(request_id, {}).get(
+                    "requested_capability"
+                ),
+                "risk_class": actions_by_request.get(request_id, {}).get("risk_class"),
+                "derived_policy_verdict": derived_verdict,
+                "derived_rule_ref": derived_rule_ref,
+                "declared_policy_verdict": "",
+                "declared_rule_refs": [],
+                "policy_derivation_passed": False,
+                "body_in_receipt": False,
+            }
+        )
     verdicts = {row["verdict"] for row in exported}
+    derived_verdicts = {row["derived_policy_verdict"] for row in derived_rows}
     return {
         "status": PASS if rows and {"allow", "block", "review"}.issubset(verdicts) and not findings else "blocked",
         "policy_verdict_count": len(rows),
         "allow_count": sum(1 for row in exported if row["verdict"] == "allow"),
         "block_count": sum(1 for row in exported if row["verdict"] == "block"),
         "review_count": sum(1 for row in exported if row["verdict"] == "review"),
+        "derived_policy_verdict_count": len(derived_rows),
+        "derived_allow_count": sum(
+            1 for row in derived_rows if row["derived_policy_verdict"] == "allow"
+        ),
+        "derived_block_count": sum(
+            1 for row in derived_rows if row["derived_policy_verdict"] == "block"
+        ),
+        "derived_review_count": sum(
+            1 for row in derived_rows if row["derived_policy_verdict"] == "review"
+        ),
+        "derived_policy_verdict_mismatch_count": sum(
+            1 for row in derived_rows if row["policy_derivation_passed"] is not True
+        ),
+        "derived_policy_verdict_rows": sorted(
+            derived_rows,
+            key=lambda row: row["request_id"],
+        ),
+        "derived_policy_verdicts": sorted(derived_verdicts),
         "policy_verdict_rows": sorted(exported, key=lambda row: row["request_id"]),
         "findings": findings,
         "observed_negative_cases": {},
@@ -947,6 +1156,7 @@ def validate_side_effect_receipts(
     payload: object,
     request_ids: set[str],
     verdicts_by_request: dict[str, str],
+    expected_verdicts_by_request: dict[str, str],
 ) -> dict[str, Any]:
     rows = _rows(payload, "side_effect_receipts")
     findings: list[dict[str, Any]] = []
@@ -954,6 +1164,7 @@ def validate_side_effect_receipts(
     for row in rows:
         request_id = str(row.get("request_id") or "")
         verdict = verdicts_by_request.get(request_id, "")
+        expected_verdict = expected_verdicts_by_request.get(request_id, "")
         diff_count = row.get("side_effect_diff_count")
         execution_attempted = row.get("execution_attempted")
         if (
@@ -967,6 +1178,30 @@ def validate_side_effect_receipts(
                 _finding(
                     "SANDBOX_POLICY_SIDE_EFFECT_RECEIPT_INVALID",
                     "Side-effect receipts must join to requests and expose only diff/rollback refs.",
+                    case_id="side_effect_receipt_floor",
+                    subject_id=request_id or "side_effect_receipt",
+                    subject_kind="side_effect_receipt",
+                )
+            )
+        if expected_verdict == "block" and (
+            execution_attempted is not False or diff_count != 0
+        ):
+            findings.append(
+                _finding(
+                    "SANDBOX_POLICY_SIDE_EFFECT_SEMANTIC_MISMATCH",
+                    "Request semantics that require a block must have no execution and no side-effect diff, independent of the recorded verdict row.",
+                    case_id="side_effect_receipt_floor",
+                    subject_id=request_id or "side_effect_receipt",
+                    subject_kind="side_effect_receipt",
+                )
+            )
+        if expected_verdict in {"allow", "review"} and (
+            execution_attempted is not True or diff_count < 1
+        ):
+            findings.append(
+                _finding(
+                    "SANDBOX_POLICY_SIDE_EFFECT_SEMANTIC_MISMATCH",
+                    "Request semantics that allow or require review must carry an executed side-effect diff receipt.",
                     case_id="side_effect_receipt_floor",
                     subject_id=request_id or "side_effect_receipt",
                     subject_kind="side_effect_receipt",
@@ -995,7 +1230,9 @@ def validate_side_effect_receipts(
         exported.append(
             {
                 "request_id": request_id,
-                "verdict": verdict,
+                "declared_verdict": verdict,
+                "expected_verdict": expected_verdict,
+                "verdict": expected_verdict,
                 "execution_attempted": execution_attempted,
                 "filesystem_diff_ref": row.get("filesystem_diff_ref"),
                 "network_diff_ref": row.get("network_diff_ref"),
@@ -1010,7 +1247,7 @@ def validate_side_effect_receipts(
         "side_effect_receipt_count": len(rows),
         "executed_action_count": sum(1 for row in exported if row["execution_attempted"] is True),
         "blocked_without_execution_count": sum(
-            1 for row in exported if row["verdict"] == "block" and row["execution_attempted"] is False
+            1 for row in exported if row["expected_verdict"] == "block" and row["execution_attempted"] is False
         ),
         "side_effect_rows": sorted(exported, key=lambda row: row["request_id"]),
         "findings": findings,
@@ -1227,17 +1464,31 @@ def _build_result(
     sandbox_policy = validate_sandbox_policy(payloads["sandbox_policy"])
     actions = validate_action_requests(payloads["action_requests"])
     request_ids = {row["request_id"] for row in actions["request_rows"]}
+    actions_by_request = {
+        str(row["request_id"]): row
+        for row in actions["request_rows"]
+        if row.get("request_id")
+    }
     verdicts = validate_policy_verdicts(
         payloads["policy_verdicts"],
         payloads["sandbox_policy"],
         request_ids,
+        actions_by_request,
     )
+    expected_verdicts_by_request = {
+        str(row["request_id"]): str(row["derived_policy_verdict"])
+        for row in verdicts["derived_policy_verdict_rows"]
+        if row.get("request_id")
+    }
     verdicts_by_request = {
         str(row["request_id"]): str(row["verdict"])
         for row in verdicts["policy_verdict_rows"]
     }
     effects = validate_side_effect_receipts(
-        payloads["side_effect_receipts"], request_ids, verdicts_by_request
+        payloads["side_effect_receipts"],
+        request_ids,
+        verdicts_by_request,
+        expected_verdicts_by_request,
     )
     rollbacks = validate_rollback_receipts(payloads["rollback_receipts"], request_ids)
     cold_replay = validate_cold_replay(payloads["cold_replay"], request_ids)
@@ -1387,6 +1638,14 @@ def _build_result(
         "allow_count": verdicts["allow_count"],
         "block_count": verdicts["block_count"],
         "review_count": verdicts["review_count"],
+        "derived_policy_verdict_count": verdicts["derived_policy_verdict_count"],
+        "derived_allow_count": verdicts["derived_allow_count"],
+        "derived_block_count": verdicts["derived_block_count"],
+        "derived_review_count": verdicts["derived_review_count"],
+        "derived_policy_verdict_mismatch_count": verdicts[
+            "derived_policy_verdict_mismatch_count"
+        ],
+        "derived_policy_verdicts": verdicts["derived_policy_verdicts"],
         "side_effect_receipt_count": effects["side_effect_receipt_count"],
         "executed_action_count": effects["executed_action_count"],
         "blocked_without_execution_count": effects["blocked_without_execution_count"],
@@ -1396,6 +1655,7 @@ def _build_result(
         "cold_replay_pass_count": cold_replay["cold_replay_pass_count"],
         "request_rows": actions["request_rows"],
         "policy_verdict_rows": verdicts["policy_verdict_rows"],
+        "derived_policy_verdict_rows": verdicts["derived_policy_verdict_rows"],
         "side_effect_rows": effects["side_effect_rows"],
         "rollback_rows": rollbacks["rollback_rows"],
         "cold_replay_rows": cold_replay["cold_replay_rows"],
@@ -1417,9 +1677,14 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "every action request must have a pre-execution verdict",
             },
             {
+                "mechanic_id": "derived_policy_verdicts",
+                "count": result["derived_policy_verdict_count"],
+                "authority": "sandbox verdicts are derived from action kind, risk class, capability, and trust shape before recorded verdict rows are accepted",
+            },
+            {
                 "mechanic_id": "blocked_actions_have_zero_side_effects",
                 "count": result["blocked_without_execution_count"],
-                "authority": "blocked secret/network/destructive requests cannot execute",
+                "authority": "derived blocked secret/network/destructive requests cannot execute",
             },
             {
                 "mechanic_id": "side_effects_need_rollback_receipts",
@@ -1434,6 +1699,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         ],
         "request_rows": result["request_rows"],
         "policy_verdict_rows": result["policy_verdict_rows"],
+        "derived_policy_verdict_rows": result["derived_policy_verdict_rows"],
         "side_effect_rows": result["side_effect_rows"],
         "rollback_rows": result["rollback_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
@@ -1629,6 +1895,12 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "allow_count": result.get("allow_count"),
             "block_count": result.get("block_count"),
             "review_count": result.get("review_count"),
+            "derived_allow_count": result.get("derived_allow_count"),
+            "derived_block_count": result.get("derived_block_count"),
+            "derived_review_count": result.get("derived_review_count"),
+            "derived_policy_verdict_mismatch_count": result.get(
+                "derived_policy_verdict_mismatch_count"
+            ),
             "side_effect_receipt_count": result.get("side_effect_receipt_count"),
             "blocked_without_execution_count": result.get(
                 "blocked_without_execution_count"

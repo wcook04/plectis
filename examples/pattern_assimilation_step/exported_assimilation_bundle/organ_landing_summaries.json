@@ -211,7 +211,7 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_binding_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
       "live_learning_authority": false,
       "organ_id": "pattern_binding_contract",
       "projection_not_authority": true

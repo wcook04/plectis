@@ -6,7 +6,8 @@
   },
   "anti_claims": [
     "This public standard does not copy private source bodies or prove public runtime completeness.",
-    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
+    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, runtime acceptance, or whole-system correctness authority beyond the authority_ceiling."
   ],
   "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
   "authority_ceiling": {
@@ -68,7 +69,9 @@
     "receipt.microcosm.anti_claim",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipt.microcosm.anti_claim"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 141,
@@ -95,7 +98,6 @@
       "corpus_keyphrase_navigation_prelude"
     ],
     "used_by_organs": [
-      "authority_boundary",
       "pattern_binding_contract",
       "proof_diagnostic_evidence_spine"
     ]
@@ -115,7 +117,7 @@
     "anti_claims",
     "anti_claim_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -165,9 +167,25 @@
     ],
     "ontology": "A typed statement of what a fixture, receipt, or organ does not prove.",
     "rebuild_action": "draft",
-    "teleology": "Prevent toy fixtures from inflating into macro claims."
+    "teleology": "Prevent toy fixtures from inflating into macro claims.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "draft",
+      "runtime_acceptance_status": "standard_contract_active_no_runtime_acceptance_claim",
+      "validator_refs": [
+        "validator.microcosm.anti_claim"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.anti_claim"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling.",
+      "promotion_scope": "clean_v1_draft_with_resolved_used_by_organ_targets_and_existing_validator_receipt_refs"
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -184,6 +202,182 @@
     "required": true,
     "validator_id": "validator.microcosm.anti_claim"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "validator.microcosm.anti_claim"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.anti_claim.author",
+      "status": "planned",
+      "purpose": "create a valid Anti-claim instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.anti_claim.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Anti-claim without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.anti_claim.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_anti_claim and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_format": "json",
+  "source_location": "microcosm-substrate/standards/std_microcosm_anti_claim.json",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "refinement_provenance": {
+    "refined_by": "codex",
+    "wave": "microcosm_clean_v2_standard_contract_batch_20260605",
+    "workflow_run": "codex_20260605T1117Z_microcosm_clean_v2_standard_contracts",
+    "cap": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+    "base": "public_microcosm_standard_v1 / draft",
+    "method": "additive_v2_contract_envelope; required_fields, authority_ceiling, anti_claims, relationships, validators, receipts, and public_private_boundary preserved; no runtime acceptance, release, or source-body authority added"
+  },
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "lattice_edges": {
+    "required": [
+      {
+        "to_kind": "doctrine_kind",
+        "relation_verb": "governs",
+        "reverse_verb": "governed_by",
+        "cardinality": "one_to_one",
+        "requirement": "required"
+      },
+      {
+        "to_kind": "skill",
+        "relation_verb": "owns_triad",
+        "reverse_verb": "operates",
+        "cardinality": "one_to_many",
+        "requirement": "required",
+        "rule": "author + refine_instance + refine_standard_and_propagate"
+      }
+    ],
+    "selective": [
+      {
+        "to_kind": "organ",
+        "relation_verb": "used_by",
+        "reverse_verb": "uses_standard",
+        "cardinality": "zero_to_many",
+        "requirement": "selective",
+        "rule": "relationships.used_by_organs declares route pressure only; it does not accept missing organs or prove runtime use"
+      }
+    ],
+    "edge_shape": [
+      "to_kind",
+      "relation_verb",
+      "reverse_verb",
+      "cardinality",
+      "requirement"
+    ],
+    "cardinality_enum": [
+      "one_to_one",
+      "one_to_many",
+      "zero_to_one",
+      "zero_to_many"
+    ],
+    "requirement_enum": [
+      "required",
+      "selective",
+      "forbidden"
+    ],
+    "bidirectional_gloss_required": true,
+    "authority_boundary": "declared contract topology only; generated relation coverage remains computed by build_doctrine_projection.py"
+  },
+  "instance_schema": {
+    "required_keys": [
+      "id",
+      "kind",
+      "schema_version",
+      "authority_boundary",
+      "source_refs",
+      "status",
+      "created_at",
+      "relationships",
+      "validator_refs",
+      "receipt_refs",
+      "omission_receipt",
+      "anti_claims",
+      "anti_claim_payload"
+    ],
+    "optional_keys": [
+      "compression",
+      "lattice_edges",
+      "validation",
+      "projections",
+      "source_coupling_contract"
+    ],
+    "field_semantics": {
+      "id": "stable anti_claim instance id when present in governed instances",
+      "kind": "instance kind governed by std_microcosm_anti_claim",
+      "authority_boundary": "states the highest supported authority for the instance",
+      "source_refs": "names source evidence without copying private source bodies",
+      "status": "explicit lifecycle state; not release or completeness authority",
+      "relationships": "typed source-declared edges or residual pressure, never inferred proof",
+      "omission_receipt": "records omitted bodies and drilldown refs for compressed/generated views",
+      "anti_claims": "states what the instance does not prove or authorize"
+    },
+    "payload_key": "anti_claim_payload",
+    "note": "Required keys are projected from this standard source required_fields list; schema validation remains validator-owned."
+  },
+  "validation": {
+    "schema_check": {
+      "required": true,
+      "validator_id": "validator.microcosm.anti_claim",
+      "rule": "instance validates against required_fields and this standard contract"
+    },
+    "source_boundary": {
+      "required": true,
+      "rule": "public instances cite source_refs and preserve public_private_boundary; private/raw/provider bodies are not exported"
+    },
+    "link_resolution": {
+      "required": true,
+      "rule": "required lattice edge targets resolve to governed instance ids; selective unresolved targets remain typed residual pressure"
+    },
+    "projection_freshness": {
+      "required": true,
+      "rule": "generated markdown, Mermaid, Atlas, coverage, health, and entry-card views are regenerable from JSON source; stale projection is a trust downgrade, not source authority"
+    }
+  },
+  "projections": {
+    "markdown": {
+      "generated": true,
+      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py",
+      "path_pattern": "microcosm-substrate/standards/<standard_id>.md",
+      "note": "human-readable projection; never source authority"
+    },
+    "mermaid": {
+      "generated": true,
+      "compiled_from": "lattice_edges + instance relationships",
+      "note": "diagram projection; never source authority"
+    },
+    "atlas_card": {
+      "generated": true,
+      "surface": "agent entry / doctrine lattice projection / atlas card",
+      "note": "agent-routing projection; must link back to JSON source"
+    },
+    "coverage_health": {
+      "generated": true,
+      "surface": "doctrine_lattice_coverage + doctrine_lattice_health",
+      "note": "computed health; never evidence for source claims"
+    }
+  },
+  "compression": {
+    "rule": "preserve authority boundary and anti-claim before any status/count summary",
+    "required_on_instance": [
+      "one_line"
+    ],
+    "one_line_max_chars": 160,
+    "bands": [
+      "one_line",
+      "card",
+      "tldr"
+    ],
+    "purpose": "keep standard-governed instance rows navigable without turning projection counts into readiness claims"
+  }
 }

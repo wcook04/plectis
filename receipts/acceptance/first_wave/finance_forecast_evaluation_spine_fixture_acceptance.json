@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.finance_forecast_evaluation_spine",
+  "organ_id": "finance_forecast_evaluation_spine",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
+}

@@ -828,7 +828,7 @@
         "system/server/tests/test_comprehension_snapshot.py",
         "system/server/tests/test_kind_atlas.py",
         "system/server/tests/test_navigation_hologram_dogfood.py",
-        "self-indexing-cognitive-substrate/microcosms/atlas_navigation_bands/"
+        "private-macro-source/microcosms/atlas_navigation_bands/"
       ],
       "substrate_refs_omitted_count": 0,
       "target_existing_organs": [
@@ -4882,8 +4882,8 @@
         "system/server/tests/test_mission_transaction_landing_preflight.py",
         "system/server/tests/test_work_landing_status.py",
         "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_ci_evolution_skill_regression_replay_growth_v1",
-        "self-indexing-cognitive-substrate/src/idea_microcosm/hosted_public_ci_workflow_gate_specimen.py",
-        "self-indexing-cognitive-substrate/src/idea_microcosm/operator_public_remote_clone_execution_receipt_specimen.py",
+        "private-macro-source/src/idea_microcosm/hosted_public_ci_workflow_gate_specimen.py",
+        "private-macro-source/src/idea_microcosm/operator_public_remote_clone_execution_receipt_specimen.py",
         "tools/meta/factory/build_hosted_public_remote_ci_gate_receipt.py",
         "tools/meta/factory/build_public_microcosm_git_clone_ci_receipt.py"
       ],
@@ -5510,7 +5510,7 @@
   ],
   "next_type_a_pass": {
     "do_not_do": [
-      "Do not rebuild self-indexing-cognitive-substrate from this pass.",
+      "Do not rebuild private-macro-source from this pass.",
       "Do not treat source shuttle semantic packets as source authority or public release evidence.",
       "Do not overwrite existing extracted pattern ledger rows in place; repair weak refs through detailed bindings or a superseding row."
     ],
@@ -6177,8 +6177,8 @@
           "./repo-pytest system/server/tests/test_raw_seed_compressed_projection.py system/server/tests/test_microcosm_autonomous_proof_gate_option_surface.py::test_microcosm_extracted_patterns_card_includes_live_projection_salience_gate_binding -q"
         ],
         "generated_artifacts_receipts": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_compressed_projection.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed_compressed.md",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_compressed_projection.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed_compressed.md",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::pattern_bindings[live_projection_salience_gate]",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::foundation_combination_routes[live_projection_salience_gate_attention_control_contract]",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::organ_readiness[navigation_hologram_route_plane]",
@@ -6278,29 +6278,29 @@
       },
       "substrate_bindings": {
         "code_owners": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/summary_ladders_specimen.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/cli.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-          "self-indexing-cognitive-substrate/tests/test_agent_entry_experience.py",
-          "self-indexing-cognitive-substrate/tests/test_microcosm_contract.py",
+          "private-macro-source/src/idea_microcosm/summary_ladders_specimen.py",
+          "private-macro-source/src/idea_microcosm/cli.py",
+          "private-macro-source/src/idea_microcosm/validators.py",
+          "private-macro-source/tests/test_agent_entry_experience.py",
+          "private-macro-source/tests/test_microcosm_contract.py",
           "system/lib/standard_option_surface.py",
           "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
           "tools/meta/factory/check_extracted_pattern_route_readiness.py"
         ],
         "command_surfaces": [
           "./repo-python kernel.py --option-surface microcosm_extracted_patterns --band card --ids summary_ladders_compression,system_facts_glance",
-          "./repo-python -m json.tool self-indexing-cognitive-substrate/microcosms/summary_ladders/summary_ladders.json",
-          "./repo-python -m pytest self-indexing-cognitive-substrate/tests/test_agent_entry_experience.py::test_summary_ladders_project_every_leaf_into_human_and_ai_layers -q",
+          "./repo-python -m json.tool private-macro-source/microcosms/summary_ladders/summary_ladders.json",
+          "./repo-python -m pytest private-macro-source/tests/test_agent_entry_experience.py::test_summary_ladders_project_every_leaf_into_human_and_ai_layers -q",
           "./repo-python tools/meta/factory/build_extracted_pattern_substrate_bindings.py --check --json",
           "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --check --json",
           "./repo-pytest system/server/tests/test_microcosm_autonomous_proof_gate_option_surface.py::test_microcosm_extracted_patterns_card_includes_summary_ladders_and_system_facts_bindings -q"
         ],
         "generated_artifacts_receipts": [
-          "self-indexing-cognitive-substrate/microcosms/summary_ladders/summary_ladders.json",
-          "self-indexing-cognitive-substrate/microcosms/summary_ladders/README.md",
-          "self-indexing-cognitive-substrate/microcosms/summary_ladders/receipt.json",
-          "self-indexing-cognitive-substrate/microcosms/leaf_entry_contract.json",
-          "self-indexing-cognitive-substrate/microcosms/specimen_suite/std_python_compliance_report.json",
+          "private-macro-source/microcosms/summary_ladders/summary_ladders.json",
+          "private-macro-source/microcosms/summary_ladders/README.md",
+          "private-macro-source/microcosms/summary_ladders/receipt.json",
+          "private-macro-source/microcosms/leaf_entry_contract.json",
+          "private-macro-source/microcosms/specimen_suite/std_python_compliance_report.json",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::pattern_bindings[summary_ladders_compression]",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::foundation_combination_routes[summary_ladders_system_facts_glance_compression_contract]",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::organ_readiness[navigation_hologram_route_plane]",
@@ -6308,40 +6308,40 @@
           "state/microcosm_portfolio/extracted_pattern_substrate_validation_report.json"
         ],
         "paper_modules": [
-          "self-indexing-cognitive-substrate/paper_modules/summary_ladder_projection.md",
+          "private-macro-source/paper_modules/summary_ladder_projection.md",
           "codex/doctrine/paper_modules/holographic_navigation_compression.md",
           "codex/doctrine/paper_modules/navigation_hologram_theory.md",
           "codex/doctrine/paper_modules/hologram_substrate_navigation.md",
           "codex/doctrine/paper_modules/microcosm_substrate.md"
         ],
         "skills": [
-          "self-indexing-cognitive-substrate/skills/summary_ladder_porting.md",
-          "self-indexing-cognitive-substrate/skills/leaf_porting.md",
+          "private-macro-source/skills/summary_ladder_porting.md",
+          "private-macro-source/skills/leaf_porting.md",
           "codex/doctrine/skills/compression/profile_governed_compression.md",
           "codex/doctrine/skills/kernel/navigation_seed.md"
         ],
         "source_function_anchors": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/summary_ladders_specimen.py::build_summary_ladders_specimen",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/summary_ladders_specimen.py::_summary_row",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/summary_ladders_specimen.py::_std_python_navigation_layer",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/summary_ladders_specimen.py::_readme",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py::_summary_ladders_specimen_failures",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/cli.py::main",
+          "private-macro-source/src/idea_microcosm/summary_ladders_specimen.py::build_summary_ladders_specimen",
+          "private-macro-source/src/idea_microcosm/summary_ladders_specimen.py::_summary_row",
+          "private-macro-source/src/idea_microcosm/summary_ladders_specimen.py::_std_python_navigation_layer",
+          "private-macro-source/src/idea_microcosm/summary_ladders_specimen.py::_readme",
+          "private-macro-source/src/idea_microcosm/validators.py::_summary_ladders_specimen_failures",
+          "private-macro-source/src/idea_microcosm/cli.py::main",
           "system/lib/standard_option_surface.py::build_microcosm_extracted_patterns_option_surface",
           "system/lib/standard_option_surface.py::_microcosm_extracted_pattern_binding_summary",
           "system/lib/standard_option_surface.py::_microcosm_extracted_pattern_route_readiness_membership"
         ],
         "standards": [
-          "self-indexing-cognitive-substrate/standards/summary_ladder.json",
+          "private-macro-source/standards/summary_ladder.json",
           "codex/standards/std_python.py",
           "codex/standards/std_navigation_contract.json",
           "codex/standards/std_extracted_pattern_substrate_bindings.json",
           "codex/standards/std_extracted_pattern_route_readiness.json"
         ],
         "tests_validators_proofs": [
-          "self-indexing-cognitive-substrate/tests/test_agent_entry_experience.py::test_summary_ladders_project_every_leaf_into_human_and_ai_layers",
-          "self-indexing-cognitive-substrate/tests/test_microcosm_contract.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py::validator.summary_ladders_specimen",
+          "private-macro-source/tests/test_agent_entry_experience.py::test_summary_ladders_project_every_leaf_into_human_and_ai_layers",
+          "private-macro-source/tests/test_microcosm_contract.py",
+          "private-macro-source/src/idea_microcosm/validators.py::validator.summary_ladders_specimen",
           "system/server/tests/test_microcosm_autonomous_proof_gate_option_surface.py",
           "system/server/tests/test_extracted_pattern_substrate_bindings.py",
           "system/server/tests/test_extracted_pattern_route_readiness.py",
@@ -6349,9 +6349,9 @@
           "tools/meta/factory/check_extracted_pattern_route_readiness.py"
         ],
         "validator_receipt_contracts": [
-          "self-indexing-cognitive-substrate/standards/summary_ladder.json::required_row_fields",
-          "self-indexing-cognitive-substrate/standards/summary_ladder.json::required_ai_native_layer_fields",
-          "self-indexing-cognitive-substrate/microcosms/summary_ladders/summary_ladders.json::summary.leaf_count_matches_contract",
+          "private-macro-source/standards/summary_ladder.json::required_row_fields",
+          "private-macro-source/standards/summary_ladder.json::required_ai_native_layer_fields",
+          "private-macro-source/microcosms/summary_ladders/summary_ladders.json::summary.leaf_count_matches_contract",
           "self-indexing-cognitive-substrate/microcosms/summary_ladders/summary_ladders.json::summary.rows_with_std_python_navigation",
           "self-indexing-cognitive-substrate/microcosms/summary_ladders/receipt.json::result[ok]",
           "self-indexing-cognitive-substrate/microcosms/summary_ladders/receipt.json::claim_ref[summary_ladders_project_every_leaf_into_multi_length_human_and_ai_layers]",
@@ -7899,8 +7899,8 @@
           "./repo-pytest system/server/tests/test_agent_operating_packet.py system/server/tests/test_diagnostic_packet_sections.py system/server/tests/test_kind_band_contract_audit.py -q"
         ],
         "generated_artifacts_receipts": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
           "codex/doctrine/agent_operating_packet.json",
           "codex/doctrine/agent_bootstrap_live.json",
           "codex/doctrine/principle_refinement_plan.json",
@@ -8204,9 +8204,9 @@
           "codex/doctrine/paper_modules/microcosm_substrate.md"
         ],
         "principle_source_refs": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_136",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_139",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_142"
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_136",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_139",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json::pri_142"
         ],
         "skills": [
           "codex/doctrine/skills/kernel/navigation_seed.md",
@@ -9036,9 +9036,9 @@
           "./repo-pytest self-indexing-cognitive-substrate/tests/test_microcosm_contract.py -q"
         ],
         "generated_artifacts_receipts": [
-          "self-indexing-cognitive-substrate/microcosms/status_preserving_control_plane/control_plane_board.json",
-          "self-indexing-cognitive-substrate/microcosms/status_preserving_control_plane/claim_inference_authority_lattice.json",
-          "self-indexing-cognitive-substrate/microcosms/status_preserving_control_plane/receipt.json"
+          "private-macro-source/microcosms/status_preserving_control_plane/control_plane_board.json",
+          "private-macro-source/microcosms/status_preserving_control_plane/claim_inference_authority_lattice.json",
+          "private-macro-source/microcosms/status_preserving_control_plane/receipt.json"
         ],
         "paper_modules": [
           "codex/doctrine/paper_modules/microcosm_substrate.md",
@@ -10593,7 +10593,7 @@
           "codex/doctrine/paper_modules/operational_work_item_spine.md"
         ],
         "public_microcosm_non_authority": [
-          "self-indexing-cognitive-substrate/microcosms/concurrency_mission_control/"
+          "private-macro-source/microcosms/concurrency_mission_control/"
         ],
         "standards": [
           "codex/standards/std_work_ledger.json",
@@ -11764,8 +11764,8 @@
           "system/lib/mission_transaction_landing_preflight.py",
           "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
           "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/hosted_public_ci_workflow_gate_specimen.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/operator_public_remote_clone_execution_receipt_specimen.py",
+          "private-macro-source/src/idea_microcosm/hosted_public_ci_workflow_gate_specimen.py",
+          "private-macro-source/src/idea_microcosm/operator_public_remote_clone_execution_receipt_specimen.py",
           "tools/meta/factory/build_hosted_public_remote_ci_gate_receipt.py",
           "tools/meta/factory/build_public_microcosm_git_clone_ci_receipt.py",
           "conftest.py"
@@ -14699,9 +14699,9 @@
           "codex/standards/std_extracted_pattern_route_readiness.json"
         ],
         "state_ledgers_receipts": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.md",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.snapshot.md",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.md",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.snapshot.md",
           "state/agent_seed_migration/2026_04_20_phase_09.json",
           "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
         ],
@@ -14776,9 +14776,9 @@
           "codex/standards/std_extracted_pattern_route_readiness.json"
         ],
         "state_ledgers_receipts": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.md",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.snapshot.md",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.md",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.snapshot.md",
           "state/agent_seed_migration/2026_04_20_phase_09.json",
           "docs/agent_seed_substrate_separation_spec.md"
         ],
@@ -15044,7 +15044,7 @@
       },
       "substrate_bindings": {
         "code_owners": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py",
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py",
           "self-indexing-cognitive-substrate/src/idea_microcosm/cli.py"
         ],
         "command_surfaces": [
@@ -15070,33 +15070,33 @@
           "self-indexing-cognitive-substrate/microcosms/specimen_suite/std_python_compliance_report.json::microcosm_leaf.source_shuttle",
           "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
           "self-indexing-cognitive-substrate/microcosms/provider_harness_canary/canary_board.json",
-          "self-indexing-cognitive-substrate/microcosms/concurrency_mission_control/mission_board.json",
-          "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
-          "self-indexing-cognitive-substrate/microcosms/operator_public_remote_clone_execution_receipt/receipt_intake_board.json",
-          "self-indexing-cognitive-substrate/state/release_candidate_portfolio.json"
+          "private-macro-source/microcosms/concurrency_mission_control/mission_board.json",
+          "private-macro-source/microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "private-macro-source/microcosms/operator_public_remote_clone_execution_receipt/receipt_intake_board.json",
+          "private-macro-source/state/release_candidate_portfolio.json"
         ],
         "paper_modules": [
           "codex/doctrine/paper_modules/microcosm_substrate.md",
           "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
-          "self-indexing-cognitive-substrate/paper_modules/leaf_entry_contract.md",
-          "self-indexing-cognitive-substrate/paper_modules/summary_ladder_projection.md",
-          "self-indexing-cognitive-substrate/paper_modules/mechanism_family_profile.md"
+          "private-macro-source/paper_modules/leaf_entry_contract.md",
+          "private-macro-source/paper_modules/summary_ladder_projection.md",
+          "private-macro-source/paper_modules/mechanism_family_profile.md"
         ],
         "source_function_anchors": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py::_source_clip",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py::_semantic_packet",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py::_build_cases",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py::_effectiveness_witness_failures",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/source_shuttle_specimen.py::build_source_shuttle_specimen",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/cli.py::build-source-shuttle-specimen",
-          "self-indexing-cognitive-substrate/tests/test_microcosm_contract.py::test_source_shuttle_specimen_hashes_semantic_packets_and_blocks_private_copy"
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py::_source_clip",
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py::_semantic_packet",
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py::_build_cases",
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py::_effectiveness_witness_failures",
+          "private-macro-source/src/idea_microcosm/source_shuttle_specimen.py::build_source_shuttle_specimen",
+          "private-macro-source/src/idea_microcosm/cli.py::build-source-shuttle-specimen",
+          "private-macro-source/tests/test_microcosm_contract.py::test_source_shuttle_specimen_hashes_semantic_packets_and_blocks_private_copy"
         ],
         "standards": [
           "codex/standards/std_microcosm.json",
           "codex/standards/std_extracted_pattern_substrate_bindings.json",
           "codex/standards/std_extracted_pattern_route_readiness.json",
-          "self-indexing-cognitive-substrate/standards/receipt.json",
-          "self-indexing-cognitive-substrate/standards/leaf_entry_contract.json",
+          "private-macro-source/standards/receipt.json",
+          "private-macro-source/standards/leaf_entry_contract.json",
           "self-indexing-cognitive-substrate/standards/artifact_manifest.json"
         ],
         "tests_validators_proofs": [
@@ -16473,9 +16473,9 @@
       },
       "substrate_bindings": {
         "code_owners": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/cli.py",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py",
+          "private-macro-source/src/idea_microcosm/validators.py",
+          "private-macro-source/src/idea_microcosm/cli.py",
           "tools/meta/factory/task_ledger_apply.py",
           "system/lib/egress_compliance.py",
           "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
@@ -16491,12 +16491,12 @@
           "./repo-pytest system/server/tests/test_extracted_pattern_substrate_bindings.py::test_live_correction_survival_loop_has_detailed_binding -q"
         ],
         "generated_artifacts_receipts": [
-          "self-indexing-cognitive-substrate/microcosms/correction_survival_loop/receipt.json",
-          "self-indexing-cognitive-substrate/microcosms/correction_survival_loop/correction_survival_board.json",
-          "self-indexing-cognitive-substrate/microcosms/correction_survival_loop/synthetic_route_graph_before.json",
-          "self-indexing-cognitive-substrate/microcosms/correction_survival_loop/synthetic_route_graph_after.json",
-          "self-indexing-cognitive-substrate/microcosms/correction_survival_loop/synthetic_future_scenarios.json",
-          "self-indexing-cognitive-substrate/microcosms/leaf_entry_contract.json::leaf_rows[leaf_id=correction_survival_loop]",
+          "private-macro-source/microcosms/correction_survival_loop/receipt.json",
+          "private-macro-source/microcosms/correction_survival_loop/correction_survival_board.json",
+          "private-macro-source/microcosms/correction_survival_loop/synthetic_route_graph_before.json",
+          "private-macro-source/microcosms/correction_survival_loop/synthetic_route_graph_after.json",
+          "private-macro-source/microcosms/correction_survival_loop/synthetic_future_scenarios.json",
+          "private-macro-source/microcosms/leaf_entry_contract.json::leaf_rows[leaf_id=correction_survival_loop]",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::pattern_bindings[correction_survival_loop]",
           "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::foundation_combination_routes[correction_survival_loop_voice_to_doctrine_contract]",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::organ_readiness[voice_to_doctrine_self_improvement_loop]",
@@ -16518,12 +16518,12 @@
           "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
         ],
         "source_function_anchors": [
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py::build_correction_survival_loop_specimen",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_capture_before_prose",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_patch_references_capture",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_future_route_changed",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_old_behavior_fails_new_behavior_passes",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py::_correction_survival_loop_specimen_failures",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py::build_correction_survival_loop_specimen",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_capture_before_prose",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_patch_references_capture",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_future_route_changed",
+          "private-macro-source/src/idea_microcosm/correction_survival_loop_specimen.py::_validate_old_behavior_fails_new_behavior_passes",
+          "private-macro-source/src/idea_microcosm/validators.py::_correction_survival_loop_specimen_failures",
           "tools/meta/factory/build_extracted_pattern_substrate_bindings.py::FOUNDATION_COMBINATION_ROUTE_DEFS",
           "tools/meta/factory/task_ledger_apply.py::cmd_quick_capture"
         ],
@@ -16534,9 +16534,9 @@
           "codex/standards/std_extracted_pattern_route_readiness.json"
         ],
         "tests_validators_proofs": [
-          "self-indexing-cognitive-substrate/tests/test_microcosm_contract.py",
-          "self-indexing-cognitive-substrate/tests/test_release_root_compiler.py",
-          "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py::_correction_survival_loop_specimen_failures",
+          "private-macro-source/tests/test_microcosm_contract.py",
+          "private-macro-source/tests/test_release_root_compiler.py",
+          "private-macro-source/src/idea_microcosm/validators.py::_correction_survival_loop_specimen_failures",
           "system/server/tests/test_egress_compliance.py",
           "system/server/tests/test_task_ledger_events.py",
           "system/server/tests/test_task_ledger_cli_flag_schema.py",
@@ -16997,12 +16997,12 @@
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::organ_readiness[voice_to_doctrine_self_improvement_loop]",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
           "state/microcosm_portfolio/extracted_pattern_substrate_validation_report.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json::shards[*]",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::shards[*].parent_paragraph_id",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::browser_index",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json::entries",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_coverage.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_routing_review.json"
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json::shards[*]",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::shards[*].parent_paragraph_id",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::browser_index",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json::entries",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_coverage.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_routing_review.json"
         ],
         "paper_modules": [
           "codex/doctrine/paper_modules/raw_seed_atomization.md",
@@ -17046,11 +17046,11 @@
           "codex/standards/std_paper_module.json"
         ],
         "state_ledgers_receipts": [
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_coverage.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_routing_review.json"
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_coverage.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_routing_review.json"
         ],
         "tests_validators_proofs": [
           "system/server/tests/test_raw_seed_atomization.py::test_atomize_and_route_review_write_family_backlog_and_coverage",
@@ -17071,7 +17071,7 @@
           "system/lib/raw_seed_atomization.py::ingest_family_raw_seed_distillations",
           "system/lib/raw_seed_distillation.py::import_distilled_shards",
           "tools/meta/factory/raw_seed_pipeline.py::main",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json::entries",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_atomization_ledger.json::entries",
           "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::last_refinement"
         ]
       }
@@ -17274,8 +17274,8 @@
           "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
           "state/microcosm_portfolio/extracted_pattern_substrate_validation_report.json",
           "state/meta_missions/raw_seed_bridge_distillation/runs/",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json::shards[*]",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::shards[*].parent_paragraph_id"
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json::shards[*]",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json::shards[*].parent_paragraph_id"
         ],
         "paper_modules": [
           "codex/doctrine/paper_modules/raw_seed_distillation_lanes.md",
@@ -17324,8 +17324,8 @@
         ],
         "state_ledgers_receipts": [
           "state/meta_missions/raw_seed_bridge_distillation/runs/",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json",
-          "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json"
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_shards.json",
+          "<private-raw-seed-root> - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json"
         ],
         "tests_validators_proofs": [
           "system/server/tests/test_raw_seed_distillation.py::test_build_distillation_run_payload_selects_oldest_undistilled_paragraphs",

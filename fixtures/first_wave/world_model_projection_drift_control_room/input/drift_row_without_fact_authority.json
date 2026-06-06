@@ -1,0 +1,17 @@
+{
+  "schema_version": "world_model_projection_drift_control_negative_case_v1",
+  "case_id": "drift_row_without_fact_authority",
+  "drift_row": {
+    "drift_row_id": "world_model_cross_plane_drift_aggregate",
+    "source_signal": "aggregate drift between projected world-model rows and owner-route evidence",
+    "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_cross_plane_drift_aggregate",
+    "repair_route": "microcosm drift-control -> projection_drift_control_room.validate",
+    "validation_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
+    "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::world_model_cross_plane_drift_aggregate",
+    "body_in_receipt": false,
+    "source_authority_claim": false,
+    "live_repair_authorized": false,
+    "source_mutation_authorized": false,
+    "automatic_doctrine_promotion_authorized": false
+  }
+}

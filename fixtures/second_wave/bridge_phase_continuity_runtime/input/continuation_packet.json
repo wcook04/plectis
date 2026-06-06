@@ -1,11 +1,11 @@
 {
-  "schema_version": "microcosm_bridge_fake_transport_continuation_packets_v1",
+  "schema_version": "microcosm_bridge_synthetic_transport_continuation_packets_v1",
   "fixture_scope": "synthetic_bridge_continuity_base_manifest",
   "packets": [
     {
       "packet_id": "synthetic_packet_001",
       "target_job_id": "synthetic_detached_job_001",
-      "transport": "fake_transport",
+      "transport": "synthetic_transport",
       "consumed": false,
       "required_fields_present": true,
       "resume_route": "microcosm.synthetic.resume",
@@ -15,25 +15,23 @@
     {
       "packet_id": "synthetic_packet_002",
       "target_job_id": "synthetic_detached_job_002",
-      "transport": "fake_transport",
+      "transport": "synthetic_transport",
       "consumed": true,
       "required_fields_present": true,
       "resume_route": "microcosm.synthetic.resume",
-      "claim_ref": "claim_synthetic_002",
-      "expected_error_code": "CONTINUATION_PACKET_ALREADY_CONSUMED"
+      "claim_ref": "claim_synthetic_002"
     },
     {
       "packet_id": "synthetic_packet_missing_fields",
       "target_job_id": "synthetic_detached_job_missing_fields",
-      "transport": "fake_transport",
+      "transport": "synthetic_transport",
       "consumed": false,
       "required_fields_present": false,
       "missing_fields": [
         "resume_route",
         "claim_ref"
-      ],
-      "expected_error_code": "MISSING_CONTINUATION_PACKET_FIELDS"
+      ]
     }
   ],
-  "anti_claim": "Continuation packets here are fake transport handles. They prove schema and resume-once behavior only."
+  "anti_claim": "Continuation packets here are synthetic transport handles. They prove schema and resume-once behavior only."
 }

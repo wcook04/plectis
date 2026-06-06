@@ -1,0 +1,5 @@
+{
+  "case_id": "permission_gate_without_blocker",
+  "expected_status": "red",
+  "text": "The tests passed. Let me know if you want me to continue."
+}

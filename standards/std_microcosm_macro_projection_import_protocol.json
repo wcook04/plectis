@@ -14,7 +14,16 @@
     "release_authority": false,
     "source_body_authority": false,
     "standard_authority": "verified_body_import_and_secret_exclusion_contract_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#macro_projection_import_protocol",
+    "claim_ceiling_ref": "core/organ_registry.json#macro_projection_import_protocol.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "macro_projection_import_protocol",
@@ -35,8 +44,50 @@
     "rule": "every omitted private material class must carry an omission receipt ref"
   },
   "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.macro_projection_import_protocol",
+    "mechanism_ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
     "module_slug": "macro_projection_import_protocol",
-    "required": true
+    "required": true,
+    "source_authority": "json_capsule"
+  },
+  "organ_binding_contract": {
+    "organ_id": "macro_projection_import_protocol",
+    "runner": "microcosm_core.organs.macro_projection_import_protocol",
+    "evidence_class_ref": "core/organ_evidence_classes.json::organ_evidence_classes[macro_projection_import_protocol]",
+    "evidence_strength_rank": 5,
+    "current_authority_receipt": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+    "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+    "paper_module_path": "paper_modules/macro_projection_import_protocol.md",
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "symbols": [
+          "run",
+          "run_projection_bundle",
+          "preview_import_plan",
+          "validate_projection_protocol",
+          "validate_import_plan",
+          "refresh_exact_copy_source_modules"
+        ],
+        "role": "Runtime and receipt-writing authority for public-safe macro projection import validation.",
+        "resolution": "resolved"
+      }
+    ],
+    "mechanism_ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+    "mechanism_ref_status": "resolved",
+    "mechanism_ref_reentry_condition": "If this mechanism row is removed or its receipt set changes, downgrade this field to planned_unresolved until core/mechanism_sources.json and core/organ_atlas.json carry matching resolved refs again.",
+    "required_lattice_edges": [
+      "paper_module_ref",
+      "mechanism_refs",
+      "code_loci"
+    ]
+  },
+  "doctrine_population_status": {
+    "atlas_binding_status": "populated",
+    "authority_boundary": "verified macro body import evidence ceiling; no live macro source authority, private-root equivalence, release, source mutation, secret export, or static receipt-count claims",
+    "coverage_projection": "regenerated_by_microcosm_core.doctrine_lattice",
+    "json_capsule": "populated",
+    "mechanism_source": "populated"
   },
   "public_private_boundary": {
     "allowed_public_inputs": [
@@ -79,6 +130,12 @@
       "projection_status_protocol",
       "projection_status_counts",
       "open_actionable_cell_count",
+      "source_module_manifest_refs",
+      "source_to_target_relation",
+      "source_module_digest_status",
+      "body_in_receipt_false",
+      "runtime_severance_status",
+      "next_best_lane",
       "anti_claim",
       "secret_exclusion_scan",
       "negative_case_coverage"
@@ -91,7 +148,12 @@
     "receipt must cite source refs, verified body targets, public runtime refs, validation refs, secret-exclusion coverage, negative-case coverage, and anti-claim"
   ],
   "receipt_refs": [
-    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+    "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+    "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+    "receipt.microcosm.macro_projection_import_protocol"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#macro_projection_import_protocol",
@@ -120,10 +182,48 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs must carry provenance; public-safe body imports must be classified and claim-bounded; public replacement refs must be public-root relative"
+  },
+  "source_module_manifest_contract": {
+    "required": true,
+    "rule": "the exported bundle carries per-slice *_source_module_manifest.json files rather than a single catch-all source_module_manifest.json; each manifest must bind source refs, public target refs, digest relation, validation refs, body_in_receipt=false policy, and claim ceiling for its imported slice",
+    "manifest_glob": "examples/macro_projection_import_protocol/exported_projection_import_bundle/*_source_module_manifest.json",
+    "copied_target_root": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules"
+  },
+  "receipt_count_semantics": {
+    "required": true,
+    "rule": "body-import and projection-cell counts are receipt fields, not stable markdown constants; explanatory paper modules must cite the current authority receipt fields or dated receipt snapshots instead of freezing counts in prose",
+    "authority_fields": [
+      "public_safe_body_import_count",
+      "public_safe_body_import_status",
+      "projection_status_counts",
+      "open_actionable_cell_count",
+      "secret_exclusion_scan"
+    ]
+  },
+  "source_to_target_relation_contract": {
+    "required": true,
+    "rule": "exact-copy relations prove byte-identical public snapshots; source-faithful public edit/refactor relations prove separately digested source and target bodies plus rewrite or symbol evidence. Exact-copy refresh tooling may update only exact-copy rows and must skip source-faithful public refactors.",
+    "exact_copy_relations": [
+      "exact_copy",
+      "exact_public_safe_macro_copy",
+      "source_faithful_public_safe_exact_copy"
+    ],
+    "source_faithful_edit_relations": [
+      "public_light_edit_private_path_redaction",
+      "public_replacement_source_body",
+      "source_faithful_json_slice",
+      "source_faithful_normalized_copy",
+      "source_faithful_public_light_edit",
+      "source_faithful_public_query_slice",
+      "source_faithful_public_route_row_projection",
+      "source_faithful_public_safe_normalized_copy",
+      "source_faithful_public_safe_path_normalized_copy",
+      "verified_public_safe_private_path_rewrite"
+    ]
   },
   "source_refs": [
     {
@@ -135,62 +235,114 @@
       "field": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
       "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "acceptance_receipt",
+      "path": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+      "role": "current_authority_receipt"
+    },
+    {
+      "field": "projection_import_validation_receipt",
+      "path": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+      "role": "validator_receipt"
+    },
+    {
+      "field": "projection_import_intake_board",
+      "path": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+      "role": "projection_status_and_open_action_receipt"
+    },
+    {
+      "field": "source_module_manifest_glob",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/*_source_module_manifest.json",
+      "role": "per_slice_public_source_module_manifest_set"
+    },
+    {
+      "field": "paper_module_capsule",
+      "path": "core/paper_module_capsules.json#paper_module.macro_projection_import_protocol",
+      "role": "json_capsule_source_authority_for_doctrine_population"
     }
   ],
   "standard_id": "std_microcosm_macro_projection_import_protocol",
   "standard_payload": {
-      "anti_purpose": "Ad hoc copying of unclassified macro bodies or authority claims into public Microcosm.",
+    "anti_purpose": "Ad hoc copying of unclassified macro bodies or authority claims into public Microcosm.",
     "compression_bands": [
       "protocol",
       "intake_board",
       "board",
       "receipt"
     ],
-      "failure_modes": [
-        "private body copied into public fixture",
-        "omitted material lacks omission receipt",
-        "projection upgrades itself into source authority",
-        "projection lacks validation refs",
-        "landed projection cell still appears as open work",
-        "projection claims release or private equivalence"
-      ],
-      "ontology": "A public-safe import membrane that turns macro substrate into classified public-safe bodies, metadata, fixture shape, standards, receipts, and explicit omission records.",
-      "rebuild_action": "draft",
-      "teleology": "Make future Microcosm cells cheaper and safer by standardizing how macro intelligence enters the public root."
-    },
-    "cell_status_protocol": {
-        "closed_statuses": [
-            "public_replacement_landed",
-            "self_hosted_status_protocol_landed",
-            "runtime_bridge_landed"
-        ],
-        "must_record": [
-            "projection_status",
-            "cell_state",
-            "action_required",
-            "status_reason",
-            "landed_evidence_refs",
-            "next_runtime_surface"
-        ],
-        "open_statuses": [
-            "ready_for_projection",
-            "blocked"
-        ],
-        "purpose": "Make the intake board self-describing so ready, landed, bridged, and consumed public replacements do not require raw receipt interpretation."
-    },
-  "status": "draft",
+    "failure_modes": [
+      "private body copied into public fixture",
+      "omitted material lacks omission receipt",
+      "projection upgrades itself into source authority",
+      "projection lacks validation refs",
+      "landed projection cell still appears as open work",
+      "projection claims release or private equivalence",
+      "paper module freezes a stale body-import count instead of citing current receipt fields",
+      "import consumer expects a singular source-module manifest and misses per-slice manifests"
+    ],
+    "ontology": "A public-safe import membrane that turns macro substrate into classified public-safe bodies, metadata, fixture shape, standards, receipts, and explicit omission records.",
+    "rebuild_action": "draft",
+    "teleology": "Make future Microcosm cells cheaper and safer by standardizing how macro intelligence enters the public root.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": null,
+      "receipt_id": null,
+      "organ_authority_receipt": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+      "organ_evidence_class": "verified_macro_body_import",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
+  },
+  "cell_status_protocol": {
+    "closed_statuses": [
+      "public_replacement_landed",
+      "self_hosted_status_protocol_landed",
+      "runtime_bridge_landed"
+    ],
+    "must_record": [
+      "projection_status",
+      "cell_state",
+      "action_required",
+      "status_reason",
+      "landed_evidence_refs",
+      "next_runtime_surface"
+    ],
+    "open_statuses": [
+      "ready_for_projection",
+      "blocked"
+    ],
+    "purpose": "Make the intake board self-describing so ready, landed, bridged, and consumed public replacements do not require raw receipt interpretation."
+  },
+  "status": "active",
   "validation_rules": [
     "require at least two macro source refs, public replacement refs, and validation refs",
     "allow classified public-safe macro proof/tool/pattern/receipt body imports with provenance and bounded claims",
     "reject true private body import requests",
     "require omission receipts for omitted private material classes",
     "reject live macro source authority upgrades",
-        "reject release, publication, recipient-work, and private-equivalence overclaims",
-        "score every proposed cell for source refs, target refs, validation refs, copy policy, and body-copy blockers before import",
-        "emit projection_status, cell_state, action_required, status_reason, landed_evidence_refs, and status counts for every proposed cell",
-        "count landed or bridged cells separately from open actionable cells",
-        "require private-state scan and redacted receipts"
-    ],
+    "reject release, publication, recipient-work, and private-equivalence overclaims",
+    "score every proposed cell for source refs, target refs, validation refs, copy policy, and body-copy blockers before import",
+    "emit projection_status, cell_state, action_required, status_reason, landed_evidence_refs, and status counts for every proposed cell",
+    "count landed or bridged cells separately from open actionable cells",
+    "require paper-module count claims to bind to receipt fields rather than static markdown totals",
+    "require exported bundle consumers to read per-slice source-module manifests",
+    "require private-state scan and redacted receipts"
+  ],
   "validator_contract": {
     "minimum_checks": [
       "source_ref_floor",
@@ -205,7 +357,27 @@
     "validator_id": "validator.microcosm.macro_projection_import_protocol"
   },
   "validator_refs": [
-    "microcosm_core.organs.macro_projection_import_protocol"
+    "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+    "validator.microcosm.macro_projection_import_protocol"
   ],
-  "wave": "w1_public_projection_import"
+  "wave": "w1_public_projection_import",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.macro_projection_import_protocol.author",
+      "status": "planned",
+      "purpose": "create a valid Macro projection import protocol instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.macro_projection_import_protocol.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Macro projection import protocol without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.macro_projection_import_protocol.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_macro_projection_import_protocol and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

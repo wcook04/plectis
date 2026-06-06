@@ -15,7 +15,7 @@ import os
 import re
 import uuid
 from collections import defaultdict
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional
@@ -42,6 +42,7 @@ WORK_LEDGER_STANDARD_REL = Path("codex/standards/std_work_ledger.json")
 WORK_LEDGER_ROOT_REL = Path("codex/ledger")
 DEFAULT_STALE_OPEN_HOURS = 24
 WORK_MEMORY_ITEM_LIMIT = 200
+TARGET_ONLY_APPEND_PROJECTION_MODES = {"append_event_target_only", "append_open_target_only"}
 
 EVENT_KINDS = {
     "todo_open",
@@ -60,6 +61,7 @@ RESOLUTION_KINDS = {
 
 TD_ID_RE = re.compile(r"^td_[a-z0-9]{10,}$")
 EVENT_ID_RE = re.compile(r"^wle_[a-z0-9]{10,}$")
+FAMILY_ID_LINE_RE = re.compile(r'"family_id"\s*:\s*"([^"]*)"')
 
 PHASE_FAMILY_ROOT = "obsidian/okay lets do this"
 
@@ -105,7 +107,7 @@ def atomic_write_json(path: Path, payload: Mapping[str, Any]) -> None:
     tmp_path = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
     try:
         with tmp_path.open("w", encoding="utf-8") as handle:
-            json.dump(payload, handle, indent=2, ensure_ascii=False)
+            json.dump(payload, handle, ensure_ascii=False, separators=(",", ":"))
             handle.write("\n")
             handle.flush()
             os.fsync(handle.fileno())
@@ -126,6 +128,33 @@ def file_lock(lock_path: Path) -> Iterator[None]:
         finally:
             if fcntl is not None:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def _phase_lock_path(repo_root: Path, phase_id: str) -> Path:
+    return repo_root / WORK_LEDGER_ROOT_REL / _normalize_phase_id(phase_id) / ".work_ledger.lock"
+
+
+@contextmanager
+def _locked_family_projection_targets(
+    repo_root: Path,
+    *,
+    family_id: str,
+    include_phase_id: str,
+) -> Iterator[List[str]]:
+    normalized_family = _normalize_family_id(family_id)
+    required_phase = _normalize_phase_id(include_phase_id)
+    with ExitStack() as stack:
+        locked_phases: set[str] = set()
+        while True:
+            target_phases = set(_family_projection_targets(repo_root, normalized_family, required_phase))
+            missing_phases = sorted(target_phases - locked_phases)
+            for phase_id in missing_phases:
+                stack.enter_context(file_lock(_phase_lock_path(repo_root, phase_id)))
+                locked_phases.add(phase_id)
+            refreshed_targets = set(_family_projection_targets(repo_root, normalized_family, required_phase))
+            if refreshed_targets <= locked_phases:
+                yield sorted(refreshed_targets)
+                return
 
 
 def _list_family_dirs(repo_root: Path) -> List[Path]:
@@ -275,6 +304,13 @@ def read_jsonl(path: Path) -> List[Dict[str, Any]]:
     return rows
 
 
+def _jsonl_family_id(line: str) -> Optional[str]:
+    match = FAMILY_ID_LINE_RE.search(line)
+    if match is None:
+        return None
+    return match.group(1)
+
+
 def _bucket_raw_paths(repo_root: Path) -> List[Path]:
     root = repo_root / WORK_LEDGER_ROOT_REL
     if not root.exists() or not root.is_dir():
@@ -309,27 +345,35 @@ def load_events(
 
 
 def _family_phase_buckets(repo_root: Path, family_id: str) -> List[str]:
+    normalized_family = _normalize_family_id(family_id)
     buckets: set[str] = set()
     for path in _bucket_raw_paths(repo_root):
         bucket_phase = path.parent.name
-        for event in read_jsonl(path):
-            if str(event.get("family_id") or "").strip() == family_id:
-                buckets.add(bucket_phase)
-                break
+        if not path.exists():
+            continue
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if _jsonl_family_id(line) == normalized_family:
+                    buckets.add(bucket_phase)
+                    break
     return sorted(buckets)
 
 
 def _family_raw_event_scan(repo_root: Path, family_id: str) -> tuple[int, List[str]]:
+    normalized_family = _normalize_family_id(family_id)
     buckets: set[str] = set()
     event_count = 0
     for path in _bucket_raw_paths(repo_root):
         bucket_phase = path.parent.name
         bucket_has_family_event = False
-        for event in read_jsonl(path):
-            if str(event.get("family_id") or "").strip() != family_id:
-                continue
-            event_count += 1
-            bucket_has_family_event = True
+        if not path.exists():
+            continue
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if _jsonl_family_id(line) != normalized_family:
+                    continue
+                event_count += 1
+                bucket_has_family_event = True
         if bucket_has_family_event:
             buckets.add(bucket_phase)
     return event_count, sorted(buckets)
@@ -917,36 +961,43 @@ def write_family_projections(
     include_phase_id: str,
 ) -> List[Dict[str, Any]]:
     normalized_family = _normalize_family_id(family_id)
-    events = load_events(repo_root, family_id=normalized_family)
-    generated_at = utc_now()
-    family_projection = build_projection(
-        events,
-        phase_id=None,
-        family_id=normalized_family,
-        generated_at=generated_at,
-    )
     results: List[Dict[str, Any]] = []
-    for bucket_phase in _family_projection_targets(repo_root, normalized_family, include_phase_id):
-        target = ledger_paths(repo_root, phase_id=bucket_phase, family_id=normalized_family)
-        index_path = Path(target["index_path"])
-        existing = _safe_read_json(index_path)
-        projection = {**family_projection, "phase_id": bucket_phase}
-        fresh_existing = (
-            bool(existing)
-            and not _projection_has_legacy_volatile_fields(existing)
-            and _projection_compare_payload(existing) == _projection_compare_payload(projection)
+    with _locked_family_projection_targets(
+        repo_root,
+        family_id=normalized_family,
+        include_phase_id=include_phase_id,
+    ) as target_phases:
+        events = load_events(repo_root, family_id=normalized_family)
+        generated_at = utc_now()
+        family_projection = build_projection(
+            events,
+            phase_id=None,
+            family_id=normalized_family,
+            generated_at=generated_at,
         )
-        if fresh_existing:
-            projection["generated_at"] = existing.get("generated_at")
-        else:
-            atomic_write_json(index_path, projection)
-        results.append(
-            {
-                "phase_id": bucket_phase,
-                "index_path": str(index_path.relative_to(repo_root)),
-                "counts": projection.get("counts"),
-            }
-        )
+        for bucket_phase in target_phases:
+            target = ledger_paths(repo_root, phase_id=bucket_phase, family_id=normalized_family)
+            index_path = Path(target["index_path"])
+            existing = _safe_read_json(index_path)
+            projection = {**family_projection, "phase_id": bucket_phase}
+            fresh_existing = (
+                bool(existing)
+                and not _projection_has_legacy_volatile_fields(existing)
+                and _projection_compare_payload(existing) == _projection_compare_payload(projection)
+            )
+            if fresh_existing:
+                projection["generated_at"] = existing.get("generated_at")
+            else:
+                atomic_write_json(index_path, projection)
+            results.append(
+                {
+                    "phase_id": bucket_phase,
+                    "index_path": str(index_path.relative_to(repo_root)),
+                    "counts": projection.get("counts"),
+                    "mode": "family_projection_rebuild",
+                    "lock_scope": "family_projection_targets",
+                }
+            )
     return results
 
 
@@ -1207,22 +1258,23 @@ def append_event(
     raw_path = Path(paths["raw_path"])
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     lock_path = Path(paths["lock_path"])
+    projection_update: Dict[str, Any] | None = None
     with file_lock(lock_path):
         with raw_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(normalized, ensure_ascii=False) + "\n")
             handle.flush()
             os.fsync(handle.fileno())
-        if projection_mode in {"append_event", "append_open"}:
+        if projection_mode in TARGET_ONLY_APPEND_PROJECTION_MODES:
             projection_update = write_append_projection(repo_root, event=normalized)
-        else:
-            projection_update = {
-                "projection_results": write_family_projections(
-                    repo_root,
-                    family_id=str(normalized["family_id"]),
-                    include_phase_id=str(normalized["phase_id"]),
-                ),
-                "deferred_projection_results": [],
-            }
+    if projection_update is None:
+        projection_update = {
+            "projection_results": write_family_projections(
+                repo_root,
+                family_id=str(normalized["family_id"]),
+                include_phase_id=str(normalized["phase_id"]),
+            ),
+            "deferred_projection_results": [],
+        }
     result = {
         "ok": True,
         "event": normalized,
@@ -1360,8 +1412,14 @@ def query_recipe(
     }
 
 
-def _current_thread_state(repo_root: Path, td_id: str, *, family_id: str) -> Optional[Dict[str, Any]]:
-    return load_thread(repo_root, td_id, family_id=family_id)
+def _current_thread_state(
+    repo_root: Path,
+    td_id: str,
+    *,
+    phase_id: str | None = None,
+    family_id: str,
+) -> Optional[Dict[str, Any]]:
+    return load_thread(repo_root, td_id, phase_id=phase_id, family_id=family_id)
 
 
 def open_thread(
@@ -1377,6 +1435,7 @@ def open_thread(
     read_receipt_id: str | None = None,
     metadata: Mapping[str, Any] | None = None,
     task_ledger_work_item_id: str | None = None,
+    projection_mode: str = "append_event",
 ) -> Dict[str, Any]:
     created_at = utc_now()
     event = {
@@ -1397,7 +1456,7 @@ def open_thread(
         "read_receipt_id": read_receipt_id,
         "metadata": with_task_ledger_work_item_metadata(metadata, task_ledger_work_item_id),
     }
-    return append_event(repo_root, event, projection_mode="append_event")
+    return append_event(repo_root, event, projection_mode=projection_mode)
 
 
 def progress_thread(
@@ -1414,8 +1473,9 @@ def progress_thread(
     read_receipt_id: str | None = None,
     metadata: Mapping[str, Any] | None = None,
     task_ledger_work_item_id: str | None = None,
+    projection_mode: str = "append_event_target_only",
 ) -> Dict[str, Any]:
-    thread = _current_thread_state(repo_root, td_id, family_id=family_id)
+    thread = _current_thread_state(repo_root, td_id, phase_id=phase_id, family_id=family_id)
     if thread is None:
         raise ValueError(f"thread '{td_id}' not found")
     created_at = utc_now()
@@ -1437,7 +1497,7 @@ def progress_thread(
         "read_receipt_id": read_receipt_id,
         "metadata": with_task_ledger_work_item_metadata(metadata, task_ledger_work_item_id),
     }
-    return append_event(repo_root, event)
+    return append_event(repo_root, event, projection_mode=projection_mode)
 
 
 def close_thread(
@@ -1453,8 +1513,9 @@ def close_thread(
     evidence_refs: Optional[List[str]] = None,
     read_receipt_id: str | None = None,
     metadata: Mapping[str, Any] | None = None,
+    projection_mode: str = "append_event_target_only",
 ) -> Dict[str, Any]:
-    thread = _current_thread_state(repo_root, td_id, family_id=family_id)
+    thread = _current_thread_state(repo_root, td_id, phase_id=phase_id, family_id=family_id)
     if thread is None:
         raise ValueError(f"thread '{td_id}' not found")
     if str(thread.get("status") or "") != "open":
@@ -1479,7 +1540,7 @@ def close_thread(
         "read_receipt_id": read_receipt_id,
         "metadata": dict(metadata or {}),
     }
-    return append_event(repo_root, event)
+    return append_event(repo_root, event, projection_mode=projection_mode)
 
 
 def reopen_thread(
@@ -1496,7 +1557,7 @@ def reopen_thread(
     read_receipt_id: str | None = None,
     metadata: Mapping[str, Any] | None = None,
 ) -> Dict[str, Any]:
-    thread = _current_thread_state(repo_root, td_id, family_id=family_id)
+    thread = _current_thread_state(repo_root, td_id, phase_id=phase_id, family_id=family_id)
     if thread is None:
         raise ValueError(f"thread '{td_id}' not found")
     if str(thread.get("status") or "") == "open":
@@ -1538,7 +1599,7 @@ def supersede_thread(
     read_receipt_id: str | None = None,
     metadata: Mapping[str, Any] | None = None,
 ) -> Dict[str, Any]:
-    predecessor = _current_thread_state(repo_root, td_id, family_id=family_id)
+    predecessor = _current_thread_state(repo_root, td_id, phase_id=phase_id, family_id=family_id)
     if predecessor is None:
         raise ValueError(f"thread '{td_id}' not found")
     if str(predecessor.get("status") or "") != "open":
@@ -1661,14 +1722,36 @@ def _projection_freshness_row(
     target = ledger_paths(repo_root, phase_id=phase_id, family_id=family_id)
     index_path = Path(target["index_path"])
     existing = _safe_read_json(index_path)
+    existing_counts = existing.get("counts") if isinstance(existing.get("counts"), Mapping) else {}
+    projected_event_count: int | None = None
+    if isinstance(existing_counts, Mapping) and existing_counts.get("events") is not None:
+        try:
+            projected_event_count = int(existing_counts.get("events") or 0)
+        except (TypeError, ValueError):
+            projected_event_count = None
     expected = build_projection(
         events,
         phase_id=phase_id,
         family_id=family_id,
         generated_at=str(existing.get("generated_at") or "<check>"),
     )
+    expected_counts = expected.get("counts") if isinstance(expected.get("counts"), Mapping) else {}
+    authority_event_count = int(expected_counts.get("events") or len(events))
+    last_authority_event = events[-1] if events else {}
     fresh = bool(existing) and _projection_compare_payload(existing) == _projection_compare_payload(expected)
-    reason = "fresh" if fresh else ("missing_projection" if not index_path.exists() else "projection_stale")
+    event_count_delta = (
+        authority_event_count - projected_event_count if projected_event_count is not None else None
+    )
+    if fresh:
+        reason = "fresh"
+    elif not index_path.exists():
+        reason = "missing_projection"
+    elif event_count_delta is not None and event_count_delta > 0:
+        reason = "source_authority_advanced_since_projection"
+    elif event_count_delta is not None and event_count_delta < 0:
+        reason = "projection_event_count_ahead_of_authority"
+    else:
+        reason = "projection_stale"
     return {
         "phase_id": phase_id,
         "index_path": str(index_path.relative_to(repo_root)),
@@ -1676,6 +1759,158 @@ def _projection_freshness_row(
         "exists": index_path.exists(),
         "reason": reason,
         "counts": expected.get("counts"),
+        "authority_event_count": authority_event_count,
+        "projected_event_count": projected_event_count,
+        "event_count_delta": event_count_delta,
+        "last_authority_event_id": last_authority_event.get("event_id"),
+        "last_authority_event_at": last_authority_event.get("created_at"),
+    }
+
+
+def _projection_authority_snapshot(
+    repo_root: Path,
+    *,
+    family_ids: Iterable[str] | None = None,
+) -> Dict[str, Any]:
+    target_family_ids = (
+        {_normalize_family_id(family_id) for family_id in family_ids}
+        if family_ids is not None
+        else None
+    )
+    events_by_family: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    buckets_by_family: Dict[str, set[str]] = defaultdict(set)
+    for path in _bucket_raw_paths(repo_root):
+        bucket_phase = path.parent.name
+        for event in read_jsonl(path):
+            family_id = str(event.get("family_id") or "").strip()
+            if not family_id:
+                continue
+            if target_family_ids is not None and family_id not in target_family_ids:
+                continue
+            events_by_family[family_id].append(event)
+            buckets_by_family[family_id].add(bucket_phase)
+    normalized_family_ids = sorted(target_family_ids or events_by_family.keys())
+    rows: List[Dict[str, Any]] = []
+    total_event_count = 0
+    for family_id in normalized_family_ids:
+        events = sorted(
+            events_by_family.get(family_id, []),
+            key=lambda event: (str(event.get("created_at") or ""), str(event.get("event_id") or "")),
+        )
+        last_event = events[-1] if events else {}
+        buckets = sorted(buckets_by_family.get(family_id, set()))
+        total_event_count += len(events)
+        rows.append(
+            {
+                "family_id": family_id,
+                "event_count": len(events),
+                "last_event_id": last_event.get("event_id"),
+                "last_event_at": last_event.get("created_at"),
+                "phase_buckets": buckets,
+            }
+        )
+    return {
+        "schema": "work_ledger_projection_authority_snapshot_v1",
+        "family_count": len(rows),
+        "total_event_count": total_event_count,
+        "families": rows,
+    }
+
+
+def _authority_snapshot_signature(snapshot: Mapping[str, Any]) -> Dict[str, tuple[Any, ...]]:
+    rows = snapshot.get("families") if isinstance(snapshot.get("families"), list) else []
+    signature: Dict[str, tuple[Any, ...]] = {}
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        family_id = str(row.get("family_id") or "").strip()
+        if not family_id:
+            continue
+        signature[family_id] = (
+            row.get("event_count"),
+            row.get("last_event_id"),
+            row.get("last_event_at"),
+            tuple(row.get("phase_buckets") or []),
+        )
+    return signature
+
+
+def _projection_authority_check_window(
+    before: Mapping[str, Any],
+    after: Mapping[str, Any],
+    *,
+    check_command: str,
+    refresh_command: str,
+) -> Dict[str, Any]:
+    before_signature = _authority_snapshot_signature(before)
+    after_signature = _authority_snapshot_signature(after)
+    changed_rows: List[Dict[str, Any]] = []
+    for family_id in sorted(set(before_signature) | set(after_signature)):
+        if before_signature.get(family_id) == after_signature.get(family_id):
+            continue
+        before_count, before_event_id, before_event_at, _before_buckets = before_signature.get(
+            family_id, (0, None, None, ())
+        )
+        after_count, after_event_id, after_event_at, _after_buckets = after_signature.get(
+            family_id, (0, None, None, ())
+        )
+        changed_rows.append(
+            {
+                "family_id": family_id,
+                "event_count_before": before_count,
+                "event_count_after": after_count,
+                "last_event_id_before": before_event_id,
+                "last_event_id_after": after_event_id,
+                "last_event_at_before": before_event_at,
+                "last_event_at_after": after_event_at,
+            }
+        )
+    status = "stable" if not changed_rows else "authority_changed_during_check"
+    return {
+        "schema": "work_ledger_projection_authority_check_window_v1",
+        "status": status,
+        "authority_changed_during_check": bool(changed_rows),
+        "total_event_count_before": before.get("total_event_count"),
+        "total_event_count_after": after.get("total_event_count"),
+        "family_count_before": before.get("family_count"),
+        "family_count_after": after.get("family_count"),
+        "changed_family_count": len(changed_rows),
+        "changed_families": changed_rows[:10],
+        "changed_families_omitted": max(len(changed_rows) - 10, 0),
+        "disposition": (
+            "check_result_invalidated_by_concurrent_authority_change"
+            if changed_rows
+            else "check_result_stable_authority_window"
+        ),
+        "refresh_command": refresh_command,
+        "check_command": check_command,
+    }
+
+
+def _projection_authority_window_diagnostic(
+    window: Mapping[str, Any],
+    *,
+    check_scope: str,
+) -> Optional[Dict[str, Any]]:
+    if not window.get("authority_changed_during_check"):
+        return None
+    return {
+        "diagnostic_id": "work_ledger_projection_authority_window_race",
+        "check_scope": check_scope,
+        "race_class": "authority_changed_during_check",
+        "changed_family_count": window.get("changed_family_count"),
+        "changed_families": window.get("changed_families"),
+        "changed_families_omitted": window.get("changed_families_omitted"),
+        "disposition": "do_not_treat_check_as_final_closeout_evidence",
+        "why": (
+            "Work Ledger authority changed while projection freshness was being checked; "
+            "the result is a moving-target receipt, not proof that the current "
+            "agent's source or closeout work failed."
+        ),
+        "repair_commands": [
+            window.get("refresh_command"),
+            window.get("check_command"),
+        ],
     }
 
 
@@ -1688,6 +1923,11 @@ def _projection_fanout_diagnostic(
     stale_rows = [row for row in projection_results if not bool(row.get("fresh"))]
     if not stale_rows:
         return None
+    authority_advanced_rows = [
+        row
+        for row in stale_rows
+        if str(row.get("reason") or "") == "source_authority_advanced_since_projection"
+    ]
     fresh_count = len(projection_results) - len(stale_rows)
     normalized_family = _normalize_family_id(family_id)
     source_paths = []
@@ -1704,6 +1944,15 @@ def _projection_fanout_diagnostic(
         "family_id": normalized_family,
         "stale_projection_count": len(stale_rows),
         "fresh_projection_count": fresh_count,
+        "authority_advanced_since_projection_count": len(authority_advanced_rows),
+        "projection_race_class": (
+            "source_authority_advanced_since_projection" if authority_advanced_rows else None
+        ),
+        "settlement_disposition": (
+            "rerun_projection_after_authority_quiesces"
+            if authority_advanced_rows
+            else "rerun_projection_refresh"
+        ),
         "stale_phase_ids": [str(row.get("phase_id")) for row in stale_rows],
         "stale_index_paths": [str(row.get("index_path")) for row in stale_rows],
         "source_authority_paths": source_paths,
@@ -1711,7 +1960,9 @@ def _projection_fanout_diagnostic(
         "why": (
             "One Work Ledger append can update the touched phase index while one or "
             "more older indexes stay stale because the family projection reads the family-wide "
-            "event log across phase buckets."
+            "event log across phase buckets. If stale rows report "
+            "source_authority_advanced_since_projection, concurrent append authority advanced "
+            "after the projection was last refreshed."
         ),
         "repair_command": "./repo-python tools/meta/factory/work_ledger.py project --all",
         "check_command": "./repo-python tools/meta/factory/work_ledger.py project --check --all",
@@ -1747,6 +1998,7 @@ def check_project_phase(
 ) -> Dict[str, Any]:
     context = resolve_phase_context(repo_root, phase_id=phase_id, family_id=family_id)
     selected_phase_id = context["phase_id"]
+    authority_before = _projection_authority_snapshot(repo_root, family_ids=[context["family_id"]])
     if target_only:
         normalized_family = _normalize_family_id(context["family_id"])
         events = load_events(repo_root, family_id=normalized_family)
@@ -1770,8 +2022,22 @@ def check_project_phase(
     )
     selected_phase_fresh = bool(selected_phase_row and selected_phase_row.get("fresh"))
     family_projection_fresh = all(row.get("fresh") for row in results) if not target_only else None
+    authority_after = _projection_authority_snapshot(repo_root, family_ids=[context["family_id"]])
+    authority_check_window = _projection_authority_check_window(
+        authority_before,
+        authority_after,
+        check_command=(
+            "./repo-python tools/meta/factory/work_ledger.py project "
+            f"--phase-id {selected_phase_id} --family-id {context['family_id']} --check"
+        ),
+        refresh_command=(
+            "./repo-python tools/meta/factory/work_ledger.py project "
+            f"--phase-id {selected_phase_id} --family-id {context['family_id']}"
+        ),
+    )
+    authority_window_stable = not bool(authority_check_window.get("authority_changed_during_check"))
     payload = {
-        "ok": selected_phase_fresh,
+        "ok": selected_phase_fresh and authority_window_stable,
         "mode": "check",
         "check_scope": "selected_phase",
         "phase_id": selected_phase_id,
@@ -1780,7 +2046,14 @@ def check_project_phase(
         "selected_phase_fresh": selected_phase_fresh,
         "family_projection_fresh": family_projection_fresh,
         "projection_results": results,
+        "authority_check_window": authority_check_window,
     }
+    race_diagnostic = _projection_authority_window_diagnostic(
+        authority_check_window,
+        check_scope="selected_phase",
+    )
+    if race_diagnostic:
+        payload["projection_race_diagnostics"] = [race_diagnostic]
     if target_only:
         payload["deferred_projection_results"] = _deferred_family_projection_rows(
             repo_root,
@@ -1835,12 +2108,12 @@ def check_project_all(repo_root: Path) -> Dict[str, Any]:
     root = repo_root / WORK_LEDGER_ROOT_REL
     if not root.exists():
         return {"ok": True, "mode": "check", "families": []}
-    family_ids: set[str] = set()
-    for path in _bucket_raw_paths(repo_root):
-        for event in read_jsonl(path):
-            family_id = str(event.get("family_id") or "").strip()
-            if family_id:
-                family_ids.add(family_id)
+    authority_before = _projection_authority_snapshot(repo_root)
+    family_ids = {
+        str(row.get("family_id") or "").strip()
+        for row in authority_before.get("families", [])
+        if isinstance(row, Mapping) and str(row.get("family_id") or "").strip()
+    }
     family_results: List[Dict[str, Any]] = []
     fanout_diagnostics: List[Dict[str, Any]] = []
     for family_id in sorted(family_ids):
@@ -1865,11 +2138,26 @@ def check_project_all(repo_root: Path) -> Dict[str, Any]:
                 "projection_results": projection_results,
             }
         )
+    authority_after = _projection_authority_snapshot(repo_root)
+    authority_check_window = _projection_authority_check_window(
+        authority_before,
+        authority_after,
+        check_command="./repo-python tools/meta/factory/work_ledger.py project --check --all",
+        refresh_command="./repo-python tools/meta/factory/work_ledger.py project --all",
+    )
+    race_diagnostic = _projection_authority_window_diagnostic(
+        authority_check_window,
+        check_scope="all_families",
+    )
     payload = {
-        "ok": all(row.get("ok") for row in family_results),
+        "ok": all(row.get("ok") for row in family_results)
+        and not bool(authority_check_window.get("authority_changed_during_check")),
         "mode": "check",
         "families": family_results,
+        "authority_check_window": authority_check_window,
     }
     if fanout_diagnostics:
         payload["projection_fanout_diagnostics"] = fanout_diagnostics
+    if race_diagnostic:
+        payload["projection_race_diagnostics"] = [race_diagnostic]
     return payload

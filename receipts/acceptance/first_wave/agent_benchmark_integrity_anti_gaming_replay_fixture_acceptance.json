@@ -26,7 +26,7 @@
     "swe_bench_performance_claim_authorized": false
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "created_at": "2026-05-29T19:41:22+00:00",
+  "created_at": "2026-06-02T11:11:38+00:00",
   "error_codes": [
     "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
     "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
@@ -47,6 +47,7 @@
     "repo_issue_public_003"
   ],
   "missing_negative_cases": [],
+  "missing_replay_case_ids": [],
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
   "private_state_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",

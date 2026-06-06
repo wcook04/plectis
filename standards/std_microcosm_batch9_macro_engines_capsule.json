@@ -1,0 +1,203 @@
+{
+  "schema_version": "public_microcosm_standard_v2",
+  "standard_id": "std_microcosm_batch9_macro_engines_capsule",
+  "kind_id": "batch9_macro_engines_capsule",
+  "kind_name": "Batch 9 macro engines capsule",
+  "status": "active",
+  "first_wave_required": true,
+  "authority_boundary": "public_batch9_macro_engines_source_open_capsule_not_live_runtime_or_release_authority",
+  "anti_claim": "This Batch-9 capsule accepts exact copied non-secret macro source bodies plus source-faithful public exercises. It does not claim live lineage truth, human approval authority, real news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation authority, publication authority, or release approval.",
+  "authority_ceiling": {
+    "status": "pass",
+    "authority_ceiling": "batch9_public_macro_engines_capsule_not_live_runtime_authority",
+    "real_substrate_disposition": "real_substrate_capsule",
+    "standard_authority": "public_batch9_source_open_capsule_and_source_body_digest_contract_only",
+    "provider_dispatch": false,
+    "host_state_truth": false,
+    "live_doctrine_truth": false,
+    "real_news_truth": false,
+    "market_advice": false,
+    "work_ledger_authority": false,
+    "source_mutation_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "whole_system_correctness_claim": false
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_source_open_capsule_with_exact_copied_non_secret_macro_body_modules_and_source_faithful_exercises",
+    "allowed_public_inputs": [
+      "public mechanism ids and source-module ids",
+      "public negative-case ids and stable error codes",
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded synthetic exercise inputs and outcomes",
+      "authority ceilings and anti-claims"
+    ],
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private run directories",
+      "live market data",
+      "publication operation state"
+    ]
+  },
+  "required_fields": [
+    "mechanisms",
+    "source_module_manifest",
+    "runtime_exercises",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.batch9_macro_engines_capsule",
+    "must_record": [
+      "mechanism_count",
+      "source_module_manifest",
+      "runtime_exercises",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ]
+  },
+  "receipt_expectations": [
+    "batch9_macro_engines_capsule_result.json",
+    "batch9_macro_engines_capsule_board.json",
+    "batch9_macro_engines_capsule_validation_receipt.json",
+    "batch9_macro_engines_capsule_fixture_acceptance.json"
+  ],
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch9_macro_engines_capsule/input",
+      "role": "public_mechanism_and_negative_case_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
+    }
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "batch9_macro_engines_capsule"
+    ],
+    "source_pattern_id_sample": [
+      "lineage_temporal_provenance_chain_resolver",
+      "approval_sign_off_claim_adjudicator",
+      "python_ast_symbol_index_doc_tree",
+      "finance_news_dedup_cluster_ranker",
+      "mission_graph_topological_compiler",
+      "dependency_pin_drift_auditor",
+      "config_authority_drift_audit",
+      "heterogeneous_graph_edge_extractor",
+      "work_atlas_cell_histogram_aggregator",
+      "host_pressure_admission_decision_gate",
+      "doctrine_file_enrichment_multihop_join",
+      "worker_job_budget_forbidden_surface_gate",
+      "milestone_relative_promotion_quality_accounting"
+    ],
+    "canonical_organ_model_ref": "core/organ_registry.json#batch9_macro_engines_capsule"
+  },
+  "standard_payload": {
+    "ontology": "A public-safe composite organ that imports Batch-9 macro engines as exact copied macro source bodies plus source-faithful public exercises.",
+    "teleology": "Let a cold reader inspect and rerun representative backend, governance, projection, and TypeScript data-shaping mechanics without inheriting live private authority.",
+    "anti_purpose": "Receipt-only claims, fixture-only authority, provider dispatch, live authority over approvals or work ledgers, market advice, or release signaling.",
+    "failure_modes": [
+      "mechanism count drifts from the thirteen Batch-9 tier targets",
+      "source module count drifts from thirteen without manifest and test updates",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required anchors",
+      "runtime exercises stop checking the named engine semantics and become receipt-only checks",
+      "receipts include copied body text, raw operator transcripts, provider/browser state, credentials, live market data, or private runtime state"
+    ],
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule",
+      "receipt_id": "receipt.microcosm.batch9_macro_engines_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "validation_rules": [
+    "require exactly thirteen Batch-9 mechanism rows",
+    "require exactly thirteen copied macro source modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "execute source-faithful public exercises for all thirteen mechanisms",
+    "require stable negative-case codes for all thirteen mechanisms",
+    "keep provider dispatch, host-state truth, live doctrine truth, real news truth, Work Ledger authority, source mutation, publication, and release authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule",
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch9_macro_engines_capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json",
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch9_macro_engines_capsule validate-bundle --input examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle --out /tmp/batch9_macro_engines_capsule_bundle_receipts",
+    "expected_source_module_count": 13,
+    "expected_negative_case_count": 13
+  },
+  "wave": "w1_batch9_macro_engines_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch9_macro_engines_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 9 macro engines capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch9_macro_engines_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 9 macro engines capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch9_macro_engines_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch9_macro_engines_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch9_macro_engines_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch9_macro_engines_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch9_macro_engines_capsule"
+  ],
+  "anti_claims": [
+    "This Batch-9 capsule accepts exact copied non-secret macro source bodies plus source-faithful public exercises. It does not claim live lineage truth, human approval authority, real news truth, host-state truth, Work Ledger truth, provider dispatch, source mutation authority, publication authority, or release approval.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch9_macro_engines_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule",
+    "receipt_id": "receipt.microcosm.batch9_macro_engines_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

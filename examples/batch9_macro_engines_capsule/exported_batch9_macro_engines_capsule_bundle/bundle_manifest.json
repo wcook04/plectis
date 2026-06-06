@@ -1,0 +1,10 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "organ_id": "batch9_macro_engines_capsule",
+  "fixture_id": "first_wave.batch9_macro_engines_capsule",
+  "input_mode": "exported_batch9_macro_engines_capsule_bundle",
+  "body_in_receipt": false,
+  "source_module_manifest": "source_module_manifest.json",
+  "primary_input": "batch9_macro_engines_capsule_probe_manifest.json",
+  "negative_case_count": 13
+}

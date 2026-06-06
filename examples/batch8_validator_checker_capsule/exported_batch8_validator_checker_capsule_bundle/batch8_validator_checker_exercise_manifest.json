@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "exercise_id": "batch8_validator_checker_capsule",
+  "expected_engine_count": 6,
+  "schema_version": "batch8_validator_checker_exercise_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json"
+}

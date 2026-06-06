@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "description": "Refuted structural patterns must not be promoted into the non-advisory forward review lane.",
+  "error_codes": [
+    "BATCH8_STRUCTURAL_THESES_FORWARD_GATE_BREACH_REJECTED"
+  ],
+  "expected_decision": "reject",
+  "schema_version": "batch8_structural_theses_negative_case_v1"
+}

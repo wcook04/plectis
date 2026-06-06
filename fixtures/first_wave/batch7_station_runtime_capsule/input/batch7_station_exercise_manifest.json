@@ -1,0 +1,13 @@
+{
+  "body_in_receipt": false,
+  "engine_ids": [
+    "agent_trace_workbench_host_boot_probe",
+    "agent_live_instrument_view_model",
+    "station_store_resilience_fsm"
+  ],
+  "fixture_id": "first_wave.batch7_station_runtime_capsule",
+  "organ_id": "batch7_station_runtime_capsule",
+  "public_fixture_policy": "synthetic_station_runtime_packets_only",
+  "runtime_slice": "batch7_station_runtime_and_trace_workbench_macro_engines",
+  "schema_version": "batch7_station_runtime_capsule_exercise_manifest_v1"
+}

@@ -22,8 +22,8 @@
   "modules": [
     {
       "module_id": "executable_grammar_metabolism_readme_body_import",
-      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "source_ref": "private-macro-source/microcosms/executable_grammar_metabolism/README.md",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/README.md",
       "source_role": "Public executable-grammar metabolism entry card, boundaries, commands, and leaf route refs",
       "required_anchors": [
         "Executable Grammar Metabolism",
@@ -45,8 +45,8 @@
     },
     {
       "module_id": "executable_grammar_metabolism_board_body_import",
-      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "source_ref": "private-macro-source/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/grammar_board.json",
       "source_role": "Public executable-grammar metabolism board with grammar rules, cases, source capsules, provider replay bridge, and claim boundaries",
       "required_anchors": [
         "\"schema_version\": \"executable_grammar_metabolism_specimen_v0\"",
@@ -69,8 +69,8 @@
     },
     {
       "module_id": "executable_grammar_metabolism_receipt_body_import",
-      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "source_ref": "private-macro-source/microcosms/executable_grammar_metabolism/receipt.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/private-macro-source/microcosms/executable_grammar_metabolism/receipt.json",
       "source_role": "Public executable-grammar metabolism receipt with omissions, evidence refs, source capsule counts, and fixture-valid claim tier",
       "required_anchors": [
         "\"schema_version\": \"receipt_v0\"",

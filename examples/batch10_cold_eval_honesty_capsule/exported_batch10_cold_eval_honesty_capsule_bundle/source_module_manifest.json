@@ -1,0 +1,34 @@
+{
+  "body_copied": true,
+  "body_in_receipt": false,
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 13160,
+      "line_count": 318,
+      "material_class": "public_macro_cold_eval_python_body",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py",
+      "required_anchors": [
+        "SCORING_POLICY =",
+        "def _score_task(",
+        "def run_cold_eval(",
+        "expected_ref_injection_used",
+        "idea_first_packet_wins_fixture"
+      ],
+      "sha256": "b6ce735ca902b00ac86c6eb505d451bcd86e49dd396940f1db488c0a0f7a928c",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py",
+      "source_sha256": "b6ce735ca902b00ac86c6eb505d451bcd86e49dd396940f1db488c0a0f7a928c",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py",
+      "target_sha256": "b6ce735ca902b00ac86c6eb505d451bcd86e49dd396940f1db488c0a0f7a928c"
+    }
+  ],
+  "organ_id": "batch10_cold_eval_honesty_capsule",
+  "schema_version": "batch10_cold_eval_honesty_capsule_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_to_target_relation": "exact_copy"
+}

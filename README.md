@@ -14,7 +14,30 @@ For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
 For the first local card from a source checkout, run
 `PYTHONPATH=src python3 -m microcosm_core hello .`; after install, run
 `microcosm hello .`. Use `make package-smoke` when you need the fresh-venv
-installed-console proof; `make ci` includes that package smoke.
+installed-console proof; `make ci` includes that package smoke. Use
+`make flight-recorder` when a reviewer needs a replayable proof packet for the
+local command transcript without treating it as release, compliance, provider,
+or whole-system authority.
+
+## Source, License, And Provenance
+
+The public source of record is the standalone `microcosm-substrate` repository
+and any generated standalone export from this tree. The private macro root,
+raw seed, private ledgers, provider/browser state, account material, credentials,
+recipient-send state, and unexported annex material are not released or licensed
+by this repository.
+
+Microcosm Substrate is Copyright 2026 William Cook and is licensed under the
+Apache License, Version 2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). The
+project was developed by William Cook as an independent, AI-assisted solo
+project. See [PROVENANCE.md](PROVENANCE.md) for the authorship, source-of-record,
+third-party-material, no-affiliation, and professional-advice boundaries.
+
+Microcosm is a research prototype and developer tool. It is provided for
+inspection, experimentation, and education. It is not a hosted service,
+production security product, proof-correctness authority, financial or
+investment advice system, trading system, medical/legal/professional advice
+system, or endorsement by any tool provider or institution.
 
 ## Public Repo Map
 
@@ -24,9 +47,11 @@ Use this map before opening the longer reference body or raw receipt trees:
 |---|---|
 | [QUICKSTART.md](QUICKSTART.md) | One-page cold-clone run path and boundary check. |
 | [AGENTS.md](AGENTS.md) | Agent entry contract and public authority membrane. |
+| [CLAUDE.md](CLAUDE.md) / [CODEX.md](CODEX.md) / [CURSOR.md](CURSOR.md) | Thin provider-style adapter stubs that point back to `AGENTS.md` and add no authority. |
 | [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / [PRINCIPLES.md](PRINCIPLES.md) / [ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: authority spine, public-safe source rules, operating principles, and rejected failure shapes. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Public verification floor, standalone export path, and contribution boundaries. |
 | [SECURITY.md](SECURITY.md) | Secret-exclusion and vulnerability-reporting boundary. |
+| [PROVENANCE.md](PROVENANCE.md) / [NOTICE](NOTICE) / [LICENSE](LICENSE) | Authorship, source-of-record, attribution, no-affiliation, and reuse boundaries. |
 | [.github/workflows/ci.yml](.github/workflows/ci.yml) / [Makefile](Makefile) | GitHub Actions and local command surface; both route through `make ci`, including package install smoke. |
 | [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | Package metadata, console entry point, and source distribution inventory. |
 | [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | Runnable substrate and regression contracts. |
@@ -46,6 +71,7 @@ count, organ count, or route label as a claim:
 |---|---|---|
 | Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
 | Command cards | `microcosm hello`, `microcosm tour --card`, `microcosm status --card`, `microcosm authority --card`, `microcosm workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
+| Skeptic flight recorder | `make flight-recorder`, `make flight-recorder-verify`, [scripts/skeptic_flight_recorder.py](scripts/skeptic_flight_recorder.py) | A public-safe evaluator packet with command receipts, output digests, private-path scans, source-mutation checks, authority ceilings, and blocked evidence preserved as evidence. |
 | Public doctrine | [core/](core/), [standards/](standards/), [paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, standards, bounded explanations, and the first-screen entry packet. |
 | Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), [receipts/](receipts/) | Public-safe input bundles, negative cases, drilldown receipts, and copied artifact bodies. |
 | Source capsules | `source_modules/` plus `source_module_manifest.json` inside bundles | Non-secret macro source bodies with target paths, digests, anchors, omissions, and light-edit receipts. |
@@ -54,9 +80,12 @@ count, organ count, or route label as a claim:
 This component map is still navigation, not authority. The command cards,
 validators, manifests, and receipts remain the evidence-bearing surfaces.
 
-New here? Two generated surfaces give you the whole system fast:
-[ARCHITECTURE.md](ARCHITECTURE.md) is the architecture at a glance, and
-[ORGANS.md](ORGANS.md) is the comprehension card for all accepted runtime organs.
+New here? Four generated surfaces give you the whole system fast:
+[AGENT_ROUTES.md](AGENT_ROUTES.md) is the task-class route table for agents,
+[ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line)
+is the one-line organ ladder, [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)
+is the human specialty index, and [ARCHITECTURE.md](ARCHITECTURE.md) is the
+architecture at a glance.
 
 From an uninstalled source checkout, the immediately runnable first screen is:
 
@@ -99,15 +128,29 @@ After that shared card, branch by reader instead of forcing one README to carry
 every job:
 
 If an agent lands on this README, the agent-facing equivalent is `AGENTS.md`;
-use it after this human first-screen map, then follow `skills/cold_start_navigation.md`
-for the shortest validation route.
+use it after this human first-screen map. For task-specific organ selection,
+open [AGENT_ROUTES.md](AGENT_ROUTES.md); for human specialty browsing, open
+[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty). Then follow
+`skills/cold_start_navigation.md` for the shortest validation route.
+
+The `--reader` flag accepts canonical route ids plus copyable aliases for the
+most common first touches: `cold_cloner` / `cold-cloner` opens the public
+GitHub visitor branch, `skeptical_reviewer` / `skeptical-reviewer` opens the
+safety/evals branch, `reviewer` also opens that same safety/evals branch,
+`agent` / `type-a-agent` opens the repo-reading agent
+branch, and `domain_specialist` / `domain-specialist` opens the canonical
+specialty branch. The card echoes the requested alias or route id for
+copy/paste while resolving it to the existing branch, so aliases do not create
+extra doctrine.
 
 | Reader | Open next | What to check |
 |---|---|---|
-| Public GitHub visitor | `microcosm hello <project>`, then `microcosm tour --card <project>` | The copyable first command, shared local behavior proof, authority ceiling, and anti-claims before opening receipts or treating the repo as release-ready. |
+| Public GitHub visitor | `microcosm hello <project>`, then `microcosm tour --card <project>` | The copyable first command, shared local behavior proof, authority ceiling, and anti-claims before opening receipts or inferring any release status. |
 | Safety/evals engineer | `microcosm tour --card <project>`, then `microcosm status --card <project>`, then `microcosm authority --card` / `microcosm workingness --card` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes; open full authority/workingness only as drilldowns. |
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
 | Peer developer | `microcosm tour --card <project>`, then `microcosm observe --card <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`; use `microcosm observe <project>` for full event rows. |
+| Domain specialist | `microcosm hello --reader domain_specialist <project>`, then [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty) and `microcosm tour --card <project>` | Specialty-to-organ route, evidence class, authority ceiling, and the explicit non-claim of domain correctness or expert review. |
+| Repo-reading agent | `microcosm hello --reader agent <project>`, then `microcosm first-screen --card <project>` and `microcosm organ-surface-contract --card --root .`. Source-only: `PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>` and `PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check`. | The agent first-read path, owner surface to patch if the route misleads, mechanism/validator/projection boundaries, and the source-mutation ceiling. |
 
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
@@ -225,8 +268,11 @@ entry point:
 PYTHONPATH=src python3 -m microcosm_core hello .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
+PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check
 PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 scripts/skeptic_flight_recorder.py --root . --out /tmp/microcosm-flight-recorder
+PYTHONPATH=src python3 scripts/skeptic_flight_recorder.py verify /tmp/microcosm-flight-recorder --root .
 PYTHONPATH=src python3 -m microcosm_core observe --card .
 PYTHONPATH=src python3 -m microcosm_core observe .
 ```
@@ -240,6 +286,8 @@ microcosm first-screen --card .
 microcosm status --card .
 microcosm workingness --card
 microcosm proof-lab --out /tmp/microcosm-proof-lab
+make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder
+make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder
 microcosm observe --card .
 microcosm observe .
 microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7
@@ -362,6 +410,25 @@ portable `/tmp/...` refs, normalizes `/private/tmp/...` to `/tmp/...`, and
 uses `<proof-lab-input>` / `<proof-lab-out>` placeholders instead of leaking
 host-private temp roots. The actual receipt still lands in the local directory
 you passed to `--out`.
+
+The skeptic flight recorder is the reviewer-grade provenance bridge over the
+same public route family:
+
+```bash
+make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder
+make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder
+```
+
+The generator writes `flight-recorder-packet.json` plus
+`flight-recorder-card.md`; the verifier writes
+`flight-recorder-verification.json` without rerunning the substrate. The packet
+records public command argv, return codes, output refs and SHA-256 digests,
+selected JSON fields, provider-env stripping, private-path scan results,
+source-mutation receipts, evidence class counters, authority ceilings, and
+blocked/non-zero commands as preserved evidence. It is a provenance and
+attestation input for later reviewers; it does not authorize release, standards
+compliance, provider calls, proof correctness, frontend readiness, or
+private-root equivalence.
 
 Pattern rows become routable only through their organ and fixture overlays. The
 route-readiness command validates the exported selector bundle and writes
@@ -528,6 +595,7 @@ The same commands work without installing the console script:
 PYTHONPATH=src python3 -m microcosm_core tour --card /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour-card.json
 MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["selected_route_id"])' < /tmp/microcosm-scratch-tour-card.json)
 PYTHONPATH=src python3 -m microcosm_core status --card /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check
 PYTHONPATH=src python3 -m microcosm_core workingness
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
 PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7
@@ -890,14 +958,20 @@ evidence boundaries, not trading or financial advice.
 
 **Read the organs through the generated atlas, not a flat list:**
 
+- **[AGENT_ROUTES.md](AGENT_ROUTES.md)** — the generated agent task-class
+  selector: task class, relevant organ(s), first command, authority ceiling,
+  evidence/receipt ref, stop condition, and drilldown target.
 - **[ORGANS.md](ORGANS.md)** — the comprehension card for every organ: what it
   makes visible (plain language), what an agent runs it for, its first command,
   its evidence class, and what it does **not** authorize.
+- **[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)** — the
+  generated human specialty index; use it when the reader starts from a domain
+  instead of a task class.
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** — the system at a glance: the local
   runtime loop, the claim/evidence loop, the kernel primitives, and how the
   seven families sit on one shared spine.
 
-Both files are generated from substrate by
+These files are generated from substrate by
 `PYTHONPATH=src python3 scripts/build_organ_atlas.py --write`; the build fails
 closed if the registry, the family grouping, and the glosses disagree. Most
 organs are standalone specimens that bind to one shared kernel + evidence spine
@@ -910,46 +984,7 @@ Fixture and validator readiness for these organs is tracked in-tree at
 state. Drilldown CLIs such as `microcosm reveal` and `microcosm spatial-simulation`
 are documented per organ in [ORGANS.md](ORGANS.md).
 
-The accepted organs cluster into seven families (full cards in [ORGANS.md](ORGANS.md)):
-
-### Entry & Reveal (2)
-
-How a cold human or agent first meets Microcosm and what the short guided path actually proves.
-
-`cold_reader_route_map`, `public_reveal_walkthrough`
-
-### Architecture & Navigation (8)
-
-The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.
-
-`pattern_binding_contract`, `pattern_assimilation_step`, `executable_doctrine_grammar`, `navigation_hologram_route_plane`, `standards_meta_diagnostics`, `voice_to_doctrine_self_improvement_loop`, `cognitive_operator_registry`, `routing_anti_patterns_registry`
-
-### Formal Math & Proof (17)
-
-The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.
-
-`proof_diagnostic_evidence_spine`, `formal_math_readiness_gate`, `corpus_readiness_mathlib_absence_gate`, `mathematical_strategy_atlas_hypothesis_scorer`, `tactic_portfolio_availability_probe`, `target_shape_tactic_routing_gate`, `lean_std_premise_index`, `formal_math_premise_retrieval`, `formal_math_verifier_trace_repair_loop`, `formal_evidence_cell_anchor_resolver`, `undeclared_library_prior_symbol_classifier`, `ring2_premise_retrieval_precision_recall_harness`, `formal_math_lean_proof_witness`, `verifier_lab_kernel`, `verifier_lab_execution_spine`, `certificate_kernel_execution_lab`, `proof_derived_governed_mutation_authorization`
-
-### Agent Reliability & Safety Replays (12)
-
-Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.
-
-`agent_benchmark_integrity_anti_gaming_replay`, `agent_monitor_redteam_falsification_replay`, `agent_sabotage_scheming_monitor_replay`, `agent_memory_temporal_conflict_replay`, `sleeper_memory_poisoning_quarantine_replay`, `mcp_tool_authority_replay`, `belief_state_process_reward_replay`, `agent_sandbox_policy_escape_replay`, `indirect_prompt_injection_information_flow_policy_replay`, `agentic_vulnerability_discovery_patch_proof_replay`, `agent_route_observability_runtime`, `provider_context_recipe_budget_policy`
-
-### Research & Science Replays (5)
-
-Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.
-
-`research_replication_rubric_artifact_replay`, `spatial_world_model_counterfactual_simulation_replay`, `materials_chemistry_closed_loop_lab_safety_replay`, `mechanistic_interpretability_circuit_attribution_replay`, `prediction_oracle_reconciliation`
-
-### Import, Projection & Drift (2)
-
-The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.
-
-`macro_projection_import_protocol`, `world_model_projection_drift_control_room`
-
-### Work, Landing & Continuity (3)
-
-How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.
-
-`mission_transaction_work_spine`, `durable_agent_work_landing_replay`, `bridge_phase_continuity_runtime`
+The accepted organs cluster into generated families in [ORGANS.md#families](ORGANS.md#families).
+Do not copy that family inventory into README; agents enter through
+[AGENT_ROUTES.md](AGENT_ROUTES.md), while humans browse through
+[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty).

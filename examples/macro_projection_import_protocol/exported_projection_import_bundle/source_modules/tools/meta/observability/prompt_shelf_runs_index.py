@@ -37,6 +37,9 @@ CLI
                                            # diagnostics, and metadata
     prompt_shelf_runs_index.py --review --run-id <prompt_run_id>
                                            # inspect an older selected run
+    prompt_shelf_runs_index.py --backfill-missing-receipts --run-id <id>
+                                           # append missing aiw:receipt anchors
+                                           # to the owning slot ledger
 
 Integrity checks (--check)
 --------------------------
@@ -55,7 +58,8 @@ nonzero when any slot named via --require-slots has zero runs.
 
 Command economy
 ---------------
---summary, --coverage, --check, and --review intentionally use metadata-only indexing:
+--summary, --coverage, --check, --review, and --backfill-missing-receipts
+intentionally use metadata-only indexing:
 they stat raw event sidecars for byte counts and integrity but do not read raw
 prompt/provider bodies until a bounded review row is selected. Use --print,
 --write, --nesting-audit, or --b3-lint-audit when the full raw-event path is
@@ -99,30 +103,38 @@ import prompt_shelf_fingerprints as _fp  # noqa: E402
 import b3_packet_lint as _b3_lint  # noqa: E402
 
 SCHEMA_VERSION = "1.2.0"
+MISSING_COMPLETE_UPPROPAGATION_REASON = "assistant_missing_complete_uppropagation_block"
+UPPROPAGATION_OPTIONAL_DIAGNOSTIC_SLOTS = {"B2", "B2.2", "B2.3"}
+UPPROPAGATION_OPTIONAL_POLICY = "visible_uppropagation_block_optional_for_prompt_slot"
 
 SLOT_DIR_BY_SLOT = {
     "A0": "A0_explore",
+    "A3": "A3_type_a_autonomous_continue",
     "B1": "B1_instantiation",
     "B2": "B2_continue",
     "B6": "B6_autonomous_seed",
+    "B7": "B7_codex_goal_author",
     "B3": "B3_compact",
 }
 
 LEDGER_FILENAME_BY_SLOT = {
     "A0": "A0 Explore Ledger.md",
+    "A3": "A3 Autonomous Continue Ledger.md",
     "B1": "B1 Instantiation Ledger.md",
     "B2": "B2 Continue Ledger.md",
     "B2.2": "B2 Continue Ledger.md",
+    "B2.3": "B2 Continue Ledger.md",
     "B3": "B3 Compact Ledger.md",
     "B6": "B6 Autonomous Seed Ledger.md",
+    "B7": "B7 Codex Goal Author Ledger.md",
 }
 
-# B2.2 is a B2-family semantic carryforward variant. B6 is the Type B
-# autonomous-seed authoring slot. Both are captured and shown in summaries, but
-# coverage gates stay on the four historical primary slots.
+# B2.2 and B2.3 are B2-family continuation variants. A3, B6, and B7 are
+# autonomous/goal authoring slots. These are captured and shown in summaries,
+# but coverage gates stay on the four historical primary slots.
 DEFAULT_REQUIRED_COVERAGE_SLOTS = ["A0", "B1", "B2", "B3"]
 SLOT_ALIASES_BY_DIR_SLOT = {
-    "B2": {"B2.2"},
+    "B2": {"B2.2", "B2.3"},
 }
 
 DEFAULT_REVIEW_LIMIT = 12
@@ -711,10 +723,35 @@ def write_projection(payload: dict[str, Any], path: Path = PROJECTION_PATH) -> N
     path.write_text(json.dumps(payload, indent=2) + "\n")
 
 
+def _diagnostic_issue_policy(reason: str, slot: str) -> dict[str, Any]:
+    normalized_slot = slot.strip().upper()
+    if (
+        reason == MISSING_COMPLETE_UPPROPAGATION_REASON
+        and normalized_slot in UPPROPAGATION_OPTIONAL_DIAGNOSTIC_SLOTS
+    ):
+        return {
+            "read_issue": False,
+            "severity": "advisory",
+            "policy": UPPROPAGATION_OPTIONAL_POLICY,
+            "policy_note": (
+                "B2-family prompts route durable propagation through ledgers and "
+                "explicitly suppress visible footer/aiw blocks."
+            ),
+        }
+    return {
+        "read_issue": True,
+        "severity": "warning",
+        "policy": "capture_skipped",
+        "policy_note": None,
+    }
+
+
 def _capture_diagnostic_summary(root: Path | None = None,
                                 slots: list[str] | None = None) -> dict[str, Any]:
     wanted = {slot.strip().upper() for slot in slots or [] if slot.strip()}
     by_reason: dict[str, int] = {}
+    by_policy: dict[str, int] = {}
+    by_slot_policy: dict[str, dict[str, int]] = {}
     newest: tuple[_dt.datetime, str] | None = None
     total = 0
     for path, diagnostic in _load_capture_diagnostics(root):
@@ -722,8 +759,13 @@ def _capture_diagnostic_summary(root: Path | None = None,
         if wanted and slot not in wanted:
             continue
         reason = str(diagnostic.get("skipped_reason") or "unknown")
+        issue_policy = _diagnostic_issue_policy(reason, slot)
         total += 1
         by_reason[reason] = by_reason.get(reason, 0) + 1
+        policy = str(issue_policy["policy"])
+        by_policy[policy] = by_policy.get(policy, 0) + 1
+        slot_policies = by_slot_policy.setdefault(slot, {})
+        slot_policies[policy] = slot_policies.get(policy, 0) + 1
         created = _parse_captured_at(str(diagnostic.get("created_at") or ""))
         diag_id = _diagnostic_id(path, diagnostic)
         if newest is None or (created, diag_id) > newest:
@@ -731,7 +773,183 @@ def _capture_diagnostic_summary(root: Path | None = None,
     return {
         "total": total,
         "by_reason": by_reason,
+        "by_policy": by_policy,
+        "by_slot_policy": by_slot_policy,
         "newest_id": newest[1] if newest else None,
+    }
+
+
+def _missing_receipt_run_ids(payload: dict[str, Any], *,
+                             slots: list[str] | None = None,
+                             limit: int = 3) -> list[str]:
+    """Return a bounded metadata-only sample of runs missing ledger receipts."""
+    wanted = {slot.strip().upper() for slot in slots or [] if slot.strip()}
+    out: list[str] = []
+    for row in payload.get("runs") or []:
+        if wanted and str(row.get("prompt_slot") or "").upper() not in wanted:
+            continue
+        if row.get("ledger_receipt_present"):
+            continue
+        run_id = str(row.get("prompt_run_id") or "").strip()
+        if run_id:
+            out.append(run_id)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _wanted_run_ids(values: list[str] | None) -> set[str]:
+    return {
+        item.strip()
+        for value in values or []
+        for item in value.split(",")
+        if item.strip()
+    }
+
+
+def select_missing_receipt_entries(entries: list[RunIndexEntry], *,
+                                   run_ids: list[str] | None = None,
+                                   limit: int | None = None) -> list[RunIndexEntry]:
+    wanted_ids = _wanted_run_ids(run_ids)
+    selected = [
+        entry
+        for entry in entries
+        if not entry.ledger_receipt_present
+        and (not wanted_ids or entry.prompt_run_id in wanted_ids)
+    ]
+    selected.sort(key=lambda entry: (_parse_captured_at(entry.captured_at), entry.prompt_run_id))
+    if wanted_ids:
+        return selected
+    if limit is None:
+        return selected
+    bounded_limit = _bounded_int(limit, default=DEFAULT_REVIEW_LIMIT, low=1, high=MAX_REVIEW_LIMIT)
+    return selected[:bounded_limit]
+
+
+def _ledger_path_for_slot(slot: str, *, ledgers_root: Path | None = None) -> Path | None:
+    filename = LEDGER_FILENAME_BY_SLOT.get(slot)
+    if not filename:
+        return None
+    return (ledgers_root if ledgers_root is not None else LEDGERS_ROOT) / filename
+
+
+def _receipt_time_label(captured_at: str) -> str:
+    parsed = _parse_captured_at(captured_at)
+    if parsed == _dt.datetime.min.replace(tzinfo=_dt.timezone.utc):
+        return "unknown time"
+    return parsed.astimezone(_dt.timezone.utc).strftime("%Y-%m-%d %H:%MZ")
+
+
+def _receipt_block(entry: RunIndexEntry) -> str:
+    run_stem = Path(entry.run_note_path).stem
+    match_confidence = f"{entry.match_confidence:.1f}".rstrip("0").rstrip(".")
+    lines = [
+        f'<!-- aiw:receipt prompt_run_id="{entry.prompt_run_id}" -->',
+        (
+            f"- **{_receipt_time_label(entry.captured_at)}** — "
+            f"`{entry.prompt_slot}` — match `{entry.match_method} {match_confidence}` — "
+            f"`{entry.prompt_run_id}`"
+        ),
+        f"  - run note: [[{run_stem}|view]]",
+        f"  - raw event: `{entry.raw_event_path}`",
+    ]
+    if entry.conversation_id:
+        lines.append(f"  - conversation: `{entry.conversation_id}`")
+    return "\n".join(lines)
+
+
+def backfill_missing_receipts(entries: list[RunIndexEntry], *,
+                              ledgers_root: Path | None = None,
+                              run_ids: list[str] | None = None,
+                              limit: int | None = None,
+                              dry_run: bool = False) -> dict[str, Any]:
+    """Append missing ``aiw:receipt`` anchors to the owning slot ledgers.
+
+    This is intentionally receipt-only. It does not inspect or copy raw
+    prompt/provider bodies; the run note and raw-event paths remain the
+    authority for private content drilldown.
+    """
+    selected = select_missing_receipt_entries(entries, run_ids=run_ids, limit=limit)
+    by_ledger: dict[Path, list[RunIndexEntry]] = {}
+    unresolved: list[dict[str, Any]] = []
+    for entry in selected:
+        ledger_path = _ledger_path_for_slot(entry.prompt_slot, ledgers_root=ledgers_root)
+        if ledger_path is None:
+            unresolved.append({
+                "prompt_run_id": entry.prompt_run_id,
+                "prompt_slot": entry.prompt_slot,
+                "reason": "no_ledger_filename_for_slot",
+            })
+            continue
+        by_ledger.setdefault(ledger_path, []).append(entry)
+
+    ledger_results: list[dict[str, Any]] = []
+    inserted_count = 0
+    skipped_count = 0
+    for ledger_path, ledger_entries in sorted(by_ledger.items(), key=lambda item: item[0].as_posix()):
+        if not ledger_path.exists():
+            unresolved.extend({
+                "prompt_run_id": entry.prompt_run_id,
+                "prompt_slot": entry.prompt_slot,
+                "reason": "ledger_missing",
+                "ledger_path": ledger_path.as_posix(),
+            } for entry in ledger_entries)
+            continue
+        text = ledger_path.read_text()
+        blocks: list[str] = []
+        for entry in ledger_entries:
+            needle = f'aiw:receipt prompt_run_id="{entry.prompt_run_id}"'
+            if needle in text:
+                skipped_count += 1
+                continue
+            blocks.append(_receipt_block(entry))
+        if not blocks:
+            ledger_results.append({
+                "ledger_path": ledger_path.relative_to(REPO_ROOT).as_posix()
+                    if REPO_ROOT in ledger_path.parents else ledger_path.as_posix(),
+                "inserted": 0,
+                "skipped_existing": len(ledger_entries),
+            })
+            continue
+        end_marker = "<!-- END aiw:capture_receipts -->"
+        section = "\n\n".join(blocks) + "\n\n"
+        if end_marker in text:
+            new_text = text.replace(end_marker, section + end_marker, 1)
+        else:
+            new_text = (
+                text.rstrip()
+                + "\n\n## Captured runs\n\n<!-- BEGIN aiw:capture_receipts -->\n\n"
+                + section
+                + "<!-- END aiw:capture_receipts -->\n"
+            )
+        if not dry_run:
+            ledger_path.write_text(new_text)
+        inserted_count += len(blocks)
+        ledger_results.append({
+            "ledger_path": ledger_path.relative_to(REPO_ROOT).as_posix()
+                if REPO_ROOT in ledger_path.parents else ledger_path.as_posix(),
+            "inserted": len(blocks),
+            "skipped_existing": len(ledger_entries) - len(blocks),
+        })
+
+    return {
+        "__meta": {
+            "schema_version": SCHEMA_VERSION,
+            "artifact_kind": "prompt_shelf_missing_receipt_backfill",
+            "generated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+            "dry_run": dry_run,
+            "selected_count": len(selected),
+            "inserted_count": inserted_count,
+            "skipped_existing_count": skipped_count,
+            "unresolved_count": len(unresolved),
+            "privacy_boundary": (
+                "receipt anchors only; raw prompt/provider bodies stay in "
+                "run_note_path/raw_event_path refs"
+            ),
+        },
+        "ledgers": ledger_results,
+        "unresolved": unresolved,
+        "selected_run_ids": [entry.prompt_run_id for entry in selected],
     }
 
 
@@ -753,10 +971,25 @@ def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None,
         f"  run bytes:    {meta['total_run_note_bytes']:,}",
         "  boundary:     metadata-only; raw prompt/provider bodies stay in source refs",
         "  safe route:   use --summary/--coverage first; open one selected row if needed",
+    ]
+    missing_receipts = int(meta["run_count"]) - int(meta["receipt_present_count"])
+    if missing_receipts:
+        sample_ids = _missing_receipt_run_ids(payload, slots=slots)
+        sample = ",".join(sample_ids)
+        lines.append(
+            f"  missing receipts: {missing_receipts}"
+            + (f" · sample {sample}" if sample else "")
+        )
+        if sample:
+            lines.append(
+                f"                review: ./repo-python tools/meta/observability/"
+                f"prompt_shelf_runs_index.py --review --run-id {sample}"
+            )
+    lines.extend([
         "",
         f"  largest run:  {meta['largest_run']['prompt_run_id'] or '(none)'} "
         f"({meta['largest_run']['bytes']:,} bytes)",
-    ]
+    ])
     if diagnostics_root is not None:
         diagnostics = _capture_diagnostic_summary(diagnostics_root, slots=slots)
         lines.append(
@@ -770,6 +1003,19 @@ def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None,
                 for reason, count in sorted(diagnostics["by_reason"].items())
             )
             lines.append(f"                reasons: {reason_counts}")
+        if diagnostics["by_policy"]:
+            policy_counts = ", ".join(
+                f"{policy}={count}"
+                for policy, count in sorted(diagnostics["by_policy"].items())
+            )
+            lines.append(f"                policies: {policy_counts}")
+        if diagnostics["by_slot_policy"]:
+            slot_policy_counts = ", ".join(
+                f"{slot}:{policy}={count}"
+                for slot, policies in sorted(diagnostics["by_slot_policy"].items())
+                for policy, count in sorted(policies.items())
+            )
+            lines.append(f"                slot policies: {slot_policy_counts}")
     lines.extend(["", "  by slot:"])
     by_slot = meta["by_slot"]
     # Always render every current cockpit slot; render variant slots too when
@@ -1145,10 +1391,12 @@ def _diagnostic_review_row(path: Path,
         if REPO_ROOT in path.parents
         else path.as_posix()
     )
+    slot = _diagnostic_slot(diagnostic)
     reason = str(diagnostic.get("skipped_reason") or "capture_diagnostic")
+    issue_policy = _diagnostic_issue_policy(reason, slot)
     return {
         "prompt_run_id": _diagnostic_id(path, diagnostic),
-        "prompt_slot": _diagnostic_slot(diagnostic),
+        "prompt_slot": slot,
         "prompt_slug": "",
         "captured_at": str(diagnostic.get("created_at") or ""),
         "source": "capture_diagnostic",
@@ -1181,11 +1429,14 @@ def _diagnostic_review_row(path: Path,
         "receipt": {
             "ledger_receipt_present": False,
             "raw_event_present": False,
-            "read_issues": [reason],
+            "read_issues": [reason] if issue_policy["read_issue"] else [],
         },
         "capture_status": {
             "status": "diagnostic",
+            "severity": issue_policy["severity"],
             "skipped_reason": reason,
+            "diagnostic_policy": issue_policy["policy"],
+            "policy_note": issue_policy["policy_note"],
             "tab_title": diagnostic.get("tab_title"),
         },
         "prompt_sent_excerpt": _clean_excerpt(user_head or user_tail, max_chars=max_chars),
@@ -1322,7 +1573,9 @@ def render_review(payload: dict[str, Any]) -> str:
             status = row["capture_status"]
             lines.append(
                 "   capture_status: "
-                f"{status.get('status')} reason={status.get('skipped_reason')} "
+                f"{status.get('status')} severity={status.get('severity') or 'unknown'} "
+                f"reason={status.get('skipped_reason')} "
+                f"policy={status.get('diagnostic_policy') or 'none'} "
                 f"tab={status.get('tab_title') or 'none'}"
             )
         if row["prompt_contract_signals"]:
@@ -1597,6 +1850,9 @@ def main() -> int:
     mode.add_argument("--stop-frame-regression", action="store_true",
                       help="run the Type B no-op/wait stop-frame override "
                            "red-team regression fixture")
+    mode.add_argument("--backfill-missing-receipts", action="store_true",
+                      help="append missing aiw:receipt anchors to the owning "
+                           "slot ledgers for selected runs")
     parser.add_argument("--require-slots",
                         default="A0,B1,B2,B3",
                         help="comma-separated cockpit slots that must have "
@@ -1620,6 +1876,9 @@ def main() -> int:
                         help=f"maximum chars per review excerpt "
                              f"(default: {DEFAULT_REVIEW_SNIPPET_CHARS}; "
                              f"cap: {MAX_REVIEW_SNIPPET_CHARS})")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="with --backfill-missing-receipts, report ledger "
+                             "insertions without writing files")
     args = parser.parse_args()
 
     if args.stop_frame_regression:
@@ -1628,7 +1887,14 @@ def main() -> int:
         sys.stdout.write("\n")
         return 0 if payload["__meta"]["fixture_status"] == "pass" else 1
 
-    fast_metadata_mode = bool(args.summary or args.coverage or args.check or args.review or args.review_json)
+    fast_metadata_mode = bool(
+        args.summary
+        or args.coverage
+        or args.check
+        or args.review
+        or args.review_json
+        or args.backfill_missing_receipts
+    )
     entries = build_index(include_raw_details=not fast_metadata_mode)
     entries = filter_entries_by_slot(entries, args.slot)
     payload = projection_payload(entries)
@@ -1691,6 +1957,18 @@ def main() -> int:
         else:
             print(render_review(review))
         return 0
+
+    if args.backfill_missing_receipts:
+        backfill = backfill_missing_receipts(
+            entries,
+            ledgers_root=LEDGERS_ROOT,
+            run_ids=args.run_id,
+            limit=args.limit,
+            dry_run=args.dry_run,
+        )
+        json.dump(backfill, sys.stdout, indent=2)
+        sys.stdout.write("\n")
+        return 0 if backfill["__meta"]["unresolved_count"] == 0 else 1
 
     if args.nesting_audit:
         print(render_nesting_audit(entries))

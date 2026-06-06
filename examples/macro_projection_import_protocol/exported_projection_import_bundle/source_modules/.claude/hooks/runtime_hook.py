@@ -67,8 +67,10 @@ NAVIGATION_HINT_CARD_PATH = REPO_ROOT / "tools/meta/control/runtime_hook_navigat
 ORCHESTRATION_EVENTS_REL = "tools/meta/control/orchestration_events.jsonl"
 HOOK_SIGNAL_FALLBACK_REL = "tools/meta/control/runtime_hook_signals.jsonl"
 AGENT_OBSERVABILITY_FALLBACK_REL = "tools/meta/control/runtime_hook_agent_observability.jsonl"
+TYPE_B_CANDIDATE_QUEUE_REL = "state/prompt_ledger/type_b_candidate_queue.jsonl"
 CLOSEOUT_BASELINE_EVENT_KIND = "closeout_session_baseline"
 MAX_CLOSEOUT_BASELINE_SCAN_BYTES = 512_000
+MAX_TYPE_B_QUEUE_SCAN_BYTES = 512_000
 MAX_CONTEXT_CHARS = 4500
 HOST_CONTEXT_INJECTION_CAP_CHARS = 10000
 ARTIFACT_PREVIEW_CHARS = 1200
@@ -148,7 +150,8 @@ REPO_SUBSTRATE_PATH_HINT_RE = re.compile(
     r"(?<![\w./])("
     r"AGENTS\.md|CLAUDE\.md|CODEX\.md|kernel\.py|repo-python|repo-pytest|repo-git|"
     r"\.claude/(?:hooks|settings|follow_on|agents)|"
-    r"codex/|docs/|system/|tools/|state/|obsidian/|sites/|self-indexing-cognitive-substrate/"
+    r"codex/|docs/|system/|tools/|state/|obsidian/|sites/|annexes/|receipts/|"
+    r"microcosm-substrate/|self-indexing-cognitive-substrate/"
     r")",
     re.IGNORECASE,
 )
@@ -888,6 +891,123 @@ def _large_instruction_residual_capture_hint(payload: Dict[str, Any]) -> str:
         "or a Task Ledger `quick-capture`. Native TODOs or final prose are scratch only; "
         "cite the cap_id/receipt, or state an explicit no-residual/no-op verdict."
     )
+
+
+def _type_b_candidate_lens(payload: Dict[str, Any]) -> Dict[str, Any]:
+    prompt = _extract_user_prompt_text(payload)
+    if not prompt:
+        return {}
+    try:
+        from system.lib.type_b_candidate_queue import classify_type_b_prompt_candidate
+
+        lens = classify_type_b_prompt_candidate(prompt)
+    except Exception:
+        return {}
+    return lens if lens.get("candidate") else {}
+
+
+def _type_b_candidate_context(payload: Dict[str, Any]) -> str:
+    lens = _type_b_candidate_lens(payload)
+    if not lens:
+        return ""
+    probe = lens.get("closeout_probe") if isinstance(lens.get("closeout_probe"), dict) else {}
+    fields = probe.get("expected_packet_fields") if isinstance(probe.get("expected_packet_fields"), list) else []
+    field_text = ", ".join(str(item) for item in fields[:7] if str(item).strip())
+    return (
+        "## Type B candidate lens\n"
+        "This is a complex operator prompt. The hook attempts to queue a private Type B "
+        "candidate row; do not wait on it. At closeout, if the next bundle might go to "
+        "Type B, leave the material Type B would need: "
+        f"{field_text}."
+    )
+
+
+def _recent_type_b_candidate_for_session(session_id: str) -> Dict[str, Any]:
+    if not session_id:
+        return {}
+    path = REPO_ROOT / TYPE_B_CANDIDATE_QUEUE_REL
+    try:
+        if not path.is_file():
+            return {}
+        with path.open("rb") as handle:
+            try:
+                handle.seek(0, os.SEEK_END)
+                size = handle.tell()
+                handle.seek(max(0, size - MAX_TYPE_B_QUEUE_SCAN_BYTES))
+            except OSError:
+                handle.seek(0)
+            body = handle.read(MAX_TYPE_B_QUEUE_SCAN_BYTES + 1).decode("utf-8", errors="replace")
+    except Exception:
+        return {}
+    for line in reversed(body.splitlines()):
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except Exception:
+            continue
+        if isinstance(row, dict) and str(row.get("session_id") or "") == session_id:
+            if row.get("kind") == "type_b_prompt_candidate":
+                return row
+    return {}
+
+
+def _type_b_closeout_context(payload: Dict[str, Any]) -> str:
+    session_id = _string(payload.get("session_id"))
+    row = _recent_type_b_candidate_for_session(session_id)
+    if not row:
+        return ""
+    probe = row.get("closeout_probe") if isinstance(row.get("closeout_probe"), dict) else {}
+    fields = probe.get("expected_packet_fields") if isinstance(probe.get("expected_packet_fields"), list) else []
+    field_text = ", ".join(str(item) for item in fields[:7] if str(item).strip())
+    return (
+        "## Type B closeout packet probe\n"
+        "This session started from a queued complex prompt. If the next copied trace/bundle is "
+        "meant for Type B, make the final response self-contained enough for external reasoning: "
+        f"{field_text}. The hook attempts to record the queue row asynchronously; "
+        "no import or drain is needed now."
+    )
+
+
+def _type_b_candidate_enqueue_safe(action: str, payload: Dict[str, Any]) -> None:
+    if action not in {"user-prompt", "stop"}:
+        return
+    try:
+        from system.lib.type_b_candidate_queue import (
+            append_type_b_candidate_queue_row,
+            build_type_b_candidate_closeout_queue_row,
+            build_type_b_candidate_queue_row,
+        )
+
+        prompt_text = _extract_user_prompt_text(payload)
+        event_phase = "entry"
+        if action == "stop":
+            session_id = _string(payload.get("session_id"))
+            prior = _recent_type_b_candidate_for_session(session_id)
+            if not prior:
+                return
+            row = build_type_b_candidate_closeout_queue_row(
+                prior,
+                source_surface="claude_runtime_hook",
+                session_id=_string(payload.get("session_id")) or None,
+                transcript_path=_string(payload.get("transcript_path")) or None,
+                cwd=_string(payload.get("cwd")) or None,
+                last_assistant_message=_string(payload.get("last_assistant_message")) or None,
+            )
+        else:
+            row = build_type_b_candidate_queue_row(
+                prompt_text,
+                source_surface="claude_runtime_hook",
+                event_phase=event_phase,
+                session_id=_string(payload.get("session_id")) or None,
+                transcript_path=_string(payload.get("transcript_path")) or None,
+                cwd=_string(payload.get("cwd")) or None,
+                last_assistant_message=_string(payload.get("last_assistant_message")) or None,
+            )
+        if row is not None:
+            append_type_b_candidate_queue_row(REPO_ROOT, row)
+    except Exception:
+        return
 
 
 def _todo_residual_capture_hint(payload: Dict[str, Any]) -> str:
@@ -1920,9 +2040,10 @@ def _closeout_git_state_stop_context(payload: Optional[Dict[str, Any]] = None) -
     if actuator and actuator != "none":
         lines.append(f"- actuator: `{actuator}`")
     if should_surface_closeout:
+        burst_cmd = _closeout_executor_command("run-burst", "--max-actions", "3", "--json")
+        one_cmd = _closeout_executor_command("run-one", "--json")
         lines.append(
-            "- closeout executor: preferred `./repo-python tools/meta/control/closeout_executor.py run-burst --max-actions 3 --json`; "
-            "minimum `./repo-python tools/meta/control/closeout_executor.py run-one --json`"
+            f"- closeout executor: preferred `{burst_cmd}`; minimum `{one_cmd}`"
         )
     if ready:
         lines.append("- closeout condition: ready")
@@ -1996,25 +2117,35 @@ def _closeout_git_state_stop_block_reason(payload: Dict[str, Any]) -> str:
     last_msg = _string(payload.get("last_assistant_message"))
     if not last_msg.strip():
         return ""
-    claims = _matched_closeout_terminal_claims(last_msg)
-    if not claims:
-        return ""
     packet = _closeout_git_state_packet()
     if not packet or packet.get("closeout_ready") is True:
         return ""
+    try:
+        from system.lib.egress_compliance import (
+            detect_closeout_terminal_claim_without_ready_state,
+        )
+
+        terminal_rows = detect_closeout_terminal_claim_without_ready_state(
+            last_msg,
+            closeout_state=packet,
+        )
+    except Exception:
+        terminal_rows = []
+    terminal_violation = next(
+        (row for row in terminal_rows if row.get("violation")),
+        None,
+    )
+    if not terminal_violation:
+        return ""
     publication = packet.get("publication") if isinstance(packet.get("publication"), dict) else {}
     recommended = packet.get("recommended_lane") if isinstance(packet.get("recommended_lane"), dict) else {}
-    publication_settled = int(packet.get("ahead") or 0) == 0 and str(publication.get("status") or "") == "published"
-    global_claims = {"clean_and_pushed", "working_tree_clean", "closeout_complete"}
-    contradicting_claims: list[str] = []
-    for claim in claims:
-        if claim in {"committed_and_pushed", "pushed_to_remote", "remote_ref_verified"} and publication_settled:
-            if not any(item in claims for item in global_claims):
-                continue
-        contradicting_claims.append(claim)
-    if not contradicting_claims:
-        return ""
+    contradicting_claims = list(
+        terminal_violation.get("matched_terminal_claim_phrases", [])
+    )
+    held_phrases = list(terminal_violation.get("matched_held_state_phrases", []))
     condition = str(packet.get("reason") or "CloseoutConditionsNotReady")
+    burst_cmd = _closeout_executor_command("run-burst", "--max-actions", "3", "--json")
+    one_cmd = _closeout_executor_command("run-one", "--json")
     return (
         "Closeout/git-state contradiction: final response claims terminal state "
         f"{contradicting_claims[:3]}, but closeout_git_state says dirty={packet.get('dirty_total')} "
@@ -2022,11 +2153,55 @@ def _closeout_git_state_stop_block_reason(payload: Dict[str, Any]) -> str:
         f"behind={packet.get('behind')} publication={publication.get('status') or 'unknown'} "
         f"closeout_ready=false reason={condition}. Continue only long enough to settle the "
         "publication/dirty-state lane or state an explicit blocked/held closeout with evidence. "
-        "Run closeout executor actuator: preferred ./repo-python tools/meta/control/closeout_executor.py run-burst --max-actions 3 --json; "
-        "minimum ./repo-python tools/meta/control/closeout_executor.py run-one --json. "
+        f"Held-state phrases elsewhere in the response do not clear asserted terminal claims: {held_phrases[:3]}. "
+        f"Run closeout executor actuator: preferred {burst_cmd}; minimum {one_cmd}. "
         f"Recommended lane: {recommended.get('lane') or 'refresh_closeout_git_state'}; "
         f"actuator: {recommended.get('actuator') or './repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions'}."
     )
+
+
+def _resolve_current_session_id() -> Optional[str]:
+    """Best-effort resolve the current actor's Work Ledger session id for closeout
+    self-exclusion.
+
+    Reuses the live runtime resolver ``bridge_resume.discover_current_session_id()``, which
+    reads the ``active_session`` heartbeat this hook stamps every fire. Under the Work Ledger
+    bootstrap contract (``work_ledger_runtime.handle_hook_event`` session-start ->
+    ``bootstrap_session(session_id=payload['session_id'])``) the Claude session id IS the WL
+    session id, so it threads directly into ``active_claim_collisions_for_paths(session_id=...)``
+    self-exclusion. Lazy import keeps the module-load stdlib membrane intact.
+
+    Caveat (documented for future readers): the ``active_session`` record is single /
+    last-writer-wins, so this resolves the BEST-CURRENT Claude session, NOT a thread-exact id.
+    With two concurrent Claude sessions it can resolve the wrong one; thread-exact resolution is
+    deferred to the session-coordination work. Returns ``None`` when unresolved — the executor
+    records ``session_identity_unresolved`` and callers MUST NOT treat None as a closeout
+    suppression signal.
+    """
+    try:
+        from tools.meta.bridge.bridge_resume import discover_current_session_id
+
+        return _string(discover_current_session_id()).strip() or None
+    except Exception:
+        return None
+
+
+def _closeout_executor_scope_suffix() -> str:
+    session_id = _resolve_current_session_id()
+    if session_id:
+        return f" --current-session-id {shlex.quote(session_id)}"
+    return (
+        " --current-session-id <work-ledger-session-id>"
+        " --owned-path-prefix <owned-path>"
+        " --subject-id <work-item-or-mission-id>"
+    )
+
+
+def _closeout_executor_command(subcommand: str, *args: str) -> str:
+    command = f"./repo-python tools/meta/control/closeout_executor.py {subcommand}"
+    if args:
+        command = f"{command} {' '.join(args)}"
+    return f"{command}{_closeout_executor_scope_suffix()}"
 
 
 def _closeout_executor_plan(packet: Dict[str, Any]) -> Dict[str, Any]:
@@ -2037,6 +2212,7 @@ def _closeout_executor_plan(packet: Dict[str, Any]) -> Dict[str, Any]:
             REPO_ROOT,
             closeout_summary=packet,
             run_push_audit=False,
+            current_session_id=_resolve_current_session_id(),
         )
         return plan if isinstance(plan, dict) else {}
     except Exception:
@@ -2063,6 +2239,64 @@ def _message_has_concrete_blocker_noun(message: str) -> bool:
             r"\b(path|file|test|failure|failed|conflict|patch|"
             r"permission|secret|unsafe|held by policy|publication held|"
             r"validation|same[- ]file|same path|branch|head)\b",
+            message,
+            re.IGNORECASE,
+        )
+    )
+
+
+def _message_reports_owner_finalizer_handoff(message: str) -> bool:
+    """True when the final response acknowledges a foreign Work Ledger active-claim /
+    owner-finalizer held closeout.
+
+    The closeout executor sets ``scheduler_action=owner_finalizer_required`` (lane
+    ``active_claim_blocked``) only when there is no runnable owned source cluster to land
+    and the dirty paths overlap another session's active claim
+    (``system/lib/closeout_executor.py`` :859 emits it; :1225 makes it the primary action
+    only after ``runnable_clusters`` is empty). When the agent acknowledges that held state
+    — naming the owning session, the lease, the work-ledger owner-handoff route, or the
+    foreign claim — the executor's typed verdict IS the closeout blocker, so the Stop guard
+    must not reprompt the current actor to land work it does not own.
+    """
+    if not message.strip():
+        return False
+    return bool(
+        re.search(
+            r"\b(active[- ]claim|owner[- ]finalizer|owner_finalizer_required|owner session|"
+            r"owned by (?:another|an active|session)|leased?_until|session-status|session-claims|"
+            r"claim collision|same[- ]path owner|foreign(?:[- ]owned)?(?: claim| dirt| session)|"
+            r"owner handoff|held by (?:another|an active) (?:owner|session|claim))\b",
+            message,
+            re.IGNORECASE,
+        )
+    )
+
+
+def _message_reports_held_foreign_closeout(message: str) -> bool:
+    """True when the final response explicitly states the executor's primary dirty cluster is
+    ANOTHER session's work / outside this actor's ownership scope (held_foreign), naming the
+    foreign owner or that the actor did not author it.
+
+    Distinct from :func:`_message_reports_owner_finalizer_handoff` (the executor's own typed
+    verdict for *claimed* foreign dirt): this covers UNCLAIMED foreign dirt that the Stop guard
+    cannot yet machine-classify because no owned-path scope resolves for the current actor (see
+    cap_quick_wire_mission_closeout_verdict_owned_fore...). The guard honors this assertion only
+    together with a local-landing receipt for the actor's own slice (the caller AND-gates it with
+    :func:`_message_reports_local_landing_evidence`), so it can never excuse unlanded owned work,
+    and the independent ``_closeout_git_state_stop_block_reason`` guard still blocks any false
+    "working tree clean" claim. The actor asserts the classification; the hook never auto-infers
+    foreign ownership for unclaimed dirt.
+    """
+    if not message.strip():
+        return False
+    return bool(
+        re.search(
+            r"\b(held[_ ]foreign|foreign[- ]owned|foreign dirt|"
+            r"another session'?s (?:work|cluster|dirt|files?|component)|"
+            r"outside (?:my|this session'?s|this actor'?s) (?:scope|ownership|owned)|"
+            r"do(?:es)? not own|did not (?:author|touch|modify|write|create)|"
+            r"not (?:my|this session'?s) (?:work|cluster|files?|change)|"
+            r"owned by another (?:session|actor))\b",
             message,
             re.IGNORECASE,
         )
@@ -2435,13 +2669,68 @@ def _closeout_executor_null_stop_block_reason(payload: Dict[str, Any]) -> str:
     cluster = action.get("cluster") if isinstance(action.get("cluster"), dict) else {}
     cluster_id = _string(cluster.get("cluster_id"))
     action_id = _string(action.get("action_id"))
+    scheduler_action = _string(action.get("scheduler_action"))
+    mission_verdict = plan.get("mission_closeout_verdict") if isinstance(plan.get("mission_closeout_verdict"), dict) else {}
+    if (
+        mission_verdict.get("status") == "held_foreign_dirty"
+        and mission_verdict.get("machine_classification_trust") is True
+        and _message_reports_local_landing_evidence(last_msg)
+    ):
+        # Machine-held foreign closeout. The executor resolved this actor's Work Ledger
+        # path-claim history, fed those prefixes into mission_closeout_verdict, and proved
+        # the remaining dirty paths are outside the actor scope. A local landing receipt is
+        # still required so a clean actor scope cannot be used as a silent no-op closeout.
+        return ""
+    if lane == "active_claim_blocked" or scheduler_action == "owner_finalizer_required":
+        # Typed owner-finalizer hold. The closeout executor found NO runnable owned source
+        # cluster to land (runnable_clusters empty -> active_claim_blocked becomes the primary
+        # action, system/lib/closeout_executor.py:1225) and the dirty paths overlap another
+        # session's active Work Ledger claim (scheduler_action=owner_finalizer_required, :859).
+        # This is a settlement-typed held closeout, NOT a missing local landing, so the current
+        # actor must not be reprompted to land work it does not own. Require a positive
+        # acknowledgement in the final response (it names the owner handoff / held state) before
+        # suppressing, so a silent yield is still nudged and a spurious owner-block (e.g. one
+        # caused by the actor's own un-disambiguated self-claim, since the executor's collision
+        # lookup is not session-aware) cannot silently drop genuinely owned work. The independent
+        # _closeout_git_state_stop_block_reason guard still blocks any false "working tree clean"
+        # terminal claim against real dirty state.
+        if _message_reports_owner_finalizer_handoff(last_msg) or _message_reports_concrete_closeout_blocker(last_msg):
+            return ""
+        owner_sessions = action.get("owner_session_ids") if isinstance(action.get("owner_session_ids"), list) else []
+        owner_hint = f" owner_session_ids={owner_sessions[:3]}" if owner_sessions else ""
+        next_cmd = _string(action.get("required_next_command")) or (
+            "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 30"
+        )
+        return (
+            "Closeout owner-finalizer hold: executor primary lane=active_claim_blocked "
+            f"(scheduler_action=owner_finalizer_required){owner_hint}. There is no runnable owned "
+            "source slice to land this turn; the dirty paths are held by another session's active "
+            "Work Ledger claim. Before yielding, EITHER report the owner handoff "
+            f"(`{next_cmd}`) and state the held closeout, OR land any genuinely owned slice you can "
+            "with a scoped commit. Do not commit paths owned by an active foreign claim."
+        )
+    if _message_reports_held_foreign_closeout(last_msg) and _message_reports_local_landing_evidence(last_msg):
+        # Typed held-foreign closeout. The final response explicitly states the executor's
+        # primary cluster is another session's work (outside this actor's scope) AND shows a
+        # local-landing receipt for the actor's own slice. The Stop guard cannot yet machine-
+        # classify UNCLAIMED foreign dirt (no resolved owned-path scope for this actor — that is
+        # cap_quick_wire_mission_closeout_verdict_owned_fore..., gated on the actor-transaction-
+        # scope resolver), so it honors a well-formed operator-asserted held-foreign closeout the
+        # same way it honors owner_finalizer: positive assertion + landed own work, never a silent
+        # yield. blocked_owned_dirty still reprompts (no landing receipt -> this exit does not
+        # fire), and the independent _closeout_git_state_stop_block_reason guard still blocks any
+        # false "working tree clean" terminal claim. This is the live ConsoleDrawer specimen: a UI
+        # cluster the actor never authored, surfaced as runnable by earlier unscoped closeout prompts.
+        return ""
     stale_action_id = _stale_action_id_in_message(last_msg, action_id)
     if stale_action_id:
+        burst_cmd = _closeout_executor_command("run-burst", "--max-actions", "3", "--json")
+        one_cmd = _closeout_executor_command("run-one", "--json")
         return (
             "Closeout executor stale receipt: final response cites "
             f"action_id={stale_action_id}, but current executor action_id={action_id} "
-            f"for lane={lane}. Run preferred `./repo-python tools/meta/control/closeout_executor.py run-burst --max-actions 3 --json` "
-            "or minimum `./repo-python tools/meta/control/closeout_executor.py run-one --json` "
+            f"for lane={lane}. Run preferred `{burst_cmd}` "
+            f"or minimum `{one_cmd}` "
             "and report the current action receipt, or state a concrete blocker."
         )
     if _action_requires_effect_receipt(action):
@@ -2481,11 +2770,13 @@ def _closeout_executor_null_stop_block_reason(payload: Dict[str, Any]) -> str:
     cluster_suffix = f" cluster={cluster_id}" if cluster_id else ""
     plan_suffix = f" plan_id={plan.get('plan_id')}" if plan.get("plan_id") else ""
     action_suffix = f" action_id={action.get('action_id')}" if action.get("action_id") else ""
+    burst_cmd = _closeout_executor_command("run-burst", "--max-actions", "3", "--json")
+    one_cmd = _closeout_executor_command("run-one", "--json")
     return (
         "Closeout executor null-yield guard: closeout_ready=false and executor "
         f"has action_required lane={lane}{cluster_suffix}{plan_suffix}{action_suffix}. Before yielding, run "
-        "preferred `./repo-python tools/meta/control/closeout_executor.py run-burst --max-actions 3 --json` "
-        "or minimum `./repo-python tools/meta/control/closeout_executor.py run-one --json` "
+        f"preferred `{burst_cmd}` "
+        f"or minimum `{one_cmd}` "
         "and report its typed receipt, or state a concrete blocker "
         "(failing test, patch conflict, same-file ownership conflict, unsafe "
         "publication, or explicit held policy)."
@@ -2499,10 +2790,22 @@ def _additional_context(action: str, payload: Dict[str, Any]) -> str:
         if rehydration:
             blocks.append(rehydration)
     if action == "stop":
+        try:
+            type_b_closeout_block = _type_b_closeout_context(payload)
+        except Exception:
+            type_b_closeout_block = ""
+        if type_b_closeout_block:
+            blocks.append(type_b_closeout_block)
         closeout_git_state = _closeout_git_state_stop_context(payload)
         if closeout_git_state:
             blocks.append(closeout_git_state)
     if action == "user-prompt":
+        try:
+            type_b_candidate_block = _type_b_candidate_context(payload)
+        except Exception:
+            type_b_candidate_block = ""
+        if type_b_candidate_block:
+            blocks.append(type_b_candidate_block)
         try:
             residual_hint = _large_instruction_residual_capture_hint(payload)
         except Exception:
@@ -2604,6 +2907,8 @@ def main(argv: List[str]) -> int:
         _stamp_active_session_safe(action, payload)
         _forward_agent_observability_safe(action, payload)
         _record_closeout_baseline_if_needed(action, payload)
+        if action == "user-prompt":
+            _type_b_candidate_enqueue_safe(action, payload)
 
     # Stop lifecycle boundary — emit a reactions_engine-visible signal row.
     # Per the 0/1/2 exit-code contract canonised in
@@ -2623,6 +2928,7 @@ def main(argv: List[str]) -> int:
             # last-line guarantee that a broken Stop path never raises out
             # of the hook (the existing module-level contract).
             stop_signal_exit = 0
+        _type_b_candidate_enqueue_safe(action, payload)
 
     # Stop egress action-autonomy check — block the Stop event when the
     # final response contains routine permission-gate language without

@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "duplicate_lower_volume_retained_higher",
+  "error_codes": [
+    "BATCH12_PREDICTION_DUPLICATE_HIGHER_VOLUME_WINS"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_prediction_negative_case_v1"
+}

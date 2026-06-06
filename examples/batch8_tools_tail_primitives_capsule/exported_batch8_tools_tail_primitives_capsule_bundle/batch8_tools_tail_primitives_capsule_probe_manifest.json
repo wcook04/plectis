@@ -1,0 +1,56 @@
+{
+  "schema_version": "batch8_tools_tail_primitives_capsule_probe_manifest_v1",
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "mechanisms": [
+    {
+      "mechanism_id": "observer_set_diff_kernel",
+      "source_module_ids": [
+        "observer_diff_kernel"
+      ],
+      "public_exercise": "Compare two synthetic evidence/prediction arrays and report missed, extra, overlap, matching, and divergent rows.",
+      "negative_case": "Malformed or mismatched keys are kept out of matched sets and recorded as a bounded parser/diff finding.",
+      "claim_ceiling": "Set-diff primitive over public fixture arrays only; not oracle truth or prediction correctness."
+    },
+    {
+      "mechanism_id": "version_committer_json_patch_vm",
+      "source_module_ids": [
+        "version_committer_json_patch_vm"
+      ],
+      "public_exercise": "Apply set, merge, append, and null-delete slash-selector operations to a synthetic JSON dossier.",
+      "negative_case": "Traversal through a scalar raises the source VM refusal.",
+      "claim_ceiling": "Deterministic JSON patch interpreter only; not semantic edit correctness or repo mutation authority."
+    },
+    {
+      "mechanism_id": "ledger_id_identity_hash_engine",
+      "source_module_ids": [
+        "ledger_id_identity_hash_engine"
+      ],
+      "public_exercise": "Normalize lane aliases and reproduce deterministic ledger ids across repeated calls.",
+      "negative_case": "Missing required lane identity raises source contract refusal; unknown lanes are explicitly X-prefixed.",
+      "claim_ceiling": "Identity/hash normalization primitive only; not proof of record truth or provenance by itself."
+    },
+    {
+      "mechanism_id": "shadow_envelope_dsl_parser_coverage",
+      "source_module_ids": [
+        "shadow_envelope_dsl_parser_coverage"
+      ],
+      "public_exercise": "Run the shadow parser over synthetic miner, spine, and prediction artifacts with full pass coverage.",
+      "negative_case": "Malformed tuple/envelope lines produce parse coverage findings without executing private lab nodes.",
+      "claim_ceiling": "Grammar/parser coverage engine over synthetic public envelopes only; not Lab truth or execution authority."
+    }
+  ],
+  "expected_source_module_ids": [
+    "observer_diff_kernel",
+    "version_committer_json_patch_vm",
+    "ledger_id_identity_hash_engine",
+    "shadow_envelope_dsl_parser_coverage"
+  ],
+  "expected_runtime_exercises": [
+    "observer_set_diff_kernel",
+    "version_committer_json_patch_vm",
+    "ledger_id_identity_hash_engine",
+    "shadow_envelope_dsl_parser_coverage"
+  ],
+  "private_state_excluded": true,
+  "body_in_receipt": false
+}

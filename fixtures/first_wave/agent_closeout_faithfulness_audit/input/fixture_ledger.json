@@ -1,0 +1,16 @@
+{
+  "body_in_receipt": false,
+  "schema_version": "closeout_fixture_ledger_v1",
+  "task_ledger_caps": [
+    {
+      "cap_id": "cap_fixture_closeout_receipt_exists",
+      "evidence_ref": "receipts/fixture/closeout.json",
+      "status": "closed"
+    },
+    {
+      "cap_id": "cap_fixture_pytest_span_ran",
+      "evidence_ref": "pytest::tests/test_closeout_fixture.py::test_public_fixture_addition",
+      "status": "closed"
+    }
+  ]
+}

@@ -4,12 +4,12 @@
   "organ_id": "agent_sabotage_scheming_monitor_replay",
   "source_run_id": "agent_sabotage_scheming_monitor_replay_compound_source_body_import_20260529a",
   "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
-  "source_import_class": "copied_non_secret_macro_body",
+  "source_import_class": "copied_non_secret_macro_body_plus_sanitized_public_trace_slice",
   "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
-  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_safety_monitor_bundle",
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_and_public_trace_slice_copied_into_public_safety_monitor_bundle",
   "body_in_receipt": false,
-  "module_count": 1,
-  "anti_claim": "These copied pattern provenance bodies make the public sabotage/scheming monitor drilldown accountable to real macro ledger rows. They do not authorize live sabotage, deployment-risk claims, exploit instructions, credentials or account material, private reasoning, harmful payloads, provider calls, source mutation, release, or safety validation claims.",
+  "module_count": 2,
+  "anti_claim": "These copied pattern provenance bodies and sanitized public command-trace slices make the public sabotage/scheming monitor drilldown accountable to real macro ledger rows and public-safe dogfood evidence. They do not authorize live sabotage, deployment-risk claims, exploit instructions, credentials or account material, private reasoning, harmful payloads, provider calls, source mutation, release, or safety validation claims.",
   "secret_exclusion_boundary": [
     "no keys or credentials",
     "no account/session/cookie material",
@@ -37,6 +37,29 @@
       "validation_refs": [
         "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_source_modules_are_digest_verified",
         "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "module_id": "agent_sabotage_scheming_public_dogfood_safety_evals_trace_slice_import",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
+      "target_ref": "microcosm-substrate/examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
+      "material_class": "public_dogfood_command_trace_slice",
+      "source_import_class": "copied_public_safe_macro_trace_slice",
+      "source_to_target_relation": "source_faithful_sanitized_json_slice",
+      "public_safe_mode": "sanitized_public_cli_trace_slice",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "line_count": 107,
+      "sha256": "sha256:7b6255ec65f4b21163685cf9d7a59dd9ae6075126deac065dec9a45d79dcea06",
+      "source_open_payload_boundary": "public_cli_event_summary_only_no_argv_stdout_stderr_previews_temp_paths_provider_payload_private_session_or_credentials",
+      "source_trace_sha256": "sha256:24487cf8edb0779cfdd460b04a4ea7701805686545069f9e1c5767250c223cd3",
+      "validation_refs": [
+        "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_replay_source_modules_are_digest_verified",
+        "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_public_dogfood_trace_slice_derives_from_source_receipt",
+        "tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_exported_bundle_scans_source_artifacts_for_private_state"
       ]
     }
   ]

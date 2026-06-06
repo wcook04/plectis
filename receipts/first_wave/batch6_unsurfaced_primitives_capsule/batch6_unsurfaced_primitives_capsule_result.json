@@ -1,0 +1,690 @@
+{
+  "anti_claim": "Batch 6 validates exact copied non-secret macro source bodies and public synthetic exercises for keyphrase scoring, schema-loose distillation, operator handoff scoring, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping. It is not live operator memory, not raw prompt-shelf content, not live market data, not provider/browser state, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch6_public_substrate_capsule_not_live_runtime_authority",
+    "launch_authorized": false,
+    "live_market_data_fetch_authorized": false,
+    "live_operator_transcript_export_authorized": false,
+    "live_provider_browser_state_export_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "runtime_execution": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "batch6_unsurfaced_primitives_capsule run",
+  "created_at": "2026-05-31T19:47:49+00:00",
+  "error_codes": [
+    "BATCH6_CONCURRENCY_PARENT_CHILD_CONFLICT",
+    "BATCH6_DEMO_TAKE_PAUSE_REMAP_CORRECTED",
+    "BATCH6_FINANCE_UNIT_SCALE_MISMATCH_BLOCKED",
+    "BATCH6_HANDOFF_UNRELATED_BELOW_FLOOR",
+    "BATCH6_KEYPHRASE_STOPWORD_ONLY_EMPTY",
+    "BATCH6_MARKET_CLOCK_DUPLICATE_FIRE_SUPPRESSED",
+    "BATCH6_MARKET_SITUATION_COUNTEREVIDENCE_REQUIRED",
+    "BATCH6_OBSERVED_TURN_RERENDER_NOT_DUPLICATED",
+    "BATCH6_PROVIDER_TIMEOUT_SCOPE_NARROW",
+    "BATCH6_SCHEMA_LOOSE_ROLE_CONFLATION_REJECTED",
+    "BATCH6_STATUS_POLICY_FAILS_CLOSED"
+  ],
+  "exercise": {
+    "anti_claim": "Batch 6 validates exact copied non-secret macro source bodies and public synthetic exercises for keyphrase scoring, schema-loose distillation, operator handoff scoring, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping. It is not live operator memory, not raw prompt-shelf content, not live market data, not provider/browser state, not publication authority, and not release approval.",
+    "body_in_receipt": false,
+    "claim_ceiling": {
+      "authority_ceiling": "batch6_public_substrate_capsule_not_live_runtime_authority",
+      "launch_authorized": false,
+      "live_market_data_fetch_authorized": false,
+      "live_operator_transcript_export_authorized": false,
+      "live_provider_browser_state_export_authorized": false,
+      "model_dispatch": false,
+      "provider_dispatch": false,
+      "publication_authorized": false,
+      "real_substrate_disposition": "real_substrate_capsule",
+      "release_authorized": false,
+      "runtime_execution": false,
+      "source_mutation_authorized": false,
+      "status": "pass"
+    },
+    "copied_macro_source_module_count": 14,
+    "error_codes": [],
+    "expected_mechanism_count": 11,
+    "mechanism_count": 11,
+    "mechanisms": [
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Navigation hint scoring only; not raw-seed semantic truth or operator voice export.",
+        "mechanism_id": "raw_seed_keyphrase_engine",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "stopword_only_keyphrase_empty",
+        "public_exercise": "Execute copied RAKE/topic-hint helpers over public text and prove stopword-only text emits no phrase candidates.",
+        "source_module_ids": [
+          "raw_seed_keyphrase",
+          "raw_seed_spelling",
+          "raw_seed_smart_stoplist"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Distillation projection only; not capture authority or body persistence.",
+        "mechanism_id": "schema_loose_distillation_index",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "schema_loose_voice_conflation",
+        "public_exercise": "Execute copied diagnostic distiller on public assistant/user-tail payloads and prove source roles remain distinct.",
+        "source_module_ids": [
+          "schema_loose_distillation_index"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Advisory linkage score only; not operator attribution truth or transcript export.",
+        "mechanism_id": "operator_handoff_linkage",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "handoff_unrelated_below_floor",
+        "public_exercise": "Execute copied Type-B to Type-A scorer over public handoff text and require containment/anchor confidence.",
+        "source_module_ids": [
+          "operator_handoff_linkage",
+          "prompt_shelf_fingerprints"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Private thread-memory algorithm specimen only; no raw user or assistant text is exported.",
+        "mechanism_id": "observed_turn_window_merge",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "observed_turn_duplicate_rerender",
+        "public_exercise": "Execute copied observed-window merge over hashed public turn metadata and prove rerender windows do not duplicate turns.",
+        "source_module_ids": [
+          "operator_thread_memory"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Backend graph contract only; not live market data or trading advice.",
+        "mechanism_id": "market_situation_graph",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "market_situation_missing_counterevidence",
+        "public_exercise": "Execute copied market situation graph builder on a public synthetic mart and require counterevidence and not-investment-advice guards.",
+        "source_module_ids": [
+          "market_situation_graph"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Numeric display contract only; not feed fetching or economic validation.",
+        "mechanism_id": "finance_numeric_assurance",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "finance_unit_scale_mismatch",
+        "public_exercise": "Execute copied numeric assurance over public bad-scale rows and require blocking findings.",
+        "source_module_ids": [
+          "finance_numeric_assurance"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Status-transition judgment only; not publication or truth authority.",
+        "mechanism_id": "fail_closed_status_judge",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "status_policy_poisoned",
+        "public_exercise": "Execute the macro status policy judge after exact-copy validation and prove malformed policy blocks judgment.",
+        "source_module_ids": [
+          "idea_microcosm_validators"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Clone-local coordination guard only; not private Work Ledger or distributed scheduler.",
+        "mechanism_id": "idea_microcosm_concurrency_guard",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "concurrency_parent_child_conflict",
+        "public_exercise": "Execute copied path normalization and overlap guards over public paths.",
+        "source_module_ids": [
+          "idea_microcosm_concurrency_guard"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Clock planning only; not live market sampling or daemon launch.",
+        "mechanism_id": "metabolism_market_clock",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "market_clock_duplicate_fire_suppressed",
+        "public_exercise": "Execute copied market-clock due-point calculation and prove already-fired points are suppressed.",
+        "source_module_ids": [
+          "metabolism_market_clock"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Provider admission classification only; not live provider retry authority.",
+        "mechanism_id": "population_lane_provider_recovery",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "provider_timeout_scope_narrow",
+        "public_exercise": "Execute copied provider-recovery scope classifier and prove timeout is model-scoped while duplicate rows do not suppress provider capacity.",
+        "source_module_ids": [
+          "population_lane_provider_recovery"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Temporal join helper only; not release of footage, transcript, audio, or video.",
+        "mechanism_id": "demo_take_temporal_join",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "demo_take_pause_remap",
+        "public_exercise": "Execute copied demo-take time remap helper and prove paused wall-clock time is subtracted from video time.",
+        "source_module_ids": [
+          "demo_take_capture"
+        ],
+        "status": "pass"
+      }
+    ],
+    "runtime_exercises": {
+      "demo_take_temporal_join": {
+        "active_pause_video_t_seconds": 15.0,
+        "closed_pause_video_t_seconds": 105.0,
+        "exercise_id": "demo_take_temporal_join",
+        "paused_duration_removed_seconds": 15.0,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "fail_closed_status_judge": {
+        "allowed_decision": "allow",
+        "exercise_id": "fail_closed_status_judge",
+        "forbidden_decision": "block",
+        "missing_evidence_decision": "downgrade",
+        "poisoned_policy_decision": "block",
+        "source_execution_relation": "macro_package_executed_after_exact_copy_validation",
+        "status": "pass"
+      },
+      "finance_numeric_assurance": {
+        "check_ids": [
+          "probability_bounds",
+          "stockgrid_duplicate_ticker",
+          "stockgrid_flow_unit_scale_mismatch"
+        ],
+        "display_state": "blocked",
+        "exercise_id": "finance_numeric_assurance",
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "idea_microcosm_concurrency_guard": {
+        "exercise_id": "idea_microcosm_concurrency_guard",
+        "normalized_path_count": 1,
+        "parent_child_overlap": true,
+        "sibling_overlap": false,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "market_situation_graph": {
+        "all_situations_have_counterevidence": true,
+        "edge_count": 7,
+        "exercise_id": "market_situation_graph",
+        "not_investment_advice_guard": true,
+        "situation_count": 3,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass",
+        "strict_error_count": 0
+      },
+      "metabolism_market_clock": {
+        "close_not_due": true,
+        "due_count": 2,
+        "exercise_id": "metabolism_market_clock",
+        "open_duplicate_suppressed": true,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "observed_turn_window_merge": {
+        "duplicate_window_reason": "observed_window_within_memory",
+        "exercise_id": "observed_turn_window_merge",
+        "merge_reason": "observed_appended_tail",
+        "merged_count": 3,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "operator_handoff_linkage": {
+        "anchor_match": true,
+        "confidence_floor_met": true,
+        "containment": true,
+        "exercise_id": "operator_handoff_linkage",
+        "operator_delta_position": "interleaved",
+        "score": 1.0,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "population_lane_provider_recovery": {
+        "blocked_duplicate_scope": "row_fingerprint",
+        "exercise_id": "population_lane_provider_recovery",
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass",
+        "timeout_key": "nvidia_nim:deepseek-ai/deepseek-v4-flash",
+        "timeout_scope": "provider_model"
+      },
+      "raw_seed_keyphrase_engine": {
+        "exercise_id": "raw_seed_keyphrase_engine",
+        "ranked_phrase_count": 2,
+        "salvage_token_count": 2,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass",
+        "stopword_only_phrase_count": 0
+      },
+      "schema_loose_distillation_index": {
+        "body_persisted": false,
+        "exercise_id": "schema_loose_distillation_index",
+        "record_count": 2,
+        "source_execution_relation": "copied_source_body_executed",
+        "source_roles": [
+          "assistant_text",
+          "user_tail"
+        ],
+        "status": "pass"
+      }
+    },
+    "schema_version": "batch6_unsurfaced_primitives_capsule_exercise_v1",
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "concurrency_parent_child_conflict",
+    "demo_take_pause_remap",
+    "finance_unit_scale_mismatch",
+    "handoff_unrelated_below_floor",
+    "market_clock_duplicate_fire_suppressed",
+    "market_situation_missing_counterevidence",
+    "observed_turn_duplicate_rerender",
+    "provider_timeout_scope_narrow",
+    "schema_loose_voice_conflation",
+    "status_policy_poisoned",
+    "stopword_only_keyphrase_empty"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch6_unsurfaced_primitives_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "concurrency_parent_child_conflict",
+    "demo_take_pause_remap",
+    "finance_unit_scale_mismatch",
+    "handoff_unrelated_below_floor",
+    "market_clock_duplicate_fire_suppressed",
+    "market_situation_missing_counterevidence",
+    "observed_turn_duplicate_rerender",
+    "provider_timeout_scope_narrow",
+    "schema_loose_voice_conflation",
+    "status_policy_poisoned",
+    "stopword_only_keyphrase_empty"
+  ],
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_result.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_board.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch6_unsurfaced_primitives_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 12,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
+    "module_count": 14,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 613,
+        "expected_sha256": "16a40881ef6d0a14886298d454d668649d1fe85e75c98c92484f452a08f83e0f",
+        "line_count": 613,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/raw_seed_keyphrase.py",
+        "required_anchor_count": 3,
+        "sha256": "16a40881ef6d0a14886298d454d668649d1fe85e75c98c92484f452a08f83e0f",
+        "source_exists": true,
+        "source_ref": "system/lib/raw_seed_keyphrase.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_keyphrase.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 147,
+        "expected_sha256": "e45c163dd7f00f44ab4046ff119c8f3a347863c3ce96ad376254f3466de5f9b0",
+        "line_count": 147,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/raw_seed_spelling.py",
+        "required_anchor_count": 2,
+        "sha256": "e45c163dd7f00f44ab4046ff119c8f3a347863c3ce96ad376254f3466de5f9b0",
+        "source_exists": true,
+        "source_ref": "system/lib/raw_seed_spelling.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_spelling.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 573,
+        "expected_sha256": "e91f3b7dd121722a1b87034f671d61870b8441e147fa3589832dce330fe16f7c",
+        "line_count": 573,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/raw_seed_smart_stoplist.txt",
+        "required_anchor_count": 2,
+        "sha256": "e91f3b7dd121722a1b87034f671d61870b8441e147fa3589832dce330fe16f7c",
+        "source_exists": true,
+        "source_ref": "system/lib/raw_seed_smart_stoplist.txt",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_smart_stoplist.txt"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 592,
+        "expected_sha256": "2d44fbf3d36a53dc2cd4d9752baa5bfc8b4272641c28f494fa1ae99b2c3a266b",
+        "line_count": 592,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+        "required_anchor_count": 3,
+        "sha256": "2d44fbf3d36a53dc2cd4d9752baa5bfc8b4272641c28f494fa1ae99b2c3a266b",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1648,
+        "expected_sha256": "13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
+        "line_count": 1648,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/observability/operator_handoff_linkage.py",
+        "required_anchor_count": 3,
+        "sha256": "13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/operator_handoff_linkage.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 328,
+        "expected_sha256": "1d1e9f92b5cca49965eefc9b91c245a7c38a78bffae1b74089bb95054a09f8df",
+        "line_count": 328,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+        "required_anchor_count": 3,
+        "sha256": "1d1e9f92b5cca49965eefc9b91c245a7c38a78bffae1b74089bb95054a09f8df",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2767,
+        "expected_sha256": "0fee3267cefc416c0a68102722f3e3e0987dfd9ab7fce193d90493b0ee0e919a",
+        "line_count": 2767,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/observability/operator_thread_memory.py",
+        "required_anchor_count": 3,
+        "sha256": "0fee3267cefc416c0a68102722f3e3e0987dfd9ab7fce193d90493b0ee0e919a",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/operator_thread_memory.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_thread_memory.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1433,
+        "expected_sha256": "4e7f4f605988819b8255938d244a1af676c3cb6e1d3e8d43490200d298db9db1",
+        "line_count": 1433,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/market_situation_graph.py",
+        "required_anchor_count": 3,
+        "sha256": "4e7f4f605988819b8255938d244a1af676c3cb6e1d3e8d43490200d298db9db1",
+        "source_exists": true,
+        "source_ref": "system/lib/market_situation_graph.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/market_situation_graph.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 627,
+        "expected_sha256": "6c337d45b8d653dce983d90797ec28e2337a0df79dd06a5c46c24e79f53db5a4",
+        "line_count": 627,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/finance_numeric_assurance.py",
+        "required_anchor_count": 3,
+        "sha256": "6c337d45b8d653dce983d90797ec28e2337a0df79dd06a5c46c24e79f53db5a4",
+        "source_exists": true,
+        "source_ref": "system/lib/finance_numeric_assurance.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/finance_numeric_assurance.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 12707,
+        "expected_sha256": "a74ff732736cbf993e6606bc67f8c4d72dfb4f78f46ea9c623173c6adc99e6b6",
+        "line_count": 12707,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+        "required_anchor_count": 3,
+        "sha256": "a74ff732736cbf993e6606bc67f8c4d72dfb4f78f46ea9c623173c6adc99e6b6",
+        "source_exists": true,
+        "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1582,
+        "expected_sha256": "1b44f090c94298469c103b173af01f797b4d71d7011193b399f7f71c7b9d3eab",
+        "line_count": 1582,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+        "required_anchor_count": 3,
+        "sha256": "1b44f090c94298469c103b173af01f797b4d71d7011193b399f7f71c7b9d3eab",
+        "source_exists": true,
+        "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 477,
+        "expected_sha256": "e59203e7f5f32dfff994854779e8accee4322c8288ea576c72aa4ea5e55bc6b4",
+        "line_count": 477,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/metabolism_market_clock.py",
+        "required_anchor_count": 3,
+        "sha256": "e59203e7f5f32dfff994854779e8accee4322c8288ea576c72aa4ea5e55bc6b4",
+        "source_exists": true,
+        "source_ref": "system/lib/metabolism_market_clock.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/metabolism_market_clock.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 669,
+        "expected_sha256": "3c1c062454f37df97db66448fdc795c76c11e86bf518e7ce90eeaeccea944f43",
+        "line_count": 669,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/population_lane_provider_recovery.py",
+        "required_anchor_count": 3,
+        "sha256": "3c1c062454f37df97db66448fdc795c76c11e86bf518e7ce90eeaeccea944f43",
+        "source_exists": true,
+        "source_ref": "system/lib/population_lane_provider_recovery.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/population_lane_provider_recovery.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 4187,
+        "expected_sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+        "line_count": 4187,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/apps/demo-take-console/support/demo_take_capture.py",
+        "required_anchor_count": 3,
+        "sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+        "source_exists": true,
+        "source_ref": "apps/demo-take-console/support/demo_take_capture.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 15,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_keyphrase.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_spelling.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_smart_stoplist.txt",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_thread_memory.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/market_situation_graph.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/finance_numeric_assurance.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/metabolism_market_clock.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/population_lane_provider_recovery.py",
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule"
+}

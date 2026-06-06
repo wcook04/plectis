@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "coverage_debt_mismatch",
+  "error_codes": [
+    "SELF_IGNORANCE_COVERAGE_DEBT_MISMATCH"
+  ],
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

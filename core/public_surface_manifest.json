@@ -1,0 +1,66 @@
+{
+  "schema_version": "microcosm_public_surface_manifest_v1",
+  "manifest_id": "public_microcosm_surface_manifest",
+  "authority_boundary": "source_manifest_for_public_surface_classes_not_release_approval",
+  "anti_claim": "This manifest classifies public surfaces for validation policy. It does not make any surface release-ready or promote generated projections into source authority.",
+  "surface_classes": {
+    "public_identity_prose": {
+      "description": "Human-facing identity, quickstart, and governance prose where Codex must not appear as a public product brand.",
+      "scan_for_codex_brand_leaks": true,
+      "paths": [
+        "README.md",
+        "QUICKSTART.md",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CONSTITUTION.md",
+        "AXIOMS.md",
+        "PRINCIPLES.md",
+        "ANTI_PRINCIPLES.md",
+        "AGENTS.md"
+      ]
+    },
+    "public_generated_projections": {
+      "description": "Generated public projections and atlas-style summaries. These may carry copied-source provenance refs but are not source doctrine.",
+      "scan_for_codex_brand_leaks": false,
+      "paths": [
+        "AGENT_ROUTES.md",
+        "ARCHITECTURE.md",
+        "atlas/doctrine_lattice_entry_card.json",
+        "core/doctrine_lattice_coverage.json",
+        "ORGANS.md"
+      ]
+    },
+    "public_evidence_graph_cards": {
+      "description": "Authored public-safe evidence cards that bind claims to receipt refs, omissions, and authority ceilings.",
+      "scan_for_codex_brand_leaks": false,
+      "paths": [
+        "core/evidence_graphs/*.json"
+      ]
+    },
+    "paper_module_markdown_projection": {
+      "description": "Legacy/import paper-module Markdown projections. JSON capsules are the migration target for source authority.",
+      "scan_for_codex_brand_leaks": false,
+      "paths": [
+        "paper_modules/*.md"
+      ]
+    },
+    "fixture_and_receipt_provenance": {
+      "description": "Fixture, receipt, and copied-source provenance surfaces; these are validated by fixture/source-module guards instead of prose brand scanning.",
+      "scan_for_codex_brand_leaks": false,
+      "paths": [
+        "fixtures/**",
+        "receipts/**",
+        "examples/**"
+      ]
+    }
+  },
+  "allowed_provenance_markers": [
+    "codex/",
+    "source_modules/codex"
+  ],
+  "projection_hooks": [
+    "public_codex_leak_guard",
+    "doctrine_lattice_coverage",
+    "doctrine_lattice_entry_card"
+  ]
+}

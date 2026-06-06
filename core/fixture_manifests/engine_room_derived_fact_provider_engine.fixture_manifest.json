@@ -1,0 +1,20 @@
+{
+  "fixture_id": "engine_room_derived_fact_provider_engine_fixture_v1",
+  "organ_id": "engine_room_derived_fact_provider_engine",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_derived_fact_provider_engine/input/json_pointer_and_glob_count.json",
+    "fixtures/first_wave/engine_room_derived_fact_provider_engine/input/git_callable_tracked_files.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_derived_fact_provider_engine/input/provider_error_as_data.json",
+    "fixtures/first_wave/engine_room_derived_fact_provider_engine/input/unknown_provider_negative.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.derived_fact_provider_engine evaluate-fixtures --input fixtures/first_wave/engine_room_derived_fact_provider_engine/input --json",
+  "source_refs": [
+    "system/lib/derived_fact_hologram.py",
+    "codex/doctrine/facts/fact_registry.json"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Registry-backed fact provider engine over public fixture roots; not a doctrine truth auditor, full macro registry export, semantic claim validator, or release authority."
+}

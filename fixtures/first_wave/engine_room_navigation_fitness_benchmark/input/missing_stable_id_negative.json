@@ -1,0 +1,44 @@
+{
+  "case_id": "missing_stable_id_negative",
+  "expected_status": "pass",
+  "expected_summary": {
+    "task_count": 1,
+    "sufficiency_pass_count": 0,
+    "sufficiency_fail_count": 1,
+    "debt_candidate_count": 1
+  },
+  "expected_task_statuses": {
+    "missing_agent_diagnostics": {
+      "sufficiency_status": "fail",
+      "sufficiency_failure_kind": "missing_id"
+    }
+  },
+  "benchmark": {
+    "suite": "missing_id_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "missing_agent_diagnostics",
+          "family": "skill_discovery",
+          "task_prompt": "Find the right surface for diagnosing recent agent route failures.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "skills:agent_session_diagnostics"
+          ],
+          "forbidden_first_routes": [
+            "--skill-find"
+          ],
+          "latency_budget_ms": 1200
+        },
+        "packet": {
+          "first_contact_command": "./repo-python kernel.py --context-pack",
+          "wall_ms": 260,
+          "selected_artifacts": [
+            "skills:navigation_metabolism"
+          ],
+          "summary": "route debt row selected but agent session diagnostics was hidden"
+        }
+      }
+    ]
+  }
+}

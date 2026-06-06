@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This fixture validates public synthetic monitor redteam replay boundaries only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live traffic, call providers, mutate source, or authorize release.",
-  "authority_ceiling": "synthetic agent-monitor falsification replay receipts only; no live traffic, private reasoning, internal code, exploit detail, credential, provider, product-performance, source-mutation, or release authority",
+  "anti_claim": "This fixture validates public synthetic monitor redteam replay boundaries, source-backed observation evidence refs, copied macro pattern provenance, and one sanitized release-visible dogfood command trace slice only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live traffic, call providers, mutate source, or authorize release.",
+  "authority_ceiling": "source-backed synthetic agent-monitor falsification replay receipts plus sanitized public dogfood CLI trace evidence only; no live traffic, private reasoning, internal code, exploit detail, credential, provider, product-performance, source-mutation, or release authority",
   "expected_negative_cases": [
     "private_chain_of_thought_leakage",
     "internal_code_export",
@@ -72,27 +72,32 @@
     "MONITOR_REDTEAM_CREDENTIAL_MATERIAL_FORBIDDEN",
     "MONITOR_REDTEAM_LIVE_TRAFFIC_FORBIDDEN",
     "MONITOR_REDTEAM_PRODUCT_PERFORMANCE_CLAIM_FORBIDDEN",
-    "MONITOR_REDTEAM_COVERAGE_WITHOUT_PROBE"
+    "MONITOR_REDTEAM_COVERAGE_WITHOUT_PROBE",
+    "MONITOR_REDTEAM_SOURCE_ARTIFACT_EVIDENCE_MISSING",
+    "MONITOR_REDTEAM_SOURCE_ARTIFACT_EVIDENCE_UNVERIFIED"
   ],
   "title": "Agent monitor redteam falsification replay fixture",
   "validator": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
   "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
-  "body_copied_material_count": 1,
-  "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
+  "body_copied_material_count": 2,
+  "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_and_public_dogfood_trace_slice_with_provenance",
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_371::agent_monitor_redteam_falsification_replay_compound",
+    "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
     "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json"
   ],
   "source_open_body_imports": {
     "schema_version": "microcosm_source_open_body_imports_v1",
     "status": "pass",
     "fixture_manifest_ref": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
-    "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_with_provenance",
-    "body_material_count": 1,
+    "body_material_status": "copied_non_secret_macro_monitor_redteam_pattern_body_and_public_dogfood_trace_slice_with_provenance",
+    "body_material_count": 2,
     "body_material_ids": [
-      "agent_monitor_redteam_extracted_pattern_ledger_row_body_import"
+      "agent_monitor_redteam_extracted_pattern_ledger_row_body_import",
+      "agent_monitor_redteam_public_dogfood_safety_evals_trace_slice_import"
     ],
     "material_classes": [
+      "public_dogfood_command_trace_slice",
       "public_macro_pattern_body"
     ],
     "aggregate_floor_ref": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_module_manifest.json",

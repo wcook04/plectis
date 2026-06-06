@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "microcosm_public_runtime_organ_standard",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.standards_meta_diagnostics_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_standards_meta_diagnostics",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "microcosm_public_runtime_organ_standard",
+    "concept_refs": [
+      "concept.standards_meta_diagnostics_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.operates_standard",
+          "summary": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_standards_meta_diagnostics",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.acts_on_kind",
+          "summary": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "microcosm_public_runtime_organ_standard",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.standards_meta_diagnostics_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
+    ],
+    "operates_standard": "std_microcosm_standards_meta_diagnostics",
+    "source_markdown_digest": "c68879374c99f56e4d1a60f41dcf123ebb2749385b3c98116b3ede2305355332",
+    "source_markdown_line_count": 52,
+    "source_markdown_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md",
+    "triad_role": "author",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "These eleven accepted standards all declare the same microcosm_public_runtime_organ_standard author skill id. The standards-meta-diagnostics standard is the representative class anchor; shared_standard_refs preserve the full declared source set so resolving the skill id is treated as route coverage, not per-standard completion proof.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.author.json"
+    },
+    "source_markdown_digest": "c68879374c99f56e4d1a60f41dcf123ebb2749385b3c98116b3ede2305355332",
+    "source_markdown_line_count": 52,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.microcosm_public_runtime_organ_standard.author.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.microcosm_public_runtime_organ_standard.author.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Public Runtime Organ Standard Author",
+  "status": "active",
+  "title": "Microcosm Public Runtime Organ Standard Author",
+  "triad_role": "author",
+  "triggers": [
+    "An accepted public runtime organ needs a standard row that names its governed kind, source refs, validator contract, receipt contract, authority boundary, and forbidden overclaims.",
+    "The standard can be written from public fixture evidence, copied non-secret body-floor manifests, validator receipts, paper-module capsule refs, mechanism refs, and standards-meta diagnostic evidence without exporting private bodies."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Read the target organ standard, standards registry row, standards-meta diagnostics evidence, source-module manifest, receipt refs, paper-module capsule, mechanism source, generated health, and relation registry before authoring.",
+    "Admit only public-safe runtime-organ standard fields: source refs, validator refs, receipt expectations, authority ceiling, public/private boundary, anti-claim, and skills triad declaration.",
+    "Regenerate the skill corpus and doctrine lattice; keep runtime correctness, release authority, provider authority, private equivalence, and whole-standard completion as explicit non-claims unless source evidence proves them."
+  ]
+}

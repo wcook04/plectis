@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 10533,
-      "line_count": 278,
-      "sha256": "sha256:382516907debd86a55ae81c400ce4c75e52204cceea0a9f11c1ed07175e1aa4f",
-      "target_sha256": "382516907debd86a55ae81c400ce4c75e52204cceea0a9f11c1ed07175e1aa4f",
-      "source_sha256": "382516907debd86a55ae81c400ce4c75e52204cceea0a9f11c1ed07175e1aa4f",
+      "byte_count": 11638,
+      "line_count": 306,
+      "sha256": "sha256:03e482c7fd6a95cf3816820a862f69ab97cd1585483f42dadee813249d8995da",
+      "target_sha256": "03e482c7fd6a95cf3816820a862f69ab97cd1585483f42dadee813249d8995da",
+      "source_sha256": "03e482c7fd6a95cf3816820a862f69ab97cd1585483f42dadee813249d8995da",
       "required_anchors": [
         "ORGAN_ID = \"engine_room_demo\"",
         "def run"

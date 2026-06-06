@@ -38,6 +38,7 @@ DEFAULT_MAX_PAYLOAD_VALUE_BYTES = 16 * 1024
 DEFAULT_MAX_PAYLOAD_CONTAINER_ITEMS = 80
 DEFAULT_MAX_TRACE_FILE_BYTES = 256 * 1024 * 1024
 DEFAULT_MAX_TRACE_ARCHIVES = 4
+TRACE_RETENTION_STATUS_SCHEMA_VERSION = "agent_trace_retention_status_v0"
 ACTIVITY_CANONICAL_TYPES = {
     "turn.prompt",
     "intent.observed",
@@ -100,6 +101,18 @@ MAX_TRACE_ARCHIVES = _env_int(
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds")
+
+
+def _human_bytes(num: int) -> str:
+    units = ["B", "KiB", "MiB", "GiB", "TiB"]
+    value = float(max(num, 0))
+    for unit in units:
+        if value < 1024 or unit == units[-1]:
+            if unit == "B":
+                return f"{int(value)}B"
+            return f"{value:.1f}{unit}"
+        value /= 1024
+    return f"{num}B"
 
 
 def _json_safe(value: Any) -> Any:
@@ -277,6 +290,118 @@ def _read_jsonl_tail_lines(
         # The first line is partial when the bounded read started mid-file.
         lines = lines[1:]
     return [line for line in lines if line.strip()][-limit:]
+
+
+def _safe_stat_size(path: Path) -> int:
+    try:
+        return path.stat().st_size
+    except OSError:
+        return 0
+
+
+def _safe_mtime_iso(path: Path) -> str | None:
+    try:
+        return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
+    except OSError:
+        return None
+
+
+def _relpath(path: Path, *, repo_root: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(repo_root.resolve()))
+    except (OSError, ValueError):
+        return str(path)
+
+
+def build_agent_trace_retention_status(
+    repo_root: Path,
+    *,
+    trace_path: Optional[Path] = None,
+) -> dict[str, Any]:
+    """Return a cheap, read-only status packet for the live AgentTraceStore log."""
+    repo_root = Path(repo_root)
+    path = trace_path or repo_root / DEFAULT_TRACE_RELATIVE_PATH
+    archive_dir = path.parent / "archive"
+    active_bytes = _safe_stat_size(path)
+    archives: list[Path] = []
+    archive_rows: list[dict[str, Any]] = []
+    if archive_dir.exists():
+        archives = sorted(
+            archive_dir.glob(f"{path.stem}_*.jsonl.gz"),
+            key=lambda item: _safe_mtime_iso(item) or "",
+            reverse=True,
+        )
+        for archive in archives:
+            archive_bytes = _safe_stat_size(archive)
+            archive_rows.append(
+                {
+                    "path": _relpath(archive, repo_root=repo_root),
+                    "bytes": archive_bytes,
+                    "human_size": _human_bytes(archive_bytes),
+                    "mtime": _safe_mtime_iso(archive),
+                }
+            )
+
+    archive_bytes_total = sum(int(row["bytes"]) for row in archive_rows)
+    bytes_until_rotation = max(0, MAX_TRACE_FILE_BYTES - active_bytes)
+    if active_bytes >= MAX_TRACE_FILE_BYTES:
+        status = "rotation_due_on_next_append"
+    elif len(archives) > MAX_TRACE_ARCHIVES:
+        status = "archive_count_over_policy"
+    elif path.exists():
+        status = "within_writer_rotation_budget"
+    else:
+        status = "trace_file_missing_waiting_for_writer"
+
+    return {
+        "kind": "agent_trace_retention_status",
+        "schema_version": TRACE_RETENTION_STATUS_SCHEMA_VERSION,
+        "generated_at": _now_iso(),
+        "status": status,
+        "owner_surface": "system/lib/agent_observability.py::AgentTraceStore._rotate_trace_if_needed_locked",
+        "privacy_boundary": (
+            "Retention status uses file metadata only; it does not read trace event bodies or provider archives."
+        ),
+        "active_file": {
+            "path": _relpath(path, repo_root=repo_root),
+            "exists": path.exists(),
+            "bytes": active_bytes,
+            "human_size": _human_bytes(active_bytes),
+            "mtime": _safe_mtime_iso(path),
+            "max_trace_file_bytes": MAX_TRACE_FILE_BYTES,
+            "max_trace_file_human": _human_bytes(MAX_TRACE_FILE_BYTES),
+            "bytes_until_rotation": bytes_until_rotation,
+            "bytes_until_rotation_human": _human_bytes(bytes_until_rotation),
+            "rotation_trigger": "before_next_append_when_active_file_bytes_ge_max_trace_file_bytes",
+        },
+        "archives": {
+            "directory": _relpath(archive_dir, repo_root=repo_root),
+            "exists": archive_dir.exists(),
+            "count": len(archives),
+            "max_trace_archives": MAX_TRACE_ARCHIVES,
+            "bytes": archive_bytes_total,
+            "human_size": _human_bytes(archive_bytes_total),
+            "rows": archive_rows[:MAX_TRACE_ARCHIVES],
+            "omitted_row_count": max(0, len(archive_rows) - MAX_TRACE_ARCHIVES),
+        },
+        "policy": {
+            "max_trace_file_bytes_env": "AIW_AGENT_TRACE_MAX_FILE_BYTES",
+            "max_trace_archives_env": "AIW_AGENT_TRACE_MAX_ARCHIVES",
+            "rotation_mode": "gzip_archive_then_unlink_active_file_before_append",
+            "archive_pruning_mode": "keep_newest_archives_by_mtime",
+            "manual_delete_allowed": False,
+        },
+        "next_actions": {
+            "status_command": "./repo-python -m tools.meta.observability.agent_trace_retention --json",
+            "writer_liveness_check": f"lsof -- {_relpath(path, repo_root=repo_root)}",
+            "host_pressure_check": (
+                "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+                "--host-pressure-compact --host-pressure-event-limit 500"
+            ),
+            "storage_doctor_card": "./repo-python -m tools.meta.storage_doctor scan --top 12 --format card",
+            "mutation_policy": "Do not delete the live trace log; adjust writer retention knobs or let the writer rotate.",
+        },
+    }
 
 
 def _compact_summary(text: object, *, limit: int = 220) -> Optional[str]:

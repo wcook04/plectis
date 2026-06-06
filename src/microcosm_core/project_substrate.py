@@ -41,6 +41,7 @@ OBSERVATORY_BOUNDED_VALIDATION_RULE = (
     "for an interactive browser session."
 )
 HASH_CHUNK_SIZE = 1024 * 1024
+_EVENT_NUMBER_CACHE: dict[Path, tuple[tuple[int, int] | None, int]] = {}
 
 IGNORE_DIRS = {
     ".git",
@@ -146,6 +147,53 @@ def _evidence_dir(project: Path) -> Path:
     return _state_dir(project) / EVIDENCE_DIR
 
 
+def _event_stream_path(project: Path) -> Path:
+    return _state_dir(project) / EVENT_STREAM
+
+
+def _path_exists(path: Path) -> bool:
+    try:
+        return path.exists()
+    except OSError:
+        return False
+
+
+def _path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
+
+
+def _path_is_dir(path: Path) -> bool:
+    try:
+        return path.is_dir()
+    except OSError:
+        return False
+
+
+def _path_mtime_ns(path: Path) -> int | None:
+    try:
+        return path.stat().st_mtime_ns
+    except OSError:
+        return None
+
+
+def _path_size(path: Path) -> int:
+    try:
+        return path.stat().st_size
+    except OSError:
+        return 0
+
+
+def _event_stream_signature(path: Path) -> tuple[int, int] | None:
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+    return (stat.st_mtime_ns, stat.st_size)
+
+
 def _project_relative(project: Path, path: Path) -> str:
     try:
         return path.resolve(strict=False).relative_to(project.resolve(strict=False)).as_posix()
@@ -155,14 +203,14 @@ def _project_relative(project: Path, path: Path) -> str:
 
 def _read_project_json(project: Path, rel: str) -> dict[str, Any]:
     path = _state_dir(project) / rel
-    if not path.is_file():
+    if not _path_is_file(path):
         return {}
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
-    if not path.is_file():
+    if not _path_is_file(path):
         return []
     rows: list[dict[str, Any]] = []
     with path.open("r", encoding="utf-8") as fh:
@@ -176,7 +224,7 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _read_event_stream_summary(path: Path, *, tail_limit: int = 20) -> dict[str, Any]:
-    if not path.is_file():
+    if not _path_is_file(path):
         return {
             "event_count": 0,
             "spans": {},
@@ -207,7 +255,7 @@ def _read_event_stream_summary(path: Path, *, tail_limit: int = 20) -> dict[str,
 
 
 def _iter_files_under(root: Path, *, suffix: str | None = None) -> Iterator[Path]:
-    if not root.is_dir():
+    if not _path_is_dir(root):
         return
     pending = [root]
     while pending:
@@ -233,21 +281,48 @@ def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
 
 
 def _append_event(project: Path, event: dict[str, Any]) -> None:
-    event_path = _state_dir(project) / EVENT_STREAM
+    event_path = _event_stream_path(project)
     event_path.parent.mkdir(parents=True, exist_ok=True)
     with event_path.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(event, ensure_ascii=True, sort_keys=True) + "\n")
+    event_number = _event_number_from_id(event.get("event_id"))
+    cache_key = event_path.resolve(strict=False)
+    if event_number is None:
+        _EVENT_NUMBER_CACHE.pop(cache_key, None)
+        return
+    _EVENT_NUMBER_CACHE[cache_key] = (
+        _event_stream_signature(event_path),
+        event_number + 1,
+    )
+
+
+def _event_number_from_id(event_id: object) -> int | None:
+    if not isinstance(event_id, str) or not event_id.startswith("evt_"):
+        return None
+    try:
+        return int(event_id.removeprefix("evt_"))
+    except ValueError:
+        return None
 
 
 def _next_event_number(project: Path) -> int:
-    event_path = _state_dir(project) / EVENT_STREAM
-    if not event_path.is_file():
+    event_path = _event_stream_path(project)
+    cache_key = event_path.resolve(strict=False)
+    signature = _event_stream_signature(event_path)
+    cached = _EVENT_NUMBER_CACHE.get(cache_key)
+    if cached is not None and cached[0] == signature:
+        return cached[1]
+    if signature is None:
+        _EVENT_NUMBER_CACHE[cache_key] = (signature, 1)
         return 1
     try:
         with event_path.open("r", encoding="utf-8") as fh:
-            return sum(1 for line in fh if line.strip()) + 1
+            next_number = sum(1 for line in fh if line.strip()) + 1
     except FileNotFoundError:
-        return 1
+        signature = None
+        next_number = 1
+    _EVENT_NUMBER_CACHE[cache_key] = (signature, next_number)
+    return next_number
 
 
 def _sha256_file(path: Path) -> str:
@@ -262,7 +337,7 @@ def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> s
     ref = f"{EVIDENCE_DIR}/{action_id}.json"
     evidence_path = _state_dir(project) / ref
     stable_ref = f"{STATE_DIR}/{ref}"
-    previous_sha256 = _sha256_file(evidence_path) if evidence_path.is_file() else None
+    previous_sha256 = _sha256_file(evidence_path) if _path_is_file(evidence_path) else None
     evidence_payload = dict(payload)
     evidence_payload.setdefault("evidence_ref", stable_ref)
     evidence_payload["evidence_replacement"] = {
@@ -474,7 +549,7 @@ def index_project(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
-    if not (_state_dir(project) / "project_manifest.json").is_file():
+    if not _path_is_file(_state_dir(project) / "project_manifest.json"):
         init_project(project)
     catalog = _project_catalog_payload(project)
     write_json_atomic(_state_dir(project) / "catalog.json", catalog)
@@ -713,7 +788,7 @@ def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None
         (root_module_path / "__init__.py").as_posix(),
     ]
     for candidate in candidates:
-        if (project / candidate).is_file():
+        if _path_is_file(project / candidate):
             return candidate
     return None
 
@@ -1085,7 +1160,7 @@ def _existing_project_refs(project: Path, refs: list[str | None]) -> list[str]:
         rel = str(ref)
         if rel in seen:
             continue
-        if (project / rel).is_file():
+        if _path_is_file(project / rel):
             seen.add(rel)
             existing.append(rel)
     return existing
@@ -1105,7 +1180,7 @@ def _route_utility_ratchet(
             ref
             for refs in task_surface_refs.values()
             for ref in refs
-            if (project / ref).is_file()
+            if _path_is_file(project / ref)
         }
     )
     high_risk_route_families = [
@@ -1135,7 +1210,7 @@ def _route_utility_ratchet(
                 "symbol, graph, or payload-boundary surfaces change"
             ),
         }
-    if not state_path.is_file():
+    if not _path_is_file(state_path):
         return {
             "schema_version": "microcosm_python_route_utility_ratchet_v1",
             "seed_task_count": len(tasks),
@@ -1153,12 +1228,34 @@ def _route_utility_ratchet(
                 "name affected route tasks"
             ),
         }
-    state_mtime_ns = state_path.stat().st_mtime_ns
-    changed_surface_refs = [
-        rel
-        for rel in watched_refs
-        if (project / rel).stat().st_mtime_ns > state_mtime_ns
-    ]
+    state_mtime_ns = _path_mtime_ns(state_path)
+    if state_mtime_ns is None:
+        return {
+            "schema_version": "microcosm_python_route_utility_ratchet_v1",
+            "seed_task_count": len(tasks),
+            "generated_task_count": 0,
+            "changed_surface_refs": [],
+            "affected_task_ids": [],
+            "stale_task_ids": [],
+            "high_risk_route_families": high_risk_route_families,
+            "sampled_from": watched_refs,
+            "state_freshness": "unreadable_written_state",
+            "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+            "last_run_result": "nothing_to_refine",
+            "next_reentry_condition": (
+                "rerun non-writing route utility ratchet after python_lens "
+                "state metadata can be read"
+            ),
+        }
+    changed_surface_refs: list[str] = []
+    unreadable_surface_count = 0
+    for rel in watched_refs:
+        source_mtime_ns = _path_mtime_ns(project / rel)
+        if source_mtime_ns is None:
+            unreadable_surface_count += 1
+            continue
+        if source_mtime_ns > state_mtime_ns:
+            changed_surface_refs.append(rel)
     changed_set = set(changed_surface_refs)
     affected_task_ids = [
         task_id
@@ -1182,6 +1279,7 @@ def _route_utility_ratchet(
         "stale_task_ids": affected_task_ids,
         "high_risk_route_families": high_risk_route_families,
         "sampled_from": watched_refs,
+        "unreadable_surface_count": unreadable_surface_count,
         "state_freshness": "compared_to_written_state",
         "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
         "last_run_result": last_run_result,
@@ -2517,7 +2615,7 @@ def _observed_reader_causal_chain_card(
         else {}
     )
     graph = _read_project_json(project, "graph.json")
-    evidence = list_evidence(project)
+    evidence = list_evidence(project, limit=0)
     return _reader_causal_chain_card(
         project,
         route_id=route_id,
@@ -2547,7 +2645,7 @@ def _project_observe_state_write_proof_card(
     for ref in required_state_refs:
         relative = ref.removeprefix(f"{STATE_DIR}/")
         target = state_root / relative.rstrip("/")
-        state_ref_statuses[ref] = target.exists()
+        state_ref_statuses[ref] = _path_exists(target)
     missing_state_refs = [
         ref for ref, exists in state_ref_statuses.items() if not exists
     ]
@@ -2555,11 +2653,11 @@ def _project_observe_state_write_proof_card(
     return {
         "schema_version": "microcosm_project_observe_state_write_proof_ref_v1",
         "status": PASS
-        if state_root.is_dir() and not missing_state_refs
+        if _path_is_dir(state_root) and not missing_state_refs
         else "missing_state_refs",
         "status_scope": "project_local_state_write_handoff",
         "state_dir": STATE_DIR,
-        "state_dir_exists": state_root.is_dir(),
+        "state_dir_exists": _path_is_dir(state_root),
         "state_file_count": state_file_count,
         "required_state_refs": required_state_refs,
         "missing_state_refs": missing_state_refs,
@@ -2712,7 +2810,7 @@ def explain_route(
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
-    if not (_state_dir(project) / "routes.json").is_file():
+    if not _path_is_file(_state_dir(project) / "routes.json"):
         propose_routes(project)
     explanation = architecture_kernel.explain_route(project, route_id)
     if explanation.get("status") != PASS:
@@ -2917,14 +3015,17 @@ def _evidence_payload_summary(payload: dict[str, Any]) -> dict[str, Any]:
 def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     rel = ref.removeprefix(f"{STATE_DIR}/").rstrip("/")
     path = _state_dir(project) / rel
+    exists = _path_exists(path)
+    is_dir = _path_is_dir(path)
+    is_file = _path_is_file(path)
     row: dict[str, Any] = {
         "ref": ref,
-        "exists": path.exists(),
-        "kind": "directory" if ref.endswith("/") or path.is_dir() else "file",
+        "exists": exists,
+        "kind": "directory" if ref.endswith("/") or is_dir else "file",
     }
-    if path.is_file():
-        row["bytes"] = path.stat().st_size
-    elif path.is_dir():
+    if is_file:
+        row["bytes"] = _path_size(path)
+    elif is_dir:
         row["json_count"] = _count_files_under(path, suffix=".json")
     return row
 
@@ -2934,12 +3035,7 @@ def _compile_source_freshness(
 ) -> dict[str, Any]:
     cache_ref = f"{STATE_DIR}/state_index.json"
     cache_path = _state_dir(project) / "state_index.json"
-    cache_mtime_ns: int | None = None
-    try:
-        if cache_path.is_file():
-            cache_mtime_ns = cache_path.stat().st_mtime_ns
-    except FileNotFoundError:
-        cache_mtime_ns = None
+    cache_mtime_ns = _path_mtime_ns(cache_path) if _path_is_file(cache_path) else None
 
     catalog_files = catalog.get("files") if isinstance(catalog, dict) else None
     if isinstance(catalog_files, list):
@@ -2960,9 +3056,8 @@ def _compile_source_freshness(
             continue
         source_path = project / rel
         parent_dirs.add(source_path.parent)
-        try:
-            source_mtime_ns = source_path.stat().st_mtime_ns
-        except FileNotFoundError:
+        source_mtime_ns = _path_mtime_ns(source_path)
+        if source_mtime_ns is None:
             missing_cached_source_count += 1
             continue
         tracked_source_count += 1
@@ -2975,9 +3070,8 @@ def _compile_source_freshness(
     newest_directory_mtime_ns: int | None = None
     if cache_mtime_ns is not None and freshness_source == "cached_catalog":
         for directory in parent_dirs:
-            try:
-                directory_mtime_ns = directory.stat().st_mtime_ns
-            except FileNotFoundError:
+            directory_mtime_ns = _path_mtime_ns(directory)
+            if directory_mtime_ns is None:
                 stale_directory_count += 1
                 continue
             if (
@@ -3189,7 +3283,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     route_explanation_status = explanation.get("status") if route_id else "missing_route"
     state_status = (
         PASS
-        if _state_dir(project).is_dir()
+        if _path_is_dir(_state_dir(project))
         and not missing_state_refs
         and bool(state_index)
         and bool(route_id)
@@ -3320,7 +3414,7 @@ def compile_project(
 ) -> dict[str, Any]:
     """Run the safe public substrate loop over a user-owned project."""
     project = Path(project_path).expanduser().resolve(strict=False)
-    if not (_state_dir(project) / "project_manifest.json").is_file():
+    if not _path_is_file(_state_dir(project) / "project_manifest.json"):
         init_project(project)
     index_result = index_project(project, refresh_architecture=False)
     catalog = catalog_project(project)
@@ -3348,7 +3442,7 @@ def compile_project(
         explain_route(project, route_id, refresh_architecture=False) if route_id else {}
     )
     observed = observe_project(project, refresh_architecture=False)
-    evidence = list_evidence(project)
+    evidence = list_evidence(project, limit=0)
     architecture = architecture_kernel.write_project_architecture(project)
     graph = _read_project_json(project, "graph.json")
     work_id = work_result.get("work_id")

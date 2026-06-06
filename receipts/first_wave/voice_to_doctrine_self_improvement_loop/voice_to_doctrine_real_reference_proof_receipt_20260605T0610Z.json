@@ -1,0 +1,99 @@
+{
+  "schema": "microcosm_real_reference_proof_receipt_v1",
+  "component_id": "voice_to_doctrine_self_improvement_loop",
+  "generated_at": "2026-06-05T06:10:00Z",
+  "lane": "R1_to_R3_real_reference_proof",
+  "status": "queued_rerank_bound",
+  "rerank_binding": {
+    "queued_reason": "Lesson reference validation now resolves every changed_surface_ref, evidence_ref, evidence_refs item, validation_ref, and closeout_ref against exported bundle files, source-module manifest targets, or the checked-in public Microcosm tree.",
+    "shared_triage_surfaces_mutated": false,
+    "binding_surface": "component_receipt"
+  },
+  "resolved_reference_contract": {
+    "fields": [
+      "changed_surface_ref",
+      "evidence_ref",
+      "evidence_refs",
+      "validation_ref",
+      "closeout_ref"
+    ],
+    "allowed_roots": [
+      "exported_bundle_public_root",
+      "exported_bundle_source_module_manifest_targets",
+      "checked_in_public_microcosm_tree"
+    ],
+    "anchor_requirement": "When a ::anchor suffix is present, the anchor must occur in the resolved file text.",
+    "broad_macro_repo_root_fallback": false
+  },
+  "owned_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+    "microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py",
+    "microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json",
+    "microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/local_lessons.json"
+  ],
+  "proof_cases": [
+    {
+      "case_id": "good_public_bundle_refs_resolve",
+      "status": "pass",
+      "evidence": "run-bundle card returned status pass with no error codes."
+    },
+    {
+      "case_id": "good_fixture_refs_resolve",
+      "status": "pass",
+      "evidence": "direct fixture run returned status pass with blocking_error_code_count 0."
+    },
+    {
+      "case_id": "dangling_changed_surface_ref_rejects",
+      "status": "pass",
+      "error_code": "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+    },
+    {
+      "case_id": "inflated_evidence_anchor_rejects",
+      "status": "pass",
+      "error_code": "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+    },
+    {
+      "case_id": "dangling_validation_ref_rejects",
+      "status": "pass",
+      "error_code": "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+    },
+    {
+      "case_id": "inflated_closeout_anchor_rejects",
+      "status": "pass",
+      "error_code": "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+    }
+  ],
+  "validation": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-pytest -p no:cacheprovider microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py -q --basetemp /tmp/microcosm-voice-doctrine-proof",
+      "status": "pass",
+      "summary": "11 passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run-bundle --input microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-doctrine-bundle-proof --card",
+      "status": "pass",
+      "summary": "status pass; no error codes; release_authorized false"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out /tmp/microcosm-voice-doctrine-fixture-proof --acceptance-out /tmp/microcosm-voice-doctrine-fixture-proof/acceptance.json --card",
+      "status": "pass",
+      "summary": "status pass; observed negative case count 6; blocking_error_code_count 0; release_authorized false"
+    },
+    {
+      "command": "rg -n 'codex/|AGENTS\\.md|state/task_ledger|state/microcosm_portfolio|pytest ' microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/local_lessons.json",
+      "status": "pass",
+      "summary": "no macro/private reference matches"
+    },
+    {
+      "command": "git diff --check -- microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/local_lessons.json",
+      "status": "pass",
+      "summary": "no whitespace errors"
+    }
+  ],
+  "release_boundary": {
+    "release_authorized": false,
+    "public_toggle_changed": false,
+    "private_root_widened": false,
+    "raw_private_substrate_mutated": false
+  }
+}

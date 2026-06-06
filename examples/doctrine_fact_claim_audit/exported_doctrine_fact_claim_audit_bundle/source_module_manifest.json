@@ -6,8 +6,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 71802,
-      "line_count": 1753,
+      "byte_count": 114309,
+      "line_count": 2836,
       "material_class": "public_macro_source_body",
       "path": "source_modules/system/lib/derived_fact_hologram.py",
       "required_anchors": [
@@ -15,14 +15,14 @@
         "fact",
         "find_unbound_numeric_claims"
       ],
-      "sha256": "e4f6f718783066f6044d3dd50ac16acd68b88cc2118c388be40b3c9c917a5fbc",
+      "sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/derived_fact_hologram.py",
-      "source_sha256": "e4f6f718783066f6044d3dd50ac16acd68b88cc2118c388be40b3c9c917a5fbc",
+      "source_sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
-      "target_sha256": "e4f6f718783066f6044d3dd50ac16acd68b88cc2118c388be40b3c9c917a5fbc"
+      "target_sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed"
     },
     {
       "body_copied": true,

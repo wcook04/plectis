@@ -1,0 +1,47 @@
+{
+  "route_source_summary": {
+    "flat_route_ref_count": 3,
+    "idea_route_ref_count": 8
+  },
+  "schema_version": "cold_agent_ab_tasks_fixture_v1",
+  "tasks": [
+    {
+      "arms": [
+        "A.flat_repo_entry",
+        "B.idea_first_packet"
+      ],
+      "expected_refs": [
+        "navigation/entry_packet.json",
+        "standards/idea.json",
+        "registry/standards.json"
+      ],
+      "id": "task.find_standard_route",
+      "prompt": "find the idea standard route"
+    },
+    {
+      "arms": [
+        "A.flat_repo_entry",
+        "B.idea_first_packet"
+      ],
+      "expected_refs": [
+        "navigation/atlas.json",
+        "receipts/cold_agent_ab_seed.json",
+        "release/publication_gate.json"
+      ],
+      "id": "task.check_receipt_gate",
+      "prompt": "check the cold eval receipt gate"
+    },
+    {
+      "arms": [
+        "A.flat_repo_entry",
+        "B.idea_first_packet"
+      ],
+      "expected_refs": [
+        "registry/validators.json",
+        "cards/idea.navigation_before_search.md"
+      ],
+      "id": "task.trace_validator_card",
+      "prompt": "trace the validator card"
+    }
+  ]
+}

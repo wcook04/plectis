@@ -1,0 +1,61 @@
+{
+  "case_id": "scoped_changed_path",
+  "expected_status": "clean",
+  "expected_owner_count": 1,
+  "changed_paths": [
+    "generated/report.md"
+  ],
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"scoped\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "scoped projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text": "scoped projection\n"
+    },
+    {
+      "path": "other/source.txt",
+      "text": "other\n"
+    },
+    {
+      "path": "other/out.txt",
+      "text": "other\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "Selected by the changed generated report path.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ]
+    },
+    {
+      "owner_id": "other_projection",
+      "description": "Not selected by the changed generated report path.",
+      "artifacts": [
+        "other/out.txt"
+      ],
+      "source_authorities": [
+        "other/source.txt"
+      ],
+      "check_command": [
+        "builtin:fail"
+      ]
+    }
+  ]
+}

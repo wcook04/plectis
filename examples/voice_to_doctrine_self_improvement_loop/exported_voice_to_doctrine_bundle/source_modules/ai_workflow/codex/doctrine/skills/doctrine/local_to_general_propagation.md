@@ -12,18 +12,31 @@ triggers:
   - "A local failure, route miss, repeated workaround, stale projection, or agent confusion might represent a reusable failure class"
   - "An operator gives a pasted snippet, log line, or sibling-agent quote and asks for non-overfit system refinement"
   - "An operator gives a pasted trace capsule, old transcript, or prior-agent trace and asks for generalized system refinement"
+  - "An operator asks to use arbitrary traces, receipts, logs, or old agent output as inspiration for generalized system improvements without overfitting to the source example"
+  - "A pasted trace contains nested attachment priority language, embedded continuation prompts, or cohort/subagent requests that may not be the current operator intent"
   - "An unverified handoff, route map, or dirty-baseline note needs generalized trace refinement"
   - "A runtime prerequisite, readiness probe, or background launcher blocker needs a generalized receipt boundary"
   - "A trace shows repeated detection or classification while actuator, validator, or generated-builder closure remains unproven"
+  - "A continuous monitor, regression conscience, or polling trace reports committed-HEAD churn, quiet-window races, watch receipts, scratch-log eviction, or host-pressure backoff"
+  - "A scoped commit, private-index commit, or transaction landing trace repeatedly loses parent CAS after refreshed validation and must stop with a canonical validated-uncommitted receipt"
   - "A trace shows macro/public mirror copy refresh, exact-copy manifest drift, source-to-target digest drift, or public safety membrane before write"
+  - "A mirror/import trace changes validation status under a different runner or discovers an active owner daemon over candidate manifests"
   - "A trace asks for better Playwright, computer use, frontend control, click/drag modeling, or agent-native actuator integration"
   - "An actuator or UI-control tool should generalize from screenshots into receipt-grade perception and state-change proof"
   - "A trace expands browser control into Mac/app/VM/background reality control and needs focus-debt, risk-gate, sensor escalation, or adversarial-control receipts"
   - "A trace closeout reports mission-owned work clean while global closeout, publication, autonomous commits, or foreign dirty clusters remain unsettled"
+  - "A closeout trace claims build/test output but needs artifact-effect proof beyond commit or push receipt"
+  - "A scoped builder or generated-projection write expands into unrelated source/projection drift or dirty source registries"
+  - "A continuation or admission trace mixes source-authority edits, proof-only companions, targeted generated refresh, and claimed aggregate projection lanes"
+  - "A generated public projection refresh is refused by admission, host pressure, or live owner claims after source/test companion commits landed"
+  - "A manually queued continuation seed recovers live owner claims and must choose between continuing, coordinating, pivoting, or blocking without duplicating an already-claimed prompt, skill, or work surface"
   - "A generated public receipt refresh would mix legitimate count changes with volatile local paths, mtimes, or cache refs"
   - "A closeout scheduler or stop hook keeps selecting moving foreign drain clusters after a mission verdict proves owned work clean"
+  - "A fleet conductor trace finds stale heartbeat-only sessions, zombie goals, unreachable provider threads, or expired claims with dirty patches"
   - "A trace builds a foundry, generator, compiler, scaffold, or authoring surface when the operator wanted the object-level outputs it should produce"
   - "A trace exposes proof handles, code_loci drift, owner-tool fields, auto-stubs, or visible debt count changes"
+  - "A trace plans or runs structured public-copy waves across fields such as human_gloss, claim ceilings, wiring/link notes, or family blurbs and asks for generalized system refinement"
+  - "A trace proves reader-compression rows such as one_line/card/authority_ceiling are populated but not spent by first-contact entry projections"
   - "Mechanism/WorkItem boundary confusion appears: should mechanisms merge with WorkItems, mechanisms describe work, or mechanism pressure should cluster WorkItems"
 focus_paths:
   - codex/doctrine/skills/doctrine/local_to_general_propagation.md
@@ -49,18 +62,18 @@ description: "Atom entrypoint for Local-to-General Propagation; select a child b
 
 ## Purpose
 
-This is the cold-entry atom for `local_to_general_propagation`. The prior monolithic skill exceeded the entrypoint-health budget; its load-bearing detail now lives in child skill files under the same family directory.
+Cold-entry atom for `local_to_general_propagation`. The former monolith exceeded the entrypoint-health budget; load-bearing detail now lives in child skill files under this family.
 
 ## Operator Snippet Intake
 
-When the operator gives a fragment, transcript line, log excerpt, sibling-agent quote, or "random snippet" and asks Type A to improve the system, treat the snippet as evidence plus intent, not as the whole instruction or the whole law. First extract the generalizable tuple:
+When the operator gives a fragment, transcript line, log excerpt, sibling-agent quote, or "random snippet" and asks Type A to improve the system, treat it as evidence plus intent, not the instruction or law. First extract:
 
 1. local signal: the symptom, blocker, intended action, and claimed or missing receipt;
 2. candidate failure class: for example `runtime_prerequisite_gap`, `launch_readiness_receipt_gap`, `background_work_receipt_gap`, `route_discoverability_gap`, or `closeout_truthfulness_gap`;
 3. owner candidates: the narrow skill, standard, paper module, launcher, checker, route, or test surface that would prevent re-derivation;
 4. overfit guard: the product/tool/token named in the snippet is an example unless the selected owner is explicitly that product/tool lane.
 
-Then use the normal plane-home decision table. Patch the owner when safe, record already-propagated proof when the owner already carries the rule, or capture the residual with an exact re-entry condition. Do not add a literal alias just because a pasted phrase matched; prove whether the defect is route discoverability, missing receipt semantics, runtime readiness, or some other owner boundary.
+Then use the plane-home decision table. Patch the owner when safe, record already-propagated proof when it already carries the rule, or capture the residual with exact re-entry. Do not add a literal alias just because a pasted phrase matched; prove whether the defect is route discoverability, receipt semantics, runtime readiness, or another owner boundary.
 
 When the fragment is a long trace capsule or prior-agent transcript, split it before acting:
 
@@ -70,37 +83,93 @@ When the fragment is a long trace capsule or prior-agent transcript, split it be
 4. local-to-general decision: whether to continue active work, land/capture a coherent residual, or refine the generalized rule because the operator asked for system improvement rather than active-task continuation;
 5. overfit guard: product names, phase names, and one trace's tool tokens are examples unless the selected owner is explicitly that lane.
 
+For arbitrary traces, receipts, logs, screenshots, old agent output, or "random fragments" used as inspiration, run the trace-to-system-improvement loop before adding doctrine:
+
+1. normalize the input as an evidence sample: source kind, claimed action, claimed receipt, observed blocker, and what is historical-only;
+2. extract the portable pressure: route friction, receipt truth, actuator gap, validation ergonomics, projection hygiene, concurrency/resource pressure, closeout truthfulness, operator-friction repair, or missing owner adoption;
+3. inspect existing owner and sibling surfaces before inventing: the closest skill, standard, route predicate, checker, builder, launch/readiness probe, prompt item, paper module, or WorkItem spine;
+4. choose one durable outcome: patch the narrow owner, add or repair a verifier, record `already_propagated_verified`, capture a residual with exact re-entry, or prove residual-free `nothing_to_refine`;
+5. record the overfit boundary: which nouns, commands, file names, products, metrics, dates, and one-off counts are examples only, and which invariant was actually generalized.
+
+Do not make every trace produce a new rule. The pass is successful when the trace makes the system easier to navigate, validate, actuate, project, or close out next time. If no safe owner exists after inspection, capture the residual or name the exact claim, policy, or evidence blocker rather than adding broad motivational prose.
+
 Do not trust a transcript summary over live state. Before using it as more than historical evidence, check the current owner surface: HEAD/worktree for code claims, route output for navigation claims, tests/checkers for validator claims, and process/readiness receipts for runtime claims.
+
+When the sample shows a prior agent scouting live state, evaluate the scouting pattern rather than copying its domain verdict. Specific counts, rosters, release colors, commit subjects, phase names, and product labels are example facts unless the selected owner is explicitly that live lane. The durable lesson is usually trace-to-owner verification, command-probe hygiene, fleet/claim coordination, receipt-truth boundary, or currentness-before-continuation.
 
 For advisory handoff traces, do not let embedded domain nouns override latest operator intent. Treat "interpretation not verified", route maps, prior-thread notes, and dirty-baseline language as advisory evidence. Prove live substrate, baseline state, owner surfaces, and sanctioned verifier before continuing; for generalized refinement, patch the propagation/route owner.
 
-For runtime and launcher-shaped snippets, the generalized rule is receipt separation. A missing executable, backend, provider socket, daemon, browser binary, model weight, API key, or local service is not "fixed" until the owning lane distinguishes dependency availability, install/setup attempt, launch attempt, readiness probe, validation state (`passed`, `failed`, `blocked`, or `not_run`), and background-process receipt when work continues detached. Background work that stays alive needs a visible pid/session id, log path, readiness command, and stop/retry command; otherwise close it as blocked/not-run or capture the residual.
+For nested-attachment or embedded-cohort traces, the attachment hierarchy itself is evidence, not an execution plan. A prior agent may say "mainly listen to the prior attachment", declare `subagent_cohort`, name a worker count, or repeat an object-level target; the receiving agent must first restate the current operator intent and classify whether the latest request asks for object-level continuation, record/capture only, or generalized system improvement. Only the latest operator message plus live kernel/claim state can promote an embedded execution mode, cohort size, or product target into current work.
+
+Classify this failure as `embedded_trace_execution_mode_boundary` when a trace risks importing old execution mode or worker-count language into a propagation pass. Extract: latest operator ask; embedded historical asks; attachment priority notes; declared execution mode and worker count; live Work Ledger/phase state; whether the object-level target is claimed, settled, or out of scope; and the selected plane home. For generalized refinement, patch the owner surface that teaches the boundary instead of spawning workers, continuing the embedded product lane, or treating the old cohort request as a live command.
+
+For manually queued continuation seeds, classify the live lane before selecting a mutation: continue owned work, coordinate with the current owner, pivot to a genuinely disjoint owner surface, or record blocked non-success with an exact re-entry condition. If the obvious prompt, skill, standard, or work item is actively claimed, treat that as a `claim_blocked_frontier`: read the owner session, request release or handoff when useful, and only land unclaimed same-capability hunks whose owner is independent. Do not clone the claimed prompt/skill or use Task Ledger capture as the refinement product when a live owner surface is already landing the rule.
+
+If repeated continuation seeds have already patched one owner surface for the same failure class, treat the next pass as a plane-home re-entry check, not permission to keep adding adjacent prose to that surface. Re-run live claims and context-pack, then choose one of three outcomes: land the next independent owner surface, record `already_propagated_verified` with exact path/commit evidence, or block on the current owner with the re-entry condition. The no-null rule requires durable progress, not repeated elaboration of a settled paragraph.
+
+For goal-fleet or conductor traces, classify stale control surfaces before closing or waking them. A heartbeat-only session, zombie goal, unreachable provider thread, archived thread, failed title/pin/archive action, or expired claim with dirty paths is not automatically cleanup and not automatically live work. Classify it as `fleet_control_reconciliation_boundary`: read the live Work Ledger/session card, thread/tool readback if available, dirty path state, claim lease, proof consumer, and closeout receipt before choosing continue, coordinate, fenced takeover, supersede/finalize, archive, or no-send/watch. If the session still carries useful dirty work, claim and validate the exact owner paths before landing or record a blocked re-entry; if it is already superseded, finalize against the superseding commit or receipt; if the provider control action fails, record the exact tool limitation and choose the disk-backed receipt lane rather than inventing a UI workaround.
+
+For runtime and launcher-shaped snippets, the generalized rule is receipt separation. A missing executable, backend, provider socket, daemon, browser binary, model weight, API key, or local service is not "fixed" until the owning lane distinguishes dependency availability, setup/install, launch, readiness, validation state (`passed`, `failed`, `blocked`, or `not_run`), and detached-process receipt. Background work needs a visible pid/session id, log path, readiness command, and stop/retry command; otherwise close it as blocked/not-run or capture the residual.
 
 If the trace shows repeated detection, throttling, classification, or advisory gating while the problem persists, inspect the actuator lane before adding another detector. The useful owner may be a cleanup command, liveness classifier, persistent local config, readiness probe, or deferred maintenance capture. Cheap relief and heavy maintenance have different receipts; defer heavy work with an exact retry condition when host pressure makes it unsafe.
+
+For continuous monitor or regression-conscience traces, do not generalize into the named product, gate, or commit cadence. The reusable class is `continuous_monitor_churn_receipt_boundary`: a long-running lane must be a state machine over committed snapshots, stability windows, host budget, durable receipts, and process lifecycle, not an ad hoc chat loop that turns every poll into substrate churn.
+
+Extract and route these fields before patching or continuing a monitor:
+
+1. write envelope: declared writable roots, hidden mutating side effects such as command caches or default report paths, and the read-only commands that still need output redirection;
+2. snapshot boundary: base commit, dirty/WIP exclusion, quiet-window duration, immediate pre-cycle HEAD check, post-cycle HEAD check, and whether the same commit survived long enough for `green` or `red`;
+3. candidate identity gates: a candidate becomes eligible only after the same snapshot survives the quiet window, an immediate pre-check identity read, the focused/full check profile, and an immediate post-check identity read. If the watched identity changes at any point, archive the evidence under the superseded snapshot and emit `watch`, not `green`, `red`, or "almost current";
+4. churn policy: superseded heads become `watch` or range catch-up receipts with first/last hash, count, retained head, and re-entry condition; do not lower the quiet threshold or run expensive checks on stale heads just to produce motion;
+5. host-pressure policy: snapshot size, free-space floor, focused-versus-full check profile, cleanup command, and `blocked` receipt when the host budget cannot support another run;
+6. durable proof: `/tmp` is scratch only. Durable receipts must carry compact command outputs or log copies under the lane-owned artifact root; if scratch cleanup invalidates raw pointers, record scratch-eviction proof and change future logs to durable storage;
+7. process lifecycle: one visible controller loop with session/pid/heartbeat, stop/retry command, and subagent role boundaries; helper agents may scout receipts but must not fork duplicate monitors or mutate the watched product lane. Before re-entry, prove the previous controller is gone or explicitly handed off; otherwise the correct receipt is duplicate-controller blocked;
+8. verdict semantics: `watch`, `flaky`, `red-with-culprit`, `green`, and `blocked` are distinct. A focused reproduction can prove a stable red; a moved HEAD during checks is archived evidence for that snapshot, not the latest committed-state verdict. A stale board, stale status file, stale process id, or old receipt is an input to catch-up, not authority to skip the identity gate.
+
+If the monitor is already producing coherent durable receipts, patch the smallest monitor contract, runner, status-board schema, or diagnostics skill that would make the loop reusable. If no owner exists and the trace only exposes one product's temporary cadence, capture a residual with the exact re-entry condition instead of adding product-specific doctrine.
 
 For validator or authority-gate trace snippets, green happy-path output is not enough when the trace suggests a loosened gate, partial coverage, generated/source mismatch, or positive-overclaim risk. Require at least one negative or adversarial receipt proving forbidden cases fail, distinguish affirmative overclaim prose from negated ceiling language, and land generated artifacts with their builder/source authority or capture the pairing gap.
 
 For proof-handle or lattice traces, separate executable authority from decorative completeness. A cited `code_loci`, path/function, validator, specimen, or receipt is proof only after live owner resolution proves the path and callable/scope; path-only checks do not settle function drift. Classify gaps as hand-curated, owner-tool/generated, projection freshness, checker false positive, or authoring debt. Use owner tools for auto-stubs/back-mirrors/projections; hand-author only bounded exemplars. If repair raises visible debt while closing defects, call it debt exposure and capture the residual.
 
+For repeated structured-row mutation traces, do not let the visible symptom choose the edit hunk. Registries, manifests, graph rows, and fixture tables often repeat the same fields; anchor any mutation on a unique source-row id, display name, key path, or structured parser query before editing. After the edit, read back the same source row before trusting builders, generated projections, aggregate counts, or focused tests. If a patch hit the wrong sibling row, classify the reusable lesson as `source_row_anchor_gap`, not as a one-off typo or product-specific fixture failure.
+
 If the trace says work was "already fixed", "already green", or "ready to commit", the generalized move is not to redo the whole embedded task. Revalidate live state, then choose the narrow action that closes the present intent: commit the coherent owned slice, capture the residual with exact evidence, or refine the propagation/validator/actuator rule that would make the trace shape easier for the next agent to consume.
 
-For capability-scaffold traces, distinguish the surface from the run. A foundry, generator, compiler, planner, authoring lane, synthesis spec, or "create X" affordance is not the object-level output it promises. If the operator asks for outputs, require a run or blocked/not-run receipt, candidate dispositions, validation/readback, and residual capture. Patch only the portable boundary: requested output, scaffold, run state, dispositions, validation, and residuals. Product names and one trace's metaphors are examples unless the selected owner is that lane.
+For capability-scaffold traces, distinguish the surface from the run. A foundry, generator, compiler, planner, authoring lane, synthesis spec, or "create X" affordance is not the object-level output it promises. If the operator asks for outputs, require a run or blocked/not-run receipt, candidate dispositions, validation/readback, and residual capture. If the first real run teaches new cut rules or disposition classes, feed them back into the scaffold/spec or capture why not. Product names and one trace's metaphors are examples unless the selected owner is that lane.
 
 ### Mirrored-Substrate Drift-Refresh Traces
 
-When a trace is about copying a "better version" from an authority substrate into a public mirror, fixture bundle, extracted microcosm, generated example, or any source-to-target projection, do not generalize into "copy the named file." The reusable rule is mirror maintenance with source authority, manifest coverage, actuator discipline, and a pre-write safety membrane.
+When a trace is about copying a "better version" from an authority substrate into a public mirror, fixture bundle, extracted microcosm, generated example, or source-to-target projection, do not generalize into "copy the named file." The reusable rule is mirror maintenance: source authority, declared relation, manifest coverage, actuator discipline, and pre-write safety.
+
+Exact-copy is one declared relation, not the global import law. If the public/microcosm target should be slightly safer, cleaner, smaller, standard-compliant, or more runnable than the macro body, route it as a source-faithful public edit/refactor: separate source and target digests, rewrite recipe or symbol mapping, scanner proof, and a focused command/test that consumes the public target. Exact-copy refresh actuators must skip those rows; they are maintained by their refactor validation lane.
 
 Extract and route these fields before mutating:
 
-1. authority and mirror boundary: source root, target mirror, source-to-target relation, and whether the target is exact-copy, public-light-edit, generated projection, fixture, or runnable substrate;
-2. currentness check: current source hash, recorded source hash, target hash, required anchors, and whether the live owner actuator or manifest reader sees drift;
-3. scout boundary: subagent, transcript, or bespoke scanner output is advisory until rechecked against live files and the owner manifest/actuator;
-4. coverage boundary: verify every encoding the mirror family uses, not only the newest manifest shape or the easiest directory glob;
-5. safety membrane: before any verbatim public write, scan pending source bodies for private paths, credential-shaped tokens, account/session/provider payloads, and other disclosure-class material;
-6. actuator boundary: use the sanctioned refresh/copy/generator lane when it exists, and treat hand-copy as a fallback that must explain why the owner lane cannot cover the row;
-7. validation boundary: a dry-run drift report is not green validation; rerun owner tests/checkers and re-scan until the dry-run is clean or a residual is captured.
+1. authority/mirror: source root, target, relation type, and exact-copy/public-light-edit/generated/fixture/runnable class;
+2. currentness: current source hash, recorded source hash, target hash, anchors, and owner actuator or manifest drift signal;
+3. scout: subagent, transcript, or bespoke scanner output is advisory until rechecked against live files and owner manifests;
+4. coverage: verify every encoding the mirror family uses, not only the newest manifest or easiest glob;
+5. safety: before verbatim public writes, scan pending source bodies for private paths, credentials, account/session/provider payloads, and disclosure material;
+6. actuator: use the sanctioned refresh/copy/generator lane when it covers the row; hand-copy must justify why not;
+7. validation profile: a dry-run drift report is not green validation; record runner/env/canonical profile and compare like-for-like before calling a regression. If one validation pass spans multiple runtimes, import roots, or working directories, split it into separate profile rows; a combined command that changes `PYTHONPATH`, pytest rootdir, receipt mode, or fixture policy is a profile change, not proof;
+8. concurrent owner: if a daemon, builder, hook, or actuator is mutating the mirror or manifest, do not hand-edit through the race; use the owner lane or capture the blocked repair.
 
 If a specialist owner already carries the concrete loop, patch the parent only with the portable mirror rule and route terms, then leave product-specific commands in the child skill or standard. Do not bloat the parent with one mirror's CLI flags.
+
+### Claim-Blocked Committed-HEAD Worktree Traces
+
+When a trace shows `mutation-check --require-exclusive` blocking the primary source path but a real receipt was still landed from a sparse worktree at committed `HEAD`, generalize the gate, not the workaround. The failure class is `claim_blocked_committed_head_isolation`: a live owner claim blocks the main-tree write, while an isolated committed-HEAD worktree may still produce a useful receipt without touching the held path.
+
+This lane is valid only when all of these are true:
+
+1. Work Ledger evidence proves a live blocking owner (`hard_mutation` or equivalent) on the target path/write profile.
+2. The isolated run can honestly use committed `HEAD`; it does not require the incumbent owner's uncommitted edits or dirty generated inputs.
+3. The worktree is scoped to the smallest needed checkout and host/disk pressure is acceptable.
+4. The output is labelled as pending merge/cherry-pick/replay after the owner releases; it is not described as main-tree landed unless that merge actually happened.
+5. Validation distinguishes product receipts from isolation artifacts, such as sparse-checkout roots missing during tests.
+
+Do not use this lane for source-authority updates that must incorporate the live owner's edits, generated projections whose input set is dirty under the incumbent, publication/push authority, or repo policies that forbid the required isolated ref. If any condition fails, produce a splice-ready packet or blocked residual with the exact owner, lease, re-entry condition, and validation target.
 
 ### Mission-Scoped Closeout / Provenance Traces
 
@@ -118,6 +187,117 @@ Extract and route these fields before mutating:
 For moving closeout-scheduler traces, re-check the selected drain cluster immediately before treating it as current. A plan-selected cluster is advisory until pathspec status and ownership claims still show it live. Use exact owned path lists when possible; broad directory prefixes such as a whole tests directory can overclaim unrelated sibling tests and turn foreign churn into a false owned blocker. If the exact owned slice is clean and only foreign/global drain or unauthorized publication remains, emit the typed held verdict and stop chasing the global queue as mission work.
 
 Global `closeout_ready=false` is not itself proof that the current mission is incomplete. It becomes actionable only after the closeout packet identifies whether the blocker is owned, foreign, publication-only, volatile-generated-state, or a real same-path hard stop.
+
+### Parent-CAS Churn Landing Traces
+
+When a trace shows validated owned work repeatedly failing to land because `HEAD` advances between preflight, validation, dry-run, and scoped commit, classify it as `parent_cas_churn_validated_uncommitted_boundary`, not as a product-specific coordination story and not as permission to spin commit attempts. The reusable rule is bounded landing: prove disjointness on the current parent, spend at most one refreshed retry after a parent-CAS failure, then stop and bind the validated-uncommitted state through the canonical Task Ledger receipt lane.
+
+Extract and route these fields before retrying or closing:
+
+1. parent chain: original expected parent, each observed new `HEAD`, and overlap evidence for intervening commits;
+2. owned write set: exact paths or write-set hash, current diff/readback, staged-index state, any proof receipt or generated artifact path being cited, and active Work Ledger session/claim state;
+3. validation freshness: checks run after the latest parent movement, with each result classified as `passed`, `failed`, `blocked`, or `not_run`;
+4. retry budget: first CAS failure, refreshed preflight/validation, one retry, and the explicit reason for stopping if the retry also loses the race;
+5. receipt vocabulary: use `validated_uncommitted_git_metadata_blocked` for commitless validated work; include artifact receipt refs even when the proof file is untracked; do not invent a bespoke `closeout_state`, reuse flags from the wrong Task Ledger command, or call the work landed without a commit hash;
+6. re-entry condition: quiet-window or fresh-parent condition, overlap check, mission preflight with the owner session id, focused validation commands, and the exact scoped commit pathset or regeneration trigger.
+
+A moved parent is not automatically a blocker. If the current parent is stable after refreshed validation, land the scoped slice. If the parent keeps moving but commits are disjoint, the right closeout is a validated-uncommitted receipt with `no_commit_reason`, validation refs, artifact receipt refs, blocker refs, and claims/dirty-path disposition, followed by a fresh re-entry attempt. A proof file left untracked is a held artifact, not a landing receipt; name its path, validation role, and re-entry pathset so the next agent can either commit it or regenerate it. Product names, batch numbers, organ names, and one trace's path count are examples unless the selected owner is that product lane.
+
+### Generated-Projection Scope Widening Traces
+
+When a trace starts from a scoped source or fixture mutation but the owner builder/generator writes many additional generated files, source-derived projections, or source registries, classify it as `generated_projection_scope_widening`, not as a product-specific build failure. The reusable rule is write-set attribution: the builder may be correct to expose drift, but the current agent only owns the slice whose source authority, claims, validation, and generated outputs it can prove.
+
+Extract and route these fields before staging or closeout:
+
+1. declared owned slice: source paths, generated paths, tests, and the intended owner lane;
+2. builder command: exact write/check command, expected write profile if known, and whether a narrower dry-run/write route exists;
+3. actual write set: source changes, generated changes, untracked files, and count/classification by owner family;
+4. source authority state: source registries/manifests/projections read by the builder, their dirty/claimed status, and whether the candidate depends on foreign uncommitted input;
+5. validation boundary: focused owned-slice validation, full builder/check status, and any wrong-runner or profile-change caveat;
+6. landing decision: land only the owned slice, record a claim-settlement continuation, capture a blocked residual, or coordinate with the source owner.
+
+Do not collapse this class into "the builder is noisy" or "all generated output is mine because my command produced it." A scoped source fix can be green while a generated projection correctly reveals unrelated source-coupled drift. Conversely, a wide generated diff is not automatically foreign: if its source inputs are committed/owned, the write profile is declared, and validation proves the full generated set, it may be landed as an intentional generated refresh. Product names, organ names, and one trace's file list are examples unless the selected owner is that generator family.
+
+### Admission / Targeted Projection Companion Traces
+
+When a continuation trace starts from a source-authority or admission mutation and then encounters proof-only companion paths, targeted generated refresh, dirty exact-copy outputs, or claimed aggregate projection lanes, classify it as `admission_projection_companion_boundary`, not as a product-specific admission or builder story. The reusable rule is boundary separation: source writes, companion proof, generated refresh, and aggregate/public projection are different receipts even when one lane needs all of them before closeout.
+
+Extract and route these fields before staging or closeout:
+
+1. admission basis: source rows, validator/admission gate, live `HEAD`, active claims, and whether the current continuation state survived compaction or must be re-observed;
+2. companion contract: required companion paths, whether each is proof-only or writable, and the check/readback that proves the companion already satisfies the gate. Do not edit package/docs/support files merely to satisfy a preflight when coherent proof-only companions can be supplied;
+3. source/projection currentness: which source inputs are dirty, claimed, committed, or stale; which aggregate/public projection surfaces are owned by another live session; and whether a generated diff still describes the source row you think it describes after `HEAD` or claims moved;
+4. targeted refresh route: prefer owner CLI filters such as target ids, material ids, or profile flags. If the CLI lacks a target flag, use an owner-exposed deterministic renderer/API only when the generated paths are claimed, the source authority is current, and readback proves equality with the owner expectation; otherwise capture the missing targeted-write lane instead of hand-authoring generated artifacts;
+5. dirty output override: use dirty-output override flags only after proving the dirty outputs are owned by the current session and the source inputs are clean or deliberately included. A dirty generated target plus moving source authority is a blocker, not permission to copy by hand;
+6. validation/landing: prove focused owned-slice parity/effect, classify broad builder failures as owned/foreign/stale/profile-change, commit only source plus generated outputs whose authority and claims you can prove, and leave aggregate refresh to its owner or capture the exact re-entry condition.
+
+After compaction, never trust a saved target id, generated diff, or "next concrete step" by itself. Re-read live `HEAD`, dirty paths, Work Ledger claims, and the source row/graph that determines target identity before continuing. Product names, admission names, route ids, and one trace's companion file list are examples unless the selected owner is that admission/projection family.
+
+### Projection-Admission Blocked Companion Traces
+
+When a trace shows source-authority, sanitizer, policy, or focused test companions landing while the intended generated/public projection refresh is refused by admission, host pressure, or live owner claims, classify it as `projection_admission_blocked_companion_boundary`. Do not treat the generated refresh as landed, stale-clean, or "effectively done" just because the prerequisite source/test slice committed.
+
+Extract and route these fields before closeout:
+
+1. admission boundary: admission command, requested work class, refusal class, active owner or pressure component, and whether any claims were actually written;
+2. companion progress: exact source/test/path commits or validation receipts that landed, with their write set separated from the generated/public target;
+3. held projection: intended generated paths, builder/check command, dry-run or read-only evidence, target mismatch or drift counts, and the owner lane that must write them later;
+4. receipt durability: blocked receipt path or Task Ledger cap id, plus whether any `/tmp` proof was copied into a durable authority lane before being cited;
+5. release/publication state: whether the public/release gate remains blocked, not-run, failed, or explicitly out of scope;
+6. re-entry condition: owner release, pressure recovery, fresh preflight, exact builder command, focused validation, and scoped path set.
+
+`/tmp` is scratch unless the lane copies or summarizes it into a durable receipt, ledger row, or committed artifact. A Task Ledger capture proves the blocker is visible; it does not prove the generated refresh landed. Product names, bundle names, counts, commit hashes, and one trace's builder command are examples unless the selected owner is that projection family.
+
+### Artifact-Effect Closeout Traces
+
+When a closeout trace says the work is landed but a guard asks for effect output, do not generalize into the named artifact family. The reusable rule is artifact-effect proof: a commit, push, scoped landing, or staged diff proves history state; it does not prove the changed UI, generated projection, packet, runtime route, validator, or asset had the intended observable effect.
+
+Extract and route these fields before mutating:
+
+1. artifact class: UI surface, generated projection, docs/packet render, runtime endpoint, validator/checker, bundle/asset, or source-only logic;
+2. owner effect surface: builder/check command, served route/component smoke, endpoint/readiness probe, asset/hash readback, render-status sidecar, or validator output;
+3. landing receipt: commit hash, scoped commit receipt, local-head readback, push/publication receipt, or explicit not-landed state;
+4. effect receipt: command output or state readback that proves the artifact effect, with validation state `passed`, `failed`, `blocked`, or `not_run`;
+5. blocker boundary: if no effect can be verified, name the missing executable/backend/builder/fixture/runner, the retry command, and whether the blocker is owned, foreign, host-pressure, or policy-bound;
+6. overfit guard: product names, module names, and one trace's build commands are examples unless the selected owner is that artifact family.
+
+For generated or projection artifacts, acceptable effect proof is normally the owner builder/check plus a readback of the generated asset/status/count/hash that the artifact owns. For UI and browser-facing artifacts, acceptable proof is a served route/component smoke, production build, targeted component test, bundle/hash delta, or an explicit typed blocker. For runtime routes, acceptable proof is readiness/endpoint state, not merely successful process launch. A green source test can be the effect proof only when the artifact class is source-only logic or the validator itself is the user-visible product.
+
+Invalid closeouts include "committed, therefore effect verified", "push receipt as served-surface proof", "builder dry-run as post-write validation", "generated files changed but no source-owner readback", and "no web route, so no effect receipt needed" when the artifact's effect is a builder/projection/readback surface.
+
+### Entry-Projection Compression Orphan Traces
+
+When a trace shows that source data already carries a compact reader ladder, but cold-entry surfaces do not project it, classify the failure as `entry_projection_compression_orphan`, not as a missing-content, style-copy, or count-refresh task. The reusable rule is first-contact spend: a populated `one_line`, `card`, claim ceiling, summary row, or equivalent compression field is not useful until the owning entry route makes it visible at the fidelity where a cold reader can grasp the system.
+
+Extract and route these fields before mutating:
+
+1. source rows: the source dataset, row ids, compression fields, and whether they are data authority or generated projection;
+2. join contract: source key, target key, aliases or fragment refs, unresolved rows, and readback proof that the intended join resolves;
+3. entry surfaces: first screen, README, atlas, route card, public site, llms surface, or docs route that should spend the compression ladder;
+4. fidelity ladder: one-line, grouped glance, card, full module, and boundary/anti-claim text, with each fidelity mapped to its builder-owned surface;
+5. count boundary: distinguish source row count, public entry item count, mechanism-tier rows, imported-but-not-organ rows, and unresolved aliases so count drift is classified instead of normalized away;
+6. owner lane: patch the builder/source projection contract, not a hand-edited generated page, when a generated entry surface is stale or missing the ladder;
+7. validation: builder check/write status, readback of the generated first-contact surface, unresolved join count, and claim-ceiling/public-boundary guard.
+
+Do not hardcode one trace's item count, family names, or product nouns into doctrine. The portable invariant is that compression data and entry projection must be co-owned: source completeness without first-contact spend is still a navigation failure, while entry prose without source-row readback is only decoration.
+
+### Structured Public-Copy Campaign Traces
+
+When a trace plans or runs public-facing copy refinement across structured fields, do not generalize it into "rewrite all copy" or into the named product. The reusable rule is field-governed public-copy campaigning: prove which source fields project to the public surface, split claim ceilings from style improvements, preserve every factual and authority boundary, and close each wave through the source, generated projection, and closeout surfaces it actually owns.
+
+Extract and route these fields before mutating:
+
+1. source field and public field mapping: for example `human_gloss` -> component card description, `claim_ceiling_restated` -> does-not-prove block, `wiring_note` -> public links note, and family `blurb` -> area description;
+2. visibility decision: public, internal-only, private, empty/not-present, or generated-only; skip internal fields such as `agent_gloss` unless a public consumer is proven;
+3. unit count and empty-row policy: total rows, non-empty rows, family rows, and whether workers should receive empty stubs or filtered inputs;
+4. rewrite intent: humanizer/style, claim-ceiling honesty, link/wiring clarity, cold-reader area framing, or another named public-reader job;
+5. adversarial verification: no AI-slop phrasing, no fact loss, no stronger claim, no softened negative ceiling, no new publication/proof/provider/release authority;
+6. mutation envelope: minimal-diff source edits, Work Ledger mutation-check, scoped commit, and generated projection reconciliation such as `ORGANS.md` only after the owning builder/source relationship is clear;
+7. closeout boundary: if a stop hook or closeout executor selects `drain_source_cluster`, route that part through mission-scoped closeout provenance with a fresh drain-plan/currentness check instead of treating global drain work as part of the public-copy wave.
+
+A public-copy campaign may use parallel workers for rewrite proposals, but the controller owns the final fact preservation, claim ceiling, mutation, generated-projection, and commit receipts. If the trace names a field rename or public label such as `wiring_note -> links_note`, record it as a source-to-public projection mapping, not a schema migration, unless the governing standard and builder actually change the source field.
+
+Invalid closeouts include "style pass applied" without claim-ceiling adversarial checks, rewriting internal-only fields because they were convenient in the source JSON, applying worker output without field-level fact preservation, reconciling generated pages while a live owner holds the source or generated surface, and chasing a moving closeout drain cluster after the owned public-copy slice has a clean mission verdict.
 
 ### Agent-Native Control / Perception Traces
 

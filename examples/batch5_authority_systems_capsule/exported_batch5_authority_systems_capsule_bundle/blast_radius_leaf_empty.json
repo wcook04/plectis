@@ -1,0 +1,29 @@
+{
+  "body_in_receipt": false,
+  "case_id": "blast_radius_leaf_empty",
+  "claim": "A leaf with no reverse dependents must remain an honest empty bucket.",
+  "computed_path": "empty_leaf_bucket_not_invented",
+  "error_codes": [
+    "BATCH5_BLAST_RADIUS_EMPTY_LEAF_DOES_NOT_INVENT_COVERAGE"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "system_blast_radius",
+  "probe_input": {
+    "graph": {
+      "kernel.py": [
+        "system/lib/kernel_navigation.py"
+      ],
+      "leaf.py": [],
+      "system/lib/kernel_navigation.py": [
+        "system/lib/semantic_routing.py"
+      ],
+      "tests/test_kernel_navigation.py": [
+        "system/lib/kernel_navigation.py"
+      ]
+    },
+    "leaf_target": "leaf.py",
+    "target": "system/lib/semantic_routing.py"
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

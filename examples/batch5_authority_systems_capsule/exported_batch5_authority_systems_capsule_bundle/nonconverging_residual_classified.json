@@ -1,0 +1,26 @@
+{
+  "body_in_receipt": false,
+  "case_id": "nonconverging_residual_classified",
+  "claim": "A repeated residual with a moved source signature must classify instead of looping forever.",
+  "computed_path": "moved_residual_signature_classified",
+  "error_codes": [
+    "BATCH5_DRAINER_NONCONVERGING_RESIDUAL_CLASSIFIED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "generated_state_fixpoint_drainer",
+  "probe_input": {
+    "expected_classification": "settlement_residual_source_moved",
+    "residual_signatures": [
+      {
+        "residual_id": "projection_A",
+        "source_signature": "old"
+      },
+      {
+        "residual_id": "projection_A",
+        "source_signature": "new"
+      }
+    ]
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

@@ -39,7 +39,7 @@
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bounded_witness_organ_id": "formal_math_lean_proof_witness",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out /tmp/microcosm-formal-math-premise-fixture",
+  "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input microcosm-substrate/fixtures/first_wave/formal_math_premise_retrieval/input --out microcosm-substrate/receipts/first_wave/formal_math_premise_retrieval",
   "copied_material": [
     {
       "body_copied": true,
@@ -141,7 +141,7 @@
     }
   ],
   "copied_material_count": 6,
-  "created_at": "2026-05-26T16:25:36+00:00",
+  "created_at": "2026-06-01T22:02:30+00:00",
   "error_codes": [
     "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
     "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
@@ -242,6 +242,7 @@
     "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
   ],
   "recipe_count": 3,
+  "retrieval_candidates_considered": 44,
   "schema_version": "formal_math_premise_retrieval_fixture_acceptance_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -266,6 +267,7 @@
     "scanned_path_count": 10,
     "status": "pass"
   },
+  "source_index_size": 11,
   "source_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "prover_premise_retrieval_term_scoring",

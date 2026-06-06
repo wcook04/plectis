@@ -1,0 +1,273 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_concept_index_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record which specimen carried the pressure and what concept boundary changed; a frontend or projection surface may consume this route but must not become a parallel concept index.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "concept_role",
+      "mechanism_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This specimen is coverage projection, not registry source authority.",
+    "This specimen does not authorize release, provider calls, or whole-system correctness.",
+    "This concept JSON seed does not flip source authority away from atlas/entry_packet.json.",
+    "A population specimen is not proof of complete concept coverage or principle support.",
+    "Absent concept edges are residual pressure, not evidence that no neighbours exist."
+  ],
+  "authority_boundary": "public_concept_json_seeded_from_entry_packet_specimen_not_authority_flip_until_parity_receipt",
+  "cluster_flag": {
+    "authority_boundary": "cluster_flag_not_source_authority_compact_navigation_row_derived_from_concept_relationships",
+    "axiom_count": 3,
+    "claim": "organ-standard-runtime-receipt coverage as projection-only evidence",
+    "cluster_id": "standards_meta_diagnostics_bundle",
+    "concept_id": "concept.standards_meta_diagnostics_bundle",
+    "drilldown": "concepts/concept.standards_meta_diagnostics_bundle.json",
+    "kind": "concept",
+    "mechanism_count": 1,
+    "principle_count": 3,
+    "schema_version": "microcosm_concept_cluster_flag_v1",
+    "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle]",
+    "specimen_id": "standards_meta_diagnostics_bundle"
+  },
+  "concept_payload": {
+    "concept_binding": {
+      "anti_glossary_rule": "coverage concepts must state authority ceiling and public/private boundary, not glossary coverage labels",
+      "concept_role": "organ-standard-runtime-receipt coverage as projection-only evidence",
+      "payload_shape_ref": "standards_meta_diagnostics.diagnostic_projection",
+      "relationship_shape": "organ id -> standard id -> validator id -> receipt ref"
+    },
+    "contract_version": "microcosm_concept_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "atlas/entry_packet.json"
+    },
+    "paired_mechanism_binding": {
+      "anti_feature_prose_rule": "diagnostics mechanism must name checked mappings and receipt lane, not feature prose",
+      "concept_pair_ref": "standards_meta_diagnostics_bundle.concept_binding",
+      "mechanism_role": "diagnostic bundle checks accepted organs against standards, runtime contracts, and real receipts",
+      "state_or_proof_effect": "accepted_organ_count and covered_organ_ids are validated without becoming release authority",
+      "transformation_shape": "exported diagnostics bundle -> coverage projection -> pass/block receipt"
+    },
+    "projection_contract": {
+      "entry_packet_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "concepts/concept.standards_meta_diagnostics_bundle.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "concepts/concept.standards_meta_diagnostics_bundle.json"
+    },
+    "source_specimen_id": "standards_meta_diagnostics_bundle",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "specimen_route_boundary_only_not_truth_support_claim"
+    }
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_concept.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_concept]",
+      "core/public_standard_pressure.json::concept_handle_requires_entry_surface"
+    ],
+    "reader_rule": "Use concept rows as typed vocabulary boundaries with source refs, relationships, payload shape, omission receipt, and anti-claims; do not treat them as glossary-only prose.",
+    "required": true
+  },
+  "id": "concept.standards_meta_diagnostics_bundle",
+  "kind": "concept",
+  "omission_receipt": {
+    "drilldown": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "omitted": [
+      "covered organ body text",
+      "private state scan bodies",
+      "release-readiness claims"
+    ],
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+  },
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated concept row must point to at least one runnable or inspectable specimen that shows why the vocabulary boundary matters; glossary-only prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "concept_role",
+      "mechanism_pair_ref",
+      "source_refs",
+      "relationship_shape",
+      "payload_shape_ref",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-6",
+      "AX-11",
+      "AX-12"
+    ],
+    "concept_role": "organ-standard-runtime-receipt coverage as projection-only evidence",
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].principle_ids",
+          "summary": "The diagnostics specimen exposes covered organ ids and remaining gaps without treating unmapped space as complete."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-7",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].principle_ids",
+          "summary": "The specimen applies the same standard, runtime, receipt, anti-claim, and authority floors to Microcosm's own organ-standard coverage."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-13",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].principle_ids",
+          "summary": "The diagnostics bundle is explicitly projection-only evidence and cannot become standards_registry source authority."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].mechanism_ids",
+          "summary": "The named mechanism source row validates accepted-organ standards inventory, runtime contracts, receipt refs, and authority ceilings for this diagnostic specimen."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].axiom_ids",
+          "summary": "Coverage diagnostics remain closed-world only over the declared accepted-organ/standard domain."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-6",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].axiom_ids",
+          "summary": "Projection-only diagnostics require schema, receipt, and anti-claim obligations before carrying authority."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle].axiom_ids",
+          "summary": "Microcosm's own coverage diagnostics obey the same accountability floor as any external artifact."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-12",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "entry_ref": "microcosm standards-meta-diagnostics run-diagnostics-bundle",
+    "mechanism_pair_ref": "standards_meta_diagnostics_bundle.concept_binding",
+    "mechanism_refs": [
+      "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
+    ],
+    "payload_shape_ref": "standards_meta_diagnostics.diagnostic_projection",
+    "principle_refs": [
+      "P-7",
+      "P-13",
+      "P-15"
+    ],
+    "relationship_shape": "organ id -> standard id -> validator id -> receipt ref",
+    "source_specimen_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle]",
+    "specimen_id": "standards_meta_diagnostics_bundle",
+    "specimen_role": "organ_standard_receipt_mapping_specimen",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_concept_instance_v1",
+  "source_refs": [
+    {
+      "path": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[2:standards_meta_diagnostics_bundle]",
+      "role": "entry_packet_population_specimen_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "concepts/concept.standards_meta_diagnostics_bundle.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "core/standards_registry.json",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "tests/test_standards_meta_diagnostics.py",
+      "role": "specimen_source_ref"
+    }
+  ],
+  "statement": "organ-standard-runtime-receipt coverage as projection-only evidence",
+  "status": "active",
+  "title": "organ-standard-runtime-receipt coverage as projection-only evidence",
+  "validator_refs": [
+    "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+    "tests/test_standards_meta_diagnostics.py::test_standards_meta_diagnostics_bundle_validates_runtime_shape"
+  ]
+}

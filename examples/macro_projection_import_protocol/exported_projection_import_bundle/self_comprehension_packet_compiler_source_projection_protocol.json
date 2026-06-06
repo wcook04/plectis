@@ -21,22 +21,22 @@
         "exact_copy_macro_compression_profile_source_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
+      "body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
-        "source_line_count": 633,
+        "source_body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
+        "source_line_count": 634,
         "source_ref": "system/lib/compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:368846fbcccd28d6e8b406d9562a3195cb70f217591b04a31398008532027f17",
-        "target_line_count": 633,
+        "target_body_digest": "sha256:b3d0a9764518c4220ef5b23e7b93b22625c3be84989bb3a440aaf499c473571d",
+        "target_line_count": 634,
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 633,
+      "body_line_count": 634,
       "claim_ceiling": "public compression-profile source body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_packet_compiler_body",
@@ -60,22 +60,22 @@
         "exact_copy_macro_compression_profile_registry_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
+      "body_digest": "sha256:91b1a10c0e60fbddb1f065b119c20be056400d500d355ca4057d0e954f4e917a",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
-        "source_line_count": 723,
+        "source_body_digest": "sha256:91b1a10c0e60fbddb1f065b119c20be056400d500d355ca4057d0e954f4e917a",
+        "source_line_count": 791,
         "source_ref": "codex/doctrine/compression_profiles.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:8104f588292fdde1a5db419d3fbab5f1ff8a39c2316915e39902ec51e95855d0",
-        "target_line_count": 723,
+        "target_body_digest": "sha256:91b1a10c0e60fbddb1f065b119c20be056400d500d355ca4057d0e954f4e917a",
+        "target_line_count": 791,
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 723,
+      "body_line_count": 791,
       "claim_ceiling": "public compression-profile registry import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_packet_compiler_body",
@@ -99,22 +99,22 @@
         "exact_copy_macro_compression_profile_test_body_into_public_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
+      "body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_self_comprehension_packet_compiler_source_bundle.py::test_packet_compiler_source_modules_are_exact_macro_imports"
         ],
-        "source_body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
-        "source_line_count": 95,
+        "source_body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
+        "source_line_count": 98,
         "source_ref": "system/server/tests/test_compression_profiles.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:0a651944733018dc29ae35d8fffb76adeee337e71e93123cfdf927959ed79f76",
-        "target_line_count": 95,
+        "target_body_digest": "sha256:44b2374fa4a0b44964a413f60b77743b1eac65d98f09e2f05dc442af8b5a9011",
+        "target_line_count": 98,
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 95,
+      "body_line_count": 98,
       "claim_ceiling": "public compression-profile test body import only; not raw operator voice, rendered private packet authority, publication approval, or source authority above macro contracts",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_packet_compiler_test_body",

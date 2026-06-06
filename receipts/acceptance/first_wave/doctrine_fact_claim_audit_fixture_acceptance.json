@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.doctrine_fact_claim_audit",
+  "organ_id": "doctrine_fact_claim_audit",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json"
+}

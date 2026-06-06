@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
   "kind_id": "formal_evidence_cell_anchor_resolver",
   "kind_name": "Formal evidence cell anchor resolver",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_formal_evidence_cell_anchor_resolver",
   "authority_boundary": "public_evidence_cell_anchor_metadata_not_theorem_authority",
@@ -57,6 +57,21 @@
       "path": "codex/standards/std_paper_module.json",
       "field": "macro_body_import",
       "role": "public_macro_pattern_body"
+    },
+    {
+      "path": "paper_modules/formal_evidence_cell_anchor_resolver.md",
+      "field": "paper_module_contract.module_slug",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "path": "core/paper_module_capsules.json#paper_module.formal_evidence_cell_anchor_resolver",
+      "field": "paper_module_contract.capsule_ref",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "path": "core/mechanism_sources.json#mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
+      "field": "paper_module_contract.mechanism_ref",
+      "role": "mechanism_source"
     }
   ],
   "relationships": {
@@ -84,7 +99,9 @@
     "authority_ceiling",
     "anti_claim",
     "source_module_manifest",
-    "source_open_body_imports"
+    "source_open_body_imports",
+    "copied_macro_body_artifacts",
+    "body_import_verification"
   ],
   "validation_rules": [
     "require macro projection protocol refs and public runtime refs",
@@ -207,17 +224,73 @@
       "metadata cell is treated as theorem correctness",
       "human approval is treated as proof authority"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "accepted_public_runtime_standard_body_floor_validated",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.formal_evidence_cell_anchor_resolver",
+      "receipt_id": "receipt.microcosm.formal_evidence_cell_anchor_resolver",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "receipt_refs": [
-    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json"
+    "receipt.microcosm.formal_evidence_cell_anchor_resolver"
   ],
   "validator_refs": [
-    "microcosm_core.organs.formal_evidence_cell_anchor_resolver"
+    "validator.microcosm.organs.formal_evidence_cell_anchor_resolver"
   ],
   "paper_module_contract": {
     "required": true,
-    "module_slug": "formal_evidence_cell_anchor_resolver"
+    "module_slug": "formal_evidence_cell_anchor_resolver",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.formal_evidence_cell_anchor_resolver",
+    "mechanism_ref": "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
+    "source_authority": "json_capsule_with_authored_markdown_projection_and_receipts"
+  },
+  "source_module_manifest_contract": {
+    "required": true,
+    "bundle_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+    "manifest_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
+    "body_material_status": "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_with_digest_provenance",
+    "body_material_count": 6,
+    "verified_source_module_count": 6,
+    "body_text_exported_in_receipts": false,
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_for_sibling_organ_atlas_lane",
+    "atlas_reentry_refs": [
+      "cap_quick_prestage_formal_evidence_cell_anchor_resolver_per_organ_capsule",
+      "core/organ_atlas.json::organs[organ_id=formal_evidence_cell_anchor_resolver].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=formal_evidence_cell_anchor_resolver].mechanism_ref",
+      "core/organ_atlas.json::organs[organ_id=formal_evidence_cell_anchor_resolver].code_loci"
+    ],
+    "coverage_projection_status": "json_corpus_populated_atlas_edges_pending",
+    "source_module_manifest_status": "populated",
+    "authority_boundary": "Evidence-cell anchor metadata, copied source-open macro bodies, Ring2 verifier-trace repair receipt anchors, and runtime validation receipts only; no theorem correctness, proof-body import, private source-ref authority, human approval as proof authority, Lean/Lake execution, provider payload, release authority, publication authority, source mutation, or formal-proof certification.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_formal_evidence_cell_anchor_resolver_population_has_capsule_and_mechanism_prestaged_until_atlas_binding",
+      "tests/test_formal_evidence_cell_anchor_resolver.py",
+      "microcosm_core.organs.formal_evidence_cell_anchor_resolver run",
+      "microcosm_core.organs.formal_evidence_cell_anchor_resolver run-anchor-bundle"
+    ]
+  },
+  "negative_cases": {
+    "coverage_status": "all_observed",
+    "expected": [
+      "human_approval_as_evidence_cell",
+      "missing_source_anchor",
+      "private_source_ref_leakage",
+      "proof_body_leakage",
+      "proof_language_without_cell",
+      "theorem_correctness_overclaim",
+      "unknown_cell_overclaim"
+    ],
+    "receipt_ref": "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
   },
   "secret_exclusion_receipt": {
     "excluded": [
@@ -272,5 +345,234 @@
       "release_authorized": false,
       "source_authority_above_macro_contracts": false
     }
+  },
+  "authority_boundary_detail": "Accepts copied non-secret paper-module auditor, formal evidence-cell registry builder and tests, public formal-evidence registry state, Erdos257 evidence-cell manifest, and std_paper_module contract body as bounded anchor-resolution evidence only; it never proves theorem correctness, authorizes Lean/Lake execution, exports proof/provider/private/oracle bodies, treats human approval as proof authority, authorizes release, or claims private macro equivalence.",
+  "body_import_verification": {
+    "bundle_manifest_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/bundle_manifest.json",
+    "bundle_manifest_anti_claim": "These copied formal-evidence cell bodies make the resolver accountable to real paper-module audit, registry-builder, test, registry-state, pilot-manifest, and standard-contract substrate. They do not prove theorem correctness, authorize Lean/Lake execution, expose proof/provider/private/oracle bodies, treat human approval as proof authority, or authorize release.",
+    "source_open_body_import_floor": {
+      "status": "pass",
+      "body_material_status": "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_with_digest_provenance",
+      "body_material_count": 6,
+      "body_material_ids": [
+        "erdos257_formal_evidence_cells_manifest_body_import",
+        "formal_evidence_cell_registry_builder_source_body_import",
+        "formal_evidence_cell_registry_state_body_import",
+        "paper_module_formal_evidence_auditor_source_body_import",
+        "paper_module_formal_evidence_cells_test_source_body_import",
+        "std_paper_module_formal_evidence_cells_contract_body_import"
+      ],
+      "material_classes": [
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_tool_body"
+      ],
+      "aggregate_floor_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json::modules",
+      "source_manifest_refs": [
+        "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
+      ],
+      "body_in_receipt": false,
+      "body_text_exported_in_receipts": false,
+      "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro bodies; receipts carry digests and validation status only.",
+      "authority_ceiling": {
+        "body_text_in_receipt": false,
+        "proof_body_or_oracle_proof_text_exported": false,
+        "provider_payload_exported": false,
+        "lean_lake_execution_authorized": false,
+        "formal_proof_authority": false,
+        "theorem_correctness_authority": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false
+      },
+      "body_text_exported_in_workingness": false
+    }
+  },
+  "copied_macro_body_artifacts": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 206935,
+      "line_count": 4848,
+      "material_class": "public_macro_tool_body",
+      "module_id": "paper_module_formal_evidence_auditor_source_body_import",
+      "path": "source_modules/system/lib/paper_modules.py",
+      "required_anchors": [
+        "def _load_cells_from_registry(",
+        "def _load_known_formal_evidence_cells(",
+        "FORMAL_EVIDENCE_HIGH_SIGNAL_PHRASES",
+        "FORMAL_EVIDENCE_ANCHOR_CLASSES",
+        "def audit_formal_evidence_cells("
+      ],
+      "sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/paper_modules.py",
+      "source_role": "Paper-module formal-evidence-cell runtime owner: registry-first cell loader, cell-id resolver, formal-proof vocabulary audit, and anchor-class compliance findings.",
+      "source_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/lib/paper_modules.py",
+      "target_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 24065,
+      "line_count": 620,
+      "material_class": "public_macro_tool_body",
+      "module_id": "formal_evidence_cell_registry_builder_source_body_import",
+      "path": "source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+      "required_anchors": [
+        "REGISTERED_MANIFESTS",
+        "def build_registry(",
+        "def _execution_visibility_status(",
+        "def render_markdown(",
+        "REGISTRY_PATH"
+      ],
+      "sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+      "source_role": "Formal evidence cell registry builder: registered-manifest inventory, per-cell anchor classification, execution visibility, registry receipt, and markdown projection.",
+      "source_sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+      "target_sha256": "f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 14112,
+      "line_count": 339,
+      "material_class": "public_macro_tool_body",
+      "module_id": "paper_module_formal_evidence_cells_test_source_body_import",
+      "path": "source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
+      "required_anchors": [
+        "test_runtime_vocab_matches_standard",
+        "test_cell_id_citation_satisfies_anchors_without_prose",
+        "test_missing_source_cell_does_not_supply_anchors",
+        "test_live_known_manifest_loads_six_cells"
+      ],
+      "sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/server/tests/test_paper_module_formal_evidence_cells.py",
+      "source_role": "Focused test body proving runtime/standard alignment, cell-id citation, unknown-cell warnings, missing-source blocking, and live registry loading.",
+      "source_sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/server/tests/test_paper_module_formal_evidence_cells.py",
+      "target_sha256": "e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 93842,
+      "line_count": 2157,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "formal_evidence_cell_registry_state_body_import",
+      "path": "source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json",
+      "required_anchors": [
+        "\"schema_version\": \"formal_math_evidence_cell_registry_v0\"",
+        "\"validation_summary\"",
+        "\"can_satisfy_paper_module_anchor\"",
+        "\"execution_visibility_status\""
+      ],
+      "sha256": "f34e20fd6f2a95af3c75dc58c6d12f705603f86f5ff0957907972b9ab068d0cb",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "state/formal_math_research_operations/formal_evidence_cell_registry.json",
+      "source_role": "Generated operational registry state over formal-evidence cells, including validation summary, manifest status, per-cell anchor classes, and execution visibility.",
+      "source_sha256": "f34e20fd6f2a95af3c75dc58c6d12f705603f86f5ff0957907972b9ab068d0cb",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json",
+      "target_sha256": "f34e20fd6f2a95af3c75dc58c6d12f705603f86f5ff0957907972b9ab068d0cb"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 109941,
+      "line_count": 2429,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "erdos257_formal_evidence_cells_manifest_body_import",
+      "path": "source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+      "required_anchors": [
+        "\"schema_version\": \"formal_math_erdos257_issue217_formal_evidence_cells_v0\"",
+        "\"cell_id\": \"erdos257.issue217.period_noncollapse.selector_interface_kernel\"",
+        "\"target_count\": 214",
+        "\"non_claims\""
+      ],
+      "sha256": "8c42706f8dd58ab76a2f63d49ed18aae496b082362c22c725dce7b080b00f1fe",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+      "source_role": "Public formal-evidence cell manifest for the Erdos257 issue217 pilot, preserving bounded claim boundaries, receipt refs, non-claims, and forward Lean target inventory without provider payload bodies.",
+      "source_sha256": "8c42706f8dd58ab76a2f63d49ed18aae496b082362c22c725dce7b080b00f1fe",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+      "target_sha256": "8c42706f8dd58ab76a2f63d49ed18aae496b082362c22c725dce7b080b00f1fe"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 103974,
+      "line_count": 1590,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "std_paper_module_formal_evidence_cells_contract_body_import",
+      "path": "source_modules/codex/standards/std_paper_module.json",
+      "required_anchors": [
+        "\"formal_evidence_cells\"",
+        "\"runtime_owner\"",
+        "\"registry_source\"",
+        "\"cell_id_resolver_contract\""
+      ],
+      "sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "codex/standards/std_paper_module.json",
+      "source_role": "Standard body containing the formal_evidence_cells contract, runtime owner binding, registry source, signal classes, and cell-id resolver contract.",
+      "source_sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/codex/standards/std_paper_module.json",
+      "target_sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511"
+    }
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.formal_evidence_cell_anchor_resolver.author",
+      "status": "planned",
+      "purpose": "create a valid Formal evidence cell anchor resolver instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.formal_evidence_cell_anchor_resolver.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Formal evidence cell anchor resolver without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.formal_evidence_cell_anchor_resolver.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_formal_evidence_cell_anchor_resolver and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "anti_claims": [
+    "This standard governs real runtime evidence-cell anchor receipts; it does not prove theorem correctness, authorize Lean/Lake execution, expose non-receipt proof bodies or credential-equivalent private source refs, treat human approval as proof authority, or authorize release/publication work.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_formal_evidence_cell_anchor_resolver",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.formal_evidence_cell_anchor_resolver",
+    "receipt_id": "receipt.microcosm.formal_evidence_cell_anchor_resolver",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
   }
 }

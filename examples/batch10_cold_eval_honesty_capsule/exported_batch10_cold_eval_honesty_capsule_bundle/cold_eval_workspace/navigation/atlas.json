@@ -1,0 +1,7 @@
+{
+  "receipts": [
+    "receipts/cold_agent_ab_seed.json",
+    "release/publication_gate.json"
+  ],
+  "schema_version": "cold_eval_atlas_fixture_v1"
+}

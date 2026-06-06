@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_axiom_support_domain_scope_order_v1",
+  "component_id": "domain_scope",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover domain-scope ordering; it classifies only local declared obligation-domain reach from bound witness material and does not certify fixture, endpoint, organ-local, public-copy, or substrate-general proof.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=domain_scope]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._domain_scope_component",
+  "order_values": [
+    "declared_obligation_domain_only",
+    "declared_obligation_domain_with_bound_witness_material"
+  ],
+  "order_semantics": {
+    "declared_obligation_domain_only": {
+      "rank": 0,
+      "meaning": "The evaluator can classify only the declared obligation domain; no bound witness material is present.",
+      "claim_effect": "Classifies local declaration only; it cannot witness support."
+    },
+    "declared_obligation_domain_with_bound_witness_material": {
+      "rank": 1,
+      "meaning": "The obligation binds local witness material, but the domain remains the declared obligation slice.",
+      "claim_effect": "Classifies local obligation-domain reach only; it cannot promote local or endpoint evidence to a substrate-general proof."
+    }
+  },
+  "material_inputs": [
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_organs",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_surfaces",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes",
+    "core/axiom_organ_routing.json::rows[].title as declared axiom-domain label"
+  ],
+  "non_laundering_rules": [
+    "Domain-scope classification is not substrate-general proof, release authority, public-readiness authority, or policy approval.",
+    "Fixture, endpoint, organ-local, and public-copy coverage cannot become domain-general proof through this component.",
+    "Generated support-cover output and generated doctrine-lattice projections are never evidence for this registry.",
+    "A higher domain-scope class cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "If a computed domain-scope value is outside this source registry, the validator emits unknown_domain_scope_not_in_source_order rather than support.",
+  "anti_claims": [
+    "This registry makes local domain boundaries computed; it does not make any axiom substrate-general.",
+    "This registry does not resolve freshness_state.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "benchmark": "BMK",
+  "body_in_receipt": false,
+  "embargo_days": 0,
+  "realized_returns": {
+    "ctrl_2020": {
+      "benchmark_return": 0.05,
+      "member_return": -0.1
+    },
+    "rmd_2018_loser": {
+      "benchmark_return": 0.25,
+      "member_return": 0.05
+    },
+    "sob_2015": {
+      "benchmark_return": 0.1,
+      "member_return": 0.4
+    },
+    "sob_2017": {
+      "benchmark_return": 0.08,
+      "member_return": 0.3
+    }
+  },
+  "sampling_frame": {
+    "admitted_count": 4,
+    "considered_count": 6,
+    "described": "public-fixture at-time structural theses across distinct years; synthetic tickers only",
+    "excluded_count": 2,
+    "exclusion_rule": "excluded 2 candidates that lacked a frozen falsifiable resolution_criterion at as_of",
+    "frame_id": "public_fixture_structural_thesis_frame_v0",
+    "includes_failed_thesis": true,
+    "survivorship_guard": "at_time_sampling_including_failures"
+  },
+  "schema_version": "batch8_structural_theses_capsule_probe_manifest_v1",
+  "split_policy": "purged_holdout",
+  "theses": [
+    {
+      "as_of": "2015-06-01T00:00:00+00:00",
+      "claimed_probability": 0.7,
+      "confidence": "MEDIUM",
+      "direction": "UP",
+      "horizon": "36m",
+      "members": [
+        "SOB1_A",
+        "SOB1_B"
+      ],
+      "resolution_criterion": "equal-weight group return exceeds benchmark return over the frozen 36m window",
+      "source_evidence_as_of": "2015-05-15T00:00:00+00:00",
+      "structural_pattern": "second_order_beneficiary",
+      "thesis_id": "sob_2015",
+      "thesis_text": "Public-fixture proxy occupies the second-order beneficiary position of a platform build-out."
+    },
+    {
+      "as_of": "2017-02-01T00:00:00+00:00",
+      "claimed_probability": 0.7,
+      "confidence": "MEDIUM",
+      "direction": "UP",
+      "horizon": "36m",
+      "members": [
+        "SOB2_A",
+        "SOB2_B"
+      ],
+      "resolution_criterion": "equal-weight group return exceeds benchmark return over the frozen 36m window",
+      "source_evidence_as_of": "2017-02-01T00:00:00+00:00",
+      "structural_pattern": "second_order_beneficiary",
+      "thesis_id": "sob_2017",
+      "thesis_text": "A second public-fixture proxy occupies the second-order beneficiary position of a later build-out."
+    },
+    {
+      "as_of": "2018-09-03T00:00:00+00:00",
+      "claimed_probability": 0.7,
+      "confidence": "HIGH",
+      "direction": "UP",
+      "horizon": "36m",
+      "members": [
+        "RMD_A",
+        "RMD_B"
+      ],
+      "resolution_criterion": "equal-weight group return exceeds benchmark return over the frozen 36m window",
+      "source_evidence_as_of": "2018-08-20T00:00:00+00:00",
+      "structural_pattern": "regulatory_moat_divergence",
+      "thesis_id": "rmd_2018_loser",
+      "thesis_text": "Public-fixture proxy was obviously protected by a regulatory moat at the time."
+    },
+    {
+      "as_of": "2020-01-02T00:00:00+00:00",
+      "claimed_probability": 0.7,
+      "confidence": "LOW",
+      "direction": "UP",
+      "horizon": "36m",
+      "members": [
+        "CTRL_A",
+        "CTRL_B"
+      ],
+      "negative_or_control_role": "negative_control_structural_shuffle",
+      "resolution_criterion": "equal-weight group return exceeds benchmark return over the frozen 36m window",
+      "source_evidence_as_of": "2020-01-02T00:00:00+00:00",
+      "structural_pattern": "negative_control_shuffle",
+      "thesis_id": "ctrl_2020",
+      "thesis_text": "Negative control: structural label attached to a shuffled public-fixture proxy."
+    }
+  ]
+}

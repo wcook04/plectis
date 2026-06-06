@@ -1,0 +1,17 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "missing_rich_strategy_card_fields",
+  "strategies": [
+    {
+      "strategy_id": "legacy_sparse_overlap_card",
+      "title": "Legacy sparse overlap card",
+      "match_features": [
+        "equality_target",
+        "length_append",
+        "reversed_orientation"
+      ],
+      "body_redacted": true
+    }
+  ],
+  "anti_claim": "Weighted public strategy cards must not collapse back to match_features-only metadata."
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "private_runtime_claim",
+  "error_codes": [
+    "CONCURRENCY_MISSION_CONTROL_PRIVATE_RUNTIME_OVERCLAIM"
+  ],
+  "body_in_receipt": false
+}

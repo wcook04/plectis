@@ -360,8 +360,11 @@ def _fresh_precision_recall_bundle_receipt(
 
 
 def _line_count(path: Path) -> int:
+    line_count = 0
     with path.open("r", encoding="utf-8") as handle:
-        return sum(1 for _ in handle)
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -850,15 +853,53 @@ def _evaluate(
             )
         )
 
+    mean_precision = (
+        round(total_hit_count / total_retrieval_candidate_count, 4)
+        if total_retrieval_candidate_count
+        else 0.0
+    )
+    mean_recall = (
+        round(total_hit_count / total_needed_premise_count, 4)
+        if total_needed_premise_count
+        else 0.0
+    )
+    aggregate_metrics = {
+        "problem_count": len(rows),
+        "mean_precision_at_k": mean_precision,
+        "mean_recall_at_k": mean_recall,
+        "premise_retrieval_pass_count": failure_modes.get("retrieval_hit", 0),
+        "proof_failure_despite_hit": failure_modes.get("proof_failure_despite_hit", 0),
+        "retrieval_miss_count": failure_modes.get("retrieval_miss", 0),
+    }
+    expected_aggregate = policy.get("expected_aggregate_metrics")
+    aggregate_mismatches: list[dict[str, Any]] = []
+    if isinstance(expected_aggregate, dict):
+        for metric_id, expected_value in sorted(expected_aggregate.items()):
+            actual_value = aggregate_metrics.get(str(metric_id))
+            if actual_value != expected_value:
+                aggregate_mismatches.append(
+                    {
+                        "metric_id": str(metric_id),
+                        "expected": expected_value,
+                        "actual": actual_value,
+                    }
+                )
+        for mismatch in aggregate_mismatches:
+            findings.append(
+                _finding(
+                    "RING2_RETRIEVAL_AGGREGATE_METRIC_MISMATCH",
+                    "Computed Ring-2 aggregate metrics must match the public evaluation policy.",
+                    case_id="policy_floor",
+                    subject_id=mismatch["metric_id"],
+                    subject_kind="evaluation_policy",
+                )
+            )
+
     return {
         "status": PASS if rows and not findings else "blocked",
         "problem_count": len(rows),
-        "mean_precision_at_k": round(total_hit_count / total_retrieval_candidate_count, 4)
-        if total_retrieval_candidate_count
-        else 0.0,
-        "mean_recall_at_k": round(total_hit_count / total_needed_premise_count, 4)
-        if total_needed_premise_count
-        else 0.0,
+        "mean_precision_at_k": mean_precision,
+        "mean_recall_at_k": mean_recall,
         "metric_aggregation": {
             "precision": "total_hit_count_over_total_retrieval_candidate_count",
             "recall": "total_hit_count_over_total_needed_premise_count",
@@ -871,6 +912,11 @@ def _evaluate(
             "total_hit_count": total_hit_count,
             "total_retrieval_candidate_count": total_retrieval_candidate_count,
             "total_needed_premise_count": total_needed_premise_count,
+            "aggregate_metrics": aggregate_metrics,
+            "expected_aggregate_metrics": expected_aggregate
+            if isinstance(expected_aggregate, dict)
+            else {},
+            "aggregate_metric_mismatches": aggregate_mismatches,
         },
         "failure_mode_counts": dict(sorted(failure_modes.items())),
         "missing_expected_failure_modes": missing_modes,

@@ -1,0 +1,205 @@
+{
+  "schema_version": "microcosm_public_site_ready_payload_v1",
+  "payload_id": "site_ready.engine_room_command_run_singleflight.20260604T1258Z",
+  "generated_at": "2026-06-04T12:58:00Z",
+  "phase_id": "09_54_1",
+  "family_id": "09",
+  "agent_session_id": "codex_20260604T1252Z_engine_room_command_run_singleflight_source_splice",
+  "agent_read_receipt_ids": [
+    "wlr_5ae048d3dd904695",
+    "wlr_a98ad71490164eec",
+    "wlr_ff4fcb1d0d084ac6"
+  ],
+  "status": "source_populated_site_handoff",
+  "authority_boundary": "This payload records source-backed doctrine population and a public-site refresh handoff. It does not hand-edit generated site files, approve release, assert private-root equivalence, or make generated projections source authority.",
+  "anti_claim": "Do not count this receipt as release approval, hosted deployment proof, full doctrine projection settlement, proof correctness, scheduler or daemon authority, distributed-lock authority, provider dispatch authority, or whole-system correctness.",
+  "subject": {
+    "paper_module_id": "paper_module.engine_room_command_run_singleflight",
+    "mechanism_id": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+    "authority_source_refs": [
+      "microcosm-substrate/core/mechanism_sources.json::mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+      "microcosm-substrate/core/paper_module_capsules.json::paper_module.engine_room_command_run_singleflight",
+      "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json",
+      "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.md",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.json",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md"
+    ],
+    "authority_ceiling": "Public subprocess singleflight fixture and focused regression receipts only; no job scheduler, daemon, distributed lock service, live command_runs export, provider dispatch authority, release approval, private-root equivalence, source mutation, or whole-system correctness."
+  },
+  "source_population_delta": {
+    "mechanism_json_instance_count": {
+      "before": 89,
+      "after": 90
+    },
+    "paper_module_json_instance_count": {
+      "before": 98,
+      "after": 98
+    },
+    "paper_module_json_capsule_backed_count": {
+      "before": 85,
+      "after": 86
+    },
+    "paper_module_legacy_only_count": {
+      "before": 13,
+      "after": 12
+    },
+    "paper_module_required_subject_gap_count": {
+      "before": 13,
+      "after": 12
+    },
+    "remaining_required_subject_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "mechanism_unpopulated_selective_relation_count": {
+      "after": 37,
+      "reason": "The new mechanism names one upstream demo mechanism but does not invent accepted-organ or sibling edges beyond source authority."
+    },
+    "paper_module_unpopulated_selective_relation_count": {
+      "after": 100,
+      "reason": "The new capsule keeps depends_on empty rather than inventing sibling paper-module relations."
+    }
+  },
+  "validation_receipts": [
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.engine_room.command_run_singleflight evaluate-fixtures --input fixtures/first_wave/engine_room_command_run_singleflight/input --json",
+      "status": "pass",
+      "case_count": 4,
+      "passed_case_count": 4,
+      "observed_roles": [
+        "leader",
+        "reused"
+      ]
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_command_run_singleflight.py -q --basetemp /tmp/microcosm-command-run-singleflight-continue --host-pressure-policy=warn",
+      "status": "pass",
+      "pytest_summary": "7 passed"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-mechanism-corpus",
+      "status": "pass",
+      "expected_count": 90,
+      "json_instance_count": 90
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "expected_count": 98,
+      "actual_count": 98
+    }
+  ],
+  "aggregate_projection_write_decision": {
+    "status": "deferred_handoff_captured",
+    "reason": "Full doctrine projection and public-site generated outputs are already stale against a concurrent dirty Microcosm source/projection set. This lane landed only source authority plus narrow generated corpus instances.",
+    "blocked_checks": [
+      {
+        "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+        "status": "blocked",
+        "blocked_fields": [
+          "coverage_projection.projection_freshness.source_digests",
+          "coverage_projection.paper_module_corpus",
+          "coverage_projection.principle_instance_corpus",
+          "coverage_projection.mechanism_instance_corpus",
+          "coverage_projection.organ_instance_corpus",
+          "coverage_projection.paper_module_instance_corpus",
+          "coverage_projection.mechanism_capsule_dependency_upstream_parity",
+          "coverage_projection.deficit_summary",
+          "atlas/doctrine_lattice_projection.json",
+          "atlas/doctrine_lattice_graph.mmd",
+          "atlas/doctrine_lattice_health.json",
+          "atlas/doctrine_lattice_entry_card.json"
+        ]
+      }
+    ],
+    "task_ledger_refs": [
+      "cap_microcosm_doctrine_projection_drift_live_dirty_source_20260604T1248Z / wie_20260604T124949Z_bd91a252",
+      "cap_microcosm_public_site_builder_drift_live_dirty_source_20260604T1249Z / wie_20260604T125048Z_8d96c342"
+    ],
+    "safe_reentry_condition": "After the concurrent Microcosm source/projection owner lands or releases, rerun the doctrine projection write/check sequence and then refresh the public site builder outputs from a stable source parent."
+  },
+  "current_public_site_availability": {
+    "status": "routeable_but_stale_gap_classification",
+    "current_object_map_row": {
+      "id": "paper_module_gap:availability_gap.fcd3df09873e",
+      "kind": "paper_module_gap",
+      "source_id": "paper_module.engine_room_command_run_singleflight",
+      "label": "Engine Room Command Run Singleflight",
+      "route": "paper-modules.html#paper-module-gap-fcd3df09873e",
+      "source_linked": true,
+      "source_refs": [
+        "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md",
+        "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.json",
+        "microcosm-substrate/core/doctrine_lattice_coverage.json"
+      ]
+    },
+    "current_site_check": {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "status": "fail",
+      "drift_count": 16,
+      "validation_status": "pass",
+      "private_scan_hit_count": 0,
+      "public_safety_scan_hit_count": 0,
+      "internal_links_missing": [],
+      "security_txt_contact_status": "public_repository_security_policy_no_private_email"
+    },
+    "current_secret_scan": {
+      "command": "./repo-python tools/meta/dissemination/projection_secret_scan.py --root sites/microcosm --policy-exception-path SOURCE_CONTRACT.md --fail-on-blocking",
+      "status": "green",
+      "blocking_hit_count": 0,
+      "review_hit_count": 0,
+      "policy_exception_count": 571
+    }
+  },
+  "site_builder_contract": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "source_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "source_refs_consumed": [
+      "microcosm-substrate/core/paper_module_capsules.json",
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.json",
+      "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json"
+    ],
+    "handoff_commands": [
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/atlas/doctrine_lattice_projection.json --path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --path microcosm-substrate/atlas/doctrine_lattice_health.json --path microcosm-substrate/atlas/doctrine_lattice_entry_card.json --path sites/microcosm/assets/object-map.js --path sites/microcosm/assets/search-index.js --path sites/microcosm/assets/site-packet.js --path sites/microcosm/content-graph.json --path sites/microcosm/content-manifest.json --path sites/microcosm/docs/paper-modules.html --path sites/microcosm/docs/source.html --path sites/microcosm/object-map.json --path sites/microcosm/projection-status.json --require-exclusive",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --write",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "./repo-python tools/meta/dissemination/projection_secret_scan.py --root sites/microcosm --policy-exception-path SOURCE_CONTRACT.md --fail-on-blocking"
+    ],
+    "expected_post_refresh_availability": {
+      "paper_module_object_kind": "paper_module",
+      "paper_module_route": "paper-modules.html#paper-module-engine-room-command-run-singleflight",
+      "mechanism_object_kind": "mechanism",
+      "mechanism_route": "rules-and-ideas.html#lattice-mechanism-mechanism-engine-room-command-run-singleflight-validates-public-command-run-singleflight",
+      "paper_module_gap_count_expected": 12,
+      "paper_module_count_expected_min": 86,
+      "mechanism_count_expected_min": 90
+    }
+  },
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false
+  },
+  "next_lane": "When aggregate doctrine projection ownership is stable, refresh doctrine lattice projections and site builder outputs so the current routeable paper_module_gap becomes a capsule-backed paper_module entry without frontend redesign."
+}

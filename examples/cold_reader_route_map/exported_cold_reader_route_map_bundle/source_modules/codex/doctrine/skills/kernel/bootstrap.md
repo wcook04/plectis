@@ -29,6 +29,9 @@ description: "Universal startup protocol for Codex agents in this repository. Us
 - Select the smallest relevant skill set before acting — don't load every skill by default.
 - Distinguish FACTS from INFERENCES in any output. Never let inference masquerade as fact.
 - Trust disk state over memory. Read pipeline_resume.json, synth_seed.json, and cycle artifacts — do not reconstruct from recollection.
+- For manually queued "continue/resume/choose the next move" prompts, route through `autonomous_continuation` after the bootstrap prelude. If the latest response has a saved Trace Capsule, response bundle, or inline paste, treat it as primary evidence to read before answering, then verify live repo paths, claims, receipts, and current work before trusting specifics. Recover live app goal state, Work Ledger claims, Task Ledger/CAP pressure, recent traces, prompt-shelf evidence, sibling thread/session activity, and dirty-path ownership before selecting a write lane.
+- When seed-speed Work Ledger status reports `first_action_kind=unclaimed_touched_owner_repair`, treat the named owner session as first-contact coordination evidence. Read it once before starting a fresh phase mutation, then either let the owner land/release, send one owner-visible Work Ledger message if coordination is the blocker, or pivot to a claimed disjoint owner-surface edit that reduces the same failure mode. Claim, heartbeat, release, finalization, and ledger-settlement-only passes are not successful continuation passes unless followed by substrate improvement or a blocked/non-success receipt.
+- When seed-speed reports `claim_session_heartbeat_gap_count > 0` or `heartbeat_gap_claim_sessions[]`, read the named session card and treat its claimed paths as owned-but-unconfirmed, not unclaimed. If you are not that owner, do not mutate the claimed scope; either send one bounded Work Ledger signal if fan-in is the blocker, or pivot to a claimed disjoint owner-surface edit that carries the coordination rule. Publishing a heartbeat/finalize signal alone is not a successful continuation pass unless it lands a substrate improvement or a blocked/non-success receipt.
 
 ## Purpose
 Kernel startup protocol for orienting an agent to the navigation tier, workflow skills, and command surface.
@@ -106,6 +109,9 @@ Execution policy:
 - Prefer kernel navigation commands over raw file reads for system understanding.
 - If the request is cross-lane integration, hidden-substrate wiring, Type A dispatch selection, TACO/terminal-compression import, or asks whether the active phase is acting as a control envelope, run `python3 kernel.py --campaign --task "<query>"` before widening phase-task residual lanes. When `campaign_write_guard.effective_write_authority=campaign`, nested phase alignment is context only and cannot authorize live phase writes.
 - If the active phase primary wave and the request appear to diverge, do not narrate the mismatch manually. Run `python3 kernel.py --phase <phase> --task "<query>"` and follow `task_phase_alignment.selected_lane`, `legal_owner_surfaces`, and `write_guard`.
+- If the request is a generic continuation or manual queue seed, open `autonomous_continuation` after `--entry`/`--context-pack`. Treat stale prompt text as transport evidence, read any saved Trace Capsule or response bundle as evidence, recover live app/thread/session/work-ledger truth, and choose local continuation or a justified pivot from current ownership evidence.
+- If Work Ledger seed-speed names `unclaimed_touched_owner_repair`, consume that owner card before launching, reprompting, or mutating the phase lane. A no-send pivot is valid only when the chosen local edit is disjoint, claimed, and carries the same coordination lesson. Claim repair by itself is a prerequisite or blocker receipt, not the substrate improvement.
+- If Work Ledger seed-speed shows `heartbeat_gap_claim_sessions`, consume that session card before touching any claimed path. A heartbeat-gap claim is still a live ownership warning until the owner heartbeats, releases, or an explicit coordinator records a handoff; sibling passes should signal once or pivot to a disjoint claimed surface.
 - Navigation and planning payloads are compact by default. Use `--full` only when a consumer truly needs the exhaustive legacy envelope.
 - When continuity packets expose `seed_context` and `focus_board`, read the seed first and trust the badges (`[SEED]`, `[ACTIVE]`, or a custom `[TEXT]`) before renaming files or reopening broad note families.
 - Keep focus state in frontmatter, not filenames. Preview changes with `python3 kernel.py --set-focus <note-or-token>` first, then add `--live` only when the planned write set is correct.
@@ -145,10 +151,11 @@ Output policy:
 12. For phased implementation, use `--plan-phase` then `--compile-batch [current|<id>]` before broad file exploration.
 13. For known files, use `--compile <path-or-token> [...]` before raw greps.
 14. Select the smallest relevant skill set.
-15. If the task wants several bounded reads, design the group split yourself and treat bridge workers as jigsaw-piece sub-agents.
-16. Launch long grouped observe work through `--launch-observe --detach`, end the turn immediately, and resume from `--read-observe latest` or `--read-session latest`.
-17. Execute observe/plan/validate/apply loop.
-18. Re-validate and report exact status deltas.
+15. For generic continuation prompts, open `autonomous_continuation`; read any saved Trace Capsule/response bundle as evidence, then recover current goal/session surfaces, claims, CAP pressure, traces, prompt-shelf evidence, sibling activity, and dirty-path ownership before choosing local continuation, pivot, coordination, or blocked non-success. If seed-speed reports `unclaimed_touched_owner_repair`, read that owner session first and bind any no-send pivot to a disjoint claimed mutation that reduces the same coordination failure; claim repair alone is not a successful pass. If seed-speed reports `heartbeat_gap_claim_sessions`, read the named session card, treat its paths as owned until heartbeat/release/handoff, and only signal once or pivot to a disjoint claimed lane.
+16. If the task wants several bounded reads, design the group split yourself and treat bridge workers as jigsaw-piece sub-agents.
+17. Launch long grouped observe work through `--launch-observe --detach`, end the turn immediately, and resume from `--read-observe latest` or `--read-session latest`.
+18. Execute observe/plan/validate/apply loop.
+19. Re-validate and report exact status deltas.
 
 Stop the bootstrap phase once the target mission, node, or run is explicit.
 

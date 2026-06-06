@@ -1,0 +1,191 @@
+{
+  "schema_version": "microcosm_public_site_source_handoff_v1",
+  "receipt_id": "navigation_hologram_route_plane_site_handoff_20260604T2020Z",
+  "created_at": "2026-06-04T20:23:37Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T201659Z_microcosm_navigation_hologram_route_plane_site_handoff_20260604t2020z",
+  "subject_id": "paper_module.navigation_hologram_route_plane",
+  "source_authority": {
+    "capsule_registry_ref": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[1:paper_module.navigation_hologram_route_plane]",
+    "authored_markdown_projection": "microcosm-substrate/paper_modules/navigation_hologram_route_plane.md",
+    "generated_json_sidecar": "microcosm-substrate/paper_modules/navigation_hologram_route_plane.json",
+    "source_authority": "json_capsule",
+    "markdown_role": "reader_projection_over_json_capsule_not_source_authority"
+  },
+  "source_patch": {
+    "kind": "authored_markdown_public_site_boundary_and_exact_copy_refresh",
+    "changed_fields": [
+      "public_site_availability_boundary",
+      "source_module_manifest.digest_metadata",
+      "exported_route_plane_bundle.source_module_body"
+    ],
+    "live_generated_row_readback": {
+      "edge_count": 23,
+      "unresolved_selective_relation_count": 0,
+      "mermaid_status": "available_from_capsule_edges",
+      "atlas_card_status": "linked_from_capsule_edges",
+      "depends_on": [
+        "paper_module.cold_reader_route_map",
+        "paper_module.agent_route_observability_runtime",
+        "paper_module.routing_anti_patterns_registry",
+        "paper_module.pattern_binding_contract"
+      ]
+    }
+  },
+  "exact_copy_refresh": {
+    "status": "repaired",
+    "task_ledger_capture_id": "wie_20260604T202120Z_3e85b30c",
+    "module_id": "navigation_route_plane_entry_packet_source_body_import",
+    "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+    "target_ref": "microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+    "manifest_ref": "microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json::modules[navigation_route_plane_entry_packet_source_body_import]",
+    "old_target_sha256": "387f394d385298aa31df6f747db3e527282f2fa1931e81e9e938ee83b1a0825d",
+    "new_source_sha256": "1b69440070078cfd83cf02f4b5068ed95534f695ef63b4676c9cbf69f28a8f3c",
+    "new_target_sha256": "1b69440070078cfd83cf02f4b5068ed95534f695ef63b4676c9cbf69f28a8f3c",
+    "byte_count": 385511,
+    "line_count": 9342,
+    "body_text_in_receipt": false,
+    "body_open_boundary": "copied_body_is_public_only_at_approved_exported_bundle_target_not_inside_this_receipt"
+  },
+  "public_safety": {
+    "status": "public_safe_source_projection",
+    "allowed_material": [
+      "route-plane ids",
+      "public generated card payload refs",
+      "source/ref handles",
+      "source-module manifest ids",
+      "source-module digests",
+      "anchors",
+      "negative-case error codes",
+      "omission receipt refs",
+      "validation receipt refs",
+      "authority ceilings",
+      "anti-claims",
+      "approved copied non-secret bundle target refs"
+    ],
+    "excluded_material": [
+      "private route bodies",
+      "raw seed bodies",
+      "provider payloads",
+      "account or session material",
+      "browser or HUD state",
+      "secrets",
+      "copied body text inside receipts",
+      "route-policy mutation authority",
+      "release or publication authorization"
+    ],
+    "release_authority": false,
+    "hosted_product_authority": false,
+    "provider_authority": false,
+    "source_mutation_authority": false,
+    "whole_system_correctness_authority": false
+  },
+  "site_availability": {
+    "status": "source_ready_for_existing_builder",
+    "site_output_mode": "builder_projection_required",
+    "tracked_site_outputs_written_by_this_receipt": false,
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "tracked_refresh_reentry_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "builder_refresh_surfaces": [
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "temp_site_root": "/tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z",
+    "temp_routeability_status": "partially_verified_by_surface_role",
+    "verified_routeability": [
+      {
+        "surface": "content_graph",
+        "path": "/tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z/content-graph.json",
+        "check": "rg -q \"paper_module.navigation_hologram_route_plane\"",
+        "status": "pass",
+        "role": "paper_module_identity_and_relation_graph"
+      },
+      {
+        "surface": "object_map",
+        "path": "/tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z/object-map.json",
+        "check": "rg -q \"paper_module:paper_module.navigation_hologram_route_plane\"",
+        "status": "pass",
+        "role": "linkable_object_route"
+      },
+      {
+        "surface": "search_index",
+        "path": "/tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z/assets/search-index.js",
+        "check": "rg -q \"Navigation Hologram Route Plane\"",
+        "status": "pass",
+        "role": "searchable_module_title_and_component_card"
+      },
+      {
+        "surface": "paper_modules_page",
+        "path": "/tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z/docs/paper-modules.html",
+        "check": "rg -n -m 5 \"Navigation Hologram Route Plane|navigation_hologram_route_plane\"",
+        "status": "pass",
+        "role": "paper_module_card_and_dependency_links"
+      }
+    ],
+    "non_equivalent_surfaces": [
+      {
+        "surface": "llms_txt",
+        "check": "rg -q \"navigation_hologram_route_plane\"",
+        "status": "not_exact_module_handle_projection",
+        "meaning": "The generated llms.txt surface is not the proof surface for this paper-module handle."
+      },
+      {
+        "surface": "paper_modules_page_body",
+        "check": "rg -q \"navigation route-plane source projection\"",
+        "status": "not_exact_body_projection",
+        "meaning": "The paper-module page exposes the card, rule-feed links, source link, and body context; this exact handoff sentence is not the availability proof."
+      }
+    ],
+    "handoff_boundary": "Do not hand-edit generated site outputs; refresh through the existing builder after source-input ownership is safe. Treat generated surfaces as role-specific projections, not equivalent full-body mirrors."
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/navigation_hologram_route_plane_site_handoff_20260604T2020Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "jq empty microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "summary": {
+          "actual_count": 98,
+          "expected_count": 98
+        }
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-navigation-route-plane-site-coverage-20260604T2020Z",
+        "status": "pass",
+        "summary": "47 passed"
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_navigation_hologram_route_plane.py -q --basetemp /tmp/microcosm-navigation-route-plane-specific-20260604T2020Z",
+        "status": "pass",
+        "summary": "13 passed"
+      },
+      {
+        "command": "jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' microcosm-substrate/paper_modules/navigation_hologram_route_plane.json",
+        "status": "pass",
+        "summary": "paper_module.navigation_hologram_route_plane\t23\t0\tavailable_from_capsule_edges\tlinked_from_capsule_edges"
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-navigation-route-plane-site-stable-20260604T2020Z --write --validate",
+        "status": "pass",
+        "summary": {
+          "validation_status": "pass",
+          "internal_links_missing": 0,
+          "public_safety_scan_hit_count": 0,
+          "written_count": 13
+        }
+      }
+    ]
+  }
+}

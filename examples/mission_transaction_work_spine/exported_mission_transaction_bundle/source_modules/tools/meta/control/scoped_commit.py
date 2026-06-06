@@ -14,8 +14,10 @@ Scoped-commit actuator using a private index and HEAD CAS.
   patch into that private index, verify the changed-path set against
   the caller's declared pathset, write a tree, commit-tree it onto the
   captured parent, and update-ref the current branch with the captured
-  parent as the CAS expectation.  The shared index is read but never
-  written.
+  parent as the CAS expectation.  Commit selection never depends on the
+  shared index.  After a successful CAS, the tool may pathspec-refresh
+  shared-index entries for the committed paths only, so the normal worktree
+  view does not report stale inverse staged hunks from the old HEAD.
 - Non-goal: This tool does not push, does not write doctrine, does not
   resolve merges, does not rewrite history, does not amend, and does
   not bypass repo signing or hooks except by routing through
@@ -55,13 +57,19 @@ Scoped-commit actuator using a private index and HEAD CAS.
 from __future__ import annotations
 
 import argparse
+from collections.abc import Iterator
+from contextlib import contextmanager
+import fcntl
+import hashlib
 import json
 import os
+import re
 import shutil
 import shlex
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path, PurePosixPath
 
 
@@ -72,10 +80,117 @@ WORK_LEDGER_SESSION_ENV_VARS = (
     "AIW_ACTOR_SESSION_ID",
     "AIW_SESSION_ID",
 )
+DRY_RUN_MESSAGE_PLACEHOLDER = "scoped-commit dry-run placeholder"
 SCOPED_COMMIT_MIN_FREE_BYTES_ENV = "AIW_SCOPED_COMMIT_MIN_FREE_BYTES"
 SCOPED_COMMIT_MIN_FREE_BYTES_DEFAULT = 512 * 1024 * 1024
 SCOPED_COMMIT_WRITE_ESTIMATE_FLOOR_BYTES = 64 * 1024 * 1024
 SCOPED_COMMIT_WRITE_AMPLIFICATION = 2
+SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES = 1
+SCOPED_COMMIT_HEAD_CAS_MEMORY_FILE = "aiw_scoped_commit_head_cas_failures.jsonl"
+SCOPED_COMMIT_HEAD_CAS_MEMORY_TTL_SECONDS = 12 * 60 * 60
+TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV = "AIW_SCOPED_COMMIT_ALLOW_TASK_LEDGER_MONOLITH"
+COMMAND_TEMPLATE_TOKEN_RE = re.compile(r"<([^<>]+)>")
+_SUBCOMMANDS = {"full-paths", "patch", "tracked-removals"}
+_ROOT_FULL_PATH_FLAGS = {
+    "--path",
+    "--message",
+    "--message-file",
+    "--allow-detached",
+    "--allow-untracked",
+    "--allow-multi-hunk-full-paths",
+    "--dry-run",
+    "--expected-parent",
+    "--cas-retry-attempt",
+    "--work-ledger-session-id",
+    "--remote-fallback-on-metadata-block",
+    "--remote-name",
+    "--target-ref",
+}
+
+
+def _command_template_bindings(command: str) -> list[str]:
+    bindings: list[str] = []
+    for match in COMMAND_TEMPLATE_TOKEN_RE.finditer(command):
+        binding = match.group(1).strip()
+        if binding and binding not in bindings:
+            bindings.append(binding)
+    return bindings
+
+
+def _command_artifact_contract(
+    command: str,
+    *,
+    parser_owner: str,
+    unsupported_flags: list[str] | None = None,
+) -> dict[str, object]:
+    unsupported = sorted(set(unsupported_flags or []))
+    required_bindings = _command_template_bindings(command)
+    tokenization_error = ""
+    try:
+        shlex.split(command)
+        tokenized = True
+    except ValueError as exc:
+        tokenized = False
+        tokenization_error = str(exc)
+
+    if not command.strip():
+        state = "missing"
+        runnable = False
+        conformance_status = "no_command"
+    elif not tokenized:
+        state = "invalid"
+        runnable = False
+        conformance_status = "tokenization_failed"
+    elif unsupported:
+        state = "invalid"
+        runnable = False
+        conformance_status = "unsupported_flags_present"
+    elif required_bindings:
+        state = "template"
+        runnable = False
+        conformance_status = "template_requires_binding"
+    else:
+        state = "runnable"
+        runnable = True
+        conformance_status = "runnable_no_known_placeholders"
+
+    contract: dict[str, object] = {
+        "schema": "command_artifact_contract_v0",
+        "state": state,
+        "runnable": runnable,
+        "parser_owner": parser_owner,
+        "tokenization": "shlex",
+        "required_bindings": required_bindings,
+        "unsupported_flags": unsupported,
+        "conformance_status": conformance_status,
+    }
+    if tokenization_error:
+        contract["tokenization_error"] = tokenization_error
+    return contract
+
+
+def _command_template_row(
+    *,
+    row_id: str,
+    command: str,
+    template: bool,
+    required_fields: list[str],
+    parser_owner: str,
+    owner_help_route: str | None = None,
+) -> dict[str, object]:
+    row: dict[str, object] = {
+        "id": row_id,
+        "command": command,
+        "template": template,
+        "required_fields": required_fields,
+        "command_contract": _command_artifact_contract(
+            command,
+            parser_owner=parser_owner,
+        ),
+    }
+    if owner_help_route:
+        row["owner_help_route"] = owner_help_route
+    return row
 
 
 class GitMetadataBlockedError(RuntimeError):
@@ -85,6 +200,23 @@ class GitMetadataBlockedError(RuntimeError):
         super().__init__(message)
         self.capability = capability
         self.operation = operation
+
+
+class HeadCasFailureError(RuntimeError):
+    """Raised when HEAD advanced before a private-index commit could land."""
+
+    def __init__(self, message: str, *, retry_packet: dict[str, object]) -> None:
+        super().__init__(message)
+        self.retry_packet = retry_packet
+
+
+class ScopedCommitMultiHunkFullPathsError(ValueError):
+    """Raised when full-path mode would commit ambiguous multi-hunk files."""
+
+    def __init__(self, message: str, *, mode: str, multi_hunk_paths: dict[str, int]) -> None:
+        super().__init__(message)
+        self.mode = mode
+        self.multi_hunk_paths = dict(multi_hunk_paths)
 
 
 def _run(
@@ -193,6 +325,511 @@ def _assert_scoped_commit_disk_headroom(
 
 def _git(args: list[str], *, cwd: Path, **kwargs) -> subprocess.CompletedProcess:
     return _run(["git", *args], cwd=cwd, **kwargs)
+
+
+def _recent_commit_preview(repo_root: Path, *, parent_sha: str, limit: int = 5) -> list[str]:
+    res = _git(
+        ["log", "--oneline", "--decorate", f"--max-count={limit}", f"{parent_sha}..HEAD"],
+        cwd=repo_root,
+        check=False,
+    )
+    if res.returncode != 0:
+        return []
+    return [line for line in res.stdout.splitlines() if line.strip()]
+
+
+def _repo_git_dir(repo_root: Path) -> Path:
+    res = _git(["rev-parse", "--git-dir"], cwd=repo_root, check=False)
+    raw = res.stdout.strip() if res.returncode == 0 else ""
+    if not raw:
+        return repo_root / ".git"
+    git_dir = Path(raw)
+    return git_dir if git_dir.is_absolute() else (repo_root / git_dir).resolve()
+
+
+def _head_cas_memory_path(repo_root: Path) -> Path:
+    return _repo_git_dir(repo_root) / SCOPED_COMMIT_HEAD_CAS_MEMORY_FILE
+
+
+def _head_cas_evidence_root(
+    *,
+    mode: str,
+    branch_ref: str,
+    scoped_evidence_sha: str,
+    changed_paths: list[str],
+) -> str:
+    payload = {
+        "schema": "scoped_commit_head_cas_evidence_root_v0",
+        "mode": mode,
+        "branch_ref": branch_ref,
+        "scoped_evidence_sha": scoped_evidence_sha,
+        "changed_paths": sorted(changed_paths),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
+def _private_index_scoped_evidence_sha(
+    repo_root: Path,
+    changed_paths: list[str],
+    *,
+    env: dict[str, str],
+) -> str:
+    entries: list[dict[str, object]] = []
+    for rel in sorted(changed_paths):
+        res = _git(["ls-files", "-s", "--", rel], cwd=repo_root, env=env, check=False)
+        index_entries = [line for line in res.stdout.splitlines() if line.strip()]
+        entries.append(
+            {
+                "path": rel,
+                "index_entries": index_entries or ["<absent>"],
+            }
+        )
+    payload = {
+        "schema": "scoped_commit_changed_path_evidence_v0",
+        "entries": entries,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
+def _head_cas_memory_events(repo_root: Path) -> list[dict[str, object]]:
+    path = _head_cas_memory_path(repo_root)
+    try:
+        rows = path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        return []
+    except OSError:
+        return []
+
+    events: list[dict[str, object]] = []
+    for line in rows[-500:]:
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(event, dict):
+            events.append(event)
+    return events
+
+
+def _head_cas_retry_memory_status(
+    repo_root: Path,
+    *,
+    evidence_root: str,
+) -> dict[str, object]:
+    path = _head_cas_memory_path(repo_root)
+    now = time.time()
+    cutoff = now - SCOPED_COMMIT_HEAD_CAS_MEMORY_TTL_SECONDS
+    same_root: list[dict[str, object]] = []
+    for event in _head_cas_memory_events(repo_root):
+        if event.get("evidence_root") != evidence_root:
+            continue
+        try:
+            ts = float(event.get("ts") or 0)
+        except (TypeError, ValueError):
+            ts = 0
+        if ts < cutoff:
+            continue
+        same_root.append(event)
+
+    last_landed_index = -1
+    for index, event in enumerate(same_root):
+        if event.get("event") == "landed":
+            last_landed_index = index
+    active_events = same_root[last_landed_index + 1 :]
+    prior_failure_count = sum(
+        1 for event in active_events if event.get("event") == "cas_failure"
+    )
+    return {
+        "schema": "scoped_commit_head_cas_retry_memory_v0",
+        "status": "available",
+        "storage": "repo_git_dir",
+        "memory_ref": f"git-dir:{path.name}",
+        "evidence_root": evidence_root,
+        "ttl_seconds": SCOPED_COMMIT_HEAD_CAS_MEMORY_TTL_SECONDS,
+        "prior_failure_count": prior_failure_count,
+        "landed_reset_seen": last_landed_index >= 0,
+        "event_count_for_root": len(same_root),
+        "active_event_count_for_root": len(active_events),
+    }
+
+
+def _record_head_cas_memory_event(
+    repo_root: Path,
+    *,
+    event: str,
+    evidence_root: str,
+    mode: str,
+    branch_ref: str,
+    tree_sha: str,
+    scoped_evidence_sha: str,
+    changed_paths: list[str],
+    expected_parent: str = "",
+    current_head: str = "",
+    attempted_commit: str = "",
+    status: str = "",
+    effective_retry_attempt: int = 0,
+) -> dict[str, object]:
+    path = _head_cas_memory_path(repo_root)
+    row = {
+        "schema": "scoped_commit_head_cas_memory_event_v0",
+        "ts": time.time(),
+        "event": event,
+        "evidence_root": evidence_root,
+        "mode": mode,
+        "branch_ref": branch_ref,
+        "tree_sha": tree_sha,
+        "scoped_evidence_sha": scoped_evidence_sha,
+        "changed_paths": list(changed_paths),
+        "expected_parent": expected_parent,
+        "current_head": current_head,
+        "attempted_commit": attempted_commit,
+        "status": status,
+        "effective_retry_attempt": effective_retry_attempt,
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
+    except OSError as exc:
+        return {
+            "schema": "scoped_commit_head_cas_memory_record_receipt_v0",
+            "status": "not_recorded",
+            "event": event,
+            "evidence_root": evidence_root,
+            "error_class": type(exc).__name__,
+        }
+    return {
+        "schema": "scoped_commit_head_cas_memory_record_receipt_v0",
+        "status": "recorded",
+        "event": event,
+        "evidence_root": evidence_root,
+        "memory_ref": f"git-dir:{path.name}",
+    }
+
+
+def _build_head_cas_retry_packet(
+    repo_root: Path,
+    *,
+    mode: str,
+    branch_ref: str,
+    expected_parent: str,
+    attempted_commit: str,
+    attempted_tree: str,
+    scoped_evidence_sha: str,
+    changed_paths: list[str],
+    update_stderr: str,
+    cas_retry_attempt: int = 0,
+    retry_memory: dict[str, object] | None = None,
+) -> dict[str, object]:
+    current_head = _git(["rev-parse", "HEAD"], cwd=repo_root, check=False).stdout.strip()
+    refresh_retry_attempt = max(0, int(cas_retry_attempt or 0))
+    retry_budget_exhausted = (
+        refresh_retry_attempt >= SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES
+    )
+    selected_option = (
+        {
+            "lane": "validated_uncommitted_receipt",
+            "state": "required",
+            "receipt_ref": "validated_uncommitted_git_metadata_blocked",
+        }
+        if retry_budget_exhausted
+        else {
+            "lane": "cas_retry",
+            "state": "queued",
+            "receipt_ref": "scoped-commit-head-cas-retry-packet",
+        }
+    )
+    continuation_state = (
+        "validated_uncommitted_receipt_required"
+        if retry_budget_exhausted
+        else "retry_required_after_refresh"
+    )
+    return {
+        "schema": "scoped_commit_head_cas_retry_packet_v1",
+        "status": (
+            "blocked_head_advanced_retry_budget_exhausted"
+            if retry_budget_exhausted
+            else "blocked_head_advanced"
+        ),
+        "surface": "tools/meta/control/scoped_commit.py",
+        "mode": mode,
+        "continuation_state": continuation_state,
+        "source_failure": "git_update_ref_cas_mismatch",
+        "selected_option": selected_option,
+        "stale_option_retirement": {
+            "retired_expected_parent": expected_parent,
+            "reason": "same scoped commit must not be retried against the stale parent",
+            "next_expected_parent": current_head,
+        },
+        "retry_budget": {
+            "schema": "scoped_commit_head_cas_retry_budget_v0",
+            "max_refresh_retry_attempts": SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES,
+            "current_refresh_retry_attempt": refresh_retry_attempt,
+            "remaining_refresh_retries_after_failure": (
+                0
+                if retry_budget_exhausted
+                else max(
+                    0,
+                    SCOPED_COMMIT_HEAD_CAS_MAX_REFRESH_RETRIES - refresh_retry_attempt,
+                )
+            ),
+            "budget_exhausted": retry_budget_exhausted,
+            "attempt_count_source": (
+                "max_of_caller_retry_attempt_and_repo_git_dir_retry_memory"
+            ),
+            "rule": (
+                "After one refreshed retry for the same evidence root, a second "
+                "HEAD-CAS failure must stop the landing loop and bind a residual "
+                "or coordination handoff instead of launching another blind retry."
+            ),
+            "residual_required_when": [
+                "same evidence root already consumed the refresh retry",
+                "current_head changes again before retry landing",
+                "recent commits cannot be proven disjoint from the owned paths",
+            ],
+        },
+        "branch_ref": branch_ref,
+        "expected_parent": expected_parent,
+        "current_head": current_head,
+        "attempted_commit": attempted_commit,
+        "attempted_tree": attempted_tree,
+        "scoped_evidence_sha": scoped_evidence_sha,
+        "changed_path_count": len(changed_paths),
+        "changed_paths": list(changed_paths),
+        "retry_memory": retry_memory or {},
+        "recent_commits_preview": _recent_commit_preview(repo_root, parent_sha=expected_parent),
+        "git_stderr": update_stderr.strip()[:500],
+        "required_before_retry": [
+            "re_read_current_head",
+            "inspect_recent_commits_for_owned_path_overlap",
+            "confirm_scoped_diff_still_matches_owned_intent",
+            "rerun_work_ledger_or_mission_preflight_for_owned_paths",
+            "rerun_focused_validation_or_record_a_typed_validation_substitution",
+            "confirm_cas_retry_budget_not_exhausted_for_this_evidence_root",
+            "retry_scoped_commit_with_expected_parent_equal_to_current_head",
+        ],
+        "stop_conditions": [
+            "same_owned_path_changed_by_new_head",
+            "work_ledger_or_mission_preflight_reports_live_collision",
+            "focused_validation_no_longer_matches_the_retry_assumption",
+            "current_head_changes_again_before_retry_landing",
+            "second_head_cas_failure_for_same_evidence_root",
+            "cas_retry_budget_exhausted",
+        ],
+        "command_template_contract": {
+            "schema": "scoped_commit_command_template_contract_v0",
+            "rule": (
+                "Only copy-run command_templates whose command_contract.runnable "
+                "is true. Template rows must have every command_contract.required_bindings "
+                "value replaced from live HEAD, Work Ledger, Task Ledger, validation, "
+                "and original scoped-commit arguments before execution."
+            ),
+            "owner_help_route_rule": (
+                "When a template row parses incorrectly or the agent is unsure which "
+                "flags are legal, run owner_help_route before retrying the command."
+            ),
+            "placeholder_syntax": "<binding-name>",
+        },
+        "command_templates": [
+            _command_template_row(
+                row_id="refresh_head",
+                command="git rev-parse HEAD",
+                template=False,
+                required_fields=[],
+                parser_owner="git",
+            ),
+            _command_template_row(
+                row_id="inspect_recent_commits",
+                command=f"git log --oneline --decorate --max-count=5 {expected_parent}..HEAD",
+                template=False,
+                required_fields=[],
+                parser_owner="git",
+            ),
+            _command_template_row(
+                row_id="mission_preflight_recheck",
+                command=(
+                    "./repo-python tools/meta/control/mission_transaction_preflight.py "
+                    "--subject-id <subject-id> --session-id <work-ledger-session-id> "
+                    "--owned-path <owned-path> --fail-on-status blocked"
+                ),
+                template=True,
+                required_fields=[
+                    "subject-id",
+                    "work-ledger-session-id",
+                    "owned-path",
+                ],
+                parser_owner="mission_transaction_preflight",
+                owner_help_route=(
+                    "./repo-python tools/meta/control/mission_transaction_preflight.py --help"
+                ),
+            ),
+            _command_template_row(
+                row_id="retry_scoped_commit",
+                command=(
+                    "./repo-python tools/meta/control/scoped_commit.py <mode> "
+                    "--expected-parent <current-head> --cas-retry-attempt 1 "
+                    "<original-path-and-message-args>"
+                ),
+                template=True,
+                required_fields=[
+                    "mode",
+                    "current-head",
+                    "original-path-and-message-args",
+                ],
+                parser_owner="scoped_commit",
+                owner_help_route="./repo-python tools/meta/control/scoped_commit.py --help",
+            ),
+            _command_template_row(
+                row_id="record_validated_uncommitted_receipt",
+                command=(
+                    "./repo-python tools/meta/factory/task_ledger_apply.py "
+                    "record-execution-receipt --subject-id <subject-id> "
+                    "--transaction-id <transaction-id> "
+                    "--closeout-state validated_uncommitted_git_metadata_blocked "
+                    "--no-commit-reason parent_cas_retry_budget_exhausted "
+                    "--validation-ref <validation-ref> "
+                    "--commit-blocker-ref scoped-commit-head-cas-retry-packet "
+                    "--commit-blocker-ref parent_cas_retry_budget_exhausted"
+                ),
+                template=True,
+                required_fields=[
+                    "subject-id",
+                    "transaction-id",
+                    "validation-ref",
+                ],
+                parser_owner="task_ledger_apply",
+                owner_help_route=(
+                    "./repo-python tools/meta/factory/task_ledger_apply.py "
+                    "record-execution-receipt --help"
+                ),
+            ),
+        ],
+        "receipt_condition": (
+            "The continuation is spent by a later scoped_commit success JSON with "
+            "new_commit, or by a Task Ledger/Work Ledger residual that names the "
+            "failed CAS packet, retry-budget state, and stop condition."
+        ),
+        "receipt_required": (
+            {
+                "closeout_state": "validated_uncommitted_git_metadata_blocked",
+                "no_commit_reason": "parent_cas_retry_budget_exhausted",
+                "required_fields": [
+                    "expected_parent",
+                    "current_head",
+                    "changed_paths",
+                    "recent_commits_preview",
+                    "validation_refs",
+                    "commit_blocker_refs",
+                    "reentry_condition",
+                ],
+                "rule": (
+                    "Do not launch a third ref mutation for the same evidence root; "
+                    "bind the validated-uncommitted state and re-enter after a fresh "
+                    "quiet-window, overlap, preflight, and validation check."
+                ),
+            }
+            if retry_budget_exhausted
+            else {}
+        ),
+    }
+
+
+def _head_cas_failure(
+    repo_root: Path,
+    *,
+    mode: str,
+    branch_ref: str,
+    parent_sha: str,
+    commit_sha: str,
+    tree_sha: str,
+    scoped_evidence_sha: str,
+    changed_paths: list[str],
+    update_stderr: str,
+    cas_retry_attempt: int = 0,
+) -> HeadCasFailureError:
+    evidence_root = _head_cas_evidence_root(
+        mode=mode,
+        branch_ref=branch_ref,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+    )
+    retry_memory = _head_cas_retry_memory_status(repo_root, evidence_root=evidence_root)
+    caller_retry_attempt = max(0, int(cas_retry_attempt or 0))
+    prior_failure_count = max(0, int(retry_memory.get("prior_failure_count") or 0))
+    effective_retry_attempt = max(caller_retry_attempt, prior_failure_count)
+    retry_memory["caller_supplied_retry_attempt"] = caller_retry_attempt
+    retry_memory["effective_refresh_retry_attempt"] = effective_retry_attempt
+    packet = _build_head_cas_retry_packet(
+        repo_root,
+        mode=mode,
+        branch_ref=branch_ref,
+        expected_parent=parent_sha,
+        attempted_commit=commit_sha,
+        attempted_tree=tree_sha,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+        update_stderr=update_stderr,
+        cas_retry_attempt=effective_retry_attempt,
+        retry_memory=retry_memory,
+    )
+    record_receipt = _record_head_cas_memory_event(
+        repo_root,
+        event="cas_failure",
+        evidence_root=evidence_root,
+        mode=mode,
+        branch_ref=branch_ref,
+        tree_sha=tree_sha,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+        expected_parent=parent_sha,
+        current_head=str(packet.get("current_head") or ""),
+        attempted_commit=commit_sha,
+        status=str(packet.get("status") or ""),
+        effective_retry_attempt=effective_retry_attempt,
+    )
+    packet["retry_memory"]["record_receipt"] = record_receipt
+    return HeadCasFailureError(
+        "scoped-commit: HEAD CAS failed; another actor advanced "
+        f"{branch_ref} since parent {parent_sha[:8]} was captured. "
+        "Retry only after refreshing HEAD, ownership, scoped diff, and validation. "
+        f"Stderr: {update_stderr.strip()}",
+        retry_packet=packet,
+    )
+
+
+def _record_head_cas_landed(
+    repo_root: Path,
+    *,
+    mode: str,
+    branch_ref: str,
+    tree_sha: str,
+    scoped_evidence_sha: str,
+    commit_sha: str,
+    changed_paths: list[str],
+) -> dict[str, object]:
+    evidence_root = _head_cas_evidence_root(
+        mode=mode,
+        branch_ref=branch_ref,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+    )
+    return _record_head_cas_memory_event(
+        repo_root,
+        event="landed",
+        evidence_root=evidence_root,
+        mode=mode,
+        branch_ref=branch_ref,
+        tree_sha=tree_sha,
+        scoped_evidence_sha=scoped_evidence_sha,
+        changed_paths=changed_paths,
+        current_head=commit_sha,
+        attempted_commit=commit_sha,
+        status="landed",
+    )
 
 
 def _git_metadata_write_capability_for_commit(repo_root: Path) -> dict[str, object]:
@@ -470,21 +1107,24 @@ def perform_remote_full_paths_landing(
             if count > 1
         }
         if multi_hunk_paths and not allow_multi_hunk_full_paths:
-            raise ValueError(
+            raise ScopedCommitMultiHunkFullPathsError(
                 "scoped-commit: remote fallback full-paths mode refuses multi-hunk "
                 "file diffs by default because it commits every hunk in each declared "
                 "path. Use patch mode in a Git-authorized lane for hunk-only ownership, "
-                f"or pass --allow-multi-hunk-full-paths after verifying ownership: {multi_hunk_paths}"
+                f"or pass --allow-multi-hunk-full-paths after verifying ownership: {multi_hunk_paths}",
+                mode="remote-full-paths",
+                multi_hunk_paths=multi_hunk_paths,
             )
         task_ledger_projection_guard = _assert_task_ledger_private_index_consistency(
             temp_repo,
             changed,
         )
 
+        effective_work_ledger_session_id = work_ledger_session_id or _default_work_ledger_session_id()
         mutation_guard = _work_ledger_mutation_guard(
             repo_root,
             changed,
-            session_id=work_ledger_session_id or _default_work_ledger_session_id(),
+            session_id=effective_work_ledger_session_id,
         )
 
         tree_sha = _git(["write-tree"], cwd=temp_repo).stdout.strip()
@@ -537,6 +1177,14 @@ def perform_remote_full_paths_landing(
         "tree": tree_sha,
         "dry_run": False,
         "work_ledger_mutation_guard": mutation_guard,
+        "work_ledger_closeout_hint": _work_ledger_closeout_hint(
+            session_id=effective_work_ledger_session_id,
+            commit_sha=commit_sha,
+            changed_paths=changed,
+            mode="remote-full-paths",
+            remote_fallback=True,
+            live_repo_head_unchanged=True,
+        ),
         "task_ledger_projection_guard": task_ledger_projection_guard,
         "remote_name": remote_name,
         "target_ref": target_ref,
@@ -555,6 +1203,210 @@ def _default_work_ledger_session_id() -> str:
         if value and value.strip():
             return value.strip()
     return ""
+
+
+def _post_commit_containment_command(
+    *,
+    commit_sha: str,
+    changed_paths: list[str],
+) -> str:
+    scope_args = " ".join(
+        f"--scope {shlex.quote(path)}" for path in _normalize_paths(changed_paths)
+    )
+    return (
+        "./repo-python tools/meta/control/git_state_snapshot.py "
+        f"--post-commit-containment --commit {shlex.quote(commit_sha)} "
+        f"{scope_args}"
+    ).strip()
+
+
+def _post_commit_containment_finalize_args(
+    *,
+    commit_sha: str,
+    changed_paths: list[str],
+) -> str:
+    normalized_paths = _normalize_paths(changed_paths)
+    if not commit_sha or not normalized_paths:
+        return ""
+    scope_args = " ".join(
+        f"--post-commit-containment-scope {shlex.quote(path)}"
+        for path in normalized_paths
+    )
+    return (
+        "--require-post-commit-containment "
+        f"--post-commit-containment-commit {shlex.quote(commit_sha)} "
+        f"{scope_args}"
+    ).strip()
+
+
+def _post_commit_containment_hint(
+    *,
+    commit_sha: str,
+    changed_paths: list[str],
+    remote_fallback: bool,
+    live_repo_head_unchanged: bool,
+) -> dict[str, object]:
+    normalized_paths = _normalize_paths(changed_paths)
+    command = _post_commit_containment_command(
+        commit_sha=commit_sha,
+        changed_paths=normalized_paths,
+    )
+    base: dict[str, object] = {
+        "schema": "scoped_commit_post_commit_containment_hint_v0",
+        "path_scope": normalized_paths,
+        "expected_safe_fields": {
+            "ok": True,
+            "closeout_safe": True,
+            "commit_contained_in_head": True,
+        },
+        "safe_statuses": [
+            "contained_head_current_paths_clean",
+            "contained_head_advanced_paths_unchanged",
+        ],
+    }
+    if remote_fallback:
+        status = (
+            "deferred_remote_fallback_live_head_not_updated"
+            if live_repo_head_unchanged
+            else "deferred_remote_fallback"
+        )
+        return {
+            **base,
+            "status": status,
+            "reason": (
+                "remote fallback landed a commit outside the live repo HEAD update path; "
+                "run local post-commit containment only after live Git metadata is synced "
+                "to the published commit or its descendant"
+            ),
+            "required_before": "user_facing_closeout_after_local_sync",
+            "command_after_local_sync": command,
+        }
+    return {
+        **base,
+        "status": "required_before_finalize",
+        "reason": (
+            "prove the landed commit is contained in current HEAD and declared owned "
+            "paths are unchanged and clean before Work Ledger append-exempt finalization"
+        ),
+        "required_before": "append_exempt_session_finalize_template",
+        "command": command,
+    }
+
+
+def _work_ledger_closeout_hint(
+    *,
+    session_id: str | None,
+    commit_sha: str,
+    changed_paths: list[str],
+    mode: str,
+    remote_fallback: bool = False,
+    live_repo_head_unchanged: bool = False,
+) -> dict[str, object]:
+    owner_session_id = str(session_id or "").strip()
+    if not owner_session_id:
+        return {
+            "schema": "scoped_commit_work_ledger_closeout_hint_v0",
+            "status": "not_applicable",
+            "reason": "no_work_ledger_session_id",
+        }
+    quoted_session = shlex.quote(owner_session_id)
+    quoted_commit = shlex.quote(commit_sha)
+    normalized_paths = _normalize_paths(changed_paths)
+    owned_path_args = " ".join(
+        f"--owned-path {shlex.quote(path)}" for path in normalized_paths
+    )
+    status = "required_after_remote_commit" if remote_fallback else "required_after_commit"
+    work_landing_reconcile_template = (
+        "./repo-python tools/meta/control/work_landing.py reconcile "
+        "--subject-id <subject-id> "
+        f"--session-id {quoted_session} "
+        f"--commit-hash {quoted_commit} "
+        f"{owned_path_args} "
+        "--apply --only commit_and_closeout"
+    ).strip()
+    append_exempt_finalize_template = (
+        "./repo-python tools/meta/factory/work_ledger.py session-finalize "
+        f"--session-id {quoted_session} "
+        "--action codex-turn-end "
+        "--read-receipt-id <wlr_*> "
+        "--append-exempt-reason scoped_commit_only_closeout "
+        f"--append-exempt-ref {quoted_commit}"
+    )
+    containment_finalize_args = _post_commit_containment_finalize_args(
+        commit_sha=commit_sha,
+        changed_paths=normalized_paths,
+    )
+    if containment_finalize_args:
+        append_exempt_finalize_template = (
+            f"{append_exempt_finalize_template} {containment_finalize_args}"
+        )
+    post_commit_containment = _post_commit_containment_hint(
+        commit_sha=commit_sha,
+        changed_paths=normalized_paths,
+        remote_fallback=remote_fallback,
+        live_repo_head_unchanged=live_repo_head_unchanged,
+    )
+    direct_scoped_commit_closeout: dict[str, object] = {
+        "requires_attempt_binding": False,
+        "use_when": "the commit was landed directly by scoped_commit.py and no Work Landing attempt binding exists",
+        "command": append_exempt_finalize_template,
+    }
+    containment_command = post_commit_containment.get("command")
+    if isinstance(containment_command, str) and containment_command:
+        direct_scoped_commit_closeout["precheck_command"] = containment_command
+    else:
+        direct_scoped_commit_closeout["precheck_status"] = post_commit_containment.get("status")
+        command_after_sync = post_commit_containment.get("command_after_local_sync")
+        if isinstance(command_after_sync, str) and command_after_sync:
+            direct_scoped_commit_closeout["precheck_command_after_local_sync"] = command_after_sync
+
+    hint: dict[str, object] = {
+        "schema": "scoped_commit_work_ledger_closeout_hint_v0",
+        "status": status,
+        "reason": (
+            "scoped_commit_writes_git_history_only; it does not record Task Ledger "
+            "execution receipts, close Work Ledger threads, finalize sessions, or release claims"
+        ),
+        "session_id": owner_session_id,
+        "commit_hash": commit_sha,
+        "mode": mode,
+        "changed_paths": normalized_paths,
+        "live_repo_head_unchanged": live_repo_head_unchanged,
+        "preferred_controller": "controller_selection_by_attempt_binding",
+        "session_status_command": (
+            "./repo-python tools/meta/factory/work_ledger.py session-status "
+            f"--session-id {quoted_session} --detail compact"
+        ),
+        "post_commit_containment": post_commit_containment,
+        "work_landing_reconcile_template": work_landing_reconcile_template,
+        "append_exempt_session_finalize_template": append_exempt_finalize_template,
+        "session_finalize_fallback_command": (
+            "./repo-python tools/meta/factory/work_ledger.py session-finalize "
+            f"--session-id {quoted_session}"
+        ),
+        "controller_selection": {
+            "work_landing_reconcile": {
+                "requires_attempt_binding": True,
+                "use_when": "a Work Landing begin/attempt binding already exists for the subject and session",
+                "command": work_landing_reconcile_template,
+            },
+            "direct_scoped_commit_closeout": direct_scoped_commit_closeout,
+        },
+        "rules": [
+            "after a successful scoped commit, run Work Landing reconcile only when a Work Landing begin/attempt binding exists",
+            "for direct scoped_commit-only closeout with no attempt binding, use append_exempt_session_finalize_template and do not follow with bare session-finalize",
+            "use the session status command to verify active_claim_count reaches 0",
+            "do not describe source work as fully closed while the session still has active claims",
+            "append_exempt_session_finalize_template carries the post-commit containment guard; standalone post_commit_containment_command receipts remain inspectable proof for user-facing closeout",
+        ],
+    }
+    if isinstance(containment_command, str) and containment_command:
+        hint["post_commit_containment_command"] = containment_command
+    else:
+        command_after_sync = post_commit_containment.get("command_after_local_sync")
+        if isinstance(command_after_sync, str) and command_after_sync:
+            hint["post_commit_containment_command_after_local_sync"] = command_after_sync
+    return hint
 
 
 def _work_ledger_mutation_guard(
@@ -624,6 +1476,41 @@ def _current_branch_ref(repo_root: Path, *, allow_detached: bool) -> str:
     raise RuntimeError(
         "scoped-commit: HEAD is detached; pass --allow-detached to commit anyway"
     )
+
+
+@contextmanager
+def _scoped_commit_landing_lock(
+    repo_root: Path,
+    *,
+    enabled: bool,
+) -> Iterator[dict[str, object]]:
+    """Serialize local parent-capture-to-update-ref landing windows."""
+    if not enabled:
+        yield {
+            "schema": "scoped_commit_landing_lock_v0",
+            "status": "skipped",
+            "reason": "dry_run",
+        }
+        return
+
+    lock_path_raw = _git(
+        ["rev-parse", "--git-path", "aiw_scoped_commit.lock"],
+        cwd=repo_root,
+    ).stdout.strip()
+    lock_path = Path(lock_path_raw)
+    if not lock_path.is_absolute():
+        lock_path = repo_root / lock_path
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield {
+                "schema": "scoped_commit_landing_lock_v0",
+                "status": "held",
+                "lock_path": str(lock_path),
+            }
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
 
 def _changed_paths_in_private_index(repo_root: Path, index_file: Path, parent: str) -> list[str]:
@@ -748,6 +1635,26 @@ def _assert_task_ledger_private_index_consistency(
             "after the last Task Ledger append, then rerun the scoped commit"
         )
     return receipt
+
+
+def _assert_task_ledger_monolith_not_committed(changed_paths: list[str]) -> dict[str, object]:
+    if "state/task_ledger/events.jsonl" not in changed_paths:
+        return {
+            "schema": "scoped_commit_task_ledger_monolith_guard_v0",
+            "status": "not_applicable",
+        }
+    if os.environ.get(TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV) == "1":
+        return {
+            "schema": "scoped_commit_task_ledger_monolith_guard_v0",
+            "status": "override_allowed",
+            "override_env": TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV,
+        }
+    raise ValueError(
+        "scoped-commit: refusing to commit state/task_ledger/events.jsonl as a "
+        "monolithic authority file. Use the Task Ledger authority migration/"
+        f"settlement lane, or set {TASK_LEDGER_MONOLITH_COMMIT_OVERRIDE_ENV}=1 "
+        "only with an explicit migration/settlement receipt."
+    )
 
 
 def _diff_git_target_path(line: str, path_set: set[str]) -> str | None:
@@ -923,6 +1830,21 @@ def _changed_path_allowed_by_scope(
     )
 
 
+def _validate_scoped_commit_request(
+    *,
+    message: str,
+    paths: list[str] | None,
+    patch_path: Path | None,
+) -> None:
+    if patch_path is None and not paths:
+        raise ValueError(
+            "scoped-commit: full-paths mode requires at least one --path "
+            "(or supply --patch-file to use patch mode)"
+        )
+    if not message or not message.strip():
+        raise ValueError("scoped-commit: commit message must be non-empty")
+
+
 def perform_scoped_commit(
     *,
     repo_root: Path,
@@ -936,6 +1858,53 @@ def perform_scoped_commit(
     dry_run: bool = False,
     expected_parent: str | None = None,
     work_ledger_session_id: str | None = None,
+    cas_retry_attempt: int = 0,
+) -> dict[str, object]:
+    _validate_scoped_commit_request(
+        message=message,
+        paths=paths,
+        patch_path=patch_path,
+    )
+    if not dry_run:
+        _assert_git_metadata_writeable(
+            repo_root,
+            operation="private-index scoped commit",
+        )
+    with _scoped_commit_landing_lock(repo_root, enabled=not dry_run) as landing_lock:
+        return _perform_scoped_commit_locked(
+            repo_root=repo_root,
+            message=message,
+            paths=paths,
+            patch_path=patch_path,
+            allow_detached=allow_detached,
+            allow_untracked=allow_untracked,
+            allow_multi_hunk_full_paths=allow_multi_hunk_full_paths,
+            collect_full_path_hunk_counts=collect_full_path_hunk_counts,
+            dry_run=dry_run,
+            expected_parent=expected_parent,
+            work_ledger_session_id=work_ledger_session_id,
+            cas_retry_attempt=cas_retry_attempt,
+            metadata_prechecked=True,
+            landing_lock=landing_lock,
+        )
+
+
+def _perform_scoped_commit_locked(
+    *,
+    repo_root: Path,
+    message: str,
+    paths: list[str] | None = None,
+    patch_path: Path | None = None,
+    allow_detached: bool = False,
+    allow_untracked: bool = False,
+    allow_multi_hunk_full_paths: bool = False,
+    collect_full_path_hunk_counts: bool = True,
+    dry_run: bool = False,
+    expected_parent: str | None = None,
+    work_ledger_session_id: str | None = None,
+    cas_retry_attempt: int = 0,
+    metadata_prechecked: bool = False,
+    landing_lock: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Perform a single scoped commit through a private index.
 
@@ -949,14 +1918,12 @@ def perform_scoped_commit(
     # Mode is determined by whether a patch_path is supplied:
     #   - patch_path is None    -> full-paths mode (paths required)
     #   - patch_path is not None -> patch mode (paths optional, acts as declared filter)
-    if patch_path is None and not paths:
-        raise ValueError(
-            "scoped-commit: full-paths mode requires at least one --path "
-            "(or supply --patch-file to use patch mode)"
-        )
-    if not message or not message.strip():
-        raise ValueError("scoped-commit: commit message must be non-empty")
-    if not dry_run:
+    _validate_scoped_commit_request(
+        message=message,
+        paths=paths,
+        patch_path=patch_path,
+    )
+    if not dry_run and not metadata_prechecked:
         _assert_git_metadata_writeable(
             repo_root,
             operation="private-index scoped commit",
@@ -1078,12 +2045,14 @@ def perform_scoped_commit(
                 if count > 1
             }
             if multi_hunk_paths and not allow_multi_hunk_full_paths:
-                raise ValueError(
+                raise ScopedCommitMultiHunkFullPathsError(
                     "scoped-commit: full-paths mode refuses multi-hunk "
                     "file diffs by default because it commits every hunk "
                     "in each declared path. Use patch mode for hunk-only "
                     "ownership, or pass --allow-multi-hunk-full-paths only "
-                    f"after verifying all hunks are owned: {multi_hunk_paths}"
+                    f"after verifying all hunks are owned: {multi_hunk_paths}",
+                    mode="full-paths",
+                    multi_hunk_paths=multi_hunk_paths,
                 )
         else:
             if not changed:
@@ -1100,6 +2069,10 @@ def perform_scoped_commit(
             changed,
             env=env,
         )
+        task_ledger_monolith_guard = _assert_task_ledger_monolith_not_committed(changed)
+        effective_work_ledger_session_id = (
+            "" if dry_run else work_ledger_session_id or _default_work_ledger_session_id()
+        )
 
         mutation_guard = (
             {
@@ -1114,7 +2087,7 @@ def perform_scoped_commit(
             else _work_ledger_mutation_guard(
                 repo_root,
                 changed,
-                session_id=work_ledger_session_id or _default_work_ledger_session_id(),
+                session_id=effective_work_ledger_session_id,
             )
         )
 
@@ -1128,10 +2101,17 @@ def perform_scoped_commit(
                 "new_commit": None,
                 "tree": None,
                 "dry_run": True,
+                "landing_lock": landing_lock or {},
                 "work_ledger_mutation_guard": mutation_guard,
                 "task_ledger_projection_guard": task_ledger_projection_guard,
+                "task_ledger_monolith_guard": task_ledger_monolith_guard,
             }
 
+        scoped_evidence_sha = _private_index_scoped_evidence_sha(
+            repo_root,
+            changed,
+            env=env,
+        )
         tree_sha = _git(["write-tree"], cwd=repo_root, env=env).stdout.strip()
         commit_sha = _git(
             ["commit-tree", tree_sha, "-p", parent_sha, "-m", message],
@@ -1145,12 +2125,28 @@ def perform_scoped_commit(
             check=False,
         )
         if update_res.returncode != 0:
-            raise RuntimeError(
-                "scoped-commit: HEAD CAS failed; another actor advanced "
-                f"{branch_ref} since parent {parent_sha[:8]} was captured. "
-                f"Stderr: {update_res.stderr.strip()}"
+            raise _head_cas_failure(
+                repo_root,
+                mode=mode_label,
+                branch_ref=branch_ref,
+                parent_sha=parent_sha,
+                commit_sha=commit_sha,
+                tree_sha=tree_sha,
+                scoped_evidence_sha=scoped_evidence_sha,
+                changed_paths=changed,
+                update_stderr=update_res.stderr,
+                cas_retry_attempt=cas_retry_attempt,
             )
 
+        head_cas_retry_memory = _record_head_cas_landed(
+            repo_root,
+            mode=mode_label,
+            branch_ref=branch_ref,
+            tree_sha=tree_sha,
+            scoped_evidence_sha=scoped_evidence_sha,
+            commit_sha=commit_sha,
+            changed_paths=changed,
+        )
         refreshed = 0
         skipped_refresh_paths: list[dict[str, str]] = []
         if patch_path is None:
@@ -1201,12 +2197,33 @@ def perform_scoped_commit(
         "full_path_hunk_counts": full_path_hunk_counts if patch_path is None else {},
         "new_commit": commit_sha,
         "tree": tree_sha,
+        "scoped_evidence_sha": scoped_evidence_sha,
         "dry_run": False,
+        "landing_lock": landing_lock or {},
         "work_ledger_mutation_guard": mutation_guard,
+        "head_cas_retry_memory": head_cas_retry_memory,
+        "work_ledger_closeout_hint": _work_ledger_closeout_hint(
+            session_id=effective_work_ledger_session_id,
+            commit_sha=commit_sha,
+            changed_paths=changed,
+            mode=mode_label,
+        ),
         "task_ledger_projection_guard": task_ledger_projection_guard,
+        "task_ledger_monolith_guard": task_ledger_monolith_guard,
         "refresh_count": refreshed,
         "skipped_refresh_paths": skipped_refresh_paths,
     }
+
+
+def _validate_tracked_removals_request(
+    *,
+    message: str,
+    remove_paths: list[str],
+) -> None:
+    if not _normalize_paths(remove_paths or []):
+        raise ValueError("scoped-commit: tracked-removals requires at least one --remove-path")
+    if not message or not message.strip():
+        raise ValueError("scoped-commit: commit message must be non-empty")
 
 
 def perform_tracked_removals_commit(
@@ -1220,6 +2237,48 @@ def perform_tracked_removals_commit(
     dry_run: bool = False,
     expected_parent: str | None = None,
     work_ledger_session_id: str | None = None,
+    cas_retry_attempt: int = 0,
+) -> dict[str, object]:
+    _validate_tracked_removals_request(
+        message=message,
+        remove_paths=remove_paths,
+    )
+    if not dry_run:
+        _assert_git_metadata_writeable(
+            repo_root,
+            operation="private-index tracked-removals commit",
+        )
+    with _scoped_commit_landing_lock(repo_root, enabled=not dry_run) as landing_lock:
+        return _perform_tracked_removals_commit_locked(
+            repo_root=repo_root,
+            message=message,
+            remove_paths=remove_paths,
+            paths=paths,
+            allow_detached=allow_detached,
+            allow_untracked=allow_untracked,
+            dry_run=dry_run,
+            expected_parent=expected_parent,
+            work_ledger_session_id=work_ledger_session_id,
+            cas_retry_attempt=cas_retry_attempt,
+            metadata_prechecked=True,
+            landing_lock=landing_lock,
+        )
+
+
+def _perform_tracked_removals_commit_locked(
+    *,
+    repo_root: Path,
+    message: str,
+    remove_paths: list[str],
+    paths: list[str] | None = None,
+    allow_detached: bool = False,
+    allow_untracked: bool = False,
+    dry_run: bool = False,
+    expected_parent: str | None = None,
+    work_ledger_session_id: str | None = None,
+    cas_retry_attempt: int = 0,
+    metadata_prechecked: bool = False,
+    landing_lock: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Commit index-only tracked removals plus optional worktree paths.
 
@@ -1229,11 +2288,11 @@ def perform_tracked_removals_commit(
     """
     declared_paths = _normalize_paths(paths or [])
     removal_paths = _normalize_paths(remove_paths or [])
-    if not removal_paths:
-        raise ValueError("scoped-commit: tracked-removals requires at least one --remove-path")
-    if not message or not message.strip():
-        raise ValueError("scoped-commit: commit message must be non-empty")
-    if not dry_run:
+    _validate_tracked_removals_request(
+        message=message,
+        remove_paths=removal_paths,
+    )
+    if not dry_run and not metadata_prechecked:
         _assert_git_metadata_writeable(
             repo_root,
             operation="private-index tracked-removals commit",
@@ -1296,6 +2355,9 @@ def perform_tracked_removals_commit(
                 "scoped-commit: no tracked entries were removed; check --remove-path"
             )
 
+        effective_work_ledger_session_id = (
+            "" if dry_run else work_ledger_session_id or _default_work_ledger_session_id()
+        )
         mutation_guard = (
             {
                 "schema": "scoped_commit_work_ledger_mutation_guard_v0",
@@ -1309,7 +2371,7 @@ def perform_tracked_removals_commit(
             else _work_ledger_mutation_guard(
                 repo_root,
                 changed,
-                session_id=work_ledger_session_id or _default_work_ledger_session_id(),
+                session_id=effective_work_ledger_session_id,
             )
         )
 
@@ -1325,9 +2387,15 @@ def perform_tracked_removals_commit(
                 "new_commit": None,
                 "tree": None,
                 "dry_run": True,
+                "landing_lock": landing_lock or {},
                 "work_ledger_mutation_guard": mutation_guard,
             }
 
+        scoped_evidence_sha = _private_index_scoped_evidence_sha(
+            repo_root,
+            changed,
+            env=env,
+        )
         tree_sha = _git(["write-tree"], cwd=repo_root, env=env).stdout.strip()
         commit_sha = _git(
             ["commit-tree", tree_sha, "-p", parent_sha, "-m", message],
@@ -1340,12 +2408,28 @@ def perform_tracked_removals_commit(
             check=False,
         )
         if update_res.returncode != 0:
-            raise RuntimeError(
-                "scoped-commit: HEAD CAS failed; another actor advanced "
-                f"{branch_ref} since parent {parent_sha[:8]} was captured. "
-                f"Stderr: {update_res.stderr.strip()}"
+            raise _head_cas_failure(
+                repo_root,
+                mode="tracked-removals",
+                branch_ref=branch_ref,
+                parent_sha=parent_sha,
+                commit_sha=commit_sha,
+                tree_sha=tree_sha,
+                scoped_evidence_sha=scoped_evidence_sha,
+                changed_paths=changed,
+                update_stderr=update_res.stderr,
+                cas_retry_attempt=cas_retry_attempt,
             )
 
+        head_cas_retry_memory = _record_head_cas_landed(
+            repo_root,
+            mode="tracked-removals",
+            branch_ref=branch_ref,
+            tree_sha=tree_sha,
+            scoped_evidence_sha=scoped_evidence_sha,
+            commit_sha=commit_sha,
+            changed_paths=changed,
+        )
         refreshed = 0
         for rel in [*declared_paths, *removal_paths]:
             _git(["reset", "HEAD", "--", rel], cwd=repo_root, check=False)
@@ -1361,8 +2445,17 @@ def perform_tracked_removals_commit(
         "tracked_entries_matched": len(set(tracked_removed)),
         "new_commit": commit_sha,
         "tree": tree_sha,
+        "scoped_evidence_sha": scoped_evidence_sha,
         "dry_run": False,
+        "landing_lock": landing_lock or {},
         "work_ledger_mutation_guard": mutation_guard,
+        "head_cas_retry_memory": head_cas_retry_memory,
+        "work_ledger_closeout_hint": _work_ledger_closeout_hint(
+            session_id=effective_work_ledger_session_id,
+            commit_sha=commit_sha,
+            changed_paths=changed,
+            mode="tracked-removals",
+        ),
         "refresh_count": refreshed,
     }
 
@@ -1371,17 +2464,137 @@ def perform_tracked_removals_commit(
 # CLI
 # ---------------------------------------------------------------------------
 
-def _read_message(args: argparse.Namespace) -> str:
+def _read_message(args: argparse.Namespace, *, allow_dry_run_placeholder: bool = False) -> str:
     if args.message_file:
         return Path(args.message_file).read_text(encoding="utf-8").rstrip("\n")
     if args.message:
         return args.message
-    raise SystemExit("scoped-commit: --message or --message-file is required")
+    if allow_dry_run_placeholder and bool(getattr(args, "dry_run", False)):
+        return DRY_RUN_MESSAGE_PLACEHOLDER
+    raise ValueError("scoped-commit: --message or --message-file is required")
+
+
+def _write_head_cas_retry_packet(exc: HeadCasFailureError) -> None:
+    sys.stderr.write(f"{exc}\n")
+    sys.stderr.write(
+        "scoped-commit-head-cas-retry-packet: "
+        f"{json.dumps(exc.retry_packet, sort_keys=True, default=str)}\n"
+    )
+
+
+def _current_head_for_retry_packet(repo_root: Path) -> str:
+    res = _git(["rev-parse", "HEAD"], cwd=repo_root, check=False)
+    return res.stdout.strip() if res.returncode == 0 and res.stdout.strip() else "unknown"
+
+
+def _argv_with_retry_flags(argv: list[str], *, current_head: str, dry_run: bool) -> list[str]:
+    retry_argv = list(argv)
+    if not _has_option(retry_argv, "--allow-multi-hunk-full-paths"):
+        retry_argv.append("--allow-multi-hunk-full-paths")
+    if current_head != "unknown" and not _has_option(retry_argv, "--expected-parent"):
+        retry_argv.extend(["--expected-parent", current_head])
+    if dry_run and not _has_option(retry_argv, "--dry-run"):
+        retry_argv.append("--dry-run")
+    return retry_argv
+
+
+def _write_multi_hunk_retry_packet(exc: ScopedCommitMultiHunkFullPathsError, *, repo_root: Path) -> None:
+    current_head = _current_head_for_retry_packet(repo_root)
+    dry_run_argv = _argv_with_retry_flags(
+        sys.argv,
+        current_head=current_head,
+        dry_run=True,
+    )
+    same_mode_argv = _argv_with_retry_flags(
+        sys.argv,
+        current_head=current_head,
+        dry_run=False,
+    )
+    packet = {
+        "schema": "scoped_commit_multi_hunk_retry_packet_v0",
+        "status": "blocked_multi_hunk_full_paths",
+        "surface": "tools/meta/control/scoped_commit.py",
+        "mode": exc.mode,
+        "multi_hunk_paths": exc.multi_hunk_paths,
+        "current_head": current_head,
+        "required_verification": [
+            "prove every hunk in each listed path is owned by this run or by the claimed generated builder",
+            "use patch mode instead when only some hunks in a listed path are owned",
+            "bind the rerun with --expected-parent so concurrent HEAD movement fails explicitly",
+        ],
+        "suggested_dry_run_command": _shell_join(dry_run_argv),
+        "suggested_same_mode_command": _shell_join(same_mode_argv),
+    }
+    sys.stderr.write(f"{exc}\n")
+    sys.stderr.write(
+        "scoped-commit-multi-hunk-retry-packet: "
+        f"{json.dumps(packet, sort_keys=True, default=str)}\n"
+    )
+
+
+def _has_option(args: list[str], option: str) -> bool:
+    return any(arg == option or arg.startswith(f"{option}=") for arg in args)
+
+
+def _root_command_insert_index(args: list[str]) -> int:
+    idx = 0
+    while idx < len(args):
+        token = args[idx]
+        if token in {"-h", "--help"}:
+            return -1
+        if token == "--repo-root":
+            if idx + 1 >= len(args):
+                return idx
+            idx += 2
+            continue
+        if token.startswith("--repo-root="):
+            idx += 1
+            continue
+        return idx
+    return idx
+
+
+def _normalize_root_invocation(argv: list[str]) -> list[str]:
+    """Treat common root-level mode flags as their scoped-commit subcommand."""
+    args = list(argv)
+    insert_at = _root_command_insert_index(args)
+    if insert_at < 0 or insert_at >= len(args):
+        return args
+
+    remaining = args[insert_at:]
+    if remaining[0] in _SUBCOMMANDS:
+        return args
+
+    mode = None
+    if _has_option(remaining, "--patch-file"):
+        mode = "patch"
+    elif _has_option(remaining, "--remove-path"):
+        mode = "tracked-removals"
+    elif any(_has_option(remaining, flag) for flag in _ROOT_FULL_PATH_FLAGS):
+        mode = "full-paths"
+
+    if mode is None:
+        return args
+    return [*args[:insert_at], mode, *remaining]
+
+
+def _add_cas_retry_attempt_arg(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--cas-retry-attempt",
+        type=int,
+        default=0,
+        help=(
+            "0 for the initial landing attempt; pass 1 on the single refreshed "
+            "retry after a HEAD-CAS failure. If that retry also loses the parent "
+            "race, the retry packet requires a validated-uncommitted receipt "
+            "instead of queuing another ref mutation."
+        ),
+    )
 
 
 def cmd_full_paths(args: argparse.Namespace) -> int:
-    message = _read_message(args)
     try:
+        message = _read_message(args, allow_dry_run_placeholder=True)
         result = perform_scoped_commit(
             repo_root=Path(args.repo_root).resolve(),
             paths=list(args.path or []),
@@ -1392,6 +2605,7 @@ def cmd_full_paths(args: argparse.Namespace) -> int:
             dry_run=bool(args.dry_run),
             expected_parent=args.expected_parent,
             work_ledger_session_id=args.work_ledger_session_id,
+            cas_retry_attempt=max(0, int(args.cas_retry_attempt or 0)),
         )
     except GitMetadataBlockedError as exc:
         if not bool(args.remote_fallback_on_metadata_block):
@@ -1423,9 +2637,21 @@ def cmd_full_paths(args: argparse.Namespace) -> int:
                 work_ledger_session_id=args.work_ledger_session_id,
                 metadata_blocker=str(exc),
             )
+        except ScopedCommitMultiHunkFullPathsError as fallback_exc:
+            _write_multi_hunk_retry_packet(
+                fallback_exc,
+                repo_root=Path(args.repo_root).resolve(),
+            )
+            return 2
         except (ValueError, RuntimeError) as fallback_exc:
             sys.stderr.write(f"{fallback_exc}\n")
             return 2
+    except HeadCasFailureError as exc:
+        _write_head_cas_retry_packet(exc)
+        return 2
+    except ScopedCommitMultiHunkFullPathsError as exc:
+        _write_multi_hunk_retry_packet(exc, repo_root=Path(args.repo_root).resolve())
+        return 2
     except (ValueError, RuntimeError) as exc:
         sys.stderr.write(f"{exc}\n")
         return 2
@@ -1440,12 +2666,16 @@ def cmd_patch(args: argparse.Namespace) -> int:
             repo_root=Path(args.repo_root).resolve(),
             paths=list(args.path) if args.path else None,
             patch_path=Path(args.patch_file).resolve(),
-            message=_read_message(args),
+            message=_read_message(args, allow_dry_run_placeholder=True),
             allow_detached=bool(args.allow_detached),
             dry_run=bool(args.dry_run),
             expected_parent=args.expected_parent,
             work_ledger_session_id=args.work_ledger_session_id,
+            cas_retry_attempt=max(0, int(args.cas_retry_attempt or 0)),
         )
+    except HeadCasFailureError as exc:
+        _write_head_cas_retry_packet(exc)
+        return 2
     except (ValueError, RuntimeError) as exc:
         sys.stderr.write(f"{exc}\n")
         return 2
@@ -1460,13 +2690,17 @@ def cmd_tracked_removals(args: argparse.Namespace) -> int:
             repo_root=Path(args.repo_root).resolve(),
             remove_paths=list(args.remove_path or []),
             paths=list(args.path) if args.path else None,
-            message=_read_message(args),
+            message=_read_message(args, allow_dry_run_placeholder=True),
             allow_detached=bool(args.allow_detached),
             allow_untracked=bool(args.allow_untracked),
             dry_run=bool(args.dry_run),
             expected_parent=args.expected_parent,
             work_ledger_session_id=args.work_ledger_session_id,
+            cas_retry_attempt=max(0, int(args.cas_retry_attempt or 0)),
         )
+    except HeadCasFailureError as exc:
+        _write_head_cas_retry_packet(exc)
+        return 2
     except (ValueError, RuntimeError) as exc:
         sys.stderr.write(f"{exc}\n")
         return 2
@@ -1489,7 +2723,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Commit exact paths from the working tree via a private index + HEAD CAS.",
     )
     fp.add_argument("--path", action="append", required=True, help="Repo-relative path. Repeatable.")
-    msg = fp.add_mutually_exclusive_group(required=True)
+    msg = fp.add_mutually_exclusive_group(required=False)
     msg.add_argument("--message", help="Commit message inline.")
     msg.add_argument("--message-file", help="Read commit message from this file.")
     fp.add_argument("--allow-detached", action="store_true")
@@ -1502,11 +2736,16 @@ def build_parser() -> argparse.ArgumentParser:
             "declared file. Prefer patch mode for hunk-only ownership."
         ),
     )
-    fp.add_argument("--dry-run", action="store_true")
+    fp.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Plan the private-index scoped commit. Message is optional in dry-run mode.",
+    )
     fp.add_argument(
         "--expected-parent",
         help="Previously captured HEAD/base commit. Refuse if HEAD advanced before landing.",
     )
+    _add_cas_retry_attempt_arg(fp)
     fp.add_argument(
         "--work-ledger-session-id",
         default=None,
@@ -1548,15 +2787,20 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Optional declared pathset; if given, the patch must touch exactly these paths.",
     )
-    msg2 = pt.add_mutually_exclusive_group(required=True)
+    msg2 = pt.add_mutually_exclusive_group(required=False)
     msg2.add_argument("--message")
     msg2.add_argument("--message-file")
     pt.add_argument("--allow-detached", action="store_true")
-    pt.add_argument("--dry-run", action="store_true")
+    pt.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Plan the private-index patch commit. Message is optional in dry-run mode.",
+    )
     pt.add_argument(
         "--expected-parent",
         help="Previously captured HEAD/base commit. Refuse if HEAD advanced before landing.",
     )
+    _add_cas_retry_attempt_arg(pt)
     pt.add_argument(
         "--work-ledger-session-id",
         default=None,
@@ -1583,16 +2827,21 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Optional worktree path to include in the same commit, such as a .gitignore update.",
     )
-    msg3 = tr.add_mutually_exclusive_group(required=True)
+    msg3 = tr.add_mutually_exclusive_group(required=False)
     msg3.add_argument("--message")
     msg3.add_argument("--message-file")
     tr.add_argument("--allow-detached", action="store_true")
     tr.add_argument("--allow-untracked", action="store_true")
-    tr.add_argument("--dry-run", action="store_true")
+    tr.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Plan the tracked-removals commit. Message is optional in dry-run mode.",
+    )
     tr.add_argument(
         "--expected-parent",
         help="Previously captured HEAD/base commit. Refuse if HEAD advanced before landing.",
     )
+    _add_cas_retry_attempt_arg(tr)
     tr.add_argument(
         "--work-ledger-session-id",
         default=None,
@@ -1608,7 +2857,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
-    args = parser.parse_args(argv)
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(_normalize_root_invocation(raw_argv))
     return int(args.func(args))
 
 

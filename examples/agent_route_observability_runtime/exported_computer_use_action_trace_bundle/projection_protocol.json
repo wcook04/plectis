@@ -78,7 +78,8 @@
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_computer_use_action_trace_replay_growth_v1",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
     "codex/standards/std_agent_execution_trace.json",
-    "system/lib/agent_execution_trace.py"
+    "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py"
   ],
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",

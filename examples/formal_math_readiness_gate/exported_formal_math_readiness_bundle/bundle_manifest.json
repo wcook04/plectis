@@ -16,238 +16,294 @@
   "source_module_manifest_ref": "source_module_manifest.json",
   "copied_macro_body_artifacts": [
     {
-      "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 2551,
       "line_count": 75,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
+      "material_class": "public_macro_receipt_body",
+      "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "source_sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "target_sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
       "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
         "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
       ]
     },
     {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+      "body_copied": true,
+      "body_in_receipt": false,
       "line_count": 128,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
-      "line_count": 6,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "source_import_class": "copied_non_secret_macro_body",
       "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
-      "line_count": 93,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "public_safe_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "target_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
       "validation_refs": [
-        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 61,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "source_sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "target_sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
         "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
       ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 102,
+      "line_count": 6,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+      "sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+      "source_sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+      "target_sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 60,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "sha256": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "source_sha256": "e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "target_sha256": "e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 71,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "sha256": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "source_sha256": "0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "target_sha256": "0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 71,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "sha256": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "source_sha256": "10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "target_sha256": "10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 85,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "source_sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "target_sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 131,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "sha256": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "source_sha256": "03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "target_sha256": "03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 67,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "sha256": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "source_sha256": "2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "target_sha256": "2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 73,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "sha256": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "source_sha256": "9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "target_sha256": "9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 82,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "sha256": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "source_sha256": "c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "target_sha256": "c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 93,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "public_safe_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "target_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "validation_refs": [
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_formal_math_readiness_gate.py::test_formal_math_readiness_gate_accepts_exported_bundle"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
     }
   ],
   "source_open_body_import_summary": {
@@ -260,6 +316,12 @@
       "public_macro_tool_body"
     ],
     "body_in_receipt": false,
-    "source_to_target_relation": "exact_copy"
+    "source_to_target_relation": "mixed_exact_copy_and_verified_public_safe_private_path_rewrite",
+    "exact_copy_artifact_count": 11,
+    "public_safe_private_path_rewrite_count": 2,
+    "public_safe_private_path_rewrite_ids": [
+      "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+      "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import"
+    ]
   }
 }

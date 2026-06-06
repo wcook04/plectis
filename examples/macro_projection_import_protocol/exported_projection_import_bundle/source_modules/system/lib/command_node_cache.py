@@ -326,6 +326,7 @@ def peek_cached_command_node(
     ttl_s: float | None = None,
     freshness_policy: str = "stale_ok_cache_peek",
     dynamic_inputs_manifested: bool = False,
+    validate_input_manifest: bool = True,
 ) -> tuple[Any | None, dict[str, Any]]:
     """Read a command-node cache payload without rebuilding or taking a lock.
 
@@ -350,6 +351,40 @@ def peek_cached_command_node(
             dynamic_inputs_manifested=dynamic_inputs_manifested,
         )
     if input_paths or ttl_s is not None:
+        if not validate_input_manifest:
+            if envelope.get("schema_version") != SCHEMA_VERSION:
+                return None, _cache_status(
+                    node_id=node_id,
+                    cache_path=cache_path,
+                    repo_root=root,
+                    status="deferred_stale_cache",
+                    reason="schema_mismatch",
+                    envelope=envelope,
+                    freshness_policy=freshness_policy,
+                    dynamic_inputs_manifested=dynamic_inputs_manifested,
+                )
+            created = float(envelope.get("created_at_epoch_s") or 0)
+            if ttl_s is not None and ttl_s > 0 and (time.time() - created) > ttl_s:
+                return None, _cache_status(
+                    node_id=node_id,
+                    cache_path=cache_path,
+                    repo_root=root,
+                    status="deferred_stale_cache",
+                    reason="expired",
+                    envelope=envelope,
+                    freshness_policy=freshness_policy,
+                    dynamic_inputs_manifested=dynamic_inputs_manifested,
+                )
+            return copy.deepcopy(envelope.get("payload")), _cache_status(
+                node_id=node_id,
+                cache_path=cache_path,
+                repo_root=root,
+                status="stale_ok_hit",
+                reason="cache_valid_for_ttl_manifest_not_checked",
+                envelope=envelope,
+                freshness_policy=freshness_policy,
+                dynamic_inputs_manifested=dynamic_inputs_manifested,
+            )
         manifest = _manifest(root, input_paths)
         cached, reason = _valid_cached_payload(
             envelope=envelope,

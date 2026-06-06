@@ -449,7 +449,47 @@ def _snapshot_required(status: Mapping[str, Any], since_seq: int, *, allow_initi
     earliest = _earliest_available_seq(status)
     if earliest and since_seq and since_seq < earliest - 1:
         return True
+    if allow_initial_delta:
+        return False
     return _status_int(status, "dropped_count") > 0 or _status_int(status, "gap_count") > 0
+
+
+def _actor_sort_key(item: Mapping[str, Any]) -> tuple[int, int, str, str]:
+    heartbeat = str(item.get("heartbeat") or "")
+    status = str(item.get("status") or "")
+    currently_live = item.get("currently_live") is True
+    mid_turn = item.get("mid_turn") is True
+    active_statuses = {
+        "editing",
+        "validating",
+        "rendering",
+        "committing",
+        "tool_running",
+        "model_turn",
+        "working",
+        "waiting_operator",
+    }
+    if heartbeat == "live" and (currently_live or mid_turn or status in active_statuses):
+        activity_rank = 0
+    elif heartbeat == "live":
+        activity_rank = 1
+    elif currently_live and status in active_statuses:
+        activity_rank = 2
+    elif heartbeat == "unknown":
+        activity_rank = 3
+    elif heartbeat == "stale":
+        activity_rank = 4
+    elif heartbeat == "lost":
+        activity_rank = 5
+    elif status == "done_unreviewed":
+        activity_rank = 6
+    else:
+        activity_rank = 7
+    try:
+        lag_ms = int(item.get("lag_ms") or 0)
+    except Exception:
+        lag_ms = 0
+    return (activity_rank, lag_ms, str(item.get("provider_label") or ""), str(item.get("session_id") or ""))
 
 
 def _backpressure_payload(
@@ -1106,7 +1146,7 @@ def build_agent_observability_animation_scene(
                 source="agent_trace_status_and_mission_status",
             ),
         })
-    actors.sort(key=lambda item: (item["provider_label"], item["session_id"]))
+    actors.sort(key=_actor_sort_key)
     actor_order = {actor["session_id"]: index for index, actor in enumerate(actors)}
 
     tracks: list[dict[str, Any]] = []
@@ -1733,6 +1773,7 @@ def build_agent_observability_animation_delta(
         "channels": scene["channels"],
         "backpressure": backpressure,
         "data_quality": scene["data_quality"] | {
+            "snapshot_required": snapshot_required,
             "delta_event_count": len(scene["events"]),
             "delta_op_count": len(ops),
             "dropped_delta_op_count": dropped_ops,

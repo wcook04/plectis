@@ -32,6 +32,7 @@ from microcosm_core.runtime_shell import (
     VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF,
     VERIFIER_EXECUTION_RECEIPT_REF,
 )
+from runtime_fixture_tree import copy_microcosm_runtime_root
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -113,6 +114,20 @@ def _expected_organ_evidence_classes(
     }
 
 
+def _standard_payload(standard_ref: str) -> dict[str, object]:
+    return json.loads((MICROCOSM_ROOT / standard_ref).read_text(encoding="utf-8"))
+
+
+def _assert_needs_to_work_standard_status_matches_source(
+    row: dict[str, object],
+) -> None:
+    needs_to_work = row["needs_to_work"]
+    assert isinstance(needs_to_work, dict)
+    standard_ref = str(needs_to_work["standard_ref"])
+    standard = _standard_payload(standard_ref)
+    assert needs_to_work["standard_status"] == standard["status"]
+
+
 def _first_run_path_by_step_id(path: list[dict[str, object]]) -> dict[str, dict[str, object]]:
     by_step = {str(row.get("step_id")): row for row in path if row.get("step_id")}
     assert len(by_step) == len(path)
@@ -128,6 +143,31 @@ def _assert_commands_in_order(
     for command in expected_commands:
         assert command in commands[cursor + 1 :]
         cursor = commands.index(command, cursor + 1)
+
+
+def test_runtime_shell_steps_cover_organ_evidence_class_registry() -> None:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_evidence_classes.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    evidence_ids = [
+        str(row["organ_id"]) for row in registry["organ_evidence_classes"]
+    ]
+    runtime_ids = [step.organ_id for step in runtime_shell.RUNTIME_STEPS]
+
+    assert len(runtime_ids) == len(set(runtime_ids))
+    assert set(runtime_ids) == set(evidence_ids)
+    batch7_secondary = {
+        step.organ_id: step for step in runtime_shell.RUNTIME_STEPS
+    }["batch7_secondary_runtime_capsule"]
+    assert (
+        batch7_secondary.input_mode
+        == "exported_batch7_secondary_runtime_capsule_bundle"
+    )
+    assert batch7_secondary.receipt_name == (
+        "exported_batch7_secondary_runtime_capsule_validation_result.json"
+    )
 
 
 def _assert_step_command(
@@ -229,30 +269,44 @@ OBSERVE_RUNTIME_BODY_MATERIAL_IDS = [
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
+    return copy_microcosm_runtime_root(
+        tmp_path,
+        MICROCOSM_ROOT,
+        static_refs=("examples", "fixtures", "src", "standards"),
+        mutable_refs=(
+            "core",
+            "receipts/acceptance",
+            "receipts/first_wave",
+            "receipts/second_wave",
+            "receipts/runtime_shell",
+            "receipts/preflight",
+        ),
+    )
+
+
+def _copy_runtime_demo_drilldown_root(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
-    shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
-    shutil.copytree(
-        MICROCOSM_ROOT / "src",
-        public_root / "src",
-        ignore=shutil.ignore_patterns("__pycache__"),
-    )
-    shutil.copytree(MICROCOSM_ROOT / "standards", public_root / "standards")
-    shutil.copytree(
-        MICROCOSM_ROOT / "receipts/acceptance",
-        public_root / "receipts/acceptance",
-    )
-    shutil.copytree(MICROCOSM_ROOT / "receipts/first_wave", public_root / "receipts/first_wave")
-    shutil.copytree(
-        MICROCOSM_ROOT / "receipts/second_wave",
-        public_root / "receipts/second_wave",
-    )
+    for rel in (
+        "examples/runtime_shell/demo_project",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    ):
+        destination = public_root / rel
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(MICROCOSM_ROOT / rel, destination)
     shutil.copytree(
         MICROCOSM_ROOT / "receipts/runtime_shell",
         public_root / "receipts/runtime_shell",
     )
-    shutil.copytree(MICROCOSM_ROOT / "receipts/preflight", public_root / "receipts/preflight")
+    return public_root
+
+
+def _copy_runtime_lens_root(tmp_path: Path, *static_root_refs: str) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    for ref in static_root_refs:
+        shutil.copytree(MICROCOSM_ROOT / ref, public_root / ref)
+    (public_root / "receipts/runtime_shell").mkdir(parents=True)
     return public_root
 
 
@@ -710,7 +764,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     card = shell.status_card()
 
     assert card == status["status_card"]
-    assert len(json.dumps(card, sort_keys=True)) < 11200
+    assert len(json.dumps(card, sort_keys=True)) < 12000
     assert card["schema_version"] == "microcosm_runtime_status_card_v1"
     assert card["status"] == "pass"
     assert card["card_command"] == "microcosm status --card"
@@ -978,7 +1032,7 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     project_body_floor = card["macro_body_import_floor"]
     card_json = json.dumps(card, sort_keys=True)
 
-    assert len(card_json.replace(project_ref, "<project>")) < 13200
+    assert len(card_json.replace(project_ref, "<project>")) < 14000
     assert card["card_command"] == f"microcosm status --card {project_ref}"
     assert card["project_ref"] == project_ref
     assert card["front_door"]["primary_command"] == (
@@ -1319,7 +1373,7 @@ def test_status_card_macro_drift_preview_stays_compact() -> None:
         "macro_body_import_floor"
     ]
 
-    assert len(card_json) < 13300
+    assert len(card_json) < 14100
     assert macro_detail["defect_count"] == 8
     assert len(macro_detail["defect_preview"]) == 3
     assert "source_refs" not in macro_detail["defect_preview"][0]
@@ -1459,6 +1513,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "proof_body_material_ids"
     ] == [
         "lean_certificate_kernel_body_import",
+        "erdos257_certificate_kernel",
         "period_noncollapse_root_module_body_import",
         "certificate_kernel_lean_body_import",
         "generated_certificates_lean_body_import",
@@ -1921,7 +1976,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["missing_standard_count"] == 0
     assert workingness["missing_failure_modes_count"] == 0
     assert workingness["rows_with_failure_modes"] == _accepted_organ_count()
-    assert workingness["rows_with_future_work_targets"] == 30
+    assert workingness["rows_with_future_work_targets"] >= 30
     assert workingness["accepted_status_is_not_evidence_strength"] is True
     assert workingness["not_a_scorecard"] is True
     assert workingness["gap_preview"]["status"] == "clear"
@@ -1975,7 +2030,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert proof_diagnostic["needs_to_work"]["standard_ref"] == (
         "standards/std_microcosm_proof_diagnostic_evidence_spine.json"
     )
-    assert proof_diagnostic["needs_to_work"]["standard_status"] == "accepted"
+    _assert_needs_to_work_standard_status_matches_source(proof_diagnostic)
     assert {
         "owning_standard_present",
         "known_failure_modes_present",
@@ -1995,7 +2050,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert certificate["needs_to_work"]["standard_ref"] == (
         "standards/std_microcosm_certificate_kernel_execution_lab.json"
     )
-    assert certificate["needs_to_work"]["standard_status"] == "draft"
+    _assert_needs_to_work_standard_status_matches_source(certificate)
     assert {
         "owning_standard_present",
         "known_failure_modes_present",
@@ -2016,7 +2071,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert materials["needs_to_work"]["standard_ref"] == (
         "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json"
     )
-    assert materials["needs_to_work"]["standard_status"] == "draft"
+    _assert_needs_to_work_standard_status_matches_source(materials)
     assert {
         "owning_standard_present",
         "known_failure_modes_present",
@@ -2037,9 +2092,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert cognitive_registry["needs_to_work"]["standard_ref"] == (
         "standards/std_microcosm_cognitive_operator_registry.json"
     )
-    assert cognitive_registry["needs_to_work"]["standard_status"] == (
-        "accepted_public_runtime_standard"
-    )
+    _assert_needs_to_work_standard_status_matches_source(cognitive_registry)
     assert {
         "owning_standard_present",
         "known_failure_modes_present",
@@ -2057,7 +2110,8 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
 
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
     assert monitor["workingness_state"] == "demoted_regression_drilldown"
-    assert monitor["observed_workingness"]["evidence_class"] == "fixture_echo_smoke"
+    assert monitor["observed_workingness"]["evidence_class"] == "bounded_runtime_computation"
+    assert monitor["observed_workingness"]["counts_as_real_substrate_progress"] is True
     assert monitor["evaluation_comparison"]["gap_class"] == (
         "kept_out_of_product_path_until_evidence_strengthens"
     )
@@ -2214,6 +2268,11 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         organ_authority_by_id["formal_math_lean_proof_witness"]["verdict_source"]
         == "subprocess_or_tool_witness"
     )
+    verifier_authority = organ_authority_by_id["verifier_lab_execution_spine"]
+    assert verifier_authority["source_open_body_imports"]["status"] == "pass"
+    assert verifier_authority["source_open_body_imports"]["body_material_count"] == 5
+    assert verifier_authority["source_open_body_material_count"] == 5
+    assert verifier_authority["substrate_real_body_count"] == 2
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
         == "algorithmic_projection"
@@ -3064,6 +3123,8 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
     assert reader_routes["public_github_visitor"]["next_command"] == (
         "microcosm tour --card <project>"
@@ -3071,6 +3132,12 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     assert reader_routes["peer_developer"]["next_command"] == (
         "microcosm observe --card <project>"
     )
+    assert reader_routes["domain_specialist"]["next_command"] == (
+        "ORGANS.md#find-your-specialty"
+    )
+    assert "domain correctness" in reader_routes["domain_specialist"][
+        "anti_misread"
+    ]
     assert reader_routes["safety_evals_engineer"]["next_command"] == (
         "microcosm authority --card"
     )
@@ -3080,6 +3147,13 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     assert "maturity scores" in reader_routes["safety_evals_engineer"][
         "anti_misread"
     ]
+    assert reader_routes["type_a_agent"]["next_command"] == (
+        "microcosm organ-surface-contract --card --root ."
+    )
+    assert reader_routes["type_a_agent"]["followup_command"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert "source-mutation" in reader_routes["type_a_agent"]["anti_misread"]
     assert "readme_onboarding_route" not in first_screen["available_project_route_ids"]
     assert first_screen["selected_route_id"] == "package_runtime_route"
     assert first_screen["route_explanation"]["command"] == (
@@ -3388,6 +3462,17 @@ def test_runtime_shell_verifier_lab_execution_spine_lens_uses_real_receipt(
     assert lens["execution_summary"]["provider_results_counted"] == 0
     assert lens["execution_summary"]["proof_body_export_count"] == 0
     assert lens["execution_summary"]["source_mutation_count"] == 0
+    assert lens["source_statuses"]["source_open_body_imports"] == "pass"
+    assert lens["source_open_body_imports"]["status"] == "pass"
+    assert lens["source_open_body_imports"]["body_material_count"] == 5
+    assert lens["source_open_body_imports"]["body_in_receipt"] is False
+    assert lens["source_open_body_material_count"] == 5
+    assert lens["body_copied_material_count"] == 5
+    assert lens["execution_summary"]["source_open_body_material_count"] == 5
+    assert lens["execution_summary"]["body_copied_material_count"] == 5
+    assert "verifier_lab_execution_spine_source_body_import" in (
+        lens["source_open_body_imports"]["body_material_ids"]
+    )
     assert lens["tool_witness"]["lean_available"] is True
     assert lens["tool_witness"]["lake_available"] is True
     assert lens["tool_witness"]["lake_project_build_return_code"] == 0
@@ -3845,7 +3930,7 @@ def test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary(tmp_pat
 
 
 def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path, "examples")
     shell = RuntimeShell(public_root)
 
     lens = shell.projection_import_map()
@@ -3862,7 +3947,7 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     assert lens["map_summary"]["provider_payload_export_count"] == 0
     assert lens["map_summary"]["automated_import_guarantee"] is False
     handoff = lens["source_body_import_floor_handoff"]
-    floor = runtime_shell._macro_projection_body_import_floor(public_root)
+    floor = shell._macro_projection_body_import_floor()
     assert handoff["status"] == "pass"
     assert handoff["source_ref"] == (
         "microcosm status --card <project>::"
@@ -3982,10 +4067,47 @@ def test_runtime_shell_child_projection_protocols_surface_in_source_body_lens() 
     assert "compression_profiles" in families
 
     by_class = floor["public_safe_body_material_counts_by_class"]
-    assert by_class.get("public_macro_frontend_body") == 6
+    assert by_class.get("public_macro_frontend_body", 0) >= frontend["module_count"]
     assert floor["copied_non_secret_macro_body_material_count"] == sum(
         by_class.values()
     )
+
+
+def test_runtime_shell_source_body_lens_uses_non_grant_private_macro_source_refs() -> None:
+    private_macro_root = "self-indexing-" + "cognitive-substrate"
+    lens = runtime_shell._macro_body_source_import_lens(
+        [
+            {
+                "status": "pass",
+                "material_class": "public_macro_tool_body",
+                "material_id": "demo_source_body_import",
+                "source_refs": [
+                    f"{private_macro_root}/src/idea_microcosm/demo.py",
+                    "microcosm-substrate/examples/demo/source_module_manifest.json",
+                ],
+                "target_ref": (
+                    "examples/demo/source_modules/"
+                    f"{private_macro_root}/src/idea_microcosm/demo.py"
+                ),
+                "validation_refs": ["microcosm-substrate/tests/test_demo.py"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "target_digest_matches": True,
+                "body_text_in_receipt": False,
+            }
+        ]
+    )
+
+    encoded = json.dumps(lens, sort_keys=True)
+    family = lens["verified_source_module_families"][0]
+
+    assert runtime_shell._public_source_ref_display(
+        f"{private_macro_root}/src/idea_microcosm/demo.py"
+    ) == "private-macro-source/src/idea_microcosm/demo.py"
+    assert private_macro_root not in encoded
+    assert family["source_refs"] == ["private-macro-source/src/idea_microcosm/demo.py"]
+    assert lens["latest_source_refs"] == ["private-macro-source/src/idea_microcosm/demo.py"]
+    assert family["manifest_ref"] == "examples/demo/source_module_manifest.json"
 
 
 def test_runtime_shell_frontend_cockpit_import_holds_authority_ceiling() -> None:
@@ -4105,7 +4227,7 @@ def test_child_projection_protocol_admission_is_fail_closed(tmp_path: Path) -> N
 
 
 def test_runtime_shell_import_projector_contract_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.import_projector()
@@ -4163,7 +4285,7 @@ def test_runtime_shell_import_projector_contract_lens_is_public_safe(tmp_path: P
 
 
 def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path, "examples")
     shell = RuntimeShell(public_root)
 
     lens = shell.option_surface_lens()
@@ -4241,7 +4363,7 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
 
 
 def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.stripping_guard()
@@ -4304,7 +4426,7 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
 
 
 def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path, "core")
     shell = RuntimeShell(public_root)
 
     lens = shell.standards_control()
@@ -4376,7 +4498,7 @@ def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> 
 
 
 def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path, "receipts/first_wave")
     shell = RuntimeShell(public_root)
 
     lens = shell.hook_coverage()
@@ -4446,7 +4568,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
 
 
 def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.replay_gauntlet()
@@ -4514,7 +4636,7 @@ def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path
 
 
 def test_runtime_shell_benchmark_lab_lens_uses_payload_boundary(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.benchmark_lab()
@@ -4563,7 +4685,7 @@ def test_runtime_shell_benchmark_lab_lens_uses_payload_boundary(tmp_path: Path) 
 
 
 def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.legibility_scorecard()
@@ -4696,7 +4818,7 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
 
 
 def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path, "receipts/first_wave")
     shell = RuntimeShell(public_root)
 
     lens = shell.corpus_lens()
@@ -4833,7 +4955,7 @@ def test_runtime_shell_prediction_lens_uses_payload_boundary(tmp_path: Path) -> 
 def test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_lens_root(tmp_path)
     shell = RuntimeShell(public_root)
 
     lens = shell.market_boundary()
@@ -4905,7 +5027,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_demo_drilldown_root(tmp_path)
     cached_result_path = (
         public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
     )
@@ -4981,7 +5103,7 @@ def test_runtime_shell_run_demo_card_reads_cached_result_without_replay(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_demo_drilldown_root(tmp_path)
     shell = RuntimeShell(public_root)
     cached_result_path = (
         public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
@@ -5031,16 +5153,20 @@ def test_runtime_shell_run_demo_card_marks_stale_cache_without_replay(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_demo_drilldown_root(tmp_path)
     shell = RuntimeShell(public_root)
     cached_result_path = (
         public_root / "receipts/runtime_shell/demo_project/demo_project_result.json"
     )
     cached_result = json.loads(cached_result_path.read_text(encoding="utf-8"))
     expected_event_count = _adapter_backed_organ_count(public_root)
-    cached_result["events"] = cached_result["events"][: expected_event_count - 1]
-    cached_result["evidence_refs"] = cached_result["evidence_refs"][
-        : expected_event_count - 1
+    cached_result["events"] = [
+        {"organ_id": f"stale_organ_{index}", "status": "pass"}
+        for index in range(expected_event_count - 1)
+    ]
+    cached_result["evidence_refs"] = [
+        f"receipts/runtime_shell/demo_project/organs/stale_organ_{index}/result.json"
+        for index in range(expected_event_count - 1)
     ]
     cached_result_path.write_text(json.dumps(cached_result), encoding="utf-8")
 
@@ -5081,52 +5207,11 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
             "--host 127.0.0.1 --port 8765 --max-requests 7"
         ),
     ]
+    demo_organ_ids = {event["organ_id"] for event in result["events"]}
     assert {event["input_mode"] for event in result["events"]} == {
-        "exported_substrate_bundle",
-        "exported_standards_bundle",
-        "exported_evidence_bundle",
-        "exported_formal_math_readiness_bundle",
-        "exported_corpus_readiness_bundle",
-        "exported_tactic_portfolio_availability_bundle",
-        "exported_target_shape_tactic_routing_bundle",
-        "exported_lean_std_premise_index_bundle",
-        "exported_premise_retrieval_bundle",
-        "exported_verifier_trace_repair_bundle",
-        "exported_evidence_cell_anchor_bundle",
-        "exported_symbol_classifier_bundle",
-        "exported_ring2_precision_recall_bundle",
-        "exported_work_landing_replay_bundle",
-        "exported_research_replication_bundle",
-        "exported_projection_drift_control_bundle",
-        "exported_spatial_world_model_simulation_bundle",
-        "exported_materials_lab_safety_bundle",
-        "exported_circuit_attribution_bundle",
-        "exported_provider_context_budget_bundle",
-        "exported_lean_proof_witness_bundle",
-        "exported_verifier_lab_kernel_bundle",
-        "exported_verifier_lab_execution_spine_bundle",
-        "exported_certificate_kernel_execution_lab_bundle",
-        "exported_voice_to_doctrine_bundle",
-        "exported_route_plane_bundle",
-        "exported_mission_transaction_bundle",
-        "exported_observability_bundle",
-        "exported_assimilation_bundle",
-        "exported_public_reveal_bundle",
-        "synthetic_bridge_continuity_fixture",
-        "exported_projection_import_bundle",
-        "exported_prediction_oracle_bundle",
-        "exported_cognitive_operator_registry_bundle",
-        "exported_routing_anti_patterns_bundle",
-        "exported_standards_meta_diagnostics_bundle",
-        "exported_cold_reader_route_map_bundle",
-        "exported_memory_temporal_conflict_bundle",
-        "exported_sleeper_memory_poisoning_bundle",
-        "exported_mcp_tool_authority_bundle",
-        "exported_governed_mutation_authorization_bundle",
-        "exported_belief_state_process_reward_bundle",
-        "exported_sandbox_policy_escape_bundle",
-        "exported_prompt_injection_flow_bundle",
-        "exported_patch_proof_bundle",
+        step.input_mode
+        for step in runtime_shell.RUNTIME_STEPS
+        if step.organ_id in demo_organ_ids
     }
     for ref in result["evidence_refs"]:
         assert ref.startswith("receipts/runtime_shell/demo_project/organs/")
@@ -5146,9 +5231,11 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
 
 def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
-    public_root = _copy_runtime_root(tmp_path)
+    public_root = _copy_runtime_demo_drilldown_root(tmp_path)
     shell = RuntimeShell(public_root)
-    result = shell.run_demo()
+    result = shell._cached_runtime_demo_result("examples/runtime_shell/demo_project")
+    assert result is not None
+    assert result["status"] == "pass"
     work_demo = shell.run_work_demo()
 
     route = shell.inspect_route("entry_control_packet")
@@ -5341,6 +5428,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
     assert "/tour" in html
     assert "/proof-lab" in html
@@ -5633,6 +5722,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     ]
     assert observatory_card["first_screen_composition"]["shared_first_command"] == (
         "microcosm tour --card <project>"

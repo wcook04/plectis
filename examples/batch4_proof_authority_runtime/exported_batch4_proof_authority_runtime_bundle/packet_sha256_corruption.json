@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "packet_sha256_corruption", "error_codes": ["BATCH4_PACKET_SHA256_CORRUPTION_REJECTED"], "runtime_probe": {"observer_id": "packet_corruption_reject_anchor_presence", "source_module_id": "lean_microcosm_projection", "required_text": "source_ref_integrity"}, "body_in_receipt": false}

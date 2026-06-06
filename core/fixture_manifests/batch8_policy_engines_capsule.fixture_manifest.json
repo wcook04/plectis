@@ -1,0 +1,67 @@
+{
+  "anti_claim": "This Batch-8 policy-engine capsule validates exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not run live campaigns, mutate repositories, call providers, export private artifacts, claim market truth, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_policy_engine_public_substrate_capsule_not_runtime_or_release_authority",
+    "live_campaign_execution_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_policy_engines_capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+  "example_bundle": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle",
+  "expected_error_codes": [
+    "BATCH8_CAMPAIGN_COMPLETED_TO_RUNNING_REFUSED",
+    "BATCH8_LAB_CONTRACT_QUESTION_MARK_RED_GATE",
+    "BATCH8_MARKET_FUSION_MISSING_GATE_REFUSED"
+  ],
+  "fixture_id": "first_wave.batch8_policy_engines_capsule",
+  "input_refs": [
+    "fixtures/first_wave/batch8_policy_engines_capsule/input/batch8_policy_engines_capsule_probe_manifest.json",
+    "fixtures/first_wave/batch8_policy_engines_capsule/input/campaign_completed_to_running_refused.json",
+    "fixtures/first_wave/batch8_policy_engines_capsule/input/lab_contract_question_mark_red_gate.json",
+    "fixtures/first_wave/batch8_policy_engines_capsule/input/market_fusion_missing_gate_refused.json"
+  ],
+  "input_root": "fixtures/first_wave/batch8_policy_engines_capsule/input",
+  "kind_id": "batch8_policy_engines_capsule",
+  "mechanism_count": 3,
+  "negative_cases": [
+    "campaign_completed_to_running_refused",
+    "lab_contract_question_mark_red_gate",
+    "market_fusion_missing_gate_refused"
+  ],
+  "organ_id": "batch8_policy_engines_capsule",
+  "purpose": "Validate Batch-8 policy engines as exact copied non-secret macro source bodies plus public source-executing exercises for Lab contract audit, market-fusion fail-closed readiness, and campaign transition adjudication.",
+  "receipt_refs": [
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_result.json",
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_board.json",
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_count": 3,
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_status": "copied_non_secret_batch8_policy_engine_macro_bodies_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_policy_engine_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_modules/ inside examples/batch8_policy_engines_capsule/ for copied macro bodies; receipts carry refs, hashes, anchors, counts, and verdicts only.",
+    "schema_version": "batch8_policy_engines_capsule_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "validator_id": "validator.microcosm.organs.batch8_policy_engines_capsule"
+}

@@ -284,6 +284,7 @@ checkpoint_prepare_unclaimed_manifest() {
         --dry-run \
         --dirty-tree-pressure \
         --bankruptcy-authorized \
+        --full \
         --dirty-path-limit 1000000 > "$pressure_file"; then
         echo -e "${RED}ERROR: failed to compute dirty-tree pressure for --unclaimed checkpoint.${RESET}"
         exit 1

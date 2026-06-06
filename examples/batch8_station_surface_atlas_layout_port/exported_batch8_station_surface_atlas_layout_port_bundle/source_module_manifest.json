@@ -1,0 +1,31 @@
+{
+  "body_in_receipt": false,
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 296275,
+      "line_count": 6742,
+      "module_id": "station_surface_atlas_layout_nodes",
+      "path": "source_modules/system/server/ui/src/components/world/home/StationSurfaceAtlas.tsx",
+      "required_anchors": [
+        "function layoutNodes(views: AtlasView[])",
+        "const COLUMN_GAP = 320",
+        "while (maxBandWidth - bandWidths[band] >= LANE_OFFSET)",
+        "const lanes: AtlasView[][] = Array.from({ length: laneCount }, () => []);",
+        "fitViewOptions={{ padding: graphFirstDrawersActive ? 0.04 : 0.08, includeHiddenNodes: true, minZoom: 0.55 }}"
+      ],
+      "sha256": "c6249a7c4208f52930e5df80b331c623038246c0b450f9121b94d81ae065aa5f",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/world/home/StationSurfaceAtlas.tsx",
+      "source_sha256": "c6249a7c4208f52930e5df80b331c623038246c0b450f9121b94d81ae065aa5f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_modules/system/server/ui/src/components/world/home/StationSurfaceAtlas.tsx",
+      "target_sha256": "c6249a7c4208f52930e5df80b331c623038246c0b450f9121b94d81ae065aa5f"
+    }
+  ],
+  "schema_version": "source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_port_class": "python_port_from_typescript_layout_function"
+}

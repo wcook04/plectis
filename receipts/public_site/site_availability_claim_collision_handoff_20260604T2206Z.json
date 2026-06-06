@@ -1,0 +1,272 @@
+{
+  "schema_version": "microcosm_public_site_claim_collision_handoff_v1",
+  "receipt_id": "site_availability_claim_collision_handoff_20260604T2206Z",
+  "created_at": "2026-06-04T22:10:00Z",
+  "created_by": "codex_20260604T2206Z_microcosm_site_availability_claim_collision_handoff",
+  "repo_head_observed": "bf5cf31ea2c6827e2f42bd63c2cd2179b9f945b4",
+  "work_ledger_session": {
+    "session_id": "codex_20260604T2206Z_microcosm_site_availability_claim_collision_handoff",
+    "read_receipt_id": "wlr_8530e5ef69d54d69",
+    "claimed_path": "microcosm-substrate/receipts/public_site/site_availability_claim_collision_handoff_20260604T2206Z.json",
+    "claim_id": "wlc_2126a1d5c14f4edc",
+    "collision_count": 0,
+    "lease_until": "2026-06-04T22:26:30.859939+00:00"
+  },
+  "coordination_quiet_window": {
+    "request_source_thread_id": "019e93a9-8682-7a92-948f-2ec9ca196966",
+    "request": "Pause new commits/ref updates for about 3 minutes so a validated scoped private-index commit can land.",
+    "git_ref_mutation_pause_observed": true,
+    "staged_index_empty_after_pause": true,
+    "head_before_pause_observed": "e6719ce494f8f89fc91d14736e79af92b8da6680",
+    "head_after_pause_observed": "450224f55206ef03e2ae2ca68f23444719b675ff",
+    "resume_time_utc": "2026-06-04T22:05:57Z"
+  },
+  "authority_boundary": {
+    "status": "handoff_receipt_not_source_authority",
+    "this_receipt_authorizes": [
+      "public-safe availability handoff metadata",
+      "claim-collision proof for the current source-first lane",
+      "exact re-entry commands after source and site ownership clears"
+    ],
+    "this_receipt_does_not_authorize": [
+      "minting paper-module source rows",
+      "promoting legacy Markdown into capsule authority",
+      "editing generated coverage projections",
+      "editing generated public-site outputs",
+      "release approval",
+      "publication approval"
+    ],
+    "source_authority_remains": [
+      "microcosm-substrate/core/paper_module_capsules.json",
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json"
+    ]
+  },
+  "source_population_readback": {
+    "prior_audit_ref": "microcosm-substrate/receipts/public_site/site_availability_gap_audit_20260604T2150Z.json",
+    "prior_audit_repo_head_observed": "fec01bcb478ca2de00b7911713e307aca321f7aa",
+    "prior_audit_counts": {
+      "paper_module_legacy_only_count": 9,
+      "paper_module_required_subject_gap_count": 9,
+      "paper_module_unpopulated_selective_relation_count": 82,
+      "mechanism_unpopulated_selective_relation_count": 36,
+      "organ_unpopulated_selective_relation_count": 29,
+      "paper_module_availability_gap_count": 9
+    },
+    "current_live_coverage_counts": {
+      "paper_module_json_instance_count": 98,
+      "paper_module_legacy_only_count": 4,
+      "paper_module_required_subject_gap_count": 4,
+      "paper_module_without_json_capsule_count": 4,
+      "paper_module_unpopulated_selective_relation_count": 52,
+      "mechanism_unpopulated_selective_relation_count": 36,
+      "organ_unpopulated_selective_relation_count": 29
+    },
+    "deficit_delta_since_prior_audit": {
+      "paper_module_legacy_only_count": -5,
+      "paper_module_required_subject_gap_count": -5,
+      "paper_module_unpopulated_selective_relation_count": -30,
+      "mechanism_unpopulated_selective_relation_count": 0,
+      "organ_unpopulated_selective_relation_count": 0
+    },
+    "source_backed_modules_observed_in_claimed_registry": [
+      {
+        "paper_module_id": "paper_module.engine_room_annex_knowledge_router",
+        "source_authority": "json_capsule",
+        "subjects": [
+          {
+            "kind": "mechanism",
+            "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
+          }
+        ],
+        "mermaid_status": "available_from_capsule_edges",
+        "atlas_card_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_derived_fact_provider_engine",
+        "source_authority": "json_capsule",
+        "subjects": [
+          {
+            "kind": "mechanism",
+            "ref": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine"
+          }
+        ],
+        "mermaid_status": "available_from_capsule_edges",
+        "atlas_card_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_egress_self_compliance_gate",
+        "source_authority": "json_capsule",
+        "subjects": [
+          {
+            "kind": "mechanism",
+            "ref": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate"
+          }
+        ],
+        "mermaid_status": "available_from_capsule_edges",
+        "atlas_card_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_lean_proof_search_lab",
+        "source_authority": "json_capsule",
+        "subjects": [
+          {
+            "kind": "mechanism",
+            "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
+          }
+        ],
+        "mermaid_status": "available_from_capsule_edges",
+        "atlas_card_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_navigation_fitness_benchmark",
+        "source_authority": "json_capsule",
+        "subjects": [
+          {
+            "kind": "mechanism",
+            "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
+          }
+        ],
+        "mermaid_status": "available_from_capsule_edges",
+        "atlas_card_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      }
+    ],
+    "residual_legacy_only_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "residual_required_subject_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "readback_boundary": "The five engine-room capsule rows are live-observed in the claimed registry, but this lane did not author or land those source records."
+  },
+  "active_owner_boundary": {
+    "source_owner_session_id": "codex_20260604T215955Z_microcosm_engine_room_mechanism_capsules",
+    "source_owner_work_item_id": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+    "source_owner_claims_still_active": [
+      {
+        "path": "microcosm-substrate/core/paper_module_capsules.json",
+        "lease_until": "2026-06-04T22:45:08.220764+00:00"
+      },
+      {
+        "path": "microcosm-substrate/core/mechanism_sources.json",
+        "lease_until": "2026-06-04T22:45:08.220764+00:00"
+      }
+    ],
+    "source_collision_decision": "Do not edit capsule registry, mechanism sources, generated coverage, or module sidecars from this lane while the source owner is active.",
+    "safe_current_write": "This receipt path only."
+  },
+  "site_availability_handoff": {
+    "status": "deferred_site_ready_handoff",
+    "reason": "Source authority for five engine-room modules is live-observed, but the source registry is still actively claimed and the public-site builder/output surfaces are dirty in the shared worktree.",
+    "dirty_site_or_builder_paths_observed": [
+      "tools/meta/dissemination/build_microcosm_public_site.py",
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/assets/style.css",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/architecture-graph-scene.json",
+      "sites/microcosm/docs/architecture.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/index.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "safe_reentry_conditions": [
+      "The source owner lands or releases claims on microcosm-substrate/core/paper_module_capsules.json and microcosm-substrate/core/mechanism_sources.json.",
+      "The public-site builder and site output dirt is either owned by the re-entry lane or clean enough for generated refresh.",
+      "The re-entry lane reruns coverage and public-site validation before claiming routeability."
+    ],
+    "handoff_commands": [
+      "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --session-summary --limit 20 --cards-only",
+      "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "rm -rf /tmp/microcosm-engine-room-source-backed-site-20260604T2206Z",
+      "rsync -a --delete sites/microcosm/ /tmp/microcosm-engine-room-source-backed-site-20260604T2206Z/",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-engine-room-source-backed-site-20260604T2206Z --write --validate",
+      "rg -q \"paper_module.engine_room_egress_self_compliance_gate\" /tmp/microcosm-engine-room-source-backed-site-20260604T2206Z/content-graph.json",
+      "rg -q \"paper_module.engine_room_navigation_fitness_benchmark\" /tmp/microcosm-engine-room-source-backed-site-20260604T2206Z/content-graph.json"
+    ],
+    "live_site_write_performed_by_this_receipt": false,
+    "tracked_site_outputs_written_by_this_receipt": false
+  },
+  "public_safety": {
+    "status": "public_safe_metadata_only",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false,
+    "source_gap_inflated_into_capsule": false
+  },
+  "validation": {
+    "status": "pass",
+    "validated_at": "2026-06-04T22:14:00Z",
+    "validation_head_observed": "bf5cf31ea2c6827e2f42bd63c2cd2179b9f945b4",
+    "head_cas_retry": {
+      "status": "retry_permitted_after_refresh",
+      "stale_expected_parent": "7dcd187f355584d24346b0f4c65a251444e4886e",
+      "refreshed_expected_parent": "bf5cf31ea2c6827e2f42bd63c2cd2179b9f945b4",
+      "intervening_commit": "bf5cf31ea2c6827e2f42bd63c2cd2179b9f945b4",
+      "intervening_commit_subject": "Normalize runtime macro source refs for public safety",
+      "owned_path_overlap": false,
+      "retry_budget_remaining_after_this_retry": 0
+    },
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/site_availability_claim_collision_handoff_20260604T2206Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-git diff --check -- microcosm-substrate/receipts/public_site/site_availability_claim_collision_handoff_20260604T2206Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python tools/meta/control/mission_transaction_preflight.py --session-id codex_20260604T2206Z_microcosm_site_availability_claim_collision_handoff --subject-id microcosm_site_availability_claim_collision_handoff_20260604T2206Z --owned-path microcosm-substrate/receipts/public_site/site_availability_claim_collision_handoff_20260604T2206Z.json --fail-on-status blocked --json",
+        "status": "pass",
+        "summary": {
+          "landing_decision": "watch",
+          "reason": "live_work_ledger_pressure",
+          "claim_collision_count": 0,
+          "staged_path_count": 0,
+          "owned_path_count": 1
+        }
+      },
+      {
+        "command": "jq '{coverage_counts:{paper_module_legacy_only_count:.deficit_summary.paper_module_legacy_only_count,paper_module_required_subject_gap_count:.deficit_summary.paper_module_required_subject_gap_count,paper_module_without_json_capsule_count:.deficit_summary.paper_module_without_json_capsule_count,paper_module_unpopulated_selective_relation_count:.deficit_summary.paper_module_unpopulated_selective_relation_count,mechanism_unpopulated_selective_relation_count:.deficit_summary.mechanism_unpopulated_selective_relation_count,organ_unpopulated_selective_relation_count:.deficit_summary.organ_unpopulated_selective_relation_count},legacy_only_ids:.paper_module_instance_corpus.legacy_only_ids,required_subject_gap_ids:.paper_module_instance_corpus.required_subject_gap_ids}' microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "status": "pass",
+        "summary": {
+          "paper_module_legacy_only_count": 4,
+          "paper_module_required_subject_gap_count": 4,
+          "paper_module_without_json_capsule_count": 4,
+          "paper_module_unpopulated_selective_relation_count": 52,
+          "mechanism_unpopulated_selective_relation_count": 36,
+          "organ_unpopulated_selective_relation_count": 29
+        }
+      },
+      {
+        "command": "jq '[.paper_modules[] | select(.id==\"paper_module.engine_room_annex_knowledge_router\" or .id==\"paper_module.engine_room_derived_fact_provider_engine\" or .id==\"paper_module.engine_room_egress_self_compliance_gate\" or .id==\"paper_module.engine_room_lean_proof_search_lab\" or .id==\"paper_module.engine_room_navigation_fitness_benchmark\") | {id,source_authority,subject_count:(.subjects|length),mermaid_status:.generated_projections.mermaid.status}]' microcosm-substrate/core/paper_module_capsules.json",
+        "status": "pass",
+        "summary": {
+          "source_backed_module_count": 5,
+          "all_source_authority": "json_capsule",
+          "all_subject_count": 1,
+          "all_mermaid_status": "available_from_capsule_edges"
+        }
+      }
+    ]
+  }
+}

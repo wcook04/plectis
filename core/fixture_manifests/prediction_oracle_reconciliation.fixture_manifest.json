@@ -22,7 +22,11 @@
     "post_t_evidence_ref",
     "unconfirmed_equity_lane_claim",
     "unsafe_dossier_mutation",
-    "trading_advice_overclaim"
+    "trading_advice_overclaim",
+    "numeric_large_miss_direction_hit",
+    "missing_realized_numeric_truth",
+    "degraded_feed_health_gates_numeric_truth",
+    "asset_class_split_required"
   ],
   "fixture_id": "fixture::prediction_oracle_reconciliation::first_wave_contract_v1",
   "generated_receipts": [
@@ -38,7 +42,11 @@
     "fixtures/first_wave/prediction_oracle_reconciliation/input/post_t_evidence_ref.json",
     "fixtures/first_wave/prediction_oracle_reconciliation/input/unconfirmed_equity_lane_claim.json",
     "fixtures/first_wave/prediction_oracle_reconciliation/input/unsafe_dossier_mutation.json",
-    "fixtures/first_wave/prediction_oracle_reconciliation/input/trading_advice_overclaim.json"
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/trading_advice_overclaim.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/numeric_large_miss_direction_hit.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/missing_realized_numeric_truth.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/degraded_feed_health_gates_numeric_truth.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/asset_class_split_required.json"
   ],
   "manifest_type": "first_organ_fixture_validator_manifest",
   "omitted_secret_or_live_access_material": [
@@ -75,6 +83,10 @@
     "cp1_branch_count",
     "cp2_prediction_count",
     "oracle_diff_graded_count",
+    "numeric_reconciliation_row_count",
+    "numeric_reconciliation_summary",
+    "numeric_reconciliation_source",
+    "numeric_reconciliation_rows",
     "dossier_mutation_count",
     "reconciliation_rows",
     "body_in_receipt",
@@ -138,7 +150,11 @@
     "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
     "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
     "PREDICTION_DOSSIER_MUTATION_UNSAFE",
-    "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM"
+    "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM",
+    "PREDICTION_ORACLE_NUMERIC_LARGE_MISS_SURFACED",
+    "PREDICTION_ORACLE_MISSING_REALIZED_TRUTH_NOT_GRADED",
+    "PREDICTION_ORACLE_DEGRADED_FEED_HEALTH_GATED",
+    "PREDICTION_ORACLE_ASSET_CLASS_SPLIT_PRESERVED"
   ],
   "status": "real_runtime_receipt_contract_bound"
 }

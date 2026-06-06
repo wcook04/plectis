@@ -1,0 +1,23 @@
+{
+  "binding_disposition": "tier_a_new_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "calculator_zero_bucket_no_fake_dominance",
+  "computed_path": "zero_bucket_no_fake_share",
+  "error_codes": [
+    "BATCH11_CALCULATOR_ZERO_BUCKET_NO_FAKE_DOMINANCE"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "calculator_cluster_insight_derivation",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "metrics": {
+      "Directional_Energy": 0,
+      "Dispersion_Energy": 0,
+      "Risk_Energy": 0,
+      "Structural_Energy": 0
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

@@ -33,12 +33,17 @@ SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_readiness_probe_body_with_provenance"
 SOURCE_MODULE_IMPORT_STATUS = "copied_formal_readiness_source_modules_verified"
 CARD_SCHEMA_VERSION = "formal_math_readiness_gate_command_card_v1"
+TACTIC_PORTFOLIO_EVIDENCE_REF = (
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/"
+    "tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+)
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_tool_body",
     "public_macro_receipt_body",
     "public_macro_proof_body",
 }
+HASH_CHUNK_SIZE = 1024 * 1024
 
 FORBIDDEN_BODY_KEYS = (
     "proof_body",
@@ -159,12 +164,40 @@ def _source_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _source_module_target_path(input_dir: Path, row: dict[str, Any]) -> Path:
+    path_target = _source_module_path_target(input_dir, row)
+    if path_target is not None:
+        return path_target
+    target_ref_target = _source_module_target_ref_path(input_dir, row)
+    return target_ref_target if target_ref_target is not None else input_dir
+
+
+def _source_module_path_target(input_dir: Path, row: dict[str, Any]) -> Path | None:
     row_path = str(row.get("path") or "")
-    if row_path:
-        return input_dir / row_path
+    return input_dir / row_path if row_path else None
+
+
+def _source_module_target_ref_path(input_dir: Path, row: dict[str, Any]) -> Path | None:
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    if not target_ref:
+        return None
     public_root = _public_root_for_path(input_dir)
-    return public_root / target_ref if target_ref else input_dir
+    return public_root / target_ref
+
+
+def _source_module_source_path(public_root: Path, row: dict[str, Any]) -> Path | None:
+    source_ref = str(row.get("source_ref") or "")
+    if not source_ref:
+        return None
+    if source_ref.startswith("microcosm-substrate/"):
+        return public_root / _strip_microcosm_prefix(source_ref)
+    return public_root.parent / source_ref
+
+
+def _public_ref_path(public_root: Path, ref: object) -> Path | None:
+    value = str(ref or "")
+    if not value:
+        return None
+    return public_root / _strip_microcosm_prefix(value)
 
 
 def _source_artifact_paths(input_dir: Path) -> list[Path]:
@@ -173,6 +206,322 @@ def _source_artifact_paths(input_dir: Path) -> list[Path]:
         _source_module_target_path(input_dir, row)
         for row in _source_module_rows(manifest)
     ]
+
+
+def _fixture_manifest_source_binding(public_root: Path) -> dict[str, Any]:
+    manifest_path = (
+        public_root
+        / "core/fixture_manifests/formal_math_readiness_gate.fixture_manifest.json"
+    )
+    if not manifest_path.is_file():
+        return {}
+    fixture_manifest = read_json_strict(manifest_path)
+    source_open = fixture_manifest.get("source_open_body_imports", {})
+    if not isinstance(source_open, dict):
+        return {}
+    raw_manifest_refs = source_open.get("source_manifest_refs", [])
+    manifest_refs = (
+        [str(ref) for ref in raw_manifest_refs if ref]
+        if isinstance(raw_manifest_refs, list)
+        else []
+    )
+    source_refs = source_open.get("source_refs", [])
+    target_refs = source_open.get("target_refs", [])
+    body_count = int(
+        fixture_manifest.get("body_copied_material_count")
+        or source_open.get("body_material_count")
+        or 0
+    )
+    status = str(source_open.get("status") or PASS)
+    return {
+        "body_copied_material_count": body_count,
+        "source_module_count": body_count,
+        "verified_source_module_count": body_count if status == PASS else 0,
+        "source_module_manifest_status": status,
+        "source_module_manifest_ref": manifest_refs[0] if manifest_refs else None,
+        "source_manifest_refs": manifest_refs,
+        "source_module_imports": {
+            "status": status,
+            "source_module_import_status": status,
+            "module_count": body_count,
+            "verified_module_count": body_count if status == PASS else 0,
+            "source_module_manifest_ref": manifest_refs[0] if manifest_refs else None,
+            "source_refs": [str(ref) for ref in source_refs]
+            if isinstance(source_refs, list)
+            else [],
+            "target_refs": [str(ref) for ref in target_refs]
+            if isinstance(target_refs, list)
+            else [],
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
+        "source_open_body_imports": {
+            **source_open,
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
+    }
+
+
+def _local_lean_lake_mathlib_evidence(
+    *,
+    public_root: Path,
+    source_manifest_refs: list[str],
+    target_refs: list[str],
+) -> dict[str, Any]:
+    manifest_paths = [
+        path
+        for ref in source_manifest_refs
+        if (path := _public_ref_path(public_root, ref)) is not None
+    ]
+    target_paths = [
+        path for ref in target_refs if (path := _public_ref_path(public_root, ref)) is not None
+    ]
+    existing_target_refs: list[str] = []
+    missing_target_refs: list[str] = []
+    for ref, path in zip(target_refs, target_paths, strict=False):
+        if path.is_file():
+            existing_target_refs.append(str(ref))
+        else:
+            missing_target_refs.append(str(ref))
+
+    corpus_path = next(
+        (
+            path
+            for ref, path in zip(target_refs, target_paths, strict=False)
+            if str(ref).endswith("/corpus_readiness.json")
+        ),
+        None,
+    )
+    tactic_path = next(
+        (
+            path
+            for ref, path in zip(target_refs, target_paths, strict=False)
+            if str(ref).endswith(TACTIC_PORTFOLIO_EVIDENCE_REF)
+        ),
+        None,
+    )
+    mathlib_probe_paths = [
+        path
+        for ref, path in zip(target_refs, target_paths, strict=False)
+        if str(ref).endswith("/mathlib_probe.lean")
+    ]
+    lean_probe_paths = [
+        path
+        for path in target_paths
+        if path.suffix == ".lean" and path.is_file()
+    ]
+    corpus_payload = (
+        read_json_strict(corpus_path)
+        if corpus_path is not None and corpus_path.is_file()
+        else {}
+    )
+    tactic_payload = (
+        read_json_strict(tactic_path)
+        if tactic_path is not None and tactic_path.is_file()
+        else {}
+    )
+    lean_cli = corpus_payload.get("lean_cli", {}) if isinstance(corpus_payload, dict) else {}
+    tactic_rows = _rows(tactic_payload, "rows")
+    mathlib_probe_import_seen = any(
+        path.is_file() and "import Mathlib" in path.read_text(encoding="utf-8")
+        for path in mathlib_probe_paths
+    )
+    std_probe_file_count = sum(
+        1
+        for path in lean_probe_paths
+        if path.name != "mathlib_probe.lean"
+        and "import Std" in path.read_text(encoding="utf-8")
+    )
+    available_tactic_ids = sorted(
+        str(row.get("tactic_id"))
+        for row in tactic_rows
+        if row.get("available") is True and row.get("tactic_id")
+    )
+    unavailable_tactic_ids = sorted(
+        str(row.get("tactic_id"))
+        for row in tactic_rows
+        if row.get("available") is False and row.get("tactic_id")
+    )
+    manifest_refs_exist = bool(manifest_paths) and all(
+        path.is_file() for path in manifest_paths
+    )
+    corpus_bound = (
+        isinstance(corpus_payload, dict)
+        and corpus_payload.get("mathlib_available") is False
+        and isinstance(lean_cli, dict)
+        and lean_cli.get("lean_available") is True
+        and lean_cli.get("lake_available") is True
+    )
+    tactic_bound = bool(available_tactic_ids) and "aesop" in unavailable_tactic_ids
+    bound = (
+        manifest_refs_exist
+        and bool(target_refs)
+        and not missing_target_refs
+        and corpus_bound
+        and tactic_bound
+        and mathlib_probe_import_seen
+        and std_probe_file_count > 0
+    )
+    return {
+        "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+        "local_evidence_bound": bound,
+        "manifest_refs_exist": manifest_refs_exist,
+        "source_manifest_refs": source_manifest_refs,
+        "target_ref_count": len(target_refs),
+        "existing_target_ref_count": len(existing_target_refs),
+        "missing_target_refs": missing_target_refs,
+        "corpus_readiness_ref": _display(corpus_path, public_root=public_root)
+        if corpus_path
+        else None,
+        "tactic_portfolio_ref": _display(tactic_path, public_root=public_root)
+        if tactic_path
+        else None,
+        "lean_available": (
+            lean_cli.get("lean_available") is True if isinstance(lean_cli, dict) else False
+        ),
+        "lake_available": (
+            lean_cli.get("lake_available") is True if isinstance(lean_cli, dict) else False
+        ),
+        "mathlib_available": (
+            corpus_payload.get("mathlib_available") is True
+            if isinstance(corpus_payload, dict)
+            else False
+        ),
+        "mathlib_probe_import_seen": mathlib_probe_import_seen,
+        "lean_probe_file_count": len(lean_probe_paths),
+        "std_probe_file_count": std_probe_file_count,
+        "available_tactic_ids": available_tactic_ids,
+        "unavailable_tactic_ids": unavailable_tactic_ids,
+        "body_in_receipt": False,
+    }
+
+
+def _ref_matches_suffix(ref: object, suffix: str) -> bool:
+    return str(ref or "").endswith(suffix)
+
+
+def _has_tactic_probe_evidence_refs(binding: dict[str, Any]) -> bool:
+    source_refs = _strings(binding.get("source_refs"))
+    target_refs = _strings(binding.get("target_refs"))
+    return any(
+        _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF) for ref in source_refs
+    ) or any(
+        _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+        for ref in target_refs
+    )
+
+
+def _source_import_tactic_probe_evidence(
+    source_imports: dict[str, Any],
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    source_refs = _strings(source_imports.get("source_refs"))
+    target_refs = _strings(source_imports.get("target_refs"))
+    manifest_ref = str(source_imports.get("source_module_manifest_ref") or "")
+    local_evidence = _local_lean_lake_mathlib_evidence(
+        public_root=public_root,
+        source_manifest_refs=[manifest_ref] if manifest_ref else [],
+        target_refs=target_refs,
+    )
+    bound = (
+        source_imports.get("source_modules_pass") is True
+        and bool(int(source_imports.get("copied_source_artifact_count") or 0))
+        and local_evidence["local_evidence_bound"] is True
+        and (
+            any(
+                _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+                for ref in source_refs
+            )
+            or any(
+                _ref_matches_suffix(ref, TACTIC_PORTFOLIO_EVIDENCE_REF)
+                for ref in target_refs
+            )
+        )
+    )
+    return {
+        "source": "source_module_imports",
+        "tactic_probe_evidence_bound": bound,
+        "source_modules_pass": source_imports.get("source_modules_pass") is True,
+        "copied_source_artifact_count": int(
+            source_imports.get("copied_source_artifact_count") or 0
+        ),
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "source_refs": source_refs,
+        "target_refs": target_refs,
+        "local_lean_lake_mathlib_evidence": local_evidence,
+    }
+
+
+def _fixture_manifest_tactic_probe_evidence(public_root: Path) -> dict[str, Any]:
+    binding = _fixture_manifest_source_binding(public_root)
+    source_imports = binding.get("source_module_imports", {})
+    source_refs = (
+        _strings(source_imports.get("source_refs"))
+        if isinstance(source_imports, dict)
+        else []
+    )
+    target_refs = (
+        _strings(source_imports.get("target_refs"))
+        if isinstance(source_imports, dict)
+        else []
+    )
+    source_manifest_refs = _strings(binding.get("source_manifest_refs"))
+    local_evidence = _local_lean_lake_mathlib_evidence(
+        public_root=public_root,
+        source_manifest_refs=source_manifest_refs,
+        target_refs=target_refs,
+    )
+    bound = (
+        binding.get("source_module_manifest_status") == PASS
+        and int(binding.get("body_copied_material_count") or 0) > 0
+        and local_evidence["local_evidence_bound"] is True
+        and _has_tactic_probe_evidence_refs(
+            {"source_refs": source_refs, "target_refs": target_refs}
+        )
+    )
+    return {
+        "source": "fixture_manifest_source_open_body_imports",
+        "tactic_probe_evidence_bound": bound,
+        "source_module_manifest_status": binding.get("source_module_manifest_status"),
+        "body_copied_material_count": int(
+            binding.get("body_copied_material_count") or 0
+        ),
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "source_refs": source_refs,
+        "target_refs": target_refs,
+        "source_manifest_refs": source_manifest_refs,
+        "local_lean_lake_mathlib_evidence": local_evidence,
+    }
+
+
+def _tactic_probe_realness_evidence(
+    *,
+    input_mode: str,
+    source_imports: dict[str, Any],
+    public_root: Path,
+) -> dict[str, Any]:
+    candidates = [
+        _source_import_tactic_probe_evidence(
+            source_imports,
+            public_root=public_root,
+        )
+    ]
+    if input_mode.startswith("first_wave_fixture"):
+        candidates.append(_fixture_manifest_tactic_probe_evidence(public_root))
+    bound = any(row["tactic_probe_evidence_bound"] for row in candidates)
+    return {
+        "schema_version": "formal_math_readiness_realness_evidence_v1",
+        "tactic_probe_evidence_bound": bound,
+        "synthetic_probe_labels_allowed": bound,
+        "required_evidence_ref": TACTIC_PORTFOLIO_EVIDENCE_REF,
+        "candidate_bindings": candidates,
+    }
+
+
+def _is_synthetic_probe_ref(ref: object) -> bool:
+    return str(ref or "").startswith("synthetic_probe:")
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
@@ -197,7 +546,11 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 
 def _sha256(path: Path) -> str:
-    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return f"sha256:{digest.hexdigest()}"
 
 
 def _normalize_sha256(value: object) -> str:
@@ -208,7 +561,11 @@ def _normalize_sha256(value: object) -> str:
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _finding(
@@ -267,6 +624,20 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     return findings
 
 
+def _unexpected_findings(
+    findings: list[dict[str, Any]],
+    expected: dict[str, list[str]],
+) -> list[dict[str, Any]]:
+    expected_codes = {case_id: set(codes) for case_id, codes in expected.items()}
+    unexpected: list[dict[str, Any]] = []
+    for finding in findings:
+        case_id = str(finding.get("negative_case_id") or "")
+        code = str(finding.get("error_code") or "")
+        if code not in expected_codes.get(case_id, set()):
+            unexpected.append(finding)
+    return unexpected
+
+
 def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
 
@@ -298,6 +669,18 @@ def validate_corpus_readiness(
 
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
+    for row in rows:
+        corpus_id = str(row.get("corpus_id") or "corpus")
+        if row.get("mathlib_available") is True and row.get("mathlib_probe_status") != PASS:
+            _record(
+                findings,
+                observed,
+                "MATHLIB_AVAILABILITY_OVERCLAIM",
+                "Corpus readiness attempted to claim Mathlib availability without a passing probe.",
+                case_id=f"{corpus_id}:positive_corpus_readiness",
+                subject_id=corpus_id,
+                subject_kind="corpus_readiness",
+            )
     if isinstance(negative_payload, dict):
         subject_id = str(negative_payload.get("corpus_id") or "corpus_readiness")
         case_id = str(
@@ -332,6 +715,8 @@ def validate_corpus_readiness(
 def validate_tactic_portfolio(
     payload: object,
     negative_payload: object | None = None,
+    *,
+    realness_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     tactics: list[dict[str, Any]] = []
     available: list[str] = []
@@ -355,6 +740,36 @@ def validate_tactic_portfolio(
 
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
+    for row in _rows(payload, "tactics"):
+        tactic_id = str(row.get("tactic_id") or "tactic")
+        probe_receipt_ref = row.get("probe_receipt_ref")
+        if (
+            str(row.get("availability_status") or "unknown") == PASS
+            and not probe_receipt_ref
+        ):
+            _record(
+                findings,
+                observed,
+                "TACTIC_AVAILABILITY_UNPROBED",
+                "Tactic availability was claimed without a probe receipt.",
+                case_id=f"{tactic_id}:positive_tactic_availability",
+                subject_id=tactic_id,
+                subject_kind="tactic_availability",
+            )
+        if _is_synthetic_probe_ref(probe_receipt_ref) and not (
+            realness_evidence
+            and realness_evidence.get("tactic_probe_evidence_bound") is True
+        ):
+            _record(
+                findings,
+                observed,
+                "TACTIC_PROBE_SYNTHETIC_UNBOUND",
+                "Synthetic tactic probe labels require a copied source body or "
+                "fixture-manifest evidence binding.",
+                case_id=f"{tactic_id}:positive_tactic_probe_realness",
+                subject_id=tactic_id,
+                subject_kind="tactic_availability",
+            )
     if isinstance(negative_payload, dict):
         subject_id = str(negative_payload.get("tactic_id") or "tactic")
         case_id = str(
@@ -379,6 +794,7 @@ def validate_tactic_portfolio(
         "unavailable_tactic_ids": sorted(tactic for tactic in unavailable if tactic),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        "realness_evidence": realness_evidence or {},
     }
 
 
@@ -403,6 +819,19 @@ def validate_premise_index(
 
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
+    for row in _rows(payload, "premises"):
+        premise_id = str(row.get("premise_id") or "premise")
+        forbidden = _forbidden_body_keys(row)
+        if forbidden:
+            _record(
+                findings,
+                observed,
+                "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
+                "Premise index included forbidden proof/oracle body fields.",
+                case_id=f"{premise_id}:positive_premise_index",
+                subject_id=premise_id,
+                subject_kind="premise_index",
+            )
     if isinstance(negative_payload, dict):
         case_id = str(
             negative_payload.get("expected_negative_case_id")
@@ -453,14 +882,19 @@ def validate_target_shape_routing(
                 "body_in_receipt": False,
             }
         )
-        if negative and blocked:
+        if blocked:
             _record(
                 findings,
                 observed,
                 "ROUTING_ALLOWS_UNAVAILABLE_TACTIC",
                 "Target-shape routing allowed a tactic marked unavailable by the portfolio probe.",
                 case_id=str(
-                    row.get("expected_negative_case_id") or "routing_allows_unavailable_tactic"
+                    row.get("expected_negative_case_id")
+                    or (
+                        "routing_allows_unavailable_tactic"
+                        if negative
+                        else f"{route_case_id}:positive_target_shape_routing"
+                    )
                 ),
                 subject_id=route_case_id,
                 subject_kind="target_shape_routing",
@@ -501,6 +935,28 @@ def validate_provider_context_recipes(
 
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
+    for row in _rows(payload, "recipes"):
+        recipe_id = str(row.get("recipe_id") or "recipe")
+        if int(row.get("byte_budget") or 0) > 32768:
+            _record(
+                findings,
+                observed,
+                "PROVIDER_RECIPE_BUDGET_EXCEEDED",
+                "Provider context recipe exceeded the public readiness byte ceiling.",
+                case_id=f"{recipe_id}:positive_provider_context_recipe",
+                subject_id=recipe_id,
+                subject_kind="provider_context_recipe",
+            )
+        if row.get("proof_bodies_allowed") is True or _forbidden_body_keys(row):
+            _record(
+                findings,
+                observed,
+                "PROVIDER_RECIPE_PROOF_BODY_FORBIDDEN",
+                "Provider context recipe allowed or embedded proof body material.",
+                case_id=f"{recipe_id}:positive_provider_context_recipe",
+                subject_id=recipe_id,
+                subject_kind="provider_context_recipe",
+            )
     if isinstance(negative_payload, dict):
         case_id = str(
             negative_payload.get("expected_negative_case_id")
@@ -584,7 +1040,10 @@ def validate_source_module_imports(
 
     for row in rows:
         module_id = str(row.get("module_id") or "source_module")
-        target = _source_module_target_path(input_dir, row)
+        path_target = _source_module_path_target(input_dir, row)
+        target_ref_target = _source_module_target_ref_path(input_dir, row)
+        target = path_target or target_ref_target or input_dir
+        source = _source_module_source_path(public_root, row)
         source_digest = _normalize_sha256(row.get("source_sha256")) or _normalize_sha256(
             row.get("sha256")
         )
@@ -593,21 +1052,48 @@ def validate_source_module_imports(
         )
         exists = target.is_file()
         actual_digest = _sha256(target) if exists else None
+        source_exists = bool(source and source.is_file())
+        actual_source_digest = _sha256(source) if source_exists and source else None
+        source_digest_match = (
+            actual_source_digest == source_digest
+            if source_exists and source_digest
+            else None
+        )
         material_class = str(row.get("material_class") or "")
         source_ref = str(row.get("source_ref") or "")
         target_ref = _display(target, public_root=public_root)
+        path_target_ref = (
+            _display(path_target, public_root=public_root) if path_target else ""
+        )
+        declared_target_ref = (
+            _display(target_ref_target, public_root=public_root)
+            if target_ref_target
+            else ""
+        )
+        target_ref_matches_path = not (
+            path_target
+            and target_ref_target
+            and path_target.resolve(strict=False)
+            != target_ref_target.resolve(strict=False)
+        )
         digest_match = actual_digest == target_digest
         row_body_in_receipt = row.get("body_in_receipt") is True
         import_row = {
             "module_id": module_id,
             "source_ref": source_ref,
             "target_ref": target_ref,
+            "path_target_ref": path_target_ref,
+            "declared_target_ref": declared_target_ref,
+            "target_ref_matches_path": target_ref_matches_path,
             "material_class": material_class,
             "source_sha256": source_digest,
+            "actual_source_sha256": actual_source_digest,
             "expected_target_sha256": target_digest,
             "target_sha256": actual_digest,
+            "source_exists": source_exists,
             "exists": exists,
             "digest_match": digest_match,
+            "source_digest_match": source_digest_match,
             "source_to_target_relation": str(
                 row.get("source_to_target_relation") or "exact_copy"
             ),
@@ -662,6 +1148,26 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        if not target_ref_matches_path:
+            findings.append(
+                _finding(
+                    "FORMAL_READINESS_SOURCE_MODULE_TARGET_REF_PATH_MISMATCH",
+                    "Source module manifest path and target_ref must resolve to the same copied bundle body.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if source_digest_match is False:
+            findings.append(
+                _finding(
+                    "FORMAL_READINESS_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                    "Declared source module digest must match the live source digest when source_ref is available.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         elif not digest_match:
             findings.append(
                 _finding(
@@ -673,7 +1179,14 @@ def validate_source_module_imports(
                 )
             )
 
-    copied_count = sum(1 for row in imports if row["exists"] and row["digest_match"])
+    copied_count = sum(
+        1
+        for row in imports
+        if row["exists"]
+        and row["digest_match"]
+        and row["target_ref_matches_path"]
+        and row.get("source_digest_match") is not False
+    )
     source_modules_pass = not findings
     return {
         "source_module_manifest_ref": manifest_ref,
@@ -871,9 +1384,20 @@ def _build_result(
         payloads["corpus_readiness"],
         payloads.get("corpus_readiness_overclaims_mathlib"),
     )
+    source_imports = validate_source_module_imports(
+        input_dir,
+        required=input_mode == "exported_formal_math_readiness_bundle",
+        public_root=public_root,
+    )
+    realness_evidence = _tactic_probe_realness_evidence(
+        input_mode=input_mode,
+        source_imports=source_imports,
+        public_root=public_root,
+    )
     tactics = validate_tactic_portfolio(
         payloads["tactic_portfolio_availability"],
         payloads.get("tactic_claims_availability_without_probe"),
+        realness_evidence=realness_evidence,
     )
     premise_index = validate_premise_index(
         payloads["premise_index"],
@@ -888,12 +1412,6 @@ def _build_result(
         payloads["provider_context_recipes"],
         payloads.get("provider_context_recipe_overclaim"),
     )
-    source_imports = validate_source_module_imports(
-        input_dir,
-        required=input_mode == "exported_formal_math_readiness_bundle",
-        public_root=public_root,
-    )
-
     observed = _merge_observed(corpus, tactics, premise_index, routing, recipes)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -906,11 +1424,13 @@ def _build_result(
         source_imports,
     )
     error_codes = sorted({finding["error_code"] for finding in findings})
+    unexpected_findings = _unexpected_findings(findings, expected)
     status = (
         PASS
         if not missing
         and not secret_scan["blocking_hit_count"]
         and source_imports["source_modules_pass"]
+        and not unexpected_findings
         else "blocked"
     )
     bundle_manifest = (
@@ -946,6 +1466,7 @@ def _build_result(
         "error_codes": error_codes,
         "findings": findings,
         "secret_exclusion_scan": secret_scan,
+        "realness_evidence": realness_evidence,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_material_status": BODY_MATERIAL_STATUS,
@@ -967,6 +1488,7 @@ def _build_result(
         "readiness_extension_status": extension_board["projection_status"],
         "readiness_extension_board": extension_board,
         "readiness_board": {
+            "realness_evidence": realness_evidence,
             "mathlib_available": not corpus["blocked_capabilities"],
             "lean_lake_execution_authorized": False,
             "formal_proof_authority": False,
@@ -1012,6 +1534,7 @@ def _common_receipt(
         "error_codes",
         "findings",
         "secret_exclusion_scan",
+        "realness_evidence",
         "authority_ceiling",
         "anti_claim",
         "body_material_status",
@@ -1044,18 +1567,6 @@ def _common_receipt(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     return [_display(path, public_root=public_root) for path in paths.values()]
-
-
-def _exported_bundle_receipt_ref(
-    receipt_path: Path,
-    *,
-    target: Path,
-    public_root: Path,
-) -> str:
-    try:
-        return receipt_path.relative_to(public_root).as_posix()
-    except ValueError:
-        return receipt_path.relative_to(target.parent).as_posix()
 
 
 def write_receipts(
@@ -1150,6 +1661,7 @@ def write_receipts(
             "lean_witness_authority": "bounded_public_witness_owned_by_formal_math_lean_proof_witness",
         }
     )
+    acceptance.update(_fixture_manifest_source_binding(public_root_path))
 
     write_json_atomic(paths["readiness_gate_result"], gate_result)
     write_json_atomic(paths["formal_math_readiness_board"], board)
@@ -1210,11 +1722,12 @@ def run_readiness_bundle(
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
-    receipt_ref = _exported_bundle_receipt_ref(
-        receipt_path,
-        target=target,
-        public_root=public_root,
-    )
+    receipt_ref = _display(receipt_path, public_root=public_root)
+    if "receipts" in receipt_path.parts:
+        receipts_index = len(receipt_path.parts) - 1 - list(
+            reversed(receipt_path.parts)
+        ).index("receipts")
+        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
     receipt = _common_receipt(
         result,
         schema_version="formal_math_readiness_gate_exported_bundle_receipt_v1",

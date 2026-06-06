@@ -1,0 +1,439 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
+    "card": "Formal Math Premise Retrieval is the source-backed retrieval slice between the Lean/Std premise catalog and proof-witness boundary. It validates eleven public premise descriptors, four retrieval queries, forty-four considered candidates, exact and source-faithful macro body imports, context recipe byte budgets, strategy ids, card freshness, and five leakage/overclaim negative cases while keeping proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and release claims out of receipts.",
+    "one_line": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.formal_math_premise_retrieval",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.formal_math_premise_retrieval",
+        "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/formal_math_premise_retrieval.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.formal_math_premise_retrieval.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/formal_math_premise_retrieval.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/formal_math_premise_retrieval.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-1",
+        "AX-2",
+        "AX-5",
+        "AX-7"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for first-wave premise-retrieval fixture validation, exported bundle validation, source-module/body-floor scanning, negative-case enforcement, card freshness, and authority ceilings.",
+          "symbols": [
+            "run",
+            "run_retrieval_bundle",
+            "_build_result",
+            "_scan_input_paths",
+            "_retrieval_bundle_freshness_basis",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "BUNDLE_RESULT_NAME",
+            "CARD_SCHEMA_VERSION"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Copied public macro retrieval metadata and runtime validation receipts only; no theorem correctness, proof-body import, oracle-needed premise authority, Mathlib authority, Lean/Lake execution, provider call, benchmark claim, release approval, publication approval, source mutation, or general formal-proof authority.",
+        "card": "Formal Math Premise Retrieval is the source-backed retrieval slice between the Lean/Std premise catalog and proof-witness boundary. It validates eleven public premise descriptors, four retrieval queries, forty-four considered candidates, exact and source-faithful macro body imports, context recipe byte budgets, strategy ids, card freshness, and five leakage/overclaim negative cases while keeping proof bodies, oracle premise ids, provider payloads, Lean/Lake execution, and release claims out of receipts.",
+        "one_line": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority."
+      },
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "depends_on": [
+        "paper_module.formal_math_lean_proof_witness"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.formal_math_premise_retrieval",
+          "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/formal_math_premise_retrieval.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.formal_math_premise_retrieval.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.formal_math_premise_retrieval",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/formal_math_premise_retrieval.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-6",
+        "P-8"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval]",
+      "strangler_note": "This capsule binds the authored Markdown projection, first-wave premise-retrieval fixture, exported runtime bundle, source-open body-floor manifests, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, retrieval recall, query scoring, copied-body presence, or card freshness as proof, Lean/Lake, Mathlib, provider, release, benchmark, or theorem-correctness authority.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "formal_math_premise_retrieval"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
+        }
+      ],
+      "title": "Formal Math Premise Retrieval"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, first-wave premise-retrieval fixture, exported runtime bundle, source-open body-floor manifests, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, retrieval recall, query scoring, copied-body presence, or card freshness as proof, Lean/Lake, Mathlib, provider, release, benchmark, or theorem-correctness authority.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-2",
+      "AX-5",
+      "AX-7"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for first-wave premise-retrieval fixture validation, exported bundle validation, source-module/body-floor scanning, negative-case enforcement, card freshness, and authority ceilings.",
+        "symbols": [
+          "run",
+          "run_retrieval_bundle",
+          "_build_result",
+          "_scan_input_paths",
+          "_retrieval_bundle_freshness_basis",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "BUNDLE_RESULT_NAME",
+          "CARD_SCHEMA_VERSION"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.formal_math_and_proof_witness_bundle"
+    ],
+    "depends_on": [
+      "paper_module.formal_math_lean_proof_witness"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "formal_math_premise_retrieval",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].subjects[2]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.formal_math_and_proof_witness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.formal_math_lean_proof_witness",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for first-wave premise-retrieval fixture validation, exported bundle validation, source-module/body-floor scanning, negative-case enforcement, card freshness, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/formal_math_premise_retrieval.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-6",
+      "P-8"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "formal_math_premise_retrieval"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
+      }
+    ],
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[25:paper_module.formal_math_premise_retrieval]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/formal_math_premise_retrieval.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/formal_math_premise_retrieval.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Formal math premise retrieval validates copied public Lean/Std premise metadata, query scoring, context budgets, strategy gates, body-floor provenance, and leakage negative cases without claiming proof authority.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "formal_math_premise_retrieval"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection"
+    }
+  ],
+  "title": "Formal Math Premise Retrieval",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

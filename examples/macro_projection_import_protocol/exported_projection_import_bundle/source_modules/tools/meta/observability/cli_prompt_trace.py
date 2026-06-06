@@ -34,6 +34,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import ast
 import datetime as _dt
 import difflib
 import hashlib
@@ -67,6 +68,9 @@ TRACE_STRUCTURER_MISSION_INDEX = TRACE_STRUCTURER_BASE / "mission_index.json"
 TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT = (
     TRACE_STRUCTURER_BASE / "mission_index_goal_roster_refresh_receipt.json"
 )
+TRACE_STRUCTURER_GOAL_FLEET_ACTION_RECEIPT = (
+    TRACE_STRUCTURER_BASE / "goal_fleet_action_receipt.json"
+)
 TRACE_STRUCTURER_MISSION_SUMMARY_CACHE = TRACE_STRUCTURER_BASE / "mission_summary_cache.json"
 TRACE_STRUCTURER_TITLE_ALIASES = TRACE_STRUCTURER_BASE / "title_aliases.json"
 TRACE_STRUCTURER_VARIANT_ARTIFACTS = TRACE_STRUCTURER_BASE / "Variant Artifacts"
@@ -97,6 +101,21 @@ TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_LINES = 96
 TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_BYTES = 16000
 TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_HEAD = 10
 TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_TAIL = 6
+TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT = 8
+TRACE_CAPSULE_SOURCE_EXCERPT_LINES = 120
+TRACE_CAPSULE_SOURCE_EXCERPT_BYTES = 24000
+TRACE_CAPSULE_PROMPT_FILE_BYTES = 12000
+TYPE_B_SOURCE_EXCERPT_SCHEMA_VERSION = "type_b_source_excerpt_v1"
+TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_ID = "type_b_source_excerpt_available"
+TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_PATH_PREFIXES = (
+    "tools/meta/observability/cli_prompt_trace.py",
+    "system/server/tests/test_cli_prompt_trace_capsule.py",
+    "tools/agent_trace_structurer/",
+    "codex/doctrine/skills/doctrine/agent_trace_structurer.md",
+    "codex/doctrine/paper_modules/agent_trace_structurer_surface.md",
+    "codex/standards/std_agent_trace_lossless_clip.json",
+    "system/lib/type_b_candidate_queue.py",
+)
 
 CLAUDE_COMPLETE_STOP_REASONS = {"end_turn", "max_tokens", "stop_sequence", "refusal"}
 CODEX_EXIT_CODE_RE = re.compile(r"Process exited with code\s+(-?\d+)")
@@ -855,6 +874,14 @@ def find_codex_sessions(cwd: Path | None = None) -> list[Path]:
 
 def _peek_codex_session_id(path: Path) -> str:
     """Pull the canonical session_meta.id from the first record of a Codex rollout."""
+    meta = _peek_codex_session_meta(path)
+    if meta.get("id"):
+        return str(meta["id"])
+    return ""
+
+
+def _peek_codex_session_meta(path: Path) -> dict:
+    """Pull a compact, non-body Codex session_meta projection from a rollout."""
     try:
         with path.open() as f:
             for line in f:
@@ -866,15 +893,44 @@ def _peek_codex_session_id(path: Path) -> str:
                 except Exception:
                     continue
                 if rec.get("type") == "session_meta":
-                    sid = (rec.get("payload") or {}).get("id")
-                    if sid:
-                        return str(sid)
-                    return ""
+                    payload = rec.get("payload") or {}
+                    source = payload.get("source") if isinstance(payload.get("source"), dict) else {}
+                    subagent = source.get("subagent") if isinstance(source.get("subagent"), dict) else {}
+                    thread_spawn = (
+                        subagent.get("thread_spawn")
+                        if isinstance(subagent.get("thread_spawn"), dict)
+                        else {}
+                    )
+                    parent_thread_id = (
+                        payload.get("forked_from_id")
+                        or thread_spawn.get("parent_thread_id")
+                        or ""
+                    )
+                    return {
+                        "id": str(payload.get("id") or ""),
+                        "cwd": str(payload.get("cwd") or ""),
+                        "timestamp": str(payload.get("timestamp") or rec.get("timestamp") or ""),
+                        "model_provider": str(payload.get("model_provider") or ""),
+                        "thread_source": str(payload.get("thread_source") or ""),
+                        "forked_from_id": str(payload.get("forked_from_id") or ""),
+                        "parent_thread_id": str(parent_thread_id or ""),
+                        "agent_nickname": str(
+                            payload.get("agent_nickname")
+                            or thread_spawn.get("agent_nickname")
+                            or ""
+                        ),
+                        "agent_role": str(
+                            payload.get("agent_role")
+                            or thread_spawn.get("agent_role")
+                            or thread_spawn.get("agent_type")
+                            or ""
+                        ),
+                    }
                 if rec.get("type"):
-                    return ""
+                    return {}
     except Exception:
         pass
-    return ""
+    return {}
 
 
 def _enumerate_candidates(provider: str, cwd: Path) -> list[dict]:
@@ -900,11 +956,17 @@ def _enumerate_candidates(provider: str, cwd: Path) -> list[dict]:
                 stat = p.stat()
             except Exception:
                 continue
-            sid = _peek_codex_session_id(p) or p.stem
+            meta = _peek_codex_session_meta(p)
+            sid = str(meta.get("id") or "") or p.stem
             rows.append({
                 "provider": "codex",
                 "session_file": str(p),
                 "session_id": sid,
+                "thread_source": meta.get("thread_source") or "",
+                "forked_from_id": meta.get("forked_from_id") or "",
+                "parent_thread_id": meta.get("parent_thread_id") or "",
+                "agent_nickname": meta.get("agent_nickname") or "",
+                "agent_role": meta.get("agent_role") or "",
                 "mtime_epoch": stat.st_mtime,
                 "mtime_ns": stat.st_mtime_ns,
                 "mtime_utc": _iso_from_epoch(stat.st_mtime),
@@ -1116,6 +1178,7 @@ def _claude_subagent_sidechain_summaries(parent_session_file: Path) -> list[dict
             "schema": "agent_trace_subagent_sidechain_v1",
             "provider": "claude_code",
             "parent_session_id": str(first.get("sessionId") or parent_session_file.stem),
+            "session_id": agent_id,
             "agent_id": agent_id,
             "attribution_agent": _compact_one_line(attribution_agent, limit=40),
             "session_file": str(path),
@@ -1135,20 +1198,108 @@ def _claude_subagent_sidechain_summaries(parent_session_file: Path) -> list[dict
     return summaries
 
 
-def _relationship_for_subagent_child(sidechain: dict | None) -> dict:
+_CODEX_SUBAGENT_META_INDEX: dict[str, list[dict]] | None = None
+
+
+def _codex_subagent_meta_index() -> dict[str, list[dict]]:
+    global _CODEX_SUBAGENT_META_INDEX
+    if _CODEX_SUBAGENT_META_INDEX is not None:
+        return _CODEX_SUBAGENT_META_INDEX
+    index: dict[str, list[dict]] = {}
+    if not CODEX_SESSIONS_ROOT.is_dir():
+        _CODEX_SUBAGENT_META_INDEX = index
+        return index
+    for path in CODEX_SESSIONS_ROOT.glob("**/rollout-*.jsonl"):
+        try:
+            stat = path.stat()
+        except Exception:
+            continue
+        meta = _peek_codex_session_meta(path)
+        parent_session_id = str(meta.get("parent_thread_id") or meta.get("forked_from_id") or "")
+        if not parent_session_id:
+            continue
+        if str(meta.get("thread_source") or "") != "subagent" and not meta.get("forked_from_id"):
+            continue
+        child_session_id = str(meta.get("id") or "")
+        if not child_session_id:
+            continue
+        row = {
+            "provider": "codex",
+            "parent_session_id": parent_session_id,
+            "agent_id": child_session_id,
+            "agent_nickname": meta.get("agent_nickname") or "",
+            "agent_role": meta.get("agent_role") or "",
+            "session_file": str(path),
+            "started_at": meta.get("timestamp") or "",
+            "mtime_utc": _iso_from_epoch(stat.st_mtime),
+            "mtime_epoch": stat.st_mtime,
+            "size_bytes": stat.st_size,
+        }
+        index.setdefault(parent_session_id, []).append(row)
+    for rows in index.values():
+        rows.sort(key=lambda row: float(row.get("mtime_epoch") or 0), reverse=True)
+    _CODEX_SUBAGENT_META_INDEX = index
+    return index
+
+
+def _codex_subagent_sidechain_summaries(parent_session_id: str, *, limit: int = 24) -> list[dict]:
+    parent_key = str(parent_session_id or "").strip()
+    if not parent_key:
+        return []
+    summaries: list[dict] = []
+    for meta in _codex_subagent_meta_index().get(parent_key, [])[: max(1, limit)]:
+        path = Path(str(meta.get("session_file") or ""))
+        try:
+            turns = parse_codex_session(path)
+        except Exception:
+            turns = []
+        latest_turn = turns[-1] if turns else None
+        prompt_turn = next((t for t in turns if (t.prompt_text or "").strip()), latest_turn)
+        prompt_text = (prompt_turn.prompt_text if prompt_turn else "") or ""
+        agent_role = _compact_one_line(meta.get("agent_role") or "", limit=40)
+        agent_nickname = _compact_one_line(meta.get("agent_nickname") or "", limit=40)
+        summaries.append({
+            "schema": "agent_trace_subagent_sidechain_v1",
+            "provider": "codex",
+            "parent_session_id": parent_key,
+            "session_id": meta.get("agent_id") or "",
+            "agent_id": meta.get("agent_id") or "",
+            "agent_nickname": agent_nickname,
+            "attribution_agent": agent_role or agent_nickname,
+            "session_file": str(path),
+            "started_at": meta.get("started_at") or (latest_turn.started_at if latest_turn else None),
+            "completed_at": (latest_turn.completed_at if latest_turn else None) or meta.get("mtime_utc"),
+            "mtime_utc": meta.get("mtime_utc") or "",
+            "size_bytes": meta.get("size_bytes") or 0,
+            "prompt_sha16": _sha16(prompt_text) if prompt_text else "",
+            "prompt_title": _prompt_title_from_text(prompt_text, limit=90),
+            "prompt_preview": _compact_one_line(prompt_text, limit=180),
+            "turn_count": len(turns),
+            "tool_count": sum(len(t.tool_events) for t in turns),
+            "error_count": sum(1 for t in turns for e in t.tool_events if e.is_error),
+            "status": "completed" if latest_turn and latest_turn.is_complete else "running",
+            "model": "",
+        })
+    return summaries
+
+
+def _relationship_for_subagent_child(sidechain: dict | None, *, provider: str = "") -> dict:
+    provider_key = str(provider or (sidechain or {}).get("provider") or "")
+    parent_signal = "function_call:spawn_agent" if provider_key == "codex" else "tool_use:Agent"
+    child_signal = "codex_subagent_session" if provider_key == "codex" else "claude_sidechain_jsonl"
     if sidechain:
         return {
             "schema": "agent_trace_subagent_relationship_v1",
             "kind": "linked_sidechain",
-            "parent_signal": "tool_use:Agent",
-            "child_signal": "claude_sidechain_jsonl",
+            "parent_signal": parent_signal,
+            "child_signal": child_signal,
             "confidence": "high",
             "match_rule": "same_parent_session_and_prompt_sha16",
         }
     return {
         "schema": "agent_trace_subagent_relationship_v1",
         "kind": "deployment_only",
-        "parent_signal": "tool_use:Agent",
+        "parent_signal": parent_signal,
         "child_signal": "not_found",
         "confidence": "medium",
         "match_rule": "parent_tool_use_only",
@@ -1157,7 +1308,7 @@ def _relationship_for_subagent_child(sidechain: dict | None) -> dict:
 
 def _attach_sidechain_to_deployment(dep: dict, sidechain: dict | None) -> dict:
     out = dict(dep)
-    out["relationship"] = _relationship_for_subagent_child(sidechain)
+    out["relationship"] = _relationship_for_subagent_child(sidechain, provider=str(dep.get("provider") or ""))
     out["relationship_kind"] = out["relationship"]["kind"]
     out["relationship_confidence"] = out["relationship"]["confidence"]
     out["linked_child_trace"] = bool(sidechain)
@@ -1166,6 +1317,9 @@ def _attach_sidechain_to_deployment(dep: dict, sidechain: dict | None) -> dict:
             key: sidechain.get(key)
             for key in (
                 "schema",
+                "provider",
+                "session_id",
+                "parent_session_id",
                 "agent_id",
                 "attribution_agent",
                 "session_file",
@@ -1193,15 +1347,18 @@ def _attach_sidechain_to_deployment(dep: dict, sidechain: dict | None) -> dict:
 
 def _sidechain_only_deployment(sidechain: dict, deployment_index: int) -> dict:
     label = sidechain.get("prompt_title") or sidechain.get("attribution_agent") or sidechain.get("agent_id") or "Sub-agent trace"
+    provider = str(sidechain.get("provider") or "claude_code")
+    parent_signal = "function_call:spawn_agent" if provider == "codex" else "missing_or_uncached_tool_use"
+    child_signal = "codex_subagent_session" if provider == "codex" else "claude_sidechain_jsonl"
     return {
         "schema": "agent_trace_subagent_deployment_v1",
         "deployment_index": deployment_index,
-        "provider": "claude_code",
+        "provider": provider,
         "session_id": sidechain.get("parent_session_id") or "",
         "turn_index": None,
         "turn_id": "",
         "tool_index": None,
-        "tool_name": "Agent",
+        "tool_name": "spawn_agent" if provider == "codex" else "Agent",
         "tool_call_id": "",
         "description": "",
         "label": _compact_one_line(label, limit=90),
@@ -1217,8 +1374,8 @@ def _sidechain_only_deployment(sidechain: dict, deployment_index: int) -> dict:
         "relationship": {
             "schema": "agent_trace_subagent_relationship_v1",
             "kind": "sidechain_only",
-            "parent_signal": "missing_or_uncached_tool_use",
-            "child_signal": "claude_sidechain_jsonl",
+            "parent_signal": parent_signal,
+            "child_signal": child_signal,
             "confidence": "medium",
             "match_rule": "sidechain_parent_session_directory",
         },
@@ -1229,6 +1386,9 @@ def _sidechain_only_deployment(sidechain: dict, deployment_index: int) -> dict:
             key: sidechain.get(key)
             for key in (
                 "schema",
+                "provider",
+                "session_id",
+                "parent_session_id",
                 "agent_id",
                 "attribution_agent",
                 "session_file",
@@ -1254,20 +1414,36 @@ def _subagent_deployment_from_tool_event(turn: Turn, ev: ToolEvent, deployment_i
     tool_name = (ev.name or "").strip()
     input_obj = ev.input if isinstance(ev.input, dict) else {}
     lower_name = tool_name.lower()
-    has_subagent_shape = any(k in input_obj for k in ("subagent_type", "description", "prompt"))
-    if lower_name not in {"agent", "task"} and not input_obj.get("subagent_type"):
+    is_codex_spawn = lower_name == "spawn_agent" or lower_name.endswith(".spawn_agent")
+    has_subagent_shape = any(k in input_obj for k in ("subagent_type", "agent_type", "description", "prompt", "message"))
+    if lower_name not in {"agent", "task"} and not input_obj.get("subagent_type") and not is_codex_spawn:
         return None
     if lower_name == "task" and not has_subagent_shape:
         return None
 
-    description = _compact_one_line(input_obj.get("description") or "", limit=90)
-    prompt_text = str(input_obj.get("prompt") or "")
+    description = _compact_one_line(input_obj.get("description") or input_obj.get("task") or "", limit=90)
+    prompt_text = str(input_obj.get("prompt") or input_obj.get("message") or input_obj.get("objective") or "")
     prompt_title = _prompt_title_from_text(prompt_text, limit=90)
-    subagent_type = _compact_one_line(input_obj.get("subagent_type") or "", limit=40)
+    subagent_type = _compact_one_line(
+        input_obj.get("subagent_type")
+        or input_obj.get("agent_type")
+        or input_obj.get("agent_role")
+        or "",
+        limit=40,
+    )
     model = _compact_one_line(input_obj.get("model") or "", limit=40)
     label = description or prompt_title or subagent_type or tool_name or "Sub-agent"
     status = "failed" if ev.is_error else ("completed" if ev.completed_at else "running")
     prompt_preview = _compact_one_line(prompt_text, limit=180)
+    output_agent_id = ""
+    output_nickname = ""
+    try:
+        output_obj = json.loads(ev.output_text or "")
+        if isinstance(output_obj, dict):
+            output_agent_id = _compact_one_line(output_obj.get("agent_id") or "", limit=80)
+            output_nickname = _compact_one_line(output_obj.get("nickname") or "", limit=40)
+    except Exception:
+        pass
     return {
         "schema": "agent_trace_subagent_deployment_v1",
         "deployment_index": deployment_index,
@@ -1289,10 +1465,12 @@ def _subagent_deployment_from_tool_event(turn: Turn, ev: ToolEvent, deployment_i
         "prompt_preview": prompt_preview,
         "prompt_sha16": _sha16(prompt_text) if prompt_text else "",
         "prompt_char_count": len(prompt_text),
-        "relationship": _relationship_for_subagent_child(None),
+        "relationship": _relationship_for_subagent_child(None, provider=turn.provider),
         "relationship_kind": "deployment_only",
         "relationship_confidence": "medium",
         "linked_child_trace": False,
+        "agent_id": output_agent_id,
+        "agent_nickname": output_nickname,
     }
 
 
@@ -1313,19 +1491,26 @@ def _subagent_deployment_packet(turns: list[Turn], *, sidechains: list[dict] | N
         deployments.extend(_subagent_deployments_for_turn(turn))
     sidechain_rows = list(sidechains or [])
     sidechains_by_prompt: dict[str, list[dict]] = {}
+    sidechains_by_agent_id: dict[str, dict] = {}
     for sc in sidechain_rows:
         prompt_sha = str(sc.get("prompt_sha16") or "")
         if prompt_sha:
             sidechains_by_prompt.setdefault(prompt_sha, []).append(sc)
+        agent_id = str(sc.get("agent_id") or "")
+        if agent_id:
+            sidechains_by_agent_id[agent_id] = sc
     matched_sidechain_ids: set[str] = set()
     enriched: list[dict] = []
     for dep in deployments:
         prompt_sha = str(dep.get("prompt_sha16") or "")
+        agent_id = str(dep.get("agent_id") or "")
         match = None
-        if prompt_sha and sidechains_by_prompt.get(prompt_sha):
+        if agent_id and sidechains_by_agent_id.get(agent_id):
+            match = sidechains_by_agent_id[agent_id]
+        elif prompt_sha and sidechains_by_prompt.get(prompt_sha):
             match = sidechains_by_prompt[prompt_sha].pop(0)
-            if match.get("agent_id"):
-                matched_sidechain_ids.add(str(match["agent_id"]))
+        if match and match.get("agent_id"):
+            matched_sidechain_ids.add(str(match["agent_id"]))
         enriched.append(_attach_sidechain_to_deployment(dep, match))
     deployments = enriched
     for sc in sidechain_rows:
@@ -1354,6 +1539,64 @@ def _subagent_deployment_packet(turns: list[Turn], *, sidechains: list[dict] | N
         "linked_trace_count": linked_trace_count,
         "visible_count": len(recent),
     }
+
+
+def _subagent_sidechains_for_turn_window(turn: Turn) -> list[dict]:
+    if turn.provider == "claude_code":
+        return _claude_subagent_sidechain_summaries(Path(turn.session_file))
+    if turn.provider == "codex":
+        deployments = _subagent_deployments_for_turn(turn, limit=1)
+        if not deployments:
+            return []
+        return _codex_subagent_sidechain_summaries(turn.session_id)
+    return []
+
+
+def _subagent_packet_for_turn_window(turn: Turn, *, limit: int = 24) -> dict:
+    return _subagent_deployment_packet(
+        [turn],
+        sidechains=_subagent_sidechains_for_turn_window(turn),
+        limit=limit,
+    )
+
+
+def _capsule_subagent_section_lines(packet: dict) -> list[str]:
+    count = int(packet.get("count") or 0)
+    if count <= 0:
+        return []
+    deployments = list(packet.get("deployments") or [])
+    linked_count = int(packet.get("linked_trace_count") or 0)
+    visible_count = int(packet.get("visible_count") or len(deployments))
+    lines = [
+        "",
+        "SUBAGENTS",
+        f"summary: count={count} linked_child_traces={linked_count} visible={visible_count} collapsed_under_parent=true",
+    ]
+    for idx, dep in enumerate(deployments, start=1):
+        row_id = f"S{idx:03d}"
+        status = _capsule_clean_text(str(dep.get("status") or "unknown"))
+        relationship = _capsule_clean_text(str(dep.get("relationship_kind") or "deployment_only"))
+        label = _capsule_clean_text(str(dep.get("label") or dep.get("prompt_title") or "Sub-agent")[:120])
+        details: list[str] = []
+        for key, label_key in (
+            ("provider", "provider"),
+            ("tool_name", "tool"),
+            ("turn_index", "parent_turn"),
+            ("agent_id", "child_session"),
+            ("subagent_type", "type"),
+            ("model", "model"),
+        ):
+            value = dep.get(key)
+            if value is None or value == "":
+                continue
+            details.append(f"{label_key}={_capsule_clean_text(str(value))}")
+        if dep.get("linked_child_trace"):
+            details.append("linked_child_trace=true")
+        lines.append(f"{row_id} {status} {relationship} {label}" + (f" {' '.join(details)}" if details else ""))
+        preview = _capsule_clean_text(str(dep.get("prompt_preview") or "")[:180])
+        if preview:
+            lines.append(f"{row_id}.prompt_preview: {preview}")
+    return lines
 
 
 def _prompt_cycle_word_count(text: str) -> int:
@@ -1824,6 +2067,26 @@ def merge_full_thread(window: list[Turn]) -> Turn:
     return _merged_trace_window(window, mode="full_thread")
 
 
+def _attach_full_thread_trace_window(turn: Turn, turns: list[Turn], selected: Turn) -> Turn:
+    """Attach whole-thread coverage facts to selected/latest windows.
+
+    The rendered capsule may still copy only the selected/latest response, but
+    Type B consumers need to know whether a wider thread exists before making
+    any "no edits" or "full thread" claim.
+    """
+    try:
+        full_turn = merge_full_thread(full_thread_turns(turns, selected))
+    except Exception:
+        return turn
+    full_window = (full_turn.source_ref or {}).get("trace_window") or (full_turn.source_ref or {}).get("full_thread")
+    if not isinstance(full_window, dict):
+        return turn
+    source_ref = dict(turn.source_ref or {})
+    source_ref["full_thread_trace_window"] = full_window
+    source_ref.setdefault("full_thread", full_window)
+    return replace(turn, source_ref=source_ref)
+
+
 def select_trace_window(
     turns: list[Turn],
     *,
@@ -1838,11 +2101,12 @@ def select_trace_window(
     if full_thread:
         return merge_full_thread(full_thread_turns(turns, selected))
     if not prompt_cycle:
-        return selected
-    return merge_prompt_cycle(
+        return _attach_full_thread_trace_window(selected, turns, selected)
+    cycle = merge_prompt_cycle(
         prompt_cycle_turns(turns, selected, threshold_words=threshold_words),
         threshold_words=threshold_words,
     )
+    return _attach_full_thread_trace_window(cycle, turns, selected)
 
 
 # --- Rendering --- #
@@ -3631,6 +3895,859 @@ def _capsule_command_return_sections(
     return rows, manifest, stats
 
 
+def _capsule_public_trace_path(path: str) -> str:
+    clean = (path or "").strip().strip("'\"")
+    if not clean:
+        return ""
+    try:
+        if Path(clean).is_absolute():
+            clean_path = Path(clean)
+            try:
+                clean = str(clean_path.relative_to(REPO_ROOT))
+            except ValueError:
+                clean = str(clean_path)
+    except Exception:
+        pass
+    return clean
+
+
+def _capsule_source_path_allowed(path: str) -> bool:
+    clean = _capsule_public_trace_path(path)
+    if not clean or clean == "-":
+        return False
+    lower = clean.lower()
+    normalized = lower.replace("\\", "/")
+    if "/.codex/attachments/" in normalized:
+        return True
+    blocked_tokens = (
+        "/.codex/",
+        "/.claude/",
+        "library/application support/",
+        "state/prompt_shelf/usage/raw_events/",
+        "state/operator_bridge/thread_exports/",
+        "state/operator_bridge/prompt_shelf_artifacts/",
+    )
+    return not any(token in normalized for token in blocked_tokens)
+
+
+def _parse_line_range_value(value: str | None) -> tuple[int | None, int | None]:
+    text = (value or "").strip()
+    if not text:
+        return (None, None)
+    match = re.match(r"^(?P<start>\d+)(?:\s*(?:-|:|,)\s*(?P<end>\d+))?$", text)
+    if not match:
+        raise ValueError(f"invalid line range {value!r}; use START-END")
+    start = int(match.group("start"))
+    end = int(match.group("end") or match.group("start"))
+    if start < 1 or end < start:
+        raise ValueError(f"invalid line range {value!r}; start must be >= 1 and end >= start")
+    return (start, end)
+
+
+def _arg_value(argv: list[str], *names: str) -> str:
+    for index, token in enumerate(argv):
+        for name in names:
+            if token == name and index + 1 < len(argv):
+                return argv[index + 1]
+            prefix = f"{name}="
+            if token.startswith(prefix):
+                return token[len(prefix):]
+    return ""
+
+
+def _capsule_type_b_source_excerpt_ref(argv: list[str]) -> dict[str, Any] | None:
+    if "--type-b-source-excerpt" not in argv:
+        return None
+    if not any(Path(token).name == "cli_prompt_trace.py" for token in argv):
+        return None
+    path = _arg_value(argv, "--source-path")
+    if not path:
+        return None
+    public_path = _capsule_public_trace_path(path)
+    if not _capsule_source_path_allowed(public_path):
+        return None
+    try:
+        start, end = _parse_line_range_value(_arg_value(argv, "--line-range"))
+    except ValueError:
+        start, end = (None, None)
+    return {
+        "kind": "agent_requested_source_excerpt",
+        "command": "type_b_source_excerpt",
+        "path": public_path,
+        "start_line": start,
+        "end_line": end,
+        "symbol": _arg_value(argv, "--symbol"),
+        "full_file": "--full-file" in argv,
+    }
+
+
+def _type_b_source_public_path(path: Path) -> str:
+    return _capsule_public_trace_path(str(path))
+
+
+def _resolve_type_b_source_path(raw_path: str, cwd: Path) -> Path:
+    if not raw_path.strip():
+        raise SystemExit("--source-path is required with --type-b-source-excerpt")
+    path = Path(raw_path).expanduser()
+    if not path.is_absolute():
+        path = cwd / path
+    try:
+        return path.resolve()
+    except OSError as exc:
+        raise SystemExit(f"could not resolve source path: {raw_path}: {exc}") from exc
+
+
+def _python_symbol_ranges(text: str, symbol: str) -> list[tuple[int, int, str]]:
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return []
+    rows: list[tuple[int, int, str]] = []
+
+    def visit(node: ast.AST, prefix: tuple[str, ...] = ()) -> None:
+        name = getattr(node, "name", None)
+        next_prefix = prefix
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and name:
+            qualname = ".".join((*prefix, str(name)))
+            lineno = int(getattr(node, "lineno", 1) or 1)
+            end = int(getattr(node, "end_lineno", lineno) or lineno)
+            rows.append((lineno, max(lineno, end), qualname))
+            next_prefix = (*prefix, str(name))
+        for child in ast.iter_child_nodes(node):
+            visit(child, next_prefix)
+
+    visit(tree)
+    exact = [row for row in rows if row[2] == symbol]
+    if exact:
+        return exact
+    tail = symbol.split(".")[-1]
+    return [row for row in rows if row[2].split(".")[-1] == tail]
+
+
+def _generic_symbol_range(lines: list[str], symbol: str, limit: int) -> tuple[int, int] | None:
+    tail = re.escape(symbol.split(".")[-1])
+    patterns = [
+        re.compile(rf"^\s*(?:export\s+)?(?:async\s+)?function\s+{tail}\b"),
+        re.compile(rf"^\s*(?:export\s+)?(?:const|let|var)\s+{tail}\s*="),
+        re.compile(rf"^\s*(?:export\s+)?class\s+{tail}\b"),
+        re.compile(rf"^\s*(?:async\s+)?def\s+{tail}\b"),
+        re.compile(rf"^\s*class\s+{tail}\b"),
+    ]
+    for index, line in enumerate(lines):
+        if not any(pattern.search(line) for pattern in patterns):
+            continue
+        start = index + 1
+        brace_depth = 0
+        seen_brace = False
+        for end_index in range(index, min(len(lines), index + limit)):
+            row = lines[end_index]
+            brace_depth += row.count("{") - row.count("}")
+            seen_brace = seen_brace or "{" in row
+            if seen_brace and brace_depth <= 0 and end_index > index:
+                return (start, end_index + 1)
+        return (start, min(len(lines), index + limit))
+    return None
+
+
+def _select_type_b_source_excerpt(
+    *,
+    cwd: Path,
+    source_path: str,
+    line_range: str | None,
+    symbol: str | None,
+    full_file: bool,
+    max_lines: int,
+) -> dict[str, Any]:
+    resolved = _resolve_type_b_source_path(source_path, cwd)
+    public_path = _type_b_source_public_path(resolved)
+    if not _capsule_source_path_allowed(public_path):
+        raise SystemExit(f"source path is not allowed for Type B bundle excerpts: {public_path}")
+    try:
+        if not resolved.is_file():
+            raise SystemExit(f"source path is not a regular file: {public_path}")
+    except OSError as exc:
+        raise SystemExit(f"could not stat source path: {public_path}: {exc}") from exc
+    try:
+        raw_bytes = resolved.read_bytes()
+    except OSError as exc:
+        raise SystemExit(f"could not read source path: {public_path}: {exc}") from exc
+    text = raw_bytes.decode("utf-8", errors="replace")
+    if "\x00" in text:
+        raise SystemExit(f"source path appears binary and cannot be excerpted: {public_path}")
+
+    lines = text.splitlines()
+    if not lines:
+        raise SystemExit(f"source path is empty: {public_path}")
+    start: int
+    end: int
+    selection = "full_file" if full_file else "auto_full_file"
+    if line_range:
+        try:
+            parsed_start, parsed_end = _parse_line_range_value(line_range)
+        except ValueError as exc:
+            raise SystemExit(str(exc)) from exc
+        start = parsed_start or 1
+        end = parsed_end or start
+        selection = "line_range"
+    elif symbol:
+        ranges = _python_symbol_ranges(text, symbol) if resolved.suffix == ".py" else []
+        if ranges:
+            start, end, _qualname = ranges[0]
+            selection = "python_symbol"
+        else:
+            generic = _generic_symbol_range(lines, symbol, max_lines)
+            if not generic:
+                raise SystemExit(f"symbol not found in {public_path}: {symbol}")
+            start, end = generic
+            selection = "symbol"
+    else:
+        start, end = (1, len(lines))
+
+    start = max(1, min(start, len(lines)))
+    end = max(start, min(end, len(lines)))
+    capped_end = min(end, start + max_lines - 1)
+    selected_lines = lines[start - 1:capped_end]
+    redacted, redaction_hits = _redact_secrets("\n".join(selected_lines))
+    redacted_lines = redacted.split("\n")
+    numbered = [f"{line_no}:{line}" for line_no, line in zip(range(start, start + len(redacted_lines)), redacted_lines)]
+    return {
+        "schema_version": TYPE_B_SOURCE_EXCERPT_SCHEMA_VERSION,
+        "path": public_path,
+        "selection": selection,
+        "symbol": symbol or "",
+        "requested_range": {"start": start, "end": end},
+        "emitted_range": {"start": start, "end": start + max(0, len(numbered) - 1)},
+        "line_count": len(numbered),
+        "omitted_line_count": max(0, end - capped_end),
+        "redaction_hits": sorted(set(redaction_hits)),
+        "lines": numbered,
+    }
+
+
+def render_type_b_source_excerpt(
+    *,
+    cwd: Path,
+    source_path: str,
+    line_range: str | None = None,
+    symbol: str | None = None,
+    full_file: bool = False,
+    max_lines: int = TRACE_CAPSULE_SOURCE_EXCERPT_LINES,
+) -> tuple[str, dict[str, Any]]:
+    max_lines = max(1, min(int(max_lines or TRACE_CAPSULE_SOURCE_EXCERPT_LINES), 240))
+    row = _select_type_b_source_excerpt(
+        cwd=cwd,
+        source_path=source_path,
+        line_range=line_range,
+        symbol=symbol,
+        full_file=full_file,
+        max_lines=max_lines,
+    )
+    return "\n".join(row["lines"]), row
+
+
+def _capsule_prompt_file_ref_paths(prompt_text: str) -> list[str]:
+    paths: list[str] = []
+
+    def add_path(raw: str) -> None:
+        clean = (raw or "").strip().strip("`'\"<>.,;")
+        if not clean:
+            return
+        if clean.startswith("~"):
+            clean = str(Path(clean).expanduser())
+        if clean not in paths:
+            paths.append(clean)
+
+    for raw_line in (prompt_text or "").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        match = re.match(r"^##\s+[^:]{1,120}:\s+(?P<path>/\S+)$", line)
+        if match:
+            add_path(match.group("path"))
+            continue
+        for match in re.finditer(
+            r"(?P<path>/(?:Users|tmp|private/tmp)/[^\s`\"'<>)]{1,500})",
+            line,
+        ):
+            candidate = match.group("path")
+            if any(candidate.endswith(suffix) for suffix in (
+                ".txt", ".md", ".json", ".jsonl", ".log", ".py", ".swift", ".mjs", ".html"
+            )):
+                add_path(candidate)
+    return paths
+
+
+def _capsule_prompt_file_excerpt(path: str) -> tuple[list[str], str, int] | None:
+    try:
+        resolved = Path(path).expanduser()
+    except Exception:
+        return None
+    try:
+        if not resolved.is_file():
+            return None
+    except OSError:
+        return None
+    public_path = _capsule_public_trace_path(str(resolved))
+    if not _capsule_source_path_allowed(public_path):
+        return None
+    try:
+        raw_bytes = resolved.read_bytes()[:TRACE_CAPSULE_PROMPT_FILE_BYTES]
+    except OSError:
+        return None
+    if not raw_bytes:
+        return None
+    text = raw_bytes.decode("utf-8", errors="replace")
+    if "\x00" in text:
+        return None
+    redacted, _hits = _redact_secrets(text)
+    display_lines = redacted.splitlines()
+    ref = {"start_line": 1}
+    numbered = _capsule_numbered_source_lines(display_lines, ref)
+    if not numbered:
+        return None
+    return numbered, public_path, len(raw_bytes)
+
+
+def _capsule_sed_script_range(script: str) -> tuple[int | None, int | None]:
+    compact = (script or "").strip().strip("'\"").replace(" ", "")
+    match = re.match(r"^(?P<start>\d+)(?:,(?P<end>\d+))?p$", compact)
+    if not match:
+        return (None, None)
+    start = int(match.group("start"))
+    end = int(match.group("end") or match.group("start"))
+    return (start, end)
+
+
+def _capsule_source_read_ref_from_argv(argv: list[str], line: str) -> dict[str, Any] | None:
+    if not argv:
+        return None
+    type_b_ref = _capsule_type_b_source_excerpt_ref(argv)
+    if type_b_ref:
+        return type_b_ref
+    exe = Path(argv[0]).name
+    if exe == "sed":
+        script = ""
+        script_index = -1
+        idx = 1
+        while idx < len(argv):
+            token = argv[idx]
+            if token == "-n" and idx + 1 < len(argv):
+                script = argv[idx + 1]
+                script_index = idx + 1
+                idx += 2
+                continue
+            if token.startswith("-n") and len(token) > 2:
+                script = token[2:]
+                script_index = idx
+                idx += 1
+                continue
+            if token == "-e" and idx + 1 < len(argv):
+                script = argv[idx + 1]
+                script_index = idx + 1
+                idx += 2
+                continue
+            if not token.startswith("-") and not script:
+                script = token
+                script_index = idx
+            idx += 1
+        start, end = _capsule_sed_script_range(script)
+        path = ""
+        if script_index >= 0:
+            for token in argv[script_index + 1:]:
+                if not token.startswith("-"):
+                    path = token
+                    break
+        if path and _capsule_source_path_allowed(path):
+            return {
+                "kind": "read",
+                "command": exe,
+                "path": _capsule_public_trace_path(path),
+                "start_line": start,
+                "end_line": end,
+            }
+    if exe == "nl":
+        path = ""
+        for token in argv[1:]:
+            if token.startswith("-"):
+                continue
+            path = token
+        if path and _capsule_source_path_allowed(path):
+            pipe_match = re.search(r"\|\s*sed\s+-n\s+['\"]?(?P<script>\d+(?:,\d+)?p)['\"]?", line)
+            start, end = _capsule_sed_script_range(pipe_match.group("script") if pipe_match else "")
+            return {
+                "kind": "read",
+                "command": exe,
+                "path": _capsule_public_trace_path(path),
+                "start_line": start,
+                "end_line": end,
+            }
+    if exe == "cat":
+        path = next((token for token in argv[1:] if not token.startswith("-")), "")
+        if path and _capsule_source_path_allowed(path):
+            return {
+                "kind": "read",
+                "command": exe,
+                "path": _capsule_public_trace_path(path),
+                "start_line": None,
+                "end_line": None,
+            }
+    if exe in {"head", "tail"}:
+        count: int | None = None
+        path = ""
+        idx = 1
+        while idx < len(argv):
+            token = argv[idx]
+            if token in {"-n", "--lines"} and idx + 1 < len(argv):
+                try:
+                    count = int(argv[idx + 1].lstrip("+"))
+                except ValueError:
+                    count = None
+                idx += 2
+                continue
+            if token.startswith("-n") and len(token) > 2:
+                try:
+                    count = int(token[2:].lstrip("+"))
+                except ValueError:
+                    count = None
+                idx += 1
+                continue
+            if not token.startswith("-"):
+                path = token
+            idx += 1
+        if path and _capsule_source_path_allowed(path):
+            return {
+                "kind": "read",
+                "command": exe,
+                "path": _capsule_public_trace_path(path),
+                "start_line": 1 if exe == "head" else None,
+                "end_line": count if exe == "head" and count is not None else None,
+            }
+    if exe in {"rg", "grep"} and any(arg == "-n" or arg.startswith("-n") or "n" in arg[1:] for arg in argv[1:] if arg.startswith("-")):
+        candidate_paths = [token for token in argv[2:] if not token.startswith("-")]
+        path = next((token for token in reversed(candidate_paths) if _capsule_source_path_allowed(token)), "")
+        return {
+            "kind": "search",
+            "command": exe,
+            "path": _capsule_public_trace_path(path) if path else "search_results",
+            "start_line": None,
+            "end_line": None,
+        }
+    return None
+
+
+def _capsule_source_read_ref(command: str) -> dict[str, Any] | None:
+    clean = _capsule_clean_text(command or "")
+    base_name = ""
+    if clean.startswith("Read "):
+        path = clean.split(" ", 1)[1].strip()
+        if _capsule_source_path_allowed(path):
+            return {
+                "kind": "read",
+                "command": "Read",
+                "path": _capsule_public_trace_path(path),
+                "start_line": None,
+                "end_line": None,
+            }
+    for line in _capsule_command_surface_lines(clean):
+        argv = _capsule_argv_from_shell_line(line)
+        if argv:
+            base_name = Path(argv[0]).name
+        ref = _capsule_source_read_ref_from_argv(argv, line)
+        if ref:
+            return ref
+    if base_name:
+        return None
+    return None
+
+
+def _capsule_numbered_source_lines(lines: list[str], ref: dict[str, Any]) -> list[str]:
+    numbered: list[str] = []
+    start_line = ref.get("start_line")
+    emitted = 0
+    byte_budget = 0
+    for raw_line in lines:
+        if emitted >= TRACE_CAPSULE_SOURCE_EXCERPT_LINES:
+            break
+        line = raw_line.rstrip("\n")
+        source_line: int | None = None
+        content = line
+        match = re.match(r"^\s*(?P<line>\d+)\s+(?P<body>.*)$", line)
+        if match:
+            source_line = int(match.group("line"))
+            content = match.group("body")
+        else:
+            search_match = re.match(r"^(?:(?P<path>[^:\s][^:]*):)?(?P<line>\d+):(?P<body>.*)$", line)
+            if search_match:
+                source_line = int(search_match.group("line"))
+                content = search_match.group("body")
+            elif isinstance(start_line, int):
+                source_line = start_line + emitted
+        label = f"L{source_line}" if source_line is not None else "L?"
+        rendered = f"| {label} {content}"
+        rendered_bytes = len(rendered.encode("utf-8"))
+        if byte_budget + rendered_bytes > TRACE_CAPSULE_SOURCE_EXCERPT_BYTES:
+            numbered.append(f"| [source excerpt byte budget reached; sha16={_sha16(chr(10).join(lines))}]")
+            break
+        numbered.append(rendered)
+        byte_budget += rendered_bytes
+        emitted += 1
+    return numbered
+
+
+def _capsule_numbered_line_numbers(numbered: list[str]) -> list[int]:
+    values: list[int] = []
+    for line in numbered:
+        match = re.match(r"^\|\s+L(?P<line>\d+)\b", line)
+        if match:
+            values.append(int(match.group("line")))
+    return values
+
+
+def _capsule_source_ref_key(ref: dict[str, Any]) -> tuple[str, str, int | None, int | None, str]:
+    return (
+        str(ref.get("path") or ""),
+        str(ref.get("symbol") or ref.get("command") or ""),
+        ref.get("start_line") if isinstance(ref.get("start_line"), int) else None,
+        ref.get("end_line") if isinstance(ref.get("end_line"), int) else None,
+        "full_file" if ref.get("full_file") else "",
+    )
+
+
+def _capsule_type_b_source_excerpt_affordance_applies_to_path(path: str) -> bool:
+    clean = _capsule_public_trace_path(path)
+    return any(
+        clean == prefix.rstrip("/") or clean.startswith(prefix)
+        for prefix in TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_PATH_PREFIXES
+    )
+
+
+def _capsule_type_b_source_excerpt_affordance(
+    changed_paths: list[str],
+    source_excerpt_stats: dict[str, Any],
+) -> dict[str, Any]:
+    trigger_paths = [
+        _capsule_public_trace_path(path)
+        for path in changed_paths
+        if _capsule_type_b_source_excerpt_affordance_applies_to_path(path)
+    ]
+    agent_requested_seen = int(source_excerpt_stats.get("agent_requested_seen_refs") or 0)
+    agent_requested_refs = int(source_excerpt_stats.get("agent_requested_refs") or 0)
+    agent_requested_omitted = int(source_excerpt_stats.get("agent_requested_omitted_refs") or 0)
+    if not trigger_paths:
+        status = "not_relevant"
+        affordance_id = ""
+        suggested = False
+    elif agent_requested_seen > 0:
+        status = "used"
+        affordance_id = ""
+        suggested = False
+    else:
+        status = "available"
+        affordance_id = TRACE_CAPSULE_TYPE_B_SOURCE_AFFORDANCE_ID
+        suggested = True
+    return {
+        "schema_version": "type_b_source_excerpt_affordance_v1",
+        "status": status,
+        "suggested": suggested,
+        "mandatory": False,
+        "copy_readiness_effect": "none",
+        "affordance_id": affordance_id,
+        "agent_requested_seen_refs": agent_requested_seen,
+        "agent_requested_refs": agent_requested_refs,
+        "agent_requested_omitted_refs": agent_requested_omitted,
+        "trigger_paths": trigger_paths,
+        "trigger_path_count": len(trigger_paths),
+        "policy": (
+            "Trace Capsule, Agent Trace Structurer, and Type B handoff edits should make "
+            "--type-b-source-excerpt easy to use when Type B would benefit from exact deciding "
+            "source lines, without making attachment mandatory."
+        ),
+    }
+
+
+def _capsule_closeout_claims_requested_source_excerpts(final_assistant_text: str) -> bool:
+    text = final_assistant_text or ""
+    if not text:
+        return False
+    patterns = [
+        r"\bused the affordance\b",
+        r"\bselected exact source\b",
+        r"\bselected .*?\bsource excerpts?\b",
+        r"\bsource excerpts? (?:will|should|are) (?:be )?(?:available|included|present)\b",
+        r"\blatest (?:response )?bundle (?:will|should) include\b.*\bSOURCE_EXCERPTS\b",
+        r"\bSOURCE_EXCERPTS\b.*\b(?:will|should) include\b",
+    ]
+    return any(re.search(pattern, text, re.I | re.S) for pattern in patterns)
+
+
+def _capsule_source_excerpt_sections(
+    renderable: list[tuple[ToolEvent, str, int | None, bool]],
+    *,
+    source_sha16: str,
+    prompt_text: str = "",
+) -> tuple[list[str], dict[str, Any]]:
+    rows: list[str] = ["SOURCE_EXCERPTS"]
+    candidates: list[tuple[int, int, str, str, dict[str, Any], list[str], str]] = []
+    excerpts: list[tuple[str, str, dict[str, Any], list[str], str]] = []
+    omitted = 0
+    prompt_file_ref_seen_count = 0
+    agent_requested_seen_count = 0
+    omission_reason_counts: dict[str, int] = {}
+    agent_requested_drop_rows: list[dict[str, Any]] = []
+
+    def record_omission(
+        ref: dict[str, Any],
+        reason: str,
+        *,
+        command_id: str = "",
+        command: str = "",
+    ) -> None:
+        nonlocal omitted
+        omitted += 1
+        omission_reason_counts[reason] = omission_reason_counts.get(reason, 0) + 1
+        if ref.get("kind") == "agent_requested_source_excerpt":
+            agent_requested_drop_rows.append({
+                "command_id": command_id,
+                "path": str(ref.get("path") or ""),
+                "reason": reason,
+                "command": str(ref.get("command") or command or ""),
+            })
+
+    def excerpt_range_label(ref: dict[str, Any], numbered: list[str]) -> str:
+        start = ref.get("start_line")
+        end = ref.get("end_line")
+        numbered_line_numbers = _capsule_numbered_line_numbers(numbered)
+        if numbered_line_numbers:
+            return f"{numbered_line_numbers[0]}-{numbered_line_numbers[-1]}"
+        if isinstance(start, int) and isinstance(end, int):
+            return f"{start}-{end}"
+        if isinstance(start, int):
+            return f"{start}-{start + len(numbered) - 1}"
+        return "output_line_numbers_or_unknown"
+
+    def excerpt_selector(ref: dict[str, Any]) -> str:
+        if ref.get("full_file"):
+            return "full_file"
+        if ref.get("symbol"):
+            return "symbol"
+        if isinstance(ref.get("start_line"), int) or isinstance(ref.get("end_line"), int):
+            return "line_range"
+        return "trace_output"
+
+    for raw_path in _capsule_prompt_file_ref_paths(prompt_text):
+        prompt_excerpt = _capsule_prompt_file_excerpt(raw_path)
+        if not prompt_excerpt:
+            continue
+        numbered, public_path, byte_count = prompt_excerpt
+        prompt_file_ref_seen_count += 1
+        candidates.append((
+            20,
+            prompt_file_ref_seen_count,
+            f"P{prompt_file_ref_seen_count:03d}",
+            f"prompt_file_ref {public_path}",
+            {
+                "kind": "prompt_file_ref",
+                "command": "prompt_file_ref",
+                "path": public_path,
+                "start_line": 1,
+                "end_line": len(numbered),
+            },
+            numbered,
+            f"{public_path}\nbytes_read={byte_count}\n" + "\n".join(numbered),
+        ))
+    for idx, wrapped in enumerate(renderable, start=1):
+        ev, output_text, _exit_code, _is_error = wrapped
+        command = _capsule_clean_text(_capsule_command(ev))
+        ref = _capsule_source_read_ref(command)
+        if not ref:
+            continue
+        command_id = f"C{idx:03d}"
+        is_agent_requested = ref.get("kind") == "agent_requested_source_excerpt"
+        if is_agent_requested:
+            agent_requested_seen_count += 1
+        output = output_text or ""
+        if not output or output.startswith("[no ") or _capsule_output_is_nested_trace(output):
+            if is_agent_requested:
+                record_omission(ref, "requested_excerpt_output_missing", command_id=command_id, command=command)
+            continue
+        display_lines, _redaction_hits = _capsule_command_return_text(output)
+        if not display_lines:
+            if is_agent_requested:
+                record_omission(ref, "requested_excerpt_output_empty", command_id=command_id, command=command)
+            continue
+        numbered = _capsule_numbered_source_lines(display_lines, ref)
+        if not numbered:
+            if is_agent_requested:
+                record_omission(ref, "requested_excerpt_no_numbered_lines", command_id=command_id, command=command)
+            continue
+        candidates.append((
+            100 if is_agent_requested else 10,
+            idx,
+            command_id,
+            command,
+            ref,
+            numbered,
+            output,
+        ))
+
+    excerpt_keys: set[tuple[str, str, int | None, int | None, str]] = set()
+    for _priority, _sequence, command_id, command, ref, numbered, output in sorted(
+        candidates,
+        key=lambda row: (-row[0], row[1]),
+    ):
+        ref_key = _capsule_source_ref_key(ref)
+        if ref_key in excerpt_keys:
+            record_omission(ref, "duplicate_ref", command_id=command_id, command=command)
+            continue
+        if len(excerpts) >= TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT:
+            reason = (
+                "requested_excerpt_dropped_limit_exceeded"
+                if ref.get("kind") == "agent_requested_source_excerpt"
+                else "limit_exceeded"
+            )
+            record_omission(ref, reason, command_id=command_id, command=command)
+            continue
+        excerpts.append((command_id, command, ref, numbered, output))
+        excerpt_keys.add(ref_key)
+
+    paths: list[str] = []
+    line_count = 0
+    byte_count = 0
+    for _command_id, _command, ref, numbered, _output in excerpts:
+        path = str(ref.get("path") or "")
+        if path and path not in paths:
+            paths.append(path)
+        line_count += len(numbered)
+        byte_count += sum(len(line.encode("utf-8")) for line in numbered)
+    prompt_file_ref_count = sum(1 for _id, _command, ref, _numbered, _output in excerpts if ref.get("kind") == "prompt_file_ref")
+    agent_requested_ref_count = sum(
+        1 for _id, _command, ref, _numbered, _output in excerpts
+        if ref.get("kind") == "agent_requested_source_excerpt"
+    )
+    agent_requested_omitted_count = len(agent_requested_drop_rows)
+    if agent_requested_seen_count == 0:
+        requested_survival_status = "none_seen"
+    elif agent_requested_omitted_count == 0:
+        requested_survival_status = "all_emitted"
+    else:
+        requested_survival_status = "dropped_with_reasons"
+    agent_requested_rows: list[dict[str, Any]] = []
+    agent_requested_path_index: dict[str, dict[str, Any]] = {}
+    for section_index, (command_id, _command, ref, numbered, _output) in enumerate(excerpts, start=1):
+        if ref.get("kind") != "agent_requested_source_excerpt":
+            continue
+        row_id = f"S{section_index:03d}"
+        path = str(ref.get("path") or "")
+        row = {
+            "row_id": row_id,
+            "command_id": command_id,
+            "path": path,
+            "range": excerpt_range_label(ref, numbered),
+            "selector": excerpt_selector(ref),
+            "symbol": str(ref.get("symbol") or ""),
+            "full_file": bool(ref.get("full_file")),
+        }
+        agent_requested_rows.append(row)
+        if path not in agent_requested_path_index:
+            agent_requested_path_index[path] = {
+                "path": path,
+                "row_ids": [],
+                "ranges": [],
+                "selectors": [],
+                "emitted_count": 0,
+            }
+        path_row = agent_requested_path_index[path]
+        path_row["row_ids"].append(row_id)
+        path_row["ranges"].append(row["range"])
+        path_row["selectors"].append(row["selector"])
+        path_row["emitted_count"] += 1
+    agent_requested_path_rows = list(agent_requested_path_index.values())
+    stats = {
+        "count": len(excerpts),
+        "lines": line_count,
+        "bytes": byte_count,
+        "paths": paths,
+        "omitted": omitted,
+        "prompt_file_refs": prompt_file_ref_count,
+        "prompt_file_seen_refs": prompt_file_ref_seen_count,
+        "agent_requested_refs": agent_requested_ref_count,
+        "agent_requested_seen_refs": agent_requested_seen_count,
+        "agent_requested_emitted_refs": agent_requested_ref_count,
+        "agent_requested_omitted_refs": agent_requested_omitted_count,
+        "agent_requested_drop_reasons": agent_requested_drop_rows,
+        "agent_requested_rows": agent_requested_rows,
+        "agent_requested_path_rows": agent_requested_path_rows,
+        "agent_requested_paths": [row["path"] for row in agent_requested_path_rows],
+        "agent_requested_path_count": len(agent_requested_path_rows),
+        "omission_reasons": omission_reason_counts,
+        "requested_excerpt_survival_status": requested_survival_status,
+    }
+    omission_reason_summary = ",".join(
+        f"{reason}:{count}" for reason, count in sorted(omission_reason_counts.items())
+    ) or "none"
+    requested_path_summary = ";".join(
+        f"{row['path']}=>{','.join(row['row_ids'])}"
+        for row in agent_requested_path_rows[:8]
+    )
+    if len(agent_requested_path_rows) > 8:
+        requested_path_summary = (
+            f"{requested_path_summary};+{len(agent_requested_path_rows) - 8}_more"
+            if requested_path_summary
+            else f"+{len(agent_requested_path_rows) - 8}_more"
+        )
+    if not requested_path_summary:
+        requested_path_summary = "none"
+    rows.append(
+        "source_excerpt_summary: "
+        f"count={stats['count']} lines={stats['lines']} paths={len(paths)} omitted={omitted} "
+        f"agent_requested_refs={agent_requested_ref_count} prompt_file_refs={prompt_file_ref_count} "
+        f"source=agent_requested_or_prompt_file_refs_or_trace_read_outputs policy=bounded_redacted_line_ranges limit={TRACE_CAPSULE_SOURCE_EXCERPT_LIMIT} "
+        f"agent_requested_seen={agent_requested_seen_count} agent_requested_emitted={agent_requested_ref_count} "
+        f"agent_requested_omitted={agent_requested_omitted_count} omission_reasons={omission_reason_summary}"
+    )
+    rows.append(
+        "requested_excerpt_survival: "
+        f"status={requested_survival_status} seen={agent_requested_seen_count} "
+        f"emitted={agent_requested_ref_count} omitted={agent_requested_omitted_count} "
+        "rule=explicit_type_b_source_excerpt_must_emit_or_explain"
+    )
+    rows.append(
+        "requested_excerpt_paths: "
+        f"path_count={len(agent_requested_path_rows)} emitted={agent_requested_ref_count} "
+        f"omitted={agent_requested_omitted_count} rows={requested_path_summary}"
+    )
+    for row in agent_requested_rows[:12]:
+        rows.append(
+            "requested_excerpt_row: "
+            f"row_id={row['row_id']} command_id={row['command_id']} "
+            f"path={row['path'] or 'unknown'} range={row['range']} selector={row['selector']}"
+        )
+    for drop in agent_requested_drop_rows[:6]:
+        rows.append(
+            "requested_excerpt_dropped: "
+            f"command_id={drop.get('command_id') or 'unknown'} "
+            f"path={drop.get('path') or 'unknown'} "
+            f"reason={drop.get('reason') or 'unknown'} "
+            f"command={drop.get('command') or 'unknown'}"
+        )
+    if not excerpts:
+        rows.append("none captured")
+        return rows, stats
+
+    for section_index, (command_id, command, ref, numbered, output) in enumerate(excerpts, start=1):
+        range_label = excerpt_range_label(ref, numbered)
+        body = "\n".join(numbered)
+        rows.append(
+            f"S{section_index:03d} {command_id} path={ref.get('path')} range={range_label} "
+            f"command={ref.get('command')} lines={len(numbered)} "
+            f"bytes={len(body.encode('utf-8'))} sha16={_sha16(output)}"
+        )
+        rows.extend(_capsule_command_display_lines(command)[:2])
+        rows.extend(numbered)
+    rows.append(f"raw_sidecar_source: trace_read_outputs sha16={source_sha16}")
+    return rows, stats
+
+
 def _capsule_command_surface_lines(command: str) -> list[str]:
     clean = (command or "").strip()
     if clean.startswith("$ "):
@@ -3772,6 +4889,20 @@ def _capsule_compact_label(script: str, args: list[str], *, max_args: int = 2) -
     return " ".join([base] + visible_args).strip()
 
 
+_CAPSULE_SUBSTRATE_SUBSTITUTION_LEDGER_MODULE = (
+    "microcosm_core.validators.substrate_substitution_ledger"
+)
+
+
+def _capsule_flag_value(args: list[str], flag: str) -> str:
+    for index, arg in enumerate(args):
+        if arg == flag and index + 1 < len(args):
+            return args[index + 1]
+        if arg.startswith(f"{flag}="):
+            return arg.split("=", 1)[1]
+    return ""
+
+
 def _capsule_command_bucket_and_label_from_argv(argv: list[str], role: str) -> tuple[str | None, str, str]:
     if not argv:
         return (None, "", "")
@@ -3805,7 +4936,18 @@ def _capsule_command_bucket_and_label_from_argv(argv: list[str], role: str) -> t
         label = "work_ledger session-finalize"
         return ("governance", label, f"gov:{label}")
     if script_base == "task_ledger_apply.py" and any(
-        action in lower_args for action in ("quick-capture", "capture", "note", "transition", "sign-off", "execution-receipt")
+        action in lower_args for action in (
+            "quick-capture",
+            "capture",
+            "note",
+            "transition",
+            "sign-off",
+            "execution-receipt",
+            "record-execution-receipt",
+            "enqueue-execution-receipt",
+            "drain-intake",
+            "intake-status",
+        )
     ):
         label = _capsule_compact_label(script, script_args, max_args=1)
         return ("governance", label, f"gov:{label}")
@@ -3824,9 +4966,31 @@ def _capsule_command_bucket_and_label_from_argv(argv: list[str], role: str) -> t
     if exe == "npm" and any(arg in lower_args for arg in ("test", "build")):
         label = _capsule_compact_label(argv[0], argv[1:])
         return ("check", label, f"check:{label}")
+    if exe == "make" and any(arg in lower_args for arg in ("ci", "smoke", "package-smoke", "test", "package-test")):
+        label = _capsule_compact_label(argv[0], argv[1:])
+        return ("check", label, f"check:{label}")
 
     if script_kind == "module" and lower_script == "py_compile":
         label = _capsule_compact_label("py_compile", script_args)
+        return ("check", label, f"check:{label}")
+    if script_kind == "module" and lower_script == "microcosm_core.cli" and "crown-jewel-demo" in lower_args and "run" in lower_args:
+        label = _capsule_compact_label(script, script_args)
+        return ("check", label, f"check:{label}")
+    if script_kind == "module" and lower_script == "microcosm_core.projections.organ_surface_contract":
+        label = _capsule_compact_label(script, script_args)
+        return ("check", label, f"check:{label}")
+    if (
+        script_kind == "module"
+        and lower_script == _CAPSULE_SUBSTRATE_SUBSTITUTION_LEDGER_MODULE
+        and any(arg in lower_args for arg in ("--check", "--write", "--drift-report"))
+    ):
+        action = "write" if "--write" in lower_args else (
+            "drift-report" if "--drift-report" in lower_args else "check"
+        )
+        write_scope = _capsule_flag_value(script_args, "--write-scope")
+        label = " ".join(
+            part for part in ("substrate_substitution_ledger", action, write_scope) if part
+        )
         return ("check", label, f"check:{label}")
     if script_base == "task_ledger_apply.py" and "validate" in lower_args:
         label = "task_ledger validate"
@@ -3839,6 +5003,9 @@ def _capsule_command_bucket_and_label_from_argv(argv: list[str], role: str) -> t
         or script_base.startswith("test_")
         or script_base in {"trace_variant_smoke.py", "trace_size_smoke.py", "trace_capsule_unit_test.py"}
     ):
+        label = _capsule_compact_label(script, script_args)
+        return ("check", label, f"check:{label}")
+    if script_base == "frontend_vitest.py" and "--help" not in lower_args:
         label = _capsule_compact_label(script, script_args)
         return ("check", label, f"check:{label}")
     if "pytest" in lower_script:
@@ -3917,6 +5084,24 @@ _CAPSULE_KNOWN_RESIDUAL_IDS = (
 )
 
 
+def _capsule_suppresses_broad_residual_scan(command: str, output_text: str) -> bool:
+    command_lower = (command or "").lower()
+    output_lower = (output_text or "").lower()
+    if (
+        "task_ledger_apply.py" in command_lower
+        and "validate" in command_lower
+        and any(marker in output_lower for marker in (
+            "validation_status",
+            "warning_count",
+            "error_count",
+            "warning_classes",
+            "state/task_ledger/views",
+        ))
+    ):
+        return True
+    return False
+
+
 def _capsule_task_ledger_work_items() -> dict[str, dict]:
     global _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
     if _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE is not None:
@@ -3951,6 +5136,8 @@ def _capsule_ordered_unique(values: Iterable[str]) -> tuple[str, ...]:
 
 
 def _capsule_residual_ids(command: str, output_text: str) -> tuple[str, ...]:
+    if _capsule_suppresses_broad_residual_scan(command, output_text):
+        return ()
     text = f"{command}\n{output_text}"
     residual_ids: list[str] = []
     for residual_id in _CAPSULE_KNOWN_RESIDUAL_IDS:
@@ -3996,7 +5183,9 @@ def _capsule_residual_is_validation_process(residual_id: str, item: dict | None)
         "pytest_wrapper",
         "wrapper_hung",
         "wrapper hung",
+        "self_error",
         "process",
+        "serial_mutation",
         "validation runner",
     ))
 
@@ -4073,6 +5262,8 @@ def _capsule_residual_taxonomy(rows: Iterable[CapsuleEvidenceClassification]) ->
     }
     ledger_items = _capsule_task_ledger_work_items()
     for row in rows:
+        if row.bucket == "diagnostic":
+            continue
         residual_ids = row.residual_ids or ((row.residual_id,) if row.residual_id else ())
         for residual_id in residual_ids:
             if _capsule_residual_is_projection_artifact(residual_id):
@@ -4123,9 +5314,68 @@ def _capsule_pytest_wrapper_passed_then_failed(command: str, output_text: str) -
     ))
 
 
+def _capsule_validation_process_tempfail(command: str, output_text: str) -> bool:
+    text = f"{command}\n{output_text}".lower()
+    if "admission_consumer" not in text and "host_pressure" not in text:
+        return False
+    return any(marker in text for marker in (
+        "frontend_vitest_host_pressure_admission_blocked",
+        "host_pressure_queue_until_pressure_clears",
+        "queue_validation_until_host_pressure_clears",
+        '"tempfail_exit_code": 75',
+        '"new_work_admitted": false',
+    ))
+
+
+def _capsule_expected_guarded_refusal(command: str, output_text: str) -> bool:
+    text = f"{command}\n{output_text}".lower()
+    if (
+        _CAPSULE_SUBSTRATE_SUBSTITUTION_LEDGER_MODULE not in text
+        and "substrate_substitution_ledger" not in text
+    ):
+        return False
+    if not any(status in text for status in (
+        "blocked_unrelated_rebuild_drift",
+        "blocked_unconfirmed_rebuild_drift",
+    )):
+        return False
+    if not any(schema in text for schema in (
+        "microcosm_substrate_substitution_write_result_v1",
+        "microcosm_substrate_substitution_writer_drift_v1",
+    )):
+        return False
+    if "microcosm_substrate_substitution_write_result_v1" in text:
+        write_refused = any(marker in text for marker in (
+            '"write_performed": false',
+            '"write_performed":false',
+            "'write_performed': false",
+            "write_performed=false",
+        ))
+        if not write_refused:
+            return False
+    return "writer_guard" in text or "writer_drift" in text
+
+
 def _capsule_ambient_warning_class(command: str, output_text: str) -> str:
     text = f"{command}\n{output_text}"
     lowered = text.lower()
+    if (
+        ("git_gc_maintenance.py" in lowered or "git_gc_maintenance_v0" in lowered)
+        and "git_gc_maintenance_v0" in lowered
+        and "repair_reentry" in lowered
+        and any(marker in lowered for marker in (
+            "blocked_git_lockfile_or_process",
+            "blocked_recent_tmp_objects",
+            "blocked_insufficient_scratch",
+            '"maintenance_admission": "blocked',
+            '"maintenance_admission":"blocked',
+            '"repair_status": "blocked_',
+            '"repair_status":"blocked_',
+            '"ready_to_repair": false',
+            '"ready_to_repair":false',
+        ))
+    ):
+        return "git_maintenance_admission_residual"
     if "task_ledger_apply.py" not in lowered or "validate" not in lowered:
         return ""
     if "valid_with_warnings" not in lowered:
@@ -4147,6 +5397,108 @@ def _capsule_ambient_warning_class(command: str, output_text: str) -> str:
     return "external_validation_warning"
 
 
+_CAPSULE_PROJECTION_ASSIMILATION_SUMMARY_CLASSES = {
+    "task_ledger_projection_deferred_queued": "projection_deferred_queued",
+    "task_ledger_projection_rebuild_failed": "projection_rebuild_failed",
+    "task_ledger_projection_checked": "projection_checked",
+    "task_ledger_projection_not_rebuilt": "projection_not_rebuilt",
+    "task_ledger_projection_assimilation_observed": "projection_observed",
+}
+
+
+def _capsule_projection_assimilation_class(command: str, output_text: str) -> str:
+    text = f"{command}\n{output_text}"
+    lowered = text.lower()
+    if "task_ledger_apply.py" not in lowered:
+        return ""
+    if "projection_assimilation_state" not in lowered:
+        return ""
+    if "task_ledger_projection_assimilation_state_v1" not in lowered:
+        return ""
+    if (
+        "projection_rebuild_deferred" in lowered
+        or "authority_appended_projection_rebuild_deferred" in lowered
+        or '"queued": true' in lowered
+        or '"queued":true' in lowered
+        or '"status": "queued"' in lowered
+        or '"status":"queued"' in lowered
+    ):
+        return "task_ledger_projection_deferred_queued"
+    if (
+        "projection_rebuild_failed" in lowered
+        or '"status": "failed"' in lowered
+        or '"status":"failed"' in lowered
+        or '"projection_rebuild_status": "failed"' in lowered
+        or '"projection_rebuild_status":"failed"' in lowered
+    ):
+        return "task_ledger_projection_rebuild_failed"
+    if (
+        "projection_rebuild_checked" in lowered
+        or "projection_checked" in lowered
+        or '"status": "checked"' in lowered
+        or '"status":"checked"' in lowered
+    ):
+        return "task_ledger_projection_checked"
+    if (
+        "projection_not_rebuilt" in lowered
+        or "not_rebuilt" in lowered
+        or '"rebuilt": false' in lowered
+        or '"rebuilt":false' in lowered
+    ):
+        return "task_ledger_projection_not_rebuilt"
+    return "task_ledger_projection_assimilation_observed"
+
+
+def _capsule_projection_assimilation_summary(rows: Iterable[CapsuleEvidenceClassification]) -> str:
+    for class_name in _CAPSULE_PROJECTION_ASSIMILATION_SUMMARY_CLASSES:
+        if any(row.validation_class == class_name for row in rows):
+            return _CAPSULE_PROJECTION_ASSIMILATION_SUMMARY_CLASSES[class_name]
+    return ""
+
+
+def _capsule_governance_validation_class(command: str, output_text: str) -> str:
+    text = f"{command}\n{output_text}"
+    lowered = text.lower()
+    if "run_git.py" in lowered and "audit" in lowered and "push" in lowered and (
+        '"direct_push_allowed": false' in lowered
+        or '"direct_push_allowed":false' in lowered
+        or '"status": "watch"' in lowered
+        or '"status":"watch"' in lowered
+        or "direct_push_allowed=false" in lowered
+        or "next_safe_command=null" in lowered
+        or '"next_safe_command": null' in lowered
+        or '"next_safe_command":null' in lowered
+    ):
+        return "publication_hold"
+    if "task_ledger_apply.py" in lowered:
+        projection_class = _capsule_projection_assimilation_class(command, output_text)
+        if projection_class:
+            return projection_class
+        if "enqueue-execution-receipt" in lowered or "intake-status" in lowered:
+            if (
+                '"_intake_status": "pending"' in lowered
+                or '"_intake_status":"pending"' in lowered
+                or '"state": "pending"' in lowered
+                or '"state":"pending"' in lowered
+                or '"status": "intake_replaced_pending"' in lowered
+                or '"status":"intake_replaced_pending"' in lowered
+                or '"status": "intake_queued_pending"' in lowered
+                or '"status":"intake_queued_pending"' in lowered
+                or '"pending": 1' in lowered
+                or '"pending":1' in lowered
+            ):
+                return "receipt_intake_pending"
+        if "drain-intake" in lowered or "intake-status" in lowered:
+            if (
+                '"_intake_status": "applied"' in lowered
+                or '"_intake_status":"applied"' in lowered
+                or '"state": "applied"' in lowered
+                or '"state":"applied"' in lowered
+            ):
+                return "receipt_intake_applied"
+    return ""
+
+
 def _capsule_validation_class(
     bucket: str,
     result: str,
@@ -4158,6 +5510,9 @@ def _capsule_validation_class(
     if ambient_warning_class:
         return "ambient_validation_warning"
     if bucket == "governance":
+        governance_class = _capsule_governance_validation_class(command, output_text)
+        if governance_class:
+            return governance_class
         if "task_ledger_apply.py" in text and any(token in text for token in ("quick-capture", " capture", "cap_")):
             return "captured_residual"
         return "governance_actuator_result"
@@ -4167,6 +5522,10 @@ def _capsule_validation_class(
         return "unclassified"
     if result != "fail":
         return "scoped_validation_pass" if result == "pass" else "scoped_validation_other"
+    if _capsule_expected_guarded_refusal(command, output_text):
+        return "expected_guarded_refusal"
+    if _capsule_validation_process_tempfail(command, output_text):
+        return "validation_process_warning"
     stale_selector_markers = (
         "not found:",
         "no tests ran",
@@ -4326,6 +5685,68 @@ def _capsule_terminal_rows(rows: list[CapsuleEvidenceClassification]) -> list[Ca
     return list(by_identity.values())
 
 
+_CAPSULE_AGGREGATE_VALIDATION_PROOF_MARKERS = (
+    "make ci",
+    "make smoke",
+    "make package-smoke",
+    "microcosm_core.cli crown-jewel-demo run",
+    "microcosm_core.projections.organ_surface_contract",
+    "build_organ_atlas.py",
+)
+
+
+def _capsule_is_aggregate_validation_proof(row: CapsuleEvidenceClassification) -> bool:
+    if row.bucket != "check" or row.result != "pass":
+        return False
+    text = f"{row.identity} {row.label}".lower()
+    return any(marker in text for marker in _CAPSULE_AGGREGATE_VALIDATION_PROOF_MARKERS)
+
+
+def _capsule_later_aggregate_recovery_failures(
+    check_rows: list[CapsuleEvidenceClassification],
+    terminal_failures: list[CapsuleEvidenceClassification],
+) -> list[CapsuleEvidenceClassification]:
+    stale: list[CapsuleEvidenceClassification] = []
+    for failure in terminal_failures:
+        failure_index = -1
+        for index, row in enumerate(check_rows):
+            if row.identity == failure.identity:
+                failure_index = index
+        if failure_index < 0:
+            continue
+        later_proof = any(
+            _capsule_is_aggregate_validation_proof(row)
+            for row in check_rows[failure_index + 1:]
+        )
+        if later_proof:
+            stale.append(failure)
+    return stale
+
+
+def _capsule_closeout_claims_green_validation(final_assistant_text: str) -> bool:
+    lowered = (final_assistant_text or "").lower()
+    if not lowered:
+        return False
+    return (
+        any(marker in lowered for marker in (
+            "make ci",
+            "crown-jewel demo",
+            "crown jewel demo",
+            "organ surface contract",
+            "package-smoke",
+            "package smoke",
+            "smoke",
+        ))
+        and any(marker in lowered for marker in (
+            "pass",
+            "passed",
+            "green",
+            "no blockers",
+            "delivery blockers: none",
+        ))
+    )
+
+
 def _capsule_clean_text(value: str) -> str:
     text = value or ""
     text = text.replace(str(REPO_ROOT), "repo:")
@@ -4358,22 +5779,29 @@ def _capsule_normalize_commit_title(commit_hash: str, title: str) -> str:
     return text
 
 
-def _capsule_commit_evidence_allowed(command: str) -> bool:
+def _capsule_commit_evidence_kind(command: str) -> str:
     candidates = _capsule_command_surface_argvs(command)
     if not candidates:
-        return False
+        return "none"
     for argv in candidates:
         exe = Path(argv[0]).name
         script, script_args, _ = _capsule_script_surface(argv)
         script_base = Path(script).name
         lower_args = [arg.lower() for arg in script_args]
         if script_base == "scoped_commit.py":
-            return True
+            return "produced"
         if script_base == "checkpoint" or (argv and Path(argv[0]).name == "checkpoint"):
-            return True
-        if exe in {"git", "repo-git"} and any(arg in lower_args for arg in ("commit", "log", "show")):
-            return True
-    return False
+            return "produced"
+        if exe in {"git", "repo-git"}:
+            if "commit" in lower_args:
+                return "produced"
+            if any(arg in lower_args for arg in ("log", "show")):
+                return "observed"
+    return "none"
+
+
+def _capsule_commit_evidence_allowed(command: str) -> bool:
+    return _capsule_commit_evidence_kind(command) == "produced"
 
 
 def _capsule_commit_from_output(output: str, command: str = "") -> tuple[str, str]:
@@ -4384,6 +5812,15 @@ def _capsule_commit_from_output(output: str, command: str = "") -> tuple[str, st
         commit_hash = m.group(1)
         return (commit_hash, _capsule_normalize_commit_title(commit_hash, _capsule_commit_title_from_command(command)))
     for line in (output or "").splitlines():
+        m = re.match(r"^\[[^\]]+\s+([0-9a-f]{7,40})\]\s+(.+)$", line.strip(), re.IGNORECASE)
+        if m:
+            commit_hash = m.group(1)
+            return (commit_hash, _capsule_normalize_commit_title(commit_hash, m.group(2).strip()))
+        m = re.match(r"^commit\s+([0-9a-f]{7,40})\b(?:\s+(.+))?$", line.strip(), re.IGNORECASE)
+        if m:
+            commit_hash = m.group(1)
+            title = (m.group(2) or _capsule_commit_title_from_command(command)).strip()
+            return (commit_hash, _capsule_normalize_commit_title(commit_hash, title))
         m = re.match(r"^([0-9a-f]{7,16})\s+(.+)$", line.strip())
         if m:
             commit_hash = m.group(1)
@@ -4800,6 +6237,40 @@ def _trace_window_header(turn: Turn, source_window: str) -> str:
     return f"window: {display_source_window} turns={start}-{end} count={count} mode={mode}"
 
 
+def _trace_display_source_window(turn: Turn, source_window: str) -> str:
+    trace_window = (turn.source_ref or {}).get("trace_window")
+    if not isinstance(trace_window, dict):
+        return "selected_turn" if source_window == "latest_prompt_cycle" else source_window
+    count = int(trace_window.get("turn_count") or 1)
+    if source_window == "latest_prompt_cycle" and count == 1:
+        return "selected_turn"
+    return source_window
+
+
+def _trace_thread_totality(source_window: str) -> str:
+    if source_window == "full_thread":
+        return "full_thread_detailed"
+    if source_window == "full_thread_concise":
+        return "full_thread_compact_summary"
+    if source_window == "selected_turn":
+        return "selected_turn_only"
+    if source_window == "latest_prompt_cycle":
+        return "latest_response_bundle_only"
+    return "unknown"
+
+
+def _trace_full_thread_available(turn: Turn, display_source_window: str) -> bool:
+    trace_window = (turn.source_ref or {}).get("trace_window")
+    full_thread = (turn.source_ref or {}).get("full_thread_trace_window") or (turn.source_ref or {}).get("full_thread")
+    if display_source_window in {"full_thread", "full_thread_concise"}:
+        return True
+    if isinstance(full_thread, dict) and int(full_thread.get("turn_count") or 0) > 1:
+        return True
+    if isinstance(trace_window, dict) and int(trace_window.get("full_thread_turn_count") or 0) > 1:
+        return True
+    return False
+
+
 def render_trace_capsule_text(
     turn: Turn,
     *,
@@ -5006,6 +6477,24 @@ def render_trace_capsule_text(
     validation_process_terminal_rows = [
         row for row in terminal_check_rows if row.validation_class == "validation_process_warning"
     ]
+    expected_guard_refusal_rows = [
+        row for row in terminal_check_rows if row.validation_class == "expected_guarded_refusal"
+    ]
+    expected_guard_refusal_count = len(expected_guard_refusal_rows)
+    publication_hold_rows = [
+        row for row in governance_rows if row.validation_class == "publication_hold"
+    ]
+    receipt_pending_rows = [
+        row for row in governance_rows if row.validation_class == "receipt_intake_pending"
+    ]
+    receipt_applied_rows = [
+        row for row in governance_rows if row.validation_class == "receipt_intake_applied"
+    ]
+    projection_assimilation_rows = [
+        row
+        for row in governance_rows
+        if row.validation_class in _CAPSULE_PROJECTION_ASSIMILATION_SUMMARY_CLASSES
+    ]
     ambient_warning_classes = sorted(
         {row.ambient_warning_class or "external_validation_warning" for row in ambient_validation_rows}
     )
@@ -5023,6 +6512,7 @@ def render_trace_capsule_text(
         "exploratory_diagnostic_failure",
         "ambient_validation_warning",
         "validation_process_warning",
+        "expected_guarded_refusal",
     }
     blocking_terminal_failures = [
         row
@@ -5051,17 +6541,38 @@ def render_trace_capsule_text(
     public_release_authorization = "not_authorized_by_operator" if public_release_blocked else (
         "pending_operator_authorization" if release_candidate_gate_ready else "none"
     )
+    stale_window_failure_rows = _capsule_later_aggregate_recovery_failures(
+        check_rows,
+        blocking_terminal_failures,
+    )
+    stale_window_failure_identities = {row.identity for row in stale_window_failure_rows}
+    current_terminal_failure_rows = [
+        row for row in blocking_terminal_failures if row.identity not in stale_window_failure_identities
+    ]
+    if stale_window_failure_rows:
+        final_validation_basis = "terminal_checks_plus_later_aggregate_proof"
+    closeout_green_claim_without_command_proof = (
+        bool(current_terminal_failure_rows)
+        and _capsule_closeout_claims_green_validation(final_assistant_text)
+        and not release_candidate_gate_nonblocking
+    )
     historical_terminal_failures_superseded = (
-        len(blocking_terminal_failures) if release_candidate_gate_nonblocking else 0
+        len(blocking_terminal_failures) if release_candidate_gate_nonblocking else len(stale_window_failure_rows)
     )
     effective_blocking_terminal_failures = (
-        [] if release_candidate_gate_nonblocking else blocking_terminal_failures
+        [] if release_candidate_gate_nonblocking else current_terminal_failure_rows
     )
+    current_terminal_failure_count = len(effective_blocking_terminal_failures)
+    stale_window_failure_count = len(stale_window_failure_rows)
+    not_validated_count = 1 if closeout_green_claim_without_command_proof else 0
+    contradictory_closeout_count = 1 if closeout_green_claim_without_command_proof else 0
     owner_scope_validation = "unknown"
     if effective_blocking_terminal_failures:
         owner_scope_validation = "needs_review"
     elif release_candidate_gate_nonblocking:
         owner_scope_validation = "pass"
+    elif expected_guard_refusal_count:
+        owner_scope_validation = "pass_with_guarded_refusal_receipt"
     elif owner_terminal_pass_count > 0:
         owner_scope_validation = "pass"
     elif owner_terminal_fail_count > 0:
@@ -5075,6 +6586,57 @@ def render_trace_capsule_text(
         else "none"
     )
     has_validation_process_warning = validation_process != "none"
+    publication_state = "held" if publication_hold_rows else "none"
+    receipt_assimilation = (
+        "pending_or_claim_blocked"
+        if receipt_pending_rows
+        else (
+            "applied"
+            if receipt_applied_rows
+            else (_capsule_projection_assimilation_summary(projection_assimilation_rows) or "none")
+        )
+    )
+    source_landing_has_residuals = bool(
+        open_product_residuals
+        or open_validation_process_residuals
+        or blocked_external_observation_residuals
+        or unresolved_residual_mentions
+        or has_validation_process_warning
+        or ambient_terminal_warning_rows
+        or expected_guard_refusal_count
+    )
+    guarded_refusal_residuals = (
+        ["classified_rebuild_drift_pending_settlement"]
+        if expected_guard_refusal_count
+        else []
+    )
+    guarded_refusal_residual_summary = (
+        ",".join(guarded_refusal_residuals) if guarded_refusal_residuals else "none"
+    )
+    if commit_hash:
+        source_landing_state = (
+            "source_scope_landed_with_validation_residuals"
+            if effective_blocking_terminal_failures
+            else (
+                "source_scope_landed_with_guarded_residual"
+                if expected_guard_refusal_count
+                else (
+                    "source_scope_landed_with_residuals"
+                    if source_landing_has_residuals
+                    else "source_scope_passed"
+                )
+            )
+        )
+    else:
+        source_landing_state = (
+            "source_scope_failed"
+            if effective_blocking_terminal_failures
+            else (
+                "source_scope_guarded_refusal_receipt"
+                if expected_guard_refusal_count
+                else ("source_scope_passed" if owner_terminal_pass_count > 0 else "source_scope_unknown")
+            )
+        )
     final_validation = "unknown"
     if public_release_blocked:
         final_validation = "pass_with_public_release_blocked"
@@ -5082,6 +6644,16 @@ def render_trace_capsule_text(
         final_validation = release_candidate_gate_decision
     elif effective_blocking_terminal_failures:
         final_validation = "needs_review"
+    elif owner_terminal_pass_count > 0 and publication_hold_rows and receipt_pending_rows:
+        final_validation = "pass_with_publication_held_and_receipt_pending"
+    elif owner_terminal_pass_count > 0 and receipt_pending_rows:
+        final_validation = "pass_with_receipt_pending"
+    elif owner_terminal_pass_count > 0 and publication_hold_rows:
+        final_validation = "pass_with_publication_held"
+    elif expected_guard_refusal_count and (ambient_terminal_warning_rows or has_validation_process_warning):
+        final_validation = "pass_with_guarded_refusal_receipt_and_warnings"
+    elif expected_guard_refusal_count:
+        final_validation = "pass_with_guarded_refusal_receipt"
     elif owner_terminal_pass_count > 0 and ambient_terminal_warning_rows and has_validation_process_warning:
         final_validation = "pass_with_external_and_validation_process_warnings"
     elif owner_terminal_pass_count > 0 and ambient_terminal_warning_rows:
@@ -5099,6 +6671,14 @@ def render_trace_capsule_text(
     validation_class_summary = " ".join(
         f"{key}={value}" for key, value in sorted(validation_class_counts.items())
     ) or "none=0"
+    terminal_failure_class_summary = (
+        f"current_terminal_failure={current_terminal_failure_count} "
+        f"recovered_failure={recovered_failures} "
+        f"stale_window_failure={stale_window_failure_count} "
+        f"not_validated={not_validated_count} "
+        f"contradictory_closeout={contradictory_closeout_count} "
+        f"expected_guard_refusal={expected_guard_refusal_count}"
+    )
     residual_summary = ",".join(open_product_residuals) if open_product_residuals else "none"
     validation_process_residual_summary = (
         ",".join(open_validation_process_residuals) if open_validation_process_residuals else "none"
@@ -5124,7 +6704,128 @@ def render_trace_capsule_text(
         changed = _capsule_clean_text(f"{len(changed_paths)} files: {', '.join(names)}")
         if len(changed_paths) > 8:
             changed += f", +{len(changed_paths) - 8} more"
+    source_excerpt_lines, source_excerpt_stats = _capsule_source_excerpt_sections(
+        renderable,
+        source_sha16=source_sha16,
+        prompt_text=turn.prompt_text,
+    )
+    type_b_source_excerpt_affordance = _capsule_type_b_source_excerpt_affordance(
+        changed_paths,
+        source_excerpt_stats,
+    )
+    requested_source_claim_missing = (
+        _capsule_closeout_claims_requested_source_excerpts(final_assistant_text)
+        and int(source_excerpt_stats.get("agent_requested_emitted_refs") or source_excerpt_stats.get("agent_requested_refs") or 0) == 0
+    )
+    requested_source_omitted = int(source_excerpt_stats.get("agent_requested_omitted_refs") or 0)
+    source_excerpt_lint_warnings: list[str] = []
+    if requested_source_omitted:
+        source_excerpt_lint_warnings.append("requested_excerpt_dropped")
+    if requested_source_claim_missing:
+        source_excerpt_lint_warnings.append("contradictory_closeout_requested_source_missing")
     result_summary = _capsule_result_summary(turn, commit_title)
+    subagent_packet = _subagent_packet_for_turn_window(turn)
+    subagent_count = int(subagent_packet.get("count") or 0)
+    linked_subagent_trace_count = int(subagent_packet.get("linked_trace_count") or 0)
+    visible_subagent_count = int(subagent_packet.get("visible_count") or 0)
+    display_source_window = _trace_display_source_window(turn, source_window)
+    selected_window_only = display_source_window in {"selected_turn", "latest_prompt_cycle"}
+    full_thread_available = _trace_full_thread_available(turn, display_source_window)
+    substrate_diff_required = display_source_window != "full_thread_concise"
+    substrate_diff_state = "exact_hunks_attached" if edit_rows else "no_diff_evidence_captured"
+    commit_diff_missing = bool(commit_summary and substrate_diff_required and not edit_rows)
+    if commit_diff_missing:
+        substrate_diff_state = "missing_exact_plus_minus"
+    no_edit_claim_allowed = (
+        display_source_window == "full_thread"
+        and not edit_rows
+        and not commit_summary
+    )
+    thread_total_edits = (
+        "has_edit_or_commit_evidence"
+        if edit_rows or commit_summary
+        else ("not_proven_absent" if display_source_window == "full_thread" else "unknown_not_full_thread")
+    )
+    copy_scope_warning = "LATEST ONLY - not full thread" if selected_window_only else ""
+    recommended_scope = "full_thread" if selected_window_only and full_thread_available else display_source_window
+    operator_intervention_full_count = None if selected_window_only and full_thread_available else 0
+    ui_diff_only = False
+    exact_diff_required = substrate_diff_required and bool(edit_rows or commit_summary)
+    diff_reconciler_reasons: list[str] = []
+    if display_source_window == "full_thread_concise":
+        diff_reconciler_status = "summary_only_allowed"
+        diff_reconciler_severity = "green"
+        diff_reconciler_reasons.append("full_thread_concise_summary_exception")
+    elif substrate_diff_state == "exact_hunks_attached":
+        diff_reconciler_status = "aligned_exact_substrate_diff"
+        diff_reconciler_severity = "green"
+    elif commit_diff_missing:
+        diff_reconciler_status = "commit_without_exact_diff"
+        diff_reconciler_severity = "red"
+        diff_reconciler_reasons.append("commit_seen_without_git_show_patch")
+    elif exact_diff_required:
+        diff_reconciler_status = "missing_exact_substrate_diff"
+        diff_reconciler_severity = "red"
+        diff_reconciler_reasons.append("edit_or_commit_evidence_requires_plus_minus_hunks")
+    elif no_edit_claim_allowed:
+        diff_reconciler_status = "no_edits_proven_for_full_thread_scope"
+        diff_reconciler_severity = "green"
+    else:
+        diff_reconciler_status = "no_edits_captured_in_scoped_window"
+        diff_reconciler_severity = "amber"
+        diff_reconciler_reasons.append("zero_edit_count_is_window_local")
+    copy_readiness_blockers: list[str] = []
+    copy_readiness_warnings: list[str] = []
+    if diff_reconciler_severity == "red":
+        copy_readiness_blockers.append(diff_reconciler_status)
+    if diff_reconciler_severity == "amber":
+        copy_readiness_warnings.append(diff_reconciler_status)
+    if selected_window_only and full_thread_available:
+        copy_readiness_warnings.append("selected_window_only_full_thread_available")
+    copy_readiness_warnings.extend(source_excerpt_lint_warnings)
+    copy_readiness_state = (
+        "red" if copy_readiness_blockers
+        else ("amber" if copy_readiness_warnings else "green")
+    )
+    type_b_lint_result = "block" if copy_readiness_blockers else ("warn" if copy_readiness_warnings else "pass")
+    type_b_no_edit_language = (
+        "no edits were made in the covered full thread"
+        if no_edit_claim_allowed
+        else "no edits captured in this source window"
+    )
+    if not changed_paths:
+        changed = type_b_no_edit_language
+    evidence_tier = {
+        "schema_version": "agent_trace_evidence_tier_v1",
+        "selected_tier": "tier_1_trace_capsule_projection",
+        "provider_forensic_available": bool(source_sha16),
+        "provider_byte_lossless": False,
+        "visible_clip_lossless_for_copied_source": True,
+        "source_truth_boundary": "copied-source-lossless; provider byte losslessness requires raw provider source",
+    }
+    terminal_validation_state = (
+        "terminal_failures_present" if current_terminal_failure_count
+        else (
+            "terminal_recovered_failures_present" if (stale_window_failure_count or recovered_failures)
+            else (
+                "terminal_expected_guarded_refusal_present"
+                if expected_guard_refusal_count
+                else (
+                    "terminal_pass_present"
+                    if terminal_check_pass_count
+                    else ("non_terminal_validation_only" if check_rows else "not_captured")
+                )
+            )
+        )
+    )
+    stats_source_label = (
+        f"capsule_turn=#{turn.turn_index} source_window={display_source_window} "
+        f"prompt_sha16={turn.prompt_sha256_16} source_sha16={source_sha16}"
+    )
+    requested_excerpt_path_summary = ";".join(
+        f"{row.get('path', '')}=>{','.join(row.get('row_ids', []))}"
+        for row in source_excerpt_stats.get("agent_requested_path_rows", [])[:8]
+    ) or "none"
 
     header = [
         "TRACE CAPSULE v3",
@@ -5133,6 +6834,38 @@ def render_trace_capsule_text(
         f"session: {_short_session_tag(turn.session_id)}",
         f"turn: {turn.turn_index}",
         _trace_window_header(turn, source_window),
+        f"trace_scope: copy_scope={display_source_window} thread_totality={_trace_thread_totality(display_source_window)} full_thread_available={'true' if full_thread_available else 'false'} selected_window_only={'true' if selected_window_only else 'false'}",
+        f"copy_policy: consumer=type_b_continue selected_scope={display_source_window} recommended_scope={recommended_scope} warning={copy_scope_warning or 'none'}",
+        f"stats_source: {stats_source_label}",
+        f"operator_interventions: selected_window_count=0 full_thread_count={operator_intervention_full_count if operator_intervention_full_count is not None else 'unknown'} full_thread_available={'true' if full_thread_available else 'false'} scope_note={'selected_window_only' if selected_window_only else 'full_thread'}",
+        f"diff_contract: substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'}",
+        f"copy_readiness: state={copy_readiness_state} blockers={','.join(copy_readiness_blockers) or 'none'} warnings={','.join(copy_readiness_warnings) or 'none'}",
+        f"diff_reconciler: status={diff_reconciler_status} severity={diff_reconciler_severity} ui_review_card={'ui_diff_only' if ui_diff_only else 'not_detected'} parser_artifact_delta={substrate_diff_state} git_commit_or_worktree={'commit_without_patch' if commit_diff_missing else ('commit_seen' if commit_summary else 'not_detected')}",
+        f"evidence_tier: selected={evidence_tier['selected_tier']} provider_byte_lossless=false visible_clip_lossless_for_copied_source=true provider_forensic_available={'true' if evidence_tier['provider_forensic_available'] else 'false'}",
+        "type_b_source_excerpt_affordance: "
+        f"status={type_b_source_excerpt_affordance['status']} "
+        f"suggested={'true' if type_b_source_excerpt_affordance['suggested'] else 'false'} "
+        f"mandatory={'true' if type_b_source_excerpt_affordance['mandatory'] else 'false'} "
+        f"copy_readiness_effect={type_b_source_excerpt_affordance['copy_readiness_effect']} "
+        f"agent_requested_refs={type_b_source_excerpt_affordance['agent_requested_refs']} "
+        f"agent_requested_seen={type_b_source_excerpt_affordance['agent_requested_seen_refs']} "
+        f"agent_requested_omitted={type_b_source_excerpt_affordance['agent_requested_omitted_refs']} "
+        f"trigger_paths={','.join(Path(path).name for path in type_b_source_excerpt_affordance['trigger_paths'][:4]) or 'none'} "
+        f"affordance={type_b_source_excerpt_affordance['affordance_id'] or 'none'}",
+        "requested_context_survival: "
+        f"status={source_excerpt_stats.get('requested_excerpt_survival_status', 'unknown')} "
+        f"seen={source_excerpt_stats.get('agent_requested_seen_refs', 0)} "
+        f"emitted={source_excerpt_stats.get('agent_requested_emitted_refs', source_excerpt_stats.get('agent_requested_refs', 0))} "
+        f"omitted={source_excerpt_stats.get('agent_requested_omitted_refs', 0)} "
+        f"warnings={','.join(source_excerpt_lint_warnings) or 'none'}",
+        "requested_excerpt_paths: "
+        f"path_count={source_excerpt_stats.get('agent_requested_path_count', 0)} "
+        f"emitted={source_excerpt_stats.get('agent_requested_emitted_refs', source_excerpt_stats.get('agent_requested_refs', 0))} "
+        f"omitted={source_excerpt_stats.get('agent_requested_omitted_refs', 0)} "
+        f"rows={requested_excerpt_path_summary}",
+        f"type_b_handoff_lint: result={type_b_lint_result} no_edits_sentence_allowed={'true' if no_edit_claim_allowed else 'false'} required_no_edit_language=\"{type_b_no_edit_language}\"",
+        f"terminal_validation_priority: state={terminal_validation_state} terminal_checks={len(terminal_check_rows)} owner_scope_terminal_checks={len(owner_terminal_check_rows)}",
+        f"type_b_rule: no_unqualified_no_edits_unless_full_thread_coverage_and_no_edit_claim_allowed; otherwise say no edits captured in this source window",
         f"status: {status_text}",
     ]
     if worked_for:
@@ -5156,6 +6889,39 @@ def render_trace_capsule_text(
         episode_evidence,
         evidence_summary.terminal_check_by_identity,
     )
+    goal_mode_seen = bool(re.search(
+        r"\b(goal mode|goal_context|thread_goals|active goal|token_budget|current_telos)\b",
+        "\n".join([turn.prompt_text or "", final_assistant_text or ""]),
+        re.I,
+    ))
+    goal_rollup = {
+        "schema_version": "agent_trace_goal_rollup_v1",
+        "status": "captured_goal_mode" if goal_mode_seen else "not_detected",
+        "pass_count": 1 if goal_mode_seen else 0,
+        "passes": ([{"kind": "goal_mode_marker", "scope": display_source_window}] if goal_mode_seen else []),
+    }
+    agent_episode_graph = {
+        "schema_version": "agent_episode_graph_v1",
+        "composition_root": "agent_episode_graph",
+        "provider_thread": {
+            "provider": turn.provider,
+            "session_id": turn.session_id,
+            "selected_turn_index": turn.turn_index,
+            "selected_source_window": display_source_window,
+            "thread_totality": _trace_thread_totality(display_source_window),
+        },
+        "nodes": [
+            {"id": "e001", "kind": "turn_selected", "turn_index": turn.turn_index, "source_window": display_source_window},
+            *([{"id": "e002", "kind": "implementation_episode", "edit_path_count": len(edit_rows), "diff_status": diff_reconciler_status}] if edit_rows or commit_summary else []),
+            *([{"id": "e003", "kind": "validation_episode", "terminal_state": terminal_validation_state}] if check_rows or terminal_check_rows else []),
+            *([{"id": "e004", "kind": "commit_evidence", "commit_diff_missing": commit_diff_missing}] if commit_summary else []),
+        ],
+        "invariants": {
+            "edits_zero_always_scoped": True,
+            "exact_diff_required_unless_full_thread_compact": display_source_window != "full_thread_concise",
+            "provider_bytes_not_claimed_lossless": True,
+        },
+    }
     command_return_lines, sidecar_manifest_lines, command_return_stats = _capsule_command_return_sections(
         renderable,
         source_sha16=source_sha16,
@@ -5164,7 +6930,20 @@ def render_trace_capsule_text(
     header.extend([
         f"prompt: {turn.prompt_sha256_16}",
         f"source: {source_sha16}",
-        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} truncated_outputs={truncated_outputs} raw_sidecar={'available' if include_raw_sidecar else 'not_materialized'}",
+        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} edit_scope=captured_window thread_total_edits={thread_total_edits} no_edit_claim_allowed={'true' if no_edit_claim_allowed else 'false'} substrate_diff={substrate_diff_state} substrate_diff_required={'true' if substrate_diff_required else 'false'} commit_diff_missing={'true' if commit_diff_missing else 'false'} truncated_outputs={truncated_outputs} raw_sidecar={'available' if include_raw_sidecar else 'not_materialized'}",
+        "source_excerpts: "
+        f"count={source_excerpt_stats['count']} lines={source_excerpt_stats['lines']} "
+        f"paths={len(source_excerpt_stats['paths'])} omitted={source_excerpt_stats['omitted']} "
+        "source=agent_requested_or_prompt_file_refs_or_trace_read_outputs policy=bounded_redacted_line_ranges "
+        "carrier=saved_latest_response_bundle practical_budget=~150KB "
+        "reference_modes=message_text|full_small_bodies|path_line_shards|standard_projections "
+        f"agent_requested_refs={source_excerpt_stats.get('agent_requested_refs', 0)} "
+        f"agent_requested_seen={source_excerpt_stats.get('agent_requested_seen_refs', 0)} "
+        f"agent_requested_emitted={source_excerpt_stats.get('agent_requested_emitted_refs', source_excerpt_stats.get('agent_requested_refs', 0))} "
+        f"agent_requested_omitted={source_excerpt_stats.get('agent_requested_omitted_refs', 0)} "
+        f"prompt_file_refs={source_excerpt_stats.get('prompt_file_refs', 0)}",
+        f"subagents: count={subagent_count} linked={linked_subagent_trace_count} visible={visible_subagent_count} collapsed_under_parent=true",
+        f"episode_graph: schema=agent_episode_graph_v1 composition_root=agent_episode_graph nodes={len(agent_episode_graph['nodes'])} episodes={episode_count}",
         "",
         "SUMMARY",
         f"status: {status_text}",
@@ -5174,6 +6953,9 @@ def render_trace_capsule_text(
         f"owner_scope_validation: {owner_scope_validation}",
         f"internal_authorization: {internal_authorization}",
         f"public_release_authorization: {public_release_authorization}",
+        f"source_landing: {source_landing_state}",
+        f"publication_state: {publication_state}",
+        f"receipt_assimilation: {receipt_assimilation}",
         f"ambient_validation: {ambient_validation}",
         f"ambient_warning_class: {ambient_warning_class_summary}",
         f"open_product_residuals: {residual_summary}",
@@ -5183,6 +6965,8 @@ def render_trace_capsule_text(
         f"ambient_validation_warnings: {ambient_validation_warning_summary}",
         f"release_candidate_gate: {release_candidate_gate_decision or 'none'}",
         f"historical_terminal_failures_superseded: {historical_terminal_failures_superseded}",
+        f"expected_guard_refusals: {expected_guard_refusal_count}",
+        f"guarded_refusal_residuals: {guarded_refusal_residual_summary}",
         f"projection_or_view_artifacts_seen: {projection_or_view_artifacts_seen_summary}",
         f"unresolved_residual_mentions: {unresolved_residual_mentions_summary}",
         "release_authority: none",
@@ -5190,7 +6974,8 @@ def render_trace_capsule_text(
         f"terminal_checks: pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}",
         f"owner_scope_terminal_checks: pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}",
         f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) owner_scope_terminal_checks(pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
-        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} internal_authorization={internal_authorization} public_release_authorization={public_release_authorization} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
+        f"terminal_failure_classes: {terminal_failure_class_summary}",
+        f"validation_semantics: owner_scope_validation={owner_scope_validation} source_landing={source_landing_state} publication_state={publication_state} receipt_assimilation={receipt_assimilation} validation_process={validation_process} ambient_validation={ambient_validation} internal_authorization={internal_authorization} public_release_authorization={public_release_authorization} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} current_terminal_failures={current_terminal_failure_count} stale_window_failures={stale_window_failure_count} contradictory_closeouts={contradictory_closeout_count} expected_guard_refusals={expected_guard_refusal_count} guarded_refusal_residuals={guarded_refusal_residual_summary} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
         f"governance_receipts: pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}",
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
@@ -5204,7 +6989,9 @@ def render_trace_capsule_text(
     header.append("open: none captured" if turn.is_complete else (turn.partial_reason or "trace still in progress"))
     header.extend(["", *_capsule_diff_section_lines(edit_rows)])
     header.extend(["", *command_return_lines])
+    header.extend(["", *source_excerpt_lines])
     header.extend(["", *sidecar_manifest_lines])
+    header.extend(_capsule_subagent_section_lines(subagent_packet))
     header.extend(["", *_capsule_visible_progress_section_lines(reasoning_events)])
     prompt_body_included = include_prompt_body and bool((turn.prompt_text or "").strip())
     if prompt_body_included:
@@ -5228,10 +7015,14 @@ def render_trace_capsule_text(
         f"raw_sidecar: {'inline_trace_paste' if include_raw_sidecar else 'not_materialized'}",
         f"raw_sidecar_coverage: {'complete' if command_return_stats['lost'] == 0 else 'partial'}",
         f"command_output_loss: outputs_total={command_return_stats['outputs']} accounted={command_return_stats['accounted']} lost_outputs={command_return_stats['lost']}",
+        f"source_excerpts: captured={source_excerpt_stats['count']} omitted={source_excerpt_stats['omitted']} source=agent_requested_or_prompt_file_refs_or_trace_read_outputs policy=bounded_redacted_line_ranges carrier=saved_latest_response_bundle practical_budget=~150KB reference_modes=message_text|full_small_bodies|path_line_shards|standard_projections",
         f"truncated_outputs: {truncated_outputs}",
         "not_included: server_hidden_reasoning, omitted_provider_bytes_without_sidecar",
         "included: app_visible_thinking_progress",
-        f"source_window: {'selected_turn' if source_window == 'latest_prompt_cycle' and int(((turn.source_ref or {}).get('trace_window') or {}).get('turn_count') or 1) == 1 else source_window}",
+        f"source_window: {display_source_window}",
+        f"thread_totality: {_trace_thread_totality(display_source_window)}",
+        f"no_edit_claim_allowed: {'true' if no_edit_claim_allowed else 'false'}",
+        f"substrate_diff: {substrate_diff_state}",
     ])
     if not prompt_body_included:
         lines.append("prompt_body: omitted_by_request")
@@ -5267,12 +7058,17 @@ def render_trace_capsule_text(
         "owner_scope_validation": owner_scope_validation,
         "internal_authorization": internal_authorization,
         "public_release_authorization": public_release_authorization,
+        "source_landing": source_landing_state,
+        "publication_state": publication_state,
+        "receipt_assimilation": receipt_assimilation,
         "ambient_validation": ambient_validation,
         "ambient_warning_classes": ambient_warning_classes,
         "ambient_validation_warnings": ambient_warning_classes,
         "validation_process": validation_process,
         "release_candidate_gate_decision": release_candidate_gate_decision,
         "historical_terminal_failures_superseded": historical_terminal_failures_superseded,
+        "expected_guard_refusal_count": expected_guard_refusal_count,
+        "guarded_refusal_residuals": guarded_refusal_residuals,
         "external_terminal_warning_count": len(ambient_terminal_warning_rows),
         "validation_process_terminal_warning_count": len(validation_process_terminal_rows),
         "owner_scope_terminal_validation_count": len(owner_terminal_check_rows),
@@ -5289,9 +7085,107 @@ def render_trace_capsule_text(
         "captured_residual_ids": captured_residual_ids,
         "blocking_terminal_failure_count": len(effective_blocking_terminal_failures),
         "raw_blocking_terminal_failure_count": len(blocking_terminal_failures),
+        "current_terminal_failure_count": current_terminal_failure_count,
+        "stale_window_failure_count": stale_window_failure_count,
+        "not_validated_failure_count": not_validated_count,
+        "contradictory_closeout_count": contradictory_closeout_count,
+        "terminal_failure_classes": {
+            "current_terminal_failure": current_terminal_failure_count,
+            "recovered_failure": recovered_failures,
+            "stale_window_failure": stale_window_failure_count,
+            "not_validated": not_validated_count,
+            "contradictory_closeout": contradictory_closeout_count,
+            "expected_guard_refusal": expected_guard_refusal_count,
+        },
         "nonblocking_terminal_failure_count": len(nonblocking_terminal_failures),
         "commit_count": commit_count,
         "closeout_present": closeout_present,
+        "copy_readiness": {
+            "schema_version": "agent_trace_copy_readiness_gate_v1",
+            "state": copy_readiness_state,
+            "blockers": copy_readiness_blockers,
+            "warnings": copy_readiness_warnings,
+            "normal_copy_allowed": copy_readiness_state != "red",
+            "type_b_no_edits_claim_allowed": no_edit_claim_allowed,
+            "required_type_b_no_edit_language": type_b_no_edit_language,
+        },
+        "diff_reconciler": {
+            "schema_version": "agent_trace_diff_reconciler_v1",
+            "status": diff_reconciler_status,
+            "severity": diff_reconciler_severity,
+            "reasons": diff_reconciler_reasons,
+            "exact_diff_required": exact_diff_required,
+            "ui_review_card": {"state": "ui_diff_only" if ui_diff_only else "not_detected"},
+            "parser_artifact_delta": {"state": substrate_diff_state, "edit_path_count": len(edit_rows)},
+            "git_commit_or_worktree": {
+                "state": "commit_without_patch" if commit_diff_missing else ("commit_seen" if commit_summary else "not_detected"),
+                "commit_diff_missing": commit_diff_missing,
+            },
+            "edit_claim": {
+                "edits": len(edit_rows),
+                "edits_zero_scope": _trace_thread_totality(display_source_window) if not edit_rows else "",
+                "unqualified_no_edits_allowed": no_edit_claim_allowed,
+                "type_b_phrase": type_b_no_edit_language,
+            },
+        },
+        "agent_episode_graph": agent_episode_graph,
+        "goal_rollup": goal_rollup,
+        "evidence_tier": evidence_tier,
+        "type_b_handoff_lint": {
+            "schema_version": "agent_trace_type_b_handoff_lint_v1",
+            "result": type_b_lint_result,
+            "blockers": copy_readiness_blockers,
+            "warnings": copy_readiness_warnings,
+            "no_edits_sentence_allowed": no_edit_claim_allowed,
+            "required_no_edit_language": type_b_no_edit_language,
+            "refusal_rule": "refuse unqualified no-edit claims unless full-thread coverage and no-edit evidence prove it",
+            "source_excerpt_affordance": type_b_source_excerpt_affordance,
+            "source_excerpt_survival": {
+                "schema_version": "agent_trace_requested_source_survival_v1",
+                "status": source_excerpt_stats.get("requested_excerpt_survival_status", "unknown"),
+                "agent_requested_seen_count": source_excerpt_stats.get("agent_requested_seen_refs", 0),
+                "agent_requested_emitted_count": source_excerpt_stats.get(
+                    "agent_requested_emitted_refs",
+                    source_excerpt_stats.get("agent_requested_refs", 0),
+                ),
+                "agent_requested_omitted_count": source_excerpt_stats.get("agent_requested_omitted_refs", 0),
+                "agent_requested_path_count": source_excerpt_stats.get("agent_requested_path_count", 0),
+                "emitted_rows": source_excerpt_stats.get("agent_requested_rows", []),
+                "emitted_paths": source_excerpt_stats.get("agent_requested_path_rows", []),
+                "drop_reasons": source_excerpt_stats.get("agent_requested_drop_reasons", []),
+                "warnings": source_excerpt_lint_warnings,
+                "contradictory_closeout_requested_source_missing": requested_source_claim_missing,
+            },
+        },
+        "terminal_validation": {
+            "schema_version": "agent_trace_terminal_validation_v1",
+            "state": terminal_validation_state,
+            "terminal_validation_count": len(terminal_check_rows),
+            "terminal_pass_count": terminal_check_pass_count,
+            "terminal_fail_count": terminal_check_fail_count,
+        },
+        "display_source_window": display_source_window,
+        "copy_scope": display_source_window,
+        "thread_totality": _trace_thread_totality(display_source_window),
+        "full_thread_available": full_thread_available,
+        "selected_window_only": selected_window_only,
+        "copy_scope_warning": copy_scope_warning,
+        "recommended_scope": recommended_scope,
+        "operator_intervention_selected_window_count": 0,
+        "operator_intervention_full_thread_count": operator_intervention_full_count,
+        "artifact_stats_source": {
+            "label": stats_source_label,
+            "capsule_turn_index": turn.turn_index,
+            "source_window": display_source_window,
+            "prompt_sha16": turn.prompt_sha256_16,
+            "source_sha16": source_sha16,
+        },
+        "thread_total_edits": thread_total_edits,
+        "no_edit_claim_allowed": no_edit_claim_allowed,
+        "substrate_diff": substrate_diff_state,
+        "diff_state": substrate_diff_state,
+        "substrate_diff_required": substrate_diff_required,
+        "commit_diff_missing": commit_diff_missing,
         "truncated_outputs": truncated_outputs,
         "command_return_count": command_return_stats["outputs"],
         "command_return_inline_count": command_return_stats["inline"],
@@ -5299,9 +7193,34 @@ def render_trace_capsule_text(
         "command_return_redacted_count": command_return_stats["redacted"],
         "command_return_no_output_count": command_return_stats["no_output"],
         "command_return_lost_count": command_return_stats["lost"],
+        "source_excerpt_count": source_excerpt_stats["count"],
+        "source_excerpt_line_count": source_excerpt_stats["lines"],
+        "source_excerpt_paths": source_excerpt_stats["paths"],
+        "source_excerpt_omitted_count": source_excerpt_stats["omitted"],
+        "source_excerpt_agent_requested_count": source_excerpt_stats.get("agent_requested_refs", 0),
+        "source_excerpt_agent_requested_seen_count": source_excerpt_stats.get("agent_requested_seen_refs", 0),
+        "source_excerpt_agent_requested_emitted_count": source_excerpt_stats.get(
+            "agent_requested_emitted_refs",
+            source_excerpt_stats.get("agent_requested_refs", 0),
+        ),
+        "source_excerpt_agent_requested_omitted_count": source_excerpt_stats.get("agent_requested_omitted_refs", 0),
+        "source_excerpt_agent_requested_path_count": source_excerpt_stats.get("agent_requested_path_count", 0),
+        "source_excerpt_agent_requested_paths": source_excerpt_stats.get("agent_requested_path_rows", []),
+        "source_excerpt_agent_requested_rows": source_excerpt_stats.get("agent_requested_rows", []),
+        "source_excerpt_agent_requested_drop_reasons": source_excerpt_stats.get("agent_requested_drop_reasons", []),
+        "source_excerpt_omission_reasons": source_excerpt_stats.get("omission_reasons", {}),
+        "requested_excerpt_survival_status": source_excerpt_stats.get("requested_excerpt_survival_status", "unknown"),
+        "contradictory_closeout_requested_source_missing": requested_source_claim_missing,
+        "source_excerpt_lint_warnings": source_excerpt_lint_warnings,
+        "source_excerpt_prompt_file_ref_count": source_excerpt_stats.get("prompt_file_refs", 0),
+        "type_b_source_excerpt_affordance": type_b_source_excerpt_affordance,
         "raw_sidecar_text": raw_sidecar_text,
         "raw_sidecar_materialized": include_raw_sidecar,
         "prompt_body_included": prompt_body_included,
+        "subagent_count": subagent_count,
+        "linked_subagent_trace_count": linked_subagent_trace_count,
+        "visible_subagent_count": visible_subagent_count,
+        "subagent_deployments": subagent_packet.get("deployments") or [],
     }
     if prompt_intern_summary:
         meta["prompt_interning"] = _prompt_intern_manifest(turn.prompt_text)
@@ -5377,6 +7296,31 @@ def write_trace_capsule_artifact(
             "edit_path_count": meta["edit_count"],
             "validation_count": meta["validation_count"],
             "closeout_present": meta["closeout_present"],
+            "copy_scope": meta["copy_scope"],
+            "thread_totality": meta["thread_totality"],
+            "full_thread_available": meta["full_thread_available"],
+            "selected_window_only": meta["selected_window_only"],
+            "copy_scope_warning": meta["copy_scope_warning"],
+            "recommended_scope": meta["recommended_scope"],
+            "thread_total_edits": meta["thread_total_edits"],
+            "no_edit_claim_allowed": meta["no_edit_claim_allowed"],
+            "substrate_diff": meta["substrate_diff"],
+            "diff_state": meta["diff_state"],
+            "substrate_diff_required": meta["substrate_diff_required"],
+            "commit_diff_missing": meta["commit_diff_missing"],
+            "copy_readiness": meta["copy_readiness"],
+            "copy_readiness_state": meta["copy_readiness"]["state"],
+            "diff_reconciler": meta["diff_reconciler"],
+            "diff_reconciler_status": meta["diff_reconciler"]["status"],
+            "agent_episode_graph": meta["agent_episode_graph"],
+            "goal_rollup": meta["goal_rollup"],
+            "evidence_tier": meta["evidence_tier"],
+            "type_b_handoff_lint": meta["type_b_handoff_lint"],
+            "terminal_validation": meta["terminal_validation"],
+            "operator_intervention_count": meta["operator_intervention_selected_window_count"],
+            "operator_intervention_selected_window_count": meta["operator_intervention_selected_window_count"],
+            "operator_intervention_full_thread_count": meta["operator_intervention_full_thread_count"],
+            "artifact_stats_source": meta["artifact_stats_source"],
         },
         "source_clip_path": str(raw_path),
         "clip_path": str(raw_path),
@@ -5440,6 +7384,26 @@ def write_trace_capsule_artifact(
             "edit_path_count": meta["edit_count"],
             "validation_count": meta["validation_count"],
             "closeout_present": meta["closeout_present"],
+            "copy_scope": meta["copy_scope"],
+            "thread_totality": meta["thread_totality"],
+            "thread_total_edits": meta["thread_total_edits"],
+            "substrate_diff": meta["substrate_diff"],
+            "diff_state": meta["diff_state"],
+            "commit_diff_missing": meta["commit_diff_missing"],
+            "copy_readiness": meta["copy_readiness"],
+            "copy_readiness_state": meta["copy_readiness"]["state"],
+            "diff_reconciler": meta["diff_reconciler"],
+            "diff_reconciler_status": meta["diff_reconciler"]["status"],
+            "agent_episode_graph": meta["agent_episode_graph"],
+            "goal_rollup": meta["goal_rollup"],
+            "evidence_tier": meta["evidence_tier"],
+            "type_b_handoff_lint": meta["type_b_handoff_lint"],
+            "terminal_validation": meta["terminal_validation"],
+            "copy_scope_warning": meta["copy_scope_warning"],
+            "recommended_scope": meta["recommended_scope"],
+            "operator_intervention_count": meta["operator_intervention_selected_window_count"],
+            "operator_intervention_full_thread_count": meta["operator_intervention_full_thread_count"],
+            "artifact_stats_source": meta["artifact_stats_source"],
             "truncated_output_count": meta["truncated_outputs"],
             "prompt_sha16": turn.prompt_sha256_16,
             "turn_index": turn.turn_index,
@@ -6106,6 +8070,135 @@ _GOAL_TITLE_PLACEHOLDERS = {
 }
 
 
+def _goal_fleet_control(goal: dict | None, mission_state: str) -> dict:
+    status = str((goal or {}).get("status") or "").lower()
+    if status == "active":
+        observed_status = "active"
+        next_allowed_action = "leave_alone"
+        restart_policy = "do_not_reprompt_active_thread"
+        decision_label = "leave active goal alone"
+    elif status == "complete":
+        observed_status = "idle_complete"
+        next_allowed_action = "fan_in_or_reprompt_with_terminal_evidence"
+        restart_policy = "reprompt_only_with_latest_terminal_evidence"
+        decision_label = "fan in before restart"
+    elif status in {"blocked", "usage_limited", "budget_limited"}:
+        observed_status = "idle_blocked"
+        next_allowed_action = "capture_or_reroute_blocker"
+        restart_policy = "do_not_blind_reprompt_capture_blocker_first"
+        decision_label = "capture blocker before reprompt"
+    elif status == "paused":
+        observed_status = "operator_owned"
+        next_allowed_action = "ask_operator"
+        restart_policy = "operator_instruction_required"
+        decision_label = "operator instruction required"
+    else:
+        observed_status = "stale_unknown"
+        next_allowed_action = "read_more"
+        restart_policy = "read_thread_before_action"
+        decision_label = "read thread before action"
+
+    mission_state = str(mission_state or "unknown")
+    return {
+        "schema": "goal_fleet_control_v1",
+        "mode": "goal_thread",
+        "observed_status": observed_status,
+        "next_allowed_action": next_allowed_action,
+        "restart_policy": restart_policy,
+        "decision_label": decision_label,
+        "fan_in_needed": observed_status in {"idle_complete", "idle_blocked"},
+        "classification_basis": {
+            "goal_status": status or "unknown",
+            "mission_index_state": mission_state,
+            "has_recent_mission_row": mission_state in {"active_row", "inactive_row"},
+        },
+    }
+
+
+def _goal_fleet_preview_ids(goal_threads: list[dict], action: str, *, limit: int = 20) -> tuple[list[str], int]:
+    ids = [
+        str(row.get("thread_id") or "")
+        for row in goal_threads
+        if (row.get("goal_fleet_control") or {}).get("next_allowed_action") == action
+    ]
+    ids = [value for value in ids if value]
+    return ids[:limit], max(0, len(ids) - limit)
+
+
+def _goal_fleet_state(goal_threads: list[dict], goal_authority: dict | None = None) -> dict:
+    status_counts: dict[str, int] = {}
+    decision_counts: dict[str, int] = {}
+    compact_threads: list[dict] = []
+    for row in goal_threads:
+        control = row.get("goal_fleet_control") or {}
+        observed_status = str(control.get("observed_status") or "stale_unknown")
+        next_allowed_action = str(control.get("next_allowed_action") or "read_more")
+        status_counts[observed_status] = status_counts.get(observed_status, 0) + 1
+        decision_counts[next_allowed_action] = decision_counts.get(next_allowed_action, 0) + 1
+        mission_index = row.get("mission_index") or {}
+        compact_threads.append({
+            "thread_id": row.get("thread_id") or "",
+            "goal_id": row.get("goal_id") or "",
+            "mode": "goal",
+            "goal_status": row.get("status") or "",
+            "observed_status": observed_status,
+            "next_allowed_action": next_allowed_action,
+            "restart_policy": control.get("restart_policy") or "",
+            "fan_in_needed": bool(control.get("fan_in_needed")),
+            "current_goal_digest": row.get("objective_sha16") or "",
+            "title_or_alias": mission_index.get("title") or row.get("objective_preview") or "",
+            "mission_index_state": mission_index.get("state") or "unknown",
+            "updated_at_ms": row.get("updated_at_ms") or 0,
+        })
+
+    left_alone, left_alone_omitted = _goal_fleet_preview_ids(goal_threads, "leave_alone")
+    fan_in, fan_in_omitted = _goal_fleet_preview_ids(
+        goal_threads,
+        "fan_in_or_reprompt_with_terminal_evidence",
+    )
+    blocked, blocked_omitted = _goal_fleet_preview_ids(goal_threads, "capture_or_reroute_blocker")
+
+    return {
+        "schema": "goal_fleet_state_v1",
+        "mode": "projection_from_codex_goal_roster",
+        "authority": "codex_thread_goal_authority_v1 + prompt_trace_mission_index_v3",
+        "goal_authority_content_sha16": (goal_authority or {}).get("content_sha16") or "",
+        "thread_count": len(goal_threads),
+        "status_counts": status_counts,
+        "decision_counts": decision_counts,
+        "fan_in_needed_count": sum(1 for row in compact_threads if row.get("fan_in_needed")),
+        "threads": compact_threads,
+        "controller_decision_receipt": {
+            "schema": "goal_fleet_controller_decision_receipt_v1",
+            "mode": "state_projection_no_prompt_sent",
+            "classification_basis": "codex_goal_status_plus_mission_index_linkage",
+            "observed_threads": len(goal_threads),
+            "active_threads_left_alone": left_alone,
+            "active_threads_left_alone_omitted": left_alone_omitted,
+            "idle_threads_needing_fan_in": fan_in,
+            "idle_threads_needing_fan_in_omitted": fan_in_omitted,
+            "blocked_threads_needing_capture": blocked,
+            "blocked_threads_needing_capture_omitted": blocked_omitted,
+            "prompts_sent_digest": "none_projection_only",
+            "validation_or_reason_no_validation": (
+                "Projection classifies safe controller actions; create/send validation "
+                "belongs to the later thread-management receipt."
+            ),
+        },
+    }
+
+
+def _goal_fleet_receipt_summary(state: dict | None) -> dict:
+    state = state if isinstance(state, dict) else {}
+    return {
+        "schema": "goal_fleet_state_receipt_summary_v1",
+        "thread_count": state.get("thread_count", 0),
+        "status_counts": state.get("status_counts") or {},
+        "decision_counts": state.get("decision_counts") or {},
+        "fan_in_needed_count": state.get("fan_in_needed_count", 0),
+    }
+
+
 def _goal_roster_title_candidate(value: Any) -> str:
     title = str(value or "").strip()
     if title.lower() in _GOAL_TITLE_PLACEHOLDERS:
@@ -6146,6 +8239,7 @@ def _goal_thread_roster(
         mission_state = "missing_from_recent_window"
         if row:
             mission_state = "inactive_row" if row.get("inactive_reason") else "active_row"
+        goal_fleet_control = _goal_fleet_control(goal, mission_state)
         out.append({
             "schema": "codex_goal_thread_roster_row_v1",
             "thread_id": thread_id,
@@ -6161,6 +8255,7 @@ def _goal_thread_roster(
             "created_at": goal.get("created_at") or "",
             "updated_at": goal.get("updated_at") or "",
             "goal_sort_priority": _goal_sort_priority(goal),
+            "goal_fleet_control": goal_fleet_control,
             "mission_index": {
                 "state": mission_state,
                 "provider": row.get("provider") or "codex",
@@ -6208,6 +8303,8 @@ def _refresh_goal_fields_on_rows(rows: Iterable[dict], goals: dict[str, dict]) -
         row["goal"] = goal or {}
         row["goal_status"] = (goal or {}).get("status") or ""
         row["goal_sort_priority"] = _goal_sort_priority(goal)
+        mission_state = "inactive_row" if row.get("inactive_reason") else "active_row"
+        row["goal_fleet_control"] = _goal_fleet_control(goal, mission_state) if goal else {}
 
 
 def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) -> dict:
@@ -6247,9 +8344,11 @@ def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) 
     )
 
     goal_authority = _goal_authority_sources(codex_thread_goals)
+    goal_fleet_state = _goal_fleet_state(goal_threads, goal_authority)
     goal_authority_lag = _goal_authority_refresh_lag(index, goal_authority)
     index["goal_authority"] = goal_authority
     index["goal_threads"] = goal_threads
+    index["goal_fleet_state"] = goal_fleet_state
     index["goal_thread_count"] = len(goal_threads)
     index["active_goal_thread_count"] = active_goal_thread_count
     index["mission_goal_count"] = mission_goal_count
@@ -6288,6 +8387,7 @@ def _goal_roster_refresh_receipt(index: dict) -> dict:
         "mission_index_generated_at": index.get("generated_at") or "",
         "refresh": refresh,
         "goal_authority": authority,
+        "goal_fleet_state": _goal_fleet_receipt_summary(index.get("goal_fleet_state")),
         "goal_thread_count": index.get("goal_thread_count", 0),
         "active_goal_thread_count": index.get("active_goal_thread_count", 0),
         "mission_goal_count": index.get("mission_goal_count", 0),
@@ -6302,6 +8402,237 @@ def _write_goal_roster_refresh_receipt(index: dict) -> dict:
     tmp = TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT.with_suffix(".json.tmp")
     tmp.write_text(body + "\n", encoding="utf-8")
     tmp.replace(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT)
+    return receipt
+
+
+_GOAL_FLEET_ACTION_ORDER = (
+    "capture_or_reroute_blocker",
+    "fan_in_or_reprompt_with_terminal_evidence",
+    "read_more",
+    "ask_operator",
+    "leave_alone",
+)
+_GOAL_FLEET_SIDE_EFFECT_FREE_ACTIONS = {"leave_alone", "ask_operator"}
+_GOAL_FLEET_ACTION_THREAD_LIMIT = 50
+_GOAL_FLEET_ACTION_STOP_POLICIES = {
+    "leave_alone": "stop_now_do_not_reprompt_active_thread",
+    "ask_operator": "stop_until_operator_instruction",
+    "read_more": "read_thread_before_action",
+    "fan_in_or_reprompt_with_terminal_evidence": (
+        "fan_in_terminal_evidence_before_reprompt"
+    ),
+    "capture_or_reroute_blocker": "capture_or_reroute_blocker_before_reprompt",
+}
+
+
+def _goal_fleet_action_sort_key(action: str) -> tuple[int, str]:
+    try:
+        return (_GOAL_FLEET_ACTION_ORDER.index(action), action)
+    except ValueError:
+        return (len(_GOAL_FLEET_ACTION_ORDER), action)
+
+
+def _compact_goal_fleet_action_thread(row: dict) -> dict:
+    return {
+        "thread_id": row.get("thread_id") or "",
+        "goal_id": row.get("goal_id") or "",
+        "goal_status": row.get("goal_status") or "",
+        "observed_status": row.get("observed_status") or "",
+        "next_allowed_action": row.get("next_allowed_action") or "",
+        "restart_policy": row.get("restart_policy") or "",
+        "current_goal_digest": row.get("current_goal_digest") or "",
+        "title_or_alias": row.get("title_or_alias") or "",
+        "mission_index_state": row.get("mission_index_state") or "",
+        "updated_at_ms": row.get("updated_at_ms") or 0,
+    }
+
+
+def _goal_fleet_action_group(action: str, rows: list[dict]) -> dict:
+    selected = [_compact_goal_fleet_action_thread(row) for row in rows]
+    side_effect_free = action in _GOAL_FLEET_SIDE_EFFECT_FREE_ACTIONS
+    return {
+        "schema": "goal_fleet_action_group_v1",
+        "action": action,
+        "selected_thread_count": len(selected),
+        "selected_threads": selected[:_GOAL_FLEET_ACTION_THREAD_LIMIT],
+        "selected_threads_omitted": max(0, len(selected) - _GOAL_FLEET_ACTION_THREAD_LIMIT),
+        "collision_check_ref": (
+            "not_required_no_provider_thread_mutation"
+            if side_effect_free
+            else "required_before_provider_thread_mutation"
+        ),
+        "prompt_digest_or_none": None,
+        "provider_thread_receipt": (
+            "not_required_no_prompt_sent"
+            if side_effect_free
+            else "missing_required_before_side_effecting_action"
+        ),
+        "uptake_confirmed": (
+            "not_applicable_no_prompt_sent"
+            if side_effect_free
+            else "pending_provider_thread_receipt"
+        ),
+        "fan_in_due_at_or_stop_policy": _GOAL_FLEET_ACTION_STOP_POLICIES.get(
+            action,
+            "read_thread_before_action",
+        ),
+    }
+
+
+def _goal_fleet_observed_state_ref(
+    index: dict,
+    state: dict,
+    status: dict,
+    authority: dict,
+) -> dict:
+    staleness = status.get("staleness") if isinstance(status.get("staleness"), dict) else {}
+    return {
+        "schema": "observed_goal_fleet_state_ref_v1",
+        "mission_index_path": str(TRACE_STRUCTURER_MISSION_INDEX),
+        "mission_index_mtime_ms": _path_mtime_ms(TRACE_STRUCTURER_MISSION_INDEX),
+        "mission_index_generated_at": index.get("generated_at") or "",
+        "goal_authority_path": authority.get("path") or str(CODEX_GOALS_DB),
+        "goal_authority_content_sha16": state.get("goal_authority_content_sha16") or "",
+        "goal_authority_mtime_ms": authority.get("mtime_ms"),
+        "goal_authority_mtime": authority.get("mtime") or "",
+        "goal_thread_count": state.get("thread_count", 0),
+        "status_counts": state.get("status_counts") or {},
+        "decision_counts": state.get("decision_counts") or {},
+        "fan_in_needed_count": state.get("fan_in_needed_count", 0),
+        "goal_roster_staleness": {
+            "status": staleness.get("status") or "unknown",
+            "kind": staleness.get("kind") or "unknown",
+            "refresh_recommended": bool(staleness.get("refresh_recommended")),
+        },
+    }
+
+
+def _goal_fleet_action_receipt_from_state(
+    state: dict,
+    *,
+    observed_goal_fleet_state_ref: dict | None = None,
+    collision_check_ref: str = "",
+    workitem_refs: list[str] | None = None,
+) -> dict:
+    threads = state.get("threads") if isinstance(state.get("threads"), list) else []
+    grouped: dict[str, list[dict]] = {}
+    for row in threads:
+        if not isinstance(row, dict):
+            continue
+        action = str(row.get("next_allowed_action") or "read_more")
+        grouped.setdefault(action, []).append(row)
+
+    action_groups = [
+        _goal_fleet_action_group(action, grouped[action])
+        for action in sorted(grouped, key=_goal_fleet_action_sort_key)
+    ]
+    actions = [group["action"] for group in action_groups]
+    selected = [
+        _compact_goal_fleet_action_thread(row)
+        for action in sorted(grouped, key=_goal_fleet_action_sort_key)
+        for row in grouped[action]
+    ]
+    side_effect_required = any(
+        action not in _GOAL_FLEET_SIDE_EFFECT_FREE_ACTIONS
+        for action in actions
+    )
+    if not actions:
+        action_label = "none_no_goal_threads_observed"
+    elif len(actions) == 1:
+        action_label = actions[0]
+    else:
+        action_label = "mixed:" + ",".join(actions)
+
+    if side_effect_required:
+        provider_status = "missing_required_before_side_effecting_action"
+        uptake = "pending_provider_thread_receipt"
+        policy = "read_or_fan_in_required_before_provider_thread_mutation"
+        next_gate = "read_thread_or_capture_blocker_then_record_provider_receipt"
+    else:
+        provider_status = "not_required_no_prompt_sent"
+        uptake = "not_applicable_no_prompt_sent"
+        policy = "stop_after_non_mutating_controller_decision"
+        next_gate = "provider_thread_action_requires_fresh_read_and_collision_check"
+
+    return {
+        "schema": "goal_fleet_action_receipt_v1",
+        "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+        "mode": "controller_action_receipt",
+        "observed_goal_fleet_state_ref": observed_goal_fleet_state_ref or {
+            "schema": "observed_goal_fleet_state_ref_v1",
+            "goal_thread_count": state.get("thread_count", 0),
+            "status_counts": state.get("status_counts") or {},
+            "decision_counts": state.get("decision_counts") or {},
+            "fan_in_needed_count": state.get("fan_in_needed_count", 0),
+        },
+        "selected_threads": selected[:_GOAL_FLEET_ACTION_THREAD_LIMIT],
+        "selected_threads_omitted": max(0, len(selected) - _GOAL_FLEET_ACTION_THREAD_LIMIT),
+        "action": action_label,
+        "action_groups": action_groups,
+        "collision_check_ref": collision_check_ref or (
+            "not_required_no_provider_thread_mutation"
+            if not side_effect_required
+            else "required_before_provider_thread_mutation"
+        ),
+        "prompt_digest_or_none": None,
+        "provider_thread_receipt": {
+            "schema": "goal_fleet_provider_thread_receipt_v1",
+            "status": provider_status,
+            "read_thread_count": 0,
+            "send_message_count": 0,
+            "create_thread_count": 0,
+            "provider_receipts": [],
+            "reason": (
+                "This receipt records controller classification only; "
+                "side-effecting read/send/create actions need their own "
+                "provider-thread receipts."
+            ),
+        },
+        "uptake_confirmed": uptake,
+        "fan_in_due_at_or_stop_policy": policy,
+        "workitem_refs_touched": list(workitem_refs or []),
+        "side_effecting_thread_action_taken": False,
+        "next_side_effect_gate": next_gate,
+    }
+
+
+def _goal_fleet_action_receipt(
+    *,
+    cwd: Path | None = None,
+    collision_check_ref: str = "",
+    workitem_refs: list[str] | None = None,
+) -> dict:
+    index = _load_json_dict(TRACE_STRUCTURER_MISSION_INDEX)
+    rows = _dedupe_mission_goal_rows(
+        index.get("rows") or [
+            *(index.get("active_rows") or []),
+            *(index.get("inactive_rows") or []),
+        ]
+    )
+    goals = _load_codex_thread_goals()
+    authority = _goal_authority_sources(goals)
+    roster = _goal_thread_roster(goals, rows, _load_codex_thread_title_records())
+    state = _goal_fleet_state(roster, authority)
+    status = _goal_roster_status(cwd=cwd)
+    return _goal_fleet_action_receipt_from_state(
+        state,
+        observed_goal_fleet_state_ref=_goal_fleet_observed_state_ref(
+            index,
+            state,
+            status,
+            authority,
+        ),
+        collision_check_ref=collision_check_ref,
+        workitem_refs=workitem_refs,
+    )
+
+
+def _write_goal_fleet_action_receipt(receipt: dict) -> dict:
+    TRACE_STRUCTURER_BASE.mkdir(parents=True, exist_ok=True)
+    body = json.dumps(receipt, indent=2, ensure_ascii=False)
+    tmp = TRACE_STRUCTURER_GOAL_FLEET_ACTION_RECEIPT.with_suffix(".json.tmp")
+    tmp.write_text(body + "\n", encoding="utf-8")
+    tmp.replace(TRACE_STRUCTURER_GOAL_FLEET_ACTION_RECEIPT)
     return receipt
 
 
@@ -6332,8 +8663,13 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
     receipt = _load_json_dict(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT)
     goals = _load_codex_thread_goals()
     current_authority = _goal_authority_sources(goals)
+    current_goal_fleet_state = _goal_fleet_state(
+        _goal_thread_roster(goals, [], {}),
+        current_authority,
+    )
     current = {
         "goal_authority": current_authority,
+        "goal_fleet_state": _goal_fleet_receipt_summary(current_goal_fleet_state),
         "goal_thread_count": len(goals),
         "active_goal_thread_count": sum(
             1 for goal in goals.values() if (goal or {}).get("status") == "active"
@@ -6551,6 +8887,7 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
             "mtime_ms": _path_mtime_ms(TRACE_STRUCTURER_MISSION_INDEX),
             "generated_at": index.get("generated_at") or "",
             "goal_authority": index_authority,
+            "goal_fleet_state": _goal_fleet_receipt_summary(index.get("goal_fleet_state")),
             "goal_thread_count": counts["mission_index_goal_thread_count"],
             "active_goal_thread_count": counts["mission_index_active_goal_thread_count"],
         },
@@ -6560,10 +8897,12 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
             "mtime_ms": _path_mtime_ms(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT),
             "recorded_at": receipt.get("recorded_at") or "",
             "goal_authority": receipt_authority,
+            "goal_fleet_state": _goal_fleet_receipt_summary(receipt.get("goal_fleet_state")),
             "goal_thread_count": counts["receipt_goal_thread_count"],
             "active_goal_thread_count": counts["receipt_active_goal_thread_count"],
         },
         "current": current,
+        "goal_fleet_state": current["goal_fleet_state"],
         "staleness": staleness,
         "refresh_command": (
             "./repo-python tools/meta/observability/cli_prompt_trace.py "
@@ -6703,6 +9042,10 @@ def _has_operator_old_title_prefix(title: str) -> bool:
     return bool(OPERATOR_OLD_TITLE_PREFIX_RE.search(str(title or "")))
 
 
+def _operator_old_title_marker(source_title: str, operator_alias: str) -> str:
+    return "old_prefix" if _has_operator_old_title_prefix(source_title or operator_alias or "") else "none"
+
+
 def _mission_ordinal(title: str) -> tuple[int | None, int | None, str | None]:
     """Extract numeric pair from operator titles like '17, 18 traces' or '5,6 microcosm'.
 
@@ -6755,7 +9098,7 @@ def _row_title_authority_fact(
     if title_source in ("trace_prompt_title", "claude_first_prompt_preview", "current_turn_prompt_title", "current_turn_prompt_preview"):
         source_version_ms = _path_mtime_ms(session_file) or source_version_ms
     display_title = source_title or operator_alias or title or prompt_preview or session_id[:6]
-    title_marker = "old_prefix" if _has_operator_old_title_prefix(source_title or operator_alias or title or "") else "none"
+    title_marker = _operator_old_title_marker(source_title, operator_alias)
     return {
         "title_authority": authority,
         "source_title": source_title,
@@ -6859,7 +9202,13 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
     elif active_summary:
         out["active_turn"] = active_summary
         out["preferred_trace_turn"] = active_summary
-    sidechains = _claude_subagent_sidechain_summaries(session_file) if provider == "claude_code" else []
+    if provider == "claude_code":
+        sidechains = _claude_subagent_sidechain_summaries(session_file)
+    elif provider == "codex":
+        parent_session_id = turns[0].session_id if turns else _peek_codex_session_id(session_file)
+        sidechains = _codex_subagent_sidechain_summaries(parent_session_id)
+    else:
+        sidechains = []
     subagent_packet = _subagent_deployment_packet(turns, sidechains=sidechains)
     if subagent_packet.get("count"):
         out["subagent_deployments"] = subagent_packet["deployments"]
@@ -6872,6 +9221,12 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
         }
     if sidechains:
         out["subagent_sidechains"] = sidechains[:24]
+    out["turn_count"] = len(turns)
+    out["completed_turn_count"] = sum(1 for turn in turns if turn.is_complete)
+    out["active_turn_count"] = sum(1 for turn in turns if not turn.is_complete)
+    out["latest_turn_index"] = turns[-1].turn_index if turns else None
+    out["latest_turn_is_complete"] = bool(turns[-1].is_complete) if turns else None
+    out["source_last_event_at"] = _summary_last_activity_at(out)
     return out or None
 
 
@@ -6929,9 +9284,11 @@ MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
     "agent_trace_structurer_mission_summary_cache_v3",
     "agent_trace_structurer_mission_summary_cache_v2",
 )
+MISSION_INDEX_DEFAULT_LIMIT = 120
 MISSION_INDEX_STALE_REPARSE_BUDGET = 8
 MISSION_INDEX_RECENT_STALE_REPARSE_SECONDS = 25 * 60
 MISSION_INDEX_STALE_REPARSE_MAX_BYTES = 2 * 1024 * 1024
+MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES = 32 * 1024 * 1024
 
 
 def _mission_summary_cache_key(provider: str, session_id: str, session_file: Path) -> str:
@@ -7029,7 +9386,9 @@ def _mission_summary_cache_lookup(
                 stale_summary = json.loads(json.dumps(summary))
                 stale_summary["cache_state"] = "soft_stale"
                 stale_summary["cache_source_mtime_ns"] = source.get("mtime_ns")
+                stale_summary["cache_source_size_bytes"] = source.get("size_bytes")
                 stale_summary["cache_current_mtime_ns"] = meta.get("mtime_ns")
+                stale_summary["cache_current_size_bytes"] = meta.get("size_bytes")
                 return stale_summary, "soft_stale_hit"
             stale_seen = True
             continue
@@ -7096,6 +9455,93 @@ def _downgrade_soft_stale_active_summary(summary: dict) -> dict:
     downgraded["active_turn_stale"] = True
     downgraded["cache_state"] = "soft_stale_active_downgraded"
     return downgraded
+
+
+def _mission_summary_turn_count_hint(summary: dict | None) -> int | None:
+    if not isinstance(summary, dict):
+        return None
+    values: list[object] = [
+        summary.get("turn_count"),
+        summary.get("completed_turn_count"),
+    ]
+    for key in ("preferred_trace_turn", "latest_completed_turn", "active_turn", "stale_active_turn"):
+        turn = summary.get(key)
+        if not isinstance(turn, dict):
+            continue
+        values.extend([
+            turn.get("full_thread_turn_count"),
+            (turn.get("full_thread_trace_window") or {}).get("turn_count") if isinstance(turn.get("full_thread_trace_window"), dict) else None,
+            (turn.get("trace_window") or {}).get("turn_count") if isinstance(turn.get("trace_window"), dict) else None,
+            turn.get("turn_index"),
+        ])
+    counts: list[int] = []
+    for value in values:
+        try:
+            n = int(value or 0)
+        except (TypeError, ValueError):
+            continue
+        if n > 0:
+            counts.append(n)
+    return max(counts) if counts else None
+
+
+def _mission_summary_latest_turn_index(summary: dict | None) -> int | None:
+    if not isinstance(summary, dict):
+        return None
+    values: list[object] = [summary.get("latest_turn_index")]
+    for key in ("preferred_trace_turn", "latest_completed_turn", "active_turn", "stale_active_turn"):
+        turn = summary.get(key)
+        if isinstance(turn, dict):
+            values.append(turn.get("turn_index"))
+            window = turn.get("full_thread_trace_window")
+            if isinstance(window, dict):
+                values.append(window.get("end_turn_index"))
+    indices: list[int] = []
+    for value in values:
+        try:
+            n = int(value or 0)
+        except (TypeError, ValueError):
+            continue
+        if n > 0:
+            indices.append(n)
+    return max(indices) if indices else None
+
+
+def _mission_source_freshness_fact(meta: dict, summary: dict | None, cache_state: str) -> dict:
+    summary = summary or {}
+    cache_state = str(summary.get("cache_state") or cache_state or "unknown")
+    stale_cache = (
+        cache_state in {"stale", "soft_stale", "soft_stale_hit", "recent_stale_deferred"}
+        or cache_state.startswith("soft_stale_")
+        or cache_state.endswith("_deferred")
+    )
+    current_mtime_ns = int(meta.get("mtime_ns") or 0)
+    current_size = int(meta.get("size_bytes") or 0)
+    index_mtime_ns = int(summary.get("cache_source_mtime_ns") or current_mtime_ns)
+    index_size = int(summary.get("cache_source_size_bytes") or current_size)
+    state = "source_newer_than_index" if stale_cache else "current"
+    if meta.get("session_file") and not Path(str(meta.get("session_file"))).exists():
+        state = "source_missing"
+    summary_turn_count = _mission_summary_turn_count_hint(summary)
+    current_turn_count = None if stale_cache else summary_turn_count
+    current_completed_turn_count = None if stale_cache else (summary.get("completed_turn_count") or summary_turn_count)
+    current_latest_turn_index = None if stale_cache else (summary.get("latest_turn_index") or _mission_summary_latest_turn_index(summary))
+    return {
+        "schema_version": "agent_trace_mission_source_freshness_v1",
+        "state": state,
+        "reason": cache_state,
+        "cache_state": cache_state,
+        "current_mtime_ns": current_mtime_ns,
+        "index_mtime_ns": index_mtime_ns,
+        "current_size_bytes": current_size,
+        "index_size_bytes": index_size,
+        "current_turn_count": current_turn_count,
+        "current_completed_turn_count": current_completed_turn_count,
+        "current_latest_turn_index": current_latest_turn_index,
+        "index_turn_count": summary.get("cache_turn_count") or summary_turn_count,
+        "source_last_event_at": summary.get("source_last_event_at") or _summary_last_activity_at(summary),
+        "requires_refresh_before_copy": state in {"source_newer_than_index", "source_size_changed", "source_missing"},
+    }
 
 
 def _write_mission_summary_cache(cache: dict, *, max_entries: int = 200) -> None:
@@ -7177,7 +9623,190 @@ def _latest_clipboard_entry_for(session_id: str) -> dict | None:
     return None
 
 
-def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
+def _mission_index_timestamp_ms(value: object) -> int | None:
+    if isinstance(value, (int, float)):
+        # Desktop metadata can be epoch-ms; tolerate epoch-seconds as well.
+        return int(value if value > 10_000_000_000 else value * 1000)
+    return _iso_timestamp_ms(value)
+
+
+def _mission_index_activity_time(row: dict) -> int:
+    """Sort timestamp for the mission cockpit.
+
+    Active turn recency and finished-turn recency are the primary row order.
+    Goal priority is a tie-breaker only; it must not hide a newer active or
+    finished thread behind an older goal row.
+    """
+    primary_values = [
+        (row.get("active_turn") or {}).get("started_at"),
+        (row.get("latest_completed_turn") or {}).get("completed_at"),
+        row.get("last_activity_at"),
+    ]
+    primary_timestamps = [_mission_index_timestamp_ms(value) for value in primary_values]
+    primary = max((ts for ts in primary_timestamps if ts is not None), default=None)
+    if primary is not None:
+        return primary
+    return _mission_index_timestamp_ms(row.get("mtime_utc")) or 0
+
+
+def _mission_index_row_is_active(row: dict) -> bool:
+    if str(row.get("goal_status") or "").lower() == "active":
+        return True
+    goal = row.get("goal") if isinstance(row.get("goal"), dict) else {}
+    if str(goal.get("status") or "").lower() == "active":
+        return True
+    return _summary_turn_is_active(row.get("active_turn")) or _summary_turn_is_active(row.get("preferred_trace_turn"))
+
+
+def _mission_index_goal_priority(row: dict) -> int:
+    try:
+        return int(row.get("goal_sort_priority") or 0)
+    except Exception:
+        return 0
+
+
+def _mission_index_ordinal(row: dict) -> int:
+    try:
+        return int(row.get("mission_ordinal_key") or 0)
+    except Exception:
+        return 0
+
+
+def _sort_mission_index_rows(rows: list[dict]) -> list[dict]:
+    return sorted(
+        rows,
+        key=lambda r: (
+            1 if _mission_index_row_is_active(r) else 0,
+            _mission_index_activity_time(r),
+            _mission_index_goal_priority(r),
+            _mission_index_ordinal(r),
+        ),
+        reverse=True,
+    )
+
+
+def _codex_goal_session_candidate(thread_id: str) -> dict | None:
+    if not thread_id or not CODEX_SESSIONS_ROOT.is_dir():
+        return None
+    try:
+        matches = sorted(
+            CODEX_SESSIONS_ROOT.glob(f"**/*{thread_id}*.jsonl"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+    except Exception:
+        return None
+    if not matches:
+        return None
+    path = matches[0]
+    try:
+        stat = path.stat()
+    except Exception:
+        return None
+    meta = _peek_codex_session_meta(path)
+    return {
+        "provider": "codex",
+        "session_file": str(path),
+        "session_id": str(meta.get("id") or thread_id),
+        "thread_source": meta.get("thread_source") or "",
+        "forked_from_id": meta.get("forked_from_id") or "",
+        "parent_thread_id": meta.get("parent_thread_id") or "",
+        "agent_nickname": meta.get("agent_nickname") or "",
+        "agent_role": meta.get("agent_role") or "",
+        "mtime_epoch": stat.st_mtime,
+        "mtime_ns": stat.st_mtime_ns,
+        "mtime_utc": _iso_from_epoch(stat.st_mtime),
+        "size_bytes": stat.st_size,
+        "mission_index_forced_goal_thread": True,
+    }
+
+
+def _ensure_active_goal_candidates(candidates: list[dict], goals: dict[str, dict]) -> list[dict]:
+    """Keep active Codex goal threads in the mission list even outside recency."""
+    seen = {
+        str(row.get("session_id") or "")
+        for row in candidates
+        if row.get("provider") == "codex" and row.get("session_id")
+    }
+    forced: list[dict] = []
+    for thread_id, goal in goals.items():
+        if str((goal or {}).get("status") or "").lower() != "active":
+            continue
+        if thread_id in seen:
+            continue
+        candidate = _codex_goal_session_candidate(thread_id)
+        if not candidate:
+            continue
+        forced.append(candidate)
+        seen.add(thread_id)
+    return forced + candidates
+
+
+def _candidate_parent_session_id(candidate: dict) -> str:
+    return str(
+        candidate.get("parent_thread_id")
+        or candidate.get("forked_from_id")
+        or ""
+    ).strip()
+
+
+def _thread_title_for_session(
+    provider: str,
+    session_id: str,
+    *,
+    codex_thread_records: dict[str, dict],
+    title_aliases: dict[str, str],
+    claude_desktop_titles: dict[str, dict],
+) -> str:
+    alias = title_aliases.get(f"{provider}:{session_id}", "")
+    if alias:
+        return str(alias)
+    if provider == "codex":
+        return str((codex_thread_records.get(session_id) or {}).get("thread_name") or "")
+    if provider == "claude_code":
+        return str((claude_desktop_titles.get(session_id) or {}).get("title") or "")
+    return ""
+
+
+def _candidate_thread_relationship_fact(
+    candidate: dict,
+    *,
+    codex_thread_records: dict[str, dict],
+    title_aliases: dict[str, str],
+    claude_desktop_titles: dict[str, dict],
+) -> dict:
+    provider = str(candidate.get("provider") or "")
+    parent_session_id = _candidate_parent_session_id(candidate)
+    thread_source = str(candidate.get("thread_source") or "")
+    if not parent_session_id:
+        return {
+            "schema": "agent_trace_thread_relationship_v1",
+            "kind": "standalone_thread",
+            "thread_source": thread_source or "direct",
+            "parent_session_id": "",
+            "parent_title": "",
+            "selectable_child_trace": False,
+        }
+    child_kind = "codex_child_thread" if provider == "codex" else "child_thread"
+    parent_title = _thread_title_for_session(
+        provider,
+        parent_session_id,
+        codex_thread_records=codex_thread_records,
+        title_aliases=title_aliases,
+        claude_desktop_titles=claude_desktop_titles,
+    )
+    return {
+        "schema": "agent_trace_thread_relationship_v1",
+        "kind": child_kind,
+        "thread_source": thread_source or "child",
+        "parent_session_id": parent_session_id,
+        "parent_thread_id": parent_session_id,
+        "parent_title": parent_title,
+        "selectable_child_trace": True,
+    }
+
+
+def build_mission_index(*, cwd: Path | None = None, limit: int = MISSION_INDEX_DEFAULT_LIMIT) -> dict:
     """Enumerate recent Claude + Codex sessions with title + status + artifact refs.
 
     Lightweight: resolves titles via the title ladder (operator_alias ->
@@ -7209,13 +9838,26 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         "recent_stale_forced": 0,
         "legacy_active_forced": 0,
         "skipped_archived": 0,
+        "collapsed_codex_subagent_children": 0,
+        "indexed_codex_subagent_children": 0,
         "stored": 0,
     }
     cache_dirty = False
     stale_reparse_remaining = MISSION_INDEX_STALE_REPARSE_BUDGET
     rows: list[dict] = []
-    candidates = _enumerate_candidates("auto", cwd or Path.cwd())
-    for c in candidates[:limit]:
+    candidates = _ensure_active_goal_candidates(
+        _enumerate_candidates("auto", cwd or Path.cwd()),
+        codex_thread_goals,
+    )
+    for c in candidates:
+        if len(rows) >= limit:
+            break
+        if c.get("provider") == "codex" and (
+            c.get("thread_source") == "subagent"
+            or c.get("forked_from_id")
+            or c.get("parent_thread_id")
+        ):
+            cache_stats["indexed_codex_subagent_children"] += 1
         title, title_source = _resolve_session_title(
             c["provider"], c["session_id"], Path(c["session_file"]),
             codex_thread_names=codex_thread_names,
@@ -7245,21 +9887,24 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         desktop = (claude_desktop_titles or {}).get(c["session_id"]) or {}
         # Parse session lazily — skip for archived rows (won't render anyway).
         completed_active: dict = {}
+        session_path = Path(c["session_file"])
+        source_meta = _session_file_meta(c["provider"], c["session_id"], session_path, c)
+        source_freshness: dict = {}
         summary_cache_state = "skipped_archived" if desktop.get("is_archived") else "unknown"
         if not desktop.get("is_archived"):
-            session_path = Path(c["session_file"])
-            source_meta = _session_file_meta(c["provider"], c["session_id"], session_path, c)
             cached_summary, cache_state = _mission_summary_cache_lookup(summary_cache, source_meta)
             defer_stale_reparse = False
             if cache_state == "stale" and _mission_source_recently_changed(source_meta):
                 source_size = int(source_meta.get("size_bytes") or 0)
-                if stale_reparse_remaining > 0 and source_size <= MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                if stale_reparse_remaining > 0 and source_size <= MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES:
                     cache_stats["recent_stale_forced"] += 1
+                    if source_size > MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                        cache_stats["recent_stale_oversize_forced"] = cache_stats.get("recent_stale_oversize_forced", 0) + 1
                     stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
                     cache_state = "recent_stale_forced"
                 else:
                     cache_stats["recent_stale_deferred"] = cache_stats.get("recent_stale_deferred", 0) + 1
-                    if source_size > MISSION_INDEX_STALE_REPARSE_MAX_BYTES:
+                    if source_size > MISSION_INDEX_RECENT_STALE_REPARSE_MAX_BYTES:
                         cache_stats["oversize_stale_deferred"] = cache_stats.get("oversize_stale_deferred", 0) + 1
                     defer_stale_reparse = True
             if cache_state == "stale" and (defer_stale_reparse or stale_reparse_remaining <= 0):
@@ -7313,6 +9958,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             summary_cache_state = cache_state
         else:
             cache_stats["skipped_archived"] += 1
+        source_freshness = _mission_source_freshness_fact(source_meta, completed_active, summary_cache_state)
         latest_completed = completed_active.get("latest_completed_turn")
         active_turn = completed_active.get("active_turn")
         stale_active_turn = completed_active.get("stale_active_turn")
@@ -7337,6 +9983,15 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                     title = fallback_title
                     title_source = "trace_prompt_title"
                     break
+        goal = codex_thread_goals.get(c["session_id"]) if c["provider"] == "codex" else None
+        if goal and str(title or "").strip().lower() in _GOAL_TITLE_PLACEHOLDERS:
+            goal_title = _compact_one_line(
+                goal.get("objective_preview") or goal.get("objective") or "",
+                limit=90,
+            )
+            if goal_title:
+                title = goal_title
+                title_source = "codex_goal_objective_preview"
         title_fact = _row_title_authority_fact(
             provider=c["provider"],
             session_id=c["session_id"],
@@ -7350,6 +10005,12 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         )
         short_label = _short_label_for(title, c["provider"], c["session_id"])
         ord_start, ord_end, ord_source = _mission_ordinal(title)
+        thread_relationship = _candidate_thread_relationship_fact(
+            c,
+            codex_thread_records=codex_thread_records,
+            title_aliases=title_aliases,
+            claude_desktop_titles=claude_desktop_titles,
+        )
         # Enrich latest_clip_meta with prompt_sha16 from full row if present
         if last_clip:
             cpt_full = last_clip.get("cli_prompt_trace") or {}
@@ -7358,12 +10019,18 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             if "prompt_char_count" not in last_clip_meta and cpt_full.get("prompt_char_count"):
                 last_clip_meta["prompt_char_count"] = cpt_full["prompt_char_count"]
         artifact_freshness = _classify_artifact_freshness(preferred_trace_turn or latest_completed or stale_active_turn, last_clip_meta)
-        goal = codex_thread_goals.get(c["session_id"]) if c["provider"] == "codex" else None
         goal_priority = _goal_sort_priority(goal)
         rows.append({
             "provider": c["provider"],
             "session_id": c["session_id"],
             "session_file": c["session_file"],
+            "thread_source": c.get("thread_source") or "",
+            "forked_from_id": c.get("forked_from_id") or "",
+            "parent_thread_id": c.get("parent_thread_id") or "",
+            "parent_session_id": thread_relationship.get("parent_session_id") or "",
+            "agent_nickname": c.get("agent_nickname") or "",
+            "agent_role": c.get("agent_role") or "",
+            "thread_relationship": thread_relationship,
             "title": title,
             "display_title": title_fact["display_title"],
             "source_title": title_fact["source_title"],
@@ -7378,6 +10045,11 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "size_bytes": c["size_bytes"],
             "last_activity_at": last_activity_at,
             "completed_turns_hint": desktop.get("completed_turns") or 0,
+            "turn_count_hint": _mission_summary_turn_count_hint(completed_active) or desktop.get("completed_turns") or 0,
+            "completed_turn_count": completed_active.get("completed_turn_count") or _mission_summary_turn_count_hint(completed_active) or 0,
+            "latest_turn_index": completed_active.get("latest_turn_index") or _mission_summary_latest_turn_index(completed_active),
+            "source_last_event_at": completed_active.get("source_last_event_at") or "",
+            "source_freshness": source_freshness,
             "is_archived": bool(desktop.get("is_archived")),
             "model": desktop.get("model") or "",
             "mission_ordinal_start": ord_start,
@@ -7399,6 +10071,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "goal": goal or {},
             "goal_status": (goal or {}).get("status") or "",
             "goal_sort_priority": goal_priority,
+            "goal_fleet_control": _goal_fleet_control(goal, "row_pending_activity_split") if goal else {},
             "trace_summary_cache_state": completed_active.get("cache_state") or summary_cache_state,
             "status": "archived" if desktop.get("is_archived") else "live",
         })
@@ -7410,7 +10083,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         reason = None
         if r.get("is_archived"):
             reason = "archived"
-        elif _has_operator_old_title_prefix(r.get("source_title") or r.get("operator_alias") or r.get("title") or r.get("short_label") or ""):
+        elif r.get("title_marker") == "old_prefix":
             reason = "operator_old_title_marker"
         elif not r.get("title"):
             reason = "no_title_resolved"
@@ -7427,59 +10100,14 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             inactive_rows.append(r)
         else:
             active_rows.append(r)
-    # Default sort: most-recently-finished trace first. Operator wants the latest
-    # completed work surfaced first; mission number is metadata for display, not
-    # the primary order. Ordinal sort remains available via mission_ordinal_key
-    # for an alternate sort mode in the UI.
-    def _sort_key(r: dict) -> tuple:
-        # Prefer latest_completed_turn.completed_at, fall back to active_turn
-        # started_at, then last_activity_at, then mtime_utc.
-        completed_at = ""
-        lct = r.get("latest_completed_turn") or {}
-        if lct.get("completed_at"):
-            completed_at = lct["completed_at"]
-        elif (r.get("active_turn") or {}).get("started_at"):
-            completed_at = (r["active_turn"] or {})["started_at"]
-        last = r.get("last_activity_at") or r.get("mtime_utc") or ""
-        if isinstance(last, (int, float)):
-            try:
-                last = _dt.datetime.fromtimestamp(last / 1000, _dt.timezone.utc).isoformat()
-            except Exception:
-                last = ""
-        # Negative sort: empty strings sort earlier, so flip: rows WITH a
-        # completed_at first (descending), then by last_activity desc.
-        return (
-            0 if completed_at else 1,
-            # Negate via reverse=True at sort call; tuples sort lexically.
-            completed_at,
-            last,
-        )
-    active_rows.sort(key=_sort_key, reverse=True)
-    # Re-sort: above gives most-recent first within "have completed_at" group, but
-    # _sort_key tuple's first element (0 vs 1) needs the WITH-COMPLETED rows to
-    # appear first when sorted descending. After reverse=True they actually fall
-    # last. Fix by separating groups explicitly.
-    def _activity_key(r: dict) -> str:
-        """Normalize last_activity to ISO string (Claude desktop stores epoch-ms ints)."""
-        v = r.get("last_activity_at") or r.get("mtime_utc") or ""
-        if isinstance(v, (int, float)):
-            try:
-                return _dt.datetime.fromtimestamp(v / 1000, _dt.timezone.utc).isoformat()
-            except Exception:
-                return ""
-        return str(v)
-    with_completed = [r for r in active_rows if (r.get("latest_completed_turn") or {}).get("completed_at")]
-    without_completed = [r for r in active_rows if not (r.get("latest_completed_turn") or {}).get("completed_at")]
-    with_completed.sort(
-        key=lambda r: (int(r.get("goal_sort_priority") or 0), str(r["latest_completed_turn"]["completed_at"])),
-        reverse=True,
-    )
-    without_completed.sort(key=lambda r: (int(r.get("goal_sort_priority") or 0), _activity_key(r)), reverse=True)
-    active_rows = with_completed + without_completed
+    _refresh_goal_fields_on_rows(rows, codex_thread_goals)
+    active_rows = _sort_mission_index_rows(active_rows)
+    inactive_rows = _sort_mission_index_rows(inactive_rows)
     mission_goal_count = sum(1 for r in rows if r.get("has_goal"))
     active_mission_goal_count = sum(1 for r in rows if (r.get("goal") or {}).get("status") == "active")
     goal_threads = _goal_thread_roster(codex_thread_goals, rows, codex_thread_records)
     active_goal_thread_count = sum(1 for g in goal_threads if g.get("status") == "active")
+    goal_fleet_state = _goal_fleet_state(goal_threads, goal_authority)
     if cache_dirty:
         _write_mission_summary_cache(summary_cache)
     duration_ms = int((time.perf_counter() - started_perf) * 1000)
@@ -7492,7 +10120,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         "inactive_count": len(inactive_rows),
         "hidden_old_count": sum(1 for r in inactive_rows if r.get("inactive_reason") == "operator_old_title_marker"),
         "ambiguity_window_seconds": SESSION_AMBIGUITY_WINDOW_SECONDS,
-        "sort_mode": "finished_at_desc",
+        "sort_mode": "review_first",
         "perf": {
             "duration_ms": duration_ms,
             "candidate_count": len(candidates),
@@ -7502,6 +10130,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         "title_authority": title_authority,
         "goal_authority": goal_authority,
         "goal_threads": goal_threads,
+        "goal_fleet_state": goal_fleet_state,
         "goal_thread_count": len(goal_threads),
         "active_goal_thread_count": active_goal_thread_count,
         "mission_goal_count": mission_goal_count,
@@ -7596,6 +10225,12 @@ def main() -> int:
     sel.add_argument("--mission-index-goal-roster-status", action="store_true",
                      dest="mission_index_goal_roster_status_mode",
                      help="Emit read-only staleness status for the cached Structurer goal roster versus current Codex goals.")
+    sel.add_argument("--goal-fleet-action-receipt", action="store_true",
+                     dest="goal_fleet_action_receipt_mode",
+                     help="Emit a controller action receipt for the current Codex goal fleet without sending prompts.")
+    sel.add_argument("--type-b-source-excerpt", action="store_true",
+                     dest="type_b_source_excerpt_mode",
+                     help="Print numbered source lines for the Trace Capsule SOURCE_EXCERPTS block. Use before closeout when Type B needs exact file/range/symbol context in the latest response bundle.")
     sel.add_argument("--check", action="store_true", help="Parseability probe; exits 0/1 with JSON status")
 
     ap.add_argument("--format", choices=["compact", "full", "trace-paste", "json", "thread-closeouts"], default="compact",
@@ -7636,10 +10271,49 @@ def main() -> int:
     ap.add_argument("--copy-path", action="store_true", dest="copy_clip_path",
                     help="With --write-structurer-clip: copy the written clip path to the clipboard instead of the receipt JSON")
     ap.add_argument("-o", "--output", help="Write output to file instead of stdout")
+    ap.add_argument("--write-goal-fleet-action-receipt", action="store_true",
+                    dest="write_goal_fleet_action_receipt",
+                    help="With --goal-fleet-action-receipt, also write the canonical action receipt sidecar.")
+    ap.add_argument("--goal-fleet-action-collision-check-ref",
+                    dest="goal_fleet_action_collision_check_ref", default="",
+                    help="Optional Work Ledger or collision-check ref to bind into the action receipt.")
+    ap.add_argument("--goal-fleet-action-workitem-ref", action="append",
+                    dest="goal_fleet_action_workitem_refs", default=[],
+                    help="WorkItem/CAP ref touched by --goal-fleet-action-receipt. May be repeated.")
+    ap.add_argument("--source-path",
+                    help="With --type-b-source-excerpt: repo-relative or absolute file path to include in SOURCE_EXCERPTS.")
+    ap.add_argument("--line-range",
+                    help="With --type-b-source-excerpt: 1-based inclusive line range, for example 10-40.")
+    ap.add_argument("--symbol",
+                    help="With --type-b-source-excerpt: function/class/symbol name to include. Python uses ast; JS/TS-style files use a bounded declaration scan.")
+    ap.add_argument("--full-file", action="store_true",
+                    help="With --type-b-source-excerpt: include the file from line 1, bounded by --excerpt-lines.")
+    ap.add_argument("--excerpt-lines", type=int, default=TRACE_CAPSULE_SOURCE_EXCERPT_LINES,
+                    help=f"With --type-b-source-excerpt: max lines to print. Default: {TRACE_CAPSULE_SOURCE_EXCERPT_LINES}; hard cap: 240.")
 
     args = ap.parse_args()
 
     cwd = Path(args.cwd).resolve() if args.cwd else Path.cwd().resolve()
+
+    if args.type_b_source_excerpt_mode:
+        text, _meta = render_type_b_source_excerpt(
+            cwd=cwd,
+            source_path=args.source_path or "",
+            line_range=args.line_range,
+            symbol=args.symbol,
+            full_file=args.full_file,
+            max_lines=args.excerpt_lines,
+        )
+        if args.output:
+            Path(args.output).write_text(text + ("" if text.endswith("\n") else "\n"), encoding="utf-8")
+            sys.stderr.write(f"wrote {len(text)} chars to {args.output}\n")
+        else:
+            print(text)
+        if args.copy_to_clipboard:
+            clipboard = subprocess.run(["pbcopy"], input=text, text=True)
+            if clipboard.returncode != 0:
+                raise SystemExit("pbcopy failed")
+        return 0
 
     if args.sessions_mode:
         print(list_session_candidates(args.provider, cwd))
@@ -7701,6 +10375,26 @@ def main() -> int:
     if args.mission_index_goal_roster_status_mode:
         status = _goal_roster_status(cwd=cwd)
         body = json.dumps(status, indent=2, ensure_ascii=False)
+        if args.output:
+            Path(args.output).write_text(body + ("" if body.endswith("\n") else "\n"))
+            sys.stderr.write(f"wrote {len(body)} chars to {args.output}\n")
+        else:
+            print(body)
+        return 0
+
+    if args.goal_fleet_action_receipt_mode:
+        receipt = _goal_fleet_action_receipt(
+            cwd=cwd,
+            collision_check_ref=args.goal_fleet_action_collision_check_ref,
+            workitem_refs=args.goal_fleet_action_workitem_refs,
+        )
+        if args.write_goal_fleet_action_receipt:
+            _write_goal_fleet_action_receipt(receipt)
+            sys.stderr.write(
+                "# wrote goal fleet action receipt to "
+                f"{TRACE_STRUCTURER_GOAL_FLEET_ACTION_RECEIPT}\n"
+            )
+        body = json.dumps(receipt, indent=2, ensure_ascii=False)
         if args.output:
             Path(args.output).write_text(body + ("" if body.endswith("\n") else "\n"))
             sys.stderr.write(f"wrote {len(body)} chars to {args.output}\n")

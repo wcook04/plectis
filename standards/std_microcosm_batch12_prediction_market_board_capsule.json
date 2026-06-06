@@ -1,0 +1,202 @@
+{
+  "anti_claim": "Batch 12 prediction-market board validation executes copied macro event join/dedup/aggregate code plus quant mart helper diagnostics over synthetic rows only. It is not live prediction-market truth, provider truth, forecast correctness, calibration, investment advice, provider dispatch, release authority, publication authority, or whole-system correctness.",
+  "authority_boundary": "public_batch12_prediction_and_quant_mart_helper_capsule_not_market_truth_or_advice",
+  "authority_ceiling": {
+    "authority_ceiling": "batch12_prediction_market_and_quant_mart_helper_fixture_only_not_market_truth",
+    "calibration_claim": false,
+    "forecast_correctness": false,
+    "investment_advice": false,
+    "live_prediction_market_truth": false,
+    "private_root_equivalence_claim": false,
+    "provider_dispatch": false,
+    "provider_truth": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_import_policy": {
+    "body_in_receipt": false,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_refs": [
+      "system/lib/quant_presentation_mart.py"
+    ],
+    "source_to_target_relation": "exact_copy"
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "first_wave_required": true,
+  "kind_id": "batch12_prediction_market_board_capsule",
+  "kind_name": "Batch 12 prediction market board capsule",
+  "mechanisms": [
+    "prediction_market_event_join_dedup_aggregate_engine",
+    "provider_drift_multisignal_flag_engine",
+    "missingness_empty_lane_classifier",
+    "delta_since_previous_green",
+    "macro_lifecycle_vintage_enrichment"
+  ],
+  "negative_case_codes": [
+    "BATCH12_PREDICTION_AGGREGATE_DEDUPED",
+    "BATCH12_PREDICTION_DUPLICATE_HIGHER_VOLUME_WINS",
+    "BATCH12_PREDICTION_ORPHAN_NO_IDENTITY_FABRICATION",
+    "BATCH12_QUANT_DELTA_NO_PREVIOUS_GREEN_UNAVAILABLE",
+    "BATCH12_QUANT_MACRO_LIFECYCLE_VINTAGE_STATUS_BOUND",
+    "BATCH12_QUANT_MISSINGNESS_ZERO_ROW_LANE_FLAGGED",
+    "BATCH12_QUANT_PROVIDER_DRIFT_MULTISIGNAL_FLAGS"
+  ],
+  "organ_id": "batch12_prediction_market_board_capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded public fixture inputs and stable negative-case ids",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_batch12_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "raw operator transcripts",
+      "private root paths",
+      "live market or release state",
+      "source body text in receipts"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch12_prediction_market_board_capsule",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch12_prediction_market_board_capsule_result.json",
+    "batch12_prediction_market_board_capsule_board.json",
+    "batch12_prediction_market_board_capsule_validation_receipt.json",
+    "batch12_prediction_market_board_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch12_prediction_market_board_capsule",
+    "used_by_organs": [
+      "batch12_prediction_market_board_capsule"
+    ]
+  },
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "required_negative_cases": [
+    "aggregate_count_and_max_volume_deduped",
+    "delta_no_previous_green_unavailable",
+    "duplicate_lower_volume_retained_higher",
+    "macro_lifecycle_vintage_status_bound",
+    "missingness_zero_row_lane_flagged",
+    "orphan_slug_no_identity_fabrication",
+    "provider_drift_multisignal_flags"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "system/lib/quant_presentation_mart.py"
+  ],
+  "standard_id": "std_microcosm_batch12_prediction_market_board_capsule",
+  "standard_payload": {
+    "anti_purpose": "A copied macro body, fixture validator, or green receipt inflated into live market truth, provider truth, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "failure_modes": [
+      "source module digest drifts without refreshing the exact copy and manifest",
+      "validator accepts missing or malformed required fixture inputs",
+      "validator accepts stable negative-case regressions",
+      "receipts include copied body text, private refs, provider payload bodies, credentials, or live state",
+      "capsule is treated as release, source-mutation, private-root, provider, or whole-system authority"
+    ],
+    "ontology": "A public-safe exact-copy Batch-12 capsule for a bounded non-secret macro mechanism.",
+    "teleology": "Let a cold reader rerun copied prediction-market join/dedup aggregation, quant mart diagnostics, and macro lifecycle vintage enrichment over public fixtures while preserving strict claim ceilings.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch12_prediction_market_board_capsule",
+      "receipt_id": "receipt.microcosm.batch12_prediction_market_board_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require copied macro source modules and source_module_manifest provenance",
+    "verify source-to-target digest equality and required anchors",
+    "execute the public fixture exercise without invoking providers, live accounts, or source mutation",
+    "require stable negative-case ids and error codes",
+    "keep release, publication, provider dispatch, private-root equivalence, source mutation, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts expose refs, hashes, counts, verdicts, and omissions but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_prediction_market_board_capsule run --input fixtures/first_wave/batch12_prediction_market_board_capsule/input --out receipts/first_wave/batch12_prediction_market_board_capsule --acceptance-out receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 7,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_prediction_market_board_capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out /tmp/batch12_prediction_market_board_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch12_prediction_market_board_capsule"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch12_prediction_market_board_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 12 prediction market board capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch12_prediction_market_board_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 12 prediction market board capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch12_prediction_market_board_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch12_prediction_market_board_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch12_prediction_market_board_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch12_prediction_market_board_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch12_prediction_market_board_capsule"
+  ],
+  "anti_claims": [
+    "Batch 12 prediction-market board validation executes copied macro event join/dedup/aggregate code plus quant mart helper diagnostics over synthetic rows only. It is not live prediction-market truth, provider truth, forecast correctness, calibration, investment advice, provider dispatch, release authority, publication authority, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch12_prediction_market_board_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch12_prediction_market_board_capsule",
+    "receipt_id": "receipt.microcosm.batch12_prediction_market_board_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch12_prediction_market_board_capsule_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

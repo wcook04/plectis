@@ -1,0 +1,24 @@
+{
+  "case_id": "unknown_provider_negative",
+  "expected_status": "degraded",
+  "expected_error_ids": [
+    "demo.unknown_provider"
+  ],
+  "files": {
+    "README.md": "fixture root exists\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.unknown_provider",
+        "title": "Unknown provider becomes error row",
+        "provider_type": "imaginary_provider",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "negative"
+        ]
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 from typing import Any
 
@@ -112,12 +113,35 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _has_json_file(path: Path) -> bool:
-    return path.is_dir() and any(path.glob("*.json"))
+    return path.is_dir() and any(_iter_json_payload_files(path))
+
+
+def _iter_json_payload_files(root: Path):
+    try:
+        with os.scandir(root) as entries:
+            for entry in entries:
+                try:
+                    if entry.is_dir(follow_symlinks=False):
+                        yield from _iter_json_payload_files(Path(entry.path))
+                    elif entry.is_file(follow_symlinks=False) and entry.name.endswith(".json"):
+                        yield Path(entry.path)
+                except OSError:
+                    continue
+    except OSError:
+        return
 
 
 def _iter_state_payload_files(state: Path):
-    yield from state.rglob("*.json")
+    yield from _iter_json_payload_files(state)
     yield state / "events.jsonl"
+
+
+def _explanation_ref(explanations: Path, path: Path) -> str:
+    try:
+        rel = path.resolve(strict=False).relative_to(explanations.resolve(strict=False))
+    except ValueError:
+        rel = Path(path.name)
+    return f".microcosm/explanations/{rel.as_posix()}"
 
 
 def _file_contains_any(path: Path, markers: tuple[str, ...]) -> bool:
@@ -192,23 +216,27 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
     unresolved_bindings: list[dict[str, Any]] = []
     missing_standard_bindings: list[str] = []
     unresolved_standard_bindings: list[dict[str, Any]] = []
-    for path in sorted(explanations.glob("*.json")) if explanations.is_dir() else []:
+    explanation_files = (
+        sorted(_iter_json_payload_files(explanations)) if explanations.is_dir() else []
+    )
+    for path in explanation_files:
+        explanation_ref = _explanation_ref(explanations, path)
         payload = read_json_if_exists(path)
         bindings = _rows(payload, "pattern_bindings")
         if not bindings:
-            missing_bindings.append(path.name)
+            missing_bindings.append(explanation_ref)
             continue
         unresolved = [row.get("pattern_id") for row in bindings if row.get("resolved") is not True]
         if unresolved:
             unresolved_bindings.append(
                 {
-                    "explanation_ref": f".microcosm/explanations/{path.name}",
+                    "explanation_ref": explanation_ref,
                     "unresolved_pattern_refs": unresolved,
                 }
             )
         standard_bindings = _rows(payload, "standard_bindings")
         if not standard_bindings:
-            missing_standard_bindings.append(path.name)
+            missing_standard_bindings.append(explanation_ref)
             continue
         unresolved_standards = [
             row.get("standard_id") for row in standard_bindings if row.get("resolved") is not True
@@ -216,7 +244,7 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
         if unresolved_standards:
             unresolved_standard_bindings.append(
                 {
-                    "explanation_ref": f".microcosm/explanations/{path.name}",
+                    "explanation_ref": explanation_ref,
                     "unresolved_standard_refs": unresolved_standards,
                 }
             )

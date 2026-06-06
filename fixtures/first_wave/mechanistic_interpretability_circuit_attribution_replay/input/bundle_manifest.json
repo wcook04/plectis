@@ -1,5 +1,5 @@
 {
-  "body_copied_material_count": 10,
+  "body_copied_material_count": 11,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -63,7 +63,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 10,
+    "body_material_count": 11,
     "body_material_ids": [
       "oracle_attribution_legacy_node_body_import",
       "oracle_attribution_substrate_node_body_import",
@@ -74,7 +74,8 @@
       "mission_transaction_preflight_tool_body_import",
       "agent_execution_trace_tool_body_import",
       "std_agent_execution_trace_standard_body_import",
-      "std_extracted_pattern_route_readiness_standard_body_import"
+      "std_extracted_pattern_route_readiness_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_macro_body_landed",
     "body_text_exported_in_receipts": false,
@@ -96,6 +97,7 @@
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
     "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
     "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
-    "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
+    "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
+    "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/system/lib/strict_json.py"
   ]
 }

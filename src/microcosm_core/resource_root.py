@@ -13,7 +13,27 @@ def _has_public_data(root: Path) -> bool:
 
 
 def installed_microcosm_root() -> Path:
+    for candidate in _installed_microcosm_root_candidates():
+        if _has_public_data(candidate):
+            return candidate
     return Path(sys.prefix) / "share/microcosm-substrate"
+
+
+def _installed_microcosm_root_candidates() -> tuple[Path, ...]:
+    candidates = [Path(sys.prefix) / "share/microcosm-substrate"]
+    module_path = Path(__file__).resolve(strict=False)
+    for parent in module_path.parents:
+        candidates.append(parent / "share/microcosm-substrate")
+
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = candidate.resolve(strict=False).as_posix()
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(candidate)
+    return tuple(deduped)
 
 
 def is_installed_microcosm_root(root: Path) -> bool:

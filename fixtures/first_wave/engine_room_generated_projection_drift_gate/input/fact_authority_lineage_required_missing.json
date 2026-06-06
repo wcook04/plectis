@@ -1,0 +1,45 @@
+{
+  "case_id": "fact_authority_lineage_required_missing",
+  "expected_status": "drift",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"lineage\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "lineage projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text": "lineage projection\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "The owner requires fact authority lineage but omits guard, derivation, and residual fields.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ],
+      "require_fact_authority_lineage": true,
+      "fact_authority_lineage": {
+        "authority_ref": "source/spec.json",
+        "appearance_refs": [
+          "generated/report.md"
+        ],
+        "treatment": "guarded_public_projection"
+      }
+    }
+  ]
+}

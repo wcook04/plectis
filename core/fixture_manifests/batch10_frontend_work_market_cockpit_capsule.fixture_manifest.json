@@ -1,0 +1,7 @@
+{
+  "fixture_id": "first_wave.batch10_frontend_work_market_cockpit_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input",
+  "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json"
+}

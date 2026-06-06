@@ -97,6 +97,110 @@ def _sha256_file(path: Path) -> str:
     return "sha256:" + digest.hexdigest()
 
 
+def _finding_for(result: dict[str, Any], subject_id: str) -> dict[str, Any]:
+    return next(
+        finding for finding in result["findings"] if finding["subject_id"] == subject_id
+    )
+
+
+def _copy_public_fixture_tree(public_root: Path) -> None:
+    repo_root = MICROCOSM_ROOT.parent
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine",
+        public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine",
+    )
+    checks_payload = json.loads((PROOF_FIXTURE_INPUT / "checks.json").read_text(encoding="utf-8"))
+    provider_payload = json.loads(
+        (PROOF_FIXTURE_INPUT / "provider_advisory_payloads.json").read_text(encoding="utf-8")
+    )
+    diagnostic_payload = json.loads(
+        (PROOF_FIXTURE_INPUT / "diagnostic_rows.json").read_text(encoding="utf-8")
+    )
+    refs = {
+        ref
+        for row in checks_payload["checks"]
+        for ref in [*row.get("source_refs", []), *row.get("receipt_anchor_refs", [])]
+        if isinstance(ref, str) and ref
+    }
+    refs.update(
+        ref
+        for row in provider_payload["payloads"]
+        for ref in row.get("premise_refs", [])
+        if isinstance(ref, str) and ref
+    )
+    refs.update(
+        ref
+        for row in diagnostic_payload["diagnostic_rows"]
+        for ref in (row.get("source_ref"), row.get("receipt_ref"))
+        if isinstance(ref, str) and ref
+    )
+    for ref in sorted(refs):
+        ref = ref.split("::", 1)[0]
+        source_path = MICROCOSM_ROOT / ref
+        if not source_path.is_file():
+            source_path = repo_root / ref
+        if not source_path.is_file():
+            continue
+        target_root = public_root if (MICROCOSM_ROOT / ref).is_file() else public_root.parent
+        target_path = target_root / ref
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, target_path)
+
+
+def _copy_public_evidence_bundle_tree(public_root: Path) -> None:
+    repo_root = MICROCOSM_ROOT.parent
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine",
+        public_root / "examples/proof_diagnostic_evidence_spine",
+    )
+    checks_payload = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "checks.json").read_text(encoding="utf-8")
+    )
+    provider_payload = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "provider_advisory_payloads.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    diagnostic_payload = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "diagnostic_rows.json").read_text(encoding="utf-8")
+    )
+    manifest = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    refs = {
+        ref
+        for row in checks_payload["checks"]
+        for ref in [*row.get("source_refs", []), *row.get("receipt_anchor_refs", [])]
+        if isinstance(ref, str) and ref
+    }
+    refs.update(ref for ref in manifest.get("source_refs", []) if isinstance(ref, str) and ref)
+    refs.update(
+        ref
+        for row in provider_payload["payloads"]
+        for ref in row.get("premise_refs", [])
+        if isinstance(ref, str) and ref
+    )
+    refs.update(
+        ref
+        for row in diagnostic_payload["diagnostic_rows"]
+        for ref in (row.get("source_ref"), row.get("receipt_ref"))
+        if isinstance(ref, str) and ref
+    )
+    for ref in sorted(refs):
+        ref = ref.split("::", 1)[0]
+        source_path = MICROCOSM_ROOT / ref
+        if not source_path.is_file():
+            source_path = repo_root / ref
+        if not source_path.is_file():
+            continue
+        target_root = public_root if (MICROCOSM_ROOT / ref).is_file() else public_root.parent
+        target_path = target_root / ref
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, target_path)
+
+
 def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -109,6 +213,10 @@ def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
 
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+    assert result["observed_negative_cases"] == {
+        case_id: sorted(codes)
+        for case_id, codes in EXPECTED_NEGATIVE_CASES.items()
+    }
     assert result["missing_negative_cases"] == []
     assert result["accepted_check_ids"] == [
         "ring2_failure_taxonomy_receipt_anchor",
@@ -134,6 +242,309 @@ def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_proof_diagnostic_evidence_spine_derives_check_verdicts_from_real_evidence() -> None:
+    payload = json.loads((PROOF_FIXTURE_INPUT / "checks.json").read_text(encoding="utf-8"))
+
+    baseline = proof_spine.validate_evidence_receipts(payload, public_root=MICROCOSM_ROOT)
+    assert baseline["accepted_check_ids"] == [
+        "ring2_failure_taxonomy_receipt_anchor",
+        "ring2_graph_update_candidate_anchor",
+    ]
+    assert baseline["rejected_check_ids"] == ["regression_negative_missing_source_digest"]
+    baseline_row = next(
+        row
+        for row in baseline["proof_receipts"]
+        if row["check_id"] == "ring2_failure_taxonomy_receipt_anchor"
+    )
+    assert baseline_row["source_refs_not_backed_by_receipts"] == []
+    assert baseline_row["source_digest_refs_not_backed_by_receipts"] == []
+    assert baseline_row["source_digest_basis_by_ref"][
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    ] == "receipt_anchor"
+
+    bad_digest_payload = json.loads(json.dumps(payload))
+    bad_digest_payload["checks"][0]["expected_result"] = "pass"
+    bad_digest_payload["checks"][0]["source_digest_refs"] = ["sha256:" + "0" * 64]
+    bad_digest = proof_spine.validate_evidence_receipts(
+        bad_digest_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    bad_digest_row = next(
+        row
+        for row in bad_digest["proof_receipts"]
+        if row["check_id"] == "ring2_failure_taxonomy_receipt_anchor"
+    )
+
+    assert "ring2_failure_taxonomy_receipt_anchor" not in bad_digest["accepted_check_ids"]
+    assert "ring2_failure_taxonomy_receipt_anchor" in bad_digest["rejected_check_ids"]
+    assert "expected_result_declared" not in bad_digest_row
+    assert bad_digest_row["legacy_expected_result_label_present"] is True
+    assert bad_digest_row["legacy_expected_result_label_authority"] == (
+        "ignored_non_authoritative_fixture_label"
+    )
+    assert bad_digest_row["semantic_check_status"] == "blocked"
+    assert "source_digest_mismatch" in bad_digest_row["semantic_rejection_reasons"]
+    assert bad_digest_row["evidence_sha256"] != baseline_row["evidence_sha256"]
+    bad_digest_finding = _finding_for(bad_digest, "ring2_failure_taxonomy_receipt_anchor")
+    assert bad_digest_finding["error_code"] == "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED"
+    assert bad_digest_finding["semantic_rejection_reasons"] == [
+        "source_digest_mismatch"
+    ]
+    assert bad_digest_finding["verdict_basis"] == "receipt_source_anchor_recompute"
+
+    missing_anchor_payload = json.loads(json.dumps(payload))
+    missing_anchor_payload["checks"][1]["expected_result"] = "pass"
+    missing_anchor_payload["checks"][1]["receipt_anchor_refs"] = [
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/missing_anchor.json"
+    ]
+    missing_anchor = proof_spine.validate_evidence_receipts(
+        missing_anchor_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    missing_anchor_row = next(
+        row
+        for row in missing_anchor["proof_receipts"]
+        if row["check_id"] == "ring2_graph_update_candidate_anchor"
+    )
+
+    assert "ring2_graph_update_candidate_anchor" not in missing_anchor["accepted_check_ids"]
+    assert "ring2_graph_update_candidate_anchor" in missing_anchor["rejected_check_ids"]
+    assert "expected_result_declared" not in missing_anchor_row
+    assert missing_anchor_row["semantic_check_status"] == "blocked"
+    assert "missing_receipt_anchor_ref" in missing_anchor_row["semantic_rejection_reasons"]
+    missing_anchor_finding = _finding_for(
+        missing_anchor,
+        "ring2_graph_update_candidate_anchor",
+    )
+    assert missing_anchor_finding["semantic_rejection_reasons"] == [
+        "missing_receipt_anchor_ref",
+        "missing_graph_update_anchor",
+    ]
+
+    wrong_receipt_payload = json.loads(json.dumps(payload))
+    wrong_receipt_payload["checks"][0]["expected_result"] = "pass"
+    wrong_receipt_payload["checks"][0]["receipt_anchor_refs"] = [
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+        "formal_evidence_cell_anchor_resolver_result.json"
+    ]
+    wrong_receipt = proof_spine.validate_evidence_receipts(
+        wrong_receipt_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    wrong_receipt_row = next(
+        row
+        for row in wrong_receipt["proof_receipts"]
+        if row["check_id"] == "ring2_failure_taxonomy_receipt_anchor"
+    )
+
+    assert "ring2_failure_taxonomy_receipt_anchor" not in wrong_receipt["accepted_check_ids"]
+    assert "ring2_failure_taxonomy_receipt_anchor" in wrong_receipt["rejected_check_ids"]
+    assert "expected_result_declared" not in wrong_receipt_row
+    assert wrong_receipt_row["semantic_check_status"] == "blocked"
+    assert "missing_failure_mode_ledger" in wrong_receipt_row[
+        "semantic_rejection_reasons"
+    ]
+    wrong_receipt_finding = _finding_for(
+        wrong_receipt,
+        "ring2_failure_taxonomy_receipt_anchor",
+    )
+    assert wrong_receipt_finding["semantic_rejection_reasons"] == [
+        "missing_failure_mode_ledger"
+    ]
+
+    wrong_graph_source_payload = json.loads(json.dumps(payload))
+    wrong_graph_source_payload["checks"][1]["expected_result"] = "pass"
+    wrong_graph_source_payload["checks"][1]["source_refs"] = [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    ]
+    wrong_graph_source_payload["checks"][1]["source_digest_refs"] = [
+        SOURCE_DIGESTS[
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+            "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+        ]
+    ]
+    wrong_graph_source = proof_spine.validate_evidence_receipts(
+        wrong_graph_source_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    wrong_graph_row = next(
+        row
+        for row in wrong_graph_source["proof_receipts"]
+        if row["check_id"] == "ring2_graph_update_candidate_anchor"
+    )
+
+    assert "ring2_graph_update_candidate_anchor" not in wrong_graph_source["accepted_check_ids"]
+    assert "ring2_graph_update_candidate_anchor" in wrong_graph_source["rejected_check_ids"]
+    assert "expected_result_declared" not in wrong_graph_row
+    assert wrong_graph_row["semantic_check_status"] == "blocked"
+    assert "missing_graph_update_candidates" in wrong_graph_row["semantic_rejection_reasons"]
+    assert "missing_graph_update_candidate_ids" in wrong_graph_row["semantic_rejection_reasons"]
+    wrong_graph_finding = _finding_for(
+        wrong_graph_source,
+        "ring2_graph_update_candidate_anchor",
+    )
+    assert wrong_graph_finding["semantic_rejection_reasons"] == [
+        "missing_graph_update_candidate_ids",
+        "missing_graph_update_candidates",
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_ignores_legacy_expected_result_labels() -> None:
+    payload = json.loads((PROOF_FIXTURE_INPUT / "checks.json").read_text(encoding="utf-8"))
+
+    hostile_label_payload = json.loads(json.dumps(payload))
+    hostile_label_payload["checks"][0]["expected_result"] = "fail"
+    hostile_label_payload["checks"][0]["body_material_status"] = "hostile_label_only"
+    hostile_label_payload["checks"][0]["evidence_anchor_status"] = "hostile_label_only"
+    hostile_label_result = proof_spine.validate_evidence_receipts(
+        hostile_label_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    hostile_label_row = next(
+        row
+        for row in hostile_label_result["proof_receipts"]
+        if row["check_id"] == "ring2_failure_taxonomy_receipt_anchor"
+    )
+    baseline_result = proof_spine.validate_evidence_receipts(payload, public_root=MICROCOSM_ROOT)
+    baseline_row = next(
+        row
+        for row in baseline_result["proof_receipts"]
+        if row["check_id"] == "ring2_failure_taxonomy_receipt_anchor"
+    )
+
+    assert "ring2_failure_taxonomy_receipt_anchor" in hostile_label_result["accepted_check_ids"]
+    assert "expected_result_declared" not in hostile_label_row
+    assert "legacy_expected_result_label_value" not in hostile_label_row
+    assert hostile_label_row["legacy_expected_result_label_present"] is True
+    assert hostile_label_row["legacy_expected_result_label_authority"] == (
+        "ignored_non_authoritative_fixture_label"
+    )
+    assert hostile_label_row["verdict_basis"] == "receipt_source_anchor_recompute"
+    assert hostile_label_row["semantic_check_status"] == "pass"
+    assert hostile_label_row["evidence_sha256"] == baseline_row["evidence_sha256"]
+    assert hostile_label_row["body_material_status"] == (
+        "real_ring2_diagnostic_receipt_refs"
+    )
+    assert hostile_label_row["evidence_anchor_status"] == (
+        "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs"
+    )
+    assert hostile_label_row["declared_body_material_status"] == "hostile_label_only"
+    assert hostile_label_row["declared_evidence_anchor_status"] == "hostile_label_only"
+
+    label_only_payload = {
+        "checks": [
+            {
+                "check_id": "legacy_label_only_acceptance",
+                "expected_result": "pass",
+                "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+            }
+        ]
+    }
+    label_only_result = proof_spine.validate_evidence_receipts(
+        label_only_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    label_only_row = label_only_result["proof_receipts"][0]
+
+    assert label_only_result["accepted_check_ids"] == []
+    assert label_only_result["rejected_check_ids"] == ["legacy_label_only_acceptance"]
+    assert [_finding["subject_id"] for _finding in label_only_result["findings"]] == [
+        "legacy_label_only_acceptance"
+    ]
+    assert "expected_result_declared" not in label_only_row
+    assert label_only_row["legacy_expected_result_label_present"] is True
+    assert label_only_row["semantic_check_status"] == "blocked"
+    assert label_only_row["verdict_basis"] == "receipt_source_anchor_recompute"
+    assert set(label_only_row["semantic_rejection_reasons"]) == {
+        "missing_receipt_anchor_ref",
+        "missing_source_digest_ref",
+        "missing_source_ref",
+    }
+
+
+def test_proof_diagnostic_evidence_spine_recomputes_provider_payload_anchors() -> None:
+    payload = json.loads(
+        (PROOF_FIXTURE_INPUT / "provider_advisory_payloads.json").read_text(encoding="utf-8")
+    )
+
+    baseline = proof_spine.validate_provider_payload_policy(
+        payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    assert baseline["advisory_payload_ids"] == ["ring2_failure_taxonomy_advisory_ref"]
+    advisory_row = next(
+        row
+        for row in baseline["payload_rows"]
+        if row["payload_id"] == "ring2_failure_taxonomy_advisory_ref"
+    )
+    assert advisory_row["anchor_status"] == "pass"
+
+    mutated_payload = json.loads(json.dumps(payload))
+    mutated_payload["payloads"][0]["premise_refs"] = [
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+        "evidence_cell_anchor_board.json::missing.evidence.cell"
+    ]
+    mutated = proof_spine.validate_provider_payload_policy(
+        mutated_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    mutated_row = next(
+        row
+        for row in mutated["payload_rows"]
+        if row["payload_id"] == "ring2_failure_taxonomy_advisory_ref"
+    )
+
+    assert mutated["advisory_payload_ids"] == []
+    assert set(mutated["provider_policy_rejection_ids"]) == {
+        "regression_provider_payload_with_forbidden_body_keys",
+        "ring2_failure_taxonomy_advisory_ref",
+    }
+    assert mutated_row["anchor_status"] == "blocked"
+    assert "missing_provider_premise_anchor_marker" in mutated_row[
+        "semantic_rejection_reasons"
+    ]
+    assert "PROVIDER_ADVISORY_ANCHOR_RECOMPUTE_FAILED" in [
+        finding["error_code"] for finding in mutated["findings"]
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_recomputes_diagnostic_row_anchors() -> None:
+    payload = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "diagnostic_rows.json").read_text(encoding="utf-8")
+    )
+
+    baseline = proof_spine.validate_diagnostic_rows(payload, public_root=MICROCOSM_ROOT)
+    assert baseline["status"] == "pass"
+    assert baseline["accepted_diagnostic_row_ids"] == [
+        "ring2_failure_taxonomy_exported_anchor_retained"
+    ]
+
+    mutated_payload = json.loads(json.dumps(payload))
+    mutated_payload["diagnostic_rows"][0]["receipt_ref"] = (
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+        "verifier_trace_repair_board.json::missing_failure_mode"
+    )
+    mutated = proof_spine.validate_diagnostic_rows(
+        mutated_payload,
+        public_root=MICROCOSM_ROOT,
+    )
+    mutated_row = mutated["diagnostic_rows"][0]
+
+    assert mutated["status"] == "blocked"
+    assert mutated["accepted_diagnostic_row_ids"] == []
+    assert mutated["rejected_diagnostic_row_ids"] == [
+        "ring2_failure_taxonomy_exported_anchor_retained"
+    ]
+    assert "missing_diagnostic_receipt_anchor_marker" in mutated_row[
+        "semantic_rejection_reasons"
+    ]
+    assert [finding["error_code"] for finding in mutated["findings"]] == [
+        "DIAGNOSTIC_ROW_ANCHOR_RECOMPUTE_FAILED"
+    ]
 
 
 def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
@@ -162,23 +573,80 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     assert result["copied_macro_body_digest_status"] == "pass"
     assert result["copied_macro_body_missing_target_refs"] == []
     assert result["copied_macro_body_digest_mismatches"] == []
+    assert result["source_body_floor_artifact_count"] == 1
+    assert result["source_body_floor_digest_status"] == "pass"
+    assert result["source_body_floor_missing_paths"] == []
+    assert result["source_body_floor_digest_mismatches"] == []
     assert result["source_target_refs"][-len(PUBLIC_RING2_ARTIFACT_TARGET_REFS) :] == (
         PUBLIC_RING2_ARTIFACT_TARGET_REFS
     )
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["formal_prover_execution_authorized"] is False
-    assert result["receipt_paths"] == [
+    assert len(result["receipt_paths"]) == 1
+    assert result["receipt_paths"][0].endswith(
         "receipts/exported_evidence_bundle_validation_result.json"
-    ]
+    )
+    assert not Path(result["receipt_paths"][0]).is_absolute()
 
     receipt = json.loads((tmp_path / "receipts/exported_evidence_bundle_validation_result.json").read_text(encoding="utf-8"))
     assert receipt["input_mode"] == "exported_evidence_bundle"
-    assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
+    assert all(
+        path.endswith("receipts/exported_evidence_bundle_validation_result.json")
+        for path in receipt["receipt_paths"]
+    )
+    assert all(not Path(path).is_absolute() for path in receipt["receipt_paths"])
     text = json.dumps(receipt, sort_keys=True)
     assert "matched_excerpt" not in text
     assert '"proof_body"' not in text
     assert '"provider_output_body"' not in text
     assert "provider output body" not in text
+
+
+def test_proof_diagnostic_evidence_spine_rejects_nested_provider_payload_laundering(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = (
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+    provider_path = bundle_input / "provider_advisory_payloads.json"
+    payload = json.loads(provider_path.read_text(encoding="utf-8"))
+    hidden_body_value = "NESTED_PROVIDER_PROOF_BODY_SHOULD_NOT_SURFACE"
+    payload["payloads"][0]["expected_negative_case_id"] = (
+        "provider_proof_body_payload_rejected"
+    )
+    payload["payloads"][0]["metadata"] = {
+        "provider_output_body": hidden_body_value,
+    }
+    provider_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    provider_row = result["provider_payload_policy"][0]
+
+    assert result["status"] == "blocked"
+    assert result["advisory_payload_ids"] == []
+    assert result["provider_policy_rejection_ids"] == [
+        "ring2_provider_advisory_receipt_refs"
+    ]
+    assert provider_row["forbidden_keys_detected"] == ["provider_output_body"]
+    assert provider_row["forbidden_key_paths_detected"] == [
+        "metadata.provider_output_body"
+    ]
+    assert result["observed_negative_cases"] == {
+        "provider_proof_body_payload_rejected": [
+            "FORBIDDEN_PROOF_BODY",
+            "PROVIDER_PAYLOAD_NOT_AUTHORITY",
+        ]
+    }
+    receipt_text = (
+        tmp_path / "receipts/exported_evidence_bundle_validation_result.json"
+    ).read_text(encoding="utf-8")
+    assert hidden_body_value not in receipt_text
 
 
 def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
@@ -221,6 +689,410 @@ def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
     }
     assert all(row["digest_status"] == "pass" for row in copied_by_id.values())
     assert all(row["body_copied"] is True for row in copied_by_id.values())
+
+
+def test_proof_diagnostic_evidence_spine_rejects_mutated_real_ring2_source_anchor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = (
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+    checks_path = bundle_input / "checks.json"
+    checks_payload = json.loads(checks_path.read_text(encoding="utf-8"))
+    source_ref = (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    )
+    source_path = proof_spine._resolve_public_ref(public_root, source_ref)
+    assert source_path is not None
+    source_payload = json.loads(source_path.read_text(encoding="utf-8"))
+    source_payload["representative_failures"].append(
+        {
+            "failure_id": "mutated_real_ring2_anchor",
+            "failure_kind": "mutation_probe",
+            "public_status": "test_only_mutation",
+        }
+    )
+    source_path.write_text(json.dumps(source_payload, indent=2, sort_keys=True), encoding="utf-8")
+    checks_payload["checks"][0]["source_digest_refs"] = [_sha256_file(source_path)]
+    checks_path.write_text(json.dumps(checks_payload, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["proof_receipts"][0]
+
+    assert result["status"] == "blocked"
+    assert result["accepted_check_ids"] == []
+    assert result["rejected_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
+    assert "source_digest_mismatch" in row["semantic_rejection_reasons"]
+    finding = _finding_for(result, "ring2_failure_taxonomy_exported_anchor_check")
+    assert finding["error_code"] == "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED"
+    assert finding["semantic_rejection_reasons"] == ["source_digest_mismatch"]
+    assert row["actual_source_digest_mismatches"] == [
+        {
+            "source_ref": source_ref,
+            "expected_sha256": SOURCE_DIGESTS[source_ref],
+            "actual_sha256": _sha256_file(source_path),
+        }
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_removed_failure_taxonomy_semantics(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = (
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+    checks_path = bundle_input / "checks.json"
+    checks_payload = json.loads(checks_path.read_text(encoding="utf-8"))
+    source_ref = (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    )
+    source_path = proof_spine._resolve_public_ref(public_root, source_ref)
+    assert source_path is not None
+    source_payload = json.loads(source_path.read_text(encoding="utf-8"))
+    source_payload["failure_taxonomy"] = {}
+    source_payload.pop("representative_failures", None)
+    source_path.write_text(json.dumps(source_payload, indent=2, sort_keys=True), encoding="utf-8")
+    checks_payload["checks"][0]["source_digest_refs"] = [_sha256_file(source_path)]
+    checks_path.write_text(json.dumps(checks_payload, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["proof_receipts"][0]
+    finding = _finding_for(result, "ring2_failure_taxonomy_exported_anchor_check")
+
+    assert result["status"] == "blocked"
+    assert result["accepted_check_ids"] == []
+    assert result["rejected_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
+    assert row["semantic_floor"]["missing_source_semantics"] == [
+        "failure_taxonomy_report",
+        "failure_taxonomy_representative_failures",
+    ]
+    assert row["semantic_rejection_reasons"] == [
+        "source_digest_mismatch",
+        "missing_failure_taxonomy_report",
+        "missing_failure_taxonomy_representative_failures",
+    ]
+    assert finding["error_code"] == "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED"
+    assert finding["semantic_rejection_reasons"] == row["semantic_rejection_reasons"]
+    assert row["legacy_expected_result_label_present"] is True
+    assert row["legacy_expected_result_label_authority"] == (
+        "ignored_non_authoritative_fixture_label"
+    )
+
+
+def test_proof_diagnostic_evidence_spine_rejects_mutated_real_receipt_anchor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = (
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+    receipt_ref = (
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+        "verifier_trace_repair_board.json"
+    )
+    receipt_path = proof_spine._resolve_public_ref(public_root, receipt_ref)
+    assert receipt_path is not None
+    receipt_payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt_payload["failure_mode_ledger"] = []
+    receipt_path.write_text(
+        json.dumps(receipt_payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["proof_receipts"][0]
+
+    assert result["status"] == "blocked"
+    assert result["accepted_check_ids"] == []
+    assert result["rejected_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
+    assert "missing_failure_mode_ledger" in row["semantic_rejection_reasons"]
+    finding = _finding_for(result, "ring2_failure_taxonomy_exported_anchor_check")
+    assert finding["error_code"] == "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED"
+    assert finding["semantic_rejection_reasons"] == [
+        "missing_failure_mode_ledger"
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_unbacked_real_source_receipt_anchor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = (
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+    source_ref = (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    )
+    receipt_ref = (
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+        "evidence_cell_anchor_board.json"
+    )
+    receipt_path = proof_spine._resolve_public_ref(public_root, receipt_ref)
+    assert receipt_path is not None
+    receipt_payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    receipt_payload["source_refs"] = [
+        ref for ref in receipt_payload["source_refs"] if ref != source_ref
+    ]
+    receipt_payload["source_digests"].pop(source_ref)
+    receipt_path.write_text(
+        json.dumps(receipt_payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["proof_receipts"][0]
+
+    assert result["status"] == "blocked"
+    assert result["accepted_check_ids"] == []
+    assert result["rejected_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
+    assert row["source_refs_not_backed_by_receipts"] == [source_ref]
+    assert row["source_digest_refs_not_backed_by_receipts"] == [source_ref]
+    assert row["source_digest_basis_by_ref"][source_ref] == (
+        "module_floor_unbacked_by_selected_receipts"
+    )
+    finding = _finding_for(result, "ring2_failure_taxonomy_exported_anchor_check")
+    assert finding["error_code"] == "EVIDENCE_RECEIPT_ANCHOR_RECOMPUTE_FAILED"
+    assert finding["semantic_rejection_reasons"] == [
+        "source_digest_not_receipt_backed",
+        "source_ref_not_backed_by_receipt_anchor",
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_tampered_copied_ring2_artifact(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    artifact = PUBLIC_RING2_ARTIFACT_IMPORTS[0]
+    target_path = public_root / artifact["target_ref"]
+    target_path.write_text(
+        target_path.read_text(encoding="utf-8") + "\n{\"tamper\": true}\n",
+        encoding="utf-8",
+    )
+
+    result = run_evidence_bundle(
+        public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle",
+        tmp_path / "receipts",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["copied_macro_body_digest_status"] == "blocked"
+    assert result["copied_macro_body_missing_target_refs"] == []
+    assert result["copied_macro_body_missing_files"] == []
+    assert result["copied_macro_body_digest_mismatches"] == [
+        {
+            "artifact_id": artifact["artifact_id"],
+            "source_ref": artifact["source_ref"],
+            "target_ref": artifact["target_ref"],
+            "expected_sha256": artifact["sha256"],
+            "actual_sha256": _sha256_file(target_path),
+            "source_sha256": SOURCE_DIGESTS[artifact["source_ref"]],
+        }
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_manifest_relabelled_copied_ring2_artifact(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    manifest_path = bundle_input / "bundle_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    artifact = next(
+        row
+        for row in PUBLIC_RING2_ARTIFACT_IMPORTS
+        if row["copy_policy"] == "source_faithful_public_light_edit"
+    )
+    target_path = public_root / artifact["target_ref"]
+    target_payload = json.loads(target_path.read_text(encoding="utf-8"))
+    target_payload["mutation_probe"] = "manifest_relabel_should_not_authorize_artifact"
+    target_path.write_text(
+        json.dumps(target_payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    mutated_sha256 = _sha256_file(target_path)
+    for row in manifest["copied_macro_body_artifacts"]:
+        if row["target_ref"] == artifact["target_ref"]:
+            row["sha256"] = mutated_sha256
+            row["target_sha256"] = mutated_sha256
+            break
+    else:
+        raise AssertionError("expected artifact row in copied_macro_body_artifacts")
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    copied_by_id = {
+        row["artifact_id"]: row for row in result["copied_macro_body_artifacts"]
+    }
+
+    assert result["status"] == "blocked"
+    assert result["copied_macro_body_digest_status"] == "blocked"
+    assert copied_by_id[artifact["artifact_id"]]["manifest_sha256"] == mutated_sha256
+    assert copied_by_id[artifact["artifact_id"]]["sha256"] == artifact["sha256"]
+    assert copied_by_id[artifact["artifact_id"]]["manifest_matches_expected_import"] is False
+    assert result["copied_macro_body_digest_mismatches"] == [
+        {
+            "artifact_id": artifact["artifact_id"],
+            "source_ref": artifact["source_ref"],
+            "target_ref": artifact["target_ref"],
+            "expected_sha256": artifact["sha256"],
+            "actual_sha256": mutated_sha256,
+            "source_sha256": SOURCE_DIGESTS[artifact["source_ref"]],
+        }
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_tampered_source_body_floor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    manifest_path = bundle_input / "source_body_floor/source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    module = manifest["modules"][0]
+    target_path = bundle_input / "source_body_floor" / module["path"]
+    target_path.write_text(
+        target_path.read_text(encoding="utf-8")
+        + "\n# mutation probe: source body floor changed\n",
+        encoding="utf-8",
+    )
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["source_body_floor_artifacts"][0]
+
+    assert result["status"] == "blocked"
+    assert result["source_body_floor_digest_status"] == "blocked"
+    assert row["digest_status"] == "blocked"
+    assert row["actual_sha256"] != row["sha256"]
+    assert result["source_body_floor_digest_mismatches"] == [
+        {
+            "module_id": module["module_id"],
+            "source_ref": module["source_ref"],
+            "target_ref": module["target_ref"],
+            "expected_sha256": module["sha256"],
+            "actual_sha256": row["actual_sha256"],
+            "missing_anchors": [],
+            "line_count": str(row["line_count"]),
+            "byte_count": str(row["byte_count"]),
+        }
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_rejects_manifest_relabelled_source_body_floor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    manifest_path = bundle_input / "source_body_floor/source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    module = manifest["modules"][0]
+    target_path = bundle_input / "source_body_floor" / module["path"]
+    target_path.write_text(
+        target_path.read_text(encoding="utf-8")
+        + "\n# mutation probe: source body manifest relabel\n",
+        encoding="utf-8",
+    )
+    mutated_sha256 = _sha256_file(target_path)
+    module["sha256"] = mutated_sha256
+    module["target_sha256"] = mutated_sha256
+    module["line_count"] = len(target_path.read_text(encoding="utf-8").splitlines())
+    module["target_line_count"] = module["line_count"]
+    module["byte_count"] = len(target_path.read_text(encoding="utf-8").encode("utf-8"))
+    module["target_byte_count"] = module["byte_count"]
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["source_body_floor_artifacts"][0]
+
+    assert result["status"] == "blocked"
+    assert result["source_body_floor_digest_status"] == "blocked"
+    assert row["manifest_sha256"] == mutated_sha256
+    assert row["sha256"] == module["source_sha256"]
+    assert row["manifest_matches_expected_import"] is False
+    assert result["source_body_floor_digest_mismatches"] == [
+        {
+            "module_id": module["module_id"],
+            "source_ref": module["source_ref"],
+            "target_ref": module["target_ref"],
+            "expected_sha256": module["source_sha256"],
+            "actual_sha256": mutated_sha256,
+            "missing_anchors": [],
+            "line_count": str(row["line_count"]),
+            "byte_count": str(row["byte_count"]),
+        }
+    ]
+
+
+def test_proof_diagnostic_evidence_spine_diagnostic_overclaim_moves_bundle_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    _copy_public_evidence_bundle_tree(public_root)
+    bundle_input = public_root / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    diagnostic_path = bundle_input / "diagnostic_rows.json"
+    payload = json.loads(diagnostic_path.read_text(encoding="utf-8"))
+    payload["diagnostic_rows"][0]["claims_runtime_correctness"] = True
+    diagnostic_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+    result = run_evidence_bundle(
+        bundle_input,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    row = result["diagnostic_rows"][0]
+
+    assert result["status"] == "blocked"
+    assert result["accepted_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
+    assert result["rejected_check_ids"] == []
+    assert result["accepted_diagnostic_row_ids"] == []
+    assert result["rejected_diagnostic_row_ids"] == [
+        "ring2_failure_taxonomy_exported_anchor_retained"
+    ]
+    assert row["semantic_rejection_reasons"] == [
+        "diagnostic_row_claims_runtime_correctness"
+    ]
+    assert result["error_codes"] == ["DIAGNOSTIC_ROW_ANCHOR_RECOMPUTE_FAILED"]
 
 
 def test_proof_diagnostic_evidence_spine_card_reuses_fresh_bundle_receipt(
@@ -317,11 +1189,7 @@ def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_body_f
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(
-        MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine",
-        public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine",
-    )
+    _copy_public_fixture_tree(public_root)
 
     result = run(
         public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine/input",
@@ -401,6 +1269,7 @@ def test_proof_diagnostic_evidence_spine_does_not_echo_forbidden_body_values(
         {
             "payload_id": "regression_provider_payload_with_forbidden_body_keys",
             "forbidden_keys": ["ground_truth_proof", "proof_body", "provider_output_body"],
+            "forbidden_key_paths": ["ground_truth_proof", "proof_body", "provider_output_body"],
             "body_in_receipt": False,
             "public_status": "regression_negative_fixture",
         }
@@ -437,11 +1306,7 @@ def test_proof_diagnostic_evidence_spine_receipts_satisfy_macro_field_floor(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(
-        MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine",
-        public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine",
-    )
+    _copy_public_fixture_tree(public_root)
     run(
         public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine/input",
         public_root / "receipts/first_wave/proof_diagnostic_evidence_spine",

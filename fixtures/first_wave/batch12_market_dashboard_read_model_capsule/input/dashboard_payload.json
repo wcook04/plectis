@@ -1,0 +1,91 @@
+{
+  "api_contract": {
+    "contract_version": "fixture_v1"
+  },
+  "drilldown_index": {
+    "source_refs": {
+      "src1": {
+        "arbitrary_file_read_allowed": false,
+        "route_ref": "/api/market/intelligence/drilldown/src1"
+      }
+    },
+    "source_rows": {
+      "src1": [
+        {
+          "source_ref": "fixture-only"
+        }
+      ]
+    }
+  },
+  "finance_research_assurance": {
+    "feed_freshness": {
+      "state": "fresh_green_feed"
+    },
+    "module_coverage": {
+      "silent_omission_count": 0
+    },
+    "no_advice_mode": {
+      "enabled": true,
+      "non_advisory_research_only": true
+    },
+    "oracle_evolve": {
+      "auto_apply_allowed": false,
+      "review_gated": true
+    },
+    "schema_version": "finance_product_assurance_binding_v0",
+    "source_status": "missing"
+  },
+  "graph_slice": {
+    "edges": [
+      {
+        "edge_id": "edge1",
+        "source": "n1",
+        "target": "n2"
+      }
+    ],
+    "nodes": [
+      {
+        "node_id": "n1"
+      },
+      {
+        "node_id": "n2"
+      }
+    ]
+  },
+  "overview": {
+    "safe_use_level": "research_only",
+    "summary": "Fixture summary with no advice language."
+  },
+  "projection_status": {
+    "status": "in_sync"
+  },
+  "schema_version": "market_dashboard_read_model_v0",
+  "situation_detail_index": {
+    "s1": {
+      "counterevidence_edges": [
+        {
+          "edge_id": "cev1"
+        }
+      ],
+      "evidence_edges": [
+        {
+          "edge_id": "ev1"
+        }
+      ],
+      "validation": {
+        "state": "pending_review"
+      }
+    }
+  },
+  "situation_queue": {
+    "items": [
+      {
+        "safe_use_level": "research_only",
+        "situation_id": "s1"
+      }
+    ]
+  },
+  "validation_debt": {
+    "validated_signal_count": 0
+  }
+}

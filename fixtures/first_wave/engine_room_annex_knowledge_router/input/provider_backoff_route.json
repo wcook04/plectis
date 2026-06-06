@@ -1,0 +1,52 @@
+{
+  "case_id": "provider_backoff_route",
+  "problem": "rate limit and back off across multiple LLM providers",
+  "expected_status": "routed",
+  "expected_top_slug": "provider-rate-limit-patterns",
+  "expected_min_score": 80,
+  "catalog": {
+    "annexes": [
+      {
+        "slug": "provider-rate-limit-patterns",
+        "display_name": "Provider Rate Limit Patterns",
+        "description": "Backoff and retry patterns across provider APIs.",
+        "tags": ["providers", "retry", "backoff"],
+        "source_kind": "sanitized_fixture",
+        "routing_summary": {
+          "domains": ["agent-runtime"],
+          "clusters": ["provider-control"],
+          "problem_spaces": ["rate limit backoff across multiple llm providers"],
+          "capabilities": ["retry scheduling", "provider quota fallback"]
+        },
+        "open_first": [
+          {
+            "summary": "Use when provider calls need rate-limit backoff and fallback."
+          }
+        ],
+        "notes": [
+          {
+            "id": "note_provider_backoff",
+            "relevance": 90,
+            "note": "Back off across multiple LLM providers and preserve a retry receipt.",
+            "routing": {
+              "problem_spaces": ["provider rate limit handling"],
+              "capabilities": ["backoff", "retry receipt"]
+            }
+          }
+        ]
+      },
+      {
+        "slug": "finance-forecast-eval",
+        "display_name": "Finance Forecast Evaluation",
+        "description": "Forecast scoring and market outcome evaluation.",
+        "source_kind": "sanitized_fixture",
+        "routing_summary": {
+          "domains": ["finance"],
+          "clusters": ["forecasting"],
+          "problem_spaces": ["forecast error scoring"],
+          "capabilities": ["forecast evaluation"]
+        }
+      }
+    ]
+  }
+}

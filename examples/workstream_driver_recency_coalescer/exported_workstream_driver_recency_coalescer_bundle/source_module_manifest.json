@@ -1,0 +1,39 @@
+{
+  "source_import_class": "copied_non_secret_macro_body",
+  "module_count": 1,
+  "body_copied_material_count": 1,
+  "blocked_source_refs": [],
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "modules": [
+    {
+      "module_id": "workstream_driver_recency_coalescer",
+      "path": "source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+      "source_ref": "system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+      "target_ref": "microcosm-substrate/examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+      "sha256": "897d001a93a9f39540d4c04ee61e24f67082ad2181820f13f71b65b5e50cbdc5",
+      "source_sha256": "897d001a93a9f39540d4c04ee61e24f67082ad2181820f13f71b65b5e50cbdc5",
+      "target_sha256": "897d001a93a9f39540d4c04ee61e24f67082ad2181820f13f71b65b5e50cbdc5",
+      "sha256_match": true,
+      "line_count": 153,
+      "byte_count": 5871,
+      "material_class": "public_macro_frontend_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "function groupByDriver(changes: AttentionRecentChange[]): WorkstreamRow[]",
+        "const driver = key === 'unclassified' ? 'unclassified' : rawDriver;",
+        "existing.latestSummary = change.summary ?? existing.latestSummary;",
+        "// sort by recency desc; unclassified always last",
+        "return bTs.localeCompare(aTs);"
+      ],
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_workstream_driver_recency_coalescer.py::test_workstream_driver_source_module_is_exact_macro_body_import"
+      ]
+    }
+  ]
+}

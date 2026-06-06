@@ -1,0 +1,40 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch8_validator_checker_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch8_validator_checker_capsule/input",
+  "organ_id": "batch8_validator_checker_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "browser_or_hud_live_access_exported": false,
+      "credential_or_account_bound_payload_exported": false,
+      "full_validator_suite_freshness_claim": false,
+      "hosted_public_authorized": false,
+      "model_dispatch": false,
+      "private_root_equivalence_claim": false,
+      "private_runtime_state_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "test_completeness_proof": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 1,
+    "body_material_ids": [
+      "validators_source"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "material_classes": [
+      "public_macro_validator_python_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/... inside the exported Batch8 validator checker bundle for the copied validators.py body; receipts carry refs, hashes, counts, and verdicts only.",
+    "source_manifest_refs": [
+      "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

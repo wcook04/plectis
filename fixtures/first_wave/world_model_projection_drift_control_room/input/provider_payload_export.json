@@ -13,6 +13,23 @@
     "live_repair_authorized": false,
     "source_mutation_authorized": false,
     "automatic_doctrine_promotion_authorized": false,
-    "provider_payload_exported": true
+    "provider_payload_exported": true,
+    "fact_authority": {
+      "authority_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::operator_autonomy_phrase_active_standard_bridge",
+      "appearance_refs": [
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::operator_autonomy_phrase_active_standard_bridge",
+        "receipts/first_wave/standards_registry_validation.json"
+      ],
+      "derivation_path": [
+        "source_ref",
+        "source_signal",
+        "repair_route",
+        "target_ref",
+        "validation_ref"
+      ],
+      "guard_ref": "receipts/first_wave/standards_registry_validation.json",
+      "treatment": "guarded_public_projection",
+      "residual_route": "microcosm standards-control -> public_standard_pressure -> microcosm drift-control"
+    }
   }
 }

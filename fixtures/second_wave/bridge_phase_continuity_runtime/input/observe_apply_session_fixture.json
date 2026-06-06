@@ -80,8 +80,7 @@
       "case_id": "apply_validation_failure_rolls_back_observe_promotion",
       "validation_status": "fail",
       "rollback_required": true,
-      "writes_allowed_after_failure": false,
-      "expected_error_code": "OBSERVE_APPLY_VALIDATION_FAILED"
+      "writes_allowed_after_failure": false
     },
     "projection_import_boundary": {
       "digest_mode": "exact_source_and_target_sha256_from_manifest",

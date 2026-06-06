@@ -10,11 +10,485 @@ from urllib.request import urlopen
 
 import pytest
 
-from microcosm_core import runtime_shell
+from microcosm_core import cli, runtime_shell
 from microcosm_core.runtime_shell import RuntimeShell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _write_minimal_first_screen_cache_state(state_dir: Path) -> None:
+    state_dir.mkdir(parents=True, exist_ok=True)
+    for filename, payload in {
+        "project_manifest.json": '{"project_id": "project"}\n',
+        "architecture.json": '{"status": "pass"}\n',
+        "state_index.json": '{"status": "pass"}\n',
+        "python_lens.json": '{"python_file_count": 1, "ready_route_count": 1}\n',
+        "patterns.json": '{"patterns": []}\n',
+        "work_items.json": '{"work_items": []}\n',
+    }.items():
+        path = state_dir / filename
+        if not path.exists():
+            path.write_text(payload, encoding="utf-8")
+    events_path = state_dir / "events.jsonl"
+    if not events_path.exists():
+        events_path.write_text("", encoding="utf-8")
+    (state_dir / "explanations").mkdir(exist_ok=True)
+    (state_dir / "evidence").mkdir(exist_ok=True)
+
+
+def _raise_is_file_for(
+    monkeypatch: pytest.MonkeyPatch, target: Path, message: str = "metadata unavailable"
+) -> None:
+    original_is_file = Path.is_file
+
+    def guarded_is_file(self: Path) -> bool:
+        if self == target:
+            raise OSError(message)
+        return original_is_file(self)
+
+    monkeypatch.setattr(Path, "is_file", guarded_is_file)
+
+
+def _raise_is_dir_for(
+    monkeypatch: pytest.MonkeyPatch, target: Path, message: str = "metadata unavailable"
+) -> None:
+    original_is_dir = Path.is_dir
+
+    def guarded_is_dir(self: Path) -> bool:
+        if self == target:
+            raise OSError(message)
+        return original_is_dir(self)
+
+    monkeypatch.setattr(Path, "is_dir", guarded_is_dir)
+
+
+def _raise_exists_for(
+    monkeypatch: pytest.MonkeyPatch, target: Path, message: str = "metadata unavailable"
+) -> None:
+    original_exists = Path.exists
+
+    def guarded_exists(self: Path) -> bool:
+        if self == target:
+            raise OSError(message)
+        return original_exists(self)
+
+    monkeypatch.setattr(Path, "exists", guarded_exists)
+
+
+def test_cli_project_evidence_boundary_marks_unreadable_project_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    _raise_exists_for(monkeypatch, project)
+
+    boundary = cli._project_evidence_state_boundary(str(project))
+
+    assert boundary is not None
+    assert boundary["status"] == "missing_project"
+    assert boundary["state_dir_exists"] is False
+    assert boundary["evidence_count"] == 0
+
+
+def test_cli_project_evidence_boundary_marks_unreadable_state_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    state_dir = project / ".microcosm"
+    state_dir.mkdir(parents=True)
+    _raise_is_dir_for(monkeypatch, state_dir)
+
+    boundary = cli._project_evidence_state_boundary(str(project))
+
+    assert boundary is not None
+    assert boundary["status"] == "missing_state"
+    assert boundary["state_dir_exists"] is False
+    assert boundary["evidence_count"] == 0
+
+
+def test_cli_status_card_default_proof_lab_skips_unreadable_receipt_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    out_dir = tmp_path / "proof-lab"
+    receipt_path = out_dir / cli.verifier_lab_kernel.BUNDLE_RESULT_NAME
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text('{"status": "pass"}\n', encoding="utf-8")
+    _raise_is_file_for(monkeypatch, receipt_path)
+    monkeypatch.setattr(cli, "DEFAULT_PROOF_LAB_OUT", str(out_dir))
+    monkeypatch.setattr(
+        cli,
+        "_proof_lab_cached_result",
+        lambda *_args, **_kwargs: pytest.fail(
+            "unreadable receipt metadata should skip cache loading"
+        ),
+    )
+
+    card = cli._status_card_current_default_proof_lab_card(
+        {"cache_status": "stale_cached_receipt"}
+    )
+
+    assert card is None
+
+
+def test_runtime_shell_jsonl_count_treats_unreadable_metadata_as_empty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    events_path = tmp_path / "events.jsonl"
+    events_path.write_text('{"status": "pass"}\n', encoding="utf-8")
+    _raise_is_file_for(monkeypatch, events_path)
+
+    assert runtime_shell._count_jsonl_dict_rows(events_path) == 0
+
+
+def test_project_state_inspection_card_marks_unreadable_ref_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    state_dir = project / ".microcosm"
+    _write_minimal_first_screen_cache_state(state_dir)
+    ref = ".microcosm/work_items.json"
+    unreadable_ref = project / ref
+    _raise_is_file_for(monkeypatch, unreadable_ref)
+
+    card = runtime_shell._project_state_inspection_card(
+        project,
+        first_screen_refs=[ref],
+    )
+
+    assert card["status"] == "missing_state_refs"
+    assert card["state_dir_exists"] is True
+    assert card["missing_first_screen_refs"] == [ref]
+
+
+def test_fast_cached_project_compile_card_handles_unreadable_state_dir_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    state_dir = project / ".microcosm"
+    _write_minimal_first_screen_cache_state(state_dir)
+    _raise_is_dir_for(monkeypatch, state_dir)
+
+    card = runtime_shell._fast_cached_project_compile_card(project)
+
+    assert card["status"] == "missing_cached_state"
+    assert card["cache_status"] == "missing_cache"
+
+
+def test_project_status_overlay_skips_unreadable_state_ref_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    state_dir = project / ".microcosm"
+    _write_minimal_first_screen_cache_state(state_dir)
+    catalog = state_dir / "catalog.json"
+    catalog.write_text('{"catalog": []}\n', encoding="utf-8")
+    (state_dir / "routes.json").write_text(
+        '{"routes": [{"route_id": "readme_onboarding_route"}]}\n',
+        encoding="utf-8",
+    )
+    original_exists = Path.exists
+
+    def guarded_exists(self: Path) -> bool:
+        if self == catalog:
+            raise OSError("metadata unavailable")
+        return original_exists(self)
+
+    monkeypatch.setattr(Path, "exists", guarded_exists)
+
+    overlay = runtime_shell._project_status_overlay(project)
+
+    assert overlay["status"] == "pass"
+    assert ".microcosm/catalog.json" not in overlay["existing_state_refs"]
+    assert ".microcosm/routes.json" in overlay["existing_state_refs"]
+
+
+def test_macro_body_import_floor_treats_unreadable_target_metadata_as_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    target_ref = "src/demo_tool.py"
+    target_path = tmp_path / target_ref
+    target_path.parent.mkdir(parents=True)
+    target_path.write_text("print('demo')\n", encoding="utf-8")
+    protocol_path = tmp_path / runtime_shell.MACRO_PROJECTION_PROTOCOL_REF
+    protocol_path.parent.mkdir(parents=True)
+    protocol_path.write_text(
+        json.dumps(
+            {
+                "copied_material": [
+                    {
+                        "material_id": "demo_tool",
+                        "material_class": "public_macro_tool_body",
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "body_digest": "sha256:expected",
+                        "body_import_verification": {
+                            "verification_status": "verified",
+                            "verification_mode": "exact_source_digest_match",
+                            "target_body_digest": "sha256:expected",
+                        },
+                    }
+                ]
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    _raise_is_file_for(monkeypatch, target_path)
+
+    floor = runtime_shell._macro_projection_body_import_floor(tmp_path)
+
+    assert floor["status"] == "blocked"
+    assert floor["defect_count"] == 1
+    assert floor["defects"] == [
+        {
+            "material_id": "demo_tool",
+            "material_class": "public_macro_tool_body",
+            "target_ref": target_ref,
+            "defect_codes": ["target_missing"],
+            "body_in_receipt": False,
+        }
+    ]
+    assert floor["body_imports"][0]["status"] == "blocked"
+    assert floor["body_imports"][0]["target_digest_matches"] is False
+
+
+def test_source_module_body_rows_treat_unreadable_examples_root_as_empty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    examples_root = tmp_path / "examples"
+    examples_root.mkdir()
+    _raise_is_dir_for(monkeypatch, examples_root)
+
+    rows = runtime_shell._source_module_manifest_body_rows(
+        tmp_path,
+        existing_target_refs=set(),
+    )
+
+    assert rows == []
+
+
+def test_proof_lab_input_files_treats_unreadable_input_metadata_as_empty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_ref = tmp_path / runtime_shell.PROOF_LAB_BUNDLE_REF
+    input_ref.parent.mkdir(parents=True)
+    input_ref.write_text("fixture\n", encoding="utf-8")
+    _raise_exists_for(monkeypatch, input_ref)
+
+    assert runtime_shell._proof_lab_input_files(tmp_path) == []
+
+
+def test_verifier_lab_execution_spine_lens_falls_back_when_primary_receipt_metadata_unreadable(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    primary = tmp_path / runtime_shell.VERIFIER_EXECUTION_RECEIPT_REF
+    fallback = tmp_path / runtime_shell.VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF
+    primary.parent.mkdir(parents=True)
+    fallback.parent.mkdir(parents=True)
+    fallback.write_text(
+        json.dumps(
+            {
+                "schema_version": "verifier_lab_execution_spine_validation_v1",
+                "status": "blocked",
+                "real_runtime_receipt": True,
+                "authority_counters": {},
+                "secret_exclusion_scan": {"blocking_hit_count": 0},
+                "tool_versions": {},
+                "lake_project_build": {},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    _raise_is_file_for(monkeypatch, primary)
+    monkeypatch.setattr(
+        runtime_shell.verifier_lab_execution_spine,
+        "run_execution_bundle",
+        lambda *_args, **_kwargs: pytest.fail(
+            "fallback receipt should avoid regenerating the execution bundle"
+        ),
+    )
+
+    lens = RuntimeShell(tmp_path).verifier_lab_execution_spine_lens()
+
+    assert (
+        lens["source_receipt_ref"]
+        == runtime_shell.VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF
+    )
+    assert lens["status"] == "blocked"
+
+
+def test_inspect_evidence_treats_unreadable_receipt_metadata_as_not_found(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    receipt_ref = "receipts/demo.json"
+    receipt_path = tmp_path / receipt_ref
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text('{"status": "pass"}\n', encoding="utf-8")
+    _raise_is_file_for(monkeypatch, receipt_path)
+
+    card = RuntimeShell(tmp_path).inspect_evidence(receipt_ref)
+
+    assert card["status"] == "not_found"
+    assert card["receipt_ref"] == receipt_ref
+
+
+def test_cached_runtime_demo_result_treats_unreadable_cache_metadata_as_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    result_path = (
+        shell.runtime_receipt_dir / "demo_project" / "demo_project_result.json"
+    )
+    result_path.parent.mkdir(parents=True)
+    result_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "microcosm_runtime_demo_result_v1",
+                "project_id": "demo_project",
+                "events": [],
+                "evidence_refs": [],
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    _raise_is_file_for(monkeypatch, result_path)
+
+    assert shell._cached_runtime_demo_result("demo") is None
+
+
+def test_tour_card_state_write_result_handles_unreadable_state_dir_metadata(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = tmp_path / "project"
+    state_dir = project / ".microcosm"
+    state_dir.mkdir(parents=True)
+
+    monkeypatch.setattr(
+        runtime_shell,
+        "_fast_cached_project_compile_card",
+        lambda _project: {
+            "status": "pass",
+            "cache_status": "fresh_cached_state",
+            "cache_source_ref": ".microcosm/state_index.json",
+            "headline": "cached",
+            "selected_route_id": "readme_onboarding_route",
+            "route_count": 1,
+            "file_count": 1,
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_proof_lab_first_screen_card",
+        lambda _root: {
+            "status": "pass",
+            "cache_status": "fresh_cached_receipt",
+            "cache_freshness": {"status": "fresh"},
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_macro_projection_body_import_floor_card",
+        lambda _root: {"status": "pass", "source_body_import_lens": {}},
+    )
+    monkeypatch.setattr(
+        RuntimeShell,
+        "workingness_card",
+        lambda _self: {
+            "status": "pass",
+            "card_status": "clear",
+            "command": "microcosm workingness --card",
+            "surface_counts": {},
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_cold_reader_first_screen_card",
+        lambda **_kwargs: {
+            "status": "pass",
+            "primary_command": "microcosm tour --card <project>",
+            "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
+            "selected_route_id": "readme_onboarding_route",
+            "minimal_command_path": [],
+            "generated_state": {
+                "state_dir": ".microcosm",
+                "refs": [".microcosm/routes.json"],
+                "source_files_mutated": False,
+            },
+            "behavior_surfaces": {
+                "route_state_ref": ".microcosm/routes.json",
+                "observatory_bounded_validation_command": "microcosm serve <project>",
+            },
+            "route_explanation": {"endpoint": "/project/explain/readme_onboarding_route"},
+            "proof_surface": {"route_id": "readme_onboarding_route"},
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell.first_screen_composition,
+        "first_screen_composition_card",
+        lambda *_args, **_kwargs: {"status": "pass"},
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_compact_first_contact_surface_refs",
+        lambda _card: {
+            "required_surface_ids": ["route"],
+            "surface_count": 1,
+            "surfaces": {"route": {"state_ref": ".microcosm/routes.json"}},
+            "safe_to_show": {"source_files_mutated": False},
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_project_state_inspection_card",
+        lambda *_args, **_kwargs: {
+            "status": "pass",
+            "state_dir": ".microcosm",
+            "state_dir_exists": True,
+            "state_file_count": 1,
+            "state_ref_count": 1,
+            "inspect_command": "find <project>/.microcosm -maxdepth 2 -type f | sort",
+            "route_state_json_check_command": (
+                "python3 -m json.tool <project>/.microcosm/routes.json"
+            ),
+        },
+    )
+    monkeypatch.setattr(runtime_shell, "_runtime_receipt_write_persists", lambda _path: False)
+    monkeypatch.setattr(
+        runtime_shell,
+        "_tracked_receipt_refresh_requires_env",
+        lambda _path: False,
+    )
+    monkeypatch.setattr(runtime_shell, "_tracked_receipt_refresh_env", lambda _path: None)
+    original_is_dir = Path.is_dir
+
+    def guarded_is_dir(self: Path) -> bool:
+        if self == state_dir:
+            raise OSError("metadata unavailable")
+        return original_is_dir(self)
+
+    monkeypatch.setattr(Path, "is_dir", guarded_is_dir)
+
+    card = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
+
+    assert card["state_write_result"]["state_dir_exists"] is False
 
 
 def _accepted_registry_runner_refs() -> dict[str, str]:
@@ -143,6 +617,7 @@ def test_fast_cached_project_compile_card_streams_evidence_count_without_glob(
     state_dir = project / ".microcosm"
     evidence_dir = state_dir / "evidence"
     (evidence_dir / "nested").mkdir(parents=True)
+    _write_minimal_first_screen_cache_state(state_dir)
     (state_dir / "catalog.json").write_text(
         '{"file_count": 1, "role_counts": {"readme": 1}}\n',
         encoding="utf-8",
@@ -261,6 +736,7 @@ def test_fast_cached_project_compile_card_streams_event_count_without_rows_list(
     project = tmp_path / "project"
     state_dir = project / ".microcosm"
     state_dir.mkdir(parents=True)
+    _write_minimal_first_screen_cache_state(state_dir)
     (state_dir / "catalog.json").write_text(
         '{"file_count": 1, "role_counts": {"readme": 1}}\n',
         encoding="utf-8",
@@ -522,6 +998,29 @@ def test_runtime_shell_serve_project_evidence_endpoint_accepts_query_limit(
     assert default_payload["limit"] == runtime_shell.DEFAULT_EVIDENCE_LIST_LIMIT
     assert limited_payload["limit"] == 3
     assert observed_limits == [runtime_shell.DEFAULT_EVIDENCE_LIST_LIMIT, 3]
+
+
+def test_runtime_shell_serve_uses_tight_shutdown_poll_interval(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    monkeypatch.setattr(
+        shell,
+        "authority",
+        lambda persist_receipts=False: {"status": "pass"},
+    )
+
+    server = shell.serve("127.0.0.1", 0)
+    try:
+        assert server.serve_forever.__func__.__defaults__ == (
+            runtime_shell.RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
+        )
+        assert runtime_shell.RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL <= 0.05
+        assert getattr(server, "daemon_threads") is True
+        assert getattr(server, "block_on_close") is False
+    finally:
+        server.server_close()
 
 
 def test_runtime_shell_serve_status_endpoint_reuses_project_status_path(
@@ -793,6 +1292,103 @@ def test_runtime_shell_serve_project_observatory_reuses_cached_payloads(
     assert observatory_call["tour_payload_mode"] == "card"
     assert observatory_call["tour_payload"] is served_tour_payload
     assert observatory_call["status_payload"] is served_status_payload
+
+
+def test_project_observatory_reuses_precomputed_lenses_for_bridge(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    call_counts: dict[str, int] = {}
+
+    def counted_payload(name: str, payload: dict[str, object]):
+        def read_model(*_args: object, **_kwargs: object) -> dict[str, object]:
+            call_counts[name] = call_counts.get(name, 0) + 1
+            return {"status": "pass", **payload}
+
+        return read_model
+
+    shared_lens_payloads: dict[str, dict[str, object]] = {
+        "intake": {
+            "cell_status": [],
+            "runtime_bridge_evidence_refs": ["intake_ref.json"],
+            "projection_status_counts": {},
+            "open_actionable_cell_count": 0,
+            "landed_cell_count": 0,
+            "consumed_cell_count": 0,
+        },
+        "reveal": {
+            "evidence_ref": "reveal_ref.json",
+            "time_budget_minutes": 10,
+            "step_count": 1,
+            "evidence_ref_count": 1,
+        },
+        "market_boundary": {"market_boundary_lens_ref": "market_ref.json"},
+        "trace_lens": {"trace_lens_ref": "trace_ref.json"},
+        "repair_loop": {"repair_loop_ref": "repair_ref.json"},
+        "evidence_cells": {"evidence_cell_lens_ref": "evidence_ref.json"},
+        "proof_loop_depth": {"proof_loop_depth_ref": "proof_loop_ref.json"},
+        "landing_replay": {"landing_replay_ref": "landing_ref.json"},
+        "view_quality": {"view_quality_lens_ref": "view_quality_ref.json"},
+        "projection_safety": {"projection_safety_lens_ref": "safety_ref.json"},
+        "projection_drift": {"projection_drift_lens_ref": "drift_ref.json"},
+        "route_cleanup": {"route_cleanup_lens_ref": "cleanup_ref.json"},
+        "projection_import_map": {
+            "projection_import_map_ref": "import_map_ref.json"
+        },
+        "import_projector": {"import_projector_ref": "projector_ref.json"},
+        "option_surface_lens": {"option_surface_lens_ref": "option_ref.json"},
+        "stripping_guard": {"stripping_guard_ref": "guard_ref.json"},
+        "standards_control": {"standards_control_ref": "standards_ref.json"},
+        "hook_coverage": {
+            "hook_intervention_coverage_lens_ref": "hook_ref.json"
+        },
+        "replay_gauntlet": {"replay_gauntlet_lens_ref": "replay_ref.json"},
+        "benchmark_lab": {"benchmark_lab_ref": "benchmark_ref.json"},
+        "legibility_scorecard": {
+            "legibility_scorecard_ref": "legibility_ref.json"
+        },
+    }
+    for method_name, payload in shared_lens_payloads.items():
+        monkeypatch.setattr(
+            shell,
+            method_name,
+            counted_payload(method_name, payload),
+        )
+    monkeypatch.setattr(
+        shell,
+        "prediction_lens",
+        counted_payload("prediction_lens", {"prediction_lens_ref": "prediction.json"}),
+    )
+    monkeypatch.setattr(
+        shell,
+        "corpus_lens",
+        counted_payload("corpus_lens", {"corpus_lens_ref": "corpus.json"}),
+    )
+    monkeypatch.setattr(
+        runtime_shell.architecture_kernel,
+        "load_kernel_manifest",
+        lambda _root: {"primitives": []},
+    )
+    monkeypatch.setattr(
+        runtime_shell.architecture_kernel,
+        "load_standard_pressure_surface",
+        lambda _root: {},
+    )
+
+    payload = shell.project_observatory(
+        project=None,
+        persist_receipts=False,
+        tour_payload={"status": "pass", "front_door_status": {"status": "pass"}},
+        status_payload={"status": "pass", "status_card": {"status": "pass"}},
+    )
+
+    assert payload["runtime_bridge"]["status"] == "pass"
+    assert payload["runtime_bridge"]["reveal_summary"]["status"] == "pass"
+    for method_name in shared_lens_payloads:
+        assert call_counts[method_name] == 1
+    assert call_counts["prediction_lens"] == 1
+    assert call_counts["corpus_lens"] == 1
 
 
 def test_runtime_shell_serve_demo_run_uses_served_project_and_clears_cache(
@@ -1641,6 +2237,8 @@ def test_project_observatory_bounds_project_evidence_preview(
         return {"status": "pass"}
 
     for method_name in [
+        "intake",
+        "reveal",
         "observatory_intake_bridge",
         "prediction_lens",
         "market_boundary",
@@ -2071,6 +2669,179 @@ def test_runtime_status_reuses_full_status_inputs_for_embedded_card(
         "workingness_map": 1,
         "project_status_overlay": 1,
     }
+
+
+def test_runtime_shell_reuses_body_import_floor_within_instance(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    call_count = 0
+    body_import_floor = {
+        "status": "pass",
+        "public_safe_body_material_count": 1,
+        "direct_source_module_manifest_count": 0,
+        "direct_source_module_manifest_material_count": 0,
+    }
+
+    def counted_body_import_floor(_root: Path) -> dict[str, object]:
+        nonlocal call_count
+        call_count += 1
+        return dict(body_import_floor)
+
+    monkeypatch.setattr(
+        runtime_shell,
+        "_cached_macro_projection_body_import_floor",
+        lambda _root: {},
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_macro_projection_body_import_floor",
+        counted_body_import_floor,
+    )
+
+    first_card = shell._macro_projection_body_import_floor_card()
+    first_card["status"] = "mutated_after_return"
+    second_card = shell._macro_projection_body_import_floor_card()
+    live_floor = shell._macro_projection_body_import_floor()
+
+    assert call_count == 1
+    assert second_card["status"] == "pass"
+    assert live_floor["status"] == "pass"
+
+
+def test_runtime_shell_full_tour_suppresses_nested_receipt_writes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    shell = RuntimeShell(tmp_path)
+    project = tmp_path / "project"
+    project.mkdir()
+    write_paths: list[Path] = []
+
+    def counted_atomic_write(path: Path, payload: dict[str, object]) -> None:
+        write_paths.append(path)
+
+    def nested_payload(**extra: object) -> dict[str, object]:
+        runtime_shell.write_json_atomic(
+            tmp_path / "nested_lens.json",
+            {"status": "pass"},
+        )
+        return {"status": "pass", **extra}
+
+    monkeypatch.setattr(runtime_shell, "_write_json_atomic", counted_atomic_write)
+    monkeypatch.setattr(
+        runtime_shell.project_substrate,
+        "compile_project",
+        lambda *_args, **_kwargs: {
+            "headline": "repo -> .microcosm",
+            "file_count": 1,
+            "passing_pattern_count": 1,
+            "route_count": 1,
+            "selected_route_id": "readme_onboarding_route",
+            "work_id": "work_0001",
+            "event_count": 1,
+            "evidence_count": 1,
+            "source_files_mutated": False,
+            "available_project_route_ids": ["readme_onboarding_route"],
+        },
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_proof_lab_first_screen_card",
+        lambda _root: nested_payload(
+            route_component_count=9,
+            route_id="formal_prover_context_strategy_gate",
+            lean_lake_return_code=0,
+            component_metrics={},
+        ),
+    )
+    monkeypatch.setattr(
+        shell,
+        "_macro_projection_body_import_floor",
+        lambda: nested_payload(
+            public_safe_body_material_count=1,
+            direct_source_module_manifest_count=0,
+            direct_source_module_manifest_material_count=0,
+            public_safe_body_material_counts_by_class={},
+            verified_source_module_family_count=1,
+        ),
+    )
+    monkeypatch.setattr(
+        shell,
+        "authority",
+        lambda persist_receipts=True: nested_payload(
+            surface_counts={"surface_authority_count": 1}
+        ),
+    )
+    monkeypatch.setattr(
+        shell,
+        "workingness_map",
+        lambda *, persist_receipt=False: nested_payload(
+            mapped_organ_count=1,
+            missing_standard_count=0,
+            missing_failure_modes_count=0,
+        ),
+    )
+    monkeypatch.setattr(
+        shell,
+        "reveal",
+        lambda *, persist_receipt=True: nested_payload(step_count=0),
+    )
+    method_payloads = {
+        "spine": {"surface_counts": {"organ_count": 1}},
+        "prediction_lens": {"mechanics": []},
+        "market_boundary": {"boundary_summary": {"row_count": 0, "negative_case_count": 0}},
+        "corpus_lens": {"corpus_summary": {"corpus_count": 0}, "consumer_gate": {}},
+        "trace_lens": {"trace_rows": [], "negative_case_ids": []},
+        "repair_loop": {"loop_stages": [], "transition_rows": [], "negative_case_ids": []},
+        "evidence_cells": {"evidence_cells": [], "negative_case_ids": []},
+        "verifier_lab_execution_spine_lens": {"execution_summary": {}},
+        "proof_loop_depth": {
+            "proof_loop_summary": {"gate_count": 0, "negative_case_count": 0}
+        },
+        "landing_replay": {"lane_decision_table": [], "negative_case_ids": []},
+        "view_quality": {"action_rows": [], "hot_action_rollup": []},
+        "projection_safety": {"projection_rows": []},
+        "projection_drift": {"drift_summary": {"row_count": 0, "repair_route_count": 0}},
+        "spatial_simulation": {},
+        "circuit_attribution": {},
+        "route_cleanup": {"cleanup_summary": {"row_count": 0, "negative_case_count": 0}},
+        "projection_import_map": {"map_summary": {"row_count": 0}, "import_stages": []},
+        "import_projector": {"projector_summary": {"row_count": 0, "stage_count": 0}},
+        "option_surface_lens": {
+            "option_surface_summary": {"row_count": 0, "stage_count": 0}
+        },
+        "stripping_guard": {
+            "guard_summary": {"guard_row_count": 0, "negative_case_count": 0}
+        },
+        "standards_control": {
+            "standards_summary": {
+                "standards_control_row_count": 0,
+                "negative_case_count": 0,
+            }
+        },
+        "hook_coverage": {"intervention_rows": [], "missing_authority_case_ids": []},
+        "replay_gauntlet": {
+            "coverage_summary": {"episode_count": 0, "blocked_episode_count": 0}
+        },
+        "benchmark_lab": {"scorecard": {"task_count": 0, "oracle_patch_count": 0}},
+        "legibility_scorecard": {
+            "scorecard": {"checkpoint_count": 0, "reader_question_count": 0}
+        },
+        "intake": {"projection_cell_count": 0},
+    }
+    for method_name, payload in method_payloads.items():
+        monkeypatch.setattr(
+            shell,
+            method_name,
+            lambda payload=payload: nested_payload(**payload),
+        )
+
+    payload = shell.tour(project)
+
+    assert payload["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert write_paths == [tmp_path / "receipts/runtime_shell/public_ten_minute_tour.json"]
 
 
 def test_runtime_shell_serve_evidence_endpoint_rejects_invalid_limit(

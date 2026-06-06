@@ -837,7 +837,7 @@ def test_stamp_active_session_creates_transport_when_missing(tmp_path: Path) -> 
         session_id="sess_fresh",
         transcript_path="/tmp/sessions/sess_fresh.jsonl",
         event="session-start",
-        cwd="/Users/me/repo",
+        cwd="/Users/example/repo",
         path=transport_path,
     )
     assert rec is not None
@@ -848,7 +848,7 @@ def test_stamp_active_session_creates_transport_when_missing(tmp_path: Path) -> 
     active = on_disk["extras"]["active_session"]
     assert active["session_id"] == "sess_fresh"
     assert active["transcript_path"] == "/tmp/sessions/sess_fresh.jsonl"
-    assert active["cwd"] == "/Users/me/repo"
+    assert active["cwd"] == "/Users/example/repo"
     assert active["last_event"] == "session-start"
     assert "last_seen_at" in active
     assert active["first_seen_at"] == active["last_seen_at"]

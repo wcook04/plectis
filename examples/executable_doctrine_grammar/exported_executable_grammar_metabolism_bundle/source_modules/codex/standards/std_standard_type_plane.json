@@ -642,9 +642,9 @@
       "currentness_policy": "Drift-sensitive: views are derived from events.jsonl plus ledger.json and must be rebuilt after every apply. Re-rank without an appended rank_history justification breaks the audit chain and is rejected at validation.",
       "validation_probe": [
         "./repo-python kernel.py --option-surface task_ledger --band card --ids <cap_id>",
-        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings"
       ],
-      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...} --rebuild; never hand-edit ledger.json, events.jsonl, or generated views.",
+      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...}; append authority first. Add --rebuild only when projection/card visibility is required and uncontended; otherwise settle with drain-deferred-rebuilds or generated_state_drainer for task_ledger_projection. Never hand-edit ledger.json, events.jsonl, or generated views.",
       "annex_adaptation_policy": "Annex pattern transfer may motivate a WorkItem but the cap row must carry its own evidence_refs and route through quick-capture; annex provenance lives in tags or notes, not as authority.",
       "projection_refs": [
         "state/task_ledger/ledger.json",
@@ -671,12 +671,12 @@
       "read_contract": "Use the task_ledger option surface, then render the selected cap through the renderer passport so state, dependencies, receipts, blockers, and next safe mutation are explicit.",
       "option_surface_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
       "atlas_projection_policy": "System Atlas may project WorkItem entities; task_ledger_caps is the renderer profile for cap cards, not a separate authority plane.",
-      "currentness_policy": "Cap cards are fresh only when task_ledger_apply.py validate and rebuilt views agree with events.jsonl.",
+      "currentness_policy": "Cap cards are fresh only when task_ledger_apply.py validate --allow-warnings and rebuilt views agree with events.jsonl.",
       "validation_probe": [
         "./repo-python kernel.py --option-surface task_ledger --band card --ids <cap_id>",
-        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings"
       ],
-      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...} --rebuild; never hand-edit generated Task Ledger projections.",
+      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...}; append authority first. Add --rebuild only when projection/card visibility is required and uncontended; otherwise settle with drain-deferred-rebuilds or generated_state_drainer for task_ledger_projection. Never hand-edit generated Task Ledger projections.",
       "annex_adaptation_policy": "Annex-derived work may become a cap only through Task Ledger capture with evidence refs and tags; renderer cards do not import annex authority directly.",
       "projection_refs": [
         "state/task_ledger/ledger.json",
@@ -1033,11 +1033,12 @@
         "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
         "tools/meta/dissemination/render_public_projection.py",
+        "self-indexing-cognitive-substrate/standards_wiki/index.html",
+        "projection_receipt.json::renderer_slices[standards_as_executable_wiki]",
+        "docs/dissemination/public_projection_lockfile_v0.json::renderer_slices[standards_as_executable_wiki]",
         "system/lib/kernel/commands/generated_artifact_surfaces.py"
       ],
-      "known_gaps": [
-        "The public standards-as-wiki export still needs a receipt-backed renderer slice before it should be published as a canonical demo."
-      ]
+      "known_gaps": []
     },
     {
       "type_id": "derived_facts",

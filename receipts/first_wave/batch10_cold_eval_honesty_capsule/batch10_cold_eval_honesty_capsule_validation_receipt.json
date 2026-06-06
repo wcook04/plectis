@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 10 Cold Eval Honesty imports and runs the real idea_microcosm cold_eval.py route-quality simulator over public fixtures, then audits the scorecard shape and claim ceiling. It is not a live agent benchmark, not navigation truth, not public release approval, and not proof that idea-first routing wins outside this deterministic fixture.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch10_cold_eval_honesty_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch10_cold_eval_honesty_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch10_cold_eval_honesty_capsule"
+}

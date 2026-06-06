@@ -29,7 +29,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 17,
+    "scanned_path_count": 18,
     "status": "pass"
   },
   "public_contract": {
@@ -161,12 +161,12 @@
         "recipe_id": "skill_32kb"
       },
       {
-        "approximate_tokens": 4180,
+        "approximate_tokens": 4830,
         "body_redacted": true,
         "byte_budget": 32768,
         "deliverable_type": "failure_classification",
         "graph_role": "failure_repair_context",
-        "included_byte_count": 16720,
+        "included_byte_count": 19320,
         "included_section_ids": [
           "statement",
           "diagnostic_failure_class",
@@ -181,7 +181,7 @@
           },
           {
             "body_redacted": true,
-            "declared_byte_size": 2200,
+            "declared_byte_size": 4800,
             "section_id": "diagnostic_failure_class"
           },
           {
@@ -245,7 +245,7 @@
         "omitted_sections": [
           {
             "body_redacted": true,
-            "declared_byte_size": 70000,
+            "declared_byte_size": 60000,
             "section_id": "fewshot_examples"
           }
         ],
@@ -255,12 +255,12 @@
         "recipe_id": "fewshot_64kb"
       },
       {
-        "approximate_tokens": 668,
+        "approximate_tokens": 905,
         "body_redacted": true,
         "byte_budget": 4096,
         "deliverable_type": "strategy_id_classification",
         "graph_role": "strategy_classification_context",
-        "included_byte_count": 2670,
+        "included_byte_count": 3620,
         "included_section_ids": [
           "statement",
           "known_strategy_ids",
@@ -274,12 +274,12 @@
           },
           {
             "body_redacted": true,
-            "declared_byte_size": 800,
+            "declared_byte_size": 1800,
             "section_id": "known_strategy_ids"
           },
           {
             "body_redacted": true,
-            "declared_byte_size": 1150,
+            "declared_byte_size": 1100,
             "section_id": "target_shape_features"
           }
         ],
@@ -311,11 +311,20 @@
     ]
   },
   "schema_version": "provider_context_budget_board_v1",
+  "section_material_sources": {
+    "body_redacted": true,
+    "source_ref_count": 1,
+    "source_refs": [
+      "tools/meta/factory/run_prover_graph_benchmark.py"
+    ],
+    "status": "pass"
+  },
   "selected_pattern_ids": [
     "provider_context_recipe_budget_policy"
   ],
   "source_module_import": {
     "body_in_receipt": false,
+    "body_text_in_receipt": false,
     "source_module_count": 8,
     "source_module_ids": [
       "provider_context_batch_calibration_report_body_import",
@@ -363,6 +372,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 356,
         "module_id": "provider_context_batch_calibration_report_body_import",
         "present_anchor_count": 6,
@@ -408,15 +418,16 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
-        "line_count": 1043,
+        "body_text_in_receipt": false,
+        "line_count": 1100,
         "module_id": "provider_context_compute_provider_standard_body_import",
         "present_anchor_count": 6,
         "required_anchor_count": 6,
         "sha256_match": true,
         "source_ref": "codex/standards/std_compute_provider.json",
-        "source_sha256": "97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+        "source_sha256": "5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
         "target_ref": "source_modules/codex/standards/std_compute_provider.json",
-        "target_sha256": "97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d"
+        "target_sha256": "5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb"
       },
       {
         "anchor_results": [
@@ -453,6 +464,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 1478,
         "module_id": "provider_context_formal_ladder_eval_body_import",
         "present_anchor_count": 6,
@@ -498,6 +510,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 7168,
         "module_id": "provider_context_graph_benchmark_body_import",
         "present_anchor_count": 6,
@@ -543,6 +556,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 241,
         "module_id": "provider_context_provider_adapter_standard_body_import",
         "present_anchor_count": 6,
@@ -588,6 +602,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 52,
         "module_id": "provider_context_provider_navigation_transform_receipt_standard_body_import",
         "present_anchor_count": 6,
@@ -633,6 +648,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 926,
         "module_id": "provider_context_receipt_reducer_body_import",
         "present_anchor_count": 6,
@@ -678,6 +694,7 @@
         ],
         "body_copied": true,
         "body_in_receipt": false,
+        "body_text_in_receipt": false,
         "line_count": 208,
         "module_id": "provider_context_transform_job_standard_body_import",
         "present_anchor_count": 6,

@@ -1,0 +1,14 @@
+{
+  "schema_version": "batch7_zenith_negative_case_v1",
+  "case_id": "missing_recording_snake_case",
+  "body_in_receipt": false,
+  "error_codes": [
+    "BATCH7_ZENITH_RECORDING_TELEMETRY_KEYS_REQUIRED"
+  ],
+  "mutant": {
+    "remove_tokens": [
+      "keyEncodingStrategy = .convertToSnakeCase",
+      "recordingViewEventUsesSnakeCaseAPIKeys"
+    ]
+  }
+}

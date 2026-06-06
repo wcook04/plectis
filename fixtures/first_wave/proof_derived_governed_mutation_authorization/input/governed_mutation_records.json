@@ -1,0 +1,97 @@
+{
+  "governed_mutation_records": [
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_subject": "Bind governed mutation evidence to proposals",
+      "live_credential_ref": false,
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "proposal.inspect_repo_state",
+      "provider_payload_exported": false,
+      "public_safe": true,
+      "record_id": "real_record.inspect_repo_state.67ac353d96",
+      "record_role": "read_only_precondition_record",
+      "source_record_class": "real_repo_mission_transaction_record",
+      "source_refs": [
+        "git:67ac353d969750050ac4b46157dc4ba93a900ade",
+        "tools/meta/control/mission_transaction_preflight.py::build_mission_transaction_landing_preflight",
+        "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+        "state/task_ledger/events.jsonl::git_commit_resolution_episode",
+        "codex/ledger/09_54_1/work_ledger.jsonl::session_claim_path"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_subject": "Bind governed mutation evidence to proposals",
+      "live_credential_ref": false,
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.scoped_config_change",
+      "provider_payload_exported": false,
+      "public_safe": true,
+      "record_id": "real_record.scoped_config_change.67ac353d96",
+      "record_role": "scoped_commit_work_landing_record",
+      "rollback_receipt_present": true,
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1",
+      "side_effect_logged": true,
+      "source_record_class": "real_repo_scoped_commit_record",
+      "source_refs": [
+        "git:67ac353d969750050ac4b46157dc4ba93a900ade",
+        "tools/meta/control/scoped_commit.py::perform_scoped_commit",
+        "tools/meta/control/mission_transaction_preflight.py::build_mission_transaction_landing_preflight",
+        "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+        "state/task_ledger/events.jsonl::work_item.execution_receipt_recorded",
+        "codex/ledger/09_54_1/work_ledger.jsonl::work_landing_closeout_completed"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_subject": "Bind governed mutation evidence to proposals",
+      "live_credential_ref": false,
+      "policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.rollback_config_change",
+      "provider_payload_exported": false,
+      "public_safe": true,
+      "record_id": "real_record.rollback_config_change.67ac353d96",
+      "record_role": "rollback_receipt_work_landing_record",
+      "rollback_receipt_present": true,
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_diff_ref": "diff.synthetic_rollback.v1",
+      "side_effect_logged": true,
+      "source_record_class": "real_repo_work_landing_record",
+      "source_refs": [
+        "git:67ac353d969750050ac4b46157dc4ba93a900ade",
+        "tools/meta/control/mission_transaction_preflight.py::transaction_finalizers",
+        "tools/meta/control/scoped_commit.py::scoped_commit_work_ledger_mutation_guard_v0",
+        "system/lib/work_landing_status.py::receipt_blocked_claim_collision",
+        "state/task_ledger/events.jsonl::rollback_receipt_ref",
+        "codex/ledger/09_54_1/work_ledger.jsonl::claims_compacted_release_reason_counts"
+      ]
+    }
+  ],
+  "record_count": 3,
+  "schema_version": "proof_derived_governed_mutation_authorization_real_records_v1"
+}

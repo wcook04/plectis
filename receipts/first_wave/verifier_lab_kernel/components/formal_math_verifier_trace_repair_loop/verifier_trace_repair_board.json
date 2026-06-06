@@ -236,10 +236,10 @@
   ],
   "organ_id": "formal_math_verifier_trace_repair_loop",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
   ],
   "schema_version": "formal_math_verifier_trace_repair_loop_board_v1",
   "secret_exclusion_scan": {

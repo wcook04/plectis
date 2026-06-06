@@ -67,10 +67,19 @@ SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = (
     "copied_non_secret_prompt_injection_macro_body_landed"
 )
+AGENT_EXECUTION_TRACE_SOURCE_REF = "system/lib/agent_execution_trace.py"
+AGENT_EXECUTION_TRACE_TARGET_FILE_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+)
+AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "agent_execution_trace.py::build_public_prompt_injection_trace"
+)
 SOURCE_OPEN_BODY_SCHEMA = (
     "indirect_prompt_injection_information_flow_policy_replay_"
     "source_open_body_imports_v1"
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
     {
         "public_macro_control_plane_body",
@@ -188,6 +197,7 @@ AUTHORITY_CEILING = {
     "secret_or_credential_exfiltration_authorized": False,
     "tool_output_instruction_authority_authorized": False,
     "hidden_system_message_promotion_authorized": False,
+    "public_tool_call_trace_input_authorized": True,
     "live_tool_call_authorized": False,
     "provider_calls_authorized": False,
     "benchmark_score_claim_authorized": False,
@@ -198,10 +208,12 @@ ANTI_CLAIM = (
     "Indirect prompt-injection information-flow replay validates synthetic "
     "source-trust, taint-graph, policy-verdict, sanitized-output, cold-replay, "
     "negative-case, and authority-ceiling receipts, and now emits public "
-    "agent-execution trace spans over those public refs. It does not use real "
-    "email, documents, accounts, credentials, raw prompts, provider payloads, "
-    "or live tools, and it does not claim general prompt-injection robustness, "
-    "benchmark performance, source mutation, or release authority."
+    "agent-execution trace spans over those public refs plus one generated "
+    "public tool-call trace input through the same taint propagation mechanic. "
+    "It does not use real email, documents, accounts, credentials, raw prompts, "
+    "provider payloads, or live external tools, and it does not claim general "
+    "prompt-injection robustness, benchmark performance, source mutation, or "
+    "release authority."
 )
 
 
@@ -245,7 +257,85 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
+    for candidate in (public_root.parent, *public_root.parents):
+        if (
+            (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
+            and (candidate / AGENT_EXECUTION_TRACE_TARGET_FILE_REF).is_file()
+        ):
+            return candidate
+    return None
+
+
+def _body_import_verification(
+    base_verification: dict[str, Any],
+    *,
+    public_root: Path,
+    public_trace: dict[str, Any],
+    source_modules: dict[str, Any],
+) -> dict[str, Any]:
+    repo_root = _repo_root_for_public_refactor(public_root)
+    source_path = (
+        repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
+    )
+    target_path = (
+        repo_root / AGENT_EXECUTION_TRACE_TARGET_FILE_REF
+        if repo_root is not None
+        else None
+    )
+    source_digest = (
+        _sha256(source_path) if source_path is not None and source_path.is_file() else None
+    )
+    target_digest = (
+        _sha256(target_path) if target_path is not None and target_path.is_file() else None
+    )
+    return {
+        **base_verification,
+        "status": PASS,
+        "classification": BODY_IMPORT_CLASSIFICATION,
+        "verification_status": "verified",
+        "verification_mode": (
+            "extension_of_existing_public_refactor_with_live_digest_relation"
+        ),
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "source_to_target_relation": "source_faithful_public_refactor",
+        "digest_relation": "source_target_refactor_digests_recorded"
+        if source_digest and target_digest
+        else "source_target_refactor_digests_unavailable_in_public_copy",
+        "public_trace_status": public_trace["status"],
+        "public_trace_span_count": public_trace["span_count"],
+        "trace_digest": public_trace["summary"]["trace_digest"],
+        "source_ref": AGENT_EXECUTION_TRACE_SOURCE_REF,
+        "target_ref": AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF,
+        "target_file_ref": AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
+        "source_body_digest": source_digest,
+        "target_body_digest": target_digest,
+        "source_symbols": public_trace["source_symbols"],
+        "target_symbols": public_trace["target_symbols"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_digest_relation": "manifest_target_digests_verified"
+        if source_modules["status"] == PASS
+        else str(source_modules["status"]),
+        "source_module_digest_count": int(source_modules.get("verified_module_count") or 0),
+        "validation_refs": [
+            (
+                "microcosm-substrate/tests/"
+                "test_indirect_prompt_injection_information_flow_policy_replay.py"
+            ),
+            (
+                "python -m microcosm_core.macro_tools.agent_execution_trace "
+                "prompt-injection --input <bundle>"
+            ),
+        ],
+        "body_in_receipt": False,
+    }
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
@@ -274,8 +364,13 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     except Exception:
         return paths
     for row in _rows(manifest, "modules"):
-        target_ref = str(row.get("target_ref") or row.get("path") or "")
-        if target_ref:
+        target_refs = [
+            str(row.get("target_ref") or ""),
+            str(row.get("path") or ""),
+        ]
+        for target_ref in target_refs:
+            if not target_ref:
+                continue
             paths.append(
                 _source_module_target_path(
                     target_ref,
@@ -284,6 +379,21 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
                 )
             )
     return paths
+
+
+def _source_module_target_path_for_ref(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path | None:
+    if not target_ref:
+        return None
+    return _source_module_target_path(
+        target_ref,
+        input_dir=input_dir,
+        public_root=public_root,
+    )
 
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
@@ -506,6 +616,7 @@ def _source_module_manifest_result(
             "findings": findings,
             "observed_negative_cases": {},
             "body_in_receipt": False,
+            "body_text_in_receipt": False,
         }
 
     manifest = read_json_strict(manifest_path)
@@ -513,6 +624,7 @@ def _source_module_manifest_result(
     modules = _rows(manifest, "modules")
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
+    module_results: list[dict[str, Any]] = []
     source_refs = [manifest_ref]
 
     if not isinstance(manifest, dict):
@@ -545,6 +657,16 @@ def _source_module_manifest_result(
                     case_id="source_module_manifest_floor",
                     subject_id=manifest_ref,
                     subject_kind="body_in_receipt",
+                )
+            )
+        if manifest.get("body_text_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_text_in_receipt",
                 )
             )
         if int(manifest.get("module_count") or 0) != len(modules):
@@ -602,13 +724,48 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
-        target_ref = str(row.get("target_ref") or row.get("path") or "")
-        target = _source_module_target_path(
-            target_ref,
+        path_ref = str(row.get("path") or "")
+        declared_target_ref = str(row.get("target_ref") or "")
+        path_target = _source_module_target_path_for_ref(
+            path_ref,
             input_dir=input_dir,
             public_root=public_root,
         )
-        if not target.is_file():
+        target_ref_target = _source_module_target_path_for_ref(
+            declared_target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        target_ref = declared_target_ref or path_ref
+        target = target_ref_target or path_target
+        target_ref_matches_path = not (
+            path_target
+            and target_ref_target
+            and path_target.resolve(strict=False)
+            != target_ref_target.resolve(strict=False)
+        )
+        module_result = {
+            "module_id": module_id,
+            "source_ref": str(row.get("source_ref") or ""),
+            "path_ref": path_ref,
+            "target_ref": target_ref,
+            "path_target_ref": _display(path_target, public_root=public_root)
+            if path_target
+            else "",
+            "declared_target_ref": declared_target_ref,
+            "declared_target_path_ref": _display(
+                target_ref_target, public_root=public_root
+            )
+            if target_ref_target
+            else "",
+            "exists": bool(target and target.is_file()),
+            "digest_match": None,
+            "target_ref_matches_path": target_ref_matches_path,
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        }
+        module_results.append(module_result)
+        if not target or not target.is_file():
             findings.append(
                 _finding(
                     "PROMPT_INJECTION_SOURCE_MODULE_TARGET_MISSING",
@@ -620,12 +777,25 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        expected_digests = {
+            "sha256": str(row.get("sha256") or ""),
+            "source_sha256": str(row.get("source_sha256") or ""),
+            "target_sha256": str(row.get("target_sha256") or ""),
         }
-        if actual not in expected_values or "" in expected_values:
+        digest_match = all(value == actual for value in expected_digests.values())
+        module_result["sha256"] = actual
+        module_result["digest_match"] = digest_match
+        if not target_ref_matches_path:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_TARGET_REF_PATH_MISMATCH",
+                    "Source module manifest path and target_ref must resolve to the same copied bundle body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not digest_match:
             findings.append(
                 _finding(
                     "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -670,10 +840,12 @@ def _source_module_manifest_result(
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),
         "body_material_classes": material_class_counts,
+        "modules": module_results,
         "source_refs": source_refs,
         "findings": findings,
         "observed_negative_cases": {},
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
     }
 
 
@@ -742,7 +914,13 @@ def _is_untrusted(label: str) -> bool:
     return label.startswith("untrusted_")
 
 
-def validate_projection_protocol(payload: object) -> dict[str, Any]:
+def validate_projection_protocol(
+    payload: object,
+    *,
+    public_root: Path,
+    public_trace: dict[str, Any],
+    source_modules: dict[str, Any],
+) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -815,7 +993,12 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "public_runtime_refs": public_runtime_refs,
         "source_open_body_import_refs": source_open_body_import_refs,
         "body_import_status": protocol.get("body_import_status"),
-        "body_import_verification": body_import if isinstance(body_import, dict) else {},
+        "body_import_verification": _body_import_verification(
+            body_import,
+            public_root=public_root,
+            public_trace=public_trace,
+            source_modules=source_modules,
+        ),
         "omitted_secret_or_live_access_material": omitted,
         "findings": findings,
         "observed_negative_cases": {},
@@ -949,6 +1132,217 @@ def validate_source_documents(payload: object) -> dict[str, Any]:
     }
 
 
+def _derived_flow_taint_labels(
+    row: dict[str, Any],
+    source: dict[str, Any],
+) -> list[str]:
+    labels = set(_strings(source.get("taint_labels")))
+    proposed_action = str(row.get("proposed_action_ref") or "")
+    sink_kind = str(row.get("sink_kind") or "")
+    if sink_kind == "instruction_channel" or "promote" in proposed_action:
+        labels.add("hidden_policy_claim")
+    return sorted(labels)
+
+
+def _has_untrusted_taint(labels: list[str]) -> bool:
+    return any(
+        label.startswith("untrusted_")
+        or label in {"prompt_injection", "hidden_policy_claim"}
+        for label in labels
+    )
+
+
+def _derived_policy_verdict(
+    row: dict[str, Any],
+    derived_taint_labels: list[str],
+) -> str:
+    labels = set(derived_taint_labels)
+    sink_kind = str(row.get("sink_kind") or "")
+    proposed_action = str(row.get("proposed_action_ref") or "")
+    privileged = row.get("privileged_sink") is True
+    sanitized = row.get("sanitization_applied") is True
+    hidden_policy_promotion = (
+        "hidden_policy_claim" in labels
+        or sink_kind == "instruction_channel"
+        or "promote" in proposed_action
+    )
+    untrusted = _has_untrusted_taint(sorted(labels))
+
+    if hidden_policy_promotion:
+        return "block"
+    if untrusted and privileged and not sanitized:
+        return "block"
+    if untrusted and privileged and sanitized:
+        return "review"
+    if untrusted and sanitized:
+        return "warn"
+    if untrusted:
+        return "review"
+    return "allow"
+
+
+def _taint_propagation_receipt(
+    rows: list[dict[str, Any]],
+    source_by_id: dict[str, dict[str, Any]],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    findings: list[dict[str, Any]] = []
+    taints_by_node: dict[str, set[str]] = {
+        source_id: set(_strings(source.get("taint_labels")))
+        for source_id, source in source_by_id.items()
+    }
+    paths_by_node: dict[str, list[list[str]]] = {
+        source_id: [[source_id]] for source_id in source_by_id
+    }
+    path_rows: list[dict[str, Any]] = []
+    for row in sorted(
+        rows,
+        key=lambda item: (
+            str(item.get("episode_id") or ""),
+            str(item.get("flow_id") or ""),
+        ),
+    ):
+        flow_id = str(row.get("flow_id") or "")
+        source_id = str(row.get("from_source_id") or "")
+        sink_id = str(row.get("to_sink_id") or "")
+        source = source_by_id.get(source_id, {})
+        upstream_labels = set(taints_by_node.get(source_id) or ())
+        if not upstream_labels:
+            upstream_labels = set(_strings(source.get("taint_labels")))
+        derived_labels = set(_derived_flow_taint_labels(row, source))
+        derived_labels.update(upstream_labels)
+        declared_labels = set(_strings(row.get("taint_labels")))
+        if declared_labels != derived_labels:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_TAINT_PROPAGATION_MISMATCH",
+                    "Flow taint labels must be derived from the source row plus policy transforms, not hand-written independently.",
+                    case_id="taint_propagation_floor",
+                    subject_id=flow_id or "information_flow",
+                    subject_kind="information_flow",
+                )
+            )
+        declared_verdict = str(row.get("policy_verdict") or "")
+        derived_verdict = _derived_policy_verdict(row, sorted(derived_labels))
+        if declared_verdict != derived_verdict:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_POLICY_VERDICT_DERIVATION_MISMATCH",
+                    "Flow policy verdicts must be computed from propagated taint, sink privilege, sanitizer state, sink kind, and proposed action.",
+                    case_id="policy_verdict_derivation_floor",
+                    subject_id=flow_id or "information_flow",
+                    subject_kind="information_flow",
+                )
+            )
+        source_paths = paths_by_node.get(source_id) or [[source_id]]
+        propagated_paths = [path + [sink_id] for path in source_paths if sink_id]
+        if sink_id:
+            taints_by_node.setdefault(sink_id, set()).update(derived_labels)
+            paths_by_node.setdefault(sink_id, []).extend(propagated_paths)
+        path_rows.append(
+            {
+                "flow_id": flow_id,
+                "from_source_id": source_id,
+                "to_sink_id": sink_id,
+                "derived_taint_labels": sorted(derived_labels),
+                "declared_taint_labels": sorted(declared_labels),
+                "taint_derivation_passed": declared_labels == derived_labels,
+                "derived_policy_verdict": derived_verdict,
+                "declared_policy_verdict": declared_verdict,
+                "policy_derivation_passed": declared_verdict == derived_verdict,
+                "source_to_sink_paths": propagated_paths,
+                "path_count": len(propagated_paths),
+                "body_in_receipt": False,
+            }
+        )
+    return (
+        {
+            "status": PASS if rows and not findings else "blocked",
+            "analysis_kind": "derived_taint_propagation_over_source_to_sink_graph",
+            "propagated_node_count": len(taints_by_node),
+            "propagated_path_count": sum(row["path_count"] for row in path_rows),
+            "derived_taint_mismatch_count": sum(
+                1 for row in path_rows if row["taint_derivation_passed"] is not True
+            ),
+            "derived_policy_verdict_mismatch_count": sum(
+                1 for row in path_rows if row["policy_derivation_passed"] is not True
+            ),
+            "flow_path_rows": path_rows,
+            "body_in_receipt": False,
+        },
+        findings,
+    )
+
+
+def _live_tool_call_trace_promotion(public_trace: dict[str, Any]) -> dict[str, Any]:
+    spans = [
+        row
+        for row in public_trace.get("spans", [])
+        if isinstance(row, dict) and row.get("tool_name")
+    ]
+    if not spans:
+        return {
+            "status": "blocked",
+            "promotion_kind": "public_tool_call_trace_to_taint_graph",
+            "live_input_trace_count": 0,
+            "taint_propagation_path_count": 0,
+            "findings": [
+                _finding(
+                    "PROMPT_INJECTION_LIVE_TRACE_SPAN_MISSING",
+                    "Live-input promotion requires at least one generated public tool-call trace span.",
+                    case_id="live_input_promotion_floor",
+                    subject_id="public_tool_call_trace",
+                    subject_kind="public_agent_execution_trace",
+                )
+            ],
+            "body_in_receipt": False,
+        }
+
+    span = spans[0]
+    source_id = "live_public_tool_call_trace_source"
+    flow_id = "live_public_tool_call_trace_flow"
+    source = {
+        "source_id": source_id,
+        "episode_id": span.get("episode_id") or "live_input_promotion_episode",
+        "source_kind": "public_tool_call_trace",
+        "trust_label": "untrusted_tool_output",
+        "channel": "tool_output",
+        "body_ref": span.get("observation_ref") or span.get("span_id"),
+        "taint_labels": ["prompt_injection", "untrusted_tool_output"],
+        "instruction_authority": False,
+        "body_redacted": True,
+    }
+    flow = {
+        "flow_id": flow_id,
+        "episode_id": source["episode_id"],
+        "from_source_id": source_id,
+        "to_sink_id": "sink_public_tool_policy_gate",
+        "sink_kind": "external_action",
+        "source_trust_label": "untrusted_tool_output",
+        "taint_labels": ["prompt_injection", "untrusted_tool_output"],
+        "sanitization_applied": True,
+        "proposed_action_ref": "public_tool_call_trace_policy_gate",
+        "privileged_sink": True,
+        "body_redacted": True,
+        "policy_verdict": "review",
+    }
+    propagation, findings = _taint_propagation_receipt([flow], {source_id: source})
+    return {
+        "status": PASS if propagation["status"] == PASS and not findings else "blocked",
+        "promotion_kind": "public_tool_call_trace_to_taint_graph",
+        "input_origin": "generated_public_trace_span",
+        "source_span_id": span.get("span_id"),
+        "source_tool_name": span.get("tool_name"),
+        "live_input_trace_count": 1,
+        "taint_propagation_path_count": propagation["propagated_path_count"],
+        "derived_policy_verdict_mismatch_count": propagation[
+            "derived_policy_verdict_mismatch_count"
+        ],
+        "taint_propagation": propagation,
+        "findings": findings,
+        "body_in_receipt": False,
+    }
+
+
 def validate_information_flow_graph(
     payload: object,
     source_rows: list[dict[str, Any]],
@@ -957,6 +1351,13 @@ def validate_information_flow_graph(
     source_by_id = {str(row["source_id"]): row for row in source_rows}
     findings: list[dict[str, Any]] = []
     exported: list[dict[str, Any]] = []
+    taint_propagation, taint_findings = _taint_propagation_receipt(rows, source_by_id)
+    findings.extend(taint_findings)
+    taint_by_flow = {
+        str(row.get("flow_id")): row
+        for row in taint_propagation.get("flow_path_rows", [])
+        if isinstance(row, dict)
+    }
     for row in rows:
         flow_id = str(row.get("flow_id") or "")
         source_id = str(row.get("from_source_id") or "")
@@ -1000,6 +1401,15 @@ def validate_information_flow_graph(
                 "sink_kind": row.get("sink_kind"),
                 "source_trust_label": trust_label,
                 "taint_labels": _strings(row.get("taint_labels")),
+                "derived_taint_labels": (
+                    taint_by_flow.get(flow_id, {}).get("derived_taint_labels", [])
+                ),
+                "source_to_sink_paths": (
+                    taint_by_flow.get(flow_id, {}).get("source_to_sink_paths", [])
+                ),
+                "derived_policy_verdict": (
+                    taint_by_flow.get(flow_id, {}).get("derived_policy_verdict")
+                ),
                 "sanitization_applied": sanitized,
                 "policy_verdict": verdict,
                 "privileged_sink": privileged,
@@ -1013,6 +1423,11 @@ def validate_information_flow_graph(
         "information_flow_count": len(rows),
         "privileged_flow_count": sum(1 for row in exported if row["privileged_sink"]),
         "sanitized_flow_count": sum(1 for row in exported if row["sanitization_applied"]),
+        "taint_propagation": taint_propagation,
+        "taint_propagation_path_count": taint_propagation["propagated_path_count"],
+        "derived_policy_verdict_mismatch_count": taint_propagation[
+            "derived_policy_verdict_mismatch_count"
+        ],
         "flow_rows": sorted(exported, key=lambda row: row["flow_id"]),
         "findings": findings,
         "observed_negative_cases": {},
@@ -1312,13 +1727,23 @@ def _build_result(
         display_root=public_root,
     )
     public_trace = build_public_prompt_injection_trace(input_dir)
-
-    projection = validate_projection_protocol(payloads["projection_protocol"])
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_prompt_injection_flow_bundle",
+    )
+    projection = validate_projection_protocol(
+        payloads["projection_protocol"],
+        public_root=public_root,
+        public_trace=public_trace,
+        source_modules=source_modules,
+    )
     injection_policy = validate_injection_policy(payloads["injection_policy"])
     sources = validate_source_documents(payloads["source_documents"])
     flows = validate_information_flow_graph(
         payloads["information_flow_graph"], sources["source_rows"]
     )
+    live_input_promotion = _live_tool_call_trace_promotion(public_trace)
     verdicts = validate_policy_verdicts(
         payloads["policy_verdicts"],
         payloads["injection_policy"],
@@ -1341,11 +1766,6 @@ def _build_result(
         if name in payloads
     }
     negatives = validate_negative_cases(negative_payloads)
-    source_modules = _source_module_manifest_result(
-        input_dir,
-        public_root=public_root,
-        require_manifest=input_mode == "exported_prompt_injection_flow_bundle",
-    )
     source_open_body_imports = _source_open_body_import_summary(source_modules)
     observed = _merge_observed(
         projection,
@@ -1357,6 +1777,7 @@ def _build_result(
         cold_replay,
         negatives,
         source_modules,
+        live_input_promotion,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1380,6 +1801,7 @@ def _build_result(
         outputs["status"],
         cold_replay["status"],
         public_trace["status"],
+        live_input_promotion["status"],
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
@@ -1394,34 +1816,6 @@ def _build_result(
         )
         else "blocked"
     )
-    body_import_verification = {
-        "status": PASS,
-        "classification": BODY_IMPORT_CLASSIFICATION,
-        "verification_status": "verified",
-        "verification_mode": BODY_IMPORT_CLASSIFICATION,
-        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
-        "public_trace_status": public_trace["status"],
-        "public_trace_span_count": public_trace["span_count"],
-        "trace_digest": public_trace["summary"]["trace_digest"],
-        "source_ref": "system/lib/agent_execution_trace.py",
-        "target_ref": (
-            "microcosm-substrate/src/microcosm_core/macro_tools/"
-            "agent_execution_trace.py::build_public_prompt_injection_trace"
-        ),
-        "source_symbols": public_trace["source_symbols"],
-        "target_symbols": public_trace["target_symbols"],
-        "validation_refs": [
-            (
-                "microcosm-substrate/tests/"
-                "test_indirect_prompt_injection_information_flow_policy_replay.py"
-            ),
-            (
-                "python -m microcosm_core.macro_tools.agent_execution_trace "
-                "prompt-injection --input <bundle>"
-            ),
-        ],
-        "body_in_receipt": False,
-    }
     return {
         "schema_version": (
             "indirect_prompt_injection_information_flow_policy_replay_result_v1"
@@ -1449,7 +1843,7 @@ def _build_result(
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_classification": BODY_IMPORT_CLASSIFICATION,
         "product_path_role": PRODUCT_PATH_ROLE,
-        "body_import_verification": body_import_verification,
+        "body_import_verification": projection["body_import_verification"],
         "body_in_receipt": False,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
@@ -1471,6 +1865,11 @@ def _build_result(
             "omitted_secret_or_live_access_material"
         ],
         "public_agent_execution_trace": public_trace,
+        "live_input_promotion": live_input_promotion,
+        "live_tool_call_trace_count": live_input_promotion["live_input_trace_count"],
+        "live_tool_call_taint_path_count": live_input_promotion[
+            "taint_propagation_path_count"
+        ],
         "injection_policy_id": injection_policy["policy_id"],
         "allowed_verdicts": injection_policy["allowed_verdicts"],
         "source_document_count": sources["source_document_count"],
@@ -1480,6 +1879,11 @@ def _build_result(
         "information_flow_count": flows["information_flow_count"],
         "privileged_flow_count": flows["privileged_flow_count"],
         "sanitized_flow_count": flows["sanitized_flow_count"],
+        "taint_propagation": flows["taint_propagation"],
+        "taint_propagation_path_count": flows["taint_propagation_path_count"],
+        "derived_policy_verdict_mismatch_count": flows[
+            "derived_policy_verdict_mismatch_count"
+        ],
         "policy_verdict_count": verdicts["policy_verdict_count"],
         "allow_count": verdicts["allow_count"],
         "warn_count": verdicts["warn_count"],
@@ -1527,6 +1931,21 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "source-to-sink flows carry taint labels before a verdict is admitted",
             },
             {
+                "mechanic_id": "derived_taint_propagation",
+                "count": result["taint_propagation_path_count"],
+                "authority": "source taints are propagated over source-to-sink paths before verdicts are accepted",
+            },
+            {
+                "mechanic_id": "live_input_tool_trace_taint_promotion",
+                "count": result["live_tool_call_taint_path_count"],
+                "authority": "one generated public tool-call trace is converted into source/flow rows and checked by the same taint propagation mechanic",
+            },
+            {
+                "mechanic_id": "derived_policy_verdicts",
+                "count": result["information_flow_count"],
+                "authority": "allow, warn, review, and block verdicts are derived from propagated taint, sink privilege, sanitizer state, sink kind, and proposed action",
+            },
+            {
                 "mechanic_id": "policy_verdicts_precede_privileged_sinks",
                 "count": result["policy_verdict_count"],
                 "authority": "allow, warn, block, and review verdicts precede any synthetic action",
@@ -1550,6 +1969,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "live_input_promotion": result["live_input_promotion"],
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "product_path_role": result["product_path_role"],
@@ -1618,6 +2038,7 @@ def _write_receipts(
         "cold_replay_pass_count": result["cold_replay_pass_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "live_input_promotion": result["live_input_promotion"],
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
@@ -1644,6 +2065,7 @@ def _write_receipts(
         "error_codes": result["error_codes"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "live_input_promotion": result["live_input_promotion"],
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
@@ -1774,6 +2196,17 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "status": trace.get("status"),
             "span_count": trace.get("span_count"),
             "trace_digest": trace_summary.get("trace_digest"),
+        },
+        "live_input_promotion": {
+            "status": (
+                result.get("live_input_promotion", {}).get("status")
+                if isinstance(result.get("live_input_promotion"), dict)
+                else None
+            ),
+            "live_tool_call_trace_count": result.get("live_tool_call_trace_count"),
+            "taint_propagation_path_count": result.get(
+                "live_tool_call_taint_path_count"
+            ),
         },
         "validation": {
             "expected_negative_case_count": len(

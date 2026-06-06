@@ -22,7 +22,7 @@
   },
   "body_copied_material_count": 3,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-06-02T02:55:31+00:00",
   "error_codes": [
     "VERIFIER_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY",
     "VERIFIER_PROMOTION_WITHOUT_COLD_RERUN",
@@ -36,10 +36,10 @@
   "missing_negative_cases": [],
   "organ_id": "formal_math_verifier_trace_repair_loop",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
   ],
   "schema_version": "formal_math_verifier_trace_repair_loop_fixture_acceptance_v1",
   "secret_exclusion_scan": {

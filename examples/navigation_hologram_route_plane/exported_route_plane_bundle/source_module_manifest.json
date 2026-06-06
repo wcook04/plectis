@@ -1,5 +1,6 @@
 {
   "body_storage_policy": "exact_non_secret_navigation_route_plane_control_source_modules_copied_into_public_route_plane_bundle",
+  "body_text_in_receipt": false,
   "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "navigation_route_plane_control_source_modules_import",
@@ -9,6 +10,7 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "byte_count": 17452,
       "classification": "copied_non_secret_macro_body",
       "line_count": 348,
@@ -22,6 +24,7 @@
         "suggested_sequence"
       ],
       "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/navigation_route_intervention.py",
       "source_role": "Typed route-intervention authority for navigation anti-pattern steering, repair-class mapping, first-contact route suggestions, and evidence commands.",
@@ -33,9 +36,10 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 344617,
+      "body_text_in_receipt": false,
+      "byte_count": 475388,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7740,
+      "line_count": 10831,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_context_pack_source_body_import",
       "required_anchors": [
@@ -46,20 +50,22 @@
         "candidate_runtime_pressure"
       ],
       "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/navigation_context_pack.py",
       "source_role": "Task-conditioned context-pack builder for coverage-first navigation, selected-row compaction, route budgets, omission receipts, and control-entry overview packets.",
-      "source_sha256": "d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a",
+      "source_sha256": "803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
-      "target_sha256": "d438fe7b3ecd0a1b641ea18a1c4d99283bab377997686f89c7e321d54ab12d3a"
+      "target_sha256": "803e2897402d1d72b0c45805ccc583d5e6f9840926656018cbb21051cb19926e"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 331009,
+      "body_text_in_receipt": false,
+      "byte_count": 402154,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7982,
+      "line_count": 9714,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_entry_packet_source_body_import",
       "required_anchors": [
@@ -70,21 +76,23 @@
         "recognized_situation"
       ],
       "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "source_role": "Kernel entry packet and route-lease control plane for task recognition, active phase routing, WorkItem routing, mutation governance, and first-contact next actions.",
-      "source_sha256": "c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d",
+      "source_sha256": "86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "target_sha256": "c8e0e16403f0091f36eb7a1fc63ca013006e1d915024f7d972142ba327430c1d"
+      "target_sha256": "86f823f015e5d40abca5511cd05c4c823f164bfe4eeaa2a7c912b3ec24ac3020"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
       "body_in_receipt": false,
-      "byte_count": 725919,
+      "body_text_in_receipt": false,
+      "byte_count": 764177,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 16457,
+      "line_count": 17364,
       "material_class": "public_macro_tool_body",
       "module_id": "navigation_route_plane_option_surface_source_body_import",
       "required_anchors": [
@@ -95,17 +103,19 @@
         "def build_microcosm_extracted_patterns_option_surface("
       ],
       "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/standard_option_surface.py",
       "source_role": "Standard-owned option-surface router for artifact-kind rows, standard navigation cards, Microcosm extracted-pattern routing, validation probes, and no-null-pass cards.",
-      "source_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "source_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
-      "target_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923"
+      "target_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "byte_count": 145568,
       "classification": "copied_non_secret_macro_body",
       "line_count": 3835,
@@ -119,6 +129,7 @@
         "\"validation_probe\""
       ],
       "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "codex/standards/std_navigation_contract.json",
       "source_role": "Navigation contract standard defining artifact-kind navigation profiles, band contracts, row shapes, profile gaps, facets, and validation-currentness shape.",
@@ -142,6 +153,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
+  "source_import_class": "copied_non_secret_macro_body",
   "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",

@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "stale_digest_replay",
+  "error_codes": [
+    "BATCH10_LIVE_SOURCE_DRIFT_STALE_DIGEST_REPLAY_REFUSED"
+  ],
+  "refused_claim": "Stale recorded digests cannot stand in for current copied macro source bodies."
+}

@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "finance_hln_dependency_refusal",
+  "error_codes": [
+    "FINANCE_HLN_TYPED_REFUSAL_REQUIRED"
+  ],
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

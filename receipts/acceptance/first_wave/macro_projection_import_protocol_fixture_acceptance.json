@@ -22,7 +22,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-31T06:46:15+00:00",
+  "created_at": "2026-05-31T09:23:59+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -104,8 +104,53 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "live_source_drift_count": 0,
-  "live_source_drift_rows": [],
+  "live_source_drift_count": 4,
+  "live_source_drift_rows": [
+    {
+      "body_in_receipt": false,
+      "current_source_body_digest": "sha256:9282e86bc1d89a228e50fcaa7e93d358eab165551ea6007bbb8d64c58395a30c",
+      "material_id": "navigation_route_plane_option_surface_source_body_import",
+      "recorded_source_body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "source_target_path_relation": "target_ref_carries_source_ref",
+      "status": "live_source_drift_not_import_proof_failure",
+      "target_body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
+    },
+    {
+      "body_in_receipt": false,
+      "current_source_body_digest": "sha256:c9c5dec90cfd60cd9feb553a0ff1548dda69bca9f10afa97208d57704d248510",
+      "material_id": "mission_transaction_landing_preflight_body_import",
+      "recorded_source_body_digest": "sha256:8eb0eadb66404e445ef704b613c8d36a1dfa519618a76c31622bfa6e5f6c4c08",
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+      "source_target_path_relation": "target_ref_carries_source_ref",
+      "status": "live_source_drift_not_import_proof_failure",
+      "target_body_digest": "sha256:8eb0eadb66404e445ef704b613c8d36a1dfa519618a76c31622bfa6e5f6c4c08",
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py"
+    },
+    {
+      "body_in_receipt": false,
+      "current_source_body_digest": "sha256:a88b24d4158efdd79f8a76719314f393571a26af8db633f661695da7854b18cc",
+      "material_id": "work_landing_control_tool_body_import",
+      "recorded_source_body_digest": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+      "source_ref": "tools/meta/control/work_landing.py",
+      "source_target_path_relation": "target_ref_carries_source_ref",
+      "status": "live_source_drift_not_import_proof_failure",
+      "target_body_digest": "sha256:b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py"
+    },
+    {
+      "body_in_receipt": false,
+      "current_source_body_digest": "sha256:ec4b4784d26b944ac896fe4e526131ce837933697592f0854b43e9ddffe842e6",
+      "material_id": "work_ledger_tool_body_import",
+      "recorded_source_body_digest": "sha256:2ea8d4d6a7a2fcd9b832440af00342ea38093581aedacbed60d59d1c428a44de",
+      "source_ref": "tools/meta/factory/work_ledger.py",
+      "source_target_path_relation": "target_ref_carries_source_ref",
+      "status": "live_source_drift_not_import_proof_failure",
+      "target_body_digest": "sha256:2ea8d4d6a7a2fcd9b832440af00342ea38093581aedacbed60d59d1c428a44de",
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py"
+    }
+  ],
   "macro_origin_ref_count": 305,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],

@@ -19,6 +19,26 @@
       "role": "positive two-paper public replay rows with artifact, rubric, metric, grader, budget, failure, and cold-rerun refs"
     },
     {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/execution_artifact_manifest.json",
+      "role": "execution-backed public artifact manifest with allowed public inputs, metric specs, outputs, and declared hashes"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/inputs/public_synthetic_table.json",
+      "role": "public synthetic input table consumed by the declarative metric spec"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/metrics/public_sum_metric.json",
+      "role": "declarative public metric spec recomputed by the validator"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/artifacts/result_table.json",
+      "role": "declared public output artifact checked against recomputed metric output"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/artifacts/result_table.sha256.json",
+      "role": "declared SHA-256 for the public output artifact"
+    },
+    {
       "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/original_author_code_reuse_forbidden.json",
       "role": "negative case: original_author_code_reuse_forbidden"
     },
@@ -64,6 +84,10 @@
   "stable_error_codes": [
     "REPLICATION_AUTHOR_CODE_REUSE_FORBIDDEN",
     "REPLICATION_BENCHMARK_PERFORMANCE_OVERCLAIM",
+    "REPLICATION_EXECUTION_ARTIFACT_HASH_MISMATCH",
+    "REPLICATION_EXECUTION_ARTIFACT_MANIFEST_MISSING",
+    "REPLICATION_EXECUTION_INPUT_INVALID",
+    "REPLICATION_EXECUTION_METRIC_OUTPUT_MISMATCH",
     "REPLICATION_FINAL_ANSWER_ONLY_GRADING",
     "REPLICATION_HIDDEN_RUBRIC_LEAKAGE",
     "REPLICATION_PRIVATE_BODY_LEAKAGE",
@@ -116,6 +140,24 @@
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.organs.research_replication_rubric_artifact_replay::run"
   ],
+  "execution_artifact_replay": {
+    "schema_version": "research_replication_execution_artifact_replay_manifest_floor_v1",
+    "status": "pass",
+    "manifest_ref": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/execution_artifacts/execution_artifact_manifest.json",
+    "allowed_public_input_refs": [
+      "execution_artifacts/inputs/public_synthetic_table.json"
+    ],
+    "metric_refs": [
+      "execution_artifacts/metrics/public_sum_metric.json"
+    ],
+    "computed_output_refs": [
+      "execution_artifacts/artifacts/result_table.json"
+    ],
+    "declared_artifact_hash_refs": [
+      "execution_artifacts/artifacts/result_table.sha256.json"
+    ],
+    "body_in_receipt": false
+  },
   "omitted_secret_or_live_access_material": [
     "private paper bodies",
     "private data bodies",

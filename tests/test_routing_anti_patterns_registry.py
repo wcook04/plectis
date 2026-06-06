@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import shutil
@@ -36,6 +37,41 @@ def _fixture_anti_pattern_count(input_dir: Path = FIXTURE_INPUT) -> int:
     )
     return len(
         [row for row in payload.get("anti_patterns", []) if isinstance(row, dict)]
+    )
+
+
+def _copied_macro_registry_payload() -> dict[str, Any]:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    module = manifest["modules"][0]
+    target_path = MICROCOSM_ROOT.parent / module["target_ref"]
+    return json.loads(target_path.read_text(encoding="utf-8"))
+
+
+def _copied_macro_registry_bundle_target(bundle: Path) -> Path:
+    manifest = json.loads(
+        (bundle / "source_module_manifest.json").read_text(encoding="utf-8")
+    )
+    target_ref = manifest["modules"][0]["target_ref"].removeprefix(
+        "microcosm-substrate/"
+    )
+    return bundle.parents[2] / target_ref
+
+
+def _refresh_copied_macro_manifest_digest(bundle: Path) -> None:
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    target = _copied_macro_registry_bundle_target(bundle)
+    body = target.read_bytes()
+    digest = hashlib.sha256(body).hexdigest()
+    manifest["modules"][0]["sha256"] = digest
+    manifest["modules"][0]["source_sha256"] = digest
+    manifest["modules"][0]["target_sha256"] = digest
+    manifest["modules"][0]["byte_count"] = len(body)
+    manifest["modules"][0]["line_count"] = target.read_text(encoding="utf-8").count(
+        "\n"
+    )
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
     )
 
 
@@ -114,6 +150,16 @@ def test_routing_anti_patterns_registry_bundle_validates_runtime_shape(
     assert result["source_module_manifest_status"] == "pass"
     assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
     assert result["body_copied_material_count"] == 1
+    copied_body_validation = result["copied_macro_registry_body_validation"]
+    assert copied_body_validation["status"] == "pass"
+    assert copied_body_validation["body_validation_count"] == 1
+    assert copied_body_validation["source_backed_validation_count"] == 1
+    assert copied_body_validation["body_in_receipt"] is False
+    assert copied_body_validation["body_text_in_receipt"] is False
+    assert copied_body_validation["validations"][0]["target_ref"].endswith(
+        "source_modules/codex/doctrine/routing_anti_patterns.json"
+    )
+    assert copied_body_validation["validations"][0]["finding_count"] == 0
     source_imports = result["source_open_body_imports"]
     assert source_imports["status"] == "pass"
     assert source_imports["body_material_count"] == 1
@@ -306,6 +352,136 @@ def test_routing_anti_patterns_source_modules_are_exact_macro_body_imports() -> 
         text = target_bytes.decode("utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in text
+
+
+def test_routing_anti_patterns_copied_macro_rows_are_source_backed() -> None:
+    payload = _copied_macro_registry_payload()
+
+    validation = routing_registry.validate_copied_macro_registry_rows(
+        payload,
+        case_id="real_copied_macro_registry_body",
+    )
+
+    assert validation["status"] == "pass"
+    assert validation["source_backed"] is True
+    assert validation["baked_expected_labels_sufficient"] is False
+    assert validation["row_count"] == _fixture_anti_pattern_count(EXPORTED_BUNDLE)
+    assert validation["validated_row_count"] == validation["row_count"]
+    assert validation["route_repair_state_count"] == validation["row_count"]
+    assert validation["missing_route_repair_state_count"] == 0
+    assert validation["finding_count"] == 0
+    assert validation["findings"] == []
+    assert validation["route_repair_states"]["kernel_before_grep"] == (
+        "kernel_first_navigation"
+    )
+
+
+def test_routing_anti_patterns_copied_macro_row_mutations_move_verdicts() -> None:
+    payload = _copied_macro_registry_payload()
+    baseline = routing_registry.validate_copied_macro_registry_rows(
+        payload,
+        case_id="real_copied_macro_registry_body",
+    )
+    assert baseline["status"] == "pass"
+    assert baseline["finding_count"] == 0
+
+    missing_kind = copy.deepcopy(payload)
+    missing_kind.pop("kind")
+    missing_kind_result = routing_registry.validate_copied_macro_registry_rows(
+        missing_kind,
+        case_id="missing_kind_from_real_copy",
+    )
+    assert missing_kind_result["status"] == "blocked"
+    assert missing_kind_result["finding_count"] > baseline["finding_count"]
+    assert "ROUTING_ANTI_PATTERN_KIND_REQUIRED" in {
+        finding["error_code"] for finding in missing_kind_result["findings"]
+    }
+
+    duplicate = copy.deepcopy(payload)
+    duplicate["anti_patterns"].append(copy.deepcopy(duplicate["anti_patterns"][0]))
+    duplicate_result = routing_registry.validate_copied_macro_registry_rows(
+        duplicate,
+        case_id="duplicate_row_from_real_copy",
+    )
+    assert duplicate_result["status"] == "blocked"
+    assert duplicate_result["row_count"] == baseline["row_count"] + 1
+    assert duplicate_result["finding_count"] > baseline["finding_count"]
+    assert "ROUTING_ANTI_PATTERN_DUPLICATE_ID" in {
+        finding["error_code"] for finding in duplicate_result["findings"]
+    }
+
+    missing_route_repair = copy.deepcopy(payload)
+    missing_route_repair["anti_patterns"][0]["text"] = (
+        "Expected labels alone should not validate this copied row."
+    )
+    missing_route_repair["anti_patterns"][0]["expected_route_repair_state"] = (
+        "kernel_first_navigation"
+    )
+    missing_route_repair_result = routing_registry.validate_copied_macro_registry_rows(
+        missing_route_repair,
+        case_id="missing_route_repair_state_from_real_copy",
+    )
+    assert missing_route_repair_result["status"] == "blocked"
+    assert missing_route_repair_result["source_backed"] is False
+    assert missing_route_repair_result["baked_route_repair_label_count"] == 1
+    assert missing_route_repair_result["baked_expected_labels_sufficient"] is False
+    assert missing_route_repair_result["missing_route_repair_state_count"] == 1
+    assert missing_route_repair_result["route_repair_state_count"] == (
+        baseline["route_repair_state_count"] - 1
+    )
+    assert missing_route_repair_result["finding_count"] > baseline["finding_count"]
+    assert "ROUTING_ANTI_PATTERN_ROUTE_REPAIR_STATE_REQUIRED" in {
+        finding["error_code"] for finding in missing_route_repair_result["findings"]
+    }
+
+
+def test_routing_anti_patterns_copied_bundle_body_mutation_moves_result_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    example_root = public_root / "examples/routing_anti_patterns_registry"
+    shutil.copytree(EXPORTED_BUNDLE.parent, example_root)
+    bundle = example_root / "exported_routing_anti_patterns_bundle"
+    copied_body_path = _copied_macro_registry_bundle_target(bundle)
+    copied_body = json.loads(copied_body_path.read_text(encoding="utf-8"))
+    copied_body["anti_patterns"][0]["text"] = (
+        "Baked route repair labels alone should not validate copied source rows."
+    )
+    copied_body["anti_patterns"][0]["expected_route_repair_state"] = (
+        "kernel_first_navigation"
+    )
+    copied_body_path.write_text(
+        json.dumps(copied_body, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    _refresh_copied_macro_manifest_digest(bundle)
+
+    result = run_routing_anti_patterns_bundle(
+        bundle,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/routing_anti_patterns_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "ROUTING_ANTI_PATTERN_SOURCE_MODULE_DIGEST_MISMATCH" not in result[
+        "error_codes"
+    ]
+    assert "ROUTING_ANTI_PATTERN_ROUTE_REPAIR_STATE_REQUIRED" in result[
+        "error_codes"
+    ]
+    copied_body_validation = result["copied_macro_registry_body_validation"]
+    assert copied_body_validation["status"] == "blocked"
+    assert copied_body_validation["body_validation_count"] == 1
+    assert copied_body_validation["source_backed_validation_count"] == 0
+    copied_body_result = copied_body_validation["validations"][0]
+    assert copied_body_result["status"] == "blocked"
+    assert copied_body_result["source_backed"] is False
+    assert copied_body_result["finding_count"] > 0
+    assert copied_body_result["error_codes"] == [
+        "ROUTING_ANTI_PATTERN_ROUTE_REPAIR_STATE_REQUIRED"
+    ]
 
 
 def test_routing_anti_patterns_receipts_use_secret_exclusion(

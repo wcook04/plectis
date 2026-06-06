@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import copy
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -37,12 +39,15 @@ REQUIRED_RECEIPT_FIELDS = {
     "dependency_preflight_receipt_ref",
     "synthetic_input_refs",
     "synthetic_fixture_gate_status",
-    "fake_transport_fixture_summary",
+    "synthetic_transport_fixture_summary",
     "worker_skip_receipt_status",
     "private_state_scan",
     "anti_claim",
     "authority_ceiling",
     "receipt_paths",
+    "receipt_write_status",
+    "written_receipt_count",
+    "receipt_write_skipped_count",
 }
 
 
@@ -62,6 +67,52 @@ def _walk_keys(payload: object) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def _replace_transport_label(payload: object, label: str) -> object:
+    encoded = json.dumps(payload)
+    return json.loads(encoded.replace("synthetic_transport", label))
+
+
+def _transport_inputs_with_label(label: str) -> dict[str, dict[str, Any]]:
+    inputs: dict[str, dict[str, Any]] = {}
+    for name in bridge_runtime.EXPECTED_SYNTHETIC_TRANSPORT_INPUTS:
+        path = FIXTURE_INPUT / name
+        if path.suffix == ".jsonl":
+            payload: object = [
+                json.loads(line)
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+        else:
+            payload = _load_json(path)
+        inputs[name] = {
+            "ref": str(path),
+            "path": path,
+            "payload": _replace_transport_label(payload, label),
+        }
+    return inputs
+
+
+def _validate_transport_inputs(
+    inputs: dict[str, dict[str, Any]],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    findings: list[dict[str, Any]] = []
+    summary = bridge_runtime._validate_synthetic_transport_contract(
+        inputs,
+        findings=findings,
+    )
+    return summary, findings
+
+
+def _mutated_transport_inputs() -> dict[str, dict[str, Any]]:
+    return copy.deepcopy(_transport_inputs_with_label("synthetic_transport"))
+
+
+def _copy_fixture_input(tmp_path: Path) -> Path:
+    input_dir = tmp_path / "input"
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+    return input_dir
 
 
 def test_bridge_phase_continuity_jsonl_reader_streams(
@@ -111,6 +162,18 @@ def test_bridge_phase_continuity_runner_consumes_observe_apply_fixture(tmp_path:
     assert result["acceptance_scope"] == "observe_apply_fixture_consumption_only"
     assert result["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS
     assert result["written_receipt_count"] == 5
+    assert result["receipt_write_skipped_count"] == 0
+    assert result["receipt_write_status"] == {
+        "status": "writes_allowed",
+        "requested_count": 5,
+        "written_count": 5,
+        "skipped_count": 0,
+        "receipt_writes_enabled": True,
+        "tracked_receipt_write_blocked_count": 0,
+        "requires_tracked_receipt_env": False,
+        "tracked_receipt_refresh_env": None,
+        "reason": None,
+    }
     assert result["missing_negative_cases"] == []
     assert set(result["expected_negative_cases"]) == set(bridge_runtime.EXPECTED_NEGATIVE_CASES)
     assert result["private_state_scan"]["status"] == "pass"
@@ -124,40 +187,390 @@ def test_bridge_phase_continuity_runner_consumes_observe_apply_fixture(tmp_path:
         assert receipt["status"] == "pass"
         assert receipt["receipt_path"] == receipt_rel
         assert receipt["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS
+        assert receipt["written_receipt_count"] == 5
+        assert receipt["receipt_write_skipped_count"] == 0
+        assert receipt["receipt_write_status"]["status"] == "writes_allowed"
         assert receipt["private_state_scan"]["forbidden_output_fields_omitted"] is True
+        assert "fake_transport_fixture_summary" not in receipt
 
 
-def test_bridge_phase_continuity_runner_consumes_manifest_fake_transport_files(
+def test_bridge_phase_continuity_runner_reports_tracked_receipt_write_gate(
+    monkeypatch: Any,
+) -> None:
+    monkeypatch.delenv("MICROCOSM_TRACKED_RECEIPT_WRITES", raising=False)
+    out_dir = MICROCOSM_ROOT / "receipts" / "_pytest_bridge_tracked_write_gate"
+    shutil.rmtree(out_dir, ignore_errors=True)
+
+    try:
+        result = bridge_runtime.run(FIXTURE_INPUT, out_dir, command="pytest tracked gate")
+
+        assert result["status"] == "pass"
+        assert result["written_receipt_count"] == 0
+        assert result["receipt_write_skipped_count"] == 5
+        assert result["receipt_write_status"] == {
+            "status": "tracked_receipt_writes_blocked",
+            "requested_count": 5,
+            "written_count": 0,
+            "skipped_count": 5,
+            "receipt_writes_enabled": True,
+            "tracked_receipt_write_blocked_count": 5,
+            "requires_tracked_receipt_env": True,
+            "tracked_receipt_refresh_env": "MICROCOSM_TRACKED_RECEIPT_WRITES=1",
+            "reason": "set_MICROCOSM_TRACKED_RECEIPT_WRITES_1_to_refresh_tracked_receipts",
+        }
+        assert not out_dir.exists()
+    finally:
+        shutil.rmtree(out_dir, ignore_errors=True)
+
+
+def test_bridge_phase_continuity_fixture_inputs_use_public_synthetic_transport_label() -> None:
+    fixture_text = (
+        FIXTURE_INPUT / bridge_runtime.INPUT_NAME
+    ).read_text(encoding="utf-8")
+
+    assert "expected_error_code" not in fixture_text
+    for name in bridge_runtime.EXPECTED_SYNTHETIC_TRANSPORT_INPUTS:
+        path = FIXTURE_INPUT / name
+        if path.suffix not in {".json", ".jsonl"}:
+            continue
+        text = path.read_text(encoding="utf-8")
+        assert "fake_transport" not in text
+        assert "expected_error_code" not in text
+    assert "synthetic_transport" in (FIXTURE_INPUT / "detached_job.json").read_text(
+        encoding="utf-8"
+    )
+
+
+def test_bridge_phase_continuity_observe_apply_rollback_rejection_moves_with_input(
+) -> None:
+    fixture = _load_json(FIXTURE_INPUT / bridge_runtime.INPUT_NAME)
+    manifest = _load_json(
+        MICROCOSM_ROOT
+        / "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json"
+    )
+    source_manifest = _load_json(
+        MICROCOSM_ROOT
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "observe_runtime_source_module_manifest.json"
+    )
+    rollback = fixture["synthetic_observe_apply_session"][
+        "rollback_on_validation_failure"
+    ]
+    assert bridge_runtime._rollback_validation_failure_rejected(rollback) is True
+
+    rollback["validation_status"] = "pass"
+    rollback["rollback_required"] = False
+    rollback["writes_allowed_after_failure"] = True
+
+    findings: list[dict[str, Any]] = []
+    summary = bridge_runtime._validate_fixture_contract(
+        fixture,
+        manifest,
+        source_manifest,
+        public_root=MICROCOSM_ROOT,
+        findings=findings,
+    )
+
+    assert summary["rollback_validation_failure_rejected"] is False
+    assert "BRIDGE_CONTINUITY_ROLLBACK_CASE_MISSING" in {
+        finding["error_code"] for finding in findings
+    }
+
+
+def test_bridge_phase_continuity_transport_rejections_are_semantic_not_answer_keys() -> None:
+    summary, findings = _validate_transport_inputs(
+        _transport_inputs_with_label("synthetic_transport")
+    )
+
+    assert summary["status"] == "pass"
+    assert findings == []
+    assert set(summary["error_codes"]) >= {
+        "CONTINUATION_PACKET_ALREADY_CONSUMED",
+        "HEARTBEAT_NOT_RESUME_AUTHORITY",
+        "MISSING_CONTINUATION_PACKET",
+        "MISSING_CONTINUATION_PACKET_FIELDS",
+        "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+        "STALE_HEARTBEAT_LIVENESS_CLAIM",
+    }
+
+
+def test_bridge_phase_continuity_stale_heartbeat_rejection_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_stale":
+            row["age_seconds"] = 12
+            row["status"] = "alive"
+            row["claims_live_bridge_health"] = False
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["heartbeat_stale_count"] == 0
+    assert "STALE_HEARTBEAT_LIVENESS_CLAIM" not in summary["error_codes"]
+    assert {finding["error_code"] for finding in findings} >= {
+        "STALE_HEARTBEAT_LIVENESS_CLAIM",
+    }
+
+
+def test_bridge_phase_continuity_stale_heartbeat_requires_liveness_overclaim() -> None:
+    inputs = _mutated_transport_inputs()
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_stale":
+            row["age_seconds"] = 9999
+            row["status"] = "stale"
+            row["claims_live_bridge_health"] = False
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["heartbeat_stale_count"] == 1
+    assert summary["stale_heartbeat_rejected"] is False
+    assert "STALE_HEARTBEAT_LIVENESS_CLAIM" not in summary["error_codes"]
+    assert {finding["error_code"] for finding in findings} >= {
+        "STALE_HEARTBEAT_LIVENESS_CLAIM",
+    }
+
+
+def test_bridge_phase_continuity_duplicate_resume_rejection_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    packets = inputs[bridge_runtime.CONTINUATION_PACKET_NAME]["payload"]["packets"]
+    for packet in packets:
+        if packet.get("packet_id") == "synthetic_packet_002":
+            packet["consumed"] = False
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert "CONTINUATION_PACKET_ALREADY_CONSUMED" not in summary["error_codes"]
+    assert {finding["error_code"] for finding in findings} >= {
+        "CONTINUATION_PACKET_ALREADY_CONSUMED",
+    }
+
+
+def test_bridge_phase_continuity_resume_authority_rejection_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_claims_resume_authority":
+            row["claims_resume_authority"] = False
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert "HEARTBEAT_NOT_RESUME_AUTHORITY" not in summary["error_codes"]
+    assert {finding["error_code"] for finding in findings} >= {
+        "HEARTBEAT_NOT_RESUME_AUTHORITY",
+    }
+
+
+def test_bridge_phase_continuity_valid_job_requires_matching_fresh_heartbeat() -> None:
+    inputs = _mutated_transport_inputs()
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_fresh":
+            row["job_id"] = "synthetic_detached_job_other"
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["valid_job"]["status"] == "blocked"
+    assert summary["valid_job"]["fresh_heartbeat_present"] is False
+    invalid_findings = [
+        finding
+        for finding in findings
+        if finding["error_code"]
+        == "BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID"
+    ]
+    assert invalid_findings == [
+        {
+            "error_code": "BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID",
+            "body_redacted": True,
+            "fresh_heartbeat_present": False,
+            "phase_match": True,
+            "continuity_match": True,
+        }
+    ]
+
+
+def test_bridge_phase_continuity_resume_authority_rejection_is_not_id_keyed() -> None:
+    inputs = _mutated_transport_inputs()
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_claims_resume_authority":
+            row["heartbeat_id"] = "renamed_fresh_resume_authority_claim"
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "pass"
+    assert findings == []
+    assert summary["heartbeat_resume_authority_rejected"] is True
+    assert "HEARTBEAT_NOT_RESUME_AUTHORITY" in summary["error_codes"]
+
+
+def test_bridge_phase_continuity_phase_mismatch_rejection_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    jobs = inputs[bridge_runtime.DETACHED_JOB_NAME]["payload"]["jobs"]
+    packets = inputs[bridge_runtime.CONTINUATION_PACKET_NAME]["payload"]["packets"]
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for job in jobs:
+        if job.get("job_id") == "synthetic_detached_job_001":
+            job["phase_id"] = "09_54_1"
+    for packet in packets:
+        if packet.get("packet_id") == "synthetic_packet_001":
+            packet["phase_id"] = "09_54_1"
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_fresh":
+            row["heartbeat_id"] = "renamed_good_heartbeat"
+            row["phase_id"] = "09_54_2"
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["valid_job"]["status"] == "blocked"
+    assert summary["phase_mismatch_rejected"] is True
+    assert "BRIDGE_CONTINUITY_PHASE_MISMATCH" in summary["error_codes"]
+    assert "BRIDGE_CONTINUITY_PHASE_MISMATCH" in {
+        finding["error_code"] for finding in findings
+    }
+
+    for row in rows:
+        if row.get("heartbeat_id") == "renamed_good_heartbeat":
+            row["phase_id"] = "09_54_1"
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "pass"
+    assert findings == []
+    assert summary["phase_mismatch_rejected"] is False
+    assert "BRIDGE_CONTINUITY_PHASE_MISMATCH" not in summary["error_codes"]
+
+
+def test_bridge_phase_continuity_continuity_ref_conflict_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    jobs = inputs[bridge_runtime.DETACHED_JOB_NAME]["payload"]["jobs"]
+    packets = inputs[bridge_runtime.CONTINUATION_PACKET_NAME]["payload"]["packets"]
+    rows = inputs[bridge_runtime.HEARTBEAT_ROWS_NAME]["payload"]
+    for job in jobs:
+        if job.get("job_id") == "synthetic_detached_job_001":
+            job["continuity_ref"] = "continuity_A"
+            job["continuity_epoch"] = 1
+    for packet in packets:
+        if packet.get("packet_id") == "synthetic_packet_001":
+            packet["continuity_ref"] = "continuity_A"
+            packet["continuity_epoch"] = 1
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_fresh":
+            row["continuity_ref"] = "continuity_B"
+            row["continuity_epoch"] = 2
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["valid_job"]["status"] == "blocked"
+    assert summary["continuity_conflict_rejected"] is True
+    assert "BRIDGE_CONTINUITY_CONFLICTING_CONTINUITY_REF" in summary["error_codes"]
+    assert "BRIDGE_CONTINUITY_CONFLICTING_CONTINUITY_REF" in {
+        finding["error_code"] for finding in findings
+    }
+
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_fresh":
+            row["continuity_ref"] = "continuity_A"
+            row["continuity_epoch"] = 1
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "pass"
+    assert findings == []
+    assert summary["valid_job"]["continuity_match"] is True
+    assert summary["continuity_conflict_rejected"] is False
+    assert "BRIDGE_CONTINUITY_CONFLICTING_CONTINUITY_REF" not in summary["error_codes"]
+
+
+def test_bridge_phase_continuity_claim_ref_conflict_rejection_moves_with_input() -> None:
+    inputs = _mutated_transport_inputs()
+    packets = inputs[bridge_runtime.CONTINUATION_PACKET_NAME]["payload"]["packets"]
+    for packet in packets:
+        if packet.get("packet_id") == "synthetic_packet_001":
+            packet["claim_ref"] = "claim_synthetic_conflict"
+
+    summary, findings = _validate_transport_inputs(inputs)
+
+    assert summary["status"] == "blocked"
+    assert summary["valid_job"]["status"] == "blocked"
+    assert summary["claim_ref_conflict_rejected"] is True
+    assert "BRIDGE_CONTINUITY_CLAIM_REF_CONFLICT" in {
+        finding["error_code"] for finding in findings
+    }
+    assert "BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID" in {
+        finding["error_code"] for finding in findings
+    }
+    conflict_findings = [
+        finding
+        for finding in findings
+        if finding["error_code"] == "BRIDGE_CONTINUITY_CLAIM_REF_CONFLICT"
+    ]
+    assert conflict_findings == [
+        {
+            "error_code": "BRIDGE_CONTINUITY_CLAIM_REF_CONFLICT",
+            "body_redacted": True,
+            "conflict_count": 1,
+        }
+    ]
+
+
+def test_bridge_phase_continuity_accepts_legacy_fixture_label_as_compatibility_alias() -> None:
+    findings: list[dict[str, Any]] = []
+    summary = bridge_runtime._validate_synthetic_transport_contract(
+        _transport_inputs_with_label("fake_transport"),
+        findings=findings,
+    )
+    public_summary = bridge_runtime._synthetic_transport_fixture_summary(summary)
+
+    assert summary["status"] == "pass"
+    assert findings == []
+    assert public_summary["transport_label"] == "synthetic_transport"
+    assert public_summary["valid_job"]["transport"] == "synthetic_transport"
+    assert public_summary["legacy_fixture_transport_label_exported"] is False
+
+
+def test_bridge_phase_continuity_runner_consumes_synthetic_fixture_files_as_synthetic_transport(
     tmp_path: Path,
 ) -> None:
     out_dir = tmp_path / "bridge_phase_continuity_runtime"
     result = bridge_runtime.run(FIXTURE_INPUT, out_dir, command="pytest bridge continuity")
-    summary = result["fake_transport_fixture_summary"]
+    public_summary = result["synthetic_transport_fixture_summary"]
 
-    assert summary["status"] == "pass"
-    assert summary["input_file_count"] == 6
-    assert summary["detached_job_count"] == 4
-    assert summary["continuation_packet_count"] == 3
-    assert summary["heartbeat_row_count"] == 3
-    assert summary["resource_pressure_row_count"] == 2
-    assert summary["worker_skip_receipt_count"] == 1
-    assert summary["valid_job"] == {
+    assert "fake_transport_fixture_summary" not in result
+    assert public_summary["status"] == "pass"
+    assert public_summary["input_file_count"] == 6
+    assert public_summary["detached_job_count"] == 4
+    assert public_summary["continuation_packet_count"] == 3
+    assert public_summary["heartbeat_row_count"] == 3
+    assert public_summary["resource_pressure_row_count"] == 2
+    assert public_summary["worker_skip_receipt_count"] == 1
+    assert public_summary["valid_job"] == {
         "status": "pass",
         "job_id": "synthetic_detached_job_001",
         "packet_id": "synthetic_packet_001",
-        "transport": "fake_transport",
+        "transport": "synthetic_transport",
     }
-    assert summary["missing_packet_rejected"] is True
-    assert summary["missing_required_fields_rejected"] is True
-    assert summary["duplicate_resume_rejected"] is True
-    assert summary["heartbeat_fresh_count"] == 2
-    assert summary["heartbeat_stale_count"] == 1
-    assert summary["heartbeat_resume_authority_rejected"] is True
-    assert summary["stale_heartbeat_rejected"] is True
-    assert summary["resource_pressure_blocked"] is True
-    assert summary["worker_skip_deduped_no_closeout"] is True
-    assert summary["forbidden_class_ids_only"] is True
-    assert set(summary["error_codes"]) >= {
+    assert public_summary["transport_label"] == "synthetic_transport"
+    assert public_summary["legacy_fixture_transport_label_exported"] is False
+    assert "findings" not in public_summary
+    assert public_summary["missing_packet_rejected"] is True
+    assert public_summary["missing_required_fields_rejected"] is True
+    assert public_summary["duplicate_resume_rejected"] is True
+    assert public_summary["heartbeat_fresh_count"] == 2
+    assert public_summary["heartbeat_stale_count"] == 1
+    assert public_summary["heartbeat_resume_authority_rejected"] is True
+    assert public_summary["stale_heartbeat_rejected"] is True
+    assert public_summary["resource_pressure_blocked"] is True
+    assert public_summary["worker_skip_deduped_no_closeout"] is True
+    assert public_summary["forbidden_class_ids_only"] is True
+    assert set(public_summary["error_codes"]) >= {
         "CONTINUATION_PACKET_ALREADY_CONSUMED",
         "HEARTBEAT_NOT_RESUME_AUTHORITY",
         "MISSING_CONTINUATION_PACKET",
@@ -171,9 +584,15 @@ def test_bridge_phase_continuity_runner_consumes_manifest_fake_transport_files(
     pressure = _load_json(out_dir / "resource_pressure.json")
     closeout = _load_json(out_dir / "closeout_transition.json")
 
-    assert continuation["continuation_packet_status"]["fake_transport_job_id"] == (
+    assert "fake_transport_fixture_summary" not in continuation
+    assert "fake_transport_job_id" not in continuation["continuation_packet_status"]
+    assert "fake_transport_packet_id" not in continuation["continuation_packet_status"]
+    assert continuation["continuation_packet_status"]["synthetic_transport_job_id"] == (
         "synthetic_detached_job_001"
     )
+    assert continuation["continuation_packet_status"][
+        "synthetic_transport_packet_id"
+    ] == "synthetic_packet_001"
     assert continuation["continuation_packet_status"]["missing_packet_rejected"] is True
     assert continuation["continuation_packet_status"][
         "missing_required_fields_rejected"
@@ -187,6 +606,148 @@ def test_bridge_phase_continuity_runner_consumes_manifest_fake_transport_files(
         "status": "pass",
         "claim_closeout_authorized": False,
         "deduped_noop_receipt": True,
+    }
+
+
+def test_bridge_phase_continuity_receipt_negative_cases_use_semantic_evidence(
+    tmp_path: Path,
+) -> None:
+    out_dir = tmp_path / "bridge_phase_continuity_runtime"
+    result = bridge_runtime.run(FIXTURE_INPUT, out_dir, command="pytest bridge continuity")
+
+    observed = result["observed_negative_cases"]
+    assert observed["stale_heartbeat_overclaims_liveness"] == {
+        "status": "pass",
+        "error_codes": ["STALE_HEARTBEAT_LIVENESS_CLAIM"],
+        "evidence_source": "synthetic_transport_validator",
+        "semantic_checks": {"stale_heartbeat_rejected": True},
+        "body_redacted": True,
+    }
+    assert observed["apply_validation_failure_rolls_back_observe_promotion"] == {
+        "status": "pass",
+        "error_codes": ["OBSERVE_APPLY_VALIDATION_FAILED"],
+        "evidence_source": "observe_apply_rollback_validator",
+        "semantic_checks": {"rollback_validation_failure_rejected": True},
+        "body_redacted": True,
+    }
+    assert {
+        row["evidence_source"] for row in observed.values()
+    } >= {
+        "synthetic_transport_validator",
+        "observe_apply_rollback_validator",
+        "observe_apply_finalizer_validator",
+        "public_boundary_and_private_state_scan",
+    }
+    assert "synthetic_fixture_expected_negative_cases" not in {
+        row["evidence_source"] for row in observed.values()
+    }
+
+
+def test_bridge_phase_continuity_receipt_negative_cases_move_with_transport_input(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input(tmp_path)
+    rows_path = input_dir / bridge_runtime.HEARTBEAT_ROWS_NAME
+    rows = [
+        json.loads(line)
+        for line in rows_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    for row in rows:
+        if row.get("heartbeat_id") == "heartbeat_stale":
+            row["age_seconds"] = 12
+            row["status"] = "alive"
+            row["claims_live_bridge_health"] = False
+    rows_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = bridge_runtime.run(
+        input_dir,
+        tmp_path / "bridge_phase_continuity_runtime",
+        command="pytest bridge continuity mutated heartbeat",
+    )
+
+    observed = result["observed_negative_cases"]["stale_heartbeat_overclaims_liveness"]
+    assert result["status"] == "blocked"
+    assert "stale_heartbeat_overclaims_liveness" in result["missing_negative_cases"]
+    assert observed == {
+        "status": "blocked",
+        "error_codes": [],
+        "evidence_source": "synthetic_transport_validator",
+        "semantic_checks": {"stale_heartbeat_rejected": False},
+        "body_redacted": True,
+    }
+    assert "STALE_HEARTBEAT_LIVENESS_CLAIM" not in result["error_codes"]
+    assert "STALE_HEARTBEAT_LIVENESS_CLAIM" in {
+        finding["error_code"] for finding in result["findings"]
+    }
+
+
+def test_bridge_phase_continuity_receipt_blocks_conflicting_claim_refs(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input(tmp_path)
+    packet_path = input_dir / bridge_runtime.CONTINUATION_PACKET_NAME
+    payload = _load_json(packet_path)
+    for packet in payload["packets"]:
+        if packet.get("packet_id") == "synthetic_packet_001":
+            packet["claim_ref"] = "claim_synthetic_conflict"
+    packet_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+    result = bridge_runtime.run(
+        input_dir,
+        tmp_path / "bridge_phase_continuity_runtime",
+        command="pytest bridge continuity conflicting claim ref",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["synthetic_transport_fixture_summary"][
+        "claim_ref_conflict_rejected"
+    ] is True
+    assert "BRIDGE_CONTINUITY_CLAIM_REF_CONFLICT" in {
+        finding["error_code"] for finding in result["findings"]
+    }
+    assert "BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID" in {
+        finding["error_code"] for finding in result["findings"]
+    }
+
+
+def test_bridge_phase_continuity_receipt_negative_cases_move_with_rollback_input(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input(tmp_path)
+    fixture_path = input_dir / bridge_runtime.INPUT_NAME
+    fixture = _load_json(fixture_path)
+    rollback = fixture["synthetic_observe_apply_session"][
+        "rollback_on_validation_failure"
+    ]
+    rollback["validation_status"] = "pass"
+    rollback["rollback_required"] = False
+    rollback["writes_allowed_after_failure"] = True
+    fixture_path.write_text(json.dumps(fixture, indent=2) + "\n", encoding="utf-8")
+
+    result = bridge_runtime.run(
+        input_dir,
+        tmp_path / "bridge_phase_continuity_runtime",
+        command="pytest bridge continuity mutated rollback",
+    )
+
+    case_id = "apply_validation_failure_rolls_back_observe_promotion"
+    observed = result["observed_negative_cases"][case_id]
+    assert result["status"] == "blocked"
+    assert case_id in result["missing_negative_cases"]
+    assert observed == {
+        "status": "blocked",
+        "error_codes": [],
+        "evidence_source": "observe_apply_rollback_validator",
+        "semantic_checks": {"rollback_validation_failure_rejected": False},
+        "body_redacted": True,
+    }
+    assert "OBSERVE_APPLY_VALIDATION_FAILED" not in result["error_codes"]
+    assert "BRIDGE_CONTINUITY_ROLLBACK_CASE_MISSING" in {
+        finding["error_code"] for finding in result["findings"]
     }
 
 
@@ -254,11 +815,13 @@ def test_bridge_phase_continuity_card_stdout_is_compact_and_keeps_full_receipts(
 
     assert exit_code == 0
     assert len(captured.encode("utf-8")) < 6000
-    assert card["schema_version"] == bridge_runtime.CARD_SCHEMA_VERSION
+    assert card["schema_version"] == "bridge_phase_continuity_runtime_command_card_v2"
     assert card["status"] == "pass"
     assert card["organ_id"] == bridge_runtime.ORGAN_ID
     assert card["fixture_id"] == bridge_runtime.FIXTURE_ID
     assert card["receipt_summary"]["written_receipt_count"] == 5
+    assert card["receipt_summary"]["receipt_write_status"] == "writes_allowed"
+    assert card["receipt_summary"]["receipt_write_skipped_count"] == 0
     assert card["receipt_summary"]["receipt_count"] == len(bridge_runtime.EXPECTED_RECEIPT_PATHS)
     assert card["receipt_summary"]["receipt_paths_exported"] is False
     assert card["bridge_continuity_summary"]["heartbeat_fresh_count"] == 2
@@ -266,8 +829,11 @@ def test_bridge_phase_continuity_card_stdout_is_compact_and_keeps_full_receipts(
     assert card["bridge_continuity_summary"]["resource_pressure_blocked"] is True
     assert card["bridge_continuity_summary"]["resource_dispatch_allowed"] is False
     assert card["bridge_continuity_summary"]["worker_skip_deduped_no_closeout"] is True
-    assert card["fake_transport_summary"]["input_file_count"] == 6
-    assert card["fake_transport_summary"]["manifest_input_refs_exported"] is False
+    assert card["synthetic_transport_summary"]["input_file_count"] == 6
+    assert card["synthetic_transport_summary"]["transport_label"] == (
+        "synthetic_transport"
+    )
+    assert card["synthetic_transport_summary"]["manifest_input_refs_exported"] is False
     assert card["negative_case_coverage"]["expected_case_count"] == len(
         bridge_runtime.EXPECTED_NEGATIVE_CASES
     )
@@ -286,6 +852,7 @@ def test_bridge_phase_continuity_card_stdout_is_compact_and_keeps_full_receipts(
     assert "source_pattern_ids" not in card_keys
     assert "source_module_digest_results" not in card_keys
     assert "synthetic_input_refs" not in card_keys
+    assert "fake_transport_summary" not in card_keys
     assert "receipt_paths" not in card_keys
     assert "receipt_path_map" not in card_keys
     assert "anti_claim" not in card_keys
@@ -293,6 +860,8 @@ def test_bridge_phase_continuity_card_stdout_is_compact_and_keeps_full_receipts(
     assert "scan_scope" not in card_keys
 
     assert full_receipt["status"] == "pass"
+    assert "fake_transport_fixture_summary" not in full_receipt
+    assert full_receipt["synthetic_transport_fixture_summary"]["status"] == "pass"
     assert full_receipt["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS
     assert len(full_receipt["source_module_digest_results"]) == 5
     assert full_receipt["command"].endswith("--card")

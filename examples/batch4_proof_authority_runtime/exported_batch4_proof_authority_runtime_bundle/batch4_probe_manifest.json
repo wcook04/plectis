@@ -1,0 +1,106 @@
+{
+  "schema_version": "batch4_proof_authority_runtime_probe_manifest_v1",
+  "organ_id": "batch4_proof_authority_runtime",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "body_in_receipt": false,
+  "mechanisms": [
+    {
+      "mechanism_id": "lean_strategy_control_benchmark",
+      "source_module_ids": ["prover_graph_benchmark"],
+      "public_exercise": "strategy-control graph anchor, comparison report, oracle audit, and stage-attribution metrics are verified from copied macro source.",
+      "negative_case": "weak_skeleton_synthesis_failure",
+      "claim_ceiling": "Measured oracle-gated strategy-control ablation, not an open-problem solver, SOTA claim, or general theorem prover."
+    },
+    {
+      "mechanism_id": "prover_skill_foundry",
+      "source_module_ids": ["prover_graph_benchmark"],
+      "public_exercise": "mine-evaluate-promote foundry functions and repaired-count promotion gates are verified from copied macro source.",
+      "negative_case": "foundry_low_repair_quarantine",
+      "claim_ceiling": "Bounded Lean failure skill-candidate promotion gate, not open-ended autonomous theorem-proving improvement."
+    },
+    {
+      "mechanism_id": "verisoftbench_harness_differential",
+      "source_module_ids": ["verisoftbench_harness_differential"],
+      "public_exercise": "Harness differential diagnosis and check-output anchors are verified from copied macro source.",
+      "negative_case": "verisoft_truth_leak",
+      "claim_ceiling": "Harness-contamination detector for public receipt scope, not official benchmark result or solve-rate claim."
+    },
+    {
+      "mechanism_id": "verisoftbench_calibration_executor",
+      "source_module_ids": ["verisoftbench_calibration_rows"],
+      "public_exercise": "Calibration-row check-output and bounded probe flags are verified from copied macro source.",
+      "negative_case": "verisoft_prefix_answer_leakage",
+      "claim_ceiling": "Pinned calibration-row evaluator where available; solved count is not a leaderboard or benchmark claim."
+    },
+    {
+      "mechanism_id": "erdos257_certificate_kernel",
+      "source_module_ids": ["erdos257_certificate_kernel", "erdos257_target_runner"],
+      "public_exercise": "Copied CertificateKernel.lean is statically scanned for proof-placeholder tokens and tied to target-runner axiom-audit code.",
+      "negative_case": "erdos_solution_overclaim",
+      "claim_ceiling": "Machine-checkable certificate-kernel scope only; not a solution of Erdos #257 and not publication authority."
+    },
+    {
+      "mechanism_id": "lean_full_fidelity_packet_verifier",
+      "source_module_ids": ["lean_microcosm_projection", "lean_full_fidelity_packet_replay"],
+      "public_exercise": "Hashed source-ref verifier, replay status, and rejection anchors are verified from copied macro source.",
+      "negative_case": "packet_sha256_corruption",
+      "claim_ceiling": "Tamper-evident packet integrity and cold replay, not Lean proof correctness."
+    },
+    {
+      "mechanism_id": "reasoning_execution_authority_grant",
+      "source_module_ids": ["reasoning_authority_envelope", "reasoning_grant_lease", "reasoning_plan_builder", "reasoning_plan_verifier"],
+      "public_exercise": "Dry-run authority decision, grant-lease denial, no-dispatch posture, and cycle verifier anchors are verified from copied macro source.",
+      "negative_case": "grant_forbidden_context",
+      "claim_ceiling": "Dry-run capability-decision planner and verifier with launch_authorized=false, model_dispatch=false, runtime_execution=false; not a live sandbox."
+    },
+    {
+      "mechanism_id": "forward_integration_policy_fence",
+      "source_module_ids": ["forward_integration_policy"],
+      "public_exercise": "Dirty target classification and path-scope overlap policy anchors are verified from copied macro source.",
+      "negative_case": "forward_dirty_unknown_target",
+      "claim_ceiling": "Forward-integration safety policy, not complete concurrency control."
+    },
+    {
+      "mechanism_id": "closeout_executor_state_machine",
+      "source_module_ids": ["closeout_executor"],
+      "public_exercise": "Closeout burst planner, stale-HEAD deferral, and concurrent-publication deferral anchors are verified from copied macro source.",
+      "negative_case": "closeout_stale_head",
+      "claim_ceiling": "Autonomous closeout planner/dry-run state machine; Microcosm exercise is dry-run only."
+    },
+    {
+      "mechanism_id": "codex_cdp_driver",
+      "source_module_ids": ["codex_driver"],
+      "public_exercise": "Codex driver doctor and manager-start anchors are verified from copied macro source without raw session bodies.",
+      "negative_case": "codex_driver_absent_port",
+      "claim_ceiling": "Runtime app-control diagnostics through available protocol surfaces, not general browser automation or live orchestration."
+    },
+    {
+      "mechanism_id": "codex_idle_heartbeat_fsm",
+      "source_module_ids": ["codex_idle_heartbeat"],
+      "public_exercise": "Idle-gate and tab-permutation FSM anchors are verified from copied macro source without exporting Codex state.",
+      "negative_case": "idle_stale_snapshot",
+      "claim_ceiling": "Idle-gated slot inference, not a scheduler or live capacity proof."
+    },
+    {
+      "mechanism_id": "metabolism_bitemporal_claim_log",
+      "source_module_ids": ["metabolism_store"],
+      "public_exercise": "Blackboard claim event table, assertion, supersession, and temporal listing anchors are verified from copied macro source.",
+      "negative_case": "bitemporal_expired_claim",
+      "claim_ceiling": "Append-only bitemporal claim-event store over public/synthetic scope, not distributed consensus and not live metabolism DB export."
+    },
+    {
+      "mechanism_id": "macos_taskpolicy_actuator",
+      "source_module_ids": ["metabolismd", "metabolism_governor"],
+      "public_exercise": "Taskpolicy wrapping and background cost-class gate anchors are verified from copied macro source.",
+      "negative_case": "taskpolicy_missing_binary",
+      "claim_ceiling": "Platform-guarded host scheduling and I/O policy actuator that degrades when unavailable, not a cross-platform scheduler."
+    },
+    {
+      "mechanism_id": "context_yield_attribution",
+      "source_module_ids": ["agent_execution_trace"],
+      "public_exercise": "Context-yield attribution, governance status counts, and scoped diff/read overlap anchors are verified from copied macro source.",
+      "negative_case": "context_accepted_read_guard",
+      "claim_ceiling": "Quantified context-economy governance reducer over metadata and byte counts, not raw private session text."
+    }
+  ]
+}

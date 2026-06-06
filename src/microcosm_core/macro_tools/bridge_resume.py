@@ -155,6 +155,41 @@ def _stable_digest(payload: object, *, length: int | None = None) -> str:
     return digest[:length] if length else digest
 
 
+def _file_sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _repo_root_from_target() -> Path | None:
+    for candidate in Path(__file__).resolve(strict=False).parents:
+        if (candidate / SOURCE_REF).is_file():
+            return candidate
+    return None
+
+
+def _body_import_verification() -> dict[str, Any]:
+    target_path = Path(__file__).resolve(strict=False)
+    repo_root = _repo_root_from_target()
+    source_path = repo_root / SOURCE_REF if repo_root else None
+    source_digest = (
+        _file_sha256(source_path)
+        if source_path is not None and source_path.is_file()
+        else ""
+    )
+    target_digest = _file_sha256(target_path) if target_path.is_file() else ""
+    return {
+        "verification_status": (
+            "verified" if source_digest and target_digest else "target_available"
+        ),
+        "verification_mode": "verified_light_edit_recipe",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "source_ref": SOURCE_REF,
+        "target_ref": TARGET_REF,
+        "source_body_digest": source_digest or None,
+        "target_body_digest": target_digest or None,
+        "body_in_receipt": False,
+    }
+
+
 def _walk_keys(payload: object) -> list[str]:
     if isinstance(payload, Mapping):
         keys = [str(key) for key in payload.keys()]
@@ -715,14 +750,7 @@ def build_public_bridge_dispatch_yield_resume_view(
         "expected_summary": expected_summary,
         "forbidden_payload_keys": forbidden_keys,
         "view_fingerprint": view_fingerprint,
-        "body_import_verification": {
-            "verification_status": "verified",
-            "verification_mode": "source_faithful_public_refactor",
-            "source_to_target_relation": "source_faithful_public_light_edit",
-            "source_ref": SOURCE_REF,
-            "target_ref": TARGET_REF,
-            "body_in_receipt": False,
-        },
+        "body_import_verification": _body_import_verification(),
         "metadata_envelope_only": True,
         "body_in_receipt": False,
     }

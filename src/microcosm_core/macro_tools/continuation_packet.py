@@ -104,6 +104,41 @@ def _stable_digest(payload: object, *, length: int | None = None) -> str:
     return digest[:length] if length else digest
 
 
+def _file_digest(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _repo_root_from_target() -> Path | None:
+    for candidate in Path(__file__).resolve(strict=False).parents:
+        if (candidate / SOURCE_REF).is_file():
+            return candidate
+    return None
+
+
+def body_import_verification() -> dict[str, Any]:
+    target_path = Path(__file__).resolve(strict=False)
+    repo_root = _repo_root_from_target()
+    source_path = repo_root / SOURCE_REF if repo_root is not None else None
+    source_digest = (
+        _file_digest(source_path)
+        if source_path is not None and source_path.is_file()
+        else ""
+    )
+    target_digest = _file_digest(target_path) if target_path.is_file() else ""
+    return {
+        "verification_status": "verified"
+        if source_digest and target_digest
+        else "target_available",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "source_ref": SOURCE_REF,
+        "target_ref": TARGET_REF,
+        "source_body_digest": source_digest or None,
+        "target_body_digest": target_digest or None,
+        "body_in_receipt": False,
+    }
+
+
 def canonical_continuation_packet_path(artifact_dir: str | Path) -> str:
     rel = _relative_public_path(artifact_dir)
     if not rel:
@@ -224,6 +259,7 @@ def build_public_continuation_packet(
         "target_symbols": TARGET_SYMBOL_REFS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_verification": body_import_verification(),
         "body_in_receipt": False,
     }
     fingerprint_basis = {

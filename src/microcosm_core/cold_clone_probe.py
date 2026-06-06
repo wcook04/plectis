@@ -9,6 +9,7 @@ from typing import Any
 
 from microcosm_core.organs.pattern_binding_contract import validate as validate_pattern_binding
 from microcosm_core.receipts import base_receipt, write_receipt
+from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.secret_exclusion_scan import validate_scan as validate_secret_exclusion_scan
 
 
@@ -28,20 +29,35 @@ PATTERN_RECEIPTS = [
 ]
 
 SUPPORTED_SUITES = ("first-wave",)
+DEFAULT_EMIT_REF = ".microcosm/cold_clone_probe.json"
+
+
+def _path_exists(path: Path) -> bool:
+    try:
+        return path.exists()
+    except OSError:
+        return False
+
+
+def _path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
 
 
 def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
     for receipt_ref in PATTERN_RECEIPTS:
         destination = root_path / receipt_ref
-        if destination.exists():
+        if _path_exists(destination):
             continue
         source = source_dir / Path(receipt_ref).name
-        if not source.is_file():
+        if not _path_is_file(source):
             continue
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, destination)
         if destination.name == "pattern_binding_validation_result.json":
-            payload = json.loads(destination.read_text(encoding="utf-8"))
+            payload = read_json_strict(destination)
             if isinstance(payload, dict):
                 payload["receipt_paths"] = PATTERN_RECEIPTS
                 destination.write_text(
@@ -57,7 +73,7 @@ def _bootstrap_command(suite: str, emit_ref: str) -> str:
 def run_probe(
     root: str | Path,
     suite: str = "first-wave",
-    emit_ref: str | Path = "receipts/cold_clone_probe.json",
+    emit_ref: str | Path = DEFAULT_EMIT_REF,
 ) -> dict[str, Any]:
     root_path = Path(root)
     emit_ref_text = str(emit_ref)
@@ -82,7 +98,7 @@ def run_probe(
             }
         )
         return receipt
-    missing_inputs = [path for path in REQUIRED_INPUTS if not (root_path / path).is_file()]
+    missing_inputs = [path for path in REQUIRED_INPUTS if not _path_is_file(root_path / path)]
     if missing_inputs:
         receipt.update(
             {
@@ -125,7 +141,7 @@ def run_probe(
         command="bootstrap pattern_binding_contract validate",
     )
     _mirror_missing_pattern_receipts(root_path, pattern_out)
-    missing_receipts = [path for path in PATTERN_RECEIPTS if not (root_path / path).is_file()]
+    missing_receipts = [path for path in PATTERN_RECEIPTS if not _path_is_file(root_path / path)]
     if pattern_result["status"] != "pass" or missing_receipts:
         receipt.update(
             {

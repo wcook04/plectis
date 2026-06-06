@@ -105,7 +105,7 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
         REQUIRED_MODULES
     )
     assert result["module_coverage_summary"]["deferred_public_safe_core_count"] == 1
-    assert result["module_coverage_summary"]["deferred_public_safe_statistical_count"] == 6
+    assert result["module_coverage_summary"]["deferred_public_safe_statistical_count"] == 2
     assert result["module_coverage_summary"]["operational_receipt_only_count"] == 2
     assert result["module_coverage_summary"]["operational_only_count"] == 1
     assert result["module_coverage_summary"]["silent_omission_count"] == 0
@@ -280,6 +280,33 @@ def test_finance_eval_spine_rejects_copied_body_without_target_ref(
 
     assert result["status"] == "blocked"
     assert "SOURCE_MANIFEST_TARGET_REF_MISMATCH" in result["error_codes"]
+
+
+def test_finance_eval_spine_rejects_duplicate_source_manifest_body_path(
+    tmp_path: Path,
+) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0] = dict(manifest["modules"][1])
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "SOURCE_MANIFEST_REQUIRED_PATH_DUPLICATE" in result["error_codes"]
+    assert "SOURCE_MANIFEST_REQUIRED_PATH_MISSING" in result["error_codes"]
+    assert "SOURCE_MANIFEST_TARGET_REF_MISMATCH" not in result["error_codes"]
+    copied_rows = [
+        row
+        for row in result["source_manifest"]["inputs"]
+        if row["source_import_class"] == SOURCE_IMPORT_CLASS
+    ]
+    assert all(row["digest_status"] == "match" for row in copied_rows)
 
 
 def test_finance_eval_spine_rejects_empty_assurance_demo(tmp_path: Path) -> None:

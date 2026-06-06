@@ -17,7 +17,11 @@ from microcosm_core.public_payload_boundary import (
     SOURCE_OPEN_BODY_POLICY,
     public_payload_boundary,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -42,6 +46,7 @@ CARD_SCHEMA_VERSION = "spatial_world_model_simulation_command_card_v1"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "scene_states",
     "counterfactual_replays",
+    "state_transition_analysis",
     "positive_findings",
     "negative_case_findings",
     "source_module_summary",
@@ -64,6 +69,7 @@ INPUT_NAMES = (
     "replay_policy.json",
     "scene_states.json",
     "counterfactual_replays.json",
+    "state_transitions.json",
     SOURCE_MODULE_MANIFEST_NAME,
 )
 NEGATIVE_INPUT_NAMES = (
@@ -163,6 +169,40 @@ SOURCE_BODY_STATUS = SOURCE_MODULE_IMPORT_STATUS
 SOURCE_OPEN_BODY_SCHEMA = (
     "spatial_world_model_counterfactual_simulation_replay_source_open_body_imports_v1"
 )
+GRIDWORLD_WIDTH = 8
+GRIDWORLD_HEIGHT = 8
+EVENT_GRIDWORLD_ACTIONS = {
+    "occluded_forklift_enters_aisle": {
+        "actor_count_delta": 1,
+        "spawn_cell": [6, 1],
+        "event_delta_label": "new_dynamic_actor",
+    },
+    "small_pedestrian_enters_crosswalk": {
+        "actor_count_delta": 1,
+        "spawn_cell": [2, 6],
+        "event_delta_label": "new_dynamic_actor",
+    },
+    "lateral_gust_pushes_vehicle": {
+        "actor_count_delta": 1,
+        "spawn_cell": [4, 4],
+        "event_delta_label": "new_dynamic_actor",
+    },
+    "specular_floor_false_free_space": {
+        "actor_count_delta": 1,
+        "spawn_cell": [5, 5],
+        "event_delta_label": "new_dynamic_actor",
+    },
+    "pallet_stack_shifts_into_lane": {
+        "actor_count_delta": 1,
+        "spawn_cell": [1, 7],
+        "event_delta_label": "new_dynamic_actor",
+    },
+    "oncoming_vehicle_accelerates_late": {
+        "actor_count_delta": 1,
+        "spawn_cell": [7, 3],
+        "event_delta_label": "new_dynamic_actor",
+    },
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -247,8 +287,11 @@ def _json_digest(payload: object) -> str:
 
 
 def _line_count(path: Path) -> int:
+    line_count = 0
     with path.open("r", encoding="utf-8") as handle:
-        return sum(1 for _ in handle)
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:
@@ -378,6 +421,17 @@ def _source_module_manifest_result(
     findings: list[dict[str, Any]] = []
     module_results: list[dict[str, Any]] = []
     material_classes: set[str] = set()
+    if manifest_payload.get("body_text_in_receipt") is True:
+        findings.append(
+            {
+                "error_code": "SPATIAL_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "module_id": SOURCE_MODULE_MANIFEST_NAME,
+                "source_ref": "",
+                "target_ref": SOURCE_MODULE_MANIFEST_NAME,
+                "missing_anchors": [],
+                "reasons": ["manifest_body_text_in_receipt_forbidden"],
+            }
+        )
     for row in _rows(manifest_payload, "modules"):
         module_id = str(row.get("module_id") or "source_module")
         source_ref = str(row.get("source_ref") or "")
@@ -393,6 +447,20 @@ def _source_module_manifest_result(
             row_findings.append("material_class_must_be_public_macro_tool_body")
         if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
             row_findings.append("body_must_be_copied_without_receipt_body_text")
+        if row.get("body_text_in_receipt") is True:
+            row_findings.append("body_text_in_receipt_forbidden")
+            findings.append(
+                {
+                    "error_code": (
+                        "SPATIAL_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN"
+                    ),
+                    "module_id": module_id,
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "missing_anchors": [],
+                    "reasons": ["body_text_in_receipt_forbidden"],
+                }
+            )
         if not target.is_file():
             row_findings.append("target_ref_missing")
 
@@ -437,6 +505,7 @@ def _source_module_manifest_result(
                 "material_class": row.get("material_class"),
                 "classification": row.get("classification"),
                 "body_copied": row.get("body_copied"),
+                "body_text_in_receipt": False,
                 "body_in_receipt": row.get("body_in_receipt"),
                 "source_sha256": row.get("source_sha256"),
                 "target_sha256": row.get("target_sha256"),
@@ -706,6 +775,419 @@ def _replay_policy_findings(
     return findings
 
 
+def _int_value(value: object) -> int | None:
+    if isinstance(value, bool):
+        return None
+    return value if isinstance(value, int) else None
+
+
+def _gridworld_initial_state(scene: dict[str, Any], *, replay_id: str) -> dict[str, Any]:
+    actor_count = _int_value(scene.get("actor_count")) or 0
+    actors = []
+    for index in range(actor_count):
+        actors.append(
+            {
+                "actor_id": f"{replay_id}::actor::{index}",
+                "cell": [index % GRIDWORLD_WIDTH, index // GRIDWORLD_WIDTH],
+            }
+        )
+    return {
+        "schema_version": "spatial_toy_gridworld_state_v1",
+        "world_id": f"toy_gridworld::{replay_id}",
+        "width": GRIDWORLD_WIDTH,
+        "height": GRIDWORLD_HEIGHT,
+        "scene_state_ref": scene.get("scene_state_id"),
+        "topology_ref": scene.get("topology_ref"),
+        "actor_count": actor_count,
+        "actors": actors,
+    }
+
+
+def _positive_int_field(payload: object, key: str, *, default: int = 1) -> int:
+    if not isinstance(payload, dict):
+        return default
+    value = _int_value(payload.get(key))
+    return value if value is not None and value > 0 else default
+
+
+def _gridworld_actor_count_delta(
+    state: dict[str, Any],
+    *,
+    replay: dict[str, Any],
+    action: dict[str, Any],
+) -> int:
+    base_event_delta = _positive_int_field(action, "actor_count_delta", default=1)
+    sensor_packet_count = len(_strings(replay.get("sensor_packet_refs")))
+    consistency_budget = replay.get("consistency_budget")
+    timestep_lag = _positive_int_field(
+        consistency_budget,
+        "max_timestep_lag",
+        default=1,
+    )
+    replay_pressure = max(0, sensor_packet_count - timestep_lag - base_event_delta)
+    source_actor_count = _int_value(state.get("actor_count")) or 0
+    free_cell_count = max(0, GRIDWORLD_WIDTH * GRIDWORLD_HEIGHT - source_actor_count)
+    return min(base_event_delta + replay_pressure, 4, free_cell_count)
+
+
+def _gridworld_spawn_cells(
+    state: dict[str, Any],
+    *,
+    replay: dict[str, Any],
+    action: dict[str, Any],
+    event: str,
+    actor_count_delta: int,
+) -> list[list[int]]:
+    seed_payload = {
+        "event": event,
+        "replay_id": replay.get("replay_id"),
+        "scene_state_ref": state.get("scene_state_ref"),
+        "topology_ref": state.get("topology_ref"),
+        "sensor_packet_refs": _strings(replay.get("sensor_packet_refs")),
+        "consistency_budget": replay.get("consistency_budget"),
+        "limitation_labels": _strings(replay.get("limitation_labels")),
+        "source_actor_count": state.get("actor_count"),
+    }
+    seed = int(_json_digest(seed_payload).removeprefix("sha256:")[:12], 16)
+    area = GRIDWORLD_WIDTH * GRIDWORLD_HEIGHT
+    declared_cell = action.get("spawn_cell")
+    if (
+        isinstance(declared_cell, list)
+        and len(declared_cell) == 2
+        and all(_int_value(coord) is not None for coord in declared_cell)
+    ):
+        declared_x = int(declared_cell[0]) % GRIDWORLD_WIDTH
+        declared_y = int(declared_cell[1]) % GRIDWORLD_HEIGHT
+        base_cursor = declared_y * GRIDWORLD_WIDTH + declared_x
+    else:
+        base_cursor = 0
+    occupied = {
+        tuple(actor.get("cell"))
+        for actor in _rows({"actors": state.get("actors", [])}, "actors")
+        if isinstance(actor.get("cell"), list) and len(actor["cell"]) == 2
+    }
+    cells: list[list[int]] = []
+    cursor = (base_cursor + seed) % area
+    while len(cells) < actor_count_delta:
+        cell = [cursor % GRIDWORLD_WIDTH, cursor // GRIDWORLD_WIDTH]
+        cell_key = tuple(cell)
+        if cell_key not in occupied and cell not in cells:
+            cells.append(cell)
+        cursor = (cursor + 7) % area
+    return cells
+
+
+def _gridworld_step(
+    state: dict[str, Any],
+    *,
+    replay: dict[str, Any],
+    event: str,
+    replay_id: str,
+) -> dict[str, Any]:
+    action = EVENT_GRIDWORLD_ACTIONS.get(event)
+    actors = [dict(actor) for actor in _rows({"actors": state.get("actors", [])}, "actors")]
+    if action is None:
+        return {
+            "status": "blocked",
+            "reason": "unknown_counterfactual_event",
+            "event": event,
+            "state": state,
+            "next_state": state,
+            "transition_diff": {"actor_count_delta": 0},
+        }
+    actor_count_delta = _gridworld_actor_count_delta(
+        state,
+        replay=replay,
+        action=action,
+    )
+    spawn_cells = _gridworld_spawn_cells(
+        state,
+        replay=replay,
+        action=action,
+        event=event,
+        actor_count_delta=actor_count_delta,
+    )
+    new_actor_id = f"{replay_id}::event::{event}"
+    for index, cell in enumerate(spawn_cells):
+        actors.append(
+            {
+                "actor_id": f"{new_actor_id}::{index}",
+                "cell": cell,
+            }
+        )
+    next_state = {
+        **state,
+        "state_ref": f"actual_gridworld_state::{replay_id}",
+        "actors": actors,
+        "actor_count": len(actors),
+    }
+    transition_diff = {
+        "actor_count_delta": len(actors) - int(state.get("actor_count") or 0),
+        "event_delta_label": action["event_delta_label"],
+        "spawn_cell": spawn_cells[0] if spawn_cells else None,
+        "spawn_cells": spawn_cells,
+        "input_drivers": {
+            "base_event_actor_count_delta": action["actor_count_delta"],
+            "sensor_packet_count": len(_strings(replay.get("sensor_packet_refs"))),
+            "max_timestep_lag": _positive_int_field(
+                replay.get("consistency_budget"),
+                "max_timestep_lag",
+                default=1,
+            ),
+            "source_actor_count": _int_value(state.get("actor_count")) or 0,
+            "topology_ref": state.get("topology_ref"),
+        },
+        "within_consistency_budget": True,
+    }
+    return {
+        "status": PASS,
+        "event": event,
+        "state": state,
+        "next_state": next_state,
+        "transition_diff": transition_diff,
+    }
+
+
+def _state_transition_analysis(
+    *,
+    scene_states: list[dict[str, Any]],
+    replays: list[dict[str, Any]],
+    transitions: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    findings: list[dict[str, Any]] = []
+    scene_by_ref = {
+        str(row.get("scene_state_id")): row
+        for row in scene_states
+        if row.get("scene_state_id")
+    }
+    transitions_by_replay: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in transitions:
+        transitions_by_replay[str(row.get("replay_id") or "")].append(row)
+
+    transition_rows: list[dict[str, Any]] = []
+    for replay in replays:
+        replay_id = str(replay.get("replay_id") or "counterfactual_replay")
+        replay_transitions = transitions_by_replay.get(replay_id, [])
+        if len(replay_transitions) != 1:
+            findings.append(
+                _finding(
+                    "SPATIAL_STATE_TRANSITION_ROW_REQUIRED",
+                    "each counterfactual replay must resolve to exactly one public state-transition row",
+                    case_id="positive_fixture",
+                    subject_id=replay_id,
+                    subject_kind="state_transition",
+                )
+            )
+            continue
+
+        transition = replay_transitions[0]
+        scene_ref = str(replay.get("scene_state_ref") or "")
+        scene = scene_by_ref.get(scene_ref)
+        predicted_state = transition.get("predicted_state")
+        transition_diff = transition.get("transition_diff")
+        oracle_check = transition.get("oracle_state_check")
+        row_findings: list[str] = []
+
+        if scene is None:
+            row_findings.append("source_scene_state_unresolved")
+        if transition.get("scene_state_ref") != scene_ref:
+            row_findings.append("scene_state_ref_mismatch")
+        if transition.get("action_trace_ref") != replay.get("action_trace_ref"):
+            row_findings.append("action_trace_ref_mismatch")
+        if transition.get("counterfactual_event") != replay.get("counterfactual_event"):
+            row_findings.append("counterfactual_event_mismatch")
+        if not isinstance(predicted_state, dict):
+            row_findings.append("predicted_state_body_required")
+            predicted_state = {}
+        if not isinstance(transition_diff, dict):
+            row_findings.append("transition_diff_body_required")
+            transition_diff = {}
+        if not isinstance(oracle_check, dict):
+            row_findings.append("oracle_state_check_body_required")
+            oracle_check = {}
+
+        source_actor_count = _int_value(scene.get("actor_count")) if scene else None
+        predicted_actor_count = _int_value(predicted_state.get("actor_count"))
+        diff_actor_delta = _int_value(transition_diff.get("actor_count_delta"))
+        event = str(replay.get("counterfactual_event") or "")
+        initial_gridworld = (
+            _gridworld_initial_state(scene, replay_id=replay_id)
+            if scene is not None
+            else {}
+        )
+        gridworld_step = (
+            _gridworld_step(
+                initial_gridworld,
+                replay=replay,
+                event=event,
+                replay_id=replay_id,
+            )
+            if initial_gridworld
+            else {"status": "blocked", "reason": "source_scene_state_unresolved"}
+        )
+        actual_next_state = gridworld_step.get("next_state")
+        actual_transition_diff = gridworld_step.get("transition_diff")
+        actual_actor_count = (
+            _int_value(actual_next_state.get("actor_count"))
+            if isinstance(actual_next_state, dict)
+            else None
+        )
+        actual_actor_delta = (
+            _int_value(actual_transition_diff.get("actor_count_delta"))
+            if isinstance(actual_transition_diff, dict)
+            else None
+        )
+        if predicted_state.get("state_ref") != replay.get("predicted_state_ref"):
+            row_findings.append("predicted_state_ref_mismatch")
+        if transition_diff.get("diff_ref") != replay.get("transition_diff_ref"):
+            row_findings.append("transition_diff_ref_mismatch")
+        if oracle_check.get("check_ref") != replay.get("oracle_state_check_ref"):
+            row_findings.append("oracle_state_check_ref_mismatch")
+        if oracle_check.get("status") != PASS:
+            row_findings.append("oracle_state_check_must_pass")
+        if transition_diff.get("within_consistency_budget") is not True:
+            row_findings.append("transition_diff_must_be_within_consistency_budget")
+        if gridworld_step.get("status") != PASS:
+            row_findings.append("gridworld_step_must_execute")
+        if (
+            source_actor_count is None
+            or predicted_actor_count is None
+            or diff_actor_delta is None
+            or actual_actor_count is None
+            or actual_actor_delta is None
+        ):
+            row_findings.append("actor_count_transition_numeric_fields_required")
+        else:
+            if predicted_actor_count != actual_actor_count:
+                row_findings.append("predicted_state_actor_count_mismatch")
+            if diff_actor_delta != actual_actor_delta:
+                row_findings.append("transition_diff_actor_delta_mismatch")
+            if predicted_actor_count - source_actor_count != diff_actor_delta:
+                row_findings.append("actor_count_delta_mismatch")
+        if (
+            isinstance(actual_transition_diff, dict)
+            and transition_diff.get("event_delta_label")
+            != actual_transition_diff.get("event_delta_label")
+        ):
+            row_findings.append("transition_diff_event_label_mismatch")
+        if (
+            isinstance(actual_transition_diff, dict)
+            and transition_diff.get("spawn_cell") is not None
+            and transition_diff.get("spawn_cell")
+            != actual_transition_diff.get("spawn_cell")
+        ):
+            row_findings.append("transition_diff_spawn_cell_mismatch")
+        if (
+            isinstance(actual_transition_diff, dict)
+            and transition_diff.get("spawn_cells") is not None
+            and transition_diff.get("spawn_cells")
+            != actual_transition_diff.get("spawn_cells")
+        ):
+            row_findings.append("transition_diff_spawn_cells_mismatch")
+        if transition.get("body_in_receipt") is not False:
+            row_findings.append("transition_body_must_stay_out_of_receipt")
+
+        if row_findings:
+            findings.append(
+                _finding(
+                    "SPATIAL_STATE_TRANSITION_SIMULATION_MISMATCH",
+                    "state-transition rows must match source scene state, deterministic event delta, transition diff, and oracle check refs",
+                    case_id="positive_fixture",
+                    subject_id=replay_id,
+                    subject_kind="state_transition",
+                )
+            )
+        transition_rows.append(
+            {
+                "replay_id": replay_id,
+                "scene_state_ref": scene_ref,
+                "predicted_state_ref": replay.get("predicted_state_ref"),
+                "transition_diff_ref": replay.get("transition_diff_ref"),
+                "oracle_state_check_ref": replay.get("oracle_state_check_ref"),
+                "source_actor_count": source_actor_count,
+                "predicted_actor_count": predicted_actor_count,
+                "actual_actor_count": actual_actor_count,
+                "actor_count_delta": diff_actor_delta,
+                "actual_actor_count_delta": actual_actor_delta,
+                "gridworld_step_executed": gridworld_step.get("status") == PASS,
+                "gridworld_world_ref": initial_gridworld.get("world_id")
+                if isinstance(initial_gridworld, dict)
+                else "",
+                "actual_next_state_ref": actual_next_state.get("state_ref")
+                if isinstance(actual_next_state, dict)
+                else "",
+                "actual_spawn_cell": actual_transition_diff.get("spawn_cell")
+                if isinstance(actual_transition_diff, dict)
+                else None,
+                "actual_spawn_cells": actual_transition_diff.get("spawn_cells")
+                if isinstance(actual_transition_diff, dict)
+                else [],
+                "simulation_passed": not row_findings,
+                "findings": row_findings,
+                "body_in_receipt": False,
+            }
+        )
+
+    return (
+        {
+            "status": PASS if replays and transitions and not findings else "blocked",
+            "analysis_kind": "deterministic_public_metadata_state_transition_check",
+            "runtime_kind": "deterministic_toy_gridworld_step",
+            "gridworld_dimensions": [GRIDWORLD_WIDTH, GRIDWORLD_HEIGHT],
+            "transition_count": len(transitions),
+            "replay_transition_count": len(transition_rows),
+            "predicted_state_body_count": sum(
+                1
+                for row in transitions
+                if isinstance(row.get("predicted_state"), dict)
+            ),
+            "transition_diff_body_count": sum(
+                1
+                for row in transitions
+                if isinstance(row.get("transition_diff"), dict)
+            ),
+            "oracle_state_check_body_count": sum(
+                1
+                for row in transitions
+                if isinstance(row.get("oracle_state_check"), dict)
+            ),
+            "deterministic_simulation_pass_count": sum(
+                1 for row in transition_rows if row["simulation_passed"]
+            ),
+            "gridworld_step_count": sum(
+                1 for row in transition_rows if row["gridworld_step_executed"]
+            ),
+            "predicted_actual_match_count": sum(
+                1
+                for row in transition_rows
+                if row["predicted_actor_count"] == row["actual_actor_count"]
+                and row["actor_count_delta"] == row["actual_actor_count_delta"]
+            ),
+            "actual_actor_count_delta_values": sorted(
+                {
+                    row["actual_actor_count_delta"]
+                    for row in transition_rows
+                    if row["actual_actor_count_delta"] is not None
+                }
+            ),
+            "max_actual_actor_count_delta": max(
+                [
+                    row["actual_actor_count_delta"]
+                    for row in transition_rows
+                    if row["actual_actor_count_delta"] is not None
+                ]
+                or [0]
+            ),
+            "transition_rows": sorted(
+                transition_rows,
+                key=lambda row: row["replay_id"],
+            ),
+            "body_in_receipt": False,
+        },
+        findings,
+    )
+
+
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
@@ -733,6 +1215,10 @@ def _build_result(
     replay_policy = payloads.get("replay_policy", {})
     scene_states = _rows(payloads.get("scene_states", {}), "scene_states")
     replays = _rows(payloads.get("counterfactual_replays", {}), "counterfactual_replays")
+    state_transitions = _rows(
+        payloads.get("state_transitions", {}),
+        "state_transitions",
+    )
     source_module_summary = _source_module_manifest_result(
         payloads.get("source_module_manifest"),
         public_root=public_root,
@@ -780,6 +1266,12 @@ def _build_result(
                 observed=observed_negative_codes,
             )
         )
+    state_transition_analysis, state_transition_findings = _state_transition_analysis(
+        scene_states=scene_states,
+        replays=replays,
+        transitions=state_transitions,
+    )
+    positive_findings.extend(state_transition_findings)
     selected_pattern_ids = _strings(simulation_protocol.get("selected_pattern_ids"))
     replay_ids = [str(row.get("replay_id")) for row in replays if row.get("replay_id")]
     if selected_pattern_ids and selected_pattern_ids != replay_ids:
@@ -825,6 +1317,7 @@ def _build_result(
     policy_passed = (
         bool(scene_states)
         and bool(replays)
+        and state_transition_analysis["status"] == PASS
         and not positive_findings
         and unsafe_payload_bodies_absent
         and not expected_missing
@@ -877,9 +1370,21 @@ def _build_result(
         "selected_pattern_ids": replay_ids,
         "scene_states": scene_states,
         "counterfactual_replays": replays,
+        "state_transition_analysis": state_transition_analysis,
         "simulation_summary": {
             "scene_state_count": len(scene_states),
             "replay_count": len(replays),
+            "state_transition_count": len(state_transitions),
+            "predicted_state_body_count": state_transition_analysis[
+                "predicted_state_body_count"
+            ],
+            "deterministic_simulation_pass_count": state_transition_analysis[
+                "deterministic_simulation_pass_count"
+            ],
+            "gridworld_step_count": state_transition_analysis["gridworld_step_count"],
+            "predicted_actual_match_count": state_transition_analysis[
+                "predicted_actual_match_count"
+            ],
             "transition_diff_count": sum(1 for row in replays if row.get("transition_diff_ref")),
             "oracle_state_check_count": sum(1 for row in replays if row.get("oracle_state_check_ref")),
             "sensor_packet_ref_count": sum(len(_strings(row.get("sensor_packet_refs"))) for row in replays),
@@ -957,6 +1462,27 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         if isinstance(summary, dict)
         else 0,
         "replay_count": summary.get("replay_count", 0) if isinstance(summary, dict) else 0,
+        "state_transition_count": summary.get("state_transition_count", 0)
+        if isinstance(summary, dict)
+        else 0,
+        "predicted_state_body_count": summary.get("predicted_state_body_count", 0)
+        if isinstance(summary, dict)
+        else 0,
+        "deterministic_simulation_pass_count": summary.get(
+            "deterministic_simulation_pass_count",
+            0,
+        )
+        if isinstance(summary, dict)
+        else 0,
+        "gridworld_step_count": summary.get("gridworld_step_count", 0)
+        if isinstance(summary, dict)
+        else 0,
+        "predicted_actual_match_count": summary.get(
+            "predicted_actual_match_count",
+            0,
+        )
+        if isinstance(summary, dict)
+        else 0,
         "transition_diff_count": summary.get("transition_diff_count", 0)
         if isinstance(summary, dict)
         else 0,
@@ -1138,8 +1664,9 @@ def run_simulation_bundle(
         "receipt_reused": False,
         "receipt_paths": [_display(bundle_path, public_root=public_root)],
     }
-    write_json_atomic(bundle_path, payload)
-    return payload
+    normalized_payload = normalize_public_receipt_paths(payload)
+    write_json_atomic(bundle_path, normalized_payload)
+    return normalized_payload
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
@@ -1172,6 +1699,20 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "simulation": {
             "scene_state_count": summary.get("scene_state_count", 0),
             "replay_count": summary.get("replay_count", 0),
+            "state_transition_count": summary.get("state_transition_count", 0),
+            "predicted_state_body_count": summary.get(
+                "predicted_state_body_count",
+                0,
+            ),
+            "deterministic_simulation_pass_count": summary.get(
+                "deterministic_simulation_pass_count",
+                0,
+            ),
+            "gridworld_step_count": summary.get("gridworld_step_count", 0),
+            "predicted_actual_match_count": summary.get(
+                "predicted_actual_match_count",
+                0,
+            ),
             "transition_diff_count": summary.get("transition_diff_count", 0),
             "oracle_state_check_count": summary.get("oracle_state_check_count", 0),
             "sensor_packet_ref_count": summary.get("sensor_packet_ref_count", 0),

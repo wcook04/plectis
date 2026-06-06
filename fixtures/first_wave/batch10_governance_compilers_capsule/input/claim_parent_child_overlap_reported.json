@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "case_id": "claim_parent_child_overlap_reported",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "conflict_count",
+  "error_codes": [
+    "BATCH10_CLAIM_PARENT_CHILD_OVERLAP_REPORTED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "claim_conflict_wait_tax_detector",
+  "probe_input": {
+    "claim_path": "microcosm-substrate/src/microcosm_core/organs/x.py",
+    "scope": "microcosm-substrate/src"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

@@ -68,6 +68,7 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     )
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")
     shutil.copy2(MICROCOSM_ROOT / "AGENTS.md", public_root / "AGENTS.md")
+    shutil.copy2(MICROCOSM_ROOT / "AGENT_ROUTES.md", public_root / "AGENT_ROUTES.md")
     return public_root
 
 
@@ -88,6 +89,18 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "workingness: clear",
         "served status: pass",
         "microcosm hello .",
+        "microcosm hello --reader cold_cloner .",
+        "microcosm hello --reader reviewer .",
+        "microcosm hello --reader skeptical_reviewer .",
+        "microcosm hello --reader agent .",
+        "microcosm hello --reader domain_specialist .",
+        "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
+        "`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch",
+        "and `agent` / `type-a-agent` maps to the",
+        "repo-reading agent branch",
+        "`domain_specialist` / `domain-specialist` is the specialty",
+        "ORGANS.md#find-your-specialty",
+        "not an expert-review or\ndomain-correctness claim",
         "microcosm tour --card .",
         "microcosm status --card .",
         "microcosm authority --card",
@@ -207,6 +220,18 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "cold-clone check proves the exported package can install",
         "release_authorized=false",
         "microcosm hello .",
+        "microcosm hello --reader cold_cloner .",
+        "microcosm hello --reader reviewer .",
+        "microcosm hello --reader skeptical_reviewer .",
+        "microcosm hello --reader agent .",
+        "microcosm hello --reader domain_specialist .",
+        "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
+        "`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch",
+        "and `agent` / `type-a-agent` maps to the",
+        "repo-reading agent branch",
+        "`domain_specialist` / `domain-specialist` is the specialty",
+        "generated organ specialty index",
+        "without claiming domain\ncorrectness or expert review",
         "microcosm tour --card .",
         "microcosm status --card .",
         "microcosm authority --card",
@@ -251,6 +276,17 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "duplicate_organs": [],
         "fail_closed_no_default": True,
     }
+    agent_routes = receipt["agent_task_route_projection"]
+    assert agent_routes["status"] == "pass"
+    assert agent_routes["source_ref"] == "atlas/agent_task_routes.json"
+    assert agent_routes["markdown_ref"] == "AGENT_ROUTES.md"
+    assert agent_routes["route_count"] == agent_routes["declared_route_count"]
+    assert agent_routes["missing_organs"] == []
+    assert agent_routes["unexpected_organs"] == []
+    assert agent_routes["duplicate_task_classes"] == []
+    assert agent_routes["incomplete_routes"] == []
+    assert agent_routes["markdown_missing"] == []
+    assert agent_routes["doc_deferral_missing"] == []
     assert receipt["entry_spine_claims"]["status"] == "pass"
     assert receipt["entry_spine_claims"]["expected_organ_count"] == len(expected_organs)
     assert receipt["entry_spine_claims"]["blocked_docs"] == []
@@ -393,9 +429,9 @@ def test_public_entry_docs_block_runtime_spine_claim_mismatch(tmp_path: Path) ->
     assert "PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH" in receipt["blocking_codes"]
     assert receipt["entry_spine_claims"]["status"] == "blocked"
     assert receipt["entry_spine_claims"]["blocked_docs"] == ["AGENTS.md"]
-    assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["missing_organs"] == [
-        "certificate_kernel_execution_lab"
-    ]
+    assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["missing_organs"] == (
+        _accepted_organs_from_registry()
+    )
 
 
 def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inventory(
@@ -420,7 +456,9 @@ def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inv
                 "proof correctness, private-root equivalence, or score-based "
                 "progress. It is not trading or financial advice. "
                 "It does not authorize release. "
-                "Use [ORGANS.md](ORGANS.md) and [ARCHITECTURE.md](ARCHITECTURE.md). "
+                "Use [AGENT_ROUTES.md](AGENT_ROUTES.md), "
+                "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty), "
+                "[ORGANS.md](ORGANS.md), and [ARCHITECTURE.md](ARCHITECTURE.md). "
                 "Real Substrate Posture.\n\n"
             ),
         ),
@@ -440,7 +478,9 @@ def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inv
                 "This public entry inventory is inventory-only route-alignment "
                 "metadata, not product progress, release readiness, proof "
                 "correctness, private-root equivalence, or score-based progress. "
-                "Use [ORGANS.md](ORGANS.md) and [ARCHITECTURE.md](ARCHITECTURE.md). "
+                "Use [AGENT_ROUTES.md](AGENT_ROUTES.md), "
+                "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty), "
+                "[ORGANS.md](ORGANS.md), and [ARCHITECTURE.md](ARCHITECTURE.md). "
                 "Real Substrate Posture.\n\n"
             ),
         ),
@@ -834,6 +874,9 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
 
     assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
+    assert "[CLAUDE.md](CLAUDE.md) / [CODEX.md](CODEX.md) / [CURSOR.md](CURSOR.md)" in text
+    assert "Thin provider-style adapter stubs" in text
+    assert "point back to `AGENTS.md` and add no authority" in text
     assert "Real Substrate Posture" in text
     assert "Real Substrate Posture" in agents
     assert "public entry inventory/read-model" in text
@@ -843,10 +886,10 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "not product progress, release readiness" in text
     assert "not product progress, release readiness" in agents
     assert "not a product progress meter" in normalized_text
-    assert "bridge_phase_continuity_runtime" in text
-    assert "bridge_phase_continuity_runtime" in agents
-    assert "bridge-phase-continuity-runtime" in text
-    assert "bridge-phase-continuity-runtime" in agents
+    assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in text
+    assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
+    assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in text
+    assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
     assert "Microcosm is the public repo form of the macro system" in text
     assert "Microcosm is the public repo form of the macro system" in agents
     assert "not a synthetic safety proxy" in text
@@ -880,6 +923,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "core/organ_registry.json" in agents
     assert "core/organ_evidence_classes.json" in text
     assert "core/organ_evidence_classes.json" in agents
+    assert "AGENT_ROUTES.md" in text
+    assert "AGENT_ROUTES.md" in agents
     assert "microcosm reveal" in text
     assert "microcosm spatial-simulation" in text
     assert "microcosm reveal" in agents
@@ -951,6 +996,8 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "./bootstrap.sh --dry-run" in cold_start
     assert "--emit receipts/cold_clone_probe.json" not in cold_start
     assert ".microcosm/cold_clone_probe.json" in cold_start
+    assert "card echoes the requested alias or route id" in cold_start
+    assert "card prints the canonical follow-up command" not in cold_start
     assert "Source-Root Probe" in cold_start
     assert "before install" in cold_start
     assert "after first-screen behavior is visible" not in cold_start
@@ -967,6 +1014,19 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "microcosm evidence list <project> --limit 25" in cold_start
     assert "microcosm evidence inspect <project> <ref>" in cold_start
     assert "microcosm status --card <project>" in cold_start
+    assert "`cold_cloner` maps to `public_github_visitor`" in cold_start
+    assert "`skeptical_reviewer` maps to `safety_evals_engineer`" in cold_start
+    assert "and `agent` maps to" in cold_start
+    assert "`type_a_agent`" in cold_start
+    assert "six cold reader branches" in normalized_cold_start
+    assert "Domain specialist: run" in cold_start
+    assert "microcosm hello --reader domain_specialist <project>" in cold_start
+    assert "ORGANS.md#find-your-specialty" in cold_start
+    assert (
+        "explicit non-claim of domain correctness or expert review"
+        in normalized_cold_start
+    )
+    assert "not new routes" in normalized_cold_start
     assert "front_door.route_explanation" in cold_start
     assert "microcosm workingness" in cold_start
     assert (
@@ -1012,6 +1072,18 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     assert entry_packet["first_command"] == "microcosm tour --card <project>"
 
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    assert "New here? Four generated surfaces give you the whole system fast:" in readme
+    for phrase in (
+        "| Repo-reading agent |",
+        "microcosm hello --reader agent <project>",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>",
+        "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check",
+        "microcosm first-screen --card <project>",
+        "microcosm organ-surface-contract --card --root .",
+        "mechanism/validator/projection boundaries",
+        "source-mutation ceiling",
+    ):
+        assert phrase in readme
     first_run = readme.split("## First Run", 1)[1]
     installed_block = first_run.split(
         "The same commands work without installing the console script:", 1
@@ -1039,6 +1111,10 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         "PYTHONPATH=src python3 -m microcosm_core proof-lab --out "
         "/tmp/microcosm-proof-lab"
     )
+    agent_entry_command = (
+        "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
+        "--root . --task agent-entry --viewer type_a_agent --card --check"
+    )
     serve_command = (
         "PYTHONPATH=src python3 -m microcosm_core serve "
         "/tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 7"
@@ -1050,6 +1126,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     assert no_install_block.index(tour_command) < no_install_block.index(
         status_command
     )
+    assert agent_entry_command in no_install_block
     assert no_install_block.index(proof_command) < no_install_block.index(
         serve_command
     )
@@ -1137,6 +1214,8 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     ]
     assert ".microcosm/events.jsonl" in route["state_refs"]
     assert ".microcosm/evidence/" in route["state_refs"]
@@ -1214,6 +1293,8 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
     assert rows["public_github_visitor"]["first_screen_command"] == (
         "microcosm hello <project>"
@@ -1231,6 +1312,23 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
         "microcosm observe --card <project>"
     )
     assert rows["peer_developer"]["followup_command"] == "microcosm observe <project>"
+    assert rows["domain_specialist"]["next_command"] == (
+        "ORGANS.md#find-your-specialty"
+    )
+    assert rows["domain_specialist"]["followup_command"] == (
+        "microcosm tour --card <project>"
+    )
+    assert "domain correctness" in rows["domain_specialist"]["anti_misread"]
+    assert rows["type_a_agent"]["first_screen_command"] == (
+        "microcosm first-screen --card <project>"
+    )
+    assert rows["type_a_agent"]["next_command"] == (
+        "microcosm organ-surface-contract --card --root ."
+    )
+    assert rows["type_a_agent"]["followup_command"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert "source mutation" in rows["type_a_agent"]["anti_misread"]
     assert "maturity score" in rows["safety_evals_engineer"]["anti_misread"]
 
 

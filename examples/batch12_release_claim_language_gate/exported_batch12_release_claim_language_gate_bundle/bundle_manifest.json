@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "public_batch12_release_claim_language_gate_runtime_example",
+  "input_mode": "exported_batch12_release_claim_language_gate_bundle",
+  "organ_id": "batch12_release_claim_language_gate",
+  "schema_version": "microcosm_exported_bundle_manifest_v1"
+}

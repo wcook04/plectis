@@ -31,7 +31,8 @@
   "required_public_evidence": [
     "exact source body target exists under exported_mission_transaction_bundle/source_modules",
     "source and target sha256 values match",
-    "anchor strings proving session, claim, lease, heartbeat, progress, closeout, and runtime status functionality are present",
+    "anchor strings proving session, claim, lease, seed-speed status, heartbeat, mutation-check, progress, closeout, runtime status, active-claim snapshot, and path-collision functionality are present",
+    "manifest required_anchors declares the same seed-speed and mutation-check coordination anchors enforced by the validator",
     "secret-exclusion scan passes over manifest, contract, and copied source modules",
     "runtime receipt includes no source body text"
   ],

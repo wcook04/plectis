@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import json
 import subprocess
-from pathlib import Path
+import tomllib
+from pathlib import Path, PurePosixPath
 
 import pytest
 
 from microcosm_core import release_export
+
+
+ACCEPTANCE_REL = Path("core/acceptance/first_wave_acceptance.json")
+SUBSTRATE_LEDGER_REL = Path("core/substrate_substitution_ledger.json")
 
 
 def _write(path: Path, text: str = "stub\n") -> None:
@@ -34,22 +39,190 @@ def _commit_all(repo: Path, message: str) -> str:
     ).stdout.strip()
 
 
+def _committed_public_refs(root: Path, *top_levels: str) -> set[str] | None:
+    try:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(root),
+                "ls-tree",
+                "-r",
+                "--name-only",
+                "HEAD",
+                "--",
+                *top_levels,
+            ],
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {line.strip() for line in completed.stdout.splitlines() if line.strip()}
+
+
+def _accepted_organ_ids(root: Path) -> set[str]:
+    payload = json.loads((root / ACCEPTANCE_REL).read_text(encoding="utf-8"))
+    return {
+        str(row.get("organ_id") or "")
+        for row in payload.get("accepted_current_authority_organs", [])
+        if isinstance(row, dict) and row.get("status") == "accepted_current_authority"
+    }
+
+
+def _accepted_public_roots(root: Path, *top_levels: str) -> set[str]:
+    accepted = _accepted_organ_ids(root)
+    roots: set[str] = set()
+    for organ_id in accepted:
+        if "examples" in top_levels:
+            roots.add(f"examples/{organ_id}")
+        if "fixtures" in top_levels:
+            roots.add(f"fixtures/first_wave/{organ_id}")
+            roots.add(f"fixtures/second_wave/{organ_id}")
+
+    ledger = json.loads((root / SUBSTRATE_LEDGER_REL).read_text(encoding="utf-8"))
+    for row in ledger.get("organ_substrate_dispositions", []):
+        if not isinstance(row, dict) or row.get("organ_id") not in accepted:
+            continue
+        for field in ("source_module_manifest_refs", "microcosm_target_refs"):
+            for ref in row.get(field, []) or []:
+                if not isinstance(ref, str):
+                    continue
+                parts = PurePosixPath(ref).parts
+                if (
+                    parts[:1] == ("examples",)
+                    and "examples" in top_levels
+                    and len(parts) >= 2
+                ):
+                    roots.add("/".join(parts[:2]))
+                elif (
+                    parts[:1] == ("fixtures",)
+                    and "fixtures" in top_levels
+                    and len(parts) >= 3
+                ):
+                    roots.add("/".join(parts[:3]))
+    return roots
+
+
+def _is_accepted_public_ref(ref: str, roots: set[str]) -> bool:
+    return any(ref == root or ref.startswith(f"{root}/") for root in roots)
+
+
+def test_packaged_source_module_python_dirs_cover_public_body_imports() -> None:
+    root = Path(__file__).resolve().parents[1]
+    with (root / "pyproject.toml").open("rb") as handle:
+        pyproject = tomllib.load(handle)
+
+    data_files = pyproject["tool"]["setuptools"]["data-files"]
+    packaged_globs = {
+        pattern
+            for patterns in data_files.values()
+            for pattern in patterns
+            if pattern.endswith("/*.py")
+    }
+    committed_refs = _committed_public_refs(root, "examples", "fixtures")
+    accepted_roots = _accepted_public_roots(root, "examples", "fixtures")
+    if committed_refs is None:
+        source_module_dirs = sorted(
+            {
+                source_file.parent.relative_to(root).as_posix()
+                for base in ("examples", "fixtures")
+                for source_file in (root / base).glob("**/source_modules/**/*.py")
+                if "__pycache__" not in source_file.parts
+                and _is_accepted_public_ref(
+                    source_file.relative_to(root).as_posix(),
+                    accepted_roots,
+                )
+            }
+        )
+    else:
+        source_module_dirs = sorted(
+            {
+                PurePosixPath(ref).parent.as_posix()
+                for ref in committed_refs
+                if ref.endswith(".py")
+                and "source_modules" in PurePosixPath(ref).parts
+                and "__pycache__" not in PurePosixPath(ref).parts
+                and _is_accepted_public_ref(ref, accepted_roots)
+            }
+        )
+
+    missing = [
+        source_dir
+        for source_dir in source_module_dirs
+        if f"{source_dir}/*.py" not in packaged_globs
+    ]
+
+    assert missing == []
+
+
+def test_exported_overnight_test_capsule_uses_public_example_home_only() -> None:
+    root = Path(__file__).resolve().parents[1]
+    source = (
+        root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "source_modules/system/server/tests/test_pipeline_overnight.py"
+    )
+    text = source.read_text(encoding="utf-8")
+    private_home_prefix = "/" + "Users" + "/"
+    public_example_home = private_home_prefix + "example"
+
+    assert public_example_home in text
+    assert private_home_prefix not in text.replace(public_example_home, "")
+
+
+def test_exported_macro_source_modules_use_public_example_home_only() -> None:
+    root = Path(__file__).resolve().parents[1]
+    source_modules_root = (
+        root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "source_modules"
+    )
+    private_home_prefix = "/" + "Users" + "/"
+    public_example_home = private_home_prefix + "example"
+    violations: list[str] = []
+
+    for source in sorted(source_modules_root.rglob("*")):
+        if not source.is_file() or source.suffix not in {
+            ".js",
+            ".json",
+            ".md",
+            ".mjs",
+            ".py",
+            ".txt",
+        }:
+            continue
+        text = source.read_text(encoding="utf-8", errors="ignore")
+        if private_home_prefix in text.replace(public_example_home, ""):
+            violations.append(source.relative_to(root).as_posix())
+
+    assert violations == []
+
+
 def _make_release_root(root: Path) -> Path:
     root.mkdir()
     for file_name in (
         ".gitignore",
         "AGENTS.md",
+        "AGENT_ROUTES.md",
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
         "AXIOMS.md",
+        "CLAUDE.md",
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
+        "CODEX.md",
+        "CURSOR.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",
+        "NOTICE",
         "ORGANS.md",
         "PRINCIPLES.md",
+        "PROVENANCE.md",
         "QUICKSTART.md",
+        "RELEASE_DISCIPLINE.md",
         "README.md",
         "SECURITY.md",
         "bootstrap.sh",
@@ -66,16 +239,28 @@ build-backend = "setuptools.build_meta"
 name = "microcosm-substrate-test"
 version = "0.1.0"
 requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 
 [project.scripts]
 microcosm = "microcosm_core.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.data-files]
+"share/microcosm-substrate" = [
+  "LICENSE",
+  "NOTICE",
+  "PROVENANCE.md",
+  "README.md",
+  "pyproject.toml"
+]
 """.lstrip(),
     )
 
     _write(root / "atlas/entry_packet.json", '{"status": "pass"}\n')
+    _write(root / "atlas/agent_task_routes.json", '{"status": "pass"}\n')
     _write(
         root / "core/private_state_forbidden_classes.json",
         json.dumps(
@@ -86,6 +271,7 @@ where = ["src"]
             }
         ),
     )
+    _write(root / "core/organ_evidence_classes.json", '{"organ_evidence_classes": []}\n')
     _write(root / "core/organ_registry.json", '{"organs": []}\n')
     _write(root / "examples/basic/README.md", "# Example\n")
     _write(
@@ -129,6 +315,10 @@ where = ["src"]
         ),
     )
     _write(root / "src/microcosm_core/__init__.py", "")
+    _write(
+        root / "src/microcosm_core/__main__.py",
+        "from microcosm_core.cli import main\nraise SystemExit(main())\n",
+    )
     _write(root / "src/microcosm_substrate.egg-info/PKG-INFO", "generated\n")
     _write(
         root / "src/microcosm_core/cli.py",
@@ -213,14 +403,43 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["blocking_codes"] == []
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
+    assert (target / "AGENT_ROUTES.md").is_file()
+    assert (target / "atlas/agent_task_routes.json").is_file()
     assert (target / "ARCHITECTURE.md").is_file()
     assert (target / "ORGANS.md").is_file()
+    assert (target / "NOTICE").is_file()
+    assert (target / "PROVENANCE.md").is_file()
     assert (target / "Makefile").is_file()
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()
     assert (target / "QUICKSTART.md").is_file()
+    assert (target / "RELEASE_DISCIPLINE.md").is_file()
     assert (target / "SECURITY.md").is_file()
     assert receipt["authority_receipt"]["release_authorized"] is False
+    assert (
+        receipt["authority_receipt"]["standalone_run_command"]
+        == "PYTHONPATH=src python3 -m microcosm_core hello <project>"
+    )
+    assert (
+        written_receipt["authority_receipt"]["standalone_run_command"]
+        == receipt["authority_receipt"]["standalone_run_command"]
+    )
+    assert "microcosm_core.cli" not in json.dumps(receipt["authority_receipt"])
+    runnable_commands = {
+        row["command_id"]: row["argv"]
+        for row in written_receipt["runnable_receipt"]["commands"]
+    }
+    assert runnable_commands["hello"][:3] == [
+        "python3",
+        "-m",
+        "microcosm_core",
+    ]
+    assert runnable_commands["first_screen"][:3] == [
+        "python3",
+        "-m",
+        "microcosm_core",
+    ]
+    assert "microcosm_core.cli" not in json.dumps(written_receipt)
     candidate = receipt["release_candidate_packet"]
     assert candidate["status"] == "pass_with_external_warnings"
     assert (
@@ -252,9 +471,34 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     )
     assert candidate["validation_summary"]["standalone_escaping_symlink_ref_count"] == 0
     assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
+    assert candidate["validation_summary"]["release_assurance_v2_status"] == "pass"
+    assert (
+        candidate["validation_summary"]["release_assurance_v2_candidate_status"]
+        == "pass"
+    )
+    assert (
+        candidate["validation_summary"]["release_assurance_v2_publication_status"]
+        == "operator_review_required"
+    )
+    assert candidate["validation_summary"]["materials_ledger_status"] == "pass"
+    assert candidate["validation_summary"]["publication_history_status"] == "pass"
+    assert candidate["validation_summary"]["claim_language_scan_status"] == "pass"
+    assert candidate["validation_summary"]["finance_promotion_scan_status"] == "pass"
+    assert candidate["validation_summary"]["privacy_review_status"] == "pass"
+    assert (
+        candidate["validation_summary"]["release_substance_selector_status"]
+        == "pass"
+    )
+    assert candidate["validation_summary"]["evidence_truth_floor_status"] == "pass"
+    assert (
+        candidate["validation_summary"]["evidence_truth_floor_blocking_issue_count"]
+        == 0
+    )
     assert candidate["validation_summary"]["wheel_install_supported"] is True
     assert ".github" in receipt["inventory_receipt"]["include_refs"]
     assert "CONTRIBUTING.md" in receipt["inventory_receipt"]["include_refs"]
+    assert "NOTICE" in receipt["inventory_receipt"]["include_refs"]
+    assert "PROVENANCE.md" in receipt["inventory_receipt"]["include_refs"]
     assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
     assert "QUICKSTART.md" in receipt["inventory_receipt"]["include_refs"]
     assert "SECURITY.md" in receipt["inventory_receipt"]["include_refs"]
@@ -305,6 +549,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["install_smoke_receipt"]["source_tree_pythonpath_used"] is False
     assert receipt["install_smoke_receipt"]["release_artifact_cwd_used"] is False
     assert receipt["install_smoke_receipt"]["release_artifact_pythonpath_used"] is False
+    assert receipt["install_smoke_receipt"]["installed_prefix_pythonpath_used"] is True
     assert receipt["install_smoke_receipt"]["isolated_artifact_copy_used"] is True
     assert (
         receipt["install_smoke_receipt"]["install_artifact_source"]
@@ -314,7 +559,6 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert {
         row["command_id"] for row in receipt["install_smoke_receipt"]["commands"]
     } == {
-        "create_venv",
         "install_artifact",
         "hello",
         "tour_card",
@@ -342,9 +586,20 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert set(severance["required_public_entry_refs_present"]).issuperset(
         {
             "README.md",
+            "LICENSE",
+            "NOTICE",
+            "PROVENANCE.md",
+            "CLAUDE.md",
+            "CODEX.md",
+            "CURSOR.md",
             "AGENTS.md",
+            "AGENT_ROUTES.md",
+            "ANTI_PRINCIPLES.md",
             "ARCHITECTURE.md",
+            "AXIOMS.md",
+            "CONSTITUTION.md",
             "ORGANS.md",
+            "PRINCIPLES.md",
             "MANIFEST.in",
             "pyproject.toml",
             "src",
@@ -354,6 +609,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             ".github",
             "CONTRIBUTING.md",
             "QUICKSTART.md",
+            "RELEASE_DISCIPLINE.md",
             "SECURITY.md",
         }
     )
@@ -408,22 +664,134 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     }
     assert residue_excluded["tests/.venv"] == "cache_or_build_directory"
     assert residue_excluded["tests/.pytest_cache"] == "cache_or_build_directory"
+    assert (
+        residue_excluded["examples/runtime_shell/demo_project/.microcosm"]
+        == "cache_or_build_directory"
+    )
     assert "tests/.venv/should_not_be_walked.txt" not in residue_excluded
     assert "tests/.pytest_cache/should_not_be_walked.txt" not in residue_excluded
     assert not (target / ".DS_Store").exists()
     assert not (target / ".microcosm").exists()
     assert not (target / ".pytest_cache").exists()
     assert not (target / release_export.ARTIFACT_DIR_NAME).exists()
+    assert not (
+        target / "examples/runtime_shell/demo_project/.microcosm"
+    ).exists()
+    assert "intentional_example_generated_state" not in receipt["inventory_receipt"][
+        "role_counts"
+    ]
+    assurance = receipt["release_assurance_v2"]
+    assert assurance["schema_version"] == release_export.RELEASE_ASSURANCE_SCHEMA_VERSION
+    assert assurance["status"] == "pass"
+    assert assurance["release_candidate_status"] == "pass"
+    assert assurance["operator_publication_status"] == "operator_review_required"
+    assert assurance["release_authorized"] is False
+    assert assurance["publish_authorized"] is False
+    assert assurance["materials_ledger"]["status"] == "pass"
     assert (
-        target / "examples/runtime_shell/demo_project/.microcosm/project_manifest.json"
-    ).is_file()
-    assert (
-        receipt["inventory_receipt"]["role_counts"][
-            "intentional_example_generated_state"
-        ]
-        == 1
+        assurance["materials_ledger"]["license_notice_chain"]["license_expression"]
+        == "Apache-2.0"
     )
+    assert assurance["materials_ledger"]["required_license_notice_refs_missing"] == []
+    assert (
+        assurance["materials_ledger"]["dependency_summary"]["runtime_dependency_count"]
+        == 0
+    )
+    assert assurance["materials_ledger"]["sbom"]["status"] == "not_generated"
+    assert assurance["publication_history_receipt"]["status"] == "pass"
+    assert (
+        assurance["publication_history_receipt"]["artifact_contains_git_metadata"]
+        is False
+    )
+    assert (
+        assurance["publication_history_receipt"]["fresh_public_repository_required"]
+        is True
+    )
+    assert assurance["claim_language_scan"]["status"] == "pass"
+    assert assurance["claim_language_scan"]["release_candidate_blocking_hit_count"] == 0
+    assert (
+        assurance["finance_promotion_scan"][
+            "release_authorization_blocking_hit_count"
+        ]
+        == 0
+    )
+    assert assurance["privacy_review_receipt"]["status"] == "pass"
+    selector = assurance["release_substance_selector"]
+    assert selector["selector_id"] == "evidence_truth_floor"
+    assert selector["status"] == "pass"
+    assert selector["evidence_truth_floor_status"] == "pass"
+    assert selector["blocking_issue_count"] == 0
+    assert selector["required_for_release_candidate"] is True
+    assert selector["body_in_receipt"] is False
+    assert (
+        assurance["operator_publication_checklists"]["status"]
+        == "operator_review_required"
+    )
+    assert assurance["release_candidate_blocking_codes"] == []
+    assert "GITHUB_PUBLICATION_SETTINGS_REVIEW_REQUIRED" in assurance[
+        "release_authorization_blocking_codes"
+    ]
+    assert assurance["publication_gate"]["release_authorization_allowed_now"] is False
+
+    residue_probe = target / "examples/basic/.microcosm/state.json"
+    _write(residue_probe, "{}\n")
+    assert {
+        "path": "examples/basic/.microcosm/state.json",
+        "reason": "generated_microcosm_state",
+    } in release_export._artifact_residue_violations(target)
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
+def test_release_export_blocks_failed_release_substance_selector(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+
+    def fake_truth_floor(_target: Path) -> dict[str, object]:
+        return {
+            "schema_version": "microcosm_evidence_truth_floor_audit_v1",
+            "status": "blocked",
+            "source_ref": "core/organ_evidence_classes.json",
+            "registry_ref": "core/organ_registry.json",
+            "receipt_root_ref": "receipts/first_wave",
+            "candidate_count": 0,
+            "blocking_issue_count": 1,
+            "advisory_only": False,
+            "disposition_guard": {"issue_count": 1},
+            "proof_gap_guard": {"issue_count": 0},
+        }
+
+    monkeypatch.setattr(
+        release_export,
+        "audit_evidence_truth_floor",
+        fake_truth_floor,
+    )
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export",
+    )
+
+    selector = receipt["release_assurance_v2"]["release_substance_selector"]
+    assert selector["selector_id"] == "evidence_truth_floor"
+    assert selector["status"] == "blocked"
+    assert selector["blocking_issue_count"] == 1
+    assert receipt["release_assurance_v2"]["release_candidate_status"] == "blocked"
+    assert "RELEASE_ASSURANCE_EVIDENCE_TRUTH_FLOOR_BLOCKED" in receipt[
+        "release_assurance_v2"
+    ]["release_candidate_blocking_codes"]
+    assert "RELEASE_EXPORT_ASSURANCE_V2_BLOCKED" in receipt["blocking_codes"]
+    assert receipt["release_candidate_packet"]["status"] == "blocked"
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "release_substance_selector_status"
+        ]
+        == "blocked"
+    )
 
 
 def test_release_export_blocks_source_parent_private_path_leaks(tmp_path: Path) -> None:
@@ -452,6 +820,87 @@ def test_release_export_blocks_source_parent_private_path_leaks(tmp_path: Path) 
         "kind": "absolute_source_parent",
     } in receipt["exclusion_receipt"]["private_path_hits"]
     assert repo.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
+def test_release_export_redacts_concrete_home_paths_in_text_source_modules(
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    private_home = "/" + "Users" + "/willcook/src/ai_workflow"
+    public_home = "/" + "Users" + "/example/src/ai_workflow"
+    generic_private_home_re = r"/" + r"Users/[A-Za-z0-9_.-]+"
+    source_module = (
+        root
+        / "examples/private_home_source/exported_private_home_bundle/"
+        "source_modules/tools/example_home.py"
+    )
+    _write(
+        source_module,
+        f'DEFAULT_HOME = "{private_home}"\n'
+        f'PUBLIC_HOME = "{public_home}"\n'
+        f'GENERIC_PRIVATE_HOME_RE = r"{generic_private_home_re}"\n',
+    )
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export home redaction",
+    )
+
+    target_text = (
+        tmp_path
+        / "out"
+        / release_export.ARTIFACT_DIR_NAME
+        / source_module.relative_to(root)
+    ).read_text(encoding="utf-8")
+
+    assert receipt["status"] == "pass"
+    assert private_home not in target_text
+    assert public_home in target_text
+    assert f'r"{generic_private_home_re}"' in target_text
+    redaction = receipt["exclusion_receipt"]["source_module_home_redaction"]
+    assert redaction == {
+        "status": "pass",
+        "policy": (
+            "concrete_non_example_home_paths_in_text_source_modules_are_"
+            "rewritten_to_public_example_home"
+        ),
+        "replacement": "/" + "Users" + "/example",
+        "redacted_file_count": 1,
+        "concrete_home_path_replacement_count": 1,
+        "redacted_files": [
+            {
+                "path": source_module.relative_to(root).as_posix(),
+                "concrete_home_path_replacement_count": 1,
+                "replacement": "/" + "Users" + "/example",
+                "body_in_receipt": False,
+            }
+        ],
+        "body_in_receipt": False,
+    }
+    assert private_home not in json.dumps(receipt, sort_keys=True)
+
+    written_receipt = json.loads(
+        (
+            tmp_path
+            / "out"
+            / release_export.ARTIFACT_DIR_NAME
+            / release_export.RELEASE_RECEIPT_REF
+        ).read_text(encoding="utf-8")
+    )
+    assert written_receipt["exclusion_receipt"]["source_module_home_redaction"] == {
+        **redaction,
+        "replacement": "<private-home-path>",
+        "redacted_files": [
+            {
+                **redaction["redacted_files"][0],
+                "replacement": "<private-home-path>",
+            }
+        ],
+    }
+    assert written_receipt["public_path_sanitization"]["status"] == "transformed"
 
 
 def test_release_export_main_summary_prints_compact_stdout(
@@ -644,6 +1093,22 @@ def test_release_export_skip_smoke_keeps_install_support_unclaimed(
     )
     assert (
         receipt["release_candidate_packet"]["validation_summary"][
+            "release_substance_selector_status"
+        ]
+        == "pass"
+    )
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "evidence_truth_floor_status"
+        ]
+        == "pass"
+    )
+    assert (
+        receipt["release_assurance_v2"]["release_substance_selector"]["status"]
+        == "pass"
+    )
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
             "wheel_install_supported"
         ]
         is False
@@ -750,6 +1215,39 @@ def test_projection_freshness_receipt_names_stale_runtime_shape_subjects(
     assert root.as_posix() not in serialized
 
 
+def test_projection_freshness_receipt_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    (
+        root / release_export.PROJECTION_FRESHNESS_RECEIPT_REF
+    ).write_text(
+        (
+            '{"status":"blocked",'
+            '"status":"pass",'
+            '"error_codes":[],'
+            '"runtime_severance_status":"pass",'
+            '"dependency_preflight_gate_status":"pass",'
+            '"organ_lifecycle_coverage_status":"pass",'
+            '"macro_runtime_dependency_count":0}'
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = release_export._projection_freshness(root)
+
+    assert receipt["status"] == "blocked"
+    assert receipt["source_status"] == "invalid_json"
+    assert receipt["error_codes"] == ["INVALID_PROJECTION_FRESHNESS_RECEIPT"]
+    assert receipt["blocking_codes"] == ["INVALID_PROJECTION_FRESHNESS_RECEIPT"]
+    assert receipt["runtime_shape_validation"] == {
+        "status": "not_run",
+        "reason": "invalid_projection_freshness_receipt",
+    }
+    assert receipt["release_authorized"] is False
+    assert receipt["body_in_receipt"] is False
+
+
 def test_release_export_blocks_missing_standalone_entry_ref(
     tmp_path: Path,
 ) -> None:
@@ -770,6 +1268,37 @@ def test_release_export_blocks_missing_standalone_entry_ref(
     assert "RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED" in receipt["blocking_codes"]
     assert severance["status"] == "blocked"
     assert severance["required_public_entry_refs_missing"] == ["bootstrap.sh"]
+    assert "STANDALONE_REQUIRED_PUBLIC_REFS_MISSING" in severance["blocking_codes"]
+    assert "STANDALONE_INCLUDE_REFS_MISSING" in severance["blocking_codes"]
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "standalone_severance_status"
+        ]
+        == "blocked"
+    )
+    assert receipt["release_candidate_packet"]["status"] == "blocked"
+
+
+def test_release_export_blocks_missing_doctrine_spine_entry_ref(
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    (root / "AXIOMS.md").unlink()
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export",
+    )
+
+    severance = receipt["standalone_severance_receipt"]
+    assert receipt["status"] == "blocked"
+    assert "RELEASE_EXPORT_INCLUDE_REFS_MISSING" in receipt["blocking_codes"]
+    assert "RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED" in receipt["blocking_codes"]
+    assert severance["status"] == "blocked"
+    assert severance["required_public_entry_refs_missing"] == ["AXIOMS.md"]
     assert "STANDALONE_REQUIRED_PUBLIC_REFS_MISSING" in severance["blocking_codes"]
     assert "STANDALONE_INCLUDE_REFS_MISSING" in severance["blocking_codes"]
     assert (
@@ -915,6 +1444,76 @@ def test_release_export_blocks_strong_secret_patterns_without_body_in_receipt(
     assert "1234567890123456" not in serialized
 
 
+def test_release_export_artifact_safety_scans_stream_without_path_rglob(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    target = tmp_path / release_export.ARTIFACT_DIR_NAME
+    _write(
+        target / "core/private_state_forbidden_classes.json",
+        json.dumps(
+            {
+                "schema_version": "secret_exclusion_classes_v1",
+                "classes": [],
+                "anti_claim": "bounded sentinel scan only",
+            }
+        ),
+    )
+    _write(target / "src/microcosm_core/__init__.py", "")
+    _write(
+        target / "src/microcosm_core/local_secret.py",
+        "api" + "_key = " + '"1234567890123456"\n',
+    )
+    _write(target / ".microcosm/state.json", "{}\n")
+
+    def fail_rglob(self: Path, pattern: str) -> object:
+        raise AssertionError("release artifact scans must not materialize Path.rglob")
+
+    monkeypatch.setattr(Path, "rglob", fail_rglob)
+
+    assert {
+        "path": ".microcosm/state.json",
+        "reason": "generated_microcosm_state",
+    } in release_export._artifact_residue_violations(target)
+    assert release_export._strong_secret_hits(target) == [
+        {
+            "path": "src/microcosm_core/local_secret.py",
+            "pattern": (
+                "(?i)\\b(?:api[_-]?key|access[_-]?token|secret[_-]?key)"
+                "\\s*=\\s*['\\\"][^'\\\"]{12,}['\\\"]"
+            ),
+            "body_in_receipt": False,
+        }
+    ]
+    scan = release_export._secret_scan(target)
+    assert scan["status"] == "pass"
+    assert scan["scanned_path_count"] >= 3
+
+
+def test_release_export_artifact_file_scans_skip_symlinked_files(
+    tmp_path: Path,
+) -> None:
+    target = tmp_path / release_export.ARTIFACT_DIR_NAME
+    target.mkdir()
+    outside = tmp_path / "outside_secret.py"
+    outside.write_text("api" + "_key = " + '"1234567890123456"\n', encoding="utf-8")
+    symlink = target / "linked_secret.py"
+    try:
+        symlink.symlink_to(outside)
+    except OSError as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+
+    assert list(release_export._iter_artifact_files(target)) == []
+    assert release_export._strong_secret_hits(target) == []
+    assert release_export._artifact_symlink_refs(target) == [
+        {
+            "path": "linked_secret.py",
+            "target_within_artifact": False,
+            "body_in_receipt": False,
+        }
+    ]
+
+
 def test_candidate_invalidation_assessment_keeps_non_material_head_motion_gate_eligible(
     tmp_path: Path,
 ) -> None:
@@ -1028,3 +1627,25 @@ def test_candidate_invalidation_assessment_marks_status_projection_refresh_only(
             "release_status_projection_only_change"
         ]
     )
+
+
+def test_assess_candidate_cli_rejects_duplicate_receipt_keys(tmp_path: Path) -> None:
+    root = _make_release_root(tmp_path / "source")
+    receipt_path = tmp_path / "release_export_receipt.json"
+    receipt_path.write_text(
+        (
+            '{"release_candidate_packet": {"candidate_identity": {"source": {"git_head": "old"}}},'
+            '"release_candidate_packet": {"candidate_identity": {"source": {"git_head": "new"}}}}\n'
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(release_export.StrictJsonError, match="duplicate JSON key"):
+        release_export.main(
+            [
+                "--root",
+                str(root),
+                "--assess-candidate",
+                str(receipt_path),
+            ]
+        )

@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "case_id": "proof_contract_sorry",
+  "claim": "A plan-only proof containing sorry must die in the contract gate before any Lean run.",
+  "computed_path": "plan_only_sorry_rejected_before_lean",
+  "error_codes": [
+    "BATCH5_PROOF_CONTRACT_BAD_PROOF_REJECTED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "lean_provider_repair_loop",
+  "probe_input": {
+    "bad_proof": "plan: I will prove micro10_public_target later. sorry",
+    "declared_theorem": "micro10_public_target"
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

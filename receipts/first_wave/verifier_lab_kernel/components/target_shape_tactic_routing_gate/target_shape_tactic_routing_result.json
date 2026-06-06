@@ -22,19 +22,25 @@
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.verifier_lab_kernel run :: component target_shape_tactic_routing_gate",
   "copied_source_artifact_count": 4,
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-06-02T02:55:31+00:00",
   "error_codes": [
+    "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED",
     "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
+    "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED",
     "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
     "TARGET_SHAPE_RELEASE_OVERCLAIM",
     "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED",
+    "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED",
     "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED"
   ],
   "expected_negative_cases": [
     "post_execution_route",
+    "preferred_unavailable_fallback",
     "proof_body_leakage",
     "release_overclaim",
+    "shape_preferred_tactic_overridden",
     "unavailable_tactic_admitted",
+    "unknown_shape_fallback",
     "unprobed_tactic_allowed"
   ],
   "findings": [
@@ -55,6 +61,33 @@
       "negative_case_id": "unprobed_tactic_allowed",
       "subject_id": "magic_tactic",
       "subject_kind": "tactic_id"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED",
+      "message": "Declared tactic selection did not match the computed target-shape preference.",
+      "negative_case_id": "shape_preferred_tactic_overridden",
+      "subject_id": "simp_all",
+      "subject_kind": "selected_tactic_id"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED",
+      "message": "Unknown target shape did not respect the computed default fallback.",
+      "negative_case_id": "unknown_shape_fallback",
+      "subject_id": "simp_all",
+      "subject_kind": "selected_tactic_id"
+    },
+    {
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
+      "error_code": "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED",
+      "message": "Unavailable preferred tactic did not fall back to the next available allowed tactic.",
+      "negative_case_id": "preferred_unavailable_fallback",
+      "subject_id": "aesop",
+      "subject_kind": "selected_tactic_id"
     },
     {
       "body_in_receipt": false,
@@ -91,14 +124,23 @@
     "post_execution_route": [
       "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN"
     ],
+    "preferred_unavailable_fallback": [
+      "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED"
+    ],
     "proof_body_leakage": [
       "TARGET_SHAPE_PROOF_BODY_FORBIDDEN"
     ],
     "release_overclaim": [
       "TARGET_SHAPE_RELEASE_OVERCLAIM"
     ],
+    "shape_preferred_tactic_overridden": [
+      "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED"
+    ],
     "unavailable_tactic_admitted": [
       "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED"
+    ],
+    "unknown_shape_fallback": [
+      "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED"
     ],
     "unprobed_tactic_allowed": [
       "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED"
@@ -123,7 +165,7 @@
     "receipts/first_wave/verifier_lab_kernel/components/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/target_shape_tactic_routing_gate_fixture_acceptance.json"
   ],
-  "route_case_count": 5,
+  "route_case_count": 7,
   "routing_board": {
     "anti_claim": "Target-shape tactic routing validates real Ring2 problem-domain, failure-class, and graph-update route references before proof execution. It rejects unavailable, unprobed, or shape-inadmissible tactics before any Lean call; it does not run Lean/Lake, prove the goal, emit proof bodies, call providers, or authorize release.",
     "authority_ceiling": {
@@ -145,14 +187,18 @@
     "public_contract": {
       "body_in_receipt": false,
       "body_material_status": "real_ring2_target_shape_routing_refs",
+      "declared_selection_must_match_computed_preference": true,
       "lean_lake_not_run": true,
+      "preferred_unavailable_fallback_computed": true,
       "proof_bodies_excluded": true,
       "routing_pre_execution": true,
       "shape_admissibility_before_search": true,
+      "shape_preferred_tactic_computed": true,
       "source_artifact_digest_verification_required": true,
       "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
       "source_artifacts_copied": true,
       "unavailable_tactics_rejected": true,
+      "unknown_shape_default_fallback_computed": true,
       "unprobed_tactics_rejected": true
     },
     "real_substrate_refs": [
@@ -175,7 +221,7 @@
         "simp_all"
       ],
       "body_in_receipt": false,
-      "route_case_count": 5,
+      "route_case_count": 7,
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_ids": [
         "decide",
@@ -197,6 +243,7 @@
             "decide",
             "simp_all"
           ],
+          "computed_selected_tactic_id": "decide",
           "decisions": [
             {
               "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -217,12 +264,17 @@
               "tactic_id": "aesop"
             }
           ],
+          "declared_selected_tactic_id": "decide",
           "domain": "bool",
           "expectation_met": true,
           "expected_tactic_id": "decide",
+          "fallback_reason": "",
           "graph_candidate_id": null,
           "integrity_codes": [],
           "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
           "receipt_anchor_refs": [
             "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
             "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -231,6 +283,13 @@
           "route_case_id": "ring2_bool_not_not_route",
           "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
           "selected_tactic_id": "decide",
+          "selection_basis": "shape_preferred_available",
+          "shape_preferred_tactic_ids": [
+            "decide",
+            "simp_all",
+            "rfl"
+          ],
+          "skipped_preferred_tactic_ids": [],
           "source_digests": {
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
           },
@@ -246,6 +305,7 @@
           ],
           "split": "train",
           "target_shape": "bool_decision_goal",
+          "unknown_shape_default_used": false,
           "unprobed_allowed_tactic_ids": []
         },
         {
@@ -261,6 +321,7 @@
             "rfl",
             "simp_all"
           ],
+          "computed_selected_tactic_id": "rfl",
           "decisions": [
             {
               "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -281,12 +342,17 @@
               "tactic_id": "aesop"
             }
           ],
+          "declared_selected_tactic_id": "rfl",
           "domain": "propositional",
           "expectation_met": true,
           "expected_tactic_id": "rfl",
+          "fallback_reason": "",
           "graph_candidate_id": null,
           "integrity_codes": [],
           "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
           "receipt_anchor_refs": [
             "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
             "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -295,6 +361,13 @@
           "route_case_id": "ring2_iff_intro_route",
           "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
           "selected_tactic_id": "rfl",
+          "selection_basis": "shape_preferred_available",
+          "shape_preferred_tactic_ids": [
+            "rfl",
+            "simp_all",
+            "grind"
+          ],
+          "skipped_preferred_tactic_ids": [],
           "source_digests": {
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
           },
@@ -310,6 +383,7 @@
           ],
           "split": "dev",
           "target_shape": "propositional_intro_goal",
+          "unknown_shape_default_used": false,
           "unprobed_allowed_tactic_ids": []
         },
         {
@@ -325,6 +399,7 @@
             "omega",
             "simp_all"
           ],
+          "computed_selected_tactic_id": "simp_all",
           "decisions": [
             {
               "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -345,12 +420,17 @@
               "tactic_id": "aesop"
             }
           ],
+          "declared_selected_tactic_id": "simp_all",
           "domain": "list",
           "expectation_met": true,
           "expected_tactic_id": "simp_all",
+          "fallback_reason": "",
           "graph_candidate_id": "mathlib_ring1_problem_set_v0",
           "integrity_codes": [],
           "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
           "receipt_anchor_refs": [
             "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
             "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -359,6 +439,13 @@
           "route_case_id": "ring2_list_length_append_symmetry_hit_fail_route",
           "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
           "selected_tactic_id": "simp_all",
+          "selection_basis": "shape_preferred_available",
+          "shape_preferred_tactic_ids": [
+            "simp_all",
+            "rfl",
+            "omega"
+          ],
+          "skipped_preferred_tactic_ids": [],
           "source_digests": {
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -376,6 +463,7 @@
           ],
           "split": "test",
           "target_shape": "list_length_rewrite_goal",
+          "unknown_shape_default_used": false,
           "unprobed_allowed_tactic_ids": []
         },
         {
@@ -391,6 +479,7 @@
             "omega",
             "simp_all"
           ],
+          "computed_selected_tactic_id": "simp_all",
           "decisions": [
             {
               "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -411,12 +500,17 @@
               "tactic_id": "aesop"
             }
           ],
+          "declared_selected_tactic_id": "simp_all",
           "domain": "list",
           "expectation_met": true,
           "expected_tactic_id": "simp_all",
+          "fallback_reason": "",
           "graph_candidate_id": "retrieval_query_recipe_update",
           "integrity_codes": [],
           "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
           "receipt_anchor_refs": [
             "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
             "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -425,6 +519,13 @@
           "route_case_id": "ring2_list_map_map_index_miss_route",
           "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
           "selected_tactic_id": "simp_all",
+          "selection_basis": "shape_preferred_available",
+          "shape_preferred_tactic_ids": [
+            "simp_all",
+            "rfl",
+            "omega"
+          ],
+          "skipped_preferred_tactic_ids": [],
           "source_digests": {
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -442,6 +543,7 @@
           ],
           "split": "test",
           "target_shape": "list_map_index_rewrite_goal",
+          "unknown_shape_default_used": false,
           "unprobed_allowed_tactic_ids": []
         },
         {
@@ -457,6 +559,7 @@
             "omega",
             "simp_all"
           ],
+          "computed_selected_tactic_id": "omega",
           "decisions": [
             {
               "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -477,12 +580,17 @@
               "tactic_id": "aesop"
             }
           ],
+          "declared_selected_tactic_id": "omega",
           "domain": "nat",
           "expectation_met": true,
           "expected_tactic_id": "omega",
+          "fallback_reason": "",
           "graph_candidate_id": null,
           "integrity_codes": [],
           "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
           "receipt_anchor_refs": [
             "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
             "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -491,6 +599,13 @@
           "route_case_id": "ring2_nat_succ_injective_route",
           "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
           "selected_tactic_id": "omega",
+          "selection_basis": "shape_preferred_available",
+          "shape_preferred_tactic_ids": [
+            "omega",
+            "simp_all",
+            "decide"
+          ],
+          "skipped_preferred_tactic_ids": [],
           "source_digests": {
             "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
           },
@@ -506,6 +621,163 @@
           ],
           "split": "train",
           "target_shape": "nat_injective_goal",
+          "unknown_shape_default_used": false,
+          "unprobed_allowed_tactic_ids": []
+        },
+        {
+          "allowed_tactic_ids": [
+            "rfl",
+            "simp_all"
+          ],
+          "baseline_error_class": "MATHLIB_TACTIC_UNAVAILABLE",
+          "blocked_unavailable_tactic_ids": [],
+          "body_in_receipt": false,
+          "body_material_status": "real_ring2_target_shape_routing_refs",
+          "candidate_tactic_ids": [
+            "aesop",
+            "rfl",
+            "simp_all"
+          ],
+          "computed_selected_tactic_id": "simp_all",
+          "decisions": [
+            {
+              "classifier": "UNAVAILABLE_TACTIC",
+              "decision": "reject",
+              "reason": "tactic is known but unavailable in the declared environment",
+              "tactic_id": "aesop"
+            },
+            {
+              "classifier": "TARGET_SHAPE_ADMISSIBLE",
+              "decision": "allow",
+              "reason": "tactic is probed, available, and listed for this target shape",
+              "tactic_id": "simp_all"
+            },
+            {
+              "classifier": "TARGET_SHAPE_ADMISSIBLE",
+              "decision": "allow",
+              "reason": "tactic is probed, available, and listed for this target shape",
+              "tactic_id": "rfl"
+            }
+          ],
+          "declared_selected_tactic_id": "simp_all",
+          "domain": "search",
+          "expectation_met": true,
+          "expected_tactic_id": "simp_all",
+          "fallback_reason": "earlier preferred tactics were not selectable; used the next available allowed tactic",
+          "graph_candidate_id": null,
+          "integrity_codes": [],
+          "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [
+            "aesop"
+          ],
+          "preferred_unprobed_tactic_ids": [],
+          "receipt_anchor_refs": [
+            "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+            "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+            "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+          ],
+          "route_case_id": "synthetic_mathlib_preferred_unavailable_fallback_route",
+          "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+          "selected_tactic_id": "simp_all",
+          "selection_basis": "preferred_tactic_fallback",
+          "shape_preferred_tactic_ids": [
+            "aesop",
+            "simp_all",
+            "rfl"
+          ],
+          "skipped_preferred_tactic_ids": [
+            "aesop"
+          ],
+          "source_digests": {
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+          },
+          "source_problem_id": "synthetic_mathlib_absent_search_goal",
+          "source_problem_ids": [
+            "synthetic_mathlib_absent_search_goal"
+          ],
+          "source_refs": [
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+          ],
+          "split": "synthetic_public_regression",
+          "target_shape": "mathlib_search_goal",
+          "unknown_shape_default_used": false,
+          "unprobed_allowed_tactic_ids": []
+        },
+        {
+          "allowed_tactic_ids": [
+            "rfl",
+            "simp_all"
+          ],
+          "baseline_error_class": "UNMAPPED_TARGET_SHAPE",
+          "blocked_unavailable_tactic_ids": [],
+          "body_in_receipt": false,
+          "body_material_status": "real_ring2_target_shape_routing_refs",
+          "candidate_tactic_ids": [
+            "rfl",
+            "simp_all"
+          ],
+          "computed_selected_tactic_id": "rfl",
+          "decisions": [
+            {
+              "classifier": "TARGET_SHAPE_ADMISSIBLE",
+              "decision": "allow",
+              "reason": "tactic is probed, available, and listed for this target shape",
+              "tactic_id": "simp_all"
+            },
+            {
+              "classifier": "TARGET_SHAPE_ADMISSIBLE",
+              "decision": "allow",
+              "reason": "tactic is probed, available, and listed for this target shape",
+              "tactic_id": "rfl"
+            }
+          ],
+          "declared_selected_tactic_id": "rfl",
+          "domain": "unknown",
+          "expectation_met": true,
+          "expected_tactic_id": "rfl",
+          "fallback_reason": "target shape has no specific preference map; used the default safe tactic order",
+          "graph_candidate_id": null,
+          "integrity_codes": [],
+          "pre_execution": true,
+          "preferred_not_allowed_tactic_ids": [],
+          "preferred_unavailable_tactic_ids": [],
+          "preferred_unprobed_tactic_ids": [],
+          "receipt_anchor_refs": [
+            "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+            "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+            "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+          ],
+          "route_case_id": "synthetic_unknown_shape_default_fallback_route",
+          "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+          "selected_tactic_id": "rfl",
+          "selection_basis": "unknown_shape_default_preference",
+          "shape_preferred_tactic_ids": [
+            "rfl",
+            "simp",
+            "simp_all",
+            "grind"
+          ],
+          "skipped_preferred_tactic_ids": [],
+          "source_digests": {
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+          },
+          "source_problem_id": "synthetic_unmapped_goal_shape",
+          "source_problem_ids": [
+            "synthetic_unmapped_goal_shape"
+          ],
+          "source_refs": [
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+          ],
+          "split": "synthetic_public_regression",
+          "target_shape": "unmapped_public_goal_shape",
+          "unknown_shape_default_used": true,
           "unprobed_allowed_tactic_ids": []
         }
       ],
@@ -514,8 +786,10 @@
         "bool_decision_goal",
         "list_length_rewrite_goal",
         "list_map_index_rewrite_goal",
+        "mathlib_search_goal",
         "nat_injective_goal",
-        "propositional_intro_goal"
+        "propositional_intro_goal",
+        "unmapped_public_goal_shape"
       ],
       "unavailable_tactic_ids": [
         "aesop"
@@ -545,7 +819,7 @@
         "not_a_complete_secret_scan": true,
         "scope_id": "synthetic_sentinel_and_declared_import_policy"
       },
-      "scanned_path_count": 11,
+      "scanned_path_count": 14,
       "status": "pass",
       "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
     },
@@ -555,23 +829,31 @@
     "source_artifact_count": 4,
     "source_artifact_imports": [
       {
-        "actual_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "actual_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
         "body_copied": true,
         "body_in_receipt": false,
         "digest_matches": true,
         "expected_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "public_safe_digest_matches": true,
+        "public_safe_expected_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
         "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+        "source_digest_matches": false,
         "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
       },
       {
-        "actual_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "actual_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
         "body_copied": true,
         "body_in_receipt": false,
         "digest_matches": true,
         "expected_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "public_safe_digest_matches": true,
+        "public_safe_expected_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
         "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+        "source_digest_matches": false,
         "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
       },
       {
@@ -580,18 +862,26 @@
         "body_in_receipt": false,
         "digest_matches": true,
         "expected_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+        "public_safe_digest_matches": false,
+        "public_safe_expected_digest": null,
         "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+        "source_digest_matches": true,
         "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "source_to_target_relation": "exact_copy",
         "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
       },
       {
-        "actual_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "actual_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
         "body_copied": true,
         "body_in_receipt": false,
         "digest_matches": true,
         "expected_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "public_safe_digest_matches": true,
+        "public_safe_expected_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
         "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+        "source_digest_matches": false,
         "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+        "source_to_target_relation": "verified_public_safe_private_path_rewrite",
         "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
       }
     ],
@@ -651,6 +941,7 @@
         "decide",
         "simp_all"
       ],
+      "computed_selected_tactic_id": "decide",
       "decisions": [
         {
           "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -671,12 +962,17 @@
           "tactic_id": "aesop"
         }
       ],
+      "declared_selected_tactic_id": "decide",
       "domain": "bool",
       "expectation_met": true,
       "expected_tactic_id": "decide",
+      "fallback_reason": "",
       "graph_candidate_id": null,
       "integrity_codes": [],
       "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -685,6 +981,13 @@
       "route_case_id": "ring2_bool_not_not_route",
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_id": "decide",
+      "selection_basis": "shape_preferred_available",
+      "shape_preferred_tactic_ids": [
+        "decide",
+        "simp_all",
+        "rfl"
+      ],
+      "skipped_preferred_tactic_ids": [],
       "source_digests": {
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
       },
@@ -700,6 +1003,7 @@
       ],
       "split": "train",
       "target_shape": "bool_decision_goal",
+      "unknown_shape_default_used": false,
       "unprobed_allowed_tactic_ids": []
     },
     {
@@ -715,6 +1019,7 @@
         "rfl",
         "simp_all"
       ],
+      "computed_selected_tactic_id": "rfl",
       "decisions": [
         {
           "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -735,12 +1040,17 @@
           "tactic_id": "aesop"
         }
       ],
+      "declared_selected_tactic_id": "rfl",
       "domain": "propositional",
       "expectation_met": true,
       "expected_tactic_id": "rfl",
+      "fallback_reason": "",
       "graph_candidate_id": null,
       "integrity_codes": [],
       "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -749,6 +1059,13 @@
       "route_case_id": "ring2_iff_intro_route",
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_id": "rfl",
+      "selection_basis": "shape_preferred_available",
+      "shape_preferred_tactic_ids": [
+        "rfl",
+        "simp_all",
+        "grind"
+      ],
+      "skipped_preferred_tactic_ids": [],
       "source_digests": {
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
       },
@@ -764,6 +1081,7 @@
       ],
       "split": "dev",
       "target_shape": "propositional_intro_goal",
+      "unknown_shape_default_used": false,
       "unprobed_allowed_tactic_ids": []
     },
     {
@@ -779,6 +1097,7 @@
         "omega",
         "simp_all"
       ],
+      "computed_selected_tactic_id": "simp_all",
       "decisions": [
         {
           "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -799,12 +1118,17 @@
           "tactic_id": "aesop"
         }
       ],
+      "declared_selected_tactic_id": "simp_all",
       "domain": "list",
       "expectation_met": true,
       "expected_tactic_id": "simp_all",
+      "fallback_reason": "",
       "graph_candidate_id": "mathlib_ring1_problem_set_v0",
       "integrity_codes": [],
       "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -813,6 +1137,13 @@
       "route_case_id": "ring2_list_length_append_symmetry_hit_fail_route",
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_id": "simp_all",
+      "selection_basis": "shape_preferred_available",
+      "shape_preferred_tactic_ids": [
+        "simp_all",
+        "rfl",
+        "omega"
+      ],
+      "skipped_preferred_tactic_ids": [],
       "source_digests": {
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -830,6 +1161,7 @@
       ],
       "split": "test",
       "target_shape": "list_length_rewrite_goal",
+      "unknown_shape_default_used": false,
       "unprobed_allowed_tactic_ids": []
     },
     {
@@ -845,6 +1177,7 @@
         "omega",
         "simp_all"
       ],
+      "computed_selected_tactic_id": "simp_all",
       "decisions": [
         {
           "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -865,12 +1198,17 @@
           "tactic_id": "aesop"
         }
       ],
+      "declared_selected_tactic_id": "simp_all",
       "domain": "list",
       "expectation_met": true,
       "expected_tactic_id": "simp_all",
+      "fallback_reason": "",
       "graph_candidate_id": "retrieval_query_recipe_update",
       "integrity_codes": [],
       "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -879,6 +1217,13 @@
       "route_case_id": "ring2_list_map_map_index_miss_route",
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_id": "simp_all",
+      "selection_basis": "shape_preferred_available",
+      "shape_preferred_tactic_ids": [
+        "simp_all",
+        "rfl",
+        "omega"
+      ],
+      "skipped_preferred_tactic_ids": [],
       "source_digests": {
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
@@ -896,6 +1241,7 @@
       ],
       "split": "test",
       "target_shape": "list_map_index_rewrite_goal",
+      "unknown_shape_default_used": false,
       "unprobed_allowed_tactic_ids": []
     },
     {
@@ -911,6 +1257,7 @@
         "omega",
         "simp_all"
       ],
+      "computed_selected_tactic_id": "omega",
       "decisions": [
         {
           "classifier": "TARGET_SHAPE_ADMISSIBLE",
@@ -931,12 +1278,17 @@
           "tactic_id": "aesop"
         }
       ],
+      "declared_selected_tactic_id": "omega",
       "domain": "nat",
       "expectation_met": true,
       "expected_tactic_id": "omega",
+      "fallback_reason": "",
       "graph_candidate_id": null,
       "integrity_codes": [],
       "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
       "receipt_anchor_refs": [
         "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
         "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
@@ -945,6 +1297,13 @@
       "route_case_id": "ring2_nat_succ_injective_route",
       "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
       "selected_tactic_id": "omega",
+      "selection_basis": "shape_preferred_available",
+      "shape_preferred_tactic_ids": [
+        "omega",
+        "simp_all",
+        "decide"
+      ],
+      "skipped_preferred_tactic_ids": [],
       "source_digests": {
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
       },
@@ -960,6 +1319,163 @@
       ],
       "split": "train",
       "target_shape": "nat_injective_goal",
+      "unknown_shape_default_used": false,
+      "unprobed_allowed_tactic_ids": []
+    },
+    {
+      "allowed_tactic_ids": [
+        "rfl",
+        "simp_all"
+      ],
+      "baseline_error_class": "MATHLIB_TACTIC_UNAVAILABLE",
+      "blocked_unavailable_tactic_ids": [],
+      "body_in_receipt": false,
+      "body_material_status": "real_ring2_target_shape_routing_refs",
+      "candidate_tactic_ids": [
+        "aesop",
+        "rfl",
+        "simp_all"
+      ],
+      "computed_selected_tactic_id": "simp_all",
+      "decisions": [
+        {
+          "classifier": "UNAVAILABLE_TACTIC",
+          "decision": "reject",
+          "reason": "tactic is known but unavailable in the declared environment",
+          "tactic_id": "aesop"
+        },
+        {
+          "classifier": "TARGET_SHAPE_ADMISSIBLE",
+          "decision": "allow",
+          "reason": "tactic is probed, available, and listed for this target shape",
+          "tactic_id": "simp_all"
+        },
+        {
+          "classifier": "TARGET_SHAPE_ADMISSIBLE",
+          "decision": "allow",
+          "reason": "tactic is probed, available, and listed for this target shape",
+          "tactic_id": "rfl"
+        }
+      ],
+      "declared_selected_tactic_id": "simp_all",
+      "domain": "search",
+      "expectation_met": true,
+      "expected_tactic_id": "simp_all",
+      "fallback_reason": "earlier preferred tactics were not selectable; used the next available allowed tactic",
+      "graph_candidate_id": null,
+      "integrity_codes": [],
+      "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [
+        "aesop"
+      ],
+      "preferred_unprobed_tactic_ids": [],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+      ],
+      "route_case_id": "synthetic_mathlib_preferred_unavailable_fallback_route",
+      "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+      "selected_tactic_id": "simp_all",
+      "selection_basis": "preferred_tactic_fallback",
+      "shape_preferred_tactic_ids": [
+        "aesop",
+        "simp_all",
+        "rfl"
+      ],
+      "skipped_preferred_tactic_ids": [
+        "aesop"
+      ],
+      "source_digests": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+      },
+      "source_problem_id": "synthetic_mathlib_absent_search_goal",
+      "source_problem_ids": [
+        "synthetic_mathlib_absent_search_goal"
+      ],
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      ],
+      "split": "synthetic_public_regression",
+      "target_shape": "mathlib_search_goal",
+      "unknown_shape_default_used": false,
+      "unprobed_allowed_tactic_ids": []
+    },
+    {
+      "allowed_tactic_ids": [
+        "rfl",
+        "simp_all"
+      ],
+      "baseline_error_class": "UNMAPPED_TARGET_SHAPE",
+      "blocked_unavailable_tactic_ids": [],
+      "body_in_receipt": false,
+      "body_material_status": "real_ring2_target_shape_routing_refs",
+      "candidate_tactic_ids": [
+        "rfl",
+        "simp_all"
+      ],
+      "computed_selected_tactic_id": "rfl",
+      "decisions": [
+        {
+          "classifier": "TARGET_SHAPE_ADMISSIBLE",
+          "decision": "allow",
+          "reason": "tactic is probed, available, and listed for this target shape",
+          "tactic_id": "simp_all"
+        },
+        {
+          "classifier": "TARGET_SHAPE_ADMISSIBLE",
+          "decision": "allow",
+          "reason": "tactic is probed, available, and listed for this target shape",
+          "tactic_id": "rfl"
+        }
+      ],
+      "declared_selected_tactic_id": "rfl",
+      "domain": "unknown",
+      "expectation_met": true,
+      "expected_tactic_id": "rfl",
+      "fallback_reason": "target shape has no specific preference map; used the default safe tactic order",
+      "graph_candidate_id": null,
+      "integrity_codes": [],
+      "pre_execution": true,
+      "preferred_not_allowed_tactic_ids": [],
+      "preferred_unavailable_tactic_ids": [],
+      "preferred_unprobed_tactic_ids": [],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+      ],
+      "route_case_id": "synthetic_unknown_shape_default_fallback_route",
+      "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+      "selected_tactic_id": "rfl",
+      "selection_basis": "unknown_shape_default_preference",
+      "shape_preferred_tactic_ids": [
+        "rfl",
+        "simp",
+        "simp_all",
+        "grind"
+      ],
+      "skipped_preferred_tactic_ids": [],
+      "source_digests": {
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+      },
+      "source_problem_id": "synthetic_unmapped_goal_shape",
+      "source_problem_ids": [
+        "synthetic_unmapped_goal_shape"
+      ],
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      ],
+      "split": "synthetic_public_regression",
+      "target_shape": "unmapped_public_goal_shape",
+      "unknown_shape_default_used": true,
       "unprobed_allowed_tactic_ids": []
     }
   ],
@@ -986,7 +1502,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 11,
+    "scanned_path_count": 14,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -999,23 +1515,31 @@
   "source_artifact_count": 4,
   "source_artifact_imports": [
     {
-      "actual_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "actual_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
       "body_copied": true,
       "body_in_receipt": false,
       "digest_matches": true,
       "expected_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "public_safe_digest_matches": true,
+      "public_safe_expected_digest": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
       "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_digest_matches": false,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
     },
     {
-      "actual_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "actual_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
       "body_copied": true,
       "body_in_receipt": false,
       "digest_matches": true,
       "expected_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "public_safe_digest_matches": true,
+      "public_safe_expected_digest": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
       "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_digest_matches": false,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
     },
     {
@@ -1024,18 +1548,26 @@
       "body_in_receipt": false,
       "digest_matches": true,
       "expected_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "public_safe_digest_matches": false,
+      "public_safe_expected_digest": null,
       "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_digest_matches": true,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_to_target_relation": "exact_copy",
       "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
     },
     {
-      "actual_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "actual_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
       "body_copied": true,
       "body_in_receipt": false,
       "digest_matches": true,
       "expected_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "public_safe_digest_matches": true,
+      "public_safe_expected_digest": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
       "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_digest_matches": false,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
     }
   ],
@@ -1095,8 +1627,10 @@
     "bool_decision_goal",
     "list_length_rewrite_goal",
     "list_map_index_rewrite_goal",
+    "mathlib_search_goal",
     "nat_injective_goal",
-    "propositional_intro_goal"
+    "propositional_intro_goal",
+    "unmapped_public_goal_shape"
   ],
   "unavailable_tactic_ids": [
     "aesop"

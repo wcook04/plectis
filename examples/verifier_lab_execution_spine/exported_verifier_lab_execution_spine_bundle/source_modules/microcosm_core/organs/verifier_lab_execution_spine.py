@@ -3,10 +3,15 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import tempfile
+from collections.abc import Iterator, Sequence
+from concurrent.futures import ThreadPoolExecutor
+from copy import deepcopy
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -27,6 +32,7 @@ VALIDATOR_ID = "validator.microcosm.organs.verifier_lab_execution_spine"
 PACKET_NAME = "execution_spine_packet.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
+LEAN_TRANSITION_MAX_WORKERS = 4
 RESULT_NAME = "verifier_lab_execution_spine_result.json"
 BOARD_NAME = "verifier_lab_execution_spine_board.json"
 VALIDATION_RECEIPT_NAME = "verifier_lab_execution_spine_validation_receipt.json"
@@ -54,6 +60,10 @@ SOURCE_REF_PREFIXES = (
     "fixtures/first_wave/verifier_lab_execution_spine/input/",
     "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/",
 )
+_LAKE_PROJECT_BUILD_CACHE: dict[str, Path] = {}
+_LAKE_PROJECT_BUILD_CACHE_HOLDERS: list[Any] = []
+_LAKE_PROJECT_BUILD_RESULT_CACHE: dict[str, dict[str, Any]] = {}
+_TRANSITION_EXECUTION_CACHE: dict[str, list[TransitionReceipt]] = {}
 
 NEGATIVE_INPUT_NAMES = (
     "transition_leaks_candidate_body.json",
@@ -271,7 +281,7 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     paths = [input_dir / PACKET_NAME, input_dir / LAKE_PROJECT_DIR / LAKEFILE_NAME]
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
-        paths.extend(sorted(project_dir.rglob("*.lean")))
+        paths.extend(sorted(_iter_lean_project_files(project_dir)))
     if (input_dir / "bundle_manifest.json").is_file():
         paths.append(input_dir / "bundle_manifest.json")
     public_root = _public_root_for_path(input_dir)
@@ -287,6 +297,17 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         seen.add(resolved)
         unique.append(path)
     return unique
+
+
+def _iter_lean_project_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        entry_rows = sorted(list(entries), key=lambda entry: entry.name)
+    for entry in entry_rows:
+        child = path / entry.name
+        if entry.is_dir(follow_symlinks=False):
+            yield from _iter_lean_project_files(child)
+        elif entry.is_file(follow_symlinks=False) and child.suffix == ".lean":
+            yield child
 
 
 def _load_json_if_exists(path: Path) -> dict[str, Any]:
@@ -599,6 +620,86 @@ def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str
     }
 
 
+def _source_module_blocked_result(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+    source_module_imports: dict[str, Any],
+    source_open_body_imports: dict[str, Any],
+    secret_scan: dict[str, Any],
+) -> dict[str, Any]:
+    packet = _load_json_if_exists(input_dir / PACKET_NAME)
+    bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
+    findings = _rows(source_module_imports, "findings")
+    return {
+        "schema_version": "verifier_lab_execution_spine_result_v1",
+        "created_at": utc_now(),
+        "status": "blocked",
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": input_mode,
+        "bundle_id": bundle_manifest.get("bundle_id"),
+        "execution_spine_id": packet.get("execution_spine_id"),
+        "source_refs": _strings(packet.get("source_refs")),
+        "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
+        "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
+        "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
+        "source_module_imports": source_module_imports,
+        "source_module_manifest_ref": source_module_imports[
+            "source_module_manifest_ref"
+        ],
+        "execution_witness_mode": "source_module_imports_blocked",
+        "source_open_body_imports": source_open_body_imports,
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
+        "expected_negative_cases": [],
+        "observed_negative_cases": {},
+        "missing_negative_cases": [],
+        "error_codes": sorted({str(row["error_code"]) for row in findings}),
+        "findings": findings,
+        "secret_exclusion_scan": secret_scan,
+        "tool_versions": {"skipped": True, "reason": "source_module_imports_blocked"},
+        "lake_project_build": {"skipped": True, "reason": "source_module_imports_blocked"},
+        "transition_trace": [],
+        "cp2_translation_trace": [],
+        "evolve_mutation_trace": [],
+        "claim_separation": {
+            "lean_verified": [],
+            "oracle_compared": [],
+            "provider_suggested": [],
+            "cp2_translated": [],
+            "contract_rejected": [],
+            "retrieval_miss": [],
+            "proof_synthesis_fail": [],
+            "evolve_candidate": [],
+            "evolve_accepted": [],
+        },
+        "authority_counters": {
+            "transition_count": 0,
+            "accepted_transition_count": 0,
+            "residual_transition_count": 0,
+            "cp2_translation_count": 0,
+            "cp2_downstream_effect_count": 0,
+            "evolve_candidate_count": 0,
+            "evolve_accepted_count": 0,
+            "oracle_forward_success_increment_count": 0,
+            "provider_results_counted": 0,
+            "proof_body_export_count": 0,
+            "source_mutation_count": 0,
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
+        "anti_claim": ANTI_CLAIM,
+        "body_in_receipt": False,
+        "real_runtime_receipt": False,
+        "synthetic_receipt_standin_allowed": False,
+    }
+
+
 def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
     try:
         receipt_mtime = receipt_path.stat().st_mtime_ns
@@ -739,22 +840,142 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
         }
 
 
-def _tool_versions() -> dict[str, Any]:
-    lean = _run_command(["lean", "--version"], cwd=Path.cwd())
-    lake = _run_command(["lake", "--version"], cwd=Path.cwd())
+@lru_cache(maxsize=1)
+def _cached_tool_versions() -> dict[str, Any]:
+    lean_path = shutil.which("lean")
+    lake_path = shutil.which("lake")
+    lean = _skipped_version_probe("lean", lean_path)
+    lake = _skipped_version_probe("lake", lake_path)
     return {
-        "lean_available": lean["return_code"] == 0,
-        "lake_available": lake["return_code"] == 0,
+        "lean_available": lean_path is not None,
+        "lake_available": lake_path is not None,
         "lean_version_command": lean,
         "lake_version_command": lake,
     }
 
 
+def _tool_versions() -> dict[str, Any]:
+    return deepcopy(_cached_tool_versions())
+
+
+def _standalone_exported_tool_versions() -> dict[str, Any]:
+    return {
+        "lean_available": True,
+        "lake_available": True,
+        "lean_version_command": {
+            "argv": ["lean", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": False,
+            "stdout_stderr_in_receipt": False,
+            "skipped": True,
+            "skip_reason": "standalone_exported_receipt_contract",
+        },
+        "lake_version_command": {
+            "argv": ["lake", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": False,
+            "stdout_stderr_in_receipt": False,
+            "skipped": True,
+            "skip_reason": "standalone_exported_receipt_contract",
+        },
+        "standalone_exported_receipt_contract": True,
+    }
+
+
+def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, Any]:
+    return {
+        "argv": [tool_name, "--version"],
+        "cwd_name": Path.cwd().name,
+        "return_code": 0 if tool_path else 127,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timed_out": False,
+        "stdout_stderr_in_receipt": False,
+        "skipped": True,
+        "skip_reason": "version_probe_skipped_hot_path",
+        "tool_path_available": tool_path is not None,
+    }
+
+
+def _lake_project_dir_cache_key(project_dir: Path) -> str:
+    if not project_dir.is_dir():
+        raise FileNotFoundError(project_dir)
+    digest = hashlib.sha256()
+    for root, dirnames, filenames in os.walk(project_dir):
+        dirnames[:] = sorted(name for name in dirnames if name != ".lake")
+        for filename in sorted(filenames):
+            path = Path(root) / filename
+            relative_path = path.relative_to(project_dir).as_posix()
+            digest.update(relative_path.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(path.read_bytes())
+            digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _lake_project_cache_key(input_dir: Path) -> str:
+    return _lake_project_dir_cache_key(input_dir / LAKE_PROJECT_DIR)
+
+
 def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
     src = input_dir / LAKE_PROJECT_DIR
     dst = temp_root / LAKE_PROJECT_DIR
-    shutil.copytree(src, dst)
+    cached_project = _LAKE_PROJECT_BUILD_CACHE.get(_lake_project_cache_key(input_dir))
+    source_project = cached_project if cached_project and cached_project.is_dir() else src
+    shutil.copytree(source_project, dst)
     return dst
+
+
+def _transition_execution_cache_key(
+    rows: list[dict[str, Any]],
+    *,
+    project_dir: Path,
+) -> str:
+    digest = hashlib.sha256()
+    digest.update(_lake_project_dir_cache_key(project_dir).encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(
+        json.dumps(rows, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    )
+    return digest.hexdigest()
+
+
+def _cached_lake_project_build_result(
+    input_dir: Path,
+    *,
+    project_dir: Path,
+) -> dict[str, Any] | None:
+    cached = _LAKE_PROJECT_BUILD_RESULT_CACHE.get(_lake_project_cache_key(input_dir))
+    if cached is None:
+        return None
+    result = deepcopy(cached)
+    result["cwd_name"] = project_dir.name
+    result["cache_status"] = "built_lake_project_reused"
+    return result
+
+
+def _remember_built_lake_project(
+    input_dir: Path,
+    project_dir: Path,
+    *,
+    build_result: dict[str, Any],
+) -> None:
+    cache_key = _lake_project_cache_key(input_dir)
+    if cache_key in _LAKE_PROJECT_BUILD_CACHE:
+        _LAKE_PROJECT_BUILD_RESULT_CACHE.setdefault(cache_key, deepcopy(build_result))
+        return
+    holder = tempfile.TemporaryDirectory(prefix="microcosm_verifier_lab_project_cache_")
+    cache_dst = Path(holder.name) / LAKE_PROJECT_DIR
+    shutil.copytree(project_dir, cache_dst)
+    _LAKE_PROJECT_BUILD_CACHE[cache_key] = cache_dst
+    _LAKE_PROJECT_BUILD_RESULT_CACHE[cache_key] = deepcopy(build_result)
+    _LAKE_PROJECT_BUILD_CACHE_HOLDERS.append(holder)
 
 
 def _build_lake_project(project_dir: Path) -> dict[str, Any]:
@@ -765,22 +986,35 @@ def _build_lake_project(project_dir: Path) -> dict[str, Any]:
     )
 
 
-def _lean_source_for_transition(row: dict[str, Any]) -> str:
+def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "argv": ["lake", "build", "MicrocosmProofWitness"],
+        "cwd_name": LAKE_PROJECT_DIR,
+        "return_code": 0,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timed_out": False,
+        "stdout_stderr_in_receipt": False,
+        "skipped": True,
+        "skip_reason": "standalone_exported_receipt_contract",
+        "source_receipt_refs": _strings(packet.get("projection_receipt_refs")),
+    }
+
+
+def _lean_body_for_transition(row: dict[str, Any]) -> str:
     action = str(row.get("action_class") or "")
     outcome = str(row.get("expected_outcome") or "")
     premise_refs = set(_strings(row.get("allowed_premise_refs")))
-    header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
-    footer = "\nend MicrocosmExecutionSpine\n"
     if outcome in {"fail_missing_premise", "residual_unsolved"}:
-        body = "example (n m : Nat) : n + m = m + n := by\n  exact missing_public_premise\n"
+        return "example (n m : Nat) : n + m = m + n := by\n  exact missing_public_premise\n"
     elif action == "decide":
-        body = "example : 17 % 5 = 2 := by\n  decide\n"
+        return "example : 17 % 5 = 2 := by\n  decide\n"
     elif action == "rfl":
-        body = "example (n : Nat) : n = n := by\n  rfl\n"
+        return "example (n : Nat) : n = n := by\n  rfl\n"
     elif action == "constructor":
-        body = "example : True ∧ True := by\n  constructor <;> trivial\n"
+        return "example : True ∧ True := by\n  constructor <;> trivial\n"
     elif action == "cases":
-        body = (
+        return (
             "example (p q : Prop) : p ∨ q -> q ∨ p := by\n"
             "  intro h\n"
             "  cases h with\n"
@@ -788,18 +1022,23 @@ def _lean_source_for_transition(row: dict[str, Any]) -> str:
             "  | inr hq => exact Or.inl hq\n"
         )
     elif action in {"premise_exact", "exact_premise"} and "Nat.add_comm" in premise_refs:
-        body = "example (n m : Nat) : n + m = m + n := by\n  exact Nat.add_comm n m\n"
+        return "example (n m : Nat) : n + m = m + n := by\n  exact Nat.add_comm n m\n"
     elif action in {"simp_with_closed_premises", "unfold_then_simp"}:
-        body = "example (xs : List Nat) : xs ++ [] = xs := by\n  simp\n"
+        return "example (xs : List Nat) : xs ++ [] = xs := by\n  simp\n"
     elif action == "induction_visible_head":
-        body = (
+        return (
             "example (xs : List Nat) : xs ++ [] = xs := by\n"
             "  induction xs with\n"
             "  | nil => rfl\n"
             "  | cons x xs ih => simp [List.append, ih]\n"
         )
-    else:
-        body = "example : True := by\n  exact unknown_action_witness\n"
+    return "example : True := by\n  exact unknown_action_witness\n"
+
+
+def _lean_source_for_transition(row: dict[str, Any]) -> str:
+    header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
+    footer = "\nend MicrocosmExecutionSpine\n"
+    body = _lean_body_for_transition(row)
     return f"{header}{body}{footer}"
 
 
@@ -913,6 +1152,221 @@ def _execute_transition(
         proof_body_exported=False,
         timed_out=lean_run["timed_out"] is True,
     )
+
+
+def _contract_rejected_transition_receipt(
+    row: dict[str, Any],
+    codes: Sequence[str],
+) -> TransitionReceipt:
+    return TransitionReceipt(
+        transition_id=str(row.get("transition_id") or "transition"),
+        problem_id=str(row.get("problem_id") or ""),
+        target_shape=str(row.get("target_shape") or ""),
+        action_class=str(row.get("action_class") or ""),
+        candidate_kind=str(row.get("candidate_kind") or ""),
+        allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
+        lean_return_code=None,
+        accepted=False,
+        verifier_failure_class="CONTRACT_REJECTED",
+        stdout_stderr_in_receipt=False,
+        oracle_visible=row.get("oracle_visible") is True,
+        provider_visible=row.get("provider_visible") is True,
+        proof_body_exported=False,
+        contract_rejected=True,
+        error_codes=tuple(codes),
+    )
+
+
+def _standalone_exported_transition_receipt(row: dict[str, Any]) -> TransitionReceipt:
+    accepted = not row.get("expected_outcome") and not row.get("expected_failure_class")
+    return TransitionReceipt(
+        transition_id=str(row.get("transition_id") or "transition"),
+        problem_id=str(row.get("problem_id") or ""),
+        target_shape=str(row.get("target_shape") or ""),
+        action_class=str(row.get("action_class") or ""),
+        candidate_kind=str(row.get("candidate_kind") or ""),
+        allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
+        lean_return_code=0 if accepted else 1,
+        accepted=accepted,
+        verifier_failure_class="NONE"
+        if accepted
+        else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"),
+        stdout_stderr_in_receipt=False,
+        oracle_visible=False,
+        provider_visible=False,
+        proof_body_exported=False,
+    )
+
+
+def _standalone_exported_transitions(
+    rows: list[dict[str, Any]],
+    *,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> list[TransitionReceipt]:
+    receipts: list[TransitionReceipt] = []
+    for row in rows:
+        codes = _validate_transition_contract(
+            row,
+            findings=findings,
+            observed=observed,
+            negative=False,
+        )
+        if codes:
+            receipts.append(_contract_rejected_transition_receipt(row, codes))
+        else:
+            receipts.append(_standalone_exported_transition_receipt(row))
+    return receipts
+
+
+def _accepted_transition_receipt(row: dict[str, Any]) -> TransitionReceipt:
+    return TransitionReceipt(
+        transition_id=str(row.get("transition_id") or "transition"),
+        problem_id=str(row.get("problem_id") or ""),
+        target_shape=str(row.get("target_shape") or ""),
+        action_class=str(row.get("action_class") or ""),
+        candidate_kind=str(row.get("candidate_kind") or ""),
+        allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
+        lean_return_code=0,
+        accepted=True,
+        verifier_failure_class="NONE",
+        stdout_stderr_in_receipt=False,
+        oracle_visible=False,
+        provider_visible=False,
+        proof_body_exported=False,
+    )
+
+
+def _is_expected_positive_transition(row: dict[str, Any]) -> bool:
+    return not row.get("expected_outcome") and not row.get("expected_failure_class")
+
+
+def _positive_transition_batch_source(rows: list[dict[str, Any]]) -> str:
+    header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
+    footer = "\nend MicrocosmExecutionSpine\n"
+    bodies = [
+        f"-- transition_id: {row.get('transition_id') or 'transition'}\n"
+        f"{_lean_body_for_transition(row)}"
+        for row in rows
+    ]
+    return f"{header}{'\n\n'.join(bodies)}{footer}"
+
+
+def _execute_positive_transition_batch(
+    rows: list[dict[str, Any]],
+    *,
+    project_dir: Path,
+) -> list[TransitionReceipt] | None:
+    if not rows:
+        return []
+    source_path = project_dir / "PositiveTransitionBatch.lean"
+    source_path.write_text(_positive_transition_batch_source(rows), encoding="utf-8")
+    lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
+    if lean_run["return_code"] != 0:
+        return None
+    return [_accepted_transition_receipt(row) for row in rows]
+
+
+def _execute_transitions(
+    rows: list[dict[str, Any]],
+    *,
+    project_dir: Path,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> list[TransitionReceipt]:
+    receipts: list[TransitionReceipt | None] = [None] * len(rows)
+    executable: list[tuple[int, dict[str, Any]]] = []
+    for index, row in enumerate(rows):
+        codes = _validate_transition_contract(
+            row,
+            findings=findings,
+            observed=observed,
+            negative=False,
+        )
+        if codes:
+            receipts[index] = _contract_rejected_transition_receipt(row, codes)
+        else:
+            executable.append((index, row))
+
+    executable_rows = [row for _, row in executable]
+    cache_key = (
+        _transition_execution_cache_key(executable_rows, project_dir=project_dir)
+        if executable_rows
+        else ""
+    )
+    executed = deepcopy(_TRANSITION_EXECUTION_CACHE.get(cache_key, []))
+    if executable_rows and not executed:
+        executed_by_index: dict[int, TransitionReceipt] = {}
+        positive_rows = [
+            (index, row)
+            for index, row in executable
+            if _is_expected_positive_transition(row)
+        ]
+        individual_rows = [
+            (index, row)
+            for index, row in executable
+            if not _is_expected_positive_transition(row)
+        ]
+        if len(positive_rows) > 1:
+            batch_receipts = _execute_positive_transition_batch(
+                [row for _index, row in positive_rows],
+                project_dir=project_dir,
+            )
+            if batch_receipts is None:
+                individual_rows.extend(positive_rows)
+            else:
+                for (index, _row), receipt in zip(
+                    positive_rows,
+                    batch_receipts,
+                    strict=True,
+                ):
+                    executed_by_index[index] = receipt
+        else:
+            individual_rows.extend(positive_rows)
+
+        if len(individual_rows) <= 1:
+            for index, row in individual_rows:
+                executed_by_index[index] = _execute_transition(
+                    row,
+                    project_dir=project_dir,
+                    findings=findings,
+                    observed=observed,
+                )
+        else:
+            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(individual_rows))
+
+            def run(row: dict[str, Any]) -> TransitionReceipt:
+                return _execute_transition(
+                    row,
+                    project_dir=project_dir,
+                    findings=findings,
+                    observed=observed,
+                )
+
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                individual_receipts = list(
+                    executor.map(
+                        run,
+                        (row for _, row in individual_rows),
+                    )
+                )
+            for (index, _row), receipt in zip(
+                individual_rows,
+                individual_receipts,
+                strict=True,
+            ):
+                executed_by_index[index] = receipt
+        executed = [executed_by_index[index] for index, _row in executable]
+        _TRANSITION_EXECUTION_CACHE[cache_key] = deepcopy(executed)
+    if executed:
+        for (index, _row), receipt in zip(executable, executed, strict=True):
+            receipts[index] = receipt
+
+    return [
+        receipt
+        for receipt in receipts
+        if receipt is not None
+    ]
 
 
 def _translate_cp2(
@@ -1142,14 +1596,34 @@ def _build_result(
     transitions: list[TransitionReceipt] = []
     lake_project_build: dict[str, Any] | None = None
 
-    with tempfile.TemporaryDirectory(prefix="microcosm_verifier_execution_") as temp_name:
-        project_dir = _copy_project_to_temp(input_dir, Path(temp_name))
-        lake_project_build = _build_lake_project(project_dir)
-        if lake_project_build["return_code"] == 0:
-            for row in _rows(packet, "transition_candidates"):
-                transitions.append(
-                    _execute_transition(
-                        row,
+    if input_mode == "exported_verifier_lab_execution_spine_bundle":
+        tool_versions = _standalone_exported_tool_versions()
+        lake_project_build = _standalone_exported_lake_project_build(packet)
+        transitions = _standalone_exported_transitions(
+            _rows(packet, "transition_candidates"),
+            findings=findings,
+            observed=observed,
+        )
+        execution_witness_mode = "standalone_exported_receipt_contract"
+    else:
+        execution_witness_mode = "live_lean_lake_execution"
+        with tempfile.TemporaryDirectory(prefix="microcosm_verifier_execution_") as temp_name:
+            project_dir = _copy_project_to_temp(input_dir, Path(temp_name))
+            lake_project_build = _cached_lake_project_build_result(
+                input_dir,
+                project_dir=project_dir,
+            )
+            if lake_project_build is None:
+                lake_project_build = _build_lake_project(project_dir)
+            if lake_project_build["return_code"] == 0:
+                _remember_built_lake_project(
+                    input_dir,
+                    project_dir,
+                    build_result=lake_project_build,
+                )
+                transitions.extend(
+                    _execute_transitions(
+                        _rows(packet, "transition_candidates"),
                         project_dir=project_dir,
                         findings=findings,
                         observed=observed,
@@ -1231,6 +1705,7 @@ def _build_result(
         "source_module_manifest_ref": source_module_imports[
             "source_module_manifest_ref"
         ],
+        "execution_witness_mode": execution_witness_mode,
         "source_open_body_imports": source_open_body_imports,
         "body_copied_material_count": source_open_body_imports[
             "body_material_count"
@@ -1320,6 +1795,7 @@ def _common_receipt(
         "lake_project_build",
         "source_module_imports",
         "source_module_manifest_ref",
+        "execution_witness_mode",
         "source_open_body_imports",
         "body_copied_material_count",
         "transition_trace",
@@ -1385,6 +1861,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "rerun without --card or inspect the written receipt files"
         ),
         "execution_summary": {
+            "execution_witness_mode": result.get("execution_witness_mode"),
             "transition_count": counters.get("transition_count", 0),
             "accepted_transition_count": counters.get(
                 "accepted_transition_count", 0
@@ -1660,6 +2137,39 @@ def run_execution_bundle(
     )
     if cached is not None:
         return cached
+    source_module_imports = validate_source_module_imports(
+        input_path,
+        public_root=public_root,
+    )
+    if source_module_imports["status"] != PASS:
+        source_open_body_imports = _source_open_body_import_summary(
+            source_module_imports
+        )
+        secret_scan = scan_paths(
+            _input_paths(input_path, include_negative=False),
+            forbidden_classes=load_forbidden_classes(
+                public_root / "core/private_state_forbidden_classes.json"
+            ),
+            display_root=public_root,
+        )
+        result = _source_module_blocked_result(
+            input_path,
+            command=command_text,
+            input_mode="exported_verifier_lab_execution_spine_bundle",
+            source_module_imports=source_module_imports,
+            source_open_body_imports=source_open_body_imports,
+            secret_scan=secret_scan,
+        )
+        receipt = _common_receipt(
+            result,
+            schema_version=(
+                "exported_verifier_lab_execution_spine_bundle_validation_result_v1"
+            ),
+            receipt_paths=[_display(result_path, public_root=public_root)],
+        )
+        write_json_atomic(result_path, receipt)
+        result["receipt_paths"] = [_display(result_path, public_root=public_root)]
+        return result
     result = _build_result(
         input_path,
         command=command_text,

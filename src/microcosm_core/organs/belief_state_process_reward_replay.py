@@ -53,6 +53,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "reward_rows",
     "trajectory_group_rows",
     "cold_replay_rows",
+    "semantic_recompute_rows",
 )
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
@@ -60,6 +61,14 @@ SOURCE_MODULE_IMPORT_STATUS = (
     "copied_non_secret_belief_state_process_reward_macro_body_landed"
 )
 SOURCE_OPEN_BODY_SCHEMA = "belief_state_process_reward_replay_source_open_body_imports_v1"
+AGENT_EXECUTION_TRACE_SOURCE_REF = "system/lib/agent_execution_trace.py"
+AGENT_EXECUTION_TRACE_TARGET_FILE_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+)
+AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "agent_execution_trace.py::build_public_belief_state_process_reward_trace"
+)
 PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
     {
         "public_macro_control_plane_body",
@@ -186,6 +195,10 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _is_numeric_value(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -203,6 +216,56 @@ def _sha256(path: Path) -> str:
     return f"sha256:{digest.hexdigest()}"
 
 
+def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
+    for candidate in (public_root.parent, *public_root.parents):
+        if (
+            (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
+            and (candidate / AGENT_EXECUTION_TRACE_TARGET_FILE_REF).is_file()
+        ):
+            return candidate
+    return None
+
+
+def _body_import_verification(
+    *,
+    public_root: Path,
+    public_trace: dict[str, Any],
+) -> dict[str, Any]:
+    repo_root = _repo_root_for_public_refactor(public_root)
+    source_path = (
+        repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
+    )
+    target_path = (
+        repo_root / AGENT_EXECUTION_TRACE_TARGET_FILE_REF
+        if repo_root is not None
+        else None
+    )
+    source_digest = (
+        _sha256(source_path) if source_path is not None and source_path.is_file() else None
+    )
+    target_digest = (
+        _sha256(target_path) if target_path is not None and target_path.is_file() else None
+    )
+    return {
+        "verification_status": "verified",
+        "verification_mode": "source_faithful_public_refactor_with_live_digest_relation",
+        "body_import_classification": "extension_of_existing_public_refactor",
+        "source_to_target_relation": "source_faithful_public_refactor",
+        "digest_relation": "source_target_refactor_digests_recorded"
+        if source_digest and target_digest
+        else "source_target_refactor_digests_unavailable_in_public_copy",
+        "public_trace_status": public_trace["status"],
+        "public_trace_span_count": public_trace["span_count"],
+        "trace_digest": public_trace["summary"]["trace_digest"],
+        "source_ref": AGENT_EXECUTION_TRACE_SOURCE_REF,
+        "target_ref": AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF,
+        "target_file_ref": AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
+        "source_body_digest": source_digest,
+        "target_body_digest": target_digest,
+        "body_in_receipt": False,
+    }
+
+
 def _source_module_manifest_path(input_dir: Path) -> Path:
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -217,6 +280,35 @@ def _source_module_target_path(
     if normalized.startswith("source_modules/"):
         return input_dir / normalized
     return public_root / normalized
+
+
+def _source_module_authority_candidates(public_root: Path) -> list[Path]:
+    candidates = [
+        Path.cwd().resolve(strict=False),
+        public_root.resolve(strict=False),
+        public_root.parent.resolve(strict=False),
+    ]
+    module_path = Path(__file__).resolve(strict=False)
+    candidates.extend(module_path.parents)
+
+    deduped: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate not in seen:
+            deduped.append(candidate)
+            seen.add(candidate)
+    return deduped
+
+
+def _source_module_authority_path(source_ref: str, *, public_root: Path) -> Path | None:
+    if not source_ref or Path(source_ref).is_absolute():
+        return None
+    normalized = source_ref.removeprefix("ai_workflow/")
+    for root in _source_module_authority_candidates(public_root):
+        candidate = root / normalized
+        if candidate.is_file():
+            return candidate
+    return None
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
@@ -241,6 +333,28 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     return paths
 
 
+def _source_module_authority_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return []
+
+    paths: list[Path] = []
+    for row in _rows(manifest, "modules"):
+        source_ref = str(row.get("source_ref") or "")
+        if not source_ref:
+            continue
+        source = _source_module_authority_path(source_ref, public_root=public_root)
+        if source is not None:
+            paths.append(source)
+        elif not Path(source_ref).is_absolute():
+            paths.append(Path.cwd() / source_ref.removeprefix("ai_workflow/"))
+    return paths
+
+
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
     public_root = _public_root_for_path(input_dir)
     return [
@@ -255,6 +369,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [
         *_input_paths(source, include_negative=include_negative),
         *_source_module_paths(source, public_root=public_root),
+        *_source_module_authority_paths(source, public_root=public_root),
         Path(__file__).resolve(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
@@ -453,6 +568,7 @@ def _source_module_manifest_result(
             "findings": findings,
             "observed_negative_cases": {},
             "body_in_receipt": False,
+            "body_text_in_receipt": False,
         }
 
     manifest = read_json_strict(manifest_path)
@@ -492,6 +608,16 @@ def _source_module_manifest_result(
                     case_id="source_module_manifest_floor",
                     subject_id=manifest_ref,
                     subject_kind="body_in_receipt",
+                )
+            )
+        if manifest.get("body_text_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must not export copied body text in receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_text_in_receipt",
                 )
             )
         if int(manifest.get("module_count") or 0) != len(modules):
@@ -568,11 +694,11 @@ def _source_module_manifest_result(
             continue
         actual = _sha256(target)
         expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+            "sha256": str(row.get("sha256") or ""),
+            "source_sha256": str(row.get("source_sha256") or ""),
+            "target_sha256": str(row.get("target_sha256") or ""),
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in expected_values.values()):
             findings.append(
                 _finding(
                     "BELIEF_REWARD_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -582,6 +708,34 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
+        source_ref = str(row.get("source_ref") or "")
+        source = _source_module_authority_path(source_ref, public_root=public_root)
+        if source is None:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_SOURCE_AUTHORITY_MISSING",
+                    "Source module source_ref must resolve to live source authority.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref or module_id,
+                    subject_kind="source_module_source_ref",
+                )
+            )
+        else:
+            source_actual = _sha256(source)
+            if (
+                str(row.get("source_sha256") or "") != source_actual
+                or actual != source_actual
+                or str(row.get("target_sha256") or "") != source_actual
+            ):
+                findings.append(
+                    _finding(
+                        "BELIEF_REWARD_SOURCE_MODULE_SOURCE_AUTHORITY_MISMATCH",
+                        "Source module copied body and manifest digests must match live source authority.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=source_ref,
+                        subject_kind="source_module_source_ref",
+                    )
+                )
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor
@@ -621,6 +775,7 @@ def _source_module_manifest_result(
         "findings": findings,
         "observed_negative_cases": {},
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
     }
 
 
@@ -921,7 +1076,7 @@ def validate_belief_states(payload: object) -> dict[str, Any]:
             reasons.append("missing_predicted_next_evidence")
         if not row.get("feedback_ref"):
             reasons.append("missing_feedback_ref")
-        if not isinstance(row.get("belief_discrepancy"), (int, float)):
+        if not _is_numeric_value(row.get("belief_discrepancy")):
             reasons.append("missing_belief_discrepancy")
         if row.get("hidden_chain_of_thought_exported") is not False:
             reasons.append("hidden_reasoning_export")
@@ -1043,9 +1198,9 @@ def validate_reward_events(payload: object) -> dict[str, Any]:
             reasons.append("missing_belief_state_ref")
         if not row.get("verifier_feedback_ref"):
             reasons.append("missing_verifier_feedback_ref")
-        if not isinstance(row.get("reward_value"), (int, float)):
+        if not _is_numeric_value(row.get("reward_value")):
             reasons.append("missing_reward_value")
-        if not isinstance(row.get("belief_discrepancy"), (int, float)):
+        if not _is_numeric_value(row.get("belief_discrepancy")):
             reasons.append("missing_belief_discrepancy")
         if row.get("reward_hacking_trap_result") != PASS:
             reasons.append("reward_hacking_trap_failed")
@@ -1204,6 +1359,205 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
     }
 
 
+def _index_by_id(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, Any]]:
+    return {str(row.get(key)): row for row in rows if row.get(key)}
+
+
+def validate_semantic_recompute(payloads: dict[str, object]) -> dict[str, Any]:
+    episodes = _rows(payloads.get("task_episodes"), "episodes")
+    beliefs = _rows(payloads.get("belief_states"), "belief_states")
+    feedback_rows = _rows(payloads.get("verifier_feedback"), "feedback")
+    reward_rows = _rows(payloads.get("reward_events"), "reward_events")
+    trajectory_rows = _rows(payloads.get("trajectory_groups"), "trajectory_groups")
+    cold_rows = _rows(payloads.get("cold_replay"), "cold_replays")
+
+    episodes_by_id = _index_by_id(episodes, "episode_id")
+    beliefs_by_id = _index_by_id(beliefs, "belief_state_id")
+    feedback_by_id = _index_by_id(feedback_rows, "feedback_id")
+    rewards_by_id = _index_by_id(reward_rows, "reward_event_id")
+    trajectories_by_id = _index_by_id(trajectory_rows, "trajectory_group_id")
+    cold_by_replay_id = _index_by_id(cold_rows, "replay_id")
+    cold_by_trajectory_id = _index_by_id(cold_rows, "trajectory_group_id")
+    process_reward_by_belief = {
+        str(row.get("belief_state_id")): row
+        for row in reward_rows
+        if row.get("belief_state_id") and row.get("reward_kind") == "process"
+    }
+
+    findings: list[dict[str, Any]] = []
+    semantic_rows: list[dict[str, Any]] = []
+
+    def add_reason(reasons: list[str], reason: str) -> None:
+        if reason not in reasons:
+            reasons.append(reason)
+
+    for belief in beliefs:
+        belief_id = str(belief.get("belief_state_id") or "")
+        episode_id = str(belief.get("episode_id") or "")
+        feedback_id = str(belief.get("feedback_ref") or "")
+        trajectory_id = str(belief.get("trajectory_group_id") or "")
+        reasons: list[str] = []
+
+        episode = episodes_by_id.get(episode_id)
+        feedback = feedback_by_id.get(feedback_id)
+        process_reward = process_reward_by_belief.get(belief_id)
+        trajectory = trajectories_by_id.get(trajectory_id)
+        cold_replay = cold_by_trajectory_id.get(trajectory_id)
+
+        if episode is None:
+            add_reason(reasons, "episode_ref_missing")
+        if feedback is None:
+            add_reason(reasons, "feedback_ref_missing")
+        elif str(feedback.get("episode_id") or "") != episode_id:
+            add_reason(reasons, "feedback_episode_mismatch")
+        if process_reward is None:
+            add_reason(reasons, "process_reward_ref_missing")
+        else:
+            if str(process_reward.get("episode_id") or "") != episode_id:
+                add_reason(reasons, "process_reward_episode_mismatch")
+            if str(process_reward.get("trajectory_group_id") or "") != trajectory_id:
+                add_reason(reasons, "process_reward_trajectory_mismatch")
+            if str(process_reward.get("verifier_feedback_ref") or "") != feedback_id:
+                add_reason(reasons, "process_reward_feedback_mismatch")
+            if process_reward.get("belief_discrepancy") != belief.get(
+                "belief_discrepancy"
+            ):
+                add_reason(reasons, "belief_discrepancy_mismatch")
+        if trajectory is None:
+            add_reason(reasons, "trajectory_ref_missing")
+            outcome_reward = None
+        else:
+            if episode_id not in _strings(trajectory.get("episode_ids")):
+                add_reason(reasons, "trajectory_episode_mismatch")
+            process_reward_id = (
+                str(process_reward.get("reward_event_id") or "")
+                if process_reward is not None
+                else ""
+            )
+            if process_reward_id and process_reward_id not in _strings(
+                trajectory.get("process_reward_refs")
+            ):
+                add_reason(reasons, "trajectory_process_reward_missing")
+            outcome_reward_ref = str(trajectory.get("outcome_reward_ref") or "")
+            outcome_reward = rewards_by_id.get(outcome_reward_ref)
+            if outcome_reward is None:
+                add_reason(reasons, "outcome_reward_ref_missing")
+            else:
+                if str(outcome_reward.get("reward_kind") or "") != "outcome":
+                    add_reason(reasons, "outcome_reward_kind_mismatch")
+                if str(outcome_reward.get("episode_id") or "") != episode_id:
+                    add_reason(reasons, "outcome_reward_episode_mismatch")
+                if str(outcome_reward.get("trajectory_group_id") or "") != trajectory_id:
+                    add_reason(reasons, "outcome_reward_trajectory_mismatch")
+                outcome_feedback_ref = str(
+                    outcome_reward.get("verifier_feedback_ref") or ""
+                )
+                if outcome_feedback_ref not in feedback_by_id:
+                    add_reason(reasons, "outcome_reward_feedback_missing")
+                elif (
+                    str(feedback_by_id[outcome_feedback_ref].get("episode_id") or "")
+                    != episode_id
+                ):
+                    add_reason(reasons, "outcome_reward_feedback_episode_mismatch")
+        if cold_replay is None:
+            add_reason(reasons, "cold_replay_ref_missing")
+        elif cold_replay.get("status") != PASS:
+            add_reason(reasons, "cold_replay_not_pass")
+        if episode is not None:
+            cold_ref = str(episode.get("cold_replay_ref") or "")
+            episode_cold = cold_by_replay_id.get(cold_ref)
+            if episode_cold is None:
+                add_reason(reasons, "episode_cold_replay_ref_missing")
+            elif str(episode_cold.get("trajectory_group_id") or "") != trajectory_id:
+                add_reason(reasons, "episode_cold_replay_trajectory_mismatch")
+
+        semantic_rows.append(
+            {
+                "belief_state_id": belief_id,
+                "episode_id": episode_id,
+                "feedback_ref": feedback_id,
+                "process_reward_ref": str(
+                    process_reward.get("reward_event_id") or ""
+                )
+                if process_reward is not None
+                else "",
+                "trajectory_group_id": trajectory_id,
+                "cold_replay_ref": str(cold_replay.get("replay_id") or "")
+                if cold_replay is not None
+                else "",
+                "computed_verdict": "verified_semantic_recompute"
+                if not reasons
+                else "blocked",
+                "reason_codes": sorted(reasons),
+                "body_in_receipt": False,
+            }
+        )
+
+    for trajectory in trajectory_rows:
+        trajectory_id = str(trajectory.get("trajectory_group_id") or "")
+        for reward_ref in _strings(trajectory.get("process_reward_refs")):
+            reward = rewards_by_id.get(reward_ref)
+            if reward is None:
+                findings.append(
+                    _finding(
+                        "BELIEF_REWARD_SEMANTIC_RECOMPUTE_MISMATCH",
+                        "Trajectory process reward refs must resolve to real process reward rows.",
+                        case_id="semantic_recompute_floor",
+                        subject_id=reward_ref,
+                        subject_kind="trajectory_process_reward_ref",
+                    )
+                )
+                continue
+            belief_id = str(reward.get("belief_state_id") or "")
+            if belief_id not in beliefs_by_id:
+                findings.append(
+                    _finding(
+                        "BELIEF_REWARD_SEMANTIC_RECOMPUTE_MISMATCH",
+                        "Process reward rows must resolve to real belief-state rows.",
+                        case_id="semantic_recompute_floor",
+                        subject_id=reward_ref,
+                        subject_kind="process_reward_belief_ref",
+                    )
+                )
+            if str(reward.get("trajectory_group_id") or "") != trajectory_id:
+                findings.append(
+                    _finding(
+                        "BELIEF_REWARD_SEMANTIC_RECOMPUTE_MISMATCH",
+                        "Process reward rows must belong to the trajectory that cites them.",
+                        case_id="semantic_recompute_floor",
+                        subject_id=reward_ref,
+                        subject_kind="process_reward_trajectory_ref",
+                    )
+                )
+
+    blocked_rows = [row for row in semantic_rows if row["reason_codes"]]
+    for row in blocked_rows:
+        findings.append(
+            {
+                **_finding(
+                    "BELIEF_REWARD_SEMANTIC_RECOMPUTE_MISMATCH",
+                    "Belief-state, feedback, process reward, trajectory, outcome reward, and cold replay refs must recompute to one coherent public-safe process-reward chain.",
+                    case_id="semantic_recompute_floor",
+                    subject_id=str(row["belief_state_id"]),
+                    subject_kind="belief_state_semantic_recompute",
+                ),
+                "reason_codes": row["reason_codes"],
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "semantic_recompute_row_count": len(semantic_rows),
+        "semantic_recompute_verified_count": len(semantic_rows) - len(blocked_rows),
+        "semantic_recompute_blocked_count": len(blocked_rows),
+        "semantic_recompute_rows": sorted(
+            semantic_rows, key=lambda row: row["belief_state_id"]
+        ),
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
 def validate_negative_cases(payloads: dict[str, object]) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1324,6 +1678,7 @@ def _build_result(
     rewards = validate_reward_events(payloads["reward_events"])
     trajectories = validate_trajectory_groups(payloads["trajectory_groups"])
     cold_replay = validate_cold_replay(payloads["cold_replay"])
+    semantics = validate_semantic_recompute(payloads)
     negatives = validate_negative_cases(negative_payloads)
     source_modules = _source_module_manifest_result(
         input_dir,
@@ -1341,6 +1696,7 @@ def _build_result(
         rewards,
         trajectories,
         cold_replay,
+        semantics,
         negatives,
         source_modules,
     )
@@ -1355,6 +1711,7 @@ def _build_result(
         rewards,
         trajectories,
         cold_replay,
+        semantics,
         negatives,
         source_modules,
     )
@@ -1367,6 +1724,7 @@ def _build_result(
         rewards,
         trajectories,
         cold_replay,
+        semantics,
         source_modules,
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
@@ -1385,6 +1743,7 @@ def _build_result(
         and rewards["status"] == PASS
         and trajectories["status"] == PASS
         and cold_replay["status"] == PASS
+        and semantics["status"] == PASS
         and (
             input_mode != "exported_belief_state_process_reward_bundle"
             or source_modules["status"] == PASS
@@ -1415,18 +1774,10 @@ def _build_result(
         "body_import_status": "extension_of_existing_public_refactor_landed",
         "body_import_classification": "extension_of_existing_public_refactor",
         "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
-        "body_import_verification": {
-            "verification_status": "verified",
-            "body_import_classification": "extension_of_existing_public_refactor",
-            "public_trace_status": public_trace["status"],
-            "public_trace_span_count": public_trace["span_count"],
-            "trace_digest": public_trace["summary"]["trace_digest"],
-            "source_ref": "system/lib/agent_execution_trace.py",
-            "target_ref": (
-                "microcosm-substrate/src/microcosm_core/macro_tools/"
-                "agent_execution_trace.py::build_public_belief_state_process_reward_trace"
-            ),
-        },
+        "body_import_verification": _body_import_verification(
+            public_root=public_root,
+            public_trace=public_trace,
+        ),
         "body_in_receipt": False,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
@@ -1464,12 +1815,19 @@ def _build_result(
         ],
         "cold_replay_count": cold_replay["cold_replay_count"],
         "cold_replay_pass_count": cold_replay["cold_replay_pass_count"],
+        "semantic_recompute_status": semantics["status"],
+        "semantic_recompute_row_count": semantics["semantic_recompute_row_count"],
+        "semantic_recompute_verified_count": semantics[
+            "semantic_recompute_verified_count"
+        ],
+        "semantic_recompute_blocked_count": semantics["semantic_recompute_blocked_count"],
         "episode_rows": episodes["episode_rows"],
         "belief_state_rows": belief_states["belief_state_rows"],
         "feedback_rows": feedback["feedback_rows"],
         "reward_rows": rewards["reward_rows"],
         "trajectory_group_rows": trajectories["trajectory_group_rows"],
         "cold_replay_rows": cold_replay["cold_replay_rows"],
+        "semantic_recompute_rows": semantics["semantic_recompute_rows"],
     }
 
 
@@ -1502,6 +1860,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "count": result["cold_replay_pass_count"],
                 "authority": "reward-hacking trap pass and cold replay receipts bound every trajectory group",
             },
+            {
+                "mechanic_id": "semantic_recompute_chain",
+                "count": result["semantic_recompute_verified_count"],
+                "authority": "belief, feedback, process reward, trajectory, outcome reward, and cold replay refs recompute before admission",
+            },
         ],
         "episode_rows": result["episode_rows"],
         "belief_state_rows": result["belief_state_rows"],
@@ -1509,6 +1872,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "reward_rows": result["reward_rows"],
         "trajectory_group_rows": result["trajectory_group_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
+        "semantic_recompute_rows": result["semantic_recompute_rows"],
         "source_module_manifest_status": result["source_module_manifest_status"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
@@ -1576,6 +1940,10 @@ def _write_receipts(
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "semantic_recompute_status": result["semantic_recompute_status"],
+        "semantic_recompute_row_count": result["semantic_recompute_row_count"],
+        "semantic_recompute_verified_count": result["semantic_recompute_verified_count"],
+        "semantic_recompute_blocked_count": result["semantic_recompute_blocked_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
@@ -1708,6 +2076,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "outcome_reward_count": result.get("outcome_reward_count"),
             "trajectory_group_count": result.get("trajectory_group_count"),
             "cold_replay_pass_count": result.get("cold_replay_pass_count"),
+            "semantic_recompute_status": result.get("semantic_recompute_status"),
+            "semantic_recompute_row_count": result.get("semantic_recompute_row_count"),
+            "semantic_recompute_verified_count": result.get(
+                "semantic_recompute_verified_count"
+            ),
+            "semantic_recompute_blocked_count": result.get(
+                "semantic_recompute_blocked_count"
+            ),
         },
         "validation": {
             "expected_negative_case_count": len(
@@ -1731,6 +2107,13 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "body_material_classes": source_body_floor.get(
                 "body_material_classes",
                 {},
+            ),
+            "semantic_recompute_status": result.get("semantic_recompute_status"),
+            "semantic_recompute_verified_count": result.get(
+                "semantic_recompute_verified_count"
+            ),
+            "semantic_recompute_blocked_count": result.get(
+                "semantic_recompute_blocked_count"
             ),
         },
         "body_floor": {

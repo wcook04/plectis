@@ -1,0 +1,37 @@
+{
+  "binding_disposition": "tier_a_new_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "shard_multimatch_context_priority",
+  "computed_path": "multi_match_uses_context_priority",
+  "error_codes": [
+    "BATCH11_SHARD_MULTIMATCH_CONTEXT_PRIORITY"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "shard_browse_context_priority_sectionizer",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "paragraph_context": {
+      "group": "group-a",
+      "paragraphId": ""
+    },
+    "result": {
+      "shard": {
+        "group": "group-a",
+        "parent_paragraph_id": "par-1",
+        "routing_targets": [
+          {
+            "kind": "mechanism",
+            "target_id": "mech_019"
+          }
+        ]
+      }
+    },
+    "route_context": {
+      "group": "group-a",
+      "paragraphId": "par-1"
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

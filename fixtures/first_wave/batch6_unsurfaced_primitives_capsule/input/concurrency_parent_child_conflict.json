@@ -1,0 +1,10 @@
+{
+  "schema_version": "batch6_unsurfaced_primitives_capsule_negative_case_v1",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "case_id": "concurrency_parent_child_conflict",
+  "error_codes": [
+    "BATCH6_CONCURRENCY_PARENT_CHILD_CONFLICT"
+  ],
+  "body_in_receipt": false,
+  "public_private_boundary": "public synthetic negative case only; no private source body or runtime state"
+}

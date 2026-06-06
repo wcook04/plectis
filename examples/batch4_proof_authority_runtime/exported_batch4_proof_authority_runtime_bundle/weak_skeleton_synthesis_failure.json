@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "weak_skeleton_synthesis_failure", "error_codes": ["BATCH4_WEAK_SKELETON_MUST_NOT_SILENT_PASS"], "runtime_probe": {"observer_id": "strategy_control_anchor_presence", "source_module_id": "prover_graph_benchmark", "required_text": "def run_strategy_control_graph("}, "body_in_receipt": false}

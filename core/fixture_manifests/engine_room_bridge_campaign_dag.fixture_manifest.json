@@ -1,0 +1,21 @@
+{
+  "fixture_id": "engine_room_bridge_campaign_dag_fixture_v1",
+  "organ_id": "engine_room_bridge_campaign_dag",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_bridge_campaign_dag/input/valid_campaign.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_bridge_campaign_dag/input/cyclic_campaign.json",
+    "fixtures/first_wave/engine_room_bridge_campaign_dag/input/over_parallel_campaign.json",
+    "fixtures/first_wave/engine_room_bridge_campaign_dag/input/dangling_synthesis_campaign.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.bridge_campaign_dag validate-fixtures --input fixtures/first_wave/engine_room_bridge_campaign_dag/input --json",
+  "source_refs": [
+    "tools/meta/bridge/bridge_campaign.py",
+    "tools/meta/bridge/dispatch_validator.py",
+    "tools/meta/bridge/provider_capabilities.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Contract/preflight DAG validator only; it does not dispatch agents or prove live multi-agent execution."
+}

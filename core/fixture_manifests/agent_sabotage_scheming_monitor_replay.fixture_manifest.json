@@ -98,23 +98,28 @@
   ],
   "validator": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
   "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-  "body_copied_material_count": 1,
-  "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
+  "body_copied_material_count": 2,
+  "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_plus_sanitized_public_dogfood_trace_with_provenance",
+  "source_artifact_evidence_ref_count": 7,
+  "source_artifact_evidence_verified_count": 7,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_356::agent_sabotage_scheming_monitor_replay_compound",
+    "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
     "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json"
   ],
   "source_open_body_imports": {
     "schema_version": "microcosm_source_open_body_imports_v1",
     "status": "pass",
     "fixture_manifest_ref": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
-    "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_with_provenance",
-    "body_material_count": 1,
+    "body_material_status": "copied_non_secret_macro_sabotage_monitor_pattern_body_plus_sanitized_public_dogfood_trace_with_provenance",
+    "body_material_count": 2,
     "body_material_ids": [
-      "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import"
+      "agent_sabotage_scheming_extracted_pattern_ledger_row_body_import",
+      "agent_sabotage_scheming_public_dogfood_safety_evals_trace_slice_import"
     ],
     "material_classes": [
-      "public_macro_pattern_body"
+      "public_macro_pattern_body",
+      "public_dogfood_command_trace_slice"
     ],
     "aggregate_floor_ref": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_module_manifest.json",
     "source_manifest_refs": [

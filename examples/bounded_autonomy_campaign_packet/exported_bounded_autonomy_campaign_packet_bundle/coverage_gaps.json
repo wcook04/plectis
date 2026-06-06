@@ -1,0 +1,16 @@
+{
+  "body_in_receipt": false,
+  "gaps": [
+    {
+      "gap_id": "gap.fixture_manifest_missing_demo_row",
+      "proposal_surface": "fixture_manifest",
+      "severity": "medium"
+    },
+    {
+      "gap_id": "gap.standard_missing_negative_case",
+      "proposal_surface": "standard",
+      "severity": "medium"
+    }
+  ],
+  "schema_version": "bounded_autonomy_coverage_gaps_v1"
+}

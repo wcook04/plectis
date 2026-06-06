@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 8 policy-engine capsule validates exact copied non-secret macro source bodies and public synthetic exercises for Lab contract red/green gating, market-fusion fail-closed claim preflight, and campaign dispatch transition adjudication. It is not Lab correctness, not live campaign authority, not market validation, not provider dispatch, not repository mutation authority, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch8_policy_engines_capsule",
+  "organ_id": "batch8_policy_engines_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json"
+}

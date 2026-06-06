@@ -1,0 +1,563 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public synthetic bridge-continuity fixture validation, copied source-module digest checks, tracked receipt-write gating, negative-case enforcement, and receipt writing.",
+      "symbols": [
+        "run",
+        "_validate_synthetic_transport_contract",
+        "_validate_fixture_contract",
+        "_receipt_write_status",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.work_landing_and_continuity_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Bridge Phase Continuity Runtime",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "work_landing_and_continuity",
+  "id": "bridge_phase_continuity_runtime",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's runtime, synthetic transport fixture, copied observe-runtime source-module manifest, five body-free receipts, and focused tests validate continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, worker-skip dedupe, tracked receipt-write gates, negative cases, and private-state exclusion.",
+      "ref": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "bridge_phase_continuity_runtime",
+  "organ_payload": {
+    "claim_ceiling": "It validates only the declared public continuity contract over synthetic fixtures; it does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime or private-memory state, prove provider or UI uptime, land work, mutate source, or authorize release.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/bridge_phase_continuity_runtime.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/bridge_phase_continuity_runtime.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to confirm, against a public synthetic fixture, that detached-job continuity rules hold before relying on them: a resumable job needs a continuation packet, a packet resumes exactly once (duplicate resume is rejected), heartbeats are liveness-only (and stale heartbeats are not live-health evidence), resource pressure blocks dispatch as a recorded decision, worker-skip rows dedupe without silently closing a claim, and only a closeout transition receipt marks work as landed. Each rule is exercised by a matching negative case.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "It validates only the declared public continuity contract over synthetic fixtures; it does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime or private-memory state, prove provider or UI uptime, land work, mutate source, or authorize release.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public synthetic bridge-continuity fixture validation, copied source-module digest checks, tracked receipt-write gating, negative-case enforcement, and receipt writing.",
+          "symbols": [
+            "run",
+            "_validate_synthetic_transport_contract",
+            "_validate_fixture_contract",
+            "_receipt_write_status",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "display_name": "Bridge Phase Continuity Runtime",
+      "evidence_class": "semantic_validator",
+      "family": "work_landing_and_continuity",
+      "first_command": "microcosm bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out /tmp/microcosm-bridge-continuity",
+      "human_gloss": "Replays a small synthetic record of a paused background job to check that the rules for safely resuming it hold. It confirms the job left behind a real resume note, that trying to resume the same job twice is refused, that \"still alive\" pings can never count as permission to resume (and a long-stale ping can't be passed off as proof the job is still healthy), and that only a proper close-out receipt is allowed to claim the work actually finished. It also includes deliberately broken cases to prove each rule rejects them. These continuity rules are inspectable in plain receipts without any live job, network call, or private data ever being touched.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's runtime, synthetic transport fixture, copied observe-runtime source-module manifest, five body-free receipts, and focused tests validate continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, worker-skip dedupe, tracked receipt-write gates, negative cases, and private-state exclusion.",
+          "ref": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "bridge_phase_continuity_runtime",
+      "paper_module_ref": "core/paper_module_capsules.json#paper_module.bridge_phase_continuity_runtime",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[27:bridge_phase_continuity_runtime]",
+      "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+      "specialty": [
+        "workflow-engineering",
+        "continuity"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "concurrency_mission_control",
+        "workstream_driver_recency_coalescer"
+      ],
+      "wiring_note": "binds only to the shared kernel + evidence/authority spine (receipts, private-state scan, strict-JSON schemas). Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates only declared public synthetic bridge-continuity fixtures over continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, closeout receipts, tracked receipt-write gates, negative cases, and private-state scan boundaries; does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime/private-memory state, prove provider or UI uptime, land work, mutate source, authorize private-root equivalence, release, publication, or whole-system correctness",
+      "classification_basis": "derived synthetic-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[bridge_phase_continuity_runtime]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+      ],
+      "organ_id": "bridge_phase_continuity_runtime",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.bridge_phase_continuity_runtime",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "core/paper_module_capsules.json#paper_module.bridge_phase_continuity_runtime",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-5",
+    "P-6",
+    "P-8",
+    "P-9",
+    "P-12",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public synthetic bridge-continuity fixture validation, copied source-module digest checks, tracked receipt-write gating, negative-case enforcement, and receipt writing.",
+        "symbols": [
+          "run",
+          "_validate_synthetic_transport_contract",
+          "_validate_fixture_contract",
+          "_receipt_write_status",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.bridge_phase_continuity_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].mechanism_refs[0]",
+          "summary": "The organ's runtime, synthetic transport fixture, copied observe-runtime source-module manifest, five body-free receipts, and focused tests validate continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, worker-skip dedupe, tracked receipt-write gates, negative cases, and private-state exclusion."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].code_loci[0]",
+          "summary": "Runtime authority for public synthetic bridge-continuity fixture validation, copied source-module digest checks, tracked receipt-write gating, negative-case enforcement, and receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "concurrency_mission_control",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "workstream_driver_recency_coalescer",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's runtime, synthetic transport fixture, copied observe-runtime source-module manifest, five body-free receipts, and focused tests validate continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, worker-skip dedupe, tracked receipt-write gates, negative cases, and private-state exclusion.",
+        "ref": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "core/paper_module_capsules.json#paper_module.bridge_phase_continuity_runtime",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[27:bridge_phase_continuity_runtime]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "concurrency_mission_control",
+      "workstream_driver_recency_coalescer"
+    ]
+  },
+  "role": "An agent runs it to confirm, against a public synthetic fixture, that detached-job continuity rules hold before relying on them: a resumable job needs a continuation packet, a packet resumes exactly once (duplicate resume is rejected), heartbeats are liveness-only (and stale heartbeats are not live-health evidence), resource pressure blocks dispatch as a recorded decision, worker-skip rows dedupe without silently closing a claim, and only a closeout transition receipt marks work as landed. Each rule is exercised by a matching negative case.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[27:bridge_phase_continuity_runtime]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[27:bridge_phase_continuity_runtime]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/bridge_phase_continuity_runtime.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "workflow-engineering",
+    "continuity"
+  ],
+  "statement": "An agent runs it to confirm, against a public synthetic fixture, that detached-job continuity rules hold before relying on them: a resumable job needs a continuation packet, a packet resumes exactly once (duplicate resume is rejected), heartbeats are liveness-only (and stale heartbeats are not live-health evidence), resource pressure blocks dispatch as a recorded decision, worker-skip rows dedupe without silently closing a claim, and only a closeout transition receipt marks work as landed. Each rule is exercised by a matching negative case.",
+  "status": "accepted_current_authority",
+  "title": "Bridge Phase Continuity Runtime",
+  "validator_refs": [
+    "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "concurrency_mission_control",
+    "workstream_driver_recency_coalescer"
+  ]
+}

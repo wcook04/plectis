@@ -14,7 +14,7 @@
   },
   "benchmark_case_count": 3,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "created_at": "2026-05-29T19:41:22+00:00",
+  "created_at": "2026-06-02T11:11:38+00:00",
   "fixture_id": "first_wave.agent_benchmark_integrity_anti_gaming_replay",
   "integrity_pass_count": 2,
   "known_benchmark_case_ids": [
@@ -22,6 +22,7 @@
     "repo_issue_public_002",
     "repo_issue_public_003"
   ],
+  "missing_replay_case_ids": [],
   "negative_case_coverage": {
     "expected": [
       "evaluator_edit_attempt",

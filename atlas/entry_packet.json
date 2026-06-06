@@ -44,6 +44,22 @@
           "trust_signal": ".microcosm refs, selected_route_id, causal-chain refs, and source_files_mutated=false are visible.",
           "stop_when": "You can rerun the first card, inspect observe/explain refs, and avoid raw receipt spelunking.",
           "anti_overread": "A useful route card is not a claim that every organ is complete."
+        },
+        {
+          "reader_id": "domain_specialist",
+          "cold_question": "Where should I start if I care about one technical domain or specialty?",
+          "route_command": "microcosm hello --reader domain_specialist <project>",
+          "trust_signal": "specialty-to-organ navigation, evidence class, and authority ceiling stay explicit before domain interpretation.",
+          "stop_when": "You can map a domain to a specialty route and name the evidence ceiling without claiming domain correctness.",
+          "anti_overread": "Specialty routing is not domain expertise, expert review, or proof that the domain claim is correct."
+        },
+        {
+          "reader_id": "type_a_agent",
+          "cold_question": "What should I read first as a Type A agent, and where do I patch if the route misleads me?",
+          "route_command": "microcosm first-screen --card <project>",
+          "trust_signal": "agent first-read contract, mechanism-vs-validator status, owner surface, and claim ceiling are visible before mutation.",
+          "stop_when": "You can name the agent first-read path, distinguish mechanisms from validators or projections, and identify the owner surface to patch without overclaiming source mutation.",
+          "anti_overread": "Agent entry routing is not source-mutation, release, proof-correctness, or private-root-equivalence authority."
         }
       ],
       "authority": "reader branch selection only; not release, proof-correctness, production, hiring, or safety-evaluation authority"
@@ -102,6 +118,34 @@
           "source_files_mutated=false"
         ],
         "anti_misread": "Do not start from raw receipt trees or the full organ inventory when the local route card is enough."
+      },
+      {
+        "reader_id": "domain_specialist",
+        "reader_question": "Where should I start if I care about one technical domain or specialty?",
+        "first_screen_command": "microcosm hello --reader domain_specialist <project>",
+        "next_command": "ORGANS.md#find-your-specialty",
+        "followup_command": "microcosm tour --card <project>",
+        "evidence_focus": [
+          "specialty-to-organ route",
+          "evidence class and authority ceiling",
+          "explicit domain-correctness non-claim",
+          "expert-review boundary"
+        ],
+        "anti_misread": "Do not infer domain expertise, expert review, or domain correctness from specialty routing."
+      },
+      {
+        "reader_id": "type_a_agent",
+        "reader_question": "What should I read first as a Type A agent, and where do I patch if the route misleads me?",
+        "first_screen_command": "microcosm first-screen --card <project>",
+        "next_command": "microcosm organ-surface-contract --card --root .",
+        "followup_command": "AGENTS.md::Concept And Mechanism Entry",
+        "evidence_focus": [
+          "agent first-read contract",
+          "mechanism versus validator/projection status",
+          "owner surface and claim ceiling",
+          "concept/mechanism doctrine frame"
+        ],
+        "anti_misread": "Do not infer source mutation authority, release readiness, proof correctness, or private-root equivalence from agent entry routing."
       }
     ],
     "authority": "reader routing only; not release, provider, proof-correctness, production, hiring, or safety-evaluation authority"
@@ -228,7 +272,9 @@
       "public_github_visitor",
       "safety_evals_engineer",
       "hiring_reviewer",
-      "peer_developer"
+      "peer_developer",
+      "domain_specialist",
+      "type_a_agent"
     ],
     "primary_first_screen_command": "microcosm tour --card <project>",
     "state_dir": ".microcosm",
@@ -359,6 +405,28 @@
           "This specimen proves entry routing and shape, not doctrine completeness.",
           "This specimen does not authorize release or private-data equivalence."
         ],
+        "principle_ids": [
+          "P-12",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-12": "The concept handle only earns authority through the concept/mechanism entry contract, standard floor, validator refs, anti-claims, and payload shape.",
+          "P-15": "The first-screen doctrine frame is an entry projection that exposes source-bound handles without upgrading them into source authority."
+        },
+        "mechanism_ids": [
+          "mechanism.cold_reader_route_map.validates_public_first_run_route_map"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.cold_reader_route_map.validates_public_first_run_route_map": "The accepted cold-reader route-map organ consumes the first-screen card as a handoff and validates the first-run route contract that sends readers to command, public-doc, receipt, and authority-ceiling backed validation surfaces."
+        },
+        "axiom_ids": [
+          "AX-11",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-11": "The specimen distinguishes entry prose from executable concept authority by routing through standards and validators.",
+          "AX-12": "The concept handle applies the same anti-claim and authority-boundary floor to Microcosm doctrine handles themselves."
+        },
         "validator_refs": [
           "microcosm first-screen --full <project>",
           "tests/test_first_screen_composition_card.py::test_first_screen_payload_exposes_doctrine_effect_frame",
@@ -399,6 +467,32 @@
           "This specimen validates public standard shape only.",
           "This specimen does not prove macro doctrine completeness."
         ],
+        "principle_ids": [
+          "P-8",
+          "P-12",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-8": "The executable grammar specimen turns invalid or prose-only doctrine rows into typed blocking reasons instead of green status.",
+          "P-12": "The specimen embodies executable doctrine authority through required fields, receipt obligations, anti-claims, and validator coverage.",
+          "P-15": "The grammar validator keeps generated standards and paper-module projections below the source grammar and fixture evidence."
+        },
+        "mechanism_ids": [
+          "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle": "The named mechanism source row validates the exported standards bundle and executable grammar metabolism bundle for this specimen."
+        },
+        "axiom_ids": [
+          "AX-7",
+          "AX-11",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-7": "Invalid standard or paper-module rows become typed validation failures rather than inadmissible pass claims.",
+          "AX-11": "The specimen is the public executable grammar lane for doctrine authority.",
+          "AX-12": "The grammar floor applies to Microcosm doctrine artifacts about Microcosm, not only external claims."
+        },
         "validator_refs": [
           "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
           "tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_exported_standards_bundle"
@@ -439,6 +533,32 @@
           "This specimen is coverage projection, not registry source authority.",
           "This specimen does not authorize release, provider calls, or whole-system correctness."
         ],
+        "principle_ids": [
+          "P-7",
+          "P-13",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-7": "The diagnostics specimen exposes covered organ ids and remaining gaps without treating unmapped space as complete.",
+          "P-13": "The specimen applies the same standard, runtime, receipt, anti-claim, and authority floors to Microcosm's own organ-standard coverage.",
+          "P-15": "The diagnostics bundle is explicitly projection-only evidence and cannot become standards_registry source authority."
+        },
+        "mechanism_ids": [
+          "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics": "The named mechanism source row validates accepted-organ standards inventory, runtime contracts, receipt refs, and authority ceilings for this diagnostic specimen."
+        },
+        "axiom_ids": [
+          "AX-6",
+          "AX-11",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-6": "Coverage diagnostics remain closed-world only over the declared accepted-organ/standard domain.",
+          "AX-11": "Projection-only diagnostics require schema, receipt, and anti-claim obligations before carrying authority.",
+          "AX-12": "Microcosm's own coverage diagnostics obey the same accountability floor as any external artifact."
+        },
         "validator_refs": [
           "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
           "tests/test_standards_meta_diagnostics.py::test_standards_meta_diagnostics_bundle_validates_runtime_shape"
@@ -480,9 +600,718 @@
           "This specimen demonstrates local refinement, not global doctrine promotion.",
           "This specimen does not authorize hand-editing doctrine nodes or exporting raw voice."
         ],
+        "principle_ids": [
+          "P-8",
+          "P-13",
+          "P-16"
+        ],
+        "principle_edge_justifications": {
+          "P-8": "The refinement loop must produce a typed refined/captured/nothing_to_refine result instead of inadmissible advice-only prose.",
+          "P-13": "Local-to-general refinement of Microcosm artifacts keeps the same evidence, anti-claim, and refusal floors it asks other artifacts to satisfy.",
+          "P-16": "The specimen routes mutation or capture through owner surfaces, validation, and closeout receipts rather than ambient edit authority."
+        },
+        "mechanism_ids": [
+          "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop": "The named mechanism source row validates the public-safe lesson propagation loop, owner-surface checks, result states, and reentry receipts for this specimen."
+        },
+        "axiom_ids": [
+          "AX-3",
+          "AX-7",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-3": "The refinement loop requires dereferenced owner-surface and policy authority instead of possession or advice-only wording.",
+          "AX-7": "Each local pressure row totalizes as refined, captured, nothing_to_refine, or a typed residual with evidence.",
+          "AX-12": "Self-improvement artifacts are held to the same admissibility relation as external claims."
+        },
         "validator_refs": [
           "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
           "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_exported_bundle_validates_runtime_shape"
+        ]
+      },
+      {
+        "specimen_id": "agent_reliability_and_safety_validator_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=agent_reliability_and_safety",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=agent_reliability_and_safety]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=agent_reliability_and_safety]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=agent_reliability_and_safety]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "agent reliability and safety validators as bounded public claim ceilings",
+          "relationship_shape": "accepted organ family -> runtime mechanism -> public safety/evaluation receipt -> claim ceiling",
+          "payload_shape_ref": "core/organ_atlas.json.family=agent_reliability_and_safety plus core/mechanism_sources.json.runs_in",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family runtime validators that turn agent safety, evaluation, red-team, and policy traces into bounded pass/block receipts",
+          "concept_pair_ref": "agent_reliability_and_safety_validator_bundle.concept_binding",
+          "transformation_shape": "fixture or exported public replay bundle -> family validator runtime -> receipt with accepted/rejected rows and anti-claims",
+          "state_or_proof_effect": "safety and reliability claims remain bounded to named public fixtures, validators, and receipt rows instead of global agent capability claims",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private trajectories",
+            "provider payloads",
+            "unpublished benchmark bodies"
+          ],
+          "drilldown": "core/organ_atlas.json::family=agent_reliability_and_safety"
+        },
+        "anti_claims": [
+          "This family concept is a source-bound grouping of accepted Microcosm validators, not a claim that the agents are safe in the world.",
+          "The concept does not upgrade negative-case coverage into propagation proof or release readiness."
+        ],
+        "principle_ids": [
+          "P-2",
+          "P-3",
+          "P-6",
+          "P-8"
+        ],
+        "principle_edge_justifications": {
+          "P-2": "The family claim ceiling is lowered to the checker or receipt strength named by its source rows.",
+          "P-3": "The family relies on small validator and receipt surfaces rather than broad prose claims.",
+          "P-6": "Family status remains fail-closed when required receipts, paths, or mappings are absent.",
+          "P-8": "Invalid or incomplete family evidence must become typed refusal/blocking status."
+        },
+        "mechanism_ids": [
+          "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+          "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims",
+          "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay",
+          "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts",
+          "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+          "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay",
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace",
+          "mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay",
+          "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule",
+          "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule",
+          "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+          "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay",
+          "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet",
+          "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay",
+          "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay",
+          "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary",
+          "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_route_observability_runtime.validates_public_route_feedback": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.batch7_station_runtime_capsule.validates_public_station_runtime_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety.",
+          "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is agent_reliability_and_safety."
+        },
+        "axiom_ids": [
+          "AX-1",
+          "AX-2",
+          "AX-5",
+          "AX-7"
+        ],
+        "axiom_edge_justifications": {
+          "AX-1": "Family claims are admitted only through derivation from source rows and named receipts.",
+          "AX-2": "Verifier and validator surfaces are the authority ceiling for this family concept.",
+          "AX-5": "Missing family evidence lowers status instead of manufacturing support.",
+          "AX-7": "Partial or absent evidence remains a typed residual rather than a false pass."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "architecture_and_navigation_route_contract_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=architecture_and_navigation",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=architecture_and_navigation]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=architecture_and_navigation]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=architecture_and_navigation]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "architecture and navigation route contracts as executable doctrine boundaries",
+          "relationship_shape": "route or doctrine organ family -> mechanism registry row -> source/standard/receipt boundary -> generated projection",
+          "payload_shape_ref": "core/organ_atlas.json.family=architecture_and_navigation plus route/doctrine source refs",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that make route, pattern, operator, doctrine, and self-ignorance surfaces navigable without turning projections into authority",
+          "concept_pair_ref": "architecture_and_navigation_route_contract_bundle.concept_binding",
+          "transformation_shape": "public route or doctrine fixture -> contract validator -> bounded route/projection receipt and lattice edge set",
+          "state_or_proof_effect": "navigation and doctrine surfaces become walkable through source-bound contracts while generated views stay below source authority",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private route bodies",
+            "operator state",
+            "generated graph as source evidence"
+          ],
+          "drilldown": "core/organ_atlas.json::family=architecture_and_navigation"
+        },
+        "anti_claims": [
+          "This family concept does not make browsable route projections source authority.",
+          "The concept does not prove complete system navigation coverage or public release readiness."
+        ],
+        "principle_ids": [
+          "P-1",
+          "P-9",
+          "P-12",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-1": "The family concept requires recomputed validator or projection evidence rather than copying generated status as authority.",
+          "P-9": "Family edges carry provenance through source rows, code loci, and receipt refs.",
+          "P-12": "The family concept is executable only through standards, validators, and JSON source rows.",
+          "P-15": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "mechanism_ids": [
+          "mechanism.cognitive_operator_registry.validates_public_operator_contract",
+          "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit",
+          "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+          "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle",
+          "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step",
+          "mechanism.pattern_binding_contract.validates_public_pattern_bindings",
+          "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry",
+          "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger",
+          "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics",
+          "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop"
+        ],
+        "mechanism_refs": [
+          "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
+          "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.cognitive_operator_registry.validates_public_operator_contract": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router": "The mechanism source row names this architecture/navigation concept while running through the public Engine Room route surface.",
+          "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark": "The mechanism source row names this architecture/navigation concept while validating public navigation-fitness fixtures.",
+          "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.pattern_binding_contract.validates_public_pattern_bindings": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.standards_meta_diagnostics.validates_public_standards_meta_diagnostics": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation.",
+          "mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop": "The mechanism source row runs in an accepted organ whose organ_atlas family is architecture_and_navigation."
+        },
+        "axiom_ids": [
+          "AX-1",
+          "AX-8",
+          "AX-11",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-1": "Family claims are admitted only through derivation from source rows and named receipts.",
+          "AX-8": "Provenance must survive boundary crossings from source rows to generated projections.",
+          "AX-11": "Doctrine authority for the family passes through executable grammar and validator obligations.",
+          "AX-12": "Microcosm family concepts obey the same evidence and anti-claim floor as external claims."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "entry_and_reveal_route_readiness_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=entry_and_reveal",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=entry_and_reveal]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=entry_and_reveal]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=entry_and_reveal]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "entry and reveal routes as bounded cold-reader readiness evidence",
+          "relationship_shape": "first-run or reveal organ -> public route/readiness fixture -> receipt-bound reader claim",
+          "payload_shape_ref": "core/organ_atlas.json.family=entry_and_reveal plus paper_module subjects",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that expose cold-reader and public-reveal paths while preserving claim ceilings and source boundaries",
+          "concept_pair_ref": "entry_and_reveal_route_readiness_bundle.concept_binding",
+          "transformation_shape": "entry/reveal fixture -> route-readiness validator -> public receipt and bounded reader card",
+          "state_or_proof_effect": "entry evidence shows what a reader can inspect, not that the whole substrate is ready or correct",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private operator context",
+            "full source bodies",
+            "release decisions"
+          ],
+          "drilldown": "core/organ_atlas.json::family=entry_and_reveal"
+        },
+        "anti_claims": [
+          "This family concept is not a publication, launch, or private-data equivalence claim.",
+          "Cold-reader reachability is not whole-lattice completeness."
+        ],
+        "principle_ids": [
+          "P-2",
+          "P-7",
+          "P-12",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-2": "The family claim ceiling is lowered to the checker or receipt strength named by its source rows.",
+          "P-7": "Known gaps remain represented as typed residual pressure instead of completeness claims.",
+          "P-12": "The family concept is executable only through standards, validators, and JSON source rows.",
+          "P-15": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "mechanism_ids": [
+          "mechanism.cold_reader_route_map.validates_public_first_run_route_map",
+          "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough"
+        ],
+        "mechanism_refs": [
+          "mechanism.cold_clone_probe.validates_public_source_root_bootstrap",
+          "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.cold_clone_probe.validates_public_source_root_bootstrap": "The mechanism source row names this entry/readiness concept while validating source-root bootstrap reachability.",
+          "mechanism.cold_reader_route_map.validates_public_first_run_route_map": "The mechanism source row runs in an accepted organ whose organ_atlas family is entry_and_reveal.",
+          "mechanism.first_screen_composition_root.validates_public_first_screen_composition_root": "The mechanism source row names this entry/readiness concept while validating the public first-screen composition route.",
+          "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough": "The mechanism source row runs in an accepted organ whose organ_atlas family is entry_and_reveal."
+        },
+        "axiom_ids": [
+          "AX-1",
+          "AX-7",
+          "AX-11",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-1": "Family claims are admitted only through derivation from source rows and named receipts.",
+          "AX-7": "Partial or absent evidence remains a typed residual rather than a false pass.",
+          "AX-11": "Doctrine authority for the family passes through executable grammar and validator obligations.",
+          "AX-12": "Microcosm family concepts obey the same evidence and anti-claim floor as external claims."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "formal_math_and_proof_witness_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=formal_math_and_proof",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=formal_math_and_proof]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=formal_math_and_proof]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=formal_math_and_proof]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "formal math and proof witnesses as bounded public proof-adjacent receipts",
+          "relationship_shape": "formal/proof organ family -> verifier or evidence mechanism -> public witness receipt -> theorem/authority ceiling",
+          "payload_shape_ref": "core/organ_atlas.json.family=formal_math_and_proof plus Lean/proof receipt refs",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
+          "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
+          "transformation_shape": "formal-math fixture or copied public bundle -> verifier/evidence validator -> bounded receipt categories",
+          "state_or_proof_effect": "proof-related artifacts expose bounded witness status without claiming theorem completeness or provider proof authority",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "proof bodies where receipts exclude them",
+            "provider payload bodies",
+            "private formal-math work state"
+          ],
+          "drilldown": "core/organ_atlas.json::family=formal_math_and_proof"
+        },
+        "anti_claims": [
+          "This family concept is not theorem-prover authority beyond the named public witness receipts.",
+          "Provider suggestions, oracle comparisons, and negative cases do not count as proof success."
+        ],
+        "principle_ids": [
+          "P-2",
+          "P-3",
+          "P-8",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-2": "The family claim ceiling is lowered to the checker or receipt strength named by its source rows.",
+          "P-3": "The family relies on small validator and receipt surfaces rather than broad prose claims.",
+          "P-8": "Invalid or incomplete family evidence must become typed refusal/blocking status.",
+          "P-15": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "mechanism_ids": [
+          "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule",
+          "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution",
+          "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary",
+          "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary",
+          "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution",
+          "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors",
+          "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness",
+          "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness",
+          "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection",
+          "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+          "mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle",
+          "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary",
+          "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
+          "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
+          "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index",
+          "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection",
+          "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
+          "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane",
+          "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
+          "mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection",
+          "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary",
+          "mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary",
+          "mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness",
+          "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+        ],
+        "mechanism_refs": [
+          "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab": "The mechanism source row names this formal-proof concept while validating bounded public Lean proof-search fixtures.",
+          "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchor_resolution": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_evidence_cell_anchor_resolver.validates_public_evidence_cell_anchors": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_lean_proof_witness.validates_public_lean_witness": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_readiness_gate.validates_public_readiness_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.tactic_portfolio_availability_probe.validates_public_tactic_availability_projection": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.undeclared_library_prior_symbol_classifier.validates_public_symbol_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof.",
+          "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts": "The mechanism source row runs in an accepted organ whose organ_atlas family is formal_math_and_proof."
+        },
+        "axiom_ids": [
+          "AX-2",
+          "AX-5",
+          "AX-7",
+          "AX-11"
+        ],
+        "axiom_edge_justifications": {
+          "AX-2": "Verifier and validator surfaces are the authority ceiling for this family concept.",
+          "AX-5": "Missing family evidence lowers status instead of manufacturing support.",
+          "AX-7": "Partial or absent evidence remains a typed residual rather than a false pass.",
+          "AX-11": "Doctrine authority for the family passes through executable grammar and validator obligations."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "import_projection_and_drift_control_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=import_projection_and_drift",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=import_projection_and_drift]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=import_projection_and_drift]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=import_projection_and_drift]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "source import and projection drift controls as provenance-preserving boundaries",
+          "relationship_shape": "import/drift organ family -> source-module or projection mechanism -> digest/anchor/receipt boundary",
+          "payload_shape_ref": "core/organ_atlas.json.family=import_projection_and_drift plus source-module manifest refs",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
+          "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
+          "transformation_shape": "macro source or projection bundle -> import/drift validator -> digest-bound public receipt",
+          "state_or_proof_effect": "imported material remains tied to source anchors and drift receipts instead of becoming ambient doctrine authority",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private macro bodies not admitted to public receipts",
+            "unstated source refs",
+            "live freshness beyond named receipts"
+          ],
+          "drilldown": "core/organ_atlas.json::family=import_projection_and_drift"
+        },
+        "anti_claims": [
+          "This family concept does not flip legacy or generated projections into source authority.",
+          "Digest parity and drift checks are bounded import evidence, not whole-system correctness."
+        ],
+        "principle_ids": [
+          "P-1",
+          "P-9",
+          "P-11",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-1": "The family concept requires recomputed validator or projection evidence rather than copying generated status as authority.",
+          "P-9": "Family edges carry provenance through source rows, code loci, and receipt refs.",
+          "P-11": "Drift and freshness facts remain bound to refresh routes and named receipts.",
+          "P-15": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "mechanism_ids": [
+          "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
+          "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
+          "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
+          "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+          "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate",
+          "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
+          "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+          "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+          "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+          "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+          "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+          "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
+          "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+          "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
+          "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
+          "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
+          "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+          "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
+          "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
+          "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+          "mechanism.engine_room_demo.validates_public_engine_room_demo",
+          "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+          "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+          "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+          "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab",
+          "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
+          "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
+          "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+          "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
+          "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+        ],
+        "mechanism_refs": [
+          "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule": "The mechanism source row names this import/projection concept while retaining a planned organ-target marker.",
+          "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.engine_room_demo.validates_public_engine_room_demo": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift.",
+          "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "axiom_ids": [
+          "AX-4",
+          "AX-8",
+          "AX-10",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-4": "Digest, anchor, or source-module identity must be content-addressed where the family imports material.",
+          "AX-8": "Provenance must survive boundary crossings from source rows to generated projections.",
+          "AX-10": "Freshness-sensitive family facts need dated receipts and refresh routes.",
+          "AX-12": "Microcosm family concepts obey the same evidence and anti-claim floor as external claims."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "research_and_science_replay_evidence_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=research_and_science_replays",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=research_and_science_replays]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=research_and_science_replays]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=research_and_science_replays]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "research and science replay validators as reproducibility claim ceilings",
+          "relationship_shape": "research/science organ family -> replay mechanism -> public evidence fixture -> bounded reproducibility claim",
+          "payload_shape_ref": "core/organ_atlas.json.family=research_and_science_replays plus replay receipt refs",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that check research, forecasting, chemistry, and world-model replay evidence without exporting private bodies",
+          "concept_pair_ref": "research_and_science_replay_evidence_bundle.concept_binding",
+          "transformation_shape": "public research or science replay bundle -> validator -> accepted/rejected evidence receipt and claim ceiling",
+          "state_or_proof_effect": "research claims remain scoped to public replay evidence and known gaps instead of becoming external scientific truth claims",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private experiment bodies",
+            "provider payloads",
+            "financial advice or live market claims"
+          ],
+          "drilldown": "core/organ_atlas.json::family=research_and_science_replays"
+        },
+        "anti_claims": [
+          "This family concept is not external scientific validation, financial advice, or benchmark superiority evidence.",
+          "Replay receipts expose bounded evidence and gaps, not full replication certainty."
+        ],
+        "principle_ids": [
+          "P-2",
+          "P-7",
+          "P-9",
+          "P-15"
+        ],
+        "principle_edge_justifications": {
+          "P-2": "The family claim ceiling is lowered to the checker or receipt strength named by its source rows.",
+          "P-7": "Known gaps remain represented as typed residual pressure instead of completeness claims.",
+          "P-9": "Family edges carry provenance through source rows, code loci, and receipt refs.",
+          "P-15": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "mechanism_ids": [
+          "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
+          "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule",
+          "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine",
+          "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
+          "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
+          "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation",
+          "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay",
+          "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.finance_forecast_evaluation_spine.validates_public_finance_forecast_evaluation_spine": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays.",
+          "mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay": "The mechanism source row runs in an accepted organ whose organ_atlas family is research_and_science_replays."
+        },
+        "axiom_ids": [
+          "AX-1",
+          "AX-6",
+          "AX-8",
+          "AX-12"
+        ],
+        "axiom_edge_justifications": {
+          "AX-1": "Family claims are admitted only through derivation from source rows and named receipts.",
+          "AX-6": "Research and coverage families expose mapped evidence without claiming the unknown is closed.",
+          "AX-8": "Provenance must survive boundary crossings from source rows to generated projections.",
+          "AX-12": "Microcosm family concepts obey the same evidence and anti-claim floor as external claims."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+        ]
+      },
+      {
+        "specimen_id": "work_landing_and_continuity_control_bundle",
+        "specimen_role": "organ_family_concept_specimen",
+        "entry_ref": "core/organ_atlas.json::family=work_landing_and_continuity",
+        "source_refs": [
+          "core/organ_atlas.json::organs[family=work_landing_and_continuity]",
+          "core/mechanism_sources.json::mechanisms[runs_in.organ.family=work_landing_and_continuity]",
+          "core/paper_module_capsules.json::paper_modules[subjects.organ.family=work_landing_and_continuity]",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms"
+        ],
+        "concept_binding": {
+          "concept_role": "work landing and continuity controls as transaction-scoped coordination evidence",
+          "relationship_shape": "work/continuity organ family -> control mechanism -> transaction or continuity receipt -> scoped closeout claim",
+          "payload_shape_ref": "core/organ_atlas.json.family=work_landing_and_continuity plus Work Ledger and mission transaction refs",
+          "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose."
+        },
+        "mechanism_binding": {
+          "mechanism_role": "family validators that bind work landing, bridge continuity, recency coalescing, concurrency, and transaction closeout to receipts",
+          "concept_pair_ref": "work_landing_and_continuity_control_bundle.concept_binding",
+          "transformation_shape": "work-control fixture or exported bundle -> coordination validator -> scoped transaction/continuity receipt",
+          "state_or_proof_effect": "work progress claims stay tied to owned paths, receipts, and transaction scope rather than chat status or generated projections",
+          "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy."
+        },
+        "omission_receipt": {
+          "omitted": [
+            "raw thread bodies",
+            "unowned path state",
+            "external publication credentials"
+          ],
+          "drilldown": "core/organ_atlas.json::family=work_landing_and_continuity"
+        },
+        "anti_claims": [
+          "This family concept does not prove publication readiness, clean branch state, or external delivery.",
+          "Coordination receipts do not authorize unrelated path mutation or broad staging."
+        ],
+        "principle_ids": [
+          "P-6",
+          "P-9",
+          "P-10",
+          "P-16"
+        ],
+        "principle_edge_justifications": {
+          "P-6": "Family status remains fail-closed when required receipts, paths, or mappings are absent.",
+          "P-9": "Family edges carry provenance through source rows, code loci, and receipt refs.",
+          "P-10": "Work and continuity effects require compensation or explicit transaction scope.",
+          "P-16": "Authority is scoped to the transaction or family source row that names the relation."
+        },
+        "mechanism_ids": [
+          "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+          "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+          "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+          "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+          "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer"
+        ],
+        "mechanism_edge_justifications": {
+          "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity.",
+          "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity.",
+          "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity.",
+          "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity.",
+          "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer": "The mechanism source row runs in an accepted organ whose organ_atlas family is work_landing_and_continuity."
+        },
+        "axiom_ids": [
+          "AX-5",
+          "AX-8",
+          "AX-9",
+          "AX-10"
+        ],
+        "axiom_edge_justifications": {
+          "AX-5": "Missing family evidence lowers status instead of manufacturing support.",
+          "AX-8": "Provenance must survive boundary crossings from source rows to generated projections.",
+          "AX-9": "Work-control effects require transaction-scoped compensation and closeout.",
+          "AX-10": "Freshness-sensitive family facts need dated receipts and refresh routes."
+        },
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+          "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
         ]
       }
     ],
@@ -1034,7 +1863,8 @@
     ],
     "mechanism_refs": [
       "mech_019",
-      "mech_034"
+      "mech_034",
+      "mech_036"
     ],
     "standard_refs": [
       "codex/standards/std_microcosm.json",
@@ -1049,14 +1879,15 @@
     "paper_module_refs": [
       "codex/doctrine/paper_modules/microcosm_substrate.md",
       "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+      "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
       "codex/doctrine/paper_modules/prime_directives.md",
       "codex/doctrine/paper_modules/local_to_general_propagation.md",
-    "codex/doctrine/paper_modules/navigation_hologram_theory.md",
-    "codex/doctrine/paper_modules/public_constellation_strategy.md",
-    "codex/doctrine/paper_modules/dissemination_strategy.md",
-    "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
-    "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
-  ],
+      "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+      "codex/doctrine/paper_modules/public_constellation_strategy.md",
+      "codex/doctrine/paper_modules/dissemination_strategy.md",
+      "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+      "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+    ],
     "atlas_option_surfaces": [
       {
         "kind": "standards",

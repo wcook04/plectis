@@ -1,0 +1,13 @@
+{
+  "anti_patterns": [
+    {
+      "authority_role": "route_source_authority",
+      "id": "kernel_before_grep",
+      "surface_role": "source_authority",
+      "text": "Projection authority masquerade should fail."
+    }
+  ],
+  "expected_negative_case_id": "source_authority_masquerade",
+  "kind": "routing_anti_patterns",
+  "version": 1
+}

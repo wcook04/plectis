@@ -1,0 +1,143 @@
+{
+  "body_in_receipt": false,
+  "delta": {
+    "evidence_card": {
+      "artifact_rows_by_lane": {
+        "global_news_feed": 5,
+        "global_stock_feed": 10
+      },
+      "quality_by_lane": {
+        "global_news_feed": {
+          "tone": "ok"
+        },
+        "global_stock_feed": {
+          "tone": "warn"
+        }
+      }
+    },
+    "run_id": "current_fixture_run"
+  },
+  "macro_lifecycle": {
+    "macro_artifact": {
+      "metadata": {
+        "sidecars": {
+          "macro_lifecycle_snapshot": {
+            "rows": [
+              {
+                "components": {
+                  "latest_observation_date": "2026-05-01",
+                  "realtime_end": "2026-05-15",
+                  "realtime_start": "2026-05-15",
+                  "vintage_metadata_present": true
+                },
+                "slug": "CPIAUCSL"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "rows": [
+      {
+        "Proxy": "CPI inflation",
+        "recent_change": 0.3,
+        "ticker": "CPIAUCSL",
+        "z_score": 2.4
+      },
+      {
+        "Proxy": "GDP growth",
+        "recent_change": -0.1,
+        "ticker": "GDPC1",
+        "z_score": -1.2
+      }
+    ]
+  },
+  "missingness": {
+    "coverage": {
+      "feeds": [
+        {
+          "artifact_ref": "fixture/healthy.json",
+          "feed_id": "healthy_feed",
+          "label": "Healthy",
+          "quality": "ok",
+          "rows": 42
+        },
+        {
+          "artifact_ref": "fixture/empty.json",
+          "feed_id": "empty_feed",
+          "label": "Empty",
+          "quality": "ok",
+          "rows": 0
+        },
+        {
+          "artifact_ref": "fixture/degraded.json",
+          "feed_id": "degraded_feed",
+          "label": "Degraded",
+          "quality": "warn",
+          "rows": 7
+        }
+      ]
+    }
+  },
+  "provider_drift": {
+    "artifacts": {
+      "global_news_feed": {
+        "metadata": {
+          "diagnostics": {
+            "fetch_failure_count": 0,
+            "html_response_count": 0,
+            "provider_fallback_used": false,
+            "provider_mode": "fixture",
+            "provider_used": "fixture_news"
+          }
+        }
+      },
+      "global_macro_feed": {
+        "metadata": {
+          "diagnostics": {
+            "fred": {
+              "fetch_failure_count": 1,
+              "fetch_success_count": 2,
+              "invalid_series_count": 3,
+              "network_warn_count": 1
+            },
+            "provider_mode": "fixture",
+            "provider_used": "fixture_fred"
+          }
+        }
+      },
+      "global_stock_feed": {
+        "metadata": {
+          "diagnostics": {
+            "fetch_failure_count": 2,
+            "fetch_success_count": 3,
+            "html_response_count": 1,
+            "provider_fallback_used": true,
+            "provider_mode": "fixture",
+            "provider_used": "fallback_fixture"
+          }
+        }
+      }
+    },
+    "evidence_card": {
+      "artifact_rows_by_lane": {
+        "global_macro_feed": 2,
+        "global_news_feed": 5,
+        "global_stock_feed": 10
+      },
+      "quality_by_lane": {
+        "global_macro_feed": {
+          "tone": "warn"
+        },
+        "global_news_feed": {
+          "tone": "ok"
+        },
+        "global_stock_feed": {
+          "tone": "warn"
+        }
+      }
+    },
+    "run_id": "current_fixture_run"
+  },
+  "schema_version": "batch12_quant_mart_helper_cases_v1"
+}

@@ -342,7 +342,11 @@ def test_paper_modules_card_projects_authored_compression_when_present() -> None
         REPO_ROOT,
         "paper_modules",
         band="card",
-        ids=["annex_crystal_navigation_spine", "agent_observability"],
+        ids=[
+            "annex_crystal_navigation_spine",
+            "navigation_hologram_theory",
+            "agent_observability",
+        ],
     )
     rows = {row["slug"]: row for row in payload["rows"]}
 
@@ -364,6 +368,20 @@ def test_paper_modules_card_projects_authored_compression_when_present() -> None
     assert sources.get("open_when", "").startswith("authored")
     assert sources.get("do_not_open_when", "").startswith("authored")
     assert sources.get("safe_drilldown", "").startswith("authored")
+
+    route_theory = rows["navigation_hologram_theory"]
+    assert route_theory["compression"]["compression_status"] == "authored"
+    assert route_theory["compression_passport"]["atom"] == "Route-first option surface theory"
+    assert route_theory["compression_passport"]["safe_drilldown"] == (
+        "./repo-python kernel.py --paper-module navigation_hologram_theory"
+    )
+    assert "authority_projection_boundary" in route_theory["compression_passport"]["cluster_keys"]
+    assert "doctrine_routing_weave" in route_theory["compression_passport"]["cluster_keys"]
+    assert (
+        "bidirectional doctrine-to-substrate traversal"
+        in route_theory["compression_passport"]["when_to_open"]
+    )
+    assert "replacement for `--entry`" in route_theory["compression_passport"]["when_not_to_open"]
 
     fallback = rows["agent_observability"]
     assert fallback["compression"]["compression_status"] == "fallback"
@@ -597,6 +615,14 @@ def test_task_ledger_cluster_flag_groups_workitem_views() -> None:
     assert payload["event_command_hints"]["work_item.propagation_recorded"].startswith(
         "./repo-python tools/meta/factory/task_ledger_apply.py propagate"
     )
+    assert "--rebuild" not in payload["event_command_hints"]["work_item.captured"]
+    assert payload["event_command_hints"]["work_item.captured"].endswith(
+        "--created-by <agent_id>"
+    )
+    assert payload["projection_settlement_hint"]["settle_deferred_rebuilds"].endswith(
+        "drain-deferred-rebuilds --limit 1"
+    )
+    assert "task_ledger_projection" in payload["projection_settlement_hint"]["settle_generated_state"]
     assert "capture_triage" in rows
     assert "capture_inbox" in rows
     inbox = rows["capture_inbox"]
@@ -604,11 +630,24 @@ def test_task_ledger_cluster_flag_groups_workitem_views() -> None:
     assert inbox["projection_semantics"]["not_live_backlog_count"] is True
     assert isinstance(inbox["raw_capture_inbox_count"], int)
     assert "raw_capture_inbox_count" in inbox["purpose"]
-    assert rows["execution_menu"]["top_ids"]
-    assert rows["execution_menu"]["drilldown_command"].startswith(
-        "./repo-python kernel.py --option-surface task_ledger --band flag --ids"
-    )
+    assert isinstance(rows["execution_menu"]["top_ids"], list)
+    if rows["execution_menu"]["top_ids"]:
+        assert rows["execution_menu"]["drilldown_command"].startswith(
+            "./repo-python kernel.py --option-surface task_ledger --band flag --ids"
+        )
+        assert rows["execution_menu"]["drilldown_command"].endswith(
+            ",".join(rows["execution_menu"]["top_ids"])
+        )
+    else:
+        assert rows["execution_menu"]["drilldown_command"] == (
+            "./repo-python kernel.py --option-surface task_ledger --band flag"
+        )
     assert "stale_review" in rows
+    assert "stale_fixed_candidates" in rows
+    stale_fixed = rows["stale_fixed_candidates"]
+    assert stale_fixed["source_ref"] == "state/task_ledger/views/stale_fixed_candidates.json"
+    assert stale_fixed["organizer_routing"]["organizer_role"] == "stale_fixed_candidate_sweeper"
+    assert "work_item.retired" in stale_fixed["organizer_routing"]["recommended_next_events"]
     assert "meta_mission_active" in rows
     assert "mission_operating_picture" in rows
     operating_picture = rows["mission_operating_picture"]
@@ -626,6 +665,12 @@ def test_task_ledger_cluster_flag_groups_workitem_views() -> None:
     assert cap_cartography["organizer_routing"]["organizer_role"] == "cap_cartography_review"
     assert "work_item.note_added" in cap_cartography["organizer_routing"]["recommended_next_events"]
     assert "representative nodes" in cap_cartography["purpose"]
+    assert "workitem_cartography" in rows
+    workitem_cartography = rows["workitem_cartography"]
+    assert workitem_cartography["source_ref"] == "state/task_ledger/views/workitem_cartography.json"
+    assert workitem_cartography["organizer_routing"]["organizer_role"] == "workitem_cartography_review"
+    assert "work_item.signoff_recorded" in workitem_cartography["organizer_routing"]["recommended_next_events"]
+    assert "signoff" in workitem_cartography["purpose"]
     triage = rows["capture_triage"]["organizer_routing"]
     assert triage["organizer_role"] == "gating_triage"
     assert triage["routing_scent_not_authority"] is True
@@ -633,6 +678,318 @@ def test_task_ledger_cluster_flag_groups_workitem_views() -> None:
     assert triage["conceptual_next_events"] == []
     assert "per-row supported command templates" in payload["cluster_organizer_routing_omission_receipt"]["omitted"]
     assert all(event in payload["event_command_hints"] for event in triage["recommended_next_events"])
+
+
+def test_task_ledger_cluster_flag_uses_projection_browse_health(monkeypatch) -> None:
+    def fail_authority_health(*_args, **_kwargs):
+        raise AssertionError("bare cluster_flag should not run full Task Ledger authority health")
+
+    monkeypatch.setattr(task_ledger_events, "authority_health", fail_authority_health)
+
+    payload = build_option_surface(REPO_ROOT, "task_ledger", band="cluster_flag")
+
+    health = payload["authority_health"]
+    assert health["schema"] == "task_ledger_projection_browse_health_v0"
+    assert health["ok"] is True
+    assert health["status"] == "projection_browse_summary"
+    assert health["full_authority_scan"] is False
+    assert health["projection_work_item_count"] == payload["summary"]["total_available"]
+    assert health["full_authority_check_command"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py authority-health"
+    )
+    assert not any(
+        warning["kind"] == "task_ledger_authority_recovery_required"
+        for warning in payload["warnings"]
+    )
+
+
+def test_task_ledger_cluster_flag_compact_reads_large_views(monkeypatch, tmp_path: Path) -> None:
+    _write_json(
+        tmp_path,
+        "codex/standards/std_task_ledger.json",
+        {"schema_version": "std_task_ledger_v1"},
+    )
+    work_items = [
+        {
+            "id": f"cap_compact_{index:03d}",
+            "title": f"Compact row {index}",
+            "state": "captured",
+            "work_item_type": "capture",
+        }
+        for index in range(20)
+    ]
+    _write_json(tmp_path, "state/task_ledger/ledger.json", {"work_items": work_items})
+    _write_json(
+        tmp_path,
+        "state/task_ledger/views/capture_inbox.json",
+        {
+            "kind": "task_ledger_view",
+            "schema_version": "task_ledger_view_v1",
+            "view_id": "capture_inbox",
+            "items": [
+                {
+                    **item,
+                    "count": 999,
+                    "view_id": "nested_row_field_not_view_metadata",
+                    "large_payload": "x" * 200,
+                }
+                for item in work_items
+            ],
+            "count": len(work_items),
+            "count_semantics": "test_count_semantics",
+            "projection_semantics": {"not_live_backlog_count": True},
+            "raw_capture_inbox_count": 20,
+        },
+    )
+    original_load_json = standard_option_surface._load_json
+
+    def guarded_load_json(path: Path):
+        if path.name == "capture_inbox.json":
+            raise AssertionError("cluster_flag should compact-read large Task Ledger views")
+        return original_load_json(path)
+
+    monkeypatch.setattr(standard_option_surface, "TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD", 1)
+    monkeypatch.setattr(standard_option_surface, "_load_json", guarded_load_json)
+
+    payload = build_option_surface(tmp_path, "task_ledger", band="cluster_flag")
+    rows = {row["cluster_id"]: row for row in payload["rows"]}
+    capture_inbox = rows["capture_inbox"]
+
+    assert capture_inbox["count"] == 20
+    assert capture_inbox["top_ids"] == [
+        "cap_compact_000",
+        "cap_compact_001",
+        "cap_compact_002",
+    ]
+    assert capture_inbox["count_semantics"] == "test_count_semantics"
+    assert capture_inbox["projection_semantics"]["not_live_backlog_count"] is True
+    assert capture_inbox["raw_capture_inbox_count"] == 20
+    assert capture_inbox["projection_read"]["full_item_payload_omitted"] is True
+
+
+def test_task_ledger_compact_view_payload_samples_rows_fallback(monkeypatch, tmp_path: Path) -> None:
+    path = tmp_path / "cap_census.json"
+    payload = {
+        "kind": "task_ledger_view",
+        "schema_version": "cap_census_v0",
+        "view_id": "cap_census",
+        "rows": [
+            {
+                "id": "cap_rows_001",
+                "state": "captured",
+                "count": 999,
+            },
+            {
+                "id": "cap_rows_002",
+                "state": "captured",
+            },
+        ],
+        "padding": "x" * 2000,
+        "items": [
+            {
+                "id": "cap_late_items_001",
+                "state": "captured",
+            }
+        ],
+        "count": 2,
+    }
+    text = json.dumps(payload, separators=(",", ":"))
+    path.write_text(text, encoding="utf-8")
+    prefix_len = text.index('"padding"') - 1
+
+    monkeypatch.setattr(standard_option_surface, "TASK_LEDGER_COMPACT_VIEW_PREFIX_BYTES", prefix_len)
+    monkeypatch.setattr(standard_option_surface, "TASK_LEDGER_COMPACT_VIEW_SUFFIX_BYTES", 256)
+
+    compact = standard_option_surface._task_ledger_compact_view_payload(path)
+
+    assert compact["count"] == 2
+    assert [item["id"] for item in compact["items"]] == ["cap_rows_001", "cap_rows_002"]
+    assert compact["_cluster_view_compact_read"]["sample_source_key"] == "rows"
+
+
+def test_task_ledger_compact_view_top_level_scan_stops_at_sample_array() -> None:
+    text = json.dumps(
+        {
+            "kind": "task_ledger_view",
+            "schema_version": "task_ledger_view_v1",
+            "view_id": "large_view",
+            "items": [
+                {
+                    "id": "cap_large_001",
+                    "state": "captured",
+                    "nested_count": 999,
+                    "large_payload": "x" * 10_000,
+                }
+            ],
+            "count": 1,
+        },
+        separators=(",", ":"),
+    )
+
+    starts = standard_option_surface._json_top_level_value_starts(
+        text,
+        stop_after_keys={"items", "work_items", "candidates", "rows"},
+    )
+
+    assert set(starts) == {"kind", "schema_version", "view_id", "items"}
+    assert "count" not in starts
+
+
+def test_task_ledger_selected_card_skips_large_unmatched_view(monkeypatch, tmp_path: Path) -> None:
+    _write_json(
+        tmp_path,
+        "codex/standards/std_task_ledger.json",
+        {"schema_version": "std_task_ledger_v1"},
+    )
+    _write_json(
+        tmp_path,
+        "state/task_ledger/ledger.json",
+        {
+            "work_items": [
+                {
+                    "id": "cap_selected_card",
+                    "title": "Selected card",
+                    "state": "captured",
+                    "work_item_type": "performance",
+                }
+            ]
+        },
+    )
+    unrelated_view = {
+        "kind": "task_ledger_view",
+        "schema_version": "task_ledger_view_v1",
+        "view_id": "capture_inbox",
+        "items": [
+            {
+                "id": "cap_unrelated_card",
+                "state": "captured",
+                "large_payload": "x" * 5000,
+            }
+        ],
+        "count": 1,
+    }
+    _write_json(tmp_path, "state/task_ledger/views/capture_inbox.json", unrelated_view)
+    heavyweight_view = {
+        "kind": "task_ledger_view",
+        "schema_version": "task_ledger_view_v1",
+        "view_id": "cap_execution_market",
+        "items": [
+            {
+                "id": "cap_selected_card",
+                "state": "captured",
+                "large_payload": "x" * 5000,
+            }
+        ],
+        "count": 1,
+    }
+    _write_json(tmp_path, "state/task_ledger/views/cap_execution_market.json", heavyweight_view)
+    original_load_json = standard_option_surface._load_json
+
+    def guarded_load_json(path: Path):
+        if path.name == "capture_inbox.json":
+            raise AssertionError("selected card drilldowns should not parse large unmatched views")
+        if path.name == "cap_execution_market.json":
+            raise AssertionError("selected card drilldowns should not parse heavyweight market views")
+        return original_load_json(path)
+
+    def fail_authority_health(*_args, **_kwargs):
+        raise AssertionError("selected card drilldowns should use projection-browse health")
+
+    monkeypatch.setattr(standard_option_surface, "TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD", 1)
+    monkeypatch.setattr(standard_option_surface, "_load_json", guarded_load_json)
+    monkeypatch.setattr(task_ledger_events, "authority_health", fail_authority_health)
+
+    payload = build_option_surface(
+        tmp_path,
+        "task_ledger",
+        band="card",
+        ids=["cap_selected_card"],
+    )
+
+    assert payload["selection"]["missing_ids"] == []
+    assert payload["summary"]["row_count"] == 1
+    health = payload["authority_health"]
+    assert health["schema"] == "task_ledger_projection_browse_health_v0"
+    assert health["full_authority_scan"] is False
+    assert health["selected_card_visibility"]["cap_selected_card"]["visible"] is True
+    assert health["full_authority_check_command"] == (
+        "./repo-python tools/meta/factory/task_ledger_apply.py authority-health"
+    )
+    row = payload["rows"][0]
+    assert row["id"] == "cap_selected_card"
+    assert row["views"] == []
+
+
+def test_task_ledger_selected_view_payload_decodes_matched_large_item(monkeypatch, tmp_path: Path) -> None:
+    view_path = tmp_path / "capture_inbox.json"
+    _write_json(
+        tmp_path,
+        "capture_inbox.json",
+        {
+            "kind": "task_ledger_view",
+            "schema_version": "task_ledger_view_v1",
+            "view_id": "capture_inbox",
+            "items": [
+                {
+                    "id": "cap_unrelated_card",
+                    "state": "captured",
+                    "large_payload": "x" * 5000,
+                },
+                {
+                    "id": "cap_selected_card",
+                    "state": "ready",
+                    "triage_status": "selected",
+                },
+            ],
+            "count": 2,
+        },
+    )
+
+    def fail_full_document_loads(_text: str):
+        raise AssertionError("selected large view hit should not parse the full payload")
+
+    monkeypatch.setattr(standard_option_surface, "TASK_LEDGER_COMPACT_VIEW_BYTES_THRESHOLD", 1)
+    monkeypatch.setattr(standard_option_surface.json, "loads", fail_full_document_loads)
+
+    payload = standard_option_surface._task_ledger_selected_view_payload(
+        view_path,
+        selected_work_item_ids={"cap_selected_card"},
+    )
+
+    assert payload["items"] == [
+        {
+            "id": "cap_selected_card",
+            "state": "ready",
+            "triage_status": "selected",
+        }
+    ]
+    assert payload["_selected_view_fast_read"]["full_payload_omitted"] is True
+    assert payload["_selected_view_fast_read"]["selected_item_count"] == 1
+
+
+def test_task_ledger_cluster_flag_ids_keep_authority_health(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    def fake_authority_health(*args, **kwargs):
+        calls.append({"args": args, "kwargs": kwargs})
+        return {
+            "schema": "task_ledger_authority_health_v0",
+            "ok": True,
+            "status": "clean",
+            "lost_subject_ids": [],
+        }
+
+    monkeypatch.setattr(task_ledger_events, "authority_health", fake_authority_health)
+
+    payload = build_option_surface(
+        REPO_ROOT,
+        "task_ledger",
+        band="cluster_flag",
+        ids="capture_inbox",
+    )
+
+    assert calls, "selected cluster drilldowns should retain full authority health"
+    assert payload["authority_health"]["schema"] == "task_ledger_authority_health_v0"
 
 
 def test_task_ledger_cluster_flag_ids_select_view_cluster() -> None:
@@ -644,6 +1001,25 @@ def test_task_ledger_cluster_flag_ids_select_view_cluster() -> None:
     assert payload["summary"]["drilldown_by"] == "view_id"
     assert [row["cluster_id"] for row in payload["rows"]] == ["capture_inbox"]
     assert payload["rows"][0]["projection_semantics"]["not_live_backlog_count"] is True
+
+
+def test_task_ledger_cluster_flag_ids_select_stale_fixed_candidates_view() -> None:
+    payload = build_option_surface(
+        REPO_ROOT,
+        "task_ledger",
+        band="cluster_flag",
+        ids="stale_fixed_candidates",
+    )
+
+    assert payload["selection"]["mode"] == "ids"
+    assert payload["selection"]["ids"] == ["stale_fixed_candidates"]
+    assert payload["selection"]["missing_ids"] == []
+    assert payload["summary"]["drilldown_by"] == "view_id"
+    assert [row["cluster_id"] for row in payload["rows"]] == ["stale_fixed_candidates"]
+    row = payload["rows"][0]
+    assert row["source_ref"] == "state/task_ledger/views/stale_fixed_candidates.json"
+    assert row["organizer_routing"]["organizer_role"] == "stale_fixed_candidate_sweeper"
+    assert row["top_ids"], "candidate-backed cleanup view should expose candidate ids"
 
 
 def test_prompt_ledger_option_surface_exposes_mission_trace_current_state() -> None:
@@ -667,6 +1043,7 @@ def test_task_ledger_cluster_flag_exposes_mechanism_affinity_clusters(tmp_path: 
 
     assert payload["selection"]["missing_ids"] == []
     assert payload["summary"]["mechanism_cluster_count"] == 1
+    assert payload["mechanism_cluster_overview"]["status"] == "selected_mechanism_cluster"
     row = payload["rows"][0]
     assert row["cluster_id"] == "mechanism:mech_002"
     assert row["artifact_kind"] == "task_ledger_mechanism_cluster"
@@ -729,6 +1106,26 @@ def test_task_ledger_cluster_flag_emits_anomaly_type_counts_for_typed_anomaly_vi
     assert "anomaly_type_counts" not in execution_menu or not execution_menu["anomaly_type_counts"]
 
 
+def test_task_ledger_anomaly_cluster_drilldown_stays_on_cluster_surface() -> None:
+    payload = build_option_surface(REPO_ROOT, "task_ledger", band="cluster_flag")
+    rows = {row["cluster_id"]: row for row in payload["rows"]}
+
+    deps = rows["dependency_anomalies"]
+    if deps["top_ids"]:
+        assert deps["drilldown_command"] == (
+            "./repo-python kernel.py --option-surface task_ledger --band cluster_flag "
+            "--ids dependency_anomalies"
+        )
+        selected = build_option_surface(
+            REPO_ROOT,
+            "task_ledger",
+            band="cluster_flag",
+            ids="dependency_anomalies",
+        )
+        assert selected["selection"]["missing_ids"] == []
+        assert [row["cluster_id"] for row in selected["rows"]] == ["dependency_anomalies"]
+
+
 def test_task_ledger_cluster_flag_exposes_commitment_and_evaporation_boundaries() -> None:
     payload = build_option_surface(REPO_ROOT, "task_ledger", band="cluster_flag")
 
@@ -774,6 +1171,7 @@ def test_task_ledger_cluster_flag_separates_executable_and_conceptual_events() -
     assert "work_item.followup_captured" not in needs_signoff["conceptual_next_events"]
     assert needs_signoff["missing_affordance_count"] == 0
     assert "quick-capture" in payload["event_command_hints"]["work_item.captured"]
+    assert "--rebuild" not in payload["event_command_hints"]["work_item.captured"]
 
     signoffs = rows["signoffs"]["organizer_routing"]
     assert "work_item.captured" in signoffs["recommended_next_events"]
@@ -804,11 +1202,12 @@ def test_task_ledger_cluster_flag_keeps_contents_page_bounded() -> None:
         for row in payload["rows"]
     )
     mechanism_overview = payload["mechanism_cluster_overview"]
-    assert mechanism_overview["available_count"] >= len(mechanism_overview["top_clusters"])
+    assert mechanism_overview["status"] == "deferred_for_bare_contents_page"
     assert mechanism_overview["emitted_row_count"] == 0
-    assert mechanism_overview["top_clusters"]
-    assert mechanism_overview["top_clusters"][0]["drilldown_command"].startswith(
-        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag --ids mechanism:"
+    assert mechanism_overview["top_clusters"] == []
+    assert mechanism_overview["potential_mechanism_count"] >= 0
+    assert mechanism_overview["exact_drilldown_command"] == (
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag --ids mechanism:<mech_id>"
     )
     for row in payload["rows"]:
         routing = row["organizer_routing"]
@@ -842,6 +1241,11 @@ def test_task_ledger_card_surface_exposes_contracts_and_linkage() -> None:
     payload = build_option_surface(REPO_ROOT, "task_ledger", band="card", ids=["cap_035"])
 
     assert payload["profile_status"] == "supported"
+    next_commands = [row["command"] for row in payload["next"]]
+    assert (
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings"
+        in next_commands
+    )
     row = payload["rows"][0]
     assert row["id"] == "cap_035"
     assert row["contracts"]["satisfaction_refs"]
@@ -1229,6 +1633,8 @@ def test_cognitive_operators_surface_exposes_dogfooded_operator() -> None:
     composition_card = cards["cogop_operator_composition_sequencer"]
     assert composition_card["operator_validation"]["ok"] is True
     assert composition_card["operator_validation"]["composition_contract_required"] is True
+    assert composition_card["compression_passport"]["when_to_open"]
+    assert composition_card["compression_passport"]["when_not_to_open"]
     assert composition_card["dogfood_receipts"][0]["operator_sequence"]
     assert composition_card["dogfood_receipts"][0]["sequence_result"]
     passport_card = cards["cogop_affordance_passport_author"]
@@ -1264,6 +1670,7 @@ def test_cognitive_operators_surface_exposes_dogfooded_operator() -> None:
         receipt["receipt_id"] for receipt in prompt_route_card["dogfood_receipts"]
     }
     assert "cogop_prompt_route_assimilator_routing_seed_20260511" in prompt_route_receipt_ids
+    assert "cogop_prompt_route_assimilator_trace_cap_refinement_20260603" in prompt_route_receipt_ids
     routing_seed_receipt = next(
         receipt
         for receipt in prompt_route_card["dogfood_receipts"]
@@ -1283,6 +1690,13 @@ def test_cognitive_operators_surface_exposes_dogfooded_operator() -> None:
         "./repo-python kernel.py --option-surface standards --band card --ids std_agent_entry_surface"
         in prompt_route_card["next_safe_moves"]
     )
+    trace_cap_receipt = next(
+        receipt
+        for receipt in prompt_route_card["dogfood_receipts"]
+        if receipt["receipt_id"] == "cogop_prompt_route_assimilator_trace_cap_refinement_20260603"
+    )
+    assert "read other traces or caps" in trace_cap_receipt["route_miss_evidence"]["abstracted_phrases"]
+    assert trace_cap_receipt["validation_prompt"].startswith("read other traces or caps")
     pressure_card = cards["cogop_pressure_to_action_reducer"]
     assert pressure_card["operator_validation"]["ok"] is True
     assert pressure_card["operator_validation"]["pressure_reduction_required"] is True
@@ -1303,7 +1717,11 @@ def test_cognitive_operators_surface_exposes_dogfooded_operator() -> None:
     assert "cogop_route_lease_executor" in passport_coverage["passported_operator_ids"]
     assert "cogop_prompt_route_assimilator" in passport_coverage["passported_operator_ids"]
     assert "cogop_pressure_to_action_reducer" in passport_coverage["passported_operator_ids"]
-    assert "cogop_disconfirmation_harness" in passport_coverage["missing_passport_operator_ids"]
+    assert "cogop_disconfirmation_harness" in passport_coverage["passported_operator_ids"]
+    assert "cogop_operator_composition_sequencer" in passport_coverage["passported_operator_ids"]
+    assert set(passport_coverage["passported_operator_ids"]).isdisjoint(
+        passport_coverage["missing_passport_operator_ids"]
+    )
 
 
 def test_concepts_card_resolves_source_file_stem_alias() -> None:
@@ -3797,10 +4215,11 @@ def test_microcosm_extracted_patterns_card_includes_binding_summary() -> None:
         "microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py"
         in binding["code_owner_refs"]
     )
-    organ_test_command = (
-        "./repo-pytest microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py -q"
+    organ_test_path = "microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py"
+    assert any(
+        "./repo-pytest" in command and organ_test_path in command
+        for command in binding["command_surfaces"]
     )
-    assert organ_test_command in binding["command_surfaces"]
 
 
 def test_microcosm_extracted_patterns_card_includes_formal_prover_payload_policy_boundary_binding() -> None:
@@ -4054,6 +4473,28 @@ def test_python_files_card_surface_drills_stable_file_id() -> None:
     ]
     assert row["nearest_standard"]["ref"] == "codex/standards/std_python.py"
     assert row["nearest_index"]["ref"] == "codex/standards/std_python_scope_index.json"
+    upstream = row["upstream_doctrine_route"]
+    assert upstream["status"] == "available"
+    assert upstream["route_kind"] == "python_file"
+    assert upstream["canonical_source"] == PYTHON_FILE_TEST_ID
+    assert upstream["authority_layer"] == "operational"
+    assert upstream["authority_tier"] == "owner_surface_route_not_source_authority"
+    assert upstream["source_projection"] == "codex/standards/std_python_scope_index.json"
+    assert upstream["governing_standard"] == "codex/standards/std_python.py"
+    assert upstream["governing_doctrine"] == "codex/doctrine/paper_modules/navigation_hologram_theory.md"
+    assert upstream["governing_skill"] == "codex/doctrine/skills/compression/profile_governed_compression.md"
+    assert upstream["route_commands"]["standard"].endswith(
+        "--option-surface standards --band card --ids std_python"
+    )
+    assert upstream["route_commands"]["scope_index"].endswith(
+        "--option-surface standards --band card --ids std_python_scope_index"
+    )
+    assert upstream["route_commands"]["doctrine"].endswith(
+        "--paper-module navigation_hologram_theory"
+    )
+    assert upstream["evaluator_lane"].endswith(f"--compile {PYTHON_FILE_TEST_ID}")
+    assert upstream["receipt_lane"].endswith("std_python_scope_index.json")
+    assert "navigation_context_pack.selected_rows" in upstream["runtime_consumers"]
     assert isinstance(row["public_symbol_ids"], list) and row["public_symbol_ids"]
     assert all(sym.startswith(PYTHON_FILE_TEST_ID + "::") for sym in row["public_symbol_ids"])
     assert isinstance(row["scope_summary"], dict)
@@ -4222,6 +4663,22 @@ def test_python_scopes_card_surface_drills_stable_symbol_id() -> None:
     ]
     assert row["nearest_standard"]["ref"] == "codex/standards/std_python.py"
     assert row["nearest_index"]["ref"] == "codex/standards/std_python_scope_index.json"
+    upstream = row["upstream_doctrine_route"]
+    assert upstream["status"] == "available"
+    assert upstream["route_kind"] == "python_scope"
+    assert upstream["canonical_source"].startswith(f"{PYTHON_SCOPE_TEST_PATH}::")
+    assert upstream["authority_boundary"] == "route_metadata_only_open_canonical_source_before_mutation"
+    assert upstream["source_projection"] == "codex/standards/std_python_scope_index.json"
+    assert upstream["governing_standard"] == "codex/standards/std_python.py"
+    assert upstream["governing_doctrine"] == "codex/doctrine/paper_modules/navigation_hologram_theory.md"
+    assert upstream["route_commands"]["parent_file"].endswith(
+        f"--option-surface python_files --band card --ids {PYTHON_SCOPE_TEST_PATH}"
+    )
+    assert upstream["route_commands"]["standard"].endswith(
+        "--option-surface standards --band card --ids std_python"
+    )
+    assert upstream["evaluator_lane"].endswith(f"--compile {PYTHON_SCOPE_TEST_PATH}")
+    assert "select(.symbol_id==$sid)" in upstream["receipt_lane"]
     assert row["parent_file_command"].endswith(
         f"--option-surface python_files --band card --ids {PYTHON_SCOPE_TEST_PATH}"
     )
@@ -4374,10 +4831,16 @@ def test_standards_card_surface_exposes_architecture_comprehension_fields() -> N
     assert row["owner_surface"]["projection_owner"] == (
         "system/lib/standard_option_surface.py::_standard_card_row"
     )
-    assert row["validation_route"][:2] == [
-        "./repo-python -m json.tool codex/standards/std_standard_type_plane.json",
-        "./repo-python kernel.py --option-surface standards --band card --ids std_standard_type_plane",
+    validation_route = row["validation_route"]
+    assert validation_route[:2] == [
+        "./repo-python tools/meta/factory/build_navigation_type_plane.py --check",
+        "./repo-python tools/meta/factory/build_renderer_passports.py --check",
     ]
+    assert "./repo-python -m json.tool codex/standards/std_standard_type_plane.json" in validation_route
+    assert (
+        "./repo-python kernel.py --option-surface standards --band card --ids std_standard_type_plane"
+        in validation_route
+    )
     assert row["mutation_route"][0].endswith(
         "--path codex/standards/std_standard_type_plane.json --require-exclusive"
     )
@@ -4385,6 +4848,39 @@ def test_standards_card_surface_exposes_architecture_comprehension_fields() -> N
     assert row["workitem_cap_pressure"]["status"] == "lookup_required"
     assert "standards option-surface card" in row["graph_neighbors"]["projects_to"]
     assert row["drilldown_commands"][0] == row["drilldown_command"]
+
+
+def test_task_ledger_type_plane_and_failure_caps_append_before_projection_settlement() -> None:
+    type_plane = json.loads(
+        (REPO_ROOT / "codex/standards/std_standard_type_plane.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    type_rows = {row["type_id"]: row for row in type_plane["type_plane_rows"]}
+    for type_id in ("task_ledger", "task_ledger_caps"):
+        mutation_lane = type_rows[type_id]["mutation_lane"]
+        assert "append authority first" in mutation_lane
+        assert "task_ledger_projection" in mutation_lane
+        assert "quick-capture,claim,refine,sign-off,...} --rebuild" not in mutation_lane
+
+    task_ledger_standard = json.loads(
+        (REPO_ROOT / "codex/standards/std_task_ledger.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    raw_seed_standard = json.loads(
+        (
+            REPO_ROOT / "codex/standards/principles/std_raw_seed_principles.json"
+        ).read_text(encoding="utf-8")
+    )
+    task_capture = task_ledger_standard["metacontrol_contract"][
+        "agent_principle_failure_mode_cap_contract"
+    ]["capture_command_template"]
+    raw_seed_capture = raw_seed_standard["navigation_contract"][
+        "agent_principle_authoring_contract"
+    ]["cap_first_intake"]["capture_command_template"]
+    assert "--rebuild" not in task_capture
+    assert "--rebuild" not in raw_seed_capture
 
 
 def test_standards_card_surface_flattens_structured_validation_rules() -> None:
@@ -4858,6 +5354,11 @@ def test_compression_profiles_card_surface_exposes_render_profile_owner_routes()
     assert row["render_profile"]["status_sidecar_path"] == "state/system_atlas/type_b_grounding_packet_status.json"
     assert row["render_profile"]["projection_not_authority"] is True
     assert row["render_profile"]["refresh_owner"] == "type_a_or_always_on_metabolism"
+    assert row["compression_passport"]["atom"] == "Type B grounding packet"
+    assert "public_safe_projection" in row["compression_passport"]["cluster_keys"]
+    assert row["compression_passport"]["safe_drilldown"].endswith(
+        "--ids type_b_external_grounding_v1"
+    )
     assert row["owner_routes"]["entry_command"].endswith("--ids type_b_external_grounding_v1")
     assert row["owner_routes"]["refresh_command"].endswith(
         "--render-profile type_b_external_grounding_v1"
@@ -5650,6 +6151,32 @@ def test_frontend_components_card_surface_drills_high_confidence_id() -> None:
     assert row["source_span"]["line_end"] == row["line_end"]
     assert row["nearest_standard"]["ref"] == "codex/standards/std_frontend_component_index.json"
     assert row["nearest_extractor"]["ref"] == "tools/meta/observability/frontend_component_index.py"
+    upstream = row["upstream_doctrine_route"]
+    assert upstream["status"] == "available"
+    assert upstream["route_kind"] == "frontend_component"
+    assert upstream["canonical_source"] == "system/server/ui/src/components/ArtifactViewer.tsx"
+    assert upstream["authority_layer"] == "operational"
+    assert upstream["authority_tier"] == "owner_surface_route_not_source_authority"
+    assert upstream["source_projection"] == FRONTEND_COMPONENT_PROJECTION_PATH
+    assert upstream["governing_standard"] == "codex/standards/std_frontend_component_index.json"
+    assert upstream["governing_doctrine"] == "codex/doctrine/paper_modules/frontend_station_cockpit.md"
+    assert upstream["governing_extractor"] == "tools/meta/observability/frontend_component_index.py"
+    assert upstream["route_commands"]["standard"].endswith(
+        "--option-surface standards --band card --ids std_frontend_component_index"
+    )
+    assert upstream["route_commands"]["doctrine"].endswith(
+        "--paper-module frontend_station_cockpit"
+    )
+    assert upstream["route_commands"]["extractor_summary"].endswith(
+        "tools/meta/observability/frontend_component_index.py --summary"
+    )
+    assert upstream["route_commands"]["freshness_check"].endswith(
+        "tools/meta/observability/frontend_component_index.py --check"
+    )
+    assert upstream["evaluator_lane"].endswith("frontend_component_index.py --summary")
+    assert upstream["route_commands"]["source"].startswith("sed -n ")
+    assert upstream["receipt_lane"].endswith(FRONTEND_COMPONENT_PROJECTION_PATH)
+    assert "frontend_components.card" in upstream["runtime_consumers"]
     assert any(
         cmd.endswith(FRONTEND_COMPONENT_PROJECTION_PATH) for cmd in row["evidence_commands"]
     )
@@ -5771,3 +6298,9 @@ def test_option_surface_kernel_command_emits_frontend_components_card_json() -> 
     assert row["component_id"] == FRONTEND_COMPONENT_TEST_ID
     assert row["adapter_supported_bands"] == ["cluster_flag", "flag", "card"]
     assert row["nearest_standard"]["ref"] == "codex/standards/std_frontend_component_index.json"
+    assert row["upstream_doctrine_route"]["governing_standard"] == (
+        "codex/standards/std_frontend_component_index.json"
+    )
+    assert row["upstream_doctrine_route"]["governing_doctrine"] == (
+        "codex/doctrine/paper_modules/frontend_station_cockpit.md"
+    )

@@ -1,0 +1,245 @@
+{
+  "anti_claims": [
+    "This active axiom JSON record does not flip source authority away from core/axiom_organ_routing.json.",
+    "Legacy witness_strength is not a computed support verdict.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.",
+    "Axiom admission as law does not prove that the axiom is witnessed, enforced, strong, or complete."
+  ],
+  "authority_boundary": "public_axiom_json_instance_synchronized_from_routing_registry_receipt_bound_not_source_authority_flip",
+  "axiom_payload": {
+    "admission_contract": {
+      "mode": "imposed_constitutional_root",
+      "proof_required_for_admission": false,
+      "status": "admitted_as_public_axiom"
+    },
+    "contract_version": "microcosm_axiom_instance_payload_v1",
+    "formal_model": {
+      "formal_clause": "Claims over live state are cached reads valid only under <value,as_of,basis,rederive> invalidation contracts.",
+      "obligation_source_status": "pilot_obligations_present",
+      "obligations": [
+        {
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-10.O1.live_claim_carries_freshness_contract",
+          "predicate": "a live-state claim carries value, as_of, basis, and rederive fields rather than a frozen bare value",
+          "required": true
+        },
+        {
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/engine_room/metabolism_runtime.py",
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-10.O2.stale_basis_requires_rederive",
+          "predicate": "cached reads over live state invalidate or rederive when their declared basis or staleness contract no longer holds",
+          "required": true
+        },
+        {
+          "binding": {
+            "negative_case_codes": [
+              "DOCTRINE_VOLATILE_NUMERIC_UNBOUND"
+            ],
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-10.O3.volatile_numeric_unbound_blocked",
+          "predicate": "volatile numeric claims without freshness binding are materialized as a stable blocking code before this axiom can claim full support",
+          "required": true
+        }
+      ]
+    },
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/axiom_organ_routing.json"
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "axioms/AX-10.md",
+      "markdown_status": "generated_projection",
+      "routing_json_status": "routing_registry_source_of_record_with_receipt_bound_json_projection",
+      "source_json_rel": "axioms/AX-10.json"
+    },
+    "substrate_reciprocity_contract": {
+      "claim_ceiling": {
+        "boundary": "Witness organs and negative cases are inputs to support calculation, not support claims. Projection output is never source evidence.",
+        "computed_by": "validator.microcosm.axiom_support_cover"
+      },
+      "contract_version": "microcosm_axiom_substrate_reciprocity_v1",
+      "law_to_substrate": {
+        "grounded_principle_ids": [
+          "P-11"
+        ],
+        "guarded_by_anti_principle_ids": [
+          "AP-4",
+          "AP-9"
+        ],
+        "projection_edge_relation_ids": [
+          "principle.grounded_by.axiom",
+          "anti_principle.guards.axiom",
+          "axiom.witnessed_by.organ"
+        ],
+        "rule": "The axiom governs downstream substrate by constraining organ rows, grounding principle commitments, and naming anti-principle guards; those governance edges do not by themselves compute support.",
+        "substrate_constraint_relation": "organ.constrained_by.axiom"
+      },
+      "source_authority_ref": "core/axiom_organ_routing.json::rows[9:AX-10]",
+      "substrate_to_law": {
+        "layer_debt_ids": [],
+        "negative_case_codes": [
+          "DOCTRINE_VOLATILE_NUMERIC_UNBOUND"
+        ],
+        "refinement_rule": "Substrate evidence may refine obligation bindings, claim ceilings, negative-case mappings, and layer-debt status in the routing registry or evaluator grammar; it does not de-admit the axiom or certify strong support without the support-cover validator.",
+        "witness_organs": [
+          "doctrine_fact_claim_audit"
+        ],
+        "witness_surfaces": [
+          "src/microcosm_core/engine_room/metabolism_runtime.py",
+          "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+          "tests/test_doctrine_fact_claim_audit.py"
+        ]
+      }
+    },
+    "support_contract": {
+      "computed_by": "validator.microcosm.axiom_support_cover",
+      "legacy_routing_witness_strength": {
+        "status": "legacy_label_not_computed_support_claim",
+        "value": "strong"
+      },
+      "support_status": "computed_in_generated_projection_not_asserted_in_source_instance"
+    }
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "AX-10",
+  "kind": "axiom",
+  "omission_receipt": {
+    "drilldown": "core/axiom_organ_routing.json::rows[9:AX-10]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "support-cover generated output as source evidence"
+    ],
+    "reason": "Axiom instance preserves public-safe routing fields only; support is computed by validator output."
+  },
+  "receipt_refs": [
+    "receipts/doctrine_records/axioms/AX-10.receipt.json"
+  ],
+  "relationships": {
+    "anti_axiom": "frozen_live_count_without_refresh_basis",
+    "anti_principle_ids": [
+      "AP-4",
+      "AP-9"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[9:AX-10].principle_ids",
+          "summary": "Axiom routing row grounds this principle id; principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "P-11",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[9:AX-10].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-4",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[9:AX-10].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-9",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[9:AX-10].witness_organs",
+          "summary": "Axiom routing row names this organ as a witness candidate; support strength is computed separately."
+        },
+        "relation_id": "axiom.witnessed_by.organ",
+        "relation_verb": "witnessed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "witnesses",
+        "target_id": "doctrine_fact_claim_audit",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "layer_debt": [],
+    "lineage": [
+      "cache invalidation",
+      "bitemporal state",
+      "staleness bounds"
+    ],
+    "negative_case_codes": [
+      "DOCTRINE_VOLATILE_NUMERIC_UNBOUND"
+    ],
+    "principle_ids": [
+      "P-11"
+    ],
+    "source_routing_row_ref": "core/axiom_organ_routing.json::rows[9:AX-10]",
+    "witness_organs": [
+      "doctrine_fact_claim_audit"
+    ],
+    "witness_surfaces": [
+      "src/microcosm_core/engine_room/metabolism_runtime.py",
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+      "tests/test_doctrine_fact_claim_audit.py"
+    ]
+  },
+  "schema_version": "microcosm_axiom_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/axiom_organ_routing.json::rows[9:AX-10]",
+      "role": "current_source_of_record_for_axiom_witness_routes"
+    },
+    {
+      "path": "AXIOMS.md#AX-10",
+      "role": "legacy_markdown_projection"
+    }
+  ],
+  "statement": "Claims over live state are cached reads valid only under <value,as_of,basis,rederive> invalidation contracts.",
+  "status": "active",
+  "title": "Temporal validity and freshness contracts",
+  "validator_refs": [
+    "validator.microcosm.axiom",
+    "validator.microcosm.axiom_support_cover"
+  ]
+}

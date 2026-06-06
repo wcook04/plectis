@@ -1,15 +1,15 @@
 {
-  "body_copied_material_count": 2,
+  "body_copied_material_count": 3,
   "body_in_receipt": false,
-  "module_count": 2,
+  "module_count": 3,
   "modules": [
     {
       "anchor_count": 3,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 49875,
-      "line_count": 678,
+      "byte_count": 50351,
+      "line_count": 679,
       "material_class": "public_standard_body",
       "path": "source_modules/codex/standards/std_agent_execution_trace.json",
       "required_anchors": [
@@ -17,14 +17,14 @@
         "\"strict_boundary\"",
         "\"Span\""
       ],
-      "sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "sha256": "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
-      "source_sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "source_sha256": "sha256:9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
       "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "target_sha256": "sha256:9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
       "validation_refs": [
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
@@ -36,8 +36,8 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 229460,
-      "line_count": 5256,
+      "byte_count": 300634,
+      "line_count": 6828,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/system/lib/agent_execution_trace.py",
       "required_anchors": [
@@ -46,14 +46,46 @@
         "write_agent_execution_trace",
         "TRACE_OUTPUT_PRIVACY_BOUNDARY"
       ],
-      "sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
       "source_ref": "system/lib/agent_execution_trace.py",
-      "source_sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "source_sha256": "sha256:9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
       "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "target_sha256": "sha256:9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+      ]
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 10373,
+      "line_count": 260,
+      "material_class": "public_macro_tool_body",
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "required_anchors": [
+        "class StrictJsonError",
+        "class DuplicateJsonKeyError",
+        "def loads_json_strict(",
+        "def read_json_strict(",
+        "def strict_json_artifact_report("
+      ],
+      "sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_ref": "system/lib/strict_json.py",
+      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
+      "source_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/strict_json.py",
+      "target_sha256": "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
       "validation_refs": [
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",

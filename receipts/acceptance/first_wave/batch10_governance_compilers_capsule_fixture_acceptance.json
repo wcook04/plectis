@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 10 validates copied non-secret macro source bodies and source-faithful public ports for mutation governance, observe/apply compilation, public artifact review, release-blocker triage, publication path-contract checks, receipt staleness, no-lookahead finance horizons, session-wave execution, claim-conflict wait-tax detection, role-aware block propagation, table shaping, annex grouping, recent-change coalescing, and a blocked Batch-9 lane-width binding repair. It is not release approval, publication authority, live Work Ledger truth, neutral benchmark evidence, source mutation permission, or investment advice.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch10_governance_compilers_capsule",
+  "organ_id": "batch10_governance_compilers_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json"
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "planted_private_path",
+  "expected_status": "red",
+  "files": [
+    {
+      "path": "docs/private-path.md",
+      "text_parts": [
+        "Do not export ",
+        {
+          "join_path": [
+            "Users",
+            "localoperator",
+            "project",
+            "state.json"
+          ]
+        },
+        "\n"
+      ]
+    }
+  ]
+}

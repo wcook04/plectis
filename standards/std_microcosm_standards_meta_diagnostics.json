@@ -74,7 +74,7 @@
     "runtime_contracts",
     "authority_ceiling"
   ],
-  "schema_version": "std_microcosm_standards_meta_diagnostics_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     "core/standards_registry.json",
     "core/organ_registry.json",
@@ -128,9 +128,24 @@
       "receipt embeds macro body text instead of carrying refs, hashes, counts, and verdicts"
     ],
     "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, secret-exclusion results, and copied non-secret macro body source modules.",
-    "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable and by importing the real macro meta-diagnostics mechanism body without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness."
+    "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable and by importing the real macro meta-diagnostics mechanism body without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_standards_meta_diagnostics_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "validator.microcosm.organs.standards_meta_diagnostics"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.standards_meta_diagnostics"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "status": "accepted_public_runtime_standard",
+  "status": "active",
   "validation_rules": [
     "Every accepted adapter-backed organ must have a standards inventory row.",
     "Every inventory row must carry standard_id, standard_ref, registry_row_ref, and at least one receipt ref.",
@@ -142,5 +157,57 @@
     "fixture_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
     "runner": "microcosm_core.organs.standards_meta_diagnostics",
     "runtime_bundle_command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Standards meta diagnostics instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Standards meta diagnostics without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_standards_meta_diagnostics and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_standards_meta_diagnostics.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.standards_meta_diagnostics"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.standards_meta_diagnostics"
+  ],
+  "anti_claims": [
+    "Standards meta diagnostics summarizes public standards, organ, runtime, receipt coverage, and copied non-secret macro meta-diagnostics body imports only; it does not become registry authority, expose private sources, authorize release, or prove whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_standards_meta_diagnostics",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_standards_meta_diagnostics_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.standards_meta_diagnostics",
+    "receipt_id": "receipt.microcosm.standards_meta_diagnostics",
+    "validator_refs": [
+      "validator.microcosm.organs.standards_meta_diagnostics"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.standards_meta_diagnostics"
+    ]
   }
 }

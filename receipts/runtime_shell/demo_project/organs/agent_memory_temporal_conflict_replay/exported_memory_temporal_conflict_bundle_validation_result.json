@@ -5,8 +5,8 @@
     "NOOP",
     "UPDATE"
   ],
-  "answer_delta_claim_effect": "memory evidence changes route explanation only after stale fact deletion and scoped preference update are receipt-backed",
-  "answer_delta_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
+  "answer_delta_claim_effect": "real macro memory evidence changes route explanation only after private-body deletion and public trace-floor update are receipt-backed",
+  "answer_delta_ref": "receipt.memory.real_macro.answer_delta.episode_c_memory_on_off_pair",
   "anti_claim": "Agent memory temporal-conflict replay validates a public three-episode memory update/replay contract with conflict edges, stale downgrades, metadata-only private refs, paired memory-on/off replay, public execution trace spans, negative cases, and receipts. Synthetic rows remain fixture inputs around that real replay contract. It does not claim live memory product quality, export private transcripts, promote private candidates, treat memory recall as source authority, adopt active injection, call providers, mutate source, or authorize release.",
   "authority_ceiling": {
     "active_injection_authority_authorized": false,
@@ -36,9 +36,9 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle --input microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-30T21:37:01+00:00",
+  "created_at": "2026-06-05T06:14:49+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
@@ -52,7 +52,7 @@
   "findings": [],
   "fixture_id": "first_wave.agent_memory_temporal_conflict_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:2f1619a233d3469c14803cb656fd45d3663e9f24f79bce5a3ac1862b53c5ca26",
+    "basis_digest": "sha256:26d0cd54a079a6b31e1431f1b7d77aa90f7d4286c592365b4d422162c9e3e997",
     "card_schema_version": "agent_memory_temporal_conflict_replay_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -69,13 +69,13 @@
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/memory_episodes.json",
-        "sha256": "sha256:bff59452e7ef7dff9974d94b91b5d33e59cbad054452b85edbc61476db7e341b",
-        "size_bytes": 3557
+        "sha256": "sha256:5607398326d16ac12e62635f6f169c3ceebc08c8264193965d383443879436b2",
+        "size_bytes": 6493
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/replay_observations.json",
-        "sha256": "sha256:f84095eab43cccab450854bd1eb1f4508c2ab6298abf3b3a71595fc994e67684",
-        "size_bytes": 1561
+        "sha256": "sha256:f0bdbd1d1aa0e7c6f78f53b727cd4baf3270e4d8d98c169ae74318423fbcaa19",
+        "size_bytes": 1637
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/bundle_manifest.json",
@@ -84,13 +84,13 @@
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
-        "sha256": "sha256:93c665bf4d357b23100efded67e712e1c6294f1692bc8d9fd68c9364ed2b66ef",
+        "sha256": "sha256:d22132896a91c2b3cf66fdd1772f2fb4a9aea68907caf05d1e43a506ecdb0633",
         "size_bytes": 10415
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:624c132dbb4fb764cb60b4acc6bb8c72a7ca6f4414ab3074b6b99689f5b904a1",
+        "size_bytes": 275530
       },
       {
         "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
@@ -131,14 +131,17 @@
       "episode_id": "episode_a_initial_memory_write",
       "episode_order": 1,
       "event_id": "episode_a_preference_add",
-      "evidence_handle_ref": "evidence.memory.episode_a.preference_hash",
-      "memory_route_ref": "route.memory.write.synthetic.preference.add",
-      "memory_subject_id": "pref_response_style_brief_scope_general",
+      "evidence_handle_ref": "evidence.memory.real_macro.pattern_row.preference_scope_floor",
+      "memory_route_ref": "route.memory.write.macro.pattern_row.add",
+      "memory_subject_id": "agent_memory_temporal_conflict_replay_compound.preference_scope_floor",
       "metadata_only_ref": true,
       "missing_required_fields": [],
-      "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
-      "prompt_adoption_observation_ref": "observation.prompt_adoption.episode_a.preference_recorded",
+      "private_thread_ref": "source_artifact.macro_pattern.agent_memory_temporal_conflict_replay_rows::metadata_only",
+      "prompt_adoption_observation_ref": "observation.prompt_adoption.actual_substrate_agent_memory_temporal_conflict_replay_growth_20260521a",
       "reason_codes": [],
+      "sanitized_real_episode": true,
+      "source_artifact_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json::rows[0]",
+      "source_event_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_337",
       "stale_downgrade_ref": null
     },
     {
@@ -149,51 +152,60 @@
       "episode_id": "episode_a_initial_memory_write",
       "episode_order": 1,
       "event_id": "episode_a_tool_fact_add",
-      "evidence_handle_ref": "evidence.memory.episode_a.tool_fact_hash",
-      "memory_route_ref": "route.memory.write.synthetic.tool_fact.add",
-      "memory_subject_id": "tool_fact_package_manager_v1",
+      "evidence_handle_ref": "evidence.memory.real_macro.trace_standard.public_slice_floor",
+      "memory_route_ref": "route.memory.write.macro.trace_standard.add",
+      "memory_subject_id": "std_agent_execution_trace.public_memory_trace_slice.strict_boundary",
       "metadata_only_ref": true,
       "missing_required_fields": [],
-      "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
+      "private_thread_ref": "source_artifact.macro_standard.std_agent_execution_trace_public_slice::metadata_only",
       "prompt_adoption_observation_ref": null,
       "reason_codes": [],
+      "sanitized_real_episode": true,
+      "source_artifact_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_standard/codex/standards/std_agent_execution_trace.public_memory_trace_slice.json::strict_boundary",
+      "source_event_ref": "codex/standards/std_agent_execution_trace.json::strict_boundary+trace_ontology_contract",
       "stale_downgrade_ref": null
     },
     {
       "body_in_receipt": false,
       "computed_verdict": "accepted_memory_metadata",
-      "conflict_edge_ref": "edge.memory.temporal_conflict.preference_scope.a_to_b",
+      "conflict_edge_ref": "edge.memory.temporal_conflict.real_macro.synthetic_only_to_public_trace_floor",
       "decision": "UPDATE",
       "episode_id": "episode_b_temporal_conflict",
       "episode_order": 2,
       "event_id": "episode_b_preference_scope_update",
-      "evidence_handle_ref": "evidence.memory.episode_b.preference_scope_hash",
-      "memory_route_ref": "route.memory.write.synthetic.preference.update",
-      "memory_subject_id": "pref_response_style_brief_scope_code_reviews_only",
+      "evidence_handle_ref": "evidence.memory.real_macro.growth_receipt.preference_scope_hash",
+      "memory_route_ref": "route.memory.write.macro.growth_receipt.update",
+      "memory_subject_id": "actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.public_projection_contract",
       "metadata_only_ref": true,
       "missing_required_fields": [],
-      "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+      "private_thread_ref": "source_artifact.macro_state.high_novelty_growth_receipt::metadata_only",
       "prompt_adoption_observation_ref": null,
       "reason_codes": [],
-      "stale_downgrade_ref": "receipt.memory.stale_preference_general_scope_downgraded"
+      "sanitized_real_episode": true,
+      "source_artifact_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.json::value.projection_contract",
+      "source_event_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+      "stale_downgrade_ref": "receipt.memory.real_macro.synthetic_only_fixture_downgraded_to_public_trace_floor"
     },
     {
       "body_in_receipt": false,
       "computed_verdict": "accepted_memory_metadata",
-      "conflict_edge_ref": "edge.memory.temporal_conflict.tool_fact.a_to_b",
+      "conflict_edge_ref": "edge.memory.temporal_conflict.real_macro.operator_thread_body_to_metadata_only",
       "decision": "DELETE",
       "episode_id": "episode_b_temporal_conflict",
       "episode_order": 2,
       "event_id": "episode_b_tool_fact_delete",
-      "evidence_handle_ref": "evidence.memory.episode_b.tool_fact_invalidated_hash",
-      "memory_route_ref": "route.memory.write.synthetic.tool_fact.delete",
-      "memory_subject_id": "tool_fact_package_manager_v1",
+      "evidence_handle_ref": "evidence.memory.real_macro.source_manifest.omitted_private_body_boundary",
+      "memory_route_ref": "route.memory.write.macro.source_manifest.delete",
+      "memory_subject_id": "operator_thread_memory_private_body_as_public_fixture_material",
       "metadata_only_ref": true,
       "missing_required_fields": [],
-      "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+      "private_thread_ref": "source_module_manifest.omitted_material.operator_thread_memory::metadata_only",
       "prompt_adoption_observation_ref": null,
       "reason_codes": [],
-      "stale_downgrade_ref": "receipt.memory.stale_tool_fact_deleted_before_replay"
+      "sanitized_real_episode": true,
+      "source_artifact_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::omitted_material[1]",
+      "source_event_ref": "tools/meta/observability/operator_thread_memory.py::project_thread_records",
+      "stale_downgrade_ref": "receipt.memory.real_macro.private_thread_body_deleted_before_replay"
     },
     {
       "body_in_receipt": false,
@@ -203,14 +215,17 @@
       "episode_id": "episode_c_cold_replay",
       "episode_order": 3,
       "event_id": "episode_c_replay_noop",
-      "evidence_handle_ref": "evidence.memory.episode_c.replay_pair_hash",
-      "memory_route_ref": "route.memory.replay.synthetic.noop",
-      "memory_subject_id": "no_new_memory_write_on_replay",
+      "evidence_handle_ref": "evidence.memory.real_macro.replay_pair_public_trace_hash",
+      "memory_route_ref": "route.memory.replay.macro.public_trace.noop",
+      "memory_subject_id": "no_new_memory_write_on_public_trace_replay",
       "metadata_only_ref": true,
       "missing_required_fields": [],
-      "private_thread_ref": "thread_ref.synthetic.c.metadata_only",
+      "private_thread_ref": "public_agent_execution_trace.memory_conflict_replay::metadata_only",
       "prompt_adoption_observation_ref": null,
       "reason_codes": [],
+      "sanitized_real_episode": true,
+      "source_artifact_ref": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+      "source_event_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json::public_agent_execution_trace",
       "stale_downgrade_ref": null
     }
   ],
@@ -293,25 +308,25 @@
         "action_kind": "memory_temporal_conflict_event",
         "active_injection_adopted": false,
         "agent": "microcosm_public_fixture",
-        "authority_verdict_id": "route.memory.write.synthetic.preference.add",
+        "authority_verdict_id": "route.memory.write.macro.pattern_row.add",
         "body_exported": false,
         "body_in_receipt": false,
         "duration_ms": 0,
         "episode_id": "episode_a_initial_memory_write",
-        "input_digest": "sha256:54529bcaf825c345d2c364d2e906f43e92c8d6d8133ade4ad19ff51a363cb63d",
-        "memory_subject_id": "pref_response_style_brief_scope_general",
+        "input_digest": "sha256:a38ba457681620f94b1b9f217a0493777e6559e600a5ca4a1b3d7fbebcf4f913",
+        "memory_subject_id": "agent_memory_temporal_conflict_replay_compound.preference_scope_floor",
         "metadata_only_ref": true,
-        "observation_ref": "evidence.memory.episode_a.preference_hash",
+        "observation_ref": "evidence.memory.real_macro.pattern_row.preference_scope_floor",
         "outcome": "ADD",
-        "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
+        "private_thread_ref": "source_artifact.macro_pattern.agent_memory_temporal_conflict_replay_rows::metadata_only",
         "sequence_index": 0,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_a_preference_add",
-        "state_transition_ref": "route.memory.write.synthetic.preference.add",
+        "state_transition_ref": "route.memory.write.macro.pattern_row.add",
         "target_refs": [
-          "route.memory.write.synthetic.preference.add"
+          "route.memory.write.macro.pattern_row.add"
         ],
         "tool_name": "memory_temporal_conflict_replay",
         "turn_index": 0
@@ -320,25 +335,25 @@
         "action_kind": "memory_temporal_conflict_event",
         "active_injection_adopted": false,
         "agent": "microcosm_public_fixture",
-        "authority_verdict_id": "route.memory.write.synthetic.tool_fact.add",
+        "authority_verdict_id": "route.memory.write.macro.trace_standard.add",
         "body_exported": false,
         "body_in_receipt": false,
         "duration_ms": 0,
         "episode_id": "episode_a_initial_memory_write",
-        "input_digest": "sha256:a8a6315dfdbfba2f3da2de1b2ac79cdc97654005ab1806c0cef9212a19a730aa",
-        "memory_subject_id": "tool_fact_package_manager_v1",
+        "input_digest": "sha256:f5c8c28b0aa81069912050468d8b287554f6e1942b2886d671528492cddd6784",
+        "memory_subject_id": "std_agent_execution_trace.public_memory_trace_slice.strict_boundary",
         "metadata_only_ref": true,
-        "observation_ref": "evidence.memory.episode_a.tool_fact_hash",
+        "observation_ref": "evidence.memory.real_macro.trace_standard.public_slice_floor",
         "outcome": "ADD",
-        "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
+        "private_thread_ref": "source_artifact.macro_standard.std_agent_execution_trace_public_slice::metadata_only",
         "sequence_index": 1,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_a_tool_fact_add",
-        "state_transition_ref": "route.memory.write.synthetic.tool_fact.add",
+        "state_transition_ref": "route.memory.write.macro.trace_standard.add",
         "target_refs": [
-          "route.memory.write.synthetic.tool_fact.add"
+          "route.memory.write.macro.trace_standard.add"
         ],
         "tool_name": "memory_temporal_conflict_replay",
         "turn_index": 1
@@ -347,25 +362,25 @@
         "action_kind": "memory_temporal_conflict_event",
         "active_injection_adopted": false,
         "agent": "microcosm_public_fixture",
-        "authority_verdict_id": "edge.memory.temporal_conflict.preference_scope.a_to_b",
+        "authority_verdict_id": "edge.memory.temporal_conflict.real_macro.synthetic_only_to_public_trace_floor",
         "body_exported": false,
         "body_in_receipt": false,
         "duration_ms": 0,
         "episode_id": "episode_b_temporal_conflict",
-        "input_digest": "sha256:6e2815291c8f6c77f631fbebc42be029c45883dde63b85a5126f2d813c67a05a",
-        "memory_subject_id": "pref_response_style_brief_scope_code_reviews_only",
+        "input_digest": "sha256:ae5aadbd9955283877406d783ff5e6535c9f252916f7d63f8d7d55394db07813",
+        "memory_subject_id": "actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.public_projection_contract",
         "metadata_only_ref": true,
-        "observation_ref": "evidence.memory.episode_b.preference_scope_hash",
+        "observation_ref": "evidence.memory.real_macro.growth_receipt.preference_scope_hash",
         "outcome": "UPDATE",
-        "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+        "private_thread_ref": "source_artifact.macro_state.high_novelty_growth_receipt::metadata_only",
         "sequence_index": 2,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_b_preference_scope_update",
-        "state_transition_ref": "receipt.memory.stale_preference_general_scope_downgraded",
+        "state_transition_ref": "receipt.memory.real_macro.synthetic_only_fixture_downgraded_to_public_trace_floor",
         "target_refs": [
-          "route.memory.write.synthetic.preference.update"
+          "route.memory.write.macro.growth_receipt.update"
         ],
         "tool_name": "memory_temporal_conflict_replay",
         "turn_index": 2
@@ -374,25 +389,25 @@
         "action_kind": "memory_temporal_conflict_event",
         "active_injection_adopted": false,
         "agent": "microcosm_public_fixture",
-        "authority_verdict_id": "edge.memory.temporal_conflict.tool_fact.a_to_b",
+        "authority_verdict_id": "edge.memory.temporal_conflict.real_macro.operator_thread_body_to_metadata_only",
         "body_exported": false,
         "body_in_receipt": false,
         "duration_ms": 0,
         "episode_id": "episode_b_temporal_conflict",
-        "input_digest": "sha256:65b0ac8407b505d1132efab831b085fea810b8b174295229992acf3cc580dd28",
-        "memory_subject_id": "tool_fact_package_manager_v1",
+        "input_digest": "sha256:c4acce060d3faa0943dba121df374f0aef52e0c3ef46e60d38a76f69e4acb896",
+        "memory_subject_id": "operator_thread_memory_private_body_as_public_fixture_material",
         "metadata_only_ref": true,
-        "observation_ref": "evidence.memory.episode_b.tool_fact_invalidated_hash",
+        "observation_ref": "evidence.memory.real_macro.source_manifest.omitted_private_body_boundary",
         "outcome": "DELETE",
-        "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+        "private_thread_ref": "source_module_manifest.omitted_material.operator_thread_memory::metadata_only",
         "sequence_index": 3,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_b_tool_fact_delete",
-        "state_transition_ref": "receipt.memory.stale_tool_fact_deleted_before_replay",
+        "state_transition_ref": "receipt.memory.real_macro.private_thread_body_deleted_before_replay",
         "target_refs": [
-          "route.memory.write.synthetic.tool_fact.delete"
+          "route.memory.write.macro.source_manifest.delete"
         ],
         "tool_name": "memory_temporal_conflict_replay",
         "turn_index": 3
@@ -401,25 +416,25 @@
         "action_kind": "memory_temporal_conflict_event",
         "active_injection_adopted": false,
         "agent": "microcosm_public_fixture",
-        "authority_verdict_id": "route.memory.replay.synthetic.noop",
+        "authority_verdict_id": "route.memory.replay.macro.public_trace.noop",
         "body_exported": false,
         "body_in_receipt": false,
         "duration_ms": 0,
         "episode_id": "episode_c_cold_replay",
-        "input_digest": "sha256:d0366f4c809773552f2df0716416029105cdef058373a5dffe19a957b3a8cefd",
-        "memory_subject_id": "no_new_memory_write_on_replay",
+        "input_digest": "sha256:eeee7706b3a5a9c4eb77794c5b3ef1aef16d07bd9bfb0e5ecdd57a165520449e",
+        "memory_subject_id": "no_new_memory_write_on_public_trace_replay",
         "metadata_only_ref": true,
-        "observation_ref": "evidence.memory.episode_c.replay_pair_hash",
+        "observation_ref": "evidence.memory.real_macro.replay_pair_public_trace_hash",
         "outcome": "NOOP",
-        "private_thread_ref": "thread_ref.synthetic.c.metadata_only",
+        "private_thread_ref": "public_agent_execution_trace.memory_conflict_replay::metadata_only",
         "sequence_index": 4,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_c_replay_noop",
-        "state_transition_ref": "route.memory.replay.synthetic.noop",
+        "state_transition_ref": "route.memory.replay.macro.public_trace.noop",
         "target_refs": [
-          "route.memory.replay.synthetic.noop"
+          "route.memory.replay.macro.public_trace.noop"
         ],
         "tool_name": "memory_temporal_conflict_replay",
         "turn_index": 4
@@ -427,16 +442,16 @@
       {
         "action_kind": "memory_temporal_conflict_cold_replay",
         "agent": "microcosm_public_fixture",
-        "answer_delta_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
-        "answer_hash": "sha256:memory_disabled_answer_hash_public_synthetic",
+        "answer_delta_ref": "receipt.memory.real_macro.answer_delta.episode_c_memory_on_off_pair",
+        "answer_hash": "sha256:memory_disabled_answer_hash_public_real_macro_metadata",
         "authority_verdict_id": "",
         "body_in_receipt": false,
         "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
         "duration_ms": 0,
         "episode_id": "episode_c_cold_replay",
         "evidence_used_refs": [],
-        "input_digest": "sha256:65e23a3fb2506041d17002cacb70b960c9450d92add94efa5378634e6dd40fe6",
-        "observation_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
+        "input_digest": "sha256:27fabe8d5328382c6ee7e90a8228c4222841213fb99d2dda0ea57dfc4a391561",
+        "observation_ref": "receipt.memory.real_macro.answer_delta.episode_c_memory_on_off_pair",
         "outcome": "memory_disabled",
         "sequence_index": 5,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
@@ -452,19 +467,19 @@
       {
         "action_kind": "memory_temporal_conflict_cold_replay",
         "agent": "microcosm_public_fixture",
-        "answer_delta_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
-        "answer_hash": "sha256:memory_enabled_answer_hash_public_synthetic",
-        "authority_verdict_id": "evidence.memory.episode_b.preference_scope_hash;receipt.memory.stale_tool_fact_deleted_before_replay",
+        "answer_delta_ref": "receipt.memory.real_macro.answer_delta.episode_c_memory_on_off_pair",
+        "answer_hash": "sha256:memory_enabled_answer_hash_public_real_macro_metadata",
+        "authority_verdict_id": "evidence.memory.real_macro.growth_receipt.preference_scope_hash;receipt.memory.real_macro.private_thread_body_deleted_before_replay",
         "body_in_receipt": false,
         "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
         "duration_ms": 0,
         "episode_id": "episode_c_cold_replay",
         "evidence_used_refs": [
-          "evidence.memory.episode_b.preference_scope_hash",
-          "receipt.memory.stale_tool_fact_deleted_before_replay"
+          "evidence.memory.real_macro.growth_receipt.preference_scope_hash",
+          "receipt.memory.real_macro.private_thread_body_deleted_before_replay"
         ],
-        "input_digest": "sha256:c726d4a4b2d11f561c27761d4b708af241ca7f6456866f623f6aa402338c93ca",
-        "observation_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
+        "input_digest": "sha256:e5eff5038258fe16f60ab852123c316c57d132e8e748c655bd06be6d694860d6",
+        "observation_ref": "receipt.memory.real_macro.answer_delta.episode_c_memory_on_off_pair",
         "outcome": "memory_enabled",
         "sequence_index": 6,
         "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
@@ -495,7 +510,7 @@
       },
       "session_count": 1,
       "total_span_count": 7,
-      "trace_digest": "sha256:a0346b393c187d12c9989586fad00fd45f14315b94ae9dc1fb65099a29cdaa2b"
+      "trace_digest": "sha256:cbcffd04be9473a8bd70fce8a880e4daff8e606fd90d4a8a6f3ca058431e1ae3"
     },
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -522,39 +537,43 @@
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json"
   ],
   "receipt_reused": false,
   "replay_observation_count": 2,
   "replay_rows": [
     {
-      "answer_hash": "sha256:memory_disabled_answer_hash_public_synthetic",
+      "answer_hash": "sha256:memory_disabled_answer_hash_public_real_macro_metadata",
       "body_in_receipt": false,
       "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
       "computed_verdict": "accepted_replay_metadata",
       "episode_id": "episode_c_cold_replay",
+      "episode_resolved": true,
       "evidence_used_refs": [],
       "memory_enabled": false,
       "missing_required_fields": [],
       "observation_id": "episode_c_memory_disabled_replay",
       "reason_codes": [],
-      "replay_group_id": "episode_c_memory_on_off_pair"
+      "replay_group_id": "episode_c_memory_on_off_pair",
+      "unresolved_evidence_refs": []
     },
     {
-      "answer_hash": "sha256:memory_enabled_answer_hash_public_synthetic",
+      "answer_hash": "sha256:memory_enabled_answer_hash_public_real_macro_metadata",
       "body_in_receipt": false,
       "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
       "computed_verdict": "accepted_replay_metadata",
       "episode_id": "episode_c_cold_replay",
+      "episode_resolved": true,
       "evidence_used_refs": [
-        "evidence.memory.episode_b.preference_scope_hash",
-        "receipt.memory.stale_tool_fact_deleted_before_replay"
+        "evidence.memory.real_macro.growth_receipt.preference_scope_hash",
+        "receipt.memory.real_macro.private_thread_body_deleted_before_replay"
       ],
       "memory_enabled": true,
       "missing_required_fields": [],
       "observation_id": "episode_c_memory_enabled_replay",
       "reason_codes": [],
-      "replay_group_id": "episode_c_memory_on_off_pair"
+      "replay_group_id": "episode_c_memory_on_off_pair",
+      "unresolved_evidence_refs": []
     }
   ],
   "schema_version": "exported_memory_temporal_conflict_bundle_validation_result_v1",
@@ -584,8 +603,14 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
+  "source_evidence_posture": {
+    "body_in_receipt": false,
+    "private_bodies_exported": false,
+    "real_source_floor": "copied_non_secret_macro_agent_memory_body_with_provenance",
+    "source_module_manifest_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+  },
   "source_open_body_imports": {
-    "aggregate_floor_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "active_injection_authority_authorized": false,
       "live_memory_product_claim_authorized": false,
@@ -616,7 +641,7 @@
     "schema_version": "agent_memory_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+      "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
     ],
     "status": "pass"
   },

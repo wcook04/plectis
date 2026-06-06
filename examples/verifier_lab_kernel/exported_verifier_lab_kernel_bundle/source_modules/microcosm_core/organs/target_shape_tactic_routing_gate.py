@@ -105,6 +105,13 @@ ANTI_CLAIM = (
 EXPECTED_NEGATIVE_CASES = {
     "unavailable_tactic_admitted": ["TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED"],
     "unprobed_tactic_allowed": ["TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED"],
+    "shape_preferred_tactic_overridden": [
+        "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED"
+    ],
+    "unknown_shape_fallback": ["TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED"],
+    "preferred_unavailable_fallback": [
+        "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED"
+    ],
     "proof_body_leakage": ["TARGET_SHAPE_PROOF_BODY_FORBIDDEN"],
     "post_execution_route": ["TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN"],
     "release_overclaim": ["TARGET_SHAPE_RELEASE_OVERCLAIM"],
@@ -118,12 +125,37 @@ INPUT_NAMES = (
 NEGATIVE_INPUT_NAMES = (
     "unavailable_tactic_admitted.json",
     "unprobed_tactic_allowed.json",
+    "shape_preferred_tactic_overridden.json",
+    "unknown_shape_fallback.json",
+    "preferred_unavailable_fallback.json",
     "proof_body_leakage.json",
     "post_execution_route.json",
     "release_overclaim.json",
 )
 
 NEGATIVE_INPUT_NAMES_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
+
+PREFERRED_TACTICS_BY_TARGET_SHAPE: dict[str, tuple[str, ...]] = {
+    "closed_nat_mod_decision": ("decide",),
+    "rat_normalization": ("native_decide", "rfl", "decide"),
+    "int_linear_arithmetic": ("omega",),
+    "nat_arithmetic_with_variables": ("omega", "decide"),
+    "nat_arithmetic": ("omega", "decide"),
+    "true_intro": ("decide", "simp", "grind"),
+    "false_elim": ("simp_all", "grind"),
+    "conjunction": ("simp_all", "grind", "omega"),
+    "disjunction": ("simp_all", "grind"),
+    "existential": ("simp_all", "grind"),
+    "equality": ("rfl", "simp", "grind", "decide"),
+    "unknown": ("rfl", "simp", "simp_all", "grind"),
+    "nat_injective_goal": ("omega", "simp_all", "decide"),
+    "bool_decision_goal": ("decide", "simp_all", "rfl"),
+    "propositional_intro_goal": ("rfl", "simp_all", "grind"),
+    "list_length_rewrite_goal": ("simp_all", "rfl", "omega"),
+    "list_map_index_rewrite_goal": ("simp_all", "rfl", "omega"),
+    "mathlib_search_goal": ("aesop", "simp_all", "rfl"),
+}
+DEFAULT_PREFERRED_TACTICS = ("rfl", "simp", "simp_all", "grind")
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -424,6 +456,108 @@ def _decision_for_tactic(
     }
 
 
+def _preferred_tactic_ids(target_shape: str) -> list[str]:
+    return list(
+        PREFERRED_TACTICS_BY_TARGET_SHAPE.get(
+            target_shape,
+            DEFAULT_PREFERRED_TACTICS,
+        )
+    )
+
+
+def _shape_preferred_selection(
+    *,
+    target_shape: str,
+    decisions: list[dict[str, Any]],
+) -> dict[str, Any]:
+    preferred_tactic_ids = _preferred_tactic_ids(target_shape)
+    known_shape = target_shape in PREFERRED_TACTICS_BY_TARGET_SHAPE
+    decision_by_tactic = {str(decision["tactic_id"]): decision for decision in decisions}
+    allow_by_tactic = {
+        str(decision["tactic_id"]): decision
+        for decision in decisions
+        if decision.get("decision") == "allow"
+    }
+
+    skipped_preferred: list[dict[str, Any]] = []
+    for tactic_id in preferred_tactic_ids:
+        if tactic_id in allow_by_tactic:
+            fallback_reason = ""
+            selection_basis = "shape_preferred_available"
+            if not known_shape:
+                selection_basis = "unknown_shape_default_preference"
+                fallback_reason = (
+                    "target shape has no specific preference map; used the default "
+                    "safe tactic order"
+                )
+            elif skipped_preferred:
+                selection_basis = "preferred_tactic_fallback"
+                fallback_reason = (
+                    "earlier preferred tactics were not selectable; used the next "
+                    "available allowed tactic"
+                )
+            return {
+                "computed_selected_tactic_id": tactic_id,
+                "selection_basis": selection_basis,
+                "fallback_reason": fallback_reason,
+                "unknown_shape_default_used": not known_shape,
+                "skipped_preferred_tactic_ids": [
+                    str(row["tactic_id"]) for row in skipped_preferred
+                ],
+                "preferred_unavailable_tactic_ids": [
+                    str(row["tactic_id"])
+                    for row in skipped_preferred
+                    if row.get("classifier") == "UNAVAILABLE_TACTIC"
+                ],
+                "preferred_unprobed_tactic_ids": [
+                    str(row["tactic_id"])
+                    for row in skipped_preferred
+                    if row.get("classifier") == "UNPROBED_TACTIC"
+                ],
+                "preferred_not_allowed_tactic_ids": [
+                    str(row["tactic_id"])
+                    for row in skipped_preferred
+                    if row.get("classifier") == "TARGET_SHAPE_ADMISSIBILITY_REJECTED"
+                ],
+            }
+        decision = decision_by_tactic.get(tactic_id)
+        if decision is not None:
+            skipped_preferred.append(decision)
+
+    first_allowed = next(iter(allow_by_tactic), "")
+    return {
+        "computed_selected_tactic_id": first_allowed,
+        "selection_basis": "no_preferred_available_candidate_order_fallback"
+        if first_allowed
+        else "no_available_allowed_tactic",
+        "fallback_reason": (
+            "no preferred tactic was selectable; used the first available allowed "
+            "candidate"
+            if first_allowed
+            else "no candidate was both available and allowed"
+        ),
+        "unknown_shape_default_used": not known_shape,
+        "skipped_preferred_tactic_ids": [
+            str(row["tactic_id"]) for row in skipped_preferred
+        ],
+        "preferred_unavailable_tactic_ids": [
+            str(row["tactic_id"])
+            for row in skipped_preferred
+            if row.get("classifier") == "UNAVAILABLE_TACTIC"
+        ],
+        "preferred_unprobed_tactic_ids": [
+            str(row["tactic_id"])
+            for row in skipped_preferred
+            if row.get("classifier") == "UNPROBED_TACTIC"
+        ],
+        "preferred_not_allowed_tactic_ids": [
+            str(row["tactic_id"])
+            for row in skipped_preferred
+            if row.get("classifier") == "TARGET_SHAPE_ADMISSIBILITY_REJECTED"
+        ],
+    }
+
+
 def _score_case(
     row: dict[str, Any],
     *,
@@ -432,10 +566,15 @@ def _score_case(
     unavailable: set[str],
 ) -> dict[str, Any]:
     route_case_id = str(row.get("route_case_id") or "route_case")
+    target_shape = str(row.get("target_shape") or "")
     allowed = set(_strings(row.get("allowed_tactic_ids")))
     candidates = _strings(row.get("candidate_tactic_ids"))
     if not candidates:
-        candidates = sorted(allowed | set(_strings(row.get("rejected_tactic_ids"))))
+        candidates = sorted(
+            allowed
+            | set(_strings(row.get("rejected_tactic_ids")))
+            | set(_preferred_tactic_ids(target_shape))
+        )
     decisions = [
         _decision_for_tactic(
             tactic_id,
@@ -445,16 +584,13 @@ def _score_case(
         )
         for tactic_id in candidates
     ]
-    selected = str(row.get("selected_tactic_id") or row.get("expected_tactic_id") or "")
-    if not selected:
-        selected = next(
-            (
-                decision["tactic_id"]
-                for decision in decisions
-                if decision["decision"] == "allow"
-            ),
-            "",
-        )
+    declared_selected = str(row.get("selected_tactic_id") or "")
+    selection = _shape_preferred_selection(
+        target_shape=target_shape,
+        decisions=decisions,
+    )
+    computed_selected = str(selection["computed_selected_tactic_id"])
+    selected = computed_selected
     expected = str(row.get("expected_tactic_id") or selected)
     blocked_unavailable = sorted(allowed & unavailable)
     unprobed_allowed = sorted(allowed - known)
@@ -466,9 +602,17 @@ def _score_case(
         integrity_codes.append("TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED")
     if route_stage.startswith("post") or row.get("post_execution") is True:
         integrity_codes.append("TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN")
+    if declared_selected and declared_selected != computed_selected:
+        integrity_codes.append("TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED")
+        if selection["unknown_shape_default_used"]:
+            integrity_codes.append("TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED")
+        if declared_selected in selection["preferred_unavailable_tactic_ids"]:
+            integrity_codes.append(
+                "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED"
+            )
     return {
         "route_case_id": route_case_id,
-        "target_shape": str(row.get("target_shape") or ""),
+        "target_shape": target_shape,
         "source_problem_id": row.get("source_problem_id"),
         "source_problem_ids": _strings(row.get("source_problem_ids")),
         "split": row.get("split"),
@@ -485,6 +629,20 @@ def _score_case(
         },
         "allowed_tactic_ids": sorted(allowed),
         "candidate_tactic_ids": sorted(candidates),
+        "shape_preferred_tactic_ids": _preferred_tactic_ids(target_shape),
+        "selection_basis": selection["selection_basis"],
+        "fallback_reason": selection["fallback_reason"],
+        "unknown_shape_default_used": selection["unknown_shape_default_used"],
+        "skipped_preferred_tactic_ids": selection["skipped_preferred_tactic_ids"],
+        "preferred_unavailable_tactic_ids": selection[
+            "preferred_unavailable_tactic_ids"
+        ],
+        "preferred_unprobed_tactic_ids": selection["preferred_unprobed_tactic_ids"],
+        "preferred_not_allowed_tactic_ids": selection[
+            "preferred_not_allowed_tactic_ids"
+        ],
+        "declared_selected_tactic_id": declared_selected,
+        "computed_selected_tactic_id": computed_selected,
         "selected_tactic_id": selected,
         "expected_tactic_id": expected,
         "expectation_met": selected == expected and not integrity_codes,
@@ -534,6 +692,42 @@ def _route_integrity_findings(scored_cases: list[dict[str, Any]]) -> list[dict[s
                     subject_kind="route_stage",
                 )
             )
+        if (
+            "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED"
+            in case["integrity_codes"]
+        ):
+            findings.append(
+                _finding(
+                    "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED",
+                    "Declared tactic selection must match the computed shape-preferred available tactic.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
+            )
+        if "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED" in case["integrity_codes"]:
+            findings.append(
+                _finding(
+                    "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED",
+                    "Unknown target shapes must use the default safe tactic order rather than declared selection.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
+            )
+        if (
+            "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED"
+            in case["integrity_codes"]
+        ):
+            findings.append(
+                _finding(
+                    "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED",
+                    "Unavailable preferred tactics must fall back to the next available allowed tactic.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
+            )
     return findings
 
 
@@ -541,6 +735,7 @@ def _negative_findings(
     negative_payloads: dict[str, Any],
     *,
     known: set[str],
+    available: set[str],
     unavailable: set[str],
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
@@ -583,6 +778,92 @@ def _negative_findings(
                         subject_id=tactic_id,
                         subject_kind="tactic_id",
                     )
+
+    shape_preference_negative = negative_payloads.get(
+        "shape_preferred_tactic_overridden"
+    )
+    if isinstance(shape_preference_negative, dict):
+        case_id = str(
+            shape_preference_negative.get("expected_negative_case_id")
+            or "shape_preferred_tactic_overridden"
+        )
+        for row in _route_cases(shape_preference_negative) or [
+            shape_preference_negative
+        ]:
+            case = _score_case(
+                row,
+                known=known,
+                available=available,
+                unavailable=unavailable,
+            )
+            if (
+                "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED"
+                in case["integrity_codes"]
+            ):
+                _record(
+                    findings,
+                    observed,
+                    "TARGET_SHAPE_DECLARED_SELECTION_NOT_SHAPE_PREFERRED",
+                    "Declared tactic selection did not match the computed target-shape preference.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
+
+    unknown_shape_negative = negative_payloads.get("unknown_shape_fallback")
+    if isinstance(unknown_shape_negative, dict):
+        case_id = str(
+            unknown_shape_negative.get("expected_negative_case_id")
+            or "unknown_shape_fallback"
+        )
+        for row in _route_cases(unknown_shape_negative) or [unknown_shape_negative]:
+            case = _score_case(
+                row,
+                known=known,
+                available=available,
+                unavailable=unavailable,
+            )
+            if "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED" in case["integrity_codes"]:
+                _record(
+                    findings,
+                    observed,
+                    "TARGET_SHAPE_UNKNOWN_SHAPE_FALLBACK_REQUIRED",
+                    "Unknown target shape did not respect the computed default fallback.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
+
+    unavailable_fallback_negative = negative_payloads.get(
+        "preferred_unavailable_fallback"
+    )
+    if isinstance(unavailable_fallback_negative, dict):
+        case_id = str(
+            unavailable_fallback_negative.get("expected_negative_case_id")
+            or "preferred_unavailable_fallback"
+        )
+        for row in _route_cases(unavailable_fallback_negative) or [
+            unavailable_fallback_negative
+        ]:
+            case = _score_case(
+                row,
+                known=known,
+                available=available,
+                unavailable=unavailable,
+            )
+            if (
+                "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED"
+                in case["integrity_codes"]
+            ):
+                _record(
+                    findings,
+                    observed,
+                    "TARGET_SHAPE_PREFERRED_UNAVAILABLE_FALLBACK_REQUIRED",
+                    "Unavailable preferred tactic did not fall back to the next available allowed tactic.",
+                    case_id=case_id,
+                    subject_id=str(case["declared_selected_tactic_id"]),
+                    subject_kind="selected_tactic_id",
+                )
 
     proof_negative = negative_payloads.get("proof_body_leakage")
     if isinstance(proof_negative, dict):
@@ -671,6 +952,10 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         "public_contract": {
             "routing_pre_execution": True,
             "shape_admissibility_before_search": True,
+            "shape_preferred_tactic_computed": True,
+            "unknown_shape_default_fallback_computed": True,
+            "preferred_unavailable_fallback_computed": True,
+            "declared_selection_must_match_computed_preference": True,
             "unavailable_tactics_rejected": True,
             "unprobed_tactics_rejected": True,
             "source_artifact_digest_verification_required": True,
@@ -768,27 +1053,26 @@ def _common_receipt(
 
 
 def _shape_decision_card(row: dict[str, Any]) -> dict[str, Any]:
-    decisions = row.get("decisions", [])
-    if not isinstance(decisions, list):
-        decisions = []
-    rejected = sorted(
-        str(decision.get("tactic_id") or "")
-        for decision in decisions
-        if isinstance(decision, dict) and decision.get("decision") == "reject"
-    )
-    return {
+    card = {
         "route_case_id": row.get("route_case_id"),
         "target_shape": row.get("target_shape"),
-        "domain": row.get("domain"),
         "selected_tactic_id": row.get("selected_tactic_id"),
-        "expected_tactic_id": row.get("expected_tactic_id"),
-        "expectation_met": row.get("expectation_met"),
-        "pre_execution": row.get("pre_execution"),
-        "allowed_tactic_ids": row.get("allowed_tactic_ids", []),
-        "candidate_tactic_count": len(row.get("candidate_tactic_ids", [])),
-        "rejected_tactic_ids": rejected,
-        "integrity_codes": row.get("integrity_codes", []),
+        "computed_selected_tactic_id": row.get("computed_selected_tactic_id"),
     }
+    if row.get("declared_selected_tactic_id") != row.get("computed_selected_tactic_id"):
+        card["declared_selected_tactic_id"] = row.get("declared_selected_tactic_id")
+    if row.get("selection_basis") != "shape_preferred_available":
+        card["shape_preferred_tactic_ids"] = row.get("shape_preferred_tactic_ids", [])
+        card["selection_basis"] = row.get("selection_basis")
+    skipped = row.get("skipped_preferred_tactic_ids", [])
+    if skipped:
+        card["skipped_preferred_tactic_ids"] = skipped
+    unavailable = row.get("preferred_unavailable_tactic_ids", [])
+    if unavailable:
+        card["preferred_unavailable_tactic_ids"] = unavailable
+    if row.get("unknown_shape_default_used"):
+        card["unknown_shape_default_used"] = True
+    return card
 
 
 def _result_card(result: dict[str, Any]) -> dict[str, Any]:
@@ -887,14 +1171,7 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
-    return [_receipt_ref(path, public_root=public_root) for path in paths.values()]
-
-
-def _receipt_ref(path: Path, *, public_root: Path) -> str:
-    if "receipts" in path.parts:
-        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
-        return Path(*path.parts[receipts_index:]).as_posix()
-    return _display(path, public_root=public_root)
+    return [_display(path, public_root=public_root) for path in paths.values()]
 
 
 def _build_result(
@@ -945,6 +1222,7 @@ def _build_result(
     negative = _negative_findings(
         negative_payloads,
         known=known,
+        available=available,
         unavailable=unavailable,
     )
     observed = negative["observed_negative_cases"]
@@ -1088,6 +1366,10 @@ def write_receipts(
             if not result["missing_negative_cases"]
             else "blocked",
             "routing_pre_execution": True,
+            "shape_preferred_tactic_computed": True,
+            "unknown_shape_default_fallback_computed": True,
+            "preferred_unavailable_fallback_computed": True,
+            "declared_selection_must_match_computed_preference": True,
             "unavailable_tactics_rejected": True,
             "unprobed_tactics_rejected": True,
             "proof_bodies_excluded": True,
@@ -1169,7 +1451,13 @@ def run_routing_bundle(
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
-    receipt_ref = _receipt_ref(receipt_path, public_root=public_root)
+    receipt_ref = _display(receipt_path, public_root=public_root)
+    receipt_in_public_root = receipt_path.resolve(strict=False).is_relative_to(
+        public_root.resolve(strict=False)
+    )
+    if not receipt_in_public_root and "receipts" in receipt_path.parts:
+        receipts_index = len(receipt_path.parts) - 1 - list(reversed(receipt_path.parts)).index("receipts")
+        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
     receipt = _common_receipt(
         result,
         schema_version="target_shape_tactic_routing_exported_bundle_receipt_v1",

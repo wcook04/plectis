@@ -1,0 +1,148 @@
+{
+  "schema_version": "microcosm_public_site_ready_payload_v1",
+  "payload_id": "site_ready.batch7_oracle_sibling_capsule.20260604T0750Z",
+  "subject": {
+    "paper_module_id": "paper_module.batch7_oracle_sibling_capsule",
+    "mechanism_id": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+    "authority_source_refs": [
+      "microcosm-substrate/core/paper_module_capsules.json::paper_modules[82:paper_module.batch7_oracle_sibling_capsule]",
+      "microcosm-substrate/core/mechanism_sources.json::mechanisms[86:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule]",
+      "microcosm-substrate/paper_modules/batch7_oracle_sibling_capsule.json",
+      "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json"
+    ],
+    "authority_ceiling": "Mechanism-backed paper-module source availability only; no accepted-organ authority, linked Atlas card authority, semantic truth authority, provider dispatch, source mutation, publication approval, release approval, complete Oracle coverage, or whole-system correctness."
+  },
+  "live_site_write_decision": {
+    "status": "deferred_site_ready_payload_emitted",
+    "reason": "Live site files already carried unrelated working-tree edits; this lane did not claim or overwrite them.",
+    "dirty_live_site_paths_observed": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/style.css",
+      "sites/microcosm/index.html"
+    ],
+    "safe_reentry_condition": "After the live site owner lands or reconciles the existing site edits, run the existing public-site builder from repo root and review only the generated projection delta."
+  },
+  "site_builder_contract": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "source_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "source_refs_consumed": [
+      "microcosm-substrate/core/paper_module_capsules.json",
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/paper_modules/batch7_oracle_sibling_capsule.json",
+      "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json"
+    ],
+    "handoff_commands": [
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ]
+  },
+  "temp_builder_receipt": {
+    "temp_site_root": "/tmp/microcosm-oracle-site.hQ8rgR",
+    "write_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-oracle-site.hQ8rgR --write --validate",
+    "check_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-oracle-site.hQ8rgR --check --validate",
+    "write_status": "written",
+    "check_status": "pass",
+    "drift_count": 0,
+    "validation_status": "pass",
+    "validation_summary": {
+      "html_file_count": 18,
+      "internal_links_checked": 2535,
+      "internal_links_missing": [],
+      "private_scan_hit_count": 0,
+      "banned_visible_term_hits": [],
+      "external_asset_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "missing_security_headers": [],
+      "unsafe_url_hit_count": 0
+    },
+    "generated_outputs_written": [
+      "assets/object-map.js",
+      "assets/search-index.js",
+      "assets/site-packet.js",
+      "content-graph.json",
+      "content-manifest.json",
+      "docs/paper-modules.html",
+      "docs/rules-and-ideas.html",
+      "docs/source.html",
+      "llms.txt",
+      "object-map.json",
+      "projection-status.json"
+    ]
+  },
+  "content_graph_delta": {
+    "schema": "microcosm_public_content_graph_v1",
+    "source_fingerprint": "d3160c825d4f7f4cb25d81efe8f1b789",
+    "paper_module_count": 83,
+    "paper_module_availability_gap_count": 15,
+    "coverage_deficit_count": 5,
+    "source_hashes": {
+      "microcosm-substrate/core/paper_module_capsules.json": "sha256:3f601a014908b036f1b4468f390422d102591489fefdbbdf66a7c4374f1410cd",
+      "microcosm-substrate/core/mechanism_sources.json": "sha256:9f26ec361d412640fe5e2065a94714421a0bd6a6cd319083c30bccb0720e58f6",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:82df91a052cc6a126ba2abaa44741c5ddf23f64b615cb88ea3e3c3f5322798cb"
+    },
+    "paper_module_record": {
+      "paper_module_id": "paper_module.batch7_oracle_sibling_capsule",
+      "title": "Set 7 Oracle Sibling Bundle",
+      "anchor": "paper-module-batch7-oracle-sibling-capsule",
+      "route": "paper-modules.html#paper-module-batch7-oracle-sibling-capsule",
+      "summary_line": "Set 7 Oracle Sibling Bundle imports public-safe Oracle sibling source bodies and exercises deterministic subject-index, snapshot, truth-diff, quartet-plan, and original pytest witness boundaries.",
+      "doctrine_feed_links": [
+        {
+          "kind": "mechanism",
+          "id": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+          "relation": "explains",
+          "route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch7-oracle-sibling-capsule-validates-public-oracle-sibling-capsule"
+        },
+        {
+          "kind": "concept",
+          "id": "concept.import_projection_and_drift_control_bundle",
+          "relation": "governed by",
+          "route": "rules-and-ideas.html#lattice-concept-concept-import-projection-and-drift-control-bundle"
+        }
+      ]
+    }
+  },
+  "object_map_delta": {
+    "object_count": 771,
+    "kind_counts": {
+      "mechanism": 87,
+      "paper_module": 83,
+      "paper_module_gap": 15,
+      "relation": 190
+    },
+    "paper_module_object": {
+      "id": "paper_module:paper_module.batch7_oracle_sibling_capsule",
+      "kind": "paper_module",
+      "label": "Set 7 Oracle Sibling Bundle",
+      "route": "paper-modules.html#paper-module-batch7-oracle-sibling-capsule",
+      "searchable": true,
+      "source_linked": true,
+      "backrefs": [
+        "mechanism:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+        "concept:concept.import_projection_and_drift_control_bundle"
+      ]
+    },
+    "mechanism_object": {
+      "id": "mechanism:mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+      "kind": "mechanism",
+      "label": "validates public oracle sibling bundle",
+      "route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch7-oracle-sibling-capsule-validates-public-oracle-sibling-capsule",
+      "searchable": true,
+      "source_linked": true
+    }
+  },
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false
+  }
+}

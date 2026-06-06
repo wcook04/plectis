@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 6 validates exact copied non-secret macro source bodies and public synthetic exercises for keyphrase scoring, schema-loose distillation, operator handoff scoring, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping. It is not live operator memory, not raw prompt-shelf content, not live market data, not provider/browser state, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch6_unsurfaced_primitives_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule"
+}

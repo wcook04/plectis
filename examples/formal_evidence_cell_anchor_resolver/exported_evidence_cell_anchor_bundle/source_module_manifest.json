@@ -130,7 +130,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 103974,
+      "byte_count": 104174,
       "line_count": 1590,
       "material_class": "public_macro_pattern_body",
       "module_id": "std_paper_module_formal_evidence_cells_contract_body_import",
@@ -141,15 +141,15 @@
         "\"registry_source\"",
         "\"cell_id_resolver_contract\""
       ],
-      "sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511",
+      "sha256": "1c938fb3497d77378ae577dcc8478621c8b6978f6352e5968c042226c1d8479c",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "codex/standards/std_paper_module.json",
       "source_role": "Standard body containing the formal_evidence_cells contract, runtime owner binding, registry source, signal classes, and cell-id resolver contract.",
-      "source_sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511",
+      "source_sha256": "1c938fb3497d77378ae577dcc8478621c8b6978f6352e5968c042226c1d8479c",
       "source_to_target_relation": "source_faithful_public_safe_exact_copy",
       "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/codex/standards/std_paper_module.json",
-      "target_sha256": "8e671205ee4cfa7ac8a2cf726797d829d57122733b26ce34819f5dccc8a65511"
+      "target_sha256": "1c938fb3497d77378ae577dcc8478621c8b6978f6352e5968c042226c1d8479c"
     }
   ],
   "omitted_material": [

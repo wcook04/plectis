@@ -18,6 +18,10 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
         "The smoke target is the no-install public sanity check."
     )
     assert "`.microcosm/` route state through `tour --card`" in text
+    assert "Microcosm smoke check: pass" in text
+    assert "authority: pass" in text
+    assert "workingness: clear" in text
+    assert "served status: pass" in text
     assert "make install" in text
     assert ".venv/bin/python -m pip install -e '.[test]'" in text
     assert ".venv/bin/microcosm hello ." in text
@@ -30,8 +34,30 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "make clean` removes the shared" in text
     assert "scratch root stays outside" in text
     assert "the checkout so tests" in text
+    assert "run separate pytest subsets at the same time" in text
+    assert "unique `--basetemp` to each process" in text
+    assert "parallel direct invocations can race" in text
+    source_only_section = text.split(
+        "If editable install is not available",
+        1,
+    )[1].split("## Standalone Candidate Export", 1)[0]
+    assert "source-only minimum: map, reader branches, behavior proof, then" in text
     for command in (
         "PYTHONPATH=src python3 -m microcosm_core hello .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader cold_cloner .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader agent .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader domain_specialist .",
+        "PYTHONPATH=src python3 -m microcosm_core tour --card .",
+        "PYTHONPATH=src python3 -m microcosm_core status --card .",
+    ):
+        assert command in source_only_section
+    for command in (
+        "PYTHONPATH=src python3 -m microcosm_core hello .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader cold_cloner .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader agent .",
+        "PYTHONPATH=src python3 -m microcosm_core hello --reader domain_specialist .",
         "PYTHONPATH=src python3 -m microcosm_core tour --card .",
         "PYTHONPATH=src python3 -m microcosm_core status --card .",
         "PYTHONPATH=src python3 -m microcosm_core authority --card",
@@ -41,6 +67,12 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
         "PYTHONPATH=src python3 -m microcosm_core stripping-guard",
     ):
         assert command in text
+    assert "The reader-specific `hello` rows in that source-form smoke are branch checks" in text
+    assert "`cold_cloner` / `cold-cloner`" in text
+    assert "`skeptical_reviewer` /\n`skeptical-reviewer`" in text
+    assert "`agent` / `type-a-agent` are aliases" in text
+    assert "`domain_specialist` / `domain-specialist` is the\nspecialty" in text
+    assert "generated organ specialty index" in " ".join(text.split())
     assert (
         "PYTHONPATH=src .venv/bin/python -m pytest tests/test_public_entry_docs.py "
         "tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py"
@@ -70,6 +102,35 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "belongs in its owner lane" in text
     assert "and `make ci` are the" in text
     assert "standalone public verification floor" in text
+    assert "For a broad cold-clone smoke" not in text
+    assert "bounded cold-clone probe" in text
+    assert "fixture availability, secret" in text
+    assert "exclusion, and pattern-binding receipts" in text
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in text
     assert "--emit receipts/cold_clone_probe.json" not in text
     assert "--emit receipts/cold_clone_probe_local.json" not in text
+
+
+def test_pull_request_template_keeps_public_boundary_inline() -> None:
+    template = (
+        MICROCOSM_ROOT / ".github/PULL_REQUEST_TEMPLATE.md"
+    ).read_text(encoding="utf-8")
+    contributing = (MICROCOSM_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+
+    assert ".github/PULL_REQUEST_TEMPLATE.md" in contributing
+    assert "inline checklist" in contributing
+    assert "not a release approval surface" in contributing
+
+    for phrase in (
+        "What public runtime, fixture, receipt, standard, doc, or test surface changed?",
+        "Ran the focused tests for the touched surface.",
+        "Ran `make ci` or explained why a narrower validation lane is sufficient.",
+        "not a host interpreter by accident",
+        "No secrets, credentials, sessions, provider payload bodies",
+        "No source-mutation, provider-call, hosted-release, recipient-send",
+        "Synthetic fixtures are used only as regression wrappers",
+        "runnable behavior, a validator, a receipt, or an explicit omission boundary",
+        "release_authorized=false",
+        "New GitHub/source surfaces are included in `MANIFEST.in`, package data, or release export",
+    ):
+        assert phrase in template

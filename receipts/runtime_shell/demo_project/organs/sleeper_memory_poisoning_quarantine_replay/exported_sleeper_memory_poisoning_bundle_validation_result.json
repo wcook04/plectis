@@ -37,13 +37,13 @@
   "body_text_in_receipt": false,
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-30T21:37:01+00:00",
+  "created_at": "2026-06-01T04:19:41+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.sleeper_memory_poisoning_quarantine_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:b390404d506fbaa605f3104fec74160e1965dae97be5d6205b97ceb76ce57e9c",
+    "basis_digest": "sha256:e3e502e2da2bd138c16c76548b36e5bf22a8f66cec5e70758be1beb0c60bdadc",
     "card_schema_version": "sleeper_memory_poisoning_quarantine_command_card_v1",
     "include_negative": false,
     "input_count": 16,
@@ -85,7 +85,7 @@
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
-        "sha256": "sha256:c8a76de2c2c2ff575be2100ee290c95955c09c66919bc85f012e7e1a669132ca",
+        "sha256": "sha256:8678a42c9709bad5b866ef438bc28400de49573ed6b78800f4a9f6b8f934395b",
         "size_bytes": 16354
       },
       {
@@ -105,13 +105,13 @@
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
-        "sha256": "sha256:35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
-        "size_bytes": 37989
+        "sha256": "sha256:33763b6712dde78b2a3a8db63c42f8d20a3baed1adbded2634a987185c5ded21",
+        "size_bytes": 39882
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",

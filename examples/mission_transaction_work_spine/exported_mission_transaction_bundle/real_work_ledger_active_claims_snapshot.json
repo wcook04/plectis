@@ -1,0 +1,221 @@
+{
+  "schema_version": "mission_transaction_work_spine_real_active_claims_snapshot_v1",
+  "fixture_id": "real_work_ledger_active_claims_snapshot_20260604T102538Z",
+  "source_snapshot_ref": "state/work_ledger/active_claims_snapshot.json",
+  "source_snapshot_hash": "9ebd98b7c677bd14c810ec3a82d58522bb1c6507f26a7c0b6b184a742b6735f8",
+  "snapshot_now": "2026-06-04T10:25:45+00:00",
+  "source_session_id": "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade",
+  "subject_ids": [
+    "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
+  ],
+  "owned_paths": [
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
+  ],
+  "sanitization_boundary": {
+    "status": "public_safe",
+    "source": "work_ledger_session_preflight_public_claim_metadata",
+    "kept_fields": [
+      "session_id",
+      "actor",
+      "phase_id",
+      "claim_id",
+      "scope_kind",
+      "scope_id",
+      "path",
+      "work_item_id",
+      "claim_intent",
+      "conflict_scope_kind",
+      "claimed_at",
+      "leased_until",
+      "released_at",
+      "expired_at",
+      "require_exclusive",
+      "pass_heartbeat_public_lines"
+    ],
+    "excluded_payload_classes": [
+      "ledger_body",
+      "transcript_body",
+      "provider_payload",
+      "account_state",
+      "secret_value",
+      "absolute_mac_path",
+      "operator_private_thread_body"
+    ],
+    "body_in_receipt": false
+  },
+  "expected_parent_by_claim": {
+    "wlc_fb7e1f4568b3403f": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_65546345964947da": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_f66601b816984b71": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_9039e3dbc8934869": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29"
+  },
+  "current_parent_by_claim": {
+    "wlc_fb7e1f4568b3403f": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_65546345964947da": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_f66601b816984b71": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29",
+    "wlc_9039e3dbc8934869": "49ce09d6e870ba0c88a6a2897f3f2d531c891e29"
+  },
+  "checkpoint_lane_policy": {
+    "schema_version": "mission_transaction_real_snapshot_checkpoint_lane_policy_v1",
+    "body_in_receipt": false,
+    "lane_cases": [
+      {
+        "case_id": "real_snapshot_scoped_commit",
+        "selected_lane": "scoped_commit",
+        "dirty_tree_present": true,
+        "owned_paths_isolated": true,
+        "operator_authorized_broad_checkpoint": false,
+        "broad_checkpoint_requested": false,
+        "suspected_secret": false,
+        "dirty_tree_blocks_scoped_lane": false
+      }
+    ]
+  },
+  "mutation_cases": {
+    "same_path_conflict": {
+      "claim_id": "wlc_real_snapshot_same_path_conflict",
+      "session_id": "public_safe_same_path_conflict_mutation_session",
+      "actor": "public_safe_conflict_mutation",
+      "phase_id": "09_54_1",
+      "claimed_at": "2026-06-04T10:26:00+00:00",
+      "leased_until": "2026-06-04T11:10:38.504743+00:00"
+    },
+    "expected_parent_mismatch": {
+      "claim_id": "wlc_fb7e1f4568b3403f",
+      "mutated_expected_parent_sha": "0000000000000000000000000000000000000000"
+    }
+  },
+  "runtime_status": {
+    "schema": "work_ledger_runtime_status_v1",
+    "sessions": {
+      "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade": {
+        "session_id": "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade",
+        "actor": "codex_goal_microcosm_realness",
+        "phase_id": "09_54_1",
+        "family_id": "09",
+        "bootstrapped_at": "2026-06-04T10:25:38.504569+00:00",
+        "last_activity_at": "2026-06-04T10:25:38.534545+00:00",
+        "last_activity_action": "session-heartbeat",
+        "touched_work": true,
+        "ended_at": null,
+        "pass_heartbeat": {
+          "schema": "runtime_pass_heartbeat_v0",
+          "session_id": "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade",
+          "actor": "codex_goal_microcosm_realness",
+          "phase_id": "09_54_1",
+          "family_id": "09",
+          "pass_id": "wlp_1b3260f393404f96",
+          "pass_seq": 1,
+          "pass_state": "editing",
+          "current_pass_line": "Upgrading mission_transaction_work_spine real claim snapshot fixture and exact-copy drift.",
+          "last_pass_result_line": "Worklist row, dry-run drift, and focused baseline tests observed.",
+          "scope_refs": [
+            {
+              "kind": "ref",
+              "ref": "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py"
+            },
+            {
+              "kind": "ref",
+              "ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+            }
+          ],
+          "updated_at": "2026-06-04T10:25:38.534545+00:00",
+          "expires_at": "2026-06-04T14:25:38.534545+00:00",
+          "current_pass_updated_at": "2026-06-04T10:25:38.534545+00:00",
+          "last_pass_completed_at": "2026-06-04T10:25:38.534545+00:00",
+          "source": "manual_cli"
+        },
+        "claims": [
+          {
+            "claim_id": "wlc_9d0e4c6f29ef4aee",
+            "scope_kind": "work_item_id",
+            "scope_id": "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604",
+            "td_id": "",
+            "path": "",
+            "work_item_id": "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604",
+            "claim_intent": "hard_mutation",
+            "conflict_scope_kind": "work_item_id",
+            "claimed_at": "2026-06-04T10:25:38.504743+00:00",
+            "leased_until": "2026-06-04T11:10:38.504743+00:00",
+            "released_at": null,
+            "expired_at": null,
+            "note": null,
+            "release_reason": null,
+            "require_exclusive": true
+          },
+          {
+            "claim_id": "wlc_fb7e1f4568b3403f",
+            "scope_kind": "path",
+            "scope_id": "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+            "td_id": "",
+            "path": "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+            "work_item_id": "",
+            "claim_intent": "hard_mutation",
+            "conflict_scope_kind": "path",
+            "claimed_at": "2026-06-04T10:25:38.504743+00:00",
+            "leased_until": "2026-06-04T11:10:38.504743+00:00",
+            "released_at": null,
+            "expired_at": null,
+            "note": null,
+            "release_reason": null,
+            "require_exclusive": true
+          },
+          {
+            "claim_id": "wlc_65546345964947da",
+            "scope_kind": "path",
+            "scope_id": "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+            "td_id": "",
+            "path": "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+            "work_item_id": "",
+            "claim_intent": "hard_mutation",
+            "conflict_scope_kind": "path",
+            "claimed_at": "2026-06-04T10:25:38.504743+00:00",
+            "leased_until": "2026-06-04T11:10:38.504743+00:00",
+            "released_at": null,
+            "expired_at": null,
+            "note": null,
+            "release_reason": null,
+            "require_exclusive": true
+          },
+          {
+            "claim_id": "wlc_f66601b816984b71",
+            "scope_kind": "path",
+            "scope_id": "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+            "td_id": "",
+            "path": "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+            "work_item_id": "",
+            "claim_intent": "hard_mutation",
+            "conflict_scope_kind": "path",
+            "claimed_at": "2026-06-04T10:25:38.504743+00:00",
+            "leased_until": "2026-06-04T11:10:38.504743+00:00",
+            "released_at": null,
+            "expired_at": null,
+            "note": null,
+            "release_reason": null,
+            "require_exclusive": true
+          },
+          {
+            "claim_id": "wlc_9039e3dbc8934869",
+            "scope_kind": "path",
+            "scope_id": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+            "td_id": "",
+            "path": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+            "work_item_id": "",
+            "claim_intent": "hard_mutation",
+            "conflict_scope_kind": "path",
+            "claimed_at": "2026-06-04T10:25:38.504743+00:00",
+            "leased_until": "2026-06-04T11:10:38.504743+00:00",
+            "released_at": null,
+            "expired_at": null,
+            "note": null,
+            "release_reason": null,
+            "require_exclusive": true
+          }
+        ]
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -89,9 +90,12 @@ REQUIRED_MEMORY_EVENT_FIELDS = (
     "event_id",
     "episode_id",
     "episode_order",
+    "event_timestamp",
     "memory_route_ref",
     "decision",
     "memory_subject_id",
+    "memory_priority",
+    "source_trust_score",
     "evidence_handle_ref",
     "private_thread_ref",
     "metadata_only_ref",
@@ -128,6 +132,22 @@ SOURCE_MODULE_RELATIONS = {
     "exact_copy",
     "source_faithful_json_slice",
 }
+REAL_TRACE_EVENT_FIELDS = (
+    "sanitized_real_episode",
+    "source_artifact_ref",
+    "source_event_ref",
+)
+TIMESTAMP_FIELDS = ("event_timestamp", "timestamp", "occurred_at")
+PRIORITY_FIELDS = ("memory_priority", "priority", "priority_score")
+SOURCE_TRUST_FIELDS = ("source_trust_score", "source_trust", "trust_score")
+SOURCE_TRUST_LABEL_SCORES = {
+    "digest_verified_public_source": 1.0,
+    "trusted_public_source": 0.95,
+    "public_sanitized_source": 0.85,
+    "metadata_only_private_ref": 0.65,
+    "untrusted_source": 0.0,
+}
+SOURCE_TRUST_FLOOR = 0.6
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -148,9 +168,10 @@ ANTI_CLAIM = (
     "Agent memory temporal-conflict replay validates a public three-episode "
     "memory update/replay contract with conflict edges, stale downgrades, "
     "metadata-only private refs, paired memory-on/off replay, public execution "
-    "trace spans, negative cases, and receipts. Synthetic rows remain fixture "
-    "inputs around that real replay contract. It does not claim live memory "
-    "product quality, export private "
+    "trace spans, negative cases, and receipts. The first-wave fixture rows are "
+    "byte-aligned with the exported sanitized real memory stream and remain "
+    "regression inputs around that real replay contract. It does not claim live "
+    "memory product quality, export private "
     "transcripts, promote private candidates, treat memory recall as source "
     "authority, adopt active injection, call providers, mutate source, or "
     "authorize release."
@@ -187,6 +208,67 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _first_present(row: dict[str, Any], keys: tuple[str, ...]) -> object | None:
+    for key in keys:
+        value = row.get(key)
+        if value not in ("", None):
+            return value
+    return None
+
+
+def _number(value: object) -> float | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return None
+    return None
+
+
+def _normalized_timestamp(value: object) -> str | None:
+    if value in ("", None) or isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return datetime.fromtimestamp(float(value), tz=timezone.utc).isoformat()
+    if not isinstance(value, str):
+        return None
+    raw = value.strip()
+    if not raw:
+        return None
+    normalized = raw[:-1] + "+00:00" if raw.endswith("Z") else raw
+    try:
+        parsed = datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc).isoformat()
+
+
+def _timestamp_sort_value(value: object) -> float | None:
+    normalized = _normalized_timestamp(value)
+    if normalized is None:
+        return None
+    try:
+        return datetime.fromisoformat(normalized).timestamp()
+    except ValueError:
+        return None
+
+
+def _explicit_source_trust_score(row: dict[str, Any]) -> tuple[float | None, bool]:
+    value = _first_present(row, SOURCE_TRUST_FIELDS)
+    if value is not None:
+        return _number(value), True
+    label = str(row.get("source_trust_label") or "")
+    if label:
+        return SOURCE_TRUST_LABEL_SCORES.get(label), True
+    return None, False
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -209,7 +291,25 @@ def _sha256(path: Path) -> str:
     return "sha256:" + digest.hexdigest()
 
 
-def _source_module_manifest_path(input_dir: Path) -> Path:
+def _source_evidence_posture(payload: object) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {}
+    posture = payload.get("source_evidence_posture", {})
+    return posture if isinstance(posture, dict) else {}
+
+
+def _source_module_manifest_path(
+    input_dir: Path,
+    *,
+    public_root: Path | None = None,
+    source_evidence_posture: dict[str, Any] | None = None,
+) -> Path:
+    posture = source_evidence_posture or {}
+    manifest_ref = str(posture.get("source_module_manifest_ref") or "")
+    if manifest_ref and public_root is not None:
+        return public_root / _strip_microcosm_prefix(manifest_ref)
+    if manifest_ref:
+        return _public_root_for_path(input_dir) / _strip_microcosm_prefix(manifest_ref)
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
 
@@ -229,8 +329,17 @@ def _source_module_target_path(
     return public_root, ""
 
 
-def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
-    manifest_path = _source_module_manifest_path(input_dir)
+def _source_artifact_paths(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    source_evidence_posture: dict[str, Any] | None = None,
+) -> list[Path]:
+    manifest_path = _source_module_manifest_path(
+        input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_evidence_posture,
+    )
     if not manifest_path.is_file():
         return []
     manifest = read_json_strict(manifest_path)
@@ -252,8 +361,21 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
         source = Path.cwd() / source
     public_root = _public_root_for_path(source)
     paths = _input_paths(source, include_negative=include_negative)
-    if not include_negative:
-        paths = [*paths, *_source_artifact_paths(source, public_root=public_root)]
+    source_posture: dict[str, Any] = {}
+    memory_path = source / "memory_episodes.json"
+    if memory_path.is_file():
+        try:
+            source_posture = _source_evidence_posture(read_json_strict(memory_path))
+        except (OSError, ValueError, TypeError):
+            source_posture = {}
+    paths = [
+        *paths,
+        *_source_artifact_paths(
+            source,
+            public_root=public_root,
+            source_evidence_posture=source_posture,
+        ),
+    ]
 
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
@@ -347,8 +469,13 @@ def validate_source_module_imports(
     input_dir: Path,
     *,
     public_root: Path,
+    source_evidence_posture: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_path = _source_module_manifest_path(
+        input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_evidence_posture,
+    )
     manifest_ref = _display(manifest_path, public_root=public_root)
     findings: list[dict[str, Any]] = []
     modules: list[dict[str, Any]] = []
@@ -388,6 +515,16 @@ def validate_source_module_imports(
             _finding(
                 "MEMORY_CONFLICT_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
                 "Copied agent-memory macro bodies may live in source_artifacts, not in receipts.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_text_in_receipt") is True:
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "Copied agent-memory macro body text may not be exported in receipts.",
                 case_id="source_module_manifest_floor",
                 subject_id=manifest_ref,
                 subject_kind="source_module_manifest",
@@ -444,6 +581,16 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        if row.get("body_text_in_receipt") is True:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                    "Source module rows must not export copied macro body text in receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
         if relation not in SOURCE_MODULE_RELATIONS:
             findings.append(
                 _finding(
@@ -487,6 +634,7 @@ def validate_source_module_imports(
                 "line_count": row.get("line_count"),
                 "source_to_target_relation": relation,
                 "body_in_receipt": False,
+                "body_text_in_receipt": False,
             }
         )
 
@@ -618,8 +766,145 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _replay_reference_index(memory_rows: list[dict[str, Any]]) -> dict[str, set[str]]:
+    episode_ids = {
+        str(row.get("episode_id") or "")
+        for row in memory_rows
+        if row.get("episode_id")
+    }
+    evidence_refs: set[str] = set()
+    for row in memory_rows:
+        for key in (
+            "evidence_handle_ref",
+            "conflict_edge_ref",
+            "stale_downgrade_ref",
+            "prompt_adoption_observation_ref",
+        ):
+            value = row.get(key)
+            if isinstance(value, str) and value:
+                evidence_refs.add(value)
+    return {"episode_ids": episode_ids, "evidence_refs": evidence_refs}
+
+
+def _trace_spans_by_id(
+    public_agent_execution_trace: dict[str, Any] | None,
+) -> dict[str, dict[str, Any]]:
+    if not isinstance(public_agent_execution_trace, dict):
+        return {}
+    spans = public_agent_execution_trace.get("spans", [])
+    if not isinstance(spans, list):
+        return {}
+    return {
+        str(span.get("span_id") or ""): span
+        for span in spans
+        if isinstance(span, dict) and span.get("span_id")
+    }
+
+
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     return any(key in row for key in FORBIDDEN_KEYS)
+
+
+def _ref_base(ref: object) -> str:
+    return str(ref or "").split("::", 1)[0]
+
+
+def _source_event_alignment_index(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    source_evidence_posture: dict[str, Any],
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(
+        input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_evidence_posture,
+    )
+    if not manifest_path.is_file():
+        return {"modules": {}, "omitted_source_refs": set(), "manifest_ref": ""}
+    manifest = read_json_strict(manifest_path)
+    modules: dict[str, set[str]] = {}
+    for row in _rows(manifest, "modules"):
+        _target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        artifact_refs = {
+            _strip_microcosm_prefix(target_ref),
+            _strip_microcosm_prefix(str(row.get("target_ref") or "")),
+            str(row.get("path") or ""),
+        }
+        source_ref = str(row.get("source_ref") or "")
+        for artifact_ref in artifact_refs:
+            if artifact_ref and source_ref:
+                modules.setdefault(artifact_ref, set()).add(source_ref)
+    omitted_refs = {
+        str(row.get("source_ref") or "")
+        for row in _rows(manifest, "omitted_material")
+        if row.get("source_ref")
+    }
+    return {
+        "modules": modules,
+        "omitted_source_refs": omitted_refs,
+        "manifest_ref": _display(manifest_path, public_root=public_root),
+    }
+
+
+def _source_event_ref_matches(source_event_ref: str, allowed_refs: set[str]) -> bool:
+    return any(
+        source_event_ref == allowed
+        or source_event_ref.startswith(f"{allowed}::")
+        or source_event_ref.startswith(f"{allowed}.")
+        for allowed in allowed_refs
+    )
+
+
+def _apply_source_event_alignment(
+    event_rows: list[dict[str, Any]],
+    *,
+    input_dir: Path,
+    public_root: Path,
+    source_evidence_posture: dict[str, Any],
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> None:
+    index = _source_event_alignment_index(
+        input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_evidence_posture,
+    )
+    modules: dict[str, set[str]] = index["modules"]
+    omitted_source_refs: set[str] = index["omitted_source_refs"]
+    manifest_ref = str(index["manifest_ref"] or "")
+    for row in event_rows:
+        event_id = str(row["event_id"])
+        source_artifact_ref = str(row.get("source_artifact_ref") or "")
+        source_event_ref = str(row.get("source_event_ref") or "")
+        artifact_base = _strip_microcosm_prefix(_ref_base(source_artifact_ref))
+        reason_codes = row["reason_codes"]
+        verified = False
+        if source_artifact_ref.startswith("microcosm_core."):
+            verified = source_event_ref.startswith("receipts/") and "::" in source_event_ref
+        elif artifact_base == manifest_ref and omitted_source_refs:
+            verified = _source_event_ref_matches(source_event_ref, omitted_source_refs)
+        elif artifact_base in modules:
+            verified = _source_event_ref_matches(source_event_ref, modules[artifact_base])
+        if not verified:
+            reason_codes.append("source_event_ref_unverified")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_SOURCE_EVENT_REF_UNVERIFIED",
+                "Positive memory rows must link source_event_ref to the digest-verified public source artifact they cite.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        row["source_event_verified"] = verified
+        row["reason_codes"] = sorted(set(reason_codes))
+        if row["reason_codes"]:
+            row["computed_verdict"] = "quarantine"
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
@@ -806,6 +1091,17 @@ def _validate_event_row(
             subject_id=event_id,
             subject_kind=subject_kind,
         )
+        if not negative and not row.get("stale_downgrade_ref"):
+            reasons.append("stale_override_without_downgrade_receipt")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_STALE_OVERRIDE_DOWNGRADE_MISSING",
+                "A positive stale override row must carry a stale-downgrade receipt before it can affect replay.",
+                case_id=case_id,
+                subject_id=event_id,
+                subject_kind=subject_kind,
+            )
     if row.get("source_authority_claim") is True or row.get("memory_as_source_authority") is True:
         reasons.append("memory_as_source_authority")
         _record(
@@ -839,10 +1135,129 @@ def _validate_event_row(
             subject_id=event_id,
             subject_kind=subject_kind,
         )
+    real_trace_fields_missing = [
+        field
+        for field in REAL_TRACE_EVENT_FIELDS
+        if row.get(field) in ("", None) or (
+            field == "sanitized_real_episode" and row.get(field) is not True
+        )
+    ]
+    if not negative and real_trace_fields_missing:
+        reasons.append("real_trace_source_evidence_missing")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_REAL_TRACE_SOURCE_EVIDENCE_MISSING",
+            "Positive memory rows must cite sanitized real trace provenance, not only synthetic replay shape.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    conflict_edge_ref = str(row.get("conflict_edge_ref") or "")
+    stale_downgrade_ref = str(row.get("stale_downgrade_ref") or "")
+    event_timestamp = _normalized_timestamp(_first_present(row, TIMESTAMP_FIELDS))
+    memory_priority = _number(_first_present(row, PRIORITY_FIELDS))
+    source_trust_score, source_trust_explicit = _explicit_source_trust_score(row)
+    if not negative and event_timestamp is None:
+        reasons.append("event_timestamp_missing_or_invalid")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_TIMESTAMP_MISSING_OR_INVALID",
+            "Positive memory rows must carry a public-safe timestamp for semantic replay recomputation.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if not negative and memory_priority is None:
+        reasons.append("memory_priority_missing_or_invalid")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_PRIORITY_MISSING_OR_INVALID",
+            "Positive memory rows must carry a priority score for semantic replay recomputation.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if not negative and (source_trust_score is None or not source_trust_explicit):
+        reasons.append("source_trust_missing_or_invalid")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_SOURCE_TRUST_MISSING_OR_INVALID",
+            "Positive memory rows must carry a source trust score for semantic replay recomputation.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if not negative and source_trust_score is not None and source_trust_score < SOURCE_TRUST_FLOOR:
+        reasons.append("source_trust_below_public_floor")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_SOURCE_TRUST_BELOW_PUBLIC_FLOOR",
+            "Positive memory rows must be backed by a public-safe source trust score above the acceptance floor.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if not negative and decision in {"UPDATE", "DELETE"} and not conflict_edge_ref:
+        reasons.append("temporal_conflict_edge_missing")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_UPDATE_DELETE_EDGE_MISSING",
+            "Positive UPDATE/DELETE memory rows must carry a temporal conflict edge before they can affect replay.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if (
+        not negative
+        and conflict_edge_ref
+        and not conflict_edge_ref.startswith("edge.memory.temporal_conflict.")
+    ):
+        reasons.append("temporal_conflict_edge_unverified")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_EDGE_REF_UNVERIFIED",
+            "Conflict edge refs must cite the public temporal-conflict edge namespace, not an arbitrary evidence label.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
+    if (
+        not negative
+        and decision in {"UPDATE", "DELETE"}
+        and not stale_downgrade_ref.startswith("receipt.memory.")
+    ):
+        reasons.append("stale_downgrade_receipt_missing")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_STALE_DOWNGRADE_RECEIPT_MISSING",
+            "Positive UPDATE/DELETE conflict rows must carry a stale-downgrade receipt before replay credit.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
     if row.get("body_exported") is not False:
         reasons.append("private_body_export_flag")
     if row.get("metadata_only_ref") is not True:
         reasons.append("private_ref_not_metadata_only")
+    if not negative and not row.get("evidence_handle_ref"):
+        reasons.append("evidence_handle_missing")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_EVIDENCE_HANDLE_MISSING",
+            "Positive memory rows must carry a public evidence handle before memory can receive replay credit.",
+            case_id=case_id,
+            subject_id=event_id,
+            subject_kind=subject_kind,
+        )
     if missing:
         reasons.append("memory_event_field_missing")
 
@@ -850,15 +1265,23 @@ def _validate_event_row(
         "event_id": event_id,
         "episode_id": str(row.get("episode_id") or ""),
         "episode_order": row.get("episode_order"),
+        "event_timestamp": event_timestamp,
         "memory_route_ref": row.get("memory_route_ref"),
         "decision": decision,
         "memory_subject_id": row.get("memory_subject_id"),
+        "conflict_subject_ref": row.get("conflict_subject_ref"),
+        "memory_priority": memory_priority,
+        "source_trust_score": source_trust_score,
+        "source_trust_label": row.get("source_trust_label"),
         "evidence_handle_ref": row.get("evidence_handle_ref"),
         "private_thread_ref": row.get("private_thread_ref"),
         "metadata_only_ref": row.get("metadata_only_ref") is True,
         "conflict_edge_ref": row.get("conflict_edge_ref"),
         "stale_downgrade_ref": row.get("stale_downgrade_ref"),
         "prompt_adoption_observation_ref": row.get("prompt_adoption_observation_ref"),
+        "sanitized_real_episode": row.get("sanitized_real_episode") is True,
+        "source_artifact_ref": row.get("source_artifact_ref"),
+        "source_event_ref": row.get("source_event_ref"),
         "computed_verdict": "accepted_memory_metadata" if not reasons else "quarantine",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
@@ -866,10 +1289,339 @@ def _validate_event_row(
     }
 
 
+def _episode_order(row: dict[str, Any]) -> int | None:
+    value = row.get("episode_order")
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str) and value.isdigit():
+        return int(value)
+    return None
+
+
+def _conflict_group_ref(row: dict[str, Any]) -> str:
+    return str(row.get("conflict_subject_ref") or row.get("memory_subject_id") or "")
+
+
+def _event_sort_key(row: dict[str, Any]) -> tuple[int, float, str]:
+    order = _episode_order(row)
+    timestamp = _timestamp_sort_value(row.get("event_timestamp"))
+    return (
+        order if order is not None else 10**9,
+        timestamp if timestamp is not None else float("inf"),
+        str(row.get("event_id") or ""),
+    )
+
+
+def _apply_conflict_semantic_recompute(
+    event_rows: list[dict[str, Any]],
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> None:
+    prior_by_group: dict[str, dict[str, Any]] = {}
+    for row in sorted(event_rows, key=_event_sort_key):
+        event_id = str(row["event_id"])
+        reason_codes = row["reason_codes"]
+        group_ref = _conflict_group_ref(row)
+        timestamp = _timestamp_sort_value(row.get("event_timestamp"))
+        priority = _number(row.get("memory_priority"))
+        trust = _number(row.get("source_trust_score"))
+        row["semantic_recompute"] = {
+            "status": "not_applicable",
+            "conflict_group_ref": group_ref,
+            "prior_event_id": "",
+            "timestamp_checked": timestamp is not None,
+            "priority_checked": priority is not None,
+            "source_trust_checked": trust is not None,
+        }
+
+        if row["computed_verdict"] == "quarantine":
+            continue
+
+        if row["decision"] not in {"ADD", "UPDATE", "DELETE"}:
+            continue
+
+        if not group_ref:
+            reason_codes.append("conflict_group_missing")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_SEMANTIC_GROUP_MISSING",
+                "Memory writes must carry a subject or conflict lineage so temporal conflict semantics can be recomputed.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+
+        if timestamp is None:
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_TIMESTAMP_MISSING_OR_INVALID",
+                "Memory writes must carry a public-safe timestamp for semantic replay recomputation.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        if priority is None:
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_PRIORITY_MISSING_OR_INVALID",
+                "Memory writes must carry a priority score for semantic replay recomputation.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        if trust is None:
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_SOURCE_TRUST_MISSING_OR_INVALID",
+                "Memory writes must carry a source trust score for semantic replay recomputation.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+
+        prior = prior_by_group.get(group_ref)
+        if row["decision"] in {"UPDATE", "DELETE"}:
+            if prior is None:
+                reason_codes.append("semantic_prior_memory_event_missing")
+                _record(
+                    findings,
+                    observed,
+                    "MEMORY_CONFLICT_SEMANTIC_PRIOR_EVENT_MISSING",
+                    "UPDATE/DELETE rows must recompute against an earlier accepted write in the same conflict lineage.",
+                    case_id=event_id,
+                    subject_id=event_id,
+                    subject_kind="memory_event",
+                )
+            else:
+                prior_timestamp = _timestamp_sort_value(prior.get("event_timestamp"))
+                prior_priority = _number(prior.get("memory_priority"))
+                prior_trust = _number(prior.get("source_trust_score"))
+                row["semantic_recompute"] = {
+                    "status": "checked",
+                    "conflict_group_ref": group_ref,
+                    "prior_event_id": prior.get("event_id"),
+                    "timestamp_checked": timestamp is not None and prior_timestamp is not None,
+                    "priority_checked": priority is not None and prior_priority is not None,
+                    "source_trust_checked": trust is not None and prior_trust is not None,
+                }
+                if (
+                    timestamp is None
+                    or prior_timestamp is None
+                    or timestamp <= prior_timestamp
+                ):
+                    reason_codes.append("semantic_timestamp_not_after_prior")
+                    _record(
+                        findings,
+                        observed,
+                        "MEMORY_CONFLICT_SEMANTIC_TIMESTAMP_INCOHERENT",
+                        "UPDATE/DELETE rows must be timestamped after the prior accepted write they supersede.",
+                        case_id=event_id,
+                        subject_id=event_id,
+                        subject_kind="memory_event",
+                    )
+                if priority is None or prior_priority is None or priority < prior_priority:
+                    reason_codes.append("semantic_priority_regression")
+                    _record(
+                        findings,
+                        observed,
+                        "MEMORY_CONFLICT_SEMANTIC_PRIORITY_REGRESSION",
+                        "UPDATE/DELETE rows must not downgrade accepted memory priority during temporal conflict recomputation.",
+                        case_id=event_id,
+                        subject_id=event_id,
+                        subject_kind="memory_event",
+                    )
+                if trust is None or prior_trust is None or trust < prior_trust:
+                    reason_codes.append("semantic_source_trust_regression")
+                    _record(
+                        findings,
+                        observed,
+                        "MEMORY_CONFLICT_SEMANTIC_SOURCE_TRUST_REGRESSION",
+                        "UPDATE/DELETE rows must not rely on lower-trust source evidence than the prior accepted write.",
+                        case_id=event_id,
+                        subject_id=event_id,
+                        subject_kind="memory_event",
+                    )
+
+        row["reason_codes"] = sorted(set(reason_codes))
+        if row["reason_codes"]:
+            row["computed_verdict"] = "quarantine"
+            continue
+        if row["decision"] in {"ADD", "UPDATE"} and group_ref:
+            prior_by_group[group_ref] = row
+
+
+def _apply_temporal_order_checks(
+    event_rows: list[dict[str, Any]],
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> None:
+    accepted_writes = [
+        row
+        for row in event_rows
+        if row["computed_verdict"] != "quarantine"
+        and row["decision"] in {"ADD", "UPDATE", "DELETE"}
+        and _episode_order(row) is not None
+    ]
+    first_write_order = min(
+        (_episode_order(row) for row in accepted_writes),
+        default=None,
+    )
+    conflict_orders = [
+        _episode_order(row)
+        for row in event_rows
+        if row.get("conflict_edge_ref") and _episode_order(row) is not None
+    ]
+    latest_conflict_order = max(conflict_orders, default=None)
+
+    for row in event_rows:
+        order = _episode_order(row)
+        reason_codes = row["reason_codes"]
+        event_id = str(row["event_id"])
+        if order is None:
+            reason_codes.append("episode_order_missing_or_invalid")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_EPISODE_ORDER_INVALID",
+                "Positive memory rows must carry a numeric episode_order for temporal replay.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        if row.get("conflict_edge_ref") and (
+            order is None
+            or first_write_order is None
+            or order <= first_write_order
+        ):
+            reason_codes.append("temporal_conflict_not_after_prior_episode")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_EPISODE_ORDER_INCOHERENT",
+                "Temporal conflict edges must occur after an earlier accepted memory write.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        if row["decision"] == "NOOP" and (
+            order is None
+            or latest_conflict_order is None
+            or order <= latest_conflict_order
+        ):
+            reason_codes.append("replay_not_after_temporal_conflict")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_REPLAY_ORDER_INCOHERENT",
+                "Replay NOOP rows must occur after the temporal conflict and stale downgrade evidence.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        row["reason_codes"] = sorted(set(reason_codes))
+        if row["reason_codes"]:
+            row["computed_verdict"] = "quarantine"
+
+
+def _apply_public_trace_alignment(
+    event_rows: list[dict[str, Any]],
+    public_agent_execution_trace: dict[str, Any] | None,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> None:
+    spans_by_id = _trace_spans_by_id(public_agent_execution_trace)
+    for row in event_rows:
+        event_id = str(row["event_id"])
+        span_id = f"span:{event_id}"
+        span = spans_by_id.get(span_id)
+        reason_codes = row["reason_codes"]
+        if not span:
+            reason_codes.append("public_trace_span_missing")
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_PUBLIC_TRACE_SPAN_MISSING",
+                "Positive memory rows must be backed by a public execution-trace span on the run path.",
+                case_id=event_id,
+                subject_id=event_id,
+                subject_kind="memory_event",
+            )
+        else:
+            expected_authority = (
+                row.get("conflict_edge_ref")
+                or row.get("stale_downgrade_ref")
+                or row.get("memory_route_ref")
+                or ""
+            )
+            expected_transition = (
+                row.get("stale_downgrade_ref")
+                or row.get("conflict_edge_ref")
+                or row.get("memory_route_ref")
+                or ""
+            )
+            mismatches = [
+                label
+                for label, expected, actual in (
+                    ("trace_outcome", row.get("decision"), span.get("outcome")),
+                    (
+                        "trace_evidence_handle",
+                        row.get("evidence_handle_ref"),
+                        span.get("observation_ref"),
+                    ),
+                    (
+                        "trace_authority_verdict",
+                        expected_authority,
+                        span.get("authority_verdict_id"),
+                    ),
+                    (
+                        "trace_state_transition",
+                        expected_transition,
+                        span.get("state_transition_ref"),
+                    ),
+                    (
+                        "trace_memory_subject",
+                        row.get("memory_subject_id"),
+                        span.get("memory_subject_id"),
+                    ),
+                )
+                if str(expected or "") != str(actual or "")
+            ]
+            if mismatches:
+                reason_codes.append("public_trace_span_mismatch")
+                _record(
+                    findings,
+                    observed,
+                    "MEMORY_CONFLICT_PUBLIC_TRACE_SPAN_MISMATCH",
+                    "Positive memory row fields must match the public execution-trace span derived on the run path.",
+                    case_id=event_id,
+                    subject_id=event_id,
+                    subject_kind="memory_event",
+                )
+            row["trace_span_id"] = span_id
+            row["trace_backed"] = not mismatches and not reason_codes
+        if span is None:
+            row["trace_span_id"] = span_id
+            row["trace_backed"] = False
+        row["reason_codes"] = sorted(set(reason_codes))
+        if row["reason_codes"]:
+            row["computed_verdict"] = "quarantine"
+
+
 def validate_memory_episodes(
     payload: object,
     policy: object,
     negative_payloads: dict[str, object],
+    *,
+    input_dir: Path,
+    public_root: Path,
+    source_evidence_posture: dict[str, Any],
+    public_agent_execution_trace: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_memory_decisions")))
@@ -899,15 +1651,74 @@ def validate_memory_episodes(
                 negative=True,
             )
 
+    _apply_temporal_order_checks(event_rows, findings, observed)
+    _apply_conflict_semantic_recompute(event_rows, findings, observed)
+    _apply_source_event_alignment(
+        event_rows,
+        input_dir=input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_evidence_posture,
+        findings=findings,
+        observed=observed,
+    )
+    _apply_public_trace_alignment(
+        event_rows,
+        public_agent_execution_trace,
+        findings,
+        observed,
+    )
+
     decision_counts = {
         decision: sum(1 for row in event_rows if row["decision"] == decision)
         for decision in ("ADD", "UPDATE", "DELETE", "NOOP")
     }
-    conflict_edge_count = sum(1 for row in event_rows if row.get("conflict_edge_ref"))
-    stale_downgrade_count = sum(1 for row in event_rows if row.get("stale_downgrade_ref"))
+    accepted_trace_rows = [
+        row
+        for row in event_rows
+        if row["computed_verdict"] != "quarantine" and row.get("trace_backed") is True
+    ]
+    conflict_edge_count = sum(
+        1 for row in accepted_trace_rows if row.get("conflict_edge_ref")
+    )
+    stale_downgrade_count = sum(
+        1 for row in accepted_trace_rows if row.get("stale_downgrade_ref")
+    )
     prompt_adoption_count = sum(
         1 for row in event_rows if row.get("prompt_adoption_observation_ref")
     )
+    semantic_checked_rows = [
+        row
+        for row in event_rows
+        if isinstance(row.get("semantic_recompute"), dict)
+        and row["semantic_recompute"].get("status") == "checked"
+    ]
+    semantic_rejected_rows = [
+        row
+        for row in event_rows
+        if any(str(code).startswith("semantic_") for code in row["reason_codes"])
+    ]
+    source_posture = (
+        payload.get("source_evidence_posture", {})
+        if isinstance(payload, dict)
+        else {}
+    )
+    source_posture_ok = (
+        isinstance(source_posture, dict)
+        and source_posture.get("real_source_floor") == SOURCE_BODY_STATUS
+        and source_posture.get("body_in_receipt") is False
+        and source_posture.get("private_bodies_exported") is False
+        and bool(source_posture.get("source_module_manifest_ref"))
+    )
+    if not source_posture_ok:
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_REAL_TRACE_SOURCE_POSTURE_MISSING",
+                "Memory episode payload must declare the copied non-secret macro source floor and private-body boundary.",
+                case_id="memory_episode_floor",
+                subject_id="source_evidence_posture",
+                subject_kind="memory_fixture",
+            )
+        )
     positive_findings = [
         row for row in event_rows if row["computed_verdict"] == "quarantine"
     ]
@@ -917,6 +1728,7 @@ def validate_memory_episodes(
         or conflict_edge_count < 2
         or stale_downgrade_count < 1
         or prompt_adoption_count < 1
+        or not source_posture_ok
         or positive_findings
     )
     if floor_blocked and not positive_findings:
@@ -936,7 +1748,29 @@ def validate_memory_episodes(
         "decision_counts": decision_counts,
         "conflict_edge_count": conflict_edge_count,
         "stale_downgrade_count": stale_downgrade_count,
+        "trace_backed_event_count": len(accepted_trace_rows),
         "prompt_adoption_observation_count": prompt_adoption_count,
+        "semantic_recompute": {
+            "schema_version": "memory_temporal_conflict_semantic_recompute_v1",
+            "status": PASS if not semantic_rejected_rows else "blocked",
+            "checked_conflict_count": len(semantic_checked_rows),
+            "rejected_conflict_count": len(semantic_rejected_rows),
+            "checked_event_ids": [
+                str(row["event_id"]) for row in semantic_checked_rows
+            ],
+            "rejected_event_ids": [
+                str(row["event_id"]) for row in semantic_rejected_rows
+            ],
+            "required_fields": [
+                "event_timestamp",
+                "memory_priority",
+                "source_trust_score",
+            ],
+            "source_trust_floor": SOURCE_TRUST_FLOOR,
+        },
+        "source_evidence_posture": (
+            source_posture if isinstance(source_posture, dict) else {}
+        ),
         "memory_rows": sorted(event_rows, key=lambda row: str(row["event_id"])),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
@@ -946,6 +1780,8 @@ def validate_memory_episodes(
 def _validate_replay_row(
     row: dict[str, Any],
     *,
+    known_episode_ids: set[str],
+    known_evidence_refs: set[str],
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
@@ -955,9 +1791,35 @@ def _validate_replay_row(
     subject_kind = "negative_case" if negative else "replay_observation"
     missing = [field for field in REQUIRED_REPLAY_FIELDS if field not in row or row.get(field) in ("", None)]
     evidence_refs = _strings(row.get("evidence_used_refs"))
+    episode_id = str(row.get("episode_id") or "")
+    unresolved_evidence_refs = sorted(
+        ref for ref in evidence_refs if ref not in known_evidence_refs
+    )
     reasons: list[str] = []
     if row.get("body_in_receipt") is not False:
         reasons.append("body_in_receipt")
+    if not negative and episode_id and episode_id not in known_episode_ids:
+        reasons.append("replay_episode_unresolved")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_REPLAY_EPISODE_UNRESOLVED",
+            "Replay observations must reference an episode declared by memory events.",
+            case_id=case_id,
+            subject_id=observation_id,
+            subject_kind=subject_kind,
+        )
+    if not negative and unresolved_evidence_refs:
+        reasons.append("replay_evidence_unresolved")
+        _record(
+            findings,
+            observed,
+            "MEMORY_CONFLICT_REPLAY_EVIDENCE_UNRESOLVED",
+            "Replay evidence refs must resolve to public memory evidence handles or receipt refs declared by memory events.",
+            case_id=case_id,
+            subject_id=observation_id,
+            subject_kind=subject_kind,
+        )
     if row.get("final_answer_only_memory_credit") is True:
         reasons.append("final_answer_only_credit")
         _record(
@@ -971,16 +1833,28 @@ def _validate_replay_row(
         )
     if row.get("memory_enabled") is True and not evidence_refs:
         reasons.append("memory_enabled_without_evidence")
+        if not negative:
+            _record(
+                findings,
+                observed,
+                "MEMORY_CONFLICT_MEMORY_ENABLED_REPLAY_WITHOUT_EVIDENCE",
+                "Memory-enabled replay rows must carry public evidence refs before memory can receive replay credit.",
+                case_id=case_id,
+                subject_id=observation_id,
+                subject_kind=subject_kind,
+            )
     if missing:
         reasons.append("replay_field_missing")
     return {
         "observation_id": observation_id,
-        "episode_id": str(row.get("episode_id") or ""),
+        "episode_id": episode_id,
         "replay_group_id": str(row.get("replay_group_id") or ""),
         "memory_enabled": row.get("memory_enabled") is True,
         "answer_hash": row.get("answer_hash"),
         "cold_replay_receipt_ref": row.get("cold_replay_receipt_ref"),
         "evidence_used_refs": evidence_refs,
+        "unresolved_evidence_refs": unresolved_evidence_refs,
+        "episode_resolved": not episode_id or episode_id in known_episode_ids,
         "computed_verdict": "accepted_replay_metadata" if not reasons else "quarantine",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
@@ -991,14 +1865,21 @@ def _validate_replay_row(
 def validate_replay_observations(
     payload: object,
     negative_payloads: dict[str, object],
+    *,
+    memory_rows: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     rows: list[dict[str, Any]] = []
+    reference_index = _replay_reference_index(memory_rows or [])
+    known_episode_ids = reference_index["episode_ids"]
+    known_evidence_refs = reference_index["evidence_refs"]
     for row in _rows(payload, "replay_observations"):
         rows.append(
             _validate_replay_row(
                 row,
+                known_episode_ids=known_episode_ids,
+                known_evidence_refs=known_evidence_refs,
                 findings=findings,
                 observed=observed,
                 negative=False,
@@ -1011,6 +1892,8 @@ def validate_replay_observations(
         for row in negative_rows:
             _validate_replay_row(
                 row,
+                known_episode_ids=known_episode_ids,
+                known_evidence_refs=known_evidence_refs,
                 findings=findings,
                 observed=observed,
                 negative=True,
@@ -1059,10 +1942,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    source_artifact_paths = (
-        _source_artifact_paths(input_dir, public_root=public_root)
-        if input_mode == "exported_memory_temporal_conflict_bundle"
-        else []
+    episode_payload = payloads.get("memory_episodes", {})
+    source_posture = _source_evidence_posture(episode_payload)
+    source_artifact_paths = _source_artifact_paths(
+        input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_posture,
     )
     secret_scan = scan_paths(
         [
@@ -1085,14 +1970,24 @@ def _build_result(
         payloads["memory_episodes"],
         payloads["memory_policy"],
         negative_payloads,
+        input_dir=input_dir,
+        public_root=public_root,
+        source_evidence_posture=source_posture,
+        public_agent_execution_trace=public_agent_execution_trace,
     )
     replays = validate_replay_observations(
         payloads["replay_observations"],
         negative_payloads,
+        memory_rows=episodes["memory_rows"],
     )
     source_imports = (
-        validate_source_module_imports(input_dir, public_root=public_root)
-        if input_mode == "exported_memory_temporal_conflict_bundle"
+        validate_source_module_imports(
+            input_dir,
+            public_root=public_root,
+            source_evidence_posture=source_posture,
+        )
+        if source_posture.get("source_module_manifest_ref")
+        or input_mode == "exported_memory_temporal_conflict_bundle"
         else _empty_source_module_imports()
     )
     source_open_body_imports = _source_open_body_import_summary(source_imports)
@@ -1152,7 +2047,10 @@ def _build_result(
         "decision_counts": episodes["decision_counts"],
         "conflict_edge_count": episodes["conflict_edge_count"],
         "stale_downgrade_count": episodes["stale_downgrade_count"],
+        "trace_backed_event_count": episodes["trace_backed_event_count"],
         "prompt_adoption_observation_count": episodes["prompt_adoption_observation_count"],
+        "semantic_recompute": episodes["semantic_recompute"],
+        "source_evidence_posture": episodes["source_evidence_posture"],
         "replay_observation_count": replays["replay_observation_count"],
         "memory_enabled_replay_count": replays["memory_enabled_replay_count"],
         "memory_disabled_replay_count": replays["memory_disabled_replay_count"],
@@ -1197,6 +2095,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "decision_counts": result["decision_counts"],
         "memory_rows": result["memory_rows"],
         "replay_rows": result["replay_rows"],
+        "semantic_recompute": result["semantic_recompute"],
         "source_open_body_imports": result["source_open_body_imports"],
         "body_material_status": result["body_material_status"],
         "body_copied_material_count": result["body_copied_material_count"],
@@ -1255,6 +2154,7 @@ def _write_receipts(
         "decision_counts": result["decision_counts"],
         "conflict_edge_count": result["conflict_edge_count"],
         "stale_downgrade_count": result["stale_downgrade_count"],
+        "semantic_recompute": result["semantic_recompute"],
         "prompt_adoption_observation_count": result["prompt_adoption_observation_count"],
         "replay_observation_count": result["replay_observation_count"],
         "answer_delta_ref": result["answer_delta_ref"],
@@ -1281,6 +2181,7 @@ def _write_receipts(
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "source_open_body_imports": result["source_open_body_imports"],
+        "semantic_recompute": result["semantic_recompute"],
         "body_material_status": result["body_material_status"],
         "body_copied_material_count": result["body_copied_material_count"],
         "body_import_verification": result["body_import_verification"],
@@ -1374,6 +2275,16 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "decision_counts": result.get("decision_counts", {}),
             "conflict_edge_count": result.get("conflict_edge_count"),
             "stale_downgrade_count": result.get("stale_downgrade_count"),
+            "semantic_recompute_status": (
+                result.get("semantic_recompute", {}).get("status")
+                if isinstance(result.get("semantic_recompute"), dict)
+                else None
+            ),
+            "semantic_recompute_checked_conflict_count": (
+                result.get("semantic_recompute", {}).get("checked_conflict_count")
+                if isinstance(result.get("semantic_recompute"), dict)
+                else None
+            ),
             "prompt_adoption_observation_count": result.get(
                 "prompt_adoption_observation_count"
             ),

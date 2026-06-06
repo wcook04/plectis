@@ -1,0 +1,81 @@
+{
+  "schema_version": "microcosm_public_site_availability_handoff_v1",
+  "receipt_id": "engine_room_bridge_campaign_dag_site_availability_handoff_20260604T1837Z",
+  "created_at": "2026-06-04T18:37:00Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T1824Z_bridge_campaign_capsule",
+  "module_id": "paper_module.engine_room_bridge_campaign_dag",
+  "authority_source": {
+    "paper_module_capsule_ref": "core/paper_module_capsules.json::paper_modules[87:paper_module.engine_room_bridge_campaign_dag]",
+    "generated_json": "paper_modules/engine_room_bridge_campaign_dag.json",
+    "markdown_projection": "paper_modules/engine_room_bridge_campaign_dag.md",
+    "source_authority": "json_capsule",
+    "subject_ref": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+    "source_loci": [
+      "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "src/microcosm_core/engine_room/demo.py"
+    ]
+  },
+  "doctrine_delta": {
+    "paper_module_legacy_only_count_before": 10,
+    "paper_module_legacy_only_count_after": 9,
+    "paper_module_required_subject_gap_count_before": 10,
+    "paper_module_required_subject_gap_count_after": 9,
+    "paper_module_without_json_capsule_count_before": 10,
+    "paper_module_without_json_capsule_count_after": 9,
+    "paper_module_unpopulated_selective_relation_count_before": 89,
+    "paper_module_unpopulated_selective_relation_count_after": 83
+  },
+  "site_ready_payload": {
+    "builder_command": "tmp_dir=$(mktemp -d); cp -R sites/microcosm/. \"$tmp_dir/\"; ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root \"$tmp_dir\" --write --validate",
+    "builder_status": "written",
+    "validation_status": "pass",
+    "written_count": 11,
+    "routeability": {
+      "object_map_route": true,
+      "content_graph_node": true,
+      "search_index_label": true,
+      "paper_modules_anchor": true
+    },
+    "expected_real_site_outputs": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ]
+  },
+  "real_site_check": {
+    "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "status": "fail",
+    "drift_count": 11,
+    "validation_status": "pass",
+    "source_coupling_status": "blocked_dirty_source_inputs",
+    "dirty_source_paths": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/core/paper_module_capsules.json"
+    ],
+    "safe_to_commit_generated_outputs_without_sources": false
+  },
+  "handoff_reason": "The existing real site output tree was already dirty; this lane proved routeability through the existing builder on a temp copy and leaves real output refresh to a dedicated site-output lane after source commit.",
+  "reentry_condition": "After the source-authority commit lands and the site-output lane owns the dirty site outputs, run ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate, then ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate, and land the listed generated outputs with the site lane's owned scope.",
+  "public_safety": {
+    "status": "pass_in_temp_copy_validation",
+    "private_scan_hit_count": 0,
+    "public_safety_scan_hit_count": 0,
+    "forbidden_source_link_hit_count": 0,
+    "external_asset_hit_count": 0,
+    "inline_script_hit_count": 0,
+    "inline_event_handler_hit_count": 0
+  },
+  "anti_claims": [
+    "This receipt is not release approval.",
+    "This receipt does not claim provider dispatch, campaign execution, provider safety, private-root equivalence, or standalone engine_room_bridge_campaign_dag organ admission.",
+    "This receipt does not make generated site outputs source authority."
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "anti_claim": "Concurrency mission control verifies exact copied non-secret macro builder and public bridge artifact bodies plus a public Work Ledger seed-speed topology fixture. It does not authorize private mission-control runtime export, live scheduling, provider dispatch, hosted orchestration, production concurrency safety, publication, release, private-root equivalence, source mutation, private session export, or whole-system correctness.",
+  "authority_boundary": "public_concurrency_mission_control_source_open_capsule_not_live_scheduler",
+  "authority_ceiling": {
+    "browser_or_hud_authority": false,
+    "hosted_orchestration_claim": false,
+    "live_scheduler_claim": false,
+    "model_dispatch": false,
+    "private_root_equivalence_claim": false,
+    "private_task_ledger_export": false,
+    "private_work_ledger_export": false,
+    "production_concurrency_safety_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "kind_id": "concurrency_mission_control",
+  "kind_name": "Concurrency mission control",
+  "organ_id": "concurrency_mission_control",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret concurrency mission-control macro builder body",
+      "exact copied public provider-canary and Task Ledger bridge artifacts",
+      "public Work Ledger seed-speed topology counts and synthetic session/claim cards",
+      "source refs to existing Work Ledger body-floor import surfaces",
+      "source refs, digests, line counts, and required anchors",
+      "public synthetic lane and bridge fixtures",
+      "stable negative-case ids and validator verdicts",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_concurrency_transaction_fixture_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private Task Ledger rows",
+      "private Work Ledger session bodies",
+      "private mission-control runtime bodies",
+      "hosted orchestration state",
+      "production concurrency safety claims"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 7,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "work_ledger_seed_speed_surface",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.concurrency_mission_control",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "concurrency_mission_control_result.json",
+    "concurrency_mission_control_board.json",
+    "concurrency_mission_control_validation_receipt.json",
+    "concurrency_mission_control_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#concurrency_mission_control",
+    "used_by_organs": [
+      "concurrency_mission_control"
+    ]
+  },
+  "required_negative_cases": [
+    "missing_seed_root",
+    "provider_bridge_missing",
+    "authority_collapse_claim",
+    "private_runtime_claim",
+    "work_ledger_seed_speed_collision"
+  ],
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_mission_control_specimen.py",
+    "self-indexing-cognitive-substrate/microcosms/provider_harness_canary/canary_board.json",
+    "self-indexing-cognitive-substrate/microcosms/provider_harness_canary/receipt.json",
+    "self-indexing-cognitive-substrate/microcosms/task_ledger_cap_economy/events.jsonl",
+    "self-indexing-cognitive-substrate/microcosms/task_ledger_cap_economy/projection.json",
+    "self-indexing-cognitive-substrate/microcosms/task_ledger_cap_economy/provider_repair_residual_bridge.json",
+    "self-indexing-cognitive-substrate/microcosms/task_ledger_cap_economy/receipt.json",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json"
+  ],
+  "standard_id": "std_microcosm_concurrency_mission_control",
+  "standard_payload": {
+    "anti_purpose": "A fixture board inflated into live scheduler authority, production concurrency-safety evidence, hosted orchestration proof, provider dispatch, private ledger export, release approval, or a copied body without digest equality and negative cases.",
+    "failure_modes": [
+      "source module digest drifts from macro source without a refreshed exact copy and manifest",
+      "copied source modules lack required anchors for transaction evaluation, provider repair, Task Ledger residual replay, or authority counters",
+      "validator accepts a missing seed root or blocked provider bridge",
+      "validator accepts authority-collapse or private runtime overclaims",
+      "validator accepts unresolved Work Ledger claim collisions in the seed-speed topology fixture",
+      "receipts include copied body text, raw operator transcripts, private refs, provider payload bodies, credentials, private Task Ledger rows, private Work Ledger session bodies, or hosted runtime state",
+      "capsule is treated as a live scheduler, production safety proof, provider dispatch, publication, release, private-root equivalence, source mutation, or whole-system correctness authority"
+    ],
+    "ontology": "A public-safe exact-copy concurrency mission-control capsule for one macro builder body plus six public bridge artifacts, exercised over synthetic transaction lanes, bridge receipts, and a Work Ledger seed-speed topology fixture while preserving claim ceilings.",
+    "teleology": "Let a cold reader inspect and rerun real concurrency mission-control mechanics without granting live scheduler, provider, hosted orchestration, publication, release, source-mutation, private-ledger, or private-root authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.concurrency_mission_control",
+      "receipt_id": "receipt.microcosm.concurrency_mission_control",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require seven copied macro source modules",
+    "verify source-to-target digest equality and required anchors for the copied builder and bridge artifacts",
+    "execute the public concurrency mission-control exercise without invoking live agents, providers, browser/HUD state, hosted orchestration, or source mutation",
+    "require the Work Ledger seed-speed topology fixture to expose heartbeat, seed-speed status, mutation-check command refs, multi-session and active-claim counts, explicit heartbeat participation, and zero selected-session claim collisions",
+    "require stable negative-case codes for missing seed roots, provider bridge blockage, authority-collapse claims, private runtime claims, and unresolved Work Ledger seed-speed claim collisions",
+    "keep live scheduler claims, production concurrency-safety claims, provider dispatch, model dispatch, publication, release, private-root equivalence, source mutation, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules or seed_root only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json",
+    "expected_negative_case_count": 5,
+    "expected_source_module_count": 7,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.concurrency_mission_control run-concurrency-mission-control-bundle --input examples/concurrency_mission_control/exported_concurrency_mission_control_bundle --out /tmp/concurrency_mission_control_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.concurrency_mission_control"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.concurrency_mission_control.author",
+      "status": "planned",
+      "purpose": "create a valid Concurrency mission control instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.concurrency_mission_control.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Concurrency mission control without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.concurrency_mission_control.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_concurrency_mission_control and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_concurrency_mission_control.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.concurrency_mission_control"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.concurrency_mission_control"
+  ],
+  "anti_claims": [
+    "Concurrency mission control verifies exact copied non-secret macro builder and public bridge artifact bodies plus a public Work Ledger seed-speed topology fixture. It does not authorize private mission-control runtime export, live scheduling, provider dispatch, hosted orchestration, production concurrency safety, publication, release, private-root equivalence, source mutation, private session export, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_concurrency_mission_control",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.concurrency_mission_control",
+    "receipt_id": "receipt.microcosm.concurrency_mission_control",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_concurrency_mission_control_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

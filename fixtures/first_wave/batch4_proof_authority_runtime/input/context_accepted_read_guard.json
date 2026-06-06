@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "context_accepted_read_guard", "error_codes": ["BATCH4_CONTEXT_ACCEPTED_SCOPED_READ_NOT_FLAGGED"], "runtime_probe": {"observer_id": "context_yield_scoped_read_guard_anchors", "source_module_id": "agent_execution_trace", "required_text": "scoped_diff_paths"}, "body_in_receipt": false}

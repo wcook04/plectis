@@ -65,17 +65,20 @@ def test_spatial_world_model_line_count_streams_without_full_text_read(
     monkeypatch: Any,
 ) -> None:
     source = tmp_path / "spatial_source.py"
+    empty_source = tmp_path / "empty_spatial_source.py"
     source.write_text("one\n\ntwo\n", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
     original_read_text = Path.read_text
 
     def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
-        if self == source:
+        if self in {source, empty_source}:
             raise AssertionError("line count should stream source-module input")
         return original_read_text(self, *args, **kwargs)
 
     monkeypatch.setattr(Path, "read_text", guarded_read_text)
 
     assert _line_count(source) == 3
+    assert _line_count(empty_source) == 1
 
 
 def test_spatial_world_model_counterfactual_replay_observes_negative_cases(
@@ -95,6 +98,15 @@ def test_spatial_world_model_counterfactual_replay_observes_negative_cases(
     assert result["selected_route_id"] == "spatial_world_model_counterfactual_simulation_replay"
     assert result["simulation_summary"]["scene_state_count"] == 6
     assert result["simulation_summary"]["replay_count"] == 6
+    assert result["simulation_summary"]["state_transition_count"] == 6
+    assert result["simulation_summary"]["predicted_state_body_count"] == 6
+    assert result["simulation_summary"]["deterministic_simulation_pass_count"] == 6
+    assert result["simulation_summary"]["gridworld_step_count"] == 6
+    assert result["simulation_summary"]["predicted_actual_match_count"] == 6
+    assert result["state_transition_analysis"]["status"] == "pass"
+    assert result["state_transition_analysis"]["runtime_kind"] == (
+        "deterministic_toy_gridworld_step"
+    )
     assert result["simulation_summary"]["transition_diff_count"] == 6
     assert result["simulation_summary"]["oracle_state_check_count"] == 6
     assert result["simulation_summary"]["sensor_packet_ref_count"] == 12
@@ -181,6 +193,12 @@ def test_spatial_world_model_counterfactual_exported_bundle_validates_runtime_sh
     assert result["input_mode"] == "exported_spatial_world_model_simulation_bundle"
     assert result["selected_route_id"] == "spatial_world_model_counterfactual_simulation_replay"
     assert result["simulation_summary"]["replay_count"] == 6
+    assert result["simulation_summary"]["state_transition_count"] == 6
+    assert result["simulation_summary"]["predicted_state_body_count"] == 6
+    assert result["simulation_summary"]["deterministic_simulation_pass_count"] == 6
+    assert result["simulation_summary"]["gridworld_step_count"] == 6
+    assert result["simulation_summary"]["predicted_actual_match_count"] == 6
+    assert result["state_transition_analysis"]["status"] == "pass"
     assert result["negative_case_summary"]["expected_negative_case_count"] == 0
     assert result["negative_case_summary"]["expected_missing"] == {}
     assert result["finding_count"] == 0
@@ -273,6 +291,48 @@ def test_spatial_world_model_counterfactual_source_modules_are_exact_station_geo
         assert _sha256_ref(source) == _sha256_ref(target)
 
 
+def test_spatial_world_model_source_modules_reject_body_text_in_receipt(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/spatial_world_model_counterfactual_simulation_replay",
+        public_root / "examples/spatial_world_model_counterfactual_simulation_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["body_text_in_receipt"] = True
+    manifest["modules"][0]["body_text_in_receipt"] = True
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_simulation_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_summary"]["status"] == "blocked"
+    error_codes = {
+        finding["error_code"]
+        for finding in result["source_module_summary"]["findings"]
+    }
+    assert "SPATIAL_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN" in error_codes
+    assert "SPATIAL_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN" in error_codes
+
+
 def test_spatial_world_model_counterfactual_fixture_manifest_exports_body_floor_summary(
 ) -> None:
     manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
@@ -292,6 +352,286 @@ def test_spatial_world_model_counterfactual_fixture_manifest_exports_body_floor_
     assert manifest["body_copied_material_count"] == len(
         SPATIAL_SOURCE_BODY_MATERIAL_IDS
     )
+
+
+def test_spatial_world_model_rejects_bad_state_transition_delta(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/spatial_world_model_counterfactual_simulation_replay",
+        public_root / "examples/spatial_world_model_counterfactual_simulation_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle"
+    )
+    transition_path = bundle / "state_transitions.json"
+    payload = json.loads(transition_path.read_text(encoding="utf-8"))
+    payload["state_transitions"][0]["transition_diff"]["actor_count_delta"] = 3
+    transition_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_simulation_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["state_transition_analysis"]["status"] == "blocked"
+    transition_rows = {
+        row["replay_id"]: row
+        for row in result["state_transition_analysis"]["transition_rows"]
+    }
+    assert transition_rows["warehouse_occlusion_left_forklift_stop"][
+        "simulation_passed"
+    ] is False
+    assert {
+        finding["error_code"] for finding in result["positive_findings"]
+    } >= {"SPATIAL_STATE_TRANSITION_SIMULATION_MISMATCH"}
+
+
+def test_spatial_world_model_rejects_predicted_state_that_misses_gridworld_step(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/spatial_world_model_counterfactual_simulation_replay",
+        public_root / "examples/spatial_world_model_counterfactual_simulation_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle"
+    )
+    transition_path = bundle / "state_transitions.json"
+    payload = json.loads(transition_path.read_text(encoding="utf-8"))
+    payload["state_transitions"][0]["predicted_state"]["actor_count"] -= 1
+    transition_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_simulation_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    transition_rows = {
+        row["replay_id"]: row
+        for row in result["state_transition_analysis"]["transition_rows"]
+    }
+    mismatch = transition_rows["warehouse_occlusion_left_forklift_stop"]
+    assert mismatch["gridworld_step_executed"] is True
+    assert mismatch["actual_actor_count"] == 5
+    assert mismatch["predicted_actor_count"] == 4
+    assert mismatch["simulation_passed"] is False
+    assert "predicted_state_actor_count_mismatch" in mismatch["findings"]
+
+
+def test_spatial_world_model_input_perturbation_moves_verdict_and_rejects_stale_expected_transition(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/spatial_world_model_counterfactual_simulation_replay",
+        public_root / "examples/spatial_world_model_counterfactual_simulation_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle"
+    )
+    receipt_root = (
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay"
+    )
+    replay_id = "warehouse_occlusion_left_forklift_stop"
+
+    real_good = run_simulation_bundle(
+        bundle,
+        receipt_root / "real_good",
+        command="pytest",
+    )
+    real_good_rows = {
+        row["replay_id"]: row
+        for row in real_good["state_transition_analysis"]["transition_rows"]
+    }
+    assert real_good["status"] == "pass"
+    assert real_good_rows[replay_id]["actual_actor_count_delta"] == 1
+    assert len(real_good_rows[replay_id]["actual_spawn_cells"]) == 1
+
+    replay_path = bundle / "counterfactual_replays.json"
+    replays = json.loads(replay_path.read_text(encoding="utf-8"))
+    replay = replays["counterfactual_replays"][0]
+    replay["sensor_packet_refs"].append(
+        "public_sensor_packet::warehouse_occlusion_left_forklift_stop::motion"
+    )
+    replay_path.write_text(
+        json.dumps(replays, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    stale_expected = run_simulation_bundle(
+        bundle,
+        receipt_root / "stale_expected",
+        command="pytest",
+    )
+    stale_rows = {
+        row["replay_id"]: row
+        for row in stale_expected["state_transition_analysis"]["transition_rows"]
+    }
+    stale_row = stale_rows[replay_id]
+    assert stale_expected["status"] == "blocked"
+    assert stale_row["actual_actor_count_delta"] == 2
+    assert stale_row["actual_actor_count"] == 6
+    assert stale_row["predicted_actor_count"] == 5
+    assert len(stale_row["actual_spawn_cells"]) == 2
+    assert stale_row["simulation_passed"] is False
+    assert {
+        "predicted_state_actor_count_mismatch",
+        "transition_diff_actor_delta_mismatch",
+    } <= set(stale_row["findings"])
+
+    transition_path = bundle / "state_transitions.json"
+    transitions = json.loads(transition_path.read_text(encoding="utf-8"))
+    transition = transitions["state_transitions"][0]
+    transition["predicted_state"]["actor_count"] = stale_row["actual_actor_count"]
+    transition["transition_diff"]["actor_count_delta"] = stale_row[
+        "actual_actor_count_delta"
+    ]
+    transition["transition_diff"]["spawn_cells"] = stale_row["actual_spawn_cells"]
+    transition_path.write_text(
+        json.dumps(transitions, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    updated_expected = run_simulation_bundle(
+        bundle,
+        receipt_root / "updated_expected",
+        command="pytest",
+    )
+    updated_rows = {
+        row["replay_id"]: row
+        for row in updated_expected["state_transition_analysis"]["transition_rows"]
+    }
+    updated_row = updated_rows[replay_id]
+    assert updated_expected["status"] == "pass"
+    assert updated_row["simulation_passed"] is True
+    assert updated_row["actual_actor_count_delta"] == 2
+    assert updated_row["actual_spawn_cells"] == stale_row["actual_spawn_cells"]
+    assert updated_expected["state_transition_analysis"][
+        "max_actual_actor_count_delta"
+    ] == 2
+
+
+def test_spatial_world_model_scene_perturbation_moves_gridworld_state_and_rejects_stale_expected_transition(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/spatial_world_model_counterfactual_simulation_replay",
+        public_root / "examples/spatial_world_model_counterfactual_simulation_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle"
+    )
+    receipt_root = (
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay"
+    )
+    replay_id = "warehouse_occlusion_left_forklift_stop"
+
+    real_good = run_simulation_bundle(
+        bundle,
+        receipt_root / "real_good",
+        command="pytest",
+    )
+    real_good_rows = {
+        row["replay_id"]: row
+        for row in real_good["state_transition_analysis"]["transition_rows"]
+    }
+    real_good_row = real_good_rows[replay_id]
+    assert real_good["status"] == "pass"
+    assert real_good_row["source_actor_count"] == 4
+    assert real_good_row["actual_actor_count"] == 5
+
+    scene_path = bundle / "scene_states.json"
+    scenes = json.loads(scene_path.read_text(encoding="utf-8"))
+    scene = scenes["scene_states"][0]
+    scene["actor_count"] += 1
+    scene["topology_ref"] = "topology::state_perturbation_moves_spawn"
+    scene_path.write_text(
+        json.dumps(scenes, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    stale_expected = run_simulation_bundle(
+        bundle,
+        receipt_root / "stale_expected",
+        command="pytest",
+    )
+    stale_rows = {
+        row["replay_id"]: row
+        for row in stale_expected["state_transition_analysis"]["transition_rows"]
+    }
+    stale_row = stale_rows[replay_id]
+    assert stale_expected["status"] == "blocked"
+    assert stale_row["source_actor_count"] == 5
+    assert stale_row["actual_actor_count_delta"] == 1
+    assert stale_row["actual_actor_count"] == 6
+    assert stale_row["predicted_actor_count"] == 5
+    assert stale_row["actual_spawn_cells"] != real_good_row["actual_spawn_cells"]
+    assert stale_row["simulation_passed"] is False
+    assert "predicted_state_actor_count_mismatch" in stale_row["findings"]
+
+    transition_path = bundle / "state_transitions.json"
+    transitions = json.loads(transition_path.read_text(encoding="utf-8"))
+    transition = transitions["state_transitions"][0]
+    transition["predicted_state"]["actor_count"] = stale_row["actual_actor_count"]
+    transition["transition_diff"]["spawn_cells"] = stale_row["actual_spawn_cells"]
+    transition_path.write_text(
+        json.dumps(transitions, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    updated_expected = run_simulation_bundle(
+        bundle,
+        receipt_root / "updated_expected",
+        command="pytest",
+    )
+    updated_rows = {
+        row["replay_id"]: row
+        for row in updated_expected["state_transition_analysis"]["transition_rows"]
+    }
+    updated_row = updated_rows[replay_id]
+    assert updated_expected["status"] == "pass"
+    assert updated_row["simulation_passed"] is True
+    assert updated_row["source_actor_count"] == 5
+    assert updated_row["actual_actor_count"] == 6
+    assert updated_row["actual_spawn_cells"] == stale_row["actual_spawn_cells"]
 
 
 def test_spatial_world_model_simulation_bundle_card_reuses_fresh_receipt(
@@ -315,8 +655,13 @@ def test_spatial_world_model_simulation_bundle_card_reuses_fresh_receipt(
     assert first_card["schema_version"] == CARD_SCHEMA_VERSION
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
-    assert first_card["command_speed"]["freshness_checked_path_count"] == 11
+    assert first_card["command_speed"]["freshness_checked_path_count"] == 12
     assert first_card["simulation"]["replay_count"] == 6
+    assert first_card["simulation"]["state_transition_count"] == 6
+    assert first_card["simulation"]["predicted_state_body_count"] == 6
+    assert first_card["simulation"]["deterministic_simulation_pass_count"] == 6
+    assert first_card["simulation"]["gridworld_step_count"] == 6
+    assert first_card["simulation"]["predicted_actual_match_count"] == 6
     assert first_card["source_modules"]["module_count"] == len(
         SPATIAL_SOURCE_BODY_MATERIAL_IDS
     )

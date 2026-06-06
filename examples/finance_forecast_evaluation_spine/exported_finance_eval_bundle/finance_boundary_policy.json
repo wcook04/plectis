@@ -1,0 +1,10 @@
+{
+  "body_in_receipt": false,
+  "investment_advice_authorized": false,
+  "live_market_data_authorized": false,
+  "optimizer_mutation_authorized": false,
+  "performance_claim_authorized": false,
+  "schema_version": "finance_fixture_boundary_policy_v1",
+  "track_record_claim_authorized": false,
+  "trading_advice_authorized": false
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": "microcosm_component_realness_blocked_receipt_v1",
+  "component_id": "batch11_saturation_engines_capsule",
+  "generated_at": "2026-06-05T07:41:55Z",
+  "phase_id": "09_54_1",
+  "session_id": "codex_20260605T073729Z_batch11_saturation_engines_realness_landing",
+  "current_rung": "R3/rank5 verified source import with remaining saturation-engine proof hardening",
+  "target_rung": "R4-quality discriminating source-manifest/public-refactor proof",
+  "gate": "realness_contract",
+  "status": "blocked",
+  "claimed_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
+    "microcosm-substrate/tests/test_batch11_saturation_engines_capsule.py",
+    "microcosm-substrate/receipts/first_wave/batch11_saturation_engines_capsule"
+  ],
+  "mutation_scope": {
+    "receipt_written": "microcosm-substrate/receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_realness_blocked_receipt.json",
+    "source_file_changed_by_this_session": false,
+    "test_file_changed_by_this_session": false,
+    "generated_atlas_site_or_public_policy_touched": false,
+    "unclaimed_exported_bundle_touched": false
+  },
+  "proof_run": {
+    "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_batch11_saturation_engines_capsule.py --basetemp microcosm-substrate/.microcosm/test-tmp/pytest-batch11-saturation-realness-current",
+    "exit_code": 1,
+    "summary": "4 failed, 5 passed",
+    "failed_tests": [
+      "test_batch11_saturation_engines_capsule_runs_all_mechanisms",
+      "test_batch11_saturation_engines_bundle_validates_runtime_shape",
+      "test_batch11_source_modules_are_exact_or_declared_public_refactors",
+      "test_batch11_card_omits_private_bodies"
+    ],
+    "source_findings": [
+      {
+        "error_code": "CROWN_JEWEL_SOURCE_BODY_COPY_MISMATCH",
+        "subject_id": "tools/meta/observability/session_analyzer.py"
+      },
+      {
+        "error_code": "BATCH11_PUBLIC_REFACTOR_DIGEST_MISMATCH",
+        "subject_id": "tools/meta/dissemination/portability_gate.py",
+        "expected_source_sha256": "39c9e1d89d48b64009d0e5ea1e4b1b2fa608ef5d3e6955498f5fd8596c6c2e27",
+        "observed_source_sha256": "4be885aa7ddc5a30b0e116cc935af02d83be3bf0d94e95de78f8a839439e884d",
+        "target_sha256": "e6db41595e892402a84713f22acef1f7a670ec6c1ff9794266f4831bdb703fef"
+      },
+      {
+        "error_code": "BATCH11_PUBLIC_REFACTOR_DIGEST_MISMATCH",
+        "subject_id": "tools/meta/dissemination/projection_secret_scan.py",
+        "expected_source_sha256": "26e9f10f7472b8b471dd3f59fd588f78444073fe4dc6d1a95cf7a38924f068a7",
+        "observed_source_sha256": "17e979b41b02090d404af72ca0295d46bafb9155d03e5c0a5ca35b3805bee8c2",
+        "target_sha256": "0344e7c11714afad654ad908a3c9a9f4e80f5527574a2da63ba8ea2241424548"
+      }
+    ]
+  },
+  "blocked_by": [
+    {
+      "path": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+      "claim_status": "not_claimed_by_this_session",
+      "observed_state": "dirty",
+      "why_blocking": "The real-good exported bundle reads this manifest; it currently records refactor source hashes that do not match live source refs."
+    },
+    {
+      "path": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
+      "claim_status": "not_claimed_by_this_session",
+      "observed_state": "dirty",
+      "why_blocking": "The manifest still declares this row as exact_copy, but the target body differs from the live macro source body."
+    }
+  ],
+  "proof_missing": [
+    "real-good exported bundle pass",
+    "R4 public-refactor source-manifest pass/fail discrimination after bundle source refs are coherent",
+    "post-refresh focused pytest pass",
+    "component result and validation receipts refreshed from a passing run"
+  ],
+  "safe_next_action": {
+    "action": "Resume with an exclusive claim that includes the exported bundle source_module_manifest.json and affected source_modules, or hand off to that bundle owner before rerunning the focused suite.",
+    "do_not": [
+      "Do not weaken source-manifest verification to accept clean live-source drift as pass.",
+      "Do not stage the existing capsule/test dirty slice until the exported bundle proves real-good pass.",
+      "Do not touch generated atlas/site/paper capsule/shared coverage or public-safety policy surfaces for this blocker."
+    ]
+  },
+  "thread_impact_card": {
+    "component_gate": "batch11_saturation_engines_capsule / realness_contract",
+    "current_rung": "R3/rank5",
+    "target_rung": "R4-quality",
+    "proof_run": "focused pytest failed: 4 failed, 5 passed",
+    "blocked_by": "unclaimed dirty exported bundle manifest/source body outside requested claim set",
+    "safe_next_action": "claim or hand off the exported bundle source-manifest/source_modules repair, then rerun the focused proof"
+  }
+}

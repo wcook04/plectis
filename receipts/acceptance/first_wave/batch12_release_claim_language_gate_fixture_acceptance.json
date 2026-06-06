@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 12 release claim-language gate validation executes the copied macro lexical gate over public-safe markdown fixtures. It is not release approval, publication authority, semantic NLP truth, complete secret detection, portability proof, or whole-system correctness.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch12_release_claim_language_gate",
+  "organ_id": "batch12_release_claim_language_gate",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json"
+}

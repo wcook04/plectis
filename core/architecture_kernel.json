@@ -116,7 +116,10 @@
       "input": "runtime operations",
       "output": ".microcosm/events.jsonl",
       "state_ref": ".microcosm/events.jsonl",
-      "runtime_commands": ["microcosm observe <project>"],
+      "runtime_commands": [
+        "microcosm observe --card <project>",
+        "microcosm observe <project>"
+      ],
       "endpoint_refs": ["/project/status"],
       "event_span": "project.* / work.*",
       "evidence_relation": ".microcosm/events.jsonl",

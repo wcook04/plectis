@@ -143,10 +143,10 @@ def read_command_output(
             band=band_choice,
         )
 
-    text = target.read_text(encoding="utf-8")
-    payload_bytes = len(text.encode("utf-8"))
     try:
-        payload = json.loads(text)
+        payload_bytes = target.stat().st_size
+        with target.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
     except json.JSONDecodeError as exc:
         return _error(
             "invalid_json",

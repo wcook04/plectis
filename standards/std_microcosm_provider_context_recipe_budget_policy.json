@@ -1,8 +1,8 @@
 {
-  "schema_version": "std_microcosm_provider_context_recipe_budget_policy_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_provider_context_recipe_budget_policy",
   "kind_id": "microcosm_runtime_organ",
-  "status": "accepted",
+  "status": "active",
   "authority_boundary": {
     "owner": "provider_context_recipe_budget_policy",
     "allowed_claim": "Public provider context recipes can describe bounded byte budgets, ordered section fill, omitted-section manifests, graph roles, and reducer deliverable types.",
@@ -152,7 +152,22 @@
       "provider boundary standards remain only source_refs while public context recipes claim budget, fallback, candidate-only, or mutation-authority policy",
       "batch calibration report builder is absent, hiding reducer taxonomy and recipe-policy aggregate metrics behind receipt pointers"
     ],
-    "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then run microcosm workingness to verify source-open body material count increases"
+    "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then run microcosm workingness to verify source-open body material count increases",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted",
+      "previous_source_schema_version": "std_microcosm_provider_context_recipe_budget_policy_v1",
+      "previous_source_status": "accepted",
+      "validator_refs": [
+        "validator.microcosm.organs.provider_context_recipe_budget_policy"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.provider_context_recipe_budget_policy"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "source_digests": {
     "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
@@ -165,5 +180,57 @@
     "codex/standards/std_transform_job.json": "sha256:017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b"
   },
   "body_material_status": "copied_non_secret_macro_tool_and_standard_bodies_with_reducer_calibration_and_provider_boundary_provenance",
-  "body_material_count": 8
+  "body_material_count": 8,
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.author",
+      "status": "planned",
+      "purpose": "create a valid Provider context recipe budget policy instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Provider context recipe budget policy without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_provider_context_recipe_budget_policy and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.provider_context_recipe_budget_policy"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.provider_context_recipe_budget_policy"
+  ],
+  "anti_claims": [
+    "This standard governs public provider context recipe budgets and exact copied non-secret source modules only; it does not call providers, expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_provider_context_recipe_budget_policy",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted",
+    "source_schema_before_v2_uplift": "std_microcosm_provider_context_recipe_budget_policy_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.provider_context_recipe_budget_policy",
+    "receipt_id": "receipt.microcosm.provider_context_recipe_budget_policy",
+    "validator_refs": [
+      "validator.microcosm.organs.provider_context_recipe_budget_policy"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.provider_context_recipe_budget_policy"
+    ]
+  }
 }

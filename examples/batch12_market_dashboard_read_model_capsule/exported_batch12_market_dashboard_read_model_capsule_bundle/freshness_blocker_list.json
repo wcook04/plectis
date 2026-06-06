@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "freshness_blocker_list",
+  "error_codes": [
+    "BATCH12_MDRM_FRESHNESS_BLOCKER_LIST"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_market_dashboard_negative_case_v1"
+}

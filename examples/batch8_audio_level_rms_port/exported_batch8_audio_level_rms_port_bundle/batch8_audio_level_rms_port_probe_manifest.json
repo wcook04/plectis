@@ -1,0 +1,61 @@
+{
+  "authority_ceiling": {
+    "audio_session_started": false,
+    "authority_ceiling": "batch8_audio_level_rms_python_port_not_audio_session_or_capture_authority",
+    "device_capture_authorized": false,
+    "microphone_permission_required": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "python_port": true,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "cases": [
+    {
+      "body_in_receipt": false,
+      "case_id": "float32_reference_buffer",
+      "expected_level": 0.48989794855663565,
+      "sample_format": "float32",
+      "samples": [
+        0.0,
+        0.05,
+        -0.05,
+        0.1
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "int16_reference_buffer",
+      "expected_level": 0.48989296997474613,
+      "sample_format": "int16",
+      "samples": [
+        0,
+        1638,
+        -1638,
+        3277
+      ],
+      "tolerance": 1e-06
+    },
+    {
+      "body_in_receipt": false,
+      "case_id": "clamp_over_one_buffer",
+      "expected_level": 1.0,
+      "sample_format": "float32",
+      "samples": [
+        1.0,
+        -1.0,
+        0.5
+      ],
+      "tolerance": 1e-09
+    }
+  ],
+  "organ_id": "batch8_audio_level_rms_port",
+  "port_semantics": "sqrt(sum(sample^2) / count) * 8, clamped to [0, 1]; int16 samples divide by Int16.max/32767",
+  "schema_version": "batch8_audio_level_rms_port_probe_manifest_v1",
+  "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift"
+}

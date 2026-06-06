@@ -1,0 +1,22 @@
+{
+  "body_in_receipt": false,
+  "cases": [
+    {
+      "asserted_sections": [
+        "Current state"
+      ],
+      "case_id": "bound_current_state_asserted_section",
+      "expect_unbound": false,
+      "markdown": "# Fixture module\n\n## Current state\n\nThe public projection currently exposes 123 rows for fixture coverage.\n"
+    },
+    {
+      "asserted_sections": [],
+      "case_id": "detector_unbound_current_state",
+      "expect_unbound": true,
+      "expected_number": "123",
+      "expected_section": "Current state",
+      "markdown": "# Fixture module\n\n## Current state\n\nThe public projection currently exposes 123 rows for fixture coverage.\n"
+    }
+  ],
+  "schema_version": "doctrine_numeric_claim_binding_fixture_v1"
+}

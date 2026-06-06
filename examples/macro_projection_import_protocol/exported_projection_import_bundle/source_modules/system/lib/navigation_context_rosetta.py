@@ -140,6 +140,116 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def build_navigation_context_rosetta_compact(
+    repo_root: Path | str,
+    *,
+    context_budget: int = 1400,
+) -> dict[str, Any]:
+    """Build the first-contact Rosetta packet without live option-surface expansion."""
+    _ = Path(repo_root)
+    fixture_rows = [
+        {
+            "kind_id": kind_id,
+            "row_ref": fixture.get("row_ref"),
+            "source_ref": fixture.get("source_ref"),
+            "evidence_command": fixture.get("evidence_command"),
+            "why": fixture.get("why"),
+        }
+        for kind_id, fixture in REPRESENTATIVE_FIXTURES.items()
+    ]
+    return {
+        "kind": "navigation_context_rosetta_packet",
+        "schema_version": "navigation_context_rosetta_packet_v0",
+        "generated_at": _utc_now(),
+        "authority_posture": "read_only_rosetta_context_probe_not_production_navigation",
+        "output_profile": "compact_cli_fixture_grammar",
+        "measurement_mode": "fixture_grammar_catalog",
+        "full_packet_command": (
+            "./repo-python kernel.py --full --navigation-context-rosetta "
+            f"--context-budget {max(1000, int(context_budget or 1400))}"
+        ),
+        "source_surfaces": [
+            "codex/standards/std_navigation_rosetta_grammar.json",
+            "system/lib/navigation_context_rosetta.py::REPRESENTATIVE_FIXTURES",
+        ],
+        "math_model": {
+            "name": "coverage_first_information_density_knapsack_v1",
+            "objective": "Compact CLI catalog exposes coverage grammar and fixture handles; --full runs live utility/cost selection.",
+            "paper_module_ref": "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+            "objective_order": [
+                "coverage_floor",
+                "information_density",
+                "risk_reduction",
+                "omission_and_evidence_clarity",
+            ],
+            "layer_depth_rule": "Layer count is native to each kind and must be justified by distinguishable decisions, authority complexity, evidence fan-out, and population availability; extra empty layers are profile drift.",
+        },
+        "semantic_grammar": {
+            "governing_standard_ref": "codex/standards/std_navigation_rosetta_grammar.json",
+            "context_atom": "A selected noun at a band/scope/facet with selector policy, source authority, population mode, currentness, confidence, extraction mode, cost, utility, evidence command, and omission receipt.",
+            "nouns": {
+                "row": "A selectable artifact instance such as a paper module, standard, term, principle, Python scope, frontend component, or annex pattern.",
+                "scope": "A structural noun inside a row: module, section, function, class, component, paragraph, table row, evidence ref.",
+                "facet": "An aspect noun on a scope: gap, intent, body, signature, evidence, aliases, tests, dependency_neighborhood.",
+                "band": "A density noun naming how compressed the selected row/scope/facet is for this packet.",
+            },
+            "verbs": {
+                "feeds": "Source or upstream row supplies information, data, pressure, or examples into a target row.",
+                "blocks": "Source row prevents safe action on target until a condition is satisfied.",
+                "governs": "Source row constrains legal shape, authority, or validation of target.",
+                "evidences": "Source row proves or motivates target without necessarily governing it.",
+                "populates": "Source or worker emits target band/facet content.",
+                "invalidates": "Source freshness, contradiction, or schema change makes target projection stale.",
+            },
+            "selector_policies": {
+                "direct_enumeration": "Use when a full option surface fits the budget; preferred over model ranking.",
+                "dependency_ordered": "Use when graph direction matters and validated summaries can fold lower-level context upward.",
+                "calibrated_slate": "Use when the option surface is too large and candidate groups need comparable scores.",
+                "beam_telescope": "Use when a tree/lattice must be traversed through multiple expansion decisions.",
+            },
+            "impact_vector": {
+                "semantic_flow": "How much meaning or task signal moves across the edge.",
+                "authority_flow": "Whether permission, standard legality, or doctrine constraint moves across the edge.",
+                "freshness_risk": "How likely the target becomes wrong if the source changed.",
+                "mutation_risk": "How dangerous it is to act from the compressed row without opening evidence.",
+            },
+            "edge_need_formula": "need(edge,task)=dot(task_weights, impact_vector(edge))*authority_factor*freshness_factor*confidence(edge)*role_prior(edge,task)/cost(edge_band)",
+            "rosetta_rule": "The smallest packet should expose selected context atoms, nouns, legal verbs, selector policy, impact vector, confidence/provenance, selected band, omitted neighborhoods, and evidence command before any source body is opened.",
+        },
+        "rosetta_grammar": {
+            "description": "A compact meta-row every artifact kind can emit even though each kind keeps native bands, scopes, facets, and source authority.",
+            "governing_standard_ref": "codex/standards/std_navigation_rosetta_grammar.json",
+            "holographic_property": "Every selected row carries enough of the whole grammar to explain how to expand itself.",
+        },
+        "budget": {
+            "context_budget": max(1000, int(context_budget or 1400)),
+            "estimated_cost": len(fixture_rows),
+            "remaining_budget": max(1000, int(context_budget or 1400)) - len(fixture_rows),
+            "coverage_count": len(fixture_rows),
+            "total_kinds": len(fixture_rows),
+            "card_upgrades": 0,
+            "omitted_live_context_rows": len(fixture_rows),
+        },
+        "representative_context_rows": fixture_rows[:8],
+        "representative_context_rows_omitted": max(0, len(fixture_rows) - 8),
+        "omission_receipt": {
+            "omitted": [
+                "live Kind Atlas card rows",
+                "kind-band contract audit rows",
+                "representative option card payloads",
+                "full source bodies",
+                "unbounded second-order dependency closure",
+            ],
+            "reason": "Default CLI is a first-contact Rosetta grammar handle; use --full for the live coverage/cost packet.",
+            "drilldown": [
+                "./repo-python kernel.py --full --navigation-context-rosetta --context-budget 12000",
+                "./repo-python kernel.py --kind-atlas --band card",
+                "./repo-python kernel.py --kind-band-contract-audit",
+            ],
+        },
+    }
+
+
 def _row_by(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, Any]]:
     return {str(row.get(key) or ""): row for row in rows}
 

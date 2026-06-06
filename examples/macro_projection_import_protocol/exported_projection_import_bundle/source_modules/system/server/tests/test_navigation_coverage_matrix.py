@@ -118,6 +118,10 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
         "./repo-python kernel.py --option-surface paper_modules --band card --ids "
         "microcosm_public_export_type_plane"
     )
+    assert public_exports["type_plane_card_command"] == (
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card "
+        "--ids public_microcosm_exports"
+    )
     assert all(
         row["coverage_relationship"] == "resolved_by_standard_type_plane_not_matrix_kind_row"
         for row in type_plane_resolution["extra_resolved_routes"]
@@ -383,6 +387,37 @@ def test_coverage_enforcement_matrix_routes_speed_query_to_throughput_fast_path(
     )
 
 
+def test_coverage_enforcement_matrix_compacts_broad_microcosm_speed_query_without_active_debt() -> None:
+    query = "speed optimisation efficiency context management microcosm control plane"
+    compact = build_coverage_enforcement_matrix(
+        REPO_ROOT,
+        query=query,
+        context_budget=12000,
+    )
+    full = build_coverage_enforcement_matrix(
+        REPO_ROOT,
+        query=query,
+        context_budget=40000,
+    )
+
+    if compact["process_audit_fast_path"]["status"] != "no_active_behavior_debt":
+        assert compact["rows"]
+        return
+
+    assert compact["budget"]["compact_first_contact_omission"] is True
+    assert compact["rows"] == []
+    assert compact["summary"]["rows_emitted_count"] == 0
+    assert compact["summary"]["matrix_rows_omitted_count"] == full["summary"]["kind_count"]
+    assert compact["summary"]["compact_first_contact_status"] == "rows_omitted_no_active_behavior_debt"
+    receipt = compact["compact_first_contact_omission_receipt"]
+    assert receipt["omitted_row_count"] == full["summary"]["kind_count"]
+    assert receipt["kind_id_preview"]
+    assert "--context-budget 40000" in receipt["full_matrix_command"]
+    assert any(item["command"] == receipt["full_matrix_command"] for item in compact["next_commands"])
+    assert full["rows"]
+    assert len(json.dumps(compact, indent=2).encode("utf-8")) < len(json.dumps(full, indent=2).encode("utf-8"))
+
+
 def test_coverage_enforcement_matrix_reports_privacy_safe_phase_timings() -> None:
     payload = build_coverage_enforcement_matrix(
         REPO_ROOT,
@@ -443,6 +478,13 @@ def test_command_profile_supports_coverage_enforcement_matrix() -> None:
     )
     assert build_phase["kind_atlas_projection_profile"] == "system_atlas_fast_rows"
     assert build_phase["kind_atlas_fast_path"] is True
+    assert build_phase["output_bytes"] < 25000
+    output_shape = next(
+        phase
+        for phase in payload["phases"]
+        if phase["phase"] == "coverage_enforcement_matrix_output_shape"
+    )
+    assert all(section["section"] != "rows" for section in output_shape["top_sections"])
 
 
 def test_coverage_enforcement_matrix_cli_emits_json() -> None:
@@ -464,7 +506,36 @@ def test_coverage_enforcement_matrix_cli_emits_json() -> None:
     assert result.returncode == 0
     payload = json.loads(result.stdout)
     assert payload["kind"] == "coverage_enforcement_matrix"
+    assert payload["output_profile"] == "coverage_enforcement_matrix_command_profile_compact_v0"
     assert payload["summary"]["kind_count"] >= 25
     assert payload["summary"]["control_entry_allowed_count"] == 0
+    assert payload["rows"] == []
+    assert payload["summary"]["matrix_rows_omitted_count"] == payload["summary"]["kind_count"]
+    assert payload["row_pressure_preview"]
+    assert payload["command_profile_omission_receipt"]["full_matrix_command"].endswith(
+        "--context-budget 60000"
+    )
+    assert len(result.stdout.encode("utf-8")) < 25000
+
+
+def test_coverage_enforcement_matrix_cli_full_budget_emits_rows() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "kernel.py",
+            "--coverage-enforcement-matrix",
+            "coverage first matrix",
+            "--context-budget",
+            "40000",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "coverage_enforcement_matrix"
+    assert "output_profile" not in payload
     assert any(row["kind_id"] == "skills" for row in payload["rows"])
-    assert len(result.stdout.encode("utf-8")) <= 20000 * 4

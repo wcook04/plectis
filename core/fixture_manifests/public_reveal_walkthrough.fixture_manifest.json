@@ -24,20 +24,23 @@
     "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
     "status": "pass",
     "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
-    "body_material_count": 4,
+    "body_material_count": 5,
     "body_material_ids": [
       "public_reveal_first_slice_execution_receipt_body_import",
       "public_reveal_runtime_shell_reorientation_receipt_body_import",
       "public_reveal_clean_clone_state_fixture_receipt_body_import",
-      "public_reveal_public_substrate_boundary_policy_body_import"
+      "public_reveal_public_substrate_boundary_policy_body_import",
+      "public_reveal_walkthrough_control_plane_source_body_import"
     ],
     "material_classes": [
       "public_macro_receipt_body",
-      "public_macro_tool_body"
+      "public_macro_tool_body",
+      "public_python_source_body"
     ],
     "body_material_classes": {
       "public_macro_receipt_body": 3,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 1,
+      "public_python_source_body": 1
     },
     "source_manifest_refs": [
       "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
@@ -46,9 +49,17 @@
     "fixture_manifest_ref": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
-    "reader_action": "Open source_module_manifest.json and source_modules/ for copied public-reveal macro reconstruction receipts and boundary policy bodies; receipts carry refs, hashes, counts, and verdicts only."
+    "reader_action": "Open source_module_manifest.json and source_modules/ for copied public-reveal macro reconstruction receipt, boundary-policy, and public organ source bodies; receipts carry refs, hashes, counts, and verdicts only."
   },
-  "body_copied_material_count": 4,
+  "body_copied_material_count": 5,
+  "real_lane_witness": {
+    "status": "required",
+    "witness_action": "run-reveal-bundle",
+    "witness_input_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
+    "source_body_imports_required_for_witness": true,
+    "current_body_material_count": 5,
+    "tamper_rejection_error_code": "PUBLIC_REVEAL_REAL_LANE_WITNESS_BLOCKED"
+  },
   "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
   "expected_negative_cases": [
     "release_or_hosting_overclaim",
@@ -79,6 +90,7 @@
     "real_runtime_receipt",
     "synthetic_receipt_standin_allowed",
     "public_runtime_refs",
+    "real_lane_witness",
     "authority_ceiling",
     "receipt_paths",
     "walkthrough_id",

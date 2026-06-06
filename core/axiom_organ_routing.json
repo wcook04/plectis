@@ -1,0 +1,2496 @@
+{
+  "kind": "axiom_organ_routing",
+  "schema_version": "microcosm_axiom_organ_routing_v1",
+  "status": "source_of_record_for_axiom_witness_routes",
+  "authority_posture": "routing_registry_not_proof_body",
+  "axiom_count": 12,
+  "principle_count": 20,
+  "anti_principle_count": 17,
+  "strength_scale": {
+    "strong": "At least one organ or validator computes the relevant property from lower-level evidence and has a negative case proving the anti-axiom is rejected.",
+    "partial": "The substrate witnesses part of the axiom, but the general formal clause is stronger than current public organs.",
+    "candidate": "The axiom is doctrinally plausible but lacks a public executable witness."
+  },
+  "obligation_pilot": {
+    "schema_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract",
+    "status": "full_12_axiom_obligations_present",
+    "coverage_status_enum": [
+      "pending_cover_evaluator",
+      "layer_debt"
+    ],
+    "note": "Obligations decompose a formal_clause into checkable units bound to EXISTING witnesses already named on the row. coverage_tag (strong/partial/blocked) is intentionally NOT asserted here; it is computed by validator.microcosm.axiom_support_cover. This avoids label-echo (AP-1), count theater (AP-3), and projection laundering. All 12 axioms now expose obligations; AX-4, AX-8, and AX-12 preserve explicit layer-debt caps where current witnesses do not close the stronger formal clause.",
+    "cap": "cap_quick_axiom_obligation_decomposition_axiom_pay_4e60d1af1075",
+    "anti_axiom_rejection_mapping_status": "source_owned_non_certifying_rows_for_each_required_obligation",
+    "anti_axiom_rejection_mapping_note": "Every required obligation has a source-owned anti_axiom_rejection_mappings row. Rows remain non-certifying unless mapping_relation is exact_obligation_rejection or subsumes_obligation with mapping_verified true from source-owned receipt-level evidence; current rows preserve residual pressure instead of promoting endpoint or row-level coverage."
+  },
+  "support_expansion_contract": {
+    "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+    "status": "all_rows_bind_claim_ceiling_and_layer_debt_receipts",
+    "claim_ceiling_source": "microcosm_core.validators.axiom_support_cover::support_frontiers[axiom_id].claim_ceiling",
+    "layer_debt_receipt_source": "core/axiom_organ_routing.json::rows[].layer_debt[].receipt_ref",
+    "authority_boundary": "Routing binds source inputs and validator/receipt refs; strongest_allowed_claim remains computed by validator.microcosm.axiom_support_cover and is not hand-stamped in this source file."
+  },
+  "rows": [
+    {
+      "axiom_id": "AX-1",
+      "title": "Derivation before assertion",
+      "formal_clause": "For any claim phi over basis B, admissibility requires a derivation certificate c and checker K such that K(B,c,phi)=accept; strength(phi) <= strength(K(B,c,phi)). Bare assertion has bottom evidence.",
+      "lineage": [
+        "Curry-Howard / propositions-as-types",
+        "proof-carrying code",
+        "verifiable computation"
+      ],
+      "principle_ids": [
+        "P-1",
+        "P-2"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "agent_sabotage_scheming_monitor_replay",
+        "belief_state_process_reward_replay"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/validators/evidence_truth_floor.py",
+        "core/organ_evidence_classes.json",
+        "tests/test_agent_sabotage_scheming_monitor_replay.py",
+        "tests/test_evidence_truth_floor.py"
+      ],
+      "anti_axiom": "asserted_label_is_truth",
+      "anti_principle_ids": [
+        "AP-1",
+        "AP-12",
+        "AP-15"
+      ],
+      "negative_case_codes": [
+        "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH"
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-1].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-1].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-1.O1.certificate_exists",
+          "predicate": "a claim phi over basis B carries a derivation certificate c",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "agent_sabotage_scheming_monitor_replay",
+              "belief_state_process_reward_replay"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-1.O2.checker_accepts",
+          "predicate": "K(B,c,phi)=accept",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/evidence_truth_floor.py",
+              "tests/test_evidence_truth_floor.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-1.O3.claim_ceiling",
+          "predicate": "strength(phi) <= strength(K(B,c,phi))",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/evidence_truth_floor.py",
+              "core/organ_evidence_classes.json"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "projection_parity_note": "present in this formal_clause; was absent from the AXIOMS.md AX-1 projection until added in the same change"
+        },
+        {
+          "obligation_id": "AX-1.O4.bare_assertion_bottom",
+          "predicate": "a bare assertion with no certificate has bottom evidence",
+          "required": true,
+          "binding": {
+            "negative_case_codes": [
+              "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-1.O1.certificate_exists.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-1",
+          "obligation_ref": "AX-1.O1.certificate_exists",
+          "anti_axiom_ref": "asserted_label_is_truth",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a claim phi over basis B carries a derivation certificate c",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-1].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for asserted_label_is_truth.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-1.O2.checker_accepts.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-1",
+          "obligation_ref": "AX-1.O2.checker_accepts",
+          "anti_axiom_ref": "asserted_label_is_truth",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "K(B,c,phi)=accept",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-1].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for asserted_label_is_truth.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-1.O3.claim_ceiling.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-1",
+          "obligation_ref": "AX-1.O3.claim_ceiling",
+          "anti_axiom_ref": "asserted_label_is_truth",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "strength(phi) <= strength(K(B,c,phi))",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-1].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for asserted_label_is_truth.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-1.O4.bare_assertion_bottom.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-1",
+          "obligation_ref": "AX-1.O4.bare_assertion_bottom",
+          "anti_axiom_ref": "asserted_label_is_truth",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a bare assertion with no certificate has bottom evidence",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-1].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH, but no receipt-level per-obligation row proves exact or subsuming rejection of asserted_label_is_truth.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-2",
+      "title": "Kernelized verification",
+      "formal_clause": "Trusted claims are decided by a small checker K over certificates c; producers emit c and K decides.",
+      "lineage": [
+        "de Bruijn criterion",
+        "LCF kernel architecture",
+        "Lean kernel",
+        "proof by reflection"
+      ],
+      "principle_ids": [
+        "P-3"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "certificate_kernel_execution_lab",
+        "formal_math_lean_proof_witness"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/organs/_crown_jewel_common.py",
+        "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+        "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+        "tests/test_certificate_kernel_execution_lab.py",
+        "tests/test_formal_math_lean_proof_witness.py"
+      ],
+      "anti_axiom": "producer_trust_replaces_checker",
+      "anti_principle_ids": [
+        "AP-2",
+        "AP-15"
+      ],
+      "negative_case_codes": [
+        "LEAN_WITNESS_INVALID_PROOF_REJECTED"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-2.O1.small_checker_decides",
+          "predicate": "trusted claims are decided by a small checker K over certificate material",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "certificate_kernel_execution_lab"
+            ],
+            "witness_surfaces": [
+              "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+              "tests/test_certificate_kernel_execution_lab.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-2.O2.producer_emits_certificate",
+          "predicate": "producers emit certificates c separately from the checker that decides them",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "certificate_kernel_execution_lab"
+            ],
+            "witness_surfaces": [
+              "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+              "tests/test_certificate_kernel_execution_lab.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-2.O3.invalid_proof_rejected",
+          "predicate": "an invalid certificate or proof body is rejected by the checker path",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "formal_math_lean_proof_witness"
+            ],
+            "witness_surfaces": [
+              "tests/test_formal_math_lean_proof_witness.py"
+            ],
+            "negative_case_codes": [
+              "LEAN_WITNESS_INVALID_PROOF_REJECTED"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-2.O1.small_checker_decides.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-2",
+          "obligation_ref": "AX-2.O1.small_checker_decides",
+          "anti_axiom_ref": "producer_trust_replaces_checker",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "trusted claims are decided by a small checker K over certificate material",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-2].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for producer_trust_replaces_checker.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-2.O2.producer_emits_certificate.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-2",
+          "obligation_ref": "AX-2.O2.producer_emits_certificate",
+          "anti_axiom_ref": "producer_trust_replaces_checker",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "producers emit certificates c separately from the checker that decides them",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-2].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for producer_trust_replaces_checker.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-2.O3.invalid_proof_rejected.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-2",
+          "obligation_ref": "AX-2.O3.invalid_proof_rejected",
+          "anti_axiom_ref": "producer_trust_replaces_checker",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "an invalid certificate or proof body is rejected by the checker path",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-2].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) LEAN_WITNESS_INVALID_PROOF_REJECTED, but no receipt-level per-obligation row proves exact or subsuming rejection of producer_trust_replaces_checker.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-2].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-2].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    },
+    {
+      "axiom_id": "AX-3",
+      "title": "Authority by derivation, not possession",
+      "formal_clause": "auth(subject,effect)=F(deref(tokens_presented),policy,proof_refs,world_state); ambient identity is insufficient.",
+      "lineage": [
+        "object-capability security",
+        "least authority",
+        "confused deputy"
+      ],
+      "principle_ids": [
+        "P-4",
+        "P-16",
+        "P-18"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "proof_derived_governed_mutation_authorization",
+        "mcp_tool_authority_replay"
+      ],
+      "witness_surfaces": [
+        "tests/test_proof_derived_governed_mutation_authorization.py",
+        "tests/test_mcp_tool_authority_replay.py"
+      ],
+      "anti_axiom": "standing_credential_is_authority",
+      "anti_principle_ids": [
+        "AP-2"
+      ],
+      "negative_case_codes": [
+        "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY",
+        "MCP_TOOL_OVERBROAD_SCOPE",
+        "MCP_TOOL_UNAPPROVED_SIDE_EFFECT"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-3.O1.authorization_is_derived",
+          "predicate": "authorization for a subject/effect is derived from policy, proof references, and world-state evidence rather than ambient identity",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "proof_derived_governed_mutation_authorization"
+            ],
+            "witness_surfaces": [
+              "tests/test_proof_derived_governed_mutation_authorization.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-3.O2.standing_credential_insufficient",
+          "predicate": "standing credentials or possession of a token are insufficient authority without derived authorization evidence",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "proof_derived_governed_mutation_authorization"
+            ],
+            "witness_surfaces": [
+              "tests/test_proof_derived_governed_mutation_authorization.py"
+            ],
+            "negative_case_codes": [
+              "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-3.O3.tool_effects_require_declared_scope",
+          "predicate": "tool authority is bounded by declared tool identity, scope, approval, and side-effect receipts rather than by tool availability alone",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "mcp_tool_authority_replay"
+            ],
+            "witness_surfaces": [
+              "tests/test_mcp_tool_authority_replay.py"
+            ],
+            "negative_case_codes": [
+              "MCP_TOOL_OVERBROAD_SCOPE",
+              "MCP_TOOL_UNAPPROVED_SIDE_EFFECT"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-3.O1.authorization_is_derived.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-3",
+          "obligation_ref": "AX-3.O1.authorization_is_derived",
+          "anti_axiom_ref": "standing_credential_is_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "authorization for a subject/effect is derived from policy, proof references, and world-state evidence rather than ambient identity",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-3].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for standing_credential_is_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-3.O2.standing_credential_insufficient.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-3",
+          "obligation_ref": "AX-3.O2.standing_credential_insufficient",
+          "anti_axiom_ref": "standing_credential_is_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "standing credentials or possession of a token are insufficient authority without derived authorization evidence",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-3].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) GOV_MUT_STANDING_CREDENTIAL_AUTHORITY, but no receipt-level per-obligation row proves exact or subsuming rejection of standing_credential_is_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-3.O3.tool_effects_require_declared_scope.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-3",
+          "obligation_ref": "AX-3.O3.tool_effects_require_declared_scope",
+          "anti_axiom_ref": "standing_credential_is_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "tool authority is bounded by declared tool identity, scope, approval, and side-effect receipts rather than by tool availability alone",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-3].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) MCP_TOOL_OVERBROAD_SCOPE, MCP_TOOL_UNAPPROVED_SIDE_EFFECT, but no receipt-level per-obligation row proves exact or subsuming rejection of standing_credential_is_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-3].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-3].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    },
+    {
+      "axiom_id": "AX-4",
+      "title": "Content-addressed determinism",
+      "formal_clause": "a=f(B) and id(a)=H(B); equal B permits reuse; drift(B) forces recompute; missing(B)=bottom.",
+      "lineage": [
+        "referential transparency",
+        "Merkle/content addressing",
+        "hermetic builds"
+      ],
+      "principle_ids": [
+        "P-5",
+        "P-14",
+        "P-15",
+        "P-17"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "durable_agent_work_landing_replay",
+        "macro_projection_import_protocol"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/engine_room/command_run_singleflight.py",
+        "src/microcosm_core/organs/_crown_jewel_common.py",
+        "tests/test_engine_room_command_run_singleflight.py",
+        "tests/test_durable_agent_work_landing_replay.py"
+      ],
+      "anti_axiom": "cache_by_name_across_drift",
+      "anti_principle_ids": [
+        "AP-4",
+        "AP-12",
+        "AP-13",
+        "AP-17"
+      ],
+      "negative_case_codes": [
+        "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH",
+        "WORK_LANDING_FRESHNESS_BASIS_MISMATCH"
+      ],
+      "layer_debt": [
+        {
+          "debt_id": "AX4-work-landing-freshness-code-unmaterialized",
+          "reason": "WORK_LANDING_FRESHNESS_BASIS_MISMATCH is a routing-level error shape from the durable replay design; current public code uses content-basis refusal but may not materialize this exact stable code.",
+          "acceptance_hint": "Either materialize the stable mismatch code in the durable replay tests or replace the code with the live stable error code.",
+          "status": "open_layer_debt",
+          "claim_ceiling": "partial_capped_by_layer_debt",
+          "authority_ceiling": {
+            "status": "layer_debt_open_not_support_closure",
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          },
+          "receipt_ref": "receipts/doctrine_records/layer_debt/AX4-work-landing-freshness-code-unmaterialized.receipt.json"
+        }
+      ],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-4].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-4].layer_debt",
+          "receipt_refs": [
+            "receipts/doctrine_records/layer_debt/AX4-work-landing-freshness-code-unmaterialized.receipt.json"
+          ],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-4.O1.content_basis_digest_declared",
+          "predicate": "artifact identity is derived from a declared content basis B and digest id(a)=H(B)",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "macro_projection_import_protocol",
+              "durable_agent_work_landing_replay"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/_crown_jewel_common.py",
+              "tests/test_durable_agent_work_landing_replay.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-4.O2.equal_basis_permits_reuse",
+          "predicate": "equal content basis permits deterministic reuse or singleflight coalescing rather than rerunning by name alone",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/engine_room/command_run_singleflight.py",
+              "tests/test_engine_room_command_run_singleflight.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-4.O3.digest_drift_forces_recompute",
+          "predicate": "source digest drift forces recompute or refusal instead of cache reuse across drift",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "macro_projection_import_protocol"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/_crown_jewel_common.py",
+              "tests/test_durable_agent_work_landing_replay.py"
+            ],
+            "negative_case_codes": [
+              "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-4.O4.freshness_basis_mismatch_materialized",
+          "predicate": "work landing freshness-basis mismatch is materialized as a stable blocking code before this axiom can claim full support",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "durable_agent_work_landing_replay"
+            ],
+            "witness_surfaces": [
+              "tests/test_durable_agent_work_landing_replay.py"
+            ],
+            "negative_case_codes": [
+              "WORK_LANDING_FRESHNESS_BASIS_MISMATCH"
+            ]
+          },
+          "coverage_status": "layer_debt",
+          "layer_debt_ref": "AX4-work-landing-freshness-code-unmaterialized"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-4.O1.content_basis_digest_declared.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-4",
+          "obligation_ref": "AX-4.O1.content_basis_digest_declared",
+          "anti_axiom_ref": "cache_by_name_across_drift",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "artifact identity is derived from a declared content basis B and digest id(a)=H(B)",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-4].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for cache_by_name_across_drift.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-4.O2.equal_basis_permits_reuse.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-4",
+          "obligation_ref": "AX-4.O2.equal_basis_permits_reuse",
+          "anti_axiom_ref": "cache_by_name_across_drift",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "equal content basis permits deterministic reuse or singleflight coalescing rather than rerunning by name alone",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-4].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for cache_by_name_across_drift.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-4.O3.digest_drift_forces_recompute.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-4",
+          "obligation_ref": "AX-4.O3.digest_drift_forces_recompute",
+          "anti_axiom_ref": "cache_by_name_across_drift",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "source digest drift forces recompute or refusal instead of cache reuse across drift",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-4].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) CROWN_JEWEL_SOURCE_DIGEST_MISMATCH, but no receipt-level per-obligation row proves exact or subsuming rejection of cache_by_name_across_drift.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-4.O4.freshness_basis_mismatch_materialized.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-4",
+          "obligation_ref": "AX-4.O4.freshness_basis_mismatch_materialized",
+          "anti_axiom_ref": "cache_by_name_across_drift",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "work landing freshness-basis mismatch is materialized as a stable blocking code before this axiom can claim full support",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "declared witness debt; checker does not close the obligation",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-4].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "This obligation carries explicit layer debt AX4-work-landing-freshness-code-unmaterialized; current witness or receipt coverage is not mapped to the cache_by_name_across_drift anti-axiom slice.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-5",
+      "title": "Fail-closed monotone lattice",
+      "formal_clause": "status(composite)=meet(status(parts)); no evidence defaults to blocked; later stages may lower but not raise authority without new derivation.",
+      "lineage": [
+        "lattice information flow",
+        "fail-safe defaults",
+        "monotone dataflow"
+      ],
+      "principle_ids": [
+        "P-2",
+        "P-6",
+        "P-15",
+        "P-19"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/organs/_crown_jewel_common.py",
+        "src/microcosm_core/release_export.py",
+        "core/organ_evidence_classes.json",
+        "src/microcosm_core/validators/private_state_scan.py",
+        "src/microcosm_core/validators/secret_exclusion_scan.py",
+        "tests/test_release_export.py"
+      ],
+      "anti_axiom": "silent_default_pass",
+      "anti_principle_ids": [
+        "AP-3",
+        "AP-14"
+      ],
+      "negative_case_codes": [
+        "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+        "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED"
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-5].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-5].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-5.O1.composite_status_meets_parts",
+          "predicate": "a composite artifact status is the meet of its declared part statuses",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "core/organ_evidence_classes.json",
+              "src/microcosm_core/release_export.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-5.O2.no_evidence_defaults_blocked",
+          "predicate": "missing evidence defaults to blocked rather than silently passing",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/organs/_crown_jewel_common.py",
+              "src/microcosm_core/validators/private_state_scan.py",
+              "src/microcosm_core/validators/secret_exclusion_scan.py"
+            ],
+            "negative_case_codes": [
+              "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-5.O3.authority_cannot_raise_without_derivation",
+          "predicate": "later stages may lower authority but cannot raise it without a new derivation or evidence boundary",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/release_export.py",
+              "tests/test_release_export.py"
+            ],
+            "negative_case_codes": [
+              "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-5.O1.composite_status_meets_parts.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-5",
+          "obligation_ref": "AX-5.O1.composite_status_meets_parts",
+          "anti_axiom_ref": "silent_default_pass",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a composite artifact status is the meet of its declared part statuses",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-5].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for silent_default_pass.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-5.O2.no_evidence_defaults_blocked.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-5",
+          "obligation_ref": "AX-5.O2.no_evidence_defaults_blocked",
+          "anti_axiom_ref": "silent_default_pass",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "missing evidence defaults to blocked rather than silently passing",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-5].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED, but no receipt-level per-obligation row proves exact or subsuming rejection of silent_default_pass.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-5.O3.authority_cannot_raise_without_derivation.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-5",
+          "obligation_ref": "AX-5.O3.authority_cannot_raise_without_derivation",
+          "anti_axiom_ref": "silent_default_pass",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "later stages may lower authority but cannot raise it without a new derivation or evidence boundary",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-5].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED, but no receipt-level per-obligation row proves exact or subsuming rejection of silent_default_pass.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-6",
+      "title": "Open-world epistemics",
+      "formal_clause": "not_proven(P) does not imply proven(not P); coverage is closed-world only inside declared finite domains.",
+      "lineage": [
+        "open-world assumption",
+        "closed-world assumption",
+        "soundness vs completeness"
+      ],
+      "principle_ids": [
+        "P-7",
+        "P-19"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "self_ignorance_coverage_ledger",
+        "doctrine_fact_claim_audit"
+      ],
+      "witness_surfaces": [
+        "tests/test_self_ignorance_coverage_ledger.py",
+        "tests/test_doctrine_fact_claim_audit.py"
+      ],
+      "anti_axiom": "absence_evidence_as_evidence_absence",
+      "anti_principle_ids": [
+        "AP-5"
+      ],
+      "negative_case_codes": [
+        "SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-6.O1.closed_world_domain_declared",
+          "predicate": "closed-world coverage conclusions are scoped to a declared finite domain rather than to all possible unknowns",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "self_ignorance_coverage_ledger"
+            ],
+            "witness_surfaces": [
+              "tests/test_self_ignorance_coverage_ledger.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-6.O2.absence_not_negation",
+          "predicate": "absence of proof is not converted into proof of negation or unknown-unknown exhaustiveness",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "self_ignorance_coverage_ledger"
+            ],
+            "witness_surfaces": [
+              "tests/test_self_ignorance_coverage_ledger.py"
+            ],
+            "negative_case_codes": [
+              "SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-6.O3.fact_claims_cite_loci_and_dag",
+          "predicate": "fact claims are bounded by declared code loci and DAG evidence instead of unstated completeness claims",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-6.O1.closed_world_domain_declared.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-6",
+          "obligation_ref": "AX-6.O1.closed_world_domain_declared",
+          "anti_axiom_ref": "absence_evidence_as_evidence_absence",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "closed-world coverage conclusions are scoped to a declared finite domain rather than to all possible unknowns",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-6].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for absence_evidence_as_evidence_absence.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-6.O2.absence_not_negation.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-6",
+          "obligation_ref": "AX-6.O2.absence_not_negation",
+          "anti_axiom_ref": "absence_evidence_as_evidence_absence",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "absence of proof is not converted into proof of negation or unknown-unknown exhaustiveness",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-6].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE, but no receipt-level per-obligation row proves exact or subsuming rejection of absence_evidence_as_evidence_absence.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-6.O3.fact_claims_cite_loci_and_dag.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-6",
+          "obligation_ref": "AX-6.O3.fact_claims_cite_loci_and_dag",
+          "anti_axiom_ref": "absence_evidence_as_evidence_absence",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "fact claims are bounded by declared code loci and DAG evidence instead of unstated completeness claims",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-6].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for absence_evidence_as_evidence_absence.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-6].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-6].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    },
+    {
+      "axiom_id": "AX-7",
+      "title": "Typed partiality and refusal",
+      "formal_clause": "Partial computation g is totalized as Result: Ok(y) under Pre(x), otherwise Refusal(reason,evidence).",
+      "lineage": [
+        "partial functions",
+        "domain theory",
+        "Result/Maybe monads"
+      ],
+      "principle_ids": [
+        "P-8"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "finance_forecast_evaluation_spine",
+        "corpus_readiness_mathlib_absence_gate"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/engine_room/metabolism_runtime.py",
+        "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/loss_differentials.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/spa_statistics.py",
+        "tests/test_finance_forecast_evaluation_spine.py",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py"
+      ],
+      "anti_axiom": "inadmissible_number_or_silent_nan",
+      "anti_principle_ids": [
+        "AP-6"
+      ],
+      "negative_case_codes": [
+        "horizon_at_or_above_sample_size",
+        "scipy_unavailable_for_t_distribution",
+        "MATHLIB_AVAILABILITY_OVERCLAIM"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-7.O1.ok_under_precondition",
+          "predicate": "a partial computation returns Ok(y) only under a declared precondition Pre(x)",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "finance_forecast_evaluation_spine"
+            ],
+            "witness_surfaces": [
+              "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/loss_differentials.py",
+              "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/spa_statistics.py",
+              "tests/test_finance_forecast_evaluation_spine.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-7.O2.refusal_carries_reason_evidence",
+          "predicate": "when Pre(x) is false or a dependency is unavailable, the result is Refusal(reason,evidence) rather than a silent number",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "finance_forecast_evaluation_spine"
+            ],
+            "witness_surfaces": [
+              "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/loss_differentials.py",
+              "tests/test_finance_forecast_evaluation_spine.py"
+            ],
+            "negative_case_codes": [
+              "horizon_at_or_above_sample_size",
+              "scipy_unavailable_for_t_distribution"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-7.O3.absent_library_refuses_not_overclaims",
+          "predicate": "absent mathematical libraries or corpora produce bounded refusal evidence and do not authorize availability overclaims",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "corpus_readiness_mathlib_absence_gate"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
+              "tests/test_corpus_readiness_mathlib_absence_gate.py"
+            ],
+            "negative_case_codes": [
+              "MATHLIB_AVAILABILITY_OVERCLAIM"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-7.O1.ok_under_precondition.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-7",
+          "obligation_ref": "AX-7.O1.ok_under_precondition",
+          "anti_axiom_ref": "inadmissible_number_or_silent_nan",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a partial computation returns Ok(y) only under a declared precondition Pre(x)",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-7].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for inadmissible_number_or_silent_nan.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-7.O2.refusal_carries_reason_evidence.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-7",
+          "obligation_ref": "AX-7.O2.refusal_carries_reason_evidence",
+          "anti_axiom_ref": "inadmissible_number_or_silent_nan",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "when Pre(x) is false or a dependency is unavailable, the result is Refusal(reason,evidence) rather than a silent number",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-7].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) horizon_at_or_above_sample_size, scipy_unavailable_for_t_distribution, but no receipt-level per-obligation row proves exact or subsuming rejection of inadmissible_number_or_silent_nan.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-7.O3.absent_library_refuses_not_overclaims.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-7",
+          "obligation_ref": "AX-7.O3.absent_library_refuses_not_overclaims",
+          "anti_axiom_ref": "inadmissible_number_or_silent_nan",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "absent mathematical libraries or corpora produce bounded refusal evidence and do not authorize availability overclaims",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-7].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) MATHLIB_AVAILABILITY_OVERCLAIM, but no receipt-level per-obligation row proves exact or subsuming rejection of inadmissible_number_or_silent_nan.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-7].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-7].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    },
+    {
+      "axiom_id": "AX-8",
+      "title": "Provenance propagation and non-interference",
+      "formal_clause": "Data labels propagate along flows; untrusted labels reach privileged sinks only through declared transforms satisfying sink policy.",
+      "lineage": [
+        "Denning information-flow lattice",
+        "Biba integrity model",
+        "taint tracking",
+        "non-interference"
+      ],
+      "principle_ids": [
+        "P-9",
+        "P-14"
+      ],
+      "witness_strength": "partial",
+      "witness_organs": [
+        "indirect_prompt_injection_information_flow_policy_replay"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/validators/private_state_scan.py",
+        "src/microcosm_core/validators/secret_exclusion_scan.py",
+        "src/microcosm_core/release_export.py",
+        "src/microcosm_core/organs/_crown_jewel_common.py",
+        "paper_modules/engine_room_egress_self_compliance_gate.md",
+        "paper_modules/engine_room_public_projection_leak_gate.md",
+        "tests/test_indirect_prompt_injection_information_flow_policy_replay.py",
+        "tests/test_secret_exclusion_scan.py",
+        "tests/test_private_state_scan.py"
+      ],
+      "anti_axiom": "endpoint_label_assertion_without_propagation",
+      "anti_principle_ids": [
+        "AP-7",
+        "AP-12",
+        "AP-14",
+        "AP-16"
+      ],
+      "negative_case_codes": [
+        "PUBLIC_SAFE_IMPORT_TRUE_FORBIDDEN_CLASS",
+        "RELEASE_EXPORT_PRIVATE_PATH_LEAK"
+      ],
+      "layer_debt": [
+        {
+          "debt_id": "AX8-general-taint-propagation",
+          "reason": "The prompt-injection organ validates endpoint labels and policy consistency but does not yet compute general graph propagation.",
+          "acceptance_hint": "A path source->transform->sink must derive allow/block from propagated labels, and a lying fixture must be caught.",
+          "status": "open_layer_debt",
+          "claim_ceiling": "partial_capped_by_layer_debt",
+          "authority_ceiling": {
+            "status": "layer_debt_open_not_support_closure",
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          },
+          "receipt_ref": "receipts/doctrine_records/layer_debt/AX8-general-taint-propagation.receipt.json"
+        }
+      ],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-8].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-8].layer_debt",
+          "receipt_refs": [
+            "receipts/doctrine_records/layer_debt/AX8-general-taint-propagation.receipt.json"
+          ],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-8.O1.label_propagation",
+          "predicate": "data labels propagate along source->transform->sink paths",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "indirect_prompt_injection_information_flow_policy_replay"
+            ]
+          },
+          "coverage_status": "layer_debt",
+          "layer_debt_ref": "AX8-general-taint-propagation"
+        },
+        {
+          "obligation_id": "AX-8.O2.sink_policy",
+          "predicate": "a privileged or public sink admits only labels permitted by a declared transform policy",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/private_state_scan.py",
+              "src/microcosm_core/release_export.py"
+            ],
+            "negative_case_codes": [
+              "RELEASE_EXPORT_PRIVATE_PATH_LEAK"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-8.O3.lying_endpoint_rejected",
+          "predicate": "an endpoint label assertion without propagation is rejected",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/secret_exclusion_scan.py"
+            ],
+            "negative_case_codes": [
+              "PUBLIC_SAFE_IMPORT_TRUE_FORBIDDEN_CLASS"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-8.O1.label_propagation.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-8",
+          "obligation_ref": "AX-8.O1.label_propagation",
+          "anti_axiom_ref": "endpoint_label_assertion_without_propagation",
+          "receipt_ref": "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+          "observed_negative_case_refs": [
+            "credential_exfiltration:PROMPT_INJECTION_CREDENTIAL_EXFILTRATION_FORBIDDEN",
+            "final_answer_only_success:PROMPT_INJECTION_FINAL_ANSWER_ONLY_SUCCESS",
+            "hidden_system_message_promotion:PROMPT_INJECTION_HIDDEN_SYSTEM_MESSAGE_PROMOTION",
+            "raw_prompt_body_export:PROMPT_INJECTION_RAW_PROMPT_BODY_FORBIDDEN",
+            "real_account_material:PROMPT_INJECTION_REAL_ACCOUNT_FORBIDDEN",
+            "secret_exfiltration:PROMPT_INJECTION_SECRET_EXFILTRATION_FORBIDDEN",
+            "tool_output_as_instruction:PROMPT_INJECTION_TOOL_OUTPUT_AS_INSTRUCTION",
+            "untrusted_to_privileged_sink:PROMPT_INJECTION_UNTRUSTED_PRIVILEGED_SINK_UNGATED"
+          ],
+          "receipt_coverage_basis": "complete_passing_negative_case_suite",
+          "obligation_failure_shape": "data labels propagate along source->transform->sink paths",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "declared witness debt; checker does not close the obligation",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-8].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "Receipt coverage exercises endpoint/organ cases, but this obligation is general source->transform->sink label propagation and still carries AX8-general-taint-propagation layer debt.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records the current relation without closing rejection.",
+            "Endpoint receipt coverage is not general source->transform->sink propagation proof.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-8.O2.sink_policy.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-8",
+          "obligation_ref": "AX-8.O2.sink_policy",
+          "anti_axiom_ref": "endpoint_label_assertion_without_propagation",
+          "receipt_ref": "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+          "observed_negative_case_refs": [
+            "credential_exfiltration:PROMPT_INJECTION_CREDENTIAL_EXFILTRATION_FORBIDDEN",
+            "final_answer_only_success:PROMPT_INJECTION_FINAL_ANSWER_ONLY_SUCCESS",
+            "hidden_system_message_promotion:PROMPT_INJECTION_HIDDEN_SYSTEM_MESSAGE_PROMOTION",
+            "raw_prompt_body_export:PROMPT_INJECTION_RAW_PROMPT_BODY_FORBIDDEN",
+            "real_account_material:PROMPT_INJECTION_REAL_ACCOUNT_FORBIDDEN",
+            "secret_exfiltration:PROMPT_INJECTION_SECRET_EXFILTRATION_FORBIDDEN",
+            "tool_output_as_instruction:PROMPT_INJECTION_TOOL_OUTPUT_AS_INSTRUCTION",
+            "untrusted_to_privileged_sink:PROMPT_INJECTION_UNTRUSTED_PRIVILEGED_SINK_UNGATED"
+          ],
+          "receipt_coverage_basis": "complete_passing_negative_case_suite",
+          "obligation_failure_shape": "a privileged or public sink admits only labels permitted by a declared transform policy",
+          "mapping_relation": "partial_overlap",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-8].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The receipt observes untrusted-to-privileged-sink blocking and the bound checker references RELEASE_EXPORT_PRIVATE_PATH_LEAK, so the evidence overlaps sink-policy rejection. It is not exact or subsuming without receipt-level per-obligation mapping evidence.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; partial overlap is not exact rejection.",
+            "A sink-policy overlap cannot upgrade AX-8 to strong while AX8-general-taint-propagation remains layer debt.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-8.O3.lying_endpoint_rejected.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-8",
+          "obligation_ref": "AX-8.O3.lying_endpoint_rejected",
+          "anti_axiom_ref": "endpoint_label_assertion_without_propagation",
+          "receipt_ref": "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+          "observed_negative_case_refs": [
+            "credential_exfiltration:PROMPT_INJECTION_CREDENTIAL_EXFILTRATION_FORBIDDEN",
+            "final_answer_only_success:PROMPT_INJECTION_FINAL_ANSWER_ONLY_SUCCESS",
+            "hidden_system_message_promotion:PROMPT_INJECTION_HIDDEN_SYSTEM_MESSAGE_PROMOTION",
+            "raw_prompt_body_export:PROMPT_INJECTION_RAW_PROMPT_BODY_FORBIDDEN",
+            "real_account_material:PROMPT_INJECTION_REAL_ACCOUNT_FORBIDDEN",
+            "secret_exfiltration:PROMPT_INJECTION_SECRET_EXFILTRATION_FORBIDDEN",
+            "tool_output_as_instruction:PROMPT_INJECTION_TOOL_OUTPUT_AS_INSTRUCTION",
+            "untrusted_to_privileged_sink:PROMPT_INJECTION_UNTRUSTED_PRIVILEGED_SINK_UNGATED"
+          ],
+          "receipt_coverage_basis": "complete_passing_negative_case_suite",
+          "obligation_failure_shape": "an endpoint label assertion without propagation is rejected",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-8].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The bound checker references the forbidden-class endpoint code, but the available receipt suite does not declare an endpoint-label assertion mapping for this obligation.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; illustrative coverage is not rejection.",
+            "Endpoint-label assertion rejection still requires receipt-level per-obligation mapping evidence before it can verify this obligation.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-9",
+      "title": "Compensable transactional effects",
+      "formal_clause": "Effect e requires a compensator or declared irreversible boundary; multi-step effects land as saga with CAS and single-writer constraints.",
+      "lineage": [
+        "ACID",
+        "Saga pattern",
+        "optimistic concurrency"
+      ],
+      "principle_ids": [
+        "P-10",
+        "P-16",
+        "P-17",
+        "P-18"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "concurrency_mission_control"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/macro_tools/work_landing.py",
+        "src/microcosm_core/macro_tools/mission_transaction_preflight.py",
+        "tests/test_mission_transaction_work_spine.py",
+        "tests/test_durable_agent_work_landing_replay.py",
+        "tests/test_concurrency_mission_control.py"
+      ],
+      "anti_axiom": "blind_irreversible_write",
+      "anti_principle_ids": [
+        "AP-8"
+      ],
+      "negative_case_codes": [
+        "EXPECTED_PARENT_MISMATCH",
+        "SAME_PATH_CLAIM_CONFLICT",
+        "WORK_LANDING_HEAD_ADVANCE_MISSING"
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-9].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-9].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-9.O1.effect_boundary_declared",
+          "predicate": "an effect declares a compensator or an irreversible boundary before it is treated as landed",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "mission_transaction_work_spine",
+              "durable_agent_work_landing_replay"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/macro_tools/work_landing.py",
+              "tests/test_mission_transaction_work_spine.py",
+              "tests/test_durable_agent_work_landing_replay.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-9.O2.cas_parent_enforced",
+          "predicate": "multi-step effects land under compare-and-swap expected-parent constraints and fail when the head advances",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "mission_transaction_work_spine"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/macro_tools/work_landing.py",
+              "src/microcosm_core/macro_tools/mission_transaction_preflight.py",
+              "tests/test_mission_transaction_work_spine.py"
+            ],
+            "negative_case_codes": [
+              "EXPECTED_PARENT_MISMATCH",
+              "WORK_LANDING_HEAD_ADVANCE_MISSING"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-9.O3.single_writer_claim_constraint",
+          "predicate": "same-path mutation uses single-writer constraints so overlapping writers conflict before landing",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "concurrency_mission_control"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/macro_tools/mission_transaction_preflight.py",
+              "tests/test_concurrency_mission_control.py"
+            ],
+            "negative_case_codes": [
+              "SAME_PATH_CLAIM_CONFLICT"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-9.O1.effect_boundary_declared.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-9",
+          "obligation_ref": "AX-9.O1.effect_boundary_declared",
+          "anti_axiom_ref": "blind_irreversible_write",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "an effect declares a compensator or an irreversible boundary before it is treated as landed",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-9].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for blind_irreversible_write.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-9.O2.cas_parent_enforced.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-9",
+          "obligation_ref": "AX-9.O2.cas_parent_enforced",
+          "anti_axiom_ref": "blind_irreversible_write",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "multi-step effects land under compare-and-swap expected-parent constraints and fail when the head advances",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-9].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) EXPECTED_PARENT_MISMATCH, WORK_LANDING_HEAD_ADVANCE_MISSING, but no receipt-level per-obligation row proves exact or subsuming rejection of blind_irreversible_write.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-9.O3.single_writer_claim_constraint.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-9",
+          "obligation_ref": "AX-9.O3.single_writer_claim_constraint",
+          "anti_axiom_ref": "blind_irreversible_write",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "same-path mutation uses single-writer constraints so overlapping writers conflict before landing",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-9].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) SAME_PATH_CLAIM_CONFLICT, but no receipt-level per-obligation row proves exact or subsuming rejection of blind_irreversible_write.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-10",
+      "title": "Temporal validity and freshness contracts",
+      "formal_clause": "Claims over live state are cached reads valid only under <value,as_of,basis,rederive> invalidation contracts.",
+      "lineage": [
+        "cache invalidation",
+        "bitemporal state",
+        "staleness bounds"
+      ],
+      "principle_ids": [
+        "P-11"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "doctrine_fact_claim_audit"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/engine_room/metabolism_runtime.py",
+        "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+        "tests/test_doctrine_fact_claim_audit.py"
+      ],
+      "anti_axiom": "frozen_live_count_without_refresh_basis",
+      "anti_principle_ids": [
+        "AP-4",
+        "AP-9"
+      ],
+      "negative_case_codes": [
+        "DOCTRINE_VOLATILE_NUMERIC_UNBOUND"
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-10].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-10].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      },
+      "obligations": [
+        {
+          "obligation_id": "AX-10.O1.live_claim_carries_freshness_contract",
+          "predicate": "a live-state claim carries value, as_of, basis, and rederive fields rather than a frozen bare value",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-10.O2.stale_basis_requires_rederive",
+          "predicate": "cached reads over live state invalidate or rederive when their declared basis or staleness contract no longer holds",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/engine_room/metabolism_runtime.py",
+              "tests/test_doctrine_fact_claim_audit.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-10.O3.volatile_numeric_unbound_blocked",
+          "predicate": "volatile numeric claims without freshness binding are materialized as a stable blocking code before this axiom can claim full support",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "doctrine_fact_claim_audit"
+            ],
+            "witness_surfaces": [
+              "tests/test_doctrine_fact_claim_audit.py"
+            ],
+            "negative_case_codes": [
+              "DOCTRINE_VOLATILE_NUMERIC_UNBOUND"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-10.O1.live_claim_carries_freshness_contract.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-10",
+          "obligation_ref": "AX-10.O1.live_claim_carries_freshness_contract",
+          "anti_axiom_ref": "frozen_live_count_without_refresh_basis",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a live-state claim carries value, as_of, basis, and rederive fields rather than a frozen bare value",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-10].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for frozen_live_count_without_refresh_basis.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-10.O2.stale_basis_requires_rederive.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-10",
+          "obligation_ref": "AX-10.O2.stale_basis_requires_rederive",
+          "anti_axiom_ref": "frozen_live_count_without_refresh_basis",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "cached reads over live state invalidate or rederive when their declared basis or staleness contract no longer holds",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-10].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for frozen_live_count_without_refresh_basis.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-10.O3.volatile_numeric_unbound_blocked.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-10",
+          "obligation_ref": "AX-10.O3.volatile_numeric_unbound_blocked",
+          "anti_axiom_ref": "frozen_live_count_without_refresh_basis",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "volatile numeric claims without freshness binding are materialized as a stable blocking code before this axiom can claim full support",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes; no per-obligation rejection mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-10].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) DOCTRINE_VOLATILE_NUMERIC_UNBOUND, but no receipt-level per-obligation row proves exact or subsuming rejection of frozen_live_count_without_refresh_basis.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ]
+    },
+    {
+      "axiom_id": "AX-11",
+      "title": "Executable grammar before doctrine authority",
+      "formal_clause": "authority(d) implies d in L(G), receipt obligations, and anti-claim are present; prose alone is projection.",
+      "lineage": [
+        "formal languages",
+        "type systems",
+        "operational semantics",
+        "Hoare contracts"
+      ],
+      "principle_ids": [
+        "P-12",
+        "P-15",
+        "P-17",
+        "P-18",
+        "P-19",
+        "P-20"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "executable_doctrine_grammar",
+        "standards_meta_diagnostics"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/organs/executable_doctrine_grammar.py",
+        "src/microcosm_core/organs/standards_meta_diagnostics.py",
+        "paper_modules/*.md",
+        "tests/test_executable_doctrine_grammar.py",
+        "tests/test_standards_meta_diagnostics.py"
+      ],
+      "anti_axiom": "prose_claims_executable_authority",
+      "anti_principle_ids": [
+        "AP-10",
+        "AP-13",
+        "AP-17"
+      ],
+      "negative_case_codes": [
+        "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY",
+        "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-11.O1.grammar_membership_required",
+          "predicate": "a doctrine artifact may claim authority only when it is accepted by an executable grammar language L(G)",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/executable_doctrine_grammar.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-11.O2.receipts_and_anti_claims_present",
+          "predicate": "authority-bearing doctrine carries receipt expectations and anti-claims rather than prose-only acceptance",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "executable_doctrine_grammar",
+              "standards_meta_diagnostics"
+            ],
+            "witness_surfaces": [
+              "tests/test_executable_doctrine_grammar.py",
+              "tests/test_standards_meta_diagnostics.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-11.O3.prose_alone_is_projection",
+          "predicate": "prose-only standards or grammar passes that overclaim doctrine completeness are rejected as authority",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/executable_doctrine_grammar.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ],
+            "negative_case_codes": [
+              "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY",
+              "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-11.O1.grammar_membership_required.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-11",
+          "obligation_ref": "AX-11.O1.grammar_membership_required",
+          "anti_axiom_ref": "prose_claims_executable_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "a doctrine artifact may claim authority only when it is accepted by an executable grammar language L(G)",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-11].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for prose_claims_executable_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-11.O2.receipts_and_anti_claims_present.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-11",
+          "obligation_ref": "AX-11.O2.receipts_and_anti_claims_present",
+          "anti_axiom_ref": "prose_claims_executable_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "authority-bearing doctrine carries receipt expectations and anti-claims rather than prose-only acceptance",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-11].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for prose_claims_executable_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-11.O3.prose_alone_is_projection.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-11",
+          "obligation_ref": "AX-11.O3.prose_alone_is_projection",
+          "anti_axiom_ref": "prose_claims_executable_authority",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "prose-only standards or grammar passes that overclaim doctrine completeness are rejected as authority",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-11].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY, GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE, but no receipt-level per-obligation row proves exact or subsuming rejection of prose_claims_executable_authority.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-11].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "no_open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-11].layer_debt",
+          "receipt_refs": [],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    },
+    {
+      "axiom_id": "AX-12",
+      "title": "Reflexive accountability / no privileged meta-layer",
+      "formal_clause": "For every Microcosm artifact a, any claim phi carried by a must satisfy the same admissibility relation as external claims.",
+      "lineage": [
+        "reflective systems",
+        "self-hosting checks",
+        "no-special-pleading evaluation"
+      ],
+      "principle_ids": [
+        "P-13",
+        "P-18",
+        "P-20"
+      ],
+      "witness_strength": "strong",
+      "witness_organs": [
+        "batch12_release_claim_language_gate",
+        "executable_doctrine_grammar"
+      ],
+      "witness_surfaces": [
+        "src/microcosm_core/release_export.py",
+        "src/microcosm_core/organs/_crown_jewel_common.py",
+        "src/microcosm_core/organs/executable_doctrine_grammar.py",
+        "src/microcosm_core/validators/evidence_truth_floor.py",
+        "tests/test_batch12_release_claim_language_gate.py",
+        "tests/test_executable_doctrine_grammar.py",
+        "tests/test_release_export.py",
+        "tests/test_evidence_truth_floor.py"
+      ],
+      "anti_axiom": "meta_artifact_exemption",
+      "anti_principle_ids": [
+        "AP-1",
+        "AP-3",
+        "AP-11",
+        "AP-14",
+        "AP-15",
+        "AP-16"
+      ],
+      "negative_case_codes": [
+        "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED",
+        "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+        "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+      ],
+      "obligations": [
+        {
+          "obligation_id": "AX-12.O1.microcosm_claims_use_same_gate",
+          "predicate": "Microcosm artifacts carrying claims are checked through the same admissibility gate as external claims, without a privileged meta-layer",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "batch12_release_claim_language_gate",
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-12.O2.release_claim_language_blocked",
+          "predicate": "release, assurance, or product-readiness claims are blocked unless their evidence boundary is explicit",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "batch12_release_claim_language_gate"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/release_export.py",
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_release_export.py"
+            ],
+            "negative_case_codes": [
+              "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-12.O3.receipt_body_and_doctrine_overclaim_blocked",
+          "predicate": "receipt body leakage and grammar-completeness overclaims are rejected for Microcosm artifacts themselves",
+          "required": true,
+          "binding": {
+            "witness_organs": [
+              "batch12_release_claim_language_gate",
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/_crown_jewel_common.py",
+              "src/microcosm_core/organs/executable_doctrine_grammar.py",
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ],
+            "negative_case_codes": [
+              "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+              "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator"
+        },
+        {
+          "obligation_id": "AX-12.O4.evidence_truth_floor_blocks_release",
+          "predicate": "evidence truth-floor mismatch must become a release-blocking source gate before AX-12 can claim full reflexive accountability",
+          "required": true,
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/evidence_truth_floor.py",
+              "tests/test_evidence_truth_floor.py"
+            ]
+          },
+          "coverage_status": "layer_debt",
+          "layer_debt_ref": "AX12-evidence-truth-floor-blocking-release"
+        }
+      ],
+      "anti_axiom_rejection_mappings": [
+        {
+          "mapping_id": "AX-12.O1.microcosm_claims_use_same_gate.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-12",
+          "obligation_ref": "AX-12.O1.microcosm_claims_use_same_gate",
+          "anti_axiom_ref": "meta_artifact_exemption",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "Microcosm artifacts carrying claims are checked through the same admissibility gate as external claims, without a privileged meta-layer",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "bounded checker witness over declared surfaces; no per-obligation negative-case mapping declared",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-12].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation has positive witness binding only; current receipts and checkers do not declare a per-obligation rejection mapping for meta_artifact_exemption.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-12.O2.release_claim_language_blocked.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-12",
+          "obligation_ref": "AX-12.O2.release_claim_language_blocked",
+          "anti_axiom_ref": "meta_artifact_exemption",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "release, assurance, or product-readiness claims are blocked unless their evidence boundary is explicit",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-12].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED, but no receipt-level per-obligation row proves exact or subsuming rejection of meta_artifact_exemption.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-12.O3.receipt_body_and_doctrine_overclaim_blocked.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-12",
+          "obligation_ref": "AX-12.O3.receipt_body_and_doctrine_overclaim_blocked",
+          "anti_axiom_ref": "meta_artifact_exemption",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "receipt body leakage and grammar-completeness overclaims are rejected for Microcosm artifacts themselves",
+          "mapping_relation": "illustrative_only",
+          "checker_boundary": "bounded checker witness over declared surfaces and negative-case codes",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-12].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "The obligation binding names negative-case code(s) CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED, GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE, but no receipt-level per-obligation row proves exact or subsuming rejection of meta_artifact_exemption.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        },
+        {
+          "mapping_id": "AX-12.O4.evidence_truth_floor_blocks_release.anti_axiom_rejection_mapping",
+          "axiom_ref": "AX-12",
+          "obligation_ref": "AX-12.O4.evidence_truth_floor_blocks_release",
+          "anti_axiom_ref": "meta_artifact_exemption",
+          "receipt_ref": null,
+          "observed_negative_case_refs": [],
+          "receipt_coverage_basis": "not_source_asserted_evaluator_recomputes_receipt_material",
+          "obligation_failure_shape": "evidence truth-floor mismatch must become a release-blocking source gate before AX-12 can claim full reflexive accountability",
+          "mapping_relation": "unmapped",
+          "checker_boundary": "declared witness debt; checker does not close the obligation",
+          "basis_env": {
+            "source_authority_ref": "core/axiom_organ_routing.json::rows[AX-12].anti_axiom_rejection_mappings[]",
+            "rederive": "python -m microcosm_core.validators.axiom_support_cover --root <microcosm-substrate>",
+            "as_of": "see evaluator-computed basis_digest"
+          },
+          "mapping_verified": false,
+          "reason": "This obligation carries explicit layer debt AX12-evidence-truth-floor-blocking-release; current witness or receipt coverage is not mapped to the meta_artifact_exemption anti-axiom slice.",
+          "anti_claims": [
+            "This source-owned mapping row is non-certifying; it records current residual pressure without closing rejection.",
+            "Row-level negative-case or witness coverage is not per-obligation anti-axiom rejection evidence.",
+            "Generated support-cover output cannot be read back as evidence for itself."
+          ]
+        }
+      ],
+      "layer_debt": [
+        {
+          "debt_id": "AX12-evidence-truth-floor-blocking-release",
+          "reason": "evidence_truth_floor is tested but not yet a hard blocking release floor.",
+          "acceptance_hint": "Wire evidence_truth_floor into a named release-substance selector or record why the advisory lane remains the correct boundary.",
+          "status": "open_layer_debt",
+          "claim_ceiling": "partial_capped_by_layer_debt",
+          "authority_ceiling": {
+            "status": "layer_debt_open_not_support_closure",
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          },
+          "receipt_ref": "receipts/doctrine_records/layer_debt/AX12-evidence-truth-floor-blocking-release.receipt.json"
+        }
+      ],
+      "support_expansion": {
+        "schema_version": "microcosm_axiom_routing_support_expansion_v1",
+        "claim_ceiling": {
+          "status": "computed_read_model_required",
+          "validator_id": "validator.microcosm.axiom_support_cover",
+          "computed_by": "checker.microcosm.validators.axiom_support_cover",
+          "result_ref": "microcosm_core.validators.axiom_support_cover::support_frontiers[AX-12].claim_ceiling",
+          "authority_boundary": "Routing source binds inputs and validator ref; strongest_allowed_claim is computed by the validator and is not hand-stamped here.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        },
+        "layer_debt_receipt": {
+          "status": "open_layer_debt_declared",
+          "source_ref": "core/axiom_organ_routing.json::rows[AX-12].layer_debt",
+          "receipt_refs": [
+            "receipts/doctrine_records/layer_debt/AX12-evidence-truth-floor-blocking-release.receipt.json"
+          ],
+          "authority_boundary": "Layer-debt receipts preserve residual support limits; absence of a debt receipt is not a strong-support certificate.",
+          "authority_ceiling": {
+            "release_authority": false,
+            "whole_system_correctness": false,
+            "source_body_authority": false,
+            "private_data_equivalence_authority": false
+          }
+        }
+      }
+    }
+  ]
+}

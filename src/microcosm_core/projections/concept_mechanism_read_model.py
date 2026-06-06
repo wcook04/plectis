@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.resource_root import microcosm_root
+from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators.concept_mechanism_population import (
     validate_concept_mechanism_population,
 )
@@ -17,6 +20,11 @@ SOURCE_ROUTE_REF = "atlas/entry_packet.json::concept_mechanism_entry_route"
 SOURCE_POPULATION_REF = f"{SOURCE_ROUTE_REF}.population_specimens"
 SOURCE_ACTIVATION_REF = f"{SOURCE_ROUTE_REF}.activation_receipts"
 PROJECTION_CONSUMERS_REF = f"{SOURCE_ROUTE_REF}.projection_consumers"
+ORGAN_REGISTRY_REF = "core/organ_registry.json::implemented_organs"
+ORGAN_ATLAS_REF = "core/organ_atlas.json::organs"
+ORGAN_ACCEPTANCE_REF = (
+    "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs"
+)
 PRESSURE_ROW_ID = "concept_mechanism_projection_consumers_preserve_loop_fields"
 
 REQUIRED_PRESERVED_FIELDS = (
@@ -50,7 +58,7 @@ COMPLETED_PRODUCT_DISPOSITIONS = {
 
 
 def _load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return read_json_strict(path)
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
@@ -87,7 +95,7 @@ def _ref_list(*values: Any) -> list[str]:
 
 
 def _copy_json(value: Any) -> Any:
-    return json.loads(json.dumps(value))
+    return copy.deepcopy(value)
 
 
 def _find_consumer(route: dict[str, Any], consumer_id: str) -> dict[str, Any]:
@@ -104,6 +112,161 @@ def _pressure_row_by_id(pressure_payload: dict[str, Any] | None) -> dict[str, An
         if isinstance(row, dict) and row.get("standard_id") == PRESSURE_ROW_ID:
             return row
     return {}
+
+
+def _accepted_organ_rows(root: Path) -> list[dict[str, Any]]:
+    registry = _load_json(root / "core/organ_registry.json")
+    return [
+        row
+        for row in _as_list(registry.get("implemented_organs"))
+        if isinstance(row, dict)
+        and row.get("status") == "accepted_current_authority"
+        and row.get("organ_id")
+    ]
+
+
+def _organ_atlas_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    atlas = _load_json(root / "core/organ_atlas.json")
+    return {
+        str(row.get("organ_id")): row
+        for row in _as_list(atlas.get("organs"))
+        if isinstance(row, dict) and row.get("organ_id")
+    }
+
+
+def _organ_paper_module_ref(root: Path, organ_id: str, atlas_row: dict[str, Any]) -> str:
+    declared = str(atlas_row.get("paper_module_ref") or "").strip()
+    if declared:
+        return declared
+    direct = Path("paper_modules") / f"{organ_id}.md"
+    if (root / direct).is_file():
+        return direct.as_posix()
+    return direct.as_posix()
+
+
+def _first_microcosm_command(value: str) -> str:
+    try:
+        parts = shlex_split(value)
+    except ValueError:
+        return ""
+    for index, part in enumerate(parts[:-1]):
+        if part == "-m" and parts[index + 1] == "microcosm_core.cli":
+            tail = parts[index + 2 :]
+            return f"microcosm {' '.join(tail)}".strip()
+    if parts and parts[0] == "microcosm":
+        return " ".join(parts)
+    return ""
+
+
+def shlex_split(value: str) -> list[str]:
+    import shlex
+
+    return shlex.split(value)
+
+
+def build_organ_doctrine_rows(root: str | Path | None = None) -> list[dict[str, Any]]:
+    """Project accepted organs into concept/mechanism rows without a second registry."""
+
+    resolved_root = Path(root).resolve() if root is not None else microcosm_root()
+    accepted = _accepted_organ_rows(resolved_root)
+    atlas_by_id = _organ_atlas_by_id(resolved_root)
+    rows: list[dict[str, Any]] = []
+    for row in accepted:
+        organ_id = str(row.get("organ_id") or "")
+        atlas_row = atlas_by_id.get(organ_id, {})
+        evidence_class = str(row.get("evidence_class") or atlas_row.get("evidence_class") or "")
+        runner = str(row.get("runner") or "")
+        validator_command = str(row.get("validator_command") or "")
+        first_command = str(atlas_row.get("first_command") or validator_command)
+        microcosm_command = _first_microcosm_command(first_command)
+        command_ref = microcosm_command or f"microcosm {organ_id.replace('_', '-')}"
+        paper_module_ref = _organ_paper_module_ref(resolved_root, organ_id, atlas_row)
+        standard_ref = f"standards/std_microcosm_{organ_id}.json"
+        rows.append(
+            {
+                "row_id": f"organ_doctrine_row:{organ_id}",
+                "organ_id": organ_id,
+                "family": atlas_row.get("family"),
+                "evidence_class": evidence_class,
+                "concept_binding": {
+                    "concept_role": (
+                        f"{organ_id} as an accepted {evidence_class} public organ boundary"
+                    ),
+                    "relationship_shape": (
+                        "organ registry row -> atlas card -> paper module -> "
+                        "standard -> acceptance -> runtime/CLI surface"
+                    ),
+                    "payload_shape_ref": f"{ORGAN_ATLAS_REF}[organ_id={organ_id}]",
+                    "source_gloss": atlas_row.get("human_gloss")
+                    or atlas_row.get("agent_gloss"),
+                    "anti_glossary_rule": (
+                        "Organ concept rows are generated wiring and authority "
+                        "boundaries, not a glossary, maturity score, or label list."
+                    ),
+                },
+                "mechanism_binding": {
+                    "mechanism_role": atlas_row.get("wiring_note")
+                    or f"{runner} validates the organ's public fixture or bundle.",
+                    "concept_pair_ref": f"organ_doctrine_row:{organ_id}.concept_binding",
+                    "transformation_shape": (
+                        f"{validator_command or runner} turns public inputs into "
+                        "bounded receipt evidence under the organ claim ceiling."
+                    ),
+                    "state_or_proof_effect": (
+                        f"Current authority resolves through {row.get('current_authority_receipt')} "
+                        f"with claim ceiling {row.get('claim_ceiling')}."
+                    ),
+                    "anti_feature_prose_rule": (
+                        "Organ mechanism rows name the runnable transformation, "
+                        "validator, and receipt effect; they are not feature prose "
+                        "or product-progress claims."
+                    ),
+                },
+                "surface_refs": {
+                    "registry": f"{ORGAN_REGISTRY_REF}[organ_id={organ_id}]",
+                    "atlas": f"{ORGAN_ATLAS_REF}[organ_id={organ_id}]",
+                    "paper_module": paper_module_ref,
+                    "standard": standard_ref,
+                    "standards_registry": (
+                        "core/standards_registry.json::standards"
+                        f"[standard_id=std_microcosm_{organ_id}]"
+                    ),
+                    "acceptance": f"{ORGAN_ACCEPTANCE_REF}[organ_id={organ_id}]",
+                    "runtime": f"microcosm_core.runtime_shell.RUNTIME_STEPS::{organ_id}",
+                    "cli": command_ref,
+                },
+                "validator_refs": [
+                    ref
+                    for ref in (
+                        validator_command,
+                        "microcosm organ-surface-contract --card",
+                    )
+                    if ref
+                ],
+                "omission_receipt": {
+                    "omitted": [
+                        "full organ source bodies",
+                        "full fixture bodies",
+                        "full receipt payloads",
+                    ],
+                    "reason": (
+                        "Per-organ concept/mechanism rows preserve discovery "
+                        "handles and authority boundaries; detailed proof stays "
+                        "behind each source surface."
+                    ),
+                    "drilldown": f"{ORGAN_ATLAS_REF}[organ_id={organ_id}]",
+                },
+                "anti_claims": [
+                    "This derived row proves organ discoverability, not release readiness.",
+                    "This row does not prove domain correctness, private-root equivalence, or product completeness.",
+                ],
+                "authority_boundary": (
+                    "derived_organ_concept_mechanism_projection_not_source_authority_"
+                    "no_release_no_product_completeness_no_private_data_equivalence"
+                ),
+            }
+        )
+    return rows
 
 
 def _projection_row(
@@ -163,6 +326,7 @@ def build_concept_mechanism_projection_read_model(
     *,
     entry_packet: dict[str, Any],
     pressure_payload: dict[str, Any] | None = None,
+    root: str | Path | None = None,
     consumer_id: str = DEFAULT_CONSUMER_ID,
     command: str = "concept-mechanism-projection-read-model",
 ) -> dict[str, Any]:
@@ -185,6 +349,7 @@ def build_concept_mechanism_projection_read_model(
         specimen = _as_dict(specimen_by_id.get(activation.get("selected_specimen_id")))
         rows.append(_projection_row(activation=activation, specimen=specimen, consumer=consumer))
 
+    organ_doctrine_rows = build_organ_doctrine_rows(root)
     pressure_row = _pressure_row_by_id(pressure_payload)
     payload = {
         "schema": SCHEMA,
@@ -197,11 +362,16 @@ def build_concept_mechanism_projection_read_model(
         "source_fields": [
             "population_specimens",
             "activation_receipts",
+            "organ_registry",
+            "organ_atlas",
         ],
         "source_refs": [
             SOURCE_POPULATION_REF,
             SOURCE_ACTIVATION_REF,
             PROJECTION_CONSUMERS_REF,
+            ORGAN_REGISTRY_REF,
+            ORGAN_ATLAS_REF,
+            ORGAN_ACCEPTANCE_REF,
         ],
         "authority_posture": "derived_projection_not_source_authority",
         "parallel_concept_index_authorized": False,
@@ -258,6 +428,20 @@ def build_concept_mechanism_projection_read_model(
             ),
         },
         "rows": rows,
+        "organ_doctrine": {
+            "source_refs": [
+                ORGAN_REGISTRY_REF,
+                ORGAN_ATLAS_REF,
+                ORGAN_ACCEPTANCE_REF,
+            ],
+            "accepted_organ_count": len(organ_doctrine_rows),
+            "row_count": len(organ_doctrine_rows),
+            "authority": (
+                "registry_and_atlas_derived_discoverability_projection_not_"
+                "parallel_concept_inventory"
+            ),
+        },
+        "organ_doctrine_rows": organ_doctrine_rows,
         "anti_claim": (
             "This read model is a projection over Microcosm concept/mechanism specimens "
             "and activation receipts. It does not create a concept registry, complete "
@@ -383,6 +567,14 @@ def validate_concept_mechanism_projection_read_model(
             code="projection_missing_consumer_source_ref",
             message="Projection source refs must include the route's projection_consumers contract.",
         )
+    for required_ref in (ORGAN_REGISTRY_REF, ORGAN_ATLAS_REF, ORGAN_ACCEPTANCE_REF):
+        if required_ref not in source_refs:
+            _add_error(
+                errors,
+                path="source_refs",
+                code="projection_missing_organ_doctrine_source_ref",
+                message=f"Projection source refs must include {required_ref}.",
+            )
     input_refs = set(_strings(payload.get("consumer_input_refs")))
     if not {SOURCE_POPULATION_REF, SOURCE_ACTIVATION_REF} <= input_refs:
         _add_error(
@@ -493,6 +685,102 @@ def validate_concept_mechanism_projection_read_model(
                 message="Projection mechanism binding must preserve the anti-feature-prose rule.",
             )
 
+    organ_doctrine = _as_dict(payload.get("organ_doctrine"))
+    organ_doctrine_rows = _as_list(payload.get("organ_doctrine_rows"))
+    accepted_organ_count = organ_doctrine.get("accepted_organ_count")
+    if not isinstance(accepted_organ_count, int) or accepted_organ_count <= 0:
+        _add_error(
+            errors,
+            path="organ_doctrine.accepted_organ_count",
+            code="organ_doctrine_missing_accepted_count",
+            message="Organ doctrine projection must record a positive accepted organ count.",
+        )
+    if len(organ_doctrine_rows) != accepted_organ_count:
+        _add_error(
+            errors,
+            path="organ_doctrine_rows",
+            code="organ_doctrine_row_count_mismatch",
+            message="Organ doctrine row count must equal accepted organ count.",
+        )
+    seen_organ_ids: set[str] = set()
+    for index, row_value in enumerate(organ_doctrine_rows):
+        row = _as_dict(row_value)
+        organ_id = str(row.get("organ_id") or "")
+        row_path = f"organ_doctrine_rows[{organ_id or index}]"
+        if not organ_id:
+            _add_error(
+                errors,
+                path=f"{row_path}.organ_id",
+                code="organ_doctrine_row_missing_organ_id",
+                message="Organ doctrine rows must identify the accepted organ.",
+            )
+        if organ_id in seen_organ_ids:
+            _add_error(
+                errors,
+                path=f"{row_path}.organ_id",
+                code="organ_doctrine_row_duplicate_organ_id",
+                message="Organ doctrine rows must be unique by organ_id.",
+            )
+        seen_organ_ids.add(organ_id)
+        for key in ("concept_binding", "mechanism_binding", "surface_refs"):
+            if not _as_dict(row.get(key)):
+                _add_error(
+                    errors,
+                    path=f"{row_path}.{key}",
+                    code="organ_doctrine_row_missing_projection_field",
+                    message=f"Organ doctrine row must carry {key}.",
+                )
+        concept_binding = _as_dict(row.get("concept_binding"))
+        mechanism_binding = _as_dict(row.get("mechanism_binding"))
+        if "glossary" not in str(concept_binding.get("anti_glossary_rule", "")).lower():
+            _add_error(
+                errors,
+                path=f"{row_path}.concept_binding.anti_glossary_rule",
+                code="organ_doctrine_concept_binding_not_anti_glossary",
+                message="Organ concept binding must reject glossary/list authority.",
+            )
+        if "feature prose" not in str(
+            mechanism_binding.get("anti_feature_prose_rule", "")
+        ).lower():
+            _add_error(
+                errors,
+                path=f"{row_path}.mechanism_binding.anti_feature_prose_rule",
+                code="organ_doctrine_mechanism_binding_not_anti_feature_prose",
+                message="Organ mechanism binding must reject feature prose authority.",
+            )
+        surface_refs = _as_dict(row.get("surface_refs"))
+        for key in (
+            "registry",
+            "atlas",
+            "paper_module",
+            "standard",
+            "standards_registry",
+            "acceptance",
+            "runtime",
+            "cli",
+        ):
+            if not surface_refs.get(key):
+                _add_error(
+                    errors,
+                    path=f"{row_path}.surface_refs.{key}",
+                    code="organ_doctrine_row_missing_surface_ref",
+                    message=f"Organ doctrine row must expose {key} as a discoverability surface.",
+                )
+        if not _strings(row.get("validator_refs")):
+            _add_error(
+                errors,
+                path=f"{row_path}.validator_refs",
+                code="organ_doctrine_row_missing_validator_refs",
+                message="Organ doctrine row must preserve validator refs.",
+            )
+        if not _strings(row.get("anti_claims")):
+            _add_error(
+                errors,
+                path=f"{row_path}.anti_claims",
+                code="organ_doctrine_row_missing_anti_claims",
+                message="Organ doctrine row must carry anti-claims.",
+            )
+
     pressure_checked = _validate_pressure(pressure_payload, errors)
     return {
         "schema": VALIDATION_SCHEMA,
@@ -514,9 +802,11 @@ def compile_paths(
     command: str,
 ) -> dict[str, Any]:
     pressure_payload = _load_json(pressure_path) if pressure_path else None
+    root = entry_packet_path.resolve(strict=False).parent.parent
     payload = build_concept_mechanism_projection_read_model(
         entry_packet=_load_json(entry_packet_path),
         pressure_payload=pressure_payload,
+        root=root,
         consumer_id=consumer_id,
         command=command,
     )

@@ -1,0 +1,10 @@
+{
+  "body_in_receipt": false,
+  "case_id": "delta_no_previous_green_unavailable",
+  "error_codes": [
+    "BATCH12_QUANT_DELTA_NO_PREVIOUS_GREEN_UNAVAILABLE"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

@@ -1,0 +1,226 @@
+{
+  "anti_claim": "Batch 11 validates source-open or source-faithful public ports for run affinity, calculator insight derivation, std_python ratchet gating, exogenous navigation grading, portability supersession, shard browse sectioning, research evidence selection, projection secret scanning, quant presentation mart normalization, macro-regime bucketing, frontend wayfinding, session diagnostics, and demo-take coverage scoring. It is not live Work Ledger truth, not navigation authority, not complete secret detection, not live market data, not investment advice, not raw transcript authority, not video capture, not publication authority, and not release approval.",
+  "authority_boundary": "public_batch11_saturation_engines_source_open_capsule_not_live_navigation_ledger_market_or_secret_authority",
+  "authority_ceiling": {
+    "authority_ceiling": "batch11_saturation_engines_capsule_not_live_runtime_release_or_market_authority",
+    "complete_secret_detection_claim": false,
+    "market_advice": false,
+    "model_dispatch": false,
+    "navigation_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "raw_session_truth": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "video_capture_authority": false,
+    "work_ledger_authority": false
+  },
+  "first_wave_required": true,
+  "kind_id": "batch11_saturation_engines_capsule",
+  "kind_name": "Batch 11 saturation engines capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public mechanism ids and source-module ids",
+      "public negative-case ids and stable error codes",
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded synthetic exercise inputs and outcomes",
+      "binding dispositions, authority ceilings, and anti-claims",
+      "public negative-case probe inputs used by the integrity matrix"
+    ],
+    "default_posture": "public_safe_source_open_capsule_with_exact_copied_non_secret_macro_body_modules_and_source_faithful_exercises",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "live Work Ledger state as authority",
+      "live navigation authority",
+      "complete secret detection claims",
+      "publication or release operation state",
+      "investment advice or live market advice"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "mechanism_count",
+      "passed_mechanism_count",
+      "tier_b_controller_verification_count",
+      "source_module_manifest",
+      "integrity_matrix",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch11_saturation_engines_capsule",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch11_saturation_engines_capsule_result.json",
+    "batch11_saturation_engines_capsule_board.json",
+    "batch11_saturation_engines_capsule_validation_receipt.json",
+    "batch11_saturation_engines_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "shared_registry_status": "blocked_by_live_owner_until_shared_claim_releases",
+    "source_pattern_id_sample": [
+      "run_affinity_session_scorer",
+      "calculator_cluster_insight_derivation",
+      "std_python_delta_enforcement_ratchet_gate",
+      "exogenous_nav_ladder_grader",
+      "portability_gate_check_supersession_rollup",
+      "shard_browse_context_priority_sectionizer",
+      "holographic_research_bundle_graph_and_evidence_select",
+      "projection_secret_scan",
+      "stockgrid_flow_multisource_merge_unit_normalizer",
+      "macro_regime_board_bucketing_zscore_engine",
+      "frontend_nav_graph_wayfinding_engine",
+      "agent_session_diagnostic_lens_engine",
+      "demo_take_story_coverage_audit"
+    ],
+    "used_by_organs": [
+      "batch11_saturation_engines_capsule"
+    ]
+  },
+  "required_fields": [
+    "mechanisms",
+    "source_module_manifest",
+    "integrity_matrix",
+    "tier_b_controller_verification",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch11_saturation_engines_capsule/input",
+      "role": "public mechanism and negative-case fixture source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle",
+      "role": "source-open runtime example source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+      "role": "copied non-secret macro body manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch11_saturation_engines_capsule",
+  "standard_payload": {
+    "anti_purpose": "Fixture-only claims, live authority, source mutation, publication or release signaling, complete secret detection, private-root equivalence, or investment advice.",
+    "failure_modes": [
+      "mechanism count drifts from the thirteen Batch-11 target rows without updating fixture, receipts, and docs",
+      "source module count drifts from twelve without manifest and test updates",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required anchors",
+      "negative-case fixtures become verdict authority instead of labels paired to computed mechanism outcomes",
+      "negative-case fixtures carry only stable codes without public probe inputs and computed fixture-probe digests",
+      "receipts include copied body text, raw operator transcripts, provider/browser state, credentials, live ledger state, private paths, or publication/release state"
+    ],
+    "ontology": "A public-safe composite organ that imports or binds Batch-11 saturation-layer engines across run selection, calculators, standards ratchets, navigation grading, portability, shard browsing, research evidence, projection scanning, quant marts, session diagnostics, and demo-take coverage.",
+    "teleology": "Let a cold reader inspect and rerun representative Batch-11 macro mechanisms without inheriting live ledger, navigation, release, publication, provider, browser, market, or private authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard_pending_shared_registry_wiring",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "accepted_public_runtime_standard_pending_shared_registry_wiring",
+      "validator_refs": [
+        "validator.microcosm.organs.batch11_saturation_engines_capsule"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.batch11_saturation_engines_capsule"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly thirteen Batch-11 mechanism rows",
+    "require exactly thirteen passed mechanism exercises",
+    "require exactly twelve copied macro source modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "require an integrity-matrix row for every mechanism with source refs, binding disposition, claim ceiling, and computed positive/negative behavior",
+    "require stable negative-case codes and public probe inputs for all thirteen negative cases while treating fixture files as labels, not verdict authority",
+    "require every integrity-matrix negative case to include a fixture_probe_input_digest, fixture_probe_source, fixture_computed_value, and mechanism_computed_value",
+    "keep provider dispatch, live Work Ledger authority, source mutation, publication, release, market advice, complete secret detection, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch11_saturation_engines_capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json",
+    "expected_mechanism_count": 13,
+    "expected_negative_case_count": 13,
+    "expected_passed_mechanism_count": 13,
+    "expected_source_module_count": 12,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch11_saturation_engines_capsule validate-bundle --input examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle --out /tmp/batch11_saturation_engines_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch11_saturation_engines_capsule"
+  },
+  "wave": "w1_batch11_saturation_engines_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch11_saturation_engines_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 11 saturation engines capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch11_saturation_engines_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 11 saturation engines capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch11_saturation_engines_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch11_saturation_engines_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard_pending_shared_registry_wiring",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch11_saturation_engines_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch11_saturation_engines_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch11_saturation_engines_capsule"
+  ],
+  "anti_claims": [
+    "Batch 11 validates source-open or source-faithful public ports for run affinity, calculator insight derivation, std_python ratchet gating, exogenous navigation grading, portability supersession, shard browse sectioning, research evidence selection, projection secret scanning, quant presentation mart normalization, macro-regime bucketing, frontend wayfinding, session diagnostics, and demo-take coverage scoring. It is not live Work Ledger truth, not navigation authority, not complete secret detection, not live market data, not investment advice, not raw transcript authority, not video capture, not publication authority, and not release approval.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch11_saturation_engines_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard_pending_shared_registry_wiring",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.batch11_saturation_engines_capsule",
+    "receipt_id": "receipt.microcosm.batch11_saturation_engines_capsule",
+    "validator_refs": [
+      "validator.microcosm.organs.batch11_saturation_engines_capsule"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.batch11_saturation_engines_capsule"
+    ]
+  }
+}

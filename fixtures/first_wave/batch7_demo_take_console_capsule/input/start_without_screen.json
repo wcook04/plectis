@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "start_without_screen",
+  "error_codes": [
+    "BATCH7_DEMO_TAKE_START_SCREEN_GATE_REQUIRED"
+  ],
+  "schema_version": "batch7_demo_take_console_negative_case_v1"
+}

@@ -7,6 +7,7 @@
   ],
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_monitor_redteam_falsification_replay_compound",
+    "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
     "runtime_shell.replay_gauntlet::monitor_redteam_suppressed_failure",
     "core/public_standard_pressure.json::agent_monitor_redteam_falsification_replay_public_pressure"
   ],
@@ -17,6 +18,7 @@
   "public_regression_fixture_refs": [
     "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json",
     "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json",
+    "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
     "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle"
   ],
   "copied": [
@@ -26,11 +28,12 @@
   ],
   "reimplemented": [
     "synthetic trajectory ids and hashes",
+    "one real public dogfood safety-evals command trace as a sanitized body-free monitor evidence slice",
     "monitor verdict receipt fields",
     "adversarial probe and mitigation refs"
   ],
   "cleaned": [
-    "all public refs are local Microcosm paths or synthetic ids",
+    "all public refs are local Microcosm paths, source-state receipt refs, or synthetic ids",
     "all sensitive bodies are represented by body-free omission refs"
   ],
   "omitted": [
@@ -41,5 +44,5 @@
     "credentials",
     "live agent traffic"
   ],
-  "authority_ceiling": "synthetic agent-monitor falsification replay receipts only"
+  "authority_ceiling": "synthetic agent-monitor falsification replay receipts plus sanitized release-visible public dogfood CLI trace evidence only"
 }

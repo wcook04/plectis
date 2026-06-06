@@ -1,0 +1,124 @@
+{
+  "schema_version": "microcosm_axiom_support_ceiling_dimensions_v1",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover ceiling component ownership; it defines which dimensions have order owners and which remain explicit unknowns, but it does not certify axiom strength or release authority.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.ceiling_dimension_owner_contract",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "component_order": [
+    "evidence_class",
+    "checker_scope",
+    "provenance_class",
+    "freshness_state",
+    "domain_scope",
+    "negative_case_status",
+    "authority_scope",
+    "projection_scope"
+  ],
+  "components": [
+    {
+      "component_id": "evidence_class",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/organ_evidence_classes.json::class_profiles[].evidence_strength_rank",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._evidence_class_component",
+      "order_shape": "ordinal_rank_from_witness_organ_evidence_class",
+      "claim_effect": "May order the evidence-class component only; it cannot raise support across unknown scope, provenance, freshness, authority, projection, or rejection-mapping gaps.",
+      "anti_claims": [
+        "Evidence class rank is a disclosure aid, not proof of general axiom maturity.",
+        "A high evidence class cannot launder an unowned component into support."
+      ]
+    },
+    {
+      "component_id": "checker_scope",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_checker_scope_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._checker_scope_component",
+      "order_shape": "ordered_checker_surface_reach_from_bound_witness_surfaces_and_negative_case_codes",
+      "claim_effect": "May order the checker-scope component only; it cannot raise support across provenance, freshness, domain, authority, projection, or rejection-mapping gaps.",
+      "anti_claims": [
+        "A bound checker surface is not proof of checker completeness, suite breadth, semantic adequacy, release authority, or public readiness.",
+        "Negative-case references in checker code cannot launder endpoint coverage into anti-axiom rejection proof."
+      ]
+    },
+    {
+      "component_id": "provenance_class",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_provenance_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._provenance_class_component",
+      "order_shape": "ordered_material_class_from_bound_witness_surfaces_bundles_receipts_and_negative_codes",
+      "claim_effect": "May order the provenance-class component only; it cannot raise support across checker scope, freshness, domain, authority, projection, or rejection-mapping gaps.",
+      "anti_claims": [
+        "A resolved provenance class is material classification, not proof of evidence freshness, release authority, or public readiness.",
+        "Receipt and bundle presence cannot launder endpoint coverage into anti-axiom rejection proof."
+      ]
+    },
+    {
+      "component_id": "freshness_state",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_freshness_state_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._freshness_state_component",
+      "order_shape": "ordered_reproducible_basis_freshness_boundary_from_digest_and_refresh_contract_state",
+      "claim_effect": "May order the freshness-state component only; without a source-owned refresh contract it remains an ordered unknown and cannot raise support.",
+      "anti_claims": [
+        "A deterministic basis digest is not enough to claim live freshness strength.",
+        "Current file existence, receipt presence, and generated projection freshness cannot become live support freshness proof."
+      ]
+    },
+    {
+      "component_id": "domain_scope",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_domain_scope_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._domain_scope_component",
+      "order_shape": "ordered_local_domain_boundary_from_declared_obligation_and_bound_witness_material",
+      "claim_effect": "May order the domain-scope component only; it cannot raise support across freshness or rejection-mapping gaps.",
+      "anti_claims": [
+        "Endpoint or fixture coverage cannot be promoted to domain-general proof.",
+        "Organ-local and public-copy coverage cannot become substrate-general proof."
+      ]
+    },
+    {
+      "component_id": "negative_case_status",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes resolved against bound checker/test surfaces",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._negative_case_status_component",
+      "order_values": [
+        "absent",
+        "declared_only",
+        "referenced_in_bound_checker"
+      ],
+      "claim_effect": "Orders only whether a negative case is absent, declared, or found in a bound checker surface; it is separate from anti-axiom rejection mapping.",
+      "anti_claims": [
+        "Negative-case status is not anti-axiom rejection proof.",
+        "Endpoint coverage is not propagation proof."
+      ]
+    },
+    {
+      "component_id": "authority_scope",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_authority_scope_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._authority_scope_component",
+      "order_shape": "ordered_authority_boundary_from_source_bindings_and_read_only_validator_contract",
+      "claim_effect": "May order the authority-scope component only; it cannot raise support across freshness, domain, projection, or rejection-mapping gaps.",
+      "anti_claims": [
+        "Validator authority cannot silently become release or source-mutation authority.",
+        "A source binding plus read-only evaluator cannot become public-readiness or anti-axiom rejection proof."
+      ]
+    },
+    {
+      "component_id": "projection_scope",
+      "owner_status": "order_owned",
+      "order_owner_ref": "core/axiom_support_projection_scope_order.json::order_values",
+      "computed_by": "microcosm_core.validators.axiom_support_cover._projection_scope_component",
+      "order_shape": "ordered_projection_boundary_from_source_bindings_and_generated_support_output",
+      "claim_effect": "May order the projection-scope component only; it cannot raise support across freshness, domain, or rejection-mapping gaps.",
+      "anti_claims": [
+        "Generated support-cover output is not source evidence for itself.",
+        "Markdown, atlas cards, public copy, and generated doctrine-lattice projections cannot raise support."
+      ]
+    }
+  ],
+  "unknown_dimension_policy": "explicitly_unowned components are emitted as unknown_no_order_owner witness gaps and extend pressure; they are not bottom, not strong, and not support proof.",
+  "anti_claims": [
+    "This registry makes the support calculus more inspectable, not greener.",
+    "Adding a component order owner is evaluator grammar and must still be consumed by validator code before it can affect a support ceiling.",
+    "No component order can override unverified anti-axiom rejection mappings."
+  ]
+}

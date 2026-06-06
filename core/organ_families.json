@@ -1,36 +1,25 @@
 {
-  "schema_version": "microcosm_organ_families_v1",
-  "registry_id": "microcosm_organ_families",
-  "source_ref": "core/organ_registry.json::implemented_organs",
-  "authority_boundary": "Navigation grouping over the accepted public runtime organ registry. Families are a reader-facing view that buckets organs by what they help you do; they are not a second taxonomy above the architecture kernel, organ registry, standards, or evidence classes.",
   "anti_claim": "Family labels, blurbs, and per-family counts are navigation metadata only. They do not encode evidence strength, score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority. Evidence strength stays in core/organ_evidence_classes.json; current-authority status stays in core/organ_registry.json.",
+  "authority_boundary": "Navigation grouping over the accepted public runtime organ registry. Families are a reader-facing view that buckets organs by what they help you do; they are not a second taxonomy above the architecture kernel, organ registry, standards, or evidence classes.",
   "authority_ceiling": {
+    "coverage_rule": "Every accepted_current_authority organ in core/organ_registry.json maps to exactly one family; every organ_id listed here must exist in the registry. scripts/build_organ_atlas.py fails closed on any gap, extra, or duplicate.",
     "family_authority": "reader_navigation_grouping_only",
-    "reader_action": "Use families to find the cluster of organs relevant to your question, then open the per-organ card in ORGANS.md and the organ's paper module / receipt for evidence. Do not read family membership or family size as maturity, completeness, or release signal.",
-    "coverage_rule": "Every accepted_current_authority organ in core/organ_registry.json maps to exactly one family; every organ_id listed here must exist in the registry. scripts/build_organ_atlas.py fails closed on any gap, extra, or duplicate."
-  },
-  "interaction_model": {
-    "summary": "Most organs are standalone replay or validation specimens. They do not call each other; they bind to one shared spine: the architecture kernel primitives (project -> catalog -> pattern -> standard -> route -> work -> event -> evidence -> explanation -> assimilation), the evidence-class registry, and the authority ceiling. A small number are explicitly wired (for example the entry/reveal and import/intake organs feed or consume other named surfaces); each card states standalone vs wired.",
-    "shared_spine_refs": [
-      "core/architecture_kernel.json",
-      "core/organ_evidence_classes.json",
-      "core/authority_boundary.json"
-    ]
+    "reader_action": "Use families to find the cluster of organs relevant to your question, then open the per-organ card in ORGANS.md and the organ's paper module / receipt for evidence. Do not read family membership or family size as maturity, completeness, or release signal."
   },
   "families": [
     {
+      "blurb": "Microcosm's entry point and what its short guided path actually proves.",
       "family_id": "entry_and_reveal",
       "label": "Entry & Reveal",
-      "blurb": "How a cold human or agent first meets Microcosm and what the short guided path actually proves.",
       "organ_ids": [
         "cold_reader_route_map",
         "public_reveal_walkthrough"
       ]
     },
     {
+      "blurb": "The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable.",
       "family_id": "architecture_and_navigation",
       "label": "Architecture & Navigation",
-      "blurb": "The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and let you navigate it.",
       "organ_ids": [
         "pattern_binding_contract",
         "pattern_assimilation_step",
@@ -39,13 +28,15 @@
         "standards_meta_diagnostics",
         "voice_to_doctrine_self_improvement_loop",
         "cognitive_operator_registry",
-        "routing_anti_patterns_registry"
+        "routing_anti_patterns_registry",
+        "doctrine_fact_claim_audit",
+        "self_ignorance_coverage_ledger"
       ]
     },
     {
+      "blurb": "The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.",
       "family_id": "formal_math_and_proof",
       "label": "Formal Math & Proof",
-      "blurb": "The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates.",
       "organ_ids": [
         "proof_diagnostic_evidence_spine",
         "formal_math_readiness_gate",
@@ -63,15 +54,18 @@
         "verifier_lab_kernel",
         "verifier_lab_execution_spine",
         "certificate_kernel_execution_lab",
+        "batch4_proof_authority_runtime",
         "proof_derived_governed_mutation_authorization"
       ]
     },
     {
+      "blurb": "Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.",
       "family_id": "agent_reliability_and_safety",
       "label": "Agent Reliability & Safety Replays",
-      "blurb": "Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets.",
       "organ_ids": [
         "agent_benchmark_integrity_anti_gaming_replay",
+        "batch10_cold_eval_honesty_capsule",
+        "batch8_validator_checker_capsule",
         "agent_monitor_redteam_falsification_replay",
         "agent_sabotage_scheming_monitor_replay",
         "agent_memory_temporal_conflict_replay",
@@ -81,40 +75,79 @@
         "agent_sandbox_policy_escape_replay",
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
-        "agent_route_observability_runtime",
-        "provider_context_recipe_budget_policy"
-      ]
-    },
+      "agent_route_observability_runtime",
+      "provider_context_recipe_budget_policy",
+      "agent_closeout_faithfulness_audit",
+      "bounded_autonomy_campaign_packet",
+      "batch7_station_runtime_capsule",
+      "batch7_secondary_runtime_capsule"
+    ]
+  },
     {
+      "blurb": "Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.",
       "family_id": "research_and_science_replays",
       "label": "Research & Science Replays",
-      "blurb": "Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation.",
       "organ_ids": [
         "research_replication_rubric_artifact_replay",
         "spatial_world_model_counterfactual_simulation_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
-        "prediction_oracle_reconciliation"
+        "prediction_oracle_reconciliation",
+        "finance_forecast_evaluation_spine",
+        "batch12_market_dashboard_read_model_capsule",
+        "batch12_prediction_market_board_capsule"
       ]
     },
     {
+      "blurb": "The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.",
       "family_id": "import_projection_and_drift",
       "label": "Import, Projection & Drift",
-      "blurb": "The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source.",
       "organ_ids": [
         "macro_projection_import_protocol",
-        "world_model_projection_drift_control_room"
+        "world_model_projection_drift_control_room",
+        "batch6_unsurfaced_primitives_capsule",
+        "batch5_authority_systems_capsule",
+        "batch7_macro_engines_capsule",
+        "batch7_oracle_sibling_capsule",
+        "batch7_demo_take_console_capsule",
+        "batch8_tools_tail_primitives_capsule",
+        "batch8_policy_engines_capsule",
+        "batch8_audio_level_rms_port",
+        "batch8_station_surface_atlas_layout_port",
+        "batch8_structural_theses_capsule",
+        "engine_room_demo",
+        "batch9_macro_engines_capsule",
+        "batch10_governance_compilers_capsule",
+        "batch11_saturation_engines_capsule",
+        "tool_server_pressure_inventory",
+        "batch8_compliance_pipeline_capsule",
+        "batch10_live_source_drift_capsule",
+        "batch12_release_claim_language_gate",
+        "batch10_frontend_work_market_cockpit_capsule"
       ]
     },
     {
+      "blurb": "How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.",
       "family_id": "work_landing_and_continuity",
       "label": "Work, Landing & Continuity",
-      "blurb": "How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume.",
       "organ_ids": [
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
-        "bridge_phase_continuity_runtime"
+        "bridge_phase_continuity_runtime",
+        "workstream_driver_recency_coalescer",
+        "concurrency_mission_control"
       ]
     }
-  ]
+  ],
+  "interaction_model": {
+    "shared_spine_refs": [
+      "core/architecture_kernel.json",
+      "core/organ_evidence_classes.json",
+      "core/authority_boundary.json"
+    ],
+    "summary": "Most organs are standalone replay or validation specimens. They do not call each other; they bind to one shared spine: the architecture kernel primitives (project -> catalog -> pattern -> standard -> route -> work -> event -> evidence -> explanation -> assimilation), the evidence-class registry, and the authority ceiling. A small number are explicitly wired (for example the entry/reveal and import/intake organs feed or consume other named surfaces); each card states standalone vs wired."
+  },
+  "registry_id": "microcosm_organ_families",
+  "schema_version": "microcosm_organ_families_v1",
+  "source_ref": "core/organ_registry.json::implemented_organs"
 }

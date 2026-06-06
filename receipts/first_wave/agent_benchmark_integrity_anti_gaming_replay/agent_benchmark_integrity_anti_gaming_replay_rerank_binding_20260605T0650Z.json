@@ -1,0 +1,76 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "receipt_id": "agent_benchmark_integrity_anti_gaming_replay_rerank_binding_20260605T0650Z",
+  "component_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "issued_at": "2026-06-05T06:50:14Z",
+  "issued_by": "codex_20260605T064913Z_agent_benchmark_integrity_rerank_binding",
+  "intent": "Bind already-landed R3/R4 proof evidence so rerank consumers do not request duplicate code work.",
+  "current_code_status": "proven_current_no_code_change_needed",
+  "no_code_change_reason": "Recent commit 4485c1ff95 Gate benchmark trace shape already added real trace artifact shape validation and a digest-matched fake real-trace rejection test; live focused tests pass over the current organ/test bodies.",
+  "source_commits_checked": [
+    {
+      "commit": "4485c1ff95fb8f5ef8bbd2168193aa862ed935e4",
+      "subject": "Gate benchmark trace shape",
+      "touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+        "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py"
+      ],
+      "relevance": "Adds content validation for public_sanitized_real_benchmark_trace artifacts and rejects a digest-matched fake trace whose source_material_refs and public-boundary omissions are invalid."
+    }
+  ],
+  "claimed_write_scope": [
+    "microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+    "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_rerank_binding_20260605T0650Z.json"
+  ],
+  "proof_commands": [
+    {
+      "command": "./repo-pytest microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+      "status": "pass",
+      "observed_output": "16 passed in 1.93s"
+    },
+    {
+      "command": "git status --short -- microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+      "status": "pass",
+      "observed_output": "no local diff on claimed code/test paths before receipt authoring"
+    },
+    {
+      "command": "git show --patch --find-renames --find-copies --stat 4485c1ff95 -- microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+      "status": "pass",
+      "observed_output": "commit adds _real_trace_artifact_findings and test_agent_benchmark_integrity_rejects_digest_matched_fake_real_trace"
+    }
+  ],
+  "proof_contract_matrix": [
+    {
+      "requirement": "real-good artifact passes",
+      "evidence": "test_agent_benchmark_integrity_replay_observes_negative_cases and test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape assert status pass, source_modules_pass true, verified source-artifact evidence, and verified real benchmark traces."
+    },
+    {
+      "requirement": "real-bad or mutated artifact rejects",
+      "evidence": "Focused tests mutate source-module digests, source-artifact evidence, real trace refs, evaluator config hashes, declared verdicts, and digest-matched fake real-trace content; each rejected artifact asserts blocked status and stable error codes."
+    },
+    {
+      "requirement": "perturbing real trace or file-access evidence moves verdict",
+      "evidence": "train-test, evaluator-config, missing-source-artifact, and missing-real-trace perturbation tests assert computed_integrity_verdict moves to quarantine while the declared verdict may remain integrity_pass."
+    },
+    {
+      "requirement": "no baked fixture label echo",
+      "evidence": "Organ emits computed_integrity_verdict from contamination, file-access, locked-evaluator, source-artifact, and real-trace spans; mismatch and invalid-declared-verdict tests reject label-only changes."
+    },
+    {
+      "requirement": "focused tests pass",
+      "evidence": "./repo-pytest microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py -> 16 passed in 1.93s."
+    }
+  ],
+  "next_rerank_consumer": {
+    "consumer_id": "microcosm_rerank_or_triage_worker",
+    "consume_when": "Next pass reranks first-wave Microcosm organs toward R3/R4 proof confidence.",
+    "consumer_action": "Treat agent_benchmark_integrity_anti_gaming_replay code/test as current and receipt-bound; do not duplicate the 4485c1ff95 code change unless the claimed source or test paths drift or focused tests fail.",
+    "rerank_hint": "Eligible for R3/R4 upward movement on proof-shape evidence, with this receipt as the docs/dissemination binding artifact."
+  },
+  "source_open_boundary": {
+    "body_in_receipt": false,
+    "private_payloads_in_receipt": false,
+    "claim_ceiling": "proof_evidence_binding_only_not_benchmark_score_or_release_authorization"
+  }
+}

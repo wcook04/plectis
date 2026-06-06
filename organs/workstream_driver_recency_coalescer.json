@@ -1,0 +1,429 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-10"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/workstream_driver_recency_coalescer.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for WorkstreamBoard grouping fixture validation, recency coalescing, source-module digest checks, negative cases, and authority ceilings.",
+      "symbols": [
+        "run",
+        "run_workstream_bundle",
+        "evaluate",
+        "group_by_driver",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.work_landing_and_continuity_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Workstream Driver Recency Coalescer",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "work_landing_and_continuity",
+  "id": "workstream_driver_recency_coalescer",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "semantic_validator",
+      "edge_justification": "The JSON capsule, copied WorkstreamBoard source-module bundle, focused validator, and receipts validate public grouping semantics without live cockpit or frontend release authority.",
+      "ref": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "workstream_driver_recency_coalescer",
+  "organ_payload": {
+    "claim_ceiling": "validates declared public WorkstreamBoard grouping contract only; no live cockpit reads, frontend release, source mutation, provider calls, private data equivalence, or whole-system correctness",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/workstream_driver_recency_coalescer.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/workstream_driver_recency_coalescer.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the workstream driver membrane: the fixture must exercise the copied groupByDriver semantics, observe all five negative cases, verify WorkstreamBoard.tsx source-module digests and anchors, and keep receipts free of body text, live cockpit state, browser/HUD state, provider payloads, and release authority.",
+      "axiom_refs": [
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-10"
+      ],
+      "claim_ceiling_restated": "validates declared public WorkstreamBoard grouping contract only; no live cockpit reads, frontend release, source mutation, provider calls, private data equivalence, or whole-system correctness",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/workstream_driver_recency_coalescer.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for WorkstreamBoard grouping fixture validation, recency coalescing, source-module digest checks, negative cases, and authority ceilings.",
+          "symbols": [
+            "run",
+            "run_workstream_bundle",
+            "evaluate",
+            "group_by_driver",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "display_name": "Workstream Driver Recency Coalescer",
+      "evidence_class": "semantic_validator",
+      "family": "work_landing_and_continuity",
+      "first_command": "microcosm workstream-driver-recency-coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
+      "human_gloss": "This organ imports the WorkstreamBoard driver grouping helper as public runnable substrate. Over synthetic AttentionRecentChange rows it surfaces active_driver normalization, newest-wins summary refresh, recency-desc ordering, and unclassified-last behavior backed by an exact copied frontend source body.",
+      "mechanism_refs": [
+        {
+          "authority_class": "semantic_validator",
+          "edge_justification": "The JSON capsule, copied WorkstreamBoard source-module bundle, focused validator, and receipts validate public grouping semantics without live cockpit or frontend release authority.",
+          "ref": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "workstream_driver_recency_coalescer",
+      "paper_module_ref": "paper_modules/workstream_driver_recency_coalescer.md",
+      "principle_refs": [
+        "P-2",
+        "P-6",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[70:workstream_driver_recency_coalescer]",
+      "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer]",
+      "specialty": [
+        "workflow-engineering",
+        "continuity",
+        "frontend",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [],
+      "wiring_note": "Imports an exact copied non-secret WorkstreamBoard.tsx frontend body and binds a source-faithful Python exercise to fixture, receipt, source-digest, CLI/runtime-shell, standard, package-data, and authority-ceiling checks; it does not feed or invoke live cockpit state, browser/HUD state, provider dispatch, release, source mutation, or private-root equivalence lanes."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[workstream_driver_recency_coalescer]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
+        "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+      ],
+      "organ_id": "workstream_driver_recency_coalescer",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.workstream_driver_recency_coalescer",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_import_validation",
+      "validator_command": "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/workstream_driver_recency_coalescer.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-2",
+    "P-6",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
+    "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-10"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/workstream_driver_recency_coalescer.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for WorkstreamBoard grouping fixture validation, recency coalescing, source-module digest checks, negative cases, and authority ceilings.",
+        "symbols": [
+          "run",
+          "run_workstream_bundle",
+          "evaluate",
+          "group_by_driver",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.workstream_driver_recency_coalescer",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].mechanism_refs[0]",
+          "summary": "The JSON capsule, copied WorkstreamBoard source-module bundle, focused validator, and receipts validate public grouping semantics without live cockpit or frontend release authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for WorkstreamBoard grouping fixture validation, recency coalescing, source-module digest checks, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/workstream_driver_recency_coalescer.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-10",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "semantic_validator",
+        "edge_justification": "The JSON capsule, copied WorkstreamBoard source-module bundle, focused validator, and receipts validate public grouping semantics without live cockpit or frontend release authority.",
+        "ref": "mechanism.workstream_driver_recency_coalescer.validates_public_workstream_driver_recency_coalescer",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/workstream_driver_recency_coalescer.md",
+    "principle_refs": [
+      "P-2",
+      "P-6",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[70:workstream_driver_recency_coalescer]",
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Organ atlas row does not name sibling wires_to targets.",
+        "relation_id": "organ.wires_to.organ",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ],
+    "wires_to": []
+  },
+  "role": "An agent runs it to validate the workstream driver membrane: the fixture must exercise the copied groupByDriver semantics, observe all five negative cases, verify WorkstreamBoard.tsx source-module digests and anchors, and keep receipts free of body text, live cockpit state, browser/HUD state, provider payloads, and release authority.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[70:workstream_driver_recency_coalescer]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[70:workstream_driver_recency_coalescer]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/workstream_driver_recency_coalescer.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "workflow-engineering",
+    "continuity",
+    "frontend",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to validate the workstream driver membrane: the fixture must exercise the copied groupByDriver semantics, observe all five negative cases, verify WorkstreamBoard.tsx source-module digests and anchors, and keep receipts free of body text, live cockpit state, browser/HUD state, provider payloads, and release authority.",
+  "status": "accepted_current_authority",
+  "title": "Workstream Driver Recency Coalescer",
+  "validator_refs": [
+    "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": []
+}

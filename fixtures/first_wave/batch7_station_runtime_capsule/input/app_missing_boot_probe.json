@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "app_missing_boot_probe",
+  "error_codes": [
+    "BATCH7_STATION_BOOT_PROBE_REQUIRED"
+  ],
+  "negative_contract": "The trace workbench host must set its boot probe before static imports can throw.",
+  "schema_version": "batch7_station_runtime_negative_case_v1"
+}

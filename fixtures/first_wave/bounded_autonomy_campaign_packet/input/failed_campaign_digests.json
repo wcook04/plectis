@@ -1,0 +1,12 @@
+{
+  "body_in_receipt": false,
+  "failed_digests": [
+    {
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ],
+  "schema_version": "bounded_autonomy_failed_campaign_digests_v1"
+}

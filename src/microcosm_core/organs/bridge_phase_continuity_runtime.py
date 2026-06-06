@@ -121,7 +121,7 @@ def _public_root(path: Path) -> Path:
             and (candidate / "core/private_state_forbidden_classes.json").is_file()
         ):
             return candidate
-    return Path(__file__).resolve().parents[2]
+    return Path(__file__).resolve().parents[3]
 
 
 def _repo_root(public_root: Path) -> Path:
@@ -274,10 +274,13 @@ def _read_synthetic_transport_inputs(
     manifest: dict[str, Any],
     *,
     public_root: Path,
+    input_root: Path,
     findings: list[dict[str, Any]],
 ) -> dict[str, dict[str, Any]]:
     inputs: dict[str, dict[str, Any]] = {}
-    for ref, path in _manifest_synthetic_input_paths(manifest, public_root=public_root):
+    for ref, manifest_path in _manifest_synthetic_input_paths(manifest, public_root=public_root):
+        local_path = input_root / manifest_path.name
+        path = local_path if local_path.is_file() else manifest_path
         if path.suffix == ".jsonl":
             payload: Any = _read_required_jsonl(path, subject=path.name, findings=findings)
         else:
@@ -285,6 +288,8 @@ def _read_synthetic_transport_inputs(
         inputs[path.name] = {
             "ref": ref,
             "path": path,
+            "manifest_path": manifest_path,
+            "input_override_used": path != manifest_path,
             "payload": payload,
         }
 
@@ -310,6 +315,82 @@ def _object_rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _by_id(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, Any]]:
     return {str(row[key]): row for row in rows if row.get(key)}
+
+
+def _int_or_none(value: object) -> int | None:
+    try:
+        return int(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+
+
+def _heartbeat_is_fresh(row: dict[str, Any]) -> bool:
+    age = _int_or_none(row.get("age_seconds"))
+    return str(row.get("status")) == "alive" and age is not None and age <= 60
+
+
+def _heartbeat_is_stale(row: dict[str, Any]) -> bool:
+    age = _int_or_none(row.get("age_seconds"))
+    return str(row.get("status")) == "stale" or (age is not None and age > 300)
+
+
+def _heartbeat_claims_resume_authority(row: dict[str, Any]) -> bool:
+    return _heartbeat_is_fresh(row) and row.get("claims_resume_authority") is True
+
+
+def _heartbeat_overclaims_liveness(row: dict[str, Any]) -> bool:
+    return _heartbeat_is_stale(row) and (
+        row.get("claims_live_bridge_health") is True
+        or row.get("claims_provider_or_ui_uptime") is True
+        or row.get("claims_resume_authority") is True
+    )
+
+
+def _matching_heartbeat_rows(
+    rows: list[dict[str, Any]],
+    *,
+    job_id: object,
+) -> list[dict[str, Any]]:
+    return [row for row in rows if row.get("job_id") == job_id]
+
+
+def _phase_ids_compatible(rows: list[dict[str, Any]]) -> bool:
+    phase_ids = {str(row["phase_id"]) for row in rows if row.get("phase_id")}
+    return len(phase_ids) <= 1
+
+
+def _first_phase_id(rows: list[dict[str, Any]]) -> str | None:
+    for row in rows:
+        if row.get("phase_id"):
+            return str(row["phase_id"])
+    return None
+
+
+def _field_values_compatible(rows: list[dict[str, Any]], field: str) -> bool:
+    values = {str(row[field]) for row in rows if row.get(field) is not None}
+    return len(values) <= 1
+
+
+def _first_field_value(rows: list[dict[str, Any]], field: str) -> str | None:
+    for row in rows:
+        if row.get(field) is not None:
+            return str(row[field])
+    return None
+
+
+def _continuity_refs_compatible(rows: list[dict[str, Any]]) -> bool:
+    return _field_values_compatible(rows, "continuity_ref") and _field_values_compatible(
+        rows, "continuity_epoch"
+    )
+
+
+def _rollback_validation_failure_rejected(row: dict[str, Any]) -> bool:
+    return (
+        row.get("case_id") == "apply_validation_failure_rolls_back_observe_promotion"
+        and row.get("validation_status") == "fail"
+        and row.get("rollback_required") is True
+        and row.get("writes_allowed_after_failure") is False
+    )
 
 
 def _validate_synthetic_transport_contract(
@@ -343,29 +424,84 @@ def _validate_synthetic_transport_contract(
     jobs_by_id = _by_id(jobs, "job_id")
     packets_by_id = _by_id(packets, "packet_id")
     pressures_by_id = _by_id(pressure_rows, "pressure_id")
-    heartbeats_by_id = _by_id(heartbeats, "heartbeat_id")
 
     observed_error_codes: set[str] = set()
+    claim_ref_conflicts = [
+        {
+            "job_id": job.get("job_id"),
+            "packet_id": packet.get("packet_id"),
+        }
+        for packet in packets
+        for job in [jobs_by_id.get(str(packet.get("target_job_id") or ""), {})]
+        if job
+        and bool(packet.get("claim_ref"))
+        and bool(job.get("claim_ref"))
+        and packet.get("claim_ref") != job.get("claim_ref")
+    ]
+    if claim_ref_conflicts:
+        add(
+            "BRIDGE_CONTINUITY_CLAIM_REF_CONFLICT",
+            conflict_count=len(claim_ref_conflicts),
+        )
+
     good_job = jobs_by_id.get("synthetic_detached_job_001", {})
     good_packet_id = str(good_job.get("continuation_packet_id") or "")
     good_packet = packets_by_id.get(good_packet_id, {})
+    good_heartbeats = _matching_heartbeat_rows(heartbeats, job_id=good_job.get("job_id"))
+    good_fresh_heartbeat_present = any(_heartbeat_is_fresh(row) for row in good_heartbeats)
+    good_phase_rows = [row for row in (good_job, good_packet, *good_heartbeats) if row]
+    good_phase_match = _phase_ids_compatible(good_phase_rows)
+    good_continuity_match = _continuity_refs_compatible(good_phase_rows)
     valid_job_pass = (
         good_job.get("state") == "yielded_to_disk"
         and good_job.get("transport") in ACCEPTED_TRANSPORT_LABELS
         and good_packet.get("transport") in ACCEPTED_TRANSPORT_LABELS
         and good_job.get("payload_body_included") is False
         and good_packet.get("target_job_id") == good_job.get("job_id")
+        and good_packet.get("claim_ref") == good_job.get("claim_ref")
         and good_packet.get("consumed") is False
+        and good_fresh_heartbeat_present
+        and good_phase_match
+        and good_continuity_match
     )
     if not valid_job_pass:
-        add("BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID")
+        add(
+            "BRIDGE_CONTINUITY_SYNTHETIC_TRANSPORT_VALID_JOB_INVALID",
+            fresh_heartbeat_present=good_fresh_heartbeat_present,
+            phase_match=good_phase_match,
+            continuity_match=good_continuity_match,
+        )
+    if good_heartbeats and not good_phase_match:
+        observed_error_codes.add("BRIDGE_CONTINUITY_PHASE_MISMATCH")
+        add(
+            "BRIDGE_CONTINUITY_PHASE_MISMATCH",
+            job_id=good_job.get("job_id"),
+            expected_phase_id=_first_phase_id([good_job, good_packet]),
+            heartbeat_phase_id=_first_phase_id(good_heartbeats),
+        )
+    if good_heartbeats and not good_continuity_match:
+        observed_error_codes.add("BRIDGE_CONTINUITY_CONFLICTING_CONTINUITY_REF")
+        add(
+            "BRIDGE_CONTINUITY_CONFLICTING_CONTINUITY_REF",
+            job_id=good_job.get("job_id"),
+            expected_continuity_ref=_first_field_value(
+                [good_job, good_packet], "continuity_ref"
+            ),
+            heartbeat_continuity_ref=_first_field_value(
+                good_heartbeats, "continuity_ref"
+            ),
+            expected_continuity_epoch=_first_field_value(
+                [good_job, good_packet], "continuity_epoch"
+            ),
+            heartbeat_continuity_epoch=_first_field_value(
+                good_heartbeats, "continuity_epoch"
+            ),
+        )
 
     missing_packet_job = jobs_by_id.get("synthetic_detached_job_missing_packet", {})
     missing_packet_id = str(missing_packet_job.get("continuation_packet_id") or "")
     missing_packet_rejected = (
-        missing_packet_job.get("expected_error_code") == "MISSING_CONTINUATION_PACKET"
-        and missing_packet_id
-        and missing_packet_id not in packets_by_id
+        bool(missing_packet_id) and missing_packet_id not in packets_by_id
     )
     if missing_packet_rejected:
         observed_error_codes.add("MISSING_CONTINUATION_PACKET")
@@ -375,8 +511,6 @@ def _validate_synthetic_transport_contract(
     missing_fields_packet = packets_by_id.get("synthetic_packet_missing_fields", {})
     missing_required_fields_rejected = (
         missing_fields_packet.get("required_fields_present") is False
-        and missing_fields_packet.get("expected_error_code")
-        == "MISSING_CONTINUATION_PACKET_FIELDS"
         and bool(missing_fields_packet.get("missing_fields"))
     )
     if missing_required_fields_rejected:
@@ -385,54 +519,38 @@ def _validate_synthetic_transport_contract(
         add("MISSING_CONTINUATION_PACKET_FIELDS")
 
     duplicate_packet = packets_by_id.get("synthetic_packet_002", {})
-    duplicate_resume_rejected = (
-        duplicate_packet.get("consumed") is True
-        and duplicate_packet.get("expected_error_code")
-        == "CONTINUATION_PACKET_ALREADY_CONSUMED"
-    )
+    duplicate_resume_rejected = duplicate_packet.get("consumed") is True
     if duplicate_resume_rejected:
         observed_error_codes.add("CONTINUATION_PACKET_ALREADY_CONSUMED")
     else:
         add("CONTINUATION_PACKET_ALREADY_CONSUMED")
 
-    fresh_heartbeat = heartbeats_by_id.get("heartbeat_fresh", {})
-    fresh_heartbeat_count = sum(
-        1
-        for row in heartbeats
-        if str(row.get("status")) == "alive" and int(row.get("age_seconds", 999999)) <= 60
-    )
-    stale_heartbeat_count = sum(
-        1
-        for row in heartbeats
-        if str(row.get("status")) == "stale" or int(row.get("age_seconds", 0)) > 300
-    )
-    heartbeat_claim = heartbeats_by_id.get("heartbeat_claims_resume_authority", {})
-    heartbeat_resume_authority_rejected = (
-        fresh_heartbeat.get("claims_resume_authority") is False
-        and heartbeat_claim.get("claims_resume_authority") is True
-        and heartbeat_claim.get("expected_error_code") == "HEARTBEAT_NOT_RESUME_AUTHORITY"
+    fresh_heartbeat_count = sum(1 for row in heartbeats if _heartbeat_is_fresh(row))
+    stale_heartbeat_count = sum(1 for row in heartbeats if _heartbeat_is_stale(row))
+    heartbeat_resume_authority_rejected = any(
+        _heartbeat_claims_resume_authority(row) for row in heartbeats
     )
     if heartbeat_resume_authority_rejected:
         observed_error_codes.add("HEARTBEAT_NOT_RESUME_AUTHORITY")
     else:
         add("HEARTBEAT_NOT_RESUME_AUTHORITY")
 
-    stale_heartbeat = heartbeats_by_id.get("heartbeat_stale", {})
-    stale_heartbeat_rejected = (
-        stale_heartbeat.get("expected_error_code") == "STALE_HEARTBEAT_LIVENESS_CLAIM"
-        and int(stale_heartbeat.get("age_seconds", 0)) > 300
-    )
+    stale_heartbeat_rejected = any(_heartbeat_overclaims_liveness(row) for row in heartbeats)
     if stale_heartbeat_rejected:
         observed_error_codes.add("STALE_HEARTBEAT_LIVENESS_CLAIM")
     else:
         add("STALE_HEARTBEAT_LIVENESS_CLAIM")
 
+    heartbeat_unknown_job_refs = [
+        row.get("heartbeat_id")
+        for row in heartbeats
+        if row.get("job_id") and str(row.get("job_id")) not in jobs_by_id
+    ]
+
     pressure_blocked = pressures_by_id.get("pressure_blocked", {})
     resource_pressure_blocked = (
         pressure_blocked.get("dispatch_allowed") is False
-        and pressure_blocked.get("blocked_reason") == "capacity_budget_exceeded"
-        and pressure_blocked.get("expected_error_code")
-        == "RESOURCE_PRESSURE_DISPATCH_BLOCKED"
+        and bool(pressure_blocked.get("blocked_reason"))
     )
     if resource_pressure_blocked:
         observed_error_codes.add("RESOURCE_PRESSURE_DISPATCH_BLOCKED")
@@ -475,14 +593,24 @@ def _validate_synthetic_transport_contract(
             "job_id": good_job.get("job_id"),
             "packet_id": good_packet_id,
             "transport": good_job.get("transport"),
+            "fresh_heartbeat_present": good_fresh_heartbeat_present,
+            "phase_id": _first_phase_id(good_phase_rows),
+            "phase_match": good_phase_match,
+            "continuity_ref": _first_field_value(good_phase_rows, "continuity_ref"),
+            "continuity_epoch": _first_field_value(good_phase_rows, "continuity_epoch"),
+            "continuity_match": good_continuity_match,
         },
         "missing_packet_rejected": missing_packet_rejected,
         "missing_required_fields_rejected": missing_required_fields_rejected,
         "duplicate_resume_rejected": duplicate_resume_rejected,
+        "claim_ref_conflict_rejected": bool(claim_ref_conflicts),
         "heartbeat_fresh_count": fresh_heartbeat_count,
         "heartbeat_stale_count": stale_heartbeat_count,
         "heartbeat_resume_authority_rejected": heartbeat_resume_authority_rejected,
         "stale_heartbeat_rejected": stale_heartbeat_rejected,
+        "heartbeat_unknown_job_ref_count": len(heartbeat_unknown_job_refs),
+        "phase_mismatch_rejected": bool(good_heartbeats) and not good_phase_match,
+        "continuity_conflict_rejected": bool(good_heartbeats) and not good_continuity_match,
         "resource_pressure_blocked": resource_pressure_blocked,
         "worker_skip_deduped_no_closeout": worker_skip_deduped_no_closeout,
         "forbidden_class_ids_only": forbidden_class_ids_only,
@@ -525,15 +653,151 @@ def _expected_negative_cases(
     return list(EXPECTED_NEGATIVE_CASES)
 
 
-def _observed_negative_cases(expected_cases: list[str]) -> dict[str, dict[str, Any]]:
+def _observed_negative_cases(
+    expected_cases: list[str],
+    *,
+    transport_summary: dict[str, Any],
+    source_summary: dict[str, Any],
+    private_state_scan: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
     observed: dict[str, dict[str, Any]] = {}
-    for case_id in expected_cases:
-        codes = EXPECTED_NEGATIVE_CASES.get(case_id, [])
-        observed[case_id] = {
-            "status": PASS if codes else "blocked",
-            "error_codes": codes,
-            "evidence_source": "synthetic_fixture_expected_negative_cases",
+
+    def add_case(
+        case_id: str,
+        *,
+        checks: dict[str, bool],
+        evidence_source: str,
+        code_checks: dict[str, bool] | None = None,
+    ) -> None:
+        code_checks = code_checks or {
+            code: all(checks.values()) for code in EXPECTED_NEGATIVE_CASES.get(case_id, [])
         }
+        observed[case_id] = {
+            "status": PASS if all(checks.values()) else "blocked",
+            "error_codes": sorted(code for code, passed in code_checks.items() if passed),
+            "evidence_source": evidence_source,
+            "semantic_checks": checks,
+            "body_redacted": True,
+        }
+
+    boundary = source_summary.get("boundary")
+    if not isinstance(boundary, dict):
+        boundary = {}
+    finalizer = source_summary.get("finalizer")
+    if not isinstance(finalizer, dict):
+        finalizer = {}
+    must_not_claim = finalizer.get("must_not_claim")
+    must_not_claim = must_not_claim if isinstance(must_not_claim, list) else []
+
+    case_builders = {
+        "missing_packet_duplicate_resume_and_resource_block": lambda: add_case(
+            "missing_packet_duplicate_resume_and_resource_block",
+            evidence_source="synthetic_transport_validator",
+            checks={
+                "missing_packet_rejected": transport_summary.get("missing_packet_rejected")
+                is True,
+                "resource_pressure_blocked": transport_summary.get("resource_pressure_blocked")
+                is True,
+                "duplicate_resume_rejected": transport_summary.get("duplicate_resume_rejected")
+                is True,
+            },
+            code_checks={
+                "MISSING_CONTINUATION_PACKET": transport_summary.get("missing_packet_rejected")
+                is True,
+                "RESOURCE_PRESSURE_DISPATCH_BLOCKED": transport_summary.get(
+                    "resource_pressure_blocked"
+                )
+                is True,
+                "CONTINUATION_PACKET_ALREADY_CONSUMED": transport_summary.get(
+                    "duplicate_resume_rejected"
+                )
+                is True,
+            },
+        ),
+        "continuation_packet_missing_required_fields": lambda: add_case(
+            "continuation_packet_missing_required_fields",
+            evidence_source="synthetic_transport_validator",
+            checks={
+                "missing_required_fields_rejected": transport_summary.get(
+                    "missing_required_fields_rejected"
+                )
+                is True,
+            },
+        ),
+        "heartbeat_claims_resume_authority": lambda: add_case(
+            "heartbeat_claims_resume_authority",
+            evidence_source="synthetic_transport_validator",
+            checks={
+                "heartbeat_resume_authority_rejected": transport_summary.get(
+                    "heartbeat_resume_authority_rejected"
+                )
+                is True,
+            },
+        ),
+        "bridge_packet_private_hud_body": lambda: add_case(
+            "bridge_packet_private_hud_body",
+            evidence_source="public_boundary_and_private_state_scan",
+            checks={
+                "payload_text_excluded": boundary.get("payload_text_included") is False,
+                "private_live_state_excluded": boundary.get("private_live_state_included")
+                is False,
+                "provider_call_not_authorized": boundary.get("provider_call_authorized")
+                is False,
+                "bridge_dispatch_not_authorized": boundary.get("bridge_dispatch_authorized")
+                is False,
+                "public_write_not_authorized": boundary.get("public_write_authorized")
+                is False,
+                "private_state_scan_passed": private_state_scan.get("status") == PASS,
+            },
+        ),
+        "stale_heartbeat_overclaims_liveness": lambda: add_case(
+            "stale_heartbeat_overclaims_liveness",
+            evidence_source="synthetic_transport_validator",
+            checks={
+                "stale_heartbeat_rejected": transport_summary.get(
+                    "stale_heartbeat_rejected"
+                )
+                is True,
+            },
+        ),
+        "resume_success_overclaims_work_landed": lambda: add_case(
+            "resume_success_overclaims_work_landed",
+            evidence_source="observe_apply_finalizer_validator",
+            checks={
+                "closeout_transition_path_present": bool(
+                    finalizer.get("closeout_transition_path")
+                ),
+                "finalizer_closed_with_receipts": finalizer.get("finalizer_status")
+                == "closed_with_receipts",
+                "must_not_claim_work_landed_without_closeout": (
+                    "work_landed_without_closeout_transition" in must_not_claim
+                ),
+            },
+        ),
+        "apply_validation_failure_rolls_back_observe_promotion": lambda: add_case(
+            "apply_validation_failure_rolls_back_observe_promotion",
+            evidence_source="observe_apply_rollback_validator",
+            checks={
+                "rollback_validation_failure_rejected": source_summary.get(
+                    "rollback_validation_failure_rejected"
+                )
+                is True,
+            },
+        ),
+    }
+
+    for case_id in expected_cases:
+        builder = case_builders.get(case_id)
+        if builder is None:
+            observed[case_id] = {
+                "status": "blocked",
+                "error_codes": [],
+                "evidence_source": "unmapped_negative_case",
+                "semantic_checks": {},
+                "body_redacted": True,
+            }
+            continue
+        builder()
     return observed
 
 
@@ -661,7 +925,8 @@ def _validate_fixture_contract(
                 "body_redacted": True,
             }
         )
-    if rollback.get("expected_error_code") != "OBSERVE_APPLY_VALIDATION_FAILED":
+    rollback_validation_failure_rejected = _rollback_validation_failure_rejected(rollback)
+    if not rollback_validation_failure_rejected:
         findings.append(
             {
                 "error_code": "BRIDGE_CONTINUITY_ROLLBACK_CASE_MISSING",
@@ -689,6 +954,7 @@ def _validate_fixture_contract(
         "status_packet": status_packet,
         "finalizer": finalizer,
         "rollback": rollback,
+        "rollback_validation_failure_rejected": rollback_validation_failure_rejected,
         "boundary": boundary,
     }
 
@@ -751,7 +1017,12 @@ def _component_payloads(
     finalizer = source_summary["finalizer"]
     rollback = source_summary["rollback"]
     expected_cases = _expected_negative_cases(fixture, manifest)
-    observed_cases = _observed_negative_cases(expected_cases)
+    observed_cases = _observed_negative_cases(
+        expected_cases,
+        transport_summary=transport_summary,
+        source_summary=source_summary,
+        private_state_scan=private_state_scan,
+    )
     missing_cases = [
         case_id
         for case_id, row in observed_cases.items()
@@ -943,6 +1214,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     transport_inputs = _read_synthetic_transport_inputs(
         manifest,
         public_root=public_root,
+        input_root=input_root,
         findings=findings,
     )
     transport_summary = _validate_synthetic_transport_contract(

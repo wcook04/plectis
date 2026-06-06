@@ -1,0 +1,55 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 5 validates copied public macro source bodies and bounded synthetic negative exercises for post-execution authority checks, incremental replay scope, verifier-gated proof repair, process orphan classification, generated state fixpoint settlement, trace compaction, blast-radius static analysis, and doctrine graph compilation. It is not live provider dispatch, not proof success, not process management authority, not generated-state mutation authority, not private-root equivalence, and not release approval.",
+  "body_copied_material_count": 10,
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch5_authority_systems_capsule",
+  "negative_case_probe_summary": {
+    "body_in_receipt": false,
+    "computed_probe_count": 8,
+    "fixture_verdict_echo_risk_count": 0,
+    "probe_count": 8,
+    "schema_version": "batch5_authority_systems_capsule_negative_probe_v1"
+  },
+  "observed_negative_case_count": 8,
+  "organ_id": "batch5_authority_systems_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "microcosm-substrate/receipts/first_wave/batch5_authority_systems_capsule/batch5_authority_systems_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "semantic_negative_case_evaluator_used": true,
+  "source_module_count": 10,
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "module_count": 10,
+    "source_module_import_status": "pass",
+    "source_refs": [
+      "tools/meta/factory/validate_reasoning_execution_receipt.py",
+      "tools/meta/factory/build_reasoning_execution_replay_scope.py",
+      "tools/meta/factory/build_reasoning_execution_lineage.py",
+      "tools/meta/factory/build_reasoning_execution_schedule_preflight.py",
+      "tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py",
+      "tools/meta/control/orphan_reaper.py",
+      "system/lib/generated_state_drainer.py",
+      "system/lib/agent_execution_trace.py",
+      "system/lib/code_architecture_projection.py",
+      "system/lib/doctrine_graph.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 10
+  },
+  "source_module_manifest_ref": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 10,
+    "body_text_in_receipt": false,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "status": "pass",
+  "validation_ref": "microcosm-substrate/receipts/first_wave/batch5_authority_systems_capsule/batch5_authority_systems_capsule_validation_receipt.json",
+  "verified_source_module_count": 10
+}

@@ -36,6 +36,12 @@ def test_cli_hello_prints_shared_first_screen_card(
         in output
     )
     assert (
+        "Source-only agent entry: "
+        "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
+        "--root . --task agent-entry --viewer {type_a_agent|human} --card --check"
+        in output
+    )
+    assert (
         "Source-only status: "
         "PYTHONPATH=src python3 -m microcosm_core status --card ."
         in output
@@ -46,6 +52,10 @@ def test_cli_hello_prints_shared_first_screen_card(
     )
     assert "-> /project/first-screen -> /project/observatory-card" in output
     assert "Counts are receipt-backed handles" in output
+    assert (
+        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
+        "domain-specialist"
+    ) in output
     assert "No release, hosted publication, provider-call" in output
     assert "reader_routes" not in output
     assert '\"body\":' not in output
@@ -114,6 +124,77 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
     assert "Reader branch: Peer developer" not in output
 
 
+def test_cli_hello_can_focus_type_a_agent_branch(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--reader", "type_a_agent", "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert "Reader branch: Type A agent" in output
+    assert "Command: microcosm hello --reader type_a_agent ." in output
+    assert (
+        "First action: Run `microcosm first-screen --card .`. "
+        "If you need `doctrine_effect_frame`, run "
+        "`microcosm first-screen --full .` before reading it; then run "
+        "`microcosm organ-surface-contract --card --root .`."
+    ) in output
+    assert "Proof: `microcosm organ-surface-contract --card --root .`" in output
+    assert "mechanisms from validators/projections" in output
+    assert "Reader branch: GitHub visitor" not in output
+    assert "Reader branch: Safety/evals" not in output
+    assert "Reader branch: Hiring" not in output
+    assert "Reader branch: Peer developer" not in output
+
+
+@pytest.mark.parametrize(
+    ("alias", "branch_label", "canonical_reader"),
+    [
+        ("cold_cloner", "GitHub visitor", "public_github_visitor"),
+        ("cold-cloner", "GitHub visitor", "public_github_visitor"),
+        ("skeptical_reviewer", "Safety/evals", "safety_evals_engineer"),
+        ("skeptical-reviewer", "Safety/evals", "safety_evals_engineer"),
+        ("reviewer", "Safety/evals", "safety_evals_engineer"),
+        ("agent", "Type A agent", "type_a_agent"),
+        ("type-a-agent", "Type A agent", "type_a_agent"),
+        ("domain-specialist", "Domain specialist", "domain_specialist"),
+    ],
+)
+def test_cli_hello_accepts_public_reader_aliases_without_new_routes(
+    alias: str,
+    branch_label: str,
+    canonical_reader: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--reader", alias, "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert f"Reader branch: {branch_label}" in output
+    assert f"Command: microcosm hello --reader {alias} ." in output
+    if alias != canonical_reader:
+        assert f"Command: microcosm hello --reader {canonical_reader} ." not in output
+    assert output.count("Reader branch:") == 1
+
+
+def test_cli_first_screen_text_accepts_public_reader_hyphen_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert (
+        cli.main(
+            ["first-screen", "--format", "text", "--reader", "domain-specialist", "."]
+        )
+        == 0
+    )
+
+    output = capsys.readouterr().out
+
+    assert "Reader branch: Domain specialist" in output
+    assert "Command: microcosm hello --reader domain-specialist ." in output
+    assert "microcosm hello --reader domain_specialist ." not in output
+    assert output.count("Reader branch:") == 1
+
+
 def test_cli_hello_accepts_text_format_alias(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -169,6 +250,13 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert payload["reader_route_menu"]["source_checkout_commands"]["behavior_proof"] == (
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
     )
+    assert payload["reader_route_menu"]["source_checkout_commands"][
+        "agent_entry_selector"
+    ] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "agent-entry-composition --root . --task agent-entry "
+        "--viewer {type_a_agent|human} --card --check"
+    )
     first_run_steps = {
         row["step_id"]: row
         for row in payload["first_run_ladder"]["steps"]
@@ -200,6 +288,22 @@ def test_cli_first_screen_json_is_compact_by_default(
     )
     assert route_by_id["hiring_reviewer"]["proof_surface"] == (
         "`microcosm legibility-scorecard` plus `microcosm tour --card .`"
+    )
+    assert route_by_id["domain_specialist"]["first_action"] == (
+        "Open `ORGANS.md#find-your-specialty`, then run "
+        "`microcosm tour --card .`."
+    )
+    assert route_by_id["domain_specialist"]["proof_surface"] == (
+        "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`"
+    )
+    assert route_by_id["type_a_agent"]["first_action"] == (
+        "Run `microcosm first-screen --card .`. "
+        "If you need `doctrine_effect_frame`, run "
+        "`microcosm first-screen --full .` before reading it; then run "
+        "`microcosm organ-surface-contract --card --root .`."
+    )
+    assert route_by_id["type_a_agent"]["proof_surface"] == (
+        "`microcosm organ-surface-contract --card --root .`"
     )
     assert "video_storyboard_packet" not in payload
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
@@ -334,3 +438,12 @@ def test_cli_help_names_hello_as_first_screen_route(
     assert excinfo.value.code == 0
     assert "microcosm hello <project>" in output
     assert "print the cold-entry one-screen card" in output
+    assert (
+        "microcosm hello --reader "
+        "{cold_cloner|skeptical_reviewer|agent|domain_specialist} "
+        "<project> branch by reader"
+    ) in output
+    assert (
+        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
+        "domain-specialist"
+    ) in output

@@ -19,6 +19,21 @@ from system.lib.standard_option_surface import build_option_surface
 
 
 DEFAULT_QUERY = "navigation context compression and command output bloat"
+CATALOG_ROUTE_DEBT_KINDS = [
+    "paper_modules",
+    "standards",
+    "task_ledger",
+    "skills",
+    "python_files",
+    "python_scopes",
+    "frontend_components",
+    "principles",
+    "annex_patterns",
+    "annex_distillation_patterns",
+    "row_patches",
+    "transform_job_receipts",
+    "compliance_ledger",
+]
 
 
 def _utc_now() -> str:
@@ -137,6 +152,90 @@ def _measure_route(
         ),
         "safe_alternative": safe_alternative,
         "notes": notes or [],
+    }
+
+
+def _catalog_route_row(kind_id: str) -> dict[str, Any]:
+    safe_alternative = f"./repo-python kernel.py --option-surface {kind_id} --band cluster_flag"
+    return {
+        "route_id": f"{kind_id}.row_flag_all.library",
+        "command": f"build_option_surface(repo_root, {kind_id!r}, band='flag')",
+        "role": f"library-only measurement of the unsafe all-{kind_id.replace('_', '-')} flag payload",
+        "budget_relation": "known_unsafe_reference",
+        "contract_status": "violates_entry_contract",
+        "contract_expectation": "known_unsafe_reference",
+        "safe_alternative": safe_alternative,
+        "notes": [
+            "Compact catalog row; run the full audit for live byte counts.",
+            "The CLI redirects broad all-row drilldowns to cluster_flag where enforced.",
+        ],
+        "full_audit_drilldown": (
+            "./repo-python kernel.py --full --navigation-surface-audit "
+            "\"navigation context compression\" --context-budget 12000"
+        ),
+    }
+
+
+def build_navigation_surface_audit_catalog(
+    repo_root: Path | str,
+    *,
+    query: str | None = None,
+    context_budget: int = 12000,
+) -> dict[str, Any]:
+    budget = max(1000, int(context_budget or 12000))
+    budget_bytes = budget * 4
+    task_query = str(query or DEFAULT_QUERY)
+    route_map = [_catalog_route_row(kind_id) for kind_id in CATALOG_ROUTE_DEBT_KINDS]
+    findings = [
+        {
+            "finding_id": f"{kind_id}_all_flag_known_unsafe_reference",
+            "severity": "high",
+            "surface": f"{kind_id}.row_flag_all",
+            "budget_bytes": budget_bytes,
+            "safe_alternative": f"./repo-python kernel.py --option-surface {kind_id} --band cluster_flag",
+            "full_audit_drilldown": (
+                "./repo-python kernel.py --full --navigation-surface-audit "
+                "\"navigation context compression\" --context-budget 12000"
+            ),
+        }
+        for kind_id in CATALOG_ROUTE_DEBT_KINDS
+    ]
+    return {
+        "kind": "navigation_surface_audit",
+        "schema_version": "navigation_surface_audit_v0",
+        "generated_at": _utc_now(),
+        "query": task_query,
+        "measurement_mode": "contract_catalog",
+        "full_measurement_command": (
+            "./repo-python kernel.py --full --navigation-surface-audit "
+            f"{json.dumps(task_query)} --context-budget {budget}"
+        ),
+        "budget": {
+            "context_budget_tokens": budget,
+            "budget_bytes_estimate": budget_bytes,
+            "classification": "compact catalog names known unsafe references; --full performs live byte measurement",
+        },
+        "summary": {
+            "route_count": len(route_map),
+            "budget_exceeds_count": 0,
+            "contract_violation_count": len(route_map),
+            "high_cardinality_kind_count": None,
+            "missing_cluster_adapter_count": None,
+            "omitted_live_measurement_count": len(route_map),
+        },
+        "route_map": route_map,
+        "high_cardinality_kinds": [],
+        "findings": findings,
+        "next_commands": [
+            "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+            "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+            "./repo-python kernel.py --option-surface standards --band cluster_flag",
+            "./repo-python kernel.py --full --navigation-surface-audit \"<task>\" --context-budget 12000",
+        ],
+        "source_surfaces": [
+            "system/lib/navigation_surface_audit.py::build_navigation_surface_audit_catalog",
+            "system/lib/standard_option_surface.py",
+        ],
     }
 
 

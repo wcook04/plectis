@@ -1,0 +1,54 @@
+{
+  "case_id": "clean_owner",
+  "expected_status": "clean",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"clean\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "clean projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text": "clean projection\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "One public generated report.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ],
+      "manual_edit_boundary": "Do not hand-edit generated/report.md.",
+      "deterministic_regeneration_expectation": "generated/report.md must match expected/report.md.",
+      "stale_drift_handling": "Run the no-write owner check before landing generated/report.md.",
+      "require_fact_authority_lineage": true,
+      "fact_authority_lineage": {
+        "authority_ref": "source/spec.json",
+        "appearance_refs": [
+          "generated/report.md"
+        ],
+        "derivation_path": "builtin:assert-file-equals expected/report.md generated/report.md",
+        "guard_ref": "tests/test_engine_room_generated_projection_drift_gate.py",
+        "treatment": "guarded_public_projection",
+        "residual_route": "repair_command:builtin:repair-demo"
+      }
+    }
+  ]
+}

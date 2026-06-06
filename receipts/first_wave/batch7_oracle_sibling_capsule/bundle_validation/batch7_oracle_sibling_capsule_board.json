@@ -1,0 +1,31 @@
+{
+  "anti_claim": "Batch 7 Oracle sibling imports public-safe source bodies for subject index, subject snapshot, macro truth-diff, and deterministic quartet repair planning. It is not an Oracle reasoning run, not provider or bridge authority, not GodModeEngine invocation, not source mutation authority, and not proof that all Oracle paths are covered.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch7_oracle_sibling_capsule_not_oracle_reasoning_or_provider_authority",
+    "browser_or_wallet_access": false,
+    "godmode_engine_invocation_authorized": false,
+    "model_dispatch": false,
+    "operator_thread_authority": false,
+    "oracle_run_missing_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_truth_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 5,
+    "source_module_count": 6
+  },
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "schema_version": "batch7_oracle_sibling_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 7 Oracle Sibling Capsule",
+  "verdict": "pass"
+}

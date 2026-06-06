@@ -1,0 +1,22 @@
+{
+  "fixture_id": "engine_room_egress_self_compliance_gate_fixture_v1",
+  "organ_id": "engine_room_egress_self_compliance_gate",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/permission_gate_with_blocker.json",
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/self_error_with_capture.json",
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/command_receipt.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/permission_gate_without_blocker.json",
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/self_error_without_capture.json",
+    "fixtures/first_wave/engine_room_egress_self_compliance_gate/input/command_displacement.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.egress_self_compliance_gate evaluate-fixtures --input fixtures/first_wave/engine_room_egress_self_compliance_gate/input --json",
+  "source_refs": [
+    "system/lib/egress_compliance.py",
+    ".claude/hooks/runtime_hook.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Phrase-membership egress policy only; not taint analysis, prompt-injection defense, sandboxing, or information-flow control."
+}

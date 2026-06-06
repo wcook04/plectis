@@ -1,27 +1,24 @@
 """
 [PURPOSE]
-- Teleology: Characterize current behavior of all five master_config read loaders
-  across missing / empty / malformed / non-object / partial / full input scenarios,
-  so any subsequent convergence wave under config plane v2 child slice 2
-  (loader ownership) starts from a known parity matrix instead of inferred safety.
+- Teleology: Verify all five master_config read loaders share the canonical
+  tolerant semantics across missing / empty / malformed / non-object / partial /
+  full input scenarios, so config-plane reader parity stays explicit.
 - Mechanism: For each scenario, write (or omit) master_config.json under tmp_path,
   monkeypatch the global REPO_ROOT for loaders that read it, call each loader,
   and capture either its return value or the exception class it raises.
 
 [INTERFACE]
-- Tests one characterization assertion per (scenario, loader) cell; the expected
-  matrix is encoded explicitly. Divergence is documented, not converged.
+- Tests one parity assertion per (scenario, loader) cell; the expected matrix is
+  encoded explicitly.
 
 [FLOW]
-- This is intentionally a characterization test. If a loader's behavior is
-  intentionally changed later, update the matrix in this file as part of that change.
+- If a loader's behavior is intentionally changed later, update the matrix in
+  this file as part of that change.
 
 [CONSTRAINTS]
 - No test mutates the live repository config.
-- No test asserts what a loader "should" do — only what it currently does.
-- Server reader's pre-existing intolerance (raise on malformed, pass-through
-  non-dict) is recorded as the documented divergence; converging it requires
-  caller-impact analysis under the loader-ownership child slice.
+- Runtime readers should return a dict for every input: valid mapping
+  pass-through, {} for missing / empty / malformed / non-object input.
 """
 from __future__ import annotations
 
@@ -98,8 +95,8 @@ def _call_loader(name: str, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 #   ("ok", expected_value)
 #   ("raises", expected_exception_class_name)
 #
-# The server_reader cells encode the documented divergence: raises on malformed
-# and on empty input (json.load(""))), and passes through non-dict types.
+# Every loader should share the canonical tolerant semantics: return a dict,
+# preserving valid objects and coercing missing / malformed / non-object input to {}.
 EXPECTED_MATRIX: dict[tuple[str, str], tuple[str, object]] = {
     # missing_file: every loader returns {} (every loader has if-not-exists guard).
     ("missing_file", "kernel_canonical"): ("ok", {}),

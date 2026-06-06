@@ -448,7 +448,7 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-30T21:37:00+00:00",
+  "created_at": "2026-06-01T09:10:12+00:00",
   "features": [
     {
       "body_in_receipt": false,
@@ -508,7 +508,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:5ad1fceb2ccd54542dee757732c7e2ba9fa16e44e23655a8a40fc990b1fc523b",
+    "basis_digest": "sha256:dab8478fe6743067d5fb87b0993af29048850ad7fa868cc0aecec91ceb44e456",
     "card_schema_version": "mechanistic_interpretability_circuit_attribution_replay_command_card_v1",
     "include_negative": false,
     "input_count": 18,
@@ -535,7 +535,7 @@
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
-        "sha256": "sha256:29e6c777ebaf483ae92dd4941996f6ebe95e2201b274be146362b933edd543ac",
+        "sha256": "sha256:27da9d64d6301d9a439ab587b0ac3917063581ffc6fd6aebdfc669297913eb56",
         "size_bytes": 16855
       },
       {
@@ -575,13 +575,13 @@
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
-        "sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
-        "size_bytes": 19500
+        "sha256": "sha256:5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
+        "size_bytes": 30296
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
@@ -836,7 +836,7 @@
         "body_copied": true,
         "body_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
-        "line_count": 500,
+        "line_count": 776,
         "material_class": "public_macro_tool_body",
         "module_id": "mission_transaction_preflight_tool_body_import",
         "required_anchors": [
@@ -847,18 +847,18 @@
           "landing_decision"
         ],
         "source_ref": "tools/meta/control/mission_transaction_preflight.py",
-        "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "source_sha256": "5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
         "status": "pass",
-        "target_body_digest": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "target_body_digest": "sha256:5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
         "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
-        "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9"
+        "target_sha256": "5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037"
       },
       {
         "anchor_count": 5,
         "body_copied": true,
         "body_in_receipt": false,
         "classification": "copied_non_secret_macro_body",
-        "line_count": 5256,
+        "line_count": 5298,
         "material_class": "public_macro_tool_body",
         "module_id": "agent_execution_trace_tool_body_import",
         "required_anchors": [
@@ -869,11 +869,11 @@
           "privacy_boundary"
         ],
         "source_ref": "system/lib/agent_execution_trace.py",
-        "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "source_sha256": "659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
         "status": "pass",
-        "target_body_digest": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "target_body_digest": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
         "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
+        "target_sha256": "659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04"
       },
       {
         "anchor_count": 5,

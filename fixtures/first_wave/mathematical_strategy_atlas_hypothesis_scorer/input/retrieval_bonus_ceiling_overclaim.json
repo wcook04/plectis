@@ -1,0 +1,7 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "retrieval_bonus_ceiling_overclaim",
+  "subject_id": "retrieval_keyword_volume",
+  "retrieval_bonus_cap": 99,
+  "anti_claim": "Retrieval keyword volume is a bounded hint and cannot become the primary strategy authority."
+}

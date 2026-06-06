@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "forward_dirty_unknown_target", "error_codes": ["BATCH4_FORWARD_POLICY_DIRTY_UNKNOWN_TARGET_BLOCKED"], "runtime_probe": {"observer_id": "forward_dirty_unknown_target_policy_anchor", "source_module_id": "forward_integration_policy", "required_text": "dirty_unknown_target"}, "body_in_receipt": false}

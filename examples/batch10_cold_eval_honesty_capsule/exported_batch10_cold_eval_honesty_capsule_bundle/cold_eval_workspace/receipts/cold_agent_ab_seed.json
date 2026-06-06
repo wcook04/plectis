@@ -1,0 +1,6 @@
+{
+  "id": "receipt.cold_agent_ab_seed.fixture",
+  "kind": "receipt",
+  "schema_version": "receipt_fixture_v1",
+  "status": "ok"
+}

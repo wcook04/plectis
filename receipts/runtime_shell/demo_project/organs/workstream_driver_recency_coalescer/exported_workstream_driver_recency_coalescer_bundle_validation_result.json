@@ -1,0 +1,228 @@
+{
+  "anti_claim": "Workstream driver recency coalescer validates the public grouping semantics copied from WorkstreamBoard.tsx over synthetic AttentionRecentChange rows. It does not read live cockpit state, authorize frontend release, mutate the source UI, prove workstream classification correctness, dispatch providers, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "workstream_driver_recency_coalescer_not_live_frontend_authority",
+    "frontend_release_authorized": false,
+    "live_browser_state_read": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T11:44:01+00:00",
+  "error_codes": [
+    "WDRC_AUTHORITY_OVERCLAIM",
+    "WDRC_DRIVER_KEY_NOT_NORMALIZED",
+    "WDRC_NEWEST_EVENT_NOT_REFRESHED",
+    "WDRC_RECENCY_SORT_DESC_REQUIRED",
+    "WDRC_UNCLASSIFIED_SENTINEL_LAST_REQUIRED"
+  ],
+  "exercise": {
+    "authority_claims": {
+      "frontend_release_authorized": false,
+      "live_browser_state_read": false,
+      "provider_dispatch": false,
+      "publication_authorized": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 1,
+    "error_codes": [
+      "WDRC_AUTHORITY_OVERCLAIM",
+      "WDRC_DRIVER_KEY_NOT_NORMALIZED",
+      "WDRC_NEWEST_EVENT_NOT_REFRESHED",
+      "WDRC_RECENCY_SORT_DESC_REQUIRED",
+      "WDRC_UNCLASSIFIED_SENTINEL_LAST_REQUIRED"
+    ],
+    "mechanism_count": 1,
+    "mechanisms": [
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Public fixture-level semantic-validator evidence only; not live frontend, workstream-classifier, release, or whole-system authority.",
+        "evidence_class": "semantic_validator",
+        "mechanism_id": "workstream_driver_recency_coalescer",
+        "missing_modules": [],
+        "public_exercise": "Synthetic public AttentionRecentChange rows exercise active_driver normalization, count folding, newest-wins summary/gate refresh, recency ordering, and unclassified sentinel-last sorting without live cockpit state.",
+        "source_module_ids": [
+          "workstream_driver_recency_coalescer"
+        ],
+        "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+        "status": "pass"
+      }
+    ],
+    "runtime_exercise_count": 1,
+    "runtime_exercises": {
+      "workstream_driver_recency_coalescer": {
+        "body_in_receipt": false,
+        "driver_fold_count": 2,
+        "exercise_id": "workstream_driver_recency_coalescer",
+        "newest_gate_reason": "gate_new",
+        "newest_summary": "newer codex",
+        "order_keys": [
+          "codex",
+          "bridge",
+          "unclassified"
+        ],
+        "row_count": 3,
+        "rows": [
+          {
+            "count": 2,
+            "driver": "Codex",
+            "gateReason": "gate_new",
+            "key": "codex",
+            "latestIso": "2026-05-31T12:00:00Z",
+            "latestSummary": "newer codex"
+          },
+          {
+            "count": 1,
+            "driver": "bridge",
+            "gateReason": null,
+            "key": "bridge",
+            "latestIso": "2026-05-31T11:00:00Z",
+            "latestSummary": "bridge move"
+          },
+          {
+            "count": 1,
+            "driver": "unclassified",
+            "gateReason": "gate_unclassified",
+            "key": "unclassified",
+            "latestIso": "2026-05-31T13:00:00Z",
+            "latestSummary": "newest but unclassified"
+          }
+        ],
+        "status": "pass",
+        "unclassified_pinned_last": true
+      }
+    },
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "driver_key_not_normalized",
+    "newest_event_not_refreshed",
+    "recency_sort_wrong",
+    "release_overclaim",
+    "unclassified_not_last"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.workstream_driver_recency_coalescer",
+  "input_count": 1,
+  "input_mode": "exported_workstream_driver_recency_coalescer_bundle",
+  "input_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "driver_key_not_normalized",
+    "newest_event_not_refreshed",
+    "recency_sort_wrong",
+    "release_overclaim",
+    "unclassified_not_last"
+  ],
+  "organ_id": "workstream_driver_recency_coalescer",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
+    "receipts/runtime_shell/demo_project/organs/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json"
+  ],
+  "schema_version": "workstream_driver_recency_coalescer_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json",
+    "module_count": 1,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 152,
+        "expected_sha256": "b248325a157e3f7eb7320e430c73b130aa44420f73bfbec334730d5aef595ea7",
+        "line_count": 152,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+        "required_anchor_count": 5,
+        "sha256": "b248325a157e3f7eb7320e430c73b130aa44420f73bfbec334730d5aef595ea7",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 1,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json",
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.workstream_driver_recency_coalescer"
+}

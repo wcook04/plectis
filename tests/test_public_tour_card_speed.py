@@ -21,7 +21,9 @@ def test_first_screen_compile_defers_full_python_ast_scan(
     _write(project / "src/public_project/__init__.py", '"""Public package."""\n')
     _write(
         project / "src/public_project/app.py",
-        "import json\n\n\ndef main():\n    return json.dumps({'ok': True})\n",
+        "import json\n\n\ndef main():\n    return json.dumps({'ok': True})\n\n\n"
+        "if __name__ == '__main__':\n"
+        "    raise SystemExit(main())\n",
     )
     _write(project / "tests/test_app.py", "def test_app():\n    assert True\n")
 
@@ -50,6 +52,18 @@ def test_first_screen_compile_defers_full_python_ast_scan(
     assert lens["deferred_full_scan"] is True
     assert lens["python_file_count"] == 3
     assert lens["source_span_count"] == 0
+    assert result["python_ready_route_count"] == 4
+    assert {
+        row["check_id"]: row["status"] for row in lens["readiness_checks"]
+    }["python_entrypoint_visible"] == "pass"
+    assert {
+        row["route_id"]: row["readiness"] for row in lens["route_rows"]
+    }["python_entrypoint_route"] == "pass"
+    app_row = next(
+        row for row in lens["path_rows"] if row["path"] == "src/public_project/app.py"
+    )
+    assert app_row["has_main_guard"] is True
+    assert app_row["absolute_import_count"] == 1
     assert all(
         row["parse_status"] == "deferred_first_screen_summary"
         for row in lens["path_rows"]

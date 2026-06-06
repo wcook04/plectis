@@ -22,6 +22,7 @@
     "kind_required": true,
     "private_source_bodies_forbidden": true,
     "real_runtime_receipt": true,
+    "source_authority_masquerade_rejected": true,
     "stable_unique_ids_required": true,
     "synthetic_receipt_standin_allowed": false,
     "text_required": true,
@@ -38,10 +39,9 @@
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
-    "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json"
   ],
   "routing_anti_pattern_projection": {
     "anti_pattern_count": 5,
@@ -72,7 +72,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 6,
+    "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },

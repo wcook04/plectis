@@ -1,0 +1,41 @@
+{
+  "anti_claims": [
+    "This receipt proves only that the named record has a validator/link receipt, not that public release is authorized.",
+    "Receipt presence does not promote generated markdown, lattice projections, or site output into source authority.",
+    "No private macro source body, raw seed body, prompt, or provider payload is included or authorized by this receipt."
+  ],
+  "authority_ceiling": {
+    "hosted_public_readiness_authority": false,
+    "private_data_equivalence_authority": false,
+    "provider_call_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "status": "schema_link_and_validator_receipt_only",
+    "whole_system_correctness": false
+  },
+  "command_or_validator": "validator.microcosm.principle",
+  "created_at": "2026-06-05T17:05:00Z",
+  "evidence_refs": [
+    "standards/std_microcosm_principle.json",
+    "PRINCIPLES.md::P-13",
+    "principles/P-13.json",
+    "core/axiom_organ_routing.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-principle-corpus"
+  ],
+  "id": "receipt.microcosm.doctrine_record.P-13",
+  "kind": "doctrine_record_receipt",
+  "omissions": [
+    "private macro source bodies",
+    "raw operator voice",
+    "provider payload bodies",
+    "support-cover generated output as source evidence"
+  ],
+  "record_id": "P-13",
+  "record_kind": "principle",
+  "record_ref": "principles/P-13.json",
+  "result": "pass",
+  "schema_version": "microcosm_doctrine_record_receipt_v1",
+  "status": "active",
+  "validator_id": "validator.microcosm.principle"
+}

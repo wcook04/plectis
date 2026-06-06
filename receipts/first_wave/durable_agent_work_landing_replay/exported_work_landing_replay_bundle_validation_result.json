@@ -1,0 +1,389 @@
+{
+  "anti_claim": "Durable agent work-landing replay emits real runtime receipts over imported work-landing rows, macro tool refs, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD advance evidence, export credential/account-bound bodies, run providers, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "durable_work_landing_real_runtime_replay_receipts_only",
+    "broad_checkpoint_authorized": false,
+    "commit_landed_claim_authorized_without_head_advance": false,
+    "live_git_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "unrelated_dirty_paths_authorized": false
+  },
+  "body_copied_material_count": 6,
+  "bundle_id": "durable_agent_work_landing_replay_runtime_example",
+  "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/first_wave/durable_agent_work_landing_replay",
+  "created_at": "2026-06-01T15:41:41+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.durable_agent_work_landing_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:a8a4f0515091dc5029c363684e30ec961290aebd6c7761f7e203ed28fb4aacd5",
+    "card_schema_version": "durable_agent_work_landing_replay_command_card_v1",
+    "include_negative": false,
+    "input_count": 11,
+    "inputs": [
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/projection_protocol.json",
+        "sha256": "c231edcb874a2691a08a2e57f1ebe874dc8c34bdbaf8f886029c7f60afc66413",
+        "size_bytes": 1391
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/landing_policy.json",
+        "sha256": "06619e6beed535c9af21d58162c7bcead292f694290ec488e2633d56c4ed007c",
+        "size_bytes": 1693
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/work_landing_runs.json",
+        "sha256": "fb123a2214508c937f0b84cbd43c44e3ddb5082b8161aef914710e1149a6cb42",
+        "size_bytes": 2581
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/bundle_manifest.json",
+        "sha256": "1b65c6a1bea3e8e47f8f66b069d14214106a853ffd8b3667457ff9ab1d39dc16",
+        "size_bytes": 2217
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+        "sha256": "f671b2167f28bd7e941e00d8c51afa25a68a25a5f2533ddf023da2c5051cd095",
+        "size_bytes": 11920
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/workitem_runtime_entrypoint.py",
+        "sha256": "ea7a572e7ba2d9a0f6730958b22f4d0d3efe73886587b5b4eabea78072d425ec",
+        "size_bytes": 101370
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py",
+        "sha256": "fda484f7612cee18c86954564cf3fba86deffb2e382f5434b8bb03797a504091",
+        "size_bytes": 156981
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py",
+        "sha256": "d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+        "size_bytes": 8422
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "sha256": "5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
+        "size_bytes": 30296
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "sha256": "29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
+        "size_bytes": 61649
+      },
+      {
+        "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
+        "sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+        "size_bytes": 224137
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "durable_agent_work_landing_replay_freshness_basis_v1",
+    "validator_schema_version": "exported_work_landing_replay_bundle_validation_result_v1"
+  },
+  "input_mode": "exported_work_landing_replay_bundle",
+  "landed_commit_count": 1,
+  "lane_decision_table": [
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "scoped_commit",
+      "release_authorized": false,
+      "requires": [
+        "owned_path_claims",
+        "owner_native_validation",
+        "clean_staged_index",
+        "head_compare_and_swap"
+      ],
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": false,
+      "lane_id": "broad_checkpoint",
+      "release_authorized": false,
+      "requires": [
+        "explicit_operator_authorization",
+        "quick_safety_checks",
+        "private_root_trust_envelope"
+      ],
+      "stages_unrelated_dirty_paths": "only_after_operator_authorization"
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "metadata_blocked_patch_bundle",
+      "release_authorized": false,
+      "requires": [
+        "validation_transcript",
+        "task_ledger_blocker_capture",
+        "work_ledger_finalizer",
+        "seed_reentry_update"
+      ],
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "hard_stop",
+      "release_authorized": false,
+      "requires": [
+        "stop_mutation",
+        "capture_blocker",
+        "preserve_unrelated_changes"
+      ],
+      "stages_unrelated_dirty_paths": false
+    }
+  ],
+  "lane_ids": [
+    "broad_checkpoint",
+    "hard_stop",
+    "metadata_blocked_patch_bundle",
+    "scoped_commit"
+  ],
+  "metadata_blocked_count": 1,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "durable_agent_work_landing_replay",
+  "policy_id": "durable_agent_work_landing_policy_v1",
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_work_landing_replay_lens.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
+  ],
+  "protocol_id": "durable_agent_work_landing_replay_public_projection_v1",
+  "public_runtime_refs": [
+    "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
+    "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules"
+  ],
+  "receipt_paths": [
+    "receipts/first_wave/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json"
+  ],
+  "receipt_reused": false,
+  "run_count": 3,
+  "schema_version": "exported_work_landing_replay_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 11,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 6,
+    "modules": [
+      {
+        "actual_sha256": "sha256:ea7a572e7ba2d9a0f6730958b22f4d0d3efe73886587b5b4eabea78072d425ec",
+        "body_in_receipt": false,
+        "line_count": 2063,
+        "material_class": "public_macro_tool_body",
+        "module_id": "workitem_runtime_entrypoint_source_body_import",
+        "sha256": "sha256:ea7a572e7ba2d9a0f6730958b22f4d0d3efe73886587b5b4eabea78072d425ec",
+        "source_ref": "system/lib/workitem_runtime_entrypoint.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/workitem_runtime_entrypoint.py"
+      },
+      {
+        "actual_sha256": "sha256:fda484f7612cee18c86954564cf3fba86deffb2e382f5434b8bb03797a504091",
+        "body_in_receipt": false,
+        "line_count": 3873,
+        "material_class": "public_macro_ledger_body",
+        "module_id": "work_landing_status_source_body_import",
+        "sha256": "sha256:fda484f7612cee18c86954564cf3fba86deffb2e382f5434b8bb03797a504091",
+        "source_ref": "system/lib/work_landing_status.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py"
+      },
+      {
+        "actual_sha256": "sha256:d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+        "body_in_receipt": false,
+        "line_count": 234,
+        "material_class": "public_macro_tool_body",
+        "module_id": "work_landing_cli_source_body_import",
+        "sha256": "sha256:d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+        "source_ref": "tools/meta/control/work_landing.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py"
+      },
+      {
+        "actual_sha256": "sha256:5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
+        "body_in_receipt": false,
+        "line_count": 776,
+        "material_class": "public_macro_transaction_body",
+        "module_id": "mission_transaction_preflight_source_body_import",
+        "sha256": "sha256:5585e45da640c4cbca411f81c85ab4ba56744b66b05a312741c0aeeb434e4037",
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+      },
+      {
+        "actual_sha256": "sha256:29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
+        "body_in_receipt": false,
+        "line_count": 1616,
+        "material_class": "public_macro_transaction_body",
+        "module_id": "scoped_commit_private_index_source_body_import",
+        "sha256": "sha256:29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
+        "source_ref": "tools/meta/control/scoped_commit.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py"
+      },
+      {
+        "actual_sha256": "sha256:0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+        "body_in_receipt": false,
+        "line_count": 5587,
+        "material_class": "public_macro_ledger_body",
+        "module_id": "work_ledger_runtime_claims_source_body_import",
+        "sha256": "sha256:0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+        "source_ref": "tools/meta/factory/work_ledger.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py"
+      }
+    ],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+    "status": "pass"
+  },
+  "source_module_manifest_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "broad_checkpoint_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 6,
+    "body_material_ids": [
+      "workitem_runtime_entrypoint_source_body_import",
+      "work_landing_status_source_body_import",
+      "work_landing_cli_source_body_import",
+      "mission_transaction_preflight_source_body_import",
+      "scoped_commit_private_index_source_body_import",
+      "work_ledger_runtime_claims_source_body_import"
+    ],
+    "body_material_status": "copied_non_secret_durable_agent_work_landing_control_plane_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_ledger_body",
+      "public_macro_tool_body",
+      "public_macro_transaction_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported work-landing bundle for copied macro control-plane source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "durable_agent_work_landing_replay_compound",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims"
+  ],
+  "source_refs": [
+    "system/lib/workitem_runtime_entrypoint.py",
+    "tools/meta/control/work_landing.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "system/lib/work_landing_status.py",
+    "tools/meta/factory/work_ledger.py"
+  ],
+  "status": "pass",
+  "validation_order_pass_count": 2,
+  "validation_order_required_count": 2,
+  "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay",
+  "work_landing_runs": [
+    {
+      "blocker_capture_ref": "",
+      "body_in_receipt": false,
+      "claimed_path_refs": [
+        "microcosm-substrate/src/microcosm_core/runtime_shell.py",
+        "microcosm-substrate/tests/test_runtime_shell.py"
+      ],
+      "commit_claimed_landed": true,
+      "head_after": "sha256:222222",
+      "head_before": "sha256:111111",
+      "landing_status": "scoped_commit_landed",
+      "live_git_mutation_authorized": false,
+      "release_claim_authorized": false,
+      "run_id": "scoped_commit_landed_fixture",
+      "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_run_persists_organ_receipts"
+      ],
+      "work_ledger_closeout_ref": "wlr_fixture_scoped_commit_closeout"
+    },
+    {
+      "blocker_capture_ref": "wie_fixture_git_metadata_blocker",
+      "body_in_receipt": false,
+      "claimed_path_refs": [
+        "microcosm-substrate/AGENTS.md",
+        "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
+      ],
+      "commit_claimed_landed": false,
+      "head_after": "sha256:333333",
+      "head_before": "sha256:333333",
+      "landing_status": "metadata_blocked_patch_bundle",
+      "live_git_mutation_authorized": false,
+      "release_claim_authorized": false,
+      "run_id": "metadata_blocked_patch_bundle_fixture",
+      "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
+      "validation_refs": [
+        "microcosm_core.validators.standards_registry",
+        "microcosm_core.validators.acceptance"
+      ],
+      "work_ledger_closeout_ref": "wlr_fixture_append_exempt_finalizer"
+    },
+    {
+      "blocker_capture_ref": "wie_fixture_secret_hard_stop",
+      "body_in_receipt": false,
+      "claimed_path_refs": [
+        "microcosm-substrate/standards/std_microcosm_durable_agent_work_landing_replay.json"
+      ],
+      "commit_claimed_landed": false,
+      "head_after": "sha256:444444",
+      "head_before": "sha256:444444",
+      "landing_status": "hard_stop",
+      "live_git_mutation_authorized": false,
+      "release_claim_authorized": false,
+      "run_id": "hard_stop_preserves_user_changes_fixture",
+      "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
+      "validation_refs": [
+        "microcosm_core.secret_exclusion_scan"
+      ],
+      "work_ledger_closeout_ref": "wlr_fixture_hard_stop_closeout"
+    }
+  ]
+}

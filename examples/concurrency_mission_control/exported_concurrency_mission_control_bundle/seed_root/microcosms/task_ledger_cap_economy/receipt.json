@@ -1,0 +1,67 @@
+{
+  "claim_ref": "candidate.task_ledger_cap_economy_microcosm",
+  "claim_tier": "fixture_validated",
+  "command": "python -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+  "evidence_refs": [
+    "microcosms/task_ledger_cap_economy/events.jsonl",
+    "microcosms/task_ledger_cap_economy/projection.json",
+    "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+    "microcosms/task_ledger_cap_economy/provider_repair_residual_bridge.json",
+    "microcosms/task_ledger_cap_economy/README.md"
+  ],
+  "generated_at": "2026-05-13T00:20:00Z",
+  "id": "receipt.task_ledger_cap_economy",
+  "kind": "receipt",
+  "omissions": [
+    "Synthetic fixture only; does not expose or validate the private Task Ledger.",
+    "Cold-sandbox proof depends on fresh local probe and clone receipts before publication language can strengthen."
+  ],
+  "owner": "idea_microcosm.task_ledger_specimen",
+  "result": "ok",
+  "schema_version": "receipt_v0",
+  "self_error_capture_repair_extension_path": "microcosms/task_ledger_cap_economy/projection.json:self_error_capture_repair_extension",
+  "self_error_capture_repair_validator_summary": [
+    {
+      "expected": 5,
+      "id": "validator.self_error_capture_requires_capture_before_prose",
+      "observed": 5,
+      "status": "pass"
+    },
+    {
+      "expected_min": 1,
+      "id": "validator.self_error_capture_blocks_uncaptured_prose",
+      "observed": 1,
+      "status": "pass"
+    },
+    {
+      "expected": 5,
+      "id": "validator.self_error_capture_rebuild_visibility_named",
+      "observed": 5,
+      "status": "pass"
+    },
+    {
+      "expected": 0,
+      "id": "validator.self_error_capture_grants_no_public_authority",
+      "observed": 0,
+      "status": "pass"
+    }
+  ],
+  "status": "ok",
+  "summary": {
+    "blocked_public_claim_count": 4,
+    "evaluator_authority_count": 3,
+    "provider_repair_residual_case_count": 4,
+    "provider_repair_residual_open_count": 3,
+    "provider_repair_residual_repair_route_count": 3,
+    "provider_repair_residual_self_attestation_authority_count": 0,
+    "repair_route_count": 2,
+    "self_attestation_authority_count": 0,
+    "self_error_capture_blocked_until_capture_count": 1,
+    "self_error_capture_case_count": 5,
+    "self_error_capture_publication_permission_count": 0,
+    "self_error_capture_typed_nothing_to_refine_count": 1,
+    "semantic_carryforward_count": 13,
+    "source_capsule_count": 13,
+    "transaction_trace_count": 5
+  }
+}

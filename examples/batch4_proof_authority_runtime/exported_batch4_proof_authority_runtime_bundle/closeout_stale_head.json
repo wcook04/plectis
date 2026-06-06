@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "closeout_stale_head", "error_codes": ["BATCH4_CLOSEOUT_STALE_HEAD_DEFERS"], "runtime_probe": {"observer_id": "closeout_stale_head_deferral_anchor", "source_module_id": "closeout_executor", "required_text": "StalePlanHeadMismatch"}, "body_in_receipt": false}

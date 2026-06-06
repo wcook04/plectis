@@ -1,0 +1,23 @@
+{
+  "case_id": "policy_exception_hash_only",
+  "expected_status": "green",
+  "policy_exception_paths": [
+    "docs/dissemination/public_projection_boundary_v0.md"
+  ],
+  "files": [
+    {
+      "path": "docs/dissemination/public_projection_boundary_v0.md",
+      "text_parts": [
+        "Boundary examples may name a blocked shape, but the scanner still returns hashes only: ",
+        {
+          "join_path": [
+            "home",
+            "localoperator",
+            "vault"
+          ]
+        },
+        "\n"
+      ]
+    }
+  ]
+}

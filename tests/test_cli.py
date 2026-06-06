@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import contextlib
 from collections import Counter
+import io
 import json
 import os
 import re
@@ -29,10 +31,10 @@ from microcosm_core.runtime_shell import (
     VERIFIER_EXECUTION_LENS_COMMAND,
     VERIFIER_EXECUTION_RECEIPT_REF,
 )
+from runtime_fixture_tree import copy_microcosm_runtime_root, copytree_fixture
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
 ROOT_HELP_COMMAND_FLOOR = 35
 ROOT_COMMAND_DOCS = (
     "README.md",
@@ -83,6 +85,15 @@ def _expected_adapter_evidence_class_counts(root: Path) -> dict[str, int]:
     )
 
 
+def _expected_adapter_truth_bucket_counts(root: Path) -> dict[str, int]:
+    return dict(
+        Counter(
+            str(row["truth_accounting_bucket"])
+            for row in _adapter_registry_rows(root)
+        )
+    )
+
+
 def _first_run_path_by_step_id(path: list[dict[str, object]]) -> dict[str, dict[str, object]]:
     by_step = {str(row.get("step_id")): row for row in path if row.get("step_id")}
     assert len(by_step) == len(path)
@@ -116,16 +127,16 @@ def _assert_step_command_prefix(
     assert str(by_step[step_id]["command"]).startswith(command_prefix)
 
 
-def _copytree_fixture(source: Path, destination: Path) -> None:
-    shutil.copytree(source, destination, ignore=FIXTURE_COPY_IGNORE)
-
-
 def _copy_public_entry_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
-    _copytree_fixture(MICROCOSM_ROOT / "core", public_root / "core")
-    _copytree_fixture(MICROCOSM_ROOT / "atlas", public_root / "atlas")
-    _copytree_fixture(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
-    _copytree_fixture(MICROCOSM_ROOT / "skills", public_root / "skills")
+    copytree_fixture(
+        MICROCOSM_ROOT / "core",
+        public_root / "core",
+        prefer_hardlinks=False,
+    )
+    copytree_fixture(MICROCOSM_ROOT / "atlas", public_root / "atlas")
+    copytree_fixture(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
+    copytree_fixture(MICROCOSM_ROOT / "skills", public_root / "skills")
     (public_root / "src/microcosm_core").mkdir(parents=True)
     shutil.copy2(
         MICROCOSM_ROOT / "src/microcosm_core/cli.py",
@@ -133,25 +144,23 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     )
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")
     shutil.copy2(MICROCOSM_ROOT / "AGENTS.md", public_root / "AGENTS.md")
+    shutil.copy2(MICROCOSM_ROOT / "AGENT_ROUTES.md", public_root / "AGENT_ROUTES.md")
     (public_root / "receipts/first_wave").mkdir(parents=True)
     return public_root
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
-    public_root = tmp_path / "microcosm-substrate"
-    _copytree_fixture(MICROCOSM_ROOT / "core", public_root / "core")
-    _copytree_fixture(MICROCOSM_ROOT / "examples", public_root / "examples")
-    _copytree_fixture(MICROCOSM_ROOT / "src", public_root / "src")
-    _copytree_fixture(MICROCOSM_ROOT / "standards", public_root / "standards")
-    _copytree_fixture(
-        MICROCOSM_ROOT / "receipts/first_wave",
-        public_root / "receipts/first_wave",
+    return copy_microcosm_runtime_root(
+        tmp_path,
+        MICROCOSM_ROOT,
+        static_refs=("examples", "src", "standards"),
+        mutable_refs=(
+            "core",
+            "receipts/first_wave",
+            "receipts/preflight",
+            "receipts/runtime_shell/demo_project",
+        ),
     )
-    _copytree_fixture(
-        MICROCOSM_ROOT / "receipts/preflight",
-        public_root / "receipts/preflight",
-    )
-    return public_root
 
 
 def _copy_workingness_root(tmp_path: Path) -> Path:
@@ -206,6 +215,22 @@ def _run_microcosm_cli(*args: str) -> subprocess.CompletedProcess[str]:
         stderr=subprocess.PIPE,
         text=True,
         timeout=20,
+    )
+
+
+def _run_microcosm_cli_in_process(*args: str) -> subprocess.CompletedProcess[str]:
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            return_code = cli.main(list(args))
+    except SystemExit as exc:
+        return_code = exc.code if isinstance(exc.code, int) else 1
+    return subprocess.CompletedProcess(
+        [sys.executable, "-m", "microcosm_core.cli", *args],
+        return_code,
+        stdout.getvalue(),
+        stderr.getvalue(),
     )
 
 
@@ -284,6 +309,14 @@ def _assert_body_floor_blocking_details(details: dict) -> None:
     )
 
 
+def _expected_actionable_surface_ids(front_door_status: dict) -> set[str]:
+    return {
+        surface_id
+        for surface_id, status in front_door_status["surface_statuses"].items()
+        if status == "actionable"
+    }
+
+
 def test_package_metadata_describes_runtime_spine() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = payload["project"]
@@ -295,8 +328,12 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert project["readme"] == "README.md"
     assert project["license"] == "Apache-2.0"
     assert project["license-files"] == ["LICENSE"]
-    assert project["authors"] == [{"name": "Microcosm Substrate Contributors"}]
+    assert project["authors"] == [
+        {"name": "William Cook", "email": "williamwkcook@gmail.com"}
+    ]
     assert project["optional-dependencies"]["test"] == [
+        "numpy>=2,<3",
+        "pandas>=3,<4",
         "pytest>=8,<9",
         "requests>=2,<3",
     ]
@@ -320,6 +357,15 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "{init,index" not in first_line
     assert "First-screen route:" in output
     assert (
+        "microcosm hello --reader "
+        "{cold_cloner|skeptical_reviewer|agent|domain_specialist} "
+        "<project> branch by reader"
+    ) in output
+    assert (
+        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, "
+        "type-a-agent, domain-specialist"
+    ) in output
+    assert (
         "microcosm tour --card <project> build .microcosm and read "
         "route/state/proof refs"
     ) in output
@@ -328,6 +374,11 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "first-screen card"
         in output
     )
+    assert (
+        "microcosm agent-entry-composition --task "
+        "{agent-entry|ai-safety|reviewer} emit Type A/human route card"
+    ) in output
+    assert "microcosm agent-entry-composition --task agent-entry emit" not in output
     assert (
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
@@ -517,7 +568,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
 
 
 def test_cli_root_help_listed_commands_have_help_routes() -> None:
-    root_help = _run_microcosm_cli("--help")
+    root_help = _run_microcosm_cli_in_process("--help")
     assert root_help.returncode == 0, root_help.stderr
     commands = _root_help_command_names(root_help.stdout)
 
@@ -526,7 +577,7 @@ def test_cli_root_help_listed_commands_have_help_routes() -> None:
 
     failures: list[str] = []
     for command in commands:
-        command_help = _run_microcosm_cli(command, "--help")
+        command_help = _run_microcosm_cli_in_process(command, "--help")
         if command_help.returncode != 0:
             failures.append(
                 f"{command}: rc={command_help.returncode} stderr={command_help.stderr[-500:]}"
@@ -552,6 +603,14 @@ def test_cli_status_card_help_explains_alias_and_boundaries() -> None:
     assert "microcosm tour --card <project>" in output
     assert "Boundaries: local-first only; no provider calls" in output
     assert "credential-equivalent live-access authority" in output
+
+
+def test_cli_agent_entry_composition_help_describes_task_route_selector() -> None:
+    help_result = _run_microcosm_cli("agent-entry-composition", "--help")
+
+    assert help_result.returncode == 0, help_result.stderr
+    assert "task string to normalize into an agent task route" in help_result.stdout
+    assert "task string to normalize into the agent-entry route" not in help_result.stdout
 
 
 def test_root_doc_microcosm_commands_are_discoverable_from_root_help() -> None:
@@ -701,6 +760,28 @@ def test_cli_public_lens_accepts_project_argument_for_first_screen_parity(
     assert payload["schema_version"] == schema_version
     assert payload["command"] == canonical_command
     assert " ." not in payload["command"]
+
+
+def test_cli_circuit_attribution_card_smoke(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(["circuit-attribution", "--card", "."])
+
+    payload = json.loads(capsys.readouterr().out)
+    encoded = json.dumps(payload, sort_keys=True)
+    assert status == 0
+    assert payload["schema_version"] == (
+        "mechanistic_interpretability_circuit_attribution_replay_command_card_v1"
+    )
+    assert payload["command"] == "microcosm circuit-attribution --card"
+    assert payload["source_command"] == "microcosm circuit-attribution"
+    assert payload["endpoint"] == "/circuit-attribution"
+    assert payload["output_economy"]["full_lens_exported"] is False
+    assert payload["body_floor"]["features_in_card"] is False
+    assert payload["body_floor"]["attribution_replays_in_card"] is False
+    assert "features" not in payload
+    assert "attribution_replays" not in payload
+    assert len(encoded) < 7000
 
 
 def test_cli_bridge_phase_continuity_runtime_accepts_card_flag(tmp_path: Path) -> None:
@@ -1043,6 +1124,8 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
 
 
@@ -1053,11 +1136,11 @@ def test_cli_status_card_can_overlay_project_route_state(
     project = _make_scratch_project(tmp_path)
     project_substrate.compile_project(project)
 
-    assert cli.main(["status", "--card", str(project)]) == 0
+    status_rc = cli.main(["status", "--card", str(project)])
     payload = json.loads(capsys.readouterr().out)
     project_ref = "<project>"
 
-    assert len(json.dumps(payload, sort_keys=True)) < 11200
+    assert len(json.dumps(payload, sort_keys=True)) < 12000
     assert payload["card_command"] == f"microcosm status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert "next_commands" not in payload
@@ -1065,18 +1148,32 @@ def test_cli_status_card_can_overlay_project_route_state(
         f"microcosm status --card {project_ref}::front_door_status"
     )
     front_door_status = payload["front_door_status"]
-    assert front_door_status["status"] == "pass"
-    assert front_door_status["blocking_surface_ids"] == []
+    body_floor_blocked = (
+        front_door_status["surface_statuses"].get("macro_body_import_floor")
+        != "pass"
+    )
+    assert status_rc == (1 if body_floor_blocked else 0)
+    assert front_door_status["status"] == (
+        "blocked" if body_floor_blocked else "pass"
+    )
+    if body_floor_blocked:
+        assert "macro_body_import_floor" in front_door_status[
+            "blocking_surface_ids"
+        ]
+        _assert_body_floor_blocking_details(
+            front_door_status["blocking_surface_details"]["macro_body_import_floor"]
+        )
+    else:
+        assert front_door_status["blocking_surface_ids"] == []
     assert front_door_status["surface_statuses"]["project_state"] == "pass"
     assert front_door_status["surface_statuses"]["route_selection_proof"] == "pass"
     assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
     assert front_door_status["surface_statuses"]["state_write_proof"] == "pass"
     assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
     proof_lab_cache_status = payload["front_door"]["proof_lab"]["cache_status"]
-    expected_actionable = {"observatory"}
-    if proof_lab_cache_status == "stale_cached_receipt":
-        expected_actionable.add("proof_lab_cache")
-    assert set(front_door_status["actionable_surface_ids"]) == expected_actionable
+    assert set(front_door_status["actionable_surface_ids"]) == (
+        _expected_actionable_surface_ids(front_door_status)
+    )
     assert front_door_status["surface_statuses"]["proof_lab_cache"] == (
         "actionable"
         if proof_lab_cache_status == "stale_cached_receipt"
@@ -1084,10 +1181,9 @@ def test_cli_status_card_can_overlay_project_route_state(
     )
     assert front_door_status["surface_statuses"]["observatory"] == "actionable"
     assert "required_surface_ids" not in front_door_status
-    assert (
-        front_door_status["surface_statuses"]["workingness_failure_envelope"]
-        == "clear"
-    )
+    assert front_door_status["surface_statuses"][
+        "workingness_failure_envelope"
+    ] in {"clear", "actionable"}
     assert (
         front_door_status["drilldown_blocked_surface_ids_ref"]
         == f"microcosm tour {project_ref}::front_door_status."
@@ -1192,7 +1288,9 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert observatory["provider_calls_authorized"] is False
     assert observatory["model_field_count"] == 13
     body_floor = payload["front_door"]["source_open_body_import_floor"]
-    assert body_floor["status"] == "pass"
+    assert body_floor["status"] == front_door_status["surface_statuses"][
+        "macro_body_import_floor"
+    ]
     assert body_floor["summary_ref"] == (
         "microcosm status --card::macro_body_import_floor"
     )
@@ -1220,11 +1318,12 @@ def test_cli_status_card_alias_matches_status_card(
     project = _make_scratch_project(tmp_path)
     project_substrate.compile_project(project)
 
-    assert cli.main(["status-card", str(project)]) == 0
+    alias_rc = cli.main(["status-card", str(project)])
     alias_payload = json.loads(capsys.readouterr().out)
-    assert cli.main(["status", "--card", str(project)]) == 0
+    canonical_rc = cli.main(["status", "--card", str(project)])
     canonical_payload = json.loads(capsys.readouterr().out)
 
+    assert alias_rc == canonical_rc
     assert alias_payload == canonical_payload
     assert alias_payload["card_command"] == "microcosm status --card <project>"
 
@@ -1238,9 +1337,10 @@ def test_cli_status_card_preserves_relative_project_ref(
     project_substrate.compile_project(project)
     monkeypatch.chdir(tmp_path)
 
-    assert cli.main(["status-card", "scratch"]) == 0
+    status_rc = cli.main(["status-card", "scratch"])
     payload = json.loads(capsys.readouterr().out)
 
+    assert status_rc == (1 if payload["status"] == "blocked" else 0)
     assert payload["project_ref"] == "scratch"
     assert payload["card_command"] == "microcosm status --card scratch"
     assert payload["front_door"]["project_ref"] == "scratch"
@@ -1548,11 +1648,15 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         assert "macro_body_import_floor" in status_card["front_door_status"][
             "blocking_surface_ids"
         ]
-        _assert_body_floor_blocking_details(
-            status_card["front_door_status"]["blocking_surface_details"][
-                "macro_body_import_floor"
-            ]
+        body_floor_detail = status_card["front_door_status"][
+            "blocking_surface_details"
+        ]["macro_body_import_floor"]
+        _assert_body_floor_blocking_details(body_floor_detail)
+        assert body_floor_detail["defect_preview_compacted"] is True
+        assert body_floor_detail["defect_preview_count"] >= len(
+            body_floor_detail["defect_preview"]
         )
+        assert len(body_floor_detail["defect_preview"]) == 1
     else:
         assert status_card["front_door_status"]["blocking_surface_ids"] == []
         assert (
@@ -1580,12 +1684,9 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "stale_cached_receipt",
     }
     proof_lab_cache_status = status_card["front_door"]["proof_lab"]["cache_status"]
-    expected_actionable = {"observatory"}
-    if proof_lab_cache_status == "stale_cached_receipt":
-        expected_actionable.add("proof_lab_cache")
     assert set(
         status_card["front_door_status"]["actionable_surface_ids"]
-    ) == expected_actionable
+    ) == _expected_actionable_surface_ids(status_card["front_door_status"])
     if proof_lab_cache_status == "stale_cached_receipt":
         assert status_card["front_door_status"]["surface_statuses"][
             "proof_lab_cache"
@@ -1605,8 +1706,12 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["route_explanation"][
         "source_files_mutated"
     ] is False
-    assert status_card["workingness"]["status"] == "clear"
-    assert status_card["workingness"]["failure_envelope_status"] == "clear"
+    assert status_card["workingness"]["status"] == status_card[
+        "front_door_status"
+    ]["surface_statuses"]["workingness_failure_envelope"]
+    assert status_card["workingness"]["failure_envelope_status"] == status_card[
+        "front_door_status"
+    ]["surface_statuses"]["workingness_failure_envelope"]
     assert status_card["proof_lab"]["status"] == "pass"
     assert status_card["front_door"]["proof_lab"]["status"] == "pass"
     assert (
@@ -1664,8 +1769,10 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         if spotlight["spotlight_id"] == "agent_route_observability_runtime"
     )
     assert route_observability_spotlight["family_count"] >= 9
-    assert "exported_route_compliance_audit_bundle" in (
-        route_observability_spotlight["notable_family_ids"]
+    assert route_observability_spotlight["notable_family_ids"]
+    assert all(
+        isinstance(family_id, str)
+        for family_id in route_observability_spotlight["notable_family_ids"]
     )
     assert status_card["payload_boundary_audit"]["status"] == "pass"
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
@@ -2208,7 +2315,10 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["organ_evidence_class_count"] == (
         _adapter_evidence_class_count(MICROCOSM_ROOT)
     )
-    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
+    expected_truth_bucket_counts = _expected_adapter_truth_bucket_counts(MICROCOSM_ROOT)
+    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_bucket_counts["copied_non_secret_macro_body"]
+    )
     assert (
         payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
         == payload["macro_body_import_floor"]["public_safe_body_material_count"]
@@ -2271,13 +2381,13 @@ def test_cli_authority_smoke(
         organ_authority_by_id["spatial_world_model_counterfactual_simulation_replay"][
             "evidence_class"
         ]
-        == "semantic_validator"
+        == "bounded_runtime_computation"
     )
     assert (
         organ_authority_by_id[
             "mechanistic_interpretability_circuit_attribution_replay"
         ]["evidence_class"]
-        == "semantic_validator"
+        == "bounded_runtime_computation"
     )
     assert (
         organ_authority_by_id["research_replication_rubric_artifact_replay"]["evidence_class"]

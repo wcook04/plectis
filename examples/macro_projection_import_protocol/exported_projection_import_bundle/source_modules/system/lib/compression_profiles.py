@@ -311,6 +311,7 @@ def compression_profile_pointer(
         "refresh_owner": _string(profile.get("refresh_owner")),
         "authority_boundary": _string(profile.get("authority_boundary")),
         "owner_routes": dict(profile.get("owner_routes") or {}),
+        "compression_passport": dict(profile.get("compression_passport") or {}),
         "source_manifest_fields_used": list(profile.get("source_manifest_fields_used") or []),
         "auxiliary_sources": list(profile.get("auxiliary_sources") or []),
         "bands": list(profile.get("bands") or []),

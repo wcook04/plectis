@@ -1,0 +1,21 @@
+{
+  "schema_version": "tool_server_pressure_inventory_negative_case_v1",
+  "expected_negative_case_id": "command_preview_leak",
+  "claimed_inventory": {
+    "schema": "tool_server_pressure_inventory_v1",
+    "rows": [
+      {
+        "pid": 8840,
+        "ppid": 1,
+        "process_kind": "mcp_tool_helper",
+        "owner_status": "launchd_detached",
+        "decision": "requires_owner_check",
+        "age_s": 1800,
+        "allowlist_matched": true,
+        "command_hash": "e5f6071829304152",
+        "command_preview": "node tool-helper-mcp --port 4242"
+      }
+    ],
+    "summary": {"active_owner_pressure_groups": []}
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "stockgrid_extreme_momentum",
+  "error_codes": [
+    "BATCH7_SECONDARY_STOCKGRID_EXTREME_MOMENTUM_REFUSED"
+  ],
+  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
+}

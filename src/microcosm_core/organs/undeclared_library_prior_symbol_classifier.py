@@ -127,6 +127,7 @@ SOURCE_MODULE_BODY_MATERIAL_STATUS = (
     "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_"
     "macro_bodies_with_digest_provenance"
 )
+RUN_SUMMARY_SOURCE_MODULE_ID = "ring2_premise_retrieval_run_summary_body_import"
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -157,6 +158,7 @@ EXPECTED_NEGATIVE_CASES = {
     "unqualified_symbol_overclaim": ["SYMBOL_CLASSIFIER_UNQUALIFIED_SYMBOL_OVERCLAIM"],
     "theorem_correctness_overclaim": ["SYMBOL_CLASSIFIER_THEOREM_CORRECTNESS_OVERCLAIM"],
 }
+ASSERTION_MISMATCH_CASE_ID = "symbol_observation_assertion_floor"
 
 QUALIFIED_SYMBOL_RE = re.compile(r"\b(?:Nat|List|Bool|Iff|Eq)\.[A-Za-z0-9_.'+]+")
 FORBIDDEN_PROOF_KEYS = (
@@ -262,6 +264,22 @@ def _source_module_scan_paths(input_dir: Path) -> list[Path]:
         _target_path_from_module(input_dir, row)
         for row in _rows(manifest, "modules")
     ]
+
+
+def _source_module_payload_by_id(input_dir: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {}
+    manifest = read_json_strict(manifest_path)
+    payloads: dict[str, Any] = {}
+    for row in _rows(manifest, "modules"):
+        module_id = str(row.get("module_id") or "")
+        if not module_id:
+            continue
+        target = _target_path_from_module(input_dir, row)
+        if target.is_file() and target.suffix == ".json":
+            payloads[module_id] = read_json_strict(target)
+    return payloads
 
 
 def _sha256_file(path: Path) -> str:
@@ -912,7 +930,138 @@ def _unqualified_refs(row: dict[str, Any]) -> list[str]:
         "undeclared_library_prior_symbols",
     ):
         values.extend(_strings(row.get(key)))
-    return sorted(set(symbol for symbol in values if symbol and not QUALIFIED_SYMBOL_RE.fullmatch(symbol)))
+    return sorted(
+        set(
+            symbol
+            for symbol in values
+            if symbol and not QUALIFIED_SYMBOL_RE.fullmatch(symbol)
+        )
+    )
+
+
+def _problem_result_by_id(run_summary: object) -> dict[str, dict[str, Any]]:
+    results: dict[str, dict[str, Any]] = {}
+    for row in _rows(run_summary, "problem_results"):
+        problem_id = str(row.get("problem_id") or "")
+        if problem_id:
+            results[problem_id] = row
+    return results
+
+
+def _symbols_for_premise_ids(
+    premise_ids: list[str],
+    premise_by_id: dict[str, dict[str, Any]],
+) -> list[str]:
+    return sorted(
+        {
+            str(premise_by_id[premise_id].get("theorem_or_def_name") or "")
+            for premise_id in premise_ids
+            if premise_id in premise_by_id
+            and premise_by_id[premise_id].get("theorem_or_def_name")
+        }
+    )
+
+
+def _source_observation_check(
+    row: dict[str, Any],
+    *,
+    input_dir: Path | None,
+    premise_by_id: dict[str, dict[str, Any]],
+    source_payloads: dict[str, Any],
+) -> dict[str, Any]:
+    ref = row.get("source_observation_ref")
+    if not isinstance(ref, dict):
+        return {
+            "source_observation_backed": False,
+            "source_observation_status": "not_declared",
+            "source_observation_ref": None,
+            "source_observation_mismatches": [],
+        }
+
+    module_id = str(ref.get("module_id") or RUN_SUMMARY_SOURCE_MODULE_ID)
+    problem_id = str(ref.get("problem_id") or row.get("problem_id") or "")
+    allowed_field = str(
+        ref.get("allowed_premise_ids_from") or "extra_retrieved_premise_ids"
+    )
+    source_payload = source_payloads.get(module_id)
+    mismatches: list[dict[str, Any]] = []
+    source_status = "pass"
+    if input_dir is None or not isinstance(source_payload, dict):
+        source_status = "blocked"
+        mismatches.append(
+            {
+                "field": "source_module",
+                "expected": module_id,
+                "actual": "missing",
+            }
+        )
+        result_row: dict[str, Any] = {}
+        retrieval: dict[str, Any] = {}
+    else:
+        result_row = _problem_result_by_id(source_payload).get(problem_id, {})
+        retrieval_payload = result_row.get("premise_retrieval", {})
+        retrieval = retrieval_payload if isinstance(retrieval_payload, dict) else {}
+        if not result_row:
+            source_status = "blocked"
+            mismatches.append(
+                {
+                    "field": "problem_id",
+                    "expected": problem_id,
+                    "actual": "missing",
+                }
+            )
+
+    candidate_ids = _strings(retrieval.get("candidate_premise_ids_used"))
+    expected_symbols = _symbols_for_premise_ids(candidate_ids, premise_by_id)
+    expected_allowed_ids = _strings(retrieval.get(allowed_field))
+    expected_candidate_sha = str(
+        result_row.get("candidate_artifact_sha256")
+        or result_row.get("final_candidate_artifact_sha256")
+        or ""
+    )
+    expected_lean_status = str(
+        result_row.get("lean_compile_status")
+        or retrieval.get("lean_compile_status")
+        or ""
+    )
+
+    comparisons = (
+        ("proof_symbol_refs", expected_symbols, _strings(row.get("proof_symbol_refs"))),
+        (
+            "allowed_premise_ids",
+            expected_allowed_ids,
+            _strings(row.get("allowed_premise_ids")),
+        ),
+        (
+            "candidate_artifact_sha256",
+            [expected_candidate_sha],
+            [str(row.get("candidate_artifact_sha256") or "")],
+        ),
+        ("lean_status", [expected_lean_status], [str(row.get("lean_status") or "")]),
+    )
+    for field, expected, actual in comparisons:
+        if expected and sorted(expected) != sorted(actual):
+            source_status = "blocked"
+            mismatches.append(
+                {
+                    "field": field,
+                    "expected": sorted(expected),
+                    "actual": sorted(actual),
+                }
+            )
+
+    return {
+        "source_observation_backed": source_status == "pass",
+        "source_observation_status": source_status,
+        "source_observation_ref": {
+            "module_id": module_id,
+            "problem_id": problem_id,
+            "allowed_premise_ids_from": allowed_field,
+            "proof_symbol_refs_from": "premise_retrieval.candidate_premise_ids_used",
+            "candidate_artifact_sha256_from": "candidate_artifact_sha256",
+        },
+        "source_observation_mismatches": mismatches,
+    }
 
 
 def _classify_row(
@@ -1025,6 +1174,18 @@ def _classify_row(
             subject_id=receipt_id,
             subject_kind=subject_kind,
         )
+    if not negative and (
+        asserted_class != computed_class or asserted_outcome != computed_outcome
+    ):
+        _record(
+            findings,
+            observed,
+            "SYMBOL_CLASSIFIER_ASSERTED_CLASSIFICATION_MISMATCH",
+            "Public symbol-observation assertions must match the recomputed premise-index symbol classification.",
+            case_id=ASSERTION_MISMATCH_CASE_ID,
+            subject_id=receipt_id,
+            subject_kind=subject_kind,
+        )
     if unqualified and asserted_class == UNDECLARED_CLASS:
         _record(
             findings,
@@ -1060,22 +1221,40 @@ def validate_symbol_observations(
     payload: object,
     premise_index: object,
     negative_payloads: dict[str, object],
+    input_dir: Path | None = None,
 ) -> dict[str, Any]:
     premise_by_id, premise_by_symbol = _premise_maps(premise_index)
+    source_payloads = _source_module_payload_by_id(input_dir) if input_dir else {}
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     rows: list[dict[str, Any]] = []
     for row in _rows(payload, "symbol_observations"):
-        rows.append(
-            _classify_row(
-                row,
-                premise_by_id=premise_by_id,
-                premise_by_symbol=premise_by_symbol,
-                findings=findings,
-                observed=observed,
-                negative=False,
-            )
+        source_check = _source_observation_check(
+            row,
+            input_dir=input_dir,
+            premise_by_id=premise_by_id,
+            source_payloads=source_payloads,
         )
+        if source_check["source_observation_mismatches"]:
+            _record(
+                findings,
+                observed,
+                "SYMBOL_CLASSIFIER_SOURCE_OBSERVATION_DERIVATION_MISMATCH",
+                "Source-backed symbol observations must match the copied public run-summary and premise-index rows.",
+                case_id="source_observation_derivation_floor",
+                subject_id=str(row.get("receipt_id") or "symbol_observation"),
+                subject_kind="symbol_observation",
+            )
+        classified = _classify_row(
+            row,
+            premise_by_id=premise_by_id,
+            premise_by_symbol=premise_by_symbol,
+            findings=findings,
+            observed=observed,
+            negative=False,
+        )
+        classified.update(source_check)
+        rows.append(classified)
     for payload in negative_payloads.values():
         negative_rows = _rows(payload, "symbol_observations")
         if isinstance(payload, dict) and not negative_rows:
@@ -1090,10 +1269,21 @@ def validate_symbol_observations(
                 negative=True,
             )
 
-    floor_findings = [
+    source_derivation_findings = [
         row
         for row in findings
-        if row.get("negative_case_id") in {"symbol_observation_floor"}
+        if row.get("negative_case_id")
+        in {"symbol_observation_floor", "source_observation_derivation_floor"}
+    ]
+    blocking_findings = [
+        row
+        for row in findings
+        if row.get("negative_case_id")
+        in {
+            "symbol_observation_floor",
+            "source_observation_derivation_floor",
+            ASSERTION_MISMATCH_CASE_ID,
+        }
     ]
     undeclared_rows = [
         row for row in rows if row["computed_failure_class"] == UNDECLARED_CLASS
@@ -1101,9 +1291,14 @@ def validate_symbol_observations(
     budget_rows = [
         row for row in rows if row["computed_failure_class"] == PREMISE_BUDGET_CLASS
     ]
+    source_backed_rows = [row for row in rows if row["source_observation_backed"]]
     return {
-        "status": PASS if rows and undeclared_rows and budget_rows and not floor_findings else "blocked",
+        "status": PASS if rows and undeclared_rows and budget_rows and not blocking_findings else "blocked",
         "classification_count": len(rows),
+        "source_backed_observation_count": len(source_backed_rows),
+        "source_observation_derivation_status": PASS
+        if not source_derivation_findings
+        else "blocked",
         "undeclared_library_prior_count": len(undeclared_rows),
         "premise_budget_precedence_count": len(budget_rows),
         "bridge_escalation_count": sum(
@@ -1150,6 +1345,7 @@ def _build_result(
             for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
             if name in payloads
         },
+        input_dir=input_dir,
     )
     source_modules = validate_source_module_manifest(
         input_dir,
@@ -1225,6 +1421,12 @@ def _build_result(
         "premise_count": premise_index["premise_count"],
         "namespace_count": premise_index["namespace_count"],
         "classification_count": observations["classification_count"],
+        "source_backed_observation_count": observations[
+            "source_backed_observation_count"
+        ],
+        "source_observation_derivation_status": observations[
+            "source_observation_derivation_status"
+        ],
         "undeclared_library_prior_count": observations["undeclared_library_prior_count"],
         "premise_budget_precedence_count": observations["premise_budget_precedence_count"],
         "bridge_escalation_count": observations["bridge_escalation_count"],

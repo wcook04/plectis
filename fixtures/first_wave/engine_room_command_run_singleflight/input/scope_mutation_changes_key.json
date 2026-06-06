@@ -1,0 +1,5 @@
+{
+  "case_id": "scope_mutation_changes_key",
+  "exercise": "scope_mutation_changes_key",
+  "expected_ok": true
+}

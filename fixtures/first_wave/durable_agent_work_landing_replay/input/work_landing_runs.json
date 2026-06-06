@@ -5,22 +5,29 @@
       "blocker_capture_ref": "",
       "body_in_receipt": false,
       "claimed_path_refs": [
-        "microcosm-substrate/src/microcosm_core/runtime_shell.py",
-        "microcosm-substrate/tests/test_runtime_shell.py"
+        "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py"
       ],
       "commit_claimed_landed": true,
-      "head_after": "sha256:222222",
-      "head_before": "sha256:111111",
+      "head_after": "30dbeddcaf3307f2e318e330be2ee8a9ec3b4db0",
+      "head_before": "c07642f2476d0dc06e971321a4507ad6e4ecc751",
       "landing_status": "scoped_commit_landed",
       "live_git_mutation_authorized": false,
+      "read_receipt_ref": "wlr_fc6f5994e75d4376",
       "release_claim_authorized": false,
-      "run_id": "scoped_commit_landed_fixture",
+      "run_id": "scoped_commit_landed_agent_memory_exact_copy_20260604",
+      "task_ledger_execution_receipt_ref": "wie_20260604T094210Z_d9232359",
       "unrelated_dirty_paths_staged": false,
       "validation_precedes_commit_attempt": true,
       "validation_refs": [
-        "tests/test_runtime_shell.py::test_runtime_shell_run_persists_organ_receipts"
+        "macro_projection_import_protocol:agent_memory_temporal_conflict_replay pending_update_count=0",
+        "repo-pytest:microcosm-substrate/tests/test_agent_memory_temporal_conflict_replay.py::10_passed",
+        "agent_memory_temporal_conflict_replay:run-memory-bundle card status=pass",
+        "substrate_substitution_ledger --check status=pass",
+        "build_organ_atlas.py --check status=pass",
+        "repo-pytest:package_data_contract+organ_atlas+substrate_substitution_ledger::69_passed"
       ],
-      "work_ledger_closeout_ref": "wlr_fixture_scoped_commit_closeout"
+      "work_ledger_closeout_ref": "wle_41f50e62586d4f70"
     },
     {
       "blocker_capture_ref": "wie_fixture_git_metadata_blocker",

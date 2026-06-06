@@ -1,0 +1,183 @@
+{
+  "anti_claim": "Batch8 validator checker verifies one exact copied non-secret validators.py body and its public checker exercise only. It does not authorize hosted-public release, publication, provider dispatch, model dispatch, source mutation, private-root equivalence, full validator-suite freshness, test completeness, or whole-system correctness.",
+  "authority_boundary": "public_batch8_validator_checker_source_open_capsule_not_release_or_full_validator_authority",
+  "authority_ceiling": {
+    "full_validator_suite_freshness_claim": false,
+    "hosted_public_authorized": false,
+    "model_dispatch": false,
+    "private_root_equivalence_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false,
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "kind_id": "batch8_validator_checker_capsule",
+  "kind_name": "Batch 8 Validator Checker capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret validators.py macro body",
+      "source refs, digests, line counts, and required anchors",
+      "public synthetic validator checker fixtures",
+      "stable negative-case ids and validator verdicts",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_validator_checker_fixture_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private artifact bodies",
+      "hosted-public release claims",
+      "full validator-suite freshness claims"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "exercise.engine_ids",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch8_validator_checker_capsule",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch8_validator_checker_capsule_result.json",
+    "batch8_validator_checker_capsule_board.json",
+    "batch8_validator_checker_capsule_validation_receipt.json",
+    "batch8_validator_checker_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch8_validator_checker_capsule",
+    "used_by_organs": [
+      "batch8_validator_checker_capsule"
+    ]
+  },
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "validator_source_anchor_matrix",
+    "status_policy_judge_matrix",
+    "private_boundary_scanner_matrix",
+    "specimen_checker_matrix",
+    "release_gate_checker_matrix",
+    "validate_entrypoint_witness",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "required_negative_cases": [
+    "missing_validator_source",
+    "policy_allows_poisoning",
+    "private_boundary_blind",
+    "specimen_checker_missing",
+    "release_gate_missing",
+    "validate_entrypoint_bypassed"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py"
+  ],
+  "standard_id": "std_microcosm_batch8_validator_checker_capsule",
+  "standard_payload": {
+    "anti_purpose": "A copied validator body inflated into release readiness, full validator-suite proof, hosted-public authority, provider dispatch, source authority, or private-root equivalence.",
+    "failure_modes": [
+      "source module digest drifts from validators.py without a refreshed exact copy and manifest",
+      "copied source module lacks required anchors for policy, private-boundary, specimen, release-gate, or validate entrypoint checks",
+      "validator accepts missing source, poisoned policy, private-boundary blindness, missing specimen checks, missing release gates, or validate-entrypoint bypass",
+      "receipts include copied body text, raw operator transcripts, private refs, provider payload bodies, credentials, or live account state",
+      "capsule is treated as release, hosted-public, full validator-suite, source-mutation, private-root, provider, publication, or whole-system authority"
+    ],
+    "ontology": "A public-safe exact-copy validator checker capsule for one non-secret validators.py body and a synthetic public fixture set that exposes status-policy, private-boundary, specimen, release-gate, and validate-entrypoint checks while preserving claim ceilings.",
+    "teleology": "Let a cold reader inspect and rerun real validator-checker mechanics over the non-secret validators.py macro body without granting release, provider, hosted-public, source-mutation, private-root, or full-suite authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch8_validator_checker_capsule",
+      "receipt_id": "receipt.microcosm.batch8_validator_checker_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly one copied macro source module for idea_microcosm validators.py",
+    "verify source-to-target digest equality and required anchors for policy, private-boundary, specimen, release-gate, and validate entrypoint functions",
+    "execute the public validator checker exercise without invoking provider dispatch, model dispatch, hosted-public work, source mutation, or release lanes",
+    "require stable negative-case codes for missing validator source, poisoned policy, private-boundary blindness, missing specimen checks, missing release gates, and validate-entrypoint bypass",
+    "keep release, publication, hosted-public, provider dispatch, model dispatch, source mutation, full validator-suite freshness, private-root equivalence, and test-completeness authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 6,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_validator_checker_capsule validate-bundle --input examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle --out /tmp/batch8_validator_checker_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch8_validator_checker_capsule"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch8_validator_checker_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 8 Validator Checker capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch8_validator_checker_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 8 Validator Checker capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch8_validator_checker_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch8_validator_checker_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch8_validator_checker_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch8_validator_checker_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch8_validator_checker_capsule"
+  ],
+  "anti_claims": [
+    "Batch8 validator checker verifies one exact copied non-secret validators.py body and its public checker exercise only. It does not authorize hosted-public release, publication, provider dispatch, model dispatch, source mutation, private-root equivalence, full validator-suite freshness, test completeness, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch8_validator_checker_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch8_validator_checker_capsule",
+    "receipt_id": "receipt.microcosm.batch8_validator_checker_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch8_validator_checker_capsule_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, and public_private_boundary."
+  }
+}

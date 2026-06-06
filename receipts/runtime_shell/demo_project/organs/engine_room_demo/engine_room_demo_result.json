@@ -1,0 +1,71 @@
+{
+  "anti_claim": "The Engine Room demo is a public-safe composition of bounded symbolic prover, runtime, integrity, security, navigation, orchestration, and knowledge-routing capsules. It does not export private macro run state, credentials, provider/browser state, raw operator threads, third-party clones, or any release/publication authority.",
+  "authority_ceiling": {
+    "complete_security_proof": false,
+    "frontier_theorem_prover": false,
+    "private_root_equivalence": false,
+    "production_ready": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 2,
+  "cases": [
+    {
+      "case_id": "missing_expected_target_negative",
+      "case_type": "negative",
+      "fixture_ref": "fixtures/first_wave/engine_room_demo/input/missing_expected_target_negative.json",
+      "missing_jewel_targets": [
+        "engine_room_target_that_should_not_exist"
+      ],
+      "observed_error_codes": [
+        "ENGINE_ROOM_EXPECTED_TARGET_MISSING"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_id": "positive_controller_audit",
+      "case_type": "positive",
+      "controller_completion_status": "staged_capsules_pass_shared_registry_integrated",
+      "covered_jewel_count": 14,
+      "fixture_ref": "fixtures/first_wave/engine_room_demo/input/positive_controller_audit.json",
+      "missing_surface_capsule_count": 0,
+      "shared_integration_status": "integrated",
+      "status": "pass"
+    }
+  ],
+  "claim_ceiling": "Validates the staged Engine Room composition demo over bounded public fixtures. It confirms 14 jewel targets, owned capsule surfaces, and the one-command capsule exercise chain. It is not production readiness, not private-root equivalence, not a frontier theorem-proving or security claim, and not release approval.",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T09:10:36+00:00",
+  "expected_jewel_count": 14,
+  "expected_jewel_targets": [
+    "annex_knowledge_router",
+    "bridge_campaign_dag",
+    "command_run_singleflight",
+    "derived_fact_provider_engine",
+    "egress_self_compliance_gate",
+    "generated_projection_drift_gate",
+    "lean_adversarial_ablation",
+    "lean_and_or_proof_search",
+    "lean_blind_tactic_policy",
+    "lean_statement_only_hammer",
+    "metabolism_reconciler",
+    "metabolism_runtime",
+    "navigation_fitness_benchmark",
+    "public_projection_leak_gate"
+  ],
+  "fixture_id": "first_wave.engine_room_demo",
+  "input_mode": "engine_room_demo_fixture_cases",
+  "negative_case_count": 1,
+  "observed_negative_case_count": 1,
+  "organ_id": "engine_room_demo",
+  "passed_positive_case_count": 1,
+  "positive_case_count": 1,
+  "schema_version": "engine_room_demo_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.engine_room_demo"
+}

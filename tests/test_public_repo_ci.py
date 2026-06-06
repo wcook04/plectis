@@ -90,6 +90,9 @@ def test_pyproject_license_metadata_matches_declared_build_backend_floor() -> No
         "License :: OSI Approved :: Apache Software License"
         not in pyproject["project"]["classifiers"]
     )
+    assert pyproject["project"]["authors"] == [
+        {"name": "William Cook", "email": "williamwkcook@gmail.com"}
+    ]
 
 
 def test_pyproject_urls_point_to_standalone_public_repository() -> None:

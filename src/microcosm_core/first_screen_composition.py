@@ -16,6 +16,8 @@ READER_ROUTE_IDS = (
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
+    "domain_specialist",
+    "type_a_agent",
 )
 REQUIRED_ROUTE_IDS = set(READER_ROUTE_IDS)
 READER_LABELS = {
@@ -23,7 +25,23 @@ READER_LABELS = {
     "safety_evals_engineer": "Safety/evals",
     "hiring_reviewer": "Hiring",
     "peer_developer": "Peer developer",
+    "domain_specialist": "Domain specialist",
+    "type_a_agent": "Type A agent",
 }
+READER_ROUTE_ALIASES = {
+    "cold_cloner": "public_github_visitor",
+    "cold-cloner": "public_github_visitor",
+    "skeptical_reviewer": "safety_evals_engineer",
+    "skeptical-reviewer": "safety_evals_engineer",
+    "reviewer": "safety_evals_engineer",
+    "agent": "type_a_agent",
+    "type-a-agent": "type_a_agent",
+    "domain-specialist": "domain_specialist",
+}
+READER_ROUTE_ALIAS_HINT = (
+    "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
+    "domain-specialist"
+)
 DENIED_AUTHORITY_KEYS = (
     "release_authority",
     "source_mutation_authority",
@@ -40,12 +58,17 @@ STANDARD_SURFACE_ALIASES = {
 }
 TEXT_CARD_MAX_LINES = 32
 COMPACT_JSON_CARD_MAX_CHARS = 16000
-TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
+TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS + tuple(READER_ROUTE_ALIASES)
 ORGAN_REGISTRY_REF = "core/organ_registry.json"
+ORGAN_ATLAS_REF = "core/organ_atlas.json"
+AGENT_TASK_ROUTES_REF = "atlas/agent_task_routes.json"
+ORGAN_GLANCE_LADDER_REF = f"{AGENT_TASK_ROUTES_REF}::organ_glance_ladder"
 STANDARDS_REGISTRY_REF = "core/standards_registry.json"
 EVIDENCE_CLASS_REGISTRY_REF = "core/organ_evidence_classes.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
 FIXTURE_MANIFESTS_REF = "core/fixture_manifests"
+SUBSTRATE_GLANCE_SAMPLE_LIMIT = 3
+SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS = 92
 EVIDENCE_CLASS_DISPLAY_ORDER = (
     "verified_macro_body_import",
     "external_subprocess_witness",
@@ -115,6 +138,10 @@ def _reader_route_ids(rows: Any) -> set[str]:
         for row in rows
         if isinstance(row, dict) and row.get("reader_route_id")
     }
+
+
+def normalize_reader_route_id(reader_id: str) -> str:
+    return READER_ROUTE_ALIASES.get(reader_id, reader_id)
 
 
 def _ordered_reader_route_ids(route_ids: set[str]) -> list[str]:
@@ -350,6 +377,19 @@ def _strings(value: Any) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _public_text(value: Any) -> str:
+    text = " ".join(str(value or "").split())
+    return text.encode("ascii", "ignore").decode("ascii")
+
+
+def _public_excerpt(value: Any, max_chars: int) -> str:
+    text = _public_text(value)
+    if len(text) <= max_chars:
+        return text
+    prefix = text[: max_chars - 3].rsplit(" ", 1)[0] or text[: max_chars - 3]
+    return prefix.rstrip(" ,.;:") + "..."
+
+
 def _positive_count(row: Any) -> bool:
     return (
         isinstance(row, dict)
@@ -373,6 +413,11 @@ def _source_checkout_commands(project_label: str) -> dict[str, str]:
         "first_screen_card": _source_checkout_command(
             "first-screen --card",
             project_label,
+        ),
+        "agent_entry_selector": (
+            "PYTHONPATH=src python3 -m microcosm_core "
+            "agent-entry-composition --root . --task agent-entry "
+            "--viewer {type_a_agent|human} --card --check"
         ),
         "authority": "source_checkout_fallback_not_package_install_or_release_claim",
     }
@@ -434,6 +479,40 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
                 "folder-local .microcosm state",
                 "route/work/event/evidence chain",
                 "standards and receipt drilldowns behind the compact card",
+            ],
+            "branch_authority": "selects_next_inspection_surface_only",
+        },
+        {
+            "reader_route_id": "domain_specialist",
+            "first_question": (
+                "Where do I start if I care about one technical domain or specialty?"
+            ),
+            "next_commands": [
+                "ORGANS.md#find-your-specialty",
+                f"microcosm tour --card {project_label}",
+            ],
+            "evidence_focus": [
+                "specialty-to-organ navigation",
+                "evidence class and authority ceiling",
+                "explicit domain-correctness and expert-review anti-claims",
+            ],
+            "branch_authority": "selects_next_inspection_surface_only",
+        },
+        {
+            "reader_route_id": "type_a_agent",
+            "first_question": (
+                "What should I read first as a Type A agent, and where do I "
+                "patch if the route misleads me?"
+            ),
+            "next_commands": [
+                f"microcosm first-screen --card {project_label}",
+                "microcosm organ-surface-contract --card --root .",
+                "AGENTS.md::Concept And Mechanism Entry",
+            ],
+            "evidence_focus": [
+                "agent first-read contract and first-screen doctrine frame",
+                "mechanism versus validator/projection status",
+                "owner surface and claim ceiling before source mutation",
             ],
             "branch_authority": "selects_next_inspection_surface_only",
         },
@@ -510,6 +589,46 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                 "next_drilldown": f"microcosm observe {project_label}",
                 "authority": "inspection_order_only_not_integration_guarantee",
             },
+            {
+                "reader_route_id": "domain_specialist",
+                "first_action": (
+                    "Open `ORGANS.md#find-your-specialty`, then run "
+                    f"`microcosm tour --card {project_label}`."
+                ),
+                "proof_surface": (
+                    "`ORGANS.md#find-your-specialty` plus "
+                    f"`microcosm tour --card {project_label}`"
+                ),
+                "success_criterion": (
+                    "Can map a domain to a specialty route and name the evidence "
+                    "class and authority ceiling without claiming domain correctness."
+                ),
+                "next_drilldown": "ORGANS.md#find-your-specialty",
+                "authority": (
+                    "inspection_order_only_not_domain_correctness_or_expert_review"
+                ),
+            },
+            {
+                "reader_route_id": "type_a_agent",
+                "first_action": (
+                    f"Run `microcosm first-screen --card {project_label}`. "
+                    "If you need `doctrine_effect_frame`, run "
+                    f"`microcosm first-screen --full {project_label}` before "
+                    "reading it; then run "
+                    "`microcosm organ-surface-contract --card --root .`."
+                ),
+                "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "success_criterion": (
+                    "Can name the agent first-read path, distinguish mechanisms "
+                    "from validators/projections, and identify the owner surface "
+                    "to patch without overclaiming source mutation."
+                ),
+                "next_drilldown": "AGENTS.md::Concept And Mechanism Entry",
+                "authority": (
+                    "inspection_order_only_not_agent_autonomy_or_source_mutation_"
+                    "authority"
+                ),
+            },
         ],
     }
 
@@ -526,6 +645,7 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
             "only change the terminal projection, not the authority ceiling."
         ),
         "default_command": f"microcosm hello {project_label}",
+        "alias_hint": READER_ROUTE_ALIAS_HINT,
         "shared_behavior_command": f"microcosm tour --card {project_label}",
         "machine_card_command": f"microcosm first-screen --card {project_label}",
         "default_json_command": f"microcosm first-screen {project_label}",
@@ -606,6 +726,59 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "exit_check": "follow the route/work/event/evidence chain locally",
                 "not_a_claim": "integration_complete",
                 "authority": "focused_projection_only_not_integration_guarantee",
+            },
+            {
+                "reader_route_id": "domain_specialist",
+                "label": READER_LABELS["domain_specialist"],
+                "terminal_command": (
+                    f"microcosm hello --reader domain_specialist {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader domain_specialist {project_label}"
+                ),
+                "first_action": (
+                    "Open `ORGANS.md#find-your-specialty`, then run "
+                    f"`microcosm tour --card {project_label}`."
+                ),
+                "proof_surface": (
+                    "`ORGANS.md#find-your-specialty` plus "
+                    f"`microcosm tour --card {project_label}`"
+                ),
+                "exit_check": (
+                    "map a domain to a specialty route without inferring domain correctness"
+                ),
+                "not_a_claim": "domain_expertise_or_domain_correctness_complete",
+                "authority": (
+                    "focused_projection_only_not_domain_correctness_or_expert_review"
+                ),
+            },
+            {
+                "reader_route_id": "type_a_agent",
+                "label": READER_LABELS["type_a_agent"],
+                "terminal_command": (
+                    f"microcosm hello --reader type_a_agent {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader type_a_agent {project_label}"
+                ),
+                "first_action": (
+                    f"Run `microcosm first-screen --card {project_label}`. "
+                    "If you need `doctrine_effect_frame`, run "
+                    f"`microcosm first-screen --full {project_label}` before "
+                    "reading it; then run "
+                    "`microcosm organ-surface-contract --card --root .`."
+                ),
+                "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "exit_check": (
+                    "name the first-read path, mechanism status, and owner surface"
+                ),
+                "not_a_claim": "agent_autonomy_or_source_mutation_ready",
+                "authority": (
+                    "focused_projection_only_not_agent_autonomy_or_source_"
+                    "mutation_authority"
+                ),
             },
         ],
         "safe_to_show": {
@@ -1148,6 +1321,27 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
                 "next_if_not_met": f"microcosm observe --card {project_label}",
                 "not_a_claim": "integration_complete",
             },
+            {
+                "reader_route_id": "domain_specialist",
+                "exit_when": (
+                    "Can map a domain to the specialty index and name the evidence "
+                    "class and authority ceiling without claiming domain correctness."
+                ),
+                "next_if_not_met": "ORGANS.md#find-your-specialty",
+                "not_a_claim": "domain_expertise_or_domain_correctness_complete",
+            },
+            {
+                "reader_route_id": "type_a_agent",
+                "exit_when": (
+                    "Can name the agent first-read path, distinguish mechanism "
+                    "organs from validators/projections, and identify the owner "
+                    "surface to patch if the route misleads."
+                ),
+                "next_if_not_met": (
+                    "microcosm organ-surface-contract --card --root ."
+                ),
+                "not_a_claim": "agent_autonomy_or_source_mutation_ready",
+            },
         ],
         "authority": "exit_criteria_not_reader_success_or_release_authority",
     }
@@ -1514,6 +1708,136 @@ def _evidence_count_frame() -> dict[str, Any]:
                 "role": "registry validation receipt",
             },
         ],
+    }
+
+
+def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str]]:
+    routes = _load_public_json(root, AGENT_TASK_ROUTES_REF)
+    ladder = routes.get("organ_glance_ladder", []) if isinstance(routes, dict) else []
+    rows: list[dict[str, Any]] = []
+    families: set[str] = set()
+    if not isinstance(ladder, list):
+        return rows, families
+
+    for family_row in ladder:
+        if not isinstance(family_row, dict):
+            continue
+        family_id = _public_text(family_row.get("family_id"))
+        family_label = _public_text(family_row.get("label") or family_id)
+        if family_id:
+            families.add(family_id)
+        organ_rows = family_row.get("organs", [])
+        if not isinstance(organ_rows, list):
+            continue
+        for organ_row in organ_rows:
+            if not isinstance(organ_row, dict):
+                continue
+            row = dict(organ_row)
+            if family_id and not row.get("family"):
+                row["family"] = family_id
+            if family_label and not row.get("family_label"):
+                row["family_label"] = family_label
+            family = _public_text(row.get("family"))
+            if family:
+                families.add(family)
+            rows.append(row)
+    return rows, families
+
+
+def _representative_substrate_glance(root: Path) -> dict[str, Any]:
+    rows, families = _organ_glance_ladder_rows(root)
+    examples: list[dict[str, Any]] = []
+    selected_families: set[str] = set()
+
+    def append_example(row: dict[str, Any]) -> None:
+        if len(examples) >= SUBSTRATE_GLANCE_SAMPLE_LIMIT:
+            return
+        organ_id = _public_text(row.get("organ_id"))
+        display_name = _public_text(row.get("display_name") or organ_id)
+        family = _public_text(row.get("family"))
+        one_line = _public_excerpt(
+            row.get("one_line"),
+            SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS,
+        )
+        card_excerpt = _public_excerpt(
+            row.get("card") or row.get("human_gloss") or row.get("agent_gloss"),
+            SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS,
+        )
+        glance_excerpt = one_line or card_excerpt
+        if not organ_id or not display_name or not family or not glance_excerpt:
+            return
+        card_ref = _public_text(row.get("card_ref") or row.get("drilldown_target"))
+        capsule_ref = _public_text(row.get("capsule_id"))
+        source_fields = [
+            "display_name",
+            "family",
+            "claim_ceiling_restated",
+            "authority_boundary",
+            "card_ref",
+        ]
+        if one_line:
+            source_fields.append("one_line")
+        if card_excerpt:
+            source_fields.append("card")
+        examples.append(
+            {
+                "organ_id": organ_id,
+                "display_name": display_name,
+                "family": family,
+                "glance_excerpt": glance_excerpt,
+                "glance_source": (
+                    "organ_glance_ladder_one_line"
+                    if one_line
+                    else "organ_glance_ladder_card"
+                ),
+                "one_line_excerpt": one_line,
+                "card_excerpt": card_excerpt,
+                "card_ref": card_ref,
+                "capsule_ref": capsule_ref,
+                "source_fields": [
+                    field for field in source_fields if field
+                ],
+                "reader_rule": "representative_example_not_inventory_or_readiness_claim",
+            }
+        )
+        selected_families.add(family)
+
+    for row in rows:
+        family = row.get("family")
+        if not isinstance(family, str) or family in selected_families:
+            continue
+        append_example(row)
+
+    for row in rows:
+        append_example(row)
+
+    return {
+        "schema_version": "microcosm_representative_substrate_glance_v1",
+        "purpose": "show_actual_public_organ_substance_before_drilldown",
+        "source_ref": ORGAN_GLANCE_LADDER_REF,
+        "one_line_source_ref": ORGAN_GLANCE_LADDER_REF,
+        "source_refs": [AGENT_TASK_ROUTES_REF],
+        "source_authority": (
+            "public_agent_task_routes_projection_not_evidence_strength_or_release_authority"
+        ),
+        "selection_rule": (
+            "family-diverse samples in organ_glance_ladder order, capped before "
+            "the first screen becomes an inventory"
+        ),
+        "sample_limit": SUBSTRATE_GLANCE_SAMPLE_LIMIT,
+        "total_organ_count": len(rows),
+        "family_count": len(families),
+        "examples": examples,
+        "safe_to_show": {
+            "uses_public_organ_glance_ladder": True,
+            "uses_public_route_projection_one_lines": True,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_release_or_hosting": False,
+            "claims_reader_success": False,
+            "claims_whole_system_correctness": False,
+        },
+        "authority": "representative_glance_not_inventory_score_or_readiness_claim",
     }
 
 
@@ -2072,9 +2396,9 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "first-run ladder, first-viewport manifest, local state receipt trail, "
             "first-contact surface refs, overclaim tripwires, discipline comparison strip, "
             "reader branches, reader route menu, reader landing packets, reader exit criteria, video storyboard packet, "
-            "artifact fit matrix, cold-entry problem map, public scale handles, evidence-class "
-            "legend, doctrine-effect frame, and authority ceiling before the deeper "
-            "observatory lens inventory."
+            "artifact fit matrix, cold-entry problem map, representative substrate "
+            "glance, public scale handles, evidence-class legend, doctrine-effect "
+            "frame, and authority ceiling before the deeper observatory lens inventory."
         ),
         "projection_rule": (
             "The observatory landing is a projection over this first-screen card, not a "
@@ -2102,6 +2426,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "artifact_fit_matrix",
             "cold_entry_problem_map",
             "public_scale_counts",
+            "representative_substrate_glance",
             "evidence_count_interpretation",
             "evidence_class_legend",
             "doctrine_effect_frame",
@@ -2235,6 +2560,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     first_contact_surface_refs = payload.get("first_contact_surface_refs", {})
     overclaim_tripwire_matrix = payload.get("overclaim_tripwire_matrix", {})
     discipline_comparison_strip = payload.get("discipline_comparison_strip", {})
+    representative_substrate_glance = payload.get("representative_substrate_glance", {})
+    substrate_glance_examples = (
+        representative_substrate_glance.get("examples", [])
+        if isinstance(representative_substrate_glance, dict)
+        else []
+    )
+    substrate_glance_safe_to_show = (
+        representative_substrate_glance.get("safe_to_show", {})
+        if isinstance(representative_substrate_glance, dict)
+        else {}
+    )
     first_contact_surfaces = (
         first_contact_surface_refs.get("surfaces", {})
         if isinstance(first_contact_surface_refs, dict)
@@ -2481,6 +2817,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and "shared map and behavior proof first"
             in reader_route_menu.get("menu_rule", "")
             and reader_route_menu.get("default_command") == human_first_command
+            and reader_route_menu.get("alias_hint") == READER_ROUTE_ALIAS_HINT
             and reader_route_menu.get("shared_behavior_command")
             == shared_first_command
             and reader_route_menu.get("machine_card_command")
@@ -2989,6 +3326,74 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and payload.get("evidence_count_frame", {}).get("legend_ref")
             == EVIDENCE_CLASS_REGISTRY_REF
         ),
+        "representative_substrate_glance": (
+            isinstance(representative_substrate_glance, dict)
+            and representative_substrate_glance.get("schema_version")
+            == "microcosm_representative_substrate_glance_v1"
+            and representative_substrate_glance.get("purpose")
+            == "show_actual_public_organ_substance_before_drilldown"
+            and representative_substrate_glance.get("source_ref")
+            == ORGAN_GLANCE_LADDER_REF
+            and representative_substrate_glance.get("one_line_source_ref")
+            == ORGAN_GLANCE_LADDER_REF
+            and representative_substrate_glance.get("source_refs")
+            == [AGENT_TASK_ROUTES_REF]
+            and representative_substrate_glance.get("sample_limit")
+            == SUBSTRATE_GLANCE_SAMPLE_LIMIT
+            and isinstance(
+                representative_substrate_glance.get("total_organ_count"),
+                int,
+            )
+            and representative_substrate_glance.get("total_organ_count")
+            >= len(substrate_glance_examples)
+            and isinstance(representative_substrate_glance.get("family_count"), int)
+            and representative_substrate_glance.get("family_count")
+            >= len(
+                {
+                    row.get("family")
+                    for row in substrate_glance_examples
+                    if isinstance(row, dict)
+                }
+            )
+            and len(substrate_glance_examples) == SUBSTRATE_GLANCE_SAMPLE_LIMIT
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("organ_id"), str)
+                and bool(row.get("organ_id"))
+                and isinstance(row.get("display_name"), str)
+                and bool(row.get("display_name"))
+                and isinstance(row.get("family"), str)
+                and bool(row.get("family"))
+                and isinstance(row.get("glance_excerpt"), str)
+                and bool(row.get("glance_excerpt"))
+                and row.get("glance_source")
+                in {
+                    "organ_glance_ladder_one_line",
+                    "organ_glance_ladder_card",
+                }
+                and (
+                    "one_line" in row.get("source_fields", [])
+                    or "card" in row.get("source_fields", [])
+                )
+                and row.get("reader_rule")
+                == "representative_example_not_inventory_or_readiness_claim"
+                for row in substrate_glance_examples
+            )
+            and substrate_glance_safe_to_show.get("uses_public_organ_glance_ladder")
+            is True
+            and substrate_glance_safe_to_show.get(
+                "uses_public_route_projection_one_lines"
+            )
+            is True
+            and substrate_glance_safe_to_show.get("exports_private_paths") is False
+            and substrate_glance_safe_to_show.get("exports_provider_payloads") is False
+            and substrate_glance_safe_to_show.get("claims_release_or_hosting") is False
+            and substrate_glance_safe_to_show.get("claims_reader_success") is False
+            and substrate_glance_safe_to_show.get("claims_whole_system_correctness")
+            is False
+            and representative_substrate_glance.get("authority")
+            == "representative_glance_not_inventory_score_or_readiness_claim"
+        ),
         "evidence_class_legend": (
             isinstance(evidence_class_legend, dict)
             and evidence_class_legend.get("source_ref")
@@ -3200,6 +3605,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "artifact_fit_matrix",
                     "cold_entry_problem_map",
                     "public_scale_counts",
+                    "representative_substrate_glance",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
                     "authority_ceiling",
@@ -3288,6 +3694,7 @@ def first_screen_composition_card(
         "cold_entry_problem_map": _cold_entry_problem_map(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
+        "representative_substrate_glance": _representative_substrate_glance(root),
         "comparison_frame": _comparison_frame(),
         "discipline_comparison_strip": _discipline_comparison_strip(project_label),
         "doctrine_effect_frame": _doctrine_effect_frame(),
@@ -3413,6 +3820,37 @@ def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
+    glance = payload.get("representative_substrate_glance", {})
+    examples = glance.get("examples", []) if isinstance(glance, dict) else []
+    rows = [row for row in examples if isinstance(row, dict)]
+    return {
+        "source_ref": glance.get("source_ref") if isinstance(glance, dict) else None,
+        "one_line_source_ref": glance.get("one_line_source_ref")
+        if isinstance(glance, dict)
+        else None,
+        "source_refs": glance.get("source_refs") if isinstance(glance, dict) else None,
+        "sample_limit": glance.get("sample_limit") if isinstance(glance, dict) else None,
+        "total_organ_count": glance.get("total_organ_count")
+        if isinstance(glance, dict)
+        else None,
+        "example_display_names": [row.get("display_name") for row in rows],
+        "families": [row.get("family") for row in rows],
+        "examples": [
+            {
+                "organ_id": row.get("organ_id"),
+                "display_name": row.get("display_name"),
+                "family": row.get("family"),
+                "glance_excerpt": row.get("glance_excerpt"),
+                "glance_source": row.get("glance_source"),
+                "one_line_excerpt": row.get("one_line_excerpt"),
+            }
+            for row in rows
+        ],
+        "authority": glance.get("authority") if isinstance(glance, dict) else None,
+    }
+
+
 def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     project_label = str(payload.get("project_label") or "<project>")
     route_menu = payload.get("reader_route_menu", {})
@@ -3442,6 +3880,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
             "default_command": route_menu.get("default_command")
             if isinstance(route_menu, dict)
             else None,
+            "alias_hint": READER_ROUTE_ALIAS_HINT,
             "shared_behavior_command": route_menu.get("shared_behavior_command")
             if isinstance(route_menu, dict)
             else None,
@@ -3458,6 +3897,7 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
         "evidence_context": {
             "scale_counts": _compact_scale_counts(payload),
             "evidence_class_registry_ref": EVIDENCE_CLASS_REGISTRY_REF,
+            "representative_substrate_glance": _compact_substrate_glance(payload),
             "counts_are_authority": False,
         },
         "state_write_boundary": {
@@ -3533,10 +3973,11 @@ def _reader_branch_lines(
     packet_by_id: dict[str, dict[str, Any]],
     menu_by_id: dict[str, dict[str, Any]],
     reader_id: str,
+    display_reader_id: str | None = None,
 ) -> list[str]:
     if reader_id == "all":
         return [
-            "Reader branches:",
+            f"Reader branches; {READER_ROUTE_ALIAS_HINT}:",
             *[
                 (
                     f"  {READER_LABELS[route_id]}: "
@@ -3550,11 +3991,26 @@ def _reader_branch_lines(
     route = route_by_id[reader_id]
     packet = packet_by_id[reader_id]
     menu = menu_by_id[reader_id]
+    if display_reader_id is None:
+        display_reader_id = reader_id
+    terminal_command = str(menu["terminal_command"])
+    text_projection_command = str(menu["text_projection_command"])
+    if display_reader_id != reader_id:
+        terminal_command = terminal_command.replace(
+            f"--reader {reader_id}",
+            f"--reader {display_reader_id}",
+            1,
+        )
+        text_projection_command = text_projection_command.replace(
+            f"--reader {reader_id}",
+            f"--reader {display_reader_id}",
+            1,
+        )
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         (
-            f"  Command: {menu['terminal_command']} | "
-            f"Text card: {menu['text_projection_command']}"
+            f"  Command: {terminal_command} | "
+            f"Text card: {text_projection_command}"
         ),
         f"  Question: {route['first_question']}",
         f"  First action: {packet['first_action']}",
@@ -3589,9 +4045,34 @@ def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
     return "  Evidence classes: see core/organ_evidence_classes.json for claim ceilings."
 
 
+def _substrate_glance_lines(payload: dict[str, Any]) -> list[str]:
+    glance = payload.get("representative_substrate_glance", {})
+    examples = glance.get("examples", []) if isinstance(glance, dict) else []
+    rows = [row for row in examples if isinstance(row, dict)]
+    if not rows:
+        return [f"Substrate glance: see {ORGAN_ATLAS_REF} for public organ glosses."]
+    pieces = [
+        (
+            f"{row.get('display_name')} - "
+            f"{_public_excerpt(row.get('glance_excerpt'), 58)}"
+        )
+        for row in rows
+    ]
+    return [
+        "Substrate glance: " + "; ".join(pieces) + ".",
+        (
+            f"  Source: {AGENT_TASK_ROUTES_REF} organ_glance_ladder.one_line; "
+            "fallbacks use route cards; examples are handles, not readiness "
+            "claims."
+        ),
+    ]
+
+
 def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
+    display_reader_id = reader_id
+    reader_id = normalize_reader_route_id(reader_id)
     route_by_id = _reader_route_map(payload)
     packet_by_id = _reader_packet_map(payload)
     menu_by_id = _reader_menu_map(payload)
@@ -3625,6 +4106,11 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         if isinstance(source_checkout_commands, dict)
         else None
     )
+    source_agent_entry_command = (
+        source_checkout_commands.get("agent_entry_selector")
+        if isinstance(source_checkout_commands, dict)
+        else None
+    )
     source_card_prefix = (
         f"Source-only card: {source_hello_command} | "
         if source_hello_command
@@ -3636,14 +4122,19 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         else ""
     )
     check_state_suffix = "Trail: catalog -> routes -> events -> evidence -> graph."
+    source_agent_entry_suffix = (
+        f" | Source-only agent entry: {source_agent_entry_command}"
+        if source_agent_entry_command
+        else ""
+    )
     check_state_line = (
         f"Check state: microcosm status --card {payload['project_label']} | "
         f"Source-only status: {source_status_command} | "
-        f"{check_state_suffix}"
+        f"{check_state_suffix}{source_agent_entry_suffix}"
         if source_status_command
         else (
             f"Check state: microcosm status --card {payload['project_label']} | "
-            f"{check_state_suffix}"
+            f"{check_state_suffix}{source_agent_entry_suffix}"
         )
     )
     pre_install_summary = (
@@ -3663,17 +4154,21 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         check_state_line,
         "",
-        "What it is:",
-        "  A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
-        "",
+        "What it is: A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
+        *_substrate_glance_lines(payload),
         "Why the counts are honest:",
         _scale_summary_line(payload),
         "  Counts are receipt-backed handles from registries and fixture manifests; status --card shows the stricter body-import floor.",
         _evidence_class_summary_line(payload),
         "  Behavior proof after tour --card: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
-        *_reader_branch_lines(route_by_id, packet_by_id, menu_by_id, reader_id),
-        "",
+        *_reader_branch_lines(
+            route_by_id,
+            packet_by_id,
+            menu_by_id,
+            reader_id,
+            display_reader_id,
+        ),
         "Runnable-to-structural join:",
         "  This card is the map; the first run writes .microcosm and exercises the larger public substrate:",
         "  concept/mechanism standards, receipts, authority boundaries, workingness, route maps, and observatory views.",

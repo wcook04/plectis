@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 4 proof-authority-runtime validates copied public macro source bodies and bounded synthetic negative cases for proof-control, machine-checked math, dry-run authority, closeout planning, Codex runtime diagnostics, bitemporal coordination, taskpolicy wrapping, and context-yield attribution. It is not a solution of Erdos #257, not publication authority, not a benchmark result, not live sandbox enforcement, not live Codex orchestration, and not release approval.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch4_proof_authority_runtime",
+  "organ_id": "batch4_proof_authority_runtime",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_validation_receipt.json"
+}

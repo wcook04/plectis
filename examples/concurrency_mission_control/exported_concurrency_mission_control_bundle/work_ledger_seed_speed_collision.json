@@ -1,0 +1,8 @@
+{
+  "case_id": "work_ledger_seed_speed_collision",
+  "description": "A seed-speed projection that reports unresolved claim collisions must not be treated as safe agent-concurrency coordination.",
+  "error_codes": [
+    "CONCURRENCY_MISSION_CONTROL_WORK_LEDGER_COLLISION_UNRESOLVED"
+  ],
+  "body_in_receipt": false
+}

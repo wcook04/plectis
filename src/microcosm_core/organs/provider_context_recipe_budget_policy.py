@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import math
+import sys
 from collections import defaultdict
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +47,7 @@ SOURCE_REFS = [
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
 ]
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+REAL_SECTION_BODY_STATUS = "source_ref_real_body_accounting"
 
 EXPECTED_SOURCE_MODULES = {
     "provider_context_batch_calibration_report_body_import": {
@@ -195,7 +199,20 @@ EXPECTED_NEGATIVE_CASES = {
     "provider_call_authorized": ["PROVIDER_CONTEXT_CALL_AUTHORITY_FORBIDDEN"],
     "deliverable_type_route_mismatch": ["PROVIDER_CONTEXT_DELIVERABLE_ROUTE_MISMATCH"],
     "omitted_sections_suppressed": ["PROVIDER_CONTEXT_OMITTED_SECTIONS_REQUIRED"],
+    "synthetic_section_materials": [
+        "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_REF_REQUIRED",
+        "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_ANCHOR_REQUIRED",
+        "PROVIDER_CONTEXT_SYNTHETIC_SECTION_MATERIAL_FORBIDDEN",
+    ],
 }
+
+SECTION_MATERIAL_ALLOWED_SOURCE_REFS = frozenset(SOURCE_REFS)
+SECTION_MATERIAL_SYNTHETIC_MARKERS = (
+    "synthetic",
+    "placeholder",
+    "fabricated",
+    "fixture-only",
+)
 
 INPUT_NAMES = (
     "provider_context_recipes.json",
@@ -209,6 +226,7 @@ NEGATIVE_INPUT_NAMES = (
     "provider_call_authorized.json",
     "deliverable_type_route_mismatch.json",
     "omitted_sections_suppressed.json",
+    "synthetic_section_materials.json",
 )
 
 NEGATIVE_INPUT_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
@@ -234,6 +252,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "private_state_scan.scan_scope",
     "provider_context_budget_board",
     "receipt_paths",
+    "section_material_source_refs",
     "source_module_ids",
     "source_module_imports",
     "source_refs",
@@ -345,6 +364,16 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
         }
 
     manifest = read_json_strict(manifest_path)
+    if manifest.get("body_text_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "PROVIDER_CONTEXT_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "Source module manifest must explicitly keep copied body text out of receipts.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
     module_rows = _rows(manifest, "modules")
     by_id = {str(row.get("module_id") or ""): row for row in module_rows}
     expected_ids = sorted(EXPECTED_SOURCE_MODULES)
@@ -379,6 +408,20 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
         anchor_results: list[dict[str, Any]] = []
         target_sha256 = None
         line_count = 0
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "PROVIDER_CONTEXT_SOURCE_MODULE_BODY_RECEIPT_BOUNDARY_INVALID",
+                    "Source module rows must declare copied bodies while keeping body text out of receipts.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         if not target.is_file():
             findings.append(
                 _finding(
@@ -447,6 +490,7 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
                 "anchor_results": anchor_results,
                 "body_copied": True,
                 "body_in_receipt": False,
+                "body_text_in_receipt": False,
             }
         )
 
@@ -469,17 +513,181 @@ def _strings(value: Any) -> list[str]:
 
 
 def _byte_size(row: dict[str, Any]) -> int:
-    declared = row.get("declared_byte_size")
-    if isinstance(declared, int) and declared >= 0:
-        return declared
     text = row.get("text")
     if isinstance(text, str):
         return len(text.encode("utf-8"))
+    declared = row.get("declared_byte_size")
+    if isinstance(declared, int) and declared >= 0:
+        return declared
     return 0
+
+
+def _section_accounting(
+    row: dict[str, Any],
+    *,
+    real_section_bodies: dict[str, str],
+) -> dict[str, Any]:
+    text = row.get("text")
+    if isinstance(text, str):
+        return {
+            "accounted_byte_size": len(text.encode("utf-8")),
+            "byte_size_source": "text_body",
+        }
+    section_id = str(row.get("section_id") or "")
+    real_body = real_section_bodies.get(section_id)
+    if real_body and _section_source_refs(row) and _section_source_anchors(row):
+        return {
+            "accounted_byte_size": len(real_body.encode("utf-8")),
+            "byte_size_source": REAL_SECTION_BODY_STATUS,
+        }
+    declared = row.get("declared_byte_size")
+    return {
+        "accounted_byte_size": _byte_size(row),
+        "byte_size_source": (
+            "declared_byte_size"
+            if isinstance(declared, int) and declared >= 0
+            else "missing_byte_size"
+        ),
+    }
 
 
 def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+
+
+def _section_source_refs(row: dict[str, Any]) -> list[str]:
+    return sorted(set(_strings(row.get("source_refs"))))
+
+
+def _section_source_anchors(row: dict[str, Any]) -> list[str]:
+    return sorted(set(_strings(row.get("source_anchors"))))
+
+
+def _synthetic_section_material_marker(row: dict[str, Any]) -> str | None:
+    fields = (
+        row.get("material_kind"),
+        row.get("provenance"),
+        row.get("source_posture"),
+        row.get("text"),
+    )
+    haystack = "\n".join(str(value).lower() for value in fields if isinstance(value, str))
+    for marker in SECTION_MATERIAL_SYNTHETIC_MARKERS:
+        if marker in haystack:
+            return marker
+    return None
+
+
+def _source_texts_by_ref(input_dir: Path) -> dict[str, str]:
+    texts: dict[str, str] = {}
+    for expected in EXPECTED_SOURCE_MODULES.values():
+        source_ref = expected["source_ref"]
+        target = input_dir / expected["target_ref"]
+        if target.is_file():
+            texts[source_ref] = target.read_text(encoding="utf-8")
+    return texts
+
+
+def _json_text(value: Any) -> str:
+    if isinstance(value, str):
+        return value
+    return json.dumps(value, indent=2, sort_keys=True)
+
+
+@lru_cache(maxsize=8)
+def _load_provider_context_harness(source_path: str) -> Any:
+    path = Path(source_path)
+    module_name = (
+        "_microcosm_provider_context_harness_"
+        + hashlib.sha256(str(path).encode("utf-8")).hexdigest()[:16]
+    )
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load provider context harness from {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@lru_cache(maxsize=8)
+def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
+    input_dir = Path(input_dir_name)
+    graph_source = EXPECTED_SOURCE_MODULES["provider_context_graph_benchmark_body_import"]
+    harness_path = input_dir / graph_source["target_ref"]
+    if not harness_path.is_file():
+        return {}
+    try:
+        harness = _load_provider_context_harness(str(harness_path.resolve(strict=False)))
+        problem_set = harness._problem_set()
+        problem = problem_set[2]
+        premise_index = harness._premise_index()
+
+        def pack_sections(recipe_id: str) -> dict[str, Any]:
+            pack, *_ = harness._provider_context_pack(
+                problem=problem,
+                recipe_id=recipe_id,
+                provider="microcosm_public_fixture",
+                provider_model=None,
+                premise_index=premise_index,
+                problem_set=problem_set,
+                local_foundry_by_problem={},
+                max_tokens=256,
+                temperature=0.0,
+            )
+            return {
+                str(section.get("section_id") or ""): section.get("content")
+                for section in pack.get("context_sections", [])
+                if isinstance(section, dict)
+            }
+
+        minimal = pack_sections("minimal_4kb")
+        premise = pack_sections("premise_16kb")
+        skill = pack_sections("skill_32kb")
+        repair = pack_sections("repair_32kb")
+        fewshot = pack_sections("fewshot_64kb")
+        strategy = pack_sections("strategy_classification_4kb")
+        return {
+            "statement": _json_text(minimal.get("problem_statement", "")),
+            "declared_imports": _json_text(minimal.get("lean_signature_imports", "")),
+            "retrieved_premises": _json_text(premise.get("retrieved_premises", "")),
+            "skill_atlas_card": _json_text(
+                {
+                    "selected_strategy": skill.get("selected_strategy"),
+                    "selected_skill_cell": skill.get("selected_skill_cell"),
+                    "proof_plan_contract": skill.get("proof_plan_contract"),
+                }
+            ),
+            "target_shape_routes": _json_text(
+                {
+                    "graph_variants": list(getattr(harness, "GRAPH_VARIANTS", ())),
+                    "strategy_graph_variants": sorted(
+                        getattr(harness, "STRATEGY_GRAPH_VARIANTS", ())
+                    ),
+                }
+            ),
+            "diagnostic_failure_class": _json_text(
+                {
+                    "failure_classes": list(getattr(harness, "FAILURE_CLASSES", ())),
+                    "prior_lean_error": repair.get("prior_lean_error"),
+                }
+            ),
+            "known_strategy_ids": _json_text(
+                {
+                    "known_strategy_ids": list(harness._known_strategy_ids()),
+                    "output_schema": harness._strategy_classification_output_schema(),
+                }
+            ),
+            "target_shape_features": _json_text(
+                strategy.get("strategy_atlas") or skill.get("selected_strategy") or {}
+            ),
+            "fewshot_examples": _json_text(fewshot.get("fewshot_examples", "")),
+        }
+    except Exception:
+        return {}
+
+
+def _real_section_bodies(input_dir: Path) -> dict[str, str]:
+    return _real_section_bodies_for_input(str(input_dir.resolve(strict=False)))
 
 
 def _finding(
@@ -526,6 +734,7 @@ def _recipe_projection(
     recipe: dict[str, Any],
     *,
     sections_by_id: dict[str, dict[str, Any]],
+    real_section_bodies: dict[str, str],
 ) -> dict[str, Any]:
     recipe_id = str(recipe.get("recipe_id") or "")
     budget = int(recipe.get("byte_budget") or 0)
@@ -534,14 +743,20 @@ def _recipe_projection(
     total = 0
     for section_id in _strings(recipe.get("sections")):
         section = sections_by_id.get(section_id, {"section_id": section_id})
-        size = _byte_size(section)
+        accounting = _section_accounting(
+            section,
+            real_section_bodies=real_section_bodies,
+        )
+        size = int(accounting["accounted_byte_size"])
         target = included if total + size <= budget else omitted
         if target is included:
             total += size
         target.append(
             {
                 "section_id": section_id,
-                "declared_byte_size": size,
+                "declared_byte_size": section.get("declared_byte_size"),
+                "accounted_byte_size": size,
+                "byte_size_source": accounting["byte_size_source"],
                 "body_redacted": True,
             }
         )
@@ -569,6 +784,7 @@ def _recipe_findings(
     *,
     case_id: str,
     sections_by_id: dict[str, dict[str, Any]],
+    real_section_bodies: dict[str, str],
     observed: dict[str, set[str]] | None = None,
 ) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
@@ -629,7 +845,11 @@ def _recipe_findings(
                 subject_id=recipe_id,
                 subject_kind="deliverable_type",
             )
-        projection = _recipe_projection(recipe, sections_by_id=sections_by_id)
+        projection = _recipe_projection(
+            recipe,
+            sections_by_id=sections_by_id,
+            real_section_bodies=real_section_bodies,
+        )
         if projection["omitted_section_ids"] and not projection["omitted_sections_manifest_emitted"]:
             _record(
                 findings,
@@ -647,12 +867,14 @@ def _section_findings(
     sections: list[dict[str, Any]],
     *,
     case_id: str,
+    source_texts_by_ref: dict[str, str],
     observed: dict[str, set[str]] | None = None,
 ) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     local_observed: dict[str, set[str]] = observed if observed is not None else defaultdict(set)
     for section in sections:
         section_id = str(section.get("section_id") or "section")
+        forbidden_body_keys = _forbidden_body_keys(section)
         if section_id in FORBIDDEN_SECTION_IDS:
             _record(
                 findings,
@@ -663,7 +885,7 @@ def _section_findings(
                 subject_id=section_id,
                 subject_kind="section_id",
             )
-        if _forbidden_body_keys(section):
+        if forbidden_body_keys:
             _record(
                 findings,
                 local_observed,
@@ -673,10 +895,77 @@ def _section_findings(
                 subject_id=section_id,
                 subject_kind="section_material",
             )
+        if section_id in FORBIDDEN_SECTION_IDS or forbidden_body_keys:
+            continue
+
+        source_refs = _section_source_refs(section)
+        if not source_refs:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_REF_REQUIRED",
+                "Public provider context section material must cite the macro source body or standard it derives from.",
+                case_id=case_id,
+                subject_id=section_id,
+                subject_kind="section_material",
+            )
+        unknown_refs = sorted(set(source_refs) - SECTION_MATERIAL_ALLOWED_SOURCE_REFS)
+        if unknown_refs:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_REF_UNKNOWN",
+                "Section material cited a source ref outside the imported provider-context macro body floor.",
+                case_id=case_id,
+                subject_id=",".join(unknown_refs),
+                subject_kind="source_ref",
+            )
+        source_anchors = _section_source_anchors(section)
+        if not source_anchors:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_ANCHOR_REQUIRED",
+                "Public provider context section material must name at least one source anchor.",
+                case_id=case_id,
+                subject_id=section_id,
+                subject_kind="section_material",
+            )
+        for anchor in source_anchors:
+            if not any(
+                anchor in source_texts_by_ref.get(source_ref, "")
+                for source_ref in source_refs
+            ):
+                _record(
+                    findings,
+                    local_observed,
+                    "PROVIDER_CONTEXT_SECTION_MATERIAL_SOURCE_ANCHOR_MISSING",
+                    "Section material anchor was not present in any cited copied source module.",
+                    case_id=case_id,
+                    subject_id=anchor,
+                    subject_kind="source_anchor",
+                )
+        synthetic_marker = _synthetic_section_material_marker(section)
+        if synthetic_marker:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_SYNTHETIC_SECTION_MATERIAL_FORBIDDEN",
+                "Public provider context section material must be source-backed, not synthetic placeholder text.",
+                case_id=case_id,
+                subject_id=section_id,
+                subject_kind="section_material",
+            )
     return findings
 
 
-def _negative_findings(payloads: dict[str, Any], sections_by_id: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def _negative_findings(
+    payloads: dict[str, Any],
+    sections_by_id: dict[str, dict[str, Any]],
+    *,
+    source_texts_by_ref: dict[str, str],
+    real_section_bodies: dict[str, str],
+) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     for stem in NEGATIVE_INPUT_STEMS:
@@ -686,16 +975,30 @@ def _negative_findings(payloads: dict[str, Any], sections_by_id: dict[str, dict[
         case_id = str(payload.get("expected_negative_case_id") or stem)
         recipes = _rows(payload, "recipes")
         sections = _rows(payload, "sections")
+        case_sections_by_id = dict(sections_by_id)
+        case_sections_by_id.update(
+            {
+                str(section.get("section_id") or ""): section
+                for section in sections
+                if isinstance(section.get("section_id"), str)
+            }
+        )
         findings.extend(
             _recipe_findings(
                 recipes,
                 case_id=case_id,
-                sections_by_id=sections_by_id,
+                sections_by_id=case_sections_by_id,
+                real_section_bodies=real_section_bodies,
                 observed=observed,
             )
         )
         findings.extend(
-            _section_findings(sections, case_id=case_id, observed=observed)
+            _section_findings(
+                sections,
+                case_id=case_id,
+                source_texts_by_ref=source_texts_by_ref,
+                observed=observed,
+            )
         )
     return {
         "findings": findings,
@@ -736,6 +1039,15 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "source_module_ids": result["source_module_ids"],
             "source_module_imports": result["source_module_imports"],
             "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
+        "section_material_sources": {
+            "status": result["section_material_source_status"],
+            "source_ref_count": result["section_material_source_ref_count"],
+            "source_refs": result["section_material_source_refs"],
+            "real_section_body_status": result["real_section_body_status"],
+            "real_section_body_count": result["real_section_body_count"],
+            "body_redacted": True,
         },
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
@@ -814,9 +1126,18 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "recipe_count": result.get("recipe_count", 0),
             "recipe_ids": result.get("recipe_ids", []),
             "deliverable_route_count": len(result.get("deliverable_routes", {})),
+            "real_section_body_status": result.get("real_section_body_status"),
+            "real_section_body_count": result.get("real_section_body_count", 0),
             "source_module_import_status": result.get("source_module_import_status"),
             "source_module_count": result.get("source_module_count", 0),
             "source_module_ids_exported": False,
+            "section_material_source_status": result.get(
+                "section_material_source_status"
+            ),
+            "section_material_source_ref_count": result.get(
+                "section_material_source_ref_count",
+                0,
+            ),
             **_context_packet_card(context_packets),
         },
         "negative_case_coverage": {
@@ -899,6 +1220,11 @@ def _common_receipt(
         "source_module_ids",
         "source_module_imports",
         "source_module_error_codes",
+        "section_material_source_status",
+        "section_material_source_ref_count",
+        "section_material_source_refs",
+        "real_section_body_status",
+        "real_section_body_count",
         "private_state_scan",
         "authority_ceiling",
         "anti_claim",
@@ -945,16 +1271,42 @@ def _build_result(
     recipe_rows = _rows(payloads["provider_context_recipes"], "recipes")
     section_rows = _rows(payloads["section_materials"], "sections")
     sections_by_id = {str(row.get("section_id") or ""): row for row in section_rows}
+    source_texts_by_ref = _source_texts_by_ref(input_dir)
+    real_section_bodies = _real_section_bodies(input_dir)
+    section_material_source_refs = sorted(
+        {
+            source_ref
+            for section in section_rows
+            for source_ref in _section_source_refs(section)
+        }
+    )
     context_packets = [
-        _recipe_projection(recipe, sections_by_id=sections_by_id)
+        _recipe_projection(
+            recipe,
+            sections_by_id=sections_by_id,
+            real_section_bodies=real_section_bodies,
+        )
         for recipe in recipe_rows
     ]
-    floor_findings = [
-        *_recipe_findings(recipe_rows, case_id="recipe_floor", sections_by_id=sections_by_id),
-        *_section_findings(section_rows, case_id="section_material_floor"),
-    ]
+    recipe_floor_findings = _recipe_findings(
+        recipe_rows,
+        case_id="recipe_floor",
+        sections_by_id=sections_by_id,
+        real_section_bodies=real_section_bodies,
+    )
+    section_floor_findings = _section_findings(
+        section_rows,
+        case_id="section_material_floor",
+        source_texts_by_ref=source_texts_by_ref,
+    )
+    floor_findings = [*recipe_floor_findings, *section_floor_findings]
     negative = (
-        _negative_findings(payloads, sections_by_id)
+        _negative_findings(
+            payloads,
+            sections_by_id,
+            source_texts_by_ref=source_texts_by_ref,
+            real_section_bodies=real_section_bodies,
+        )
         if include_negative
         else {"findings": [], "observed_negative_cases": {}}
     )
@@ -1009,6 +1361,15 @@ def _build_result(
         "source_module_ids": source_modules["source_module_ids"],
         "source_module_imports": source_modules["source_module_imports"],
         "source_module_error_codes": source_modules["source_module_error_codes"],
+        "section_material_source_status": (
+            PASS if not section_floor_findings else "blocked"
+        ),
+        "section_material_source_ref_count": len(section_material_source_refs),
+        "section_material_source_refs": section_material_source_refs,
+        "real_section_body_status": (
+            PASS if real_section_bodies else "declared_byte_size_fallback"
+        ),
+        "real_section_body_count": len(real_section_bodies),
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,

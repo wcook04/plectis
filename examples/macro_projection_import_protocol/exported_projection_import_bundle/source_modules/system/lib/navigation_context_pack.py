@@ -25,10 +25,6 @@ from typing import Any, Mapping, MutableMapping, Sequence
 from system.lib.kind_atlas import build_kind_atlas
 from system.lib.agent_operating_packet import load_agent_operating_packet_strip
 from system.lib.candidate_runtime_pressure_policy import filter_first_contact_candidate_pressure
-from system.lib.compliance.diagnostics_projection import project_compliance_diagnostics
-from system.lib.capture_reflex_diagnostics import project_capture_reflex_diagnostics
-from system.lib.entrypoint_health import project_entry_surface_diagnostics
-from system.lib.paper_module_freshness_diagnostics import project_paper_module_freshness_diagnostics
 from system.lib.standard_option_surface import (
     build_option_surface,
     candidate_runtime_pressure_rows,
@@ -55,6 +51,180 @@ from system.lib.work_ledger_commands import (
 )
 
 
+_ENTRY_SURFACE_DIAGNOSTIC_TRIGGERS = (
+    "agents.md",
+    "claude.md",
+    "codex.md",
+    "agents.override.md",
+    "entry budget",
+    "entry-budget",
+    "entrypoint",
+    "entry surface",
+    "entry-surface",
+    "generated region",
+    "generated-region",
+    "generated projection",
+    "generated-projection",
+    "projection source",
+    "source projection",
+    "source coupling",
+    "source-coupling",
+    "source-worktree",
+    "source inputs",
+    "dirty source",
+    "instruction file",
+    "instruction-file",
+    "compression policy",
+    "compression-policy",
+    "commit policy",
+    "commit-policy",
+    "startup hook",
+    "first contact",
+    "first-contact",
+    "route health",
+    "stale route",
+)
+_ACTION_AUTONOMY_DIAGNOSTIC_TRIGGERS = (
+    "permission gate",
+    "permission gates",
+    "permission-gated",
+    "permission-gating",
+    "permission ceremony",
+    "approval gate",
+    "approval gating",
+    "approval fatigue",
+    "authorize next",
+    "authorize the next",
+    "your call",
+    "redirect or proceed",
+    "micro slice",
+    "micro slices",
+    "micro-slice",
+    "micro-slices",
+    "micro-sliced",
+    "micro-slicing",
+    "largest coherent",
+    "coherent wave",
+    "coherent verified wave",
+    "safe wave",
+    "autonomous seed",
+    "seed should work",
+    "work for anything",
+    "twiddling thumbs",
+    "twiddle thumbs",
+    "action autonomy",
+    "agent autonomy",
+)
+_COMPLIANCE_DIAGNOSTIC_TRIGGERS = (
+    "compliance",
+    "compliant",
+    "non-compliant",
+    "noncompliant",
+    "standard compliance",
+    "standards gap",
+    "standard gap",
+    "standards-gap",
+    "compliance ledger",
+    "compression passport",
+    "compression-passport",
+    "miner",
+    "inspectorservice",
+    "inspector service",
+    "diagnostic projection",
+    "diagnostic-projection",
+    "python compliance",
+    "python_compliance",
+)
+_CAPTURE_REFLEX_DIAGNOSTIC_TRIGGERS = (
+    "capture reflex",
+    "failure capture",
+    "observed failure",
+    "failing test",
+    "failed test",
+    "test failure",
+    "self-error",
+    "self_error",
+    "flag-without-capture",
+    "mistake-without-capture",
+    "prose-only",
+    "prose only",
+    "task ledger capture",
+)
+_PAPER_MODULE_FRESHNESS_DIAGNOSTIC_TRIGGERS = (
+    "paper module",
+    "paper-module",
+    "stale sidecar",
+    "stale_sidecars",
+    "validation report",
+    "paper module index",
+    "density drift",
+    "module freshness",
+    "projection freshness",
+)
+
+
+def _matched_diagnostic_triggers(query: str, triggers: Sequence[str]) -> list[str]:
+    query_str = str(query or "")
+    if not query_str.strip():
+        return []
+    q_lower = query_str.lower()
+    return [trigger for trigger in triggers if trigger in q_lower]
+
+
+def project_compliance_diagnostics(root: Path, query: str) -> dict[str, Any]:
+    if not _matched_diagnostic_triggers(query, _COMPLIANCE_DIAGNOSTIC_TRIGGERS):
+        return {"rows": [], "count": 0, "triggered": False}
+    from system.lib.compliance.diagnostics_projection import (
+        project_compliance_diagnostics as _project_compliance_diagnostics,
+    )
+
+    return _project_compliance_diagnostics(root, query)
+
+
+def project_capture_reflex_diagnostics(root: Path, query: str) -> dict[str, Any]:
+    if not _matched_diagnostic_triggers(query, _CAPTURE_REFLEX_DIAGNOSTIC_TRIGGERS):
+        return {"rows": [], "count": 0, "triggered": False}
+    from system.lib.capture_reflex_diagnostics import (
+        project_capture_reflex_diagnostics as _project_capture_reflex_diagnostics,
+    )
+
+    return _project_capture_reflex_diagnostics(root, query)
+
+
+def project_entry_surface_diagnostics(
+    root: Path,
+    query: str,
+    *,
+    structural_triggers: Sequence[Mapping[str, Any]] | None = None,
+    content_sync_mode: str = "auto",
+) -> dict[str, Any]:
+    if not structural_triggers and not _matched_diagnostic_triggers(
+        query,
+        (*_ENTRY_SURFACE_DIAGNOSTIC_TRIGGERS, *_ACTION_AUTONOMY_DIAGNOSTIC_TRIGGERS),
+    ):
+        return {"rows": [], "count": 0, "triggered": False}
+    from system.lib.entrypoint_health import (
+        project_entry_surface_diagnostics as _project_entry_surface_diagnostics,
+    )
+
+    return _project_entry_surface_diagnostics(
+        root,
+        query,
+        structural_triggers=structural_triggers,
+        content_sync_mode=content_sync_mode,
+    )
+
+
+def project_paper_module_freshness_diagnostics(root: Path, query: str) -> dict[str, Any]:
+    if not _matched_diagnostic_triggers(query, _PAPER_MODULE_FRESHNESS_DIAGNOSTIC_TRIGGERS):
+        return {"rows": [], "count": 0, "triggered": False}
+    from system.lib.paper_module_freshness_diagnostics import (
+        project_paper_module_freshness_diagnostics as _project_paper_module_freshness_diagnostics,
+    )
+
+    return _project_paper_module_freshness_diagnostics(root, query)
+
+
 SEMANTIC_SOURCE_KINDS = [
     "paper_modules",
     "skills",
@@ -67,6 +237,18 @@ DEFAULT_SELECTED_LIMIT = 14
 DEFAULT_SEMANTIC_TIMEOUT_MS = 1500
 ROUTINE_CONTEXT_PACK_BUDGET_MS = 3000
 ROUTINE_SEMANTIC_BUDGET_MS = 500
+ROUTINE_SELECTED_CARD_CACHE_NODE_ID = "navigation_context_pack.selected_card_payload.routine"
+ROUTINE_SELECTED_CARD_CACHE_KEY_VERSION = 1
+ROUTINE_SELECTED_CARD_CACHE_KINDS = frozenset(
+    {
+        "paper_modules",
+        "skills",
+        "type_a_autonomous_seeds",
+    }
+)
+ROUTINE_SELECTED_CARD_CACHE_FRESHNESS_POLICY = (
+    "manifest_validated_selected_card_payload_routine_context_pack_deep_profile_bypasses_cache"
+)
 BUDGET_METADATA_HEADROOM_TOKENS = 64
 ROUTINE_CONTEXT_PACK_SOFT_CEILING_TOKENS = 9000
 ROUTINE_CONTEXT_PACK_SOFT_CEILING_BYTES = 32_000
@@ -89,6 +271,24 @@ GENERATED_PROJECTION_OWNER_SELECTED_ID = "generated_projection_ownership_v1"
 TYPE_A_AUTONOMOUS_SEED_SELECTED_ID = "system_atlas_crystal_architecture_comprehension"
 TYPE_A_AUTONOMOUS_SEED_SPEED_SELECTED_ID = "agent_session_diagnostics_timing"
 EXTERNAL_BENCHMARK_CALIBRATION_SELECTED_ID = "verisoftbench_micro_10_calibration_spine_v1"
+MICROCOSM_AGENT_TASK_ROUTE_KIND_ID = "microcosm_agent_task_routes"
+MICROCOSM_AGENT_TASK_ROUTES_REL = Path("microcosm-substrate/atlas/agent_task_routes.json")
+MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID = "microcosm_organ_topology_affordance"
+MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_ID = "organ-topology"
+MICROCOSM_ORGAN_TOPOLOGY_COMMAND = (
+    "cd microcosm-substrate && PYTHONPATH=src python3 -m microcosm_core "
+    "organ-topology --root ."
+)
+MICROCOSM_ORGAN_TOPOLOGY_RELATION_TYPES = (
+    "organ.has_source_language_family",
+    "organ.shares_source_language_family_with",
+    "organ.has_no_source_modules",
+    "organ.has_mixed_source_language_families",
+    "organ.has_microcosm_standard",
+    "organ.has_standards_registry_row",
+    "organ.has_concept_route_ref",
+    "organ.has_mechanism_route_ref",
+)
 MISSION_OPERATING_PICTURE_REL = Path("state/task_ledger/views/mission_operating_picture.json")
 WORK_LEDGER_RUNTIME_STATUS_REL = Path("state/work_ledger/runtime_status.json")
 COGNITIVE_OPERATOR_CONTEXT_TRIGGERS = (
@@ -202,6 +402,11 @@ COGNITIVE_OPERATOR_PROMPT_ROUTE_TRIGGERS = (
     "docs route miss",
     "unresolved route phrase",
     "trace continuation",
+    "saved trace capsule",
+    "latest response bundle",
+    "read other traces or caps",
+    "trace/cap refinement",
+    "trace cap refinement",
 )
 COGNITIVE_OPERATOR_PRESSURE_REDUCTION_TRIGGERS = (
     "pressure to action",
@@ -488,6 +693,10 @@ OVERVIEW_TRIM_PROTECTED_KIND_IDS = {
     "standards",
     "task_ledger",
 }
+OVERVIEW_TRIM_MUST_KEEP_KIND_IDS = {
+    "skill_compression_debt",
+    "standard_skill_map",
+}
 CLUSTER_FIRST_KIND_IDS = {
     "artifact_projection_debt",
     "derived_facts",
@@ -510,9 +719,20 @@ NEXT_COMMAND_TRIM_PROTECTED_SUBSTRINGS = (
     "prompt_shelf_runs_index.py --coverage",
     '--docs-route "system crystal"',
     "--option-surface task_ledger --band cluster_flag",
-    "task_ledger_apply.py validate",
+    "task_ledger_apply.py validate --allow-warnings",
     "work_ledger.py session-status --seed-speed",
     "work_ledger.py session-claims",
+    "session-heartbeat",
+    "concurrency-pathology-index",
+    "session-yield-control",
+    "mission_transaction_preflight.py --subject-id",
+    "mutation-check",
+    "work_ledger_claim_read",
+    "microcosm_core organ-topology",
+    "microcosm-substrate/atlas/agent_task_routes.json",
+    "microcosm mission-transaction-work-spine",
+    "microcosm concurrency-mission-control",
+    "git_diff_review_context",
     "generated_state_drainer.py",
     "generated_projection_registry.py",
     "mission_transaction_preflight.py",
@@ -543,7 +763,10 @@ SOURCE_SURFACE_TRIM_PROTECTED_SUBSTRINGS = (
     "system/lib/generated_projection_registry.py",
     "tools/meta/control/generated_state_drainer.py",
     "tools/meta/factory/build_external_benchmark_calibration_spine.py",
+    "system/lib/navigation_context_pack.py",
     "system/lib/navigation_index_spine.py",
+    "microcosm-substrate/atlas/agent_task_routes.json",
+    "microcosm-substrate/src/microcosm_core/projections/organ_surface_contract.py",
 )
 BUDGET_TRIM_PROTECTED_ROWS = {
     ("cognitive_operators", COGNITIVE_OPERATOR_SELECTED_ID),
@@ -579,6 +802,7 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("system_atlas", "dom_system_atlas"),
     ("operator_thread_continuation_card", "thread_id_required"),
     ("workitem_spine", WORKITEM_SPINE_SELECTED_ID),
+    (MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID, MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_ID),
     ("generated_projection_ownership", GENERATED_PROJECTION_OWNER_SELECTED_ID),
     ("external_benchmark_calibration", EXTERNAL_BENCHMARK_CALIBRATION_SELECTED_ID),
     ("paper_modules", "system_self_comprehension_root"),
@@ -595,6 +819,7 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("paper_modules", "microcosm_public_export_type_plane"),
     ("paper_modules", "microcosm_runtime_organ_atlas"),
     ("navigation_type_plane", "public_microcosm_exports"),
+    (MICROCOSM_AGENT_TASK_ROUTE_KIND_ID, "agent-concurrency"),
     ("paper_modules", "microcosm_substrate"),
     ("standards", "std_autonomous_seed_prompt"),
     ("standards", "std_uppropagation_intake"),
@@ -1102,27 +1327,30 @@ MISSION_TRACE_LATEST_FIELDS = (
     "plan_id",
     "action_id",
 )
+MISSION_TRACE_LATEST_HANDLE_FIELDS = (
+    "mission_id",
+    "subject_id",
+    "last_surface",
+    "last_lane",
+    "last_decision_state",
+    "last_reason",
+    "current_receipt_ref",
+    "next_safe_action",
+)
 
 
 def _compact_mission_trace_row(row: Mapping[str, Any]) -> dict[str, Any]:
     compact: dict[str, Any] = {}
-    for field in MISSION_TRACE_LATEST_FIELDS:
+    for field in MISSION_TRACE_LATEST_HANDLE_FIELDS:
         value = row.get(field)
         if value in (None, "", [], {}):
             continue
-        if field == "receipt_refs" and isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-            compact[field] = [str(item) for item in value if item][:6]
-            continue
-        if field == "last_prompt_refs" and isinstance(value, Mapping):
-            prompt_refs = {
-                str(key): val
-                for key, val in value.items()
-                if val not in (None, "", [], {})
-            }
-            if prompt_refs:
-                compact[field] = prompt_refs
-            continue
         compact[field] = value
+    receipt_refs = row.get("receipt_refs")
+    if isinstance(receipt_refs, Sequence) and not isinstance(receipt_refs, (str, bytes)):
+        receipt_ref_count = len([item for item in receipt_refs if item])
+        if receipt_ref_count:
+            compact["receipt_ref_count"] = receipt_ref_count
     return compact
 
 
@@ -1227,6 +1455,34 @@ def _dirty_paths_from_git_status(repo_root: Path) -> tuple[list[str], str]:
     return paths, "git_status_porcelain_v1_z"
 
 
+def _compact_dirty_tree_rescue_coverage_for_context(
+    coverage: Mapping[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(coverage, Mapping):
+        return None
+    return {
+        key: coverage.get(key)
+        for key in (
+            "status",
+            "reason",
+            "basis",
+            "latest_ref",
+            "current_base_head",
+            "current_dirty_path_count",
+            "rescued_base_head",
+            "rescued_dirty_path_count",
+            "pathset_comparison_mode",
+            "missing_from_rescue_count",
+            "not_currently_dirty_count",
+            "content_mismatch_count",
+            "drift_class",
+            "drift_owner_hint",
+            "drift_next_safe_action",
+        )
+        if coverage.get(key) not in (None, "", [], {})
+    }
+
+
 def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str, Any] | None:
     if not _query_mentions_dirty_tree_bankruptcy(query):
         return None
@@ -1235,12 +1491,9 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
         "./repo-python tools/meta/factory/work_ledger.py "
         "session-sweep --dry-run --dirty-tree-pressure"
     )
+    dirty_paths, dirty_scan_status = _dirty_paths_from_git_status(root)
     if bankruptcy_authorized:
         source_command = f"{source_command} --bankruptcy-authorized"
-        dirty_paths, dirty_scan_status = _dirty_paths_from_git_status(root)
-    else:
-        dirty_paths = None
-        dirty_scan_status = "omitted_from_context_pack"
     source_view = str(WORK_LEDGER_RUNTIME_STATUS_REL)
     try:
         status = work_ledger_runtime.load_runtime_status(root)
@@ -1251,6 +1504,7 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
             dirty_scan_status=dirty_scan_status,
             bankruptcy_authorized=bankruptcy_authorized,
         )
+        pressure_card = work_ledger_runtime.compact_dirty_tree_pressure_card(card)
     except Exception as exc:  # noqa: BLE001 - context-pack should orient, not fail.
         return {
             "schema": "dirty_tree_bankruptcy_pressure_context_pack_card_v0",
@@ -1274,33 +1528,37 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
         "source_view": source_view,
         "source_command": source_command,
         "bankruptcy_authorized": card.get("bankruptcy_authorized"),
-        "operator_authorized_mainline_checkpoint": card.get(
+        "operator_authorized_mainline_checkpoint": pressure_card.get(
             "operator_authorized_mainline_checkpoint"
         ),
-        "operator_authorized_unclaimed_checkpoint": card.get(
+        "operator_authorized_unclaimed_checkpoint": pressure_card.get(
             "operator_authorized_unclaimed_checkpoint"
         ),
-        "dirty_scan_status": card.get("dirty_scan_status"),
-        "dirty_total": card.get("dirty_total"),
-        "dirty_path_rows": card.get("dirty_path_rows"),
-        "work_ledger_counts": card.get("work_ledger_counts"),
-        "expired_sessions_needing_finalizer": card.get("expired_sessions_needing_finalizer"),
-        "expired_claims_needing_sweep": card.get("expired_claims_needing_sweep"),
-        "dirty_path_class_counts": card.get("dirty_path_class_counts"),
-        "class_counts": card.get("class_counts") or card.get("dirty_path_class_counts"),
-        "active_claim_session_groups": card.get("active_claim_session_groups"),
-        "scoped_work_unblock": card.get("scoped_work_unblock"),
-        "containment_plan": card.get("containment_plan"),
+        "dirty_scan_status": pressure_card.get("dirty_scan_status"),
+        "dirty_total": pressure_card.get("dirty_total"),
+        "work_ledger_counts": pressure_card.get("work_ledger_counts"),
+        "dirty_path_class_counts": pressure_card.get("dirty_path_class_counts"),
+        "class_counts": pressure_card.get("class_counts")
+        or pressure_card.get("dirty_path_class_counts"),
+        "generated_owner_dirty": pressure_card.get("generated_owner_dirty"),
+        "unclaimed_source_dirty": pressure_card.get("unclaimed_source_dirty"),
+        "active_claim_session_groups": pressure_card.get("active_claim_session_groups"),
+        "scoped_work_unblock": pressure_card.get("scoped_work_unblock"),
+        "containment_plan": pressure_card.get("containment_plan"),
         "last_finalizer_receipt_ref": card.get("last_finalizer_receipt_ref"),
-        "rescue_refs": card.get("rescue_refs"),
-        "rescue_coverage": card.get("rescue_coverage"),
-        "rescue_repeat_policy": card.get("rescue_repeat_policy"),
-        "repeat_policy": card.get("repeat_policy") or card.get("rescue_repeat_policy"),
-        "mainline_commit_candidates": card.get("mainline_commit_candidates"),
-        "blocked_residuals": card.get("blocked_residuals"),
-        "next_safe_action": card.get("next_safe_action"),
-        "commands": card.get("commands"),
-        "policy": card.get("policy"),
+        "rescue_coverage": _compact_dirty_tree_rescue_coverage_for_context(
+            card.get("rescue_coverage")
+        ),
+        "rescue_repeat_policy": pressure_card.get("rescue_repeat_policy"),
+        "repeat_policy": pressure_card.get("repeat_policy")
+        or pressure_card.get("rescue_repeat_policy"),
+        "mainline_commit_candidates": pressure_card.get("mainline_commit_candidates")
+        or [],
+        "blocked_residuals": pressure_card.get("blocked_residuals"),
+        "next_safe_action": pressure_card.get("next_safe_action"),
+        "commands": pressure_card.get("commands"),
+        "policy": pressure_card.get("policy"),
+        "omission_receipt": pressure_card.get("omission_receipt"),
     }
     keep_empty_fields = {"mainline_commit_candidates"}
     return {
@@ -1496,15 +1754,83 @@ def _paper_module_slugs(repo_root: Path) -> set[str]:
 
 
 def _explicit_paper_module_slug_hits(repo_root: Path, query: str) -> list[str]:
+    tokens = _query_terms(query)
+    lower_query = str(query or "").lower()
+    if not any("_" in token for token in tokens) and "--paper-module" not in lower_query:
+        return []
     slugs = _paper_module_slugs(repo_root)
     if not slugs:
         return []
-    tokens = _query_terms(query)
     return sorted(tokens & slugs)
 
 
 def _query_terms(query: str) -> set[str]:
     return {part.strip(".,:;!?()[]{}\"'`").lower() for part in str(query or "").split() if part.strip()}
+
+
+MICROCOSM_AGENT_TASK_ROUTE_STOP_TERMS = {
+    "agent",
+    "agents",
+    "authority",
+    "boundary",
+    "card",
+    "cards",
+    "claim",
+    "claims",
+    "command",
+    "commands",
+    "consumption",
+    "evaluator",
+    "failover",
+    "input",
+    "json",
+    "lifecycle",
+    "microcosm",
+    "module",
+    "modules",
+    "mutation",
+    "organ",
+    "organs",
+    "out",
+    "public",
+    "python",
+    "receipt",
+    "receipts",
+    "ref",
+    "refs",
+    "route",
+    "routes",
+    "run",
+    "source",
+    "session",
+    "sessions",
+    "task",
+    "tasks",
+    "validator",
+}
+
+MICROCOSM_AGENT_TASK_ROUTE_HINT_TERMS = {
+    "collision",
+    "collisions",
+    "concurrency",
+    "consumption",
+    "evaluator",
+    "failover",
+    "heartbeat",
+    "microcosm",
+    "microcosms",
+    "mutation",
+    "organ",
+    "organs",
+}
+
+
+def _route_search_text(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).strip()
+
+
+def _route_search_terms(value: Any) -> set[str]:
+    return {part for part in _route_search_text(value).split() if part}
 
 
 def _is_control_plane_query(query: str) -> bool:
@@ -1548,15 +1874,154 @@ def _is_microcosm_paper_module_depth_query(query: str) -> bool:
     )
 
 
+def _load_microcosm_agent_task_routes(repo_root: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    payload = _load_json(repo_root / MICROCOSM_AGENT_TASK_ROUTES_REL)
+    routes = [
+        row
+        for row in (payload.get("routes") if isinstance(payload.get("routes"), list) else [])
+        if isinstance(row, dict)
+    ]
+    return payload, routes
+
+
+def _microcosm_agent_task_route_candidates(
+    repo_root: Path,
+    query: str,
+    *,
+    limit: int = 3,
+) -> list[dict[str, Any]]:
+    query_text = _route_search_text(query)
+    query_terms = _route_search_terms(query)
+    query_specific_terms = query_terms - MICROCOSM_AGENT_TASK_ROUTE_STOP_TERMS
+    if not query_specific_terms:
+        return []
+    if not (
+        query_terms & MICROCOSM_AGENT_TASK_ROUTE_HINT_TERMS
+        or "agent concurrency" in query_text
+        or "agent task route" in query_text
+    ):
+        return []
+    _, routes = _load_microcosm_agent_task_routes(repo_root)
+    if not routes:
+        return []
+
+    matches: list[dict[str, Any]] = []
+    for route in routes:
+        task_class = str(route.get("task_class") or "").strip()
+        if not task_class:
+            continue
+        route_text = json.dumps(route, ensure_ascii=False, sort_keys=True)
+        route_terms = _route_search_terms(route_text)
+        task_terms = _route_search_terms(task_class)
+        matched_terms = sorted(query_specific_terms & route_terms)
+        exact_task_class = bool(task_class and _route_search_text(task_class) in query_text)
+        task_terms_covered = bool(task_terms and task_terms <= query_terms)
+        if not exact_task_class and not task_terms_covered and len(matched_terms) < 3:
+            continue
+
+        score = 0.92 + min(len(matched_terms), 8) * 0.011
+        if exact_task_class:
+            score += 0.14
+        elif task_terms_covered:
+            score += 0.10
+        primary_organ_id = str(route.get("primary_organ_id") or "").strip()
+        if primary_organ_id and _route_search_terms(primary_organ_id) <= query_terms:
+            score += 0.04
+        if {"heartbeat", "collision", "mutation", "speed"} & set(matched_terms):
+            score += 0.02
+        matches.append(
+            {
+                "kind_id": MICROCOSM_AGENT_TASK_ROUTE_KIND_ID,
+                "id": task_class,
+                "score": min(score, 1.035),
+                "reason": (
+                    "High-level task terms matched an existing Microcosm agent-task route "
+                    f"({task_class}) without requiring organ ids."
+                ),
+                "source_kind": "microcosm_agent_task_route_projection",
+                "facet": "agent_task_route_selector",
+                "matched_terms": matched_terms[:12],
+            }
+        )
+
+    matches.sort(key=lambda row: (-float(row.get("score") or 0.0), str(row.get("id") or "")))
+    return matches[:limit]
+
+
+def _microcosm_organ_topology_affordance_candidates(query: str) -> list[dict[str, Any]]:
+    lower_query = str(query or "").casefold().replace("_", " ").replace("-", " ")
+    terms = _route_search_terms(lower_query)
+    if "organ topology" in lower_query or "organ relationship topology" in lower_query:
+        matched = ["organ topology"]
+    elif not ({"microcosm", "microcosms"} & terms) or not ({"organ", "organs"} & terms):
+        return []
+    else:
+        relationship_terms = {
+            "edge",
+            "edges",
+            "relationship",
+            "relationships",
+            "route",
+            "routes",
+            "share",
+            "shared",
+            "source",
+            "standard",
+            "standards",
+            "topology",
+        }
+        evidence_terms = {
+            "javascript",
+            "js",
+            "language",
+            "mechanism",
+            "concept",
+            "modules",
+            "python",
+            "source",
+            "typescript",
+            "ts",
+        }
+        if not (terms & relationship_terms) or not (terms & evidence_terms):
+            return []
+        matched = sorted((terms & relationship_terms) | (terms & evidence_terms))[:12]
+
+    return [
+        {
+            "kind_id": MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID,
+            "id": MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_ID,
+            "score": 1.034,
+            "reason": (
+                "Microcosm organ relationship wording should use the existing "
+                "organ-topology CLI affordance before bespoke grep or another topology layer."
+            ),
+            "source_kind": "microcosm_organ_topology_affordance_anchor",
+            "facet": "organ_relationship_query_affordance",
+            "matched_terms": matched,
+        }
+    ]
+
+
 def _is_public_safe_dissemination_gate_query(query: str) -> bool:
     lower_query = str(query or "").casefold().replace("_", " ").replace("-", " ")
     terms = _query_terms(lower_query)
-    if any(phrase.replace("-", " ") in lower_query for phrase in PUBLIC_SAFE_DISSEMINATION_GATE_QUERY_PHRASES):
+    specific_phrases = tuple(
+        phrase
+        for phrase in PUBLIC_SAFE_DISSEMINATION_GATE_QUERY_PHRASES
+        if phrase not in {"public safe", "public-safe"}
+    )
+    if any(phrase.replace("-", " ") in lower_query for phrase in specific_phrases):
         return True
+    if "public safe" in lower_query and (
+        {"atlas", "dissemination", "leaf", "recipient", "send"} & terms
+    ):
+        return True
+    has_dissemination_scope = bool({"dissemination", "recipient", "send"} & terms)
+    has_gate_scope = bool({"atlas", "capability", "disclosure", "gate", "leaf", "readiness", "artifact"} & terms)
     return bool(
-        {"atlas", "capability", "disclosure", "dissemination", "gate", "leaf", "public", "recipient", "send"}
-        & terms
-        and {"refs", "ref", "readiness", "safe", "gate", "release", "artifact"} & terms
+        (has_dissemination_scope and has_gate_scope)
+        or ({"atlas", "gate"} <= terms and {"dissemination", "disclosure", "safe"} & terms)
+        or ({"leaf", "readiness"} <= terms and {"public", "safe", "dissemination"} & terms)
     )
 
 
@@ -1788,6 +2253,15 @@ def _is_speed_refinement_query(query: str) -> bool:
         "improvements",
     }
     return bool((terms & speed_terms) and (terms & telemetry_terms))
+
+
+def _is_named_seed_replay_query(query: str) -> bool:
+    lower_query = str(query or "").casefold().replace("_", " ").replace("-", " ")
+    terms = _query_terms(lower_query)
+    return bool(
+        {"autonomous", "seed"} <= terms
+        and {"replay", "continuation", "receipt", "receipts"} & terms
+    )
 
 
 def _is_external_benchmark_calibration_query(query: str) -> bool:
@@ -2178,6 +2652,94 @@ def _registry_context_pack_anchors(repo_root: Path, query: str) -> list[dict[str
     return rows
 
 
+def _skill_passport_candidate_rows(repo_root: Path, query: str, *, limit: int = 8) -> list[dict[str, Any]]:
+    """Propose skill rows directly from authored compression passports.
+
+    Semantic expansion and per-skill context_pack_anchors are both useful, but
+    std_skill::compression_passport is the standard-owned first-contact
+    affordance. This keeps context-pack from dropping authored skill rows when
+    semantic expansion times out or a skill has not added bespoke anchors.
+    """
+
+    if _is_speed_refinement_query(query):
+        return []
+    query_tokens = _gate_tokens(query)
+    if not query_tokens:
+        return []
+    lower_query = str(query or "").casefold()
+    normalized_query = re.sub(r"[^a-z0-9]+", "_", lower_query).strip("_")
+    registry = _load_json(repo_root / "codex/doctrine/skills/skill_registry.json")
+    candidates: list[tuple[float, int, str, dict[str, Any]]] = []
+    families = registry.get("families") if isinstance(registry.get("families"), list) else []
+    for family in families:
+        if not isinstance(family, Mapping):
+            continue
+        skills = family.get("skills") if isinstance(family.get("skills"), list) else []
+        for skill in skills:
+            if not isinstance(skill, Mapping):
+                continue
+            skill_id = str(skill.get("id") or "").strip()
+            passport = skill.get("compression_passport")
+            if not skill_id or not isinstance(passport, Mapping):
+                continue
+            hyphen_id = skill_id.replace("_", "-")
+            spaced_id = skill_id.replace("_", " ")
+            exact_id_match = (
+                skill_id.casefold() in lower_query
+                or hyphen_id.casefold() in lower_query
+                or spaced_id.casefold() in lower_query
+                or skill_id.casefold() in normalized_query
+            )
+            cluster_keys = passport.get("cluster_keys")
+            positive_overlap = (
+                _gate_overlap_count(query_tokens, passport.get("when_to_open"))
+                + _gate_overlap_count_array(query_tokens, cluster_keys)
+                + (_gate_overlap_count(query_tokens, passport.get("flag")) // 2)
+            )
+            if exact_id_match:
+                positive_overlap += 6
+            if positive_overlap <= 0:
+                continue
+            if not exact_id_match and positive_overlap < 2:
+                continue
+            agent_surface = skill.get("agent_surface") if isinstance(skill.get("agent_surface"), Mapping) else {}
+            negative_overlap = (
+                _gate_overlap_count(query_tokens, passport.get("when_not_to_open"))
+                + _gate_overlap_count(query_tokens, skill.get("not_when"))
+                + _gate_overlap_count(query_tokens, agent_surface.get("not_when"))
+            )
+            if negative_overlap > 0 and negative_overlap >= positive_overlap:
+                continue
+            matched_cluster_keys = [
+                str(item)
+                for item in (cluster_keys if isinstance(cluster_keys, list) else [])
+                if _gate_overlap_count(query_tokens, item) > 0
+            ]
+            score = min(1.006 if exact_id_match else 0.996, 0.94 + positive_overlap * 0.01)
+            candidates.append(
+                (
+                    score,
+                    -positive_overlap,
+                    skill_id,
+                    {
+                        "kind_id": "skills",
+                        "id": skill_id,
+                        "score": round(score, 6),
+                        "reason": (
+                            "Skill compression_passport matched the task via "
+                            f"positive_overlap={positive_overlap}, "
+                            f"negative_overlap={negative_overlap}."
+                        ),
+                        "source_kind": "skill_compression_passport_candidate",
+                        "facet": "compression_passport",
+                        "matched_cluster_keys": matched_cluster_keys,
+                    },
+                )
+            )
+    candidates.sort(key=lambda item: (-item[0], item[1], item[2]))
+    return [row for *_prefix, row in candidates[:limit]]
+
+
 def _cognitive_operator_anchor_candidates(query: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     if _context_anchor_matches(query, list(COGNITIVE_OPERATOR_CONTEXT_TRIGGERS)):
@@ -2450,6 +3012,39 @@ def _merge_candidates(
             str(row.get("reason") or "registry context-pack anchor"),
             source_kind=row.get("source_kind"),
             facet=row.get("facet"),
+        )
+
+    for row in _microcosm_agent_task_route_candidates(repo_root, query):
+        add(
+            str(row["kind_id"]),
+            str(row["id"]),
+            float(row.get("score") or 0.0),
+            str(row.get("reason") or "Microcosm agent-task route projection"),
+            source_kind=row.get("source_kind"),
+            facet=row.get("facet"),
+            matched_terms=row.get("matched_terms"),
+        )
+
+    for row in _microcosm_organ_topology_affordance_candidates(query):
+        add(
+            str(row["kind_id"]),
+            str(row["id"]),
+            float(row.get("score") or 0.0),
+            str(row.get("reason") or "Microcosm organ-topology affordance"),
+            source_kind=row.get("source_kind"),
+            facet=row.get("facet"),
+            matched_terms=row.get("matched_terms"),
+        )
+
+    for row in _skill_passport_candidate_rows(repo_root, query):
+        add(
+            str(row["kind_id"]),
+            str(row["id"]),
+            float(row.get("score") or 0.0),
+            str(row.get("reason") or "skill compression passport candidate"),
+            source_kind=row.get("source_kind"),
+            facet=row.get("facet"),
+            matched_cluster_keys=row.get("matched_cluster_keys"),
         )
 
     for row in _cognitive_operator_anchor_candidates(query):
@@ -2951,6 +3546,7 @@ def _merge_candidates(
         "system_crystal_protocol_anchor",
         "public_safe_dissemination_gate_anchor",
         "prompt_shelf_metadata_anchor",
+        "skill_registry_context_pack_anchor",
     }
     for row in rows:
         key = (str(row.get("kind_id") or ""), str(row.get("id") or ""))
@@ -3071,23 +3667,214 @@ _AFFORDANCE_PASSPORT_FIELDS: tuple[str, ...] = (
     "sufficiency_claims",
 )
 
+_SOURCE_AUTHORITY_FALLBACK_KIND_IDS: frozenset[str] = frozenset(
+    {
+        "compression_profiles",
+        "paper_modules",
+        "standards",
+        "system_atlas",
+        "navigation_type_plane",
+        "concepts",
+        "mechanisms",
+        "principles",
+        "axiom_candidates",
+        "cognitive_operators",
+        "skills",
+    }
+)
+
+_PASSPORT_AUTHORITY_LAYER_BY_KIND: Mapping[str, str] = {
+    "axiom_candidates": "constitutional",
+    "concepts": "constitutional",
+    "compression_profiles": "constitutional",
+    "principles": "constitutional",
+    "standards": "constitutional",
+    "cognitive_operators": "operational",
+    "mechanisms": "operational",
+    "skills": "operational",
+    "navigation_type_plane": "projection",
+    "paper_modules": "projection",
+    "system_atlas": "projection",
+}
+
+_PASSPORT_AUTHORITY_TIER_BY_LAYER: Mapping[str, str] = {
+    "constitutional": "governing_doctrine_authority",
+    "operational": "owner_surface_authority",
+    "projection": "non_authoritative_projection",
+}
+
+
+def _passport_source_tuple(
+    row: Mapping[str, Any],
+    *,
+    kind_id: str,
+    authored_passport: bool,
+) -> dict[str, Any]:
+    """Expose source/proof routes for selected-row passports without promoting them."""
+    if kind_id not in _SOURCE_AUTHORITY_FALLBACK_KIND_IDS:
+        return {}
+    owner_routes = row.get("owner_routes") if isinstance(row.get("owner_routes"), Mapping) else {}
+    omission_receipt = row.get("omission_receipt") if isinstance(row.get("omission_receipt"), Mapping) else {}
+    render_profile = row.get("render_profile") if isinstance(row.get("render_profile"), Mapping) else {}
+    currentness = row.get("currentness") if isinstance(row.get("currentness"), Mapping) else {}
+
+    canonical_source = (
+        row.get("source_ref")
+        or row.get("file")
+        or row.get("registry_ref")
+        or row.get("authority_path")
+    )
+    safe_drilldown = (
+        row.get("drilldown_command")
+        or owner_routes.get("entry_command")
+        or omission_receipt.get("drilldown")
+        or row.get("evidence_command")
+    )
+    evaluator_lane = (
+        owner_routes.get("check_command")
+        or row.get("validation_command")
+        or row.get("evidence_command")
+        or safe_drilldown
+    )
+    receipt_lane = (
+        owner_routes.get("status_command")
+        or row.get("receipt_command")
+        or row.get("evidence_command")
+        or omission_receipt.get("drilldown")
+    )
+    source_fields_present = any(
+        value not in (None, "", [], {})
+        for value in (
+            canonical_source,
+            safe_drilldown,
+            evaluator_lane,
+            receipt_lane,
+            row.get("evidence_command"),
+            owner_routes,
+            currentness,
+        )
+    )
+    if not source_fields_present:
+        return {}
+
+    projection_not_authority = bool(
+        render_profile.get("projection_not_authority")
+        or currentness.get("safe_to_commit_generated_outputs_without_sources") is False
+    )
+    layer = _PASSPORT_AUTHORITY_LAYER_BY_KIND.get(kind_id)
+    if projection_not_authority:
+        layer = "projection"
+    if not layer:
+        layer = "operational"
+    out: dict[str, Any] = {
+        "canonical_source": canonical_source,
+        "authority_tier": _PASSPORT_AUTHORITY_TIER_BY_LAYER.get(layer),
+        "authority_layer": layer,
+        "override_semantics": (
+            "Authored compression_passport guides navigation but cannot override the canonical source or owner lane."
+            if authored_passport
+            else "Fallback metadata cannot override the canonical source or owner lane."
+        ),
+        "runtime_consumers": ["navigation_context_pack.selected_rows"],
+        "safe_drilldown": safe_drilldown,
+        "evaluator_lane": evaluator_lane,
+        "receipt_lane": receipt_lane,
+        "proof_path": evaluator_lane or receipt_lane or safe_drilldown,
+        "authority_boundary": (
+            "authored_compression_passport_projection_not_source_authority"
+            if authored_passport
+            else "derived_from_selected_row_metadata_not_authored_compression_passport"
+        ),
+    }
+    owner_lane = {
+        key: owner_routes.get(key)
+        for key in (
+            "entry_command",
+            "check_command",
+            "refresh_command",
+            "status_command",
+            "root_drilldown_command",
+        )
+        if owner_routes.get(key) not in (None, "", [], {})
+    }
+    if owner_lane:
+        out["owner_lane"] = owner_lane
+    if row.get("evidence_command"):
+        out["evidence_command"] = row.get("evidence_command")
+    if projection_not_authority:
+        out["projection_not_authority"] = True
+    if currentness.get("status"):
+        out["currentness_status"] = currentness.get("status")
+    return {key: value for key, value in out.items() if value not in (None, "", [], {})}
+
 
 def _passport_standard_ref(kind_id: str) -> str:
     if kind_id == "system_atlas":
         return "codex/standards/std_system_atlas.json"
     if kind_id == "skills":
         return "codex/standards/std_skill.json::compression_passport"
+    if kind_id == "compression_profiles":
+        return "codex/doctrine/compression_profiles.json::compression_passport"
     return f"codex/standards/std_{kind_id.rstrip('s')}.json"
 
 
-def _affordance_passport(row: Mapping[str, Any], *, kind_id: str) -> dict[str, Any]:
+def _source_authority_fallback_passport(row: Mapping[str, Any], *, kind_id: str) -> dict[str, Any]:
+    """Expose row-owned source/proof routes without claiming an authored passport."""
+    source_tuple = _passport_source_tuple(row, kind_id=kind_id, authored_passport=False)
+    if not source_tuple:
+        return {}
+    row_id = _row_identity(row, kind_id)
+    title = row.get("title") or row.get("name") or row.get("canonical_label") or row_id
+    out: dict[str, Any] = {
+        "status": "source_authority_fallback",
+        "source": "row_authority_fields",
+        "atom": _trim(title, max_chars=96),
+        "cluster_keys": [
+            "source_authority",
+            "owner_drilldown",
+            kind_id,
+        ],
+        "when_to_open": "Use when the row lacks an authored compression_passport but already declares source, drilldown, proof, or owner routes.",
+        "when_not_to_open": "Do not treat this fallback as authored doctrine or as permission to mutate generated projections.",
+        "safe_drilldown": source_tuple.get("proof_path"),
+        "owning_standard": _passport_standard_ref(kind_id),
+        "sufficiency_claims": [
+            "The row exposes a legal source/proof route without inventing a compression_passport.",
+        ],
+    }
+    out.update(source_tuple)
+    out["authority_tier"] = "row_owner_metadata_not_source_authority"
+    return {key: value for key, value in out.items() if value not in (None, "", [], {})}
+
+
+def _source_authority_fallback_enabled(query: str) -> bool:
+    lowered = str(query or "").lower()
+    return any(
+        phrase in lowered
+        for phrase in (
+            "proof path",
+            "canonical source",
+            "authority tier",
+            "doctrine routing weave",
+            "release doctrine profile",
+        )
+    )
+
+
+def _affordance_passport(
+    row: Mapping[str, Any],
+    *,
+    kind_id: str,
+    source_authority_fallback: bool = False,
+) -> dict[str, Any]:
     """Extract the standard-owned affordance fields a row carries, without inventing.
 
     Reads from `row.compression_passport` first (the std_skill-owned source per
     `codex/standards/std_skill.json::compression_passport`; same shape can be
     populated on paper-module / standard rows once those standards adopt the
-    passport), then falls back to top-level row fields. Values are preserved as
-    is; absent fields are simply omitted so consumers can detect coverage.
+    passport), then falls back to top-level row fields. When no authored
+    affordance fields exist, the helper can emit a clearly marked
+    source-authority fallback derived only from existing row owner metadata.
 
     Operator B2 directive 2026-04-29: the passport is route authority, lexical
     similarity is a hint. This helper is the projection-layer guarantee that
@@ -3106,6 +3893,10 @@ def _affordance_passport(row: Mapping[str, Any], *, kind_id: str) -> dict[str, A
     if isinstance(row.get("not_when"), str) and row.get("not_when"):
         out["not_when"] = row.get("not_when")
     if not out:
+        if source_authority_fallback:
+            fallback = _source_authority_fallback_passport(row, kind_id=kind_id)
+            if fallback:
+                return fallback
         return {
             "status": "absent",
             "reason": (
@@ -3118,6 +3909,13 @@ def _affordance_passport(row: Mapping[str, Any], *, kind_id: str) -> dict[str, A
     out["status"] = "present"
     out["source"] = "compression_passport" if isinstance(passport_source, Mapping) and passport_source else "row_top_level_fallback"
     out["owning_standard"] = _passport_standard_ref(kind_id)
+    source_tuple = _passport_source_tuple(
+        row,
+        kind_id=kind_id,
+        authored_passport=bool(passport_source),
+    )
+    for key, value in source_tuple.items():
+        out.setdefault(key, value)
     return out
 
 
@@ -3379,6 +4177,7 @@ def _compact_option_row(
     kind_id: str,
     score: float,
     reason: str,
+    query: str = "",
 ) -> dict[str, Any]:
     row_id = _row_identity(row, kind_id)
     title = row.get("title") or row.get("name") or row.get("canonical_label") or row.get("slug") or row.get("skill_id") or row_id
@@ -3419,7 +4218,11 @@ def _compact_option_row(
         "evidence_command": evidence_command,
         "debug_trace_command": debug_trace,
         "cost_estimate_tokens": max(24, (_json_bytes(dict(row)) + 15) // 16),
-        "affordance_passport": _affordance_passport(row, kind_id=kind_id),
+        "affordance_passport": _affordance_passport(
+            row,
+            kind_id=kind_id,
+            source_authority_fallback=_source_authority_fallback_enabled(query),
+        ),
     }
     if kind_id == "skills" and row_id == "doctrine_derivation":
         passport = result.get("affordance_passport")
@@ -3447,8 +4250,20 @@ def _compact_option_row(
             }
         else:
             result["currentness"] = currentness
+        passport = result.get("affordance_passport")
+        if (
+            isinstance(passport, dict)
+            and passport.get("status") == "source_authority_fallback"
+        ):
+            if currentness.get("status") and not passport.get("currentness_status"):
+                passport["currentness_status"] = currentness.get("status")
+            if currentness.get("safe_to_commit_generated_outputs_without_sources") is False:
+                passport["projection_not_authority"] = True
+                passport["authority_layer"] = "projection"
     if isinstance(row.get("nearest_standard"), Mapping):
         result["nearest_standard"] = dict(row.get("nearest_standard") or {})
+    if isinstance(row.get("upstream_doctrine_route"), Mapping):
+        result["upstream_doctrine_route"] = dict(row.get("upstream_doctrine_route") or {})
     if isinstance(row.get("omission_receipt"), Mapping):
         result["omission_receipt"] = dict(row.get("omission_receipt") or {})
     if kind_id == "compression_profiles":
@@ -3597,6 +4412,48 @@ def _compact_option_row(
     return result
 
 
+def _python_context_upstream_doctrine_route(
+    canonical_source: str,
+    *,
+    route_kind: str,
+    source_compile_command: str,
+    receipt_lane: str,
+    parent_file_command: str | None = None,
+) -> dict[str, Any]:
+    route_commands = {
+        "source": source_compile_command,
+        "scope_index": "./repo-python kernel.py --option-surface standards --band card --ids std_python_scope_index",
+        "standard": "./repo-python kernel.py --option-surface standards --band card --ids std_python",
+        "doctrine": "./repo-python kernel.py --paper-module navigation_hologram_theory",
+        "skill": "./repo-python kernel.py --option-surface skills --band card --ids profile_governed_compression",
+    }
+    if parent_file_command:
+        route_commands["parent_file"] = parent_file_command
+    return {
+        "schema": "python_upstream_doctrine_route_v0",
+        "status": "available",
+        "route_kind": route_kind,
+        "canonical_source": canonical_source,
+        "authority_layer": "operational",
+        "authority_tier": "owner_surface_route_not_source_authority",
+        "authority_boundary": "route_metadata_only_open_canonical_source_before_mutation",
+        "source_projection": "codex/standards/std_python_scope_index.json",
+        "governing_standard": "codex/standards/std_python.py",
+        "governing_doctrine": "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "governing_skill": "codex/doctrine/skills/compression/profile_governed_compression.md",
+        "override_semantics": "This route cannot override Python source, std_python.py, or the scope-index builder; it only exposes the legal drilldown chain.",
+        "runtime_consumers": [
+            "python_files.card",
+            "python_scopes.card",
+            "navigation_context_pack.selected_rows",
+        ],
+        "evaluator_lane": source_compile_command,
+        "receipt_lane": receipt_lane,
+        "proof_path": [source_compile_command, receipt_lane],
+        "route_commands": route_commands,
+    }
+
+
 def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -> dict[str, Any] | None:
     """Render exact Python target candidates without reopening the full option surface."""
     packet = candidate.get("target_packet")
@@ -3608,6 +4465,7 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
             return None
         scope_count = packet.get("scope_count")
         public_symbol_count = packet.get("public_symbol_count")
+        card_command = packet.get("card_command") or f"./repo-python kernel.py --option-surface python_files --band card --ids {path}"
         option_row: dict[str, Any] = {
             "file_id": path,
             "path": path,
@@ -3618,8 +4476,7 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
                 f"public_symbol_count={public_symbol_count or 0}."
             ),
             "source_ref": packet.get("source_ref") or "codex/standards/std_python_scope_index.json",
-            "drilldown_command": packet.get("card_command")
-            or f"./repo-python kernel.py --option-surface python_files --band card --ids {path}",
+            "drilldown_command": card_command,
             "evidence_command": f"./repo-python kernel.py --compile {path}",
             "currentness": dict(packet.get("projection_currentness") or {})
             if isinstance(packet.get("projection_currentness"), Mapping)
@@ -3635,9 +4492,14 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
                     "cross-file dependency closure",
                 ],
                 "reason": "Context-pack already resolved the exact file handle; use the Python option-surface card when richer generated metadata is needed.",
-                "drilldown": packet.get("card_command")
-                or f"./repo-python kernel.py --option-surface python_files --band card --ids {path}",
+                "drilldown": card_command,
             },
+            "upstream_doctrine_route": _python_context_upstream_doctrine_route(
+                path,
+                route_kind="python_file",
+                source_compile_command=f"./repo-python kernel.py --compile {path}",
+                receipt_lane=card_command,
+            ),
         }
     elif kind_id == "python_scopes":
         scope_id = str(packet.get("scope_id") or packet.get("symbol_id") or candidate.get("id") or "").strip()
@@ -3648,6 +4510,9 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
         source_span = packet.get("source_span") if isinstance(packet.get("source_span"), Mapping) else {}
         line_start = source_span.get("line_start") if isinstance(source_span, Mapping) else None
         line_end = source_span.get("line_end") if isinstance(source_span, Mapping) else None
+        card_command = packet.get("card_command") or f"./repo-python kernel.py --option-surface python_scopes --band card --ids {scope_id}"
+        parent_file_command = packet.get("parent_file_command")
+        source_compile_command = f"./repo-python kernel.py --compile {path}" if path else str(parent_file_command or card_command)
         option_row = {
             "scope_id": scope_id,
             "symbol_id": packet.get("symbol_id") or scope_id,
@@ -3659,9 +4524,8 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
                 + (f" at lines {line_start}-{line_end}." if line_start else ".")
             ),
             "source_ref": packet.get("source_ref") or "codex/standards/std_python_scope_index.json",
-            "drilldown_command": packet.get("card_command")
-            or f"./repo-python kernel.py --option-surface python_scopes --band card --ids {scope_id}",
-            "evidence_command": packet.get("parent_file_command"),
+            "drilldown_command": card_command,
+            "evidence_command": parent_file_command,
             "currentness": dict(packet.get("projection_currentness") or {})
             if isinstance(packet.get("projection_currentness"), Mapping)
             else {},
@@ -3676,11 +4540,17 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
                     "unbounded source span text",
                 ],
                 "reason": "Context-pack already resolved the exact symbol handle; use the Python option-surface card when richer generated metadata is needed.",
-                "drilldown": packet.get("card_command")
-                or f"./repo-python kernel.py --option-surface python_scopes --band card --ids {scope_id}",
+                "drilldown": card_command,
             },
             "source_span": dict(source_span) if isinstance(source_span, Mapping) else {},
-            "parent_file_command": packet.get("parent_file_command"),
+            "parent_file_command": parent_file_command,
+            "upstream_doctrine_route": _python_context_upstream_doctrine_route(
+                f"{path}::{name}" if path else scope_id,
+                route_kind="python_scope",
+                source_compile_command=source_compile_command,
+                receipt_lane=card_command,
+                parent_file_command=str(parent_file_command or ""),
+            ),
         }
     else:
         return None
@@ -3700,11 +4570,106 @@ def _selected_python_target_row(candidate: Mapping[str, Any], *, kind_id: str) -
     return compact
 
 
+def _routine_selected_card_cache_input_paths(kind_id: str, ids: Sequence[str]) -> tuple[str, ...]:
+    common = (
+        "system/lib/standard_option_surface.py",
+        "system/lib/navigation_context_pack.py",
+    )
+    clean_ids = [str(item) for item in ids if str(item or "").strip()]
+    if kind_id == "paper_modules":
+        return common + (
+            "codex/doctrine/paper_modules/_index.json",
+            "codex/doctrine/paper_modules/_route_coverage.json",
+            *(f"codex/doctrine/paper_modules/{row_id}.md" for row_id in clean_ids),
+        )
+    if kind_id == "skills":
+        skill_dirs = (
+            "kernel",
+            "compression",
+            "bridge_runtime",
+            "doctrine",
+            "annex",
+            "frontend",
+            "raw_seed",
+        )
+        return common + (
+            "codex/doctrine/skills/skill_registry.json",
+            *(
+                f"codex/doctrine/skills/{skill_dir}/{row_id}.md"
+                for row_id in clean_ids
+                for skill_dir in skill_dirs
+            ),
+            *(f".agents/skills/{row_id.replace('_', '-')}/SKILL.md" for row_id in clean_ids),
+        )
+    if kind_id == "type_a_autonomous_seeds":
+        return common + (
+            "codex/doctrine/skills/kernel/type_a_autonomous_seed_loop.md",
+            "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+            *(
+                f"state/meta_missions/type_a_autonomous_seed_loop/seeds/{row_id}_autonomous_seed.md"
+                for row_id in clean_ids
+            ),
+            *(
+                f"state/meta_missions/type_a_autonomous_seed_loop/seeds/{row_id}_autonomous_seed.json"
+                for row_id in clean_ids
+            ),
+        )
+    return common
+
+
+def _option_surface_card_payload_for_context_pack(
+    repo_root: Path,
+    kind_id: str,
+    ids: Sequence[str],
+    *,
+    use_card_cache: bool,
+    card_cache_statuses: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    normalized_ids = sorted({str(item) for item in ids if str(item or "").strip()})
+    if not use_card_cache or kind_id not in ROUTINE_SELECTED_CARD_CACHE_KINDS:
+        return build_option_surface(repo_root, kind_id, band="card", ids=normalized_ids)
+
+    from system.lib.command_node_cache import cached_command_node
+
+    def _build() -> dict[str, Any]:
+        payload = build_option_surface(repo_root, kind_id, band="card", ids=normalized_ids)
+        return json.loads(json.dumps(payload, default=str))
+
+    payload, cache_status = cached_command_node(
+        repo_root,
+        node_id=ROUTINE_SELECTED_CARD_CACHE_NODE_ID,
+        key={
+            "version": ROUTINE_SELECTED_CARD_CACHE_KEY_VERSION,
+            "kind_id": kind_id,
+            "band": "card",
+            "ids": normalized_ids,
+        },
+        input_paths=_routine_selected_card_cache_input_paths(kind_id, normalized_ids),
+        ttl_s=0.0,
+        builder=_build,
+        freshness_policy=ROUTINE_SELECTED_CARD_CACHE_FRESHNESS_POLICY,
+        dynamic_inputs_manifested=True,
+    )
+    if card_cache_statuses is not None:
+        card_cache_statuses.append(
+            {
+                "kind_id": kind_id,
+                "id_count": len(normalized_ids),
+                "status": cache_status.get("status"),
+                "reason": cache_status.get("reason"),
+                "cache_path": cache_status.get("cache_path"),
+            }
+        )
+    return dict(payload) if isinstance(payload, Mapping) else {}
+
+
 def _selected_rows(
     repo_root: Path,
     candidates: list[dict[str, Any]],
     *,
     query: str = "",
+    use_card_cache: bool = False,
+    card_cache_statuses: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     by_kind: dict[str, list[dict[str, Any]]] = {}
     selected: list[dict[str, Any]] = []
@@ -3753,11 +4718,26 @@ def _selected_rows(
             continue
         if kind_id == "type_a_autonomous_seeds":
             for candidate in rows:
-                selected.append(_type_a_autonomous_seed_selected_row(repo_root, candidate))
+                selected.append(
+                    _type_a_autonomous_seed_selected_row(
+                        repo_root,
+                        candidate,
+                        use_card_cache=use_card_cache,
+                        card_cache_statuses=card_cache_statuses,
+                    )
+                )
             continue
         if kind_id == "workitem_spine":
             for candidate in rows:
                 selected.append(_workitem_spine_selected_row(repo_root, candidate))
+            continue
+        if kind_id == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID:
+            for candidate in rows:
+                selected.append(_microcosm_agent_task_route_selected_row(repo_root, candidate))
+            continue
+        if kind_id == MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID:
+            for candidate in rows:
+                selected.append(_microcosm_organ_topology_affordance_selected_row(candidate))
             continue
         if kind_id == "generated_projection_ownership":
             for candidate in rows:
@@ -3780,7 +4760,13 @@ def _selected_rows(
             rows = unresolved_python_rows
 
         ids = [str(row["id"]) for row in rows]
-        payload = build_option_surface(repo_root, kind_id, band="card", ids=ids)
+        payload = _option_surface_card_payload_for_context_pack(
+            repo_root,
+            kind_id,
+            ids,
+            use_card_cache=use_card_cache,
+            card_cache_statuses=card_cache_statuses,
+        )
         option_rows = payload.get("rows") if isinstance(payload.get("rows"), list) else []
         score_by_id = {str(row["id"]): float(row.get("score") or 0.0) for row in rows}
         reason_by_id = {str(row["id"]): str(row.get("reason") or "") for row in rows}
@@ -3798,7 +4784,13 @@ def _selected_rows(
                 candidate_id = row_id.removeprefix("compression_profile:").removesuffix("::card")
             score = score_by_id.get(candidate_id, score_by_id.get(row_id, 0.5))
             reason = reason_by_id.get(candidate_id, reason_by_id.get(row_id, "selected option row"))
-            compact = _compact_option_row(option_row, kind_id=kind_id, score=score, reason=reason)
+            compact = _compact_option_row(
+                option_row,
+                kind_id=kind_id,
+                score=score,
+                reason=reason,
+                query=query,
+            )
             if kind_id == "standards":
                 matched_rules = _query_matched_standard_validation_rules(repo_root, option_row, query)
                 if matched_rules:
@@ -4023,20 +5015,57 @@ def _dissemination_gate_selected_row(repo_root: Path, candidate: Mapping[str, An
     report_json = repo_root / "state/system_atlas/dissemination_gate_report.json"
     disclosure_map = repo_root / "docs/system_atlas/disclosure_projection_map.md"
     readiness_audit = repo_root / "docs/dissemination/public_leaf_readiness_audit.md"
+    dissemination_readme = repo_root / "docs/dissemination/README.md"
     required_paths = [report, report_json, disclosure_map, readiness_audit]
+    retired_framing = False
+    if dissemination_readme.exists():
+        readme_text = dissemination_readme.read_text(encoding="utf-8", errors="replace").casefold()
+        retired_framing = (
+            "tree-wide retirement notice" in readme_text
+            and "the current strategy is:" in readme_text
+        )
     status = "available_unverified_freshness" if all(path.exists() for path in required_paths) else "missing_outputs"
+    if retired_framing:
+        status = "retired_framing_advisory"
+    retirement_boundary = {
+        "status": "retired_framing_advisory" if retired_framing else "not_detected",
+        "source_ref": "docs/dissemination/README.md",
+        "summary": (
+            "The dissemination tree declares the fail-closed publication-gate, public-toggle, "
+            "claim-tier, and controlled-review framing retired. Treat this gate as an advisory "
+            "historical disclosure report, not the release-readiness control signal."
+        ),
+        "current_strategy": [
+            "macro substrate is where the work runs",
+            "microcosm is a prototype exhibition being rebuilt",
+            "video is the primary dissemination surface with humble v0.0 prototype framing",
+            "Lean theorem fresh-clone type-checking is the uncopyable proof element",
+        ],
+        "not_current_authority_for": [
+            "publication permission",
+            "send-ready action",
+            "public-toggle status",
+            "claim-tier promotion",
+            "current release-readiness next action",
+        ],
+        "reentry_condition": (
+            "Open the gate for historical atlas/disclosure row inspection, or repair it if a "
+            "current strategy owner re-authorizes this gate as a live control surface."
+        ),
+    }
     return {
         "kind_id": "dissemination_gate",
         "row_id": "public_safe_atlas_gate_v1",
-        "title": "Public-Safe Dissemination Atlas Gate",
+        "title": "Public-Safe Dissemination Atlas Gate (retired-framing advisory)",
         "selected_band": "generated_gate_card",
         "row_role": "SELECTED_CONTEXT",
         "route_authority": "context_only_not_control_edge",
         "relevance": round(float(candidate.get("score") or 1.0), 6),
         "reason": _trim(str(candidate.get("reason") or "public-safe dissemination gate anchor"), max_chars=260),
         "summary": (
-            "Owner route for public-safe dissemination claim grounding: atlas ids, capability ids, "
-            "disclosure posture, safe artifact routes, readiness audit, and no-send boundaries."
+            "Advisory owner route for retired public-safe dissemination claim grounding: atlas ids, "
+            "capability ids, disclosure posture, safe artifact routes, readiness audit, and no-send "
+            "boundaries. It is not the current release-readiness control signal."
         ),
         "source_ref": "docs/system_atlas/dissemination_gate_report.generated.md",
         "source_refs": [
@@ -4063,6 +5092,7 @@ def _dissemination_gate_selected_row(repo_root: Path, candidate: Mapping[str, An
             ],
             "freshness_command": "./repo-python tools/meta/factory/check_dissemination_atlas_gate.py --check",
         },
+        "retirement_boundary": retirement_boundary,
         "nearest_standard": {
             "ref": "codex/standards/std_system_atlas.json",
             "why": "Dissemination gate rows are System Atlas disclosure/lineage projections and must preserve source authority plus public-boundary checks.",
@@ -4071,8 +5101,9 @@ def _dissemination_gate_selected_row(repo_root: Path, candidate: Mapping[str, An
             "role": "PUBLIC_SAFE_ATLAS_GATE_DRILLDOWN",
             "safe_issue_summaries_only": True,
             "public_release_safe": False,
+            "retired_framing_advisory": retired_framing,
             "allowed_payload": "gate status, ids, issue summaries, owner/check command, disclosure map route, readiness audit route, and no-send boundary handles",
-            "forbidden_payload": "raw evidence bodies, private raw voice, prompt/provider payloads, hidden reasoning, publication action, or send-ready claim without gate proof",
+            "forbidden_payload": "raw evidence bodies, private raw voice, prompt/provider payloads, hidden reasoning, publication action, send-ready claim without gate proof, or current release-readiness authority from retired counters",
         },
         "omission_receipt": {
             "omitted": ["raw evidence bodies", "private-root artifacts", "recipient-specific private packets"],
@@ -4352,9 +5383,21 @@ def _operator_thread_continuation_card_context(repo_root: Path, query: str) -> d
     }
 
 
-def _type_a_autonomous_seed_selected_row(repo_root: Path, candidate: Mapping[str, Any]) -> dict[str, Any]:
+def _type_a_autonomous_seed_selected_row(
+    repo_root: Path,
+    candidate: Mapping[str, Any],
+    *,
+    use_card_cache: bool = False,
+    card_cache_statuses: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     seed_id = str(candidate.get("id") or TYPE_A_AUTONOMOUS_SEED_SELECTED_ID).strip()
-    surface = build_option_surface(repo_root, "type_a_autonomous_seeds", band="card", ids=[seed_id])
+    surface = _option_surface_card_payload_for_context_pack(
+        repo_root,
+        "type_a_autonomous_seeds",
+        [seed_id],
+        use_card_cache=use_card_cache,
+        card_cache_statuses=card_cache_statuses,
+    )
     option_row = {}
     rows = surface.get("rows") if isinstance(surface.get("rows"), list) else []
     if rows and isinstance(rows[0], Mapping):
@@ -4478,21 +5521,23 @@ def _workitem_spine_selected_row(repo_root: Path, candidate: Mapping[str, Any]) 
             "organizer_report": "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2",
         },
         "validation_route": [
-            "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+            "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
             WORK_LEDGER_CLAIM_CARDS_COMMAND,
             "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
             "./repo-python kernel.py --option-surface system_atlas --band card --ids kind_task_ledger",
         ],
         "mutation_route": [
-            "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title <title> --statement <statement> --rebuild",
-            "./repo-python tools/meta/factory/task_ledger_apply.py claim --subject-id <work_item_id> --payload-json '<json>' --rebuild",
+            "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title <title> --statement <statement> --created-by <agent_id>",
+            "./repo-python tools/meta/factory/task_ledger_apply.py claim --subject-id <work_item_id> --payload-json '<json>'",
+            "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1",
+            "./repo-python tools/meta/control/generated_state_drainer.py settle --owner-id task_ledger_projection --dry-run",
             "./repo-python tools/meta/factory/work_ledger.py session-preflight --path <path> --require-exclusive",
             "./repo-python tools/meta/factory/work_ledger.py session-finalize --session-id <session_id> --action codex-turn-end",
         ],
         "currentness": {
             "status": status,
             "task_ledger_projection_generated_at": generated_at,
-            "task_ledger_freshness_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+            "task_ledger_freshness_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
             "work_ledger_freshness_command": WORK_LEDGER_CLAIM_CARDS_COMMAND,
             "work_ledger_full_claims_command": WORK_LEDGER_FULL_CLAIMS_COMMAND,
             "atlas_freshness_command": "./repo-python tools/meta/factory/build_system_atlas.py --check",
@@ -4506,7 +5551,7 @@ def _workitem_spine_selected_row(repo_root: Path, candidate: Mapping[str, Any]) 
             "./repo-python kernel.py --paper-module operational_work_item_spine",
         ],
         "drilldown_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
-        "evidence_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+        "evidence_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
         "debug_trace_command": None,
         "cost_estimate_tokens": 260,
         "selection_source_kind": str(candidate.get("source_kind") or "workitem_spine_anchor"),
@@ -4533,6 +5578,293 @@ def _workitem_spine_selected_row(repo_root: Path, candidate: Mapping[str, Any]) 
             "drilldown": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
         },
     }
+
+
+def _microcosm_agent_task_route_selected_row(repo_root: Path, candidate: Mapping[str, Any]) -> dict[str, Any]:
+    route_id = str(candidate.get("id") or "").strip()
+    payload, routes = _load_microcosm_agent_task_routes(repo_root)
+    route = next((row for row in routes if str(row.get("task_class") or "") == route_id), {})
+    relevant_organs: list[dict[str, Any]] = []
+    for organ in route.get("relevant_organs") if isinstance(route.get("relevant_organs"), list) else []:
+        if not isinstance(organ, Mapping):
+            continue
+        relevant_organs.append(
+            {
+                "organ_id": str(organ.get("organ_id") or ""),
+                "display_name": str(organ.get("display_name") or ""),
+                "family": str(organ.get("family") or ""),
+                "evidence_class": str(organ.get("evidence_class") or ""),
+                "evidence_strength_rank": organ.get("evidence_strength_rank"),
+                "wires_to": [
+                    str(item)
+                    for item in (organ.get("wires_to") if isinstance(organ.get("wires_to"), list) else [])
+                    if str(item or "").strip()
+                ],
+                "claim_ceiling": _trim(organ.get("claim_ceiling"), max_chars=260),
+                "first_command": str(organ.get("first_command") or ""),
+                "drilldown_target": str(organ.get("drilldown_target") or ""),
+                "paper_module_ref": str(organ.get("paper_module_ref") or ""),
+                "standard_ref": str(organ.get("standard_ref") or ""),
+                "receipt_refs": [
+                    str(item)
+                    for item in (organ.get("receipt_refs") if isinstance(organ.get("receipt_refs"), list) else [])
+                    if str(item or "").strip()
+                ][:6],
+            }
+        )
+
+    route_text = json.dumps(route, ensure_ascii=False, sort_keys=True)
+    route_text_lower = route_text.casefold()
+    has_work_ledger_coordination = (
+        "work ledger" in route_text_lower
+        or "work_ledger" in route_text_lower
+        or "mission_transaction_work_spine" in route_text_lower
+        or route_id == "work-ledger"
+    )
+    coordination_commands = []
+    lifecycle_failover_commands = []
+    if has_work_ledger_coordination:
+        coordination_commands = [
+            WORK_LEDGER_SEED_SPEED_COMMAND,
+            (
+                "./repo-python tools/meta/factory/work_ledger.py session-heartbeat "
+                "--session-id <session_id> --state inspecting "
+                "--current-pass-line '<public current pass>' "
+                "--last-pass-result-line '<public previous result>' --scope-ref <path-or-route>"
+            ),
+            "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive",
+        ]
+        lifecycle_failover_commands = [
+            "./repo-python tools/meta/factory/work_ledger.py concurrency-pathology-index --skip-host-pressure",
+            "./repo-python tools/meta/factory/work_ledger.py session-yield-control --limit 12",
+            (
+                "./repo-python tools/meta/control/mission_transaction_preflight.py "
+                f"--subject-id {TRANSACTION_CONTROL_PLANE_FALLBACK_SUBJECT} --control-summary"
+            ),
+            (
+                "./repo-python tools/meta/control/mission_transaction_preflight.py "
+                f"--subject-id {TRANSACTION_CONTROL_PLANE_FALLBACK_SUBJECT} --convergence"
+            ),
+        ]
+
+    evidence_command = (
+        "jq '.routes[] | select(.task_class == "
+        f"{json.dumps(route_id)})' {MICROCOSM_AGENT_TASK_ROUTES_REL}"
+    )
+    source_refs = [
+        str(item)
+        for item in (payload.get("source_refs") if isinstance(payload.get("source_refs"), list) else [])
+        if str(item or "").strip()
+    ]
+    return {
+        "kind_id": MICROCOSM_AGENT_TASK_ROUTE_KIND_ID,
+        "row_id": route_id,
+        "title": f"Microcosm Agent Task Route: {route_id or 'unknown'}",
+        "selected_band": "agent_task_route_card",
+        "row_role": "SELECTED_CONTEXT",
+        "route_authority": "context_only_not_control_edge",
+        "relevance": round(float(candidate.get("score") or 1.0), 6),
+        "reason": _trim(str(candidate.get("reason") or "Microcosm agent-task route selected"), max_chars=260),
+        "summary": _trim(
+            route.get("allowed_authority")
+            or "Existing Microcosm agent-task route selected from the generated public route projection.",
+            max_chars=360,
+        ),
+        "task_class": route_id,
+        "route_role": route.get("route_role") or "agent_task_class_to_organ_selector",
+        "surface_role": payload.get("surface_role") or "generated_agent_task_route_projection",
+        "authority_boundary": route.get("authority_boundary") or payload.get("authority_boundary"),
+        "allowed_authority": route.get("allowed_authority"),
+        "stop_condition": route.get("stop_condition"),
+        "primary_organ_id": route.get("primary_organ_id"),
+        "primary_display_name": route.get("primary_display_name"),
+        "organ_count": route.get("organ_count"),
+        "relevant_organs": relevant_organs,
+        "first_command": route.get("first_command"),
+        "drilldown_target": route.get("drilldown_target"),
+        "evidence_ref": route.get("evidence_ref"),
+        "receipt_ref": route.get("receipt_ref"),
+        "source_ref": str(MICROCOSM_AGENT_TASK_ROUTES_REL),
+        "source_refs": [str(MICROCOSM_AGENT_TASK_ROUTES_REL), *source_refs],
+        "drilldown_command": evidence_command,
+        "evidence_command": evidence_command,
+        "debug_trace_command": None,
+        "cost_estimate_tokens": 260,
+        "selection_source_kind": str(candidate.get("source_kind") or "microcosm_agent_task_route_projection"),
+        "selection_facet": str(candidate.get("facet") or "agent_task_route_selector"),
+        "matched_terms": list(candidate.get("matched_terms") or [])[:12],
+        "coordination_commands": coordination_commands,
+        "lifecycle_failover_commands": lifecycle_failover_commands,
+        "currentness": {
+            "status": "generated_projection_unverified_freshness",
+            "source_ref": str(MICROCOSM_AGENT_TASK_ROUTES_REL),
+            "freshness_command": "cd microcosm-substrate && python3 scripts/build_organ_atlas.py --check",
+        },
+        "context_pack_contract": {
+            "role": "MICROCOSM_AGENT_TASK_ROUTE_DRILLDOWN",
+            "source_bodies_omitted": True,
+            "public_release_safe": True,
+            "allowed_payload": "Generated route metadata, accepted organ ids, claim ceilings, first commands, receipt refs, Work Ledger coordination commands, and lifecycle/failover proof commands.",
+            "forbidden_payload": "Treating the route as source authority, adding a new organ for a route-consumption gap, copying private runtime bodies, or authorizing live scheduling/provider dispatch.",
+            "entry_consumption_obligation": "High-level agent task wording should reach the existing Microcosm route row before creating or searching for new organs.",
+        },
+        "omission_receipt": {
+            "omitted": [
+                "organ source bodies",
+                "full receipt bodies",
+                "private Work Ledger runtime state",
+            ],
+            "reason": "Context-pack consumes the public route projection and leaves bodies behind organ and receipt drilldowns.",
+            "drilldown": evidence_command,
+        },
+    }
+
+
+def _microcosm_organ_topology_affordance_selected_row(candidate: Mapping[str, Any]) -> dict[str, Any]:
+    example_commands = [
+        f"{MICROCOSM_ORGAN_TOPOLOGY_COMMAND} --relation-type organ.has_source_language_family",
+        (
+            f"{MICROCOSM_ORGAN_TOPOLOGY_COMMAND} --organ <organ_id> "
+            "--relation-type organ.has_source_language_family"
+        ),
+        f"{MICROCOSM_ORGAN_TOPOLOGY_COMMAND} --relation-type organ.shares_source_language_family_with",
+    ]
+    return {
+        "kind_id": MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID,
+        "row_id": MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_ID,
+        "title": "Microcosm Organ Topology Query Affordance",
+        "selected_band": "command_affordance_card",
+        "row_role": "SELECTED_CONTEXT",
+        "route_authority": "context_only_not_control_edge",
+        "relevance": round(float(candidate.get("score") or 1.0), 6),
+        "reason": _trim(str(candidate.get("reason") or "Microcosm organ-topology affordance selected"), max_chars=260),
+        "summary": (
+            "Use the existing Microcosm organ-topology CLI when an agent needs public-safe, body-free "
+            "organ relationship evidence such as source-language families, shared source-language peers, "
+            "missing source modules, standards rows, concept refs, or mechanism refs."
+        ),
+        "command": MICROCOSM_ORGAN_TOPOLOGY_COMMAND,
+        "filters": ["--organ", "--relation-type"],
+        "relation_types": list(MICROCOSM_ORGAN_TOPOLOGY_RELATION_TYPES),
+        "upstream_projection": "coverage.organ_relationship_topology",
+        "output_schema": "microcosm_organ_relationship_topology_card_v0",
+        "source_ref": "microcosm-substrate/src/microcosm_core/projections/organ_surface_contract.py",
+        "test_ref": "microcosm-substrate/tests/test_organ_surface_contract.py::test_organ_topology_cli_emits_direct_query_surface",
+        "evidence_command": example_commands[0],
+        "drilldown_command": MICROCOSM_ORGAN_TOPOLOGY_COMMAND,
+        "example_commands": example_commands,
+        "authority_boundary": (
+            "typed public-safe evidence edges derived from organ-surface contract rows plus "
+            "source-language adjacency; not source-body semantics, API compatibility, comment standard, "
+            "lattice authority, release authority, or proof-correctness authority"
+        ),
+        "anti_claims": [
+            "not source-body semantics",
+            "not API compatibility",
+            "not comment standard",
+            "not lattice or public graph authority",
+            "not release or proof-correctness authority",
+        ],
+        "selection_source_kind": str(candidate.get("source_kind") or "microcosm_organ_topology_affordance_anchor"),
+        "selection_facet": str(candidate.get("facet") or "organ_relationship_query_affordance"),
+        "matched_terms": list(candidate.get("matched_terms") or [])[:12],
+        "cost_estimate_tokens": 220,
+        "affordance_passport": {
+            "status": "present",
+            "source": "context_pack_synthetic_command_affordance",
+            "atom": "Query Microcosm organ relationship edges.",
+            "cluster_keys": [
+                "microcosm",
+                "organ_topology",
+                "organ_relationships",
+                "source_language_adjacency",
+                "standards_routes",
+            ],
+            "when_to_open": (
+                "A task asks which Microcosm organs relate, share source-language traits, lack source "
+                "modules, or expose standard/concept/mechanism relationship edges."
+            ),
+            "when_not_to_open": (
+                "Do not use for source-body semantics, API compatibility, comment standards, lattice "
+                "truth, release claims, or proof correctness."
+            ),
+            "safe_drilldown": MICROCOSM_ORGAN_TOPOLOGY_COMMAND,
+            "canonical_source": "system/lib/navigation_context_pack.py::microcosm_organ_topology_affordance",
+            "authority_tier": "owner_surface_authority",
+            "authority_layer": "operational",
+            "runtime_consumers": ["navigation_context_pack.selected_rows"],
+            "evaluator_lane": (
+                "system/server/tests/test_command_substrate_fast_paths.py::"
+                "test_context_pack_routes_microcosm_organ_relationship_queries_to_topology_cli"
+            ),
+            "proof_path": (
+                "system/server/tests/test_command_substrate_fast_paths.py::"
+                "test_context_pack_routes_microcosm_organ_relationship_queries_to_topology_cli"
+            ),
+            "authority_boundary": "context_pack_affordance_not_topology_source_authority",
+            "sufficiency_claims": [
+                "Fresh organ relationship queries select organ-topology before bespoke grep.",
+                "The selected row carries filters, relation families, upstream projection, and anti-claims.",
+            ],
+        },
+        "currentness": {
+            "status": "runtime_query_surface_available_if_cli_tests_pass",
+            "freshness_command": (
+                "cd microcosm-substrate && PYTHONPATH=src python3 -m pytest -q "
+                "tests/test_organ_surface_contract.py -k organ_topology"
+            ),
+        },
+        "context_pack_contract": {
+            "role": "MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_DRILLDOWN",
+            "source_bodies_omitted": True,
+            "public_release_safe": True,
+            "allowed_payload": (
+                "Command, filters, stable relation families, upstream projection, authority ceiling, "
+                "anti-claims, and example queries."
+            ),
+            "forbidden_payload": (
+                "Freezing live edge counts in doctrine, treating extension inventory as source-body "
+                "semantics, asserting API compatibility, or replacing the CLI with another topology layer."
+            ),
+            "entry_consumption_obligation": (
+                "Microcosm organ relationship wording should reach this command affordance before grep, "
+                "organ atlas edits, graph-scene publication, or new topology authoring."
+            ),
+        },
+        "omission_receipt": {
+            "omitted": [
+                "live topology edge counts",
+                "full edges",
+                "organ source bodies",
+            ],
+            "reason": "Dynamic topology counts and edges belong to the organ-topology runtime card.",
+            "drilldown": MICROCOSM_ORGAN_TOPOLOGY_COMMAND,
+        },
+    }
+
+
+def _preserve_microcosm_organ_topology_affordance_compact_fields(
+    row: Mapping[str, Any],
+    compact_row: MutableMapping[str, Any],
+) -> None:
+    if str(row.get("kind_id") or "") != MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID:
+        return
+    for key, limit in (
+        ("command", None),
+        ("filters", 2),
+        ("relation_types", len(MICROCOSM_ORGAN_TOPOLOGY_RELATION_TYPES)),
+        ("upstream_projection", None),
+        ("output_schema", None),
+        ("anti_claims", 6),
+        ("example_commands", 3),
+    ):
+        value = row.get(key)
+        if value in (None, "", [], {}):
+            continue
+        if isinstance(value, (list, tuple)):
+            compact_row[key] = list(value)[:limit]
+        else:
+            compact_row[key] = value
 
 
 def _generated_projection_owner_selected_row(repo_root: Path, candidate: Mapping[str, Any]) -> dict[str, Any]:
@@ -4899,6 +6231,24 @@ def _cluster_first_fallback_cluster(
     ]
 
 
+def _cluster_first_should_use_fallback_without_scan(atlas_row: Mapping[str, Any]) -> bool:
+    currentness = (
+        atlas_row.get("currentness")
+        if isinstance(atlas_row.get("currentness"), Mapping)
+        else {}
+    )
+    row_count_semantics = (
+        atlas_row.get("row_count_semantics")
+        if isinstance(atlas_row.get("row_count_semantics"), Mapping)
+        else {}
+    )
+    return bool(
+        currentness.get("refresh_missing")
+        or str(row_count_semantics.get("mode") or "exact") == "unknown"
+        or str(row_count_semantics.get("status") or "") == "unknown_refresh_required"
+    )
+
+
 def _cluster_flag_command(atlas_row: Mapping[str, Any]) -> str | None:
     cluster_command = str(atlas_row.get("cluster_command") or "").strip()
     if "--band cluster_flag" in cluster_command:
@@ -4921,9 +6271,10 @@ def _dedupe_commands(commands: list[str]) -> list[str]:
     return out
 
 
-def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[str]) -> list[str]:
+def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[str], *, query: str = "") -> list[str]:
     selected = {(str(row.get("kind_id") or ""), str(row.get("row_id") or "")) for row in selected_rows}
     commands: list[str] = []
+    speed_route_commands: list[str] = []
     if (
         ("paper_modules", "microcosm_entry_lattice") in selected
         and ("standards", "std_microcosm") in selected
@@ -4946,26 +6297,78 @@ def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[s
                     f"./repo-python kernel.py --raw-seed-autonomous-seed-bundle {seed_id}",
                 ]
             )
-    if TYPE_A_AUTONOMOUS_SEED_SPEED_SELECTED_ID in selected_seed_ids:
-        commands.extend(
-            [
-                WORK_LEDGER_SEED_SPEED_COMMAND,
-                "./repo-python tools/meta/control/action_quote.py --action latency_seed_preflight",
-                "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage",
-                "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory",
-                "./repo-python kernel.py --latency-seed-digest",
-                "./repo-python kernel.py --process-bottlenecks",
-            ]
-        )
+    speed_next_command_mode = (
+        TYPE_A_AUTONOMOUS_SEED_SPEED_SELECTED_ID in selected_seed_ids
+        and _is_speed_refinement_query(query)
+        and not _is_named_seed_replay_query(query)
+    )
+    if speed_next_command_mode:
+        speed_route_commands = [
+            WORK_LEDGER_SEED_SPEED_COMMAND,
+            "./repo-python tools/meta/control/action_quote.py --action work_ledger_claim_read",
+            "./repo-python tools/meta/control/action_quote.py --action git_diff_review_context",
+            "./repo-python tools/meta/control/action_quote.py --action latency_seed_preflight",
+            "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage",
+            "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory",
+            "./repo-python kernel.py --latency-seed-digest",
+            "./repo-python kernel.py --process-bottlenecks",
+            "./repo-python kernel.py --command-profile latency-speedboard",
+        ]
+        commands.extend(speed_route_commands)
     if ("workitem_spine", WORKITEM_SPINE_SELECTED_ID) in selected:
         commands.extend(
             [
                 "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
-                "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+                "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
                 WORK_LEDGER_CLAIM_CARDS_COMMAND,
                 "./repo-python kernel.py --option-surface system_atlas --band card --ids kind_task_ledger",
             ]
         )
+    microcosm_organ_topology_rows = [
+        row
+        for row in selected_rows
+        if str(row.get("kind_id") or "") == MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID
+    ]
+    for row in microcosm_organ_topology_rows:
+        for command in [
+            row.get("command"),
+            row.get("evidence_command"),
+            *(
+                row.get("example_commands")
+                if isinstance(row.get("example_commands"), list)
+                else []
+            ),
+        ]:
+            if str(command or "").strip():
+                commands.append(str(command))
+    microcosm_route_rows = [
+        row
+        for row in selected_rows
+        if str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID
+    ]
+    for row in microcosm_route_rows:
+        for command in [
+            row.get("evidence_command"),
+            row.get("first_command"),
+            *[
+                organ.get("first_command")
+                for organ in (row.get("relevant_organs") if isinstance(row.get("relevant_organs"), list) else [])
+                if isinstance(organ, Mapping)
+            ],
+            *(
+                row.get("coordination_commands")
+                if isinstance(row.get("coordination_commands"), list)
+                else []
+            ),
+            *(
+                row.get("lifecycle_failover_commands")
+                if isinstance(row.get("lifecycle_failover_commands"), list)
+                else []
+            ),
+            "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids public_microcosm_exports",
+        ]:
+            if str(command or "").strip():
+                commands.append(str(command))
     if ("generated_projection_ownership", GENERATED_PROJECTION_OWNER_SELECTED_ID) in selected:
         commands.extend(
             [
@@ -5134,12 +6537,20 @@ def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[s
             "./repo-python kernel.py --option-surface skills --band card --ids profile_governed_compression",
         ]
     )
-    return _dedupe_commands(commands)[:10]
+    deduped = _dedupe_commands(commands)
+    if speed_next_command_mode:
+        return _dedupe_commands([*speed_route_commands, *deduped])[: len(speed_route_commands)]
+    return deduped[:14] if microcosm_route_rows else deduped[:10]
 
 
-def _next_command_objects(selected_rows: list[dict[str, Any]], lattice_commands: list[str]) -> list[dict[str, Any]]:
+def _next_command_objects(
+    selected_rows: list[dict[str, Any]],
+    lattice_commands: list[str],
+    *,
+    query: str = "",
+) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for command in _next_commands(selected_rows, lattice_commands):
+    for command in _next_commands(selected_rows, lattice_commands, query=query):
         surface_role = "DRILLDOWN"
         if "--option-surface" in command:
             surface_role = "ATLAS_PROJECTION"
@@ -5149,8 +6560,6 @@ def _next_command_objects(selected_rows: list[dict[str, Any]], lattice_commands:
             {
                 "command": command,
                 "surface_role": surface_role,
-                "authority": "drilldown_hint_not_control_edge",
-                "allowed_after": "entry/context-pack selected the relevant row or kind",
             }
         )
     return rows
@@ -5283,9 +6692,18 @@ def _overview(
             and str(row_count_semantics.get("mode") or "exact") != "exact"
         ):
             overview_row["row_count_semantics"] = row_count_semantics
+        if compact_routine_deferred_status:
+            overview_row.pop("why", None)
         if concrete_cluster:
             if cluster_expansion_allowed:
-                clusters = _cluster_rows(repo_root, kind_id)
+                if cluster_first and _cluster_first_should_use_fallback_without_scan(atlas_row):
+                    clusters = _cluster_first_fallback_cluster(
+                        atlas_row,
+                        kind_id=kind_id,
+                        cluster_command=cluster_command,
+                    )
+                else:
+                    clusters = _cluster_rows(repo_root, kind_id)
                 if not clusters and cluster_first:
                     clusters = _cluster_first_fallback_cluster(
                         atlas_row,
@@ -5363,6 +6781,7 @@ def _compact_routine_landmines(packet: dict[str, Any]) -> None:
     landmines = [row for row in list(packet.get("landmines") or []) if isinstance(row, Mapping)]
     if not landmines:
         return
+    returned_landmines = landmines[:4]
     packet["landmines"] = [
         {
             key: row.get(key)
@@ -5372,11 +6791,12 @@ def _compact_routine_landmines(packet: dict[str, Any]) -> None:
             )
             if row.get(key) not in (None, "", [], {})
         }
-        for row in landmines
+        for row in returned_landmines
     ]
     packet.setdefault("budget", {})["routine_landmine_economy"] = {
         "status": "first_contact_handles_only",
         "landmine_count": len(landmines),
+        "returned_landmine_count": len(returned_landmines),
         "preserved": ["surface", "safe_alternative"],
     }
     packet.setdefault("omitted", []).append(
@@ -5394,12 +6814,373 @@ def _compact_routine_landmines(packet: dict[str, Any]) -> None:
     )
 
 
+def _compact_routine_omitted(packet: dict[str, Any]) -> None:
+    omitted_rows = [row for row in list(packet.get("omitted") or []) if isinstance(row, Mapping)]
+    if not omitted_rows:
+        return
+    reason_by_section = {
+        "selected_rows.affordance_detail": "detail_behind_deep_context_pack",
+        "landmines.detail": "detail_behind_deep_context_pack",
+        "selected_rows.rich_payloads": "hard_ceiling_handles",
+        "routine_byte_soft_ceiling": "soft_ceiling_handles",
+        "omitted.extra_rows": "extra_rows_summarized",
+        "nonessential_sections": "nonessential_omitted",
+    }
+    compact_rows: list[dict[str, Any]] = []
+    budget_trim_handles: list[dict[str, Any]] = []
+    for row in omitted_rows:
+        reason = str(row.get("reason") or "")
+        if reason in {"dropped by final budget trim", "budget_trim"} and row.get("kind_id") and row.get("row_id"):
+            budget_trim_handles.append(
+                {
+                    "kind_id": row.get("kind_id"),
+                    "row_id": row.get("row_id"),
+                }
+            )
+            continue
+        compact_row = {
+            key: row.get(key)
+            for key in ("kind_id", "row_id", "section", "drilldown")
+            if row.get(key) not in (None, "", [], {})
+        }
+        section = str(row.get("section") or "")
+        if section in reason_by_section:
+            compact_row["reason"] = reason_by_section[section]
+        elif reason:
+            compact_row["reason"] = "detail_omitted"
+        if row.get("omitted_count") not in (None, "", [], {}):
+            compact_row["omitted_count"] = row.get("omitted_count")
+        compact_rows.append(compact_row)
+    if budget_trim_handles:
+        compact_rows.append(
+            {
+                "section": "selected_rows.budget_trimmed_rows",
+                "reason": "budget_trim",
+                "omitted_count": len(budget_trim_handles),
+                "row_handles": budget_trim_handles[:8],
+                "drilldown_template": (
+                    "./repo-python kernel.py --option-surface <kind_id> --band card --ids <row_id>"
+                ),
+            }
+        )
+    packet["omitted"] = compact_rows
+
+
+def _compact_routine_budget_receipts(packet: dict[str, Any]) -> None:
+    budget = packet.get("budget")
+    if not isinstance(budget, MutableMapping):
+        return
+
+    receipt = budget.get("routine_byte_soft_ceiling")
+    if isinstance(receipt, Mapping):
+        budget["routine_byte_soft_ceiling"] = {
+            key: receipt.get(key)
+            for key in (
+                "status",
+                "triggered_by",
+                "before_output_bytes",
+                "after_output_bytes",
+                "before_selected_rows_bytes",
+                "after_selected_rows_bytes",
+            )
+            if receipt.get(key) not in (None, "", [], {})
+        }
+
+    selected = budget.get("routine_selected_row_economy")
+    if isinstance(selected, Mapping):
+        compact_selected = {
+            key: selected.get(key)
+            for key in (
+                "status",
+                "compacted_field_count",
+            )
+            if selected.get(key) not in (None, "", [], {})
+        }
+        omitted_metadata = selected.get("omitted_metadata_fields")
+        if isinstance(omitted_metadata, Mapping):
+            compact_selected["omitted_metadata_field_count"] = sum(
+                int(value or 0)
+                for value in omitted_metadata.values()
+                if isinstance(value, int)
+            )
+        budget["routine_selected_row_economy"] = compact_selected
+
+    seed_owner = budget.get("routine_seed_owner_row_economy")
+    if isinstance(seed_owner, Mapping):
+        budget["routine_seed_owner_row_economy"] = {
+            key: seed_owner.get(key)
+            for key in (
+                "status",
+                "seed_owner_rows_compacted",
+            )
+            if seed_owner.get(key) not in (None, "", [], {})
+        }
+
+    landmine = budget.get("routine_landmine_economy")
+    if isinstance(landmine, Mapping):
+        budget["routine_landmine_economy"] = {
+            key: landmine.get(key)
+            for key in (
+                "status",
+                "landmine_count",
+                "returned_landmine_count",
+            )
+            if landmine.get(key) not in (None, "", [], {})
+        }
+
+    agent_packet = budget.get("routine_agent_operating_packet_economy")
+    if isinstance(agent_packet, Mapping):
+        budget["routine_agent_operating_packet_economy"] = {
+            key: agent_packet.get(key)
+            for key in (
+                "status",
+                "omitted_flag_count",
+                "returned_global_principle_count",
+                "omitted_global_principle_count",
+            )
+            if agent_packet.get(key) not in (None, "", [], {})
+        }
+
+    mission_trace = budget.get("routine_mission_trace_economy")
+    if isinstance(mission_trace, Mapping):
+        budget["routine_mission_trace_economy"] = {
+            key: mission_trace.get(key)
+            for key in (
+                "status",
+                "before_bytes",
+                "after_bytes",
+            )
+            if mission_trace.get(key) not in (None, "", [], {})
+        }
+
+
+def _compact_routine_overview(packet: dict[str, Any]) -> None:
+    overview = [row for row in list(packet.get("overview") or []) if isinstance(row, Mapping)]
+    if len(overview) <= 8:
+        return
+    returned_rows: list[Mapping[str, Any]] = []
+    included_kind_ids: set[str] = set()
+    for row in overview[:8]:
+        returned_rows.append(row)
+        included_kind_ids.add(str(row.get("kind_id") or ""))
+    for row in overview[8:]:
+        kind_id = str(row.get("kind_id") or "")
+        if kind_id in OVERVIEW_TRIM_MUST_KEEP_KIND_IDS and kind_id not in included_kind_ids:
+            returned_rows.append(row)
+            included_kind_ids.add(kind_id)
+    packet["overview"] = [
+        {
+            key: row.get(key)
+            for key in (
+                "kind_id",
+                "title",
+                "row_count",
+                "selected_band",
+                "cluster_status_ref",
+                "drilldown_command",
+            )
+            if row.get(key) not in (None, "", [], {})
+        }
+        for row in returned_rows
+    ]
+    strategy = packet.get("strategy")
+    if isinstance(strategy, MutableMapping):
+        overview_status = strategy.get("overview_status")
+        if isinstance(overview_status, MutableMapping):
+            overview_status["returned_overview_row_count"] = len(returned_rows)
+            overview_status["omitted_overview_row_count"] = len(overview) - len(returned_rows)
+    packet.setdefault("budget", {})["routine_overview_economy"] = {
+        "status": "bounded_kind_signposts_capped",
+        "returned_count": len(returned_rows),
+        "omitted_count": len(overview) - len(returned_rows),
+    }
+
+
+def _compact_routine_candidate_runtime_pressure(packet: dict[str, Any]) -> None:
+    pressure = packet.get("candidate_runtime_pressure")
+    if not isinstance(pressure, Mapping):
+        return
+    rows = [row for row in list(pressure.get("rows") or []) if isinstance(row, Mapping)]
+    suppressed_rows = [
+        row for row in list(pressure.get("suppressed_rows") or []) if isinstance(row, Mapping)
+    ]
+    compact: dict[str, Any] = {
+        key: pressure.get(key)
+        for key in (
+            "count",
+            "suppressed_count",
+            "filter_policy",
+        )
+        if pressure.get(key) not in (None, "", [], {})
+    }
+    if rows:
+        compact["rows"] = [
+            {
+                key: row.get(key)
+                for key in (
+                    "candidate_id",
+                    "slug",
+                    "surface_reason",
+                    "title",
+                )
+                if row.get(key) not in (None, "", [], {})
+            }
+            for row in rows[:3]
+        ]
+        compact["rows_returned"] = min(len(rows), 3)
+        compact["rows_omitted"] = max(0, len(rows) - 3)
+    if suppressed_rows:
+        compact["suppressed_row_ids_preview"] = [
+            str(row.get("candidate_id") or row.get("slug"))
+            for row in suppressed_rows[:2]
+            if row.get("candidate_id") or row.get("slug")
+        ]
+        compact["suppressed_rows_omitted"] = max(0, len(suppressed_rows) - 2)
+    packet["candidate_runtime_pressure"] = compact
+
+
+def _query_mentions_mission_trace(query: str) -> bool:
+    lowered = str(query or "").lower()
+    return (
+        "mission trace" in lowered
+        or "mission_trace" in lowered
+        or "mission operating picture" in lowered
+    )
+
+
+def _compact_routine_mission_trace_current_state(packet: dict[str, Any]) -> None:
+    if _query_mentions_mission_trace(str(packet.get("query") or "")):
+        return
+    card = packet.get("mission_trace_current_state")
+    if not isinstance(card, Mapping):
+        return
+    before_bytes = _json_bytes({"mission_trace_current_state": card})
+    compact = {
+        key: card.get(key)
+        for key in (
+            "schema",
+            "status",
+            "authority_boundary",
+            "projection_only",
+            "safety_authority",
+            "source_view",
+            "source_field",
+            "row_count",
+            "current_receipt_ref",
+            "next_safe_action",
+        )
+        if card.get(key) not in (None, "", [], {})
+    }
+    if str(card.get("status") or "") != "available" and card.get("next_discovery"):
+        compact["next_discovery"] = card.get("next_discovery")
+    after_bytes = _json_bytes({"mission_trace_current_state": compact})
+    if after_bytes >= before_bytes:
+        return
+    packet["mission_trace_current_state"] = compact
+    packet.setdefault("budget", {})["routine_mission_trace_economy"] = {
+        "status": "non_mission_query_latest_row_omitted",
+        "before_bytes": before_bytes,
+        "after_bytes": after_bytes,
+    }
+
+
+def _compact_routine_strategy_metadata(packet: dict[str, Any]) -> None:
+    strategy = packet.get("strategy")
+    if not isinstance(strategy, MutableMapping):
+        return
+
+    semantic_status = strategy.get("semantic_status")
+    if isinstance(semantic_status, Mapping):
+        compact_semantic = {
+            key: semantic_status.get(key)
+            for key in (
+                "status",
+                "deep_command",
+                "timeout_ms",
+            )
+            if semantic_status.get(key) not in (None, "", [], {})
+        }
+        strategy["semantic_status"] = compact_semantic
+
+    overview_status = strategy.get("overview_status")
+    if isinstance(overview_status, Mapping):
+        compact_overview = {
+            "mode": overview_status.get("mode"),
+            "live_full_scan": bool(overview_status.get("live_full_scan")),
+        }
+        for count_key in (
+            "returned_overview_row_count",
+            "omitted_overview_row_count",
+        ):
+            if overview_status.get(count_key) not in (None, "", [], {}):
+                compact_overview[count_key] = overview_status.get(count_key)
+        deferred = overview_status.get("routine_deferred_cluster_status")
+        if isinstance(deferred, Mapping):
+            compact_overview["routine_deferred_cluster_status"] = {
+                key: deferred.get(key)
+                for key in (
+                    "status",
+                    "row_drilldown_field",
+                )
+                if deferred.get(key) not in (None, "", [], {})
+            }
+        strategy["overview_status"] = compact_overview
+
+    timings = strategy.get("stage_timings_ms")
+    if isinstance(timings, Mapping):
+        compact_timings = {
+            str(key): value
+            for key, value in timings.items()
+            if value not in (None, 0, "", [], {})
+        }
+        zero_count = len(timings) - len(compact_timings)
+        if zero_count:
+            compact_timings["zero_stage_count"] = zero_count
+        strategy["stage_timings_ms"] = compact_timings
+
+
+def _compact_routine_agent_operating_packet(packet: dict[str, Any]) -> None:
+    agent_packet = packet.get("agent_operating_packet")
+    if not isinstance(agent_packet, MutableMapping):
+        return
+    principles = [
+        row for row in list(agent_packet.get("global_principles") or []) if isinstance(row, Mapping)
+    ]
+    if not principles:
+        return
+    compact_principles = [
+        {
+            key: row.get(key)
+            for key in ("id", "tiny")
+            if row.get(key) not in (None, "", [], {})
+        }
+        for row in principles[:3]
+    ]
+    omitted_principle_rows = max(0, len(principles) - len(compact_principles))
+    omitted_flags = sum(1 for row in principles if row.get("flag"))
+    agent_packet["global_principles"] = compact_principles
+    if omitted_principle_rows:
+        agent_packet["global_principle_rows_omitted"] = omitted_principle_rows
+    if omitted_flags:
+        agent_packet["global_principle_flags_omitted"] = omitted_flags
+    if omitted_flags or omitted_principle_rows:
+        packet.setdefault("budget", {})["routine_agent_operating_packet_economy"] = {
+            "status": "global_principle_preview_compacted",
+            "omitted_flag_count": omitted_flags,
+            "returned_global_principle_count": len(compact_principles),
+            "omitted_global_principle_count": omitted_principle_rows,
+            "drilldown_field": "agent_operating_packet.route",
+        }
+
+
 def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
     selected_rows = [
         row for row in list(packet.get("selected_rows") or []) if isinstance(row, MutableMapping)
     ]
     compacted_count = 0
     metadata_field_omissions: dict[str, int] = {}
+    seed_owner_rows_compacted = 0
+    seed_owner_omissions: dict[str, int] = {}
 
     def compact_list(value: Any, *, limit: int) -> list[Any]:
         if not isinstance(value, list):
@@ -5425,7 +7206,83 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
         row.pop(key, None)
         metadata_field_omissions[key] = metadata_field_omissions.get(key, 0) + 1
 
+    def omit_seed_owner_field(row: MutableMapping[str, Any], key: str) -> bool:
+        if key not in row:
+            return False
+        row.pop(key, None)
+        seed_owner_omissions[key] = seed_owner_omissions.get(key, 0) + 1
+        return True
+
+    def default_skill_currentness(row: Mapping[str, Any], currentness: Any) -> bool:
+        if str(row.get("kind_id") or "") != "skills" or not isinstance(currentness, Mapping):
+            return False
+        meaningful_currentness = {
+            key: value
+            for key, value in currentness.items()
+            if value not in (None, "", [], {})
+        }
+        default_keys = {
+            "status",
+            "registry_ref",
+            "registry_mtime",
+            "source_ref",
+            "source_mtime",
+            "source_exists",
+        }
+        return (
+            meaningful_currentness.get("status") == "registry_plus_file_mtime"
+            and not (set(meaningful_currentness) - default_keys)
+            and meaningful_currentness.get("source_exists") is not False
+        )
+
     for row in selected_rows:
+        seed_owner_changed = False
+        if str(row.get("kind_id") or "") == "type_a_autonomous_seeds":
+            seed_owner_changed = omit_seed_owner_field(row, "source_refs") or seed_owner_changed
+            if str(row.get("selection_source_kind") or "") == "speed_refinement_command_telemetry_anchor":
+                boundary = row.get("source_projection_boundary")
+                if (
+                    isinstance(boundary, Mapping)
+                    and boundary.get("json_source_authority")
+                    and boundary.get("json_source_authority") == row.get("source_ref")
+                ):
+                    seed_owner_changed = (
+                        omit_seed_owner_field(row, "source_projection_boundary") or seed_owner_changed
+                    )
+                if isinstance(row.get("currentness"), Mapping):
+                    seed_owner_changed = omit_seed_owner_field(row, "currentness") or seed_owner_changed
+            validation_route = [
+                command for command in list(row.get("validation_route") or []) if isinstance(command, str)
+            ]
+            continuity_route = [
+                command for command in validation_route if "--validate-seed-continuity" in command
+            ]
+            compact_validation_route = (continuity_route or validation_route)[:1]
+            if compact_validation_route and compact_validation_route != row.get("validation_route"):
+                row["validation_route"] = compact_validation_route
+                omitted_validation_commands = max(0, len(validation_route) - len(compact_validation_route))
+                if omitted_validation_commands:
+                    seed_owner_omissions["validation_route.commands"] = (
+                        seed_owner_omissions.get("validation_route.commands", 0)
+                        + omitted_validation_commands
+                    )
+                seed_owner_changed = True
+            replay_contract = row.get("replay_receipt_contract")
+            if isinstance(replay_contract, Mapping):
+                compact_replay_contract = {
+                    key: replay_contract.get(key)
+                    for key in ("schema_version",)
+                    if replay_contract.get(key) not in (None, "", [], {})
+                }
+                if compact_replay_contract and compact_replay_contract != replay_contract:
+                    row["replay_receipt_contract"] = compact_replay_contract
+                    seed_owner_omissions["replay_receipt_contract.detail"] = (
+                        seed_owner_omissions.get("replay_receipt_contract.detail", 0) + 1
+                    )
+                    seed_owner_changed = True
+            if seed_owner_changed:
+                seed_owner_rows_compacted += 1
+
         passport = row.get("affordance_passport")
         if isinstance(passport, Mapping):
             if row.get("kind_id") == "skills" and row.get("row_id") == "doctrine_derivation":
@@ -5455,6 +7312,27 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
                         passport.get("when_not_to_open"), max_chars=96
                     ),
                     "safe_drilldown": compact_passport_value(passport.get("safe_drilldown")),
+                    "canonical_source": compact_passport_value(passport.get("canonical_source")),
+                    "authority_tier": compact_passport_value(passport.get("authority_tier")),
+                    "authority_layer": compact_passport_value(passport.get("authority_layer")),
+                    "override_semantics": compact_passport_value(
+                        passport.get("override_semantics"), max_chars=96
+                    ),
+                    "runtime_consumers": compact_passport_value(
+                        passport.get("runtime_consumers"), limit=3, max_chars=72
+                    ),
+                    "evaluator_lane": compact_passport_value(
+                        passport.get("evaluator_lane"), max_chars=180
+                    ),
+                    "receipt_lane": compact_passport_value(
+                        passport.get("receipt_lane"), max_chars=180
+                    ),
+                    "proof_path": compact_passport_value(passport.get("proof_path"), max_chars=180),
+                    "authority_boundary": compact_passport_value(
+                        passport.get("authority_boundary"), max_chars=96
+                    ),
+                    "projection_not_authority": passport.get("projection_not_authority"),
+                    "owner_lane": compact_passport_value(passport.get("owner_lane")),
                     "landmines": compact_passport_value(
                         passport.get("landmines"), max_chars=96
                     ),
@@ -5497,6 +7375,13 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
 
         currentness = row.get("currentness")
         if isinstance(currentness, Mapping):
+            if default_skill_currentness(row, currentness):
+                row.pop("currentness", None)
+                metadata_field_omissions["currentness.default_skill_registry_mtime"] = (
+                    metadata_field_omissions.get("currentness.default_skill_registry_mtime", 0) + 1
+                )
+                compacted_count += 1
+                continue
             compact_currentness = {
                 key: value
                 for key, value in {
@@ -5553,6 +7438,14 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
 
         for metadata_key in ("debug_trace_command", "nearest_standard", "cost_estimate_tokens"):
             omit_row_field(row, metadata_key)
+
+    if seed_owner_rows_compacted:
+        packet.setdefault("budget", {})["routine_seed_owner_row_economy"] = {
+            "status": "seed_owner_metadata_compacted",
+            "seed_owner_rows_compacted": seed_owner_rows_compacted,
+            "omitted_fields": dict(sorted(seed_owner_omissions.items())),
+            "drilldown_field": "drilldown_command",
+        }
 
     if compacted_count:
         packet.setdefault("budget", {})["routine_selected_row_economy"] = {
@@ -5877,6 +7770,23 @@ def _budget_trim(
                     "relevance",
                     "reason",
                     "summary",
+                    "task_class",
+                    "route_role",
+                    "surface_role",
+                    "authority_boundary",
+                    "allowed_authority",
+                    "stop_condition",
+                    "primary_organ_id",
+                    "primary_display_name",
+                    "organ_count",
+                    "relevant_organs",
+                    "first_command",
+                    "drilldown_target",
+                    "evidence_ref",
+                    "receipt_ref",
+                    "matched_terms",
+                    "coordination_commands",
+                    "lifecycle_failover_commands",
                     "identity",
                     "purpose",
                     "source_ref",
@@ -5905,6 +7815,7 @@ def _budget_trim(
                     "provider_population_lane_command",
                     "provider_boundary",
                     "owner_routes",
+                    "upstream_doctrine_route",
                     "replay_receipt_contract",
                     "route_summary",
                     "render_profile",
@@ -5913,10 +7824,80 @@ def _budget_trim(
                 )
                 if row.get(key) not in (None, "", [], {})
             }
+            _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
             if isinstance(row.get("currentness"), Mapping):
                 compact_row["currentness"] = dict(row.get("currentness") or {})
+            if str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID:
+                for key in (
+                    "task_class",
+                    "route_role",
+                    "surface_role",
+                    "authority_boundary",
+                    "allowed_authority",
+                    "stop_condition",
+                    "primary_organ_id",
+                    "primary_display_name",
+                    "organ_count",
+                    "first_command",
+                    "drilldown_target",
+                    "evidence_ref",
+                    "receipt_ref",
+                    "matched_terms",
+                ):
+                    value = row.get(key)
+                    if value not in (None, "", [], {}):
+                        compact_row[key] = value
+                compact_organs: list[dict[str, Any]] = []
+                for organ in row.get("relevant_organs") if isinstance(row.get("relevant_organs"), list) else []:
+                    if not isinstance(organ, Mapping):
+                        continue
+                    compact_organs.append(
+                        {
+                            key: value
+                            for key, value in {
+                                "organ_id": organ.get("organ_id"),
+                                "display_name": organ.get("display_name"),
+                                "family": organ.get("family"),
+                                "evidence_class": organ.get("evidence_class"),
+                                "wires_to": list(organ.get("wires_to") or [])[:4],
+                                "claim_ceiling": _trim(organ.get("claim_ceiling"), max_chars=180),
+                                "first_command": organ.get("first_command"),
+                                "drilldown_target": organ.get("drilldown_target"),
+                                "paper_module_ref": organ.get("paper_module_ref"),
+                                "standard_ref": organ.get("standard_ref"),
+                            }.items()
+                            if value not in (None, "", [], {})
+                        }
+                    )
+                if compact_organs:
+                    compact_row["relevant_organs"] = compact_organs[:4]
+                coordination_commands = compact_hard_ceiling_sequence(
+                    row.get("coordination_commands"),
+                    limit=4,
+                )
+                if coordination_commands:
+                    compact_row["coordination_commands"] = coordination_commands
+                lifecycle_failover_commands = compact_hard_ceiling_sequence(
+                    row.get("lifecycle_failover_commands"),
+                    limit=4,
+                )
+                if lifecycle_failover_commands:
+                    compact_row["lifecycle_failover_commands"] = lifecycle_failover_commands
             if isinstance(row.get("context_pack_contract"), Mapping):
                 compact_row["context_pack_contract"] = dict(row.get("context_pack_contract") or {})
+            if isinstance(row.get("retirement_boundary"), Mapping):
+                retirement = row.get("retirement_boundary") or {}
+                compact_row["retirement_boundary"] = {
+                    key: retirement.get(key)
+                    for key in (
+                        "status",
+                        "source_ref",
+                        "summary",
+                        "not_current_authority_for",
+                        "reentry_condition",
+                    )
+                    if retirement.get(key) not in (None, "", [], {})
+                }
             if isinstance(row.get("ai_native_view_packet"), Mapping):
                 compact_row["ai_native_view_packet"] = dict(row.get("ai_native_view_packet") or {})
             if isinstance(row.get("affordance_passport"), Mapping):
@@ -6064,53 +8045,72 @@ def _budget_trim(
         for row in list(packet.get("selected_rows") or []):
             if not isinstance(row, Mapping):
                 continue
-            compact_rows.append(
-                {
-                    key: row.get(key)
-                    for key in (
-                        "kind_id",
-                        "row_id",
-                        "title",
-                        "selected_band",
-                        "row_role",
-                        "route_authority",
-                        "relevance",
-                        "identity",
-                        "purpose",
-                        "source_ref",
-                        "source_refs",
-                        "source_projection_boundary",
-                        "owner_surface",
-                        "owner_tool",
-                        "workitem_pressure",
-                        "validation_route",
-                        "mutation_route",
-                        "currentness",
-                        "counts",
-                        "disclosure_posture",
-                        "drilldowns",
-                        "paper_lattice",
-                        "drilldown_command",
-                        "evidence_command",
-                        "selection_source_kind",
-                        "selection_facet",
-                        "matched_validation_rules",
-                        "next_safe_moves",
-                        "owner_routes",
-                        "replay_receipt_contract",
-                        "route_summary",
-                        "render_profile",
-                        "sibling_profiles",
-                        "sibling_profile_summary",
-                        "context_pack_contract",
-                        "omission_receipt",
-                        "affordance_passport",
-                        "affordance_compatibility",
-                        "ai_native_view_packet",
-                    )
-                    if row.get(key) not in (None, "", [], {})
-                }
-            )
+            compact_row = {
+                key: row.get(key)
+                for key in (
+                    "kind_id",
+                    "row_id",
+                    "title",
+                    "selected_band",
+                    "row_role",
+                    "route_authority",
+                    "relevance",
+                    "task_class",
+                    "route_role",
+                    "surface_role",
+                    "authority_boundary",
+                    "allowed_authority",
+                    "stop_condition",
+                    "primary_organ_id",
+                    "primary_display_name",
+                    "organ_count",
+                    "relevant_organs",
+                    "first_command",
+                    "drilldown_target",
+                    "evidence_ref",
+                    "receipt_ref",
+                    "matched_terms",
+                    "coordination_commands",
+                    "lifecycle_failover_commands",
+                    "identity",
+                    "purpose",
+                    "source_ref",
+                    "source_refs",
+                    "source_projection_boundary",
+                    "owner_surface",
+                    "owner_tool",
+                    "workitem_pressure",
+                    "validation_route",
+                    "mutation_route",
+                    "currentness",
+                    "counts",
+                    "disclosure_posture",
+                    "drilldowns",
+                    "paper_lattice",
+                    "drilldown_command",
+                    "evidence_command",
+                    "selection_source_kind",
+                    "selection_facet",
+                    "matched_validation_rules",
+                    "next_safe_moves",
+                    "owner_routes",
+                    "upstream_doctrine_route",
+                    "replay_receipt_contract",
+                    "route_summary",
+                    "render_profile",
+                    "sibling_profiles",
+                    "sibling_profile_summary",
+                    "context_pack_contract",
+                    "retirement_boundary",
+                    "omission_receipt",
+                    "affordance_passport",
+                    "affordance_compatibility",
+                    "ai_native_view_packet",
+                )
+                if row.get(key) not in (None, "", [], {})
+            }
+            _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
+            compact_rows.append(compact_row)
         packet["selected_rows"] = compact_rows
         packet.setdefault("omitted", []).append(
             {
@@ -6136,6 +8136,49 @@ def _budget_trim(
             )
             if routes.get(key) not in (None, "", [], {})
         }
+
+    def compact_upstream_doctrine_route(route: Any) -> dict[str, Any]:
+        if not isinstance(route, Mapping):
+            return {}
+        compact = {
+            key: route.get(key)
+            for key in (
+                "schema",
+                "status",
+                "route_kind",
+                "canonical_source",
+                "authority_layer",
+                "authority_tier",
+                "authority_boundary",
+                "source_projection",
+                "governing_standard",
+                "governing_doctrine",
+                "governing_skill",
+                "override_semantics",
+                "runtime_consumers",
+                "evaluator_lane",
+                "receipt_lane",
+                "proof_path",
+            )
+            if route.get(key) not in (None, "", [], {})
+        }
+        commands = route.get("route_commands")
+        if isinstance(commands, Mapping):
+            compact_commands = {
+                key: commands.get(key)
+                for key in (
+                    "source",
+                    "scope_index",
+                    "standard",
+                    "doctrine",
+                    "skill",
+                    "parent_file",
+                )
+                if commands.get(key) not in (None, "", [], {})
+            }
+            if compact_commands:
+                compact["route_commands"] = compact_commands
+        return compact
 
     def compact_render_profile(profile: Any) -> dict[str, Any]:
         if not isinstance(profile, Mapping):
@@ -6211,6 +8254,12 @@ def _budget_trim(
         }
 
     query_text = str(packet.get("query") or "").lower()
+    selected_speed_seed = any(
+        str(row.get("kind_id") or "") == "type_a_autonomous_seeds"
+        and str(row.get("row_id") or "") == TYPE_A_AUTONOMOUS_SEED_SPEED_SELECTED_ID
+        for row in list(packet.get("selected_rows") or [])
+        if isinstance(row, Mapping)
+    )
     preserve_rich_compression_profiles = (
         "compression profile" in query_text
         and ("owner route" in query_text or "owner routes" in query_text or "render profile" in query_text)
@@ -6232,6 +8281,7 @@ def _budget_trim(
         or ("self" in query_text and "propagat" in query_text)
         or "self-up" in query_text
         or "self up" in query_text
+        or selected_speed_seed
     )
     source_coupling_hard_ceiling_query = (
         "source coupling" in query_text
@@ -6270,14 +8320,22 @@ def _budget_trim(
                     )
                     if row.get(key) not in (None, "", [], {})
                 }
+                _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
                 if isinstance(row.get("currentness"), Mapping):
+                    currentness_keys = (
+                        "status",
+                        "source_coupling_status",
+                        "safe_to_commit_generated_outputs_without_sources",
+                    )
+                    if str(row.get("kind_id") or "") == "workitem_spine":
+                        currentness_keys += (
+                            "task_ledger_freshness_command",
+                            "work_ledger_freshness_command",
+                            "work_ledger_full_claims_command",
+                        )
                     currentness = compact_hard_ceiling_mapping(
                         row.get("currentness"),
-                        keys=(
-                            "status",
-                            "source_coupling_status",
-                            "safe_to_commit_generated_outputs_without_sources",
-                        ),
+                        keys=currentness_keys,
                     )
                     if currentness:
                         compact_row["currentness"] = currentness
@@ -6292,12 +8350,26 @@ def _budget_trim(
                             "raw_bodies_omitted",
                             "source_bodies_omitted",
                             "public_release_safe",
+                            "retired_framing_advisory",
                             "full_graph_omitted",
                         )
                         if contract.get(key) not in (None, "", [], {})
                     }
                     if compact_contract:
                         compact_row["context_pack_contract"] = compact_contract
+                if isinstance(row.get("retirement_boundary"), Mapping):
+                    retirement = row.get("retirement_boundary") or {}
+                    compact_retirement = compact_hard_ceiling_mapping(
+                        retirement,
+                        keys=(
+                            "status",
+                            "source_ref",
+                            "summary",
+                            "not_current_authority_for",
+                        ),
+                    )
+                    if compact_retirement:
+                        compact_row["retirement_boundary"] = compact_retirement
                 if str(row.get("kind_id") or "") == "compression_profiles":
                     sibling_summary = compact_sibling_profile_summary(row.get("sibling_profile_summary"))
                     if sibling_summary:
@@ -6322,7 +8394,18 @@ def _budget_trim(
                 )
                 if validation_route:
                     compact_row["validation_route"] = validation_route
-                mutation_route = compact_hard_ceiling_sequence(row.get("mutation_route"), limit=1)
+                row_kind_id = str(row.get("kind_id") or "")
+                mutation_route_limit = (
+                    5
+                    if row_kind_id == "workitem_spine"
+                    else 4
+                    if row_kind_id == "generated_projection_ownership"
+                    else 1
+                )
+                mutation_route = compact_hard_ceiling_sequence(
+                    row.get("mutation_route"),
+                    limit=mutation_route_limit,
+                )
                 if mutation_route:
                     compact_row["mutation_route"] = mutation_route
                 if isinstance(row.get("replay_receipt_contract"), Mapping):
@@ -6372,9 +8455,13 @@ def _budget_trim(
                     )
                     if row.get(key) not in (None, "", [], {})
                 }
+                _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
                 owner_routes = compact_owner_routes(row.get("owner_routes"))
                 if owner_routes:
                     compact_row["owner_routes"] = owner_routes
+                upstream_route = compact_upstream_doctrine_route(row.get("upstream_doctrine_route"))
+                if upstream_route:
+                    compact_row["upstream_doctrine_route"] = upstream_route
                 if isinstance(row.get("omission_receipt"), Mapping):
                     compact_row["omission_receipt"] = dict(row.get("omission_receipt") or {})
                 if isinstance(row.get("affordance_passport"), Mapping):
@@ -6391,6 +8478,7 @@ def _budget_trim(
                             "source_bodies_omitted",
                             "safe_issue_summaries_only",
                             "public_release_safe",
+                            "retired_framing_advisory",
                             "full_graph_omitted",
                             "full_json_omitted",
                             "allowed_payload",
@@ -6402,6 +8490,19 @@ def _budget_trim(
                     }
                     if compact_contract:
                         compact_row["context_pack_contract"] = compact_contract
+                if isinstance(row.get("retirement_boundary"), Mapping):
+                    retirement = row.get("retirement_boundary") or {}
+                    compact_retirement = compact_hard_ceiling_mapping(
+                        retirement,
+                        keys=(
+                            "status",
+                            "source_ref",
+                            "summary",
+                            "not_current_authority_for",
+                        ),
+                    )
+                    if compact_retirement:
+                        compact_row["retirement_boundary"] = compact_retirement
                 if isinstance(row.get("ai_native_view_packet"), Mapping):
                     view_packet = row.get("ai_native_view_packet") or {}
                     compact_view_packet = {
@@ -6417,6 +8518,62 @@ def _budget_trim(
                     }
                     if compact_view_packet:
                         compact_row["ai_native_view_packet"] = compact_view_packet
+                if str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID:
+                    for key in (
+                        "task_class",
+                        "route_role",
+                        "surface_role",
+                        "authority_boundary",
+                        "allowed_authority",
+                        "stop_condition",
+                        "primary_organ_id",
+                        "primary_display_name",
+                        "organ_count",
+                        "first_command",
+                        "drilldown_target",
+                        "evidence_ref",
+                        "receipt_ref",
+                        "matched_terms",
+                    ):
+                        value = row.get(key)
+                        if value not in (None, "", [], {}):
+                            compact_row[key] = value
+                    compact_organs: list[dict[str, Any]] = []
+                    for organ in row.get("relevant_organs") if isinstance(row.get("relevant_organs"), list) else []:
+                        if not isinstance(organ, Mapping):
+                            continue
+                        compact_organs.append(
+                            {
+                                key: value
+                                for key, value in {
+                                    "organ_id": organ.get("organ_id"),
+                                    "display_name": organ.get("display_name"),
+                                    "family": organ.get("family"),
+                                    "evidence_class": organ.get("evidence_class"),
+                                    "wires_to": list(organ.get("wires_to") or [])[:4],
+                                    "claim_ceiling": _trim(organ.get("claim_ceiling"), max_chars=180),
+                                    "first_command": organ.get("first_command"),
+                                    "drilldown_target": organ.get("drilldown_target"),
+                                    "paper_module_ref": organ.get("paper_module_ref"),
+                                    "standard_ref": organ.get("standard_ref"),
+                                }.items()
+                                if value not in (None, "", [], {})
+                            }
+                        )
+                    if compact_organs:
+                        compact_row["relevant_organs"] = compact_organs[:4]
+                    coordination_commands = compact_hard_ceiling_sequence(
+                        row.get("coordination_commands"),
+                        limit=4,
+                    )
+                    if coordination_commands:
+                        compact_row["coordination_commands"] = coordination_commands
+                    lifecycle_failover_commands = compact_hard_ceiling_sequence(
+                        row.get("lifecycle_failover_commands"),
+                        limit=4,
+                    )
+                    if lifecycle_failover_commands:
+                        compact_row["lifecycle_failover_commands"] = lifecycle_failover_commands
                 compact_rows.append(compact_row)
                 continue
             is_compression_profile = str(row.get("kind_id") or "") == "compression_profiles"
@@ -6448,6 +8605,7 @@ def _budget_trim(
                 )
                 if row.get(key) not in (None, "", [], {})
             }
+            _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
             if preserve_rich_row:
                 for key in (
                     "row_role",
@@ -6459,6 +8617,62 @@ def _budget_trim(
                 ):
                     if row.get(key) not in (None, "", [], {}):
                         compact_row[key] = row.get(key)
+            if str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID:
+                for key in (
+                    "task_class",
+                    "route_role",
+                    "surface_role",
+                    "authority_boundary",
+                    "allowed_authority",
+                    "stop_condition",
+                    "primary_organ_id",
+                    "primary_display_name",
+                    "organ_count",
+                    "first_command",
+                    "drilldown_target",
+                    "evidence_ref",
+                    "receipt_ref",
+                    "matched_terms",
+                ):
+                    value = row.get(key)
+                    if value not in (None, "", [], {}):
+                        compact_row[key] = value
+                compact_organs: list[dict[str, Any]] = []
+                for organ in row.get("relevant_organs") if isinstance(row.get("relevant_organs"), list) else []:
+                    if not isinstance(organ, Mapping):
+                        continue
+                    compact_organs.append(
+                        {
+                            key: value
+                            for key, value in {
+                                "organ_id": organ.get("organ_id"),
+                                "display_name": organ.get("display_name"),
+                                "family": organ.get("family"),
+                                "evidence_class": organ.get("evidence_class"),
+                                "wires_to": list(organ.get("wires_to") or [])[:4],
+                                "claim_ceiling": _trim(organ.get("claim_ceiling"), max_chars=180),
+                                "first_command": organ.get("first_command"),
+                                "drilldown_target": organ.get("drilldown_target"),
+                                "paper_module_ref": organ.get("paper_module_ref"),
+                                "standard_ref": organ.get("standard_ref"),
+                            }.items()
+                            if value not in (None, "", [], {})
+                        }
+                    )
+                if compact_organs:
+                    compact_row["relevant_organs"] = compact_organs[:4]
+                coordination_commands = compact_hard_ceiling_sequence(
+                    row.get("coordination_commands"),
+                    limit=4,
+                )
+                if coordination_commands:
+                    compact_row["coordination_commands"] = coordination_commands
+                lifecycle_failover_commands = compact_hard_ceiling_sequence(
+                    row.get("lifecycle_failover_commands"),
+                    limit=4,
+                )
+                if lifecycle_failover_commands:
+                    compact_row["lifecycle_failover_commands"] = lifecycle_failover_commands
             source_refs = compact_source_refs_for_row(row, limit=3)
             if source_refs:
                 compact_row["source_refs"] = source_refs
@@ -6485,12 +8699,12 @@ def _budget_trim(
             validation_route = compact_hard_ceiling_sequence(row.get("validation_route"), limit=2)
             if validation_route:
                 compact_row["validation_route"] = validation_route
+            row_kind_id = str(row.get("kind_id") or "")
             mutation_route_limit = (
-                4
-                if str(row.get("kind_id") or "") in {
-                    "generated_projection_ownership",
-                    "workitem_spine",
-                }
+                5
+                if row_kind_id == "workitem_spine"
+                else 4
+                if row_kind_id == "generated_projection_ownership"
                 else 2
             )
             mutation_route = compact_hard_ceiling_sequence(row.get("mutation_route"), limit=mutation_route_limit)
@@ -6537,6 +8751,9 @@ def _budget_trim(
             owner_routes = compact_owner_routes(row.get("owner_routes"))
             if owner_routes:
                 compact_row["owner_routes"] = owner_routes
+            upstream_route = compact_upstream_doctrine_route(row.get("upstream_doctrine_route"))
+            if upstream_route:
+                compact_row["upstream_doctrine_route"] = upstream_route
             if isinstance(row.get("replay_receipt_contract"), Mapping):
                 compact_replay_receipt_contract = compact_hard_ceiling_mapping(
                     row.get("replay_receipt_contract"),
@@ -6575,6 +8792,18 @@ def _budget_trim(
                         "when_to_open",
                         "when_not_to_open",
                         "safe_drilldown",
+                        "canonical_source",
+                        "authority_tier",
+                        "authority_layer",
+                        "override_semantics",
+                        "runtime_consumers",
+                        "evaluator_lane",
+                        "receipt_lane",
+                        "proof_path",
+                        "authority_boundary",
+                        "projection_not_authority",
+                        "currentness_status",
+                        "owner_lane",
                         "sufficiency_claims",
                     ),
                 )
@@ -6597,6 +8826,7 @@ def _budget_trim(
                     "source_bodies_omitted",
                     "safe_issue_summaries_only",
                     "public_release_safe",
+                    "retired_framing_advisory",
                     "full_graph_omitted",
                     "full_json_omitted",
                     "external_type_b_render_profile",
@@ -6616,6 +8846,19 @@ def _budget_trim(
                 }
                 if compact_contract:
                     compact_row["context_pack_contract"] = compact_contract
+            if isinstance(row.get("retirement_boundary"), Mapping):
+                retirement = row.get("retirement_boundary") or {}
+                compact_retirement = compact_hard_ceiling_mapping(
+                    retirement,
+                    keys=(
+                        "status",
+                        "source_ref",
+                        "summary",
+                        "not_current_authority_for",
+                    ),
+                )
+                if compact_retirement:
+                    compact_row["retirement_boundary"] = compact_retirement
             if isinstance(row.get("ai_native_view_packet"), Mapping):
                 view_packet = row.get("ai_native_view_packet") or {}
                 compact_view_packet = {
@@ -6834,6 +9077,7 @@ def _budget_trim(
                 "route_digest": {
                     digest_key: route_digest.get(digest_key)
                     for digest_key in (
+                        "schema_version",
                         "kind_atlas_available",
                         "entry_visible_kind_count",
                         "coverage_surface_available_count",
@@ -6909,6 +9153,707 @@ def _budget_trim(
             )
         packet["omitted"] = compact_rows
 
+    def hard_ceiling_route_handle_fallback() -> None:
+        before_tokens = int(_estimate_tokens(packet))
+        before_output_bytes = _json_bytes(packet)
+        original_budget = dict(packet.get("budget") or {})
+        original_strategy = dict(packet.get("strategy") or {})
+        original_rows = [row for row in list(packet.get("selected_rows") or []) if isinstance(row, Mapping)]
+
+        compact_rows: list[dict[str, Any]] = []
+        included: set[tuple[str, str]] = set()
+
+        def compact_route_row(row: Mapping[str, Any]) -> dict[str, Any]:
+            compact_row = {
+                key: row.get(key)
+                for key in (
+                    "kind_id",
+                    "row_id",
+                    "title",
+                    "selected_band",
+                    "owner_surface",
+                    "owner_tool",
+                    "disclosure_posture",
+                    "source_ref",
+                    "drilldown_command",
+                    "evidence_command",
+                    "selection_source_kind",
+                    "selection_facet",
+                    "matched_validation_rules",
+                )
+                if row.get(key) not in (None, "", [], {})
+            }
+            _preserve_microcosm_organ_topology_affordance_compact_fields(row, compact_row)
+            source_refs = compact_source_refs_for_row(row, limit=4)
+            if source_refs:
+                compact_row["source_refs"] = source_refs
+            currentness_keys = ("status", "source_coupling_status", "freshness_status")
+            if str(row.get("kind_id") or "") == "workitem_spine":
+                currentness_keys += (
+                    "task_ledger_freshness_command",
+                    "work_ledger_freshness_command",
+                    "work_ledger_full_claims_command",
+                )
+            currentness = compact_hard_ceiling_mapping(
+                row.get("currentness"),
+                keys=currentness_keys,
+            )
+            if currentness:
+                compact_row["currentness"] = currentness
+            if str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID:
+                for key in (
+                    "task_class",
+                    "route_role",
+                    "surface_role",
+                    "authority_boundary",
+                    "allowed_authority",
+                    "stop_condition",
+                    "primary_organ_id",
+                    "primary_display_name",
+                    "organ_count",
+                    "first_command",
+                    "drilldown_target",
+                    "evidence_ref",
+                    "receipt_ref",
+                    "matched_terms",
+                ):
+                    value = row.get(key)
+                    if value not in (None, "", [], {}):
+                        compact_row[key] = value
+                organs: list[dict[str, Any]] = []
+                for organ in row.get("relevant_organs") if isinstance(row.get("relevant_organs"), list) else []:
+                    if not isinstance(organ, Mapping):
+                        continue
+                    organs.append(
+                        {
+                            key: value
+                            for key, value in {
+                                "organ_id": organ.get("organ_id"),
+                                "display_name": organ.get("display_name"),
+                                "family": organ.get("family"),
+                                "evidence_class": organ.get("evidence_class"),
+                                "wires_to": list(organ.get("wires_to") or [])[:4],
+                                "claim_ceiling": _trim(organ.get("claim_ceiling"), max_chars=180),
+                                "first_command": organ.get("first_command"),
+                                "drilldown_target": organ.get("drilldown_target"),
+                                "paper_module_ref": organ.get("paper_module_ref"),
+                                "standard_ref": organ.get("standard_ref"),
+                            }.items()
+                            if value not in (None, "", [], {})
+                        }
+                    )
+                if organs:
+                    compact_row["relevant_organs"] = organs[:4]
+                coordination_commands = compact_hard_ceiling_sequence(
+                    row.get("coordination_commands"),
+                    limit=4,
+                )
+                if coordination_commands:
+                    compact_row["coordination_commands"] = coordination_commands
+                lifecycle_failover_commands = compact_hard_ceiling_sequence(
+                    row.get("lifecycle_failover_commands"),
+                    limit=4,
+                )
+                if lifecycle_failover_commands:
+                    compact_row["lifecycle_failover_commands"] = lifecycle_failover_commands
+            source_projection_boundary = compact_hard_ceiling_mapping(
+                row.get("source_projection_boundary"),
+                keys=(
+                    "source_authority",
+                    "json_source_authority",
+                    "manual_edit_boundary",
+                    "task_ledger_authority",
+                    "work_ledger_authority",
+                    "seed_boundary",
+                    "registry_boundary",
+                    "atlas_boundary",
+                    "option_surface_role",
+                    "generated_outputs",
+                    "dirty_source_policy",
+                ),
+            )
+            if source_projection_boundary:
+                compact_row["source_projection_boundary"] = source_projection_boundary
+            validation_route = compact_hard_ceiling_sequence(row.get("validation_route"), limit=2)
+            if validation_route:
+                compact_row["validation_route"] = validation_route
+            row_kind_id = str(row.get("kind_id") or "")
+            mutation_route_limit = (
+                5
+                if row_kind_id == "workitem_spine"
+                else 4
+                if row_kind_id == "generated_projection_ownership"
+                else 1
+            )
+            mutation_route = compact_hard_ceiling_sequence(
+                row.get("mutation_route"),
+                limit=mutation_route_limit,
+            )
+            if mutation_route:
+                compact_row["mutation_route"] = mutation_route
+            contract = compact_hard_ceiling_mapping(
+                row.get("context_pack_contract"),
+                keys=(
+                    "role",
+                    "native_band",
+                    "metadata_only",
+                    "raw_bodies_omitted",
+                    "source_bodies_omitted",
+                    "safe_issue_summaries_only",
+                    "public_release_safe",
+                    "retired_framing_advisory",
+                    "full_graph_omitted",
+                    "full_json_omitted",
+                    "allowed_payload",
+                    "forbidden_payload",
+                    "entry_consumption_obligation",
+                ),
+            )
+            if contract:
+                compact_row["context_pack_contract"] = contract
+            render_profile = compact_render_profile(row.get("render_profile"))
+            if render_profile:
+                compact_row["render_profile"] = render_profile
+            sibling_summary = compact_sibling_profile_summary(row.get("sibling_profile_summary"))
+            if sibling_summary:
+                compact_row["sibling_profile_summary"] = sibling_summary
+            if isinstance(row.get("sibling_profiles"), list):
+                compact_row["sibling_profiles"] = [
+                    dict(sibling)
+                    for sibling in list(row.get("sibling_profiles") or [])[:1]
+                    if isinstance(sibling, Mapping)
+                ]
+            route_summary = compact_hard_ceiling_mapping(
+                row.get("route_summary"),
+                keys=(
+                    "has_refresh_command",
+                    "has_check_command",
+                    "has_status_command",
+                    "has_root_drilldown_command",
+                ),
+            )
+            if route_summary:
+                compact_row["route_summary"] = route_summary
+            owner_routes = compact_owner_routes(row.get("owner_routes"))
+            if owner_routes:
+                compact_row["owner_routes"] = owner_routes
+            if isinstance(row.get("ai_native_view_packet"), Mapping):
+                view_packet = row.get("ai_native_view_packet") or {}
+                compact_view_packet = {
+                    key: view_packet.get(key)
+                    for key in (
+                        "schema",
+                        "view_id",
+                        "view_agent_packet_command",
+                        "claude_handoff_packet_command",
+                        "authority_boundary",
+                    )
+                    if view_packet.get(key) not in (None, "", [], {})
+                }
+                if compact_view_packet:
+                    compact_row["ai_native_view_packet"] = compact_view_packet
+            retirement_boundary = compact_hard_ceiling_mapping(
+                row.get("retirement_boundary"),
+                keys=("status", "source_ref", "summary", "not_current_authority_for"),
+            )
+            if retirement_boundary:
+                compact_row["retirement_boundary"] = retirement_boundary
+            affordance_passport = compact_hard_ceiling_mapping(
+                row.get("affordance_passport"),
+                keys=(
+                    "status",
+                    "source",
+                    "atom",
+                    "cluster_keys",
+                    "when_to_open",
+                    "safe_drilldown",
+                    "sufficiency_claims",
+                    "canonical_source",
+                    "authority_tier",
+                    "authority_layer",
+                    "override_semantics",
+                    "runtime_consumers",
+                    "evaluator_lane",
+                    "receipt_lane",
+                    "proof_path",
+                    "authority_boundary",
+                    "projection_not_authority",
+                    "currentness_status",
+                    "owner_lane",
+                ),
+            )
+            if affordance_passport:
+                compact_row["affordance_passport"] = affordance_passport
+            upstream_route = compact_upstream_doctrine_route(row.get("upstream_doctrine_route"))
+            if upstream_route:
+                compact_row["upstream_doctrine_route"] = upstream_route
+            affordance_compatibility = compact_hard_ceiling_mapping(
+                row.get("affordance_compatibility"),
+                keys=("compatibility_label", "compatibility_bucket"),
+            )
+            if affordance_compatibility:
+                compact_row["affordance_compatibility"] = affordance_compatibility
+            return compact_row
+
+        def add_route_row(row: Mapping[str, Any]) -> None:
+            key = (str(row.get("kind_id") or ""), str(row.get("row_id") or ""))
+            if key in included:
+                return
+            included.add(key)
+            compact_rows.append(compact_route_row(row))
+
+        for row in original_rows[:8]:
+            add_route_row(row)
+        for row in original_rows[8:]:
+            if protected_selected_row(row):
+                add_route_row(row)
+
+        omitted_route_rows = [
+            {
+                "kind_id": row.get("kind_id"),
+                "row_id": row.get("row_id"),
+            }
+            for row in original_rows
+            if (
+                str(row.get("kind_id") or ""),
+                str(row.get("row_id") or ""),
+            )
+            not in included
+        ]
+
+        compact_overview: list[dict[str, Any]] = []
+        overview_rows = [row for row in list(packet.get("overview") or []) if isinstance(row, Mapping)]
+        overview_to_keep: list[Mapping[str, Any]] = []
+        included_overview_kind_ids: set[str] = set()
+        for row in overview_rows[:4]:
+            overview_to_keep.append(row)
+            included_overview_kind_ids.add(str(row.get("kind_id") or ""))
+        for row in overview_rows[4:]:
+            kind_id = str(row.get("kind_id") or "")
+            if kind_id in OVERVIEW_TRIM_MUST_KEEP_KIND_IDS and kind_id not in included_overview_kind_ids:
+                overview_to_keep.append(row)
+                included_overview_kind_ids.add(kind_id)
+        for row in overview_to_keep:
+            if not isinstance(row, Mapping):
+                continue
+            compact_overview.append(
+                {
+                    key: row.get(key)
+                    for key in (
+                        "kind_id",
+                        "title",
+                        "row_count",
+                        "selected_band",
+                        "cluster_status_ref",
+                        "drilldown_command",
+                    )
+                    if row.get(key) not in (None, "", [], {})
+                }
+            )
+
+        spine = packet.get("navigation_index_spine")
+        compact_spine: dict[str, Any] = {}
+        if isinstance(spine, Mapping):
+            summary = spine.get("summary") if isinstance(spine.get("summary"), Mapping) else {}
+            route_digest = spine.get("route_digest") if isinstance(spine.get("route_digest"), Mapping) else {}
+            currentness = spine.get("currentness") if isinstance(spine.get("currentness"), Mapping) else {}
+            entry_intent_openings = (
+                spine.get("entry_intent_openings")
+                if isinstance(spine.get("entry_intent_openings"), Mapping)
+                else {}
+            )
+            task_conditioned = (
+                entry_intent_openings.get("task_conditioned")
+                if isinstance(entry_intent_openings.get("task_conditioned"), Mapping)
+                else {}
+            )
+            receipt = (
+                task_conditioned.get("reentry_receipt")
+                if isinstance(task_conditioned.get("reentry_receipt"), Mapping)
+                else {}
+            )
+            coverage_receipt = (
+                spine.get("coverage_closure_receipt")
+                if isinstance(spine.get("coverage_closure_receipt"), Mapping)
+                else {}
+            )
+            coverage_snapshot = (
+                coverage_receipt.get("coverage_watch_snapshot")
+                if isinstance(coverage_receipt.get("coverage_watch_snapshot"), Mapping)
+                else {}
+            )
+            compact_spine = {
+                key: value
+                for key, value in {
+                    "schema_version": spine.get("schema_version"),
+                    "surface_role": spine.get("surface_role"),
+                    "available": spine.get("available"),
+                    "summary": {
+                        summary_key: summary.get(summary_key)
+                        for summary_key in (
+                            "artifact_kind_count",
+                            "entry_visible_kind_count",
+                            "coverage_surface_gap_count",
+                            "coverage_closure_status",
+                        )
+                        if summary.get(summary_key) not in (None, "", [], {})
+                    },
+                    "route_digest": {
+                        digest_key: route_digest.get(digest_key)
+                        for digest_key in (
+                            "schema_version",
+                            "kind_atlas_available",
+                            "entry_visible_kind_count",
+                            "coverage_surface_available_count",
+                            "coverage_surface_gap_count",
+                            "first_contact_policy",
+                        )
+                        if route_digest.get(digest_key) not in (None, "", [], {})
+                    },
+                    "coverage_closure_receipt": {
+                        receipt_key: coverage_receipt.get(receipt_key)
+                        for receipt_key in (
+                            "schema_version",
+                            "status",
+                            "coverage_surface_available_count",
+                            "coverage_surface_gap_count",
+                            "behavior_watch_status",
+                            "matrix_command",
+                            "watch_repair_source_fields",
+                        )
+                        if coverage_receipt.get(receipt_key) not in (None, "", [], {})
+                    }
+                    | {
+                        "watch_drilldown_sequence": compact_sequence_steps(
+                            coverage_receipt.get("watch_drilldown_sequence"),
+                            4,
+                        ),
+                        "coverage_watch_snapshot": {
+                            snapshot_key: coverage_snapshot.get(snapshot_key)
+                            for snapshot_key in (
+                                "schema_version",
+                                "status",
+                            )
+                            if coverage_snapshot.get(snapshot_key) not in (None, "", [], {})
+                        },
+                    },
+                    "entry_intent_openings": {
+                        "task_conditioned": {
+                            "matched_intent_ids": list(
+                                task_conditioned.get("matched_intent_ids")
+                                or receipt.get("matched_intent_ids")
+                                or []
+                            )[:3],
+                            "first_opening": compact_navigation_index_first_opening(
+                                task_conditioned.get("first_opening")
+                            ),
+                            "handoff_sequence": compact_sequence_steps(
+                                task_conditioned.get("handoff_sequence"),
+                                7,
+                            ),
+                            "reentry_receipt": compact_reentry_receipt(receipt),
+                        }
+                    }
+                    if task_conditioned
+                    else None,
+                    "currentness": {
+                        current_key: currentness.get(current_key)
+                        for current_key in (
+                            "status",
+                            "source_coupling_status",
+                            "freshness_command",
+                        )
+                        if currentness.get(current_key) not in (None, "", [], {})
+                    },
+                    "source_refs": list(spine.get("source_refs") or [])[:2],
+                    "omission_receipt": {
+                        "omitted": [
+                            "navigation_index_spine.rich_rows",
+                            "navigation_index_spine.kind_group_rollup",
+                            "navigation_index_spine.full_entry_catalog",
+                        ],
+                        "reason": "Final hard-ceiling fallback preserved route handles and drilldowns only.",
+                        "drilldown": "./repo-python kernel.py --option-surface system_atlas --band cluster_flag",
+                    },
+                    "trimmed_for_context_pack_budget": True,
+                    "hard_ceiling_route_handle_fallback": True,
+                }.items()
+                if value not in (None, "", [], {})
+            }
+
+        compact_next_commands: list[dict[str, Any]] = []
+        for row in _trim_next_command_objects(packet.get("next_commands") or [], 4):
+            if not isinstance(row, Mapping):
+                continue
+            compact_next_commands.append(
+                {
+                    key: row.get(key)
+                    for key in ("command", "surface_role")
+                    if row.get(key) not in (None, "", [], {})
+                }
+            )
+
+        compact_omitted = [
+            {
+                key: row.get(key)
+                for key in ("kind_id", "row_id", "section", "reason", "drilldown")
+                if isinstance(row, Mapping) and row.get(key) not in (None, "", [], {})
+            }
+            for row in list(packet.get("omitted") or [])[:4]
+            if isinstance(row, Mapping)
+        ]
+        if omitted_route_rows:
+            compact_omitted.append(
+                {
+                    "section": "selected_rows.route_handle_fallback_omitted_rows",
+                    "reason": "route_handle_fallback",
+                    "omitted_count": len(omitted_route_rows),
+                    "row_handles": omitted_route_rows[:8],
+                    "drilldown_template": (
+                        "./repo-python kernel.py --option-surface <kind_id> --band card --ids <row_id>"
+                    ),
+                }
+            )
+        compact_omitted.append(
+            {
+                "section": "hard_ceiling_route_handle_fallback",
+                "reason": (
+                    "packet still exceeded hard ceiling after normal compaction; "
+                    "final fallback preserved route handles and explicit drilldowns"
+                ),
+                "drilldown": (
+                    "./repo-python kernel.py --context-pack \"<task>\" "
+                    "--context-budget 20000"
+                ),
+            }
+        )
+
+        budget = {
+            "requested_tokens": original_budget.get("requested_tokens", context_budget),
+            "hard_ceiling": original_budget.get("hard_ceiling", True),
+            "enforcement": original_budget.get("enforcement", "selection_before_render"),
+            "hard_ceiling_repair_status": "hard_ceiling_route_handle_fallback",
+            "fallback_from_tokens": before_tokens,
+            "fallback_from_output_bytes": before_output_bytes,
+            "fallback_preserved_selected_row_count": len(compact_rows),
+            "fallback_omitted_selected_row_count": len(omitted_route_rows),
+        }
+        for key in (
+            "routine_economy_reserve_tokens",
+            "routine_economy_effective_ceiling_tokens",
+            "routine_selected_row_economy",
+        ):
+            if original_budget.get(key) not in (None, "", [], {}):
+                budget[key] = original_budget.get(key)
+
+        strategy = {
+            key: original_strategy.get(key)
+            for key in (
+                "selection_model",
+                "profile",
+                "not_keyword_search",
+                "artifact_kind_first",
+                "mixed_band",
+                "selected_rows_role",
+                "next_commands_role",
+            )
+            if original_strategy.get(key) not in (None, "", [], {})
+        }
+        semantic_status = compact_hard_ceiling_mapping(
+            original_strategy.get("semantic_status"),
+            keys=("status", "deep_command", "timeout_ms"),
+        )
+        if semantic_status:
+            strategy["semantic_status"] = semantic_status
+        overview_status = compact_hard_ceiling_mapping(
+            original_strategy.get("overview_status"),
+            keys=("mode", "returned_overview_row_count", "omitted_overview_row_count"),
+        )
+        if overview_status:
+            strategy["overview_status"] = overview_status
+
+        candidate_pressure = packet.get("candidate_runtime_pressure")
+        compact_candidate_pressure: dict[str, Any] = {}
+        if isinstance(candidate_pressure, Mapping):
+            compact_candidate_pressure = {
+                key: candidate_pressure.get(key)
+                for key in (
+                    "count",
+                    "suppressed_count",
+                    "filter_policy",
+                )
+                if candidate_pressure.get(key) not in (None, "", [], {})
+            }
+            compact_candidate_pressure.update(
+                {
+                    "status": "rows_omitted_for_route_handle_fallback",
+                    "drilldown": (
+                        "./repo-python kernel.py --context-pack \"<task>\" "
+                        "--context-budget 20000"
+                    ),
+                }
+            )
+
+        root_navigator_context = packet.get("root_navigator_ai_native_context")
+        compact_root_navigator_context: dict[str, Any] = {}
+        if isinstance(root_navigator_context, Mapping):
+            view_deliverable = (
+                root_navigator_context.get("view_deliverable")
+                if isinstance(root_navigator_context.get("view_deliverable"), Mapping)
+                else {}
+            )
+            semantic_matrix = (
+                root_navigator_context.get("semantic_primitive_matrix")
+                if isinstance(root_navigator_context.get("semantic_primitive_matrix"), Mapping)
+                else {}
+            )
+            coverage_state = (
+                root_navigator_context.get("root_coverage_state")
+                if isinstance(root_navigator_context.get("root_coverage_state"), Mapping)
+                else {}
+            )
+            compact_root_navigator_context = {
+                key: value
+                for key, value in {
+                    "schema": root_navigator_context.get("schema"),
+                    "view_id": root_navigator_context.get("view_id"),
+                    "view_deliverable": {
+                        "status": view_deliverable.get("status"),
+                    }
+                    if view_deliverable
+                    else None,
+                    "semantic_primitive_matrix": {
+                        "row_count": semantic_matrix.get("row_count"),
+                    }
+                    if semantic_matrix
+                    else None,
+                    "root_coverage_state": {
+                        "freshness_check_command": coverage_state.get("freshness_check_command"),
+                    }
+                    if coverage_state
+                    else None,
+                }.items()
+                if value not in (None, "", [], {})
+            }
+
+        dirty_tree_context = packet.get("dirty_tree_bankruptcy_pressure")
+        compact_dirty_tree_context: dict[str, Any] = {}
+        if isinstance(dirty_tree_context, Mapping):
+            compact_dirty_tree_context = {
+                key: value
+                for key, value in {
+                    "schema": dirty_tree_context.get("schema"),
+                    "status": dirty_tree_context.get("status"),
+                    "authority_boundary": dirty_tree_context.get("authority_boundary"),
+                    "projection_only": dirty_tree_context.get("projection_only"),
+                    "safety_authority": dirty_tree_context.get("safety_authority"),
+                    "source_view": dirty_tree_context.get("source_view"),
+                    "source_command": dirty_tree_context.get("source_command"),
+                    "bankruptcy_authorized": dirty_tree_context.get("bankruptcy_authorized"),
+                    "dirty_scan_status": dirty_tree_context.get("dirty_scan_status"),
+                    "dirty_total": dirty_tree_context.get("dirty_total"),
+                    "class_counts": dirty_tree_context.get("class_counts")
+                    or dirty_tree_context.get("dirty_path_class_counts"),
+                    "operator_authorized_mainline_checkpoint": dirty_tree_context.get(
+                        "operator_authorized_mainline_checkpoint"
+                    ),
+                    "operator_authorized_unclaimed_checkpoint": dirty_tree_context.get(
+                        "operator_authorized_unclaimed_checkpoint"
+                    ),
+                    "containment_plan": dirty_tree_context.get("containment_plan"),
+                    "repeat_policy": dirty_tree_context.get("repeat_policy")
+                    or dirty_tree_context.get("rescue_repeat_policy"),
+                    "blocked_residuals": compact_hard_ceiling_sequence(
+                        dirty_tree_context.get("blocked_residuals"),
+                        limit=3,
+                    ),
+                    "mainline_commit_candidates": dirty_tree_context.get(
+                        "mainline_commit_candidates"
+                    )
+                    or [],
+                    "next_safe_action": dirty_tree_context.get("next_safe_action"),
+                    "commands": dirty_tree_context.get("commands"),
+                }.items()
+                if value not in (None, "", [], {}) or key == "mainline_commit_candidates"
+            }
+
+        dirty_tree_alias = packet.get("dirty_tree_pressure")
+        compact_dirty_tree_alias: dict[str, Any] = {}
+        if isinstance(dirty_tree_alias, Mapping):
+            compact_dirty_tree_alias = {
+                key: dirty_tree_alias.get(key)
+                for key in (
+                    "schema",
+                    "alias_of",
+                    "status",
+                    "authority_boundary",
+                    "projection_only",
+                    "safety_authority",
+                    "source_view",
+                    "source_command",
+                    "bankruptcy_authorized",
+                    "dirty_scan_status",
+                    "dirty_total",
+                    "class_counts",
+                    "operator_authorized_mainline_checkpoint",
+                    "operator_authorized_unclaimed_checkpoint",
+                    "containment_plan",
+                    "repeat_policy",
+                    "next_safe_action",
+                )
+                if dirty_tree_alias.get(key) not in (None, "", [], {})
+            }
+
+        fallback_packet = {
+            "kind": packet.get("kind"),
+            "schema_version": packet.get("schema_version"),
+            "surface_role": packet.get("surface_role"),
+            "first_contact_allowed": packet.get("first_contact_allowed"),
+            "generated_at": packet.get("generated_at"),
+            "query": packet.get("query"),
+            "budget": budget,
+            "strategy": strategy,
+            "overview": compact_overview,
+            "selected_rows": compact_rows,
+            "candidate_runtime_pressure": compact_candidate_pressure,
+            "navigation_index_spine": compact_spine,
+            "root_navigator_ai_native_context": compact_root_navigator_context,
+            "dirty_tree_bankruptcy_pressure": compact_dirty_tree_context,
+            "dirty_tree_pressure": compact_dirty_tree_alias,
+            "next_command_policy": packet.get("next_command_policy"),
+            "next_commands": compact_next_commands,
+            "source_surfaces": _trim_source_surfaces(packet.get("source_surfaces") or [], 4),
+            "omitted": compact_omitted,
+        }
+        packet.clear()
+        packet.update(
+            {
+                key: value
+                for key, value in fallback_packet.items()
+                if value not in (None, "", [], {})
+            }
+        )
+        route_handle_budget = max(
+            effective_budget,
+            int(context_budget or 0) - BUDGET_METADATA_HEADROOM_TOKENS,
+        )
+        while _estimate_tokens(packet) > route_handle_budget and len(packet.get("selected_rows") or []) > 8:
+            row = packet["selected_rows"].pop()
+            packet.setdefault("omitted", []).append(
+                {
+                    "kind_id": row.get("kind_id"),
+                    "row_id": row.get("row_id"),
+                    "reason": "route_handle_fallback_row_budget_trim",
+                }
+            )
+        if _estimate_tokens(packet) > route_handle_budget:
+            packet.pop("candidate_runtime_pressure", None)
+        if _estimate_tokens(packet) > route_handle_budget:
+            packet["overview"] = list(packet.get("overview") or [])[:2]
+            packet["next_commands"] = _trim_next_command_objects(packet.get("next_commands") or [], 1)
+            packet["source_surfaces"] = _trim_source_surfaces(packet.get("source_surfaces") or [], 2)
+        packet.setdefault("budget", {})["fallback_estimated_tokens"] = int(_estimate_tokens(packet))
+
     def protected_selected_row(row: Mapping[str, Any]) -> bool:
         if (str(row.get("kind_id") or ""), str(row.get("row_id") or "")) in BUDGET_TRIM_PROTECTED_ROWS:
             return True
@@ -6941,6 +9886,16 @@ def _budget_trim(
                 packet["overview"] = protected
                 return
         keep_ids = [str(row.get("kind_id") or "") for row in overview_rows[:max_rows]]
+        for row in overview_rows[max_rows:]:
+            kind_id = str(row.get("kind_id") or "")
+            if kind_id not in OVERVIEW_TRIM_MUST_KEEP_KIND_IDS or kind_id in keep_ids:
+                continue
+            for index in range(len(keep_ids) - 1, -1, -1):
+                if keep_ids[index] not in OVERVIEW_TRIM_MUST_KEEP_KIND_IDS:
+                    keep_ids.pop(index)
+                    break
+            if len(keep_ids) < max_rows:
+                keep_ids.append(kind_id)
         for row in overview_rows[max_rows:]:
             kind_id = str(row.get("kind_id") or "")
             if kind_id not in OVERVIEW_TRIM_PROTECTED_KIND_IDS or kind_id in keep_ids:
@@ -7033,10 +9988,14 @@ def _budget_trim(
         if _json_bytes(packet) > ROUTINE_CONTEXT_PACK_SOFT_CEILING_BYTES and speed_or_context_economy_query:
             telemetry_tokens = (
                 "work_ledger.py session-status --seed-speed",
+                "work_ledger_claim_read",
+                "git_diff_review_context",
                 "latency_seed_preflight",
                 "process_bottleneck_triage",
                 "command_surface_inventory",
                 "--latency-seed-digest",
+                "--process-bottlenecks",
+                "--command-profile latency-speedboard",
             )
             telemetry_rows = [
                 row
@@ -7045,7 +10004,7 @@ def _budget_trim(
                 and any(token in str(row.get("command") or "") for token in telemetry_tokens)
             ]
             if telemetry_rows:
-                packet["next_commands"] = telemetry_rows[:5]
+                packet["next_commands"] = telemetry_rows[:9]
         receipt["after_output_bytes"] = _json_bytes(packet)
         receipt["after_selected_rows_bytes"] = section_bytes("selected_rows")
 
@@ -7374,6 +10333,12 @@ def _budget_trim(
                 ),
             }
         )
+    fallback_trigger_budget = max(
+        effective_budget,
+        int(context_budget or 0) - BUDGET_METADATA_HEADROOM_TOKENS,
+    )
+    if _estimate_tokens(packet) > fallback_trigger_budget:
+        hard_ceiling_route_handle_fallback()
     if (
         "system integration unification duplicate surfaces" in query_text
         and "type b thread" in query_text
@@ -7443,7 +10408,14 @@ def build_navigation_context_pack(
     )
     timings["anchor_merge"] = int(round((time.perf_counter() - stage_start) * 1000))
     stage_start = time.perf_counter()
-    selected_rows, unresolved = _selected_rows(root, candidates, query=query)
+    selected_row_card_cache_statuses: list[dict[str, Any]] = []
+    selected_rows, unresolved = _selected_rows(
+        root,
+        candidates,
+        query=query,
+        use_card_cache=normalized_profile == "routine",
+        card_cache_statuses=selected_row_card_cache_statuses,
+    )
     timings["selected_rows"] = int(round((time.perf_counter() - stage_start) * 1000))
     stage_start = time.perf_counter()
     reserve_tokens = 0
@@ -7556,6 +10528,12 @@ def build_navigation_context_pack(
             "semantic_status": semantic_status,
             "overview_status": overview_status,
             "stage_timings_ms": timings,
+            "kind_atlas_cache": atlas.get("cache") if isinstance(atlas.get("cache"), Mapping) else {},
+            "selected_row_card_cache": {
+                "status": "enabled" if normalized_profile == "routine" else "disabled",
+                "eligible_kind_ids": sorted(ROUTINE_SELECTED_CARD_CACHE_KINDS),
+                "rows": selected_row_card_cache_statuses,
+            },
         },
         "overview": overview_rows,
         "selected_rows": selected_rows,
@@ -7575,7 +10553,11 @@ def build_navigation_context_pack(
         "mission_trace_current_state": mission_trace_current_state,
         "omitted": unresolved,
         "landmines": _landmines(atlas_rows),
-        "next_commands": _next_command_objects(selected_rows, lattice_commands),
+        "next_command_policy": {
+            "authority": "drilldown_hint_not_control_edge",
+            "allowed_after": "entry/context-pack selected the relevant row or kind",
+        },
+        "next_commands": _next_command_objects(selected_rows, lattice_commands, query=query),
         "source_surfaces": [
             "system/lib/kind_atlas.py",
             "system/lib/standard_option_surface.py",
@@ -7725,11 +10707,36 @@ def build_navigation_context_pack(
                 "tools/meta/factory/build_root_coverage_state.py",
             ]
         )
+    if any(str(row.get("kind_id") or "") == MICROCOSM_AGENT_TASK_ROUTE_KIND_ID for row in selected_rows):
+        packet["source_surfaces"].extend(
+            [
+                str(MICROCOSM_AGENT_TASK_ROUTES_REL),
+                "microcosm-substrate/core/organ_registry.json",
+                "microcosm-substrate/core/organ_atlas.json",
+            ]
+        )
+    if any(str(row.get("kind_id") or "") == MICROCOSM_ORGAN_TOPOLOGY_AFFORDANCE_KIND_ID for row in selected_rows):
+        packet["source_surfaces"].extend(
+            [
+                "system/lib/navigation_context_pack.py",
+                "microcosm-substrate/src/microcosm_core/projections/organ_surface_contract.py",
+                "microcosm-substrate/src/microcosm_core/cli.py",
+                "microcosm-substrate/tests/test_organ_surface_contract.py",
+            ]
+        )
     if normalized_profile == "routine" and budget <= 12000:
+        _compact_routine_agent_operating_packet(packet)
+        _compact_routine_overview(packet)
+        _compact_routine_candidate_runtime_pressure(packet)
         _compact_routine_selected_row_affordances(packet)
+        _compact_routine_mission_trace_current_state(packet)
         _compact_routine_landmines(packet)
     stage_start = time.perf_counter()
     packet = _budget_trim(packet, budget, reserve_tokens=reserve_tokens)
+    if normalized_profile == "routine" and budget <= 12000:
+        _compact_routine_omitted(packet)
+        _compact_routine_budget_receipts(packet)
+        _compact_routine_strategy_metadata(packet)
     timings["budget_trim"] = int(round((time.perf_counter() - stage_start) * 1000))
     estimated_tokens = int(_estimate_tokens(packet))
     packet["budget"]["estimated_tokens"] = estimated_tokens

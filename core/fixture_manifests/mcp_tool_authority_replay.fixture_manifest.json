@@ -1,7 +1,7 @@
 {
   "anti_claim": "This fixture validates public trace-backed MCP tool-authority boundaries; it does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
   "authority_ceiling": "public agent-execution trace refactor over MCP tool-authority fixture inputs; no live MCP account, credential, provider-payload, untrusted-output-as-instruction, unapproved-side-effect, source-mutation, benchmark-safety, or release authority",
-  "body_copied_material_count": 6,
+  "body_copied_material_count": 7,
   "body_import_classification": "copied_non_secret_public_mcp_tool_authority_macro_body_import",
   "body_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
   "body_import_verification": {
@@ -119,16 +119,17 @@
       "public_macro_pattern_body": 1,
       "public_macro_receipt_body": 1,
       "public_macro_standard_body": 2,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
-    "body_material_count": 6,
+    "body_material_count": 7,
     "body_material_ids": [
       "mcp_tool_authority_high_novelty_growth_receipt_body_import",
       "mcp_tool_authority_extracted_patterns_ledger_body_import",
       "agent_execution_trace_runtime_body_import",
       "agent_execution_trace_standard_body_import",
       "extracted_pattern_route_readiness_standard_body_import",
-      "mission_transaction_preflight_control_body_import"
+      "mission_transaction_preflight_control_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
     "body_text_exported_in_receipts": false,
@@ -156,6 +157,7 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mcp_tool_authority_replay_compound",
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "tools/meta/control/mission_transaction_preflight.py"
   ],
   "stable_error_codes": [
@@ -177,6 +179,7 @@
     "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
     "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/system/lib/strict_json.py",
     "microcosm-substrate/src/microcosm_core/organs/mcp_tool_authority_replay.py"
   ],
   "target_symbols": [

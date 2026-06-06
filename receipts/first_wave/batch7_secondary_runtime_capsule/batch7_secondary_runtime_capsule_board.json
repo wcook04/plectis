@@ -1,0 +1,29 @@
+{
+  "anti_claim": "Batch 7 secondary imports public-safe runtime view-model, graph projection, cartography render, stockgrid, and Polymarket source bodies. It is not a release, not private-root equivalence, not browser or wallet access, not market data freshness, not investment advice, and not proof that the UI or ranking systems are complete.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch7_secondary_public_capsule_not_release_or_runtime_authority",
+    "browser_or_wallet_access": false,
+    "investment_advice": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_truth_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 8,
+    "source_module_count": 13
+  },
+  "organ_id": "batch7_secondary_runtime_capsule",
+  "schema_version": "batch7_secondary_runtime_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 7 Secondary Runtime Capsule",
+  "verdict": "pass"
+}

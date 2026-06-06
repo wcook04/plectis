@@ -1,0 +1,45 @@
+{
+  "case_id": "json_pointer_and_glob_count",
+  "expected_status": "ok",
+  "expected_values": {
+    "demo.fact_count": 7,
+    "demo.markdown_count": 2
+  },
+  "files": {
+    "state/report.json": {
+      "summary": {
+        "fact_count": 7
+      }
+    },
+    "docs/a.md": "alpha\n",
+    "docs/b.md": "beta\n",
+    "private/ignored.md": "excluded\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.fact_count",
+        "title": "Fixture fact count",
+        "provider_type": "json_pointer",
+        "source_path": "state/report.json",
+        "pointer": "/summary/fact_count",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "json_pointer"
+        ]
+      },
+      {
+        "id": "demo.markdown_count",
+        "title": "Fixture markdown count",
+        "provider_type": "glob_count",
+        "glob": "docs/*.md",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "glob_count"
+        ]
+      }
+    ]
+  }
+}

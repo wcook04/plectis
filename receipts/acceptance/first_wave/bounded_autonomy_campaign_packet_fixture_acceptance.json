@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.bounded_autonomy_campaign_packet",
+  "organ_id": "bounded_autonomy_campaign_packet",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "microcosm-substrate/receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "microcosm-substrate/receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json"
+}

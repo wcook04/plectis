@@ -7,7 +7,16 @@
     "raw_operator_voice_export_authority": false,
     "release_authority": false,
     "source_mutation_authority": false,
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#voice_to_doctrine_self_improvement_loop",
+    "claim_ceiling_ref": "core/organ_registry.json#voice_to_doctrine_self_improvement_loop.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "kind_id": "voice_to_doctrine_self_improvement_loop",
   "public_private_boundary": {
@@ -71,7 +80,7 @@
     "validation_ref",
     "closeout_ref"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     {
       "path": "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
@@ -124,9 +133,27 @@
       "private thread body exported"
     ],
     "ontology": "A public-safe organ that turns local pressure into owner-surface mutation, residual capture, or typed no-op under validation.",
-    "teleology": "Show the macro system's most important property: it learns from local work and updates its own substrate without rule drift."
+    "teleology": "Show the macro system's most important property: it learns from local work and updates its own substrate without rule drift.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": null,
+      "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
+      "receipt_id": "receipt.microcosm.voice_to_doctrine_self_improvement_loop",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require real macro pattern refs for recursive self-improvement, doctrine population, and local-to-general propagation",
     "require owner surface ids, mutation authority, and public refs",
@@ -152,7 +179,33 @@
     "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop"
   },
   "validator_refs": [
-    "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
-    "tests/test_voice_to_doctrine_self_improvement_loop.py"
+    "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
+    "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.voice_to_doctrine_self_improvement_loop.author",
+      "status": "planned",
+      "purpose": "create a valid voice_to_doctrine_self_improvement_loop instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.voice_to_doctrine_self_improvement_loop.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing voice_to_doctrine_self_improvement_loop without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.voice_to_doctrine_self_improvement_loop.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_voice_to_doctrine_self_improvement_loop and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "receipt_refs": [
+    "receipt.microcosm.voice_to_doctrine_self_improvement_loop",
+    "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_board.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json"
   ]
 }

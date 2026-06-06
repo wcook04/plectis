@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "calculator_outlier",
+  "error_codes": [
+    "BATCH7_CALCULATOR_OUTLIER_RESISTANT"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

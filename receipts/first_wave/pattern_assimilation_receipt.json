@@ -23,9 +23,9 @@
     "microcosm-substrate/skills/pattern_assimilation.md"
   ],
   "changed_surface_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
-  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
+  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input microcosm-substrate/fixtures/first_wave/pattern_assimilation_step/input --out microcosm-substrate/receipts/first_wave/pattern_assimilation_acceptance.json",
   "concrete_improvement_made": true,
-  "created_at": "2026-05-20T17:08:07+00:00",
+  "created_at": "2026-06-04T12:37:30+00:00",
   "duplicate_receipt_ids": [
     "assimilation_duplicate_receipt"
   ],
@@ -164,11 +164,21 @@
   "organ_id": "pattern_assimilation_step",
   "owner_surface": "microcosm-substrate/core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 4,
     "status": "pass",
     "synthetic_boundary_negative_cases_observed": [

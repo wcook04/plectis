@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "work_ledger",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.standards_meta_diagnostics_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.work_ledger.author",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.work_ledger.author.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_work_ledger",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "work_ledger",
+    "concept_refs": [
+      "concept.standards_meta_diagnostics_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_ledger.author.md::typed_skill_mapping.operates_standard",
+          "summary": "This markdown binds Work Ledger authoring to std_microcosm_work_ledger, the work_ledger doctrine kind, and concurrency mission-control because Work Ledger rows coordinate claim/session authority and must preserve exact source-body boundaries, collision state, and authority ceilings without becoming live mutation authority."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_work_ledger",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_ledger.author.md::typed_skill_mapping.acts_on_kind",
+          "summary": "This markdown binds Work Ledger authoring to std_microcosm_work_ledger, the work_ledger doctrine kind, and concurrency mission-control because Work Ledger rows coordinate claim/session authority and must preserve exact source-body boundaries, collision state, and authority ceilings without becoming live mutation authority."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "work_ledger",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_ledger.author.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.standards_meta_diagnostics_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.work_ledger.author.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control"
+    ],
+    "operates_standard": "std_microcosm_work_ledger",
+    "source_markdown_digest": "b07a01bc086fee5027e846068c8bc54b90e58471e1a419fcb4232f066f6b138d",
+    "source_markdown_line_count": 39,
+    "source_markdown_ref": "skills/microcosm.work_ledger.author.md",
+    "triad_role": "author",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "This markdown binds Work Ledger authoring to std_microcosm_work_ledger, the work_ledger doctrine kind, and concurrency mission-control because Work Ledger rows coordinate claim/session authority and must preserve exact source-body boundaries, collision state, and authority ceilings without becoming live mutation authority.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.work_ledger.author.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.work_ledger.author.json"
+    },
+    "source_markdown_digest": "b07a01bc086fee5027e846068c8bc54b90e58471e1a419fcb4232f066f6b138d",
+    "source_markdown_line_count": 39,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.work_ledger.author.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.work_ledger.author.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Work Ledger Author",
+  "status": "active",
+  "title": "Microcosm Work Ledger Author",
+  "triad_role": "author",
+  "triggers": [
+    "A live coordination fact needs a Work Ledger record with session id, actor, scope, claim or heartbeat state, lease, read receipt, append evidence, and authority ceiling.",
+    "The agent can name the public-safe source refs, exact-copy body-floor boundary, claim scope, collision state, receipt refs, and forbidden live mutation claims without exporting private bodies."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Read std_microcosm_work_ledger, active Work Ledger claims, source-body import receipts, concurrency mission-control evidence, Task Ledger linkage, generated health, and relevant runtime views before authoring.",
+    "Admit only public-safe coordination records or exact-copy body-floor evidence; do not use this skill to mutate live claims, release claims, perform Git mutation, invoke providers, or claim private-data equivalence.",
+    "Regenerate the skill corpus and doctrine lattice, then run Work-Ledger-adjacent corpus checks, focused tests, broad projection checks, and scoped receipt binding."
+  ]
+}

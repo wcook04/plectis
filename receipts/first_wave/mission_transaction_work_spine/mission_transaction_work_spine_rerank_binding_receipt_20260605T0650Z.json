@@ -1,0 +1,60 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "receipt_id": "mission_transaction_work_spine_rerank_binding_20260605T0650Z",
+  "organ_id": "mission_transaction_work_spine",
+  "component": "mission_transaction_work_spine.real_work_ledger_runtime_proof",
+  "created_at": "2026-06-05T06:50:00Z",
+  "created_by": "codex_20260605T064903Z_mission_transaction_work_spine_proof",
+  "status": "pass",
+  "rerank_decision": "current_code_already_satisfies_r2_to_r3_r4_real_runtime_proof_contract",
+  "source_commit_checked": {
+    "commit": "a9ef8352d10d86cb69b6ca3459143bed13b521b9",
+    "subject": "Validate mission work spine real runtime bundle",
+    "touched_paths": [
+      "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
+    ]
+  },
+  "validated_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+    "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input/real_work_ledger_active_claims_snapshot.json",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py"
+  ],
+  "proof_contract": {
+    "real_sanitized_session_claim_bundle_passes": true,
+    "mutated_claim_collision_evidence_rejects": true,
+    "mutated_expected_parent_commit_evidence_rejects": true,
+    "input_perturbation_moves_verdict": true,
+    "focused_tests_pass": true,
+    "live_state_mutation_authorized": false,
+    "private_body_exported": false
+  },
+  "implementation_receipts": {
+    "runtime_snapshot_validator": "microcosm_core.organs.mission_transaction_work_spine::validate_real_active_claims_snapshot",
+    "bundle_validator": "microcosm_core.organs.mission_transaction_work_spine::run_mission_transaction_bundle",
+    "focused_tests": [
+      "test_mission_transaction_work_spine_observes_required_negative_cases",
+      "test_mission_transaction_work_spine_exported_bundle_consumes_real_work_ledger_runtime",
+      "test_mission_transaction_work_spine_exported_bundle_rejects_mutated_real_runtime_rows"
+    ]
+  },
+  "validation": {
+    "command": "./repo-pytest microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+    "exit_code": 0,
+    "summary": "17 passed in 1.06s",
+    "slowest_relevant_tests": [
+      "test_mission_transaction_work_spine_exported_bundle_consumes_real_work_ledger_runtime",
+      "test_mission_transaction_work_spine_exported_bundle_rejects_mutated_real_runtime_rows"
+    ]
+  },
+  "authority_ceiling": {
+    "public_fixture_and_exported_bundle_receipt_only": true,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "live_git_mutation_authorized": false,
+    "release_or_publication_authorized": false,
+    "whole_system_correctness_claimed": false
+  },
+  "body_in_receipt": false
+}

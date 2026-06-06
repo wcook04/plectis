@@ -1,5 +1,5 @@
 {
-  "schema_version": "microcosm_bridge_fake_transport_private_state_class_refs_v1",
+  "schema_version": "microcosm_bridge_synthetic_transport_private_state_class_refs_v1",
   "fixture_scope": "synthetic_bridge_continuity_base_manifest",
   "payload_bodies_included": false,
   "forbidden_private_state_classes": [

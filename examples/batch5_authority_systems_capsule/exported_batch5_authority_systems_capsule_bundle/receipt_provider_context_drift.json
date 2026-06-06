@@ -1,0 +1,41 @@
+{
+  "body_in_receipt": false,
+  "case_id": "receipt_provider_context_drift",
+  "claim": "A receipt with provider substitution, forbidden context, artifact drift, or ungranted runtime execution must be rejected.",
+  "computed_path": "drifted_receipt_codes_present",
+  "error_codes": [
+    "BATCH5_RECEIPT_DRIFT_REJECTED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "reasoning_execution_receipt_validator",
+  "probe_input": {
+    "drifted_receipt": {
+      "artifact_sha256": "def456",
+      "context_classes": [
+        "public_task",
+        "private_seed"
+      ],
+      "provider": "substituted-provider",
+      "runtime_execution": true
+    },
+    "grant": {
+      "allowed_context_classes": [
+        "public_task",
+        "result_summary"
+      ],
+      "artifact_sha256": "abc123",
+      "provider": "public-offline-fixture",
+      "runtime_grant_issued": true
+    },
+    "valid_receipt": {
+      "artifact_sha256": "abc123",
+      "context_classes": [
+        "public_task"
+      ],
+      "provider": "public-offline-fixture",
+      "runtime_execution": false
+    }
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "bitemporal_expired_claim", "error_codes": ["BATCH4_BITEMPORAL_EXPIRED_CLAIM_NOT_CURRENT"], "runtime_probe": {"observer_id": "bitemporal_claim_event_supersession_anchors", "source_module_id": "metabolism_store", "required_text": "blackboard_claim_events"}, "body_in_receipt": false}

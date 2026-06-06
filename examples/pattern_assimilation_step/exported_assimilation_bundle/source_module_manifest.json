@@ -4,7 +4,7 @@
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "pattern_assimilation_step_source_open_body_import",
-  "module_count": 3,
+  "module_count": 4,
   "modules": [
     {
       "anchor_count": 5,
@@ -97,6 +97,37 @@
       "target_sha256": "3a254ee955fcbf7843c9774ecfd17c33877ea604af5c3c85c73945a6ece2c5fe",
       "validation_refs": [
         "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 81213,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1926,
+      "material_class": "public_python_source_body",
+      "module_id": "pattern_assimilation_acceptance_validator_source_body_import",
+      "path": "source_modules/microcosm_core/validators/acceptance.py",
+      "required_anchors": [
+        "def validate_pattern_assimilation",
+        "def run_assimilation_bundle",
+        "PATTERN_ASSIMILATION_AUTHORITY_CEILING"
+      ],
+      "sha256": "507b366d81db1d2febc3bb9cb9bf139b0faaf6f0e37f65b6c8e5af9f5764b7e0",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
+      "source_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+      "source_role": "Public Microcosm acceptance validator body that runs pattern_assimilation_step fixtures and exported bundle validation without treating generated reconstruction receipts as authority.",
+      "source_sha256": "507b366d81db1d2febc3bb9cb9bf139b0faaf6f0e37f65b6c8e5af9f5764b7e0",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/microcosm_core/validators/acceptance.py",
+      "target_sha256": "507b366d81db1d2febc3bb9cb9bf139b0faaf6f0e37f65b6c8e5af9f5764b7e0",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_pattern_assimilation_step.py::test_pattern_assimilation_exported_bundle_validates_runtime_shape"
       ]
     }
   ],

@@ -11,8 +11,8 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
-  "created_at": "2026-05-20T17:08:07+00:00",
+  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input microcosm-substrate/fixtures/first_wave/pattern_assimilation_step/input --out microcosm-substrate/receipts/first_wave/pattern_assimilation_acceptance.json",
+  "created_at": "2026-06-04T12:37:30+00:00",
   "error_codes": [
     "DUPLICATE_REFINEMENT_RECEIPT_ID",
     "LOCAL_LESSON_AUTHORITY_UPGRADE",
@@ -100,7 +100,7 @@
     }
   ],
   "fixture_id": "first_wave.pattern_assimilation_step",
-  "landing_decision_count": 6,
+  "landing_decision_count": 11,
   "missing_closeout_count": 1,
   "missing_negative_cases": [],
   "observed_negative_cases": {
@@ -124,11 +124,21 @@
   },
   "organ_id": "pattern_assimilation_step",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 4,
     "status": "pass",
     "synthetic_boundary_negative_cases_observed": [
@@ -150,8 +160,29 @@
     "pattern_binding_contract",
     "executable_doctrine_grammar",
     "proof_diagnostic_evidence_spine",
+    "formal_math_readiness_gate",
+    "corpus_readiness_mathlib_absence_gate",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "formal_evidence_cell_anchor_resolver",
+    "undeclared_library_prior_symbol_classifier",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "provider_context_recipe_budget_policy",
+    "formal_math_lean_proof_witness",
+    "verifier_lab_kernel",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
+    "durable_agent_work_landing_replay",
+    "research_replication_rubric_artifact_replay",
+    "world_model_projection_drift_control_room",
+    "spatial_world_model_counterfactual_simulation_replay",
+    "materials_chemistry_closed_loop_lab_safety_replay",
+    "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime"
   ]
 }

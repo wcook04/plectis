@@ -1,0 +1,14 @@
+{
+  "schema_version": "batch7_zenith_negative_case_v1",
+  "case_id": "missing_shutdown_command_gate",
+  "body_in_receipt": false,
+  "error_codes": [
+    "BATCH7_ZENITH_SHUTDOWN_POLICY_REQUIRED"
+  ],
+  "mutant": {
+    "remove_tokens": [
+      "commandLooksLikeZenithBackend",
+      "managedBackendShutdownPolicyDoesNotKillExternalOrUnrecognizedProcesses"
+    ]
+  }
+}

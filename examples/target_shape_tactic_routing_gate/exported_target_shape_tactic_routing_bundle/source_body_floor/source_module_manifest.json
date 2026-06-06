@@ -7,7 +7,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 60658,
+      "byte_count": 60615,
       "line_count": 1530,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "target_shape_tactic_routing_gate_public_organ_source_body_import",
@@ -16,19 +16,19 @@
         "ORGAN_ID = \"target_shape_tactic_routing_gate\"",
         "def run"
       ],
-      "sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
+      "sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
       "sha256_match": true,
-      "source_byte_count": 60658,
+      "source_byte_count": 60615,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 1530,
       "source_ref": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
       "source_role": "Public target-shape tactic routing gate logic used to classify proof goals before tactic selection.",
-      "source_sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
+      "source_sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
       "source_to_target_relation": "exact_copy",
-      "target_byte_count": 60658,
+      "target_byte_count": 60615,
       "target_line_count": 1530,
       "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_body_floor/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py",
-      "target_sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
+      "target_sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_json_sources_do_not_count_as_real_substrate"
       ]

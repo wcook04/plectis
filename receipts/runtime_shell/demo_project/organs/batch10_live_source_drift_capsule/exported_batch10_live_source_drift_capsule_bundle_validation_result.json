@@ -1,0 +1,394 @@
+{
+  "anti_claim": "Batch 10 Live Source Drift imports exact current Python bodies for the option-surface router, mission-transaction landing preflight, work landing controller, and Work Ledger controller after macro source drift. It proves byte-copy freshness, anchors, Python compileability, and claim ceilings. It is not route authority, not Work Ledger or Task Ledger mutation authority, not mission-transaction execution, not git staging/commit approval, and not permission to export private runtime state.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch10_live_source_drift_import_not_mutation_or_route_authority",
+    "git_staging_or_commit_authorized": false,
+    "macro_source_mutation_authorized": false,
+    "mission_transaction_execution_authorized": false,
+    "private_runtime_state_export_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "route_authority_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "task_ledger_mutation_authorized": false,
+    "work_ledger_mutation_authorized": false
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T15:22:34+00:00",
+  "error_codes": [
+    "BATCH10_LIVE_SOURCE_DRIFT_COMPILE_BYPASS_REFUSED",
+    "BATCH10_LIVE_SOURCE_DRIFT_MUTATION_AUTHORITY_REFUSED",
+    "BATCH10_LIVE_SOURCE_DRIFT_PRIVATE_RUNTIME_EXPORT_REFUSED",
+    "BATCH10_LIVE_SOURCE_DRIFT_STALE_DIGEST_REPLAY_REFUSED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 4,
+    "engine_count": 4,
+    "engine_ids": [
+      "claim_ceiling_gate",
+      "control_surface_anchor_matrix",
+      "copied_python_source_compile_gate",
+      "live_source_drift_digest_refresh_matrix"
+    ],
+    "engines": [
+      {
+        "all_current_digests_match": true,
+        "all_stale_digests_differ": true,
+        "body_in_receipt": false,
+        "engine_id": "live_source_drift_digest_refresh_matrix",
+        "row_count": 4,
+        "rows": [
+          {
+            "body_in_receipt": false,
+            "copied_target_sha256": "ef7b3f796ca3a6f4d6711b6a7088d1e18614a51f9c6fa02fbb96c833a8ef3da8",
+            "current_matches_copy": true,
+            "current_sha256": "ef7b3f796ca3a6f4d6711b6a7088d1e18614a51f9c6fa02fbb96c833a8ef3da8",
+            "material_id": "navigation_route_plane_option_surface_source_body_import",
+            "source_ref": "system/lib/standard_option_surface.py",
+            "stale_differs_from_current": true,
+            "stale_recorded_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+            "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py"
+          },
+          {
+            "body_in_receipt": false,
+            "copied_target_sha256": "e6c52a9cae191d3632643817eb4343158ace85088cdd3762784eff5cbd6c3a74",
+            "current_matches_copy": true,
+            "current_sha256": "e6c52a9cae191d3632643817eb4343158ace85088cdd3762784eff5cbd6c3a74",
+            "material_id": "mission_transaction_landing_preflight_body_import",
+            "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+            "stale_differs_from_current": true,
+            "stale_recorded_sha256": "8eb0eadb66404e445ef704b613c8d36a1dfa519618a76c31622bfa6e5f6c4c08",
+            "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py"
+          },
+          {
+            "body_in_receipt": false,
+            "copied_target_sha256": "d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+            "current_matches_copy": true,
+            "current_sha256": "d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+            "material_id": "work_landing_control_tool_body_import",
+            "source_ref": "tools/meta/control/work_landing.py",
+            "stale_differs_from_current": true,
+            "stale_recorded_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+            "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py"
+          },
+          {
+            "body_in_receipt": false,
+            "copied_target_sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+            "current_matches_copy": true,
+            "current_sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+            "material_id": "work_ledger_tool_body_import",
+            "source_ref": "tools/meta/factory/work_ledger.py",
+            "stale_differs_from_current": true,
+            "stale_recorded_sha256": "2ea8d4d6a7a2fcd9b832440af00342ea38093581aedacbed60d59d1c428a44de",
+            "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py"
+          }
+        ],
+        "stale_digest_count": 4,
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "compiled_module_count": 4,
+        "compiled_modules": [
+          {
+            "body_in_receipt": false,
+            "compiled_without_import": true,
+            "module_id": "standard_option_surface_source",
+            "source_ref": "system/lib/standard_option_surface.py",
+            "status": "pass"
+          },
+          {
+            "body_in_receipt": false,
+            "compiled_without_import": true,
+            "module_id": "mission_transaction_landing_preflight_source",
+            "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+            "status": "pass"
+          },
+          {
+            "body_in_receipt": false,
+            "compiled_without_import": true,
+            "module_id": "work_landing_tool_source",
+            "source_ref": "tools/meta/control/work_landing.py",
+            "status": "pass"
+          },
+          {
+            "body_in_receipt": false,
+            "compiled_without_import": true,
+            "module_id": "work_ledger_tool_source",
+            "source_ref": "tools/meta/factory/work_ledger.py",
+            "status": "pass"
+          }
+        ],
+        "engine_id": "copied_python_source_compile_gate",
+        "import_executed": false,
+        "module_count": 4,
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "check_count": 18,
+        "checks": {
+          "system/lib/mission_transaction_landing_preflight.py": {
+            "claim_requirements": true,
+            "dirty_tree_classification": true,
+            "landing_decision": true,
+            "preflight_entrypoint": true
+          },
+          "system/lib/standard_option_surface.py": {
+            "lens_packet": true,
+            "option_surface_entrypoint": true,
+            "standard_projection_packet": true,
+            "task_ledger_option_surface": true
+          },
+          "tools/meta/control/work_landing.py": {
+            "admission_check_command": true,
+            "begin_command": true,
+            "parser_entrypoint": true,
+            "reconcile_command": true,
+            "status_command": true
+          },
+          "tools/meta/factory/work_ledger.py": {
+            "mutation_ordering": true,
+            "read_receipt_boundary": true,
+            "session_claims": true,
+            "session_finalize": true,
+            "session_preflight": true
+          }
+        },
+        "engine_id": "control_surface_anchor_matrix",
+        "status": "pass",
+        "surface_count": 4
+      },
+      {
+        "body_in_receipt": false,
+        "checks": {
+          "body_in_receipt_false": true,
+          "exact_copy_only": true,
+          "git_staging_or_commit_authorized_is_false": true,
+          "macro_source_mutation_authorized_is_false": true,
+          "mission_transaction_execution_authorized_is_false": true,
+          "private_runtime_state_export_authorized_is_false": true,
+          "provider_dispatch_is_false": true,
+          "publication_authorized_is_false": true,
+          "release_authorized_is_false": true,
+          "route_authority_authorized_is_false": true,
+          "source_mutation_authorized_is_false": true,
+          "task_ledger_mutation_authorized_is_false": true,
+          "work_ledger_mutation_authorized_is_false": true
+        },
+        "engine_id": "claim_ceiling_gate",
+        "forbidden_authority_flags": [
+          "route_authority_authorized",
+          "work_ledger_mutation_authorized",
+          "task_ledger_mutation_authorized",
+          "mission_transaction_execution_authorized",
+          "git_staging_or_commit_authorized",
+          "macro_source_mutation_authorized",
+          "private_runtime_state_export_authorized",
+          "provider_dispatch",
+          "publication_authorized",
+          "release_authorized",
+          "source_mutation_authorized"
+        ],
+        "status": "pass"
+      }
+    ],
+    "error_codes": [
+      "BATCH10_LIVE_SOURCE_DRIFT_STALE_DIGEST_REPLAY_REFUSED",
+      "BATCH10_LIVE_SOURCE_DRIFT_COMPILE_BYPASS_REFUSED",
+      "BATCH10_LIVE_SOURCE_DRIFT_PRIVATE_RUNTIME_EXPORT_REFUSED",
+      "BATCH10_LIVE_SOURCE_DRIFT_MUTATION_AUTHORITY_REFUSED"
+    ],
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "compile_bypass",
+    "live_mutation_authority_claim",
+    "private_runtime_state_export",
+    "stale_digest_replay"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch10_live_source_drift_capsule",
+  "input_count": 1,
+  "input_mode": "exported_batch10_live_source_drift_capsule_bundle",
+  "input_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "compile_bypass",
+    "live_mutation_authority_claim",
+    "private_runtime_state_export",
+    "stale_digest_replay"
+  ],
+  "organ_id": "batch10_live_source_drift_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_board.json",
+    "receipts/runtime_shell/demo_project/organs/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_validation_receipt.json"
+  ],
+  "schema_version": "batch10_live_source_drift_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 5,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
+    "module_count": 4,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 16596,
+        "expected_sha256": "ef7b3f796ca3a6f4d6711b6a7088d1e18614a51f9c6fa02fbb96c833a8ef3da8",
+        "line_count": 16596,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/standard_option_surface.py",
+        "required_anchor_count": 8,
+        "sha256": "ef7b3f796ca3a6f4d6711b6a7088d1e18614a51f9c6fa02fbb96c833a8ef3da8",
+        "source_exists": true,
+        "source_ref": "system/lib/standard_option_surface.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 9846,
+        "expected_sha256": "e6c52a9cae191d3632643817eb4343158ace85088cdd3762784eff5cbd6c3a74",
+        "line_count": 9846,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "required_anchor_count": 6,
+        "sha256": "e6c52a9cae191d3632643817eb4343158ace85088cdd3762784eff5cbd6c3a74",
+        "source_exists": true,
+        "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 234,
+        "expected_sha256": "d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+        "line_count": 234,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/control/work_landing.py",
+        "required_anchor_count": 7,
+        "sha256": "d8beb6b3b8dd609bfd6ecde8e494947e3872499bfeb3d81fe2e7c8bb8ad690cb",
+        "source_exists": true,
+        "source_ref": "tools/meta/control/work_landing.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 5587,
+        "expected_sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+        "line_count": 5587,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/factory/work_ledger.py",
+        "required_anchor_count": 7,
+        "sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+        "source_exists": true,
+        "source_ref": "tools/meta/factory/work_ledger.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 5,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_module_manifest.json",
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py",
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py",
+      "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch10_live_source_drift_capsule"
+}

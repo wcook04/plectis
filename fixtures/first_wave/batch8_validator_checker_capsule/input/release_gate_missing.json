@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "release_gate_missing",
+  "error_codes": [
+    "BATCH8_VALIDATOR_RELEASE_GATES_REQUIRED"
+  ],
+  "schema_version": "batch8_validator_checker_negative_case_v1"
+}

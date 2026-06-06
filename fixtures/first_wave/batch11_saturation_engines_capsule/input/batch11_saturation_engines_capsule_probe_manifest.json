@@ -1,0 +1,115 @@
+{
+  "anti_claim": "Batch 11 validates source-open or source-faithful public ports for run affinity, calculator insight derivation, std_python ratchet gating, exogenous navigation grading, portability supersession, shard browse sectioning, research evidence selection, projection secret scanning, quant presentation mart normalization, macro-regime bucketing, frontend wayfinding, session diagnostics, and demo-take coverage scoring. It is not live Work Ledger truth, not navigation authority, not complete secret detection, not live market data, not investment advice, not raw transcript authority, not video capture, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch11_saturation_engines_capsule_not_live_runtime_release_or_market_authority",
+    "complete_secret_detection_claim": false,
+    "market_advice": false,
+    "model_dispatch": false,
+    "navigation_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "raw_session_truth": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "video_capture_authority": false,
+    "work_ledger_authority": false
+  },
+  "binding_dispositions": {
+    "agent_session_diagnostic_lens_engine": "copied_dormant_under_bound_capsule_import",
+    "calculator_cluster_insight_derivation": "tier_a_new_capsule_import",
+    "demo_take_story_coverage_audit": "already_bound_batch7_demo_take_capsule_batch11_verifies_scoring_path",
+    "exogenous_nav_ladder_grader": "tier_a_new_capsule_import",
+    "frontend_nav_graph_wayfinding_engine": "copied_dormant_under_bound_capsule_import",
+    "holographic_research_bundle_graph_and_evidence_select": "tier_a_new_capsule_import",
+    "macro_regime_board_bucketing_zscore_engine": "new_absent_from_microcosm_organ_plane_at_import_time",
+    "portability_gate_check_supersession_rollup": "already_bound_engine_room_public_projection_leak_gate_capsule_verifies_rollup",
+    "projection_secret_scan": "already_bound_engine_room_public_projection_leak_gate_collision_recorded",
+    "run_affinity_session_scorer": "tier_a_new_capsule_import",
+    "shard_browse_context_priority_sectionizer": "tier_a_new_capsule_import",
+    "std_python_delta_enforcement_ratchet_gate": "under_bound_existing_std_python_assay_extended_by_capsule",
+    "stockgrid_flow_multisource_merge_unit_normalizer": "new_absent_from_microcosm_organ_plane_at_import_time"
+  },
+  "body_in_receipt": false,
+  "expected_negative_cases": {
+    "calculator_zero_bucket_no_fake_dominance": [
+      "BATCH11_CALCULATOR_ZERO_BUCKET_NO_FAKE_DOMINANCE"
+    ],
+    "demo_take_missing_anchor_penalized": [
+      "BATCH11_DEMO_TAKE_MISSING_ANCHOR_PENALIZED"
+    ],
+    "exogenous_nav_wrong_route_graded_down": [
+      "BATCH11_EXOGENOUS_NAV_WRONG_ROUTE_GRADED_DOWN"
+    ],
+    "frontend_nav_unreachable_target": [
+      "BATCH11_FRONTEND_NAV_UNREACHABLE_TARGET"
+    ],
+    "holographic_no_overlap_no_fake_edge": [
+      "BATCH11_HOLOGRAPHIC_NO_OVERLAP_NO_FAKE_EDGE"
+    ],
+    "macro_regime_unknown_routes_other": [
+      "BATCH11_MACRO_UNKNOWN_ROUTES_OTHER"
+    ],
+    "portability_unresolved_hard_fail_blocks": [
+      "BATCH11_PORTABILITY_UNRESOLVED_HARD_FAIL_BLOCKS"
+    ],
+    "projection_secret_token_blocks": [
+      "BATCH11_PROJECTION_SECRET_TOKEN_BLOCKS"
+    ],
+    "run_affinity_stale_terminal_rejected": [
+      "BATCH11_RUN_AFFINITY_STALE_TERMINAL_REJECTED"
+    ],
+    "session_no_nav_verbs_no_ladder_skip": [
+      "BATCH11_SESSION_NO_NAV_VERBS_NO_LADDER_SKIP"
+    ],
+    "shard_multimatch_context_priority": [
+      "BATCH11_SHARD_MULTIMATCH_CONTEXT_PRIORITY"
+    ],
+    "std_python_new_gap_blocks": [
+      "BATCH11_STD_PYTHON_NEW_GAP_BLOCKS"
+    ],
+    "stockgrid_units_normalized_not_zeroed": [
+      "BATCH11_STOCKGRID_UNITS_NORMALIZED_NOT_ZEROED"
+    ]
+  },
+  "fixture_id": "first_wave.batch11_saturation_engines_capsule",
+  "mechanism_ids": [
+    "run_affinity_session_scorer",
+    "calculator_cluster_insight_derivation",
+    "std_python_delta_enforcement_ratchet_gate",
+    "exogenous_nav_ladder_grader",
+    "portability_gate_check_supersession_rollup",
+    "shard_browse_context_priority_sectionizer",
+    "holographic_research_bundle_graph_and_evidence_select",
+    "projection_secret_scan",
+    "stockgrid_flow_multisource_merge_unit_normalizer",
+    "macro_regime_board_bucketing_zscore_engine",
+    "frontend_nav_graph_wayfinding_engine",
+    "agent_session_diagnostic_lens_engine",
+    "demo_take_story_coverage_audit"
+  ],
+  "negative_case_probe_schema": "batch11_negative_case_computed_probe_v1",
+  "negative_case_verification_contract": {
+    "body_in_receipt": false,
+    "fixture_role": "negative_case_label_not_verdict_authority",
+    "integrity_matrix_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+    "required_probe_fields": [
+      "probe_input",
+      "computed_path",
+      "expected_computed_value",
+      "fixture_probe_input_digest"
+    ]
+  },
+  "organ_id": "batch11_saturation_engines_capsule",
+  "schema_version": "batch11_saturation_engines_capsule_probe_manifest_v1",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "tier_b_mechanism_ids": [
+    "agent_session_diagnostic_lens_engine",
+    "demo_take_story_coverage_audit",
+    "frontend_nav_graph_wayfinding_engine",
+    "macro_regime_board_bucketing_zscore_engine",
+    "projection_secret_scan",
+    "stockgrid_flow_multisource_merge_unit_normalizer"
+  ]
+}

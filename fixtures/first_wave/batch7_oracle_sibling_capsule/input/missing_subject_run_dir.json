@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "case_id": "missing_subject_run_dir",
+  "error_codes": [
+    "BATCH7_ORACLE_SUBJECT_RUN_REQUIRED"
+  ]
+}

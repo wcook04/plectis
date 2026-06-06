@@ -1,0 +1,14 @@
+{
+  "body_in_receipt": false,
+  "case_id": "silent_omission_count",
+  "error_codes": [
+    "BATCH12_MDRM_SILENT_OMISSION"
+  ],
+  "expected_error_fragment": "silent_omission_count must be 0",
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_market_dashboard_negative_case_v1",
+  "set": {
+    "finance_research_assurance.module_coverage.silent_omission_count": 1
+  },
+  "strict": false
+}

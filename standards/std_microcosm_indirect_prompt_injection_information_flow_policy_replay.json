@@ -16,8 +16,17 @@
     "secret_or_credential_exfiltration_authority": false,
     "source_mutation_authority": false,
     "standard_authority": "source_faithful_public_trace_refactor_schema_only",
-    "status": "pass",
-    "tool_output_instruction_authority": false
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "tool_output_instruction_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#indirect_prompt_injection_information_flow_policy_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#indirect_prompt_injection_information_flow_policy_replay.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "indirect_prompt_injection_information_flow_policy_replay",
@@ -90,6 +99,10 @@
     "receipt must cite source refs, target refs, source/flow/verdict/output/replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, source-module manifest ref, body-open import count, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
+    "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
+    "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
   ],
   "relationships": {
@@ -112,7 +125,7 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata, exact non-secret macro bodies may enter only under source_modules with digest-verified source_module_manifest.json, and public trace target refs stay public-root relative"
@@ -168,9 +181,27 @@
     ],
     "ontology": "A public-safe indirect prompt-injection information-flow replay: synthetic trust labels, taint graph, policy verdicts, sanitized outputs, cold replay, falsification fixtures, authority ceilings, and source-faithful public trace spans.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, ceilings, and public trace spans align."
+    "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, ceilings, and public trace spans align.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": null,
+      "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay",
+      "receipt_id": "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require synthetic source documents with trust labels, taint labels, and no raw body export",
     "require source-to-sink information-flow graph rows before policy verdicts",
@@ -196,5 +227,28 @@
     "required": true,
     "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay"
   },
-  "wave": "w1_indirect_prompt_injection_information_flow_policy_replay"
+  "wave": "w1_indirect_prompt_injection_information_flow_policy_replay",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.indirect_prompt_injection_information_flow_policy_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Indirect prompt-injection information-flow policy replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.indirect_prompt_injection_information_flow_policy_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Indirect prompt-injection information-flow policy replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.indirect_prompt_injection_information_flow_policy_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_indirect_prompt_injection_information_flow_policy_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay",
+    "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
+  ]
 }

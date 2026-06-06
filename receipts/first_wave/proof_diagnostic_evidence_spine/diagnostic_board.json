@@ -32,9 +32,17 @@
     "status": "pass"
   },
   "bundle_id": null,
+  "card_schema_version": null,
   "claim_ceiling": "proof_diagnostic_evidence_spine_real_ring2_diagnostic_receipts_not_formal_proof_authority_or_runtime_correctness",
-  "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input microcosm-substrate/fixtures/first_wave/proof_diagnostic_evidence_spine/input --out microcosm-substrate/receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-24T02:20:59+00:00",
+  "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+  "copied_macro_body_artifact_count": null,
+  "copied_macro_body_artifacts": null,
+  "copied_macro_body_digest_mismatches": null,
+  "copied_macro_body_digest_status": null,
+  "copied_macro_body_missing_files": null,
+  "copied_macro_body_missing_target_refs": null,
+  "copied_macro_body_unexpected_target_refs": null,
+  "created_at": "2026-06-05T07:40:51+00:00",
   "diagnostic_board_path": "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
   "diagnostic_board_source_authority_rejected": true,
   "error_codes": [
@@ -52,6 +60,7 @@
     "ring2_failure_taxonomy_receipt_anchor",
     "ring2_graph_update_candidate_anchor"
   ],
+  "expected_copied_macro_body_artifact_count": null,
   "expected_negative_cases": {
     "diagnostic_board_claims_source_authority": [
       "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE"
@@ -130,6 +139,9 @@
     }
   ],
   "fixture_id": "first_wave.proof_diagnostic_evidence_spine",
+  "freshness_basis": null,
+  "freshness_digest": null,
+  "freshness_status": null,
   "input_mode": null,
   "missing_negative_cases": [],
   "negative_cases": [
@@ -164,9 +176,31 @@
     "credential_equivalent_material_recovered": false,
     "proof_or_provider_bodies_recovered": false,
     "public_replacement_refs": [
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
       "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
       "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
@@ -182,9 +216,18 @@
       "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
     ],
     "source_digest_sha256_by_ref": {
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
     },
     "source_fingerprint_status": "stale",
@@ -195,6 +238,7 @@
     "regression_provider_payload_with_forbidden_body_keys"
   ],
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "body_material_status": "secret_exclusion_scan_no_proof_or_provider_bodies",
@@ -208,6 +252,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "secret_exclusion_negative_cases_observed": [
       "provider_proof_body_payload_rejected"
@@ -219,10 +272,50 @@
   "provider_policy_rejection_ids": [
     "regression_provider_payload_with_forbidden_body_keys"
   ],
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 1,
+    "replacements": [
+      {
+        "field_path": "receipt_paths[4]",
+        "original_sha256": "sha256:7095c324b19a335377efba4e526670c690868005b3bf495e47aa8f3778c6b807",
+        "replacement": "<host-temp>/proof_diagnostic_evidence_spine_fixture_acceptance.json",
+        "treatment_class": "host_temp_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "host_temp_path_transform"
+    ]
+  },
   "public_replacement_refs": [
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
@@ -238,9 +331,18 @@
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
   ],
   "real_substrate_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
   "receipt_anchor_refs": [
@@ -257,8 +359,9 @@
     "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
     "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
-    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+    "<host-temp>/proof_diagnostic_evidence_spine_fixture_acceptance.json"
   ],
+  "receipt_reused": null,
   "rejected_check_ids": [
     "regression_negative_missing_source_digest"
   ],
@@ -269,6 +372,7 @@
   "runtime_correctness_claim_rejected": true,
   "schema_version": "proof_diagnostic_evidence_spine_diagnostic_board_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "body_material_status": "secret_exclusion_scan_no_proof_or_provider_bodies",
@@ -281,6 +385,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "secret_exclusion_negative_cases_observed": [
       "provider_proof_body_payload_rejected"
@@ -290,15 +403,33 @@
   },
   "source_authority_claim_rejected": true,
   "source_digest_sha256_by_ref": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
   },
   "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
   },
   "source_pattern_ids": [
@@ -310,9 +441,18 @@
     "formal_evidence_cell_anchor_receipts_feed_diagnostic_spine"
   ],
   "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
   "source_target_refs": [
@@ -321,7 +461,20 @@
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/formal_prover_policy_reducer_packet.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
-    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
   "status": "pass",
   "upstream_authority_chain_receipt_refs": [

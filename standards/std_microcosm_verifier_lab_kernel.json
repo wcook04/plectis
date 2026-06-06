@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_verifier_lab_kernel",
   "kind_id": "verifier_lab_kernel",
   "kind_name": "Leak-proof verifier lab kernel",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_verifier_lab_kernel",
   "authority_boundary": "public_verifier_lab_kernel_receipt_not_proof_authority",
@@ -22,6 +22,31 @@
       "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
       "field": "source_open_body_imports",
       "role": "copied_component_source_body_manifest"
+    },
+    {
+      "path": "src/microcosm_core/organs/verifier_lab_kernel.py",
+      "field": "validator_refs",
+      "role": "runtime_source"
+    },
+    {
+      "path": "tests/test_verifier_lab_kernel.py",
+      "field": "validator_contract",
+      "role": "focused_regression"
+    },
+    {
+      "path": "core/paper_module_capsules.json#paper_module.verifier_lab_kernel",
+      "field": "paper_module_contract.capsule_ref",
+      "role": "json_paper_module_authority"
+    },
+    {
+      "path": "core/mechanism_sources.json#mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+      "field": "paper_module_contract.mechanism_ref",
+      "role": "mechanism_source_authority"
+    },
+    {
+      "path": "paper_modules/verifier_lab_kernel.md",
+      "field": "paper_module_contract.module_slug",
+      "role": "legacy_markdown_projection"
     }
   ],
   "relationships": {
@@ -180,7 +205,7 @@
     ]
   },
   "authority_ceiling": {
-    "status": "pass",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
     "standard_authority": "verifier_lab_kernel_public_fixture_receipt_schema_only",
     "formal_proof_authority": false,
     "oracle_forward_authority": false,
@@ -188,7 +213,16 @@
     "cp2_proof_body_authority": false,
     "evolve_source_mutation_authority": false,
     "benchmark_authority": false,
-    "release_authority": false
+    "release_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#verifier_lab_kernel",
+    "claim_ceiling_ref": "core/organ_registry.json#verifier_lab_kernel.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "anti_claim": "This standard governs public verifier-lab composition receipts only; it does not authorize private proof-body import, oracle success as forward proof, provider proof authority, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
   "standard_payload": {
@@ -213,17 +247,50 @@
       "Evolve candidate mutates unbounded source artifact",
       "positive metric lacks anti-claim and receipt ref"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "draft",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
+      "receipt_id": "receipt.microcosm.verifier_lab_kernel",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
   "receipt_refs": [
+    "receipt.microcosm.verifier_lab_kernel",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json"
   ],
   "validator_refs": [
-    "microcosm_core.organs.verifier_lab_kernel"
+    "validator.microcosm.organs.verifier_lab_kernel",
+    "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
   ],
   "paper_module_contract": {
     "required": true,
-    "module_slug": "verifier_lab_kernel"
+    "module_slug": "verifier_lab_kernel",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.verifier_lab_kernel",
+    "mechanism_ref": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+    "source_authority": "json_capsule"
+  },
+  "doctrine_population_status": {
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "coverage_projection": "regenerated_by_microcosm_core.doctrine_lattice",
+    "authority_boundary": "public verifier-lab fixture, exported-bundle, source-module manifest, capsule, mechanism, and receipt refs only; no private proof-body import, theorem-prover proof authority, oracle-forward promotion, provider proof authority, benchmark solve-rate claim, release, source mutation, or private-data equivalence"
   },
   "omission_receipt": {
     "omitted": [
@@ -244,5 +311,24 @@
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata, public runtime refs stay public-root relative, and copied verifier-lab source body rows must bind source_ref, target_ref, sha256, body_copied=true, body_in_receipt=false, and exact_copy relation"
-  }
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.verifier_lab_kernel.author",
+      "status": "planned",
+      "purpose": "create a valid Leak-proof verifier lab kernel instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.verifier_lab_kernel.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Leak-proof verifier lab kernel without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.verifier_lab_kernel.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_verifier_lab_kernel and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import shutil
 from pathlib import Path
@@ -13,6 +14,7 @@ from microcosm_core.organs.durable_agent_work_landing_replay import (
     run,
     run_work_landing_bundle,
     validate_source_module_imports,
+    validate_work_landing_runs,
 )
 
 
@@ -224,6 +226,31 @@ def test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_
         assert row["body_in_receipt"] is False
         assert row["body_text_in_receipt"] is False
         assert row["source_to_target_relation"] == "exact_copy"
+
+
+def test_durable_agent_work_landing_real_landed_row_requires_head_advance() -> None:
+    payload = json.loads((BUNDLE_INPUT / "work_landing_runs.json").read_text(encoding="utf-8"))
+    row = next(
+        item
+        for item in payload["work_landing_runs"]
+        if item["run_id"] == "scoped_commit_landed_agent_memory_exact_copy_20260604"
+    )
+
+    assert row["head_before"] == "c07642f2476d0dc06e971321a4507ad6e4ecc751"
+    assert row["head_after"] == "30dbeddcaf3307f2e318e330be2ee8a9ec3b4db0"
+    assert row["head_before"] != row["head_after"]
+    assert row["work_ledger_closeout_ref"] == "wle_41f50e62586d4f70"
+    assert row["task_ledger_execution_receipt_ref"] == "wie_20260604T094210Z_d9232359"
+    assert row["read_receipt_ref"] == "wlr_fc6f5994e75d4376"
+
+    mutated = copy.deepcopy(row)
+    mutated["head_after"] = mutated["head_before"]
+    result = validate_work_landing_runs({"work_landing_runs": [mutated]}, {})
+
+    assert result["status"] == "blocked"
+    assert "WORK_LANDING_HEAD_ADVANCE_MISSING" in {
+        finding["error_code"] for finding in result["findings"]
+    }
 
 
 def test_durable_agent_work_landing_card_reuses_fresh_bundle_receipt(

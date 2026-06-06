@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "dead_dag_ref",
+  "error_codes": [
+    "DOCTRINE_FACT_DAG_DEAD_REF"
+  ],
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

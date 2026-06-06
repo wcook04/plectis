@@ -173,6 +173,60 @@ def test_scan_paths_streams_generator_when_display_root_is_known(
     assert result["scanned_path_count"] == 2
 
 
+def test_scan_paths_skips_symlinked_file_candidates(tmp_path: Path) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    public_root = tmp_path / "microcosm-substrate"
+    public_root.mkdir()
+    outside_target = tmp_path / "outside_target.txt"
+    outside_target.write_text(
+        "SYNTHETIC_RAW_SEED_BODY_SENTINEL\n",
+        encoding="utf-8",
+    )
+    symlinked_candidate = public_root / "linked_target.txt"
+    symlinked_candidate.symlink_to(outside_target)
+
+    result = scan_paths(
+        [symlinked_candidate],
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+    assert result["status"] == PASS
+    assert result["scanned_path_count"] == 0
+    assert result["hits"] == []
+
+
+def test_scan_paths_merges_clean_results_without_per_file_result_list(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    fixtures = []
+    for index in range(3):
+        fixture = tmp_path / f"clean_{index}.txt"
+        fixture.write_text(f"public body {index}\n", encoding="utf-8")
+        fixtures.append(fixture)
+
+    def fail_per_file_result_merge(*_args, **_kwargs):
+        raise AssertionError("scan_paths should merge hits incrementally")
+
+    monkeypatch.setattr(
+        private_state_scan,
+        "_merge_scan_results",
+        fail_per_file_result_merge,
+    )
+
+    result = scan_paths(
+        (fixture for fixture in fixtures),
+        forbidden_classes=policy,
+        display_root=tmp_path,
+    )
+
+    assert result["status"] == PASS
+    assert result["scanned_path_count"] == 3
+    assert result["hits"] == []
+
+
 def test_scanner_blocks_unreadable_text_candidate_without_body(tmp_path: Path) -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     fixture = tmp_path / "bad.txt"

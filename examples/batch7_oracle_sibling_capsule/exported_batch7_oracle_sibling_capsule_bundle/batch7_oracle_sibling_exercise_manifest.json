@@ -1,0 +1,28 @@
+{
+  "body_in_receipt": false,
+  "engines": [
+    "oracle_subject_index_grounding_map",
+    "oracle_subject_snapshot_hydration",
+    "oracle_truth_diff_macro_series_delta",
+    "oracle_quartet_repair_alias_plan",
+    "oracle_original_pytest_witness"
+  ],
+  "explicitly_excluded": [
+    {
+      "reason": "May invoke GodModeEngine and bridge-backed Oracle reasoning; the capsule validates deterministic plan/materialize paths only.",
+      "source_ref": "tools/oracle/run_quartet.py",
+      "symbol": "run_missing_quartet"
+    }
+  ],
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "batch7_oracle_sibling_exercise_manifest_v1",
+  "source_refs": [
+    "tools/oracle/subject_index.py",
+    "tools/oracle/subject_snapshot.py",
+    "tools/oracle/truth_diff_macro.py",
+    "tools/oracle/run_quartet.py",
+    "system/server/tests/test_oracle_v1_tools.py",
+    "system/server/tests/test_evolve_runner.py"
+  ]
+}

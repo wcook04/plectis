@@ -1,0 +1,187 @@
+{
+  "schema_version": "microcosm_public_site_source_coupling_handoff_v1",
+  "receipt_id": "microcosm_site_source_coupling_handoff_20260604T1426Z",
+  "generated_at": "2026-06-04T14:26:00Z",
+  "created_by": "codex_microcosm_doctrine_site_availability",
+  "phase_id": "09_54_1",
+  "subject": "microcosm_public_site_availability",
+  "status": "blocked_dirty_source_inputs_site_ready_handoff_recorded",
+  "purpose": "Preserve the current public-site availability state without committing generated site outputs from dirty Microcosm source authority inputs.",
+  "authority_boundary": {
+    "generated_site_files_are_not_source_authority": true,
+    "source_authority_root": "microcosm-substrate",
+    "site_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "site_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "release_authorized": false,
+    "publication_decision_authorized": false,
+    "source_mutation_authorized_by_this_receipt": false
+  },
+  "task_ledger_capture": {
+    "subject_id": "cap_microcosm_public_site_source_coupling_blocked_20260604T1424Z",
+    "event_id": "wie_20260604T142604Z_bcac63d9",
+    "authority_status": "clean",
+    "projection_status": "stale_until_rebuild"
+  },
+  "work_ledger_session": {
+    "session_id": "codex_20260604T1426Z_microcosm_site_source_coupling_handoff",
+    "read_receipt_id": "wlr_5705e86bd4ad4139",
+    "claimed_paths": [
+      "microcosm-substrate/receipts/public_site/microcosm_site_source_coupling_handoff_20260604T1426Z.json"
+    ],
+    "claimed_work_items": [
+      "cap_microcosm_public_site_source_coupling_blocked_20260604T1424Z"
+    ],
+    "claim_collision_count": 0
+  },
+  "site_check_receipt": {
+    "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "status": "fail_due_to_generated_drift_and_dirty_source_coupling",
+    "drift_count": 17,
+    "validation_status": "pass",
+    "public_safety": {
+      "public_safety_scan_hit_count": 0,
+      "private_scan_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "external_asset_hit_count": 0,
+      "unsafe_url_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "internal_links_missing": [],
+      "security_txt_ok": true,
+      "internal_links_checked": 2607
+    },
+    "drifted_generated_outputs": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/architecture-graph-scene.json",
+      "sites/microcosm/docs/architecture.html",
+      "sites/microcosm/docs/area-import-drift.html",
+      "sites/microcosm/docs/components.html",
+      "sites/microcosm/docs/evidence.html",
+      "sites/microcosm/docs/index.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ]
+  },
+  "source_coupling_receipt": {
+    "schema": "microcosm_public_site_source_coupling_receipt_v1",
+    "authority": "runtime_check_receipt_only_not_generated_site_source_truth_or_release_approval",
+    "status": "blocked_dirty_source_inputs",
+    "dirty_source_count": 2,
+    "dirty_source_paths": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/core/paper_module_capsules.json"
+    ],
+    "source_hash_count": 160,
+    "safe_to_commit_generated_outputs_without_sources": false,
+    "reentry_condition": "When dirty_source_count is zero, rerun --write --validate, then --check --validate, and land generated site outputs through the public-site builder."
+  },
+  "current_dirty_site_outputs": {
+    "command": "git status --short -- sites/microcosm",
+    "modified_paths": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/architecture-graph-scene.json",
+      "sites/microcosm/docs/architecture.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "status": "do_not_land_until_source_coupling_clears"
+  },
+  "site_ready_handoff": {
+    "status": "builder_ready_source_inputs_not_settled",
+    "allowed_next_when_source_coupling_clears": [
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ],
+    "commit_scope_after_success": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/architecture-graph-scene.json",
+      "sites/microcosm/docs/architecture.html",
+      "sites/microcosm/docs/area-import-drift.html",
+      "sites/microcosm/docs/components.html",
+      "sites/microcosm/docs/evidence.html",
+      "sites/microcosm/docs/index.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "do_not_stage_without": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json is clean or explicitly handed off with source authority",
+      "microcosm-substrate/core/paper_module_capsules.json is clean or explicitly handed off with source authority",
+      "site builder --write --validate passes",
+      "site builder --check --validate passes immediately after write",
+      "source_coupling.status is not blocked_dirty_source_inputs"
+    ]
+  },
+  "public_safety_ceiling": {
+    "allowed_public_content": [
+      "public site generated-output paths",
+      "Microcosm source authority paths",
+      "builder/check command names",
+      "validation counts",
+      "Task Ledger and Work Ledger receipt ids"
+    ],
+    "forbidden_content_excluded": [
+      "private macro runtime database state",
+      "provider payload bodies",
+      "browser or HUD session state",
+      "raw operator voice",
+      "credentials",
+      "account/session control state",
+      "private path bodies"
+    ],
+    "claim_ceiling": "This receipt proves current public-site availability is blocked by dirty source coupling while public-safety validation passes; it does not prove release readiness, hosted-product status, proof correctness, or publication approval."
+  },
+  "reentry_sequence": [
+    {
+      "step": 1,
+      "command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --session-summary --limit 30 --cards-only",
+      "success_condition": "No active owner or unresolved same-file handoff blocks the two dirty source authority paths."
+    },
+    {
+      "step": 2,
+      "command": "git status --short -- microcosm-substrate/core/doctrine_lattice_coverage.json microcosm-substrate/core/paper_module_capsules.json",
+      "success_condition": "No unowned dirty source authority remains, or the owning lane explicitly commits/hands off those source authority changes."
+    },
+    {
+      "step": 3,
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "success_condition": "Builder writes generated public-site outputs and validation passes."
+    },
+    {
+      "step": 4,
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "success_condition": "status is pass, drift_count is 0, validation.status is pass, and source_coupling.status is clear."
+    },
+    {
+      "step": 5,
+      "command": "./repo-python tools/meta/control/scoped_commit.py full-paths --message \"Refresh Microcosm public site projection\" --path <generated-site-output-paths>",
+      "success_condition": "Only generated public-site outputs from the cleared source-coupled builder write are staged and committed."
+    }
+  ]
+}

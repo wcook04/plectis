@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "private_fixture_ref",
+  "schema_version": "batch10_cold_eval_workspace_mutation_negative_case_v1",
+  "workspace_mutation": {
+    "kind": "inject_private_fixture_probe",
+    "path": "cold_eval_workspace/evals/cold_agent_ab/tasks.json"
+  }
+}

@@ -1,0 +1,446 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "card": "Batch 11 Saturation Engines Capsule binds the accepted batch11_saturation_engines_capsule organ to a refreshed source-open bundle. It exercises run-affinity scoring, calculator cluster insight derivation, std_python delta gating, exogenous navigation grading, portability supersession rollup, shard browse priority, holographic evidence selection, projection secret scanning, stockgrid flow normalization, macro-regime board bucketing, frontend wayfinding, agent-session diagnostic lenses, and demo-take coverage auditing while preserving copied non-secret source digests, computed negative probes, and authority ceilings.",
+    "one_line": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.batch11_saturation_engines_capsule",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.batch11_saturation_engines_capsule",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/batch11_saturation_engines_capsule.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.batch11_saturation_engines_capsule.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/batch11_saturation_engines_capsule.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/batch11_saturation_engines_capsule.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-4",
+        "AX-8",
+        "AX-10",
+        "AX-11"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for Batch 11 saturation-engine source imports, deterministic source-faithful exercises, computed negative probes, exact-copy digest checks, and authority ceilings.",
+          "symbols": [
+            "_build_integrity_matrix",
+            "_source_evidence",
+            "_evaluate",
+            "run",
+            "run_batch11_saturation_engines_bundle",
+            "result_card",
+            "EXPECTED_MECHANISMS",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "main"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Fixture-bound public source-body import, source-faithful public port evidence, computed negative-probe evidence, and body-free receipts only; no live Work Ledger truth, navigation authority, complete secret detection, live market data, investment advice, raw transcript authority, video capture, source mutation, publication approval, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+        "card": "Batch 11 Saturation Engines Capsule binds the accepted batch11_saturation_engines_capsule organ to a refreshed source-open bundle. It exercises run-affinity scoring, calculator cluster insight derivation, std_python delta gating, exogenous navigation grading, portability supersession rollup, shard browse priority, holographic evidence selection, projection secret scanning, stockgrid flow normalization, macro-regime board bucketing, frontend wayfinding, agent-session diagnostic lenses, and demo-take coverage auditing while preserving copied non-secret source digests, computed negative probes, and authority ceilings.",
+        "one_line": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "depends_on": [
+        "paper_module.macro_projection_import_protocol",
+        "paper_module.batch8_compliance_pipeline_capsule",
+        "paper_module.navigation_hologram_route_plane",
+        "paper_module.agent_route_observability_runtime"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.batch11_saturation_engines_capsule",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/batch11_saturation_engines_capsule.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.batch11_saturation_engines_capsule.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.batch11_saturation_engines_capsule",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/batch11_saturation_engines_capsule.md",
+      "principle_refs": [
+        "P-2",
+        "P-5",
+        "P-9",
+        "P-15"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule]",
+      "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, refreshed exact-copy source-open bundle, Batch 11 saturation organ source locus, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; shared navigation, market, secret-scan, Work Ledger, source-mutation, publication, and release authority stay out of scope.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "batch11_saturation_engines_capsule"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
+        }
+      ],
+      "title": "Batch 11 Saturation Engines Capsule"
+    },
+    "strangler_note": "Binds the authored Markdown projection, accepted-organ atlas row, refreshed exact-copy source-open bundle, Batch 11 saturation organ source locus, and body-free receipts to JSON source authority. The mechanism subject is named from the resolving Microcosm mechanism row; concept edges remain residual until resolving Microcosm rows exist; shared navigation, market, secret-scan, Work Ledger, source-mutation, publication, and release authority stay out of scope.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-4",
+      "AX-8",
+      "AX-10",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for Batch 11 saturation-engine source imports, deterministic source-faithful exercises, computed negative probes, exact-copy digest checks, and authority ceilings.",
+        "symbols": [
+          "_build_integrity_matrix",
+          "_source_evidence",
+          "_evaluate",
+          "run",
+          "run_batch11_saturation_engines_bundle",
+          "result_card",
+          "EXPECTED_MECHANISMS",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "main"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [
+      "paper_module.macro_projection_import_protocol",
+      "paper_module.batch8_compliance_pipeline_capsule",
+      "paper_module.navigation_hologram_route_plane",
+      "paper_module.agent_route_observability_runtime"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "batch11_saturation_engines_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-10",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.macro_projection_import_protocol",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.batch8_compliance_pipeline_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.navigation_hologram_route_plane",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.agent_route_observability_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for Batch 11 saturation-engine source imports, deterministic source-faithful exercises, computed negative probes, exact-copy digest checks, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/batch11_saturation_engines_capsule.md",
+    "principle_refs": [
+      "P-2",
+      "P-5",
+      "P-9",
+      "P-15"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "batch11_saturation_engines_capsule"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
+      }
+    ],
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[76:paper_module.batch11_saturation_engines_capsule]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/batch11_saturation_engines_capsule.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/batch11_saturation_engines_capsule.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Batch 11 Saturation Engines Capsule imports saturation, diagnostic, wayfinding, market-board, secret-scan, and demo-take macro bodies as public source-open evidence without granting live runtime, release, market, or navigation authority.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "batch11_saturation_engines_capsule"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule"
+    }
+  ],
+  "title": "Batch 11 Saturation Engines Capsule",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

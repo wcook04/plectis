@@ -95,14 +95,15 @@
       "release_authorized": false,
       "source_mutation_authorized": false
     },
-    "body_material_count": 6,
+    "body_material_count": 7,
     "body_material_ids": [
       "belief_reward_extracted_patterns_ledger_body_import",
       "belief_reward_high_novelty_growth_receipt_body_import",
       "belief_reward_canonical_organ_model_body_import",
       "agent_execution_trace_runtime_body_import",
       "agent_execution_trace_standard_body_import",
-      "extracted_pattern_route_readiness_tool_body_import"
+      "extracted_pattern_route_readiness_tool_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
     "body_text_exported_in_receipts": false,
@@ -124,5 +125,6 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json",
   "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
-  "validator_ref": "microcosm_core.organs.belief_state_process_reward_replay"
+  "validator_ref": "microcosm_core.organs.belief_state_process_reward_replay",
+  "body_copied_material_count": 7
 }

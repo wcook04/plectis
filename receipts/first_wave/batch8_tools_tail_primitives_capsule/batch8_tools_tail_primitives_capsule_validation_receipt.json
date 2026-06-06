@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 8 tools-tail capsule validates exact copied non-secret macro source bodies and public synthetic exercises for deterministic set diffs, JSON patch interpretation, stable ledger-id hashing, shadow envelope parse coverage. It is not oracle truth, not live bridge or GodMode execution, not repository mutation authority, not provider dispatch, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch8_tools_tail_primitives_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_tools_tail_primitives_capsule"
+}

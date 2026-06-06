@@ -1,0 +1,361 @@
+{
+  "anti_claim": "Tool-server pressure inventory validates a public read-only helper-process pressure contract over synthetic process tables only. It never signals a process, reads a live process table, mutates host state, or authorizes release; an active-owner descendant is never a safe-close candidate; over-budget active owners receive a release REQUEST, not a kill. It does not prove host correctness, call providers, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "tool_server_pressure_inventory_projection_only_not_process_control_authority",
+    "host_mutation_authorized": false,
+    "live_process_table_read_authorized": false,
+    "private_data_equivalence_claim": false,
+    "process_signal_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_copied_material_count": 1,
+  "body_in_receipt": false,
+  "body_material_status": "source_faithful_public_refactor_body_landed",
+  "command": "python -m microcosm_core.organs.tool_server_pressure_inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --card",
+  "created_at": "2026-06-02T21:05:12+00:00",
+  "error_codes": [
+    "TSPI_ABSOLUTE_PATH_FORBIDDEN",
+    "TSPI_ACTIVE_OWNER_KILL_CANDIDATE",
+    "TSPI_COMMAND_PREVIEW_FORBIDDEN",
+    "TSPI_OWNER_RELEASE_OVERCLAIM",
+    "TSPI_PREMATURE_SAFE_CLOSE",
+    "TSPI_PROCESS_SIGNAL_FORBIDDEN",
+    "TSPI_UNKNOWN_OWNER_KILL_FORBIDDEN"
+  ],
+  "expected_negative_cases": {
+    "absolute_path_leak": [
+      "TSPI_ABSOLUTE_PATH_FORBIDDEN"
+    ],
+    "active_owner_kill_candidate": [
+      "TSPI_ACTIVE_OWNER_KILL_CANDIDATE"
+    ],
+    "command_preview_leak": [
+      "TSPI_COMMAND_PREVIEW_FORBIDDEN"
+    ],
+    "owner_chain_cycle_safe_close": [
+      "TSPI_ACTIVE_OWNER_KILL_CANDIDATE"
+    ],
+    "owner_release_overclaim": [
+      "TSPI_OWNER_RELEASE_OVERCLAIM"
+    ],
+    "premature_safe_close": [
+      "TSPI_PREMATURE_SAFE_CLOSE"
+    ],
+    "process_signal_sent": [
+      "TSPI_PROCESS_SIGNAL_FORBIDDEN"
+    ],
+    "unknown_owner_kill": [
+      "TSPI_UNKNOWN_OWNER_KILL_FORBIDDEN"
+    ]
+  },
+  "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_ACTIVE_OWNER_KILL_CANDIDATE",
+      "message": "An active-owner descendant must never be a safe-close candidate.",
+      "negative_case_id": "active_owner_kill_candidate",
+      "subject_id": "8801",
+      "subject_kind": "owner_status"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_UNKNOWN_OWNER_KILL_FORBIDDEN",
+      "message": "Safe-close is reserved for ppid==1 allowlisted detached orphans.",
+      "negative_case_id": "unknown_owner_kill",
+      "subject_id": "8810",
+      "subject_kind": "owner_status"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_ACTIVE_OWNER_KILL_CANDIDATE",
+      "message": "An active-owner descendant must never be a safe-close candidate.",
+      "negative_case_id": "owner_chain_cycle_safe_close",
+      "subject_id": "8830",
+      "subject_kind": "owner_status"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_PREMATURE_SAFE_CLOSE",
+      "message": "A detached orphan younger than min_age_seconds is not a safe-close candidate.",
+      "negative_case_id": "premature_safe_close",
+      "subject_id": "8820",
+      "subject_kind": "age_s"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_PROCESS_SIGNAL_FORBIDDEN",
+      "message": "The public inventory must not record that any process signal was sent.",
+      "negative_case_id": "process_signal_sent",
+      "subject_id": "claimed_inventory",
+      "subject_kind": "sigkill_sent"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_COMMAND_PREVIEW_FORBIDDEN",
+      "message": "Public pressure rows must carry command_hash only, never a live command preview.",
+      "negative_case_id": "command_preview_leak",
+      "subject_id": "claimed_inventory",
+      "subject_kind": "command_preview"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_ABSOLUTE_PATH_FORBIDDEN",
+      "message": "Public surfaces must not carry absolute host paths.",
+      "negative_case_id": "absolute_path_leak",
+      "subject_id": "claimed_inventory",
+      "subject_kind": "owner"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "TSPI_OWNER_RELEASE_OVERCLAIM",
+      "message": "Over-budget active owners get a release REQUEST, never a kill/terminate.",
+      "negative_case_id": "owner_release_overclaim",
+      "subject_id": "mcp_tool_helper",
+      "subject_kind": "owner_release_request"
+    }
+  ],
+  "fixture_id": "first_wave.tool_server_pressure_inventory",
+  "freshness_basis": {
+    "basis_digest": "sha256:fc3f88b37ca3ed99b16f56b170dab81d7758215eb7d86720cc3f2d57b3dd250d",
+    "card_schema_version": "tool_server_pressure_inventory_command_card_v1",
+    "include_negative": true,
+    "input_count": 14,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/process_table.json",
+        "sha256": "8c699cbf8325c2490b0b6ce73e7f4090a1fc0eb53584cfc51f7ad03d2a6a1e02",
+        "size_bytes": 680
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/pressure_policy.json",
+        "sha256": "451256464ffe359eef6cd6c6337d5bb6d82ba1a5a462e2a83659fbfbb0916311",
+        "size_bytes": 1033
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/owner_classes.json",
+        "sha256": "d9b1224ef5a63f36924623f5c9a4ef83c4ada4497228891a06fde248c77d0120",
+        "size_bytes": 505
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/active_owner_kill_candidate.json",
+        "sha256": "cef56632b495bd493df0ebab58a3fb62cf4761d1ef39cee269190ab4b688499a",
+        "size_bytes": 585
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/unknown_owner_kill.json",
+        "sha256": "367aeefc109ebbe081c84762e9b67176c62d702145c1f38b43f4910f24d45079",
+        "size_bytes": 577
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/owner_chain_cycle_safe_close.json",
+        "sha256": "5be37e6f163dcc264e3f706c60fe35672cc0b37e75f927a7e3b9f0780ccc3520",
+        "size_bytes": 646
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/premature_safe_close.json",
+        "sha256": "d987437833f592fdd3bc4b7f0fa34f8e0d1673c10186bca33044ea0d4bdbcff3",
+        "size_bytes": 596
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/process_signal_sent.json",
+        "sha256": "bc64b4c09a291fcd6808923b13800e48ab863d9a7d4da7cef9a65c272fba53a4",
+        "size_bytes": 600
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/command_preview_leak.json",
+        "sha256": "799c82018816467334ba5269af4732bdde808e07f9bdaad398a94814b81af405",
+        "size_bytes": 634
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/absolute_path_leak.json",
+        "sha256": "ec3beaea5e490001da6bba55e7cd8e97c65501f2d1fb1c2632da22171c42b275",
+        "size_bytes": 646
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/owner_release_overclaim.json",
+        "sha256": "e3101329e8ff7b6cd2f0c3f224be502e7d0c961df428c4a77095208d152f1077",
+        "size_bytes": 892
+      },
+      {
+        "path": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+        "sha256": "641b44c6753221e91f8032126077bb9f25c20c0ebe17759f943b07fe383b3926",
+        "size_bytes": 1984
+      },
+      {
+        "path": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py",
+        "sha256": "5521e1854bd5ebff0fce67789fbaad7df668579b6925a1d448abffcc773375db",
+        "size_bytes": 14294
+      },
+      {
+        "path": "src/microcosm_core/organs/tool_server_pressure_inventory.py",
+        "sha256": "9feb7ce0d65a100e664b9464890da2335ce5e861d152ee13ea4dd1a2532c4999",
+        "size_bytes": 63790
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "tool_server_pressure_inventory_freshness_basis_v1",
+    "validator_schema_version": "tool_server_pressure_inventory_result_v1"
+  },
+  "input_mode": "first_wave_fixture",
+  "inventory_projection": {
+    "active_owner_pressure_group_count": 1,
+    "active_owner_release_request_count": 1,
+    "candidate_safe_close_count": 1,
+    "command_preview_in_rows": false,
+    "keep_count": 2,
+    "no_process_signal_sent": true,
+    "no_unknown_owner_killed": true,
+    "process_count": 8,
+    "requires_owner_check_count": 5
+  },
+  "missing_negative_cases": [],
+  "negative_case_count": 8,
+  "observed_negative_cases": {
+    "absolute_path_leak": [
+      "TSPI_ABSOLUTE_PATH_FORBIDDEN"
+    ],
+    "active_owner_kill_candidate": [
+      "TSPI_ACTIVE_OWNER_KILL_CANDIDATE"
+    ],
+    "command_preview_leak": [
+      "TSPI_COMMAND_PREVIEW_FORBIDDEN"
+    ],
+    "owner_chain_cycle_safe_close": [
+      "TSPI_ACTIVE_OWNER_KILL_CANDIDATE"
+    ],
+    "owner_release_overclaim": [
+      "TSPI_OWNER_RELEASE_OVERCLAIM"
+    ],
+    "premature_safe_close": [
+      "TSPI_PREMATURE_SAFE_CLOSE"
+    ],
+    "process_signal_sent": [
+      "TSPI_PROCESS_SIGNAL_FORBIDDEN"
+    ],
+    "unknown_owner_kill": [
+      "TSPI_UNKNOWN_OWNER_KILL_FORBIDDEN"
+    ]
+  },
+  "organ_id": "tool_server_pressure_inventory",
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/process_table.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/pressure_policy.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/owner_classes.json",
+    "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle",
+    "paper_modules/tool_server_pressure_inventory.md"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_id": "tool_server_pressure_inventory_fixture_acceptance_v1",
+  "receipt_paths": [
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_result.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_board.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_validation_receipt.json",
+    "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
+  ],
+  "receipt_reused": false,
+  "schema_version": "tool_server_pressure_inventory_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 13,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "source_faithful_public_refactor_body_landed",
+  "source_module_manifest_ref": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_tool_body": 1
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "module_count": 1,
+    "module_ids": [
+      "orphan_reaper_pressure_inventory_public_refactor"
+    ],
+    "source_module_import_status": "source_faithful_public_refactor_body_landed",
+    "source_module_manifest_ref": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+    "source_refs": [
+      "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+      "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 1
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 1,
+    "body_material_ids": [
+      "orphan_reaper_pressure_inventory_public_refactor"
+    ],
+    "body_material_status": "source_faithful_public_refactor_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ for the source-faithful public refactor of the macro orphan_reaper read-only mechanism; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "tool_server_pressure_inventory_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "tool_server_pressure_inventory",
+    "lease_aware_helper_pressure_hygiene",
+    "active_owner_release_request"
+  ],
+  "source_refs": [
+    "tools/meta/control/orphan_reaper.py",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+    "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_modules/tools/meta/control/orphan_reaper_pressure_inventory.py"
+  ],
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
+  "validator_id": "validator.microcosm.organs.tool_server_pressure_inventory"
+}

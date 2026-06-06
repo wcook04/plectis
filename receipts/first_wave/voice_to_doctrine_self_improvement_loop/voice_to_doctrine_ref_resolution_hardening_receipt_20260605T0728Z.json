@@ -1,0 +1,94 @@
+{
+  "schema_version": "microcosm_component_rerank_validation_sidecar_v1",
+  "receipt_id": "voice_to_doctrine_ref_resolution_hardening_receipt_20260605T0728Z",
+  "generated_at": "2026-06-05T07:28:00Z",
+  "organ_id": "voice_to_doctrine_self_improvement_loop",
+  "mode": "source_test_receipt_hardening_no_registry_or_public_toggle_mutation",
+  "work_ledger_session_id": "codex_20260605T0715Z_voice_to_doctrine_self_improvement_loop_realness_delta",
+  "owned_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+    "microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py",
+    "microcosm-substrate/receipts/first_wave/voice_to_doctrine_self_improvement_loop"
+  ],
+  "current_expected_state": {
+    "status": "accepted_current_authority",
+    "evidence_class": "semantic_validator",
+    "evidence_strength_rank": 5,
+    "truth_accounting_bucket": "real_import_validation",
+    "real_substrate_disposition": "real_substrate_capsule",
+    "current_authority_receipt": "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+  },
+  "rerank_binding": {
+    "previous_bound_rung": "R3/R4",
+    "current_bound_rung": "R4_ref_resolution_hardened",
+    "registry_rank_mutated": false,
+    "public_toggle_mutated": false,
+    "basis": "Lesson refs now reject unsafe path refs, resolve JSON claims as claims rather than only string slots, emit per-ref proof rows in full receipts, and prove baked expected labels cannot override unbacked evidence."
+  },
+  "proof_contract": {
+    "fixture_negative_cases_observed": true,
+    "missing_negative_cases": [],
+    "lesson_ref_paths_and_anchors_resolve": true,
+    "lesson_ref_json_claims_resolve": true,
+    "non_public_lesson_ref_paths_fail_closed": true,
+    "mutated_lesson_refs_fail_closed": true,
+    "perturbed_status_counts_move_from_actual_rows": true,
+    "baked_expected_labels_do_not_override_unresolved_refs": true,
+    "exported_bundle_source_module_count": 8,
+    "verified_source_module_count": 8,
+    "body_copied_material_count": 8,
+    "source_body_text_exported_in_receipt": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "provider_calls_authorized": false
+  },
+  "validation": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+      "status": "pass"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-pytest -p no:cacheprovider microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py -q --basetemp /tmp/microcosm-voice-doctrine-rerank-pytest-final",
+      "status": "pass",
+      "summary": "14 passed; existing pytest config warning for unknown cache_dir"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out /tmp/microcosm-voice-doctrine-fixture-rerank --acceptance-out /tmp/microcosm-voice-doctrine-fixture-rerank/acceptance.json --card",
+      "status": "pass",
+      "summary": "fixture card status pass; missing_negative_cases=[]; release_authorized=false"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run-bundle --input microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-doctrine-bundle-rerank --card",
+      "status": "pass",
+      "summary": "bundle card status pass; verified_source_module_count=8; body_copied_material_count=8; release_authorized=false"
+    },
+    {
+      "command": "jq -e '.status == \"pass\" and .unresolved_lesson_ref_count == 0 and .lesson_ref_resolution_count > 0 and .authority_ceiling.release_authorized == false and .blocking_error_codes == []' /tmp/microcosm-voice-doctrine-fixture-rerank/voice_to_doctrine_self_improvement_loop_result.json",
+      "status": "pass"
+    },
+    {
+      "command": "jq -e '.status == \"pass\" and .unresolved_lesson_ref_count == 0 and .lesson_ref_resolution_count > 0 and .source_module_manifest_status == \"pass\" and .verified_source_module_count == 8 and .body_copied_material_count == 8 and .authority_ceiling.release_authorized == false and .blocking_error_codes == []' /tmp/microcosm-voice-doctrine-bundle-rerank/exported_voice_to_doctrine_bundle_validation_result.json",
+      "status": "pass"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 scripts/build_organ_atlas.py --check",
+      "status": "pass",
+      "summary": "status pass; drift=[]; wrote=[]"
+    },
+    {
+      "command": "git diff --check -- microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "status": "pass"
+    }
+  ],
+  "source_open_boundary": {
+    "body_in_receipt": false,
+    "private_payloads_in_receipt": false,
+    "provider_calls_authorized": false,
+    "claim_ceiling": "Rerank validation only; not release, live Task Ledger mutation, private-root equivalence, hosted deployment, provider execution, or public toggle authority."
+  },
+  "coordination": {
+    "read_only_subagents_used": 4,
+    "implementation_mutation_owner": "main_codex_thread",
+    "strict_write_scope_honored": true
+  }
+}

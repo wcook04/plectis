@@ -87,6 +87,7 @@
       "mechanic_id": "recomputed_integrity_verdict_matches_declared"
     }
   ],
+  "missing_replay_case_ids": [],
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
   "private_state_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -331,10 +332,16 @@
   ],
   "replay_rows": [
     {
+      "allowed_integrity_verdicts": [
+        "integrity_pass",
+        "quarantine"
+      ],
       "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
+      "declared_integrity_verdict": "integrity_pass",
+      "declared_integrity_verdict_valid": true,
       "evaluator_id": "locked_repo_repair_scorer_v1",
       "expected_negative_case_id": null,
       "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_001.json",
@@ -346,10 +353,16 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
     },
     {
+      "allowed_integrity_verdicts": [
+        "integrity_pass",
+        "quarantine"
+      ],
       "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
+      "declared_integrity_verdict": "integrity_pass",
+      "declared_integrity_verdict_valid": true,
       "evaluator_id": "locked_regression_guard_scorer_v1",
       "expected_negative_case_id": null,
       "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_002.json",
@@ -361,10 +374,16 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
     },
     {
+      "allowed_integrity_verdicts": [
+        "integrity_pass",
+        "quarantine"
+      ],
       "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "computed_integrity_verdict": "quarantine",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",
+      "declared_integrity_verdict": "quarantine",
+      "declared_integrity_verdict_valid": true,
       "evaluator_id": "locked_repo_repair_scorer_v1",
       "expected_negative_case_id": null,
       "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_003.json",
@@ -383,6 +402,7 @@
     {
       "actual_sha256": "sha256:178c8b1feff6a5a6301ee9d3e65942a1af5061e45bfcd6298ac7545f153fae64",
       "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "line_count": 40,
       "material_class": "public_macro_pattern_body",
       "module_id": "benchmark_integrity_deterministic_pattern_order_body_import",
@@ -394,6 +414,7 @@
     {
       "actual_sha256": "sha256:f23773f9bc0d6304c10ed9a5c332f077f50e8c03684db7156b48b6c00707eb43",
       "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "line_count": 72,
       "material_class": "public_macro_pattern_body",
       "module_id": "benchmark_integrity_extracted_pattern_ledger_row_body_import",
@@ -405,6 +426,7 @@
     {
       "actual_sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
       "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "line_count": 121,
       "material_class": "public_macro_pattern_body",
       "module_id": "benchmark_integrity_high_novelty_growth_receipt_body_import",

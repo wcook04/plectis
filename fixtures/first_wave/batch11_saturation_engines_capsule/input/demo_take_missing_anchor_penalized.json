@@ -1,0 +1,34 @@
+{
+  "binding_disposition": "already_bound_batch7_demo_take_capsule_batch11_verifies_scoring_path",
+  "body_in_receipt": false,
+  "case_id": "demo_take_missing_anchor_penalized",
+  "computed_path": "missing_anchors_lowers_score",
+  "error_codes": [
+    "BATCH11_DEMO_TAKE_MISSING_ANCHOR_PENALIZED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "demo_take_story_coverage_audit",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "full": {
+      "anchor_hits": 2,
+      "anchor_total": 2,
+      "intent_counts": {
+        "mark_good": 1,
+        "view_verdict_high": 1
+      },
+      "span_duration": 22,
+      "target_duration": 20
+    },
+    "missing": {
+      "anchor_hits": 0,
+      "anchor_total": 2,
+      "intent_counts": {},
+      "span_duration": 8,
+      "target_duration": 20
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

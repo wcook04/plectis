@@ -1,0 +1,29 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "agent_closeout_faithfulness_audit_runtime_example",
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 70986,
+      "line_count": 1703,
+      "material_class": "public_macro_source_body",
+      "path": "source_modules/system/lib/agent_experience_diagnostics.py",
+      "required_anchors": [
+        "Agent Experience Grand Rounds",
+        "closeout"
+      ],
+      "sha256": "d2d3f2fab36189b9dd46401618b410f95c4bfdfe1a00d7d1b82b27f2093c30e4",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/agent_experience_diagnostics.py",
+      "source_sha256": "d2d3f2fab36189b9dd46401618b410f95c4bfdfe1a00d7d1b82b27f2093c30e4",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_modules/system/lib/agent_experience_diagnostics.py",
+      "target_sha256": "d2d3f2fab36189b9dd46401618b410f95c4bfdfe1a00d7d1b82b27f2093c30e4"
+    }
+  ],
+  "schema_version": "microcosm_agent_closeout_faithfulness_audit_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body"
+}

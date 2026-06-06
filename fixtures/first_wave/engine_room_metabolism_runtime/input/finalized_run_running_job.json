@@ -1,0 +1,5 @@
+{
+  "case_id": "finalized_run_running_job",
+  "case_kind": "finalized_run_running_job",
+  "expected_status": "pass"
+}

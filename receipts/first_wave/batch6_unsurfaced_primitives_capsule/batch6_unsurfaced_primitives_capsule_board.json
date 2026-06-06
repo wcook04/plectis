@@ -1,0 +1,30 @@
+{
+  "anti_claim": "Batch 6 validates exact copied non-secret macro source bodies and public synthetic exercises for keyphrase scoring, schema-loose distillation, operator handoff scoring, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping. It is not live operator memory, not raw prompt-shelf content, not live market data, not provider/browser state, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch6_public_substrate_capsule_not_live_runtime_authority",
+    "launch_authorized": false,
+    "live_market_data_fetch_authorized": false,
+    "live_operator_transcript_export_authorized": false,
+    "live_provider_browser_state_export_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "runtime_execution": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 11,
+    "source_module_count": 14
+  },
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "schema_version": "batch6_unsurfaced_primitives_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 6 Unsurfaced Primitives Capsule",
+  "verdict": "pass"
+}

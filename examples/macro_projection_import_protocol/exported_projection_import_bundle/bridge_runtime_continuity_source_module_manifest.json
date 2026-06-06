@@ -84,7 +84,7 @@
       "anchor_count": 4,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 50860,
+      "byte_count": 50870,
       "classification": "copied_non_secret_macro_body",
       "line_count": 1245,
       "material_class": "public_macro_tool_body",
@@ -99,9 +99,13 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_bridge_session_export",
       "source_ref": "system/server/tests/test_bridge_resume.py",
       "source_role": "Synthetic regression tests for bridge resume trigger emission, transport persistence, idle-safety, session discovery, provider-pressure status, and dispatch-yield result state transitions.",
-      "source_sha256": "1bf7307bf9bb2dca6810a9746699b15b0087a1c02420c6fe7c269db373a3c3bc",
+      "source_sha256": "4a6715314d3ca7b7f9b012dd6f976fcb521f232dd6c6c41700813433075e3864",
+      "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_resume.py",
-      "target_sha256": "1bf7307bf9bb2dca6810a9746699b15b0087a1c02420c6fe7c269db373a3c3bc"
+        "target_sha256": "4a6715314d3ca7b7f9b012dd6f976fcb521f232dd6c6c41700813433075e3864",
+        "sha256": "4a6715314d3ca7b7f9b012dd6f976fcb521f232dd6c6c41700813433075e3864",
+      "public_safe_refactor_note": "Synthetic local home/path placeholders use /Users/example public fixture paths in both source and exported copy.",
+      "verification_mode": "exact_source_digest_match"
     },
     {
       "anchor_count": 3,

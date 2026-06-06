@@ -286,6 +286,7 @@ def _audit_one_command(
     bands: list[str],
     project_fn: Callable[..., Mapping[str, Any]],
     monolithic_default: bool,
+    compatibility_path: str | None = None,
     band_kwargs: Mapping[str, Mapping[str, Any]] | None = None,
     notes: str = "",
 ) -> dict[str, Any]:
@@ -333,54 +334,24 @@ def _audit_one_command(
         band_results.append(band_row)
 
     all_ok = all(row["ok"] for row in band_results) and bool(band_results)
+    default_shape_unchanged = bool(monolithic_default)
+    compatibility_path_preserved = default_shape_unchanged or bool(compatibility_path)
     return {
         "command": command,
         "status": "projected" if all_ok else "projected_with_drift" if band_results else "monolithic",
         "bands_declared": list(bands),
         "band_results": band_results,
         "default_behavior": "monolithic" if monolithic_default else "projected",
-        "back_compat_preserved": bool(monolithic_default),
+        "default_shape_unchanged": default_shape_unchanged,
+        "compatibility_path": compatibility_path or "",
+        "compatibility_path_preserved": compatibility_path_preserved,
+        "back_compat_preserved": compatibility_path_preserved,
         "notes": notes,
     }
 
 
-def build_command_output_projection_audit() -> dict[str, Any]:
-    """Build the command-output projection audit packet.
-
-    Imports per-command projector callables lazily to avoid circular imports
-    between this audit module and the navigate command module that imports the
-    projection helper.
-    """
-    rows: list[dict[str, Any]] = []
-    monolithic_commands: list[dict[str, Any]] = []
-
-    try:
-        from system.lib.kernel.commands import navigate as _navigate
-    except Exception as exc:  # noqa: BLE001
-        return {
-            "kind": "command_output_projection_audit",
-            "schema_version": "command_output_projection_audit_v0",
-            "generated_at": _utc_now(),
-            "governing_standard": STANDARD_REF,
-            "summary": {
-                "projected_commands": 0,
-                "monolithic_commands": 0,
-                "missing_required_fields": 0,
-                "back_compat_preserved": True,
-                "audit_load_error": f"{type(exc).__name__}: {exc}",
-            },
-            "rows": [],
-            "monolithic": [],
-            "notes": [
-                "Audit could not import system.lib.kernel.commands.navigate; the",
-                "command-output projection retrofit may not be loaded.",
-            ],
-        }
-
-    # Registry of retrofitted commands. Each entry names the projector callable on
-    # the navigate module (as a string) and the bands it supports. The projector
-    # must be a zero-arg-or-band-only function returning the in-process envelope.
-    registry: list[dict[str, Any]] = [
+def _command_output_projection_registry() -> list[dict[str, Any]]:
+    return [
         {
             "command": "--phase",
             "projector_attr": "build_phase_projection_envelope",
@@ -446,10 +417,112 @@ def build_command_output_projection_audit() -> dict[str, Any]:
             "command": "--session-diagnostics",
             "projector_attr": "build_session_diagnostics_projection_envelope",
             "bands": ["flag", "card"],
-            "monolithic_default": True,
-            "notes": "Tranche 2: default --session-diagnostics emission unchanged; --output-band <band> opts in.",
+            "monolithic_default": False,
+            "compatibility_path": "--full preserves the full session diagnostics report",
+            "band_kwargs": {
+                "flag": {"lens": "latency"},
+                "card": {"lens": "latency"},
+            },
+            "notes": (
+                "Default --session-diagnostics now emits the compact summary packet; "
+                "--full preserves the full report. Audit samples the latency lens because "
+                "it is backed by the cached process-summary read model."
+            ),
         },
     ]
+
+
+def build_command_output_projection_audit_catalog() -> dict[str, Any]:
+    registry = _command_output_projection_registry()
+    rows = [
+        {
+            "command": entry["command"],
+            "status": "projected",
+            "bands_declared": list(entry["bands"]),
+            "projector_attr": entry["projector_attr"],
+            "default_behavior": "monolithic" if entry["monolithic_default"] else "projected",
+            "default_shape_unchanged": bool(entry["monolithic_default"]),
+            "compatibility_path": str(entry.get("compatibility_path") or ""),
+            "compatibility_path_preserved": bool(
+                entry["monolithic_default"] or entry.get("compatibility_path")
+            ),
+            "back_compat_preserved": bool(
+                entry["monolithic_default"] or entry.get("compatibility_path")
+            ),
+            "notes": entry.get("notes", ""),
+            "live_audit_status": "deferred_to_full",
+        }
+        for entry in registry
+    ]
+    return {
+        "kind": "command_output_projection_audit",
+        "schema_version": "command_output_projection_audit_v0",
+        "output_profile": "contract_catalog",
+        "generated_at": _utc_now(),
+        "governing_standard": STANDARD_REF,
+        "summary": {
+            "registered_commands": len(registry),
+            "projected_commands": len(rows),
+            "projected_with_drift": 0,
+            "monolithic_commands": 0,
+            "missing_required_fields": 0,
+            "back_compat_preserved": all(row.get("back_compat_preserved", False) for row in rows),
+            "live_projector_invocation": "deferred_to_full",
+        },
+        "rows": rows,
+        "monolithic": [],
+        "full_audit_command": "./repo-python kernel.py --full --command-output-projection-audit",
+        "next": [
+            {
+                "command": "./repo-python kernel.py --full --command-output-projection-audit",
+                "reason": "Run the live projector audit when validating projector payload fields or suspected drift.",
+            },
+            {
+                "command": "./repo-python kernel.py --kind-band-contract-audit",
+                "reason": "Cross-check that retrofitted command bands are consistent with kind-native bands.",
+            },
+        ],
+        "notes": [
+            "Default catalog avoids invoking every projector on first contact.",
+            "The full audit still invokes projector callables and checks required envelope fields.",
+        ],
+    }
+
+
+def build_command_output_projection_audit() -> dict[str, Any]:
+    """Build the command-output projection audit packet.
+
+    Imports per-command projector callables lazily to avoid circular imports
+    between this audit module and the navigate command module that imports the
+    projection helper.
+    """
+    rows: list[dict[str, Any]] = []
+    monolithic_commands: list[dict[str, Any]] = []
+
+    try:
+        from system.lib.kernel.commands import navigate as _navigate
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "kind": "command_output_projection_audit",
+            "schema_version": "command_output_projection_audit_v0",
+            "generated_at": _utc_now(),
+            "governing_standard": STANDARD_REF,
+            "summary": {
+                "projected_commands": 0,
+                "monolithic_commands": 0,
+                "missing_required_fields": 0,
+                "back_compat_preserved": True,
+                "audit_load_error": f"{type(exc).__name__}: {exc}",
+            },
+            "rows": [],
+            "monolithic": [],
+            "notes": [
+                "Audit could not import system.lib.kernel.commands.navigate; the",
+                "command-output projection retrofit may not be loaded.",
+            ],
+        }
+
+    registry = _command_output_projection_registry()
 
     for entry in registry:
         attr = entry["projector_attr"]
@@ -484,6 +557,7 @@ def build_command_output_projection_audit() -> dict[str, Any]:
                 bands=entry["bands"],
                 project_fn=make_caller(projector, entry["command"]),
                 monolithic_default=entry["monolithic_default"],
+                compatibility_path=entry.get("compatibility_path"),
                 band_kwargs=entry.get("band_kwargs"),
                 notes=entry.get("notes", ""),
             )
@@ -501,6 +575,7 @@ def build_command_output_projection_audit() -> dict[str, Any]:
     return {
         "kind": "command_output_projection_audit",
         "schema_version": "command_output_projection_audit_v0",
+        "output_profile": "live_projector_audit",
         "generated_at": _utc_now(),
         "governing_standard": STANDARD_REF,
         "summary": {

@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "compile_bypass",
+  "error_codes": [
+    "BATCH10_LIVE_SOURCE_DRIFT_COMPILE_BYPASS_REFUSED"
+  ],
+  "refused_claim": "Copied Python bodies must pass py_compile without importing or executing macro runtime state."
+}

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-30T21:37:19+00:00",
+  "created_at": "2026-06-01T15:22:42+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -332,7 +332,27 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_34_standards_meta_diagnostics",
+      "event_id": "evt_34_tool_server_pressure_inventory",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle_validation_result.json",
+      "input_mode": "exported_tool_server_pressure_inventory_bundle",
+      "inputs": "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle",
+      "organ_id": "tool_server_pressure_inventory",
+      "outputs": "receipts/runtime_shell/demo_project/organs/tool_server_pressure_inventory",
+      "span": "tool_server_pressure_inventory.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_35_workstream_driver_recency_coalescer",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle_validation_result.json",
+      "input_mode": "exported_workstream_driver_recency_coalescer_bundle",
+      "inputs": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle",
+      "organ_id": "workstream_driver_recency_coalescer",
+      "outputs": "receipts/runtime_shell/demo_project/organs/workstream_driver_recency_coalescer",
+      "span": "workstream_driver_recency_coalescer.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_36_standards_meta_diagnostics",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
       "input_mode": "exported_standards_meta_diagnostics_bundle",
       "inputs": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
@@ -342,7 +362,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_35_cold_reader_route_map",
+      "event_id": "evt_37_cold_reader_route_map",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
       "input_mode": "exported_cold_reader_route_map_bundle",
       "inputs": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
@@ -352,7 +372,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_36_agent_memory_temporal_conflict_replay",
+      "event_id": "evt_38_agent_memory_temporal_conflict_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
       "input_mode": "exported_memory_temporal_conflict_bundle",
       "inputs": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
@@ -362,7 +382,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_37_sleeper_memory_poisoning_quarantine_replay",
+      "event_id": "evt_39_sleeper_memory_poisoning_quarantine_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
       "input_mode": "exported_sleeper_memory_poisoning_bundle",
       "inputs": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
@@ -372,7 +392,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_38_mcp_tool_authority_replay",
+      "event_id": "evt_40_mcp_tool_authority_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
       "input_mode": "exported_mcp_tool_authority_bundle",
       "inputs": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
@@ -382,7 +402,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_39_proof_derived_governed_mutation_authorization",
+      "event_id": "evt_41_proof_derived_governed_mutation_authorization",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
       "input_mode": "exported_governed_mutation_authorization_bundle",
       "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
@@ -392,7 +412,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_40_belief_state_process_reward_replay",
+      "event_id": "evt_42_belief_state_process_reward_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json",
       "input_mode": "exported_belief_state_process_reward_bundle",
       "inputs": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
@@ -402,7 +422,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_41_agent_sandbox_policy_escape_replay",
+      "event_id": "evt_43_agent_sandbox_policy_escape_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json",
       "input_mode": "exported_sandbox_policy_escape_bundle",
       "inputs": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
@@ -412,7 +432,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_42_indirect_prompt_injection_information_flow_policy_replay",
+      "event_id": "evt_44_indirect_prompt_injection_information_flow_policy_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle_validation_result.json",
       "input_mode": "exported_prompt_injection_flow_bundle",
       "inputs": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
@@ -422,7 +442,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_43_agentic_vulnerability_discovery_patch_proof_replay",
+      "event_id": "evt_45_agentic_vulnerability_discovery_patch_proof_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle_validation_result.json",
       "input_mode": "exported_patch_proof_bundle",
       "inputs": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle",
@@ -432,7 +452,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_44_certificate_kernel_execution_lab",
+      "event_id": "evt_46_certificate_kernel_execution_lab",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle_validation_result.json",
       "input_mode": "exported_certificate_kernel_execution_lab_bundle",
       "inputs": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle",
@@ -442,7 +462,187 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_45_voice_to_doctrine_self_improvement_loop",
+      "event_id": "evt_47_batch4_proof_authority_runtime",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle_validation_result.json",
+      "input_mode": "exported_batch4_proof_authority_runtime_bundle",
+      "inputs": "examples/batch4_proof_authority_runtime/exported_batch4_proof_authority_runtime_bundle",
+      "organ_id": "batch4_proof_authority_runtime",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch4_proof_authority_runtime",
+      "span": "batch4_proof_authority_runtime.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_48_batch6_unsurfaced_primitives_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch6_unsurfaced_primitives_capsule_bundle",
+      "inputs": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle",
+      "organ_id": "batch6_unsurfaced_primitives_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch6_unsurfaced_primitives_capsule",
+      "span": "batch6_unsurfaced_primitives_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_49_batch8_tools_tail_primitives_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch8_tools_tail_primitives_capsule_bundle",
+      "inputs": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle",
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_tools_tail_primitives_capsule",
+      "span": "batch8_tools_tail_primitives_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_50_batch8_policy_engines_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch8_policy_engines_capsule_bundle",
+      "inputs": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle",
+      "organ_id": "batch8_policy_engines_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_policy_engines_capsule",
+      "span": "batch8_policy_engines_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_51_batch8_audio_level_rms_port",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle_validation_result.json",
+      "input_mode": "exported_batch8_audio_level_rms_port_bundle",
+      "inputs": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle",
+      "organ_id": "batch8_audio_level_rms_port",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_audio_level_rms_port",
+      "span": "batch8_audio_level_rms_port.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_52_batch8_station_surface_atlas_layout_port",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle_validation_result.json",
+      "input_mode": "exported_batch8_station_surface_atlas_layout_port_bundle",
+      "inputs": "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle",
+      "organ_id": "batch8_station_surface_atlas_layout_port",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_station_surface_atlas_layout_port",
+      "span": "batch8_station_surface_atlas_layout_port.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_53_batch8_structural_theses_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch8_structural_theses_capsule_bundle",
+      "inputs": "examples/batch8_structural_theses_capsule/exported_batch8_structural_theses_capsule_bundle",
+      "organ_id": "batch8_structural_theses_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_structural_theses_capsule",
+      "span": "batch8_structural_theses_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_54_batch8_compliance_pipeline_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_validation_result.json",
+      "input_mode": "exported_batch8_compliance_pipeline_capsule_bundle",
+      "inputs": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle",
+      "organ_id": "batch8_compliance_pipeline_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_compliance_pipeline_capsule",
+      "span": "batch8_compliance_pipeline_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_55_batch10_live_source_drift_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch10_live_source_drift_capsule_bundle",
+      "inputs": "examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle",
+      "organ_id": "batch10_live_source_drift_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch10_live_source_drift_capsule",
+      "span": "batch10_live_source_drift_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_56_batch10_cold_eval_honesty_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_validation_result.json",
+      "input_mode": "exported_batch10_cold_eval_honesty_capsule_bundle",
+      "inputs": "examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle",
+      "organ_id": "batch10_cold_eval_honesty_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch10_cold_eval_honesty_capsule",
+      "span": "batch10_cold_eval_honesty_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_57_batch8_validator_checker_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_validation_result.json",
+      "input_mode": "exported_batch8_validator_checker_capsule_bundle",
+      "inputs": "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle",
+      "organ_id": "batch8_validator_checker_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch8_validator_checker_capsule",
+      "span": "batch8_validator_checker_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_58_concurrency_mission_control",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/concurrency_mission_control/exported_concurrency_mission_control_validation_result.json",
+      "input_mode": "exported_concurrency_mission_control_bundle",
+      "inputs": "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle",
+      "organ_id": "concurrency_mission_control",
+      "outputs": "receipts/runtime_shell/demo_project/organs/concurrency_mission_control",
+      "span": "concurrency_mission_control.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_59_batch7_macro_engines_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch7_macro_engines_capsule_bundle",
+      "inputs": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle",
+      "organ_id": "batch7_macro_engines_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch7_macro_engines_capsule",
+      "span": "batch7_macro_engines_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_60_batch7_station_runtime_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_validation_result.json",
+      "input_mode": "exported_batch7_station_runtime_capsule_bundle",
+      "inputs": "examples/batch7_station_runtime_capsule/exported_batch7_station_runtime_capsule_bundle",
+      "organ_id": "batch7_station_runtime_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch7_station_runtime_capsule",
+      "span": "batch7_station_runtime_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_61_batch9_macro_engines_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch9_macro_engines_capsule_bundle",
+      "inputs": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle",
+      "organ_id": "batch9_macro_engines_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch9_macro_engines_capsule",
+      "span": "batch9_macro_engines_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_62_batch10_governance_compilers_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch10_governance_compilers_capsule_bundle",
+      "inputs": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle",
+      "organ_id": "batch10_governance_compilers_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch10_governance_compilers_capsule",
+      "span": "batch10_governance_compilers_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_63_batch11_saturation_engines_capsule",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle_validation_result.json",
+      "input_mode": "exported_batch11_saturation_engines_capsule_bundle",
+      "inputs": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle",
+      "organ_id": "batch11_saturation_engines_capsule",
+      "outputs": "receipts/runtime_shell/demo_project/organs/batch11_saturation_engines_capsule",
+      "span": "batch11_saturation_engines_capsule.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_64_engine_room_demo",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/engine_room_demo/engine_room_demo_result.json",
+      "input_mode": "engine_room_demo_fixture_cases",
+      "inputs": "fixtures/first_wave/engine_room_demo/input",
+      "organ_id": "engine_room_demo",
+      "outputs": "receipts/runtime_shell/demo_project/organs/engine_room_demo",
+      "span": "engine_room_demo.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_65_voice_to_doctrine_self_improvement_loop",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle_validation_result.json",
       "input_mode": "exported_voice_to_doctrine_bundle",
       "inputs": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle",
@@ -450,15 +650,65 @@
       "outputs": "receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop",
       "span": "voice_to_doctrine_self_improvement_loop.validate",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_66_agent_closeout_faithfulness_audit",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle_validation_result.json",
+      "input_mode": "exported_agent_closeout_faithfulness_audit_bundle",
+      "inputs": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle",
+      "organ_id": "agent_closeout_faithfulness_audit",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit",
+      "span": "agent_closeout_faithfulness_audit.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_67_doctrine_fact_claim_audit",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle_validation_result.json",
+      "input_mode": "exported_doctrine_fact_claim_audit_bundle",
+      "inputs": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle",
+      "organ_id": "doctrine_fact_claim_audit",
+      "outputs": "receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit",
+      "span": "doctrine_fact_claim_audit.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_68_self_ignorance_coverage_ledger",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle_validation_result.json",
+      "input_mode": "exported_self_ignorance_coverage_ledger_bundle",
+      "inputs": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle",
+      "organ_id": "self_ignorance_coverage_ledger",
+      "outputs": "receipts/runtime_shell/demo_project/organs/self_ignorance_coverage_ledger",
+      "span": "self_ignorance_coverage_ledger.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_69_bounded_autonomy_campaign_packet",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle_validation_result.json",
+      "input_mode": "exported_bounded_autonomy_campaign_packet_bundle",
+      "inputs": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle",
+      "organ_id": "bounded_autonomy_campaign_packet",
+      "outputs": "receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet",
+      "span": "bounded_autonomy_campaign_packet.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_70_finance_forecast_evaluation_spine",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/finance_forecast_evaluation_spine/exported_finance_forecast_evaluation_spine_bundle_validation_result.json",
+      "input_mode": "exported_finance_eval_bundle",
+      "inputs": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "organ_id": "finance_forecast_evaluation_spine",
+      "outputs": "receipts/runtime_shell/demo_project/organs/finance_forecast_evaluation_spine",
+      "span": "finance_forecast_evaluation_spine.validate",
+      "status": "pass"
     }
   ],
   "otel_shape": {
     "logs_as_events": true,
     "metrics": {
-      "runtime_steps_passed": 45,
-      "runtime_steps_total": 45
+      "runtime_steps_passed": 70,
+      "runtime_steps_total": 70
     },
-    "span_count": 45,
+    "span_count": 70,
     "trace_id": "runtime_shell_demo_project"
   },
   "project_id": "demo_project",

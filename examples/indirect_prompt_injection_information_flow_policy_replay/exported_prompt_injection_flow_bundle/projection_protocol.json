@@ -6,7 +6,7 @@
     "body_in_receipt": false,
     "classification": "extension_of_existing_public_refactor",
     "source_module_manifest_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
-    "source_open_body_import_count": 4,
+    "source_open_body_import_count": 5,
     "source_ref": "system/lib/agent_execution_trace.py",
     "status": "pass",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
@@ -46,7 +46,8 @@
     "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
     "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/system/lib/strict_json.py"
   ],
   "source_pattern_ids": [
     "indirect_prompt_injection_information_flow_policy_replay_compound"
@@ -55,6 +56,7 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::indirect_prompt_injection_information_flow_policy_replay_compound",
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::agent_safety_replay_growth",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "codex/standards/std_agent_execution_trace.json",
     "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet"
   ],

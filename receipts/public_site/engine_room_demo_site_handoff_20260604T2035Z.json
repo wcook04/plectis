@@ -1,0 +1,189 @@
+{
+  "schema_version": "microcosm_public_site_source_handoff_v1",
+  "receipt_id": "engine_room_demo_site_handoff_20260604T2035Z",
+  "created_at": "2026-06-04T20:33:53Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T203335Z_microcosm_engine_room_demo_site_handoff_20260604t2035z",
+  "updated_at": "2026-06-04T20:47:12Z",
+  "updated_by": "codex_goal_microcosm_doctrine_site_availability_20260604T2045Z_engine_room_demo_site_handoff_landing",
+  "subject_id": "paper_module.engine_room_demo",
+  "source_authority": {
+    "capsule_registry_ref": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo]",
+    "authored_markdown_projection": "microcosm-substrate/paper_modules/engine_room_demo.md",
+    "generated_json_sidecar": "microcosm-substrate/paper_modules/engine_room_demo.json",
+    "source_authority": "json_capsule",
+    "markdown_role": "reader_projection_over_json_capsule_not_source_authority"
+  },
+  "source_patch": {
+    "kind": "authored_markdown_public_site_boundary_and_generated_row_readback_refresh",
+    "changed_fields": [
+      "public_site_availability_boundary",
+      "generated_row_edge_count_readback"
+    ],
+    "live_generated_row_readback": {
+      "edge_count": 32,
+      "unresolved_selective_relation_count": 0,
+      "mermaid_status": "available_from_capsule_edges",
+      "atlas_card_status": "linked_from_capsule_edges",
+      "resolved_subjects": [
+        "engine_room_demo",
+        "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
+        "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+        "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
+      ],
+      "sibling_paper_modules": [
+        "paper_module.engine_room_lean_proof_search_lab",
+        "paper_module.engine_room_metabolism_runtime",
+        "paper_module.engine_room_command_run_singleflight",
+        "paper_module.engine_room_generated_projection_drift_gate",
+        "paper_module.engine_room_derived_fact_provider_engine",
+        "paper_module.engine_room_public_projection_leak_gate",
+        "paper_module.engine_room_egress_self_compliance_gate",
+        "paper_module.engine_room_navigation_fitness_benchmark",
+        "paper_module.engine_room_bridge_campaign_dag",
+        "paper_module.engine_room_annex_knowledge_router"
+      ]
+    }
+  },
+  "public_safety": {
+    "status": "public_safe_source_projection",
+    "allowed_material": [
+      "staged command refs",
+      "jewel target counts",
+      "selected capsule count",
+      "negative-case status",
+      "fixture refs",
+      "acceptance receipt refs",
+      "mechanism refs",
+      "sibling Engine Room paper-module links",
+      "source refs",
+      "authority ceilings",
+      "body-free receipt paths",
+      "generated card payload refs"
+    ],
+    "excluded_material": [
+      "private macro run state",
+      "raw operator material",
+      "provider payloads",
+      "account or session material",
+      "browser or HUD state",
+      "credentials",
+      "copied third-party body text",
+      "release or publication authorization",
+      "source mutation authority"
+    ],
+    "release_authority": false,
+    "hosted_product_authority": false,
+    "provider_authority": false,
+    "source_mutation_authority": false,
+    "whole_system_correctness_authority": false,
+    "benchmark_authority": false,
+    "security_proof_authority": false
+  },
+  "site_availability": {
+    "status": "source_ready_for_existing_builder",
+    "site_output_mode": "builder_projection_required",
+    "tracked_site_outputs_written_by_this_receipt": false,
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "tracked_refresh_reentry_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "builder_refresh_surfaces": [
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "temp_site_root": "/tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z",
+    "temp_site_root_contract": "Temp validation copies the existing curated site root first, then lets build_microcosm_public_site.py refresh generated docs, data, and envelope files. The landing page and assets/style.css are curated site inputs, not docs-only builder outputs.",
+    "temp_routeability_status": "verified_by_full_temp_site_copy",
+    "verified_routeability": [
+      {
+        "surface": "content_graph",
+        "path": "/tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z/content-graph.json",
+        "check": "rg -q \"paper_module.engine_room_demo\"",
+        "status": "pass",
+        "role": "paper_module_identity_and_relation_graph"
+      },
+      {
+        "surface": "object_map",
+        "path": "/tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z/object-map.json",
+        "check": "rg -q \"paper_module:paper_module.engine_room_demo\"",
+        "status": "pass",
+        "role": "linkable_object_route"
+      },
+      {
+        "surface": "search_index",
+        "path": "/tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z/assets/search-index.js",
+        "check": "rg -q \"Engine Room Demo\"",
+        "status": "pass",
+        "role": "searchable_module_title_and_component_card"
+      },
+      {
+        "surface": "paper_modules_page",
+        "path": "/tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z/docs/paper-modules.html",
+        "check": "rg -n -m 5 \"Engine Room Demo|engine_room_demo\"",
+        "status": "pass",
+        "role": "paper_module_card_and_rule_feed_links"
+      }
+    ],
+    "non_equivalent_surfaces": [
+      {
+        "surface": "llms_txt",
+        "check": "rg -q \"engine_room_demo\"",
+        "status": "not_exact_module_handle_projection",
+        "meaning": "The generated llms.txt surface is not the proof surface for this paper-module handle."
+      },
+      {
+        "surface": "paper_modules_page_body",
+        "check": "rg -q \"Engine Room Demo source projection\"",
+        "status": "not_exact_body_projection",
+        "meaning": "The paper-module page exposes the card, rule-feed links, source link, and body context; this exact handoff sentence is not the availability proof."
+      }
+    ],
+    "handoff_boundary": "Do not hand-edit generated site outputs; refresh through the existing builder after source-input ownership is safe. Treat generated surfaces as role-specific projections, not equivalent full-body mirrors."
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/engine_room_demo_site_handoff_20260604T2035Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "summary": {
+          "actual_count": 98,
+          "expected_count": 98
+        }
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-engine-room-demo-site-coverage-20260604T2035Z",
+        "status": "pass",
+        "summary": "47 passed"
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_demo.py microcosm-substrate/tests/test_engine_room_demo_organ.py -q --basetemp /tmp/microcosm-engine-room-demo-specific-20260604T2035Z",
+        "status": "pass",
+        "summary": "9 passed"
+      },
+      {
+        "command": "jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' microcosm-substrate/paper_modules/engine_room_demo.json",
+        "status": "pass",
+        "summary": "paper_module.engine_room_demo\t32\t0\tavailable_from_capsule_edges\tlinked_from_capsule_edges"
+      },
+      {
+        "command": "rsync -a --delete sites/microcosm/ /tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z/ && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-engine-room-demo-fullsite-20260604T2045Z --write --validate",
+        "status": "pass",
+        "summary": {
+          "validation_status": "pass",
+          "internal_links_missing": 0,
+          "public_safety_scan_hit_count": 0,
+          "written_count": 13
+        }
+      }
+    ]
+  }
+}

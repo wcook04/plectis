@@ -35,6 +35,7 @@ CODE_ARCH_NAME = "code_architecture_projection_packet_receipt.json"
 ROUTE_PLANE_BUNDLE_RESULT_NAME = "exported_route_plane_bundle_validation_result.json"
 REAL_ROUTE_BODY_MATERIAL_STATUS = "copied_non_secret_macro_route_substrate_with_provenance"
 CARD_SCHEMA_VERSION = "navigation_hologram_route_plane_card_v1"
+BUNDLE_WITNESS_INPUT_REF = "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = [
     "cluster_flag",
     "card",
@@ -499,6 +500,16 @@ def validate_exported_route_rows(
                     "body_redacted": True,
                 }
             )
+        if not _route_row_has_actionable_command(row):
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_ROUTE_COMMAND_MISSING",
+                    "message": "Exported route row lacks an actionable route command.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
         if body_material_status != required_body_status and not isinstance(omission_receipt, dict):
             findings.append(
                 {
@@ -560,6 +571,22 @@ def validate_exported_route_rows(
             else "mixed_or_omission_bound_route_rows"
         ),
     }
+
+
+def _route_row_has_actionable_command(row: dict[str, Any]) -> bool:
+    route_command = str(row.get("route_command") or "").strip()
+    band_payloads = row.get("band_payloads")
+    card_payload = (
+        band_payloads.get("card")
+        if isinstance(band_payloads, dict)
+        else None
+    )
+    card_route_command = (
+        str(card_payload.get("route_command") or "").strip()
+        if isinstance(card_payload, dict)
+        else ""
+    )
+    return bool(route_command or card_route_command)
 
 
 def validate_exported_source_coupling(
@@ -730,6 +757,19 @@ def validate_source_module_manifest(
                     subject_kind="source_module",
                 )
             )
+        if (
+            module.get("source_import_class") != "copied_non_secret_macro_body"
+            or module.get("body_text_in_receipt") is not False
+        ):
+            module_findings.append(
+                _finding(
+                    "ROUTE_PLANE_SOURCE_MODULE_IMPORT_BOUNDARY_INVALID",
+                    "Copied source module must explicitly declare copied_non_secret_macro_body and body_text_in_receipt=false.",
+                    case_id="source_module_manifest_contract",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         findings.extend(module_findings)
         module_results.append(
             {
@@ -745,6 +785,8 @@ def validate_source_module_manifest(
                 "missing_anchor_count": len(missing_anchors),
                 "body_copied": module.get("body_copied") is True,
                 "body_in_receipt": module.get("body_in_receipt") is True,
+                "body_text_in_receipt": module.get("body_text_in_receipt") is True,
+                "source_import_class": module.get("source_import_class"),
                 "observed_sha256": observed_sha,
             }
         )
@@ -1331,7 +1373,21 @@ def write_receipts(
     target.mkdir(parents=True, exist_ok=True)
     public_root = Path(public_root).resolve(strict=False)
     target = target.resolve(strict=False)
-    receipt_root = public_root if _is_relative_to(target, public_root) else target.parent
+    target_under_public_root = _is_relative_to(target, public_root)
+    target_relative_parts: tuple[str, ...] = ()
+    if target_under_public_root:
+        target_relative_parts = target.relative_to(public_root).parts
+    target_is_repo_local_test_tmp = target_relative_parts[:2] == (
+        ".microcosm",
+        "test-tmp",
+    )
+    receipt_root = (
+        target.parent
+        if target_is_repo_local_test_tmp
+        else public_root
+        if target_under_public_root
+        else target.parent
+    )
     paths = {
         "preflight": receipt_root / PREFLIGHT_REL,
         "toy_kind_cluster_flag": target / CLUSTER_FLAG_NAME,
@@ -1525,6 +1581,23 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "receipt_paths": receipt_paths,
         "receipt_reused": bool(result.get("receipt_reused")),
         "freshness_status": result.get("freshness_status", "rebuilt"),
+        "real_lane_witness": {
+            "current_input_is_exported_bundle_witness": result.get("input_mode")
+            == "exported_route_plane_bundle",
+            "witness_action": "run-route-plane-bundle",
+            "witness_input_ref": BUNDLE_WITNESS_INPUT_REF,
+            "source_body_imports_required_for_witness": True,
+            "current_source_module_manifest_status": result.get(
+                "source_module_manifest_status", "not_present"
+            ),
+            "current_source_module_digest_status": result.get(
+                "source_module_digest_status", "not_present"
+            ),
+            "current_source_module_anchor_status": result.get(
+                "source_module_anchor_status", "not_present"
+            ),
+            "current_source_module_count": result.get("source_module_count", 0),
+        },
     }
     if result.get("input_mode") == "exported_route_plane_bundle":
         secret_scan = result.get("secret_exclusion_scan", {})

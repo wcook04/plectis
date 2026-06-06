@@ -1,0 +1,413 @@
+{
+  "baseline_variant_id": "baseline",
+  "body_in_receipt": false,
+  "candidate_variant_id": "good",
+  "dependence_diagnostics": {
+    "event_window_overlap_count": 3,
+    "horizon_days": 5,
+    "recommended_lag": 3
+  },
+  "rows": [
+    {
+      "baseline_loss": 0.34,
+      "candidate_loss": 0.295,
+      "comparison_event_key": "evt_000",
+      "event_end": "2025-03-01",
+      "event_start": "2025-02-01",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.045,
+      "subject_as_of": "2025-01-01"
+    },
+    {
+      "baseline_loss": 0.349816,
+      "candidate_loss": 0.305809,
+      "comparison_event_key": "evt_001",
+      "event_end": "2025-03-02",
+      "event_start": "2025-02-02",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.044007,
+      "subject_as_of": "2025-01-02"
+    },
+    {
+      "baseline_loss": 0.358551,
+      "candidate_loss": 0.315498,
+      "comparison_event_key": "evt_002",
+      "event_end": "2025-03-03",
+      "event_start": "2025-02-03",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.043053,
+      "subject_as_of": "2025-01-03"
+    },
+    {
+      "baseline_loss": 0.365244,
+      "candidate_loss": 0.323067,
+      "comparison_event_key": "evt_003",
+      "event_end": "2025-03-04",
+      "event_start": "2025-02-04",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.042177,
+      "subject_as_of": "2025-01-04"
+    },
+    {
+      "baseline_loss": 0.369158,
+      "candidate_loss": 0.327745,
+      "comparison_event_key": "evt_004",
+      "event_end": "2025-03-05",
+      "event_start": "2025-02-05",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.041413,
+      "subject_as_of": "2025-01-05"
+    },
+    {
+      "baseline_loss": 0.369862,
+      "candidate_loss": 0.32907,
+      "comparison_event_key": "evt_005",
+      "event_end": "2025-03-06",
+      "event_start": "2025-02-06",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040793,
+      "subject_as_of": "2025-01-06"
+    },
+    {
+      "baseline_loss": 0.367279,
+      "candidate_loss": 0.326939,
+      "comparison_event_key": "evt_006",
+      "event_end": "2025-03-07",
+      "event_start": "2025-02-07",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.04034,
+      "subject_as_of": "2025-01-07"
+    },
+    {
+      "baseline_loss": 0.361693,
+      "candidate_loss": 0.32162,
+      "comparison_event_key": "evt_007",
+      "event_end": "2025-03-08",
+      "event_start": "2025-02-08",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040073,
+      "subject_as_of": "2025-01-08"
+    },
+    {
+      "baseline_loss": 0.353718,
+      "candidate_loss": 0.313716,
+      "comparison_event_key": "evt_008",
+      "event_end": "2025-03-09",
+      "event_start": "2025-02-09",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040002,
+      "subject_as_of": "2025-01-09"
+    },
+    {
+      "baseline_loss": 0.344234,
+      "candidate_loss": 0.304103,
+      "comparison_event_key": "evt_009",
+      "event_end": "2025-03-10",
+      "event_start": "2025-02-10",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040131,
+      "subject_as_of": "2025-01-10"
+    },
+    {
+      "baseline_loss": 0.334283,
+      "candidate_loss": 0.293829,
+      "comparison_event_key": "evt_010",
+      "event_end": "2025-03-11",
+      "event_start": "2025-02-11",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040454,
+      "subject_as_of": "2025-01-11"
+    },
+    {
+      "baseline_loss": 0.324962,
+      "candidate_loss": 0.284004,
+      "comparison_event_key": "evt_011",
+      "event_end": "2025-03-12",
+      "event_start": "2025-02-12",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040958,
+      "subject_as_of": "2025-01-12"
+    },
+    {
+      "baseline_loss": 0.317296,
+      "candidate_loss": 0.275673,
+      "comparison_event_key": "evt_012",
+      "event_end": "2025-03-13",
+      "event_start": "2025-02-13",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.041623,
+      "subject_as_of": "2025-01-13"
+    },
+    {
+      "baseline_loss": 0.31213,
+      "candidate_loss": 0.269707,
+      "comparison_event_key": "evt_013",
+      "event_end": "2025-03-14",
+      "event_start": "2025-02-14",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.042422,
+      "subject_as_of": "2025-01-14"
+    },
+    {
+      "baseline_loss": 0.310031,
+      "candidate_loss": 0.266706,
+      "comparison_event_key": "evt_014",
+      "event_end": "2025-03-15",
+      "event_start": "2025-02-15",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.043325,
+      "subject_as_of": "2025-01-15"
+    },
+    {
+      "baseline_loss": 0.311232,
+      "candidate_loss": 0.266938,
+      "comparison_event_key": "evt_015",
+      "event_end": "2025-03-16",
+      "event_start": "2025-02-16",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.044294,
+      "subject_as_of": "2025-01-16"
+    },
+    {
+      "baseline_loss": 0.3156,
+      "candidate_loss": 0.270308,
+      "comparison_event_key": "evt_016",
+      "event_end": "2025-03-17",
+      "event_start": "2025-02-17",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.045292,
+      "subject_as_of": "2025-01-17"
+    },
+    {
+      "baseline_loss": 0.322654,
+      "candidate_loss": 0.276376,
+      "comparison_event_key": "evt_017",
+      "event_end": "2025-03-18",
+      "event_start": "2025-02-18",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.046278,
+      "subject_as_of": "2025-01-18"
+    },
+    {
+      "baseline_loss": 0.331618,
+      "candidate_loss": 0.284405,
+      "comparison_event_key": "evt_018",
+      "event_end": "2025-03-19",
+      "event_start": "2025-02-19",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.047213,
+      "subject_as_of": "2025-01-19"
+    },
+    {
+      "baseline_loss": 0.341504,
+      "candidate_loss": 0.293445,
+      "comparison_event_key": "evt_019",
+      "event_end": "2025-03-20",
+      "event_start": "2025-02-20",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.048059,
+      "subject_as_of": "2025-01-20"
+    },
+    {
+      "baseline_loss": 0.351225,
+      "candidate_loss": 0.302441,
+      "comparison_event_key": "evt_020",
+      "event_end": "2025-03-21",
+      "event_start": "2025-02-21",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.048784,
+      "subject_as_of": "2025-01-21"
+    },
+    {
+      "baseline_loss": 0.35971,
+      "candidate_loss": 0.310352,
+      "comparison_event_key": "evt_021",
+      "event_end": "2025-03-22",
+      "event_start": "2025-02-22",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049358,
+      "subject_as_of": "2025-01-22"
+    },
+    {
+      "baseline_loss": 0.366025,
+      "candidate_loss": 0.316267,
+      "comparison_event_key": "evt_022",
+      "event_end": "2025-03-23",
+      "event_start": "2025-02-23",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049758,
+      "subject_as_of": "2025-01-23"
+    },
+    {
+      "baseline_loss": 0.369475,
+      "candidate_loss": 0.319507,
+      "comparison_event_key": "evt_023",
+      "event_end": "2025-03-24",
+      "event_start": "2025-02-24",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049968,
+      "subject_as_of": "2025-01-24"
+    },
+    {
+      "baseline_loss": 0.369681,
+      "candidate_loss": 0.3197,
+      "comparison_event_key": "evt_024",
+      "event_end": "2025-03-25",
+      "event_start": "2025-02-25",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049981,
+      "subject_as_of": "2025-01-25"
+    },
+    {
+      "baseline_loss": 0.366619,
+      "candidate_loss": 0.316824,
+      "comparison_event_key": "evt_025",
+      "event_end": "2025-03-26",
+      "event_start": "2025-02-26",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049795,
+      "subject_as_of": "2025-01-26"
+    },
+    {
+      "baseline_loss": 0.360627,
+      "candidate_loss": 0.311209,
+      "comparison_event_key": "evt_026",
+      "event_end": "2025-03-27",
+      "event_start": "2025-02-27",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.049417,
+      "subject_as_of": "2025-01-27"
+    },
+    {
+      "baseline_loss": 0.352364,
+      "candidate_loss": 0.3035,
+      "comparison_event_key": "evt_027",
+      "event_end": "2025-03-28",
+      "event_start": "2025-02-28",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.048864,
+      "subject_as_of": "2025-01-28"
+    },
+    {
+      "baseline_loss": 0.34274,
+      "candidate_loss": 0.294583,
+      "comparison_event_key": "evt_028",
+      "event_end": "2025-03-01",
+      "event_start": "2025-02-01",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.048156,
+      "subject_as_of": "2025-01-01"
+    },
+    {
+      "baseline_loss": 0.332814,
+      "candidate_loss": 0.285491,
+      "comparison_event_key": "evt_029",
+      "event_end": "2025-03-02",
+      "event_start": "2025-02-02",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.047323,
+      "subject_as_of": "2025-01-02"
+    },
+    {
+      "baseline_loss": 0.323679,
+      "candidate_loss": 0.277282,
+      "comparison_event_key": "evt_030",
+      "event_end": "2025-03-03",
+      "event_start": "2025-02-03",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.046397,
+      "subject_as_of": "2025-01-03"
+    },
+    {
+      "baseline_loss": 0.316342,
+      "candidate_loss": 0.270926,
+      "comparison_event_key": "evt_031",
+      "event_end": "2025-03-04",
+      "event_start": "2025-02-04",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.045415,
+      "subject_as_of": "2025-01-04"
+    },
+    {
+      "baseline_loss": 0.311608,
+      "candidate_loss": 0.267191,
+      "comparison_event_key": "evt_032",
+      "event_end": "2025-03-05",
+      "event_start": "2025-02-05",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.044417,
+      "subject_as_of": "2025-01-05"
+    },
+    {
+      "baseline_loss": 0.31,
+      "candidate_loss": 0.266558,
+      "comparison_event_key": "evt_033",
+      "event_end": "2025-03-06",
+      "event_start": "2025-02-06",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.043442,
+      "subject_as_of": "2025-01-06"
+    },
+    {
+      "baseline_loss": 0.311695,
+      "candidate_loss": 0.269166,
+      "comparison_event_key": "evt_034",
+      "event_end": "2025-03-07",
+      "event_start": "2025-02-07",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.042529,
+      "subject_as_of": "2025-01-07"
+    },
+    {
+      "baseline_loss": 0.316506,
+      "candidate_loss": 0.274791,
+      "comparison_event_key": "evt_035",
+      "event_end": "2025-03-08",
+      "event_start": "2025-02-08",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.041715,
+      "subject_as_of": "2025-01-08"
+    },
+    {
+      "baseline_loss": 0.323903,
+      "candidate_loss": 0.282871,
+      "comparison_event_key": "evt_036",
+      "event_end": "2025-03-09",
+      "event_start": "2025-02-09",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.041032,
+      "subject_as_of": "2025-01-09"
+    },
+    {
+      "baseline_loss": 0.333072,
+      "candidate_loss": 0.292566,
+      "comparison_event_key": "evt_037",
+      "event_end": "2025-03-10",
+      "event_start": "2025-02-10",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040506,
+      "subject_as_of": "2025-01-10"
+    },
+    {
+      "baseline_loss": 0.343004,
+      "candidate_loss": 0.302843,
+      "comparison_event_key": "evt_038",
+      "event_end": "2025-03-11",
+      "event_start": "2025-02-11",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.04016,
+      "subject_as_of": "2025-01-11"
+    },
+    {
+      "baseline_loss": 0.352605,
+      "candidate_loss": 0.312598,
+      "comparison_event_key": "evt_039",
+      "event_end": "2025-03-12",
+      "event_start": "2025-02-12",
+      "horizon": "5d",
+      "loss_delta_candidate_minus_baseline": -0.040007,
+      "subject_as_of": "2025-01-12"
+    }
+  ],
+  "schema_version": "finance_loss_differential_series_v0"
+}

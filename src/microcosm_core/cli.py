@@ -82,6 +82,16 @@ TEXT_READER_CHOICES = (
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
+    "domain_specialist",
+    "type_a_agent",
+    "cold_cloner",
+    "cold-cloner",
+    "skeptical_reviewer",
+    "skeptical-reviewer",
+    "reviewer",
+    "agent",
+    "type-a-agent",
+    "domain-specialist",
 )
 
 
@@ -97,12 +107,24 @@ project_substrate = _LazyModule("microcosm_core.project_substrate")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
 resource_root = _LazyModule("microcosm_core.resource_root")
+crown_jewel_demo = _LazyModule("microcosm_core.crown_jewel_demo")
+macro_engines_gallery = _LazyModule("microcosm_core.macro_engines_gallery")
+engine_room_demo = _LazyModule("microcosm_core.organs.engine_room_demo")
 finance_eval_spine = _LazyModule("microcosm_core.macro_tools.finance_eval_spine")
 organ_surface_contract = _LazyModule(
     "microcosm_core.projections.organ_surface_contract"
 )
+agent_entry_composition = _LazyModule(
+    "microcosm_core.projections.agent_entry_composition"
+)
+organ_discoverability_matrix = _LazyModule(
+    "microcosm_core.projections.organ_discoverability_matrix"
+)
 work_landing_control_spine = _LazyModule(
     "microcosm_core.macro_tools.work_landing_control_spine"
+)
+agent_closeout_faithfulness_audit = _LazyModule(
+    "microcosm_core.organs.agent_closeout_faithfulness_audit"
 )
 agent_benchmark_integrity_anti_gaming_replay = _LazyModule(
     "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay"
@@ -128,6 +150,84 @@ agentic_vulnerability_discovery_patch_proof_replay = _LazyModule(
 belief_state_process_reward_replay = _LazyModule(
     "microcosm_core.organs.belief_state_process_reward_replay"
 )
+bounded_autonomy_campaign_packet = _LazyModule(
+    "microcosm_core.organs.bounded_autonomy_campaign_packet"
+)
+batch4_proof_authority_runtime = _LazyModule(
+    "microcosm_core.organs.batch4_proof_authority_runtime"
+)
+batch5_authority_systems_capsule = _LazyModule(
+    "microcosm_core.organs.batch5_authority_systems_capsule"
+)
+batch6_unsurfaced_primitives_capsule = _LazyModule(
+    "microcosm_core.organs.batch6_unsurfaced_primitives_capsule"
+)
+batch7_demo_take_console_capsule = _LazyModule(
+    "microcosm_core.organs.batch7_demo_take_console_capsule"
+)
+batch7_macro_engines_capsule = _LazyModule(
+    "microcosm_core.organs.batch7_macro_engines_capsule"
+)
+batch7_oracle_sibling_capsule = _LazyModule(
+    "microcosm_core.organs.batch7_oracle_sibling_capsule"
+)
+batch7_secondary_runtime_capsule = _LazyModule(
+    "microcosm_core.organs.batch7_secondary_runtime_capsule"
+)
+batch7_station_runtime_capsule = _LazyModule(
+    "microcosm_core.organs.batch7_station_runtime_capsule"
+)
+batch8_tools_tail_primitives_capsule = _LazyModule(
+    "microcosm_core.organs.batch8_tools_tail_primitives_capsule"
+)
+batch8_policy_engines_capsule = _LazyModule(
+    "microcosm_core.organs.batch8_policy_engines_capsule"
+)
+batch8_audio_level_rms_port = _LazyModule(
+    "microcosm_core.organs.batch8_audio_level_rms_port"
+)
+batch8_station_surface_atlas_layout_port = _LazyModule(
+    "microcosm_core.organs.batch8_station_surface_atlas_layout_port"
+)
+batch8_structural_theses_capsule = _LazyModule(
+    "microcosm_core.organs.batch8_structural_theses_capsule"
+)
+batch8_compliance_pipeline_capsule = _LazyModule(
+    "microcosm_core.organs.batch8_compliance_pipeline_capsule"
+)
+batch8_validator_checker_capsule = _LazyModule(
+    "microcosm_core.organs.batch8_validator_checker_capsule"
+)
+concurrency_mission_control = _LazyModule(
+    "microcosm_core.organs.concurrency_mission_control"
+)
+batch9_macro_engines_capsule = _LazyModule(
+    "microcosm_core.organs.batch9_macro_engines_capsule"
+)
+batch10_governance_compilers_capsule = _LazyModule(
+    "microcosm_core.organs.batch10_governance_compilers_capsule"
+)
+batch10_frontend_work_market_cockpit_capsule = _LazyModule(
+    "microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule"
+)
+batch10_live_source_drift_capsule = _LazyModule(
+    "microcosm_core.organs.batch10_live_source_drift_capsule"
+)
+batch10_cold_eval_honesty_capsule = _LazyModule(
+    "microcosm_core.organs.batch10_cold_eval_honesty_capsule"
+)
+batch11_saturation_engines_capsule = _LazyModule(
+    "microcosm_core.organs.batch11_saturation_engines_capsule"
+)
+batch12_market_dashboard_read_model_capsule = _LazyModule(
+    "microcosm_core.organs.batch12_market_dashboard_read_model_capsule"
+)
+batch12_prediction_market_board_capsule = _LazyModule(
+    "microcosm_core.organs.batch12_prediction_market_board_capsule"
+)
+batch12_release_claim_language_gate = _LazyModule(
+    "microcosm_core.organs.batch12_release_claim_language_gate"
+)
 bridge_phase_continuity_runtime = _LazyModule(
     "microcosm_core.organs.bridge_phase_continuity_runtime"
 )
@@ -140,6 +240,13 @@ corpus_readiness_mathlib_absence_gate = _LazyModule(
 )
 executable_doctrine_grammar = _LazyModule(
     "microcosm_core.organs.executable_doctrine_grammar"
+)
+doctrine_fact_claim_audit = _LazyModule(
+    "microcosm_core.organs.doctrine_fact_claim_audit"
+)
+doctrine_lattice = _LazyModule("microcosm_core.doctrine_lattice")
+finance_forecast_evaluation_spine = _LazyModule(
+    "microcosm_core.organs.finance_forecast_evaluation_spine"
 )
 formal_math_lean_proof_witness = _LazyModule(
     "microcosm_core.organs.formal_math_lean_proof_witness"
@@ -209,6 +316,9 @@ ring2_premise_retrieval_precision_recall_harness = _LazyModule(
 sleeper_memory_poisoning_quarantine_replay = _LazyModule(
     "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay"
 )
+self_ignorance_coverage_ledger = _LazyModule(
+    "microcosm_core.organs.self_ignorance_coverage_ledger"
+)
 spatial_world_model_counterfactual_simulation_replay = _LazyModule(
     "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay"
 )
@@ -217,6 +327,12 @@ cognitive_operator_registry = _LazyModule(
 )
 routing_anti_patterns_registry = _LazyModule(
     "microcosm_core.organs.routing_anti_patterns_registry"
+)
+tool_server_pressure_inventory = _LazyModule(
+    "microcosm_core.organs.tool_server_pressure_inventory"
+)
+workstream_driver_recency_coalescer = _LazyModule(
+    "microcosm_core.organs.workstream_driver_recency_coalescer"
 )
 standards_meta_diagnostics = _LazyModule(
     "microcosm_core.organs.standards_meta_diagnostics"
@@ -358,8 +474,11 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
+  microcosm hello --reader {cold_cloner|skeptical_reviewer|agent|domain_specialist} <project> branch by reader
+  reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
+  microcosm agent-entry-composition --task {agent-entry|ai-safety|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
   microcosm spine --card          read the compact runtime spine lens
@@ -423,11 +542,46 @@ PUBLIC_LENS_COMMAND_HELP = (
     ("reveal", "show public reveal walkthrough board"),
 )
 PUBLIC_LENS_COMMANDS = frozenset(command for command, _ in PUBLIC_LENS_COMMAND_HELP)
-PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset({"intake", "workingness"})
+PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset(
+    {"circuit-attribution", "intake", "workingness"}
+)
 
 PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-binding": "validate exported pattern/source-route bundles",
     "pattern-route-readiness": "validate pattern route-readiness bundle",
+    "crown-jewel-demo": "run the Crown Jewel import demo sequence",
+    "macro-engines-gallery": "run accepted macro engines gallery",
+    "engine-room-demo": "run the Engine Room composition demo",
+    "agent-closeout-faithfulness-audit": "run closeout faithfulness audit bundle",
+    "doctrine-fact-claim-audit": "run doctrine fact-claim audit bundle",
+    "self-ignorance-coverage-ledger": "run self-ignorance coverage ledger bundle",
+    "bounded-autonomy-campaign-packet": "run bounded autonomy campaign packet bundle",
+    "batch4-proof-authority-runtime": "run Batch 4 proof authority runtime bundle",
+    "batch5-authority-systems-capsule": "run Batch 5 authority systems capsule",
+    "batch6-unsurfaced-primitives-capsule": "run Batch 6 unsurfaced primitives capsule",
+    "batch7-demo-take-console-capsule": "run Batch 7 Demo Take console capsule",
+    "batch7-macro-engines-capsule": "run Batch 7 macro engines capsule",
+    "batch7-oracle-sibling-capsule": "run Batch 7 oracle sibling capsule",
+    "batch7-secondary-runtime-capsule": "run Batch 7 secondary runtime capsule",
+    "batch7-station-runtime-capsule": "run Batch 7 station runtime capsule",
+    "batch8-tools-tail-primitives-capsule": "run Batch 8 tools-tail primitives capsule",
+    "batch8-policy-engines-capsule": "run Batch 8 policy engines capsule",
+    "batch8-audio-level-rms-port": "run Batch 8 audio RMS normalized-level port",
+    "batch8-station-surface-atlas-layout-port": "run Batch 8 StationSurfaceAtlas layout port",
+    "batch8-structural-theses-capsule": "run Batch 8 structural theses capsule",
+    "batch8-compliance-pipeline-capsule": "run Batch 8 compliance pipeline capsule",
+    "batch8-validator-checker-capsule": "run Batch 8 validator checker capsule",
+    "concurrency-mission-control": "run concurrency mission-control capsule",
+    "batch9-macro-engines-capsule": "run Batch 9 macro engines capsule",
+    "batch10-governance-compilers-capsule": "run Batch 10 governance compilers capsule",
+    "batch10-frontend-work-market-cockpit-capsule": "run Batch 10 frontend work-market cockpit capsule",
+    "batch10-live-source-drift-capsule": "run Batch 10 live source drift capsule",
+    "batch10-cold-eval-honesty-capsule": "run Batch 10 cold eval honesty capsule",
+    "batch11-saturation-engines-capsule": "run Batch 11 saturation engines capsule",
+    "batch12-market-dashboard-read-model-capsule": "run Batch 12 market dashboard read-model capsule",
+    "batch12-prediction-market-board-capsule": "run Batch 12 prediction market board capsule",
+    "batch12-release-claim-language-gate": "run Batch 12 release claim-language gate",
+    "finance-forecast-evaluation-spine": "run finance forecast-evaluation bundle",
     "finance-eval-spine": "validate finance-evaluation fixture bundle",
     "work-landing-control-spine": "validate work-landing control bundle",
     "executable-doctrine-grammar": "validate executable doctrine bundles",
@@ -478,6 +632,8 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "voice-to-doctrine-self-improvement-loop": "run voice-to-doctrine bundle",
     "cognitive-operator-registry": "run cognitive-operator-registry bundle",
     "routing-anti-patterns-registry": "run routing anti-patterns registry bundle",
+    "tool-server-pressure-inventory": "run tool-server pressure inventory bundle",
+    "workstream-driver-recency-coalescer": "run workstream driver recency coalescer bundle",
 }
 
 
@@ -489,6 +645,19 @@ def _add_root_out(parser: argparse.ArgumentParser) -> None:
 def _add_input_out(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--input", required=True)
     parser.add_argument("--out", required=True)
+
+
+def _add_input_out_acceptance(parser: argparse.ArgumentParser) -> None:
+    _add_input_out(parser)
+    parser.add_argument("--acceptance-out")
+
+
+def _organ_command_args(args: argparse.Namespace) -> list[str]:
+    organ_args = [args.action, "--input", args.input, "--out", args.out]
+    acceptance_out = getattr(args, "acceptance_out", None)
+    if acceptance_out:
+        organ_args.extend(["--acceptance-out", acceptance_out])
+    return organ_args
 
 
 def _add_preflight(parser: argparse.ArgumentParser) -> None:
@@ -601,7 +770,7 @@ def _proof_lab_card_exit_code(payload: dict) -> int:
 
 def _project_evidence_state_boundary(project_arg: str) -> dict | None:
     project = Path(project_arg).expanduser()
-    if not project.exists():
+    if not _path_exists(project):
         return {
             "schema_version": "microcosm_project_evidence_state_boundary_v1",
             "status": "missing_project",
@@ -619,7 +788,7 @@ def _project_evidence_state_boundary(project_arg: str) -> dict | None:
             ),
         }
     state_dir = project / ".microcosm"
-    if not state_dir.is_dir():
+    if not _path_is_dir(state_dir):
         return {
             "schema_version": "microcosm_project_evidence_state_boundary_v1",
             "status": "missing_state",
@@ -828,24 +997,65 @@ def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
     return f"microcosm proof-lab --card --input {display_input} --out {display_out}"
 
 
+def _path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
+
+
+def _path_is_dir(path: Path) -> bool:
+    try:
+        return path.is_dir()
+    except OSError:
+        return False
+
+
+def _path_exists(path: Path) -> bool:
+    try:
+        return path.exists()
+    except OSError:
+        return False
+
+
+def _path_mtime_ns(path: Path) -> int | None:
+    try:
+        return path.stat().st_mtime_ns
+    except OSError:
+        return None
+
+
+def _path_size(path: Path) -> int:
+    try:
+        return path.stat().st_size
+    except OSError:
+        return 0
+
+
 def _iter_proof_lab_input_files(input_path: str) -> Iterator[Path]:
     input_ref = Path(input_path)
-    if not input_ref.exists():
+    if not _path_exists(input_ref):
         return
-    if input_ref.is_file():
+    if _path_is_file(input_ref):
         yield input_ref
         return
     pending = [input_ref]
     while pending:
         current = pending.pop()
         child_dirs: list[Path] = []
-        with os.scandir(current) as entries:
-            for entry in entries:
-                entry_path = Path(entry.path)
-                if entry.is_dir(follow_symlinks=False):
-                    child_dirs.append(entry_path)
-                elif entry.is_file(follow_symlinks=False):
-                    yield entry_path
+        try:
+            with os.scandir(current) as entries:
+                for entry in entries:
+                    try:
+                        entry_path = Path(entry.path)
+                        if entry.is_dir(follow_symlinks=False):
+                            child_dirs.append(entry_path)
+                        elif entry.is_file(follow_symlinks=False):
+                            yield entry_path
+                    except OSError:
+                        continue
+        except OSError:
+            continue
         pending.extend(reversed(sorted(child_dirs)))
 
 
@@ -855,8 +1065,19 @@ def _proof_lab_input_files(input_path: str) -> list[Path]:
 
 def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
     input_ref = Path(input_path)
-    receipt_mtime_ns = receipt_path.stat().st_mtime_ns
-    if not input_ref.exists():
+    receipt_mtime_ns = _path_mtime_ns(receipt_path)
+    if receipt_mtime_ns is None:
+        return {
+            "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+            "status": "missing_cached_receipt",
+            "input_status": "unreadable_cached_receipt",
+            "receipt_mtime_ns": None,
+            "tracked_input_count": 0,
+            "stale_input_count": 0,
+            "latest_input_mtime_ns": None,
+            "input_refs_exported": False,
+        }
+    if not _path_exists(input_ref):
         return {
             "schema_version": "microcosm_proof_lab_cache_freshness_v1",
             "status": "stale",
@@ -891,7 +1112,10 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
     stale_input_count = 0
     tracked_input_count = 0
     for input_file in _iter_proof_lab_input_files(input_path):
-        input_mtime_ns = input_file.stat().st_mtime_ns
+        try:
+            input_mtime_ns = input_file.stat().st_mtime_ns
+        except OSError:
+            continue
         latest_input_mtime_ns = (
             input_mtime_ns
             if latest_input_mtime_ns is None
@@ -916,7 +1140,7 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
 
 def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     receipt_path = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
-    if not receipt_path.is_file():
+    if not _path_is_file(receipt_path):
         fallback = _proof_lab_canonical_receipt_result(
             input_path=input_path,
             out_dir=out_dir,
@@ -944,6 +1168,11 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
             "cache_freshness": {
                 "schema_version": "microcosm_proof_lab_cache_freshness_v1",
                 "status": "missing_cached_receipt",
+                "input_status": "not_checked",
+                "receipt_mtime_ns": None,
+                "tracked_input_count": 0,
+                "stale_input_count": 0,
+                "latest_input_mtime_ns": None,
                 "input_refs_exported": False,
             },
         }
@@ -959,12 +1188,15 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     if cache_freshness["status"] == "stale":
         cache_status = "stale_cached_receipt"
         status = "stale_cached_receipt"
+    elif cache_freshness["status"] == "missing_cached_receipt":
+        cache_status = "missing_cached_receipt"
+        status = "missing_cached_receipt"
     return {
         **payload,
         "status": status,
         "cache_status": cache_status,
         "cached_receipt_ref": str(receipt_path),
-        "cached_receipt_bytes": receipt_path.stat().st_size,
+        "cached_receipt_bytes": _path_size(receipt_path),
         "cache_freshness": cache_freshness,
     }
 
@@ -982,7 +1214,7 @@ def _proof_lab_canonical_receipt_result(
     tool_versions: dict | None = None,
 ) -> dict | None:
     canonical_path = _canonical_proof_lab_receipt_path()
-    if not canonical_path.is_file():
+    if not _path_is_file(canonical_path):
         return None
     payload = _read_json_strict(canonical_path)
     if not isinstance(payload, dict):
@@ -996,9 +1228,9 @@ def _proof_lab_canonical_receipt_result(
         "command": _proof_lab_command(input_path, out_dir),
         "cache_status": cache_status,
         "cached_receipt_ref": PROOF_LAB_RECEIPT_REF,
-        "cached_receipt_bytes": canonical_path.stat().st_size,
+        "cached_receipt_bytes": _path_size(canonical_path),
         "canonical_receipt_ref": PROOF_LAB_RECEIPT_REF,
-        "canonical_receipt_bytes": canonical_path.stat().st_size,
+        "canonical_receipt_bytes": _path_size(canonical_path),
         "live_receipt_rebuild_status": live_receipt_rebuild_status,
         "local_toolchain_status": (
             "missing_lean_lake" if tool_versions is not None else "not_checked"
@@ -1246,7 +1478,7 @@ def _status_card_current_default_proof_lab_card(proof_lab: dict) -> dict | None:
     if proof_lab.get("cache_status") != "stale_cached_receipt":
         return None
     receipt_path = Path(DEFAULT_PROOF_LAB_OUT) / verifier_lab_kernel.BUNDLE_RESULT_NAME
-    if not receipt_path.is_file():
+    if not _path_is_file(receipt_path):
         return None
     result = _proof_lab_cached_result(
         str(DEFAULT_PROOF_LAB_INPUT),
@@ -1387,6 +1619,47 @@ def _pick(source: object, keys: list[str]) -> dict:
     return {key: source[key] for key in keys if key in source}
 
 
+def _compact_blocking_surface_details_for_cli(details: object) -> dict:
+    if not isinstance(details, dict):
+        return {}
+    compacted: dict[str, object] = {}
+    for surface_id, detail in details.items():
+        if not isinstance(detail, dict):
+            compacted[surface_id] = detail
+            continue
+        if surface_id != "macro_body_import_floor":
+            compacted[surface_id] = detail
+            continue
+        compact_detail = _pick(
+            detail,
+            [
+                "status",
+                "defect_count",
+                "full_defects_ref",
+            ],
+        )
+        preview_rows = detail.get("defect_preview")
+        if isinstance(preview_rows, list):
+            compact_detail["defect_preview_count"] = len(preview_rows)
+            compact_detail["defect_preview_compacted"] = True
+            compact_detail["defect_preview"] = [
+                _pick(
+                    row,
+                    [
+                        "material_id",
+                        "material_class",
+                        "target_ref",
+                        "defect_codes",
+                        "body_text_in_receipt",
+                    ],
+                )
+                for row in preview_rows[:1]
+                if isinstance(row, dict)
+            ]
+        compacted[surface_id] = compact_detail
+    return compacted
+
+
 def _compact_project_status_card_for_cli(payload: dict) -> dict:
     front_door = payload.get("front_door")
     if not isinstance(front_door, dict):
@@ -1406,6 +1679,11 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "drilldown_blocked_surface_ids_ref",
             ],
         )
+        details = payload["front_door_status"].get("blocking_surface_details")
+        if isinstance(details, dict):
+            payload["front_door_status"]["blocking_surface_details"] = (
+                _compact_blocking_surface_details_for_cli(details)
+            )
 
     workingness = payload.get("workingness")
     if isinstance(workingness, dict):
@@ -1463,6 +1741,51 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "omitted_payload_schema_hit_count",
             ],
         )
+
+    project_state = front_door.get("project_state")
+    if isinstance(project_state, dict):
+        compact_project_state = _pick(
+            project_state,
+            [
+                "status",
+                "state_dir_exists",
+                "existing_state_ref_count",
+                "route_count",
+                "recovery_command",
+                "status_after_recovery_command",
+                "state_write_result_ref",
+                "state_write_status_ref",
+                "status_card_writes_microcosm_state",
+                "available_project_route_id_count",
+                "available_project_route_ids",
+            ],
+        )
+        recovery = project_state.get("recovery")
+        if isinstance(recovery, dict):
+            compact_project_state["recovery"] = recovery
+        front_door["project_state"] = compact_project_state
+
+    state_write_proof = front_door.get("state_write_proof")
+    if isinstance(state_write_proof, dict):
+        compact_state_write_proof = _pick(
+            state_write_proof,
+            [
+                "status",
+                "state_write_result_ref",
+                "state_write_status_ref",
+                "project_state_ref",
+                "observe_ref",
+                "observe_writes_microcosm_state",
+                "status_card_writes_microcosm_state",
+            ],
+        )
+        safe_to_show = state_write_proof.get("safe_to_show")
+        if isinstance(safe_to_show, dict):
+            compact_state_write_proof["safe_to_show"] = _pick(
+                safe_to_show,
+                ["source_files_mutated"],
+            )
+        front_door["state_write_proof"] = compact_state_write_proof
 
     body_floor = front_door.get("source_open_body_import_floor")
     if isinstance(body_floor, dict):
@@ -1750,6 +2073,70 @@ def main(argv: list[str] | None = None) -> int:
         help="focus the terminal projection on one reader branch",
     )
     first_screen_parser.add_argument("project", nargs="?", default="<project>")
+    agent_entry_parser = subparsers.add_parser(
+        "agent-entry-composition",
+        help="emit the Type A/human agent entry composition card",
+        description=(
+            "Compose viewer-aware Type A and human first-action routes, the "
+            "task route, organ evidence, standards, and macro route body floor "
+            "into one runnable entry card."
+        ),
+    )
+    agent_entry_parser.add_argument(
+        "--task",
+        default="agent-entry",
+        help="task string to normalize into an agent task route",
+    )
+    agent_entry_parser.add_argument(
+        "--viewer",
+        choices=("all", "type_a_agent", "human"),
+        default="all",
+        help="select one viewer route while still emitting the shared card",
+    )
+    agent_entry_parser.add_argument(
+        "--root",
+        default=None,
+        help="Microcosm root; defaults to the installed package root",
+    )
+    agent_entry_parser.add_argument(
+        "--out",
+        default=None,
+        help="optional output directory for card and receipt JSON",
+    )
+    agent_entry_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-entry card instead of the full projection",
+    )
+    agent_entry_parser.add_argument(
+        "--check",
+        action="store_true",
+        help="return nonzero when the composed card is blocked",
+    )
+    organ_discoverability_parser = subparsers.add_parser(
+        "organ-discoverability-matrix",
+        help="build the accepted-organ discoverability matrix",
+        description=(
+            "Map every accepted organ to first command, authority ceiling, "
+            "evidence class, paper-module handle, proof receipts, task routes, "
+            "owner build route, and explicit discoverability gaps."
+        ),
+    )
+    organ_discoverability_parser.add_argument(
+        "--root",
+        default=None,
+        help="Microcosm root; defaults to the installed package root",
+    )
+    organ_discoverability_parser.add_argument(
+        "--out",
+        default=None,
+        help="optional output directory for matrix and receipt JSON",
+    )
+    organ_discoverability_parser.add_argument(
+        "--check",
+        action="store_true",
+        help="return nonzero when the matrix validator is blocked",
+    )
     authority_parser = subparsers.add_parser(
         "authority",
         help="show authority ceilings and anti-claims",
@@ -1902,6 +2289,40 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="emit compact counts instead of full per-organ rows",
     )
+    organ_topology_parser = subparsers.add_parser(
+        "organ-topology",
+        help="query typed accepted-organ relationship edges",
+    )
+    organ_topology_parser.add_argument("--root", default=str(MICROCOSM_ROOT))
+    organ_topology_parser.add_argument("--out")
+    organ_topology_parser.add_argument(
+        "--organ",
+        help="filter topology edges to one organ_id",
+    )
+    organ_topology_parser.add_argument(
+        "--relation-type",
+        help="filter topology edges to one relation_type",
+    )
+    organ_topology_parser.add_argument(
+        "--source-ref",
+        help="filter topology edges to one source_ref",
+    )
+    organ_topology_parser.add_argument(
+        "--target-ref",
+        help="filter topology edges to one target_ref or peer_target_ref",
+    )
+    organ_topology_parser.add_argument(
+        "--manifest-ref",
+        help="filter topology edges to one source-module manifest ref",
+    )
+    organ_topology_parser.add_argument(
+        "--shard-ref",
+        help="filter topology edges to one source_shard_ref or target_shard_ref",
+    )
+    organ_topology_parser.add_argument(
+        "--validation-ref",
+        help="filter topology edges to one authored validation_ref",
+    )
     density_parser = subparsers.add_parser("research-kernel-density")
     _add_root_out(density_parser)
     density_parser.add_argument("--project")
@@ -1920,6 +2341,24 @@ def main(argv: list[str] | None = None) -> int:
     standards_parser.add_argument("--standards-dir", required=True)
     standards_parser.add_argument("--acceptance", required=True)
     standards_parser.add_argument("--out", required=True)
+
+    doctrine_lattice_parser = subparsers.add_parser(
+        "doctrine-lattice",
+        help="check, write, or summarize doctrine-lattice coverage and entry cards",
+    )
+    doctrine_lattice_parser.add_argument(
+        "action",
+        choices=[
+            "check",
+            "write",
+            "status",
+            "entry-card",
+            "write-entry-card",
+            "check-entry-card",
+        ],
+    )
+    doctrine_lattice_parser.add_argument("--root", default=str(MICROCOSM_ROOT))
+    doctrine_lattice_parser.add_argument("--out")
 
     dependency_parser = subparsers.add_parser("dependency-preflight")
     _add_preflight(dependency_parser)
@@ -1942,6 +2381,59 @@ def main(argv: list[str] | None = None) -> int:
     route_readiness_parser = _add_bundle_parser(subparsers, "pattern-route-readiness")
     route_readiness_parser.add_argument("action", choices=["validate-bundle"])
     _add_input_out(route_readiness_parser)
+
+    crown_jewel_parser = _add_bundle_parser(subparsers, "crown-jewel-demo")
+    crown_jewel_parser.add_argument("action", choices=["run"])
+    crown_jewel_parser.add_argument("--out")
+
+    macro_gallery_parser = _add_bundle_parser(subparsers, "macro-engines-gallery")
+    macro_gallery_parser.add_argument("action", choices=["run"])
+    macro_gallery_parser.add_argument("--out")
+
+    engine_room_demo_parser = _add_bundle_parser(subparsers, "engine-room-demo")
+    engine_room_demo_parser.add_argument(
+        "action", choices=["run", "run-engine-room-demo-bundle"]
+    )
+    _add_input_out(engine_room_demo_parser)
+    engine_room_demo_parser.add_argument("--acceptance-out")
+
+    closeout_audit_parser = _add_bundle_parser(
+        subparsers, "agent-closeout-faithfulness-audit"
+    )
+    closeout_audit_parser.add_argument(
+        "action", choices=["run", "run-agent-closeout-bundle"]
+    )
+    _add_input_out_acceptance(closeout_audit_parser)
+
+    doctrine_fact_parser = _add_bundle_parser(subparsers, "doctrine-fact-claim-audit")
+    doctrine_fact_parser.add_argument(
+        "action", choices=["run", "run-doctrine-fact-bundle"]
+    )
+    _add_input_out_acceptance(doctrine_fact_parser)
+
+    self_ignorance_parser = _add_bundle_parser(
+        subparsers, "self-ignorance-coverage-ledger"
+    )
+    self_ignorance_parser.add_argument(
+        "action", choices=["run", "run-self-ignorance-bundle"]
+    )
+    _add_input_out_acceptance(self_ignorance_parser)
+
+    bounded_autonomy_parser = _add_bundle_parser(
+        subparsers, "bounded-autonomy-campaign-packet"
+    )
+    bounded_autonomy_parser.add_argument(
+        "action", choices=["run", "run-bounded-autonomy-bundle"]
+    )
+    _add_input_out_acceptance(bounded_autonomy_parser)
+
+    finance_forecast_parser = _add_bundle_parser(
+        subparsers, "finance-forecast-evaluation-spine"
+    )
+    finance_forecast_parser.add_argument(
+        "action", choices=["run", "run-finance-forecast-bundle"]
+    )
+    _add_input_out_acceptance(finance_forecast_parser)
 
     finance_eval_parser = _add_bundle_parser(subparsers, "finance-eval-spine")
     finance_eval_parser.add_argument("action", choices=["validate-finance-eval-bundle"])
@@ -2037,6 +2529,202 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(certificate_kernel_parser)
     certificate_kernel_parser.add_argument("--acceptance-out")
+
+    batch6_parser = _add_bundle_parser(
+        subparsers, "batch6-unsurfaced-primitives-capsule"
+    )
+    batch6_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch6_parser)
+    batch6_parser.add_argument("--acceptance-out")
+
+    batch5_parser = _add_bundle_parser(
+        subparsers, "batch5-authority-systems-capsule"
+    )
+    batch5_parser.add_argument("action", choices=["run", "run-batch5-bundle"])
+    _add_input_out(batch5_parser)
+    batch5_parser.add_argument("--acceptance-out")
+
+    batch7_demo_parser = _add_bundle_parser(
+        subparsers, "batch7-demo-take-console-capsule"
+    )
+    batch7_demo_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch7_demo_parser)
+    batch7_demo_parser.add_argument("--acceptance-out")
+
+    batch7_oracle_parser = _add_bundle_parser(
+        subparsers, "batch7-oracle-sibling-capsule"
+    )
+    batch7_oracle_parser.add_argument(
+        "action",
+        choices=["run", "validate-bundle", "run-batch7-oracle-sibling-bundle"],
+    )
+    _add_input_out(batch7_oracle_parser)
+    batch7_oracle_parser.add_argument("--acceptance-out")
+
+    batch7_secondary_parser = _add_bundle_parser(
+        subparsers, "batch7-secondary-runtime-capsule"
+    )
+    batch7_secondary_parser.add_argument(
+        "action", choices=["run", "run-batch7-secondary-bundle"]
+    )
+    _add_input_out(batch7_secondary_parser)
+    batch7_secondary_parser.add_argument("--acceptance-out")
+
+    batch8_tools_parser = _add_bundle_parser(
+        subparsers, "batch8-tools-tail-primitives-capsule"
+    )
+    batch8_tools_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_tools_parser)
+    batch8_tools_parser.add_argument("--acceptance-out")
+
+    batch8_policy_parser = _add_bundle_parser(
+        subparsers, "batch8-policy-engines-capsule"
+    )
+    batch8_policy_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_policy_parser)
+    batch8_policy_parser.add_argument("--acceptance-out")
+
+    batch8_audio_parser = _add_bundle_parser(
+        subparsers, "batch8-audio-level-rms-port"
+    )
+    batch8_audio_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_audio_parser)
+    batch8_audio_parser.add_argument("--acceptance-out")
+
+    batch8_station_parser = _add_bundle_parser(
+        subparsers, "batch8-station-surface-atlas-layout-port"
+    )
+    batch8_station_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_station_parser)
+    batch8_station_parser.add_argument("--acceptance-out")
+
+    batch8_structural_parser = _add_bundle_parser(
+        subparsers, "batch8-structural-theses-capsule"
+    )
+    batch8_structural_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_structural_parser)
+    batch8_structural_parser.add_argument("--acceptance-out")
+
+    batch8_compliance_parser = _add_bundle_parser(
+        subparsers, "batch8-compliance-pipeline-capsule"
+    )
+    batch8_compliance_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_compliance_parser)
+    batch8_compliance_parser.add_argument("--acceptance-out")
+
+    batch8_validator_parser = _add_bundle_parser(
+        subparsers, "batch8-validator-checker-capsule"
+    )
+    batch8_validator_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch8_validator_parser)
+    batch8_validator_parser.add_argument("--acceptance-out")
+
+    concurrency_mission_control_parser = _add_bundle_parser(
+        subparsers, "concurrency-mission-control"
+    )
+    concurrency_mission_control_parser.add_argument(
+        "action", choices=["run", "run-concurrency-mission-control-bundle"]
+    )
+    _add_input_out(concurrency_mission_control_parser)
+    concurrency_mission_control_parser.add_argument("--acceptance-out")
+
+    batch7_parser = _add_bundle_parser(
+        subparsers, "batch7-macro-engines-capsule"
+    )
+    batch7_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch7_parser)
+    batch7_parser.add_argument("--acceptance-out")
+
+    batch7_station_parser = _add_bundle_parser(
+        subparsers, "batch7-station-runtime-capsule"
+    )
+    batch7_station_parser.add_argument(
+        "action", choices=["run", "run-batch7-station-bundle"]
+    )
+    _add_input_out(batch7_station_parser)
+    batch7_station_parser.add_argument("--acceptance-out")
+
+    batch9_parser = _add_bundle_parser(
+        subparsers, "batch9-macro-engines-capsule"
+    )
+    batch9_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch9_parser)
+    batch9_parser.add_argument("--acceptance-out")
+
+    batch10_governance_parser = _add_bundle_parser(
+        subparsers, "batch10-governance-compilers-capsule"
+    )
+    batch10_governance_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch10_governance_parser)
+    batch10_governance_parser.add_argument("--acceptance-out")
+
+    batch10_frontend_parser = _add_bundle_parser(
+        subparsers, "batch10-frontend-work-market-cockpit-capsule"
+    )
+    batch10_frontend_parser.add_argument(
+        "action", choices=["run", "run-batch10-frontend-work-market-bundle"]
+    )
+    _add_input_out(batch10_frontend_parser)
+    batch10_frontend_parser.add_argument("--acceptance-out")
+
+    batch10_live_drift_parser = _add_bundle_parser(
+        subparsers, "batch10-live-source-drift-capsule"
+    )
+    batch10_live_drift_parser.add_argument(
+        "action", choices=["run", "validate-bundle"]
+    )
+    _add_input_out(batch10_live_drift_parser)
+    batch10_live_drift_parser.add_argument("--acceptance-out")
+
+    batch10_cold_eval_parser = _add_bundle_parser(
+        subparsers, "batch10-cold-eval-honesty-capsule"
+    )
+    batch10_cold_eval_parser.add_argument(
+        "action", choices=["run", "run-batch10-cold-eval-bundle"]
+    )
+    _add_input_out(batch10_cold_eval_parser)
+    batch10_cold_eval_parser.add_argument("--acceptance-out")
+
+    batch11_saturation_parser = _add_bundle_parser(
+        subparsers, "batch11-saturation-engines-capsule"
+    )
+    batch11_saturation_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch11_saturation_parser)
+    batch11_saturation_parser.add_argument("--acceptance-out")
+
+    batch12_market_dashboard_parser = _add_bundle_parser(
+        subparsers, "batch12-market-dashboard-read-model-capsule"
+    )
+    batch12_market_dashboard_parser.add_argument(
+        "action", choices=["run", "run-market-dashboard-bundle"]
+    )
+    _add_input_out(batch12_market_dashboard_parser)
+    batch12_market_dashboard_parser.add_argument("--acceptance-out")
+
+    batch12_prediction_parser = _add_bundle_parser(
+        subparsers, "batch12-prediction-market-board-capsule"
+    )
+    batch12_prediction_parser.add_argument(
+        "action", choices=["run", "run-prediction-market-board-bundle"]
+    )
+    _add_input_out(batch12_prediction_parser)
+    batch12_prediction_parser.add_argument("--acceptance-out")
+
+    batch12_release_gate_parser = _add_bundle_parser(
+        subparsers, "batch12-release-claim-language-gate"
+    )
+    batch12_release_gate_parser.add_argument(
+        "action", choices=["run", "run-release-claim-language-gate-bundle"]
+    )
+    _add_input_out(batch12_release_gate_parser)
+    batch12_release_gate_parser.add_argument("--acceptance-out")
+
+    batch4_parser = _add_bundle_parser(
+        subparsers, "batch4-proof-authority-runtime"
+    )
+    batch4_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(batch4_parser)
+    batch4_parser.add_argument("--acceptance-out")
 
     evidence_cell_parser = _add_bundle_parser(
         subparsers, "formal-evidence-cell-anchor-resolver"
@@ -2287,6 +2975,22 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(routing_anti_patterns_parser)
     routing_anti_patterns_parser.add_argument("--acceptance-out")
 
+    tool_server_pressure_parser = _add_bundle_parser(
+        subparsers, "tool-server-pressure-inventory"
+    )
+    tool_server_pressure_parser.add_argument(
+        "action", choices=["run", "run-pressure-bundle"]
+    )
+    _add_input_out(tool_server_pressure_parser)
+    tool_server_pressure_parser.add_argument("--acceptance-out")
+
+    workstream_driver_parser = _add_bundle_parser(
+        subparsers, "workstream-driver-recency-coalescer"
+    )
+    workstream_driver_parser.add_argument("action", choices=["run", "validate-bundle"])
+    _add_input_out(workstream_driver_parser)
+    workstream_driver_parser.add_argument("--acceptance-out")
+
     standards_meta_parser = _add_bundle_parser(subparsers, "standards-meta-diagnostics")
     standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
     _add_input_out(standards_meta_parser)
@@ -2470,6 +3174,33 @@ def main(argv: list[str] | None = None) -> int:
             full=args.full,
             reader=args.reader,
         )
+    if args.command == "agent-entry-composition":
+        payload = agent_entry_composition.compile_paths(
+            root=args.root,
+            task=args.task,
+            viewer=args.viewer,
+            out=args.out,
+            command="microcosm agent-entry-composition",
+        )
+        if args.card:
+            payload = agent_entry_composition.compact_agent_entry_card(payload)
+        return _print_json(
+            payload,
+            exit_code=0 if payload.get("status") == "pass" or not args.check else 1,
+        )
+    if args.command == "organ-discoverability-matrix":
+        payload = organ_discoverability_matrix.compile_paths(
+            root=args.root,
+            out=args.out,
+        )
+        validation = payload.get("validation") if isinstance(payload, dict) else {}
+        validation_status = (
+            validation.get("status") if isinstance(validation, dict) else None
+        )
+        return _print_json(
+            payload,
+            exit_code=0 if validation_status == "pass" or not args.check else 1,
+        )
     if args.command == "authority":
         command_args = ["authority"]
         if args.card:
@@ -2608,6 +3339,25 @@ def main(argv: list[str] | None = None) -> int:
         if args.card:
             contract_args.append("--card")
         return organ_surface_contract.main(contract_args)
+    if args.command == "organ-topology":
+        contract_args = ["--root", args.root, "--topology"]
+        if args.out:
+            contract_args.extend(["--out", args.out])
+        if args.organ:
+            contract_args.extend(["--organ", args.organ])
+        if args.relation_type:
+            contract_args.extend(["--relation-type", args.relation_type])
+        if args.source_ref:
+            contract_args.extend(["--source-ref", args.source_ref])
+        if args.target_ref:
+            contract_args.extend(["--target-ref", args.target_ref])
+        if args.manifest_ref:
+            contract_args.extend(["--manifest-ref", args.manifest_ref])
+        if args.shard_ref:
+            contract_args.extend(["--shard-ref", args.shard_ref])
+        if args.validation_ref:
+            contract_args.extend(["--validation-ref", args.validation_ref])
+        return organ_surface_contract.main(contract_args)
     if args.command == "research-kernel-density":
         density_args = ["--root", args.root, "--out", args.out]
         if args.project:
@@ -2638,6 +3388,23 @@ def main(argv: list[str] | None = None) -> int:
                 args.out,
             ]
         )
+    if args.command == "doctrine-lattice":
+        lattice_args = ["--root", args.root]
+        if args.out:
+            lattice_args.extend(["--out", args.out])
+        if args.action == "check":
+            lattice_args.append("--check")
+        elif args.action == "write":
+            lattice_args.append("--write")
+        elif args.action == "status":
+            lattice_args.append("--status")
+        elif args.action == "entry-card":
+            lattice_args.append("--entry-card")
+        elif args.action == "write-entry-card":
+            lattice_args.append("--write-entry-card")
+        elif args.action == "check-entry-card":
+            lattice_args.append("--check-entry-card")
+        return doctrine_lattice.main(lattice_args)
     if args.command == "dependency-preflight":
         return dependency_preflight.main(
             [
@@ -2676,6 +3443,31 @@ def main(argv: list[str] | None = None) -> int:
                 args.out,
             ]
         )
+    if args.command == "crown-jewel-demo":
+        demo_args = [args.action]
+        if args.out:
+            demo_args.extend(["--out", args.out])
+        return crown_jewel_demo.main(demo_args)
+    if args.command == "macro-engines-gallery":
+        gallery_args = [args.action]
+        if args.out:
+            gallery_args.extend(["--out", args.out])
+        return macro_engines_gallery.main(gallery_args)
+    if args.command == "engine-room-demo":
+        demo_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            demo_args.extend(["--acceptance-out", args.acceptance_out])
+        return engine_room_demo.main(demo_args)
+    if args.command == "agent-closeout-faithfulness-audit":
+        return agent_closeout_faithfulness_audit.main(_organ_command_args(args))
+    if args.command == "doctrine-fact-claim-audit":
+        return doctrine_fact_claim_audit.main(_organ_command_args(args))
+    if args.command == "self-ignorance-coverage-ledger":
+        return self_ignorance_coverage_ledger.main(_organ_command_args(args))
+    if args.command == "bounded-autonomy-campaign-packet":
+        return bounded_autonomy_campaign_packet.main(_organ_command_args(args))
+    if args.command == "finance-forecast-evaluation-spine":
+        return finance_forecast_evaluation_spine.main(_organ_command_args(args))
     if args.command == "finance-eval-spine":
         return finance_eval_spine.main(
             [args.action, "--input", args.input, "--out", args.out]
@@ -2756,6 +3548,124 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             certificate_kernel_args.extend(["--acceptance-out", args.acceptance_out])
         return certificate_kernel_execution_lab.main(certificate_kernel_args)
+    if args.command == "batch4-proof-authority-runtime":
+        batch4_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch4_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch4_proof_authority_runtime.main(batch4_args)
+    if args.command == "batch5-authority-systems-capsule":
+        batch5_args = _organ_command_args(args)
+        return batch5_authority_systems_capsule.main(batch5_args)
+    if args.command == "batch6-unsurfaced-primitives-capsule":
+        batch6_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch6_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch6_unsurfaced_primitives_capsule.main(batch6_args)
+    if args.command == "batch7-demo-take-console-capsule":
+        batch7_demo_args = _organ_command_args(args)
+        return batch7_demo_take_console_capsule.main(batch7_demo_args)
+    if args.command == "batch7-oracle-sibling-capsule":
+        batch7_oracle_args = _organ_command_args(args)
+        return batch7_oracle_sibling_capsule.main(batch7_oracle_args)
+    if args.command == "batch7-secondary-runtime-capsule":
+        batch7_secondary_args = _organ_command_args(args)
+        return batch7_secondary_runtime_capsule.main(batch7_secondary_args)
+    if args.command == "batch8-tools-tail-primitives-capsule":
+        batch8_tools_args = _organ_command_args(args)
+        return batch8_tools_tail_primitives_capsule.main(batch8_tools_args)
+    if args.command == "batch8-policy-engines-capsule":
+        batch8_policy_args = _organ_command_args(args)
+        return batch8_policy_engines_capsule.main(batch8_policy_args)
+    if args.command == "batch8-audio-level-rms-port":
+        batch8_audio_args = _organ_command_args(args)
+        return batch8_audio_level_rms_port.main(batch8_audio_args)
+    if args.command == "batch8-station-surface-atlas-layout-port":
+        batch8_station_args = _organ_command_args(args)
+        return batch8_station_surface_atlas_layout_port.main(batch8_station_args)
+    if args.command == "batch8-structural-theses-capsule":
+        batch8_structural_args = _organ_command_args(args)
+        return batch8_structural_theses_capsule.main(batch8_structural_args)
+    if args.command == "batch7-macro-engines-capsule":
+        batch7_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch7_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch7_macro_engines_capsule.main(batch7_args)
+    if args.command == "batch7-station-runtime-capsule":
+        batch7_station_args = _organ_command_args(args)
+        return batch7_station_runtime_capsule.main(batch7_station_args)
+    if args.command == "batch9-macro-engines-capsule":
+        batch9_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch9_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch9_macro_engines_capsule.main(batch9_args)
+    if args.command == "batch10-governance-compilers-capsule":
+        batch10_governance_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch10_governance_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch10_governance_compilers_capsule.main(batch10_governance_args)
+    if args.command == "batch10-frontend-work-market-cockpit-capsule":
+        batch10_frontend_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch10_frontend_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch10_frontend_work_market_cockpit_capsule.main(batch10_frontend_args)
+    if args.command == "batch11-saturation-engines-capsule":
+        batch11_saturation_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out:
+            batch11_saturation_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch11_saturation_engines_capsule.main(batch11_saturation_args)
+    if args.command == "batch12-market-dashboard-read-model-capsule":
+        batch12_market_dashboard_args = _organ_command_args(args)
+        return batch12_market_dashboard_read_model_capsule.main(
+            batch12_market_dashboard_args
+        )
+    if args.command == "batch12-prediction-market-board-capsule":
+        batch12_prediction_args = _organ_command_args(args)
+        return batch12_prediction_market_board_capsule.main(batch12_prediction_args)
+    if args.command == "batch12-release-claim-language-gate":
+        batch12_release_gate_args = _organ_command_args(args)
+        return batch12_release_claim_language_gate.main(batch12_release_gate_args)
     if args.command == "formal-evidence-cell-anchor-resolver":
         return formal_evidence_cell_anchor_resolver.main(
             [args.action, "--input", args.input, "--out", args.out]
@@ -2938,6 +3848,41 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             routing_args.extend(["--acceptance-out", args.acceptance_out])
         return routing_anti_patterns_registry.main(routing_args)
+    if args.command == "tool-server-pressure-inventory":
+        pressure_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            pressure_args.extend(["--acceptance-out", args.acceptance_out])
+        return tool_server_pressure_inventory.main(pressure_args)
+    if args.command == "workstream-driver-recency-coalescer":
+        workstream_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            workstream_args.extend(["--acceptance-out", args.acceptance_out])
+        return workstream_driver_recency_coalescer.main(workstream_args)
+    if args.command == "batch8-compliance-pipeline-capsule":
+        batch8_compliance_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            batch8_compliance_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch8_compliance_pipeline_capsule.main(batch8_compliance_args)
+    if args.command == "batch8-validator-checker-capsule":
+        batch8_validator_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            batch8_validator_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch8_validator_checker_capsule.main(batch8_validator_args)
+    if args.command == "concurrency-mission-control":
+        concurrency_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            concurrency_args.extend(["--acceptance-out", args.acceptance_out])
+        return concurrency_mission_control.main(concurrency_args)
+    if args.command == "batch10-live-source-drift-capsule":
+        batch10_live_drift_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            batch10_live_drift_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch10_live_source_drift_capsule.main(batch10_live_drift_args)
+    if args.command == "batch10-cold-eval-honesty-capsule":
+        batch10_cold_eval_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            batch10_cold_eval_args.extend(["--acceptance-out", args.acceptance_out])
+        return batch10_cold_eval_honesty_capsule.main(batch10_cold_eval_args)
     if args.command == "standards-meta-diagnostics":
         standards_meta_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

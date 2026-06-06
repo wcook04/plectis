@@ -152,7 +152,7 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     {
       "field": "simulation_protocol",
@@ -185,9 +185,30 @@
       "source-module manifest names macro Station geometry files without exact copied target bodies, digest checks, required anchors, and body_in_receipt=false"
     ],
     "ontology": "A source-open spatial world-model replay validator that checks scene states, action traces, predicted states, transition diffs, oracle checks, limitation labels, public payload boundaries, and exact copied Station geometry guardrail source modules without becoming simulator or live-operation authority.",
-    "teleology": "Preserve inspectable public spatial replay semantics and imported Station geometry guardrail bodies while keeping private video, raw sensor, generated-media-only, simulator-product, benchmark, and release claims outside the public authority ceiling."
+    "teleology": "Preserve inspectable public spatial replay semantics and imported Station geometry guardrail bodies while keeping private video, raw sensor, generated-media-only, simulator-product, benchmark, and release claims outside the public authority ceiling.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "active_source_body_import",
+      "validator_refs": [
+        "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay",
+      "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bind the source row but do not grant release, provider dispatch, private-root equivalence, whole-system correctness authority, simulator-product authority, benchmark authority, or real-world operation authority."
+    }
   },
-  "status": "active_source_body_import",
+  "status": "active",
   "teleology": [
     "Preserve source-open spatial replay semantics as inspectable rows rather than media or simulator claims.",
     "Bind counterfactual scene-state diffs to public payload boundaries and explicit limitation labels.",
@@ -212,5 +233,57 @@
       "benchmark_score_without_state_diff"
     ],
     "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.spatial_world_model_counterfactual_simulation_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Spatial world-model counterfactual simulation replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.spatial_world_model_counterfactual_simulation_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Spatial world-model counterfactual simulation replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.spatial_world_model_counterfactual_simulation_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_spatial_world_model_counterfactual_simulation_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay"
+  ],
+  "anti_claims": [
+    "This standard governs source-open synthetic spatial counterfactual replay rows under the Microcosm public payload boundary. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "active_source_body_import",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "accepted organ registry row plus bounded runtime receipt evidence backs this active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay",
+    "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+    "validator_refs": [
+      "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay"
+    ]
   }
 }

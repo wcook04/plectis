@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "source_write_campaign_packet",
+  "error_codes": [
+    "BOUNDED_AUTONOMY_SOURCE_WRITE_FORBIDDEN"
+  ],
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

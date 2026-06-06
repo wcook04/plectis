@@ -58,7 +58,7 @@ from pathlib import Path
 from threading import Event, Lock, Thread
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
-from system.lib.swr_cache import swr_get, swr_peek, swr_prewarm
+from system.lib.swr_cache import swr_age_seconds, swr_get, swr_peek, swr_prewarm
 from system.lib.raw_seed_atomization import (
     load_raw_seed_pipeline_snapshot,
 )
@@ -83,6 +83,7 @@ from system.lib import metabolism_market_clock as _market_clock
 from system.lib import provider_metabolism_signal as _provider_metabolism_signal
 from system.lib import metabolism_scheduler as _metabolism_scheduler
 from system.lib import metabolism_store as _metabolism_store
+from system.lib import graph_scene_core
 from system.lib.market_feed_run_evidence import (
     build_market_feed_run_evidence_card as _build_market_feed_run_evidence_card,
 )
@@ -122,6 +123,7 @@ from system.lib import semantic_routing
 from system.lib import agent_seed_handoffs as agent_seed_handoff_lib
 from system.lib import work_ledger as work_ledger_lib
 from system.lib import work_ledger_runtime
+from system.lib.workitem_control_picture import build_workitem_control_picture
 from system.lib.observe_mission_templates import load_mission_template
 from system.lib.paper_modules import load_paper_module_runtime
 from system.lib.doctrine_graph import (
@@ -139,6 +141,12 @@ _SYSTEM_LENS_CACHE_TTL_S = 15.0
 _SYSTEM_LENS_COLD_WAIT_S = 0.35
 _TASK_LEDGER_PROJECTION_CACHE_TTL_S = 10.0
 _TASK_LEDGER_PROJECTION_COLD_WAIT_S = 0.35
+_WORK_LEDGER_OVERVIEW_CACHE_TTL_S = 10.0
+_WORK_LEDGER_OVERVIEW_COLD_WAIT_S = 0.35
+_WORK_LEDGER_OVERVIEW_BUCKET_LIMIT = 500
+_WORK_LEDGER_OVERVIEW_BUCKET_PER_KEY_LIMIT = 120
+_WORK_LEDGER_OVERVIEW_LAST_GOOD_SCHEMA = "work_ledger_overview_last_good_v1"
+_WORK_LEDGER_OVERVIEW_LAST_GOOD_REL = "state/world_model/work_ledger_overview_last_good"
 _BLAST_RADIUS_PACKET_CACHE_TTL_S = 60.0
 _CODE_MAP_PACKET_WAIT_TIMEOUT_S = 90.0
 _OPERATIONS_LENS_COLD_WAIT_S = 0.75
@@ -234,6 +242,7 @@ def _cached_mapping(
     # pay the cold rebuild cost twice. The first hit in a cold process still
     # blocks, but prewarm_hot_caches() at startup absorbs that too.
     cache_key = _snapshot_cache_key(repo_root)
+    refresh_token = (id(cache), cache_key)
     now = time.monotonic()
     with lock:
         cached = cache.get(cache_key)
@@ -242,12 +251,15 @@ def _cached_mapping(
             payload_copy = copy.deepcopy(cached[1])
             if fresh:
                 return payload_copy
-            if cache_key not in _LEGACY_REFRESH_IN_FLIGHT:
-                _LEGACY_REFRESH_IN_FLIGHT[cache_key] = True
+            with _LEGACY_REFRESH_IN_FLIGHT_LOCK:
+                should_refresh = refresh_token not in _LEGACY_REFRESH_IN_FLIGHT
+                if should_refresh:
+                    _LEGACY_REFRESH_IN_FLIGHT.add(refresh_token)
+            if should_refresh:
                 import threading as _threading
                 _threading.Thread(
                     target=_legacy_background_refresh,
-                    args=(cache, lock, cache_key, loader),
+                    args=(cache, lock, cache_key, refresh_token, loader),
                     name="cached-mapping-refresh",
                     daemon=True,
                 ).start()
@@ -258,13 +270,15 @@ def _cached_mapping(
     return payload
 
 
-_LEGACY_REFRESH_IN_FLIGHT: dict[str, bool] = {}
+_LEGACY_REFRESH_IN_FLIGHT: set[Tuple[int, str]] = set()
+_LEGACY_REFRESH_IN_FLIGHT_LOCK = Lock()
 
 
 def _legacy_background_refresh(
     cache: dict[str, tuple[float, Dict[str, Any]]],
     lock: Lock,
     cache_key: str,
+    refresh_token: Tuple[int, str],
     loader: "callable[[], Dict[str, Any]]",
 ) -> None:
     try:
@@ -274,7 +288,8 @@ def _legacy_background_refresh(
     except Exception as exc:
         logger.warning("cached-mapping background refresh failed for %s: %s", cache_key, exc)
     finally:
-        _LEGACY_REFRESH_IN_FLIGHT.pop(cache_key, None)
+        with _LEGACY_REFRESH_IN_FLIGHT_LOCK:
+            _LEGACY_REFRESH_IN_FLIGHT.discard(refresh_token)
 
 # Stable disk paths the cockpit projects from.
 ORCHESTRATION_STATE_PATH = "tools/meta/control/orchestration_state.json"
@@ -826,15 +841,15 @@ def _phase_sort_key(phase_number: str) -> Tuple[int, ...]:
 
 
 def _list_phase_dirs(repo_root: Path, family_dir: str) -> List[Dict[str, Any]]:
-    """Enumerate the immediate phase folders inside a family root, sorted naturally.
+    """Enumerate phase folders inside a family root, sorted naturally.
 
     Caches the heavy uncached compute (5 JSON reads × N phases, ~80 ms for a
-    53-phase family) through the repo's stale-while-revalidate cache. Cache
-    key is (repo_root, family_dir, family_dir mtime_ns) so any change to the
-    family layout invalidates the entry; swr_get returns a deepcopy so callers
-    can mutate the result without poisoning the cache. The 30 s TTL is a
-    safety net against mtime granularity edge cases — primary invalidation is
-    the mtime-keyed cache miss.
+    53-phase family) through the repo's stale-while-revalidate cache. Nested
+    subphases such as 09.54/09.54.1 are included in the same inventory. Cache
+    key is (repo_root, family_dir, family_dir mtime_ns), so direct family root
+    changes invalidate the entry; swr_get returns a deepcopy so callers can
+    mutate the result without poisoning the cache. The 30 s TTL is a safety
+    net for nested subphase layout changes and mtime granularity edge cases.
     """
     family = repo_root / family_dir
     if not family.exists() or not family.is_dir():
@@ -857,10 +872,13 @@ def _list_phase_dirs_uncached(repo_root: Path, family_dir: str) -> List[Dict[str
     if not family.exists() or not family.is_dir():
         return []
     discovered: List[Tuple[Tuple[int, ...], Path, str, str]] = []
-    for child in family.iterdir():
+    for child in family.rglob("*"):
         if not child.is_dir():
             continue
-        match = re.match(r"^(\d+\.\d+)\s*-\s*(.*)$", child.name)
+        rel_parts = child.relative_to(family).parts
+        if any(part.startswith(".") or part == "archive" for part in rel_parts[:-1]):
+            continue
+        match = re.match(r"^(\d+\.\d+(?:\.\d+)*)\s*-\s*(.*)$", child.name)
         if not match:
             continue
         phase_number = match.group(1)
@@ -2407,6 +2425,35 @@ def _condense_navigation_graph(
             "edge_count_preserved_in_read_model_contract": len(edges),
         }
     return payload
+
+
+def load_navigation_graph_edges(repo_root: Path) -> Dict[str, Any]:
+    """Typed per-edge navigation graph slice for PROGRESSIVE Atlas hydration.
+
+    The default `/api/world-model/snapshot` is served in `first_paint` mode,
+    which omits the per-edge `edges` array for cold-start payload budget — so the
+    cockpit's shared `navigation_graph` store carries only untyped `adjacency`.
+    The Surface Atlas needs the typed mechanism per edge (station_group, route
+    hierarchy, overlay, shared API/component, lens menu, explicit...) to render
+    relation-class semantics instead of generic fallback adjacency. This loader
+    runs ONLY the (cheap, single-file) navigation-graph condense in `full` mode
+    and returns just the typed edges + light provenance, so the Atlas can fetch
+    it lazily after first paint without rebuilding the whole world-model snapshot
+    and without regressing the first_paint cold-start contract.
+    """
+    full = _condense_navigation_graph(repo_root, payload_mode="full")
+    if not isinstance(full, dict):
+        return {"edges": [], "schema_version": None, "generated_at": None, "available": False}
+    edges = full.get("edges")
+    return {
+        "schema_version": full.get("schema_version"),
+        "generated_at": full.get("generated_at"),
+        "edge_grammar_contract": full.get("edge_grammar_contract"),
+        "counts": full.get("counts"),
+        "payload_budget": full.get("payload_budget"),
+        "edges": edges if isinstance(edges, list) else [],
+        "available": isinstance(edges, list),
+    }
 
 
 def _load_frontend_navigation_mission_control(repo_root: Path) -> Dict[str, Any]:
@@ -4135,11 +4182,9 @@ def _lab_oracle_evolve_pair_candidates(repo_root: Path, rows: List[Dict[str, Any
     return pairs
 
 
-def _is_feed_shell_row(row: Mapping[str, Any]) -> bool:
-    feed_readiness = row.get("feed_readiness") if isinstance(row.get("feed_readiness"), Mapping) else {}
+def _is_feed_only_row(row: Mapping[str, Any]) -> bool:
     return (
         row.get("kind") == "feed_run"
-        and feed_readiness.get("present") is not True
         and row.get("lab_cp2", {}).get("present") is not True
         and row.get("oracle", {}).get("present") is not True
         and row.get("evolve", {}).get("present") is not True
@@ -4153,10 +4198,10 @@ def _select_lab_oracle_evolve_rows(
 ) -> List[Dict[str, Any]]:
     if len(rows) <= limit:
         return list(rows)
-    feed_shells = [row for row in rows if _is_feed_shell_row(row)]
-    substantive = [row for row in rows if not _is_feed_shell_row(row)]
-    feed_shell_budget = min(len(feed_shells), max(1, min(6, limit // 4)))
-    selected = [*feed_shells[:feed_shell_budget], *substantive[: max(0, limit - feed_shell_budget)]]
+    feed_only = [row for row in rows if _is_feed_only_row(row)]
+    substantive = [row for row in rows if not _is_feed_only_row(row)]
+    feed_budget = min(len(feed_only), max(1, min(6, limit // 4))) if feed_only else 0
+    selected = [*feed_only[:feed_budget], *substantive[: max(0, limit - feed_budget)]]
     if len(selected) < limit:
         selected_ids = {id(row) for row in selected}
         selected.extend(row for row in rows if id(row) not in selected_ids)
@@ -4784,6 +4829,140 @@ def _market_dashboard_world_model_aliases(market_feeds: Mapping[str, Any] | None
     }
 
 
+def _bounded_string_list(value: Any, *, limit: int) -> List[str]:
+    if isinstance(value, str):
+        values: Iterable[Any] = [value]
+    elif isinstance(value, Iterable) and not isinstance(value, (bytes, Mapping)):
+        values = value
+    else:
+        values = []
+    result: List[str] = []
+    for item in values:
+        text = str(item or "").strip().strip("`")
+        if text and text not in result:
+            result.append(text)
+        if len(result) >= limit:
+            break
+    return result
+
+
+def _bounded_route_edges(value: Any, *, limit: int) -> List[Dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    rows: List[Dict[str, Any]] = []
+    for item in value:
+        if not isinstance(item, Mapping):
+            continue
+        route_key = str(item.get("route_key") or "").strip()
+        axis = str(item.get("axis") or "").strip()
+        target = str(item.get("target") or "").strip()
+        source = str(item.get("source") or "").strip()
+        if not route_key and axis and target:
+            route_key = f"{axis}:{target}"
+        if not route_key:
+            continue
+        rows.append(
+            {
+                "route_key": route_key,
+                "axis": axis or None,
+                "target": target or None,
+                "source": source or None,
+            }
+        )
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def _bounded_route_suggestions(value: Any, *, limit: int) -> List[Dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    rows: List[Dict[str, Any]] = []
+    for item in value:
+        if not isinstance(item, Mapping):
+            continue
+        raw_values = item.get("suggested_value")
+        if isinstance(raw_values, list):
+            suggested_values = _bounded_string_list(raw_values, limit=6)
+        else:
+            suggested_values = _bounded_string_list([raw_values], limit=6)
+        rows.append(
+            {
+                "field": str(item.get("field") or "").strip() or None,
+                "suggested_values": suggested_values,
+                "confidence": item.get("confidence"),
+                "suggestion_status": item.get("suggestion_status"),
+                "recommended_action": item.get("recommended_action"),
+                "cap_refs": _bounded_string_list(item.get("cap_refs"), limit=4),
+            }
+        )
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def _paper_module_doctrine_feed(
+    index_row: Mapping[str, Any],
+    route_row: Mapping[str, Any] | None,
+) -> Dict[str, Any]:
+    route_data = route_row if isinstance(route_row, Mapping) else {}
+    route_edges = route_data.get("routes") if isinstance(route_data.get("routes"), list) else []
+    suggested_edges = (
+        route_data.get("suggested_routes")
+        if isinstance(route_data.get("suggested_routes"), list)
+        else []
+    )
+    suggestions = (
+        route_data.get("route_metadata_suggestions")
+        if isinstance(route_data.get("route_metadata_suggestions"), list)
+        else []
+    )
+    route_edge_count = route_data.get("route_edge_count")
+    if route_edge_count is None:
+        route_edge_count = len(route_edges)
+    suggested_route_count = len(suggested_edges)
+
+    return {
+        "schema": "paper_module_doctrine_feed_v1",
+        "basis": "paper_module_index_plus_route_coverage",
+        "source_refs": {
+            "paper_module_index": "codex/doctrine/paper_modules/_index.json",
+            "route_coverage": "codex/doctrine/paper_modules/_route_coverage.json",
+        },
+        "authority_boundary": (
+            "Read-only projection for browse/site presentation; open canonical "
+            "doctrine records before mutation or authority claims."
+        ),
+        "principle_refs": _bounded_string_list(index_row.get("governing_principles"), limit=16),
+        "concept_refs": _bounded_string_list(index_row.get("governing_concepts"), limit=16),
+        "mechanism_refs": _bounded_string_list(index_row.get("governing_mechanisms"), limit=16),
+        "axiom_refs": [],
+        "axiom_policy": "paper_module_snapshot_does_not_infer_axioms_from_prose",
+        "route_metadata": {
+            "route_edge_count": route_edge_count,
+            "semantic_route_edge_count": route_data.get("semantic_route_edge_count"),
+            "route_metadata_integrity_score": route_data.get("route_metadata_integrity_score"),
+            "route_metadata_findings": _bounded_string_list(
+                route_data.get("route_metadata_findings"),
+                limit=8,
+            ),
+            "saturated_route_keys": _bounded_string_list(
+                route_data.get("saturated_semantic_routes"),
+                limit=8,
+            ),
+            "route_keys_preview": [
+                row["route_key"]
+                for row in _bounded_route_edges(route_edges, limit=12)
+            ],
+            "routes_preview": _bounded_route_edges(route_edges, limit=12),
+            "suggested_route_count": suggested_route_count,
+            "suggested_routes_preview": _bounded_route_edges(suggested_edges, limit=8),
+            "suggestion_count": len(suggestions),
+            "suggestions_preview": _bounded_route_suggestions(suggestions, limit=4),
+        },
+    }
+
+
 def load_paper_modules_snapshot(
     repo_root: Path,
     *,
@@ -4852,15 +5031,22 @@ def _uncached_load_paper_modules_snapshot(repo_root: Path) -> Dict[str, Any]:
     route_coverage = runtime.route_coverage if isinstance(runtime.route_coverage, Mapping) else {}
     route_summary = route_coverage.get("summary") if isinstance(route_coverage.get("summary"), Mapping) else {}
     route_attention = route_coverage.get("attention") if isinstance(route_coverage.get("attention"), Mapping) else {}
+    route_rows_by_slug = (
+        route_coverage.get("paper_module_routes")
+        if isinstance(route_coverage.get("paper_module_routes"), Mapping)
+        else {}
+    )
     freshness = runtime.current_freshness if isinstance(runtime.current_freshness, Mapping) else {}
     cards: List[Dict[str, Any]] = []
     for item in index.get("modules") or []:
         if not isinstance(item, Mapping):
             continue
         previews = item.get("previews") if isinstance(item.get("previews"), Mapping) else {}
+        slug = str(item.get("slug") or "").strip()
+        route_row = route_rows_by_slug.get(slug) if isinstance(route_rows_by_slug, Mapping) else None
         cards.append(
             {
-                "slug": str(item.get("slug") or "").strip() or None,
+                "slug": slug or None,
                 "title": str(item.get("title") or "").strip() or None,
                 "file": str(item.get("file") or "").strip() or None,
                 "projection_class": str(item.get("projection_class") or "").strip() or None,
@@ -4882,6 +5068,7 @@ def _uncached_load_paper_modules_snapshot(repo_root: Path) -> Dict[str, Any]:
                     for value in (previews.get("code_loci") or [])
                     if str(value).strip()
                 ],
+                "doctrine_feed": _paper_module_doctrine_feed(item, route_row),
             }
         )
 
@@ -6558,7 +6745,7 @@ def _map_observe_status(raw: Any) -> str:
 # --- Phase reference resolution --------------------------------------------
 
 def _resolve_phase_dir(repo_root: Path, phase_ref: str) -> Optional[str]:
-    """Accept either a family-number style ref (`08.5`) or a repo-relative
+    """Accept either a family-number style ref (`08.5`, `09.54.1`) or a repo-relative
     phase directory path, and return the repo-relative phase directory."""
     token = (phase_ref or "").strip()
     if not token:
@@ -6659,7 +6846,7 @@ def list_phase_cycles(repo_root: Path, phase_ref: str) -> List[Dict[str, Any]]:
 
 def _phase_id_for_dir(repo_root: Path, phase_dir: str) -> Optional[str]:
     name = Path(phase_dir).name
-    match = re.match(r"^(\d+\.\d+)\s*-", name)
+    match = re.match(r"^(\d+\.\d+(?:\.\d+)*)\s*-", name)
     return match.group(1) if match else None
 
 
@@ -8232,12 +8419,66 @@ def _build_reactions_snapshot(repo_root: Path) -> Dict[str, Any]:
     # requests after restart into 47–60 s blockers. Per
     # cap_quick_load_attention_snapshot_cold_build_unbou_5bd4847cd501.
     try:
-        return reactions_runtime.build_reactions_snapshot(repo_root, signal_mode="cached")
+        return reactions_runtime.build_reactions_snapshot(
+            repo_root,
+            signal_mode="cached",
+            diagram_mode="manifest",
+            graph_scene_mode="manifest",
+        )
     except Exception as exc:  # pragma: no cover - defensive
         logger.debug("load_reactions_snapshot failed: %s", exc)
+        fallback_generated_at = datetime.now(timezone.utc).isoformat()
+        fallback_source_fingerprint = graph_scene_core.source_fingerprint_for_payload(
+            {"schema": "reactions_snapshot_v1", "error": f"{type(exc).__name__}: {exc}"}
+        )
+        fallback_scene = graph_scene_core.build_graph_scene(
+            scene_id="reactions_runtime_scene",
+            source_schema="reaction_diagram_v1",
+            source_fingerprint=fallback_source_fingerprint,
+            generated_at=fallback_generated_at,
+            nodes=[],
+            edges=[],
+            lanes=[
+                {"id": "runtime/control", "label": "Runtime / Control", "order": 0, "axis": "x"},
+                {"id": "signal/source", "label": "Signal / Source", "order": 1, "axis": "x"},
+                {"id": "predicate/gate", "label": "Predicate / Gate", "order": 2, "axis": "x"},
+                {"id": "reaction", "label": "Reaction", "order": 3, "axis": "x"},
+                {"id": "episode/run", "label": "Episode / Run", "order": 4, "axis": "x"},
+                {"id": "operation/output", "label": "Operation / Output", "order": 5, "axis": "x"},
+                {"id": "artifact/workitem/trace", "label": "Artifact / WorkItem / Trace", "order": 6, "axis": "x"},
+            ],
+            rows=[
+                {"id": "raw_seed", "label": "Raw Seed", "order": 0, "axis": "y"},
+                {"id": "compliance", "label": "Compliance", "order": 1, "axis": "y"},
+                {"id": "standards", "label": "Standards", "order": 2, "axis": "y"},
+                {"id": "provider", "label": "Provider", "order": 3, "axis": "y"},
+                {"id": "hologram", "label": "Hologram", "order": 4, "axis": "y"},
+                {"id": "work_ledger", "label": "Work Ledger", "order": 5, "axis": "y"},
+                {"id": "lifecycle", "label": "Lifecycle", "order": 6, "axis": "y"},
+                {"id": "orchestration", "label": "Orchestration", "order": 7, "axis": "y"},
+                {"id": "other", "label": "Other", "order": 8, "axis": "y"},
+            ],
+            default_projection="reaction_lane_dag",
+            default_focus_id="engine_status",
+            resolver_refs={
+                "manifest": "snapshot.graph_scene_manifest",
+                "default_focus": "snapshot.graph_scene_default_focus",
+                "full_scene": "snapshot.graph_scene",
+                "delta": "snapshot.graph_scene_delta_manifest",
+                "inspect": "snapshot.graph_scene.inspectors[ref]",
+            },
+            generated_from_cache=True,
+            source_ref="snapshot.diagram",
+        )
+        fallback_scene_manifest = fallback_scene["manifest"]
+        fallback_focus = graph_scene_core.build_default_focus_excerpt(
+            fallback_scene,
+            focus_id="engine_status",
+        )
+        fallback_delta_manifest = graph_scene_core.build_graph_scene_delta_manifest(fallback_scene_manifest)
         return {
             "schema": "reactions_snapshot_v1",
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": fallback_generated_at,
             "desired_armed": False,
             "engine_armed": False,
             "engine_status": "error",
@@ -8248,6 +8489,169 @@ def _build_reactions_snapshot(repo_root: Path) -> Dict[str, Any]:
             "awaiting_barriers": [],
             "active_reaction_id": None,
             "last_fired_at": None,
+            "summary": {
+                "schema": "reaction_summary_v1",
+                "engine_state": "error",
+                "engine_armed": False,
+                "reaction_count": 0,
+                "eligible_now": 0,
+                "blocked_count": 0,
+                "failed_count": 0,
+                "active_count": 0,
+                "disabled_count": 0,
+                "completed_count": 0,
+                "waiting_count": 0,
+                "state_counts": {},
+                "domain_counts": {},
+                "priority_counts": {},
+                "source_kind_counts": {},
+                "recent_event_counts": {},
+            },
+            "runtime_status_rail": [],
+            "event_timeline": [],
+            "episodes": [],
+            "topology": {
+                "schema": "reaction_topology_v1",
+                "layout": "stable_lanes",
+                "lanes": ["signal", "predicate", "reaction", "operation", "artifact"],
+                "nodes": [],
+                "edges": [],
+                "truncated": False,
+            },
+            "attention": {
+                "schema": "reaction_attention_v1",
+                "headline_state": "error",
+                "headline_reason": f"{type(exc).__name__}: {exc}",
+                "top_reactions": [],
+                "top_episodes": [],
+                "top_blockers": [],
+                "top_failures": [],
+                "stale_signals": [],
+                "newly_eligible": [],
+                "recently_changed": [],
+            },
+            "control_contract": {
+                "schema": "reaction_control_contract_v1",
+                "engine": {
+                    "current_state": "error",
+                    "available_actions": [],
+                },
+                "per_reaction": [],
+                "runtime_semantics": {
+                    "single_flight": True,
+                    "cache_invalidates_on_state_write": True,
+                    "tracked_config_mutable_from_ui": False,
+                    "state_write_surface": "POST /api/world-model/reactions/state",
+                    "config_authority": "reactions.yaml",
+                },
+            },
+            "diagram_manifest": {
+                "schema": "reaction_diagram_manifest_v1",
+                "default_scene_id": "quiet_system_map",
+                "default_focus_id": "engine_status",
+                "counts": {
+                    "lanes": 7,
+                    "domains": 9,
+                    "nodes": 0,
+                    "edges": 0,
+                    "edge_bundles": 0,
+                    "focus_paths": 0,
+                    "clusters": 0,
+                    "inspectors": 0,
+                },
+                "top_focus_paths": [],
+                "full_diagram_available": False,
+                "endpoint_or_resolver_ref": "snapshot.diagram",
+                "generated_from_cache": True,
+                "truncated": False,
+            },
+            "diagram": {
+                "schema": "reaction_diagram_v1",
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "layout_contract": {
+                    "orientation": "horizontal_lanes",
+                    "node_rank_source": "backend_stable_rank",
+                    "port_aware_edges": True,
+                    "large_graph_policy": "degraded_empty_snapshot",
+                },
+                "lanes": [
+                    {"id": "runtime/control", "label": "Runtime / Control", "order": 0, "axis": "x"},
+                    {"id": "signal/source", "label": "Signal / Source", "order": 1, "axis": "x"},
+                    {"id": "predicate/gate", "label": "Predicate / Gate", "order": 2, "axis": "x"},
+                    {"id": "reaction", "label": "Reaction", "order": 3, "axis": "x"},
+                    {"id": "episode/run", "label": "Episode / Run", "order": 4, "axis": "x"},
+                    {"id": "operation/output", "label": "Operation / Output", "order": 5, "axis": "x"},
+                    {"id": "artifact/workitem/trace", "label": "Artifact / WorkItem / Trace", "order": 6, "axis": "x"},
+                ],
+                "domains": [
+                    {"id": "raw_seed", "label": "Raw Seed", "order": 0, "axis": "y"},
+                    {"id": "compliance", "label": "Compliance", "order": 1, "axis": "y"},
+                    {"id": "standards", "label": "Standards", "order": 2, "axis": "y"},
+                    {"id": "provider", "label": "Provider", "order": 3, "axis": "y"},
+                    {"id": "hologram", "label": "Hologram", "order": 4, "axis": "y"},
+                    {"id": "work_ledger", "label": "Work Ledger", "order": 5, "axis": "y"},
+                    {"id": "lifecycle", "label": "Lifecycle", "order": 6, "axis": "y"},
+                    {"id": "orchestration", "label": "Orchestration", "order": 7, "axis": "y"},
+                    {"id": "other", "label": "Other", "order": 8, "axis": "y"},
+                ],
+                "default_scene_id": "quiet_system_map",
+                "default_focus_id": "engine_status",
+                "nodes": [],
+                "edges": [],
+                "edge_bundles": [],
+                "focus_paths": [],
+                "clusters": [],
+                "inspectors": {},
+                "debug_exports": {
+                    "mermaid_overview": "flowchart LR\n  empty[\"Reaction diagram unavailable\"]",
+                    "mermaid_selected_focus": "flowchart LR\n  empty[\"Reaction diagram unavailable\"]",
+                },
+                "truncated": False,
+            },
+            "graph_scene_manifest": fallback_scene_manifest,
+            "graph_scene_default_focus": fallback_focus,
+            "graph_scene_delta_manifest": fallback_delta_manifest,
+            "projection_health": {
+                "schema": "reaction_projection_health_v1",
+                "generated_at": fallback_generated_at,
+                "signal_mode": "cached",
+                "cache_mode": "degraded_fallback",
+                "elapsed_ms": None,
+                "ledger_rows_scanned": 0,
+                "ledger_tail_limit": 0,
+                "topology_node_count": 0,
+                "topology_edge_count": 0,
+                "diagram_node_count": 0,
+                "diagram_edge_count": 0,
+                "diagram_focus_path_count": 0,
+                "diagram_payload_mode": "manifest",
+                "graph_scene_payload_mode": "manifest",
+                "graph_scene_core_version": graph_scene_core.GRAPH_SCENE_CORE_VERSION,
+                "graph_scene_source_fingerprint": fallback_scene_manifest.get("source_fingerprint"),
+                "graph_scene_revision": fallback_scene_manifest.get("revision"),
+                "graph_scene_cache_key": None,
+                "graph_scene_cache_status": "fallback",
+                "graph_scene_quality": fallback_scene_manifest.get("quality"),
+                "graph_scene_validation_ok": True,
+                "episode_count": 0,
+                "truncated": False,
+                "degraded_fields": ["snapshot"],
+                "warnings": [f"{type(exc).__name__}: {exc}"],
+            },
+            "filters": {
+                "states": [],
+                "domains": [],
+                "source_kinds": [],
+                "priorities": [],
+                "operations": [],
+            },
+            "display_contract": {
+                "schema": "reaction_observatory_display_contract_v1",
+                "raw_payload_policy": "raw current_signal remains available for inspector drilldown",
+                "snapshot_mode": "cached",
+                "performance_note": "degraded fallback; runtime helper failed",
+                "capabilities": ["diagram_manifest", "graph_scene_manifest", "graph_scene_default_focus"],
+            },
             "reactions": [],
         }
 
@@ -8259,6 +8663,17 @@ def load_reactions_snapshot(repo_root: Path) -> Dict[str, Any]:
         repo_root=repo_root,
         loader=lambda: _build_reactions_snapshot(repo_root),
     )
+
+
+def _clear_reactions_snapshot_cache(repo_root: Path) -> None:
+    cache_key = _snapshot_cache_key(repo_root)
+    with _REACTIONS_SNAPSHOT_CACHE_LOCK:
+        _REACTIONS_SNAPSHOT_CACHE.pop(cache_key, None)
+
+
+def refresh_reactions_snapshot(repo_root: Path) -> Dict[str, Any]:
+    _clear_reactions_snapshot_cache(repo_root)
+    return load_reactions_snapshot(repo_root)
 
 
 def _build_reconciliation_snapshot(repo_root: Path) -> Dict[str, Any]:
@@ -8459,12 +8874,14 @@ def set_reaction_armed_state(
     target_token = str(target or "").strip().lower()
     if target_token == "engine":
         reactions_runtime.set_engine_armed_state(repo_root, bool(armed))
+        _clear_reactions_snapshot_cache(repo_root)
         return load_reactions_snapshot(repo_root)
     if target_token == "reaction":
         token = str(reaction_id or "").strip()
         if not token:
             raise ValueError("reaction_id is required when target='reaction'")
         reactions_runtime.set_reaction_override_state(repo_root, token, bool(armed))
+        _clear_reactions_snapshot_cache(repo_root)
         return load_reactions_snapshot(repo_root)
     raise ValueError("target must be 'engine' or 'reaction'")
 
@@ -8584,7 +9001,197 @@ def _sort_awareness_cards(cards: Iterable[Any]) -> List[Dict[str, Any]]:
     return sorted(typed_cards, key=sort_key)
 
 
-def load_work_ledger_overview(
+def work_ledger_overview_cache_key(
+    repo_root: Path,
+    *,
+    phase_id: str | None = None,
+    family_id: str | None = None,
+) -> tuple[str, str, str]:
+    context = work_ledger_lib.resolve_phase_context(
+        repo_root,
+        phase_id=phase_id,
+        family_id=family_id,
+    )
+    return (str(repo_root.resolve()), str(context["phase_id"]), str(context["family_id"]))
+
+
+def _work_ledger_overview_warming_shell(
+    repo_root: Path,
+    *,
+    context: Mapping[str, Any],
+) -> Dict[str, Any]:
+    now = datetime.now(timezone.utc)
+    raw_path = repo_root / "codex" / "ledger" / str(context["phase_id"]) / "work_ledger.jsonl"
+    index_path = repo_root / "codex" / "ledger" / str(context["phase_id"]) / "work_ledger_index.json"
+    index_rel = index_path.relative_to(repo_root).as_posix()
+    return {
+        "schema": "work_ledger_overview_v1",
+        "generated_at": now.isoformat(),
+        "phase_id": str(context["phase_id"]),
+        "family_id": str(context["family_id"]),
+        "raw_path": raw_path.relative_to(repo_root).as_posix(),
+        "index_path": index_rel,
+        "freshness": compute_freshness(_file_mtime(repo_root, index_rel)),
+        "counts": {},
+        "open_by_actor": {},
+        "open_by_family": {},
+        "recently_closed": [],
+        "supersession_chains": [],
+        "cross_agent_handoffs": [],
+        "stale_open": [],
+        "stale_sessions": [],
+        "handoff_candidates": {
+            "schema": agent_seed_handoff_lib.AGENT_SEED_HANDOFF_SCHEMA,
+            "generated_at": now.isoformat(),
+            "family_id": str(context["family_id"]),
+            "items": [],
+            "unimported_count": 0,
+            "imported_count": 0,
+            "serving": {
+                "state": "warming",
+                "served_from": "warming_shell",
+            },
+        },
+        "coordination": {
+            "risk_level": "warming",
+            "signals": ["work_ledger_overview_prewarm_in_flight"],
+            "awareness_cards": [],
+            "heartbeat_participation": {},
+            "active_claims": [],
+            "effective_active_sessions": [],
+            "orphaned_active_sessions": [],
+            "recommended_actions": [],
+        },
+        "runtime_status": {
+            "generated_at": None,
+            "counts": {},
+            "triggers": {},
+            "cohort_overview": {},
+        },
+        "top_stale": [],
+        "top_in_progress": [],
+        "top_recent_open": [],
+        "serving": {
+            "state": "warming",
+            "served_from": "warming_shell",
+            "reason": "work_ledger_overview_prewarm_in_flight",
+            "cache_name": "work_ledger_overview",
+            "cache_ttl_s": _WORK_LEDGER_OVERVIEW_CACHE_TTL_S,
+            "cold_wait_s": _WORK_LEDGER_OVERVIEW_COLD_WAIT_S,
+        },
+    }
+
+
+def _limit_work_ledger_bucket_rows(
+    buckets: Mapping[str, Any],
+    *,
+    total_limit: int | None = None,
+    per_key_limit: int | None = None,
+) -> tuple[Dict[str, list[Any]], bool, int, int]:
+    total_limit = _WORK_LEDGER_OVERVIEW_BUCKET_LIMIT if total_limit is None else total_limit
+    per_key_limit = _WORK_LEDGER_OVERVIEW_BUCKET_PER_KEY_LIMIT if per_key_limit is None else per_key_limit
+    out: Dict[str, list[Any]] = {}
+    emitted = 0
+    total = 0
+    truncated = False
+    for key, raw_rows in buckets.items():
+        if not isinstance(raw_rows, list):
+            continue
+        total += len(raw_rows)
+        if emitted >= total_limit:
+            truncated = truncated or bool(raw_rows)
+            continue
+        key_room = max(0, min(per_key_limit, total_limit - emitted))
+        rows = raw_rows[:key_room]
+        if len(rows) < len(raw_rows):
+            truncated = True
+        if rows:
+            out[str(key)] = rows
+            emitted += len(rows)
+    return out, truncated, total, emitted
+
+
+def _work_ledger_runtime_status_view(runtime_status: Mapping[str, Any]) -> Dict[str, Any]:
+    cohort_overview = runtime_status.get("cohort_overview") or {}
+    heartbeat = {}
+    contention = {}
+    if isinstance(cohort_overview, Mapping):
+        heartbeat = dict(cohort_overview.get("heartbeat_participation") or {})
+        contention = dict(cohort_overview.get("contention") or {})
+    return {
+        "generated_at": runtime_status.get("generated_at"),
+        "counts": runtime_status.get("counts") or {},
+        "triggers": runtime_status.get("triggers") or {},
+        "cohort_overview": {
+            "contention": contention,
+            "heartbeat_participation": heartbeat,
+        },
+    }
+
+
+def _work_ledger_overview_last_good_path(repo_root: Path, *, context: Mapping[str, Any]) -> Path:
+    phase_id = str(context.get("phase_id") or "unknown_phase")
+    family_id = str(context.get("family_id") or "unknown_family")
+    key = f"{phase_id}\0{family_id}".encode("utf-8")
+    digest = hashlib.sha256(key).hexdigest()[:16]
+    safe_phase = re.sub(r"[^A-Za-z0-9_.-]+", "_", phase_id).strip("_") or "phase"
+    safe_family = re.sub(r"[^A-Za-z0-9_.-]+", "_", family_id).strip("_") or "family"
+    return repo_root / _WORK_LEDGER_OVERVIEW_LAST_GOOD_REL / f"{safe_phase}_{safe_family}_{digest}.json"
+
+
+def _load_work_ledger_overview_last_good(
+    repo_root: Path,
+    *,
+    context: Mapping[str, Any],
+) -> Optional[Dict[str, Any]]:
+    path = _work_ledger_overview_last_good_path(repo_root, context=context)
+    rel_path = path.relative_to(repo_root).as_posix()
+    raw = _safe_read_json(repo_root, rel_path)
+    if not isinstance(raw, Mapping) or raw.get("schema") != _WORK_LEDGER_OVERVIEW_LAST_GOOD_SCHEMA:
+        return None
+    payload = raw.get("payload")
+    if not isinstance(payload, Mapping) or payload.get("schema") != "work_ledger_overview_v1":
+        return None
+    restored = copy.deepcopy(dict(payload))
+    serving = dict(restored.get("serving") or {})
+    serving.update(
+        {
+            "state": "stale",
+            "served_from": "disk_last_good",
+            "reason": "work_ledger_overview_cold_cache_last_good",
+            "last_good_cache_path": rel_path,
+            "last_good_cached_at": raw.get("generated_at"),
+            "refresh_in_flight": True,
+        }
+    )
+    restored["serving"] = serving
+    return restored
+
+
+def _store_work_ledger_overview_last_good(
+    repo_root: Path,
+    *,
+    context: Mapping[str, Any],
+    payload: Mapping[str, Any],
+) -> None:
+    path = _work_ledger_overview_last_good_path(repo_root, context=context)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        record = {
+            "schema": _WORK_LEDGER_OVERVIEW_LAST_GOOD_SCHEMA,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "phase_id": context.get("phase_id"),
+            "family_id": context.get("family_id"),
+            "payload": payload,
+        }
+        tmp_path = path.with_suffix(path.suffix + ".tmp")
+        tmp_path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        tmp_path.replace(path)
+    except Exception as exc:
+        logger.debug("work ledger overview last-good write failed: %s", exc)
+
+
+def _uncached_load_work_ledger_overview(
     repo_root: Path,
     *,
     phase_id: str | None = None,
@@ -8612,6 +9219,13 @@ def load_work_ledger_overview(
     index_path = repo_root / "codex" / "ledger" / context["phase_id"] / "work_ledger_index.json"
     now = datetime.now(timezone.utc)
     open_by_actor = projection.get("open_by_actor") or {}
+    open_by_family = projection.get("open_by_family") or {}
+    served_open_by_actor, actor_rows_truncated, actor_rows_total, actor_rows_returned = _limit_work_ledger_bucket_rows(
+        open_by_actor if isinstance(open_by_actor, Mapping) else {}
+    )
+    served_open_by_family, family_rows_truncated, family_rows_total, family_rows_returned = _limit_work_ledger_bucket_rows(
+        open_by_family if isinstance(open_by_family, Mapping) else {}
+    )
     stale_open = list(projection.get("stale_open") or [])[:20]
     open_rows = _flatten_open_work_rows(open_by_actor if isinstance(open_by_actor, Mapping) else {})
     top_stale = [
@@ -8629,7 +9243,7 @@ def load_work_ledger_overview(
     counts = dict(projection.get("counts") or {})
     counts.setdefault("open", len(open_rows))
     counts.setdefault("stale", len(projection.get("stale_open") or []))
-    return {
+    overview = {
         "schema": "work_ledger_overview_v1",
         "generated_at": now.isoformat(),
         "phase_id": context["phase_id"],
@@ -8638,8 +9252,8 @@ def load_work_ledger_overview(
         "index_path": index_path.relative_to(repo_root).as_posix(),
         "freshness": compute_freshness(_file_mtime(repo_root, index_path.relative_to(repo_root).as_posix())),
         "counts": counts,
-        "open_by_actor": open_by_actor,
-        "open_by_family": projection.get("open_by_family") or {},
+        "open_by_actor": served_open_by_actor,
+        "open_by_family": served_open_by_family,
         "recently_closed": list(projection.get("recently_closed") or [])[:20],
         "supersession_chains": list(projection.get("supersession_chains") or [])[:20],
         "cross_agent_handoffs": list(projection.get("cross_agent_handoffs") or [])[:20],
@@ -8656,16 +9270,88 @@ def load_work_ledger_overview(
             "orphaned_active_sessions": list(cohort_overview.get("orphaned_active_sessions") or [])[:20],
             "recommended_actions": list(cohort_overview.get("recommended_actions") or [])[:10],
         },
-        "runtime_status": {
-            "generated_at": runtime_status.get("generated_at"),
-            "counts": runtime_status.get("counts") or {},
-            "triggers": runtime_status.get("triggers") or {},
-            "cohort_overview": cohort_overview,
-        },
+        "runtime_status": _work_ledger_runtime_status_view(runtime_status),
         "top_stale": top_stale,
         "top_in_progress": top_in_progress,
         "top_recent_open": top_recent_open,
+        "serving": {
+            "state": "ready",
+            "served_from": "source_projection",
+            "cache_name": "work_ledger_overview",
+            "open_by_actor_total": actor_rows_total,
+            "open_by_actor_returned": actor_rows_returned,
+            "open_by_actor_truncated": actor_rows_truncated,
+            "open_by_family_total": family_rows_total,
+            "open_by_family_returned": family_rows_returned,
+            "open_by_family_truncated": family_rows_truncated,
+        },
     }
+    _store_work_ledger_overview_last_good(repo_root, context=context, payload=overview)
+    return overview
+
+
+def load_work_ledger_overview(
+    repo_root: Path,
+    *,
+    phase_id: str | None = None,
+    family_id: str | None = None,
+    allow_warming_shell: bool = False,
+) -> Dict[str, Any]:
+    context = work_ledger_lib.resolve_phase_context(
+        repo_root,
+        phase_id=phase_id,
+        family_id=family_id,
+    )
+    cache_key = (str(repo_root.resolve()), str(context["phase_id"]), str(context["family_id"]))
+    builder = lambda: _uncached_load_work_ledger_overview(
+        repo_root,
+        phase_id=str(context["phase_id"]),
+        family_id=str(context["family_id"]),
+    )
+    if allow_warming_shell:
+        cached = swr_peek("work_ledger_overview", cache_key, copy_value=False)
+        if cached is not None:
+            cached_age_s = swr_age_seconds("work_ledger_overview", cache_key)
+            overview = swr_get(
+                "work_ledger_overview",
+                cache_key,
+                builder,
+                ttl_s=_WORK_LEDGER_OVERVIEW_CACHE_TTL_S,
+                copy_value=False,
+            )
+            if cached_age_s is not None and cached_age_s > _WORK_LEDGER_OVERVIEW_CACHE_TTL_S:
+                overview = copy.deepcopy(overview)
+                serving = dict(overview.get("serving") or {})
+                serving.update(
+                    {
+                        "state": "stale",
+                        "served_from": "memory_stale",
+                        "reason": "work_ledger_overview_stale_memory_refresh_in_flight",
+                        "refresh_in_flight": True,
+                        "cache_age_s": round(cached_age_s, 3),
+                    }
+                )
+                overview["serving"] = serving
+            return overview
+        swr_prewarm("work_ledger_overview", cache_key, builder)
+        deadline = time.monotonic() + _WORK_LEDGER_OVERVIEW_COLD_WAIT_S
+        while time.monotonic() < deadline:
+            cached = swr_peek("work_ledger_overview", cache_key, copy_value=False)
+            if cached is not None:
+                return cached
+            time.sleep(0.025)
+        last_good = _load_work_ledger_overview_last_good(repo_root, context=context)
+        if last_good is not None:
+            return last_good
+        return _work_ledger_overview_warming_shell(repo_root, context=context)
+
+    return swr_get(
+        "work_ledger_overview",
+        cache_key,
+        builder,
+        ttl_s=_WORK_LEDGER_OVERVIEW_CACHE_TTL_S,
+        copy_value=False,
+    )
 
 
 _TASK_LEDGER_VIEW_ROLES: dict[str, str] = {
@@ -11212,7 +11898,7 @@ def _meta_principle_diagnostics(
             "current_score": _meta_number(work_item_count),
             "coverage_status": "partial",
             "drilldown": "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --detail compact",
-            "repair_route": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> --rebuild ...",
+            "repair_route": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> ... ; settle projection later with drain-deferred-rebuilds or generated_state_drainer when card visibility is required",
             "source_refs": ["state/task_ledger/ledger.json", "state/task_ledger/views"],
             "status": "warn" if _meta_number(dependency_blockers.get("count")) else "ok",
         },
@@ -15744,6 +16430,35 @@ def load_frontend_workitem_diagnostics_projection(
         "public_gate": _public_gate_boundary(),
         "diagnostics": diagnostic_rows,
     }
+
+
+def load_workitem_control_picture_projection(
+    repo_root: Path,
+    *,
+    subject_id: str | None = None,
+    domain: str | None = None,
+    selector_mode: str = "agent",
+    include_signoff: bool = False,
+    include_transaction: bool = True,
+    limit: int = 5,
+) -> Dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Expose the existing WorkItem-first control picture to Station
+      as read-only transport glue, so the operator HUD can render the same
+      reflex state available through tools/meta/control/work_control.py.
+    - Guarantee: Task Ledger and Work Ledger remain authority; this route does
+      not mutate ledgers, start transactions, or infer missing WorkItem state.
+    """
+    return build_workitem_control_picture(
+        repo_root,
+        subject_id=subject_id,
+        domain=domain,
+        selector_mode=selector_mode,
+        include_signoff=include_signoff,
+        include_transaction=include_transaction,
+        limit=limit,
+    )
 
 
 def query_work_ledger(

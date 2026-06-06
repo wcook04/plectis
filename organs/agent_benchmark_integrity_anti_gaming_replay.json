@@ -1,0 +1,376 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for benchmark-integrity fixture validation, exported-bundle validation, public trace verdict recomputation, negative-case enforcement, and body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_benchmark_integrity_bundle",
+        "validate_source_module_imports",
+        "validate_public_trace",
+        "_build_result",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+  "entry_surface_contract": null,
+  "evidence_class": "bounded_runtime_computation",
+  "family": "agent_reliability_and_safety",
+  "id": "agent_benchmark_integrity_anti_gaming_replay",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's runtime module, benchmark-integrity fixture receipts, exported bundle source-module manifest, public trace recomputation, and anti-gaming negative cases validate body-free benchmark-claim boundary checks without asserting benchmark scores, agent capability, provider execution, product progress, or release readiness.",
+      "ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "organ_payload": {
+    "claim_ceiling": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/agent_benchmark_integrity_anti_gaming_replay.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/agent_benchmark_integrity_anti_gaming_replay.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the exported benchmark-integrity bundle against copied public-safe macro pattern provenance bodies, source-artifact evidence refs, locked evaluator policy, recomputed public trace verdicts, and anti-gaming negatives. It emits body-free receipts only and never obtains, verifies, or asserts any benchmark or SWE-bench score, agent capability, provider result, live-repo mutation, or release authority.",
+      "axiom_refs": [
+        "AX-1"
+      ],
+      "claim_ceiling_restated": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for benchmark-integrity fixture validation, exported-bundle validation, public trace verdict recomputation, negative-case enforcement, and body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_benchmark_integrity_bundle",
+            "validate_source_module_imports",
+            "validate_public_trace",
+            "_build_result",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "agent_reliability_and_safety",
+      "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+      "human_gloss": "Checks a public benchmark-integrity example bundle that contains three copied public-safe macro pattern provenance bodies under source_artifacts. The organ verifies the source-module manifest digests, requires each replay row to cite those copied source artifacts, recomputes pass/quarantine verdicts from contamination, file-access, and locked-evaluator spans, and rejects common gaming attempts such as peeking at hidden answers, training on the test set, exposing the oracle patch, cherry-picking the best of many tries, or asserting a score. It still does not run real bug fixes or claim any benchmark score.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's runtime module, benchmark-integrity fixture receipts, exported bundle source-module manifest, public trace recomputation, and anti-gaming negative cases validate body-free benchmark-claim boundary checks without asserting benchmark scores, agent capability, provider execution, product progress, or release readiness.",
+          "ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "paper_module_ref": "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
+      "principle_refs": [
+        "P-1",
+        "P-2"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+      "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "research_replication_rubric_artifact_replay",
+        "batch10_cold_eval_honesty_capsule"
+      ],
+      "wiring_note": "binds only to the shared kernel + evidence/authority spine (private_state_scan, receipts, schemas) plus digest-verified copied macro-pattern provenance bodies"
+    },
+    "source_registry_row": {
+      "claim_ceiling": "bounded public runtime validation over digest-verified copied macro pattern provenance bodies and body-free benchmark-integrity replay rows only; not benchmark scores, SWE-bench performance, provider execution, live repo mutation, product progress, or release authority",
+      "classification_basis": "runner validates three copied public-safe macro pattern provenance bodies by source-module manifest digest, requires source-artifact evidence refs on each replay row, recomputes public trace pass/quarantine verdicts, rejects digest/manifest/verdict negatives, and keeps receipts body-free",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[agent_benchmark_integrity_anti_gaming_replay]",
+      "evidence_strength_rank": 4,
+      "generated_receipts": [
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for benchmark-integrity fixture validation, exported-bundle validation, public trace verdict recomputation, negative-case enforcement, and body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_benchmark_integrity_bundle",
+          "validate_source_module_imports",
+          "validate_public_trace",
+          "_build_result",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.agent_benchmark_integrity_anti_gaming_replay",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].mechanism_refs[0]",
+          "summary": "The organ's runtime module, benchmark-integrity fixture receipts, exported bundle source-module manifest, public trace recomputation, and anti-gaming negative cases validate body-free benchmark-claim boundary checks without asserting benchmark scores, agent capability, provider execution, product progress, or release readiness."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].code_loci[0]",
+          "summary": "Runtime authority for benchmark-integrity fixture validation, exported-bundle validation, public trace verdict recomputation, negative-case enforcement, and body-free receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "research_replication_rubric_artifact_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch10_cold_eval_honesty_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's runtime module, benchmark-integrity fixture receipts, exported bundle source-module manifest, public trace recomputation, and anti-gaming negative cases validate body-free benchmark-claim boundary checks without asserting benchmark scores, agent capability, provider execution, product progress, or release readiness.",
+        "ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
+    "principle_refs": [
+      "P-1",
+      "P-2"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "research_replication_rubric_artifact_replay",
+      "batch10_cold_eval_honesty_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate the exported benchmark-integrity bundle against copied public-safe macro pattern provenance bodies, source-artifact evidence refs, locked evaluator policy, recomputed public trace verdicts, and anti-gaming negatives. It emits body-free receipts only and never obtains, verifies, or asserts any benchmark or SWE-bench score, agent capability, provider result, live-repo mutation, or release authority.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[14:agent_benchmark_integrity_anti_gaming_replay]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/agent_benchmark_integrity_anti_gaming_replay.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "ai-safety",
+    "agent-evaluation",
+    "red-teaming",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to validate the exported benchmark-integrity bundle against copied public-safe macro pattern provenance bodies, source-artifact evidence refs, locked evaluator policy, recomputed public trace verdicts, and anti-gaming negatives. It emits body-free receipts only and never obtains, verifies, or asserts any benchmark or SWE-bench score, agent capability, provider result, live-repo mutation, or release authority.",
+  "status": "accepted_current_authority",
+  "title": "Agent Benchmark Integrity Anti Gaming Replay",
+  "validator_refs": [
+    "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "research_replication_rubric_artifact_replay",
+    "batch10_cold_eval_honesty_capsule"
+  ]
+}

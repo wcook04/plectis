@@ -1,0 +1,11 @@
+{
+  "body_in_receipt": false,
+  "case_id": "lab_contract_question_mark_red_gate",
+  "engine_id": "lab_contract_audit_deterministic_red_gate",
+  "error_codes": [
+    "BATCH8_LAB_CONTRACT_QUESTION_MARK_RED_GATE"
+  ],
+  "expected_status": "red",
+  "fixture_summary": "A Lab cross-correlation artifact carries a banned question mark and must flip the audit to red.",
+  "schema_version": "batch8_policy_engines_capsule_negative_case_v1"
+}

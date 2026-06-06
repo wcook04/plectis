@@ -1,0 +1,370 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
+    "card": "Executable Doctrine Grammar is the public grammar membrane for doctrine-shaped runtime fixtures. It validates standard row fields, paper-module teleology and receipt sections, duplicate-slug and overclaim negative cases, exact copied non-secret executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and standards option-surface bodies, then emits body-free receipts with source refs, digests, counts, and authority ceilings.",
+    "one_line": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.executable_doctrine_grammar",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.executable_doctrine_grammar",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/executable_doctrine_grammar.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.executable_doctrine_grammar.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/executable_doctrine_grammar.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/executable_doctrine_grammar.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-7",
+        "AX-11",
+        "AX-12"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/executable_doctrine_grammar.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for public doctrine grammar fixture validation, exported bundle validation, copied source-module digest checks, negative-case enforcement, cards, and authority ceilings.",
+          "symbols": [
+            "validate",
+            "validate_standards_bundle",
+            "validate_executable_grammar_metabolism_bundle",
+            "validate_source_module_imports",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "GRAMMAR_AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Public fixture, exported standards bundle, and copied non-secret macro specimen/body digest evidence only; no private standards engine export, macro doctrine completeness, raw operator voice export, provider payload export, source mutation, release approval, publication authority, private-data equivalence, or whole-system correctness.",
+        "card": "Executable Doctrine Grammar is the public grammar membrane for doctrine-shaped runtime fixtures. It validates standard row fields, paper-module teleology and receipt sections, duplicate-slug and overclaim negative cases, exact copied non-secret executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and standards option-surface bodies, then emits body-free receipts with source refs, digests, counts, and authority ceilings.",
+        "one_line": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness."
+      },
+      "concept_refs": [
+        "concept.executable_doctrine_grammar_standard_bundle",
+        "concept.architecture_and_navigation_route_contract_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.executable_doctrine_grammar",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/executable_doctrine_grammar.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.executable_doctrine_grammar.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.executable_doctrine_grammar",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/executable_doctrine_grammar.md",
+      "principle_refs": [
+        "P-8",
+        "P-12",
+        "P-15"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]",
+      "strangler_note": "This capsule binds the authored Markdown projection, first-wave grammar fixture, exported standards bundle, exported executable-grammar metabolism source-module manifest, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, or grammar-pass receipts as doctrine completeness authority.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "executable_doctrine_grammar"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
+        }
+      ],
+      "title": "Executable Doctrine Grammar"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, first-wave grammar fixture, exported standards bundle, exported executable-grammar metabolism source-module manifest, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, or grammar-pass receipts as doctrine completeness authority.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-7",
+      "AX-11",
+      "AX-12"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/executable_doctrine_grammar.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for public doctrine grammar fixture validation, exported bundle validation, copied source-module digest checks, negative-case enforcement, cards, and authority ceilings.",
+        "symbols": [
+          "validate",
+          "validate_standards_bundle",
+          "validate_executable_grammar_metabolism_bundle",
+          "validate_source_module_imports",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "GRAMMAR_AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.executable_doctrine_grammar_standard_bundle",
+      "concept.architecture_and_navigation_route_contract_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "executable_doctrine_grammar",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.executable_doctrine_grammar_standard_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.architecture_and_navigation_route_contract_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-12",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for public doctrine grammar fixture validation, exported bundle validation, copied source-module digest checks, negative-case enforcement, cards, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/executable_doctrine_grammar.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/executable_doctrine_grammar.md",
+    "principle_refs": [
+      "P-8",
+      "P-12",
+      "P-15"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "executable_doctrine_grammar"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[18:paper_module.executable_doctrine_grammar]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/executable_doctrine_grammar.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/executable_doctrine_grammar.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "The public executable-doctrine grammar fixture validates public standard rows, paper-module sections, negative cases, copied executable-grammar and standards/type-plane source-module bodies, and body-free receipts without claiming doctrine completeness.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "executable_doctrine_grammar"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
+    }
+  ],
+  "title": "Executable Doctrine Grammar",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

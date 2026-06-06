@@ -1,7 +1,7 @@
 {
   "anti_claim": "This fixture validates public body-free circuit-attribution runtime receipts; it does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, benchmark scores, or release authority.",
   "authority_ceiling": "public circuit-attribution runtime receipt only; no private weights, raw activations, proprietary prompts, hidden reasoning, provider payload, private internals, benchmark, product-transparency, publication, or release authority",
-  "body_copied_material_count": 10,
+  "body_copied_material_count": 11,
   "expected_negative_cases": [
     "private_model_weights_export",
     "raw_activation_dump",
@@ -86,7 +86,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 10,
+    "body_material_count": 11,
     "body_material_ids": [
       "oracle_attribution_legacy_node_body_import",
       "oracle_attribution_substrate_node_body_import",
@@ -97,7 +97,8 @@
       "mission_transaction_preflight_tool_body_import",
       "agent_execution_trace_tool_body_import",
       "std_agent_execution_trace_standard_body_import",
-      "std_extracted_pattern_route_readiness_standard_body_import"
+      "std_extracted_pattern_route_readiness_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_macro_body_landed",
     "body_text_exported_in_receipts": false,

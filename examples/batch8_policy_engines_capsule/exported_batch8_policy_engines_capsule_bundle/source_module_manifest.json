@@ -1,0 +1,79 @@
+{
+  "body_in_receipt": false,
+  "claim_ceiling": "Exact copied non-secret policy-engine source bodies plus public synthetic exercises only.",
+  "module_count": 3,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 15485,
+      "claim_ceiling": "Lab contract audit mechanics over synthetic public artifacts only.",
+      "line_count": 368,
+      "module_id": "lab_contract_audit_deterministic_red_gate",
+      "negative_case": "lab_contract_question_mark_red_gate",
+      "path": "source_modules/system/lib/lab_contract_audit.py",
+      "public_exercise": "green Lab artifact directory plus question-mark red-gate fixture",
+      "required_anchors": [
+        "def compute_lab_contract_audit(",
+        "QUESTION_MARK_SCAN_NODES",
+        "MARKET_FUSION_READINESS_REFUSAL"
+      ],
+      "sha256": "99917b15f60bc74297420491804d735b0a0a755e74c7704903f35bad781660fc",
+      "sha256_match": true,
+      "source_ref": "system/lib/lab_contract_audit.py",
+      "source_sha256": "99917b15f60bc74297420491804d735b0a0a755e74c7704903f35bad781660fc",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/lab_contract_audit.py",
+      "target_sha256": "99917b15f60bc74297420491804d735b0a0a755e74c7704903f35bad781660fc"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 23484,
+      "claim_ceiling": "Market-fusion readiness gate mechanics over public fixture claims only.",
+      "line_count": 597,
+      "module_id": "market_fusion_readiness_fail_closed_gate",
+      "negative_case": "market_fusion_missing_gate_refused",
+      "path": "source_modules/system/lib/market_fusion_readiness.py",
+      "public_exercise": "known candidate gate resolution plus fail-closed missing/malformed gate cases",
+      "required_anchors": [
+        "def preflight_candidate_situation(",
+        "def preflight_consumer_claims(",
+        "CANDIDATE_SITUATION_GATES"
+      ],
+      "sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+      "sha256_match": true,
+      "source_ref": "system/lib/market_fusion_readiness.py",
+      "source_sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/market_fusion_readiness.py",
+      "target_sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 32699,
+      "claim_ceiling": "Campaign dispatch status transition adjudicator only.",
+      "line_count": 845,
+      "module_id": "campaign_dispatch_status_transition_adjudicator",
+      "negative_case": "campaign_completed_to_running_refused",
+      "path": "source_modules/system/lib/campaign_state_transition.py",
+      "public_exercise": "candidate to blocked legal transition plus terminal-state refusal",
+      "required_anchors": [
+        "LEGAL_DISPATCH_TRANSITIONS",
+        "def validate_dispatch_transition(",
+        "class CampaignTransitionError"
+      ],
+      "sha256": "c9bc1aa55fe0aff03864d6b85472e16f06292c1aaf5e0677500b237af4ecd91e",
+      "sha256_match": true,
+      "source_ref": "system/lib/campaign_state_transition.py",
+      "source_sha256": "c9bc1aa55fe0aff03864d6b85472e16f06292c1aaf5e0677500b237af4ecd91e",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/campaign_state_transition.py",
+      "target_sha256": "c9bc1aa55fe0aff03864d6b85472e16f06292c1aaf5e0677500b237af4ecd91e"
+    }
+  ],
+  "organ_id": "batch8_policy_engines_capsule",
+  "schema_version": "batch8_policy_engines_capsule_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body"
+}

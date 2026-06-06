@@ -1,0 +1,21 @@
+{
+  "binding_disposition": "copied_dormant_under_bound_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "session_no_nav_verbs_no_ladder_skip",
+  "computed_path": "no_nav_verbs_no_false_ladder_skip",
+  "error_codes": [
+    "BATCH11_SESSION_NO_NAV_VERBS_NO_LADDER_SKIP"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "agent_session_diagnostic_lens_engine",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "route_text": "docs-route failed phrases for navigation timing route miss",
+    "verbs": {
+      "python3": 1
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

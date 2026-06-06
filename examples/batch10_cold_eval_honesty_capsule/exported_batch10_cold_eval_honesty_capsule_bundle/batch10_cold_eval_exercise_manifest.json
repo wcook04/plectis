@@ -1,0 +1,21 @@
+{
+  "authority_ceiling": "batch10_cold_eval_honesty_not_benchmark_or_navigation_truth",
+  "body_in_receipt": false,
+  "expected_engines": [
+    "cold_eval_original_runner",
+    "cold_eval_scorecard_shape_audit",
+    "cold_eval_claim_ceiling_gate"
+  ],
+  "expected_ref_injection_allowed": false,
+  "fixture_id": "first_wave.batch10_cold_eval_honesty_capsule",
+  "forbidden_claims": [
+    "live_agent_benchmark_win",
+    "navigation_truth",
+    "release_approval",
+    "hosted_public_readiness"
+  ],
+  "organ_id": "batch10_cold_eval_honesty_capsule",
+  "schema_version": "batch10_cold_eval_exercise_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle/source_module_manifest.json",
+  "workspace_ref": "cold_eval_workspace"
+}

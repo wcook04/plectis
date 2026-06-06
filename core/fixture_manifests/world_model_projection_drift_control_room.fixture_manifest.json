@@ -27,6 +27,10 @@
       "role": "negative case: repair_route_without_validation_ref"
     },
     {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_row_without_fact_authority.json",
+      "role": "negative case: drift_row_without_fact_authority"
+    },
+    {
       "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_claiming_source_authority.json",
       "role": "negative case: projection_claiming_source_authority"
     },
@@ -54,6 +58,7 @@
   "expected_negative_cases": [
     "drift_row_without_source_ref",
     "repair_route_without_validation_ref",
+    "drift_row_without_fact_authority",
     "projection_claiming_source_authority",
     "live_repair_action_authorized",
     "private_runtime_data_export",
@@ -64,6 +69,7 @@
   "stable_error_codes": [
     "DRIFT_SOURCE_REF_REQUIRED",
     "DRIFT_VALIDATION_REF_REQUIRED",
+    "DRIFT_FACT_AUTHORITY_REQUIRED",
     "DRIFT_SOURCE_AUTHORITY_FORBIDDEN",
     "DRIFT_LIVE_REPAIR_FORBIDDEN",
     "DRIFT_PRIVATE_RUNTIME_EXPORT_FORBIDDEN",
@@ -116,7 +122,7 @@
   "validator_contract_ratchet_v1": {
     "status": "active",
     "required_positive_row_count": 8,
-    "required_negative_case_count": 8,
+    "required_negative_case_count": 9,
     "per_output_receipt_field_floor": {
       "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json": [
         "status",
@@ -132,6 +138,7 @@
         "source_open_body_imports",
         "body_copied_material_count",
         "target_refs",
+        "fact_authority_mesh",
         "body_in_receipt",
         "anti_claim"
       ],
@@ -149,6 +156,7 @@
         "secret_exclusion_scan",
         "source_open_body_imports",
         "body_copied_material_count",
+        "fact_authority_mesh",
         "body_in_receipt",
         "anti_claim"
       ]

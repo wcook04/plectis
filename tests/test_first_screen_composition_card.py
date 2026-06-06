@@ -17,12 +17,16 @@ EXPECTED_READER_ROUTE_IDS = {
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
+    "domain_specialist",
+    "type_a_agent",
 }
 EXPECTED_READER_ROUTE_ID_LIST = [
     "public_github_visitor",
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
+    "domain_specialist",
+    "type_a_agent",
 ]
 
 
@@ -196,6 +200,41 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "`microcosm legibility-scorecard` plus "
         "`microcosm tour --card <project>`"
     )
+    assert menu_by_id["domain_specialist"]["terminal_command"] == (
+        "microcosm hello --reader domain_specialist <project>"
+    )
+    assert menu_by_id["domain_specialist"]["text_projection_command"] == (
+        "microcosm first-screen --format text --reader domain_specialist <project>"
+    )
+    assert menu_by_id["domain_specialist"]["first_action"] == (
+        "Open `ORGANS.md#find-your-specialty`, then run "
+        "`microcosm tour --card <project>`."
+    )
+    assert menu_by_id["domain_specialist"]["proof_surface"] == (
+        "`ORGANS.md#find-your-specialty` plus "
+        "`microcosm tour --card <project>`"
+    )
+    assert menu_by_id["domain_specialist"]["not_a_claim"] == (
+        "domain_expertise_or_domain_correctness_complete"
+    )
+    assert menu_by_id["type_a_agent"]["terminal_command"] == (
+        "microcosm hello --reader type_a_agent <project>"
+    )
+    assert menu_by_id["type_a_agent"]["text_projection_command"] == (
+        "microcosm first-screen --format text --reader type_a_agent <project>"
+    )
+    assert menu_by_id["type_a_agent"]["first_action"] == (
+        "Run `microcosm first-screen --card <project>`. "
+        "If you need `doctrine_effect_frame`, run "
+        "`microcosm first-screen --full <project>` before reading it; then run "
+        "`microcosm organ-surface-contract --card --root .`."
+    )
+    assert menu_by_id["type_a_agent"]["proof_surface"] == (
+        "`microcosm organ-surface-contract --card --root .`"
+    )
+    assert menu_by_id["type_a_agent"]["not_a_claim"] == (
+        "agent_autonomy_or_source_mutation_ready"
+    )
     assert reader_route_menu["safe_to_show"] == {
         "uses_existing_reader_packets": True,
         "creates_new_entry_artifact": False,
@@ -257,6 +296,21 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "`microcosm tour --card <project>`"
     )
     assert "provider calls" in packet_by_id["peer_developer"]["success_criterion"]
+    assert packet_by_id["domain_specialist"]["next_drilldown"] == (
+        "ORGANS.md#find-your-specialty"
+    )
+    assert "domain correctness" in packet_by_id["domain_specialist"][
+        "success_criterion"
+    ]
+    assert packet_by_id["type_a_agent"]["next_drilldown"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert packet_by_id["type_a_agent"]["proof_surface"] == (
+        "`microcosm organ-surface-contract --card --root .`"
+    )
+    assert "mechanisms from validators/projections" in packet_by_id[
+        "type_a_agent"
+    ]["success_criterion"]
     behavior_proof_packet = card["behavior_proof_packet"]
     behavior_fields = {
         row["field"]: row for row in behavior_proof_packet["proof_fields"]
@@ -596,6 +650,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert exit_by_id["peer_developer"]["next_if_not_met"] == (
         "microcosm observe --card <project>"
     )
+    assert exit_by_id["domain_specialist"]["next_if_not_met"] == (
+        "ORGANS.md#find-your-specialty"
+    )
+    assert exit_by_id["type_a_agent"]["next_if_not_met"] == (
+        "microcosm organ-surface-contract --card --root ."
+    )
     assert exit_by_id["safety_evals_engineer"]["not_a_claim"] == (
         "safety_evaluation_complete"
     )
@@ -606,6 +666,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "publication_or_reader_success_ready"
     )
     assert exit_by_id["peer_developer"]["not_a_claim"] == "integration_complete"
+    assert exit_by_id["domain_specialist"]["not_a_claim"] == (
+        "domain_expertise_or_domain_correctness_complete"
+    )
+    assert exit_by_id["type_a_agent"]["not_a_claim"] == (
+        "agent_autonomy_or_source_mutation_ready"
+    )
     for row in exit_by_id.values():
         assert row["exit_when"]
     video_storyboard_packet = card["video_storyboard_packet"]
@@ -836,6 +902,41 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "core/organ_evidence_classes.json"
     )
     assert "maturity_score" in card["evidence_count_frame"]["forbidden_reads"]
+    substrate_glance = card["representative_substrate_glance"]
+    glance_examples = substrate_glance["examples"]
+    assert substrate_glance["schema_version"] == (
+        "microcosm_representative_substrate_glance_v1"
+    )
+    assert substrate_glance["source_ref"] == (
+        "atlas/agent_task_routes.json::organ_glance_ladder"
+    )
+    assert substrate_glance["one_line_source_ref"] == (
+        "atlas/agent_task_routes.json::organ_glance_ladder"
+    )
+    assert substrate_glance["source_refs"] == ["atlas/agent_task_routes.json"]
+    assert substrate_glance["sample_limit"] == 3
+    assert len(glance_examples) == substrate_glance["sample_limit"]
+    assert substrate_glance["total_organ_count"] >= len(glance_examples)
+    assert len({row["family"] for row in glance_examples}) == len(glance_examples)
+    assert all(row["glance_excerpt"] for row in glance_examples)
+    assert all(row["one_line_excerpt"] for row in glance_examples)
+    assert all(
+        row["glance_source"] == "organ_glance_ladder_one_line"
+        for row in glance_examples
+    )
+    assert all("one_line" in row["source_fields"] for row in glance_examples)
+    assert substrate_glance["safe_to_show"] == {
+        "uses_public_organ_glance_ladder": True,
+        "uses_public_route_projection_one_lines": True,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "claims_release_or_hosting": False,
+        "claims_reader_success": False,
+        "claims_whole_system_correctness": False,
+    }
+    assert substrate_glance["authority"] == (
+        "representative_glance_not_inventory_score_or_readiness_claim"
+    )
     evidence_class_legend = card["evidence_class_legend"]
     legend_by_id = {
         row["evidence_class"]: row for row in evidence_class_legend["classes"]
@@ -1217,6 +1318,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "representative_substrate_glance" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "evidence_class_legend" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -1269,6 +1373,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert card["validation"]["checks"]["human_first_command"] is True
     assert card["validation"]["checks"]["text_projection"] is True
+    assert card["validation"]["checks"]["representative_substrate_glance"] is True
     assert card["validation"]["checks"]["evidence_class_legend"] is True
     assert card["validation"]["checks"]["scale_frame"] is True
     assert card["validation"]["checks"]["state_write_boundary"] is True
@@ -1389,6 +1494,11 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "first_screen_card": (
             "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
         ),
+        "agent_entry_selector": (
+            "PYTHONPATH=src python3 -m microcosm_core "
+            "agent-entry-composition --root . --task agent-entry "
+            "--viewer {type_a_agent|human} --card --check"
+        ),
         "authority": "source_checkout_fallback_not_package_install_or_release_claim",
     }
     assert card["text_projection"]["command"] == "microcosm hello ."
@@ -1463,6 +1573,10 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "PYTHONPATH=src python3 -m microcosm_core status --card .",
     ]
     assert card["reader_route_menu"]["default_command"] == "microcosm hello ."
+    assert card["reader_route_menu"]["alias_hint"] == (
+        "reader aliases: cold-cloner, skeptical-reviewer, type-a-agent, "
+        "domain-specialist"
+    )
     assert card["reader_route_menu"]["shared_behavior_command"] == (
         "microcosm tour --card ."
     )
@@ -1484,6 +1598,8 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         ),
         "hiring_reviewer": "microcosm hello --reader hiring_reviewer .",
         "peer_developer": "microcosm hello --reader peer_developer .",
+        "domain_specialist": "microcosm hello --reader domain_specialist .",
+        "type_a_agent": "microcosm hello --reader type_a_agent .",
     }
     assert [
         row["state_ref"] for row in card["local_state_receipt_trail"]["trail"]
@@ -1553,6 +1669,36 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
         row["reader_route_id"] for row in compact["reader_route_menu"]["routes"]
     } == EXPECTED_READER_ROUTE_IDS
     assert compact["state_write_boundary"]["this_card_writes_microcosm_state"] is False
+    compact_glance = compact["evidence_context"]["representative_substrate_glance"]
+    assert compact_glance["source_ref"] == (
+        "atlas/agent_task_routes.json::organ_glance_ladder"
+    )
+    assert compact_glance["one_line_source_ref"] == (
+        "atlas/agent_task_routes.json::organ_glance_ladder"
+    )
+    assert compact_glance["source_refs"] == ["atlas/agent_task_routes.json"]
+    assert compact_glance["sample_limit"] == 3
+    assert compact_glance["total_organ_count"] == (
+        card["representative_substrate_glance"]["total_organ_count"]
+    )
+    assert compact_glance["example_display_names"] == [
+        row["display_name"]
+        for row in card["representative_substrate_glance"]["examples"]
+    ]
+    assert compact_glance["examples"] == [
+        {
+            "organ_id": row["organ_id"],
+            "display_name": row["display_name"],
+            "family": row["family"],
+            "glance_excerpt": row["glance_excerpt"],
+            "glance_source": row["glance_source"],
+            "one_line_excerpt": row["one_line_excerpt"],
+        }
+        for row in card["representative_substrate_glance"]["examples"]
+    ]
+    assert compact_glance["authority"] == (
+        "representative_glance_not_inventory_score_or_readiness_claim"
+    )
     assert compact["drilldowns"]["full_json"] == "microcosm first-screen --full ."
     assert "video_storyboard_packet" not in compact
     assert compact["omission_receipt"]["summary_first_projection"] is True
@@ -1595,6 +1741,13 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "doctrine names boundaries" in text
     assert "exit when you can choose a drilldown" in text
     assert "without the command inventory" in text
+    assert "Substrate glance:" in text
+    assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in text
+    assert "fallbacks use route cards" in text
+    assert "examples are handles, not readiness claims" in text
+    for row in card["representative_substrate_glance"]["examples"]:
+        assert row["display_name"] in text
+        assert row["glance_excerpt"][:24] in text
     assert expected_public_handles in text
     assert "organ-registry rows" in text
     assert "standard-registry rows" in text
@@ -1607,6 +1760,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert (
         "Behavior proof after tour --card: front_door_status=pass, "
         "selected_route_id, state refs, source_files_mutated=false"
+    ) in text
+    assert (
+        "reader aliases: cold-cloner, skeptical-reviewer, type-a-agent, "
+        "domain-specialist"
     ) in text
     assert (
         "GitHub visitor: microcosm hello --reader public_github_visitor . | Proof: "
@@ -1623,6 +1780,14 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert (
         "Peer developer: microcosm hello --reader peer_developer . | Proof: "
         "`microcosm observe --card .`"
+    ) in text
+    assert (
+        "Domain specialist: microcosm hello --reader domain_specialist . | Proof: "
+        "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`"
+    ) in text
+    assert (
+        "Type A agent: microcosm hello --reader type_a_agent . | Proof: "
+        "`microcosm organ-surface-contract --card --root .`"
     ) in text
     assert (
         "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 7"
@@ -1659,6 +1824,8 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "Reader branch: Safety/evals",
                 "Reader branch: Hiring",
                 "Reader branch: Peer developer",
+                "Reader branch: Domain specialist",
+                "Reader branch: Type A agent",
             ],
         },
         "safety_evals_engineer": {
@@ -1673,6 +1840,8 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "Reader branch: GitHub visitor",
                 "Reader branch: Hiring",
                 "Reader branch: Peer developer",
+                "Reader branch: Domain specialist",
+                "Reader branch: Type A agent",
             ],
         },
         "hiring_reviewer": {
@@ -1687,6 +1856,8 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "Reader branch: GitHub visitor",
                 "Reader branch: Safety/evals",
                 "Reader branch: Peer developer",
+                "Reader branch: Domain specialist",
+                "Reader branch: Type A agent",
             ],
         },
         "peer_developer": {
@@ -1698,6 +1869,42 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "Reader branch: GitHub visitor",
                 "Reader branch: Safety/evals",
                 "Reader branch: Hiring",
+                "Reader branch: Domain specialist",
+                "Reader branch: Type A agent",
+            ],
+        },
+        "domain_specialist": {
+            "label": "Domain specialist",
+            "first_action": (
+                "Open `ORGANS.md#find-your-specialty`, then run "
+                "`microcosm tour --card .`."
+            ),
+            "proof": "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`",
+            "success": "domain correctness",
+            "absent": [
+                "Reader branch: GitHub visitor",
+                "Reader branch: Safety/evals",
+                "Reader branch: Hiring",
+                "Reader branch: Peer developer",
+                "Reader branch: Type A agent",
+            ],
+        },
+        "type_a_agent": {
+            "label": "Type A agent",
+            "first_action": (
+                "Run `microcosm first-screen --card .`. "
+                "If you need `doctrine_effect_frame`, run "
+                "`microcosm first-screen --full .` before reading it; then run "
+                "`microcosm organ-surface-contract --card --root .`."
+            ),
+            "proof": "`microcosm organ-surface-contract --card --root .`",
+            "success": "mechanisms from validators/projections",
+            "absent": [
+                "Reader branch: GitHub visitor",
+                "Reader branch: Safety/evals",
+                "Reader branch: Hiring",
+                "Reader branch: Peer developer",
+                "Reader branch: Domain specialist",
             ],
         },
     }
@@ -1745,6 +1952,11 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "doctrine names boundaries" in text
         assert "exit when you can choose a drilldown" in text
         assert "without the command inventory" in text
+        assert "Substrate glance:" in text
+        assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in text
+        assert "fallbacks use route cards" in text
+        for row in card["representative_substrate_glance"]["examples"]:
+            assert row["display_name"] in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
@@ -1775,6 +1987,9 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
+    assert "Substrate glance:" in result.stdout
+    assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in result.stdout
+    assert "fallbacks use route cards" in result.stdout
     assert "registries and fixture manifests" in result.stdout
     assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
@@ -1809,6 +2024,9 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "doctrine names boundaries" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
+    assert "Substrate glance:" in result.stdout
+    assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in result.stdout
+    assert "fallbacks use route cards" in result.stdout
     assert "registries and fixture manifests" in result.stdout
     assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout

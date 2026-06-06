@@ -29,14 +29,18 @@ METABOLISM_BUNDLE_RESULT_NAME = "exported_executable_grammar_metabolism_bundle_v
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_BODY_STATUS = "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance"
+PRIVATE_MACRO_SOURCE_ROOT = "self-indexing-cognitive-substrate"
+PUBLIC_MACRO_SOURCE_DISPLAY_ROOT = "private-macro-source"
+PUBLIC_SAFE_PATH_NORMALIZED_RELATION = "source_faithful_public_safe_path_normalized_copy"
 PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
     "public_macro_standard_body",
     "public_macro_tool_body",
     "public_macro_receipt_body",
 }
-SOURCE_MODULE_RELATIONS = {"exact_copy"}
+SOURCE_MODULE_RELATIONS = {"exact_copy", PUBLIC_SAFE_PATH_NORMALIZED_RELATION}
 SOURCE_MODULE_SOURCE_REF_PREFIXES = (
-    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/",
+    f"{PRIVATE_MACRO_SOURCE_ROOT}/microcosms/executable_grammar_metabolism/",
+    f"{PUBLIC_MACRO_SOURCE_DISPLAY_ROOT}/microcosms/executable_grammar_metabolism/",
 )
 SOURCE_MODULE_SOURCE_REF_EXACT = {
     "codex/standards/standards_registry.json",
@@ -856,6 +860,16 @@ def _strip_microcosm_prefix(ref: str) -> str:
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
+def _public_source_ref_display(ref: str) -> str:
+    display_ref = _strip_microcosm_prefix(ref)
+    if display_ref == PRIVATE_MACRO_SOURCE_ROOT:
+        return PUBLIC_MACRO_SOURCE_DISPLAY_ROOT
+    private_prefix = f"{PRIVATE_MACRO_SOURCE_ROOT}/"
+    if display_ref.startswith(private_prefix):
+        return f"{PUBLIC_MACRO_SOURCE_DISPLAY_ROOT}/{display_ref[len(private_prefix):]}"
+    return display_ref
+
+
 def _source_module_manifest_path(input_dir: str | Path) -> Path:
     return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
 
@@ -963,7 +977,8 @@ def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) 
         material_class = str(row.get("material_class") or "")
         relation = str(row.get("source_to_target_relation") or "")
         expected_digest = str(row.get("sha256") or "")
-        source_ref = str(row.get("source_ref") or "")
+        source_ref_raw = str(row.get("source_ref") or "")
+        source_ref = _public_source_ref_display(source_ref_raw)
         if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
             findings.append(
                 _finding(
@@ -1001,8 +1016,13 @@ def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) 
                 )
             )
         if not (
-            source_ref in SOURCE_MODULE_SOURCE_REF_EXACT
-            or any(source_ref.startswith(prefix) for prefix in SOURCE_MODULE_SOURCE_REF_PREFIXES)
+            source_ref_raw in SOURCE_MODULE_SOURCE_REF_EXACT
+            or source_ref in SOURCE_MODULE_SOURCE_REF_EXACT
+            or any(
+                candidate.startswith(prefix)
+                for candidate in (source_ref_raw, source_ref)
+                for prefix in SOURCE_MODULE_SOURCE_REF_PREFIXES
+            )
         ):
             findings.append(
                 _finding(
@@ -1417,7 +1437,7 @@ def validate_executable_grammar_metabolism_bundle(
             "source_open_body_imports": source_open_body_imports,
             "body_material_status": source_open_body_imports["body_material_status"],
             "body_copied_material_count": source_open_body_imports["body_material_count"],
-            "source_root": str(manifest.get("source_root") or ""),
+            "source_root": _public_source_ref_display(str(manifest.get("source_root") or "")),
             "source_refs": [
                 str(module.get("source_ref"))
                 for module in source_imports["modules"]

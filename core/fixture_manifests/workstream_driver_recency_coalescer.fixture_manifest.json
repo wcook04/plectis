@@ -1,0 +1,93 @@
+{
+  "anti_claim": "This fixture validates public WorkstreamBoard groupByDriver semantics over synthetic AttentionRecentChange rows only; it does not read live cockpit state, mutate UI source, prove workstream classification correctness, or authorize release.",
+  "authority_ceiling": "workstream_driver_recency_coalescer_public_fixture_with_copied_non_secret_macro_body_floor_not_live_frontend_authority",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::workstream_driver_recency_coalescer::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
+    "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
+    "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/workstream_driver_recency_coalescer_probe_manifest.json",
+      "role": "public synthetic AttentionRecentChange projection exercising active_driver coalescing, newest-wins field refresh, recency sort, and unclassified sentinel-last behavior"
+    },
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/driver_key_not_normalized.json",
+      "role": "negative case: active_driver key normalization missing"
+    },
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/newest_event_not_refreshed.json",
+      "role": "negative case: collision count increments but latest summary or gate reason stays stale"
+    },
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/recency_sort_wrong.json",
+      "role": "negative case: rows not sorted by newest latestIso first"
+    },
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/unclassified_not_last.json",
+      "role": "negative case: unclassified fallback not pinned last"
+    },
+    {
+      "path": "fixtures/first_wave/workstream_driver_recency_coalescer/input/release_overclaim.json",
+      "role": "negative case: live frontend, source mutation, release, or whole-system authority overclaim"
+    }
+  ],
+  "organ_id": "workstream_driver_recency_coalescer",
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "fixtures/first_wave/workstream_driver_recency_coalescer/input/workstream_driver_recency_coalescer_probe_manifest.json",
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle",
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json",
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_modules/system/server/ui/src/components/cockpit/WorkstreamBoard.tsx",
+      "paper_modules/workstream_driver_recency_coalescer.md"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_frontend_body": 1
+    },
+    "body_material_count": 1,
+    "body_material_ids": [
+      "workstream_driver_recency_coalescer"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_frontend_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/.../WorkstreamBoard.tsx inside the exported workstream driver bundle for the copied macro frontend body; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "workstream_driver_recency_coalescer_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/workstream_driver_recency_coalescer/exported_workstream_driver_recency_coalescer_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Workstream driver recency coalescer fixture",
+  "validator": "microcosm_core.organs.workstream_driver_recency_coalescer",
+  "validator_command": "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_axiom_support_projection_scope_order_v1",
+  "component_id": "projection_scope",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover projection-scope ordering; it classifies only source-binding plus generated-support-projection boundaries and does not make generated output, Markdown, atlas cards, public copy, or support-cover readback source evidence.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=projection_scope]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._projection_scope_component",
+  "order_values": [
+    "generated_support_projection_boundary_only",
+    "source_binding_with_generated_projection_boundary"
+  ],
+  "order_semantics": {
+    "generated_support_projection_boundary_only": {
+      "rank": 0,
+      "meaning": "The evaluator can state that support-cover output is generated projection material, but no source binding material is present.",
+      "claim_effect": "Classifies projection boundary only; it cannot witness support."
+    },
+    "source_binding_with_generated_projection_boundary": {
+      "rank": 1,
+      "meaning": "The obligation binds source-row material and the evaluator output remains a generated projection over that material.",
+      "claim_effect": "Classifies the projection/source boundary; it cannot make generated output source evidence."
+    }
+  },
+  "material_inputs": [
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_organs",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_surfaces",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes",
+    "validator.microcosm.axiom_support_cover generated support projection boundary"
+  ],
+  "non_laundering_rules": [
+    "Projection-scope classification is not source evidence, release authority, public-readiness authority, or policy approval.",
+    "Generated support-cover output cannot cite itself as evidence.",
+    "Markdown, atlas cards, public copy, and generated doctrine-lattice projections cannot raise support through this component.",
+    "A higher projection-scope class cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "If a computed projection-scope value is outside this source registry, the validator emits unknown_projection_scope_not_in_source_order rather than support.",
+  "anti_claims": [
+    "This registry makes projection boundaries computed; it does not make projection output source authority.",
+    "This registry does not resolve freshness_state or domain_scope.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping."
+  ]
+}

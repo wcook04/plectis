@@ -1,0 +1,5 @@
+{
+  "case_id": "self_error_without_capture",
+  "expected_status": "red",
+  "text": "My mistake: I miscounted the rows in the generated report."
+}

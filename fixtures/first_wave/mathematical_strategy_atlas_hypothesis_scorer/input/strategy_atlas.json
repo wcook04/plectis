@@ -1,5 +1,5 @@
 {
-  "schema_version": "mathematical_strategy_atlas_v1",
+  "schema_version": "mathematical_strategy_atlas_v2",
   "source_pattern_ids": [
     "mathematical_strategy_atlas_hypothesis_scorer"
   ],
@@ -11,21 +11,52 @@
     "iff_split",
     "recursive_data_induction",
     "arithmetic_normalization",
+    "equality_normal_form",
+    "symmetry_or_orientation",
+    "retrieval_keyword_sponge",
     "unknown"
   ],
+  "scoring_model": {
+    "model_id": "weighted_trigger_negative_retrieval_v1",
+    "trigger_feature_weight": 4,
+    "negative_trigger_penalty": 3,
+    "retrieval_term_bonus": 1,
+    "retrieval_bonus_cap": 2,
+    "feature_overlap_is_diagnostic_only": true
+  },
   "strategies": [
     {
       "strategy_id": "iff_split",
       "title": "Iff split and directional closure",
+      "mathematical_lens": "Treat an iff target as two directed implications.",
       "match_features": [
         "iff_goal",
         "equivalence",
         "bidirectional_reasoning"
       ],
+      "trigger_features": [
+        "iff_goal",
+        "equivalence",
+        "bidirectional_reasoning"
+      ],
+      "negative_triggers": [
+        "pure_equality"
+      ],
       "retrieval_term_additions": [
         "Iff.intro",
         "Iff.mp",
         "Iff.mpr"
+      ],
+      "retrieval_expansion_terms": [
+        "iff",
+        "intro",
+        "implication",
+        "equivalence"
+      ],
+      "proof_plan_template": "Construct Iff.intro and solve both directions.",
+      "lean_tactic_affordances": [
+        "intro",
+        "exact Iff.intro"
       ],
       "authority_boundary": "pre_oracle_strategy_hypothesis_only",
       "body_redacted": true
@@ -33,15 +64,37 @@
     {
       "strategy_id": "recursive_data_induction",
       "title": "Recursive data induction",
+      "mathematical_lens": "Quantified goals over recursively defined data often want induction or a library recursion theorem.",
       "match_features": [
         "recursive_data",
         "list_structure",
         "induction_candidate"
       ],
+      "trigger_features": [
+        "recursive_data",
+        "list_structure",
+        "induction_candidate"
+      ],
+      "negative_triggers": [
+        "closed_ground_term"
+      ],
       "retrieval_term_additions": [
         "List.length_append",
         "List.map_append",
         "List.append_assoc"
+      ],
+      "retrieval_expansion_terms": [
+        "induction",
+        "recursive",
+        "list",
+        "append",
+        "length"
+      ],
+      "proof_plan_template": "Try the library recursion lemma; otherwise emit an induction skeleton.",
+      "lean_tactic_affordances": [
+        "induction",
+        "simp",
+        "exact List.length_append"
       ],
       "authority_boundary": "pre_oracle_strategy_hypothesis_only",
       "body_redacted": true
@@ -49,27 +102,165 @@
     {
       "strategy_id": "arithmetic_normalization",
       "title": "Arithmetic normalization",
+      "mathematical_lens": "Normalize arithmetic expressions toward a shared canonical form.",
       "match_features": [
         "nat_arithmetic",
         "commutativity",
         "normalization"
+      ],
+      "trigger_features": [
+        "nat_arithmetic",
+        "commutativity",
+        "normalization"
+      ],
+      "negative_triggers": [
+        "non_numeric_target"
       ],
       "retrieval_term_additions": [
         "Nat.add_comm",
         "Nat.add_assoc",
         "Nat.mul_comm"
       ],
+      "retrieval_expansion_terms": [
+        "arithmetic",
+        "normalization",
+        "commutativity",
+        "associativity",
+        "Nat.add_comm",
+        "Nat.add_assoc",
+        "Nat.mul_comm"
+      ],
+      "proof_plan_template": "Try simp, ring-like normalization, or direct arithmetic premises.",
+      "lean_tactic_affordances": [
+        "simp",
+        "omega",
+        "exact Nat.add_comm"
+      ],
       "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "equality_normal_form",
+      "title": "Equality normal form",
+      "mathematical_lens": "View the target as two expressions to normalize toward a shared canonical form.",
+      "match_features": [
+        "equality_target",
+        "nat_add",
+        "length_append",
+        "reversed_orientation"
+      ],
+      "trigger_features": [
+        "equality_target",
+        "nat_add",
+        "length_append"
+      ],
+      "negative_triggers": [
+        "reversed_orientation"
+      ],
+      "retrieval_term_additions": [
+        "Eq.trans",
+        "Nat.add_comm",
+        "List.length_append"
+      ],
+      "retrieval_expansion_terms": [
+        "equality",
+        "normal",
+        "nat",
+        "length",
+        "append"
+      ],
+      "proof_plan_template": "Normalize both sides with theorem families such as commutativity, associativity, or length lemmas.",
+      "lean_tactic_affordances": [
+        "exact",
+        "rw",
+        "simp"
+      ],
+      "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "symmetry_or_orientation",
+      "title": "Symmetry or orientation",
+      "mathematical_lens": "A retrieved equality premise may solve the target only after reversing or rewriting in the right direction.",
+      "match_features": [
+        "reversed_orientation",
+        "symmetry_needed",
+        "length_append"
+      ],
+      "trigger_features": [
+        "reversed_orientation",
+        "symmetry_needed",
+        "length_append"
+      ],
+      "negative_triggers": [
+        "direct_orientation"
+      ],
+      "retrieval_term_additions": [
+        "Eq.symm",
+        "List.length_append"
+      ],
+      "retrieval_expansion_terms": [
+        "orientation",
+        "symmetric",
+        "reverse",
+        "length",
+        "append"
+      ],
+      "proof_plan_template": "Try Eq.symm around the direct equality premise.",
+      "lean_tactic_affordances": [
+        "exact Eq.symm",
+        "rw [<- lemma]"
+      ],
+      "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "retrieval_keyword_sponge",
+      "title": "Retrieval keyword sponge",
+      "mathematical_lens": "A regression sentinel for retrieval-only keyword matches that must not overpower trigger evidence.",
+      "match_features": [
+        "retrieval_noise"
+      ],
+      "trigger_features": [
+        "retrieval_only_signal"
+      ],
+      "negative_triggers": [
+        "explicit_strategy_trigger"
+      ],
+      "retrieval_term_additions": [
+        "keyword-noise"
+      ],
+      "retrieval_expansion_terms": [
+        "arithmetic",
+        "normalization",
+        "commutativity",
+        "associativity",
+        "Nat.add_comm",
+        "Nat.add_assoc",
+        "Nat.mul_comm",
+        "Iff.intro",
+        "equivalence",
+        "intro",
+        "implication"
+      ],
+      "proof_plan_template": "Do not select from retrieval-keyword volume alone.",
+      "lean_tactic_affordances": [
+        "none"
+      ],
+      "authority_boundary": "regression_sentinel_not_proof_strategy",
       "body_redacted": true
     },
     {
       "strategy_id": "unknown",
       "title": "Unknown strategy sentinel",
       "match_features": [],
+      "trigger_features": [],
+      "negative_triggers": [],
       "retrieval_term_additions": [],
+      "retrieval_expansion_terms": [],
       "authority_boundary": "typed_strategy_selection_miss_not_failure_to_hide",
       "body_redacted": true
     }
   ],
-  "anti_claim": "This atlas is a synthetic public strategy enum and retrieval-lens fixture, not a proof search result or oracle label source."
+  "anti_claim": "This atlas is a public strategy enum and retrieval-lens fixture, not a proof search result or oracle label source."
 }

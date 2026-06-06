@@ -1,0 +1,62 @@
+{
+  "cases": [
+    {
+      "blockers": [],
+      "case_id": "fresh_green_feed",
+      "expected_state": "fresh_green_feed",
+      "generated_at_days_ago": 0,
+      "ready": true,
+      "run_id": "fresh-green",
+      "success_count": 2,
+      "target_count": 2,
+      "write_readiness": true
+    },
+    {
+      "blockers": [],
+      "case_id": "stale_green_feed",
+      "expected_state": "stale_green_feed",
+      "generated_at_days_ago": 14,
+      "ready": true,
+      "run_id": "stale-green",
+      "success_count": 2,
+      "target_count": 2,
+      "write_readiness": true
+    },
+    {
+      "case_id": "freshness_missing_readiness_artifact",
+      "expected_state": "blocked_missing_artifact",
+      "run_id": "missing-artifact",
+      "write_readiness": false
+    },
+    {
+      "blockers": [],
+      "case_id": "freshness_success_shortfall",
+      "expected_state": "blocked_missing_artifact",
+      "generated_at_days_ago": 0,
+      "ready": true,
+      "run_id": "success-shortfall",
+      "success_count": 1,
+      "target_count": 2,
+      "write_readiness": true
+    },
+    {
+      "blockers": [
+        "synthetic blocker"
+      ],
+      "case_id": "freshness_blocker_list",
+      "expected_state": "blocked_missing_artifact",
+      "generated_at_days_ago": 0,
+      "ready": true,
+      "run_id": "blocker-list",
+      "success_count": 2,
+      "target_count": 2,
+      "write_readiness": true
+    }
+  ],
+  "fallback": {
+    "latest_green_generated_at": "2026-05-01T00:00:00+00:00",
+    "latest_green_run_id": "historical-green",
+    "scheduled_shell_count": 0,
+    "staleness_days": 31
+  }
+}

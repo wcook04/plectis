@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "policy_allows_poisoning",
+  "error_codes": [
+    "BATCH8_VALIDATOR_POLICY_POISONING_BLOCK_REQUIRED"
+  ],
+  "schema_version": "batch8_validator_checker_negative_case_v1"
+}

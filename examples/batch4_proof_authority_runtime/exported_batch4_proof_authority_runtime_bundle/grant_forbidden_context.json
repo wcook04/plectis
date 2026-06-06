@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "grant_forbidden_context", "error_codes": ["BATCH4_GRANT_FORBIDDEN_CONTEXT_DENIED"], "runtime_probe": {"observer_id": "grant_denial_no_dispatch", "source_module_id": "reasoning_grant_lease", "required_text": "forbidden_effective_context"}, "body_in_receipt": false}

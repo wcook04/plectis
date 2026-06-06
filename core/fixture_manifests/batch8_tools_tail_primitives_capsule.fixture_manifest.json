@@ -1,0 +1,69 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "fixture_id": "first_wave.batch8_tools_tail_primitives_capsule",
+  "kind_id": "batch8_tools_tail_primitives_capsule",
+  "validator_id": "validator.microcosm.organs.batch8_tools_tail_primitives_capsule",
+  "purpose": "Validate Batch-8 tools-tail primitives as exact copied non-secret macro source bodies plus public source-executing exercises for set diffing, JSON patching, ledger identity hashing, and shadow DSL parsing.",
+  "input_root": "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input",
+  "input_refs": [
+    "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/batch8_tools_tail_primitives_capsule_probe_manifest.json",
+    "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/observer_diff_malformed_key_skipped.json",
+    "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/version_committer_scalar_traversal_refused.json",
+    "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/ledger_id_missing_identity_refused.json",
+    "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/shadow_dsl_malformed_tuple_coverage_gap.json"
+  ],
+  "example_bundle": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle",
+  "source_open_body_imports": {
+    "schema_version": "batch8_tools_tail_primitives_capsule_source_open_body_imports_v1",
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_batch8_tools_tail_macro_bodies_landed",
+    "body_material_count": 4,
+    "source_manifest_refs": [
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Open source_module_manifest.json and source_modules/ inside examples/batch8_tools_tail_primitives_capsule/ for copied macro bodies; receipts carry refs, hashes, anchors, counts, and verdicts only."
+  },
+  "receipt_refs": [
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_result.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_board.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+  ],
+  "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+  "mechanism_count": 4,
+  "source_module_count": 4,
+  "negative_cases": [
+    "ledger_id_missing_identity_refused",
+    "observer_diff_malformed_key_skipped",
+    "shadow_dsl_malformed_tuple_coverage_gap",
+    "version_committer_scalar_traversal_refused"
+  ],
+  "expected_error_codes": [
+    "BATCH8_LEDGER_ID_MISSING_IDENTITY_REFUSED",
+    "BATCH8_OBSERVER_DIFF_MALFORMED_ROW_SKIPPED",
+    "BATCH8_SHADOW_DSL_MALFORMED_TUPLE_COVERAGE_GAP",
+    "BATCH8_VERSION_COMMITTER_SCALAR_TRAVERSAL_REFUSED"
+  ],
+  "authority_ceiling": {
+    "status": "pass",
+    "authority_ceiling": "batch8_tools_tail_public_substrate_capsule_not_live_runtime_authority",
+    "real_substrate_disposition": "real_substrate_capsule",
+    "godmode_run_missing_authorized": false,
+    "provider_dispatch": false,
+    "live_oracle_execution": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false
+  },
+  "body_in_receipt": false,
+  "anti_claim": "This Batch-8 tools-tail capsule validates exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not run GodMode, mutate repositories, call providers, export private lab artifacts, claim oracle truth, or authorize release."
+}

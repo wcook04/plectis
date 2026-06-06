@@ -1,0 +1,11 @@
+{
+  "body_in_receipt": false,
+  "case_id": "repo_issue_public_003",
+  "evaluator_config_hash": "sha256:evaluator003",
+  "evaluator_id": "locked_repo_repair_scorer_v1",
+  "evidence_kind": "output_replay",
+  "grading_mode": "patch_and_test_replay",
+  "output_replay_present": true,
+  "replay_id": "replay_repo_issue_public_003_quarantined",
+  "schema_version": "benchmark_integrity_evidence_artifact_v1"
+}

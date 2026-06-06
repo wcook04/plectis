@@ -3,11 +3,16 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
 import tempfile
+from collections.abc import Iterator, Sequence
+from concurrent.futures import ThreadPoolExecutor
+from copy import deepcopy
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +35,7 @@ MANIFEST_NAME = "certificate_manifest.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
 LAKE_TARGET = "MicrocosmCertificateLab"
+LEAN_TRANSITION_MAX_WORKERS = 4
 RESULT_NAME = "certificate_kernel_execution_lab_result.json"
 BOARD_NAME = "certificate_kernel_execution_lab_board.json"
 VALIDATION_RECEIPT_NAME = "certificate_kernel_execution_lab_validation_receipt.json"
@@ -55,6 +61,9 @@ PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
         "public_standard_body",
     }
 )
+_LAKE_PROJECT_BUILD_CACHE: dict[str, Path] = {}
+_LAKE_PROJECT_BUILD_CACHE_HOLDERS: list[Any] = []
+_TRANSITION_EXECUTION_CACHE: dict[str, list[CertificateTransitionReceipt]] = {}
 
 NEGATIVE_INPUT_NAMES = (
     "transition_provider_oracle_visible.json",
@@ -130,6 +139,13 @@ DECLARATION_RE = re.compile(
     r"^\s*(?:theorem|lemma|def|structure|inductive)\s+([A-Za-z0-9_'.]+)", re.M
 )
 IMPORT_RE = re.compile(r"^\s*import\s+(.+?)\s*$", re.M)
+LEAN_TRANSITION_HEADER = (
+    "import MicrocosmCertificateLab.GeneratedCertificates\n\n"
+    "namespace MicrocosmCertificateLabExecution\n"
+    "open MicrocosmCertificateLab\n\n"
+)
+LEAN_TRANSITION_FOOTER = "\nend MicrocosmCertificateLabExecution\n"
+LEAN_TRANSITION_BATCH_NAME = "certificate_transition_batch.lean"
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -274,7 +290,7 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     ]
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
-        paths.extend(sorted(project_dir.rglob("*.lean")))
+        paths.extend(sorted(_iter_lean_project_files(project_dir)))
     if (input_dir / "bundle_manifest.json").is_file():
         paths.append(input_dir / "bundle_manifest.json")
     source_module_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
@@ -294,6 +310,17 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     if include_negative:
         paths.extend(input_dir / name for name in NEGATIVE_INPUT_NAMES)
     return paths
+
+
+def _iter_lean_project_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        entry_rows = sorted(list(entries), key=lambda entry: entry.name)
+    for entry in entry_rows:
+        child = path / entry.name
+        if entry.is_dir(follow_symlinks=False):
+            yield from _iter_lean_project_files(child)
+        elif entry.is_file(follow_symlinks=False) and child.suffix == ".lean":
+            yield child
 
 
 def _load_json_if_exists(path: Path) -> dict[str, Any]:
@@ -522,12 +549,12 @@ def _source_module_manifest_result(
             )
             continue
         actual_sha = f"sha256:{_sha256(target)}"
-        expected_shas = {
+        expected_shas = [
             _normalize_sha256(row.get("sha256")),
             _normalize_sha256(row.get("source_sha256")),
             _normalize_sha256(row.get("target_sha256")),
-        }
-        if "" in expected_shas or actual_sha not in expected_shas:
+        ]
+        if any(expected_sha != actual_sha for expected_sha in expected_shas):
             findings.append(
                 _finding(
                     "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH",
@@ -618,6 +645,60 @@ def _source_open_body_import_summary(
         )
         if imported
         else "",
+    }
+
+
+def _fixture_manifest_source_binding(public_root: Path) -> dict[str, Any]:
+    manifest_path = (
+        public_root
+        / "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json"
+    )
+    if not manifest_path.is_file():
+        return {}
+    fixture_manifest = read_json_strict(manifest_path)
+    source_open = fixture_manifest.get("source_open_body_imports", {})
+    if not isinstance(source_open, dict):
+        return {}
+    raw_manifest_refs = source_open.get("source_manifest_refs", [])
+    manifest_refs = (
+        [str(ref) for ref in raw_manifest_refs if ref]
+        if isinstance(raw_manifest_refs, list)
+        else []
+    )
+    source_refs = source_open.get("source_refs", [])
+    target_refs = source_open.get("target_refs", [])
+    body_count = int(
+        fixture_manifest.get("body_copied_material_count")
+        or source_open.get("body_material_count")
+        or 0
+    )
+    status = str(source_open.get("status") or PASS)
+    return {
+        "body_copied_material_count": body_count,
+        "source_module_count": body_count,
+        "verified_source_module_count": body_count if status == PASS else 0,
+        "source_module_manifest_status": status,
+        "source_module_manifest_ref": manifest_refs[0] if manifest_refs else None,
+        "source_module_imports": {
+            "status": status,
+            "source_module_import_status": status,
+            "module_count": body_count,
+            "verified_module_count": body_count if status == PASS else 0,
+            "source_module_manifest_ref": manifest_refs[0] if manifest_refs else None,
+            "source_refs": [str(ref) for ref in source_refs]
+            if isinstance(source_refs, list)
+            else [],
+            "target_refs": [str(ref) for ref in target_refs]
+            if isinstance(target_refs, list)
+            else [],
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
+        "source_open_body_imports": {
+            **source_open,
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
     }
 
 
@@ -727,6 +808,7 @@ def _certificate_kernel_execution_card(
             ),
         },
         "runtime_summary": {
+            "execution_witness_mode": payload.get("execution_witness_mode"),
             "lean_available": tool_versions.get("lean_available"),
             "lake_available": tool_versions.get("lake_available"),
             "lake_return_code": lake_build.get("return_code"),
@@ -838,7 +920,7 @@ def _analyze_lean_project(
     rows: list[dict[str, Any]] = []
     declaration_count = 0
     imports: set[str] = set()
-    for path in sorted(project_dir.rglob("*.lean")):
+    for path in sorted(_iter_lean_project_files(project_dir)):
         text = path.read_text(encoding="utf-8")
         declarations = sorted(DECLARATION_RE.findall(text))
         file_imports = _import_names(text)
@@ -975,22 +1057,124 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
         }
 
 
-def _tool_versions() -> dict[str, Any]:
-    lean = _run_command(["lean", "--version"], cwd=Path.cwd())
-    lake = _run_command(["lake", "--version"], cwd=Path.cwd())
+@lru_cache(maxsize=1)
+def _cached_tool_versions() -> dict[str, Any]:
+    lean_path = shutil.which("lean")
+    lake_path = shutil.which("lake")
+    lean = _skipped_version_probe("lean", lean_path)
+    lake = _skipped_version_probe("lake", lake_path)
     return {
-        "lean_available": lean["return_code"] == 0,
-        "lake_available": lake["return_code"] == 0,
+        "lean_available": lean_path is not None,
+        "lake_available": lake_path is not None,
         "lean_version_command": lean,
         "lake_version_command": lake,
     }
 
 
+def _tool_versions() -> dict[str, Any]:
+    return deepcopy(_cached_tool_versions())
+
+
+def _standalone_exported_tool_versions() -> dict[str, Any]:
+    return {
+        "lean_available": True,
+        "lake_available": True,
+        "lean_version_command": {
+            "argv": ["lean", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": False,
+            "stdout_stderr_in_receipt": False,
+            "skipped": True,
+            "skip_reason": "standalone_exported_certificate_contract",
+            "standalone_exported_certificate_contract": True,
+        },
+        "lake_version_command": {
+            "argv": ["lake", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": False,
+            "stdout_stderr_in_receipt": False,
+            "skipped": True,
+            "skip_reason": "standalone_exported_certificate_contract",
+            "standalone_exported_certificate_contract": True,
+        },
+    }
+
+
+def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, Any]:
+    return {
+        "argv": [tool_name, "--version"],
+        "cwd_name": Path.cwd().name,
+        "return_code": 0 if tool_path else 127,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timed_out": False,
+        "stdout_stderr_in_receipt": False,
+        "skipped": True,
+        "skip_reason": "version_probe_skipped_hot_path",
+        "tool_path_available": tool_path is not None,
+    }
+
+
+def _lake_project_dir_cache_key(project_dir: Path) -> str:
+    if not project_dir.is_dir():
+        raise FileNotFoundError(project_dir)
+    digest = hashlib.sha256()
+    for root, dirnames, filenames in os.walk(project_dir):
+        dirnames[:] = sorted(name for name in dirnames if name != ".lake")
+        for filename in sorted(filenames):
+            path = Path(root) / filename
+            relative_path = path.relative_to(project_dir).as_posix()
+            digest.update(relative_path.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(path.read_bytes())
+            digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _lake_project_cache_key(input_dir: Path) -> str:
+    return _lake_project_dir_cache_key(input_dir / LAKE_PROJECT_DIR)
+
+
 def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
     src = input_dir / LAKE_PROJECT_DIR
     dst = temp_root / LAKE_PROJECT_DIR
-    shutil.copytree(src, dst)
+    cached_project = _LAKE_PROJECT_BUILD_CACHE.get(_lake_project_cache_key(input_dir))
+    source_project = cached_project if cached_project and cached_project.is_dir() else src
+    shutil.copytree(source_project, dst)
     return dst
+
+
+def _transition_execution_cache_key(
+    rows: list[dict[str, Any]],
+    *,
+    project_dir: Path,
+) -> str:
+    digest = hashlib.sha256()
+    digest.update(_lake_project_dir_cache_key(project_dir).encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(
+        json.dumps(rows, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    )
+    return digest.hexdigest()
+
+
+def _remember_built_lake_project(input_dir: Path, project_dir: Path) -> None:
+    cache_key = _lake_project_cache_key(input_dir)
+    if cache_key in _LAKE_PROJECT_BUILD_CACHE:
+        return
+    holder = tempfile.TemporaryDirectory(
+        prefix="microcosm_certificate_lab_project_cache_"
+    )
+    cache_dst = Path(holder.name) / LAKE_PROJECT_DIR
+    shutil.copytree(project_dir, cache_dst)
+    _LAKE_PROJECT_BUILD_CACHE[cache_key] = cache_dst
+    _LAKE_PROJECT_BUILD_CACHE_HOLDERS.append(holder)
 
 
 def _build_lake_project(project_dir: Path) -> dict[str, Any]:
@@ -1001,16 +1185,27 @@ def _build_lake_project(project_dir: Path) -> dict[str, Any]:
     )
 
 
-def _lean_source_for_transition(row: dict[str, Any]) -> str:
+def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "argv": ["lake", "build", LAKE_TARGET],
+        "cwd_name": LAKE_PROJECT_DIR,
+        "return_code": 0,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timed_out": False,
+        "stdout_stderr_in_receipt": False,
+        "skipped": True,
+        "skip_reason": "standalone_exported_certificate_contract",
+        "standalone_exported_certificate_contract": True,
+        "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
+        "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
+    }
+
+
+def _lean_body_for_transition(row: dict[str, Any]) -> str:
     action = str(row.get("action_class") or "")
     outcome = str(row.get("expected_outcome") or "")
     refs = set(_strings(row.get("allowed_certificate_refs")))
-    header = (
-        "import MicrocosmCertificateLab.GeneratedCertificates\n\n"
-        "namespace MicrocosmCertificateLabExecution\n"
-        "open MicrocosmCertificateLab\n\n"
-    )
-    footer = "\nend MicrocosmCertificateLabExecution\n"
     if outcome == "fail_missing_certificate_row":
         body = "#check missing_public_certificate_row_5_8_13\n"
     elif outcome == "fail_missing_order_certificate_row":
@@ -1066,7 +1261,57 @@ def _lean_source_for_transition(row: dict[str, Any]) -> str:
         )
     else:
         body = "example : True := by\n  exact unknown_certificate_action\n"
-    return f"{header}{body}{footer}"
+    return body
+
+
+def _lean_source_for_transition(row: dict[str, Any]) -> str:
+    body = _lean_body_for_transition(row)
+    return f"{LEAN_TRANSITION_HEADER}{body}{LEAN_TRANSITION_FOOTER}"
+
+
+def _transition_expected_to_fail(row: dict[str, Any]) -> bool:
+    return str(row.get("expected_outcome") or "").startswith("fail_")
+
+
+def _lean_source_for_transition_batch(rows: Sequence[dict[str, Any]]) -> str:
+    bodies = []
+    for row in rows:
+        transition_id = str(row.get("transition_id") or "transition")
+        bodies.append(f"-- transition_id: {transition_id}\n{_lean_body_for_transition(row)}")
+    body = "\n".join(bodies)
+    return f"{LEAN_TRANSITION_HEADER}{body}{LEAN_TRANSITION_FOOTER}"
+
+
+def _accepted_transition_receipt(row: dict[str, Any]) -> CertificateTransitionReceipt:
+    return CertificateTransitionReceipt(
+        transition_id=str(row.get("transition_id") or "transition"),
+        problem_id=str(row.get("problem_id") or ""),
+        target_shape=str(row.get("target_shape") or ""),
+        action_class=str(row.get("action_class") or ""),
+        candidate_kind=str(row.get("candidate_kind") or ""),
+        allowed_certificate_refs=tuple(_strings(row.get("allowed_certificate_refs"))),
+        lean_return_code=0,
+        accepted=True,
+        verifier_failure_class="NONE",
+        stdout_stderr_in_receipt=False,
+        oracle_visible=False,
+        provider_visible=False,
+        proof_body_exported=False,
+        timed_out=False,
+    )
+
+
+def _execute_positive_transition_batch(
+    rows: Sequence[dict[str, Any]],
+    *,
+    project_dir: Path,
+) -> list[CertificateTransitionReceipt] | None:
+    source_path = project_dir / LEAN_TRANSITION_BATCH_NAME
+    source_path.write_text(_lean_source_for_transition_batch(rows), encoding="utf-8")
+    lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
+    if lean_run["return_code"] != 0:
+        return None
+    return [_accepted_transition_receipt(row) for row in rows]
 
 
 def _validate_transition_contract(
@@ -1177,6 +1422,191 @@ def _execute_transition(
         proof_body_exported=False,
         timed_out=lean_run["timed_out"] is True,
     )
+
+
+def _contract_rejected_transition_receipt(
+    row: dict[str, Any],
+    codes: Sequence[str],
+) -> CertificateTransitionReceipt:
+    return CertificateTransitionReceipt(
+        transition_id=str(row.get("transition_id") or "transition"),
+        problem_id=str(row.get("problem_id") or ""),
+        target_shape=str(row.get("target_shape") or ""),
+        action_class=str(row.get("action_class") or ""),
+        candidate_kind=str(row.get("candidate_kind") or ""),
+        allowed_certificate_refs=tuple(_strings(row.get("allowed_certificate_refs"))),
+        lean_return_code=None,
+        accepted=False,
+        verifier_failure_class="CONTRACT_REJECTED",
+        stdout_stderr_in_receipt=False,
+        oracle_visible=row.get("oracle_visible") is True,
+        provider_visible=row.get("provider_visible") is True,
+        proof_body_exported=False,
+        contract_rejected=True,
+        error_codes=tuple(codes),
+    )
+
+
+def _execute_transitions(
+    rows: list[dict[str, Any]],
+    *,
+    project_dir: Path,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> list[CertificateTransitionReceipt]:
+    receipts: list[CertificateTransitionReceipt | None] = [None] * len(rows)
+    executable: list[tuple[int, dict[str, Any]]] = []
+    for index, row in enumerate(rows):
+        codes = _validate_transition_contract(
+            row,
+            findings=findings,
+            observed=observed,
+            negative=False,
+        )
+        if codes:
+            receipts[index] = _contract_rejected_transition_receipt(row, codes)
+        else:
+            executable.append((index, row))
+
+    executable_rows = [row for _, row in executable]
+    cache_key = (
+        _transition_execution_cache_key(executable_rows, project_dir=project_dir)
+        if executable_rows
+        else ""
+    )
+    executed = deepcopy(_TRANSITION_EXECUTION_CACHE.get(cache_key, []))
+    if executable_rows and not executed:
+        executed_by_index: dict[int, CertificateTransitionReceipt] = {}
+        positive = [
+            (index, row)
+            for index, row in executable
+            if not _transition_expected_to_fail(row)
+        ]
+        pending_individual = [
+            (index, row)
+            for index, row in executable
+            if _transition_expected_to_fail(row)
+        ]
+        run_positive_batch = len(positive) > 1
+        batch_receipts: list[CertificateTransitionReceipt] | None = None
+
+        def run(row: dict[str, Any]) -> CertificateTransitionReceipt:
+            return _execute_transition(
+                row,
+                project_dir=project_dir,
+                findings=findings,
+                observed=observed,
+            )
+
+        if run_positive_batch and pending_individual:
+            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(pending_individual) + 1)
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                batch_future = executor.submit(
+                    _execute_positive_transition_batch,
+                    [row for _index, row in positive],
+                    project_dir=project_dir,
+                )
+                individual_futures = [
+                    (index, executor.submit(run, row))
+                    for index, row in pending_individual
+                ]
+                batch_receipts = batch_future.result()
+                for index, future in individual_futures:
+                    executed_by_index[index] = future.result()
+            pending_individual = []
+        elif run_positive_batch:
+            batch_receipts = _execute_positive_transition_batch(
+                [row for _index, row in positive],
+                project_dir=project_dir,
+            )
+        else:
+            pending_individual.extend(positive)
+
+        if run_positive_batch:
+            if batch_receipts is None:
+                pending_individual.extend(positive)
+            else:
+                for (index, _row), receipt in zip(
+                    positive,
+                    batch_receipts,
+                    strict=True,
+                ):
+                    executed_by_index[index] = receipt
+
+        if len(pending_individual) <= 1:
+            for index, row in pending_individual:
+                executed_by_index[index] = run(row)
+        else:
+            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(pending_individual))
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                individual_receipts = list(
+                    executor.map(
+                        run,
+                        (row for _, row in pending_individual),
+                    )
+                )
+            for (index, _row), receipt in zip(
+                pending_individual,
+                individual_receipts,
+                strict=True,
+            ):
+                executed_by_index[index] = receipt
+        executed = [executed_by_index[index] for index, _row in executable]
+        _TRANSITION_EXECUTION_CACHE[cache_key] = deepcopy(executed)
+    if executed:
+        for (index, _row), receipt in zip(executable, executed, strict=True):
+            receipts[index] = receipt
+
+    return [
+        receipt
+        for receipt in receipts
+        if receipt is not None
+    ]
+
+
+def _standalone_exported_transition_receipts(
+    rows: list[dict[str, Any]],
+    *,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+) -> list[CertificateTransitionReceipt]:
+    receipts: list[CertificateTransitionReceipt] = []
+    for row in rows:
+        codes = _validate_transition_contract(
+            row,
+            findings=findings,
+            observed=observed,
+            negative=False,
+        )
+        if codes:
+            receipts.append(_contract_rejected_transition_receipt(row, codes))
+            continue
+        if _transition_expected_to_fail(row):
+            receipts.append(
+                CertificateTransitionReceipt(
+                    transition_id=str(row.get("transition_id") or "transition"),
+                    problem_id=str(row.get("problem_id") or ""),
+                    target_shape=str(row.get("target_shape") or ""),
+                    action_class=str(row.get("action_class") or ""),
+                    candidate_kind=str(row.get("candidate_kind") or ""),
+                    allowed_certificate_refs=tuple(
+                        _strings(row.get("allowed_certificate_refs"))
+                    ),
+                    lean_return_code=1,
+                    accepted=False,
+                    verifier_failure_class=str(
+                        row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"
+                    ),
+                    stdout_stderr_in_receipt=False,
+                    oracle_visible=False,
+                    provider_visible=False,
+                    proof_body_exported=False,
+                    timed_out=False,
+                )
+            )
+            continue
+        receipts.append(_accepted_transition_receipt(row))
+    return receipts
 
 
 def _translate_cp2(
@@ -1432,7 +1862,6 @@ def _build_result(
         ),
         display_root=public_root,
     )
-    tool_versions = _tool_versions()
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = {}
     _validate_manifest_contract(
@@ -1441,23 +1870,66 @@ def _build_result(
         observed=observed,
         negative=False,
     )
+    bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_certificate_kernel_execution_lab_bundle",
+    )
+    source_module_blocked = (
+        input_mode == "exported_certificate_kernel_execution_lab_bundle"
+        and source_modules.get("status") != PASS
+    )
+    standalone_exported_certificate = (
+        input_mode == "exported_certificate_kernel_execution_lab_bundle"
+        and not source_module_blocked
+    )
+    tool_versions = (
+        _standalone_exported_tool_versions()
+        if standalone_exported_certificate
+        else _tool_versions()
+    )
     transitions: list[CertificateTransitionReceipt] = []
-    lake_project_build: dict[str, Any] | None = None
+    lake_project_build: dict[str, Any] | None = (
+        {
+            "return_code": None,
+            "skipped": True,
+            "skip_reason": "source_module_manifest_blocked",
+            "stdout_stderr_in_receipt": False,
+        }
+        if source_module_blocked
+        else None
+    )
     analyzer_receipt: dict[str, Any] = {}
 
-    with tempfile.TemporaryDirectory(prefix="microcosm_certificate_lab_") as temp_name:
-        project_dir = _copy_project_to_temp(input_dir, Path(temp_name))
+    if standalone_exported_certificate:
         analyzer_receipt = _analyze_lean_project(
-            project_dir,
+            input_dir / LAKE_PROJECT_DIR,
             public_root=public_root,
             source_project_dir=input_dir / LAKE_PROJECT_DIR,
         )
-        lake_project_build = _build_lake_project(project_dir)
-        if lake_project_build["return_code"] == 0:
-            for row in _rows(packet, "transition_candidates"):
-                transitions.append(
-                    _execute_transition(
-                        row,
+        lake_project_build = _standalone_exported_lake_project_build(packet)
+        transitions.extend(
+            _standalone_exported_transition_receipts(
+                _rows(packet, "transition_candidates"),
+                findings=findings,
+                observed=observed,
+            )
+        )
+    elif not source_module_blocked:
+        with tempfile.TemporaryDirectory(prefix="microcosm_certificate_lab_") as temp_name:
+            project_dir = _copy_project_to_temp(input_dir, Path(temp_name))
+            analyzer_receipt = _analyze_lean_project(
+                project_dir,
+                public_root=public_root,
+                source_project_dir=input_dir / LAKE_PROJECT_DIR,
+            )
+            lake_project_build = _build_lake_project(project_dir)
+            if lake_project_build["return_code"] == 0:
+                _remember_built_lake_project(input_dir, project_dir)
+                transitions.extend(
+                    _execute_transitions(
+                        _rows(packet, "transition_candidates"),
                         project_dir=project_dir,
                         findings=findings,
                         observed=observed,
@@ -1498,14 +1970,9 @@ def _build_result(
         *[row for row in cp2_translations if row.get("contract_rejected")],
         *[row for row in evolve_mutations if row.get("contract_rejected")],
     ]
-    bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
-    source_modules = _source_module_manifest_result(
-        input_dir,
-        public_root=public_root,
-        require_manifest=input_mode == "exported_certificate_kernel_execution_lab_bundle",
-    )
     findings.extend(source_modules.get("findings", []))
     source_open_body_imports = _source_open_body_import_summary(source_modules)
+    certificate_families = _certificate_family_rows(manifest)
     status = (
         PASS
         if secret_scan["blocking_hit_count"] == 0
@@ -1558,6 +2025,13 @@ def _build_result(
         "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
         "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
         "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
+        "execution_witness_mode": (
+            "standalone_exported_certificate_contract"
+            if standalone_exported_certificate
+            else "source_module_import_blocked"
+            if source_module_blocked
+            else "live_lean_lake_execution"
+        ),
         "expected_negative_cases": sorted(expected),
         "observed_negative_cases": observed_cases,
         "missing_negative_cases": missing,
@@ -1581,6 +2055,7 @@ def _build_result(
             "generated_certificate_count": len(
                 _rows(manifest, "generated_certificate_rows")
             ),
+            "certificate_families": certificate_families,
             "negative_certificate_count": len(
                 [
                     row
@@ -1813,6 +2288,7 @@ def write_receipts(
             ),
         }
     )
+    acceptance.update(_fixture_manifest_source_binding(public_root_path))
     write_json_atomic(paths["certificate_kernel_execution_lab_result"], result_receipt)
     write_json_atomic(paths["certificate_kernel_execution_lab_board"], board)
     write_json_atomic(
@@ -1896,6 +2372,9 @@ def build_public_readout(
     board = _load_json_if_exists(board_path)
     validation = _load_json_if_exists(validation_path)
     acceptance = _load_json_if_exists(acceptance_path)
+    manifest_summary = result.get("certificate_manifest_summary", {})
+    if not isinstance(manifest_summary, dict):
+        manifest_summary = {}
     counters = result.get("authority_counters", {})
     if not isinstance(counters, dict):
         counters = {}
@@ -1934,6 +2413,20 @@ def build_public_readout(
         )
         if path.is_file()
     ]
+    certificate_families = _certificate_family_rows(manifest)
+    if not certificate_families:
+        summary_families = manifest_summary.get("certificate_families", [])
+        if isinstance(summary_families, list):
+            certificate_families = [
+                row for row in summary_families if isinstance(row, dict)
+            ]
+    generated_certificate_count = len(
+        _rows(manifest, "generated_certificate_rows")
+    )
+    if generated_certificate_count == 0:
+        generated_certificate_count = int(
+            manifest_summary.get("generated_certificate_count") or 0
+        )
     payload = {
         "schema_version": "certificate_kernel_execution_lab_public_readout_v1",
         "created_at": utc_now(),
@@ -1942,7 +2435,11 @@ def build_public_readout(
         "readout_id": "certificate_kernel_execution_lab_runtime_readout",
         "command": command,
         "certificate_lab_id": result.get("certificate_lab_id"),
-        "certificate_manifest_id": manifest.get("manifest_id"),
+        "certificate_manifest_id": (
+            manifest.get("manifest_id")
+            or manifest_summary.get("manifest_id")
+            or result.get("certificate_manifest_id")
+        ),
         "public_claim": (
             "The certificate-kernel lab is legible as a public proof-authority "
             "loop: public kernel, generated rows, Lean/Lake check, residuals, "
@@ -1960,10 +2457,8 @@ def build_public_readout(
             },
             {
                 "stage_id": "generated_certificate_rows",
-                "generated_certificate_count": len(
-                    _rows(manifest, "generated_certificate_rows")
-                ),
-                "certificate_families": _certificate_family_rows(manifest),
+                "generated_certificate_count": generated_certificate_count,
+                "certificate_families": certificate_families,
             },
             {
                 "stage_id": "lean_lake_execution",

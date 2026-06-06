@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
   "kind_id": "undeclared_library_prior_symbol_classifier",
   "kind_name": "Undeclared library prior symbol classifier",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_undeclared_library_prior_symbol_classifier",
   "authority_boundary": "real_lean_std_symbol_boundary_not_theorem_authority",
@@ -101,7 +101,9 @@
     "source_module_manifest_ref",
     "source_module_count",
     "verified_source_module_count",
-    "source_open_body_imports"
+    "source_open_body_imports",
+    "copied_macro_body_artifacts",
+    "body_import_verification"
   ],
   "validation_rules": [
     "require real Lean/Std premise source refs, source digests, and copied target refs",
@@ -225,13 +227,22 @@
       "unqualified symbol overclaim",
       "classifier claims theorem correctness"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "accepted_public_runtime_standard_body_floor_validated",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.undeclared_library_prior_symbol_classifier",
+      "receipt_id": "receipt.microcosm.undeclared_library_prior_symbol_classifier",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "receipt_refs": [
-    "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json"
+    "receipt.microcosm.undeclared_library_prior_symbol_classifier"
   ],
   "validator_refs": [
-    "microcosm_core.organs.undeclared_library_prior_symbol_classifier"
+    "validator.microcosm.organs.undeclared_library_prior_symbol_classifier"
   ],
   "paper_module_contract": {
     "required": true,
@@ -300,5 +311,269 @@
       "release_authorized": false,
       "source_authority_above_macro_contracts": false
     }
+  },
+  "authority_boundary_detail": "Accepts copied non-secret Lean/Std symbol-boundary macro reducer, calibration report, and run-body material as public-safe classification evidence only; it never proves theorem correctness, authorizes Lean/Lake execution, exports proof/provider/private/oracle bodies, treats Lean/Std as a blanket allowlist, authorizes release, or claims private macro equivalence.",
+  "body_import_verification": {
+    "bundle_manifest_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json",
+    "bundle_manifest_anti_claim": "These copied symbol-boundary macro bodies make the undeclared-library classifier accountable to real reducer, calibration, and run substrate. They do not prove theorem correctness, authorize Lean/Lake execution, expose proof/provider/private/oracle bodies, turn Lean/Std into a blanket allowlist, or authorize release.",
+    "source_open_body_import_floor": {
+      "status": "pass",
+      "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+      "body_material_count": 6,
+      "body_material_ids": [
+        "provider_batch_context_calibration_report_builder_source_body_import",
+        "provider_batch_context_recipe_policy_metrics_body_import",
+        "provider_batch_receipt_reduction_matrix_body_import",
+        "provider_receipt_reducer_source_body_import",
+        "ring2_premise_index_state_body_import",
+        "ring2_premise_retrieval_run_summary_body_import"
+      ],
+      "material_classes": [
+        "public_macro_receipt_body",
+        "public_macro_tool_body"
+      ],
+      "aggregate_floor_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json::modules",
+      "source_manifest_refs": [
+        "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
+      ],
+      "body_in_receipt": false,
+      "body_text_exported_in_receipts": false,
+      "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro reducer, calibration, and run-body material; receipts carry digests and validation status only.",
+      "authority_ceiling": {
+        "body_text_in_receipt": false,
+        "proof_body_or_oracle_proof_text_exported": false,
+        "provider_payload_exported": false,
+        "lean_lake_execution_authorized": false,
+        "formal_proof_authority": false,
+        "theorem_correctness_authority": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false
+      },
+      "body_text_exported_in_workingness": false
+    }
+  },
+  "copied_macro_body_artifacts": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 39193,
+      "line_count": 926,
+      "material_class": "public_macro_tool_body",
+      "module_id": "provider_receipt_reducer_source_body_import",
+      "path": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "required_anchors": [
+        "def _undeclared_library_prior_symbols(",
+        "QUALIFIED_SYMBOL_RE",
+        "UNDECLARED_LIBRARY_PRIOR",
+        "PREMISE_BUDGET_VIOLATION",
+        "row_patch_review_outcome"
+      ],
+      "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "sha256_match": true,
+      "source_byte_count": 39193,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 926,
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "source_role": "Deterministic provider-receipt reducer that detects explicit undeclared library priors, separates premise-budget violations, maps failure classes to review outcomes, and records non-provider-call evidence.",
+      "source_sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_byte_count": 39193,
+      "target_line_count": 926,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "target_sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 16038,
+      "line_count": 356,
+      "material_class": "public_macro_tool_body",
+      "module_id": "provider_batch_context_calibration_report_builder_source_body_import",
+      "path": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "required_anchors": [
+        "def build_reports(",
+        "undeclared_library_prior_symbols",
+        "undeclared_library_prior_count",
+        "provider_receipt_reduction_matrix.json",
+        "recipe_policy_metrics.json"
+      ],
+      "sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+      "sha256_match": true,
+      "source_byte_count": 16038,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 356,
+      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "source_role": "Batch calibration report builder that aggregates reduced prover receipts into recipe policy metrics, undeclared-library-prior counts, and provider-free context-budget summaries.",
+      "source_sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_byte_count": 16038,
+      "target_line_count": 356,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "target_sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5808,
+      "line_count": 220,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_premise_index_state_body_import",
+      "path": "source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.public_normalized.json",
+      "path_normalizations": [
+        {
+          "from_pattern": "host_lean_toolchain_root",
+          "to": "<lean-toolchain-root>"
+        }
+      ],
+      "required_anchors": [
+        "\"premise_count\": 11",
+        "\"oracle_needed_premise_ids_visible_to_lab\": false",
+        "\"proof_bodies_in_index\": false",
+        "\"theorem_or_def_name\": \"Nat.succ.inj\"",
+        "<lean-toolchain-root>/src/lean"
+      ],
+      "sha256": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624",
+      "source_byte_count": 6276,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 220,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "source_role": "Ring2 Lean/Std premise index preserving the closed symbol boundary and proof-body exclusion flags while replacing host-specific Lean toolchain roots.",
+      "source_sha256": "c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "source_to_target_relation": "source_faithful_public_safe_path_normalized_copy",
+      "target_byte_count": 5808,
+      "target_line_count": 220,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.public_normalized.json",
+      "target_sha256": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 48889,
+      "line_count": 801,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_premise_retrieval_run_summary_body_import",
+      "path": "source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.public_normalized.json",
+      "path_normalizations": [
+        {
+          "from_pattern": "host_repo_root",
+          "to": "<repo-root>"
+        }
+      ],
+      "required_anchors": [
+        "\"graph_variant_id\": \"premise_retrieval_graph_v0\"",
+        "\"provider_calls\": 0",
+        "\"candidate_cites_only_retrieved_allowed_premises\": true",
+        "\"oracle_phase\": \"after_lean_check\"",
+        "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+      ],
+      "sha256": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20",
+      "source_byte_count": 51229,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 801,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_role": "Ring2 premise-retrieval run summary with problem results, candidate digests, no provider calls, and symbol-boundary metrics; repo roots are normalized for public clone readability.",
+      "source_sha256": "93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "source_to_target_relation": "source_faithful_public_safe_path_normalized_copy",
+      "target_byte_count": 48889,
+      "target_line_count": 801,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.public_normalized.json",
+      "target_sha256": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 1941,
+      "line_count": 71,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "provider_batch_context_recipe_policy_metrics_body_import",
+      "path": "source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+      "required_anchors": [
+        "\"schema_version\": \"prover_provider_recipe_policy_metrics_v0\"",
+        "\"recipe_id\": \"minimal_4kb\"",
+        "\"premise_budget_violation_count\"",
+        "\"undeclared_library_prior_count\""
+      ],
+      "sha256": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+      "sha256_match": true,
+      "source_byte_count": 1941,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 71,
+      "source_ref": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+      "source_role": "Provider batch context calibration policy metrics with premise-budget and undeclared-library-prior counts by context recipe; contains counts and refs only, not provider payload bodies.",
+      "source_sha256": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_byte_count": 1941,
+      "target_line_count": 71,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+      "target_sha256": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 16330,
+      "line_count": 337,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "provider_batch_receipt_reduction_matrix_body_import",
+      "path": "source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+      "required_anchors": [
+        "\"schema_version\": \"prover_provider_receipt_reduction_matrix_v0\"",
+        "\"premise_policy_status\"",
+        "\"undeclared_library_prior_symbols\"",
+        "\"row_patch_review_outcome\""
+      ],
+      "sha256": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
+      "sha256_match": true,
+      "source_byte_count": 16330,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 337,
+      "source_ref": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+      "source_role": "Provider batch receipt reduction matrix preserving failure classes, policy status, undeclared-library-prior symbols, review outcomes, provider/model ids, and receipt refs without provider payload bodies.",
+      "source_sha256": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
+      "source_to_target_relation": "source_faithful_public_safe_exact_copy",
+      "target_byte_count": 16330,
+      "target_line_count": 337,
+      "target_ref": "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+      "target_sha256": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a"
+    }
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.undeclared_library_prior_symbol_classifier.author",
+      "status": "planned",
+      "purpose": "create a valid Undeclared library prior symbol classifier instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.undeclared_library_prior_symbol_classifier.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Undeclared library prior symbol classifier without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.undeclared_library_prior_symbol_classifier.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_undeclared_library_prior_symbol_classifier and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "anti_claims": [
+    "This standard governs copied non-secret Lean/Std symbol-boundary classification with Mathlib absence context; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, turn Lean/Std into a blanket allowlist, or authorize release/publication work.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_undeclared_library_prior_symbol_classifier",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.undeclared_library_prior_symbol_classifier",
+    "receipt_id": "receipt.microcosm.undeclared_library_prior_symbol_classifier",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
   }
 }

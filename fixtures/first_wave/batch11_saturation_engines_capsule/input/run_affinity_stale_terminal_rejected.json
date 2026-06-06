@@ -1,0 +1,46 @@
+{
+  "binding_disposition": "tier_a_new_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "run_affinity_stale_terminal_rejected",
+  "computed_path": "stale_terminal_refused",
+  "error_codes": [
+    "BATCH11_RUN_AFFINITY_STALE_TERMINAL_REJECTED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "run_affinity_session_scorer",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "candidates": [
+      {
+        "feed_count": 7,
+        "id": "RUN_CLOSE",
+        "mission_name": "feeds",
+        "status": "green",
+        "temporal": {
+          "horizon_label": "US close",
+          "horizon_policy": "next_us_close"
+        },
+        "timestamp": 1778702100.0
+      },
+      {
+        "feed_count": 99,
+        "id": "RUN_STALE_TERMINAL",
+        "mission_name": "feeds",
+        "status": "red",
+        "temporal": {
+          "horizon_label": "stale",
+          "horizon_policy": "manual"
+        },
+        "timestamp": 1778587200.0
+      }
+    ],
+    "mission_name": "feeds",
+    "now_ms": 1778706000000,
+    "require_working": true,
+    "stale_run_id": "RUN_STALE_TERMINAL",
+    "sticky_run_id": "RUN_STALE_TERMINAL"
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

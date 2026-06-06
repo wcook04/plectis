@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_formal_math_lean_proof_witness",
   "kind_id": "formal_math_lean_proof_witness",
   "kind_name": "Formal math Lean proof witness",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_formal_math_lean_witness",
   "authority_boundary": "bounded_public_lean_lake_witness_not_mathlib_or_release_authority",
@@ -17,8 +17,33 @@
       "path": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json",
+      "field": "modules",
+      "role": "copied public Lean/Lake witness source-module manifest"
+    },
+    {
+      "path": "paper_modules/formal_math_lean_proof_witness.md",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "path": "core/paper_module_capsules.json#paper_module.formal_math_lean_proof_witness",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "path": "core/mechanism_sources.json#mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness",
+      "role": "mechanism_source"
     }
   ],
+  "source_module_manifest_contract": {
+    "required": true,
+    "bundle_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle",
+    "manifest_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json",
+    "body_material_status": "copied_non_secret_public_lean_lake_witness_bodies_with_digest_provenance",
+    "blocked_import_debt_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::blocked_import_debt",
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
+  },
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#formal_math_lean_proof_witness",
     "used_by_organs": [
@@ -148,17 +173,115 @@
       "manifest cites private source refs",
       "receipt embeds proof body or provider payload"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "draft",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "accepted",
+      "validator_refs": [
+        "microcosm_core.organs.formal_math_lean_proof_witness",
+        "validator.microcosm.formal_math_lean_proof_witness"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+        "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
+        "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
+        "receipt.microcosm.formal_math_lean_proof_witness"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "receipt_refs": [
-    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json"
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
+    "receipt.microcosm.formal_math_lean_proof_witness"
   ],
   "validator_refs": [
-    "microcosm_core.organs.formal_math_lean_proof_witness"
+    "microcosm_core.organs.formal_math_lean_proof_witness",
+    "validator.microcosm.formal_math_lean_proof_witness"
   ],
   "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.formal_math_lean_proof_witness",
+    "mechanism_ref": "mechanism.formal_math_lean_proof_witness.validates_public_lean_lake_witness",
+    "module_slug": "formal_math_lean_proof_witness",
     "required": true,
-    "module_slug": "formal_math_lean_proof_witness"
+    "source_authority": "json_capsule"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_for_sibling_organ_atlas_lane",
+    "atlas_reentry_refs": [
+      "cap_quick_prestage_formal_math_lean_proof_witness_per_organ_capsule",
+      "core/organ_atlas.json::organs[organ_id=formal_math_lean_proof_witness].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=formal_math_lean_proof_witness].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=formal_math_lean_proof_witness].code_loci"
+    ],
+    "coverage_projection_status": "json_corpus_populated_atlas_edges_pending",
+    "source_module_manifest_status": "populated",
+    "authority_boundary": "Structured doctrine pre-stage binds the source-backed capsule, mechanism, standard, authored Markdown projection, copied public Lean/Lake source-module manifest, first-wave local Lean/Lake receipts, runtime-shell bundle receipt, and focused tests while intentionally deferring organ_atlas edge mutation to avoid the live organ_atlas sibling lane; Mathlib/Aesop/Batteries authority, general theorem correctness, provider calls, private proof import, benchmark performance, release, publication, source mutation, and whole-system claims remain outside this standard's authority.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_formal_math_lean_proof_witness_population_has_capsule_and_mechanism_prestaged_until_atlas_binding",
+      "tests/test_formal_math_lean_proof_witness.py",
+      "microcosm_core.organs.formal_math_lean_proof_witness run",
+      "microcosm_core.organs.formal_math_lean_proof_witness run-witness-bundle"
+    ]
+  },
+  "source_open_body_imports": {
+    "schema_version": "formal_math_lean_proof_witness_source_open_body_imports_v1",
+    "status": "pass",
+    "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
+    "body_material_status": "copied_non_secret_public_lean_lake_witness_bodies_with_digest_provenance",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "formal_math_lean_witness_manifest_body_import",
+      "formal_math_lean_lakefile_body_import",
+      "formal_math_lean_root_module_body_import",
+      "formal_math_lean_basic_witness_body_import",
+      "formal_math_lean_witness_control_plane_source_body_import"
+    ],
+    "material_classes": [
+      "public_lean_witness_manifest_body",
+      "public_lean_lake_project_body",
+      "public_lean_source_body",
+      "public_python_source_body"
+    ],
+    "source_manifest_refs": [
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+    ],
+    "source_import_class": "copied_non_secret_formal_math_witness_body",
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "reader_action": "Open the exported Lean witness bundle source_module_manifest.json plus lake_project/ and source_modules/ for copied public witness bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": "bounded_declared_public_toy_witness_only",
+      "lean_lake_execution_authorized": true,
+      "mathlib_authority": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    }
+  },
+  "negative_cases": {
+    "expected": [
+      "invalid_proof_rejected",
+      "mathlib_import_forbidden",
+      "private_source_ref_forbidden",
+      "proof_body_in_manifest_forbidden"
+    ],
+    "receipt_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+    "coverage_status": "all_observed"
   },
   "omission_receipt": {
     "omitted": [
@@ -191,5 +314,57 @@
     "body_text_exported_in_receipts": false,
     "blocked_import_debt_ref": "source_module_manifest.json::blocked_import_debt",
     "rule": "Count the exported witness manifest, lakefile, root module, and Basic.lean as source-open body material only after source_module_manifest.json verifies path, relation, digest, and public-safe material class."
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.formal_math_lean_proof_witness.author",
+      "status": "planned",
+      "purpose": "create a valid Formal math Lean proof witness instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.formal_math_lean_proof_witness.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Formal math Lean proof witness without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.formal_math_lean_proof_witness.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_formal_math_lean_proof_witness and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_formal_math_lean_proof_witness.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "anti_claims": [
+    "This standard governs only a bounded public Lean/Lake witness fixture. It does not authorize Mathlib-dependent proofs, provider calls, private proof import, benchmark performance claims, release/publication work, or theorem-program authority beyond the declared toy witnesses.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_formal_math_lean_proof_witness",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.formal_math_lean_proof_witness",
+    "receipt_id": "receipt.microcosm.formal_math_lean_proof_witness",
+    "validator_refs": [
+      "microcosm_core.organs.formal_math_lean_proof_witness",
+      "validator.microcosm.formal_math_lean_proof_witness"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+      "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
+      "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
+      "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+      "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
+      "receipt.microcosm.formal_math_lean_proof_witness"
+    ]
   }
 }

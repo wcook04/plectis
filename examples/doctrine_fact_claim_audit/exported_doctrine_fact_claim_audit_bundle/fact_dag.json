@@ -1,0 +1,16 @@
+{
+  "body_in_receipt": false,
+  "edges": [
+    {
+      "from": "fact.derived_fact_projection",
+      "relation": "supports",
+      "to": "fact.authority_boundary"
+    },
+    {
+      "from": "fact.paper_module_index",
+      "relation": "bounds",
+      "to": "fact.authority_boundary"
+    }
+  ],
+  "schema_version": "doctrine_fact_dag_v1"
+}

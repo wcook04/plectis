@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "coverage_scope": "live_kind_atlas_vs_generated_system_atlas_materialization_snapshot",
+  "does_not_prove": [
+    "literal unknown-unknown coverage",
+    "absence proof",
+    "fresh System Atlas source coupling",
+    "source mutation or release authority"
+  ],
+  "organ_id": "self_ignorance_coverage_ledger",
+  "schema_version": "microcosm_crown_jewel_projection_protocol_v1",
+  "source_authority_boundary": "Live Kind Atlas row counts come from kernel source walks; System Atlas materialization counts come from a generated graph snapshot and are projection evidence only.",
+  "source_module_manifest_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
+  "system_atlas_check_command": "./repo-python tools/meta/factory/build_system_atlas.py --check",
+  "system_atlas_check_status": "blocked_source_inputs_changed_since_artifact_generation",
+  "system_atlas_refresh_blocked_by_active_source_claims": true
+}

@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 7 Oracle sibling imports public-safe source bodies for subject index, subject snapshot, macro truth-diff, and deterministic quartet repair planning. It is not an Oracle reasoning run, not provider or bridge authority, not GodModeEngine invocation, not source mutation authority, and not proof that all Oracle paths are covered.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_oracle_sibling_capsule",
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "microcosm-substrate/receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "microcosm-substrate/receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_validation_receipt.json"
+}

@@ -1,0 +1,23 @@
+{
+  "anti_claim": "Self-ignorance coverage ledger projects known coverage debt between public fixture Kind Atlas rows and materialized Atlas entities. It does not claim literal unknown-unknown omniscience, absence proof, source mutation, or release authority.",
+  "authority_ceiling": {
+    "absence_proof_authorized": false,
+    "authority_ceiling": "known_kind_atlas_coverage_debt_projection_only",
+    "literal_unknown_unknown_omniscience_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 3,
+    "observed_negative_case_count": 2,
+    "source_module_count": 1
+  },
+  "organ_id": "self_ignorance_coverage_ledger",
+  "schema_version": "self_ignorance_coverage_ledger_board_v1",
+  "status": "pass",
+  "title": "Self-ignorance coverage ledger",
+  "verdict": "pass"
+}

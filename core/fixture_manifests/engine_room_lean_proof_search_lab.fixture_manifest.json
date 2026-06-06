@@ -1,0 +1,23 @@
+{
+  "fixture_id": "engine_room_lean_proof_search_lab_fixture_v1",
+  "organ_id": "engine_room_lean_proof_search_lab",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_lean_proof_search_lab/input/positive_symbolic_lab_pass.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_lean_proof_search_lab/input/oracle_field_negative.json",
+    "fixtures/first_wave/engine_room_lean_proof_search_lab/input/memorized_policy_negative.json",
+    "fixtures/first_wave/engine_room_lean_proof_search_lab/input/sorry_axiom_negative.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.lean_proof_search_lab evaluate-fixtures --input fixtures/first_wave/engine_room_lean_proof_search_lab/input --json",
+  "source_refs": [
+    "tools/meta/factory/run_prover_leakproof_and_or_deep_search.py",
+    "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+    "tools/meta/factory/run_prover_adversarial_blind_policy_evolver.py",
+    "tools/meta/factory/run_prover_blind_proof_state_policy.py",
+    "tools/meta/factory/run_prover_graph_benchmark.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Bounded symbolic Lean proof-search lab over tiny public fixtures; not neural theorem proving, not frontier-scale automation, not online-RL bandit search, and not private macro prover run export."
+}

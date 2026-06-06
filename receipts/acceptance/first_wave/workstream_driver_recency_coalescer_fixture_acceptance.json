@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Workstream driver recency coalescer validates the public grouping semantics copied from WorkstreamBoard.tsx over synthetic AttentionRecentChange rows. It does not read live cockpit state, authorize frontend release, mutate the source UI, prove workstream classification correctness, dispatch providers, or claim whole-system correctness.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.workstream_driver_recency_coalescer",
+  "organ_id": "workstream_driver_recency_coalescer",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json"
+}

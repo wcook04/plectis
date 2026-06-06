@@ -1,0 +1,890 @@
+{
+  "anti_claims": [
+    "real provider reliability measured",
+    "hosted evaluator authority proven",
+    "private provider harness exported",
+    "public release approved"
+  ],
+  "authority_posture": "public_safe_synthetic_provider_harness_canary_not_real_provider_or_private_eval_authority",
+  "authority_trace": [
+    {
+      "authority_role": "routes_synthetic_request",
+      "node_id": "type_a_harness",
+      "status_authority": false
+    },
+    {
+      "authority_role": "produces_candidate_output_only",
+      "node_id": "mock_provider",
+      "status_authority": false
+    },
+    {
+      "authority_role": "classifies_route_schema_timeout_and_answer_status",
+      "node_id": "fixture_evaluator",
+      "status_authority": true
+    },
+    {
+      "authority_role": "records_evaluator_decision_and_boundaries",
+      "node_id": "receipt_gate",
+      "status_authority": true
+    }
+  ],
+  "candidate_id": "provider_harness_evaluator_authority_split_microcosm",
+  "cases": [
+    {
+      "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+      "case_id": "case.good_json_answer",
+      "evaluator_decision": {
+        "evaluator_ref": "fixture_evaluator",
+        "evaluator_status": "pass",
+        "expected_answer": "alpha",
+        "failure_class": null,
+        "observed_answer": "alpha",
+        "provider_self_attestation_used_as_authority": false,
+        "reason": "Provider output passed schema and fixture expectation.",
+        "status_authority": "evaluator_only"
+      },
+      "expected_answer": "alpha",
+      "prompt": "Return the control token for route alpha.",
+      "provider_response": {
+        "latency_ms": 24,
+        "provider_self_attested_status": "pass",
+        "provider_variant": "valid_json_correct",
+        "raw_output": {
+          "answer": "alpha",
+          "rationale": "The fixture route maps to alpha."
+        },
+        "route_status": "ok"
+      },
+      "provider_self_attestation_rejected": false,
+      "repair_route": {
+        "failure_class": null,
+        "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+        "owner_lane": "receipt_gate",
+        "preserved_evidence": [
+          "provider_response",
+          "evaluator_decision",
+          "claim_boundary"
+        ],
+        "restart_from": "receipt_record"
+      },
+      "status_channels": {
+        "answer_status": "passed",
+        "evaluator_status": "pass",
+        "final_status_authority": "evaluator_decision",
+        "provider_output_status": "present",
+        "provider_route_status": "returned",
+        "provider_self_attested_status": "pass",
+        "receipt_status": "recorded_after_evaluator_decision",
+        "schema_status": "passed"
+      }
+    },
+    {
+      "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+      "case_id": "case.bad_json_self_attested_pass",
+      "evaluator_decision": {
+        "evaluator_ref": "fixture_evaluator",
+        "evaluator_status": "fail",
+        "failure_class": "schema_failure",
+        "provider_self_attestation_used_as_authority": false,
+        "reason": "Provider output failed the fixture schema before answer evaluation.",
+        "schema_failures": [
+          "missing_string_answer",
+          "missing_string_rationale",
+          "provider_output_must_not_carry_status_authority"
+        ],
+        "status_authority": "evaluator_only"
+      },
+      "expected_answer": "alpha",
+      "prompt": "Return the control token for route alpha.",
+      "provider_response": {
+        "latency_ms": 31,
+        "provider_self_attested_status": "pass",
+        "provider_variant": "invalid_schema_self_attested_pass",
+        "raw_output": {
+          "status": "pass",
+          "text": "alpha"
+        },
+        "route_status": "ok"
+      },
+      "provider_self_attestation_rejected": true,
+      "repair_route": {
+        "failure_class": "schema_failure",
+        "next_action": "repair_output_schema_contract_before_answer_evaluation",
+        "owner_lane": "schema_adapter",
+        "preserved_evidence": [
+          "raw_output",
+          "schema_failures",
+          "provider_self_attested_status"
+        ],
+        "restart_from": "schema_validation"
+      },
+      "status_channels": {
+        "answer_status": "not_evaluated_schema_failed",
+        "evaluator_status": "fail",
+        "final_status_authority": "evaluator_decision",
+        "provider_output_status": "present",
+        "provider_route_status": "returned",
+        "provider_self_attested_status": "pass",
+        "receipt_status": "recorded_after_evaluator_decision",
+        "schema_status": "failed"
+      }
+    },
+    {
+      "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+      "case_id": "case.wrong_answer_self_attested_pass",
+      "evaluator_decision": {
+        "evaluator_ref": "fixture_evaluator",
+        "evaluator_status": "fail",
+        "expected_answer": "alpha",
+        "failure_class": "answer_mismatch",
+        "observed_answer": "beta",
+        "provider_self_attestation_used_as_authority": false,
+        "reason": "Provider output passed schema but did not match the fixture expectation.",
+        "status_authority": "evaluator_only"
+      },
+      "expected_answer": "alpha",
+      "prompt": "Return the control token for route alpha.",
+      "provider_response": {
+        "latency_ms": 29,
+        "provider_self_attested_status": "pass",
+        "provider_variant": "valid_json_wrong_answer_self_attested_pass",
+        "raw_output": {
+          "answer": "beta",
+          "rationale": "The fixture route maps to beta."
+        },
+        "route_status": "ok"
+      },
+      "provider_self_attestation_rejected": true,
+      "repair_route": {
+        "failure_class": "answer_mismatch",
+        "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+        "owner_lane": "provider_prompt_or_model_output",
+        "preserved_evidence": [
+          "schema_status",
+          "observed_answer",
+          "expected_answer"
+        ],
+        "restart_from": "provider_call_with_same_schema_contract"
+      },
+      "status_channels": {
+        "answer_status": "failed",
+        "evaluator_status": "fail",
+        "final_status_authority": "evaluator_decision",
+        "provider_output_status": "present",
+        "provider_route_status": "returned",
+        "provider_self_attested_status": "pass",
+        "receipt_status": "recorded_after_evaluator_decision",
+        "schema_status": "passed"
+      }
+    },
+    {
+      "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+      "case_id": "case.timeout",
+      "evaluator_decision": {
+        "evaluator_ref": "fixture_evaluator",
+        "evaluator_status": "block",
+        "failure_class": "provider_route_unavailable",
+        "provider_self_attestation_used_as_authority": false,
+        "reason": "Provider route did not return an output to evaluate.",
+        "status_authority": "evaluator_only"
+      },
+      "expected_answer": "alpha",
+      "prompt": "Return the control token for route alpha.",
+      "provider_response": {
+        "latency_ms": 1000,
+        "provider_self_attested_status": "unavailable",
+        "provider_variant": "timeout",
+        "raw_output": null,
+        "route_status": "timeout"
+      },
+      "provider_self_attestation_rejected": false,
+      "repair_route": {
+        "failure_class": "provider_route_unavailable",
+        "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+        "owner_lane": "provider_transport",
+        "preserved_evidence": [
+          "case_id",
+          "prompt",
+          "expected_answer",
+          "provider_variant",
+          "timeout_status"
+        ],
+        "restart_from": "provider_call"
+      },
+      "status_channels": {
+        "answer_status": "not_evaluated_provider_route_unavailable",
+        "evaluator_status": "block",
+        "final_status_authority": "evaluator_decision",
+        "provider_output_status": "absent",
+        "provider_route_status": "unavailable",
+        "provider_self_attested_status": "unavailable",
+        "receipt_status": "recorded_after_evaluator_decision",
+        "schema_status": "not_evaluated_provider_route_unavailable"
+      }
+    }
+  ],
+  "claim_boundary": "Fixture-level proof of provider/evaluator authority separation; not a provider benchmark, hosted CI result, public release, novelty proof, or private-root equivalence claim.",
+  "evaluator_gate": {
+    "provider_self_attestation_role": "observation_not_authority",
+    "required_failure_classes": [
+      "schema_failure",
+      "answer_mismatch",
+      "provider_route_unavailable"
+    ],
+    "status_authority": "fixture_evaluator_only"
+  },
+  "failures": [],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "improvement_delta": "The release specimen replaces private provider dependencies with deterministic synthetic provider outcomes and makes the evaluator receipt the only source of status authority.",
+  "kind": "provider_harness_evaluator_authority_canary_specimen",
+  "public_safety_boundary": "Synthetic provider responses only; no provider key, real provider transcript, private eval corpus, private harness code, or hidden prompt state is included.",
+  "publication_boundary": "No website card or public claim may outrun registry records, receipt refs, fail-closed publication gate, and fresh clean-run or clone probes.",
+  "schema_version": "provider_harness_evaluator_authority_canary_specimen_v1",
+  "source_capsule_provenance": {
+    "anti_claims": [
+      "local diagnostics only",
+      "not real provider reliability evidence",
+      "not hosted evaluation proof",
+      "not public release approval",
+      "not private-root equivalence"
+    ],
+    "carryforward_contract": {
+      "authority_rule": "provider_harness_cases_may_carry_forward_only_with_evaluator_status_and_repair_route",
+      "required_fields": [
+        "source_clip",
+        "clip_hash",
+        "semantic_carryforward",
+        "repair_route_ref",
+        "anti_claims"
+      ],
+      "source_board": "microcosms/provider_harness_canary/canary_board.json"
+    },
+    "hash_algorithm": "sha256",
+    "kind": "source_capsule_provenance",
+    "schema_version": "source_capsule_provenance_v0",
+    "source_capsules": [
+      {
+        "anti_claims": [
+          "real provider reliability evidence",
+          "hosted evaluation proof",
+          "public release approval",
+          "private-root equivalence"
+        ],
+        "authority_boundary": "Local synthetic fixture capsule only; not real provider reliability evidence, hosted evaluation proof, public release approval, benchmark evidence, or private-root equivalence.",
+        "capsule_id": "source_capsule.provider_harness.case.good_json_answer",
+        "clip_hash": "25c3fd038acd30d65b63cac534c7f7066f3be1e4e9b93aceb4a8ae83addd9ed8",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "No provider key, real provider transcript, private eval corpus, private harness code, hosted CI trace, or hidden prompt state is included.",
+        "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.good_json_answer.repair_route",
+        "semantic_carryforward": {
+          "answer_status": "passed",
+          "carryforward_rule": "Carry provider outcomes forward only with status channels, evaluator decision, repair route, and anti-claims; provider self-attestation remains observation.",
+          "case_id": "case.good_json_answer",
+          "evaluator_status": "pass",
+          "failure_class": null,
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "receipt_gate",
+          "provider_route_status": "returned",
+          "provider_self_attestation_rejected": false,
+          "provider_self_attestation_used_as_authority": false,
+          "provider_variant": "valid_json_correct",
+          "restart_point": "receipt_record",
+          "schema_status": "passed"
+        },
+        "source_class": "public_safe_provider_harness_case",
+        "source_clip": {
+          "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+          "case_id": "case.good_json_answer",
+          "evaluator_decision": {
+            "evaluator_ref": "fixture_evaluator",
+            "evaluator_status": "pass",
+            "expected_answer": "alpha",
+            "failure_class": null,
+            "observed_answer": "alpha",
+            "provider_self_attestation_used_as_authority": false,
+            "reason": "Provider output passed schema and fixture expectation.",
+            "status_authority": "evaluator_only"
+          },
+          "expected_answer": "alpha",
+          "prompt": "Return the control token for route alpha.",
+          "provider_response": {
+            "latency_ms": 24,
+            "provider_self_attested_status": "pass",
+            "provider_variant": "valid_json_correct",
+            "raw_output": {
+              "answer": "alpha",
+              "rationale": "The fixture route maps to alpha."
+            },
+            "route_status": "ok"
+          },
+          "provider_self_attestation_rejected": false,
+          "repair_route": {
+            "failure_class": null,
+            "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+            "owner_lane": "receipt_gate",
+            "preserved_evidence": [
+              "provider_response",
+              "evaluator_decision",
+              "claim_boundary"
+            ],
+            "restart_from": "receipt_record"
+          },
+          "status_channels": {
+            "answer_status": "passed",
+            "evaluator_status": "pass",
+            "final_status_authority": "evaluator_decision",
+            "provider_output_status": "present",
+            "provider_route_status": "returned",
+            "provider_self_attested_status": "pass",
+            "receipt_status": "recorded_after_evaluator_decision",
+            "schema_status": "passed"
+          }
+        },
+        "source_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.good_json_answer",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ]
+      },
+      {
+        "anti_claims": [
+          "real provider reliability evidence",
+          "hosted evaluation proof",
+          "public release approval",
+          "private-root equivalence"
+        ],
+        "authority_boundary": "Local synthetic fixture capsule only; not real provider reliability evidence, hosted evaluation proof, public release approval, benchmark evidence, or private-root equivalence.",
+        "capsule_id": "source_capsule.provider_harness.case.bad_json_self_attested_pass",
+        "clip_hash": "e6eee6a837c7b5e3831f822641556c75ce07f36fd701c1fa467208bdc546c5f8",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "No provider key, real provider transcript, private eval corpus, private harness code, hosted CI trace, or hidden prompt state is included.",
+        "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.bad_json_self_attested_pass.repair_route",
+        "semantic_carryforward": {
+          "answer_status": "not_evaluated_schema_failed",
+          "carryforward_rule": "Carry provider outcomes forward only with status channels, evaluator decision, repair route, and anti-claims; provider self-attestation remains observation.",
+          "case_id": "case.bad_json_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "schema_failure",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "schema_adapter",
+          "provider_route_status": "returned",
+          "provider_self_attestation_rejected": true,
+          "provider_self_attestation_used_as_authority": false,
+          "provider_variant": "invalid_schema_self_attested_pass",
+          "restart_point": "schema_validation",
+          "schema_status": "failed"
+        },
+        "source_class": "public_safe_provider_harness_case",
+        "source_clip": {
+          "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+          "case_id": "case.bad_json_self_attested_pass",
+          "evaluator_decision": {
+            "evaluator_ref": "fixture_evaluator",
+            "evaluator_status": "fail",
+            "failure_class": "schema_failure",
+            "provider_self_attestation_used_as_authority": false,
+            "reason": "Provider output failed the fixture schema before answer evaluation.",
+            "schema_failures": [
+              "missing_string_answer",
+              "missing_string_rationale",
+              "provider_output_must_not_carry_status_authority"
+            ],
+            "status_authority": "evaluator_only"
+          },
+          "expected_answer": "alpha",
+          "prompt": "Return the control token for route alpha.",
+          "provider_response": {
+            "latency_ms": 31,
+            "provider_self_attested_status": "pass",
+            "provider_variant": "invalid_schema_self_attested_pass",
+            "raw_output": {
+              "status": "pass",
+              "text": "alpha"
+            },
+            "route_status": "ok"
+          },
+          "provider_self_attestation_rejected": true,
+          "repair_route": {
+            "failure_class": "schema_failure",
+            "next_action": "repair_output_schema_contract_before_answer_evaluation",
+            "owner_lane": "schema_adapter",
+            "preserved_evidence": [
+              "raw_output",
+              "schema_failures",
+              "provider_self_attested_status"
+            ],
+            "restart_from": "schema_validation"
+          },
+          "status_channels": {
+            "answer_status": "not_evaluated_schema_failed",
+            "evaluator_status": "fail",
+            "final_status_authority": "evaluator_decision",
+            "provider_output_status": "present",
+            "provider_route_status": "returned",
+            "provider_self_attested_status": "pass",
+            "receipt_status": "recorded_after_evaluator_decision",
+            "schema_status": "failed"
+          }
+        },
+        "source_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.bad_json_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ]
+      },
+      {
+        "anti_claims": [
+          "real provider reliability evidence",
+          "hosted evaluation proof",
+          "public release approval",
+          "private-root equivalence"
+        ],
+        "authority_boundary": "Local synthetic fixture capsule only; not real provider reliability evidence, hosted evaluation proof, public release approval, benchmark evidence, or private-root equivalence.",
+        "capsule_id": "source_capsule.provider_harness.case.wrong_answer_self_attested_pass",
+        "clip_hash": "d493bc5e1b157b97591d61eaaea69acc80348f639b722ac0124b0bb249e4de65",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "No provider key, real provider transcript, private eval corpus, private harness code, hosted CI trace, or hidden prompt state is included.",
+        "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.wrong_answer_self_attested_pass.repair_route",
+        "semantic_carryforward": {
+          "answer_status": "failed",
+          "carryforward_rule": "Carry provider outcomes forward only with status channels, evaluator decision, repair route, and anti-claims; provider self-attestation remains observation.",
+          "case_id": "case.wrong_answer_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "answer_mismatch",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_prompt_or_model_output",
+          "provider_route_status": "returned",
+          "provider_self_attestation_rejected": true,
+          "provider_self_attestation_used_as_authority": false,
+          "provider_variant": "valid_json_wrong_answer_self_attested_pass",
+          "restart_point": "provider_call_with_same_schema_contract",
+          "schema_status": "passed"
+        },
+        "source_class": "public_safe_provider_harness_case",
+        "source_clip": {
+          "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+          "case_id": "case.wrong_answer_self_attested_pass",
+          "evaluator_decision": {
+            "evaluator_ref": "fixture_evaluator",
+            "evaluator_status": "fail",
+            "expected_answer": "alpha",
+            "failure_class": "answer_mismatch",
+            "observed_answer": "beta",
+            "provider_self_attestation_used_as_authority": false,
+            "reason": "Provider output passed schema but did not match the fixture expectation.",
+            "status_authority": "evaluator_only"
+          },
+          "expected_answer": "alpha",
+          "prompt": "Return the control token for route alpha.",
+          "provider_response": {
+            "latency_ms": 29,
+            "provider_self_attested_status": "pass",
+            "provider_variant": "valid_json_wrong_answer_self_attested_pass",
+            "raw_output": {
+              "answer": "beta",
+              "rationale": "The fixture route maps to beta."
+            },
+            "route_status": "ok"
+          },
+          "provider_self_attestation_rejected": true,
+          "repair_route": {
+            "failure_class": "answer_mismatch",
+            "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+            "owner_lane": "provider_prompt_or_model_output",
+            "preserved_evidence": [
+              "schema_status",
+              "observed_answer",
+              "expected_answer"
+            ],
+            "restart_from": "provider_call_with_same_schema_contract"
+          },
+          "status_channels": {
+            "answer_status": "failed",
+            "evaluator_status": "fail",
+            "final_status_authority": "evaluator_decision",
+            "provider_output_status": "present",
+            "provider_route_status": "returned",
+            "provider_self_attested_status": "pass",
+            "receipt_status": "recorded_after_evaluator_decision",
+            "schema_status": "passed"
+          }
+        },
+        "source_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.wrong_answer_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ]
+      },
+      {
+        "anti_claims": [
+          "real provider reliability evidence",
+          "hosted evaluation proof",
+          "public release approval",
+          "private-root equivalence"
+        ],
+        "authority_boundary": "Local synthetic fixture capsule only; not real provider reliability evidence, hosted evaluation proof, public release approval, benchmark evidence, or private-root equivalence.",
+        "capsule_id": "source_capsule.provider_harness.case.timeout",
+        "clip_hash": "47e70062e34e8a75b47567564c95e41363f3b7a364337bfae2d681046cf81ec8",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "No provider key, real provider transcript, private eval corpus, private harness code, hosted CI trace, or hidden prompt state is included.",
+        "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.timeout.repair_route",
+        "semantic_carryforward": {
+          "answer_status": "not_evaluated_provider_route_unavailable",
+          "carryforward_rule": "Carry provider outcomes forward only with status channels, evaluator decision, repair route, and anti-claims; provider self-attestation remains observation.",
+          "case_id": "case.timeout",
+          "evaluator_status": "block",
+          "failure_class": "provider_route_unavailable",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_transport",
+          "provider_route_status": "unavailable",
+          "provider_self_attestation_rejected": false,
+          "provider_self_attestation_used_as_authority": false,
+          "provider_variant": "timeout",
+          "restart_point": "provider_call",
+          "schema_status": "not_evaluated_provider_route_unavailable"
+        },
+        "source_class": "public_safe_provider_harness_case",
+        "source_clip": {
+          "authority_rule": "provider_self_attestation_is_observation_not_status_authority",
+          "case_id": "case.timeout",
+          "evaluator_decision": {
+            "evaluator_ref": "fixture_evaluator",
+            "evaluator_status": "block",
+            "failure_class": "provider_route_unavailable",
+            "provider_self_attestation_used_as_authority": false,
+            "reason": "Provider route did not return an output to evaluate.",
+            "status_authority": "evaluator_only"
+          },
+          "expected_answer": "alpha",
+          "prompt": "Return the control token for route alpha.",
+          "provider_response": {
+            "latency_ms": 1000,
+            "provider_self_attested_status": "unavailable",
+            "provider_variant": "timeout",
+            "raw_output": null,
+            "route_status": "timeout"
+          },
+          "provider_self_attestation_rejected": false,
+          "repair_route": {
+            "failure_class": "provider_route_unavailable",
+            "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+            "owner_lane": "provider_transport",
+            "preserved_evidence": [
+              "case_id",
+              "prompt",
+              "expected_answer",
+              "provider_variant",
+              "timeout_status"
+            ],
+            "restart_from": "provider_call"
+          },
+          "status_channels": {
+            "answer_status": "not_evaluated_provider_route_unavailable",
+            "evaluator_status": "block",
+            "final_status_authority": "evaluator_decision",
+            "provider_output_status": "absent",
+            "provider_route_status": "unavailable",
+            "provider_self_attested_status": "unavailable",
+            "receipt_status": "recorded_after_evaluator_decision",
+            "schema_status": "not_evaluated_provider_route_unavailable"
+          }
+        },
+        "source_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.timeout",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ]
+      }
+    ],
+    "status": "ok",
+    "summary": {
+      "capsule_count": 4,
+      "evaluator_authority_preserved_count": 4,
+      "hashed_source_clip_count": 4,
+      "public_safe_source_count": 4,
+      "self_attestation_authority_count": 0,
+      "semantic_carryforward_count": 4
+    }
+  },
+  "source_refs": [
+    "registry/release_candidates.json",
+    "microcosms/provider_harness_canary/README.md",
+    "src/idea_microcosm/provider_harness_canary_specimen.py"
+  ],
+  "status": "ok",
+  "status_channel_contract": {
+    "answer_status": "fixture answer comparison after schema passes",
+    "evaluator_status": "only case-level pass, fail, or block authority",
+    "provider_output_status": "presence of a candidate output only; not schema or answer status",
+    "provider_route_status": "transport availability only; not answer quality",
+    "provider_self_attested_status": "provider-observed self label only; never status authority",
+    "receipt_status": "records evaluator decision and boundaries after evaluation",
+    "schema_status": "schema gate result before answer evaluation"
+  },
+  "summary": {
+    "answer_failed_count": 1,
+    "case_count": 4,
+    "evaluator_block_count": 1,
+    "evaluator_fail_count": 2,
+    "evaluator_pass_count": 1,
+    "hashed_source_clip_count": 4,
+    "provider_route_unavailable_count": 1,
+    "provider_self_attestation_authority_count": 0,
+    "provider_self_attested_pass_count": 3,
+    "provider_self_attested_rejected_count": 2,
+    "repair_route_count": 4,
+    "schema_failed_count": 1,
+    "semantic_carryforward_count": 4,
+    "source_capsule_count": 4,
+    "source_capsule_self_attestation_authority_count": 0,
+    "status_channel_count": 7,
+    "status_channel_names": [
+      "provider_route_status",
+      "provider_output_status",
+      "provider_self_attested_status",
+      "schema_status",
+      "answer_status",
+      "evaluator_status",
+      "receipt_status"
+    ],
+    "type_b_to_type_a_accepted_count": 1,
+    "type_b_to_type_a_blocked_count": 1,
+    "type_b_to_type_a_direct_authority_count": 0,
+    "type_b_to_type_a_patch_without_reduction_count": 0,
+    "type_b_to_type_a_publication_permission_count": 0,
+    "type_b_to_type_a_reduction_case_count": 4,
+    "type_b_to_type_a_rejected_count": 2
+  },
+  "type_b_to_type_a_reduction_extension": {
+    "anti_claims": [
+      "advisory output can approve itself",
+      "external review text can mutate live substrate without Type A reduction",
+      "provider self-attestation is evaluator status",
+      "publication permission is granted by this fixture"
+    ],
+    "authority_posture": "synthetic_advisory_reduction_projection_not_provider_authority_or_public_permission",
+    "claim_ceiling": "fixture_validated_type_b_to_type_a_reduction_behavior_only; not real provider reliability, not external-review authority, not hosted-public approval, and not private-root equivalence",
+    "kind": "type_b_to_type_a_reduction_extension",
+    "novelty_primitive": "advisory_output_to_type_a_verified_reduction",
+    "reduction_question": "Can provider/advisory output be preserved as evidence while a Type A verifier alone decides accepted, rejected, blocked, repair-routed, and receipt-recorded status?",
+    "rows": [
+      {
+        "advisory_claim": {
+          "provider_route_status": "returned",
+          "provider_self_attested_status": "pass",
+          "provider_variant": "valid_json_correct",
+          "raw_output_present": true
+        },
+        "advisory_surface": "mock_provider",
+        "authority_rule": "Advisory output may become evidence, a rejection, a block, or a receipt record only after Type A evaluator reduction; it never becomes live substrate authority by itself.",
+        "case_id": "case.good_json_answer",
+        "case_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.good_json_answer",
+        "preserved_evidence": [
+          "case_id",
+          "claim_boundary",
+          "evaluator_decision",
+          "provider_response",
+          "provider_self_attested_status",
+          "provider_variant",
+          "status_channels"
+        ],
+        "receipt_status": "recorded_after_evaluator_decision",
+        "repair_route": {
+          "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+          "owner_lane": "receipt_gate",
+          "restart_from": "receipt_record"
+        },
+        "type_a_reduction": {
+          "advisory_text_becomes_authority": false,
+          "failure_class": null,
+          "patch_authorized_without_type_a": false,
+          "publication_permission_granted": false,
+          "reduction_status": "accepted_after_type_a_verification",
+          "type_a_live_substrate_action": "record_fixture_receipt_only",
+          "type_a_verifier_ref": "fixture_evaluator"
+        }
+      },
+      {
+        "advisory_claim": {
+          "provider_route_status": "returned",
+          "provider_self_attested_status": "pass",
+          "provider_variant": "invalid_schema_self_attested_pass",
+          "raw_output_present": true
+        },
+        "advisory_surface": "mock_provider",
+        "authority_rule": "Advisory output may become evidence, a rejection, a block, or a receipt record only after Type A evaluator reduction; it never becomes live substrate authority by itself.",
+        "case_id": "case.bad_json_self_attested_pass",
+        "case_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.bad_json_self_attested_pass",
+        "preserved_evidence": [
+          "case_id",
+          "evaluator_decision",
+          "provider_self_attested_status",
+          "provider_variant",
+          "raw_output",
+          "schema_failures",
+          "status_channels"
+        ],
+        "receipt_status": "recorded_after_evaluator_decision",
+        "repair_route": {
+          "next_action": "repair_output_schema_contract_before_answer_evaluation",
+          "owner_lane": "schema_adapter",
+          "restart_from": "schema_validation"
+        },
+        "type_a_reduction": {
+          "advisory_text_becomes_authority": false,
+          "failure_class": "schema_failure",
+          "patch_authorized_without_type_a": false,
+          "publication_permission_granted": false,
+          "reduction_status": "rejected_after_type_a_verification",
+          "type_a_live_substrate_action": "preserve_evidence_and_route_repair",
+          "type_a_verifier_ref": "fixture_evaluator"
+        }
+      },
+      {
+        "advisory_claim": {
+          "provider_route_status": "returned",
+          "provider_self_attested_status": "pass",
+          "provider_variant": "valid_json_wrong_answer_self_attested_pass",
+          "raw_output_present": true
+        },
+        "advisory_surface": "mock_provider",
+        "authority_rule": "Advisory output may become evidence, a rejection, a block, or a receipt record only after Type A evaluator reduction; it never becomes live substrate authority by itself.",
+        "case_id": "case.wrong_answer_self_attested_pass",
+        "case_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.wrong_answer_self_attested_pass",
+        "preserved_evidence": [
+          "case_id",
+          "evaluator_decision",
+          "expected_answer",
+          "observed_answer",
+          "provider_self_attested_status",
+          "provider_variant",
+          "schema_status",
+          "status_channels"
+        ],
+        "receipt_status": "recorded_after_evaluator_decision",
+        "repair_route": {
+          "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+          "owner_lane": "provider_prompt_or_model_output",
+          "restart_from": "provider_call_with_same_schema_contract"
+        },
+        "type_a_reduction": {
+          "advisory_text_becomes_authority": false,
+          "failure_class": "answer_mismatch",
+          "patch_authorized_without_type_a": false,
+          "publication_permission_granted": false,
+          "reduction_status": "rejected_after_type_a_verification",
+          "type_a_live_substrate_action": "preserve_evidence_and_route_repair",
+          "type_a_verifier_ref": "fixture_evaluator"
+        }
+      },
+      {
+        "advisory_claim": {
+          "provider_route_status": "unavailable",
+          "provider_self_attested_status": "unavailable",
+          "provider_variant": "timeout",
+          "raw_output_present": false
+        },
+        "advisory_surface": "mock_provider",
+        "authority_rule": "Advisory output may become evidence, a rejection, a block, or a receipt record only after Type A evaluator reduction; it never becomes live substrate authority by itself.",
+        "case_id": "case.timeout",
+        "case_ref": "microcosms/provider_harness_canary/canary_board.json:cases.case.timeout",
+        "preserved_evidence": [
+          "case_id",
+          "evaluator_decision",
+          "expected_answer",
+          "prompt",
+          "provider_self_attested_status",
+          "provider_variant",
+          "status_channels",
+          "timeout_status"
+        ],
+        "receipt_status": "recorded_after_evaluator_decision",
+        "repair_route": {
+          "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+          "owner_lane": "provider_transport",
+          "restart_from": "provider_call"
+        },
+        "type_a_reduction": {
+          "advisory_text_becomes_authority": false,
+          "failure_class": "provider_route_unavailable",
+          "patch_authorized_without_type_a": false,
+          "publication_permission_granted": false,
+          "reduction_status": "blocked_by_type_a_route_availability_gate",
+          "type_a_live_substrate_action": "preserve_evidence_and_retry_or_replace_provider_route",
+          "type_a_verifier_ref": "fixture_evaluator"
+        }
+      }
+    ],
+    "schema_version": "type_b_to_type_a_reduction_extension_v0",
+    "status": "pass",
+    "summary": {
+      "accepted_after_type_a_verification_count": 1,
+      "advisory_case_count": 4,
+      "advisory_direct_authority_count": 0,
+      "advisory_self_attested_pass_count": 3,
+      "blocked_by_type_a_route_availability_gate_count": 1,
+      "patch_authorized_without_type_a_count": 0,
+      "publication_permission_count": 0,
+      "receipt_after_reduction_count": 4,
+      "rejected_after_type_a_verification_count": 2,
+      "repair_routed_after_reduction_count": 3
+    },
+    "validator_results": [
+      {
+        "id": "validator.type_b_advisory_never_direct_authority",
+        "observed": 0,
+        "status": "pass"
+      },
+      {
+        "id": "validator.patch_requires_type_a_reduction",
+        "observed": 0,
+        "status": "pass"
+      },
+      {
+        "expected": 4,
+        "id": "validator.type_a_reduction_covers_every_advisory_row",
+        "observed": 4,
+        "status": "pass"
+      },
+      {
+        "id": "validator.advisory_rejection_preserves_repair_route",
+        "minimum": 3,
+        "observed": 3,
+        "status": "pass"
+      },
+      {
+        "id": "validator.reduction_extension_grants_no_publication_permission",
+        "observed": 0,
+        "status": "pass"
+      }
+    ]
+  }
+}

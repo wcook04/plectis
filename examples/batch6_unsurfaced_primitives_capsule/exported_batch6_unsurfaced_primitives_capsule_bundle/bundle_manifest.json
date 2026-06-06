@@ -1,0 +1,12 @@
+{
+  "schema_version": "exported_batch6_unsurfaced_primitives_capsule_bundle_manifest_v1",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "input_mode": "exported_batch6_unsurfaced_primitives_capsule_bundle",
+  "required_inputs": [
+    "batch6_probe_manifest.json"
+  ],
+  "negative_case_count": 11,
+  "source_module_manifest": "source_module_manifest.json",
+  "body_in_receipt": false,
+  "private_state_excluded": true
+}

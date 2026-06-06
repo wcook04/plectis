@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -60,6 +61,19 @@ SOURCE_MODULE_BODY_MATERIAL_STATUS = (
     "with_digest_provenance"
 )
 HASH_CHUNK_SIZE = 1024 * 1024
+PRIVATE_REF_PREFIXES = (
+    "private:",
+    "macro-private:",
+    "oracle-private:",
+    "file:",
+    "/Users/",
+)
+ANCHOR_MARKER_ALIASES = {
+    "failure_classes": ("failure_taxonomy",),
+    "formal_evidence_cells": ("formal_evidence_cell",),
+    "lean_decl_projection": ("formal_math_lean_proof_witness",),
+    "proof_boundary": ("evidence_receipts",),
+}
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -101,6 +115,19 @@ PRIVATE_SOURCE_KEYS = (
     "raw_source_path",
     "oracle_source_ref",
 )
+PUBLIC_CLAIM_TEXT_KEYS = (
+    "claim",
+    "claim_text",
+    "description",
+    "public_claim",
+    "summary",
+)
+THEOREM_CORRECTNESS_OVERCLAIM_RE = re.compile(
+    r"\b(prove[sd]?|certif(?:y|ies|ied)|guarantee[sd]?|establish(?:es|ed)?)\b"
+    r"(?=[^.]{0,96}\btheorem\b)"
+    r"(?=[^.]{0,96}\bcorrectness\b)",
+    re.IGNORECASE,
+)
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -141,6 +168,169 @@ def _display(path: Path, *, public_root: Path) -> str:
     return public_relative_path(path, display_root=public_root)
 
 
+def _repo_root_for_public_root(public_root: Path) -> Path:
+    return public_root.parent if public_root.name == "microcosm-substrate" else public_root
+
+
+def _split_anchor_ref(ref: str) -> tuple[str, str]:
+    path_ref, separator, marker = ref.partition("::")
+    return path_ref.strip(), marker.strip() if separator else ""
+
+
+def _slugify_marker(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
+
+
+def _marker_tokens_present(marker: str, text: str) -> bool:
+    tokens = [token for token in _slugify_marker(marker).split("_") if token]
+    normalized_text = _slugify_marker(text)
+    return bool(tokens) and all(token in normalized_text for token in tokens)
+
+
+def _heading_markers(text: str) -> set[str]:
+    markers: set[str] = set()
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            markers.add(_slugify_marker(stripped.lstrip("#").strip()))
+    return markers
+
+
+def _marker_present(marker: str, text: str) -> bool:
+    if not marker:
+        return True
+    marker_variants = (marker, *ANCHOR_MARKER_ALIASES.get(marker, ()))
+    headings = _heading_markers(text)
+    for variant in marker_variants:
+        if variant in text:
+            return True
+        slug = _slugify_marker(variant)
+        if slug in headings or _marker_tokens_present(variant, text):
+            return True
+    return False
+
+
+def _public_ref_is_forbidden(path_ref: str) -> bool:
+    if not path_ref or path_ref.startswith(PRIVATE_REF_PREFIXES):
+        return True
+    candidate = Path(path_ref)
+    return candidate.is_absolute() or ".." in candidate.parts
+
+
+def _public_ref_candidates(path_ref: str, *, public_root: Path) -> list[Path]:
+    repo_root = _repo_root_for_public_root(public_root)
+    candidates: list[Path] = []
+    if path_ref.startswith("microcosm-substrate/"):
+        relative_to_public = path_ref.removeprefix("microcosm-substrate/")
+        candidates.append(public_root / relative_to_public)
+        candidates.append(repo_root / path_ref)
+    else:
+        candidates.append(public_root / path_ref)
+        candidates.append(repo_root / path_ref)
+    deduped: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve(strict=False)
+        if resolved not in seen:
+            deduped.append(resolved)
+            seen.add(resolved)
+    return deduped
+
+
+def _resolve_public_anchor_ref(
+    ref: str,
+    *,
+    public_root: Path,
+) -> tuple[Path | None, str, str]:
+    path_ref, marker = _split_anchor_ref(ref)
+    if _public_ref_is_forbidden(path_ref):
+        return None, path_ref, marker
+    for candidate in _public_ref_candidates(path_ref, public_root=public_root):
+        if candidate.is_file():
+            return candidate, path_ref, marker
+    return None, path_ref, marker
+
+
+def _validate_anchor_refs(
+    refs: list[str],
+    *,
+    public_root: Path,
+    case_id: str,
+    subject_kind: str,
+    subject_id: str,
+    digest_by_path_ref: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    digest_by_path_ref = digest_by_path_ref or {}
+    findings: list[dict[str, Any]] = []
+    rows: list[dict[str, Any]] = []
+    for ref in refs:
+        target, path_ref, marker = _resolve_public_anchor_ref(ref, public_root=public_root)
+        expected_digest = digest_by_path_ref.get(path_ref, "").removeprefix("sha256:")
+        forbidden = _public_ref_is_forbidden(path_ref)
+        exists = target is not None
+        marker_present = False
+        actual_digest = ""
+        if exists and target is not None:
+            actual_digest = _sha256_file(target)
+            if marker:
+                text = target.read_text(encoding="utf-8")
+                marker_present = _marker_present(marker, text)
+            else:
+                marker_present = True
+        digest_matches = not expected_digest or actual_digest == expected_digest
+        status = PASS if exists and marker_present and not forbidden else "blocked"
+        if forbidden:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_PRIVATE_SOURCE_REF_FORBIDDEN",
+                    "Anchor refs must be public-relative and must not expose private path schemes.",
+                    case_id=case_id,
+                    subject_id=ref,
+                    subject_kind=subject_kind,
+                )
+            )
+        elif not exists:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_ANCHOR_REF_MISSING",
+                    "Referenced public-safe source or receipt anchor path does not exist.",
+                    case_id=case_id,
+                    subject_id=ref,
+                    subject_kind=subject_kind,
+                )
+            )
+        elif not marker_present:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_ANCHOR_MARKER_MISSING",
+                    "Referenced public-safe source or receipt file is missing the declared anchor marker.",
+                    case_id=case_id,
+                    subject_id=ref,
+                    subject_kind=subject_kind,
+                )
+            )
+        rows.append(
+            {
+                "ref": ref,
+                "path_ref": path_ref,
+                "anchor_marker_present": marker_present,
+                "resolved": exists,
+                "status": status,
+                "target_ref": _display(target, public_root=public_root) if target else "",
+                "expected_digest": f"sha256:{expected_digest}" if expected_digest else "",
+                "actual_digest": f"sha256:{actual_digest}" if actual_digest else "",
+                "digest_matches": digest_matches,
+                "body_in_receipt": False,
+            }
+        )
+    return {
+        "status": PASS if refs and not findings else "blocked",
+        "rows": rows,
+        "resolved_count": sum(1 for row in rows if row["status"] == PASS),
+        "findings": findings,
+    }
+
+
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
@@ -154,6 +344,14 @@ def _strings(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _claim_text_overclaims_theorem_correctness(row: dict[str, Any]) -> bool:
+    for key in PUBLIC_CLAIM_TEXT_KEYS:
+        value = row.get(key)
+        if isinstance(value, str) and THEOREM_CORRECTNESS_OVERCLAIM_RE.search(value):
+            return True
+    return False
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
@@ -199,6 +397,14 @@ def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
     raw = str(row.get("path") or "")
     candidate = Path(raw)
     return candidate if candidate.is_absolute() else input_dir / candidate
+
+
+def _live_source_path_from_module(public_root: Path, row: dict[str, Any]) -> Path:
+    raw = str(row.get("source_ref") or "")
+    candidate = Path(raw)
+    if candidate.is_absolute():
+        return candidate
+    return _repo_root_for_public_root(public_root) / candidate
 
 
 def _source_module_scan_paths(input_dir: Path) -> list[Path]:
@@ -287,7 +493,7 @@ def _private_ref_present(row: dict[str, Any]) -> bool:
     return any(ref.startswith(("private:", "macro-private:", "/Users/")) for ref in refs)
 
 
-def validate_projection_protocol(payload: object) -> dict[str, Any]:
+def validate_projection_protocol(payload: object, *, public_root: Path) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     evidence_anchor_status = str(protocol.get("evidence_anchor_status") or "")
     source_refs = _strings(protocol.get("source_refs"))
@@ -305,6 +511,21 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     excluded = _rows(protocol, "secret_exclusion_material")
+    all_anchor_refs = sorted(
+        {
+            *_strings(protocol.get("real_ring2_anchor_refs")),
+            *projection_receipts,
+            *public_runtime_refs,
+        }
+    )
+    anchor_resolution = _validate_anchor_refs(
+        all_anchor_refs,
+        public_root=public_root,
+        case_id="projection_protocol_floor",
+        subject_kind="projection_anchor_ref",
+        subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+        digest_by_path_ref=source_digests,
+    )
     findings: list[dict[str, Any]] = []
     if len(source_refs) < 3 or len(source_pattern_ids) < 2 or len(public_runtime_refs) < 3:
         findings.append(
@@ -327,12 +548,14 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
                     subject_kind="projection_protocol",
                 )
             )
+    findings.extend(anchor_resolution["findings"])
     return {
         "status": PASS
         if source_refs
         and source_pattern_ids
         and projection_receipts
         and public_runtime_refs
+        and anchor_resolution["status"] == PASS
         and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
@@ -343,18 +566,28 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "projection_receipt_refs": projection_receipts,
         "public_runtime_refs": public_runtime_refs,
         "secret_exclusion_material_count": len(excluded),
+        "anchor_resolution_status": anchor_resolution["status"],
+        "anchor_resolution_rows": anchor_resolution["rows"],
+        "resolved_anchor_ref_count": anchor_resolution["resolved_count"],
         "findings": findings,
         "observed_negative_cases": {},
     }
 
 
-def validate_cell_registry(payload: object) -> dict[str, Any]:
+def validate_cell_registry(payload: object, *, public_root: Path) -> dict[str, Any]:
     cells = _rows(payload, "evidence_cells")
     findings: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     for row in cells:
         cell_id = str(row.get("cell_id") or "")
         anchors = _strings(row.get("source_anchor_refs"))
+        anchor_resolution = _validate_anchor_refs(
+            anchors,
+            public_root=public_root,
+            case_id="registry_floor",
+            subject_kind="evidence_cell_anchor_ref",
+            subject_id=cell_id or "evidence_cell",
+        )
         machine_anchor_class = str(row.get("machine_anchor_class") or "")
         allowed = _strings(row.get("allowed_claim_strengths"))
         if not anchors:
@@ -367,6 +600,7 @@ def validate_cell_registry(payload: object) -> dict[str, Any]:
                     subject_kind="evidence_cell",
                 )
             )
+        findings.extend(anchor_resolution["findings"])
         if _private_ref_present(row):
             findings.append(
                 _finding(
@@ -381,6 +615,9 @@ def validate_cell_registry(payload: object) -> dict[str, Any]:
             {
                 "cell_id": cell_id,
                 "source_anchor_refs": anchors,
+                "anchor_resolution_status": anchor_resolution["status"],
+                "resolved_anchor_ref_count": anchor_resolution["resolved_count"],
+                "anchor_resolution_rows": anchor_resolution["rows"],
                 "machine_anchor_class": machine_anchor_class,
                 "allowed_claim_strengths": allowed,
                 "public_status": row.get("public_status"),
@@ -527,11 +764,28 @@ def validate_source_module_manifest(
             row.get("target_sha256") or row.get("sha256") or ""
         ).removeprefix("sha256:")
         actual_digest = _sha256_file(target) if exists else ""
+        source_authority_target = _live_source_path_from_module(public_root, row)
+        source_authority_exists = (
+            not _public_ref_is_forbidden(source_ref)
+            and source_authority_target.is_file()
+        )
+        expected_source_digest = str(row.get("source_sha256") or "").removeprefix(
+            "sha256:"
+        )
+        actual_source_digest = (
+            _sha256_file(source_authority_target) if source_authority_exists else ""
+        )
         expected_line_count = row.get("target_line_count", row.get("line_count"))
         actual_line_count = _line_count(target) if exists else None
         expected_byte_count = row.get("target_byte_count", row.get("byte_count"))
         actual_byte_count = target.stat().st_size if exists else None
         digest_matches = bool(expected_digest) and actual_digest == expected_digest
+        source_authority_digest_matches = (
+            bool(expected_source_digest)
+            and source_authority_exists
+            and actual_source_digest == expected_source_digest
+            and actual_digest == actual_source_digest
+        )
         line_count_matches = (
             isinstance(expected_line_count, int)
             and actual_line_count == expected_line_count
@@ -588,6 +842,26 @@ def validate_source_module_manifest(
                     subject_kind="source_module",
                 )
             )
+        elif not source_authority_exists:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_AUTHORITY_MISSING",
+                    "Copied evidence-cell anchor source module must bind to an existing live source_ref authority.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not source_authority_digest_matches:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_AUTHORITY_DIGEST_MISMATCH",
+                    "Copied evidence-cell anchor source module must match the live source_ref authority digest, not only bundle-local manifest hashes.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
         elif not digest_matches:
             findings.append(
                 _finding(
@@ -633,6 +907,20 @@ def validate_source_module_manifest(
                 "expected_digest": f"sha256:{expected_digest}" if expected_digest else "",
                 "actual_digest": f"sha256:{actual_digest}" if actual_digest else "",
                 "digest_matches": digest_matches,
+                "source_authority_ref": (
+                    _display(source_authority_target, public_root=public_root)
+                    if source_authority_exists
+                    else str(row.get("source_ref") or "")
+                ),
+                "expected_source_digest": (
+                    f"sha256:{expected_source_digest}"
+                    if expected_source_digest
+                    else ""
+                ),
+                "actual_source_digest": (
+                    f"sha256:{actual_source_digest}" if actual_source_digest else ""
+                ),
+                "source_authority_digest_matches": source_authority_digest_matches,
                 "line_count": actual_line_count,
                 "line_count_matches": line_count_matches,
                 "byte_count": actual_byte_count,
@@ -667,6 +955,7 @@ def validate_source_module_manifest(
             "lean_lake_execution_authorized": False,
             "formal_proof_authority": False,
             "theorem_correctness_authority": False,
+            "source_body_bound_to_live_source_authority": status == PASS,
             "release_authorized": False,
         },
     }
@@ -730,7 +1019,10 @@ def _inspect_claim_row(
             subject_id=claim_id,
             subject_kind=subject_kind,
         )
-    if row.get("claims_theorem_correctness") is True:
+    if (
+        row.get("claims_theorem_correctness") is True
+        or _claim_text_overclaims_theorem_correctness(row)
+    ):
         _record(
             findings,
             observed,
@@ -845,12 +1137,17 @@ def validate_claims(
                 observed=observed,
                 negative=True,
             )
-    floor_findings = [row for row in findings if row.get("negative_case_id") == "claim_floor"]
+    blocking_findings = [
+        row
+        for row in findings
+        if row.get("negative_case_id") == "claim_floor"
+        or row.get("subject_kind") == "paper_claim"
+    ]
     return {
         "status": PASS
         if claim_rows
         and all(row["resolution_status"] == "resolved" for row in claim_rows)
-        and not floor_findings
+        and not blocking_findings
         else "blocked",
         "claim_count": len(claim_rows),
         "resolved_cell_count": sum(
@@ -886,8 +1183,14 @@ def _build_result(
         display_root=public_root,
     )
 
-    projection = validate_projection_protocol(payloads["projection_protocol"])
-    cells = validate_cell_registry(payloads["evidence_cell_registry"])
+    projection = validate_projection_protocol(
+        payloads["projection_protocol"],
+        public_root=public_root,
+    )
+    cells = validate_cell_registry(
+        payloads["evidence_cell_registry"],
+        public_root=public_root,
+    )
     boundary = validate_claim_boundary_policy(payloads["claim_boundary_policy"])
     source_modules = validate_source_module_manifest(
         input_dir,
@@ -952,6 +1255,9 @@ def _build_result(
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_runtime_refs": projection["public_runtime_refs"],
+        "anchor_resolution_status": projection["anchor_resolution_status"],
+        "anchor_resolution_rows": projection["anchor_resolution_rows"],
+        "resolved_anchor_ref_count": projection["resolved_anchor_ref_count"],
         "source_module_secret_exclusion_scan": source_module_secret_scan,
         "source_modules_pass": source_modules["source_modules_pass"],
         "source_module_manifest_ref": source_modules["source_module_manifest_ref"],

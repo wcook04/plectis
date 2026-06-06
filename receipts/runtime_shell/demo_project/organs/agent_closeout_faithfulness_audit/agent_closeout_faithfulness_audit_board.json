@@ -1,0 +1,24 @@
+{
+  "anti_claim": "Closeout faithfulness audit verifies that a referenced public fixture commit object, ledger row, or pytest span exists and records whether a span passed only when pass status is explicitly checked. It does not prove arbitrary live commits landed, close Task Ledger work, mutate Git, run providers, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_fixture_closeout_evidence_existence_and_pytest_span_witness_only",
+    "cap_closed_without_fixture_ledger_row_authorized": false,
+    "commit_landed_without_head_match_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "pytest_pass_claim_without_exit_zero_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 3,
+    "observed_negative_case_count": 4,
+    "source_module_count": 1
+  },
+  "organ_id": "agent_closeout_faithfulness_audit",
+  "schema_version": "agent_closeout_faithfulness_audit_board_v1",
+  "status": "pass",
+  "title": "Agent closeout faithfulness audit",
+  "verdict": "pass"
+}

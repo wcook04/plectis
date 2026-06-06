@@ -1,0 +1,21 @@
+{
+  "fixture_id": "engine_room_public_projection_leak_gate_fixture_v1",
+  "organ_id": "engine_room_public_projection_leak_gate",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_public_projection_leak_gate/input/clean_projection.json",
+    "fixtures/first_wave/engine_room_public_projection_leak_gate/input/policy_exception_hash_only.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_public_projection_leak_gate/input/planted_private_path.json",
+    "fixtures/first_wave/engine_room_public_projection_leak_gate/input/planted_key_shape.json",
+    "fixtures/first_wave/engine_room_public_projection_leak_gate/input/path_pattern_blocked.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.public_projection_leak_gate evaluate-fixtures --input fixtures/first_wave/engine_room_public_projection_leak_gate/input --json",
+  "source_refs": [
+    "tools/meta/dissemination/projection_secret_scan.py",
+    "tools/meta/dissemination/portability_gate.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Public projection DLP gate over rendered files, path names, symlink escapes, and optional gitleaks output; not a general security scanner, prompt-injection defense, sandbox, or information-flow proof."
+}

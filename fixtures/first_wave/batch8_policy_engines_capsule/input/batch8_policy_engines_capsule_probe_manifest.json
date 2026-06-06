@@ -1,0 +1,50 @@
+{
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_policy_engine_public_substrate_capsule_not_runtime_or_release_authority",
+    "live_campaign_execution_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "mechanisms": [
+    {
+      "body_in_receipt": false,
+      "claim_ceiling": "Lab contract audit mechanics over synthetic public artifacts only.",
+      "engine_id": "lab_contract_audit_deterministic_red_gate",
+      "negative_case": "lab_contract_question_mark_red_gate",
+      "public_exercise": "green Lab artifact directory plus question-mark red-gate fixture",
+      "source_module_ids": [
+        "lab_contract_audit_deterministic_red_gate"
+      ]
+    },
+    {
+      "body_in_receipt": false,
+      "claim_ceiling": "Market-fusion readiness gate mechanics over public fixture claims only.",
+      "engine_id": "market_fusion_readiness_fail_closed_gate",
+      "negative_case": "market_fusion_missing_gate_refused",
+      "public_exercise": "known candidate gate resolution plus fail-closed missing/malformed gate cases",
+      "source_module_ids": [
+        "market_fusion_readiness_fail_closed_gate"
+      ]
+    },
+    {
+      "body_in_receipt": false,
+      "claim_ceiling": "Campaign dispatch status transition adjudicator only.",
+      "engine_id": "campaign_dispatch_status_transition_adjudicator",
+      "negative_case": "campaign_completed_to_running_refused",
+      "public_exercise": "candidate to blocked legal transition plus terminal-state refusal",
+      "source_module_ids": [
+        "campaign_dispatch_status_transition_adjudicator"
+      ]
+    }
+  ],
+  "organ_id": "batch8_policy_engines_capsule",
+  "schema_version": "batch8_policy_engines_capsule_probe_manifest_v1"
+}

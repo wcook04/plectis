@@ -5,6 +5,11 @@ Microcosm is runnable, inspectable, and honest before opening the full README.
 After the smoke path passes, use the [README Component Map](README.md#component-map)
 before raw receipts; it names the runtime package, command cards, public
 doctrine, evidence fixtures, source capsules, and validation shell.
+For task-specific agent routing use [AGENT_ROUTES.md](AGENT_ROUTES.md); for the
+one-line organ ladder use
+[ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line](ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line);
+for human specialty browsing use [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty);
+for the system shape use [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## 0. Run The Bounded Cold-Clone Probe
 
@@ -48,6 +53,11 @@ and `served status: pass`. It uses compact cards first:
 
 ```bash
 microcosm hello .
+microcosm hello --reader cold_cloner .
+microcosm hello --reader reviewer .
+microcosm hello --reader skeptical_reviewer .
+microcosm hello --reader agent .
+microcosm hello --reader domain_specialist .
 microcosm first-screen --card .
 microcosm tour --card .
 microcosm status --card .
@@ -61,6 +71,11 @@ module entry point:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core hello --reader cold_cloner .
+PYTHONPATH=src python3 -m microcosm_core hello --reader reviewer .
+PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .
+PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
+PYTHONPATH=src python3 -m microcosm_core hello --reader domain_specialist .
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
@@ -72,6 +87,13 @@ PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 Read those as a first-screen contract, not a release badge. They show local
 behavior, route state, evidence classes, failure envelopes, and authority
 ceilings before sending you into full receipt drilldowns.
+The reader-specific `hello` aliases are a shortcut into the same card:
+`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch,
+`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch,
+and `agent` / `type-a-agent` maps to the repo-reading agent branch.
+`domain_specialist` / `domain-specialist` is the specialty reader branch and
+points back to `ORGANS.md#find-your-specialty`; it is not an expert-review or
+domain-correctness claim.
 
 ## 3. Inspect The Browser Surface
 

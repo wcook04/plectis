@@ -30,7 +30,7 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "ring2_precision_recall_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project :: component ring2_premise_retrieval_precision_recall_harness",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component ring2_premise_retrieval_precision_recall_harness",
   "copied_material": [
     {
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
@@ -86,7 +86,7 @@
     }
   ],
   "copied_source_artifact_count": 4,
-  "created_at": "2026-05-30T21:36:44+00:00",
+  "created_at": "2026-06-02T02:56:15+00:00",
   "error_codes": [],
   "evaluations": [
     {

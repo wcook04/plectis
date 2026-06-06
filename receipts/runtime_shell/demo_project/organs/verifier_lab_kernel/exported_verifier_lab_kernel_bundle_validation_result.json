@@ -27,7 +27,7 @@
     "oracle": "diagnostic comparator only",
     "provider": "advisory hypothesis only"
   },
-  "body_copied_material_count": 10,
+  "body_copied_material_count": 14,
   "body_in_receipt": false,
   "bundle_id": "verifier_lab_kernel_runtime_example",
   "cache_status": "rebuilt",
@@ -109,7 +109,7 @@
       }
     ]
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
   "component_receipt_refs": {
     "corpus_readiness_mathlib_absence_gate": [
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
@@ -133,7 +133,7 @@
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
     ],
     "tactic_portfolio_availability_probe": [
-      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+      "microcosm-substrate/receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
     ],
     "target_shape_tactic_routing_gate": [
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
@@ -164,7 +164,7 @@
       "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
     }
   ],
-  "created_at": "2026-05-30T21:36:47+00:00",
+  "created_at": "2026-06-02T02:56:37+00:00",
   "error_codes": [],
   "evolve_candidates": [
     {
@@ -205,12 +205,12 @@
   ],
   "freshness_basis": {
     "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
-    "command": "microcosm run examples/runtime_shell/demo_project",
+    "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
     "input_mode": "exported_verifier_lab_kernel_bundle",
-    "latest_dependency_mtime_ns": 1780176861260645445,
-    "receipt_mtime_ns": 1779959960979098398,
+    "latest_dependency_mtime_ns": 1780368449497799439,
+    "receipt_mtime_ns": null,
     "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
-    "tracked_dependency_count": 128
+    "tracked_dependency_count": 149
   },
   "input_mode": "exported_verifier_lab_kernel_bundle",
   "kernel_id": "leak_proof_verifier_lab_kernel_runtime_bundle_v1",
@@ -252,7 +252,7 @@
     "ring2_mean_recall_at_k": 0.9,
     "ring2_problem_count": 10,
     "tactic_probe_status": "pass",
-    "target_shape_route_case_count": 5,
+    "target_shape_route_case_count": 7,
     "verifier_trace_attempt_count": 5
   },
   "proof_lab_route": {
@@ -456,87 +456,87 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 13,
+    "scanned_path_count": 17,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_module_imports": {
     "findings": [],
-    "module_count": 10,
+    "module_count": 14,
     "modules": [
       {
-        "actual_sha256": "sha256:e74b5584ebc4517bd87998978f5d912daa6d7f77abdd64a84c79002ce570b4e2",
+        "actual_sha256": "sha256:d1111db8ddfcb9bb4bd862e5fbcf7719caa14d8453b5a06c568db16b2997b640",
         "body_in_receipt": false,
         "line_count": 2190,
         "material_class": "public_macro_tool_body",
         "module_id": "verifier_lab_kernel_source_body_import",
-        "sha256": "sha256:e74b5584ebc4517bd87998978f5d912daa6d7f77abdd64a84c79002ce570b4e2",
+        "sha256": "sha256:d1111db8ddfcb9bb4bd862e5fbcf7719caa14d8453b5a06c568db16b2997b640",
         "source_ref": "src/microcosm_core/organs/verifier_lab_kernel.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/verifier_lab_kernel.py"
       },
       {
-        "actual_sha256": "sha256:8613d7850e561bf2b31723649726f84d1b1d7cf874d62ad7b6079fdc721487ba",
+        "actual_sha256": "sha256:b78100214f24549787235e6f661637a579e0aa3586a23902da7fc54b89e14e79",
         "body_in_receipt": false,
-        "line_count": 1258,
+        "line_count": 1294,
         "material_class": "public_macro_tool_body",
         "module_id": "corpus_readiness_mathlib_absence_gate_source_body_import",
-        "sha256": "sha256:8613d7850e561bf2b31723649726f84d1b1d7cf874d62ad7b6079fdc721487ba",
+        "sha256": "sha256:b78100214f24549787235e6f661637a579e0aa3586a23902da7fc54b89e14e79",
         "source_ref": "src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py"
       },
       {
-        "actual_sha256": "sha256:e006177eef2d61fe737ef38a2466680538d8339ced2986d1bf4a4b4c4f86466e",
+        "actual_sha256": "sha256:8cca1e116c80a7ec7b481c022e4930c4d1e84aea7ee583d28eb5a42495ad248e",
         "body_in_receipt": false,
-        "line_count": 1234,
+        "line_count": 1239,
         "material_class": "public_macro_tool_body",
         "module_id": "lean_std_premise_index_source_body_import",
-        "sha256": "sha256:e006177eef2d61fe737ef38a2466680538d8339ced2986d1bf4a4b4c4f86466e",
+        "sha256": "sha256:8cca1e116c80a7ec7b481c022e4930c4d1e84aea7ee583d28eb5a42495ad248e",
         "source_ref": "src/microcosm_core/organs/lean_std_premise_index.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/lean_std_premise_index.py"
       },
       {
-        "actual_sha256": "sha256:298d267e9a24e2c258c383c5c7e1c299913322f0f28452d1c2ed8c956c423c2d",
+        "actual_sha256": "sha256:b03f8ccedccb4cad32d0fcdf5733d55ba11ef0afc1605fc85c5f67fb7ddc723f",
         "body_in_receipt": false,
-        "line_count": 1187,
+        "line_count": 1224,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_premise_retrieval_source_body_import",
-        "sha256": "sha256:298d267e9a24e2c258c383c5c7e1c299913322f0f28452d1c2ed8c956c423c2d",
+        "sha256": "sha256:b03f8ccedccb4cad32d0fcdf5733d55ba11ef0afc1605fc85c5f67fb7ddc723f",
         "source_ref": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_premise_retrieval.py"
       },
       {
-        "actual_sha256": "sha256:e1c358192504697316e544a84b39c324b1000a6978df32a97bf5414866e1a0d8",
+        "actual_sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
         "body_in_receipt": false,
-        "line_count": 1297,
+        "line_count": 1486,
         "material_class": "public_macro_tool_body",
         "module_id": "tactic_portfolio_availability_probe_source_body_import",
-        "sha256": "sha256:e1c358192504697316e544a84b39c324b1000a6978df32a97bf5414866e1a0d8",
+        "sha256": "sha256:c841f7b3fcff6ceec101c054a0d10c77446797a4d656c11e5bc2ea0872d604ce",
         "source_ref": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py"
       },
       {
-        "actual_sha256": "sha256:98fd122c184ce9b7dbe42a8a819441313e641b1551fbb191058a105b8b0b8770",
+        "actual_sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
         "body_in_receipt": false,
-        "line_count": 1238,
+        "line_count": 1530,
         "material_class": "public_macro_tool_body",
         "module_id": "target_shape_tactic_routing_gate_source_body_import",
-        "sha256": "sha256:98fd122c184ce9b7dbe42a8a819441313e641b1551fbb191058a105b8b0b8770",
+        "sha256": "sha256:d20db7e395331f0dfdc7fea727340b3f9e41846ae28e32fda37ff7ee2c8a2cce",
         "source_ref": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py"
       },
       {
-        "actual_sha256": "sha256:8be21044072c613e418168004b692d7e46bc4c50b95a6ff2990aca095e5b4efd",
+        "actual_sha256": "sha256:8a11f7cce2dcf2f6e0395757dd9f630fdbd31c96aa703b6c0104fd3e60fabe85",
         "body_in_receipt": false,
-        "line_count": 1443,
+        "line_count": 1892,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_verifier_trace_repair_loop_source_body_import",
-        "sha256": "sha256:8be21044072c613e418168004b692d7e46bc4c50b95a6ff2990aca095e5b4efd",
+        "sha256": "sha256:8a11f7cce2dcf2f6e0395757dd9f630fdbd31c96aa703b6c0104fd3e60fabe85",
         "source_ref": "src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py"
@@ -564,15 +564,59 @@
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
       },
       {
-        "actual_sha256": "sha256:5fdeacc13ae869afca03d523a91627454e1c54bfdb549549fa0f23d27b0043c6",
+        "actual_sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
         "body_in_receipt": false,
-        "line_count": 1453,
+        "line_count": 1475,
         "material_class": "public_macro_tool_body",
         "module_id": "formal_math_lean_proof_witness_source_body_import",
-        "sha256": "sha256:5fdeacc13ae869afca03d523a91627454e1c54bfdb549549fa0f23d27b0043c6",
+        "sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
         "source_ref": "src/microcosm_core/organs/formal_math_lean_proof_witness.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/formal_math_lean_proof_witness.py"
+      },
+      {
+        "actual_sha256": "sha256:91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
+        "body_in_receipt": false,
+        "line_count": 1321,
+        "material_class": "public_macro_tool_body",
+        "module_id": "prover_statement_only_hammer_bandit_runner_body_import",
+        "sha256": "sha256:91d6a15f81cc06c67fb203f3cd71b36ecc6773e892ee17e766ff33e9d12e179e",
+        "source_ref": "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_statement_only_hammer_bandit.py"
+      },
+      {
+        "actual_sha256": "sha256:8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
+        "body_in_receipt": false,
+        "line_count": 1934,
+        "material_class": "public_macro_tool_body",
+        "module_id": "prover_proof_state_search_curriculum_runner_body_import",
+        "sha256": "sha256:8ff51ec666eefb454f12e7ec7c89b53afe5a1bf533012a0dc5a4ed12ffa97e7d",
+        "source_ref": "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_proof_state_search_curriculum.py"
+      },
+      {
+        "actual_sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "body_in_receipt": false,
+        "line_count": 7168,
+        "material_class": "public_macro_tool_body",
+        "module_id": "prover_graph_benchmark_helper_body_import",
+        "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
+      },
+      {
+        "actual_sha256": "sha256:9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
+        "body_in_receipt": false,
+        "line_count": 1569,
+        "material_class": "public_macro_tool_body",
+        "module_id": "prover_external_formal_benchmark_smoke_helper_body_import",
+        "sha256": "sha256:9ea854f2ecd1ac6e9806df888b5c25c73f00d31c0b7c4f0c9e458db15debb272",
+        "source_ref": "tools/meta/factory/run_prover_external_formal_benchmark_smoke.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/tools/meta/factory/run_prover_external_formal_benchmark_smoke.py"
       }
     ],
     "observed_negative_cases": {},
@@ -592,7 +636,7 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 10,
+    "body_material_count": 14,
     "body_material_ids": [
       "verifier_lab_kernel_source_body_import",
       "corpus_readiness_mathlib_absence_gate_source_body_import",
@@ -603,7 +647,11 @@
       "formal_math_verifier_trace_repair_loop_source_body_import",
       "ring2_premise_retrieval_precision_recall_harness_source_body_import",
       "proof_diagnostic_evidence_spine_source_body_import",
-      "formal_math_lean_proof_witness_source_body_import"
+      "formal_math_lean_proof_witness_source_body_import",
+      "prover_statement_only_hammer_bandit_runner_body_import",
+      "prover_proof_state_search_curriculum_runner_body_import",
+      "prover_graph_benchmark_helper_body_import",
+      "prover_external_formal_benchmark_smoke_helper_body_import"
     ],
     "body_material_status": "copied_non_secret_verifier_lab_kernel_component_source_bodies_with_digest_provenance",
     "body_text_exported_in_receipts": false,
@@ -644,7 +692,7 @@
   ],
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,
-  "target_shape_route_case_count": 5,
+  "target_shape_route_case_count": 7,
   "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
   "verifier_attempts": [
     {

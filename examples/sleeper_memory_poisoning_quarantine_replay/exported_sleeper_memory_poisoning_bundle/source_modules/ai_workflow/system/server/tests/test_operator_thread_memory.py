@@ -48,6 +48,46 @@ def _configure_private_root(tmp_path: Path, monkeypatch) -> Path:
     return root
 
 
+def test_thread_memory_retention_status_is_metadata_only(tmp_path, monkeypatch) -> None:
+    root = _configure_private_root(tmp_path, monkeypatch)
+    private_text = "SENTINEL_PRIVATE_THREAD_MEMORY_TEXT"
+    (root / "events.jsonl").parent.mkdir(parents=True, exist_ok=True)
+    (root / "events.jsonl").write_text(
+        json.dumps({"event_type": "thread_updated", "private": private_text}) + "\n",
+        encoding="utf-8",
+    )
+    snapshot_path = root / "snapshot_events" / "thread-1" / "snapshot.json.gz"
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path.write_bytes(b"compressed-private-snapshot")
+    thread_path = root / "threads" / "chatgpt_demo.json"
+    thread_path.parent.mkdir(parents=True, exist_ok=True)
+    thread_path.write_text(json.dumps({"private": private_text}) + "\n", encoding="utf-8")
+    (root / "index.json").write_text("{}\n", encoding="utf-8")
+    (root / "compaction_receipt_20260531T000000Z.json").write_text(
+        json.dumps({
+            "schema_version": "operator_thread_memory_compaction_receipt_v1",
+            "before_bytes": 1000,
+            "after_bytes": 200,
+            "rows_seen": 10,
+            "rows_compacted": 2,
+            "snapshot_refs_written": 2,
+            "snapshot_events_bytes": 300,
+            "net_reclaimed_bytes_after_snapshot_events": 500,
+        }),
+        encoding="utf-8",
+    )
+
+    payload = otm.build_retention_status(root)
+
+    assert payload["schema_version"] == otm.RETENTION_STATUS_SCHEMA_VERSION
+    assert payload["status"] == "compacted_snapshot_sidecars_present"
+    assert payload["event_log"]["bytes"] > 0
+    assert payload["sidecars"]["snapshot_events"]["file_count"] == 1
+    assert payload["sidecars"]["threads"]["file_count"] == 1
+    assert payload["latest_compaction_receipt"]["rows_compacted"] == 2
+    assert "SENTINEL" not in json.dumps(payload, sort_keys=True)
+
+
 def test_thread_memory_creates_event_log_thread_and_metadata_index(tmp_path, monkeypatch) -> None:
     root = _configure_private_root(tmp_path, monkeypatch)
     private_text = "SENTINEL_" "PRIVATE_TRANSCRIPT_TEXT"

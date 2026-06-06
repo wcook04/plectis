@@ -1,0 +1,21 @@
+{
+  "fixture_id": "engine_room_generated_projection_drift_gate_fixture_v1",
+  "organ_id": "engine_room_generated_projection_drift_gate",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_generated_projection_drift_gate/input/clean_owner.json",
+    "fixtures/first_wave/engine_room_generated_projection_drift_gate/input/scoped_changed_path.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_generated_projection_drift_gate/input/planted_byte_detected.json",
+    "fixtures/first_wave/engine_room_generated_projection_drift_gate/input/missing_artifact.json",
+    "fixtures/first_wave/engine_room_generated_projection_drift_gate/input/fact_authority_lineage_required_missing.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.generated_projection_drift_gate evaluate-fixtures --input fixtures/first_wave/engine_room_generated_projection_drift_gate/input --json",
+  "source_refs": [
+    "tools/meta/control/projection_drift.py",
+    "system/lib/generated_projection_registry.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Owner-routed generated projection drift gate over declared artifacts, source authorities, clean-receipt fingerprints, and no-write check command return codes; not semantic drift proof, not full registry validation, not repair authority, and not release authority."
+}

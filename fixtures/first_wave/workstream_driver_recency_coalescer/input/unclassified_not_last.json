@@ -1,0 +1,42 @@
+{
+  "case_id": "unclassified_not_last",
+  "description": "The fallback unclassified row must remain last even when it has the newest recorded_at value.",
+  "recent_changes": [
+    {
+      "event_id": "codex",
+      "recorded_at": "2026-05-31T10:00:00Z",
+      "summary": "older classified driver",
+      "gate_reason": "gate_codex",
+      "active_driver": "codex"
+    },
+    {
+      "event_id": "unclassified",
+      "recorded_at": "2026-05-31T13:00:00Z",
+      "summary": "newest unclassified",
+      "gate_reason": "gate_unclassified",
+      "active_driver": null
+    }
+  ],
+  "declared_rows": [
+    {
+      "key": "unclassified",
+      "driver": "unclassified",
+      "count": 1,
+      "latestIso": "2026-05-31T13:00:00Z",
+      "latestSummary": "newest unclassified",
+      "gateReason": "gate_unclassified"
+    },
+    {
+      "key": "codex",
+      "driver": "codex",
+      "count": 1,
+      "latestIso": "2026-05-31T10:00:00Z",
+      "latestSummary": "older classified driver",
+      "gateReason": "gate_codex"
+    }
+  ],
+  "error_codes": [
+    "WDRC_UNCLASSIFIED_SENTINEL_LAST_REQUIRED"
+  ],
+  "body_in_receipt": false
+}

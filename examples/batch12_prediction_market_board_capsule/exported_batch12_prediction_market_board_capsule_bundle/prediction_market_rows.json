@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "_table_path": "fixture/prediction",
+      "c": 0.01,
+      "o": "yes",
+      "p": 0.42,
+      "q": "Will the fixture event happen?",
+      "s": 0.02,
+      "slug": "known-event-market",
+      "v": 120000
+    },
+    {
+      "_table_path": "fixture/prediction",
+      "c": -0.04,
+      "o": "yes",
+      "p": 0.45,
+      "q": "Will the fixture event happen?",
+      "s": 0.01,
+      "slug": "known-event-market",
+      "v": 900000
+    },
+    {
+      "_table_path": "fixture/prediction",
+      "c": 0.02,
+      "o": "no",
+      "p": 0.33,
+      "q": "Will the orphan fixture happen?",
+      "s": 0.03,
+      "slug": "orphan-market",
+      "v": 50000
+    }
+  ],
+  "schema_version": "batch12_prediction_market_rows_v1"
+}

@@ -1,0 +1,11 @@
+{
+  "body_in_receipt": false,
+  "case_id": "campaign_completed_to_running_refused",
+  "engine_id": "campaign_dispatch_status_transition_adjudicator",
+  "error_codes": [
+    "BATCH8_CAMPAIGN_COMPLETED_TO_RUNNING_REFUSED"
+  ],
+  "expected_decision": "raise CampaignTransitionError",
+  "fixture_summary": "A completed dispatch cannot transition to running without superseding authority.",
+  "schema_version": "batch8_policy_engines_capsule_negative_case_v1"
+}

@@ -250,6 +250,101 @@ def test_process_audit_stale_cache_boundary_demotes_active_repair() -> None:
     )
 
 
+def test_cli_compaction_caps_clean_advisory_rows() -> None:
+    rows = [
+        {
+            "debt_id": f"advisory:{index}",
+            "debt_class": "behavior_debt",
+            "priority": 100 - index,
+            "title": f"Advisory row {index}",
+            "evidence": "x" * 1000,
+            "repair_class": "advisory_only",
+            "active_debt": False,
+            "advisory_only": True,
+        }
+        for index in range(6)
+    ]
+
+    compact = compact_quick_navigation_metabolism_packet_for_cli(
+        {
+            "metabolism_profile": "quick",
+            "summary": {
+                "behavior_debt": 0,
+                "total_debt_rows": 0,
+                "quality_signal_bottleneck": None,
+            },
+            "budget": {"context_budget_tokens": 1000},
+            "debt_rows": rows,
+            "top_repairs": [],
+            "route_lifecycle": [],
+            "command_node_cache": {},
+            "observation_sources": {},
+        },
+        context_budget=1000,
+    )
+
+    assert len(compact["debt_rows"]) == 3
+    assert {row["debt_id"] for row in compact["debt_rows"]} == {
+        "advisory:0",
+        "advisory:1",
+        "advisory:2",
+    }
+    assert compact["summary"]["total_debt_rows_after_cli_compaction"] == 0
+    assert compact["summary"]["advisory_debt_rows_after_cli_compaction"] == 3
+
+
+def test_cli_compaction_omits_clean_advisory_rows_for_speed_context_query() -> None:
+    rows = [
+        {
+            "debt_id": f"advisory:{index}",
+            "debt_class": "behavior_debt",
+            "priority": 100 - index,
+            "title": f"Advisory row {index}",
+            "evidence": "x" * 1000,
+            "repair_class": "advisory_only",
+            "active_debt": False,
+            "advisory_only": True,
+        }
+        for index in range(6)
+    ]
+    full_profile_route = (
+        './repo-python kernel.py --navigation-metabolism "speed context route cost" '
+        "--metabolism-profile full --context-budget 12000"
+    )
+
+    compact = compact_quick_navigation_metabolism_packet_for_cli(
+        {
+            "metabolism_profile": "quick",
+            "query": "speed context route cost",
+            "summary": {
+                "behavior_debt": 0,
+                "advisory_debt_rows": 6,
+                "total_debt_rows": 0,
+                "total_rows_including_advisory": 6,
+                "quality_signal_bottleneck": None,
+            },
+            "strategy": {"full_profile_drilldown": full_profile_route},
+            "budget": {"context_budget_tokens": 1000},
+            "debt_rows": rows,
+            "top_repairs": [],
+            "route_lifecycle": [],
+            "command_node_cache": {},
+            "observation_sources": {},
+        },
+        context_budget=1000,
+    )
+
+    assert compact["debt_rows"] == []
+    receipt = compact["clean_advisory_rows_omission_receipt"]
+    assert receipt["status"] == "omitted_for_clean_speed_context_first_contact"
+    assert receipt["omitted_row_count"] == 6
+    assert receipt["full_evidence_routes"] == [full_profile_route]
+    assert compact["summary"]["total_debt_rows_after_cli_compaction"] == 0
+    assert compact["summary"]["advisory_debt_rows_after_cli_compaction"] == 0
+    assert compact["summary"]["clean_advisory_rows_omitted"] == 6
+    assert full_profile_route in compact["budget"]["full_evidence_routes"]
+
+
 def test_budget_trim_preserves_behavior_owner_boundary_on_visible_debt_rows() -> None:
     rows = _process_audit_behavior_rows(
         {
@@ -315,14 +410,14 @@ def test_slow_action_shape_rows_surface_repair_hints_at_top_repair() -> None:
                     "p50_ms": 1259,
                     "p95_ms": 31856,
                     "max_ms": 282302,
-                    "threshold_ms": 15000,
-                    "repair_hints": [
-                        {
-                            "hint_id": "replace_kernel_output_limiter_with_compact_mode",
-                            "reason": "Slow kernel examples pipe or redirect output instead of using a bounded route mode.",
-                            "preferred_next": "Use a compact kernel mode, command card, selected lens, or row/card drilldown rather than truncating full output.",
-                        }
-                    ],
+                        "threshold_ms": 15000,
+                        "repair_hints": [
+                            {
+                                "hint_id": "replace_context_pack_limiter_with_selected_lens",
+                                "reason": "Slow context-pack examples hide large packets behind shell output limiters.",
+                                "preferred_next": "Use the routine context-pack row handles, then drill into a selected row/card instead of truncating the full packet.",
+                            }
+                        ],
                     "example_spans": [
                         {
                             "normalized_command": "./repo-python kernel.py --kind-atlas 2>&1 | head -80",
@@ -340,8 +435,8 @@ def test_slow_action_shape_rows_surface_repair_hints_at_top_repair() -> None:
 
     row = rows[0]
     assert row["debt_id"] == "behavior:process_audit:slow_action_shape:kernel_command"
-    assert row["repair_hints"][0]["hint_id"] == "replace_kernel_output_limiter_with_compact_mode"
-    assert row["preferred_next"].startswith("Use a compact kernel mode")
+    assert row["repair_hints"][0]["hint_id"] == "replace_context_pack_limiter_with_selected_lens"
+    assert row["preferred_next"].startswith("Use the routine context-pack row handles")
     assert row["example_command_shape_tags"] == ["output_limited", "tmp_artifact_file", "context_pack"]
     assert row["owner_surface"] == "process_bottlenecks"
     assert row["owner_status_command"] == "./repo-python kernel.py --process-bottlenecks"
@@ -566,10 +661,44 @@ def test_navigation_metabolism_latency_profile_names_slow_actor_receipt_phase() 
     )
 
     assert profile["status"] == "latency_debt"
+    assert profile["measurement_scope"] == "in_process_internal_phases_only"
+    assert profile["external_wall_clock_status"] == "unmeasured"
+    assert profile["speed_contract"]["primary_question"] == (
+        "How long until the agent or operator gets the next useful signal?"
+    )
     assert profile["slow_phases"][0]["phase"] == "actor_delivery_receipt"
-    assert rows[0]["debt_class"] == "latency_debt"
-    assert rows[0]["route_id"] == "actor_delivery_receipt"
-    assert "tools/meta/factory/check_agent_bootstrap_projection.py" in rows[0]["target_files"]
+    assert {row["route_id"] for row in rows} == {"external_wall_clock", "actor_delivery_receipt"}
+    actor_row = next(row for row in rows if row["route_id"] == "actor_delivery_receipt")
+    assert actor_row["debt_class"] == "latency_debt"
+    assert "tools/meta/factory/check_agent_bootstrap_projection.py" in actor_row["target_files"]
+
+
+def test_navigation_metabolism_latency_profile_does_not_close_speed_without_wall_clock() -> None:
+    phase_rows = [{"phase": "entrypoint_health", "ms": 12.0}]
+
+    profile = _latency_profile(
+        phase_rows,
+        total_ms=80.0,
+        phase_warn_ms=2500.0,
+        total_warn_ms=10000.0,
+    )
+    rows = _latency_profile_debt_rows(
+        phase_rows,
+        surface="navigation_metabolism.quick",
+        total_ms=80.0,
+        phase_warn_ms=2500.0,
+        total_warn_ms=10000.0,
+    )
+
+    assert profile["status"] == "within_budget"
+    assert profile["status_qualifier"] == "within_budget_internal_only_external_elapsed_unmeasured"
+    assert "toolhost_wall_clock_ms" in profile["speed_contract"]["axes"]
+    assert "retry_rework_elapsed_ms" in profile["speed_contract"]["axes"]
+    scope_gap = next(row for row in rows if row["route_id"] == "external_wall_clock")
+    assert scope_gap["debt_class"] == "latency_debt"
+    assert scope_gap["repair_class"] == "perceived_latency_measurement_repair"
+    assert "toolhost_wall_clock_ms" in scope_gap["missing_axes"]
+    assert "inner_phase_ms" not in scope_gap["missing_axes"]
 
 
 def test_clusterability_quick_projection_is_uncached_for_dynamic_artifacts(monkeypatch, tmp_path) -> None:
@@ -619,6 +748,38 @@ def test_clusterability_quick_default_defers_measurement_for_latency(tmp_path) -
     assert payload["summary"]["debt_count"] == 0
     assert status["status"] == "deferred_by_quick_profile"
     assert payload["drilldown_command"] == "./repo-python kernel.py --clusterability-audit --context-budget 12000"
+
+
+def test_entrypoint_health_quick_reuses_command_node_cache(monkeypatch, tmp_path) -> None:
+    import system.lib.navigation_metabolism_ledger as ledger_module
+
+    calls = 0
+
+    def fake_entrypoint_health(_root, *, include_generated_targets=True):
+        nonlocal calls
+        calls += 1
+        assert include_generated_targets is False
+        return {
+            "kind": "entrypoint_health",
+            "schema_version": "entrypoint_health_v0",
+            "summary": {"contract_status": "valid", "file_count": 4},
+            "instruction_files": [],
+            "forbidden_first_contact_hits": [],
+        }
+
+    monkeypatch.delenv("AIW_COMMAND_CACHE", raising=False)
+    monkeypatch.delenv("AIW_COMMAND_CACHE_REFRESH", raising=False)
+    monkeypatch.setattr(ledger_module, "build_entrypoint_health", fake_entrypoint_health)
+
+    first_payload, first_status = ledger_module._cached_entrypoint_health_quick(tmp_path)
+    second_payload, second_status = ledger_module._cached_entrypoint_health_quick(tmp_path)
+
+    assert calls == 1
+    assert first_payload["summary"]["contract_status"] == "valid"
+    assert second_payload["summary"]["contract_status"] == "valid"
+    assert first_status["status"] == "miss_built"
+    assert second_status["status"] == "hit"
+    assert second_status["freshness_policy"] == "ttl_for_entrypoint_files_plus_budget_standard_manifest"
 
 
 def test_quick_navigation_metabolism_refresh_env_rebuilds_process_nodes(monkeypatch, tmp_path) -> None:
@@ -909,10 +1070,10 @@ def test_budget_trim_preserves_command_node_cache_freshness_policy() -> None:
             "process_audit": {
                 "schema_version": "command_node_cache_v1",
                 "node_id": "navigation_metabolism.process_audit.quick",
-                "status": "hit",
-                "reason": "hit",
+                "status": "stale_ok_hit",
+                "reason": "expired",
                 "cache_path": "state/command_cache/navigation_metabolism.process_audit.quick/example.json",
-                "age_s": 120.5,
+                "age_s": 1200.5,
                 "ttl_s": 600.0,
                 "freshness_policy": "ttl_for_dynamic_session_state_plus_static_source_manifest",
                 "dynamic_inputs_manifested": False,
@@ -935,15 +1096,70 @@ def test_budget_trim_preserves_command_node_cache_freshness_policy() -> None:
     trimmed = _budget_trim(packet, context_budget=1000)
 
     process_cache = trimmed["command_node_cache"]["process_audit"]
-    assert process_cache["status"] == "hit"
+    assert process_cache["status"] == "stale_ok_hit"
     assert process_cache["ttl_s"] == 600.0
     assert process_cache["freshness_policy"] == "ttl_for_dynamic_session_state_plus_static_source_manifest"
+    assert process_cache["patch_selection_policy"] == (
+        "refresh_before_selecting_process_audit_source_patch"
+    )
     assert process_cache["dynamic_inputs_manifested"] is False
     assert "cache_path" not in process_cache
 
     mechanism_cache = trimmed["command_node_cache"]["navigation_mechanism_metabolism"]
     assert mechanism_cache["freshness_policy"] == "ttl_plus_input_manifest"
     assert mechanism_cache["dynamic_inputs_manifested"] is True
+
+
+def test_quick_cli_compaction_drops_empty_command_node_cache_scalars() -> None:
+    compact = compact_quick_navigation_metabolism_packet_for_cli(
+        {
+            "metabolism_profile": "quick",
+            "summary": {"total_debt_rows": 0, "quality_signal_bottleneck": None},
+            "budget": {"context_budget_tokens": 1000},
+            "debt_rows": [
+                {
+                    "debt_id": "advisory:large",
+                    "debt_class": "behavior_debt",
+                    "priority": 10,
+                    "title": "Large advisory row",
+                    "evidence": "x" * 5000,
+                    "active_debt": False,
+                    "advisory_only": True,
+                }
+            ],
+            "top_repairs": [],
+            "route_lifecycle": [],
+            "command_node_cache": {
+                "actor_delivery_receipt": {
+                    "status": "deferred_missing_cache",
+                    "reason": "quick_profile_does_not_rebuild_expensive_node",
+                    "age_s": None,
+                    "ttl_s": None,
+                    "freshness_policy": "ttl_for_actor_delivery_smoke_plus_static_source_manifest",
+                    "dynamic_inputs_manifested": False,
+                },
+                "navigation_mechanism_metabolism": {
+                    "status": "deferred_stale_cache",
+                    "reason": "expired",
+                    "age_s": 1200.5,
+                    "ttl_s": 600.0,
+                    "freshness_policy": "ttl_plus_input_manifest",
+                    "dynamic_inputs_manifested": True,
+                },
+            },
+            "observation_sources": {},
+        },
+        context_budget=1000,
+    )
+
+    deferred = compact["command_node_cache"]["actor_delivery_receipt"]
+    assert "age_s" not in deferred
+    assert "ttl_s" not in deferred
+    assert "dynamic_inputs_manifested" not in deferred
+    mechanism = compact["command_node_cache"]["navigation_mechanism_metabolism"]
+    assert mechanism["dynamic_inputs_manifested"] is True
+    assert mechanism["age_s"] == 1200.5
+    assert mechanism["patch_selection_policy"] == "refresh_before_selecting_source_patch"
 
 
 def test_quick_cli_compaction_keeps_control_packet_under_smaller_budget() -> None:
@@ -975,11 +1191,42 @@ def test_quick_cli_compaction_keeps_control_packet_under_smaller_budget() -> Non
     assert route_summary["compression_policy"] == "quick_cli_prioritized_slice_static_lifecycle_summary"
     assert route_summary["full_evidence_route"].startswith("./repo-python kernel.py --navigation-metabolism")
     assert "status_counts" in route_summary
+    assert all("purpose" not in row for row in compact["route_lifecycle"])
+    assert all("compatibility_behavior" not in row for row in compact["route_lifecycle"])
+    phase_alignment = next(
+        row for row in compact["route_lifecycle"] if row["route_id"] == "phase_task_alignment"
+    )
+    assert phase_alignment["write_guard_present"] is True
+    assert "write_guard" not in phase_alignment
+    assert phase_alignment["residual_lane_command_templates_omitted"] >= 1
+    assert phase_alignment["owner_surface_templates_omitted"] >= 1
+    assert all("entry_command_template" not in row for row in phase_alignment["residual_lanes"])
+    assert all("template" not in row for row in phase_alignment["owner_surfaces"])
     retirement_source = compact["observation_sources"]["observed_mechanism_debt_retirement"]
     assert "retired_debt_count" in retirement_source
     assert "retired_debt_ids" not in retirement_source
+    sources = compact["observation_sources"]
+    assert "surface_authoring_audit" not in sources
+    assert sources["deferred_by_quick_profile_sources"]["count"] >= 1
+    assert "process_audit_pattern_classes" not in sources["agent_path_events"]
+    assert sources["agent_path_events"]["process_audit_pattern_class_count"] >= len(
+        sources["agent_path_events"]["process_audit_pattern_classes_preview"]
+    )
+    annex_summary = sources["annex_currentness"]["summary"]
+    assert "bucket_counts" not in annex_summary
+    assert "bucket_counts_nonzero" in annex_summary
     assert compact["debt_rows"]
     assert compact["navigation_mechanism_metabolism"]["cli_compacted"] is True
+    quality_signal = compact["quality_signal"]
+    assert quality_signal["cli_compacted"] is True
+    assert quality_signal["component_drilldown_policy"] == "filter debt_rows by debt_class"
+    assert "drilldown_into_components" not in quality_signal
+    assert "components" in quality_signal
+    assert "authoritative_decision_command" not in json.dumps(quality_signal, sort_keys=True)
+    mechanism = compact["navigation_mechanism_metabolism"]
+    assert "observed_claim_refs" not in mechanism
+    assert mechanism.get("observed_claim_ref_count", 0) >= 1
+    assert mechanism.get("top_candidate_claims_omitted", 0) >= 1
 
 
 def test_quality_signal_has_no_false_bottleneck_when_clean() -> None:

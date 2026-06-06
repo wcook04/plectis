@@ -1,0 +1,42 @@
+{
+  "case_id": "recency_sort_wrong",
+  "description": "Rows must sort by latestIso descending when neither side is the unclassified sentinel.",
+  "recent_changes": [
+    {
+      "event_id": "older-codex",
+      "recorded_at": "2026-05-31T10:00:00Z",
+      "summary": "older codex",
+      "gate_reason": "gate_codex",
+      "active_driver": "codex"
+    },
+    {
+      "event_id": "newer-bridge",
+      "recorded_at": "2026-05-31T12:00:00Z",
+      "summary": "newer bridge",
+      "gate_reason": "gate_bridge",
+      "active_driver": "bridge"
+    }
+  ],
+  "declared_rows": [
+    {
+      "key": "codex",
+      "driver": "codex",
+      "count": 1,
+      "latestIso": "2026-05-31T10:00:00Z",
+      "latestSummary": "older codex",
+      "gateReason": "gate_codex"
+    },
+    {
+      "key": "bridge",
+      "driver": "bridge",
+      "count": 1,
+      "latestIso": "2026-05-31T12:00:00Z",
+      "latestSummary": "newer bridge",
+      "gateReason": "gate_bridge"
+    }
+  ],
+  "error_codes": [
+    "WDRC_RECENCY_SORT_DESC_REQUIRED"
+  ],
+  "body_in_receipt": false
+}

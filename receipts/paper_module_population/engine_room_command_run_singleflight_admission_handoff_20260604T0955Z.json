@@ -1,0 +1,394 @@
+{
+  "schema_version": "microcosm_paper_module_admission_handoff_v1",
+  "receipt_id": "engine_room_command_run_singleflight_admission_handoff_20260604T0955Z",
+  "generated_at": "2026-06-04T09:55:00Z",
+  "phase_id": "09_54_1",
+  "family_id": "09",
+  "agent_session_id": "codex_20260604T0955Z_engine_room_singleflight_admission_handoff",
+  "agent_read_receipt_id": "wlr_813c96c0878f48b6",
+  "work_ledger_claim": {
+    "claim_id": "wlc_8a7700dbbc1b4c57",
+    "path": "microcosm-substrate/receipts/paper_module_population/engine_room_command_run_singleflight_admission_handoff_20260604T0955Z.json",
+    "leased_until": "2026-06-04T10:25:18.238143+00:00",
+    "claim_intent": "hard_mutation",
+    "conflict_scope_kind": "path"
+  },
+  "status": "handoff_ready_not_source_authority",
+  "authority_boundary": "This receipt is a source-backed admission handoff packet. It does not admit a mechanism, add a paper-module capsule, regenerate lattice projections, or make generated site files current.",
+  "anti_claim": "The packet must not be counted as a closed paper-module population deficit, public release approval, product readiness, provider dispatch authority, private-root equivalence, or whole-system correctness proof.",
+  "selected_module": {
+    "paper_module_id": "paper_module.engine_room_command_run_singleflight",
+    "slug": "engine_room_command_run_singleflight",
+    "title": "Engine Room Command-Run Singleflight",
+    "legacy_markdown_projection": "paper_modules/engine_room_command_run_singleflight.md",
+    "generated_json_projection": "paper_modules/engine_room_command_run_singleflight.json"
+  },
+  "coverage_snapshot_before": {
+    "source_ref": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus",
+    "json_capsule_backed_count": 84,
+    "legacy_only_count": 14,
+    "required_subject_gap_count": 14,
+    "target_in_legacy_only_ids": true,
+    "target_in_required_subject_gap_ids": true,
+    "target_generated_mermaid_status": "blocked_required_subject_gap",
+    "target_generated_atlas_status": "blocked_required_subject_gap"
+  },
+  "subject_admission_audit": {
+    "status": "negative_for_current_lattice_subjects",
+    "checked_at": "2026-06-04T09:50:00Z",
+    "accepted_organ_registry_match": false,
+    "accepted_organ_atlas_match": false,
+    "mechanism_registry_match": false,
+    "standard_status": "staged_capsule_pending_shared_registry_integration",
+    "standard_registry_integration_status": "inventory_only_registered_not_active_v2_promoted",
+    "downstream_dependency_is_not_subject_admission": true,
+    "evidence_refs": [
+      "microcosm-substrate/core/organ_registry.json::implemented_organs",
+      "microcosm-substrate/core/organ_atlas.json::organs",
+      "microcosm-substrate/core/mechanism_sources.json::mechanisms",
+      "microcosm-substrate/standards/std_microcosm_engine_room_command_run_singleflight.json::relationships",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md::Subject Admission Audit"
+    ],
+    "decision": "Do not append paper_module.engine_room_command_run_singleflight to core/paper_module_capsules.json until a resolving mechanism or organ subject is admitted."
+  },
+  "source_authority_evidence": {
+    "public_target_code": {
+      "path": "src/microcosm_core/engine_room/command_run_singleflight.py",
+      "symbols": [
+        "build_command_key",
+        "run_command_singleflight",
+        "evaluate_fixture_dir",
+        "_run_leader",
+        "_wait_for_active",
+        "CLAIM_CEILING",
+        "ANTI_CLAIMS"
+      ],
+      "source_to_target_relation": "source_faithful_public_refactor",
+      "declared_source_refs": [
+        "system/lib/command_run_singleflight.py"
+      ]
+    },
+    "standard": {
+      "path": "standards/std_microcosm_engine_room_command_run_singleflight.json",
+      "standard_id": "std_microcosm_engine_room_command_run_singleflight",
+      "status": "staged_capsule_pending_shared_registry_integration",
+      "positive_claim": "Duplicate active subprocess invocations with the same content-addressed command and scoped-state key collapse to one leader execution while followers replay the captured receipt."
+    },
+    "fixtures": {
+      "fixture_manifest": "core/fixture_manifests/engine_room_command_run_singleflight.fixture_manifest.json",
+      "input_dir": "fixtures/first_wave/engine_room_command_run_singleflight/input",
+      "positive_cases": [
+        "single_leader",
+        "completed_reuse"
+      ],
+      "negative_boundary_cases": [
+        "scope_mutation_changes_key",
+        "missing_command_rejected"
+      ]
+    },
+    "tests": [
+      "tests/test_engine_room_command_run_singleflight.py"
+    ],
+    "reader_projection": "paper_modules/engine_room_command_run_singleflight.md"
+  },
+  "validation_receipts": [
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.engine_room.command_run_singleflight evaluate-fixtures --input fixtures/first_wave/engine_room_command_run_singleflight/input --json",
+      "status": "pass",
+      "case_count": 4,
+      "passed_case_count": 4,
+      "observed_roles": [
+        "leader",
+        "reused"
+      ],
+      "negative_boundaries_passed": [
+        "scope_mutation_changes_key",
+        "missing_command_rejected"
+      ]
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_command_run_singleflight.py -q --basetemp /tmp/microcosm-command-run-singleflight",
+      "status": "pass",
+      "pytest_summary": "7 passed"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "actual_count": 98,
+      "expected_count": 98
+    }
+  ],
+  "blocked_shared_surfaces": {
+    "status": "blocked_by_live_owner_claims",
+    "owner_session_id": "codex_20260604T0942Z_microcosm_batch7_mechanism_receipt_refs",
+    "owner_actor": "codex_goal_microcosm_doctrine_lattice",
+    "owner_current_pass": "Refreshing aggregate doctrine lattice projections after Batch7 receipt-ref repair",
+    "held_surfaces": [
+      {
+        "path": "microcosm-substrate/core/mechanism_sources.json",
+        "leased_until": "2026-06-04T10:12:15.456633+00:00"
+      },
+      {
+        "path": "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "leased_until": "2026-06-04T10:17:09.371147+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_projection.json",
+        "leased_until": "2026-06-04T10:17:09.371147+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_graph.mmd",
+        "leased_until": "2026-06-04T10:17:09.371147+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_health.json",
+        "leased_until": "2026-06-04T10:17:09.371147+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_entry_card.json",
+        "leased_until": "2026-06-04T10:17:09.371147+00:00"
+      }
+    ],
+    "non_isolatable_reason": "A valid capsule splice requires mechanism admission plus paper-module capsule append plus generated projection refresh. Those shared source/projection files are under an active owner session, so this pass writes only a disjoint handoff receipt.",
+    "coordination_command": "./repo-python tools/meta/factory/work_ledger.py session-yield-request --target-session-id codex_20260604T0942Z_microcosm_batch7_mechanism_receipt_refs --target-class settlement_obligation_owner --requested-action release_after_landing --result requested --coordination-brief --requester-label codex_20260604T0955Z_engine_room_singleflight_admission_handoff --blocked-on engine_room_command_run_singleflight_requires_mechanism_then_capsule_splice --validation-status fixture_pytest_and_paper_module_corpus_pass --held-path microcosm-substrate/core/mechanism_sources.json"
+  },
+  "proposed_mechanism_row": {
+    "source_status": "candidate_handoff_only_not_current_authority",
+    "row": {
+      "id": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+      "kind": "mechanism",
+      "status": "active",
+      "runs_in": [
+        "engine_room_demo"
+      ],
+      "statement": "The Engine Room command-run singleflight mechanism validates content-addressed subprocess run keys, fcntl-backed leader/follower collapse, completed-run reuse, scoped dirty/content fingerprint invalidation, captured stdout/stderr replay, and empty-command refusal over public fixtures without claiming scheduler, daemon, live command_runs export, distributed-lock, release, or private-root authority.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/engine_room/command_run_singleflight.py",
+          "symbols": [
+            "build_command_key",
+            "run_command_singleflight",
+            "evaluate_fixture_dir",
+            "_run_leader",
+            "_wait_for_active",
+            "CLAIM_CEILING",
+            "ANTI_CLAIMS"
+          ],
+          "role": "Runtime and receipt-writing locus for public command-run singleflight fixture evaluation, content-addressed command keys, fcntl leader/follower election, completed-run reuse, scoped fingerprinting, and authority ceilings.",
+          "resolution": "resolved"
+        }
+      ],
+      "input_refs": [
+        "fixtures/first_wave/engine_room_command_run_singleflight/input",
+        "core/fixture_manifests/engine_room_command_run_singleflight.fixture_manifest.json",
+        "standards/std_microcosm_engine_room_command_run_singleflight.json",
+        "tests/test_engine_room_command_run_singleflight.py",
+        "paper_modules/engine_room_command_run_singleflight.md"
+      ],
+      "receipt_refs": [],
+      "resolution_evidence": {
+        "authority_class": "semantic_validator",
+        "evidence_rank": 5,
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.engine_room.command_run_singleflight evaluate-fixtures --input fixtures/first_wave/engine_room_command_run_singleflight/input --json",
+        "focused_regression": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_command_run_singleflight.py -q --basetemp /tmp/microcosm-command-run-singleflight"
+      },
+      "guardrails": [
+        "command_run_singleflight_scope_is_public_fixture_subprocess_singleflight_only",
+        "job_scheduler_daemon_live_command_runs_export_distributed_lock_service_release_and_private_root_equivalence_claims_forbidden",
+        "captured_output_replay_is_fixture_receipt_evidence_not_provider_or_source_mutation_authority",
+        "scoped_dirty_content_fingerprint_invalidates_reuse_when_selected_inputs_change",
+        "generated_projection_output_not_source_authority"
+      ],
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "upstream_of": [
+        "mechanism.engine_room_demo.validates_public_engine_room_demo"
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ]
+    }
+  },
+  "proposed_paper_module_capsule_row": {
+    "source_status": "candidate_handoff_only_not_current_authority",
+    "precondition": "Only splice after the proposed mechanism row or an equivalent resolving subject is admitted in the live mechanism registry.",
+    "expected_coverage_delta_after_mechanism_and_capsule_splice": {
+      "legacy_only_count": -1,
+      "required_subject_gap_count": -1,
+      "json_capsule_backed_count": 1,
+      "target_mermaid_status": "available_from_capsule_edges",
+      "target_atlas_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+    },
+    "row": {
+      "id": "paper_module.engine_room_command_run_singleflight",
+      "kind": "paper_module",
+      "title": "Engine Room Command-Run Singleflight",
+      "source_authority": "json_capsule",
+      "legacy_markdown_projection": "paper_modules/engine_room_command_run_singleflight.md",
+      "compression": {
+        "one_line": "Public command-run singleflight fixture: content-addressed subprocess keys collapse duplicate active runs and replay captured receipts without claiming scheduler or daemon authority.",
+        "card": "Engine Room Command-Run Singleflight is a public-safe subprocess singleflight capsule. It validates content-addressed command keys, scoped dirty/content fingerprints, fcntl leader/follower election, completed-run reuse, captured output replay, and two negative boundaries over fixture commands while keeping scheduler, daemon, distributed-lock, live-state export, release, and private-root claims out of scope.",
+        "authority_ceiling": "Public subprocess singleflight fixture and focused regression receipts only; no job scheduler, daemon, distributed lock service, live command_runs export, provider dispatch authority, release approval, private-root equivalence, source mutation, or whole-system correctness."
+      },
+      "subjects": [
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/engine_room/command_run_singleflight.py",
+          "symbols": [
+            "build_command_key",
+            "run_command_singleflight",
+            "evaluate_fixture_dir",
+            "_run_leader",
+            "_wait_for_active"
+          ],
+          "role": "Runtime and receipt-writing locus for content-addressed command keys, fcntl leader/follower singleflight, completed-run reuse, captured output replay, scoped fingerprinting, and fixture evaluation.",
+          "resolution": "resolved"
+        }
+      ],
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-15"
+      ],
+      "axiom_refs": [
+        "AX-1",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "depends_on": [],
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/engine_room_command_run_singleflight.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.engine_room_command_run_singleflight.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.engine_room_command_run_singleflight",
+          "status": "blocked_until_organ_atlas_owner_lane_binds_edges",
+          "generated": true
+        }
+      },
+      "strangler_note": "Binds the authored Markdown projection, staged Engine Room command-run singleflight runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated JSON projections, command output, completed-run reuse, or green fixture status as scheduler, daemon, distributed-lock, release, source-mutation, private-root-equivalence, or whole-system authority. No accepted organ subject is claimed."
+    }
+  },
+  "reentry_ladder": [
+    {
+      "step": 1,
+      "action": "Re-observe live ownership before mutating shared registries.",
+      "command": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/mechanism_sources.json --path microcosm-substrate/core/paper_module_capsules.json --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/atlas/doctrine_lattice_projection.json --path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --path microcosm-substrate/atlas/doctrine_lattice_health.json --path microcosm-substrate/atlas/doctrine_lattice_entry_card.json --require-exclusive"
+    },
+    {
+      "step": 2,
+      "action": "If clean or same-owner controlled, append the proposed mechanism row or equivalent resolving subject to core/mechanism_sources.json."
+    },
+    {
+      "step": 3,
+      "action": "Append the proposed paper-module capsule row to core/paper_module_capsules.json without duplicate JSON keys."
+    },
+    {
+      "step": 4,
+      "action": "Regenerate the doctrine projection from source authority.",
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --write"
+    },
+    {
+      "step": 5,
+      "action": "Validate corpus and lattice after regeneration.",
+      "commands": [
+        "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+        "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check"
+      ]
+    },
+    {
+      "step": 6,
+      "action": "Refresh public-site data through the existing builder after source hashes and sibling-owned generated site files are clean or owned.",
+      "commands": [
+        "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+        "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+      ]
+    }
+  ],
+  "public_site_availability": {
+    "current_delta": "No generated site files were changed in this pass.",
+    "current_reachable_source_surfaces": [
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md",
+      "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.json",
+      "microcosm-substrate/src/microcosm_core/engine_room/command_run_singleflight.py",
+      "microcosm-substrate/standards/std_microcosm_engine_room_command_run_singleflight.json",
+      "microcosm-substrate/core/fixture_manifests/engine_room_command_run_singleflight.fixture_manifest.json",
+      "microcosm-substrate/tests/test_engine_room_command_run_singleflight.py"
+    ],
+    "site_builder_contract": "sites/microcosm/SOURCE_CONTRACT.md names tools/meta/dissemination/build_microcosm_public_site.py as the owner of docs, content-manifest, deployment envelope, object-map, search/content graph, and generated site availability surfaces.",
+    "site_write_boundary": {
+      "status": "deferred",
+      "reason": "Existing generated site outputs are dirty and previous source-hash drift was captured for the public-site owner lane; this pass does not hand-edit generated HTML or JS.",
+      "prior_capture_subject_id": "cap_quick_microcosm_public_site_content_drift_source_hash_boundary_20260604",
+      "prior_capture_event_id": "wie_20260604T094014Z_efd27583"
+    },
+    "expected_availability_delta_after_reentry": "After mechanism admission, capsule splice, doctrine-projection regeneration, and public-site builder refresh, the site content graph/object map should expose paper_module.engine_room_command_run_singleflight as capsule-backed mechanism material rather than legacy-only required-subject gap material."
+  },
+  "task_ledger_bindings": [
+    {
+      "subject_id": "cap_quick_microcosm_legacy_paper_module_admission_first_20260604",
+      "event_id": "wie_20260604T095414Z_a3646886",
+      "purpose": "Captured the admission-first residual for current legacy-only paper-module gaps."
+    },
+    {
+      "subject_id": "cap_quick_self_error_microcosm_admission_gap_update_before_capture_20260604",
+      "event_id": "wie_20260604T095444Z_5710ed7f",
+      "purpose": "Captured the commentary-before-capture mistake so future closeouts preserve capture order."
+    }
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "allowed_public_material": [
+      "public source refs",
+      "standard ids",
+      "fixture ids",
+      "test commands",
+      "case counts",
+      "status booleans",
+      "authority ceilings",
+      "anti-claims",
+      "hash-bearing receipt boundaries"
+    ],
+    "forbidden_material_not_included": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "raw_operator_voice",
+      "private account state",
+      "browser_or_hud_state",
+      "live state/command_runs tree bodies",
+      "private macro source bodies"
+    ]
+  },
+  "closeout": {
+    "commit_expected": true,
+    "head_at_receipt_creation": "55f2b8710a4f0c8095f03ed31e719281ac02e8e1",
+    "next_lane": "When the mechanism registry and lattice projection owner releases, admit the mechanism row, splice the capsule row, regenerate doctrine projection, then refresh the public site through the existing builder."
+  }
+}

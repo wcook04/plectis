@@ -992,9 +992,12 @@
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
     },
     {
-      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "build_dependencies": [
+        "agent_sandbox_policy_escape_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ],
       "fixture_id": "fixture::agentic_vulnerability_discovery_patch_proof_replay::first_wave_contract_v1",
-      "fixture_manifest": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
       "fixture_inputs": [
         "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/benchmark_score_claim.json",
         "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/cold_replay.json",
@@ -1017,16 +1020,11 @@
         "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/vulnerability_policy.json",
         "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/weaponized_payload_export.json"
       ],
-      "build_dependencies": [
-        "agent_sandbox_policy_escape_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization"
-      ]
+      "fixture_manifest": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay"
     },
     {
-      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "fixture_id": "fixture::materials_chemistry_closed_loop_lab_safety_replay::first_wave_contract_v1",
-      "fixture_manifest": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
       "fixture_inputs": [
         "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/lab_safety_protocol.json",
         "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json",
@@ -1043,19 +1041,24 @@
         "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/private_lab_notebook_export.json",
         "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/discovery_claim.json"
       ],
+      "fixture_manifest": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
       "generated_receipts": [
         "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
         "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
         "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
       ],
-      "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
-      "status": "ready"
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
     },
     {
-      "organ_id": "certificate_kernel_execution_lab",
+      "build_dependencies": [
+        "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
+        "macro_projection_import_protocol"
+      ],
       "fixture_id": "fixture::certificate_kernel_execution_lab::first_wave_contract_v1",
-      "fixture_manifest": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
       "fixture_inputs": [
         "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
         "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
@@ -1067,24 +1070,23 @@
         "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
         "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
       ],
-      "build_dependencies": [
-        "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "macro_projection_import_protocol"
-      ],
+      "fixture_manifest": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
       "generated_receipts": [
         "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
         "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
         "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
         "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
       ],
-      "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
-      "status": "ready"
+      "organ_id": "certificate_kernel_execution_lab",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
     },
     {
-      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "build_dependencies": [
+        "macro_projection_import_protocol",
+        "pattern_assimilation_step"
+      ],
       "fixture_id": "fixture::voice_to_doctrine_self_improvement_loop::first_wave_contract_v1",
-      "fixture_manifest": "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
       "fixture_inputs": [
         "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/projection_protocol.json",
         "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/propagation_policy.json",
@@ -1097,18 +1099,16 @@
         "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/global_promotion_without_owner_validation.json",
         "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/private_thread_body_export.json"
       ],
-      "build_dependencies": [
-        "macro_projection_import_protocol",
-        "pattern_assimilation_step"
-      ],
+      "fixture_manifest": "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
       "generated_receipts": [
         "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
         "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_board.json",
         "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json",
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
       ],
-      "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
-      "status": "ready"
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
     },
     {
       "build_dependencies": [],
@@ -1141,6 +1141,684 @@
       ],
       "fixture_manifest": "core/fixture_manifests/routing_anti_patterns_registry.fixture_manifest.json",
       "organ_id": "routing_anti_patterns_registry"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::agent_closeout_faithfulness_audit::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/closeout_claims.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_cap_claim.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_commit_claim.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_test_claim.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fixture_ledger.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/projection_protocol.json",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/micro_pkg/__init__.py",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/micro_pkg/arithmetic.py",
+        "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/tests/test_closeout_fixture.py"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_closeout_faithfulness_audit.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_result.json",
+        "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json",
+        "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_closeout_faithfulness_audit",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.agent_closeout_faithfulness_audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit --acceptance-out receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::doctrine_fact_claim_audit::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/dead_code_locus.json",
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/fact_assertions.json",
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/fact_dag.json",
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/missing_code_locus.json",
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/projection_protocol.json",
+        "fixtures/first_wave/doctrine_fact_claim_audit/input/wrong_fact_count.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/doctrine_fact_claim_audit.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json",
+        "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
+        "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json",
+        "receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json"
+      ],
+      "organ_id": "doctrine_fact_claim_audit",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.doctrine_fact_claim_audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit --acceptance-out receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::self_ignorance_coverage_ledger::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/self_ignorance_coverage_ledger/input/forbidden_absence_inference.json",
+        "fixtures/first_wave/self_ignorance_coverage_ledger/input/kind_atlas_rows.json",
+        "fixtures/first_wave/self_ignorance_coverage_ledger/input/materialized_entities.json",
+        "fixtures/first_wave/self_ignorance_coverage_ledger/input/projection_protocol.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/self_ignorance_coverage_ledger.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_result.json",
+        "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_board.json",
+        "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_validation_receipt.json",
+        "receipts/acceptance/first_wave/self_ignorance_coverage_ledger_fixture_acceptance.json"
+      ],
+      "organ_id": "self_ignorance_coverage_ledger",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.self_ignorance_coverage_ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger --acceptance-out receipts/acceptance/first_wave/self_ignorance_coverage_ledger_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::bounded_autonomy_campaign_packet::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/campaign_policy.json",
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/coverage_gaps.json",
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/failed_campaign_digests.json",
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/projection_protocol.json",
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/repeated_failed_campaign_digest.json",
+        "fixtures/first_wave/bounded_autonomy_campaign_packet/input/source_write_campaign_packet.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/bounded_autonomy_campaign_packet.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_result.json",
+        "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_board.json",
+        "receipts/first_wave/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json",
+        "receipts/acceptance/first_wave/bounded_autonomy_campaign_packet_fixture_acceptance.json"
+      ],
+      "organ_id": "bounded_autonomy_campaign_packet",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.bounded_autonomy_campaign_packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet --acceptance-out receipts/acceptance/first_wave/bounded_autonomy_campaign_packet_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::finance_forecast_evaluation_spine::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/family_loss_matrix.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_boundary_policy.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_hln_dependency_refusal.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_leakage_lookahead_split.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_no_advice_overclaim.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/paired_loss_series.json",
+        "fixtures/first_wave/finance_forecast_evaluation_spine/input/projection_protocol.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/finance_forecast_evaluation_spine.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
+        "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+      ],
+      "organ_id": "finance_forecast_evaluation_spine",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch6_unsurfaced_primitives_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/batch6_probe_manifest.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/concurrency_parent_child_conflict.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/demo_take_pause_remap.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/finance_unit_scale_mismatch.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/handoff_unrelated_below_floor.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/market_clock_duplicate_fire_suppressed.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/market_situation_missing_counterevidence.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/observed_turn_duplicate_rerender.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/provider_timeout_scope_narrow.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/schema_loose_voice_conflation.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/status_policy_poisoned.json",
+        "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/stopword_only_keyphrase_empty.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch6_unsurfaced_primitives_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_result.json",
+        "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_board.json",
+        "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch6_unsurfaced_primitives_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch7_macro_engines_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/batch7_exercise_manifest.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/calculator_outlier.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/clean_clone_network_call.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/codemap_overlap.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/dag_cycle.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/pagerank_missing_source.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/regression_selection_empty.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/release_root_bad_ref.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/source_surgeon_context_mismatch.json",
+        "fixtures/first_wave/batch7_macro_engines_capsule/input/trace_commit_without_diff.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch7_macro_engines_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_result.json",
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_board.json",
+        "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch7_macro_engines_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch7_macro_engines_capsule run --input fixtures/first_wave/batch7_macro_engines_capsule/input --out receipts/first_wave/batch7_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch7_macro_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_tools_tail_primitives_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/batch8_tools_tail_primitives_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/ledger_id_missing_identity_refused.json",
+        "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/observer_diff_malformed_key_skipped.json",
+        "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/shadow_dsl_malformed_tuple_coverage_gap.json",
+        "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input/version_committer_scalar_traversal_refused.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_tools_tail_primitives_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_result.json",
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_board.json",
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_policy_engines_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_policy_engines_capsule/input/batch8_policy_engines_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch8_policy_engines_capsule/input/campaign_completed_to_running_refused.json",
+        "fixtures/first_wave/batch8_policy_engines_capsule/input/lab_contract_question_mark_red_gate.json",
+        "fixtures/first_wave/batch8_policy_engines_capsule/input/market_fusion_missing_gate_refused.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_policy_engines_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_result.json",
+        "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_board.json",
+        "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_policy_engines_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_policy_engines_capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_audio_level_rms_port::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_clamps_over_one.json",
+        "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_empty_buffer_zero.json",
+        "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_unknown_format_refused.json",
+        "fixtures/first_wave/batch8_audio_level_rms_port/input/batch8_audio_level_rms_port_probe_manifest.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_audio_level_rms_port.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_result.json",
+        "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_board.json",
+        "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_audio_level_rms_port",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_audio_level_rms_port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_station_surface_atlas_layout_port::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_station_surface_atlas_layout_port/input/batch8_station_surface_atlas_layout_port_probe_manifest.json",
+        "fixtures/first_wave/batch8_station_surface_atlas_layout_port/input/station_layout_attention_sort_required.json",
+        "fixtures/first_wave/batch8_station_surface_atlas_layout_port/input/station_layout_slack_lane_spend_required.json",
+        "fixtures/first_wave/batch8_station_surface_atlas_layout_port/input/station_layout_unknown_group_routed_unassigned.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_station_surface_atlas_layout_port.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_result.json",
+        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_board.json",
+        "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_station_surface_atlas_layout_port",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_station_surface_atlas_layout_port run --input fixtures/first_wave/batch8_station_surface_atlas_layout_port/input --out receipts/first_wave/batch8_station_surface_atlas_layout_port --acceptance-out receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_structural_theses_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_structural_theses_capsule/input/batch8_structural_theses_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch8_structural_theses_capsule/input/structural_theses_control_leak_rejected.json",
+        "fixtures/first_wave/batch8_structural_theses_capsule/input/structural_theses_forward_gate_breach_rejected.json",
+        "fixtures/first_wave/batch8_structural_theses_capsule/input/structural_theses_survivor_only_rejected.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_structural_theses_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_result.json",
+        "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_board.json",
+        "receipts/first_wave/batch8_structural_theses_capsule/batch8_structural_theses_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_structural_theses_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_structural_theses_capsule run --input fixtures/first_wave/batch8_structural_theses_capsule/input --out receipts/first_wave/batch8_structural_theses_capsule --acceptance-out receipts/acceptance/first_wave/batch8_structural_theses_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch4_proof_authority_runtime::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/batch4_probe_manifest.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/weak_skeleton_synthesis_failure.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/foundry_low_repair_quarantine.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/verisoft_truth_leak.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/verisoft_prefix_answer_leakage.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/erdos_solution_overclaim.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/packet_sha256_corruption.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/grant_forbidden_context.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/forward_dirty_unknown_target.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/closeout_stale_head.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/codex_driver_absent_port.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/idle_stale_snapshot.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/bitemporal_expired_claim.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/taskpolicy_missing_binary.json",
+        "fixtures/first_wave/batch4_proof_authority_runtime/input/context_accepted_read_guard.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch4_proof_authority_runtime.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_result.json",
+        "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_board.json",
+        "receipts/first_wave/batch4_proof_authority_runtime/batch4_proof_authority_runtime_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json"
+      ],
+      "organ_id": "batch4_proof_authority_runtime",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch4_proof_authority_runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::engine_room_demo::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/engine_room_demo/input/positive_controller_audit.json",
+        "fixtures/first_wave/engine_room_demo/input/missing_expected_target_negative.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/engine_room_demo.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/engine_room_demo/engine_room_demo_result.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_board.json",
+        "receipts/first_wave/engine_room_demo/engine_room_demo_validation_receipt.json",
+        "receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+      ],
+      "organ_id": "engine_room_demo",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch9_macro_engines_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/batch9_macro_engines_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/approval_preacquired_claim_refused.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/ast_syntax_error_gap.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/config_authority_mutation_allowed_rejected.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/dependency_pin_drift_detected.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/doctrine_enrichment_unindexed_empty.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/finance_duplicate_headline_collapsed.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/heterogeneous_edge_relation_normalized.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/host_pressure_auto_policy_blocks.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/lineage_self_loop_pruned.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/milestone_missing_committed_at_bucketed.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/mission_graph_missing_target.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/work_atlas_routed_reason_excluded.json",
+        "fixtures/first_wave/batch9_macro_engines_capsule/input/worker_forbidden_surface_blocked.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch9_macro_engines_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_result.json",
+        "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_board.json",
+        "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch9_macro_engines_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch9_macro_engines_capsule run --input fixtures/first_wave/batch9_macro_engines_capsule/input --out receipts/first_wave/batch9_macro_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch9_macro_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch10_governance_compilers_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/batch10_governance_compilers_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/annex_empty_facets_no_fake_counts.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/claim_parent_child_overlap_reported.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/dag_quality_error_not_overblocked.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/finance_invalid_horizon_rejected.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/lane_width_binding_deferred_to_batch9.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/mutation_status_intent_blocks_writes.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/observe_apply_malformed_artifact_refused.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/publication_hard_exclude_rejected.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/receipt_reuse_stable_input_changed.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/recent_empty_summary_bucketed.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/release_toggle_no_go_fail_closed.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/reviewer_missing_boundary_detected.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/session_failed_dependency_skips_child.json",
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/table_missing_values_sort_last.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch10_governance_compilers_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_result.json",
+        "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_board.json",
+        "receipts/first_wave/batch10_governance_compilers_capsule/batch10_governance_compilers_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch10_governance_compilers_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch10_governance_compilers_capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch11_saturation_engines_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/batch11_saturation_engines_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/calculator_zero_bucket_no_fake_dominance.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/demo_take_missing_anchor_penalized.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/exogenous_nav_wrong_route_graded_down.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/frontend_nav_unreachable_target.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/holographic_no_overlap_no_fake_edge.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/macro_regime_unknown_routes_other.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/portability_unresolved_hard_fail_blocks.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/projection_secret_token_blocks.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/run_affinity_stale_terminal_rejected.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/session_no_nav_verbs_no_ladder_skip.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/shard_multimatch_context_priority.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/std_python_new_gap_blocks.json",
+        "fixtures/first_wave/batch11_saturation_engines_capsule/input/stockgrid_units_normalized_not_zeroed.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch11_saturation_engines_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_result.json",
+        "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_board.json",
+        "receipts/first_wave/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch11_saturation_engines_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch11_saturation_engines_capsule run --input fixtures/first_wave/batch11_saturation_engines_capsule/input --out receipts/first_wave/batch11_saturation_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch11_saturation_engines_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::tool_server_pressure_inventory::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/tool_server_pressure_inventory/input/process_table.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/pressure_policy.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/owner_classes.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/source_module_manifest.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/active_owner_kill_candidate.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/unknown_owner_kill.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/premature_safe_close.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/process_signal_sent.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/command_preview_leak.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/absolute_path_leak.json",
+        "fixtures/first_wave/tool_server_pressure_inventory/input/owner_release_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/tool_server_pressure_inventory.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_result.json",
+        "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_board.json",
+        "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_validation_receipt.json",
+        "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
+      ],
+      "organ_id": "tool_server_pressure_inventory",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.tool_server_pressure_inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::workstream_driver_recency_coalescer::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/workstream_driver_recency_coalescer_probe_manifest.json",
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/driver_key_not_normalized.json",
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/newest_event_not_refreshed.json",
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/recency_sort_wrong.json",
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/unclassified_not_last.json",
+        "fixtures/first_wave/workstream_driver_recency_coalescer/input/release_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/workstream_driver_recency_coalescer.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_result.json",
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_board.json",
+        "receipts/first_wave/workstream_driver_recency_coalescer/workstream_driver_recency_coalescer_validation_receipt.json",
+        "receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+      ],
+      "organ_id": "workstream_driver_recency_coalescer",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.workstream_driver_recency_coalescer run --input fixtures/first_wave/workstream_driver_recency_coalescer/input --out receipts/first_wave/workstream_driver_recency_coalescer --acceptance-out receipts/acceptance/first_wave/workstream_driver_recency_coalescer_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_compliance_pipeline_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/baseline_missing_standard.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/batch8_compliance_pipeline_exercise_manifest.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/bounded_check_failed.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/compile_helper_empty_mentions.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/digest_loses_directive.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/missing_compliance_registry.json",
+        "fixtures/first_wave/batch8_compliance_pipeline_capsule/input/pipeline_boundary_missing.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_compliance_pipeline_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_result.json",
+        "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_board.json",
+        "receipts/first_wave/batch8_compliance_pipeline_capsule/batch8_compliance_pipeline_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_compliance_pipeline_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_compliance_pipeline_capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch10_live_source_drift_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch10_live_source_drift_capsule/input/batch10_live_source_drift_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch10_live_source_drift_capsule/input/compile_bypass.json",
+        "fixtures/first_wave/batch10_live_source_drift_capsule/input/live_mutation_authority_claim.json",
+        "fixtures/first_wave/batch10_live_source_drift_capsule/input/private_runtime_state_export.json",
+        "fixtures/first_wave/batch10_live_source_drift_capsule/input/stale_digest_replay.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch10_live_source_drift_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_result.json",
+        "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_board.json",
+        "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch10_live_source_drift_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch10_live_source_drift_capsule run --input fixtures/first_wave/batch10_live_source_drift_capsule/input --out receipts/first_wave/batch10_live_source_drift_capsule --acceptance-out receipts/acceptance/first_wave/batch10_live_source_drift_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch10_cold_eval_honesty_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch10_cold_eval_honesty_capsule/input/batch10_cold_eval_exercise_manifest.json",
+        "fixtures/first_wave/batch10_cold_eval_honesty_capsule/input/missing_tasks.json",
+        "fixtures/first_wave/batch10_cold_eval_honesty_capsule/input/flat_route_can_win.json",
+        "fixtures/first_wave/batch10_cold_eval_honesty_capsule/input/expected_ref_injection.json",
+        "fixtures/first_wave/batch10_cold_eval_honesty_capsule/input/private_fixture_ref.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch10_cold_eval_honesty_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch10_cold_eval_honesty_capsule/batch10_cold_eval_honesty_capsule_result.json",
+        "receipts/first_wave/batch10_cold_eval_honesty_capsule/batch10_cold_eval_honesty_capsule_board.json",
+        "receipts/first_wave/batch10_cold_eval_honesty_capsule/batch10_cold_eval_honesty_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch10_cold_eval_honesty_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch8_validator_checker_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/batch8_validator_checker_exercise_manifest.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/missing_validator_source.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/policy_allows_poisoning.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/private_boundary_blind.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/release_gate_missing.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/specimen_checker_missing.json",
+        "fixtures/first_wave/batch8_validator_checker_capsule/input/validate_entrypoint_bypassed.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch8_validator_checker_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_result.json",
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_board.json",
+        "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_validator_checker_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch8_validator_checker_capsule run --input fixtures/first_wave/batch8_validator_checker_capsule/input --out receipts/first_wave/batch8_validator_checker_capsule --acceptance-out receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::concurrency_mission_control::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/concurrency_mission_control/input/concurrency_mission_control_exercise_manifest.json",
+        "fixtures/first_wave/concurrency_mission_control/input/missing_seed_root.json",
+        "fixtures/first_wave/concurrency_mission_control/input/provider_bridge_missing.json",
+        "fixtures/first_wave/concurrency_mission_control/input/authority_collapse_claim.json",
+        "fixtures/first_wave/concurrency_mission_control/input/private_runtime_claim.json",
+        "fixtures/first_wave/concurrency_mission_control/input/work_ledger_seed_speed_collision.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/concurrency_mission_control.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_result.json",
+        "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_board.json",
+        "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_validation_receipt.json",
+        "receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
+      ],
+      "organ_id": "concurrency_mission_control",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.concurrency_mission_control run --input fixtures/first_wave/concurrency_mission_control/input --out receipts/first_wave/concurrency_mission_control --acceptance-out receipts/acceptance/first_wave/concurrency_mission_control_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch7_station_runtime_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/batch7_station_exercise_manifest.json",
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/app_missing_boot_probe.json",
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/live_instrument_underfiring_attention.json",
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/live_instrument_unknown_proof.json",
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/station_store_stampede.json",
+        "fixtures/first_wave/batch7_station_runtime_capsule/input/station_warming_no_retry.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch7_station_runtime_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_result.json",
+        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_board.json",
+        "receipts/first_wave/batch7_station_runtime_capsule/batch7_station_runtime_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch7_station_runtime_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch7_station_runtime_capsule run --input fixtures/first_wave/batch7_station_runtime_capsule/input --out receipts/first_wave/batch7_station_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_station_runtime_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch12_market_dashboard_read_model_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/dashboard_payload.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/feed_freshness_cases.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/related_situations.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/dangling_graph_edge.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/freshness_blocker_list.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/freshness_missing_readiness_artifact.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/freshness_stale_not_fresh.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/freshness_success_shortfall.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/oracle_auto_apply_overclaim.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/related_no_overlap_different_type.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/silent_omission_count.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/strict_trading_claim_language.json",
+        "fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input/traversal_route_ref.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch12_market_dashboard_read_model_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_result.json",
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_board.json",
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch12_prediction_market_board_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch12_prediction_market_board_capsule/input/aggregate_count_and_max_volume_deduped.json",
+        "fixtures/first_wave/batch12_prediction_market_board_capsule/input/duplicate_lower_volume_retained_higher.json",
+        "fixtures/first_wave/batch12_prediction_market_board_capsule/input/orphan_slug_no_identity_fabrication.json",
+        "fixtures/first_wave/batch12_prediction_market_board_capsule/input/polymarket_identity_artifact.json",
+        "fixtures/first_wave/batch12_prediction_market_board_capsule/input/prediction_market_rows.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch12_prediction_market_board_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_result.json",
+        "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_board.json",
+        "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch12_prediction_market_board_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch12_prediction_market_board_capsule run --input fixtures/first_wave/batch12_prediction_market_board_capsule/input --out receipts/first_wave/batch12_prediction_market_board_capsule --acceptance-out receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch12_release_claim_language_gate::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch12_release_claim_language_gate/input/affirmative_open_source_production_ready_blocks.json",
+        "fixtures/first_wave/batch12_release_claim_language_gate/input/assert_clear_returns_exit_2.json",
+        "fixtures/first_wave/batch12_release_claim_language_gate/input/release_gate_fixture.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch12_release_claim_language_gate.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_result.json",
+        "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_board.json",
+        "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+      ],
+      "organ_id": "batch12_release_claim_language_gate",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+    },
+    {
+      "build_dependencies": [],
+      "fixture_id": "fixture::batch10_frontend_work_market_cockpit_capsule::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input/batch10_frontend_work_market_cockpit_capsule_probe_manifest.json",
+        "fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input/market_claim_recommendation_leak.json",
+        "fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input/market_cockpit_fake_timeseries.json",
+        "fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input/private_frontend_source_ref.json",
+        "fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input/work_lens_mutation_creep.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/batch10_frontend_work_market_cockpit_capsule.fixture_manifest.json",
+      "generated_receipts": [
+        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_result.json",
+        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_board.json",
+        "receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+      "status": "ready",
+      "validator_command": "python -m microcosm_core.organs.batch10_frontend_work_market_cockpit_capsule run --input fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input --out receipts/first_wave/batch10_frontend_work_market_cockpit_capsule --acceptance-out receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

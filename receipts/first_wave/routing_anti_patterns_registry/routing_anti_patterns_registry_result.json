@@ -15,7 +15,7 @@
   "body_in_receipt": false,
   "body_material_status": "",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.routing_anti_patterns_registry run --input fixtures/first_wave/routing_anti_patterns_registry/input --out receipts/first_wave/routing_anti_patterns_registry",
+  "command": "api: routing_anti_patterns_registry.run first_wave fixture",
   "covered_anti_pattern_ids": [
     "ad_hoc_subphase_dirs",
     "bridge_before_scope",
@@ -23,12 +23,13 @@
     "mode_in_chat_only",
     "zero_write_disk"
   ],
-  "created_at": "2026-05-30T21:25:19+00:00",
+  "created_at": "2026-06-05T07:30:29+00:00",
   "error_codes": [
     "ROUTING_ANTI_PATTERN_AUTHORITY_OVERCLAIM",
     "ROUTING_ANTI_PATTERN_DUPLICATE_ID",
     "ROUTING_ANTI_PATTERN_KIND_REQUIRED",
     "ROUTING_ANTI_PATTERN_PRIVATE_SOURCE_FORBIDDEN",
+    "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN",
     "ROUTING_ANTI_PATTERN_TEXT_REQUIRED"
   ],
   "expected_negative_cases": {
@@ -46,6 +47,9 @@
     ],
     "private_source_leakage": [
       "ROUTING_ANTI_PATTERN_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "source_authority_masquerade": [
+      "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN"
     ]
   },
   "findings": [
@@ -83,6 +87,14 @@
     },
     {
       "body_in_receipt": false,
+      "error_code": "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN",
+      "message": "Routing anti-pattern rows can project public anti-patterns but cannot declare source, route, control-plane, or canonical authority.",
+      "negative_case_id": "source_authority_masquerade",
+      "subject_id": "authority_role,surface_role",
+      "subject_kind": "source_authority_masquerade"
+    },
+    {
+      "body_in_receipt": false,
       "error_code": "ROUTING_ANTI_PATTERN_PRIVATE_SOURCE_FORBIDDEN",
       "message": "Public routing anti-pattern validation must carry public rows and refs, not private bodies or provider payloads.",
       "negative_case_id": "private_source_leakage",
@@ -92,10 +104,10 @@
   ],
   "fixture_id": "first_wave.routing_anti_patterns_registry",
   "freshness_basis": {
-    "basis_digest": "sha256:1ce9eb13c97f6a830c3d574467027951aa54de2ed6c46052d7e495ad72bd1ea4",
+    "basis_digest": "sha256:4f41e3594d7702570f94072759a22c3f7753fcbe78ef331a7192cd6116b1f4eb",
     "card_schema_version": "routing_anti_patterns_registry_command_card_v1",
     "include_negative": true,
-    "input_count": 7,
+    "input_count": 8,
     "inputs": [
       {
         "path": "fixtures/first_wave/routing_anti_patterns_registry/input/routing_anti_patterns.json",
@@ -123,14 +135,19 @@
         "size_bytes": 259
       },
       {
+        "path": "fixtures/first_wave/routing_anti_patterns_registry/input/source_authority_masquerade.json",
+        "sha256": "18c5e523cbd78f206f889767d5a31a1b557345420a2768aae8dfd337d2097418",
+        "size_bytes": 341
+      },
+      {
         "path": "fixtures/first_wave/routing_anti_patterns_registry/input/private_source_leakage.json",
         "sha256": "8bbefa5e90df3ba6f50fd3ad9f05c7c3a60b9930130e929ca23b3704a9d4d562",
         "size_bytes": 294
       },
       {
         "path": "src/microcosm_core/organs/routing_anti_patterns_registry.py",
-        "sha256": "827a2d32b1dcd1f503f89d0261c343bede254194584e9b07596d7735e9c46b25",
-        "size_bytes": 44005
+        "sha256": "95ef3f412778afdea77f5ed82b58ce12d5ab3df381c2209f7246b95f7df82560",
+        "size_bytes": 52683
       }
     ],
     "missing_inputs": [],
@@ -155,6 +172,9 @@
     ],
     "private_source_leakage": [
       "ROUTING_ANTI_PATTERN_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "source_authority_masquerade": [
+      "ROUTING_ANTI_PATTERN_SOURCE_AUTHORITY_FORBIDDEN"
     ]
   },
   "organ_id": "routing_anti_patterns_registry",
@@ -170,10 +190,9 @@
   "real_runtime_receipt": true,
   "receipt_id": "routing_anti_patterns_registry_result_receipt_v1",
   "receipt_paths": [
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
-    "receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json",
-    "receipts/acceptance/first_wave/routing_anti_patterns_registry_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_result.json",
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_board.json",
+    "microcosm-substrate/receipts/first_wave/routing_anti_patterns_registry/routing_anti_patterns_registry_validation_receipt.json"
   ],
   "receipt_reused": false,
   "required_anti_pattern_ids": [
@@ -181,6 +200,21 @@
     "bridge_before_scope",
     "mode_in_chat_only"
   ],
+  "route_repair_state_validation": {
+    "baked_expected_labels_sufficient": false,
+    "baked_route_repair_label_count": 0,
+    "finding_count": 0,
+    "missing_route_repair_state_count": 0,
+    "missing_route_repair_state_ids": [],
+    "route_repair_state_count": 5,
+    "row_count": 5,
+    "schema_version": "routing_anti_patterns_registry_row_validation_v1",
+    "source_backed": true,
+    "status": "pass",
+    "validated_row_count": 5,
+    "validator_id": "validator.microcosm.organs.routing_anti_patterns_registry.row_validator"
+  },
+  "row_validator_id": "validator.microcosm.organs.routing_anti_patterns_registry.row_validator",
   "schema_version": "routing_anti_patterns_registry_result_receipt_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -204,12 +238,12 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 6,
+    "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_module_import_status": "not_present",
-  "source_module_manifest_ref": "fixtures/first_wave/routing_anti_patterns_registry/input/source_module_manifest.json",
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/routing_anti_patterns_registry/input/source_module_manifest.json",
   "source_module_manifest_status": "not_present",
   "source_module_summary": {
     "body_in_receipt": false,
@@ -219,7 +253,7 @@
     "module_count": 0,
     "module_ids": [],
     "source_module_import_status": "not_present",
-    "source_module_manifest_ref": "fixtures/first_wave/routing_anti_patterns_registry/input/source_module_manifest.json",
+    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/routing_anti_patterns_registry/input/source_module_manifest.json",
     "source_refs": [],
     "status": "not_present",
     "verified_module_count": 0

@@ -1,0 +1,248 @@
+{
+  "anti_claim": "Batch 8 policy-engine capsule validates exact copied non-secret macro source bodies and public synthetic exercises for Lab contract red/green gating, market-fusion fail-closed claim preflight, and campaign dispatch transition adjudication. It is not Lab correctness, not live campaign authority, not market validation, not provider dispatch, not repository mutation authority, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_policy_engine_public_substrate_capsule_not_runtime_or_release_authority",
+    "live_campaign_execution_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "command": "batch8_policy_engines_capsule run",
+  "created_at": "2026-05-31T23:52:36+00:00",
+  "error_codes": [
+    "BATCH8_CAMPAIGN_COMPLETED_TO_RUNNING_REFUSED",
+    "BATCH8_LAB_CONTRACT_QUESTION_MARK_RED_GATE",
+    "BATCH8_MARKET_FUSION_MISSING_GATE_REFUSED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 3,
+    "engine_count": 3,
+    "engine_ids": [
+      "campaign_dispatch_status_transition_adjudicator",
+      "lab_contract_audit_deterministic_red_gate",
+      "market_fusion_readiness_fail_closed_gate"
+    ],
+    "error_codes": [
+      "BATCH8_LAB_CONTRACT_QUESTION_MARK_RED_GATE",
+      "BATCH8_MARKET_FUSION_MISSING_GATE_REFUSED",
+      "BATCH8_CAMPAIGN_COMPLETED_TO_RUNNING_REFUSED"
+    ],
+    "expected_engine_ids": [
+      "lab_contract_audit_deterministic_red_gate",
+      "market_fusion_readiness_fail_closed_gate",
+      "campaign_dispatch_status_transition_adjudicator"
+    ],
+    "runtime_exercises": {
+      "campaign_dispatch_status_transition_adjudicator": {
+        "body_in_receipt": false,
+        "candidate_to_blocked": "legal_transition",
+        "claim_ceiling": "Campaign dispatch status transition adjudicator only.",
+        "completed_to_completed": "already_target",
+        "completed_to_running_message": "completed dispatches are terminal without a superseding transition event",
+        "completed_to_running_refused": true,
+        "engine_id": "campaign_dispatch_status_transition_adjudicator",
+        "negative_case_code": "BATCH8_CAMPAIGN_COMPLETED_TO_RUNNING_REFUSED",
+        "status": "pass"
+      },
+      "lab_contract_audit_deterministic_red_gate": {
+        "body_in_receipt": false,
+        "claim_ceiling": "Lab contract audit mechanics over synthetic public artifacts only.",
+        "engine_id": "lab_contract_audit_deterministic_red_gate",
+        "green_status": "green",
+        "negative_case_code": "BATCH8_LAB_CONTRACT_QUESTION_MARK_RED_GATE",
+        "red_hard_fails": [
+          "QUESTION_MARK_OUTPUT"
+        ],
+        "red_status": "red",
+        "status": "pass"
+      },
+      "market_fusion_readiness_fail_closed_gate": {
+        "body_in_receipt": false,
+        "claim_ceiling": "Market-fusion readiness gate mechanics over public fixture claims only.",
+        "engine_id": "market_fusion_readiness_fail_closed_gate",
+        "known_gate_decision": "refuse",
+        "known_gate_refusal_reasons": [
+          "macro_release_calendar_archive_missing",
+          "equity_expected_return_event_window_missing",
+          "cross_feed_relation_edges_not_measurement_conditioned"
+        ],
+        "malformed_payload_decision": "refuse",
+        "malformed_payload_refusal_reasons": [
+          "candidate_situation_gate_missing"
+        ],
+        "missing_gate_decision": "refuse",
+        "missing_gate_refusal_reasons": [
+          "candidate_situation_gate_missing"
+        ],
+        "negative_case_code": "BATCH8_MARKET_FUSION_MISSING_GATE_REFUSED",
+        "status": "pass"
+      }
+    },
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "campaign_completed_to_running_refused",
+    "lab_contract_question_mark_red_gate",
+    "market_fusion_missing_gate_refused"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch8_policy_engines_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "fixtures/first_wave/batch8_policy_engines_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "campaign_completed_to_running_refused",
+    "lab_contract_question_mark_red_gate",
+    "market_fusion_missing_gate_refused"
+  ],
+  "organ_id": "batch8_policy_engines_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_result.json",
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_board.json",
+    "receipts/first_wave/batch8_policy_engines_capsule/batch8_policy_engines_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch8_policy_engines_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
+    "module_count": 3,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 368,
+        "expected_sha256": "99917b15f60bc74297420491804d735b0a0a755e74c7704903f35bad781660fc",
+        "line_count": 368,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/lab_contract_audit.py",
+        "required_anchor_count": 3,
+        "sha256": "99917b15f60bc74297420491804d735b0a0a755e74c7704903f35bad781660fc",
+        "source_exists": true,
+        "source_ref": "system/lib/lab_contract_audit.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/lab_contract_audit.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 597,
+        "expected_sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+        "line_count": 597,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/market_fusion_readiness.py",
+        "required_anchor_count": 3,
+        "sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+        "source_exists": true,
+        "source_ref": "system/lib/market_fusion_readiness.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/market_fusion_readiness.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 845,
+        "expected_sha256": "c9bc1aa55fe0aff03864d6b85472e16f06292c1aaf5e0677500b237af4ecd91e",
+        "line_count": 845,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/campaign_state_transition.py",
+        "required_anchor_count": 3,
+        "sha256": "c9bc1aa55fe0aff03864d6b85472e16f06292c1aaf5e0677500b237af4ecd91e",
+        "source_exists": true,
+        "source_ref": "system/lib/campaign_state_transition.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/campaign_state_transition.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 4,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
+      "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/lab_contract_audit.py",
+      "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/market_fusion_readiness.py",
+      "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_modules/system/lib/campaign_state_transition.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_policy_engines_capsule"
+}

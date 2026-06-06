@@ -41,6 +41,7 @@ import hashlib
 import json
 import shlex
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Callable
 
@@ -61,6 +62,7 @@ from system.lib.mutation_governance import (
 )
 from system.lib.phase_activation import load_explicit_active_phase
 from system.lib.standards_inventory import enumerate_standard_ids
+from system.lib.type_b_candidate_queue import classify_type_b_prompt_candidate
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 CONSTITUTION_WORKSPACE_LEDGER_DIR = "state/constitution_workspace"
@@ -163,6 +165,7 @@ TRANSACTION_CONTROL_PLANE_TERMS = {
 TRANSACTION_CONTROL_PLANE_FALLBACK_SUBJECT = "cap_live_concurrency_transactional_workitems"
 ENTRY_PACKET_INLINE_TARGET_BYTES = 18000
 ENTRY_PACKET_ADMISSION_RECEIPT_HEADROOM_BYTES = 1600
+ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES = 16000
 ENTRY_PACKET_NAVIGATION_MIN_SAVED_BYTES = 12000
 
 
@@ -177,6 +180,34 @@ def _read_json_safe(path: Path) -> dict[str, Any] | None:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
+
+
+def _json_file_signature(path: Path) -> tuple[str, int | None, int | None]:
+    try:
+        stat = path.stat()
+    except OSError:
+        return (path.as_posix(), None, None)
+    return (path.as_posix(), stat.st_mtime_ns, stat.st_size)
+
+
+@lru_cache(maxsize=96)
+def _read_projected_route_json_cached(
+    repo_root_posix: str,
+    rel_path: str,
+    signature: tuple[str, int | None, int | None],
+) -> dict[str, Any]:
+    del signature
+    payload = _read_json_safe(Path(repo_root_posix) / rel_path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _read_projected_route_json(repo_root: Path, rel_path: str) -> dict[str, Any]:
+    path = repo_root / rel_path
+    return _read_projected_route_json_cached(
+        repo_root.as_posix(),
+        rel_path,
+        _json_file_signature(path),
+    )
 
 
 def _existing_repo_relative_path(repo_root: Path, raw_path: Any) -> str | None:
@@ -491,13 +522,42 @@ def _summarize_active_phase(repo_root: Path) -> dict[str, Any]:
     actor = (payload or {}).get("actor") if isinstance(payload, dict) else {}
     directive = (payload or {}).get("directive") if isinstance(payload, dict) else {}
     live_source = live_bindings if isinstance(live_bindings, dict) else pipeline if isinstance(pipeline, dict) else {}
-    explicit = load_explicit_active_phase(repo_root) or {}
     phase_index = _read_json_safe(repo_root / "codex/derived/phase_index.json") or {}
     active_lanes = _read_json_safe(repo_root / _ACTIVE_LANES_PATH) or {}
 
     # Constitutional rule: latest explicit phase_family.json activation wins.
-    # Stale projections (agent_bootstrap_live.json, active_lanes.json, phase_index.json)
-    # may enrich runtime fields but must not override the family-marker activation.
+    # Entry packets may use generated projections of that activation to avoid a
+    # repo-wide phase_family glob; the raw marker scan remains the fallback when
+    # projections do not carry an active phase.
+    projected_source = (
+        "agent_bootstrap_live.json::live_bindings"
+        if live_source.get("active_phase_id")
+        else "state/phase_lanes/active_lanes.json::active_phase_anchor"
+        if active_lanes.get("active_phase_anchor")
+        else "codex/derived/phase_index.json"
+        if phase_index.get("active_phase_id")
+        else None
+    )
+    projected_active = {
+        "phase_id": (
+            live_source.get("active_phase_id")
+            or active_lanes.get("active_phase_anchor")
+            or phase_index.get("active_phase_id")
+        ),
+        "phase_number": live_source.get("active_phase_number") or phase_index.get("active_phase_number"),
+        "phase_title": live_source.get("active_phase_title") or active_lanes.get("active_phase_title"),
+        "phase_dir": live_source.get("active_phase_dir"),
+        "family_dir": live_source.get("active_family_dir") or live_source.get("family_dir"),
+        "source": projected_source,
+    }
+    explicit = (
+        projected_active
+        if any(
+            projected_active.get(key)
+            for key in ("phase_id", "phase_number", "phase_dir")
+        )
+        else (load_explicit_active_phase(repo_root) or {})
+    )
     active_phase_id = (
         explicit.get("phase_id")
         or live_source.get("active_phase_id")
@@ -516,20 +576,20 @@ def _summarize_active_phase(repo_root: Path) -> dict[str, Any]:
     )
     active_phase_dir = explicit.get("phase_dir") or live_source.get("active_phase_dir")
     source_order = [
-        "phase_activation.load_explicit_active_phase",
         "agent_bootstrap_live.json::live_bindings",
         "state/phase_lanes/active_lanes.json::active_phase_anchor",
         "codex/derived/phase_index.json",
+        "phase_activation.load_explicit_active_phase (fallback)",
     ]
     resolved_from = None
     if explicit.get("phase_id"):
-        resolved_from = source_order[0]
+        resolved_from = explicit.get("source") or source_order[-1]
     elif live_source.get("active_phase_id"):
-        resolved_from = source_order[1]
+        resolved_from = source_order[0]
     elif active_lanes.get("active_phase_anchor"):
-        resolved_from = source_order[2]
+        resolved_from = source_order[1]
     elif phase_index.get("active_phase_id"):
-        resolved_from = source_order[3]
+        resolved_from = source_order[2]
 
     if not payload and not explicit and not active_lanes and not phase_index:
         return {
@@ -1560,12 +1620,10 @@ def _hard_compact_entry_navigation_index_spine_for_admission(
             {
                 "command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
                 "surface_role": CONTROL_ENTRY,
-                "reason": "Open full index evidence.",
             },
             {
                 "command": "./repo-python kernel.py --option-surface system_atlas --band cluster_flag",
                 "surface_role": ATLAS_PROJECTION,
-                "reason": "Browse Atlas clusters.",
             },
         ],
         "omission_receipt": {
@@ -1601,25 +1659,27 @@ def _hard_compact_agent_operating_packet_for_admission(
             "status",
             "source_ref",
             "authority_posture",
-            "global_principle_ids",
-            "agent_principle_ids",
             "route",
             "agent_principles_route",
         )
         if packet.get(key) not in (None, "", [], {})
     }
+    global_principle_ids = list(packet.get("global_principle_ids") or [])
+    agent_principle_ids = list(packet.get("agent_principle_ids") or [])
+    compact["global_principle_ids"] = global_principle_ids[:4]
+    compact["agent_principle_ids"] = agent_principle_ids[:6]
+    compact["principle_id_counts"] = {
+        "global": len(global_principle_ids),
+        "agent": len(agent_principle_ids),
+    }
     compact["metrics"] = {
         key: metrics.get(key)
-        for key in ("entry_strip_bytes", "global_runtime_capsule_bytes", "compact_full_packet_bytes")
+        for key in ("entry_strip_bytes", "global_runtime_capsule_bytes")
         if metrics.get(key) not in (None, "", [], {})
     }
     compact["omission_receipt"] = {
-        "omitted": [
-            "principle prose",
-            "candidate axiom policy prose",
-            "non-routing metric counters",
-        ],
-        "reason": "Hard entry admission keeps ids and owner routes; full operating packet is a drilldown.",
+        "omitted": ["principle_prose", "candidate_axiom_policy", "extra_metrics"],
+        "reason": "Keeps ids and owner routes; full packet is a drilldown.",
         "drilldown": packet.get("route"),
     }
     compact["trimmed_for_entry_admission"] = True
@@ -1663,17 +1723,8 @@ def _hard_compact_agent_principle_lens_for_admission(
                 if invocation.get(key) not in (None, "", [], {})
             },
             "omission_receipt": {
-                "omitted": [
-                    "row cards; selected_ids carries the inline handle",
-                    "row flags",
-                    "scope ids",
-                    "capture-reflex detail",
-                    "authoring lane handles",
-                ],
-                "reason": (
-                    "Hard entry admission keeps selected principle ids and card routes; "
-                    "principle prose remains behind the selected card drilldown."
-                ),
+                "omitted": ["row_cards", "flags", "scope_ids", "capture_reflex", "authoring"],
+                "reason": "Keeps selected ids and card routes.",
                 "drilldown": invocation.get("selected_principle_cards"),
             },
             "trimmed_for_entry_admission": True,
@@ -1703,10 +1754,7 @@ def _hard_compact_entry_surface_diagnostics_for_admission(
                 "diagnostic_id": row.get("diagnostic_id"),
                 "severity": row.get("severity"),
                 "is_hard_gate": row.get("is_hard_gate"),
-                "governing_standard_ref": row.get("governing_standard_ref"),
-                "one_line_rule": row.get("one_line_rule"),
                 "target_surface_count": len(target_surfaces),
-                "checker_module_ref": row.get("checker_module_ref"),
                 "drilldown": (
                     "./repo-python tools/meta/factory/check_agent_bootstrap_projection.py "
                     "&& ./repo-python tools/meta/factory/build_routing_projection.py --check"
@@ -1737,34 +1785,35 @@ def _hard_compact_entry_surface_diagnostics_for_admission(
                 if trigger.get(key) not in (None, "", [], {})
             }
         )
-    return {
+    compact = {
+        "status": diagnostics.get("status"),
         "triggered": diagnostics.get("triggered"),
-        "matched_triggers": diagnostics.get("matched_triggers") or [],
-        "matched_autonomy_phrases": diagnostics.get("matched_autonomy_phrases") or [],
         "trigger_source": diagnostics.get("trigger_source"),
         "severity_default": diagnostics.get("severity_default"),
         "non_blocking": diagnostics.get("non_blocking"),
         "diagnostic_family": diagnostics.get("diagnostic_family"),
-        "structural_triggers": structural_triggers,
         "rows": rows,
         "count": len(rows),
         "trimmed_for_entry_admission": True,
         "hard_ceiling_handle_compacted": True,
         "omission_receipt": {
-            "omitted": [
-                "recommended_action prose",
-                "observed_state detail",
-                "governing standard refs",
-                "target surface names",
-                "candidate-pressure relationship prose",
-            ],
-            "reason": "Hard entry admission keeps diagnostic ids, gate posture, and checker routes.",
+            "omitted": ["actions", "observed_state", "surface_names", "relationship_prose"],
+            "reason": "Keeps diagnostic ids, gate posture, and checker routes.",
             "drilldown": (
                 "./repo-python tools/meta/factory/check_agent_bootstrap_projection.py "
                 "&& ./repo-python tools/meta/factory/build_routing_projection.py --check"
             ),
         },
     }
+    matched_triggers = diagnostics.get("matched_triggers") or []
+    matched_autonomy_phrases = diagnostics.get("matched_autonomy_phrases") or []
+    if matched_triggers:
+        compact["matched_triggers"] = matched_triggers
+    if matched_autonomy_phrases:
+        compact["matched_autonomy_phrases"] = matched_autonomy_phrases
+    if structural_triggers:
+        compact["structural_triggers"] = structural_triggers
+    return compact
 
 
 def _compact_entry_surface_diagnostics_for_admission(
@@ -1824,6 +1873,7 @@ def _compact_entry_surface_diagnostics_for_admission(
     compact = {
         key: diagnostics.get(key)
         for key in (
+            "status",
             "triggered",
             "matched_triggers",
             "matched_autonomy_phrases",
@@ -1939,11 +1989,37 @@ def _empty_top_schedulable_workitem_for_entry() -> dict[str, Any]:
     }
 
 
+def _is_entry_workitem_placeholder(workitem: dict[str, Any]) -> bool:
+    return bool(
+        workitem.get("projection_placeholder")
+        or str(workitem.get("id") or "") == "no_schedulable_workitem_projected"
+        or (
+            str(workitem.get("state") or "") == "none_projected"
+            and str(workitem.get("work_item_type") or "") == "projection_status"
+        )
+    )
+
+
 def _hard_compact_entry_workitem_handoff_for_admission(
     workitem: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
     if not isinstance(workitem, dict):
         return workitem
+    if _is_entry_workitem_placeholder(workitem):
+        drilldown = workitem.get("drilldown_command")
+        return {
+            key: value
+            for key, value in {
+                "id": workitem.get("id"),
+                "state": workitem.get("state"),
+                "work_item_type": workitem.get("work_item_type"),
+                "projection_placeholder": True,
+                "drilldown_command": drilldown,
+                "omission_receipt": {"drilldown": drilldown},
+                "hard_ceiling_handle_compacted": True,
+            }.items()
+            if value not in (None, "", [], {})
+        }
     dependency = workitem.get("dependency_status")
     compact = {
         key: workitem.get(key)
@@ -2095,6 +2171,27 @@ def _hard_compact_closeout_git_state_for_admission(
         if isinstance(closeout_git_state.get("drilldowns"), dict)
         else {}
     )
+    dirty_tree_coordination = (
+        closeout_git_state.get("dirty_tree_coordination")
+        if isinstance(closeout_git_state.get("dirty_tree_coordination"), dict)
+        else {}
+    )
+    compact_dirty_tree_coordination = {
+        key: dirty_tree_coordination.get(key)
+        for key in (
+            "schema",
+            "status",
+            "reason",
+            "dirty_total",
+            "dirty_count_exact",
+            "next_safe_action",
+        )
+        if dirty_tree_coordination.get(key) not in (None, "", [], {})
+    }
+    if isinstance(dirty_tree_coordination.get("broad_checkpoint_guard"), dict):
+        compact_dirty_tree_coordination["broad_checkpoint_guard_status"] = (
+            "available_via_dirty_tree_pressure_drilldown"
+        )
     return {
         "schema": closeout_git_state.get("schema"),
         "status": closeout_git_state.get("status"),
@@ -2139,21 +2236,7 @@ def _hard_compact_closeout_git_state_for_admission(
             if worktrees.get(key) not in (None, "", [], {})
         },
         "recommended_lane": closeout_git_state.get("recommended_lane") or {},
-        "dirty_tree_coordination": {
-            key: closeout_git_state.get("dirty_tree_coordination", {}).get(key)
-            for key in (
-                "schema",
-                "status",
-                "reason",
-                "dirty_total",
-                "dirty_count_exact",
-                "next_safe_action",
-                "broad_checkpoint_guard",
-            )
-            if isinstance(closeout_git_state.get("dirty_tree_coordination"), dict)
-            and closeout_git_state.get("dirty_tree_coordination", {}).get(key)
-            not in (None, "", [], {})
-        },
+        "dirty_tree_coordination": compact_dirty_tree_coordination,
         "drilldowns": {
             key: drilldowns.get(key)
             for key in (
@@ -2172,6 +2255,7 @@ def _hard_compact_closeout_git_state_for_admission(
                 "full drilldown map",
                 "conditions",
                 "observed",
+                "broad checkpoint guard detail",
             ],
             "reason": "Hard entry admission keeps closeout decision fields and owner status routes.",
             "drilldown": "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions",
@@ -2246,6 +2330,9 @@ def _hard_compact_route_lease_for_admission(route_lease: dict[str, Any] | None) 
     permitted_direct_actions = list(route_lease.get("permitted_direct_actions") or [])
     requires_kernel_when = list(route_lease.get("requires_kernel_when") or [])
     do_not_call_kernel_for = list(route_lease.get("do_not_call_kernel_for") or [])
+    permitted_head_count = 4
+    requires_head_count = 2
+    do_not_head_count = 2
     return {
         "schema_version": route_lease.get("schema_version"),
         "issued_by": route_lease.get("issued_by"),
@@ -2270,9 +2357,14 @@ def _hard_compact_route_lease_for_admission(route_lease: dict[str, Any] | None) 
             )
             if budget.get(key) not in (None, "", [], {})
         },
-        "permitted_direct_actions": permitted_direct_actions,
-        "requires_kernel_when": requires_kernel_when[:3],
-        "do_not_call_kernel_for": do_not_call_kernel_for[:3],
+        "permitted_direct_actions": permitted_direct_actions[:permitted_head_count],
+        "requires_kernel_when": requires_kernel_when[:requires_head_count],
+        "do_not_call_kernel_for": do_not_call_kernel_for[:do_not_head_count],
+        "omitted_policy_tail_counts": {
+            "permitted_direct_actions": max(0, len(permitted_direct_actions) - permitted_head_count),
+            "requires_kernel_when": max(0, len(requires_kernel_when) - requires_head_count),
+            "do_not_call_kernel_for": max(0, len(do_not_call_kernel_for) - do_not_head_count),
+        },
         "policy_counts": {
             "permitted_direct_actions": len(permitted_direct_actions),
             "requires_kernel_when": len(route_lease.get("requires_kernel_when") or []),
@@ -2280,15 +2372,8 @@ def _hard_compact_route_lease_for_admission(route_lease: dict[str, Any] | None) 
             "return_to_kernel_when": len(route_lease.get("return_to_kernel_when") or []),
         },
         "omission_receipt": {
-            "omitted": [
-                "known authority surfaces",
-                "next action command",
-                "requires/do_not/return policy prose",
-            ],
-            "reason": (
-                "Hard entry admission keeps the selected lane, direct-action affordance, "
-                "and policy counts; detailed lease policy remains behind the entry drilldown."
-            ),
+            "omitted": ["known_authority_surfaces", "policy_tails", "next_action_command"],
+            "reason": "Keeps selected lane, direct actions, and policy counts.",
             "drilldown": "./repo-python kernel.py --entry \"<task>\" --context-budget 20000",
         },
         "trimmed_for_entry_admission": True,
@@ -2356,6 +2441,42 @@ def _hard_compact_allowed_drilldowns_for_admission(rows: Any) -> list[dict[str, 
             }
         )
     return compact_rows
+
+
+def _hard_compact_speed_refinement_routes_for_admission(
+    routes: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(routes, dict):
+        return routes
+    first_route_commands = list(routes.get("first_route_commands") or [])
+    preferred_commands = [
+        command
+        for command in first_route_commands
+        if isinstance(command, str)
+        and command
+        in {
+            "./repo-python kernel.py --latency-seed-digest",
+            "./repo-python kernel.py --process-bottlenecks",
+            "./repo-python kernel.py --command-profile latency-speedboard",
+        }
+    ]
+    if not preferred_commands:
+        preferred_commands = [
+            "./repo-python kernel.py --latency-seed-digest",
+            "./repo-python kernel.py --process-bottlenecks --force",
+            "./repo-python kernel.py --command-profile latency-speedboard",
+        ]
+    return {
+        "schema_version": routes.get("schema_version") or "speed_refinement_routes_v0",
+        "status": routes.get("status") or "available",
+        "first_route_commands": preferred_commands[:2],
+        "first_route_command_count": len(first_route_commands),
+        "omission_receipt": {
+            "drilldown": "./repo-python kernel.py --entry \"speed refinement\" --context-budget 20000"
+        },
+        "trimmed_for_entry_admission": True,
+        "hard_ceiling_handle_compacted": True,
+    }
 
 
 def _compact_agent_principle_lens_for_admission(
@@ -2493,8 +2614,8 @@ def _hard_compact_candidate_runtime_pressure_for_admission(
         "filter_policy": pressure.get("filter_policy"),
         "contract_ref": pressure.get("contract_ref"),
         "omission_receipt": {
-            "omitted": ["candidate row detail", "suppression reason lists", "policy prose"],
-            "reason": "Hard entry admission keeps candidate pressure presence and route handles only.",
+            "omitted": ["row_detail", "suppression_reasons", "policy_prose"],
+            "reason": "Keeps candidate-pressure presence and route handles.",
             "drilldown": "codex/standards/std_agent_entry_surface.json::candidate_runtime_pressure_contract",
         },
         "trimmed_for_entry_admission": True,
@@ -2506,6 +2627,66 @@ def _hard_compact_candidate_runtime_pressure_for_admission(
     else:
         compact["rows"] = []
     return compact
+
+
+def _hard_compact_type_b_candidate_lens_for_admission(
+    lens: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(lens, dict):
+        return lens
+    prompt_shape = lens.get("prompt_shape") if isinstance(lens.get("prompt_shape"), dict) else {}
+    decision_gates = (
+        prompt_shape.get("decision_gates")
+        if isinstance(prompt_shape.get("decision_gates"), dict)
+        else {}
+    )
+    if decision_gates.get("explicit_type_b_packet") or decision_gates.get("source_packet_pressure"):
+        return lens
+    if not decision_gates.get("compact_operator_pressure"):
+        return lens
+    closeout_probe = (
+        lens.get("closeout_probe") if isinstance(lens.get("closeout_probe"), dict) else {}
+    )
+    true_decision_gates = {
+        key: value
+        for key, value in decision_gates.items()
+        if value not in (None, "", [], {}, False)
+    }
+    compact_shape = {
+        key: prompt_shape.get(key)
+        for key in (
+            "word_count",
+            "complexity_score",
+        )
+        if prompt_shape.get(key) not in (None, "", [], {})
+    }
+    if true_decision_gates:
+        compact_shape["decision_gates"] = true_decision_gates
+    return {
+        key: lens.get(key)
+        for key in (
+            "schema_version",
+            "status",
+            "candidate",
+            "cheap_action",
+            "queue_rel",
+        )
+        if lens.get(key) not in (None, "", [], {})
+    } | {
+        "prompt_shape": compact_shape,
+        "closeout_probe": {
+            key: closeout_probe.get(key)
+            for key in ("expected_packet_fields", "source_excerpt_command", "import_command")
+            if closeout_probe.get(key) not in (None, "", [], {})
+        },
+        "omission_receipt": {
+            "reason": "Entry admission keeps the Type B candidate handle; prompt-ledger import carries packet-shape detail.",
+            "drilldown": closeout_probe.get("import_command")
+            or "./repo-python tools/meta/observability/prompt_ledger.py import-type-b-candidates --limit 25 --rebuild",
+        },
+        "trimmed_for_entry_admission": True,
+        "hard_ceiling_handle_compacted": True,
+    }
 
 
 def _compact_active_phase_for_admission(active_phase: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -2549,38 +2730,96 @@ def _hard_compact_active_phase_for_admission(active_phase: dict[str, Any] | None
     }
 
 
+def _hard_compact_work_landing_readiness_for_admission(
+    readiness: Any,
+    *,
+    status: Any,
+    target_id: Any,
+    drilldown: Any,
+) -> dict[str, Any]:
+    source = readiness if isinstance(readiness, dict) else {}
+    axis_order = (
+        list(source.get("axis_order"))
+        if isinstance(source.get("axis_order"), list)
+        else [
+            "authority_state",
+            "projection_state",
+            "claim_state",
+            "companion_gate_state",
+            "validation_state",
+            "staged_index_state",
+            "parent_cas_state",
+            "landing_decision_state",
+            "allowed_next_action",
+        ]
+    )
+    axes = source.get("axes") if isinstance(source.get("axes"), dict) else {}
+    validation_axis = (
+        dict(axes.get("validation_state"))
+        if isinstance(axes.get("validation_state"), dict)
+        else {
+            "status": source.get("status") or status,
+            "policy": (
+                "Full control summary distinguishes not_run_pre_edit, queued, and passed validation; "
+                "the compact entry handle must not report validation as passed."
+            ),
+        }
+    )
+    allowed_next_action = (
+        dict(axes.get("allowed_next_action"))
+        if isinstance(axes.get("allowed_next_action"), dict)
+        else {
+            "status": "available" if drilldown else "missing",
+            "command_or_action": drilldown,
+        }
+    )
+    command_hints = source.get("command_hints") if isinstance(source.get("command_hints"), dict) else {}
+    control_summary = command_hints.get("control_summary") or drilldown
+    return {
+        "schema": source.get("schema") or "work_landing_transaction_readiness_contract_v0",
+        "projection_role": source.get("projection_role") or "entry_admission_compacted_hint",
+        "status": source.get("status") or status,
+        "target_id": source.get("target_id") or target_id,
+        "allowed_next_action_status": allowed_next_action.get("status"),
+        "control_summary": control_summary,
+        "axis_count": len(axis_order),
+        "validation_status": validation_axis.get("status"),
+    }
+
+
 def _hard_compact_transaction_control_plane_for_admission(
     payload: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
     if not isinstance(payload, dict):
         return payload
+    drilldown = payload.get("next_action") or "./repo-python tools/meta/control/mission_transaction_preflight.py --control-summary"
     return {
         "schema": payload.get("schema") or "transaction_control_plane_summary_v0",
         "status": payload.get("status"),
         "target_id": payload.get("target_id"),
         "next_action": payload.get("next_action"),
+        "work_landing_readiness": _hard_compact_work_landing_readiness_for_admission(
+            payload.get("work_landing_readiness"),
+            status=payload.get("status"),
+            target_id=payload.get("target_id"),
+            drilldown=drilldown,
+        ),
         "shared_index_quarantine": {
             "status": (
                 (payload.get("shared_index_quarantine") or {}).get("status")
                 if isinstance(payload.get("shared_index_quarantine"), dict)
                 else payload.get("status")
-            ),
-            "next_action": (
-                (payload.get("shared_index_quarantine") or {}).get("next_action")
-                if isinstance(payload.get("shared_index_quarantine"), dict)
-                else payload.get("next_action")
-            ),
+            )
         },
         "omission_receipt": {
             "omitted": [
                 "per-subplane quarantine cards",
                 "workspace bloat detail",
-                "push gate detail",
+                "push gate detail beyond compact handle",
                 "alternate drilldown commands",
             ],
             "reason": "Entry admission keeps the transaction drilldown handle; control summary carries the full packet.",
-            "drilldown": payload.get("next_action")
-            or "./repo-python tools/meta/control/mission_transaction_preflight.py --control-summary",
+            "drilldown": drilldown,
         },
         "trimmed_for_entry_admission": True,
         "hard_ceiling_handle_compacted": True,
@@ -2602,7 +2841,6 @@ def _hard_compact_active_execution_constellation_for_admission(
         first_row = rows[0] if rows and isinstance(rows[0], dict) else None
         compact_lane = {
             "lane_id": lane.get("lane_id"),
-            "label": lane.get("label"),
             "executable_now": lane.get("executable_now"),
             "blocked": lane.get("blocked"),
         }
@@ -2634,9 +2872,6 @@ def _hard_compact_active_execution_constellation_for_admission(
                     "actor",
                     "freshness_state",
                     "pass_state",
-                    "current_pass_line",
-                    "last_pass_result_line",
-                    "source",
                 )
                 if card.get(key) not in (None, "", [], {})
             }
@@ -2648,6 +2883,11 @@ def _hard_compact_active_execution_constellation_for_admission(
     )
     demotion_guard = (
         payload.get("demotion_guard") if isinstance(payload.get("demotion_guard"), dict) else {}
+    )
+    continuation_policy = (
+        payload.get("continuation_selection_policy")
+        if isinstance(payload.get("continuation_selection_policy"), dict)
+        else {}
     )
     blocker_topology = (
         demotion_guard.get("blocker_topology")
@@ -2668,7 +2908,7 @@ def _hard_compact_active_execution_constellation_for_admission(
         "view_profile": "entry_admission_hard_compact",
         "declared_anchor": {
             key: (payload.get("declared_anchor") or {}).get(key)
-            for key in ("phase_id", "runtime_state", "status")
+            for key in ("phase_id", "status")
             if isinstance(payload.get("declared_anchor"), dict)
             and (payload.get("declared_anchor") or {}).get(key) not in (None, "", [], {})
         },
@@ -2677,17 +2917,10 @@ def _hard_compact_active_execution_constellation_for_admission(
             if isinstance(payload.get("projection_freshness"), dict)
             else None
         ),
-        "projection_freshness": {
-            "status": (payload.get("projection_freshness") or {}).get("status"),
-            "generated_at": (payload.get("projection_freshness") or {}).get("generated_at"),
-        }
-        if isinstance(payload.get("projection_freshness"), dict)
-        else {},
         "work_priority": {
             "schema_version": priority.get("schema_version")
             or "task_ledger_priority_constellation_v1",
             "view_counts": priority.get("view_counts") if isinstance(priority, dict) else {},
-            "lane_contract": priority.get("lane_contract") if isinstance(priority, dict) else {},
             "lanes": compact_lanes,
             "drilldown": "./repo-python kernel.py --pulse",
         },
@@ -2704,12 +2937,12 @@ def _hard_compact_active_execution_constellation_for_admission(
             "status": demotion_guard.get("status"),
             "closeable": demotion_guard.get("closeable"),
             "blocker_count": demotion_guard.get("blocker_count"),
-            "blocker_topology": {
-                key: blocker_topology.get(key)
-                for key in compact_topology_keys
-                if blocker_topology.get(key) not in (None, "", [], {})
-            },
-            "recommended_lane": demotion_guard.get("recommended_lane"),
+            "blocker_topology_count": len(blocker_topology),
+        },
+        "continuation_selection_policy": {
+            key: continuation_policy.get(key)
+            for key in ("schema_version", "status", "signals")
+            if continuation_policy.get(key) not in (None, "", [], {})
         },
         "omission_receipt": {
             "omitted": [
@@ -2753,6 +2986,232 @@ def _entry_admission_task_requests_full_diagnostics(task_text: str | None) -> bo
     )
 
 
+def _entry_task_requests_entry_surface_diagnostics(
+    task_text: str | None,
+    structural_triggers: list[dict[str, Any]] | None = None,
+) -> bool:
+    if structural_triggers:
+        return True
+    lowered = str(task_text or "").lower()
+    if _entry_admission_task_requests_full_diagnostics(task_text):
+        return True
+    return any(
+        term in lowered
+        for term in (
+            "entry budget",
+            "entry surface",
+            "entry-surface",
+            "agent entry",
+            "generated region",
+            "generated-region",
+            "permission-gated",
+            "permission gated",
+            "micro-sliced",
+            "micro sliced",
+            "largest coherent",
+            "autonomy pressure",
+        )
+    )
+
+
+def _entry_task_requests_compliance_diagnostics(task_text: str | None) -> bool:
+    lowered = str(task_text or "").lower()
+    return any(
+        term in lowered
+        for term in (
+            "compliance",
+            "compliant",
+            "non-compliant",
+            "noncompliant",
+            "standard compliance",
+            "standards gap",
+            "standard gap",
+            "standards-gap",
+            "compliance ledger",
+            "compression passport",
+            "compression-passport",
+            "miner",
+            "inspectorservice",
+            "inspector service",
+            "diagnostic projection",
+            "diagnostic-projection",
+            "python compliance",
+            "python_compliance",
+        )
+    )
+
+
+def _entry_task_requests_paper_module_freshness_diagnostics(task_text: str | None) -> bool:
+    lowered = str(task_text or "").lower()
+    return any(
+        term in lowered
+        for term in (
+            "paper module",
+            "paper-module",
+            "stale sidecar",
+            "stale_sidecars",
+            "validation report",
+            "paper module index",
+            "density drift",
+            "module freshness",
+            "projection freshness",
+        )
+    )
+
+
+def _deferred_entry_diagnostics_packet(
+    diagnostic_family: str,
+    *,
+    reason: str,
+    drilldown: str,
+) -> dict[str, Any]:
+    return {
+        "rows": [],
+        "count": 0,
+        "triggered": False,
+        "status": "deferred_untriggered",
+        "diagnostic_family": diagnostic_family,
+        "drilldown": drilldown,
+        "reason": reason,
+    }
+
+
+def _hard_compact_triggered_diagnostics_for_admission(
+    diagnostics: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(diagnostics, dict):
+        return diagnostics
+
+    rows = [row for row in list(diagnostics.get("rows") or []) if isinstance(row, dict)]
+    if not rows and diagnostics.get("triggered") is not True:
+        return diagnostics
+    checker_command = diagnostics.get("checker_command")
+    if not checker_command:
+        for row in rows:
+            checker_command = row.get("checker_command")
+            if checker_command:
+                break
+
+    severity_counts: dict[str, int] = {}
+    hard_gate_count = 0
+    for row in rows:
+        severity = str(row.get("severity") or "unknown")
+        severity_counts[severity] = severity_counts.get(severity, 0) + 1
+        if row.get("is_hard_gate"):
+            hard_gate_count += 1
+
+    first_row = rows[0] if rows else {}
+    observed_state = (
+        first_row.get("observed_state")
+        if isinstance(first_row.get("observed_state"), dict)
+        else {}
+    )
+    first_row_handle = {
+        key: first_row.get(key)
+        for key in (
+            "diagnostic_id",
+            "severity",
+            "standard_id",
+            "governing_standard_ref",
+            "target_artifacts_count",
+            "is_hard_gate",
+        )
+        if first_row.get(key) not in (None, "", [], {})
+    }
+    if observed_state:
+        first_row_handle["observed_state"] = {
+            key: observed_state.get(key)
+            for key in (
+                "standards_total",
+                "standards_pending_coverage",
+                "scanner_coverage_ratio",
+                "noncompliant_artifact_count",
+                "compliance_rate",
+            )
+            if observed_state.get(key) not in (None, "", [], {})
+        }
+
+    return {
+        key: value
+        for key, value in {
+            "count": diagnostics.get("count", len(rows)),
+            "triggered": diagnostics.get("triggered"),
+            "matched_triggers": list(diagnostics.get("matched_triggers") or [])[:4],
+            "diagnostic_family": diagnostics.get("diagnostic_family"),
+            "ledger_generated_at": diagnostics.get("ledger_generated_at"),
+            "ledger_summary": diagnostics.get("ledger_summary"),
+            "severity_default": diagnostics.get("severity_default"),
+            "non_blocking": diagnostics.get("non_blocking"),
+            "severity_counts": severity_counts,
+            "hard_gate_count": hard_gate_count,
+            "first_row": first_row_handle,
+            "source_projection": diagnostics.get("source_projection"),
+            "checker_command": checker_command,
+            "omission_receipt": {
+                "omitted": [
+                    "diagnostic rows after first handle",
+                    "recommended_action prose",
+                    "candidate_pressure relationship prose",
+                    "full observed_state maps",
+                ],
+                "reason": "Entry admission keeps diagnostic status, counts, first handle, and owner drilldown.",
+                "drilldown": checker_command,
+            },
+            "trimmed_for_entry_admission": True,
+            "hard_ceiling_handle_compacted": True,
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _hard_compact_python_target_resolution_for_admission(
+    resolution: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if not isinstance(resolution, dict):
+        return resolution
+    detected = resolution.get("detected") if isinstance(resolution.get("detected"), dict) else {}
+    unresolved = [row for row in list(resolution.get("unresolved") or []) if isinstance(row, dict)]
+    return {
+        key: value
+        for key, value in {
+            "schema_version": resolution.get("schema_version"),
+            "status": resolution.get("status"),
+            "source_ref": resolution.get("source_ref"),
+            "detected": {
+                "path_count": len(detected.get("paths") or []),
+                "explicit_scope_id_count": len(detected.get("explicit_scope_ids") or []),
+                "symbol_names": list(detected.get("symbol_names") or [])[:4],
+                "query_term_count": len(detected.get("query_terms") or []),
+            },
+            "unresolved": [
+                {
+                    key: row.get(key)
+                    for key in ("kind", "id", "reason", "candidate_count")
+                    if row.get(key) not in (None, "", [], {})
+                }
+                for row in unresolved[:4]
+            ],
+            "unresolved_count": len(unresolved),
+            "provider_population_gap_route": resolution.get("provider_population_gap_route"),
+            "provider_population_lane_command": resolution.get("provider_population_lane_command"),
+            "provider_boundary": resolution.get("provider_boundary"),
+            "omission_receipt": {
+                "omitted": [
+                    "candidate scope ids",
+                    "candidate paths",
+                    "resolved file/scope rows",
+                ],
+                "reason": "Entry admission keeps target-resolution status and owner routes only.",
+                "drilldown": resolution.get("provider_population_lane_command")
+                or resolution.get("provider_population_gap_route"),
+            },
+            "trimmed_for_entry_admission": True,
+            "hard_ceiling_handle_compacted": True,
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
 def _apply_entry_hard_compaction_steps(
     packet: dict[str, Any],
     *,
@@ -2764,7 +3223,10 @@ def _apply_entry_hard_compaction_steps(
 ) -> None:
     steps: list[tuple[str, Callable[[Any], Any]]] = [
         ("active_execution_constellation", _hard_compact_active_execution_constellation_for_admission),
-        ("transaction_control_plane", _hard_compact_transaction_control_plane_for_admission),
+        ("compliance_diagnostics", _hard_compact_triggered_diagnostics_for_admission),
+        ("paper_module_freshness_diagnostics", _hard_compact_triggered_diagnostics_for_admission),
+        ("python_target_resolution", _hard_compact_python_target_resolution_for_admission),
+        ("navigation_index_spine", _hard_compact_entry_navigation_index_spine_for_admission),
         (
             "agent_principle_lens",
             lambda value: _hard_compact_agent_principle_lens_for_admission(
@@ -2783,6 +3245,7 @@ def _apply_entry_hard_compaction_steps(
         ("closeout_git_state", _hard_compact_closeout_git_state_for_admission),
         ("agent_operating_packet", _hard_compact_agent_operating_packet_for_admission),
         ("active_phase", _hard_compact_active_phase_for_admission),
+        ("speed_refinement_routes", _hard_compact_speed_refinement_routes_for_admission),
         (
             "candidate_runtime_pressure",
             lambda value: _hard_compact_candidate_runtime_pressure_for_admission(
@@ -2926,6 +3389,9 @@ def _apply_entry_payload_admission(
                 preserve_suppressed_rows=selected_lane_id != "active_execution_constellation",
             )
 
+    if packet.pop("command_node_cache", None) is not None:
+        hard_compacted_sections.append("command_node_cache")
+
     after_bytes_without_receipt = _pretty_json_bytes(packet)
     packet["entry_payload_admission"] = {
         "schema_version": "entry_payload_admission_v0",
@@ -2992,7 +3458,11 @@ def _apply_entry_payload_admission(
             if packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target":
                 refresh_admission_size()
     if (
-        packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+        (
+            packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+            or int(packet["entry_payload_admission"].get("output_bytes") or 0)
+            > ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES
+        )
         and not full_diagnostics_requested
     ):
         for key in (
@@ -3004,7 +3474,11 @@ def _apply_entry_payload_admission(
             packet["entry_payload_admission"].pop(key, None)
         refresh_admission_size()
     if (
-        packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+        (
+            packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+            or int(packet["entry_payload_admission"].get("output_bytes") or 0)
+            > ENTRY_PACKET_NEAR_CEILING_TARGET_BYTES
+        )
         and not full_diagnostics_requested
     ):
         closeout_git_state = packet.get("closeout_git_state")
@@ -3031,23 +3505,26 @@ def _apply_entry_payload_admission(
             else None
         )
         if isinstance(latest_gate, dict):
+            compact_latest_gate = {
+                key: latest_gate.get(key)
+                for key in (
+                    "status",
+                    "latest_intent",
+                    "repo_patch_allowed",
+                    "prohibit_file_writes",
+                    "prohibit_seed_reentry",
+                )
+                if latest_gate.get(key) not in (None, "", [], {})
+            }
+            if "route_override" in latest_gate:
+                compact_latest_gate["route_override"] = latest_gate.get("route_override")
             packet["mutation_governance"] = {
-                "latest_intent_gate": {
-                    key: latest_gate.get(key)
-                    for key in (
-                        "status",
-                        "latest_intent",
-                        "repo_patch_allowed",
-                        "prohibit_file_writes",
-                        "prohibit_seed_reentry",
-                    )
-                    if latest_gate.get(key) not in (None, "", [], {})
-                },
+                "latest_intent_gate": compact_latest_gate,
                 "trimmed_for_entry_admission": True,
             }
         allowed = packet.get("allowed_drilldowns")
         if isinstance(allowed, list):
-            packet["allowed_drilldowns"] = [
+            compact_allowed = [
                 {
                     key: row.get(key)
                     for key in ("command", "surface_role")
@@ -3056,6 +3533,150 @@ def _apply_entry_payload_admission(
                 for row in allowed[:2]
                 if isinstance(row, dict)
             ]
+            seen_commands = {
+                str(row.get("command") or "")
+                for row in compact_allowed
+                if isinstance(row, dict)
+            }
+            for row in allowed:
+                if not isinstance(row, dict):
+                    continue
+                command = str(row.get("command") or "")
+                if not command.startswith("./repo-python kernel.py --agent-principle"):
+                    continue
+                if command in seen_commands:
+                    continue
+                compact_allowed.append(
+                    {
+                        key: row.get(key)
+                        for key in ("command", "surface_role")
+                        if row.get(key) not in (None, "", [], {})
+                    }
+                )
+                seen_commands.add(command)
+            packet["allowed_drilldowns"] = compact_allowed[:4]
+        for key in ("top_schedulable_workitem", "top_ready_workitem"):
+            value = packet.get(key)
+            if isinstance(value, dict) and _is_entry_workitem_placeholder(value):
+                packet[key] = _hard_compact_entry_workitem_handoff_for_admission(value)
+        type_b_lens = packet.get("type_b_candidate_lens")
+        compact_type_b_lens = _hard_compact_type_b_candidate_lens_for_admission(
+            type_b_lens if isinstance(type_b_lens, dict) else None
+        )
+        if compact_type_b_lens != type_b_lens:
+            packet["type_b_candidate_lens"] = compact_type_b_lens
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
+        selected_lane = packet.get("selected_lane")
+        if isinstance(selected_lane, dict):
+            packet["selected_lane"] = {
+                key: selected_lane.get(key)
+                for key in ("lane_id", "reason")
+                if selected_lane.get(key) not in (None, "", [], {})
+            }
+        next_action = packet.get("next_action")
+        if isinstance(next_action, dict):
+            packet["next_action"] = {
+                key: next_action.get(key)
+                for key in ("command", "why", "surface_role")
+                if next_action.get(key) not in (None, "", [], {})
+            }
+        banned_routes = packet.get("banned_routes")
+        if isinstance(banned_routes, list):
+            packet["banned_routes"] = [
+                {
+                    key: row.get(key)
+                    for key in ("route_id", "surface")
+                    if isinstance(row, dict) and row.get(key) not in (None, "", [], {})
+                }
+                for row in banned_routes
+                if isinstance(row, dict)
+            ]
+        surface_contract = packet.get("surface_contract")
+        if isinstance(surface_contract, dict):
+            packet["surface_contract"] = {
+                key: surface_contract.get(key)
+                for key in (
+                    "surface_id",
+                    "command",
+                    "surface_role",
+                    "first_contact_allowed",
+                    "replacement",
+                )
+                if surface_contract.get(key) not in (None, "", [], {})
+            }
+        route_lease = packet.get("route_lease")
+        if isinstance(route_lease, dict):
+            packet["route_lease"] = {
+                key: route_lease.get(key)
+                for key in (
+                    "schema_version",
+                    "issued_by",
+                    "mode_contract",
+                    "selected_lane_id",
+                    "invalidation_inputs",
+                    "budget",
+                    "permitted_direct_actions",
+                    "policy_counts",
+                    "omitted_policy_tail_counts",
+                    "trimmed_for_entry_admission",
+                    "hard_ceiling_handle_compacted",
+                )
+                if route_lease.get(key) not in (None, "", [], {})
+            }
+        spine = packet.get("navigation_index_spine")
+        if isinstance(spine, dict):
+            task_openings = (
+                spine.get("task_conditioned_openings")
+                if isinstance(spine.get("task_conditioned_openings"), dict)
+                else {}
+            )
+            packet["navigation_index_spine"] = {
+                key: spine.get(key)
+                for key in (
+                    "schema_version",
+                    "source_schema_version",
+                    "surface_role",
+                    "available",
+                    "output_profile",
+                    "summary",
+                    "top_projection_gaps",
+                    "entry_policy",
+                    "currentness",
+                    "source_coupling",
+                    "evidence_drilldowns",
+                    "omission_receipt",
+                    "admission_trimmed_for_entry_packet",
+                    "hard_ceiling_handle_compacted",
+                )
+                if spine.get(key) not in (None, "", [], {})
+            }
+            packet["navigation_index_spine"]["task_conditioned_openings"] = {
+                key: task_openings.get(key)
+                for key in (
+                    "matched_intent_ids",
+                    "first_opening",
+                    "selected_opening_kind_ids",
+                    "selected_opening_count",
+                    "reentry_receipt",
+                )
+                if task_openings.get(key) not in (None, "", [], {})
+            }
+        refresh_admission_size()
+    if (
+        packet["entry_payload_admission"]["status"] == "trimmed_over_inline_target"
+        and not full_diagnostics_requested
+    ):
+        type_b_lens = packet.get("type_b_candidate_lens")
+        compact_type_b_lens = _hard_compact_type_b_candidate_lens_for_admission(
+            type_b_lens if isinstance(type_b_lens, dict) else None
+        )
+        if compact_type_b_lens != type_b_lens:
+            packet["type_b_candidate_lens"] = compact_type_b_lens
+            packet["entry_payload_admission"][
+                "post_receipt_compacted_section_count"
+            ] = int(packet["entry_payload_admission"].get("post_receipt_compacted_section_count") or 0) + 1
         refresh_admission_size()
     return packet
 
@@ -5532,8 +6153,13 @@ def _task_mentions_navigation(task: str) -> bool:
         "kernel hot path",
         "kernel hot-path",
         "kernel bootstrap",
+        "agent bootstrap",
         "bootstrap efficiency",
         "bootstrap latency",
+        "bootstrap command",
+        "bootstrap commands",
+        "command polling",
+        "status language",
         "kernel surface speed",
         "entry surface performance",
         "navigation metabolism speed",
@@ -5588,6 +6214,12 @@ def _task_mentions_navigation_repair(task: str | None) -> bool:
         "coverage matrix",
         "process audit",
         "navigation metabolism",
+        "agent bootstrap",
+        "bootstrap command",
+        "bootstrap commands",
+        "command polling",
+        "status language",
+        "bootstrap status",
         "dogfood",
         "system comprehension",
         "navigation system",
@@ -5898,6 +6530,11 @@ def _task_mentions_speed_refinement(task: str | None) -> bool:
         "process bottlenecks",
         "latency seed",
         "latency speedboard",
+        "general optimisation",
+        "general optimization",
+        "system optimisation",
+        "system optimization",
+        "system speed",
         "wait tax",
         "command profile",
         "command startup",
@@ -5954,14 +6591,76 @@ def _task_mentions_speed_refinement(task: str | None) -> bool:
     return bool((terms & speed_terms) and (terms & telemetry_terms))
 
 
+def _task_mentions_trace_diagnostics_generalization(task: str | None) -> bool:
+    text = " ".join(
+        str(task or "")
+        .strip()
+        .casefold()
+        .replace("-", " ")
+        .replace("_", " ")
+        .replace("/", " ")
+        .split()
+    )
+    if not text:
+        return False
+    trace_terms = (
+        "agent trace",
+        "agent traces",
+        "other agent trace",
+        "other agent traces",
+        "session trace",
+        "session traces",
+        "trace summary",
+        "trace summaries",
+        "meta diagnostic",
+        "meta diagnostics",
+        "session diagnostic",
+        "session diagnostics",
+        "diagnostic summary",
+        "diagnostics summary",
+    )
+    generalization_terms = (
+        "generalize",
+        "generalise",
+        "generalized",
+        "generalised",
+        "generalizing",
+        "generalising",
+        "generalization",
+        "generalisation",
+        "generalize skill",
+        "generalise skill",
+        "local to general",
+        "up propagate",
+        "up propagation",
+        "uppropagate",
+        "uppropagation",
+        "failure class",
+        "non overfit",
+        "nonoverfit",
+        "system refinement",
+        "system refinements",
+        # Common operator typo guard; keep this scoped by the trace term gate.
+        "genrealise",
+        "genrealize",
+        "geineralise",
+        "geineralize",
+    )
+    return any(term in text for term in trace_terms) and any(
+        term in text for term in generalization_terms
+    )
+
+
 def _speed_refinement_routes_card() -> dict[str, Any]:
     return {
         "schema_version": "speed_refinement_routes_v0",
         "status": "available",
         "first_route_commands": [
+            "./repo-python tools/meta/control/action_quote.py --action work_ledger_claim_read",
             "./repo-python tools/meta/control/action_quote.py --action latency_seed_preflight",
             "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage",
             "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory",
+            "./repo-python tools/meta/control/action_quote.py --action git_diff_review_context",
             "./repo-python kernel.py --latency-seed-digest",
             "./repo-python kernel.py --process-bottlenecks",
             "./repo-python kernel.py --command-profile latency-speedboard",
@@ -6001,18 +6700,24 @@ def _add_projected_match_value(terms: set[str], value: Any) -> None:
             _add_projected_match_value(terms, item)
 
 
-def _projected_situation_match_terms(
-    repo_root: Path,
+@lru_cache(maxsize=96)
+def _projected_situation_match_terms_cached(
+    repo_root_posix: str,
     *,
     situation_id: str,
     route_id: str,
-) -> set[str]:
+    bootstrap_signature: tuple[str, int | None, int | None],
+    docs_index_signature: tuple[str, int | None, int | None],
+    skill_registry_signature: tuple[str, int | None, int | None],
+) -> tuple[str, ...]:
     """Load task-match terms from the compressed route surfaces.
 
     The entry packet may classify a stable lane only after the lane exists in
     the projected navigation substrate. This keeps runtime classification from
     becoming a private phrase list that disagrees with AGENTS/docs-route rows.
     """
+    del bootstrap_signature, docs_index_signature, skill_registry_signature
+    repo_root = Path(repo_root_posix)
     terms: set[str] = set()
     projected_paths: set[str] = set()
 
@@ -6023,7 +6728,7 @@ def _projected_situation_match_terms(
             for item in value:
                 _add_projected_path_values(item)
 
-    bootstrap = _read_json_safe(repo_root / "codex/doctrine/agent_bootstrap.json") or {}
+    bootstrap = _read_projected_route_json(repo_root, "codex/doctrine/agent_bootstrap.json")
     route: dict[str, Any] | None = None
     for row in bootstrap.get("situation_routes") or []:
         if not isinstance(row, dict):
@@ -6064,7 +6769,10 @@ def _projected_situation_match_terms(
             _add_projected_match_value(terms, minimum_read_set.get("paths"))
             _add_projected_path_values(minimum_read_set.get("paths"))
 
-    docs_index = _read_json_safe(repo_root / "codex/doctrine/documentation_theory_index.json") or {}
+    docs_index = _read_projected_route_json(
+        repo_root,
+        "codex/doctrine/documentation_theory_index.json",
+    )
     machine_routes = docs_index.get("machine_routes") or {}
     for row in machine_routes.get("situation_routes") or []:
         if not isinstance(row, dict) or row.get("route_id") != route_id:
@@ -6079,7 +6787,10 @@ def _projected_situation_match_terms(
             for key in ("exact_tokens", "tokens", "intent_terms", "path_contains", "exact_paths"):
                 _add_projected_match_value(terms, match.get(key))
 
-    skill_registry = _read_json_safe(repo_root / "codex/doctrine/skills/skill_registry.json") or {}
+    skill_registry = _read_projected_route_json(
+        repo_root,
+        "codex/doctrine/skills/skill_registry.json",
+    )
     for family in skill_registry.get("families") or []:
         if not isinstance(family, dict):
             continue
@@ -6154,6 +6865,7 @@ def _projected_situation_match_terms(
         "worktree",
     }
     generic_phrases = {
+        "agent bootstrap",
         "agent entry",
         "agent entry surface",
         "agent entry surfaces",
@@ -6165,14 +6877,61 @@ def _projected_situation_match_terms(
         "type a",
         "type b",
     }
-    return {
+    return tuple(sorted(
         term
         for term in terms
         if len(term) >= 3
         and term not in generic_phrases
         and (" " in term or term in route_singleton_allowlist)
         and not (term in generic_singletons and term not in route_singleton_allowlist)
-    }
+    ))
+
+
+def _projected_situation_match_terms(
+    repo_root: Path,
+    *,
+    situation_id: str,
+    route_id: str,
+) -> set[str]:
+    bootstrap_rel = "codex/doctrine/agent_bootstrap.json"
+    docs_index_rel = "codex/doctrine/documentation_theory_index.json"
+    skill_registry_rel = "codex/doctrine/skills/skill_registry.json"
+    return set(
+        _projected_situation_match_terms_cached(
+            repo_root.as_posix(),
+            situation_id=situation_id,
+            route_id=route_id,
+            bootstrap_signature=_json_file_signature(repo_root / bootstrap_rel),
+            docs_index_signature=_json_file_signature(repo_root / docs_index_rel),
+            skill_registry_signature=_json_file_signature(repo_root / skill_registry_rel),
+        )
+    )
+
+
+def _projected_situation_explicit_match_terms(
+    repo_root: Path,
+    *,
+    situation_id: str,
+    route_id: str,
+) -> set[str]:
+    """Return only explicit task-trigger terms for a projected route.
+
+    Broad projected surfaces include owner paths, MRS paths, target labels, and
+    actor-delivery tokens. Those are useful for evidence drilldown, but they are
+    too permissive for high-blast classifier lanes such as publication recovery.
+    """
+    bootstrap = _read_projected_route_json(repo_root, "codex/doctrine/agent_bootstrap.json")
+    terms: set[str] = set()
+    for row in bootstrap.get("situation_routes") or []:
+        if not isinstance(row, dict):
+            continue
+        if row.get("situation_id") != situation_id and row.get("route_id") != route_id:
+            continue
+        _add_projected_match_value(terms, row.get("match_tokens"))
+        _add_projected_match_value(terms, row.get("situation_id"))
+        _add_projected_match_value(terms, row.get("route_id"))
+        break
+    return {term for term in terms if len(term) >= 3}
 
 
 def _task_mentions_dissemination_lane(repo_root: Path, task: str | None) -> bool:
@@ -6191,7 +6950,7 @@ def _task_mentions_publication_lane_push_recovery(repo_root: Path, task: str | N
     text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
     if not text:
         return False
-    terms = _projected_situation_match_terms(
+    terms = _projected_situation_explicit_match_terms(
         repo_root,
         situation_id="publication_lane_push_recovery",
         route_id="sit_publication_lane_push_recovery",
@@ -6218,7 +6977,7 @@ def _projected_situation_route_command(
     route_id: str,
     fallback: str,
 ) -> str:
-    bootstrap = _read_json_safe(repo_root / "codex/doctrine/agent_bootstrap.json") or {}
+    bootstrap = _read_projected_route_json(repo_root, "codex/doctrine/agent_bootstrap.json")
     for row in bootstrap.get("situation_routes") or []:
         if not isinstance(row, dict):
             continue
@@ -6254,7 +7013,7 @@ def _task_mentions_config_authority_plane(repo_root: Path, task: str | None) -> 
     text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
     if not text:
         return False
-    terms = _projected_situation_match_terms(
+    terms = _projected_situation_explicit_match_terms(
         repo_root,
         situation_id="config_authority_plane",
         route_id="sit_config_authority_plane",
@@ -6266,12 +7025,48 @@ def _task_mentions_microcosm_public_substrate(repo_root: Path, task: str | None)
     text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
     if not text:
         return False
+    if _task_mentions_microcosm_public_site_boundary(task):
+        return False
     terms = _projected_situation_match_terms(
         repo_root,
         situation_id="microcosm_public_substrate",
         route_id="sit_microcosm_public_substrate",
     )
     return any(term in text for term in terms)
+
+
+def _task_mentions_microcosm_public_site_boundary(task: str | None) -> bool:
+    text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
+    if not text or "microcosm" not in text:
+        return False
+    tokens = set(text.split())
+    site_phrases = (
+        "public site",
+        "web site",
+        "landing page",
+        "static page",
+        "static site",
+        "sites microcosm",
+        "sites/microcosm",
+        "github pages",
+    )
+    site_words = {"site", "website"}
+    repo_terms = (
+        "microcosm substrate",
+        "microcosm-substrate",
+        "standalone repo",
+        "standalone repository",
+        "cloned repo",
+        "source clone",
+        "agent entry",
+        "type a agent",
+        "type a agents",
+        "repo -> .microcosm",
+        "repo to .microcosm",
+    )
+    return (any(term in text for term in site_phrases) or bool(site_words & tokens)) and not any(
+        term in text for term in repo_terms
+    )
 
 
 def _task_is_type_b_handoff_framing_repair(task: str | None) -> bool:
@@ -6360,6 +7155,48 @@ def _task_mentions_task_ledger_dependency_unlocks(task: str | None) -> bool:
                 or any(token in text for token in unlock_tokens)
             )
         )
+    )
+
+
+def _task_mentions_cap_reflex_improvement(task: str | None) -> bool:
+    text = " ".join(str(task or "").casefold().replace("-", " ").replace("_", " ").split())
+    if not text:
+        return False
+    cap_terms = (
+        "cap",
+        "caps",
+        "task ledger",
+        "workitem",
+        "work item",
+    )
+    pressure_terms = (
+        "cap pressure",
+        "stall",
+        "stalls",
+        "stalling",
+        "spending like an hour",
+        "spenidng like an hour",
+        "worked for 1h",
+        "worked for an hour",
+        "agent does nothing",
+        "agents from doing anything",
+        "no commit",
+        "no commit execution",
+        "commit hash",
+        "commit_hash",
+        "validated uncommitted",
+        "execution receipt",
+        "receipt intake",
+        "write out diffs",
+        "write out the diffs",
+        "diff gate",
+        "gated diff",
+        "gate them behind",
+        "blocked patch",
+        "patch capsule",
+    )
+    return any(term in text for term in cap_terms) and any(
+        term in text for term in pressure_terms
     )
 
 
@@ -6937,22 +7774,24 @@ def build_entry_packet(
     top_schedulable_payload = top_schedulable_workitem(repo_root)
     if top_schedulable_payload is None:
         top_schedulable_payload = _empty_top_schedulable_workitem_for_entry()
-    from system.lib.active_execution_constellation import (
-        build_active_execution_constellation,
-        compact_active_execution_constellation_for_entry,
-    )
-
-    active_execution_constellation = compact_active_execution_constellation_for_entry(
-        build_active_execution_constellation(
-            repo_root,
-            active_phase=active_phase,
-            top_schedulable_workitem=top_schedulable_payload,
-            top_ready_workitem=top_ready_payload,
-            campaign_limit=4,
-            claim_limit=8,
-            session_limit=6,
+    explicit_schedulable_workitem_request = any(
+        phrase in task_text.lower()
+        for phrase in (
+            "current schedulable",
+            "top schedulable",
+            "schedulable campaign",
+            "schedulable workitem",
+            "schedulable work item",
         )
     )
+    if (
+        selected_workitem_payload is None
+        and explicit_schedulable_workitem_request
+        and isinstance(top_schedulable_payload, dict)
+        and not top_schedulable_payload.get("projection_placeholder")
+    ):
+        selected_workitem_payload = top_schedulable_payload
+    active_execution_constellation: dict[str, Any] | None = None
     latest_intent_gate = build_latest_intent_gate(task_text)
     is_agent_trouble_diagnosis = task_mentions_agent_trouble_diagnosis(task_text)
     is_imperative_authoring = _task_is_imperative_authoring(task_text)
@@ -6961,12 +7800,23 @@ def build_entry_packet(
     is_disclosure_query = _task_mentions_disclosure_query(task_text)
     is_projection_closure_audit = _task_mentions_projection_closure_audit(task_text)
     is_speed_refinement = _task_mentions_speed_refinement(task_text)
+    is_trace_diagnostics_generalization = _task_mentions_trace_diagnostics_generalization(
+        task_text
+    )
     is_task_ledger_dependency_unlocks = _task_mentions_task_ledger_dependency_unlocks(task_text)
+    is_type_b_to_type_a_handoff = _task_mentions_type_b_to_type_a_handoff(repo_root, task_text)
+    is_cap_reflex_improvement = (
+        _task_mentions_cap_reflex_improvement(task_text)
+        and not is_task_ledger_dependency_unlocks
+        and not is_type_b_to_type_a_handoff
+    )
     is_mechanism_workitem_affinity = _task_mentions_mechanism_workitem_affinity(task_text)
     is_doctrine_population = _task_mentions_doctrine_population(task_text)
-    is_type_b_to_type_a_handoff = _task_mentions_type_b_to_type_a_handoff(repo_root, task_text)
     is_local_to_general_propagation = (
-        _task_mentions_local_to_general_propagation(repo_root, task_text)
+        (
+            _task_mentions_local_to_general_propagation(repo_root, task_text)
+            or is_trace_diagnostics_generalization
+        )
         and not is_type_b_to_type_a_handoff
         and not is_doctrine_population
     )
@@ -6998,6 +7848,16 @@ def build_entry_packet(
         and (not is_speed_refinement or mentions_autonomous_seed_replay_continuity)
         and not is_doctrine_population
         and not is_navigation_repair
+    )
+    is_speed_refinement_only = (
+        is_speed_refinement
+        and not is_autonomous_seed_framework
+        and not is_local_to_general_propagation
+    )
+    is_agent_trouble_diagnosis_only = (
+        is_agent_trouble_diagnosis
+        and not is_autonomous_seed_framework
+        and not is_local_to_general_propagation
     )
     is_cognitive_operator_discovery = (
         _task_mentions_cognitive_operator_discovery(task_text)
@@ -7083,7 +7943,7 @@ def build_entry_packet(
         and not is_local_to_general_propagation
         and state_axis is None
         and not is_state_axis_overview
-    ) or is_projection_closure_audit or (is_speed_refinement and not is_autonomous_seed_framework)
+    ) or is_projection_closure_audit or is_speed_refinement_only
     config_authority_command = _projected_situation_route_command(
         repo_root,
         situation_id="config_authority_plane",
@@ -7119,7 +7979,8 @@ def build_entry_packet(
         and not is_agent_principle_authoring
         and not is_organisation_control_plane
         and not is_active_execution_constellation
-        and not is_agent_trouble_diagnosis
+        and not is_agent_trouble_diagnosis_only
+        and not is_cap_reflex_improvement
         and not is_navigation
         and not is_local_to_general_propagation
         and not is_publication_lane_push_recovery
@@ -7129,9 +7990,9 @@ def build_entry_packet(
     selected_lane = {
         "lane_id": (
             "navigation_enforcement"
-            if is_speed_refinement
+            if is_speed_refinement_only
             else "agent_trouble_diagnosis_seed"
-            if is_agent_trouble_diagnosis
+            if is_agent_trouble_diagnosis_only
             else "system_state_axis_overview"
             if is_state_axis_overview and not is_projection_closure_audit
             else "system_state_fact_query"
@@ -7178,13 +8039,15 @@ def build_entry_packet(
             if is_navigation
             else "task_ledger_dependency_unlocks"
             if is_task_ledger_dependency_unlocks
+            else "cap_reflex_improvement"
+            if is_cap_reflex_improvement
             else "active_phase"
         ),
         "reason": (
             "Task asks for speed refinements; open existing command telemetry, latency-seed, process-bottleneck, command-profile, and speedboard surfaces before generic autonomous-seed or cognitive-operator routing."
-            if is_speed_refinement
+            if is_speed_refinement_only
             else "Latest operator message asks to diagnose agent trouble/transcript behavior; use the read-only trouble-diagnosis route and keep quoted prior seeds as evidence, not live instructions."
-            if is_agent_trouble_diagnosis
+            if is_agent_trouble_diagnosis_only
             else "Task asks for the compressed state-axis universe; open the generated fact navigation artifact."
             if is_state_axis_overview and not is_projection_closure_audit
             else "Task asks for cross-kind state; route through the generated fact state-axis artifact."
@@ -7193,7 +8056,7 @@ def build_entry_packet(
             if is_disclosure_query and not is_projection_closure_audit
             else "Task asks what doctrine/state is not projected; route to the projection-closure audit ratchet."
             if is_projection_closure_audit
-            else "Task asks to turn a local lesson, operator snippet, failure-class packet, or runtime/launcher receipt gap into a non-overfit system refinement; open local-to-general context before mutating an owner surface."
+            else "Task asks to turn a local lesson, operator snippet, agent trace/meta-diagnostics row, failure-class packet, or runtime/launcher receipt gap into a non-overfit system refinement; open local-to-general context before mutating an owner surface."
             if is_local_to_general_propagation
             else "Task asks about autonomous seeds, wake prompts, repeated prompt clusters, or seed cohorts; open the Type A autonomous-seed framework, prompt-authoring standard, seed corpus, and wake-prompt diagnostics before generic cognitive-operator routing."
             if is_autonomous_seed_framework
@@ -7231,6 +8094,8 @@ def build_entry_packet(
             if is_navigation
             else "Task asks about WorkItem/cap dependencies or downstream unlocks; open Task Ledger dependency projections and card edge summaries."
             if is_task_ledger_dependency_unlocks
+            else "Task asks about cap pressure, agent stalling, no-commit execution receipts, or diff gating; route through cap-reflex/Task Ledger organizer report, then use Work Landing blocked patch capsules or validated-uncommitted receipt intake instead of prose-only closeout."
+            if is_cap_reflex_improvement
             else "Default to the active phase control anchor."
         ),
     }
@@ -7243,15 +8108,17 @@ def build_entry_packet(
             state_axis_command = f"./repo-python kernel.py --facts --facts-facet {axis_value} --band flag"
     next_command = (
         f"./repo-python kernel.py --navigation-metabolism {task_arg} --metabolism-profile quick --context-budget {context_budget}"
-        if is_speed_refinement
+        if is_speed_refinement_only
         else "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json"
-        if is_agent_trouble_diagnosis
+        if is_agent_trouble_diagnosis_only
         else "./repo-python kernel.py --facts --band cluster_flag"
         if is_state_axis_overview and not is_projection_closure_audit
         else state_axis_command
         if state_axis_command is not None and not is_projection_closure_audit
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_disclosure_query and task_text and not is_projection_closure_audit
+        else "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json --diagnostics-summary"
+        if is_trace_diagnostics_generalization
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if is_local_to_general_propagation and task_text
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
@@ -7290,6 +8157,8 @@ def build_entry_packet(
         if is_config_authority_plane
         else "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
         if is_task_ledger_dependency_unlocks
+        else "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2"
+        if is_cap_reflex_improvement
         else f"./repo-python kernel.py --context-pack {task_arg} --context-budget {context_budget}"
         if task_text
         else "./repo-python kernel.py --vantage --band card"
@@ -7389,9 +8258,9 @@ def build_entry_packet(
         "task_ledger_workitem"
         if selected_workitem_payload is not None
         else "navigation_control_boundary"
-        if is_speed_refinement
+        if is_speed_refinement_only
         else "agent_trouble_diagnosis_seed"
-        if is_agent_trouble_diagnosis
+        if is_agent_trouble_diagnosis_only
         else "type_b_to_type_a_continuation_handoff"
         if is_type_b_to_type_a_handoff
         else "system_comprehension_authoring"
@@ -7444,23 +8313,22 @@ def build_entry_packet(
         if is_navigation
         else "task_ledger_dependency_unlocks"
         if is_task_ledger_dependency_unlocks
+        else "cap_reflex_improvement"
+        if is_cap_reflex_improvement
         else "frontend_capability_discovery"
         if is_frontend_capability_discovery
         else "general_task_entry"
     )
-    from system.lib.compliance.diagnostics_projection import project_compliance_diagnostics
     from system.lib.agent_operating_packet import (
         build_agent_operating_packet_strip,
         build_agent_principle_lens,
         load_agent_operating_packet,
     )
     from system.lib.candidate_runtime_pressure_policy import filter_first_contact_candidate_pressure
-    from system.lib.paper_module_freshness_diagnostics import project_paper_module_freshness_diagnostics
     from system.lib.standard_option_surface import (
         candidate_runtime_pressure_rows,
         no_edit_pass_floor_card,
     )
-    from system.lib.entrypoint_health import project_entry_surface_diagnostics
     evidence_texts: list[str] = []
     if isinstance(selected_workitem_payload, dict):
         for key in ("id", "title", "statement_snippet"):
@@ -7485,18 +8353,51 @@ def build_entry_packet(
                 "reason": structural_trigger["reason"],
             }
         )
-    entry_surface_diagnostics = project_entry_surface_diagnostics(
-        repo_root,
-        task_text or "",
-        structural_triggers=structural_entry_surface_triggers,
-        content_sync_mode=(
-            "auto"
-            if _entry_admission_task_requests_full_diagnostics(task_text)
-            else "source_coupling_only"
-        ),
-    )
-    compliance_diagnostics = project_compliance_diagnostics(repo_root, task_text or "")
-    paper_module_freshness_diagnostics = project_paper_module_freshness_diagnostics(repo_root, task_text or "")
+    if _entry_task_requests_entry_surface_diagnostics(
+        task_text,
+        structural_entry_surface_triggers,
+    ):
+        from system.lib.entrypoint_health import project_entry_surface_diagnostics
+
+        entry_surface_diagnostics = project_entry_surface_diagnostics(
+            repo_root,
+            task_text or "",
+            structural_triggers=structural_entry_surface_triggers,
+            content_sync_mode=(
+                "auto"
+                if _entry_admission_task_requests_full_diagnostics(task_text)
+                else "source_coupling_only"
+            ),
+        )
+    else:
+        entry_surface_diagnostics = _deferred_entry_diagnostics_packet(
+            "entry_surface_diagnostics",
+            reason="task_text_and_structural_lane_do_not_trigger_entry_surface_diagnostics",
+            drilldown="./repo-python tools/meta/factory/check_agent_bootstrap_projection.py && ./repo-python tools/meta/factory/build_routing_projection.py --check",
+        )
+    if _entry_task_requests_compliance_diagnostics(task_text):
+        from system.lib.compliance.diagnostics_projection import project_compliance_diagnostics
+
+        compliance_diagnostics = project_compliance_diagnostics(repo_root, task_text or "")
+    else:
+        compliance_diagnostics = _deferred_entry_diagnostics_packet(
+            "compliance_diagnostics",
+            reason="task_text_does_not_trigger_compliance_diagnostics",
+            drilldown="./repo-python tools/meta/factory/build_compliance_ledger.py --report",
+        )
+    if _entry_task_requests_paper_module_freshness_diagnostics(task_text):
+        from system.lib.paper_module_freshness_diagnostics import project_paper_module_freshness_diagnostics
+
+        paper_module_freshness_diagnostics = project_paper_module_freshness_diagnostics(
+            repo_root,
+            task_text or "",
+        )
+    else:
+        paper_module_freshness_diagnostics = _deferred_entry_diagnostics_packet(
+            "paper_module_freshness_diagnostics",
+            reason="task_text_does_not_trigger_paper_module_freshness_diagnostics",
+            drilldown="./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+        )
     candidate_runtime_pressure_block = {
         **candidate_pressure_policy,
         "contract_ref": "codex/standards/std_agent_entry_surface.json::candidate_runtime_pressure_contract",
@@ -7505,7 +8406,7 @@ def build_entry_packet(
         "match_strategy": "layered_priority_explicit_id_then_explicit_slug_then_workitem_evidence_overlap_then_deterministic_query_overlap_min_2",
         "match_strategy_ref": "codex/standards/std_agent_entry_surface.json::candidate_runtime_pressure_contract::match_strategy",
     }
-    if is_speed_refinement and isinstance(candidate_runtime_pressure_block.get("rows"), list):
+    if is_speed_refinement_only and isinstance(candidate_runtime_pressure_block.get("rows"), list):
         candidate_runtime_pressure_block = {
             "count": len(candidate_runtime_pressure_block.get("rows") or []),
             "suppressed_count": candidate_runtime_pressure_block.get("suppressed_count", 0),
@@ -7540,14 +8441,9 @@ def build_entry_packet(
             top_ready_workitem=top_ready_payload,
         )
     try:
-        from system.lib.git_state_snapshot import (
-            build_closeout_git_state_conditions,
-            compact_closeout_git_state_conditions,
-        )
+        from system.lib.kernel.pulse_cache import closeout_git_state_cache_or_refresh
 
-        closeout_git_state = compact_closeout_git_state_conditions(
-            build_closeout_git_state_conditions(repo_root, path_limit=5, recent_limit=1)
-        )
+        closeout_git_state, closeout_git_state_cache = closeout_git_state_cache_or_refresh(repo_root)
     except Exception as exc:
         closeout_git_state = {
             "schema": "closeout_git_state_summary_v0",
@@ -7557,6 +8453,12 @@ def build_entry_packet(
             "drilldowns": {
                 "closeout_conditions": "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions"
             },
+        }
+        closeout_git_state_cache = {
+            "status": "error",
+            "reason": "closeout_git_state_projection_failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:240],
         }
     navigation_index_spine = None
     if recognized_situation in {
@@ -7579,6 +8481,11 @@ def build_entry_packet(
             task_text=task_text,
             fast_entry=True,
         )
+    command_node_cache = {
+        "entry_closeout_git_state": closeout_git_state_cache,
+    }
+    if isinstance(navigation_index_spine, dict) and isinstance(navigation_index_spine.get("cache"), dict):
+        command_node_cache["entry_navigation_index_spine"] = navigation_index_spine["cache"]
     route_lease = _entry_route_lease(
         task_text=task_text,
         selected_lane=selected_lane,
@@ -7598,6 +8505,12 @@ def build_entry_packet(
         recognized_situation=recognized_situation,
         selected_lane_id=str(selected_lane.get("lane_id") or ""),
         max_rows=7,
+    )
+    raw_type_b_candidate_lens = classify_type_b_prompt_candidate(task_text)
+    type_b_candidate_lens = (
+        raw_type_b_candidate_lens
+        if raw_type_b_candidate_lens.get("candidate")
+        else None
     )
     operator_prompt_framing = None
     if is_type_b_to_type_a_handoff:
@@ -7641,6 +8554,23 @@ def build_entry_packet(
                     "do not classify the paste from broad Type A/Type B labels or public/dissemination/prior-art terms alone",
                 ],
             }
+    if is_active_execution_constellation:
+        from system.lib.active_execution_constellation import (
+            build_active_execution_constellation,
+            compact_active_execution_constellation_for_entry,
+        )
+
+        active_execution_constellation = compact_active_execution_constellation_for_entry(
+            build_active_execution_constellation(
+                repo_root,
+                active_phase=active_phase,
+                top_schedulable_workitem=top_schedulable_payload,
+                top_ready_workitem=top_ready_payload,
+                campaign_limit=4,
+                claim_limit=8,
+                session_limit=6,
+            )
+        )
     packet = {
         "kind": "kernel.entry_packet",
         "schema_version": "entry_packet_v0",
@@ -7653,9 +8583,10 @@ def build_entry_packet(
         "agent_principle_lens": agent_principle_lens,
         "candidate_runtime_pressure": candidate_runtime_pressure_block,
         "no_edit_pass_floor": no_edit_pass_floor,
-        "speed_refinement_routes": _speed_refinement_routes_card() if is_speed_refinement else None,
+        "speed_refinement_routes": _speed_refinement_routes_card() if is_speed_refinement_only else None,
         "transaction_control_plane": transaction_control_plane,
         "closeout_git_state": closeout_git_state,
+        "command_node_cache": command_node_cache,
         "mutation_governance": {
             "latest_intent_gate": latest_intent_gate,
         },
@@ -7666,6 +8597,7 @@ def build_entry_packet(
         "selected_lane": selected_lane,
         "selected_workitem": selected_workitem_payload,
         "operator_prompt_framing": operator_prompt_framing,
+        "type_b_candidate_lens": type_b_candidate_lens,
         "python_target_resolution": python_target_resolution
         if python_target_resolution.get("status") in {"resolved", "unresolved"}
         else None,
@@ -7750,7 +8682,7 @@ def build_entry_packet(
             },
         ),
     }
-    if is_active_execution_constellation:
+    if active_execution_constellation is not None:
         packet["active_execution_constellation"] = active_execution_constellation
     if transaction_control_plane is None:
         packet.pop("transaction_control_plane", None)
@@ -7816,6 +8748,10 @@ def _entry_transaction_control_plane_summary(
         )
         return mission_transaction_control_summary(packet, consumer_surface="kernel.entry")
     except Exception as exc:  # pragma: no cover - entry must degrade on partial fixtures.
+        drilldown = (
+            "./repo-python tools/meta/control/mission_transaction_preflight.py "
+            f"--subject-id {target_id} --control-summary"
+        )
         return {
             "schema": "transaction_control_plane_summary_v0",
             "consumer_surface": "kernel.entry",
@@ -7823,10 +8759,68 @@ def _entry_transaction_control_plane_summary(
             "next_action": "open_mission_transaction_preflight_drilldown",
             "target_id": target_id,
             "unavailable_reason": type(exc).__name__,
+            "work_landing_readiness": _entry_work_landing_readiness_hint(
+                status="watch",
+                target_id=target_id,
+                drilldown=drilldown,
+                reason=(
+                    "Transaction-control preflight was unavailable in the entry packet; "
+                    "readiness contract consumption is preserved as a drilldown hint."
+                ),
+            ),
             "drilldown_commands": [
-                f"./repo-python tools/meta/control/mission_transaction_preflight.py --subject-id {target_id} --control-summary",
+                drilldown,
             ],
         }
+
+
+def _entry_work_landing_readiness_hint(
+    *,
+    status: str,
+    target_id: str,
+    drilldown: str,
+    reason: str | None = None,
+) -> dict[str, Any]:
+    axis_order = [
+        "authority_state",
+        "projection_state",
+        "claim_state",
+        "companion_gate_state",
+        "validation_state",
+        "staged_index_state",
+        "parent_cas_state",
+        "landing_decision_state",
+        "allowed_next_action",
+    ]
+    axes = {axis: {"status": status, "next_action": drilldown} for axis in axis_order}
+    axes["allowed_next_action"] = {
+        "status": "available",
+        "command_or_action": drilldown,
+    }
+    axes["validation_state"] = {
+        "status": status,
+        "policy": (
+            "Full control summary distinguishes not_run_pre_edit, queued, and passed validation; "
+            "the routine entry hint must not report validation as passed."
+        ),
+        "next_action": drilldown,
+    }
+    return {
+        "schema": "work_landing_transaction_readiness_contract_v0",
+        "projection_schema": "work_landing_transaction_readiness_control_summary_projection_v0",
+        "projection_role": "routine_entry_hint",
+        "source_contract_owner": "system/lib/work_landing_status.py::_transaction_readiness_contract",
+        "status": status,
+        "reason": reason
+        or "Routine entry carries the readiness contract as a drilldown hint instead of running transaction preflight.",
+        "target_id": target_id,
+        "axis_order": axis_order,
+        "axes": axes,
+        "command_hints": {
+            "control_summary": drilldown,
+            "status": "./repo-python tools/meta/control/work_landing.py status",
+        },
+    }
 
 
 def _entry_transaction_control_plane_hint(
@@ -7854,6 +8848,11 @@ def _entry_transaction_control_plane_hint(
         "reason": "Transaction-control preflight is expensive and belongs behind an explicit drilldown or --full entry packet.",
         "next_action": drilldown,
         "target_id": target_id,
+        "work_landing_readiness": _entry_work_landing_readiness_hint(
+            status=status,
+            target_id=target_id,
+            drilldown=drilldown,
+        ),
         "shared_index_quarantine": {
             "schema": "shared_index_quarantine_v0",
             "status": status,

@@ -1,0 +1,14 @@
+{
+  "body_in_receipt": false,
+  "case_id": "oracle_auto_apply_overclaim",
+  "error_codes": [
+    "BATCH12_MDRM_ORACLE_AUTO_APPLY_OVERCLAIM"
+  ],
+  "expected_error_fragment": "auto_apply_allowed must be false",
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_market_dashboard_negative_case_v1",
+  "set": {
+    "finance_research_assurance.oracle_evolve.auto_apply_allowed": true
+  },
+  "strict": false
+}

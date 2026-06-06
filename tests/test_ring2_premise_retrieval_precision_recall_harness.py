@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import re
 import shutil
 from pathlib import Path
 from typing import Any
@@ -44,8 +45,17 @@ SOURCE_BODY_MATERIAL_IDS = {
     "ring2_precision_recall_graph_variant_comparison_body_import",
     "ring2_precision_recall_problem_source_manifest_body_import",
 }
+CONTROL_PLANE_SOURCE_MODULE = (
+    EXPORTED_BUNDLE_INPUT
+    / "source_modules/tools/meta/factory/run_prover_graph_benchmark.py"
+)
 PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
-OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
+PUBLIC_EXAMPLE_HOME = PRIVATE_HOME_PREFIX + "example"
+NON_EXAMPLE_HOME_RE = re.compile("/Users/(?!example(?:/|$))[^/\\s\\\"']+")
+
+
+def _assert_no_private_home_path(text: str) -> None:
+    assert NON_EXAMPLE_HOME_RE.search(text) is None
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -67,17 +77,20 @@ def test_ring2_precision_recall_line_count_streams_source_modules(
     monkeypatch: Any,
 ) -> None:
     source = tmp_path / "source_module.py"
+    empty_source = tmp_path / "empty_source.py"
     source.write_text("one\n\ntwo\n", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
     original_read_text = Path.read_text
 
     def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
-        if self == source:
+        if self in {source, empty_source}:
             raise AssertionError("line count should stream source-module input")
         return original_read_text(self, *args, **kwargs)
 
     monkeypatch.setattr(Path, "read_text", guarded_read_text)
 
     assert _line_count(source) == 3
+    assert _line_count(empty_source) == 1
 
 
 def test_ring2_precision_recall_observes_required_negative_cases(
@@ -258,6 +271,99 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
     ]
 
 
+def test_ring2_precision_recall_exported_bundle_blocks_tampered_source_artifact(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/ring2_premise_retrieval_precision_recall_harness",
+        public_root / "examples/ring2_premise_retrieval_precision_recall_harness",
+    )
+    bundle = public_root / (
+        "examples/ring2_premise_retrieval_precision_recall_harness/"
+        "exported_ring2_precision_recall_bundle"
+    )
+    tampered_ref = SOURCE_ARTIFACT_REFS[0]
+    tampered_target = bundle / "source_artifacts" / tampered_ref
+    tampered_target.write_text(
+        tampered_target.read_text(encoding="utf-8")
+        + "\n{\"tamper_marker\":\"ring2_source_artifact_digest_negative\"}\n",
+        encoding="utf-8",
+    )
+
+    result = run_precision_recall_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "ring2_premise_retrieval_precision_recall_harness",
+        command="pytest",
+    )
+
+    imports_by_ref = {
+        row["source_ref"]: row for row in result["source_artifact_imports"]
+    }
+    tampered_row = imports_by_ref[tampered_ref]
+    expected_digests = {
+        tampered_row["source_sha256"],
+        tampered_row["public_safe_sha256"],
+    }
+
+    assert result["status"] == "blocked"
+    assert result["source_artifacts_pass"] is False
+    assert result["source_open_body_imports"]["status"] == "blocked"
+    assert result["copied_source_artifact_count"] == 3
+    assert "RING2_RETRIEVAL_SOURCE_ARTIFACT_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert tampered_row["exists"] is True
+    assert tampered_row["digest_match"] is False
+    assert tampered_row["source_to_target_relation"] == "digest_mismatch"
+    assert tampered_row["verification_mode"] == "unverified"
+    assert tampered_row["target_sha256"] not in expected_digests
+
+
+def test_ring2_precision_recall_exported_bundle_blocks_expected_metric_swap(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/ring2_premise_retrieval_precision_recall_harness",
+        public_root / "examples/ring2_premise_retrieval_precision_recall_harness",
+    )
+    bundle = public_root / (
+        "examples/ring2_premise_retrieval_precision_recall_harness/"
+        "exported_ring2_precision_recall_bundle"
+    )
+    policy_path = bundle / "evaluation_policy.json"
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    policy["expected_aggregate_metrics"]["premise_retrieval_pass_count"] = 10
+    policy_path.write_text(
+        json.dumps(policy, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_precision_recall_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "ring2_premise_retrieval_precision_recall_harness",
+        command="pytest expected aggregate metric swap",
+    )
+    mismatch = result["metric_aggregation"]["aggregate_metric_mismatches"][0]
+
+    assert result["status"] == "blocked"
+    assert "RING2_RETRIEVAL_AGGREGATE_METRIC_MISMATCH" in result["error_codes"]
+    assert result["problem_count"] == 10
+    assert result["failure_mode_counts"]["retrieval_hit"] == 5
+    assert mismatch == {
+        "actual": 5,
+        "expected": 10,
+        "metric_id": "premise_retrieval_pass_count",
+    }
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+
+
 def test_ring2_precision_recall_bundle_card_reuses_fresh_receipt(
     tmp_path: Path,
     capsys: Any,
@@ -351,4 +457,27 @@ def test_ring2_precision_recall_source_artifacts_are_digest_verified(
                     "verified_public_safe_private_path_rewrite"
                 )
                 assert row["public_safe_sha256"] == f"sha256:{target_digest}"
-                assert OPERATOR_HOME_SAMPLE not in target.read_text(encoding="utf-8")
+                target_text = target.read_text(encoding="utf-8")
+                assert PUBLIC_EXAMPLE_HOME in target_text
+                _assert_no_private_home_path(target_text)
+
+
+def test_ring2_precision_recall_control_plane_source_module_is_exact_copy() -> None:
+    source = MICROCOSM_ROOT.parent / "tools/meta/factory/run_prover_graph_benchmark.py"
+    manifest = json.loads((EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    row = manifest["modules"][0]
+
+    assert row["module_id"] == "ring2_precision_recall_prover_graph_benchmark_runner_body_import"
+    assert row["material_class"] == "public_macro_tool_body"
+    assert row["source_ref"] == "tools/meta/factory/run_prover_graph_benchmark.py"
+    assert row["target_ref"] == (
+        "microcosm-substrate/examples/ring2_premise_retrieval_precision_recall_harness/"
+        "exported_ring2_precision_recall_bundle/source_modules/tools/meta/factory/"
+        "run_prover_graph_benchmark.py"
+    )
+    assert row["source_to_target_relation"] == "exact_copy"
+    assert source.read_bytes() == CONTROL_PLANE_SOURCE_MODULE.read_bytes()
+    digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
+    assert row["source_sha256"] == digest
+    assert row["target_sha256"] == digest
+    assert row["sha256"] == digest

@@ -1,0 +1,30 @@
+{
+  "schema_version": "research_replication_execution_artifact_fixture_v1",
+  "fixture_id": "research_replication_rubric_artifact_replay.execution_artifacts.real_good",
+  "allowed_public_input_refs": [
+    "execution_artifacts/inputs/public_synthetic_table.json"
+  ],
+  "declared_public_input_hash_refs": [
+    "execution_artifacts/inputs/public_synthetic_table.sha256.json"
+  ],
+  "declared_metric_script_hash_refs": [
+    "execution_artifacts/metrics/public_sum_metric.sha256.json"
+  ],
+  "metric_specs": [
+    {
+      "metric_id": "public_sum_metric",
+      "metric_ref": "execution_artifacts/metrics/public_sum_metric.json",
+      "metric_hash_ref": "execution_artifacts/metrics/public_sum_metric.sha256.json",
+      "input_ref": "execution_artifacts/inputs/public_synthetic_table.json",
+      "input_hash_ref": "execution_artifacts/inputs/public_synthetic_table.sha256.json",
+      "output_ref": "execution_artifacts/artifacts/result_table.json",
+      "declared_hash_ref": "execution_artifacts/artifacts/result_table.sha256.json"
+    }
+  ],
+  "declared_artifact_hash_refs": [
+    "execution_artifacts/artifacts/result_table.sha256.json"
+  ],
+  "body_in_receipt": false,
+  "provider_calls_authorized": false,
+  "private_body_refs": []
+}

@@ -1,0 +1,42 @@
+{
+  "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+  "body_in_receipt": false,
+  "case_id": "macro_regime_unknown_routes_other",
+  "computed_path": "unknown_routes_other",
+  "error_codes": [
+    "BATCH11_MACRO_UNKNOWN_ROUTES_OTHER"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "macro_regime_board_bucketing_zscore_engine",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "macro_artifact": {
+      "metadata": {
+        "sidecars": {
+          "macro_lifecycle_snapshot": {
+            "rows": [
+              {
+                "components": {
+                  "latest_observation_date": "2026-05-15",
+                  "realtime_end": "2026-05-16",
+                  "realtime_start": "2026-05-16",
+                  "vintage_metadata_present": true
+                },
+                "slug": "cpi_core"
+              }
+            ]
+          }
+        }
+      },
+      "schema_version": "batch11_public_macro_lifecycle_fixture_v1"
+    },
+    "row": {
+      "Proxy": "unknown",
+      "ticker": "mystery",
+      "z_score": -0.5
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

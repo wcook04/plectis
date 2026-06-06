@@ -1,0 +1,10 @@
+{
+  "schema_version": "batch8_tools_tail_primitives_capsule_negative_case_v1",
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "case_id": "shadow_dsl_malformed_tuple_coverage_gap",
+  "error_codes": [
+    "BATCH8_SHADOW_DSL_MALFORMED_TUPLE_COVERAGE_GAP"
+  ],
+  "body_in_receipt": false,
+  "private_state_excluded": true
+}

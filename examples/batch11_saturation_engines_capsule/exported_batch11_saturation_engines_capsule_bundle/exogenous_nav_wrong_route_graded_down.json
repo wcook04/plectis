@@ -1,0 +1,27 @@
+{
+  "binding_disposition": "tier_a_new_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "exogenous_nav_wrong_route_graded_down",
+  "computed_path": "wrong_route_graded_down",
+  "error_codes": [
+    "BATCH11_EXOGENOUS_NAV_WRONG_ROUTE_GRADED_DOWN"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "exogenous_nav_ladder_grader",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "files": {
+      "codex/doctrine/skills/kernel/navigation_seed.md": "wrapped bash eyesight route ladder",
+      "docs/unrelated.md": "release checklist"
+    },
+    "terms": [
+      "wrapped",
+      "bash",
+      "eyesight"
+    ],
+    "wrong_path": "docs/unrelated.md"
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

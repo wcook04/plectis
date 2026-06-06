@@ -1,0 +1,51 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_macro_market_dashboard_read_model_body_copied_into_public_source_module_bundle",
+  "bundle_id": "public_batch12_market_dashboard_read_model_capsule_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "batch12_market_dashboard_read_model_capsule_source_open_body_import",
+  "module_count": 1,
+  "modules": [
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 93660,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 2147,
+      "material_class": "public_macro_tool_body",
+      "module_id": "batch12_market_dashboard_read_model_macro_body_import",
+      "path": "source_modules/system/lib/market_dashboard_read_model.py",
+      "required_anchors": [
+        "def validate_market_dashboard_read_model",
+        "def _runtime_feed_freshness_overlay",
+        "def _related_situations",
+        "TRADING_CLAIM_PATTERN"
+      ],
+      "sha256": "68a8f676156d1865a8c93fd903cd2b2dfc320514f12c20f1d4d148b9ecccc755",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/market_dashboard_read_model.py",
+      "source_role": "Macro market dashboard read-model projection and validation tool with claim-ceiling, feed-freshness, and related-situation engines.",
+      "source_sha256": "68a8f676156d1865a8c93fd903cd2b2dfc320514f12c20f1d4d148b9ecccc755",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle/source_modules/system/lib/market_dashboard_read_model.py",
+      "target_sha256": "68a8f676156d1865a8c93fd903cd2b2dfc320514f12c20f1d4d148b9ecccc755",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch12_market_dashboard_read_model_capsule.py::test_batch12_market_dashboard_read_model_capsule_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_batch12_market_dashboard_read_model_capsule.py::test_batch12_market_dashboard_read_model_capsule_runs_macro_mechanisms"
+      ]
+    }
+  ],
+  "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",
+  "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "schema_version": "public_microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_batch12_market_dashboard_read_model_capsule.py::test_batch12_market_dashboard_read_model_capsule_source_modules_are_exact_macro_body_imports",
+    "microcosm-substrate/tests/test_batch12_market_dashboard_read_model_capsule.py::test_batch12_market_dashboard_read_model_capsule_bundle_validates_runtime_shape"
+  ]
+}

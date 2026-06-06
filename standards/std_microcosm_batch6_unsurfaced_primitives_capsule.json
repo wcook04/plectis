@@ -1,0 +1,195 @@
+{
+  "anti_claim": "This Batch-6 fixture accepts exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not export raw operator transcripts, prompt-shelf private logs, provider/browser state, live market data, credentials, media assets, publication authority, release approval, or source mutation authority.",
+  "authority_boundary": "public_batch6_source_open_capsule_not_live_runtime_or_publication_authority",
+  "authority_ceiling": {
+    "authority_ceiling": "batch6_public_substrate_capsule_not_live_runtime_authority",
+    "launch_authorized": false,
+    "live_market_data_fetch_authorized": false,
+    "live_operator_transcript_export_authorized": false,
+    "live_provider_browser_state_export_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "runtime_execution": false,
+    "source_mutation_authorized": false,
+    "standard_authority": "public_batch6_source_open_capsule_and_source_body_digest_contract_only",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "whole_system_correctness_claim": false,
+    "accepted_organ_ref": "core/organ_registry.json#batch6_unsurfaced_primitives_capsule",
+    "claim_ceiling_ref": "core/organ_registry.json#batch6_unsurfaced_primitives_capsule.claim_ceiling",
+    "private_root_equivalence_claim": false,
+    "runtime_correctness_claim": false
+  },
+  "first_wave_required": true,
+  "kind_id": "batch6_unsurfaced_primitives_capsule",
+  "kind_name": "Batch 6 unsurfaced primitives capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public mechanism ids and source-module ids",
+      "public negative-case ids and stable error codes",
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded synthetic exercise outcomes",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_source_open_capsule_with_exact_copied_non_secret_macro_body_modules",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "prompt-shelf private logs",
+      "live market data responses",
+      "media assets",
+      "publication operation state"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "mechanism_count",
+      "source_module_manifest",
+      "runtime_exercises",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch6_unsurfaced_primitives_capsule",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch6_unsurfaced_primitives_capsule_result.json",
+    "batch6_unsurfaced_primitives_capsule_board.json",
+    "batch6_unsurfaced_primitives_capsule_validation_receipt.json",
+    "batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch6_unsurfaced_primitives_capsule",
+    "source_pattern_id_sample": [
+      "raw_seed_keyphrase_engine",
+      "schema_loose_distillation_index",
+      "operator_handoff_linkage",
+      "observed_turn_window_merge",
+      "market_situation_graph",
+      "finance_numeric_assurance"
+    ],
+    "used_by_organs": [
+      "batch6_unsurfaced_primitives_capsule"
+    ]
+  },
+  "required_fields": [
+    "mechanisms",
+    "source_module_manifest",
+    "runtime_exercises",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input",
+      "role": "public_mechanism_and_negative_case_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch6_unsurfaced_primitives_capsule",
+  "standard_payload": {
+    "anti_purpose": "Fixture-only receipts or prose-only claims that do not copy source bodies, execute source behavior, preserve anti-claims, or block private/live-state export.",
+    "failure_modes": [
+      "mechanism count drifts from the 11 Batch-6 targets",
+      "source module count drifts from 14 without manifest and test updates",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required anchors",
+      "runtime exercises stop executing source behavior and become receipt-only checks",
+      "receipts include copied body text, raw operator transcripts, prompt-shelf private logs, provider/browser state, media assets, live market data, credentials, or private runtime state"
+    ],
+    "ontology": "A public-safe composite organ that imports Batch-6 text, provenance, epistemic, governance, concurrency, scheduling, provider-recovery, and demo-temporal primitives as exact copied macro source bodies plus public exercises.",
+    "teleology": "Let a cold reader inspect and rerun previously unsurfaced macro mechanisms without confusing source-open executable evidence with live private runtime authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "registry_status_before_activation": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule",
+      "receipt_id": "receipt.microcosm.batch6_unsurfaced_primitives_capsule",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+      "organ_evidence_class": "verified_macro_body_import",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly 11 Batch-6 mechanism rows",
+    "require exactly 14 copied macro source/support modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "execute real copied source bodies or exact-copy-validated macro package entrypoints against public synthetic payloads",
+    "require stable negative-case codes for all 11 mechanisms",
+    "keep launch_authorized, model_dispatch, provider_dispatch, runtime_execution, live transcript export, live provider/browser state export, live market data fetch, source mutation, publication, and release authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 11,
+    "expected_source_module_count": 14,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule validate-bundle --input examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle --out /tmp/batch6_unsurfaced_primitives_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule"
+  },
+  "wave": "w1_batch6_unsurfaced_primitives_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch6_unsurfaced_primitives_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 6 unsurfaced primitives capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch6_unsurfaced_primitives_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 6 unsurfaced primitives capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch6_unsurfaced_primitives_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch6_unsurfaced_primitives_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule",
+    "python -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch6_unsurfaced_primitives_capsule",
+    "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_result.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_board.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json"
+  ]
+}

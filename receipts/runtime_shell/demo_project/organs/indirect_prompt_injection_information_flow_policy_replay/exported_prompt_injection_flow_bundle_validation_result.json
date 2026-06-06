@@ -31,8 +31,14 @@
     "body_import_classification": "extension_of_existing_public_refactor",
     "body_in_receipt": false,
     "classification": "extension_of_existing_public_refactor",
+    "digest_relation": "source_target_refactor_digests_recorded",
     "public_trace_span_count": 5,
     "public_trace_status": "pass",
+    "source_body_digest": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+    "source_module_digest_count": 5,
+    "source_module_digest_relation": "manifest_target_digests_verified",
+    "source_module_manifest_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
+    "source_open_body_import_count": 5,
     "source_ref": "system/lib/agent_execution_trace.py",
     "source_symbols": [
       "system/lib/agent_execution_trace.py::Span",
@@ -41,7 +47,10 @@
       "codex/standards/std_agent_execution_trace.json::types.Span",
       "codex/standards/std_agent_execution_trace.json::strict_boundary"
     ],
+    "source_to_target_relation": "source_faithful_public_refactor",
     "status": "pass",
+    "target_body_digest": "sha256:87f1c371b0956c4c2ae31c28680a66a989719ac76d9caa59dbbee5e3b9e31c96",
+    "target_file_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::build_public_prompt_injection_trace",
     "target_symbols": [
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
@@ -63,7 +72,7 @@
       "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py",
       "python -m microcosm_core.macro_tools.agent_execution_trace prompt-injection --input <bundle>"
     ],
-    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_mode": "extension_of_existing_public_refactor_with_live_digest_relation",
     "verification_status": "verified"
   },
   "body_in_receipt": false,
@@ -129,7 +138,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-30T21:37:01+00:00",
+  "created_at": "2026-06-01T09:10:13+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -219,7 +228,7 @@
     }
   ],
   "freshness_basis": {
-    "basis_digest": "sha256:10dee88b6f1a0dcb142dc4fcb6b6b84029fe4db7ac9e420a945e688f6cdd4aa9",
+    "basis_digest": "sha256:1a4ec09250cece8482c782b4d58596c6b99ae13b0fe32aa4fb979be21230c934",
     "card_schema_version": "indirect_prompt_injection_information_flow_command_card_v1",
     "include_negative": false,
     "input_count": 16,
@@ -266,7 +275,7 @@
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
-        "sha256": "sha256:c9baba1e857b21b1be1225ed945fca7efde9a1bbefda58cbcdcba6b9db19fc70",
+        "sha256": "sha256:fcec188381b4e686282b19b35d60f7150985d84a40c9a31ed151d23e73af97f8",
         "size_bytes": 13725
       },
       {
@@ -281,8 +290,8 @@
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -296,8 +305,8 @@
       },
       {
         "path": "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
-        "sha256": "sha256:b7895f94c953dede6f5e30227e6da7b1f9ab96cb6acbce3659f7e499425f4192",
-        "size_bytes": 75941
+        "sha256": "sha256:9e7379e976fc0e2c6c63d5537c8a736ba9c8b9218842b59150c36ba9cbd61ce4",
+        "size_bytes": 78657
       },
       {
         "path": "core/private_state_forbidden_classes.json",

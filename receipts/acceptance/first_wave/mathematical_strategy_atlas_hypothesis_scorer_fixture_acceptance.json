@@ -20,21 +20,27 @@
   "body_material_status": "copied_non_secret_macro_strategy_atlas_body_floor_with_provenance",
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out microcosm-substrate/receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer --card",
+  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
   "copied_source_artifact_count": 8,
-  "created_at": "2026-05-27T13:46:05+00:00",
+  "created_at": "2026-06-01T21:14:22+00:00",
   "error_codes": [
     "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
+    "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN",
     "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
     "MATH_STRATEGY_PROOF_BODY_FORBIDDEN",
     "MATH_STRATEGY_RELEASE_OVERCLAIM",
+    "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED",
+    "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED",
     "MATH_STRATEGY_UNKNOWN_ID"
   ],
   "expected_negative_cases": [
+    "missing_rich_strategy_card_fields",
     "oracle_strategy_label_leakage",
     "post_oracle_strategy_selection",
     "proof_body_with_strategy",
     "release_overclaim",
+    "retrieval_bonus_ceiling_overclaim",
+    "superficial_overlap_only_scoring",
     "unknown_strategy_id"
   ],
   "findings": [
@@ -77,13 +83,40 @@
       "negative_case_id": "release_overclaim",
       "subject_id": "formal_proof_authority,provider_calls_authorized,publication_authorized,release_authorized,test_split_tuning_authorized",
       "subject_kind": "authority_ceiling"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN",
+      "message": "Strategy ranking cannot use legacy unweighted overlap as the decision rule.",
+      "negative_case_id": "superficial_overlap_only_scoring",
+      "subject_id": "legacy_feature_overlap_count",
+      "subject_kind": "scoring_model"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED",
+      "message": "Weighted strategy scoring requires rich strategy-card fields, not only legacy match_features.",
+      "negative_case_id": "missing_rich_strategy_card_fields",
+      "subject_id": "legacy_sparse_overlap_card",
+      "subject_kind": "strategy_card"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED",
+      "message": "Retrieval-term matches are a bounded bonus and cannot dominate trigger and negative-trigger evidence.",
+      "negative_case_id": "retrieval_bonus_ceiling_overclaim",
+      "subject_id": "retrieval_keyword_volume",
+      "subject_kind": "scoring_model"
     }
   ],
   "fixture_id": "first_wave.mathematical_strategy_atlas_hypothesis_scorer",
-  "hypothesis_case_count": 3,
+  "hypothesis_case_count": 5,
   "input_mode": "first_wave_fixture",
   "missing_negative_cases": [],
   "observed_negative_cases": {
+    "missing_rich_strategy_card_fields": [
+      "MATH_STRATEGY_RICH_CARD_FIELDS_REQUIRED"
+    ],
     "oracle_strategy_label_leakage": [
       "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN"
     ],
@@ -95,6 +128,12 @@
     ],
     "release_overclaim": [
       "MATH_STRATEGY_RELEASE_OVERCLAIM"
+    ],
+    "retrieval_bonus_ceiling_overclaim": [
+      "MATH_STRATEGY_RETRIEVAL_BONUS_CEILING_REQUIRED"
+    ],
+    "superficial_overlap_only_scoring": [
+      "MATH_STRATEGY_OVERLAP_ONLY_SCORING_FORBIDDEN"
     ],
     "unknown_strategy_id": [
       "MATH_STRATEGY_UNKNOWN_ID"
@@ -117,10 +156,10 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 17,
+    "scanned_path_count": 20,
     "status": "pass"
   },
-  "problem_count": 3,
+  "problem_count": 5,
   "projection_status": "public_replacement_landed",
   "receipt_id": "mathematical_strategy_atlas_fixture_acceptance_v1",
   "receipt_paths": [
@@ -133,11 +172,12 @@
   "selected_strategy_ids": [
     "iff_split",
     "recursive_data_induction",
+    "symmetry_or_orientation",
     "unknown"
   ],
   "source_module_import_count": 8,
   "source_module_import_status": "copied_strategy_atlas_macro_body_floor_verified",
-  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
+  "source_module_manifest_ref": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
   "source_modules_pass": true,
   "source_pattern_ids": [
     "mathematical_strategy_atlas_hypothesis_scorer"
@@ -153,15 +193,19 @@
     "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json"
   ],
   "status": "pass",
-  "strategy_count": 4,
+  "strategy_count": 7,
   "strategy_ids": [
     "iff_split",
     "recursive_data_induction",
     "arithmetic_normalization",
+    "equality_normal_form",
+    "symmetry_or_orientation",
+    "retrieval_keyword_sponge",
     "unknown"
   ],
   "strategy_selection_miss_case_ids": [
     "typed_unknown_strategy_miss"
   ],
-  "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer"
+  "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer",
+  "weighted_strategy_scoring_retained": true
 }

@@ -1,0 +1,10 @@
+{
+  "body_in_receipt": false,
+  "case_id": "audio_level_clamps_over_one",
+  "error_codes": [
+    "BATCH8_AUDIO_LEVEL_CLAMP_REQUIRED"
+  ],
+  "expected_level": 1,
+  "fixture_summary": "High-amplitude public sample arrays clamp normalized level to one.",
+  "schema_version": "batch8_audio_level_rms_port_negative_case_v1"
+}

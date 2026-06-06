@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from microcosm_core import project_substrate
@@ -52,27 +53,80 @@ def test_research_kernel_density_validator_passes_with_scratch_project(tmp_path:
     assert receipt["density_assertions"]["release_authorized"] is False
 
 
-def test_explanation_json_presence_short_circuits_glob(tmp_path: Path, monkeypatch) -> None:
+def test_explanation_json_presence_streams_nested_without_glob(
+    tmp_path: Path, monkeypatch
+) -> None:
     explanations = tmp_path / "explanations"
-    explanations.mkdir()
-    first = explanations / "route.json"
+    nested = explanations / "routes"
+    nested.mkdir(parents=True)
+    first = nested / "route.json"
     first.write_text("{}", encoding="utf-8")
 
     original_glob = Path.glob
-    consumed = 0
 
     def guarded_glob(path: Path, pattern: str):
-        nonlocal consumed
-        if path == explanations and pattern == "*.json":
-            consumed += 1
-            yield first
-            raise AssertionError("glob result was materialized after first JSON file")
+        if path == explanations:
+            raise AssertionError("explanation JSON presence should stream nested state files")
         yield from original_glob(path, pattern)
 
     monkeypatch.setattr(Path, "glob", guarded_glob)
 
     assert research_kernel_density._has_json_file(explanations) is True
-    assert consumed == 1
+
+
+def test_project_findings_validate_nested_explanation_bindings(tmp_path: Path) -> None:
+    project = _scratch_project(tmp_path)
+    explanations = project / ".microcosm/explanations"
+    flat = explanations / "readme_onboarding_route.json"
+    nested = explanations / "routes/readme_onboarding_route.json"
+    nested.parent.mkdir(parents=True)
+    flat.replace(nested)
+    payload = json.loads(nested.read_text(encoding="utf-8"))
+    payload["pattern_bindings"] = [
+        {**row, "resolved": False} for row in payload["pattern_bindings"]
+    ]
+    nested.write_text(json.dumps(payload), encoding="utf-8")
+
+    findings, blocking_codes = research_kernel_density._project_findings(project)
+
+    assert "PROJECT_ROUTE_EXPLANATION_MISSING" not in blocking_codes
+    assert "PROJECT_EXPLANATION_PATTERN_BINDING_UNRESOLVED" in blocking_codes
+    assert {
+        "explanation_ref": ".microcosm/explanations/routes/readme_onboarding_route.json",
+        "unresolved_pattern_refs": ["repo_has_readme"],
+    } in next(
+        finding["explanations"]
+        for finding in findings
+        if finding["finding_id"] == "project_explanation_pattern_binding_unresolved"
+    )
+    assert all(
+        ".microcosm/explanations/readme_onboarding_route.json" not in str(finding)
+        for finding in findings
+    )
+
+
+def test_state_payload_file_scan_streams_without_path_rglob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    state = tmp_path / ".microcosm"
+    nested = state / "nested"
+    nested.mkdir(parents=True)
+    (state / "architecture.json").write_text("{}", encoding="utf-8")
+    (nested / "routes.json").write_text("{}", encoding="utf-8")
+    (state / "events.jsonl").write_text("{}\n", encoding="utf-8")
+    (state / "notes.txt").write_text("not payload\n", encoding="utf-8")
+
+    def guarded_rglob(path: Path, pattern: str):
+        raise AssertionError("state payload scan should not use Path.rglob")
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    refs = {
+        path.relative_to(state).as_posix()
+        for path in research_kernel_density._iter_state_payload_files(state)
+    }
+
+    assert refs == {"architecture.json", "nested/routes.json", "events.jsonl"}
 
 
 def test_state_host_path_scan_streams_payload_files(

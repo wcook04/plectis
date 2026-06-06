@@ -1,0 +1,6 @@
+{
+  "schema_version": "public_metric_spec_v1",
+  "operation": "sum_field",
+  "input_field": "value",
+  "output_key": "public_sum"
+}

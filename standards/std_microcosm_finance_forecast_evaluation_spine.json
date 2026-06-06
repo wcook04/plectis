@@ -1,236 +1,214 @@
 {
-  "anti_claims": [
-    "The finance forecast evaluation spine is an evaluator and replay import, not trading, financial, or investment advice.",
-    "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release.",
-    "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist.",
-    "Quant research experiment receipts may compare hypotheses, evidence, split discipline, and uncertainty; they must not name an action, declare a winner, or auto-apply Evolve learning.",
-    "A single quant experiment receipt is not sufficient proof of research discipline; the public spine must carry experiment lineage plus at least one negative or insufficient-evidence stress case.",
-    "A quant research agenda may rank what to test next, but it must preserve deferred data-snooping risk, control candidates, needs-evidence candidates, and review-gated/no-advice authority.",
-    "An agenda execution cycle must consume the selected candidate through a locked pre-analysis plan before evaluation, update the registry and family memory after execution, and recompile the agenda without advice, winner language, or auto-apply authority."
-  ],
-  "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
+  "anti_claim": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+  "authority_boundary": "public_microcosm_crown_jewel_organ_projection_with_copied_non_secret_macro_body_floor",
   "authority_ceiling": {
-    "calculator_weight_mutation_authorized": false,
-    "financial_advice_authorized": false,
-    "forecast_performance_claim": false,
-    "hosted_public_authorized": false,
-    "investment_recommendation_authorized": false,
+    "authority_ceiling": "synthetic_fixture_forecast_evaluation_statistics_only",
+    "investment_advice_authorized": false,
     "live_market_data_authorized": false,
     "optimizer_mutation_authorized": false,
-    "portfolio_action_authorized": false,
-    "private_account_state_exported": false,
-    "private_portfolio_exported": false,
-    "provider_calls_authorized": false,
-    "provider_payload_exported": false,
-    "publication_authorized": false,
+    "performance_claim_authorized": false,
     "release_authorized": false,
+    "status": "pass",
+    "track_record_claim_authorized": false,
     "trading_advice_authorized": false
   },
-  "governed_artifacts": [
-    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
-    "microcosm-substrate/src/microcosm_core/macro_tools/finance_eval_spine.py",
-    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
-    "microcosm-substrate/receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
-  ],
-  "kind_id": "finance_forecast_evaluation_spine",
-  "kind_name": "Finance forecast evaluation spine",
-  "paper_module_contract": {
-    "module_slug": "finance_forecast_evaluation_spine",
-    "required": true
-  },
-  "public_private_boundary": {
-    "allowed_public_inputs": [
-      "copied_non_secret_tools_finance_python_modules",
-      "finance_eval_operating_picture_without_account_or_provider_payload_state",
-      "finance_research_assurance_surface_with_module_coverage_and_public_safe_demo",
-      "bundle_manifest_digests",
-      "secret_exclusion_scan_summary",
-      "no_advice_no_mutation_authority_ceiling"
+  "research_bet_contract": {
+    "governing_mechanism": "mech_036",
+    "positive_claim": "Synthetic market-shaped fixtures exercise forecast-evaluation statistics and typed refusals without making market, advice, performance, or track-record claims.",
+    "required_witnesses": [
+      "Diebold-Mariano and Harvey-Leybourne-Newbold statistic/refusal rows",
+      "Hansen SPA recentering evidence",
+      "stationary bootstrap and Bartlett HAC variance rows",
+      "purged/embargoed cross-validation rows",
+      "typed refusal rows for inadmissible cases"
     ],
-    "default_posture": "source_open_real_substrate_with_secret_exclusion",
-    "forbidden_public_inputs": [
-      "api_keys",
-      "brokerage_or_account_state",
-      "cookies_or_sessions",
-      "credential_equivalent_live_access_material",
-      "private_portfolio_state",
-      "provider_payload_bodies",
-      "recipient_send_state"
+    "negative_floor": [
+      "finance_hln_dependency_refusal",
+      "finance_leakage_lookahead_split",
+      "finance_no_advice_overclaim",
+      "horizon_not_less_than_sample_refusal",
+      "too_small_sample_refusal"
+    ],
+    "denied_authority": [
+      "investment advice",
+      "trading advice",
+      "live market data",
+      "track record",
+      "performance claim",
+      "optimizer mutation",
+      "release authority"
     ]
   },
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "private repo bodies outside copied public fixtures",
+      "provider payload bodies",
+      "credential or account-bound material",
+      "operator private notes or raw thread bodies"
+    ],
+    "public_inputs": "public synthetic fixtures, copied non-secret macro source bodies, hashes, anchors, validator refs, and generated receipts",
+    "release_authorized": false,
+    "status": "pass"
+  },
   "receipt_contract": {
-    "must_record": [
-      "copied_macro_source_count",
-      "real_macro_receipt_count",
-      "source_manifest",
-      "anchor_summary",
-      "operating_picture_gate_summary",
-      "authority_ceiling",
-      "secret_exclusion_scan",
-      "module_coverage_summary",
-      "finance_research_assurance",
-      "quant_research_experiment_spine",
-      "body_in_receipt",
-      "synthetic_receipt_standin_allowed",
-      "anti_claim"
+    "body_copied_material_count": 13,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "finance_hln_dependency_refusal",
+      "finance_leakage_lookahead_split",
+      "finance_no_advice_overclaim"
     ],
-    "receipt_id": "receipt.microcosm.finance_forecast_evaluation_spine",
-    "required": true
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
   },
-  "schema_version": "public_microcosm_standard_v1",
-  "finance_research_assurance_contract": {
-    "module_coverage_policy": "Every macro tools/finance Python module must be classified as imported_public_body, deferred_public_safe_core, deferred_public_safe_statistical, operational_receipt_only, or operational_only.",
-    "non_empty_demo_required": true,
-    "statistical_sequence": [
-      "proper_scoring_rules",
-      "pairwise_equal_loss",
-      "multiple_comparison_guard",
-      "review_gated_evolve_implication"
+  "receipt_expectations": [
+    "finance_forecast_evaluation_spine_result.json",
+    "finance_forecast_evaluation_spine_board.json",
+    "finance_forecast_evaluation_spine_validation_receipt.json",
+    "finance_forecast_evaluation_spine_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
     ],
-    "feed_freshness_vocabulary": [
-      "fresh_green_feed",
-      "stale_green_feed",
-      "scheduled_shell",
-      "blocked_missing_artifact"
-    ],
-    "quant_research_experiment_spine": {
-      "anti_overfit_required": true,
-      "auto_apply_allowed": false,
-      "experiment_registry_required": true,
-      "hypothesis_ledger_required": true,
-      "lineage_summary_required": true,
-      "minimum_registry_count": 2,
-      "negative_or_insufficient_case_required": true,
-      "no_advice_required": true,
-      "output_states": [
-        "awaiting_evidence",
-        "insufficient_evidence",
-        "candidate_set",
-        "review_candidate",
-        "rejected",
-        "blocked_authority_overclaim"
-      ],
-      "winner_language_allowed": false
-    },
-    "quant_research_agenda": {
-      "auto_apply_allowed": false,
-      "candidate_states_required": [
-        "selected_for_next_test",
-        "deferred_data_snooping_risk",
-        "control_candidate",
-        "needs_more_evidence",
-        "completed_insufficient_evidence"
-      ],
-      "data_snooping_guard_required": true,
-      "experiment_selection_policy_required": true,
-      "family_diversity_required": true,
-      "minimum_candidate_count": 5,
-      "no_advice_required": true,
-      "performance_metric_optimization_allowed": false,
-      "search_budget_metadata_required": true,
-      "winner_language_allowed": false
-    },
-    "quant_agenda_execution_cycle": {
-      "analysis_plan_locked_required": true,
-      "auto_apply_allowed": false,
-      "family_memory_update_required": true,
-      "no_advice_required": true,
-      "post_hoc_plan_mutation_allowed": false,
-      "pre_analysis_plan_required": true,
-      "registered_before_execution_required": true,
-      "registry_update_required": true,
-      "recompile_after_cycle_required": true,
-      "selected_candidate_consumed_required": true,
-      "used_existing_evaluator_required": true,
-      "winner_language_allowed": false
-    },
-    "evolve_auto_apply_allowed": false
+    "used_by_organs": [
+      "finance_forecast_evaluation_spine"
+    ]
   },
+  "required_fields": [
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "status",
+    "source_module_manifest",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
-    {
-      "path": "tools/finance/event_keys.py",
-      "role": "comparison_event_key_authority"
-    },
-    {
-      "path": "tools/finance/admit_forecasts.py",
-      "role": "cp1_finance_claim_admission"
-    },
-    {
-      "path": "tools/finance/bootstrap_reference.py",
-      "role": "deferred_public_safe_statistical_reference_suite"
-    },
-    {
-      "path": "tools/finance/build_effective_evidence.py",
-      "role": "deferred_public_safe_effective_evidence_construction"
-    },
-    {
-      "path": "tools/finance/resolve_forecasts.py",
-      "role": "cp2_truth_resolution"
-    },
-    {
-      "path": "tools/finance/eval_replay.py",
-      "role": "cp1_admitted_replay_and_scorecard"
-    },
-    {
-      "path": "tools/finance/historical_replay.py",
-      "role": "historical_replay_shadow_gate"
-    },
-    {
-      "path": "tools/finance/build_price_history.py",
-      "role": "operational_receipt_only_price_history_provider_touching_dependency"
-    },
-    {
-      "path": "tools/finance/calibrate_forecast_probabilities.py",
-      "role": "shadow_only_probability_calibration"
-    },
-    {
-      "path": "tools/finance/variant_registry.py",
-      "role": "variant_name_and_mutation_permission_registry"
-    },
-    {
-      "path": "tools/finance/compare_variants.py",
-      "role": "paired_variant_comparison_gate"
-    },
-    {
-      "path": "tools/finance/family_loss_matrix.py",
-      "role": "deferred_public_safe_family_loss_matrix"
-    },
-    {
-      "path": "tools/finance/loss_differentials.py",
-      "role": "deferred_public_safe_pairwise_equal_loss_kernel"
-    },
-    {
-      "path": "tools/finance/model_selection.py",
-      "role": "deferred_public_safe_model_selection_receipt"
-    },
-    {
-      "path": "tools/finance/model_selection_stats.py",
-      "role": "deferred_public_safe_bootstrap_reality_check_and_mcs"
-    },
-    {
-      "path": "tools/finance/refresh_feeds.py",
-      "role": "operational_receipt_only_feed_freshness_dependency"
-    },
-    {
-      "path": "tools/finance/spa_statistics.py",
-      "role": "deferred_public_safe_spa_statistic_kernel"
-    },
-    {
-      "path": "tools/finance/build_eval_operating_picture.py",
-      "role": "finance_eval_operating_picture_builder"
-    },
-    {
-      "path": "state/finance_eval/views/finance_eval_operating_picture.json",
-      "role": "real_generated_macro_receipt"
-    },
-    {
-      "path": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
-      "role": "public_safe_non_empty_finance_research_assurance_surface"
-    }
+    "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+    "tests/test_finance_forecast_evaluation_spine.py",
+    "fixtures/first_wave/finance_forecast_evaluation_spine/input",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
+    "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+    "paper_modules/finance_forecast_evaluation_spine.md"
   ],
   "standard_id": "std_microcosm_finance_forecast_evaluation_spine",
+  "standard_payload": {
+    "anti_purpose": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+    "compression_bands": [
+      "fixture",
+      "source_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling",
+      "receipt"
+    ],
+    "failure_modes": [
+      "finance_hln_dependency_refusal",
+      "finance_leakage_lookahead_split",
+      "finance_no_advice_overclaim"
+    ],
+    "ontology": "A public Microcosm organ for finance forecast evaluation spine.",
+    "teleology": "Runs public synthetic forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_finance_forecast_evaluation_spine_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+        "tests/test_finance_forecast_evaluation_spine.py",
+        "validator.microcosm.organs.finance_forecast_evaluation_spine"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.finance_forecast_evaluation_spine"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "Positive fixture inputs must produce pass receipts with real_substrate_disposition=real_substrate_capsule.",
+    "Expected negative cases must emit their stable error codes without blocking positive execution.",
+    "source_module_manifest.json must match copied bodies by digest, line count, and required anchors.",
+    "Receipts must carry refs, hashes, counts, verdicts, and anti-claims without embedding copied macro body text.",
+    "The authority ceiling must reject the organ-specific overclaim classes declared in this standard."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.finance_forecast_evaluation_spine",
+    "runtime_bundle_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run-finance-forecast-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/runtime_shell/demo_project/organs/finance_forecast_evaluation_spine"
+  },
   "validator_refs": [
-    "microcosm-substrate/src/microcosm_core/macro_tools/finance_eval_spine.py::validate_finance_eval_bundle",
-    "microcosm-substrate/tests/test_finance_eval_spine.py"
-  ]
+    "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+    "tests/test_finance_forecast_evaluation_spine.py",
+    "validator.microcosm.organs.finance_forecast_evaluation_spine"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Finance forecast evaluation spine instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Finance forecast evaluation spine without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_finance_forecast_evaluation_spine and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_finance_forecast_evaluation_spine.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.finance_forecast_evaluation_spine"
+  ],
+  "anti_claims": [
+    "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_finance_forecast_evaluation_spine",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_finance_forecast_evaluation_spine_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.finance_forecast_evaluation_spine",
+    "receipt_id": "receipt.microcosm.finance_forecast_evaluation_spine",
+    "validator_refs": [
+      "src/microcosm_core/organs/finance_forecast_evaluation_spine.py",
+      "tests/test_finance_forecast_evaluation_spine.py",
+      "validator.microcosm.organs.finance_forecast_evaluation_spine"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.finance_forecast_evaluation_spine"
+    ]
+  }
 }

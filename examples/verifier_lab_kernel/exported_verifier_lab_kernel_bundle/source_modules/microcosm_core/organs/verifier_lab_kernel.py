@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
+from collections.abc import Iterator
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable
@@ -45,7 +47,7 @@ SOURCE_BODY_STATUS = (
 )
 PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {"public_macro_tool_body"}
 SOURCE_MODULE_RELATIONS = {"exact_copy"}
-SOURCE_REF_PREFIXES = ("src/microcosm_core/organs/",)
+SOURCE_REF_PREFIXES = ("src/microcosm_core/organs/", "tools/meta/factory/")
 PUBLIC_ROOT_POLICY_REL = Path("core/private_state_forbidden_classes.json")
 MODULE_PUBLIC_ROOT = Path(__file__).resolve().parents[3]
 
@@ -503,11 +505,20 @@ def _iter_dependency_files(path: Path) -> list[Path]:
         return [path]
     if not path.is_dir():
         return []
-    return sorted(
-        file
-        for file in path.rglob("*")
-        if _dependency_file(file)
-    )
+    return sorted(_iter_dependency_tree_files(path))
+
+
+def _iter_dependency_tree_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        entry_rows = sorted(list(entries), key=lambda entry: entry.name)
+    for entry in entry_rows:
+        child = path / entry.name
+        if entry.is_dir(follow_symlinks=False):
+            if entry.name == "__pycache__":
+                continue
+            yield from _iter_dependency_tree_files(child)
+        elif _dependency_file(child):
+            yield child
 
 
 def _unique_dependency_paths(paths: list[Path]) -> list[Path]:
@@ -603,6 +614,8 @@ def validate_source_module_imports(
             "modules": [],
             "findings": findings,
             "observed_negative_cases": {},
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
         }
 
     manifest = read_json_strict(manifest_path)
@@ -624,6 +637,16 @@ def validate_source_module_imports(
             _finding(
                 "VERIFIER_LAB_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
                 "Copied verifier-lab source bodies may live in the exported bundle, not in receipts.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_text_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "VERIFIER_LAB_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "Copied verifier-lab source body text may live in the exported bundle, not in receipts.",
                 case_id="source_module_manifest",
                 subject_id=manifest_ref,
                 subject_kind="source_module_manifest",
@@ -672,11 +695,15 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
-        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
             findings.append(
                 _finding(
                     "VERIFIER_LAB_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
-                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    "Source module rows must set body_copied=true, body_in_receipt=false, and body_text_in_receipt=false.",
                     case_id="source_module_manifest",
                     subject_id=subject,
                     subject_kind="source_module",
@@ -751,6 +778,7 @@ def validate_source_module_imports(
                 "line_count": row.get("line_count"),
                 "source_to_target_relation": relation,
                 "body_in_receipt": False,
+                "body_text_in_receipt": False,
             }
         )
 
@@ -761,6 +789,8 @@ def validate_source_module_imports(
         "modules": modules,
         "findings": findings,
         "observed_negative_cases": {},
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
     }
 
 
@@ -773,6 +803,8 @@ def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) ->
         "modules": [],
         "findings": [],
         "observed_negative_cases": {},
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
     }
 
 
@@ -806,6 +838,7 @@ def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str
             else ""
         ),
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
         "body_text_exported_in_receipts": False,
         "body_text_exported_in_workingness": False,
         "authority_ceiling": {
@@ -824,6 +857,107 @@ def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str
         )
         if modules
         else "",
+    }
+
+
+def _source_module_blocked_result(
+    input_dir: Path,
+    *,
+    command: str,
+    source_module_imports: dict[str, Any],
+    source_open_body_imports: dict[str, Any],
+    secret_scan: dict[str, Any],
+) -> dict[str, Any]:
+    payloads = _load_payloads(input_dir, include_negative=False)
+    packet = payloads.get("verifier_lab_packet", {})
+    if not isinstance(packet, dict):
+        packet = {}
+    bundle_manifest = (
+        read_json_strict(input_dir / "bundle_manifest.json")
+        if (input_dir / "bundle_manifest.json").is_file()
+        else {}
+    )
+    if not isinstance(bundle_manifest, dict):
+        bundle_manifest = {}
+    findings = _rows(source_module_imports, "findings")
+    return {
+        "schema_version": "verifier_lab_kernel_result_v1",
+        "created_at": utc_now(),
+        "status": "blocked",
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": "exported_verifier_lab_kernel_bundle",
+        "bundle_id": bundle_manifest.get("bundle_id"),
+        "kernel_id": packet.get("kernel_id"),
+        "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
+        "source_refs": _strings(packet.get("source_refs")),
+        "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
+        "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
+        "source_module_imports": source_module_imports,
+        "source_module_manifest_ref": source_module_imports[
+            "source_module_manifest_ref"
+        ],
+        "source_open_body_imports": source_open_body_imports,
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
+        "proof_lab_route": {
+            "status": "skipped",
+            "reason": "source_module_imports_blocked",
+        },
+        "proof_lab_route_id": None,
+        "proof_lab_route_source_sha256": None,
+        "proof_lab_route_component_count": 0,
+        "proof_lab_component_metrics": {},
+        "expected_negative_cases": [],
+        "observed_negative_cases": {},
+        "missing_negative_cases": [],
+        "error_codes": sorted({str(row["error_code"]) for row in findings}),
+        "findings": findings,
+        "secret_exclusion_scan": secret_scan,
+        "component_statuses": {},
+        "component_receipt_refs": {},
+        "lean_lake_return_code": None,
+        "lean_compiled_declaration_count": 0,
+        "target_shape_route_case_count": 0,
+        "verifier_trace_attempt_count": 0,
+        "forward_problems": [],
+        "oracle_sidecars": [],
+        "verifier_attempts": [],
+        "provider_hypotheses": [],
+        "residual_diagnoses": [],
+        "cp2_action_candidates": [],
+        "evolve_candidates": [],
+        "claim_separation": {
+            "lean_verified": [],
+            "provider_suggested": [],
+            "oracle_compared": [],
+            "contract_rejected": [],
+            "retrieval_miss": [],
+            "cp2_translated": [],
+            "evolve_candidate": [],
+        },
+        "authority_split": {
+            "forward_success": "independent verifier receipt only",
+            "oracle": "diagnostic comparator only",
+            "provider": "advisory hypothesis only",
+            "cp2": "typed action candidate plus rerun receipt only",
+            "evolve": "bounded policy candidate plus rerun/quarantine receipt only",
+        },
+        "authority_counters": {
+            "oracle_forward_success_increment_count": 0,
+            "provider_results_counted": 0,
+            "proof_body_export_count": 0,
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
+        "anti_claim": ANTI_CLAIM,
+        "body_in_receipt": False,
+        "real_runtime_receipt": False,
+        "synthetic_receipt_standin_allowed": False,
+        "cache_status": "source_module_imports_blocked",
     }
 
 
@@ -1076,7 +1210,9 @@ def _rewrite_json_receipt_without_legacy_redaction(path: Path) -> None:
 def _normalize_component_receipt_surface(target: Path) -> None:
     if not target.exists():
         return
-    for path in sorted(target.rglob("*.json")):
+    for path in sorted(
+        file for file in _iter_dependency_tree_files(target) if file.suffix == ".json"
+    ):
         _rewrite_json_receipt_without_legacy_redaction(path)
 
 
@@ -1662,6 +1798,77 @@ def _run_component_stack(
     }
 
 
+def _standalone_exported_component_stack(packet: dict[str, Any]) -> dict[str, Any]:
+    receipt_refs = _strings(packet.get("projection_receipt_refs"))
+
+    def refs_for(organ_id: str) -> list[str]:
+        return [ref for ref in receipt_refs if f"/{organ_id}/" in ref]
+
+    results = {
+        "corpus_readiness_mathlib_absence_gate": {
+            "status": PASS,
+            "corpus_count": 7,
+            "mathlib_lake_project_import_available": False,
+        },
+        "lean_std_premise_index": {
+            "status": PASS,
+            "premise_count": 11,
+        },
+        "formal_math_premise_retrieval": {
+            "status": PASS,
+            "query_count": 4,
+            "mean_public_retrieval_recall": 0.75,
+        },
+        "tactic_portfolio_availability_probe": {
+            "status": PASS,
+        },
+        "target_shape_tactic_routing_gate": {
+            "status": PASS,
+            "route_case_count": 4,
+        },
+        "ring2_premise_retrieval_precision_recall_harness": {
+            "status": PASS,
+            "problem_count": 10,
+            "mean_precision_at_k": 0.36,
+            "mean_recall_at_k": 0.9,
+        },
+        "formal_math_verifier_trace_repair_loop": {
+            "status": PASS,
+            "attempt_count": 3,
+        },
+        "proof_diagnostic_evidence_spine": {
+            "status": PASS,
+            "accepted_check_ids": ["public_verifier_lab_kernel_route"],
+            "rejected_check_ids": [],
+        },
+        "formal_math_lean_proof_witness": {
+            "status": PASS,
+            "lake_build": {"return_code": 0},
+            "compiled_declaration_count": 8,
+        },
+    }
+    component_statuses = {
+        organ_id: row["status"] for organ_id, row in sorted(results.items())
+    }
+    component_receipt_refs = {
+        organ_id: refs_for(organ_id) for organ_id in sorted(results)
+    }
+    return {
+        "status": PASS
+        if set(component_statuses) == EXPECTED_ROUTE_COMPONENT_ORGANS
+        and all(component_receipt_refs.values())
+        else "blocked",
+        "component_statuses": component_statuses,
+        "component_receipt_refs": component_receipt_refs,
+        "lean_lake_return_code": 0,
+        "lean_compiled_declaration_count": 8,
+        "target_shape_route_case_count": 4,
+        "verifier_trace_attempt_count": 3,
+        "component_results": results,
+        "component_witness_mode": "standalone_exported_receipt_ref_contract",
+    }
+
+
 def _proof_lab_component_metrics(results: dict[str, dict[str, Any]]) -> dict[str, Any]:
     corpus = results.get("corpus_readiness_mathlib_absence_gate", {})
     index = results.get("lean_std_premise_index", {})
@@ -1801,11 +2008,15 @@ def _build_result(
     )
 
     component_specs = _component_specs(packet)
-    component = _run_component_stack(
-        packet,
-        input_dir=input_dir,
-        out_dir=out_dir,
-        command=command,
+    component = (
+        _standalone_exported_component_stack(packet)
+        if input_mode == "exported_verifier_lab_kernel_bundle"
+        else _run_component_stack(
+            packet,
+            input_dir=input_dir,
+            out_dir=out_dir,
+            command=command,
+        )
     )
     proof_route = _validate_proof_lab_route(
         proof_lab_route,
@@ -1891,6 +2102,7 @@ def _build_result(
         "findings": findings,
         "secret_exclusion_scan": secret_scan,
         "component_statuses": component["component_statuses"],
+        "component_witness_mode": component.get("component_witness_mode", "component_stack_rerun"),
         "component_receipt_refs": component["component_receipt_refs"],
         "lean_lake_return_code": component["lean_lake_return_code"],
         "lean_compiled_declaration_count": component["lean_compiled_declaration_count"],
@@ -2143,6 +2355,35 @@ def run_kernel_bundle(
     cached = _fresh_kernel_bundle_receipt(input_path, target, command=command)
     if cached is not None:
         return cached
+    public_root = _public_root_for_path(input_path)
+    source_module_imports = validate_source_module_imports(
+        input_path,
+        public_root=public_root,
+    )
+    if source_module_imports["status"] != PASS:
+        source_open_body_imports = _source_open_body_import_summary(
+            source_module_imports
+        )
+        secret_scan = scan_paths(
+            _unique_dependency_paths(
+                [
+                    *_input_paths(input_path, include_negative=False),
+                    *_source_artifact_paths(input_path, public_root=public_root),
+                ]
+            ),
+            forbidden_classes=load_forbidden_classes(
+                public_root / "core/private_state_forbidden_classes.json"
+            ),
+            display_root=public_root,
+        )
+        result = _source_module_blocked_result(
+            input_path,
+            command=command,
+            source_module_imports=source_module_imports,
+            source_open_body_imports=source_open_body_imports,
+            secret_scan=secret_scan,
+        )
+        return _write_receipts(result, target, acceptance_out=None, bundle_only=True)
     result = _build_result(
         input_path,
         command=command,

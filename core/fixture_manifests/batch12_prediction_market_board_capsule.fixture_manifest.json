@@ -1,0 +1,82 @@
+{
+  "anti_claim": "Batch 12 prediction-market board validation executes copied macro event join/dedup/aggregate code plus quant mart helper diagnostics over synthetic rows only. It is not live prediction-market truth, provider truth, forecast correctness, calibration, investment advice, provider dispatch, release authority, publication authority, or whole-system correctness.",
+  "body_in_receipt": false,
+  "expected_negative_cases": [
+    "aggregate_count_and_max_volume_deduped",
+    "delta_no_previous_green_unavailable",
+    "duplicate_lower_volume_retained_higher",
+    "macro_lifecycle_vintage_status_bound",
+    "missingness_zero_row_lane_flagged",
+    "orphan_slug_no_identity_fabrication",
+    "provider_drift_multisignal_flags"
+  ],
+  "fixture_id": "first_wave.batch12_prediction_market_board_capsule",
+  "generated_receipts": [
+    "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_result.json",
+    "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_board.json",
+    "receipts/first_wave/batch12_prediction_market_board_capsule/batch12_prediction_market_board_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch12_prediction_market_board_capsule_fixture_acceptance.json"
+  ],
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch12_prediction_market_board_capsule/input",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/aggregate_count_and_max_volume_deduped.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/delta_no_previous_green_unavailable.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/duplicate_lower_volume_retained_higher.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/macro_lifecycle_vintage_status_bound.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/missingness_zero_row_lane_flagged.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/orphan_slug_no_identity_fabrication.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/polymarket_identity_artifact.json",
+      "role": "fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/prediction_market_rows.json",
+      "role": "fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/provider_drift_multisignal_flags.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/batch12_prediction_market_board_capsule/input/quant_mart_helper_cases.json",
+      "role": "fixture input"
+    }
+  ],
+  "mechanisms": [
+    "prediction_market_event_join_dedup_aggregate_engine",
+    "provider_drift_multisignal_flag_engine",
+    "missingness_empty_lane_classifier",
+    "delta_since_previous_green",
+    "macro_lifecycle_vintage_enrichment"
+  ],
+  "organ_id": "batch12_prediction_market_board_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 1,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

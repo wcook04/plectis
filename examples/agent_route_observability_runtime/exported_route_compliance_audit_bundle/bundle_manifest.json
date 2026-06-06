@@ -14,7 +14,8 @@
   "source_refs": [
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
     "codex/standards/std_agent_execution_trace.json",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit"
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit",
+    "system/lib/strict_json.py"
   ],
   "target_refs": [
     "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json",
@@ -24,30 +25,33 @@
     "bundle_manifest.json",
     "source_module_manifest.json",
     "route_events.json",
+    "trace_analytics_spans.json",
     "expected_route_compliance_summary.json",
     "route_compliance_policy.json"
   ],
   "source_module_manifest_ref": "source_module_manifest.json",
-  "source_import_class": "copied_non_secret_macro_body",
+  "source_import_class": "mixed_copied_non_secret_macro_body_and_public_reference_sanitized_macro_body",
   "copied_source_module_refs": [
     "source_modules/codex/doctrine/process/trace_rules.json",
     "source_modules/codex/standards/std_agent_execution_trace.json",
     "source_modules/system/lib/agent_execution_trace.py",
+    "source_modules/system/lib/strict_json.py",
     "source_modules/system/lib/navigation_coverage_matrix.py",
     "source_modules/tools/meta/factory/build_agent_execution_trace.py",
-    "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
-    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+    "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
   ],
   "body_import_verification": {
     "verification_status": "pass",
     "verification_mode": "exact_source_module_manifest_digest_check",
-    "source_to_target_relation": "copied_non_secret_macro_body_plus_public_synthetic_fixture_over_live_decision_logic",
+    "source_to_target_relation": "seven_exact_copied_non_secret_macro_bodies_plus_one_public_reference_sanitized_macro_sidecar",
     "source_ref": "source_module_manifest.json",
     "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle",
-    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_trace_analytics",
     "copied_source_module_count": 7,
     "private_body_exported": false,
-    "body_in_receipt": false
+    "body_in_receipt": false,
+    "public_reference_sanitized_source_module_count": 1,
+    "sanitization_policy_id": "microcosm_public_path_secret_policy_v1"
   },
   "live_process_audit_authority": false,
   "provider_payload_read": false,
@@ -55,5 +59,8 @@
   "raw_transcript_body_exported": false,
   "source_mutation_authorized": false,
   "release_authorized": false,
-  "private_data_equivalence_claim": false
+  "private_data_equivalence_claim": false,
+  "public_reference_sanitized_source_module_refs": [
+    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+  ]
 }

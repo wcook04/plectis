@@ -51,6 +51,26 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _copy_fixture(public_root: Path) -> Path:
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+        fixture,
+    )
+    return fixture
+
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def test_voice_to_doctrine_loop_observes_negative_cases(tmp_path: Path) -> None:
     result = run(
         FIXTURE_INPUT,
@@ -69,6 +89,16 @@ def test_voice_to_doctrine_loop_observes_negative_cases(tmp_path: Path) -> None:
     assert result["refined_existing_surface_count"] == 2
     assert result["workitem_capture_count"] == 1
     assert result["nothing_to_refine_count"] == 1
+    assert result["lesson_ref_resolution_count"] == 19
+    assert result["unresolved_lesson_ref_count"] == 0
+    assert result["ignored_expected_label_count"] == 0
+    assert all(row["resolved"] for row in result["lesson_ref_resolutions"])
+    assert all(row["path_exists"] for row in result["lesson_ref_resolutions"])
+    assert all(row["locator_present"] for row in result["lesson_ref_resolutions"])
+    assert all(
+        not str(row["resolved_ref"]).startswith("/")
+        for row in result["lesson_ref_resolutions"]
+    )
     assert set(result["source_pattern_refs"]) >= {
         "recursive_self_improvement_operating_loop",
         "doctrine_population_loop",
@@ -152,11 +182,49 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
         result["source_open_body_imports"]["body_text_exported_in_receipts"]
         is False
     )
+    assert (
+        result["source_open_body_imports"]["source_refs_live_checked"]
+        is True
+    )
+    assert (
+        result["source_open_body_imports"]["source_target_exact_copy_count"]
+        == 8
+    )
     assert result["status_counts"] == {
         "nothing_to_refine": 1,
         "refined_existing_surface": 2,
         "workitem_captured": 1,
     }
+    assert result["lesson_ref_resolution_count"] > 0
+    assert result["unresolved_lesson_ref_count"] == 0
+    copied_macro_resolutions = [
+        row
+        for row in result["lesson_ref_resolutions"]
+        if row["ref"].startswith("codex/")
+    ]
+    assert {
+        row["ref"]
+        for row in copied_macro_resolutions
+    } >= {
+        'codex/standards/std_task_ledger.json::"work_item_spine_contract"',
+        'codex/doctrine/skills/task_ledger/task_ledger.md::id: "task_ledger"',
+        "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md::## Entry",
+    }
+    assert all(row["resolved"] for row in copied_macro_resolutions)
+    assert all(
+        row["resolution_root"] == "source_module_manifest_target"
+        for row in copied_macro_resolutions
+    )
+    assert all(
+        row["resolved_ref"].startswith(
+            "examples/voice_to_doctrine_self_improvement_loop/"
+            "exported_voice_to_doctrine_bundle/source_modules/"
+        )
+        for row in copied_macro_resolutions
+    )
+    assert result["lesson_ref_resolution_count"] == 19
+    assert all(row["path_exists"] for row in result["lesson_ref_resolutions"])
+    assert all(row["locator_present"] for row in result["lesson_ref_resolutions"])
     assert result["required_sequence"] == [
         "sense_local_pressure",
         "classify_pressure_shape",
@@ -166,6 +234,568 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
         "bind_closeout",
         "publish_reentry_condition",
     ]
+
+
+def test_voice_to_doctrine_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/voice_to_doctrine_self_improvement_loop/"
+        "exported_voice_to_doctrine_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_sha256"] = "0" * 64
+    manifest["modules"][0]["target_sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_voice_to_doctrine_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert result["source_module_manifest_status"] == "fail"
+    assert result["verified_source_module_count"] == 7
+    assert result["source_open_body_imports"]["status"] == "fail"
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" in result["error_codes"]
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" in result[
+        "blocking_error_codes"
+    ]
+
+
+def test_voice_to_doctrine_rejects_rehashed_source_module_body_tamper(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/voice_to_doctrine_self_improvement_loop/"
+        "exported_voice_to_doctrine_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    target_path = public_root / row["target_ref"]
+    tampered_text = (
+        target_path.read_text(encoding="utf-8")
+        + "\n\n# Tampered copied body with manifest-local hashes refreshed\n"
+    )
+    target_path.write_text(tampered_text, encoding="utf-8")
+    tampered_body = target_path.read_bytes()
+    tampered_sha = hashlib.sha256(tampered_body).hexdigest()
+    row["target_sha256"] = tampered_sha
+    row["source_sha256"] = tampered_sha
+    row["byte_count"] = len(tampered_body)
+    row["line_count"] = tampered_text.count("\n") + (
+        0 if tampered_text.endswith("\n") else 1
+    )
+    _write_json(manifest_path, manifest)
+
+    result = run_voice_to_doctrine_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert result["source_module_manifest_status"] == "fail"
+    assert result["verified_source_module_count"] == 7
+    assert result["source_open_body_imports"]["status"] == "fail"
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH" not in result["error_codes"]
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH" in result[
+        "blocking_error_codes"
+    ]
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH" in result[
+        "blocking_error_codes"
+    ]
+    changed_import = result["source_module_imports"][0]
+    assert changed_import["source_path_exists"] is True
+    assert changed_import["source_hash_matches"] is False
+    assert changed_import["source_target_exact_copy"] is False
+    assert changed_import["required_anchors_present"] is True
+
+
+def test_voice_to_doctrine_rejects_source_module_source_ref_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/voice_to_doctrine_self_improvement_loop/"
+        "exported_voice_to_doctrine_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_ref"] = "codex/standards/std_task_ledger.json"
+    _write_json(manifest_path, manifest)
+
+    result = run_voice_to_doctrine_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH" in result[
+        "blocking_error_codes"
+    ]
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH" in result[
+        "blocking_error_codes"
+    ]
+    changed_import = result["source_module_imports"][0]
+    assert changed_import["source_path_exists"] is True
+    assert changed_import["source_hash_matches"] is False
+    assert changed_import["source_target_exact_copy"] is False
+
+
+def test_voice_to_doctrine_rejects_source_module_missing_live_source_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/voice_to_doctrine_self_improvement_loop/"
+        "exported_voice_to_doctrine_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_ref"] = "codex/definitely_missing_source.md"
+    _write_json(manifest_path, manifest)
+
+    result = run_voice_to_doctrine_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_MISSING" in result[
+        "blocking_error_codes"
+    ]
+    assert result["source_module_imports"][0]["source_path_exists"] is False
+
+
+def test_voice_to_doctrine_rejects_dead_lesson_surface_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+        fixture,
+    )
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    lessons["lessons"][0]["changed_surface_ref"] = (
+        "public_safe_bundle/fabricated_dead_surface.md::Nope"
+    )
+    lessons_path.write_text(
+        json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result["error_codes"]
+    assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+        "blocking_error_codes"
+    ]
+
+
+def test_voice_to_doctrine_resolves_lesson_ref_paths_and_anchors(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    fixture = _copy_fixture(public_root)
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    lessons["lessons"][0]["evidence_ref"] = (
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md::Public Mechanics"
+    )
+    lessons["lessons"][0]["closeout_ref"] = (
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/"
+        "voice_to_doctrine_self_improvement_loop_result.json::workitem_capture_count"
+    )
+    _write_json(lessons_path, lessons)
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" not in result["error_codes"]
+    closeout_resolution = next(
+        row
+        for row in result["lesson_ref_resolutions"]
+        if row["lesson_id"] == "microcosm_receipt_theater_rejected"
+        and row["field_name"] == "closeout_ref"
+    )
+    assert closeout_resolution["resolved"] is True
+    assert closeout_resolution["locator"] == "workitem_capture_count"
+    assert closeout_resolution["resolved_ref"].endswith(
+        "voice_to_doctrine_self_improvement_loop_result.json"
+    )
+
+
+def test_voice_to_doctrine_changed_surface_ref_real_target_moves_resolution(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    fixture = _copy_fixture(public_root)
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    moved_ref = (
+        "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py"
+        "::def run("
+    )
+    lessons["lessons"][0]["changed_surface_ref"] = moved_ref
+    _write_json(lessons_path, lessons)
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    moved_resolution = next(
+        row
+        for row in result["lesson_ref_resolutions"]
+        if row["lesson_id"] == "microcosm_receipt_theater_rejected"
+        and row["field_name"] == "changed_surface_ref"
+    )
+    assert moved_resolution["ref"] == moved_ref
+    assert moved_resolution["resolved"] is True
+    assert moved_resolution["locator"] == "def run("
+    assert moved_resolution["resolved_ref"].endswith(
+        "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py"
+    )
+
+
+def test_voice_to_doctrine_rejects_mutated_lesson_ref_anchors(
+    tmp_path: Path,
+) -> None:
+    ref_cases = (
+        (
+            "changed_surface_ref",
+            "paper_modules/voice_to_doctrine_self_improvement_loop.md::Missing Public Mechanics Anchor",
+        ),
+        (
+            "evidence_ref",
+            "paper_modules/voice_to_doctrine_self_improvement_loop.md::Missing Reader Evidence Anchor",
+        ),
+        (
+            "validation_ref",
+            "tests/missing_validation_receipt.py::missing_anchor",
+        ),
+        (
+            "closeout_ref",
+            "paper_modules/voice_to_doctrine_self_improvement_loop.md::Missing Anti-Claim Anchor",
+        ),
+    )
+    for field_name, mutated_ref in ref_cases:
+        public_root = tmp_path / field_name / "microcosm-substrate"
+        shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        fixture = (
+            public_root
+            / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+        )
+        shutil.copytree(
+            MICROCOSM_ROOT
+            / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+            fixture,
+        )
+        lessons_path = fixture / "input/local_lessons.json"
+        lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+        lessons["lessons"][0][field_name] = mutated_ref
+        lessons_path.write_text(
+            json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        result = run(
+            fixture / "input",
+            public_root
+            / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+            command="pytest",
+        )
+
+        assert result["status"] == "fail"
+        assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result["error_codes"]
+        assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+            "blocking_error_codes"
+        ]
+        assert any(
+            field_name in str(finding.get("subject_id"))
+            and mutated_ref in str(finding.get("subject_id"))
+            for finding in result["blocking_findings"]
+        )
+
+
+def test_voice_to_doctrine_rejects_json_pointer_when_anchor_text_is_absent(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+        fixture,
+    )
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    mutated_ref = (
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/"
+        "voice_to_doctrine_self_improvement_loop_result.json::/workitem_capture_count"
+    )
+    lessons["lessons"][2]["closeout_ref"] = mutated_ref
+    lessons_path.write_text(
+        json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+        "blocking_error_codes"
+    ]
+    assert any(
+        row["ref"] == mutated_ref
+        and row["failure_reason"] == "locator_missing"
+        for row in result["lesson_ref_resolutions"]
+    )
+
+
+def test_voice_to_doctrine_rejects_non_public_lesson_ref_paths(
+    tmp_path: Path,
+) -> None:
+    ref_cases = (
+        "/tmp/private_voice_to_doctrine.md::Public Mechanics",
+        "../AGENTS.md::Microcosm Substrate",
+    )
+    for ref in ref_cases:
+        public_root = tmp_path / ref.replace("/", "_").replace(":", "_")
+        public_root = public_root / "microcosm-substrate"
+        shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        fixture = (
+            public_root
+            / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+        )
+        shutil.copytree(
+            MICROCOSM_ROOT
+            / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+            fixture,
+        )
+        lessons_path = fixture / "input/local_lessons.json"
+        lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+        lessons["lessons"][0]["changed_surface_ref"] = ref
+        lessons_path.write_text(
+            json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        result = run(
+            fixture / "input",
+            public_root
+            / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+            command="pytest",
+        )
+
+        assert result["status"] == "fail"
+        assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+            "blocking_error_codes"
+        ]
+        assert any(
+            row["ref"] == ref
+            and row["failure_reason"] == "unsafe_or_empty_path_ref"
+            for row in result["lesson_ref_resolutions"]
+        )
+
+
+def test_voice_to_doctrine_baked_expected_labels_cannot_override_unresolved_refs(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+        fixture,
+    )
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    lessons["lessons"][0]["changed_surface_ref"] = (
+        "paper_modules/definitely_missing.md::Nope"
+    )
+    lessons["lessons"][0]["expected_status"] = "refined_existing_surface"
+    lessons["lessons"][0]["expected_label"] = "pass"
+    lessons_path.write_text(
+        json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "fail"
+    assert result["ignored_expected_label_count"] == 2
+    assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+        "blocking_error_codes"
+    ]
+    assert "VOICE_DOCTRINE_BAKED_EXPECTED_LABEL_IGNORED" in result[
+        "blocking_error_codes"
+    ]
+
+
+def test_voice_to_doctrine_status_counts_ignore_baked_expected_labels(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop",
+        fixture,
+    )
+    lessons_path = fixture / "input/local_lessons.json"
+    lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+    lessons["lessons"][0]["status"] = "workitem_captured"
+    lessons["lessons"][0]["reentry_condition"] = "Expected labels are ignored."
+    lessons["lessons"][0]["expected_status"] = "refined_existing_surface"
+    lessons["lessons"][0]["expected_label"] = "pass"
+    lessons_path.write_text(
+        json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/voice_to_doctrine_self_improvement_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["ignored_expected_label_count"] == 2
+    assert result["status_counts"] == {
+        "nothing_to_refine": 1,
+        "refined_existing_surface": 1,
+        "workitem_captured": 2,
+    }
+    assert "VOICE_DOCTRINE_BAKED_EXPECTED_LABEL_IGNORED" not in result[
+        "error_codes"
+    ]
+
+
+def test_voice_to_doctrine_exported_bundle_rejects_lesson_ref_mutations(
+    tmp_path: Path,
+) -> None:
+    ref_cases = (
+        (
+            "changed_surface_ref",
+            "paper_modules/fabricated_voice_to_doctrine_surface.md::Nope",
+        ),
+        (
+            "evidence_refs",
+            "paper_modules/voice_to_doctrine_self_improvement_loop.md::Inflated Missing Evidence Anchor",
+        ),
+        (
+            "validation_ref",
+            "tests/missing_validation_receipt.py::missing_anchor",
+        ),
+        (
+            "closeout_ref",
+            "paper_modules/voice_to_doctrine_self_improvement_loop.md::Missing Anti-Claim Anchor",
+        ),
+    )
+    for field_name, mutated_ref in ref_cases:
+        public_root = tmp_path / field_name / "microcosm-substrate"
+        shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+        bundle = (
+            public_root
+            / "examples/voice_to_doctrine_self_improvement_loop/"
+            "exported_voice_to_doctrine_bundle"
+        )
+        shutil.copytree(BUNDLE_INPUT, bundle)
+        lessons_path = bundle / "local_lessons.json"
+        lessons = json.loads(lessons_path.read_text(encoding="utf-8"))
+        if field_name == "evidence_refs":
+            lessons["lessons"][0][field_name][0] = mutated_ref
+        else:
+            lessons["lessons"][0][field_name] = mutated_ref
+        lessons_path.write_text(
+            json.dumps(lessons, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        result = run_voice_to_doctrine_bundle(
+            bundle,
+            public_root
+            / "receipts/runtime_shell/demo_project/organs/"
+            "voice_to_doctrine_self_improvement_loop",
+            command="pytest",
+        )
+
+        assert result["status"] == "fail"
+        assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result["error_codes"]
+        assert "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED" in result[
+            "blocking_error_codes"
+        ]
+        assert any(
+            field_name in str(finding.get("subject_id"))
+            and mutated_ref in str(finding.get("subject_id"))
+            for finding in result["blocking_findings"]
+        )
 
 
 def test_voice_to_doctrine_source_modules_are_exact_macro_body_copies() -> None:

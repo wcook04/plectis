@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "organ_id": "doctrine_fact_claim_audit",
+  "schema_version": "microcosm_crown_jewel_projection_protocol_v1",
+  "source_module_manifest_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+  "truth_gate": "fact_count_code_loci_fixture_dag_and_numeric_claims_only"
+}

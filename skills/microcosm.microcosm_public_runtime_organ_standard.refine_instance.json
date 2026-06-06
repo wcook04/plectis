@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "microcosm_public_runtime_organ_standard",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.voice_to_doctrine_self_improvement_loop_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_standards_meta_diagnostics",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "microcosm_public_runtime_organ_standard",
+    "concept_refs": [
+      "concept.voice_to_doctrine_self_improvement_loop_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md::typed_skill_mapping.operates_standard",
+          "summary": "This markdown maps instance refinement for the shared public-runtime-organ-standard triad to durable work-landing evidence because bounded corrections must be tied to source refs, receipts, manifests, scoped commits, and explicit authority ceilings rather than status-board prose."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_standards_meta_diagnostics",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md::typed_skill_mapping.acts_on_kind",
+          "summary": "This markdown maps instance refinement for the shared public-runtime-organ-standard triad to durable work-landing evidence because bounded corrections must be tied to source refs, receipts, manifests, scoped commits, and explicit authority ceilings rather than status-board prose."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "microcosm_public_runtime_organ_standard",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.voice_to_doctrine_self_improvement_loop_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract"
+    ],
+    "operates_standard": "std_microcosm_standards_meta_diagnostics",
+    "source_markdown_digest": "d6e0dcc82afdc20f914588e660db4608c0aa85c867c1dff548803ba6ba8db503",
+    "source_markdown_line_count": 52,
+    "source_markdown_ref": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md",
+    "triad_role": "refine_instance",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "This markdown maps instance refinement for the shared public-runtime-organ-standard triad to durable work-landing evidence because bounded corrections must be tied to source refs, receipts, manifests, scoped commits, and explicit authority ceilings rather than status-board prose.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.json"
+    },
+    "source_markdown_digest": "d6e0dcc82afdc20f914588e660db4608c0aa85c867c1dff548803ba6ba8db503",
+    "source_markdown_line_count": 52,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.microcosm_public_runtime_organ_standard.refine_instance.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Public Runtime Organ Standard Refine Instance",
+  "status": "active",
+  "title": "Microcosm Public Runtime Organ Standard Refine Instance",
+  "triad_role": "refine_instance",
+  "triggers": [
+    "A public runtime organ standard has stale or weak source refs, validator refs, receipt refs, source-module manifest evidence, paper-module capsule binding, mechanism binding, authority ceiling, or anti-claim language.",
+    "The correction can be sourced from standards-meta diagnostics, durable work-landing evidence, exact-copy/source-module manifests, focused validator receipts, and generated lattice health without changing the class standard itself."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Inspect the target standard JSON, standards registry row, source-module manifest, paper-module capsule, mechanism source, validator receipts, generated health, and any landing/receipt evidence before mutation.",
+    "Change only fields that tighten source evidence, receipt expectations, validator binding, public/private boundary, authority ceiling, or anti-claim wording.",
+    "Regenerate the lattice and leave unsupported runtime correctness, release, provider, private-equivalence, source-body, or projection-freshness claims as typed residual pressure."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "body_in_receipt": false,
+  "case_id": "irrelevant_context_no_replay",
+  "claim": "A context class not consumed by the node must not force replay.",
+  "computed_path": "irrelevant_context_classifies_no_replay",
+  "error_codes": [
+    "BATCH5_REPLAY_IRRELEVANT_CONTEXT_NO_REPLAY"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "reasoning_execution_replay_scope_lineage",
+  "probe_input": {
+    "changed_context_classes": [
+      "ambient_browser_state"
+    ],
+    "consumed_context_classes": [
+      "task_spec",
+      "public_fixture"
+    ],
+    "expected": "no_replay"
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

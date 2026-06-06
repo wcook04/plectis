@@ -1,0 +1,20 @@
+{
+  "fixture_id": "engine_room_annex_knowledge_router_fixture_v1",
+  "organ_id": "engine_room_annex_knowledge_router",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_annex_knowledge_router/input/provider_backoff_route.json",
+    "fixtures/first_wave/engine_room_annex_knowledge_router/input/note_match.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_annex_knowledge_router/input/domain_filter_no_match.json",
+    "fixtures/first_wave/engine_room_annex_knowledge_router/input/empty_problem_no_match.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.annex_knowledge_router evaluate-fixtures --input fixtures/first_wave/engine_room_annex_knowledge_router/input --json",
+  "source_refs": [
+    "system/lib/annex_registry.py::route_annexes",
+    "annex_import.py route"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Explainable tiered weighted-token retrieval over a sanitized annex catalog; not BM25, TF-IDF, embeddings, repository cloning, or license authority."
+}

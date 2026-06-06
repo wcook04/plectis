@@ -1,0 +1,7 @@
+{
+  "case_id": "authority_collapse_claim",
+  "error_codes": [
+    "CONCURRENCY_MISSION_CONTROL_AUTHORITY_COLLAPSE"
+  ],
+  "body_in_receipt": false
+}

@@ -22,9 +22,11 @@ FIXTURE_ID = "first_wave.public_entry_docs"
 REQUIRED_DOCS = [
     "README.md",
     "AGENTS.md",
+    "AGENT_ROUTES.md",
     "core/organ_registry.json",
     "core/organ_evidence_classes.json",
     "atlas/entry_packet.json",
+    "atlas/agent_task_routes.json",
     "paper_modules/pattern_binding_contract.md",
     "paper_modules/executable_doctrine_grammar.md",
     "paper_modules/proof_diagnostic_evidence_spine.md",
@@ -95,7 +97,9 @@ REQUIRED_PHRASES_BY_DOC = {
         "Internal Runtime Spine",
         "public entry inventory/read-model",
         "inventory-only route-alignment metadata",
-        "not product progress, release readiness"
+        "not product progress, release readiness",
+        "[AGENT_ROUTES.md](AGENT_ROUTES.md)",
+        "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)"
     ],
     "AGENTS.md": [
         "microcosm tour --card <project>",
@@ -124,6 +128,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "public entry inventory",
         "inventory-only route-alignment metadata",
         "not product progress, release readiness",
+        "[AGENT_ROUTES.md](AGENT_ROUTES.md)",
+        "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)",
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
         "Fixtures Are Tests",
@@ -155,7 +161,20 @@ REQUIRED_PHRASES_BY_DOC = {
         "cd /tmp/microcosm-substrate-export/microcosm-substrate",
         "cold-clone check proves the exported artifact can install",
         "receipts/release/release_export_receipt.json",
-        "release_authorized=false"
+        "release_authorized=false",
+        "six cold reader branches",
+        "Domain specialist: run",
+        "microcosm hello --reader domain_specialist <project>",
+        "ORGANS.md#find-your-specialty",
+        "explicit non-claim of domain correctness or expert review"
+    ],
+    "AGENT_ROUTES.md": [
+        "Microcosm Agent Task Routes",
+        "Agent Task Route Table",
+        "`task_class`",
+        "atlas/agent_task_routes.json",
+        "ORGANS.md#find-your-specialty",
+        "Stop when the first command or named receipt is visible"
     ]
 }
 
@@ -222,6 +241,7 @@ PUBLIC_ENTRY_OVERCLAIM_PATTERNS = (
 PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS = (
     "README.md",
     "AGENTS.md",
+    "AGENT_ROUTES.md",
     "ORGANS.md",
     "ARCHITECTURE.md",
 )
@@ -725,6 +745,8 @@ def _entry_packet_route_contract(
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
     reader_ids = {
         str(row.get("reader_id"))
@@ -807,6 +829,11 @@ def _entry_packet_route_contract(
                 "Receipts are evidence drilldowns after the behavior route is visible",
                 "Reader-Typed Branches",
                 "atlas/entry_packet.json::reader_first_screen_routes",
+                "six cold reader branches",
+                "Domain specialist: run",
+                "microcosm hello --reader domain_specialist <project>",
+                "ORGANS.md#find-your-specialty",
+                "explicit non-claim of domain correctness or expert review",
             ]
         )
         if phrase not in cold_start_text
@@ -1050,6 +1077,149 @@ def _evidence_class_registry_summary(
     }
 
 
+def _agent_task_route_projection(
+    public_root: Path,
+    expected_organs: list[str],
+    doc_text_by_rel: dict[str, str],
+) -> dict[str, Any]:
+    """Validate that agent entry defers to the generated task-route model."""
+    json_rel = "atlas/agent_task_routes.json"
+    md_rel = "AGENT_ROUTES.md"
+    json_path = public_root / json_rel
+    md_path = public_root / md_rel
+    blocking_reasons: list[str] = []
+    missing_surfaces = [
+        rel
+        for rel, path in ((json_rel, json_path), (md_rel, md_path))
+        if not path.is_file()
+    ]
+    if missing_surfaces:
+        return {
+            "status": "blocked",
+            "source_ref": json_rel,
+            "missing_surfaces": missing_surfaces,
+            "blocking_reasons": ["missing_agent_task_route_surfaces"],
+            "authority": "agent task routing only; not release, provider, proof, or mutation authority",
+        }
+    try:
+        payload = read_json_strict(json_path)
+    except Exception as exc:
+        return {
+            "status": "blocked",
+            "source_ref": json_rel,
+            "missing_surfaces": [],
+            "parse_error": type(exc).__name__,
+            "blocking_reasons": ["invalid_agent_task_route_json"],
+            "authority": "agent task routing only; not release, provider, proof, or mutation authority",
+        }
+    if not isinstance(payload, dict):
+        payload = {}
+    routes = _rows(payload, "routes")
+    expected_set = set(expected_organs)
+    seen_organs: set[str] = set()
+    duplicate_task_classes = _duplicates(
+        [str(row.get("task_class") or "") for row in routes if row.get("task_class")]
+    )
+    incomplete_routes: list[str] = []
+    unexpected_organs: set[str] = set()
+    for route in routes:
+        task_class = str(route.get("task_class") or "")
+        required_route_fields = (
+            "task_class",
+            "relevant_organs",
+            "first_command",
+            "allowed_authority",
+            "evidence_ref",
+            "receipt_ref",
+            "stop_condition",
+            "drilldown_target",
+        )
+        if not all(route.get(field) for field in required_route_fields):
+            incomplete_routes.append(task_class or "<missing_task_class>")
+        organs = route.get("relevant_organs")
+        if not isinstance(organs, list) or not organs:
+            incomplete_routes.append(f"{task_class or '<missing_task_class>'}.relevant_organs")
+            continue
+        for organ in organs:
+            if not isinstance(organ, dict):
+                incomplete_routes.append(f"{task_class}.invalid_organ_row")
+                continue
+            organ_id = str(organ.get("organ_id") or "")
+            if organ_id in expected_set:
+                seen_organs.add(organ_id)
+            elif organ_id:
+                unexpected_organs.add(organ_id)
+            if not all(
+                organ.get(field)
+                for field in (
+                    "display_name",
+                    "first_command",
+                    "claim_ceiling",
+                    "drilldown_target",
+                )
+            ):
+                incomplete_routes.append(f"{task_class}.{organ_id or 'organ'}")
+    missing_organs = [organ_id for organ_id in expected_organs if organ_id not in seen_organs]
+    md_text = doc_text_by_rel.get(md_rel)
+    if md_text is None:
+        md_text = md_path.read_text(encoding="utf-8") if md_path.is_file() else ""
+    markdown_missing = [
+        phrase
+        for phrase in (
+            "## Agent Task Route Table",
+            "`task_class`",
+            "atlas/agent_task_routes.json",
+            "ORGANS.md#find-your-specialty",
+        )
+        if phrase not in md_text
+    ]
+    doc_deferral_missing = []
+    for rel in ("README.md", "AGENTS.md"):
+        normalized = _normalized_text(doc_text_by_rel.get(rel, ""))
+        for phrase in (
+            "[AGENT_ROUTES.md](AGENT_ROUTES.md)",
+            "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)",
+        ):
+            if phrase not in normalized:
+                doc_deferral_missing.append(f"{rel}:{phrase}")
+    if payload.get("schema_version") != "microcosm_agent_task_routes_v1":
+        blocking_reasons.append("agent_task_route_schema_mismatch")
+    if payload.get("surface_role") != "generated_agent_task_route_projection":
+        blocking_reasons.append("agent_task_route_surface_role_mismatch")
+    if payload.get("route_count") != len(routes):
+        blocking_reasons.append("agent_task_route_count_mismatch")
+    if duplicate_task_classes:
+        blocking_reasons.append("duplicate_agent_task_classes")
+    if incomplete_routes:
+        blocking_reasons.append("incomplete_agent_task_routes")
+    if missing_organs or unexpected_organs:
+        blocking_reasons.append("agent_task_route_organ_mismatch")
+    if markdown_missing:
+        blocking_reasons.append("agent_task_route_markdown_missing")
+    if doc_deferral_missing:
+        blocking_reasons.append("agent_task_route_deferral_missing")
+    return {
+        "status": PASS if not blocking_reasons else "blocked",
+        "source_ref": json_rel,
+        "markdown_ref": md_rel,
+        "schema_version": payload.get("schema_version"),
+        "route_count": len(routes),
+        "declared_route_count": payload.get("route_count"),
+        "missing_surfaces": [],
+        "missing_organs": missing_organs,
+        "unexpected_organs": sorted(unexpected_organs),
+        "duplicate_task_classes": duplicate_task_classes,
+        "incomplete_routes": sorted(set(incomplete_routes)),
+        "markdown_missing": markdown_missing,
+        "doc_deferral_missing": doc_deferral_missing,
+        "blocking_reasons": blocking_reasons,
+        "authority": (
+            "agent task routing only; authority remains on organ registry rows, "
+            "receipts, and claim ceilings"
+        ),
+    }
+
+
 def validate_public_entry_docs(
     root: str | Path,
     out_path: str | Path,
@@ -1102,6 +1272,11 @@ def validate_public_entry_docs(
     missing_accepted_organs: list[str] = []
     unexpected_accepted_organs: list[str] = []
     evidence_class_registry = _evidence_class_registry_summary(public_root, accepted)
+    agent_task_route_projection = _agent_task_route_projection(
+        public_root,
+        accepted,
+        doc_text_by_rel,
+    )
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = _receipt_safe_scan(
         scan_paths(
@@ -1129,6 +1304,8 @@ def validate_public_entry_docs(
         blocking_codes.append("ACCEPTED_ORGAN_REGISTRY_MISMATCH")
     if evidence_class_registry["status"] != PASS:
         blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
+    if agent_task_route_projection["status"] != PASS:
+        blocking_codes.append("AGENT_TASK_ROUTE_PROJECTION_MISMATCH")
     if entry_spine_claims["status"] != PASS:
         blocking_codes.append("PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH")
     if entry_packet_route_contract["status"] != PASS:
@@ -1163,6 +1340,7 @@ def validate_public_entry_docs(
         "entry_packet_route_contract": entry_packet_route_contract,
         "cli_first_screen_help_contract": cli_first_screen_help_contract,
         "evidence_class_registry": evidence_class_registry,
+        "agent_task_route_projection": agent_task_route_projection,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,
         "duplicate_accepted_organs": duplicate_accepted_organs,

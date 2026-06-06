@@ -169,7 +169,7 @@
     "proof_lab_route_component_count": 0,
     "proof_lab_route_id": null,
     "provider_hypothesis_count": 1,
-    "target_shape_route_case_count": 5,
+    "target_shape_route_case_count": 7,
     "verifier_attempt_count": 3,
     "verifier_trace_attempt_count": 5
   },
@@ -188,7 +188,7 @@
     "ring2_mean_recall_at_k": 0.9,
     "ring2_problem_count": 10,
     "tactic_probe_status": "pass",
-    "target_shape_route_case_count": 5,
+    "target_shape_route_case_count": 7,
     "verifier_trace_attempt_count": 5
   },
   "proof_lab_route": {
@@ -205,10 +205,10 @@
   },
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
   ],
   "receipt_transparency_contract": {
     "body_in_receipt": false,
@@ -278,10 +278,10 @@
     "module_count": 0,
     "modules": [],
     "observed_negative_cases": {},
-    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
+    "source_module_manifest_ref": "fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
     "status": "not_applicable"
   },
-  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
+  "source_module_manifest_ref": "fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
   "source_open_body_imports": {
     "aggregate_floor_ref": "",
     "authority_ceiling": {

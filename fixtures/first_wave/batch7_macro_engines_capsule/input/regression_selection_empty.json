@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "regression_selection_empty",
+  "error_codes": [
+    "BATCH7_RTS_NEVER_EMPTY_FALLBACK"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

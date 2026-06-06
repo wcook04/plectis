@@ -42,6 +42,7 @@
 
 import asyncio
 import copy
+import html
 import inspect
 import json
 import os
@@ -57,11 +58,11 @@ import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Set, List, Dict, Any, Optional, Mapping
+from typing import Set, List, Dict, Any, Optional, Mapping, Callable
 
-from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, Body, status
+from fastapi import FastAPI, HTTPException, Query, Request, WebSocket, WebSocketDisconnect, Body, status
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
@@ -98,9 +99,14 @@ from system.lib.agent_observability_animation import (
     build_agent_observability_animation_delta,
     build_agent_observability_animation_scene,
 )
+from system.server.live_projection import LiveProjectionResponseCache
 from system.lib.host_pressure import build_progress_pressure_packet_from_store
 from system.lib.agent_mission_status import build_agent_mission_status
-from system.lib.work_ledger_runtime import load_runtime_status as _load_work_ledger_runtime_status
+from system.lib.work_ledger_runtime import (
+    RUNTIME_STATUS_REL as _WORK_LEDGER_RUNTIME_STATUS_REL,
+    build_session_message_inbox_surface,
+    load_runtime_status as _load_work_ledger_runtime_status,
+)
 from system.core.forensics import reconstruct_run_state
 from system.server.inspector import InspectorService
 from system.server.meta_service import MetaService
@@ -292,6 +298,7 @@ STATE_DIR.mkdir(parents=True, exist_ok=True)
 LOG_PATH = STATE_DIR / "server_debug.log"
 SESSION_YIELD_REQUESTS_PATH = STATE_DIR / "performance" / "session_yield_requests.jsonl"
 SESSION_YIELD_RESULTS_PATH = STATE_DIR / "performance" / "session_yield_results.jsonl"
+SESSION_MESSAGES_PATH = STATE_DIR / "work_ledger" / "session_messages.jsonl"
 BACKGROUND_DOWNSHIFT_STATE_PATH = STATE_DIR / "performance" / "background_loop_downshift.json"
 
 _FILE_HANDLER = logging.FileHandler(str(LOG_PATH), encoding="utf-8")
@@ -383,6 +390,46 @@ def _root_navigator_handoff_cache_key() -> str:
 
 def _world_model_snapshot_cache_key() -> object:
     return (str(REPO_ROOT.resolve()), "first_paint")
+
+
+def _hot_surface_prewarm_specs() -> list[tuple[str, object, Callable[[], Any]]]:
+    repo_key = str(REPO_ROOT.resolve())
+    return [
+        # Order matters: world_model_snapshot + paper_modules first because
+        # they're the heaviest and unblock the launcher/bootstrap surfaces.
+        (
+            "paper_modules_snapshot",
+            repo_key,
+            lambda: world_model_loader._uncached_load_paper_modules_snapshot(REPO_ROOT),
+        ),
+        (
+            "world_model_snapshot",
+            _world_model_snapshot_cache_key(),
+            _world_model_snapshot_uncached_payload,
+        ),
+        (
+            "work_ledger_overview",
+            world_model_loader.work_ledger_overview_cache_key(REPO_ROOT),
+            lambda: world_model_loader._uncached_load_work_ledger_overview(REPO_ROOT),
+        ),
+        ("shard_overview", (repo_key, "family"), lambda: world_model_loader.load_shard_overview(REPO_ROOT, source="family")),
+        ("annex_catalog", repo_key, lambda: library_catalog_loader.build_annex_catalog(REPO_ROOT)),
+        ("codex_tree", repo_key, _build_codex_tree_payload),
+        ("meta_missions_index", repo_key, _build_meta_missions_index),
+        ("wake_barriers", repo_key, lambda: world_model_loader.load_wake_barriers(REPO_ROOT)),
+        ("library_tools", repo_key, lambda: library_catalog_loader.list_tools(repo_root=REPO_ROOT)),
+        # The three new swr-wrapped snapshot leaves landed alongside the
+        # Patch A/B/C snapshot cold-path pass. Adding them to the serial
+        # prewarm chain populates their caches at startup so the first
+        # /api/world-model/snapshot HTTP request doesn't pay the cold
+        # walls inside _uncached_load_world_model_snapshot for autonomy
+        # diagnostics, lab/oracle/evolve runs, or market feeds runs.
+        ("autonomy_diagnostics", repo_key, lambda: world_model_loader.load_autonomy_diagnostics(REPO_ROOT)),
+        ("market_feeds_snapshot", (repo_key, 24), lambda: world_model_loader.load_market_feeds_snapshot(REPO_ROOT)),
+        ("lab_oracle_evolve_snapshot", (repo_key, 24), lambda: world_model_loader.load_lab_oracle_evolve_snapshot(REPO_ROOT)),
+        # `reactions` and `attention` use world_model._cached_mapping, not
+        # swr_get directly, so we prewarm by calling the loader instead.
+    ]
 
 
 def _attention_snapshot_cache_key() -> str:
@@ -552,6 +599,550 @@ connected_websockets: Set[WebSocket] = set()
 meta_session_websockets: Set[WebSocket] = set()
 agent_observability_websockets: Set[WebSocket] = set()
 config_lock = threading.Lock()
+_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_TTL_S = 5.0
+_AGENT_OBSERVABILITY_ANIMATION_DEFAULT_LIMIT = 200
+_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK = threading.Lock()
+_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE: Dict[str, Any] = {
+    "signature": None,
+    "loaded_at": 0.0,
+    "payload": None,
+}
+_AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_TTL_S = 1.0
+_AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_LOCK = threading.Lock()
+_AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE: Dict[str, Any] = {
+    "signature": None,
+    "loaded_at": 0.0,
+    "payload": None,
+}
+_AGENT_OBSERVABILITY_EVENTS_CACHE_TTL_S = 1.0
+_AGENT_OBSERVABILITY_EVENTS_PROJECTION_CACHE = LiveProjectionResponseCache(
+    "agent_observability.events",
+    ttl_s=_AGENT_OBSERVABILITY_EVENTS_CACHE_TTL_S,
+    max_entries=64,
+)
+_AGENT_OBSERVABILITY_MISSION_STATUS_CACHE_TTL_S = 1.0
+_AGENT_OBSERVABILITY_MISSION_STATUS_PROJECTION_CACHE = LiveProjectionResponseCache(
+    "agent_observability.mission_status",
+    ttl_s=_AGENT_OBSERVABILITY_MISSION_STATUS_CACHE_TTL_S,
+    max_entries=64,
+)
+_AGENT_OBSERVABILITY_ANIMATION_DELTA_CACHE_TTL_S = 0.5
+_AGENT_OBSERVABILITY_ANIMATION_DELTA_PROJECTION_CACHE = LiveProjectionResponseCache(
+    "agent_observability.animation_delta",
+    ttl_s=_AGENT_OBSERVABILITY_ANIMATION_DELTA_CACHE_TTL_S,
+    max_entries=64,
+)
+
+
+def _agent_observability_work_ledger_signature(
+    repo_root: Path,
+) -> tuple[str, Optional[int], Optional[int], int]:
+    path = repo_root / _WORK_LEDGER_RUNTIME_STATUS_REL
+    try:
+        stat = path.stat()
+    except OSError:
+        return (str(path), None, None, id(_load_work_ledger_runtime_status))
+    return (
+        str(path),
+        stat.st_mtime_ns,
+        stat.st_size,
+        id(_load_work_ledger_runtime_status),
+    )
+
+
+def _load_agent_observability_work_ledger_status(repo_root: Path) -> Dict[str, Any]:
+    signature = _agent_observability_work_ledger_signature(repo_root)
+    now = time.monotonic()
+    with _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK:
+        cached = _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("payload")
+        if (
+            isinstance(cached, dict)
+            and _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("signature") == signature
+            and now - float(_AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.get("loaded_at") or 0.0)
+            <= _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_TTL_S
+        ):
+            return cached
+        payload = _load_work_ledger_runtime_status(repo_root)
+        if not isinstance(payload, dict):
+            payload = {}
+        _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.update({
+            "signature": signature,
+            "loaded_at": now,
+            "payload": payload,
+        })
+        return payload
+
+
+def _clear_agent_observability_work_ledger_cache_for_tests() -> None:
+    with _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE_LOCK:
+        _AGENT_OBSERVABILITY_WORK_LEDGER_CACHE.update({
+            "signature": None,
+            "loaded_at": 0.0,
+            "payload": None,
+        })
+
+
+def _agent_observability_host_pressure_signature(
+    status: Mapping[str, Any],
+    *,
+    window_s: int,
+    requested_workload_class: Optional[str],
+    operator_override: bool,
+    request_path: str,
+) -> tuple[Any, ...]:
+    return (
+        request_path,
+        int(window_s),
+        requested_workload_class or "",
+        bool(operator_override),
+        status.get("seq"),
+        status.get("history_size"),
+        status.get("dropped_count"),
+        status.get("gap_count"),
+        id(build_progress_pressure_packet_from_store),
+    )
+
+
+def _load_agent_observability_host_pressure_packet(
+    *,
+    request_path: str,
+    window_s: int,
+    requested_workload_class: Optional[str],
+    operator_override: bool,
+) -> Dict[str, Any]:
+    status = agent_trace_store.status()
+    signature = _agent_observability_host_pressure_signature(
+        status,
+        window_s=window_s,
+        requested_workload_class=requested_workload_class,
+        operator_override=operator_override,
+        request_path=request_path,
+    )
+    now = time.monotonic()
+    with _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_LOCK:
+        cached = _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE.get("payload")
+        if (
+            isinstance(cached, dict)
+            and _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE.get("signature") == signature
+            and now - float(_AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE.get("loaded_at") or 0.0)
+            <= _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_TTL_S
+        ):
+            return cached
+        payload = build_progress_pressure_packet_from_store(
+            agent_trace_store,
+            REPO_ROOT,
+            window_s=window_s,
+            requested_workload_class=requested_workload_class,
+            operator_override=operator_override,
+            activation_endpoint_probe={
+                "status": "route_available",
+                "url": request_path,
+                "http_status": 200,
+                "schema_detected": True,
+                "probe_source": "serving_endpoint",
+            },
+        )
+        if not isinstance(payload, dict):
+            payload = {}
+        _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE.update({
+            "signature": signature,
+            "loaded_at": now,
+            "payload": payload,
+        })
+        return payload
+
+
+def _clear_agent_observability_host_pressure_cache_for_tests() -> None:
+    with _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE_LOCK:
+        _AGENT_OBSERVABILITY_HOST_PRESSURE_CACHE.update({
+            "signature": None,
+            "loaded_at": 0.0,
+            "payload": None,
+        })
+
+
+def _agent_observability_events_signature(
+    status: Mapping[str, Any],
+    *,
+    since_seq: int,
+    session_id: Optional[str],
+    source_runtime: Optional[str],
+    canonical_type: Optional[str],
+    limit: int,
+) -> tuple[Any, ...]:
+    return (
+        int(since_seq),
+        session_id or "",
+        source_runtime or "",
+        canonical_type or "",
+        int(limit),
+        status.get("seq"),
+        status.get("history_size"),
+        status.get("dropped_count"),
+        status.get("gap_count"),
+        id(agent_trace_store),
+    )
+
+
+def _agent_observability_events_response(
+    *,
+    since_seq: int,
+    session_id: Optional[str],
+    source_runtime: Optional[str],
+    canonical_type: Optional[str],
+    limit: int,
+    request_headers: Optional[Mapping[str, str]] = None,
+) -> Response:
+    status = agent_trace_store.status()
+    signature = _agent_observability_events_signature(
+        status,
+        since_seq=since_seq,
+        session_id=session_id,
+        source_runtime=source_runtime,
+        canonical_type=canonical_type,
+        limit=limit,
+    )
+
+    def _build_payload() -> Mapping[str, Any]:
+        return {
+            "events": agent_trace_store.replay(
+                since_seq=since_seq,
+                session_id=session_id,
+                source_runtime=source_runtime,
+                canonical_type=canonical_type,
+                limit=limit,
+            ),
+            "status": status,
+        }
+
+    return _AGENT_OBSERVABILITY_EVENTS_PROJECTION_CACHE.response(
+        signature=signature,
+        build_payload=_build_payload,
+        request_headers=request_headers,
+        json_bytes=_agent_trace_json_response_bytes,
+        source_seq=status.get("seq"),
+        extra_headers={
+            "X-Agent-Trace-Seq": str(status.get("seq") or ""),
+            "X-Agent-Trace-History-Size": str(status.get("history_size") or ""),
+        },
+    )
+
+
+def _clear_agent_observability_events_cache_for_tests() -> None:
+    _AGENT_OBSERVABILITY_EVENTS_PROJECTION_CACHE.clear()
+
+
+def _agent_observability_mission_status_signature(
+    trace_status: Mapping[str, Any],
+    *,
+    history_limit: int,
+    work_ledger_signature: tuple[str, Optional[int], Optional[int], int],
+) -> tuple[Any, ...]:
+    return (
+        int(history_limit),
+        trace_status.get("seq"),
+        trace_status.get("history_size"),
+        trace_status.get("dropped_count"),
+        trace_status.get("gap_count"),
+        work_ledger_signature,
+        id(agent_trace_store),
+        id(build_agent_mission_status),
+    )
+
+
+def _agent_observability_mission_status_response(
+    *,
+    history_limit: int,
+    request_headers: Optional[Mapping[str, str]] = None,
+) -> Response:
+    trace_status = agent_trace_store.status()
+    work_ledger_signature = _agent_observability_work_ledger_signature(REPO_ROOT)
+    signature = _agent_observability_mission_status_signature(
+        trace_status,
+        history_limit=history_limit,
+        work_ledger_signature=work_ledger_signature,
+    )
+
+    def _build_payload() -> Mapping[str, Any]:
+        try:
+            work_ledger_status = _load_agent_observability_work_ledger_status(REPO_ROOT)
+        except Exception:  # noqa: BLE001 - reducer must degrade, not fail
+            logger.exception("mission-status work-ledger load failed")
+            work_ledger_status = {}
+        return build_agent_mission_status(
+            store=agent_trace_store,
+            work_ledger_status=work_ledger_status,
+            repo_root=REPO_ROOT,
+            history_limit=history_limit,
+        )
+
+    return _AGENT_OBSERVABILITY_MISSION_STATUS_PROJECTION_CACHE.response(
+        signature=signature,
+        build_payload=_build_payload,
+        request_headers=request_headers,
+        json_bytes=_agent_trace_json_response_bytes,
+        source_seq=trace_status.get("seq"),
+        extra_headers={
+            "X-Agent-Trace-Seq": str(trace_status.get("seq") or ""),
+            "X-Agent-Trace-History-Size": str(trace_status.get("history_size") or ""),
+        },
+    )
+
+
+def _clear_agent_observability_mission_status_cache_for_tests() -> None:
+    _AGENT_OBSERVABILITY_MISSION_STATUS_PROJECTION_CACHE.clear()
+
+
+def _agent_observability_animation_delta_signature(
+    trace_status: Mapping[str, Any],
+    *,
+    since_seq: int,
+    session_id: Optional[str],
+    source_runtime: Optional[str],
+    limit: int,
+    window_ms: int,
+    include_infrastructure: bool,
+    max_ops: int,
+    work_ledger_signature: tuple[str, Optional[int], Optional[int], int],
+) -> tuple[Any, ...]:
+    return (
+        int(since_seq),
+        session_id or "",
+        source_runtime or "",
+        int(limit),
+        int(window_ms),
+        bool(include_infrastructure),
+        int(max_ops),
+        trace_status.get("seq"),
+        trace_status.get("history_size"),
+        trace_status.get("dropped_count"),
+        trace_status.get("gap_count"),
+        work_ledger_signature,
+        id(agent_trace_store),
+        id(build_agent_mission_status),
+        id(build_agent_observability_animation_delta),
+    )
+
+
+def _agent_observability_animation_delta_response(
+    *,
+    since_seq: int,
+    session_id: Optional[str],
+    source_runtime: Optional[str],
+    limit: int,
+    window_ms: int,
+    include_infrastructure: bool,
+    max_ops: int,
+    request_headers: Optional[Mapping[str, str]] = None,
+) -> Response:
+    trace_status = agent_trace_store.status()
+    work_ledger_signature = _agent_observability_work_ledger_signature(REPO_ROOT)
+    signature = _agent_observability_animation_delta_signature(
+        trace_status,
+        since_seq=since_seq,
+        session_id=session_id,
+        source_runtime=source_runtime,
+        limit=limit,
+        window_ms=window_ms,
+        include_infrastructure=include_infrastructure,
+        max_ops=max_ops,
+        work_ledger_signature=work_ledger_signature,
+    )
+
+    def _build_payload() -> Mapping[str, Any]:
+        try:
+            work_ledger_status = _load_agent_observability_work_ledger_status(REPO_ROOT)
+        except Exception:  # noqa: BLE001 - animation projection must degrade
+            logger.exception("animation delta work-ledger load failed")
+            work_ledger_status = {}
+        mission_status = build_agent_mission_status(
+            store=agent_trace_store,
+            work_ledger_status=work_ledger_status,
+            repo_root=REPO_ROOT,
+            history_limit=limit,
+        )
+        return build_agent_observability_animation_delta(
+            events=agent_trace_store.replay(
+                since_seq=since_seq,
+                session_id=session_id,
+                source_runtime=source_runtime,
+                limit=limit,
+            ),
+            status=trace_status,
+            mission_status=mission_status,
+            window_ms=window_ms,
+            include_infrastructure=include_infrastructure,
+            session_id=session_id,
+            source_runtime=source_runtime,
+            since_seq=since_seq,
+            limit=limit,
+            max_ops=max_ops,
+        )
+
+    return _AGENT_OBSERVABILITY_ANIMATION_DELTA_PROJECTION_CACHE.response(
+        signature=signature,
+        build_payload=_build_payload,
+        request_headers=request_headers,
+        json_bytes=_agent_trace_json_response_bytes,
+        source_seq=trace_status.get("seq"),
+        extra_headers={
+            "X-Agent-Trace-Seq": str(trace_status.get("seq") or ""),
+            "X-Agent-Trace-History-Size": str(trace_status.get("history_size") or ""),
+        },
+    )
+
+
+def _clear_agent_observability_animation_delta_cache_for_tests() -> None:
+    _AGENT_OBSERVABILITY_ANIMATION_DELTA_PROJECTION_CACHE.clear()
+
+
+_AGENT_TRACE_MISSION_INDEX_CACHE_TTL_S = 5.0
+_AGENT_TRACE_MISSION_INDEX_CACHE_LOCK = threading.Lock()
+_AGENT_TRACE_MISSION_INDEX_CACHE: Dict[str, Any] = {
+    "signature": None,
+    "loaded_at": 0.0,
+    "payload": None,
+    "content": None,
+}
+
+
+def _agent_trace_structurer_support_dir() -> Path:
+    return Path.home() / "Library" / "Application Support" / "Agent Trace Structurer"
+
+
+def _agent_trace_file_signature(path: Path) -> tuple[str, Optional[int], Optional[int]]:
+    try:
+        stat = path.stat()
+    except OSError:
+        return (str(path), None, None)
+    return (str(path), stat.st_mtime_ns, stat.st_size)
+
+
+def _agent_trace_missing_mission_index_payload(mission_path: Path) -> Dict[str, Any]:
+    return {
+        "available": False,
+        "reason": "mission_index_not_present",
+        "source_path": str(mission_path),
+        "hint": (
+            "Run the macOS Agent Trace Structurer app (or "
+            "`./repo-python tools/meta/observability/cli_prompt_trace.py "
+            f"--mission-index -o {mission_path}`) to materialize it."
+        ),
+    }
+
+
+def _build_agent_trace_mission_index_payload(
+    mission_path: Path,
+    variant_path: Path,
+) -> Dict[str, Any]:
+    try:
+        index_blob = json.loads(mission_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        logger.exception("Failed to read mission_index.json")
+        raise HTTPException(status_code=500, detail=f"mission_index.json unreadable: {exc}")
+    variant_artifact_index: Dict[str, Any] = {}
+    if variant_path.exists():
+        try:
+            variant_blob = json.loads(variant_path.read_text(encoding="utf-8"))
+            sessions = variant_blob.get("sessions")
+            if isinstance(sessions, dict):
+                variant_artifact_index = sessions
+        except Exception:
+            logger.exception("Failed to read variant_artifact_index.json")
+            variant_artifact_index = {}
+    return {
+        "available": True,
+        "source_path": str(mission_path),
+        "schema": index_blob.get("schema"),
+        "generated_at": index_blob.get("generated_at"),
+        "cwd": index_blob.get("cwd"),
+        "ambiguity_window_seconds": index_blob.get("ambiguity_window_seconds"),
+        "sort_mode": index_blob.get("sort_mode"),
+        "row_count": index_blob.get("row_count"),
+        "active_count": index_blob.get("active_count"),
+        "inactive_count": index_blob.get("inactive_count"),
+        "hidden_old_count": index_blob.get("hidden_old_count"),
+        "rows": index_blob.get("rows", []),
+        "active_rows": index_blob.get("active_rows", []),
+        "inactive_rows": index_blob.get("inactive_rows", []),
+        "variant_artifact_index": variant_artifact_index,
+    }
+
+
+def _agent_trace_json_response_bytes(payload: Mapping[str, Any]) -> bytes:
+    return json.dumps(
+        payload,
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+
+def _load_agent_trace_mission_index_cache_entry() -> Dict[str, Any]:
+    support_dir = _agent_trace_structurer_support_dir()
+    mission_path = support_dir / "mission_index.json"
+    variant_path = support_dir / "variant_artifact_index.json"
+    if not mission_path.exists():
+        return {
+            "payload": _agent_trace_missing_mission_index_payload(mission_path),
+            "content": None,
+        }
+
+    signature = (
+        _agent_trace_file_signature(mission_path),
+        _agent_trace_file_signature(variant_path),
+    )
+    now = time.monotonic()
+    with _AGENT_TRACE_MISSION_INDEX_CACHE_LOCK:
+        cached = _AGENT_TRACE_MISSION_INDEX_CACHE.get("payload")
+        cached_content = _AGENT_TRACE_MISSION_INDEX_CACHE.get("content")
+        if (
+            isinstance(cached, dict)
+            and isinstance(cached_content, bytes)
+            and _AGENT_TRACE_MISSION_INDEX_CACHE.get("signature") == signature
+            and now - float(_AGENT_TRACE_MISSION_INDEX_CACHE.get("loaded_at") or 0.0)
+            <= _AGENT_TRACE_MISSION_INDEX_CACHE_TTL_S
+        ):
+            return {"payload": cached, "content": cached_content}
+        payload = _build_agent_trace_mission_index_payload(mission_path, variant_path)
+        content = _agent_trace_json_response_bytes(payload)
+        _AGENT_TRACE_MISSION_INDEX_CACHE.update({
+            "signature": signature,
+            "loaded_at": now,
+            "payload": payload,
+            "content": content,
+        })
+        return {"payload": payload, "content": content}
+
+
+def _load_agent_trace_mission_index_bundle() -> Dict[str, Any]:
+    entry = _load_agent_trace_mission_index_cache_entry()
+    payload = entry.get("payload")
+    if isinstance(payload, dict):
+        return payload
+    return {}
+
+
+def _agent_trace_mission_index_response() -> Response:
+    entry = _load_agent_trace_mission_index_cache_entry()
+    content = entry.get("content")
+    if isinstance(content, bytes):
+        return Response(content=content, media_type="application/json")
+    payload = entry.get("payload")
+    if isinstance(payload, Mapping):
+        return JSONResponse(payload)
+    return JSONResponse({})
+
+
+def _clear_agent_trace_mission_index_cache_for_tests() -> None:
+    with _AGENT_TRACE_MISSION_INDEX_CACHE_LOCK:
+        _AGENT_TRACE_MISSION_INDEX_CACHE.update({
+            "signature": None,
+            "loaded_at": 0.0,
+            "payload": None,
+            "content": None,
+        })
+
 
 _BACKEND_BOOT_ID = f"backend_{uuid.uuid4().hex[:12]}"
 _BACKEND_BOOTED_AT = datetime.now(timezone.utc).isoformat()
@@ -845,34 +1436,7 @@ async def lifespan(app: FastAPI):
     # under `run_server.py`), so we serialize here and let subsequent requests
     # hit the warm caches one by one.
     try:
-        _repo_key = str(REPO_ROOT.resolve())
-        _hot_prewarms: list[tuple[str, Any, Any]] = [
-            # Order matters: world_model_snapshot + paper_modules first because
-            # they're the heaviest and unblock the launcher/bootstrap surfaces.
-            (
-                "paper_modules_snapshot",
-                _repo_key,
-                lambda: world_model_loader._uncached_load_paper_modules_snapshot(REPO_ROOT),
-            ),
-            ("world_model_snapshot", _repo_key, _world_model_snapshot_uncached_payload),
-            ("shard_overview", (_repo_key, "family"), lambda: world_model_loader.load_shard_overview(REPO_ROOT, source="family")),
-            ("annex_catalog", _repo_key, lambda: library_catalog_loader.build_annex_catalog(REPO_ROOT)),
-            ("codex_tree", _repo_key, _build_codex_tree_payload),
-            ("meta_missions_index", _repo_key, _build_meta_missions_index),
-            ("wake_barriers", _repo_key, lambda: world_model_loader.load_wake_barriers(REPO_ROOT)),
-            ("library_tools", _repo_key, lambda: library_catalog_loader.list_tools(repo_root=REPO_ROOT)),
-            # The three new swr-wrapped snapshot leaves landed alongside the
-            # Patch A/B/C snapshot cold-path pass. Adding them to the serial
-            # prewarm chain populates their caches at startup so the first
-            # /api/world-model/snapshot HTTP request doesn't pay the cold
-            # walls inside _uncached_load_world_model_snapshot for autonomy
-            # diagnostics, lab/oracle/evolve runs, or market feeds runs.
-            ("autonomy_diagnostics", _repo_key, lambda: world_model_loader.load_autonomy_diagnostics(REPO_ROOT)),
-            ("market_feeds_snapshot", (_repo_key, 24), lambda: world_model_loader.load_market_feeds_snapshot(REPO_ROOT)),
-            ("lab_oracle_evolve_snapshot", (_repo_key, 24), lambda: world_model_loader.load_lab_oracle_evolve_snapshot(REPO_ROOT)),
-            # `reactions` and `attention` use world_model._cached_mapping, not
-            # swr_get directly, so we prewarm by calling the loader instead.
-        ]
+        _hot_prewarms = _hot_surface_prewarm_specs()
 
         def _prewarm_cached_mapping_loaders() -> None:
             try:
@@ -991,6 +1555,65 @@ def _static_file_under_root(full_path: str) -> Path:
     except ValueError as exc:
         raise HTTPException(status_code=404, detail="Not Found") from exc
     return candidate
+
+
+def _frontend_bundle_missing_response(full_path: str) -> HTMLResponse:
+    route = "/" + full_path.strip("/")
+    escaped_route = html.escape(route if route != "/" else "/station", quote=True)
+    body = f"""<!doctype html>
+<html lang="en" data-zenith-static-fallback="frontend_bundle_missing">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="2">
+    <title>Frontend bundle not ready</title>
+    <style>
+      :root {{
+        color-scheme: dark;
+        background: #050805;
+        color: #d8ded2;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }}
+      body {{
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: start;
+        padding: 32px;
+        background: #050805;
+      }}
+      main {{
+        max-width: 720px;
+        border-top: 1px solid rgba(199, 176, 106, 0.45);
+        padding-top: 18px;
+      }}
+      p {{
+        margin: 10px 0 0;
+        color: #8f9a88;
+        line-height: 1.55;
+      }}
+      code {{
+        color: #c7b06a;
+      }}
+    </style>
+  </head>
+  <body data-zenith-static-state="missing" data-zenith-requested-route="{escaped_route}">
+    <main>
+      <h1>Frontend bundle not ready</h1>
+      <p>The backend is running, but <code>system/server/static/index.html</code> is not available yet.</p>
+      <p>This page will retry automatically so browser opens and render captures do not land on a raw JSON response.</p>
+    </main>
+  </body>
+</html>
+"""
+    return HTMLResponse(
+        content=body,
+        status_code=200,
+        headers={
+            "Cache-Control": "no-store",
+            "X-Zenith-Static-Fallback": "frontend_bundle_missing",
+        },
+    )
 
 # =============================================================================
 # Configuration Helpers
@@ -2898,6 +3521,7 @@ def get_agent_observability_status():
 
 @app.get("/api/agent-observability/events")
 def get_agent_observability_events(
+    request: Request,
     since_seq: int = Query(default=0, ge=0),
     session_id: Optional[str] = Query(default=None),
     source_runtime: Optional[str] = Query(default=None),
@@ -2910,16 +3534,14 @@ def get_agent_observability_events(
     - Guarantee: Filtered by monotonic sequence and stable trace fields; raw payloads remain attached.
     """
     try:
-        return {
-            "events": agent_trace_store.replay(
-                since_seq=since_seq,
-                session_id=session_id,
-                source_runtime=source_runtime,
-                canonical_type=canonical_type,
-                limit=limit,
-            ),
-            "status": agent_trace_store.status(),
-        }
+        return _agent_observability_events_response(
+            since_seq=since_seq,
+            session_id=session_id,
+            source_runtime=source_runtime,
+            canonical_type=canonical_type,
+            limit=limit,
+            request_headers=request.headers,
+        )
     except Exception as exc:
         logger.exception("Agent observability replay failed")
         raise HTTPException(status_code=500, detail=str(exc))
@@ -3043,6 +3665,7 @@ def post_agent_observability_claude_replay(
 
 @app.get("/api/agent-observability/mission-status")
 def get_agent_observability_mission_status(
+    request: Request,
     history_limit: int = Query(default=200, ge=10, le=2000),
 ):
     """
@@ -3057,16 +3680,9 @@ def get_agent_observability_mission_status(
       append-only trace is never mutated by this surface.
     """
     try:
-        try:
-            work_ledger_status = _load_work_ledger_runtime_status(REPO_ROOT)
-        except Exception:  # noqa: BLE001 - reducer must degrade, not fail
-            logger.exception("mission-status work-ledger load failed")
-            work_ledger_status = {}
-        return build_agent_mission_status(
-            store=agent_trace_store,
-            work_ledger_status=work_ledger_status,
-            repo_root=REPO_ROOT,
+        return _agent_observability_mission_status_response(
             history_limit=history_limit,
+            request_headers=request.headers,
         )
     except Exception as exc:
         logger.exception("Agent observability mission-status failed")
@@ -3075,6 +3691,7 @@ def get_agent_observability_mission_status(
 
 @app.get("/api/agent-observability/host-pressure")
 def get_agent_observability_host_pressure(
+    request: Request,
     window_s: int = Query(default=900, ge=30, le=7200),
     requested_workload_class: Optional[str] = Query(default=None),
     operator_override: bool = Query(default=False),
@@ -3087,9 +3704,8 @@ def get_agent_observability_host_pressure(
       deep profilers remain trigger-only outside this endpoint.
     """
     try:
-        return build_progress_pressure_packet_from_store(
-            agent_trace_store,
-            REPO_ROOT,
+        return _load_agent_observability_host_pressure_packet(
+            request_path=str(request.url.path),
             window_s=window_s,
             requested_workload_class=requested_workload_class,
             operator_override=operator_override,
@@ -3121,12 +3737,39 @@ def get_agent_observability_session_yield_control(
         raise HTTPException(status_code=500, detail=str(exc))
 
 
+@app.get("/api/agent-observability/session-message-inbox")
+def get_agent_observability_session_message_inbox(
+    session_id: str = Query(..., min_length=1, max_length=240),
+    limit: int = Query(default=12, ge=1, le=100),
+    scan_limit: int = Query(default=400, ge=1, le=2000),
+    include_sent: bool = Query(default=False),
+):
+    """
+    [ACTION]
+    - Teleology: Surface the disk-backed Work Ledger session-message bus as a
+      session-local inbox, including pending acknowledgements and paste-ready
+      reply commands for Codex-to-Codex and Claude-visible coordination.
+    - Guarantee: Read-only. This endpoint never interrupts, signals, or
+      terminates another agent process.
+    """
+    try:
+        return build_session_message_inbox_surface(
+            session_id=session_id,
+            message_events=_read_jsonl_tail_if_exists(SESSION_MESSAGES_PATH, limit=scan_limit),
+            limit=limit,
+            include_sent=include_sent,
+        )
+    except Exception as exc:
+        logger.exception("Agent observability session-message-inbox failed")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @app.get("/api/agent-observability/animation")
 def get_agent_observability_animation(
     since_seq: int = Query(default=0, ge=0),
     session_id: Optional[str] = Query(default=None),
     source_runtime: Optional[str] = Query(default=None),
-    limit: int = Query(default=600, ge=1, le=2000),
+    limit: int = Query(default=_AGENT_OBSERVABILITY_ANIMATION_DEFAULT_LIMIT, ge=1, le=2000),
     window_ms: int = Query(default=900000, ge=1000, le=86400000),
     include_infrastructure: bool = Query(default=False),
 ):
@@ -3141,7 +3784,7 @@ def get_agent_observability_animation(
     """
     try:
         try:
-            work_ledger_status = _load_work_ledger_runtime_status(REPO_ROOT)
+            work_ledger_status = _load_agent_observability_work_ledger_status(REPO_ROOT)
         except Exception:  # noqa: BLE001 - animation projection must degrade
             logger.exception("animation work-ledger load failed")
             work_ledger_status = {}
@@ -3174,6 +3817,7 @@ def get_agent_observability_animation(
 
 @app.get("/api/agent-observability/animation/delta")
 def get_agent_observability_animation_delta(
+    request: Request,
     since_seq: int = Query(default=0, ge=0),
     session_id: Optional[str] = Query(default=None),
     source_runtime: Optional[str] = Query(default=None),
@@ -3192,33 +3836,15 @@ def get_agent_observability_animation_delta(
       canonical trace ids/sequences where available.
     """
     try:
-        try:
-            work_ledger_status = _load_work_ledger_runtime_status(REPO_ROOT)
-        except Exception:  # noqa: BLE001 - animation projection must degrade
-            logger.exception("animation delta work-ledger load failed")
-            work_ledger_status = {}
-        mission_status = build_agent_mission_status(
-            store=agent_trace_store,
-            work_ledger_status=work_ledger_status,
-            repo_root=REPO_ROOT,
-            history_limit=limit,
-        )
-        return build_agent_observability_animation_delta(
-            events=agent_trace_store.replay(
-                since_seq=since_seq,
-                session_id=session_id,
-                source_runtime=source_runtime,
-                limit=limit,
-            ),
-            status=agent_trace_store.status(),
-            mission_status=mission_status,
-            window_ms=window_ms,
-            include_infrastructure=include_infrastructure,
+        return _agent_observability_animation_delta_response(
+            since_seq=since_seq,
             session_id=session_id,
             source_runtime=source_runtime,
-            since_seq=since_seq,
             limit=limit,
+            window_ms=window_ms,
+            include_infrastructure=include_infrastructure,
             max_ops=max_ops,
+            request_headers=request.headers,
         )
     except Exception as exc:
         logger.exception("Agent observability animation delta failed")
@@ -3254,55 +3880,35 @@ def get_agent_trace_mission_index():
       variant_artifact_index}``. When the support dir is missing (e.g. native
       app never run), returns ``available=False`` plus a hint, never 500.
     """
-    support_dir = Path.home() / "Library" / "Application Support" / "Agent Trace Structurer"
-    mission_path = support_dir / "mission_index.json"
-    variant_path = support_dir / "variant_artifact_index.json"
-    if not mission_path.exists():
-        return {
-            "available": False,
-            "reason": "mission_index_not_present",
-            "source_path": str(mission_path),
-            "hint": (
-                "Run the macOS Agent Trace Structurer app (or "
-                "`./repo-python tools/meta/observability/cli_prompt_trace.py "
-                f"--mission-index -o {mission_path}`) to materialize it."
-            ),
-        }
-    try:
-        index_blob = json.loads(mission_path.read_text(encoding="utf-8"))
-    except Exception as exc:
-        logger.exception("Failed to read mission_index.json")
-        raise HTTPException(status_code=500, detail=f"mission_index.json unreadable: {exc}")
-    variant_artifact_index: Dict[str, Any] = {}
-    if variant_path.exists():
-        try:
-            variant_blob = json.loads(variant_path.read_text(encoding="utf-8"))
-            sessions = variant_blob.get("sessions")
-            if isinstance(sessions, dict):
-                variant_artifact_index = sessions
-        except Exception:
-            logger.exception("Failed to read variant_artifact_index.json")
-            variant_artifact_index = {}
-    return {
-        "available": True,
-        "source_path": str(mission_path),
-        "schema": index_blob.get("schema"),
-        "generated_at": index_blob.get("generated_at"),
-        "cwd": index_blob.get("cwd"),
-        "ambiguity_window_seconds": index_blob.get("ambiguity_window_seconds"),
-        "sort_mode": index_blob.get("sort_mode"),
-        "row_count": index_blob.get("row_count"),
-        "active_count": index_blob.get("active_count"),
-        "inactive_count": index_blob.get("inactive_count"),
-        "hidden_old_count": index_blob.get("hidden_old_count"),
-        "rows": index_blob.get("rows", []),
-        "active_rows": index_blob.get("active_rows", []),
-        "inactive_rows": index_blob.get("inactive_rows", []),
-        "variant_artifact_index": variant_artifact_index,
-    }
+    return _agent_trace_mission_index_response()
 
 
 _SESSION_PROJECTION_CACHE: Dict[str, Dict[str, Any]] = {}
+
+
+def _find_agent_trace_session_row(
+    session_id: str,
+    index_blob: Optional[Mapping[str, Any]] = None,
+) -> Optional[Dict[str, Any]]:
+    if index_blob is None:
+        index_blob = _load_agent_trace_mission_index_bundle()
+    if not index_blob.get("available"):
+        return None
+    rows = index_blob.get("rows", []) or []
+    for row in rows:
+        if isinstance(row, Mapping) and row.get("session_id") == session_id:
+            return dict(row)
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        sid = row.get("session_id") or ""
+        if sid.startswith(session_id) or session_id.startswith(sid):
+            return dict(row)
+    return None
+
+
+def _clear_agent_trace_session_projection_cache_for_tests() -> None:
+    _SESSION_PROJECTION_CACHE.clear()
 
 
 @app.get("/api/agent-trace/session-projection")
@@ -3318,25 +3924,10 @@ def get_agent_trace_session_projection(session_id: str = Query(..., min_length=4
       then shells out to the existing CLI parser. Cached by (path, mtime).
       Returns ``available=false`` when session_file is missing or the CLI fails.
     """
-    support_dir = Path.home() / "Library" / "Application Support" / "Agent Trace Structurer"
-    mission_path = support_dir / "mission_index.json"
-    if not mission_path.exists():
+    mission_index = _load_agent_trace_mission_index_bundle()
+    if not mission_index.get("available"):
         return {"available": False, "session_id": session_id, "reason": "mission_index_not_present"}
-    try:
-        index_blob = json.loads(mission_path.read_text(encoding="utf-8"))
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"mission_index.json unreadable: {exc}")
-    row: Optional[Dict[str, Any]] = None
-    for r in index_blob.get("rows", []) or []:
-        if r.get("session_id") == session_id:
-            row = r
-            break
-    if row is None:
-        for r in index_blob.get("rows", []) or []:
-            sid = r.get("session_id") or ""
-            if sid.startswith(session_id) or session_id.startswith(sid):
-                row = r
-                break
+    row = _find_agent_trace_session_row(session_id, mission_index)
     if row is None:
         return {"available": False, "session_id": session_id, "reason": "session_not_in_mission_index"}
     session_file = row.get("session_file")
@@ -5391,6 +5982,426 @@ def _station_launcher_background_refresh(cache_key: str, event: threading.Event)
         event.set()
 
 
+def _station_alive_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _station_alive_state_label(state: str) -> str:
+    labels = {
+        "populated": "Populated",
+        "correctly_empty": "Correctly empty",
+        "blocked": "Blocked",
+        "dormant": "Dormant",
+        "loading": "Loading",
+        "error": "Error",
+    }
+    return labels.get(state, state.replace("_", " ").title())
+
+
+def _station_alive_state_class(state: str) -> str:
+    classes = {
+        "populated": "populated",
+        "correctly_empty": "positive_empty",
+        "blocked": "blocked",
+        "dormant": "low_signal",
+        "loading": "transient",
+    }
+    return classes.get(state, "unknown")
+
+
+def _station_alive_surface(
+    *,
+    surface_id: str,
+    label: str,
+    route: str,
+    state: str,
+    reason: str,
+    api_refs: List[str],
+    metrics: Optional[Mapping[str, Any]] = None,
+    summary_label: Optional[str] = None,
+    command: Optional[str] = None,
+    reentry_condition: Optional[str] = None,
+    source_mode: str = "summary",
+    payload_route: Optional[str] = None,
+    what_populates: Optional[str] = None,
+    action_label: Optional[str] = None,
+    neighbor_routes: Optional[List[Mapping[str, str]]] = None,
+) -> Dict[str, Any]:
+    primary_action = None
+    if action_label or command:
+        primary_action = {
+            "label": action_label or "Open action",
+            "route": route,
+            "command": command,
+            "payload_route": payload_route,
+        }
+        if command:
+            primary_action["cwd"] = str(REPO_ROOT)
+    state_detail = {
+        "state": state,
+        "state_label": _station_alive_state_label(state),
+        "state_class": _station_alive_state_class(state),
+        "plain_reason": reason,
+        "what_populates": what_populates,
+        "primary_action": primary_action,
+        "reentry_condition": reentry_condition,
+        "source_mode": source_mode,
+        "payload_route": payload_route,
+        "api_refs": list(api_refs),
+        "neighbor_routes": list(neighbor_routes or []),
+    }
+    row = {
+        "surface_id": surface_id,
+        "label": label,
+        "route": route,
+        "state": state,
+        "reason": reason,
+        "api_refs": api_refs,
+        "metrics": dict(metrics or {}),
+        "summary_label": summary_label,
+        "command": command,
+        "reentry_condition": reentry_condition,
+        "source_mode": source_mode,
+        "payload_route": payload_route,
+        "state_detail": state_detail,
+    }
+    return row
+
+
+def _station_alive_cockpit_payload(
+    *,
+    world: Mapping[str, Any],
+    active_phase: Mapping[str, Any],
+    approvals: Mapping[str, Any],
+    generated_at: str,
+) -> Dict[str, Any]:
+    rows: List[Dict[str, Any]] = []
+
+    try:
+        demo_projection = _demo_take_projection_module()
+        build_summary = getattr(demo_projection, "build_take_summary", None)
+        if callable(build_summary):
+            demo_payload = build_summary(repo_root=REPO_ROOT, mode="calibration")
+            demo_source_mode = "count_and_latest_only"
+        else:
+            demo_payload = demo_projection.build_take_cards(
+                repo_root=REPO_ROOT,
+                mode="calibration",
+                limit=1,
+            )
+            demo_source_mode = "legacy_card_fallback"
+        demo_count = _station_alive_int(
+            demo_payload.get("count"),
+            default=len(demo_payload.get("rows") or []),
+        )
+        demo_latest = demo_payload.get("latest") if isinstance(demo_payload.get("latest"), Mapping) else {}
+        demo_metrics: Dict[str, Any] = {"take_count": demo_count}
+        if demo_latest:
+            demo_metrics["latest_take_id"] = demo_latest.get("take_id")
+            demo_metrics["latest_status"] = demo_latest.get("status")
+        rows.append(
+            _station_alive_surface(
+                surface_id="demo_takes",
+                label="Demo takes",
+                route="/station/demo-takes",
+                state="populated" if demo_count > 0 else "dormant",
+                reason=(
+                    "Backend has indexed take packages."
+                    if demo_count > 0
+                    else "No take packages are indexed by the demo-take projection."
+                ),
+                api_refs=["GET /api/demo-takes", "GET /api/demo-takes/frontend-snapshot"],
+                metrics=demo_metrics,
+                summary_label=f"takes {demo_count}",
+                command=(
+                    None
+                    if demo_count > 0
+                    else "POST /api/demo-takes/actions/fake-lifecycle"
+                ),
+                reentry_condition=(
+                    None
+                    if demo_count > 0
+                    else "take_count becomes greater than zero or an explicit demo lifecycle receipt exists"
+                ),
+                source_mode=demo_source_mode,
+                payload_route="/api/demo-takes/frontend-snapshot",
+                what_populates="Take packages under state/dissemination/demo_takes or the demo lifecycle action.",
+                action_label=None if demo_count > 0 else "Generate demo lifecycle",
+                neighbor_routes=[
+                    {"label": "Editor snapshot", "route": "/api/demo-takes/editor-snapshot"},
+                ],
+            )
+        )
+    except Exception as exc:
+        logger.debug("station alive-cockpit demo-takes summary failed: %s", exc)
+        rows.append(
+            _station_alive_surface(
+                surface_id="demo_takes",
+                label="Demo takes",
+                route="/station/demo-takes",
+                state="blocked",
+                reason=f"Demo-take projection failed: {type(exc).__name__}",
+                api_refs=["GET /api/demo-takes"],
+                summary_label="blocked",
+                reentry_condition="demo-take projection route returns a 200 summary",
+                source_mode="count_and_latest_only",
+                payload_route="/api/demo-takes/frontend-snapshot",
+                what_populates="The demo-take projection must return its count/latest summary.",
+                action_label="Retry demo-take summary",
+            )
+        )
+
+    try:
+        imaginations = world_model_loader.load_imaginations_snapshot(REPO_ROOT)
+        imagination_summary = imaginations.get("summary") if isinstance(imaginations, Mapping) else {}
+        imagination_count = _station_alive_int(
+            (imagination_summary or {}).get("imagination_count"),
+            default=len(imaginations.get("rows") or []) if isinstance(imaginations, Mapping) else 0,
+        )
+        rows.append(
+            _station_alive_surface(
+                surface_id="imaginations",
+                label="Imaginations",
+                route="/station/imaginations",
+                state="populated" if imagination_count > 0 else "dormant",
+                reason=(
+                    "Doctrine imagination index is populated."
+                    if imagination_count > 0
+                    else "Imagination index returned no rows."
+                ),
+                api_refs=["GET /api/imaginations"],
+                metrics={"imagination_count": imagination_count},
+                summary_label=f"items {imagination_count}",
+                reentry_condition=(
+                    None
+                    if imagination_count > 0
+                    else "imaginations index contains at least one row"
+                ),
+                source_mode="summary_snapshot",
+                payload_route="/api/imaginations",
+                what_populates="Rows in the doctrine imagination index.",
+                action_label=None if imagination_count > 0 else "Populate imaginations index",
+            )
+        )
+    except Exception as exc:
+        logger.debug("station alive-cockpit imaginations summary failed: %s", exc)
+        rows.append(
+            _station_alive_surface(
+                surface_id="imaginations",
+                label="Imaginations",
+                route="/station/imaginations",
+                state="blocked",
+                reason=f"Imaginations snapshot failed: {type(exc).__name__}",
+                api_refs=["GET /api/imaginations"],
+                summary_label="blocked",
+                reentry_condition="imaginations snapshot route returns a 200 summary",
+                source_mode="summary_snapshot",
+                payload_route="/api/imaginations",
+                what_populates="The imagination snapshot loader must return its summary rows.",
+                action_label="Retry imaginations summary",
+            )
+        )
+
+    market_feeds = world.get("market_feeds") if isinstance(world.get("market_feeds"), Mapping) else {}
+    market_summary = market_feeds.get("summary") if isinstance(market_feeds, Mapping) else {}
+    market_ready_runs = _station_alive_int((market_summary or {}).get("ready_runs"))
+    market_latest_ready = _station_alive_int((market_summary or {}).get("latest_ready_count"))
+    market_feed_runs = _station_alive_int((market_summary or {}).get("feed_runs"))
+    market_blockers = _station_alive_int((market_summary or {}).get("latest_blocker_count"))
+    if market_ready_runs > 0 or market_latest_ready > 0:
+        market_state = "populated"
+        market_reason = "Latest market/finance feed read model is ready."
+    elif market_blockers > 0 or market_feed_runs > 0:
+        market_state = "blocked"
+        market_reason = "Market/finance feed runs exist but no ready feed read model is projected."
+    else:
+        market_state = "dormant"
+        market_reason = "No market/finance feed runs are projected yet."
+    rows.append(
+        _station_alive_surface(
+            surface_id="finance_data",
+            label="Finance data",
+            route="/station/data",
+            state=market_state,
+            reason=market_reason,
+            api_refs=["GET /api/lobby", "GET /api/candidates?has_feeds=true", "GET /api/market/intelligence/latest"],
+            metrics={
+                "feed_runs": market_feed_runs,
+                "ready_runs": market_ready_runs,
+                "latest_ready_count": market_latest_ready,
+                "latest_blocker_count": market_blockers,
+            },
+            summary_label=f"ready {market_ready_runs}/{market_feed_runs}",
+            reentry_condition=(
+                None
+                if market_state == "populated"
+                else "market feed summary reports ready_runs or latest_ready_count greater than zero"
+            ),
+            source_mode="world_model_summary_reused",
+            payload_route="/api/market/intelligence/latest",
+            what_populates="A market feed bundle and ready finance read model in the world-model snapshot.",
+            action_label=None if market_state == "populated" else "Run market feed pipeline",
+            neighbor_routes=[
+                {"label": "Launchpad", "route": "/launchpad"},
+                {"label": "Market intelligence", "route": "/station/market-intelligence"},
+            ],
+        )
+    )
+
+    phase_ref = (
+        str(active_phase.get("phase_id") or active_phase.get("phase_number") or "").strip()
+        or "__active__"
+    )
+    try:
+        phase_cycles = world_model_loader.list_phase_cycles(REPO_ROOT, phase_ref)
+    except Exception as exc:
+        logger.debug("station alive-cockpit phase cycle summary failed: %s", exc)
+        phase_cycles = []
+    phase_cycle_count = len(phase_cycles or [])
+    rows.append(
+        _station_alive_surface(
+            surface_id="phase_cycles",
+            label="Phase cycles",
+            route=f"/station/phase/{phase_ref}",
+            state="populated" if phase_cycle_count > 0 else "dormant",
+            reason=(
+                "Active phase has recorded cycle artifacts."
+                if phase_cycle_count > 0
+                else "Active phase has no recorded cycle artifacts yet."
+            ),
+            api_refs=[f"GET /api/world-model/phase/{phase_ref}/cycles"],
+            metrics={"phase_ref": phase_ref, "cycle_count": phase_cycle_count},
+            summary_label=f"{phase_ref} · cycles {phase_cycle_count}",
+            command="python3 pipeline_advance.py --check-responses",
+            reentry_condition=(
+                None
+                if phase_cycle_count > 0
+                else "cycle_count becomes greater than zero for the active phase"
+            ),
+            source_mode="cycle_index_count",
+            payload_route=f"/api/world-model/phase/{phase_ref}/cycles",
+            what_populates="Cycle artifacts written by the active phase controller.",
+            action_label="Check phase responses",
+            neighbor_routes=[
+                {"label": "Timeline", "route": "/station/timeline"},
+                {"label": "Launchpad", "route": "/launchpad"},
+            ],
+        )
+    )
+
+    lab = world.get("lab_oracle_evolve") if isinstance(world.get("lab_oracle_evolve"), Mapping) else {}
+    lab_summary = lab.get("summary") if isinstance(lab, Mapping) else {}
+    lab_total_runs = _station_alive_int((lab_summary or {}).get("total_runs"))
+    lab_feed_runs = _station_alive_int((lab_summary or {}).get("feed_runs"))
+    lab_feed_ready = _station_alive_int((lab_summary or {}).get("feed_ready_runs"))
+    lab_oracle_runs = _station_alive_int((lab_summary or {}).get("oracle_runs"))
+    lab_evolve_ready = _station_alive_int((lab_summary or {}).get("evolve_ready_runs"))
+    lab_evolve_blocked = _station_alive_int((lab_summary or {}).get("evolve_blocked_runs"))
+    lab_pair_ready = _station_alive_int((lab_summary or {}).get("pair_ready"))
+    lab_pair_blocked = _station_alive_int((lab_summary or {}).get("pair_blocked"))
+    if lab_pair_ready > 0 or lab_evolve_ready > 0 or lab_oracle_runs > 0:
+        lab_state = "populated"
+        lab_reason = "Lab/Oracle/Evolve has oracle or ready evolve artifacts."
+    elif lab_evolve_blocked > 0 or lab_pair_blocked > 0 or (lab_feed_runs > 0 and lab_feed_ready == 0):
+        lab_state = "blocked"
+        lab_reason = "Lab/Oracle/Evolve has feed or evolve artifacts but readiness is blocked."
+    elif lab_total_runs > 0:
+        lab_state = "dormant"
+        lab_reason = "Lab/Oracle/Evolve has runs but no ready oracle/evolve pair yet."
+    else:
+        lab_state = "dormant"
+        lab_reason = "No Lab/Oracle/Evolve runs are projected yet."
+    rows.append(
+        _station_alive_surface(
+            surface_id="lab_oracle_evolve",
+            label="Lab / Oracle / Evolve",
+            route="/station/lab-oracle-evolve",
+            state=lab_state,
+            reason=lab_reason,
+            api_refs=["GET /api/world-model/snapshot"],
+            metrics={
+                "total_runs": lab_total_runs,
+                "feed_runs": lab_feed_runs,
+                "feed_ready_runs": lab_feed_ready,
+                "oracle_runs": lab_oracle_runs,
+                "evolve_ready_runs": lab_evolve_ready,
+                "evolve_blocked_runs": lab_evolve_blocked,
+                "pair_ready": lab_pair_ready,
+                "pair_blocked": lab_pair_blocked,
+            },
+            summary_label=f"oracle {lab_oracle_runs} · pair {lab_pair_ready}/{lab_pair_blocked}",
+            reentry_condition=(
+                None
+                if lab_state == "populated"
+                else "lab_oracle_evolve summary reports oracle_runs, pair_ready, or evolve_ready_runs greater than zero"
+            ),
+            source_mode="world_model_summary_reused",
+            payload_route="/api/world-model/snapshot",
+            what_populates="A market-feed bundle, CP2 prediction artifact, Oracle run, and Evolve readiness pair.",
+            action_label=None if lab_state == "populated" else "Open Lab / Oracle operations",
+            neighbor_routes=[
+                {"label": "Launchpad", "route": "/launchpad"},
+                {"label": "Finance data", "route": "/station/data"},
+            ],
+        )
+    )
+
+    approval_count = _station_alive_int(approvals.get("total_pending"))
+    rows.append(
+        _station_alive_surface(
+            surface_id="approvals",
+            label="Approvals",
+            route="/station/approvals",
+            state="correctly_empty" if approval_count == 0 else "populated",
+            reason=(
+                "Approval inbox is clear."
+                if approval_count == 0
+                else "Approval inbox has pending operator rows."
+            ),
+            api_refs=["GET /api/approvals"],
+            metrics={"total_pending": approval_count},
+            summary_label=f"pending {approval_count}",
+            reentry_condition=(
+                None
+                if approval_count == 0
+                else "pending approvals are decided or intentionally deferred"
+            ),
+            source_mode="world_model_summary_reused",
+            payload_route="/api/approvals",
+            what_populates="Pending approval rows from campaigns, orchestration gates, Type A seats, or factory apply review.",
+            action_label=None if approval_count == 0 else "Open approval inbox",
+        )
+    )
+
+    state_counts: Dict[str, int] = {}
+    for row in rows:
+        state = str(row.get("state") or "unknown")
+        state_counts[state] = state_counts.get(state, 0) + 1
+    status = "ready"
+    if state_counts.get("blocked"):
+        status = "blocked"
+    elif state_counts.get("dormant"):
+        status = "mixed"
+
+    return {
+        "schema": "station_alive_cockpit_v1",
+        "generated_at": generated_at,
+        "status": status,
+        "state_counts": state_counts,
+        "rows": rows,
+        "source_refs": [
+            "tools/meta/dissemination/demo_take_projection.py::build_take_summary",
+            "codex/doctrine/imaginations/_index.json",
+            "system/server/world_model.py::load_lab_oracle_evolve_snapshot",
+            "system/server/world_model.py::list_phase_cycles",
+            "system.server.world_model.list_approvals",
+        ],
+    }
+
+
 def _compute_station_launcher_payload(*, cache_key: str | None = None) -> Dict[str, Any]:
     if cache_key is None:
         cache_key = str(REPO_ROOT.resolve())
@@ -5816,6 +6827,33 @@ def _compute_station_launcher_payload(*, cache_key: str | None = None) -> Dict[s
             }
         )
 
+    try:
+        alive_cockpit = _station_alive_cockpit_payload(
+            world=world,
+            active_phase=active_phase,
+            approvals=approvals,
+            generated_at=generated_at,
+        )
+    except Exception as exc:
+        logger.warning("station launcher alive-cockpit summary failed: %s", exc)
+        alive_cockpit = {
+            "schema": "station_alive_cockpit_v1",
+            "generated_at": generated_at,
+            "status": "blocked",
+            "state_counts": {"blocked": 1},
+            "rows": [
+                _station_alive_surface(
+                    surface_id="alive_cockpit",
+                    label="Alive cockpit",
+                    route="/station",
+                    state="blocked",
+                    reason=f"Alive-cockpit summary failed: {type(exc).__name__}",
+                    api_refs=["GET /api/station/launcher"],
+                    reentry_condition="station launcher alive-cockpit helper returns without exception",
+                )
+            ],
+        }
+
     payload = {
         "schema": "station_launcher_v1",
         "generated_at": generated_at,
@@ -5933,6 +6971,7 @@ def _compute_station_launcher_payload(*, cache_key: str | None = None) -> Dict[s
             "status_counts": dict(approvals.get("status_counts") or {}),
             "top_records": approval_top_records[:3],
         },
+        "alive_cockpit": alive_cockpit,
         "overnight_chain": {
             "chain_id": overnight_chain.get("chain_id"),
             "chain_run_id": overnight_chain.get("chain_run_id"),
@@ -7465,6 +8504,37 @@ def world_model_snapshot():
         raise HTTPException(status_code=500, detail=str(exc))
 
 
+@app.get("/api/world-model/navigation-edges")
+def world_model_navigation_edges():
+    """
+    [ACTION]
+    - Teleology: Serve the TYPED per-edge navigation graph (mechanism, role,
+      label, evidence refs) for PROGRESSIVE Surface Atlas hydration. The default
+      /api/world-model/snapshot is served in first_paint mode and omits this
+      `edges` array for cold-start payload budget, so the shared navigation_graph
+      store carries only untyped adjacency. The Atlas fetches this slice lazily
+      AFTER first paint so selected-node edges can render real relation classes
+      (GROUP / LENS / SHELL / ROUTE / OPEN / overlay) instead of generic fallback
+      adjacency — without rebuilding the whole snapshot or fattening first paint.
+    - Mechanism: Runs the cheap single-file navigation-graph condense in `full`
+      mode behind SWR so repeat fetches are warm.
+    - Reads: state/frontend_navigation/navigation_graph.json.
+    - Writes: None.
+    - Guarantee: Always 200 with {edges:[...], available:bool}; on any failure
+      returns an empty typed slice so the Atlas keeps its first_paint adjacency.
+    """
+    try:
+        return swr_get(
+            "world_model_navigation_edges",
+            str(REPO_ROOT.resolve()),
+            lambda: world_model_loader.load_navigation_graph_edges(REPO_ROOT),
+            ttl_s=60.0,
+        )
+    except Exception as exc:
+        logger.exception("Navigation edges snapshot failed: %s", exc)
+        return {"edges": [], "available": False, "error": str(exc)}
+
+
 @app.get("/api/world-model/ux-responsiveness")
 def world_model_ux_responsiveness():
     """
@@ -7788,6 +8858,7 @@ def world_model_work_ledger_overview(
         REPO_ROOT,
         phase_id=phase_id,
         family_id=family_id,
+        allow_warming_shell=True,
     )
     return record
 
@@ -7930,6 +9001,26 @@ def world_model_frontend_workitem_diagnostics_projection(
     limit: int = Query(12, ge=1, le=40),
 ):
     return world_model_loader.load_frontend_workitem_diagnostics_projection(REPO_ROOT, limit=limit)
+
+
+@app.get("/api/world-model/workitem/control-picture")
+def world_model_workitem_control_picture_projection(
+    subject_id: str | None = Query(None),
+    domain: str | None = Query(None),
+    selector_mode: str = Query("agent", pattern="^(agent|operator)$"),
+    include_signoff: bool = Query(False),
+    include_transaction: bool = Query(True),
+    limit: int = Query(5, ge=1, le=20),
+):
+    return world_model_loader.load_workitem_control_picture_projection(
+        REPO_ROOT,
+        subject_id=subject_id,
+        domain=domain,
+        selector_mode=selector_mode,
+        include_signoff=include_signoff,
+        include_transaction=include_transaction,
+        limit=limit,
+    )
 
 
 @app.get(
@@ -8412,7 +9503,7 @@ def world_model_reactions_state(payload: Dict[str, Any] = Body(...)):
         )
         if target == "engine" and armed:
             _ensure_reactions_engine_running()
-            snapshot = world_model_loader.load_reactions_snapshot(REPO_ROOT)
+            snapshot = world_model_loader.refresh_reactions_snapshot(REPO_ROOT)
         return snapshot
     except ValueError as exc:
         return JSONResponse(status_code=400, content={"ok": False, "error": str(exc)})
@@ -8985,6 +10076,25 @@ def demo_takes_frontend_snapshot(mode: str = Query("calibration", pattern="^(cal
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@app.get("/api/demo-takes/editor-snapshot")
+def demo_takes_editor_snapshot(
+    take_id: Optional[str] = Query(default=None),
+    mode: str = Query("calibration", pattern="^(calibration|production)$"),
+) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    recording_state = _demo_take_recording_state_snapshot()
+    try:
+        return projection.build_editor_snapshot(
+            take_id=take_id,
+            mode=mode,
+            repo_root=REPO_ROOT,
+            active_take=recording_state.get("active_take"),
+            recent_events=recording_state.get("recent_events", []),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.get("/api/demo-takes/sources")
 def demo_takes_sources(mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
@@ -9250,6 +10360,24 @@ def demo_take_source_asset(relative_path: str):
     )
 
 
+@app.get("/api/demo-takes/scene-plans/{plan_id}/asset/{relative_path:path}")
+def demo_take_scene_plan_asset(plan_id: str, relative_path: str):
+    projection = _demo_take_projection_module()
+    try:
+        target = projection.resolve_scene_plan_asset(plan_id, relative_path, repo_root=REPO_ROOT)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if not target.exists() or not target.is_file():
+        raise HTTPException(status_code=404, detail="scene-plan asset not found")
+    return FileResponse(
+        target,
+        media_type=None,
+        stat_result=target.stat(),
+        content_disposition_type="inline",
+        headers={"Accept-Ranges": "bytes"},
+    )
+
+
 @app.get("/api/demo-takes/{take_id}")
 def demo_take_detail(take_id: str, mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
@@ -9307,7 +10435,7 @@ async def serve_spa(full_path: str):
     - Reads: Filesystem under static directory.
     - Writes: None.
     - Fails: File access errors -> propagate.
-    - Guarantee: Returns a FileResponse or a JSON status message.
+    - Guarantee: Returns a FileResponse, an HTML static-bundle fallback, or an API/asset error.
     """
     if full_path == "api" or full_path.startswith("api/"):
         raise HTTPException(status_code=404, detail="Not Found")
@@ -9318,5 +10446,5 @@ async def serve_spa(full_path: str):
         raise HTTPException(status_code=404, detail="Static frontend asset not found")
     index = static_dir / "index.html"
     if not index.exists():
-        return {"status": "backend_ready", "message": "Frontend not built yet."}
+        return _frontend_bundle_missing_response(full_path)
     return FileResponse(str(index))

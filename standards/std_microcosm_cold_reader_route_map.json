@@ -1,8 +1,8 @@
 {
-  "schema_version": "std_microcosm_cold_reader_route_map_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_cold_reader_route_map",
   "kind_id": "microcosm_public_runtime_organ_standard",
-  "status": "accepted_public_runtime_standard",
+  "status": "active",
   "authority_boundary": "public_cold_reader_route_map_projection_only",
   "source_refs": [
     "src/microcosm_core/organs/cold_reader_route_map.py",
@@ -54,6 +54,30 @@
     "runner": "microcosm_core.organs.cold_reader_route_map",
     "fixture_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
     "runtime_bundle_command": "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+  },
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "cold_reader_route_map",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.cold_reader_route_map",
+    "mechanism_ref": "mechanism.cold_reader_route_map.validates_public_first_run_route_map"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "atlas_refs": [
+      "core/organ_atlas.json::organs[organ_id=cold_reader_route_map].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=cold_reader_route_map].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=cold_reader_route_map].code_loci"
+    ],
+    "authority_boundary": "Structured doctrine population binds source-backed capsule, mechanism, and atlas source rows; generated atlas docs remain builder-owned projections.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_cold_reader_route_map_population_has_capsule_and_mechanism_source",
+      "tests/test_cold_reader_route_map.py",
+      "microcosm_core.organs.cold_reader_route_map run",
+      "microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+    ]
   },
   "receipt_contract": {
     "status_field": "status",
@@ -120,7 +144,74 @@
       "exported route-map bundle accepted without route_map, route_receipts, route_policy, manifest, public runtime refs, and runtime validation receipt",
       "cold-reader route map claims product progress from route-list metadata without validating the public first-run command chain",
       "receipt duplicates route or macro body text instead of carrying public refs, verdicts, hashes, and omission boundaries"
-    ]
+    ],
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_cold_reader_route_map_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "validator.microcosm.organs.cold_reader_route_map"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.cold_reader_route_map"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "anti_claim": "Cold-reader route maps validate public first-run route projection only; they do not become route registry authority, expose private sources, authorize release, call providers, mutate source projects, or prove whole-system correctness."
+  "anti_claim": "Cold-reader route maps validate public first-run route projection only; they do not become route registry authority, expose private sources, authorize release, call providers, mutate source projects, or prove whole-system correctness.",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Cold-reader route map instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Cold-reader route map without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_cold_reader_route_map and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_cold_reader_route_map.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.cold_reader_route_map"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.cold_reader_route_map"
+  ],
+  "anti_claims": [
+    "Cold-reader route maps validate public first-run route projection only; they do not become route registry authority, expose private sources, authorize release, call providers, mutate source projects, or prove whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_cold_reader_route_map",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_cold_reader_route_map_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.cold_reader_route_map",
+    "receipt_id": "receipt.microcosm.cold_reader_route_map",
+    "validator_refs": [
+      "validator.microcosm.organs.cold_reader_route_map"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.cold_reader_route_map"
+    ]
+  }
 }

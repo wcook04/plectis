@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = MICROCOSM_ROOT.parent
@@ -30,6 +32,380 @@ def _entry_packet() -> dict:
             encoding="utf-8"
         )
     )
+
+
+def _paper_module_instances() -> list[dict]:
+    return [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted((MICROCOSM_ROOT / "paper_modules").glob("*.json"))
+    ]
+
+
+def _paper_module_coverage() -> dict:
+    return json.loads(
+        (MICROCOSM_ROOT / "core/doctrine_lattice_coverage.json").read_text(
+            encoding="utf-8"
+        )
+    )["paper_module_instance_corpus"]
+
+
+def _paper_module_capsules() -> list[dict]:
+    return json.loads(
+        (MICROCOSM_ROOT / "core/paper_module_capsules.json").read_text(
+            encoding="utf-8"
+        )
+    )["paper_modules"]
+
+
+def _mechanism_sources() -> list[dict]:
+    return json.loads(
+        (MICROCOSM_ROOT / "core/mechanism_sources.json").read_text(
+            encoding="utf-8"
+        )
+    )["mechanisms"]
+
+
+BATCH8_CAPSULE_BINDING_IDS = {
+    "paper_module.batch8_audio_level_rms_port",
+    "paper_module.batch8_compliance_pipeline_capsule",
+    "paper_module.batch8_policy_engines_capsule",
+    "paper_module.batch8_station_surface_atlas_layout_port",
+    "paper_module.batch8_structural_theses_capsule",
+    "paper_module.batch8_tools_tail_primitives_capsule",
+    "paper_module.batch8_validator_checker_capsule",
+}
+
+FORMAL_PROOF_CAPSULE_BINDING_IDS = {
+    "paper_module.corpus_readiness_mathlib_absence_gate",
+    "paper_module.formal_evidence_cell_anchor_resolver",
+    "paper_module.formal_math_lean_proof_witness",
+    "paper_module.formal_math_premise_retrieval",
+    "paper_module.formal_math_readiness_gate",
+    "paper_module.formal_math_verifier_trace_repair_loop",
+    "paper_module.lean_std_premise_index",
+    "paper_module.mathematical_strategy_atlas",
+    "paper_module.proof_diagnostic_evidence_spine",
+    "paper_module.ring2_premise_precision_recall",
+}
+
+AGENT_SAFETY_CAPSULE_BINDING_IDS = {
+    "paper_module.agent_benchmark_integrity_anti_gaming_replay",
+    "paper_module.agent_monitor_redteam_falsification_replay",
+    "paper_module.agent_sabotage_scheming_monitor_replay",
+    "paper_module.agent_sandbox_policy_escape_replay",
+    "paper_module.belief_state_process_reward_replay",
+    "paper_module.indirect_prompt_injection_information_flow_policy_replay",
+    "paper_module.mcp_tool_authority_replay",
+    "paper_module.mechanistic_interpretability_circuit_attribution_replay",
+    "paper_module.sleeper_memory_poisoning_quarantine_replay",
+    "paper_module.spatial_world_model_counterfactual_simulation_replay",
+}
+
+BATCH10_BATCH12_CAPSULE_BINDING_IDS = {
+    "paper_module.batch10_cold_eval_honesty_capsule",
+    "paper_module.batch10_frontend_work_market_cockpit_capsule",
+    "paper_module.batch10_governance_compilers_capsule",
+    "paper_module.batch10_live_source_drift_capsule",
+    "paper_module.batch12_market_dashboard_read_model_capsule",
+    "paper_module.batch12_prediction_market_board_capsule",
+    "paper_module.batch12_release_claim_language_gate",
+}
+
+BATCH5_AUTHORITY_CAPSULE_BINDING_IDS = {
+    "paper_module.batch5_authority_systems_capsule",
+}
+
+BATCH7_ORACLE_SIBLING_CAPSULE_BINDING_IDS = {
+    "paper_module.batch7_oracle_sibling_capsule",
+}
+
+BATCH7_DEMO_TAKE_CONSOLE_CAPSULE_BINDING_IDS = {
+    "paper_module.batch7_demo_take_console_capsule",
+}
+
+BATCH7_BATCH9_PATTERN_CAPSULE_BINDING_IDS = {
+    "paper_module.batch7_macro_engines_capsule",
+    "paper_module.batch7_station_runtime_capsule",
+    "paper_module.batch9_macro_engines_capsule",
+    "paper_module.pattern_assimilation",
+}
+
+WORK_COORDINATION_CAPSULE_BINDING_IDS = {
+    "paper_module.agent_closeout_faithfulness_audit",
+    "paper_module.bridge_phase_continuity_runtime",
+    "paper_module.concurrency_mission_control",
+    "paper_module.durable_agent_work_landing_replay",
+    "paper_module.mission_transaction_work_spine",
+    "paper_module.workstream_driver_recency_coalescer",
+}
+
+DOCTRINE_DIAGNOSTICS_CAPSULE_BINDING_IDS = {
+    "paper_module.cognitive_operator_registry",
+    "paper_module.doctrine_fact_claim_audit",
+    "paper_module.executable_doctrine_grammar",
+    "paper_module.pattern_binding_contract",
+    "paper_module.self_ignorance_coverage_ledger",
+    "paper_module.standards_meta_diagnostics",
+    "paper_module.tool_server_pressure_inventory",
+    "paper_module.undeclared_library_prior_classifier",
+}
+
+VERIFIER_PREDICTION_CAPSULE_BINDING_IDS = {
+    "paper_module.finance_forecast_evaluation_spine",
+    "paper_module.prediction_oracle_reconciliation",
+    "paper_module.proof_derived_governed_mutation_authorization",
+    "paper_module.provider_context_recipe_budget",
+    "paper_module.tactic_portfolio_availability",
+    "paper_module.target_shape_tactic_routing",
+    "paper_module.verifier_lab_execution_spine",
+    "paper_module.verifier_lab_kernel",
+}
+
+AGENT_ROUTE_RUNTIME_CAPSULE_BINDING_IDS = {
+    "paper_module.agent_memory_temporal_conflict_replay",
+    "paper_module.agent_route_observability_runtime",
+    "paper_module.bounded_autonomy_campaign_packet",
+    "paper_module.cold_reader_route_map",
+    "paper_module.engine_room_demo",
+    "paper_module.macro_projection_import_protocol",
+    "paper_module.routing_anti_patterns_registry",
+}
+
+ENGINE_ROOM_LEGACY_REENTRY_LOCI = {
+    "paper_module.engine_room_annex_knowledge_router": (
+        "src/microcosm_core/engine_room/annex_knowledge_router.py"
+    ),
+    "paper_module.engine_room_derived_fact_provider_engine": (
+        "src/microcosm_core/engine_room/derived_fact_provider_engine.py"
+    ),
+    "paper_module.engine_room_egress_self_compliance_gate": (
+        "src/microcosm_core/engine_room/egress_self_compliance_gate.py"
+    ),
+    "paper_module.engine_room_lean_proof_search_lab": (
+        "src/microcosm_core/engine_room/lean_proof_search_lab.py"
+    ),
+    "paper_module.engine_room_navigation_fitness_benchmark": (
+        "src/microcosm_core/engine_room/navigation_fitness_benchmark.py"
+    ),
+}
+
+ENGINE_ROOM_LEGACY_VALIDATION_TESTS = {
+    "paper_module.engine_room_annex_knowledge_router": (
+        "tests/test_engine_room_annex_knowledge_router.py"
+    ),
+    "paper_module.engine_room_derived_fact_provider_engine": (
+        "tests/test_engine_room_derived_fact_provider_engine.py"
+    ),
+    "paper_module.engine_room_egress_self_compliance_gate": (
+        "tests/test_engine_room_egress_self_compliance_gate.py"
+    ),
+    "paper_module.engine_room_lean_proof_search_lab": (
+        "tests/test_engine_room_lean_proof_search_lab.py"
+    ),
+    "paper_module.engine_room_navigation_fitness_benchmark": (
+        "tests/test_engine_room_navigation_fitness_benchmark.py"
+    ),
+}
+
+NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI = {
+    "paper_module.batch7_secondary_runtime_capsule": (
+        "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py"
+    ),
+    "paper_module.batch7_zenith_macos_capsule": (
+        "src/microcosm_core/organs/batch7_zenith_macos_capsule.py"
+    ),
+    "paper_module.first_screen_composition_root": (
+        "src/microcosm_core/first_screen_composition.py"
+    ),
+    "paper_module.microcosm_axiom_substrate": (
+        "src/microcosm_core/validators/axiom_support_cover.py"
+    ),
+}
+
+LEGACY_REENTRY_LOCI = {
+    **ENGINE_ROOM_LEGACY_REENTRY_LOCI,
+    **NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI,
+}
+
+
+def _coverage_legacy_ids() -> set[str]:
+    coverage = _paper_module_coverage()
+    coverage_legacy_ids = set(coverage["legacy_only_ids"])
+    assert coverage_legacy_ids == set(coverage["required_subject_gap_ids"])
+    assert coverage["legacy_only_count"] == len(coverage_legacy_ids)
+    return coverage_legacy_ids
+
+
+def _legacy_instance_rows() -> dict[str, dict]:
+    return {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["paper_module_payload"]["source_authority"]
+        == "legacy_markdown_projection"
+    }
+
+
+def _skip_when_legacy_projection_drifted() -> set[str]:
+    coverage_legacy_ids = _coverage_legacy_ids()
+    legacy_ids = set(_legacy_instance_rows())
+    if legacy_ids != coverage_legacy_ids:
+        pytest.skip(
+            "legacy paper-module generated sidecars are not synced to "
+            "coverage legacy_only_ids; worklist detail assertions are "
+            "deferred to the sidecar settlement lane"
+        )
+    return coverage_legacy_ids
+
+JSON_CAPSULE_BINDING_HEADING = "## JSON Capsule Binding"
+CLAIM_CEILING_HEADING = "## Claim Ceiling"
+PRIOR_ART_GROUNDING_HEADING = "## Prior Art Grounding"
+VALIDATION_RECEIPT_PATH_HEADING = "## Validation Receipt Path"
+READER_BOUNDARY_SECTION_HEADINGS = (
+    "## Reader Evidence Routing",
+    "## Reader Proof Boundary",
+    "## Public Site Availability Boundary",
+    "## Public-Safe Body Handling",
+)
+
+
+def _assert_json_capsule_binding_heading(markdown: str, row_id: str) -> None:
+    assert JSON_CAPSULE_BINDING_HEADING in markdown.splitlines(), row_id
+
+
+def _heading_count(markdown: str, heading: str) -> int:
+    return sum(1 for line in markdown.splitlines() if line == heading)
+
+
+def test_paper_module_reader_boundary_sections_are_not_duplicated() -> None:
+    for row in _paper_module_instances():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+
+        for heading in READER_BOUNDARY_SECTION_HEADINGS:
+            assert _heading_count(markdown, heading) <= 1, (
+                row["id"],
+                heading,
+            )
+
+
+def test_paper_module_json_capsule_binding_sections_are_present_once() -> None:
+    missing: list[str] = []
+    duplicated: list[tuple[str, int]] = []
+
+    for row in _paper_module_instances():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        heading_count = _heading_count(markdown, JSON_CAPSULE_BINDING_HEADING)
+        if heading_count == 0:
+            missing.append(row["id"])
+        elif heading_count > 1:
+            duplicated.append((row["id"], heading_count))
+
+    assert missing == []
+    assert duplicated == []
+
+
+def test_paper_module_claim_ceiling_sections_are_present_once() -> None:
+    missing: list[str] = []
+    duplicated: list[tuple[str, int]] = []
+
+    for row in _paper_module_instances():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        heading_count = _heading_count(markdown, CLAIM_CEILING_HEADING)
+        if heading_count == 0:
+            missing.append(row["id"])
+        elif heading_count > 1:
+            duplicated.append((row["id"], heading_count))
+
+    assert missing == []
+    assert duplicated == []
+
+
+def test_paper_module_grounding_and_receipt_sections_are_present_once() -> None:
+    missing: list[tuple[str, str]] = []
+    duplicated: list[tuple[str, str, int]] = []
+
+    for row in _paper_module_instances():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+
+        for heading in (
+            PRIOR_ART_GROUNDING_HEADING,
+            VALIDATION_RECEIPT_PATH_HEADING,
+        ):
+            heading_count = _heading_count(markdown, heading)
+            if heading_count == 0:
+                missing.append((row["id"], heading))
+            elif heading_count > 1:
+                duplicated.append((row["id"], heading, heading_count))
+
+    assert missing == []
+    assert duplicated == []
+
+
+def test_paper_module_json_instances_publish_source_and_validator_refs() -> None:
+    missing_source_refs: list[str] = []
+    missing_validator_refs: list[str] = []
+
+    for row in _paper_module_instances():
+        if not row["source_refs"]:
+            missing_source_refs.append(row["id"])
+        if not row["validator_refs"]:
+            missing_validator_refs.append(row["id"])
+
+    assert missing_source_refs == []
+    assert missing_validator_refs == []
+
+
+def test_json_capsule_organ_subjects_bind_matching_mechanism_subjects() -> None:
+    mechanism_by_organ: dict[str, list[str]] = {}
+    for mechanism in _mechanism_sources():
+        runs_in = mechanism.get("runs_in") or []
+        if len(runs_in) == 1:
+            mechanism_by_organ.setdefault(runs_in[0], []).append(mechanism["id"])
+
+    missing: dict[str, list[str]] = {}
+    stale_notes: list[str] = []
+    for capsule in _paper_module_capsules():
+        if capsule.get("source_authority") != "json_capsule":
+            continue
+        subjects = capsule.get("subjects") or []
+        organ_refs = [
+            subject["ref"]
+            for subject in subjects
+            if subject.get("kind") == "organ"
+        ]
+        mechanism_refs = {
+            subject["ref"]
+            for subject in subjects
+            if subject.get("kind") == "mechanism"
+        }
+        expected = [
+            mechanism_id
+            for organ_ref in organ_refs
+            if organ_ref in mechanism_by_organ
+            for mechanism_id in mechanism_by_organ[organ_ref]
+        ]
+        absent = [
+            mechanism_id
+            for mechanism_id in expected
+            if mechanism_id not in mechanism_refs
+        ]
+        if absent:
+            missing[capsule["id"]] = absent
+        if (
+            absent
+            or any(mechanism_id in mechanism_refs for mechanism_id in expected)
+        ) and "no mechanism subject is named" in capsule.get("strangler_note", ""):
+            stale_notes.append(capsule["id"])
+
+    assert missing == {}
+    assert stale_notes == []
 
 
 def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
@@ -681,6 +1057,887 @@ def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
     assert roles["route_governance_support"] == contract[
         "supporting_lattice_modules"
     ]
+
+
+def test_batch8_capsule_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH8_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH8_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "Atlas card is linked" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_formal_proof_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in FORMAL_PROOF_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == FORMAL_PROOF_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert payload["generated_projections"]["atlas_card"]["status"] in {
+            "blocked_until_organ_atlas_owner_lane_binds_edges",
+            "linked_from_capsule_edges",
+        }, row["id"]
+
+
+def test_agent_safety_replay_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in AGENT_SAFETY_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == AGENT_SAFETY_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert payload["generated_projections"]["atlas_card"]["status"] in {
+            "blocked_until_organ_atlas_owner_lane_binds_edges",
+            "linked_from_capsule_edges",
+        }, row["id"]
+
+
+def test_batch10_batch12_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH10_BATCH12_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH10_BATCH12_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_batch5_authority_paper_module_explains_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH5_AUTHORITY_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH5_AUTHORITY_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown.lower(), row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_batch7_oracle_sibling_paper_module_explains_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH7_ORACLE_SIBLING_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH7_ORACLE_SIBLING_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown.lower(), row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "blocked_until_organ_atlas_owner_lane_binds_edges"
+        ), row["id"]
+
+
+def test_batch7_demo_take_console_paper_module_explains_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH7_DEMO_TAKE_CONSOLE_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH7_DEMO_TAKE_CONSOLE_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown.lower(), row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert "organ-atlas owner lane" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "blocked_until_organ_atlas_owner_lane_binds_edges"
+        ), row["id"]
+
+
+def test_batch7_batch9_pattern_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in BATCH7_BATCH9_PATTERN_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == BATCH7_BATCH9_PATTERN_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_work_coordination_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in WORK_COORDINATION_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == WORK_COORDINATION_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert payload["generated_projections"]["atlas_card"]["status"] in {
+            "blocked_until_organ_atlas_binding_lands",
+            "linked_from_capsule_edges",
+        }, row["id"]
+
+
+def test_doctrine_diagnostics_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in DOCTRINE_DIAGNOSTICS_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == DOCTRINE_DIAGNOSTICS_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_verifier_prediction_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in VERIFIER_PREDICTION_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == VERIFIER_PREDICTION_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_agent_route_runtime_paper_modules_explain_json_capsule_binding() -> None:
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in AGENT_ROUTE_RUNTIME_CAPSULE_BINDING_IDS
+    }
+
+    assert set(rows) == AGENT_ROUTE_RUNTIME_CAPSULE_BINDING_IDS
+
+    for row in rows.values():
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert payload["source_authority"] == "json_capsule", row["id"]
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert "generated Atlas projection" in markdown, row["id"]
+        assert "authority ceiling" in markdown, row["id"]
+        assert "proof boundary" in markdown, row["id"]
+        assert "validation receipts" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "linked_from_capsule_edges"
+        ), row["id"]
+
+
+def test_all_json_capsule_paper_modules_publish_minimum_binding_contract() -> None:
+    rows = [
+        row
+        for row in _paper_module_instances()
+        if row["paper_module_payload"]["source_authority"] == "json_capsule"
+    ]
+
+    assert rows
+
+    for row in rows:
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+        source_ref = payload["source_row"]["source_ref"]
+
+        _assert_json_capsule_binding_heading(markdown, row["id"])
+        assert source_ref in markdown, row["id"]
+        assert "source_authority: json_capsule" in markdown, row["id"]
+        assert "This Markdown is a reader projection" in markdown, row["id"]
+        assert "generated Mermaid projection" in markdown, row["id"]
+        assert (
+            "generated Atlas projection" in markdown
+            or "Atlas card is linked" in markdown
+        ), row["id"]
+        assert "authority ceiling" in compact_markdown.lower(), row["id"]
+        assert "proof boundary" in compact_markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "available_from_capsule_edges"
+        ), row["id"]
+
+
+def test_generated_projection_status_and_edges_match_source_authority() -> None:
+    coverage = _paper_module_coverage()
+    capsule_rows = []
+    legacy_rows = []
+
+    for row in _paper_module_instances():
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        edges = row["relationships"]["edges"]
+        subject_edges = [
+            edge
+            for edge in edges
+            if edge["relation_id"] == "paper_module.explains.organ_or_mechanism"
+        ]
+
+        if payload["source_authority"] == "json_capsule":
+            capsule_rows.append(row)
+
+            assert row["subjects"], row["id"]
+            assert subject_edges, row["id"]
+            assert len(edges) >= len(row["subjects"]), row["id"]
+            assert projections["mermaid"] == {
+                "generated": True,
+                "projection_id": f"{row['id']}.mermaid",
+                "status": "available_from_capsule_edges",
+            }, row["id"]
+            assert projections["atlas_card"]["generated"] is True, row["id"]
+            assert projections["atlas_card"]["projection_id"].startswith(
+                "organ_atlas."
+            ), row["id"]
+            assert projections["atlas_card"]["status"] in {
+                "linked_from_capsule_edges",
+                "linked_from_capsule_edges_after_atlas_binding",
+                "blocked_until_organ_atlas_owner_lane_binds_edges",
+                "blocked_until_organ_atlas_binding_lands",
+                "blocked_until_core_organ_atlas_claim_clears",
+            }, row["id"]
+        elif payload["source_authority"] == "legacy_markdown_projection":
+            legacy_rows.append(row)
+
+            assert row["subjects"] == [], row["id"]
+            assert edges == [], row["id"]
+            assert projections["mermaid"] == {
+                "generated": False,
+                "projection_id": f"{row['id']}.mermaid",
+                "status": "blocked_required_subject_gap",
+            }, row["id"]
+            assert projections["atlas_card"]["generated"] is False, row["id"]
+            assert projections["atlas_card"]["status"] == (
+                "blocked_required_subject_gap"
+            ), row["id"]
+        else:
+            raise AssertionError(row["id"])
+
+    assert len(capsule_rows) == coverage["json_capsule_backed_count"]
+    assert len(legacy_rows) == coverage["legacy_only_count"]
+    assert {row["id"] for row in legacy_rows} == set(
+        coverage["required_subject_gap_ids"]
+    )
+
+
+def test_legacy_reentry_worklist_is_coverage_driven() -> None:
+    legacy_ids = set(_legacy_instance_rows())
+    coverage_legacy_ids = _coverage_legacy_ids()
+
+    assert legacy_ids == coverage_legacy_ids
+
+
+def test_coverage_legacy_rows_publish_cold_reader_boundary_markers() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    rows = {row["id"]: row for row in _paper_module_instances()}
+
+    for row_id in sorted(coverage_legacy_ids):
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert row["subjects"] == [], row_id
+        assert row["relationships"]["edges"] == [], row_id
+        assert projections["mermaid"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert projections["atlas_card"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert "## JSON Capsule Boundary" in markdown, row_id
+        assert "## Reader Proof Boundary" in markdown, row_id
+        assert "## Capsule Re-entry Packet" in markdown, row_id
+        assert "paper_module_payload.source_authority" in markdown, row_id
+        assert "legacy_markdown_projection" in markdown, row_id
+        assert "Mermaid `blocked_required_subject_gap`" in markdown, row_id
+        assert "Atlas `blocked_required_subject_gap`" in markdown, row_id
+        assert "`core/paper_module_capsules.json`" in markdown, row_id
+        assert "scripts/build_doctrine_projection.py" in markdown, row_id
+        assert "--write-paper-module-corpus" in markdown, row_id
+        assert "must not invent a subject row yet" in compact_markdown, row_id
+        assert "proof boundary" in compact_markdown, row_id
+        assert "exact re-entry condition" in compact_markdown, row_id
+        assert "without claiming JSON capsule authority" in compact_markdown, row_id
+
+
+def test_legacy_paper_modules_explain_json_capsule_boundary() -> None:
+    _skip_when_legacy_projection_drifted()
+    legacy_rows = list(_legacy_instance_rows().values())
+
+    assert legacy_rows
+
+    for row in legacy_rows:
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+
+        assert "## JSON Capsule Boundary" in markdown, row["id"]
+        assert "legacy Markdown projection" in markdown, row["id"]
+        assert "JSON-capsule-backed" in markdown, row["id"]
+        assert "`core/paper_module_capsules.json`" in markdown, row["id"]
+        assert "scripts/build_doctrine_projection.py" in markdown, row["id"]
+        assert "--write-paper-module-corpus" in markdown, row["id"]
+        assert "Mermaid" in markdown, row["id"]
+        assert "Atlas" in markdown, row["id"]
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "blocked_required_subject_gap"
+        ), row["id"]
+
+
+def test_all_legacy_subject_gap_modules_publish_reentry_packets() -> None:
+    _skip_when_legacy_projection_drifted()
+    legacy_rows = list(_legacy_instance_rows().values())
+
+    for row in legacy_rows:
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        mermaid_status = projections["mermaid"]["status"]
+        atlas_status = projections["atlas_card"]["status"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+        source_locus = LEGACY_REENTRY_LOCI[row["id"]]
+
+        assert "## JSON Capsule Boundary" in markdown, row["id"]
+        assert "## Capsule Re-entry Packet" in markdown, row["id"]
+        assert mermaid_status == "blocked_required_subject_gap", row["id"]
+        assert atlas_status == "blocked_required_subject_gap", row["id"]
+        assert "paper_module_payload.source_authority:" in compact_markdown, (
+            row["id"]
+        )
+        assert "legacy_markdown_projection" in compact_markdown, row["id"]
+        assert f"Mermaid `{mermaid_status}`" in markdown, row["id"]
+        assert f"Atlas `{atlas_status}`" in markdown, row["id"]
+        assert any(
+            f"{label}: `{source_locus}`" in compact_markdown
+            for label in ("resolved code locus", "resolved source locus")
+        ), row["id"]
+        assert "must not invent a subject row yet" in compact_markdown, row["id"]
+        assert f"append `{row['id']}` to" in compact_markdown, row["id"]
+        assert "`core/paper_module_capsules.json`" in markdown, row["id"]
+        assert "--write-paper-module-corpus" in markdown, row["id"]
+        assert "verify" in compact_markdown, row["id"]
+        assert "Mermaid" in compact_markdown, row["id"]
+        assert "Atlas" in compact_markdown, row["id"]
+        assert "aggregate doctrine-lattice coverage" in markdown, row["id"]
+
+
+def test_legacy_projection_rows_sync_machine_boundary_with_markdown() -> None:
+    _skip_when_legacy_projection_drifted()
+    legacy_rows = list(_legacy_instance_rows().values())
+
+    for row in legacy_rows:
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split()).lower()
+        source_ref = payload["source_row"]["source_ref"]
+
+        assert row["authority_boundary"] == (
+            "legacy_markdown_indexed_as_governed_json_import_without_"
+            "capsule_authority"
+        ), row["id"]
+        assert source_ref == payload["legacy_markdown_projection"], row["id"]
+        assert source_ref in markdown, row["id"]
+        assert (
+            payload["projection_contract"]["authority_flip_status"]
+            == "not_flipped"
+        ), row["id"]
+        assert payload["projection_contract"]["markdown_status"] == (
+            "legacy_import_projection_until_roundtrip_builder"
+        ), row["id"]
+        assert payload["support_contract"]["support_status"] == (
+            "legacy_markdown_path_indexed_required_subject_gap"
+        ), row["id"]
+        assert projections["markdown"]["generated"] is False, row["id"]
+        assert projections["markdown"]["path"] == payload[
+            "legacy_markdown_projection"
+        ], row["id"]
+        assert projections["markdown"]["status"] == (
+            "legacy_markdown_projection_not_generated_from_json"
+        ), row["id"]
+        assert "proof boundary" in compact_markdown, row["id"]
+
+
+def test_legacy_reentry_source_loci_resolve_on_disk() -> None:
+    _skip_when_legacy_projection_drifted()
+    rows = _legacy_instance_rows()
+
+    for row_id in sorted(rows):
+        source_locus = LEGACY_REENTRY_LOCI[row_id]
+        assert not source_locus.startswith("/"), row_id
+
+        source_path = MICROCOSM_ROOT / source_locus
+        assert source_path.is_file(), row_id
+        assert source_path.read_text(encoding="utf-8").strip(), row_id
+
+
+def test_engine_room_legacy_modules_publish_capsule_reentry_packets() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    expected_ids = set(ENGINE_ROOM_LEGACY_REENTRY_LOCI) & coverage_legacy_ids
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in expected_ids
+    }
+
+    assert set(rows) == expected_ids
+
+    for row_id in sorted(expected_ids):
+        source_locus = ENGINE_ROOM_LEGACY_REENTRY_LOCI[row_id]
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert "## Capsule Re-entry Packet" in markdown, row_id
+        assert source_locus in markdown, row_id
+        assert "paper_module_payload.source_authority" in markdown, row_id
+        assert "legacy_markdown_projection" in markdown, row_id
+        assert "Mermaid `blocked_required_subject_gap`" in markdown, row_id
+        assert "Atlas `blocked_required_subject_gap`" in markdown, row_id
+        assert "must not invent a subject row yet" in compact_markdown, row_id
+        assert f"append `{row_id}` to" in compact_markdown, row_id
+        assert "--write-paper-module-corpus" in markdown, row_id
+        assert "aggregate doctrine-lattice coverage" in markdown, row_id
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "blocked_required_subject_gap"
+        ), row_id
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "blocked_required_subject_gap"
+        ), row_id
+
+
+def test_engine_room_legacy_modules_publish_reader_proof_boundaries() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    expected_ids = set(ENGINE_ROOM_LEGACY_REENTRY_LOCI) & coverage_legacy_ids
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in expected_ids
+    }
+
+    assert set(rows) == expected_ids
+
+    for row_id in sorted(expected_ids):
+        source_locus = ENGINE_ROOM_LEGACY_REENTRY_LOCI[row_id]
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert "## Reader Proof Boundary" in markdown, row_id
+        assert (
+            "public reader projection over a staged Engine Room exercise"
+            in compact_markdown
+        ), row_id
+        assert (
+            "`paper_module_payload.source_authority: "
+            "legacy_markdown_projection`"
+        ) in markdown, row_id
+        assert projections["mermaid"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert projections["atlas_card"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert (
+            "Mermaid and Atlas projections must remain "
+            "`blocked_required_subject_gap`"
+        ) in compact_markdown, row_id
+        assert "current source locus" in compact_markdown, row_id
+        assert source_locus in markdown, row_id
+        assert "exact re-entry condition" in compact_markdown, row_id
+        assert "without claiming JSON capsule authority" in compact_markdown, row_id
+
+
+def test_engine_room_legacy_modules_publish_validation_receipt_paths() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    expected_ids = set(ENGINE_ROOM_LEGACY_VALIDATION_TESTS) & coverage_legacy_ids
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in expected_ids
+    }
+
+    assert set(rows) == expected_ids
+
+    for row_id in sorted(expected_ids):
+        test_path = ENGINE_ROOM_LEGACY_VALIDATION_TESTS[row_id]
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert "## Validation Receipt Path" in markdown, row_id
+        assert test_path in markdown, row_id
+        assert "--check-paper-module-corpus" in markdown, row_id
+        assert "reader-verifiable receipt" in compact_markdown, row_id
+        assert "does not flip Mermaid/Atlas status" in compact_markdown, row_id
+        assert "create capsule authority" in compact_markdown, row_id
+        assert projections["mermaid"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert projections["atlas_card"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+
+
+def test_non_engine_room_legacy_modules_publish_capsule_reentry_packets() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    expected_ids = set(NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI) & coverage_legacy_ids
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in expected_ids
+    }
+
+    assert set(rows) == expected_ids
+
+    for row_id in sorted(expected_ids):
+        source_locus = NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI[row_id]
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert "## Capsule Re-entry Packet" in markdown, row_id
+        assert source_locus in markdown, row_id
+        assert "paper_module_payload.source_authority" in markdown, row_id
+        assert "legacy_markdown_projection" in markdown, row_id
+        assert "Mermaid `blocked_required_subject_gap`" in markdown, row_id
+        assert "Atlas `blocked_required_subject_gap`" in markdown, row_id
+        assert "must not invent a subject row yet" in compact_markdown, row_id
+        assert f"append `{row_id}` to" in compact_markdown, row_id
+        assert "--write-paper-module-corpus" in markdown, row_id
+        assert "aggregate doctrine-lattice coverage" in markdown, row_id
+        assert (
+            payload["generated_projections"]["mermaid"]["status"]
+            == "blocked_required_subject_gap"
+        ), row_id
+        assert (
+            payload["generated_projections"]["atlas_card"]["status"]
+            == "blocked_required_subject_gap"
+        ), row_id
+
+
+def test_non_engine_room_legacy_modules_publish_reader_proof_boundaries() -> None:
+    coverage_legacy_ids = _skip_when_legacy_projection_drifted()
+    expected_ids = set(NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI) & coverage_legacy_ids
+    rows = {
+        row["id"]: row
+        for row in _paper_module_instances()
+        if row["id"] in expected_ids
+    }
+
+    assert set(rows) == expected_ids
+
+    for row_id in sorted(expected_ids):
+        source_locus = NON_ENGINE_ROOM_LEGACY_REENTRY_LOCI[row_id]
+        row = rows[row_id]
+        payload = row["paper_module_payload"]
+        projections = payload["generated_projections"]
+        markdown_path = MICROCOSM_ROOT / payload["legacy_markdown_projection"]
+        markdown = markdown_path.read_text(encoding="utf-8")
+        compact_markdown = " ".join(markdown.split())
+
+        assert payload["source_authority"] == "legacy_markdown_projection", row_id
+        assert "## Reader Proof Boundary" in markdown, row_id
+        assert (
+            "public reader projection over a legacy Microcosm paper-module row"
+            in compact_markdown
+        ), row_id
+        assert (
+            "`paper_module_payload.source_authority: "
+            "legacy_markdown_projection`"
+        ) in markdown, row_id
+        assert projections["mermaid"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert projections["atlas_card"]["status"] == (
+            "blocked_required_subject_gap"
+        ), row_id
+        assert (
+            "Mermaid and Atlas projections must remain "
+            "`blocked_required_subject_gap`"
+        ) in compact_markdown, row_id
+        assert "current source locus" in compact_markdown, row_id
+        assert "generated row source ref" in compact_markdown, row_id
+        assert source_locus in markdown, row_id
+        assert "exact re-entry condition" in compact_markdown, row_id
+        assert "without claiming JSON capsule authority" in compact_markdown, row_id
 
 
 def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() -> None:

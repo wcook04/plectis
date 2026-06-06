@@ -20,13 +20,13 @@
           "evidence_ref": "edges/01_a.json",
           "source": "feat_public_001",
           "target": "feat_public_002",
-          "weight": 0.45
+          "weight": 0.47
         },
         {
           "evidence_ref": "edges/01_b.json",
           "source": "feat_public_002",
           "target": "feat_public_003",
-          "weight": 0.23
+          "weight": 0.19
         }
       ],
       "graph_nodes": [
@@ -83,13 +83,13 @@
           "evidence_ref": "edges/02_a.json",
           "source": "feat_public_002",
           "target": "feat_public_003",
-          "weight": 0.48
+          "weight": 0.62
         },
         {
           "evidence_ref": "edges/02_b.json",
           "source": "feat_public_003",
           "target": "feat_public_004",
-          "weight": 0.25
+          "weight": 0.28
         }
       ],
       "graph_nodes": [
@@ -146,13 +146,13 @@
           "evidence_ref": "edges/03_a.json",
           "source": "feat_public_003",
           "target": "feat_public_004",
-          "weight": 0.51
+          "weight": 0.41
         },
         {
           "evidence_ref": "edges/03_b.json",
           "source": "feat_public_004",
           "target": "feat_public_005",
-          "weight": 0.27
+          "weight": 0.36
         }
       ],
       "graph_nodes": [
@@ -209,13 +209,13 @@
           "evidence_ref": "edges/04_a.json",
           "source": "feat_public_004",
           "target": "feat_public_005",
-          "weight": 0.54
+          "weight": 0.58
         },
         {
           "evidence_ref": "edges/04_b.json",
           "source": "feat_public_005",
           "target": "feat_public_006",
-          "weight": 0.29
+          "weight": 0.17
         }
       ],
       "graph_nodes": [
@@ -272,13 +272,13 @@
           "evidence_ref": "edges/05_a.json",
           "source": "feat_public_005",
           "target": "feat_public_006",
-          "weight": 0.57
+          "weight": 0.33
         },
         {
           "evidence_ref": "edges/05_b.json",
           "source": "feat_public_006",
           "target": "feat_public_001",
-          "weight": 0.31
+          "weight": 0.52
         }
       ],
       "graph_nodes": [
@@ -335,13 +335,13 @@
           "evidence_ref": "edges/06_a.json",
           "source": "feat_public_006",
           "target": "feat_public_001",
-          "weight": 0.6
+          "weight": 0.69
         },
         {
           "evidence_ref": "edges/06_b.json",
           "source": "feat_public_001",
           "target": "feat_public_002",
-          "weight": 0.33
+          "weight": 0.24
         }
       ],
       "graph_nodes": [
@@ -379,5 +379,55 @@
       "unverifiable_feature_name_claim": false
     }
   ],
+  "toy_transformer_runtime": {
+    "embeddings": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "expected_top_feature_by_ablation": "toy_hidden_feature_1",
+    "expected_top_feature_by_attribution": "toy_hidden_feature_1",
+    "layer1": [
+      [
+        0.8,
+        -0.4,
+        0.2
+      ],
+      [
+        0.1,
+        0.7,
+        -0.6
+      ]
+    ],
+    "layer2": [
+      [
+        0.6,
+        -0.2
+      ],
+      [
+        -0.1,
+        0.9
+      ],
+      [
+        0.4,
+        0.1
+      ]
+    ],
+    "target_logit_index": 1,
+    "token_ids": [
+      0,
+      1,
+      2
+    ]
+  },
   "schema_version": "mechanistic_interpretability_attribution_replays_v1"
 }

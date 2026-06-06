@@ -135,6 +135,95 @@ def test_pattern_binding_append_tree_files_streams_without_path_rglob(
     ]
 
 
+def test_pattern_binding_tree_walk_recurses_before_consuming_root_sibling(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    bundle_root = tmp_path / "bundle"
+    nested_opened = {"value": False}
+
+    class FakeEntry:
+        def __init__(self, name: str, *, is_dir: bool = False, is_file: bool = False) -> None:
+            self.name = name
+            self._is_dir = is_dir
+            self._is_file = is_file
+
+        def is_dir(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_dir
+
+        def is_file(self, *, follow_symlinks: bool = True) -> bool:
+            return self._is_file
+
+    class FakeScandir:
+        def __init__(self, path: Path, entries: list[FakeEntry]) -> None:
+            self.path = path
+            self.entries = entries
+
+        def __enter__(self) -> "FakeScandir":
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def __iter__(self) -> Any:
+            for index, entry in enumerate(self.entries):
+                if self.path == bundle_root and index == 1 and not nested_opened["value"]:
+                    raise AssertionError("tree walk should recurse before pulling root siblings")
+                yield entry
+
+    def fake_scandir(path: Path) -> FakeScandir:
+        path = Path(path)
+        if path == bundle_root:
+            return FakeScandir(
+                path,
+                [
+                    FakeEntry("source_modules", is_dir=True),
+                    FakeEntry("bundle_manifest.json", is_file=True),
+                ],
+            )
+        if path == bundle_root / "source_modules":
+            nested_opened["value"] = True
+            return FakeScandir(path, [FakeEntry("pattern_runtime.py", is_file=True)])
+        raise AssertionError(f"unexpected scandir path: {path}")
+
+    class FakeOs:
+        scandir = staticmethod(fake_scandir)
+
+    monkeypatch.setattr(pattern_binding, "os", FakeOs)
+
+    refs = [
+        path.relative_to(bundle_root).as_posix()
+        for path in pattern_binding._iter_tree_files(bundle_root)
+    ]
+
+    assert refs == ["source_modules/pattern_runtime.py", "bundle_manifest.json"]
+
+
+def test_pattern_binding_append_tree_files_skips_symlinked_files(
+    tmp_path: Path,
+) -> None:
+    bundle_root = tmp_path / "bundle"
+    nested = bundle_root / "source_modules/system/lib"
+    nested.mkdir(parents=True)
+    (bundle_root / "bundle_manifest.json").write_text("{}", encoding="utf-8")
+    direct = nested / "pattern_runtime.py"
+    direct.write_text("VALUE = 1\n", encoding="utf-8")
+    outside = tmp_path / "outside_runtime.py"
+    outside.write_text("SECRET = False\n", encoding="utf-8")
+    symlink = nested / "linked_runtime.py"
+    try:
+        symlink.symlink_to(outside)
+    except (NotImplementedError, OSError) as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+
+    paths: list[Path] = []
+    pattern_binding._append_tree_files(paths, bundle_root)
+    refs = [path.relative_to(bundle_root).as_posix() for path in sorted(paths)]
+
+    assert "source_modules/system/lib/pattern_runtime.py" in refs
+    assert "source_modules/system/lib/linked_runtime.py" not in refs
+
+
 def test_pattern_binding_file_sha256_streams_without_read_bytes(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

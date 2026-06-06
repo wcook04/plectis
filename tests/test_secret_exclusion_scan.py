@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,7 @@ from microcosm_core.secret_exclusion_scan import (
     is_text_scan_candidate,
     load_forbidden_classes,
     public_relative_path,
+    scan_json_payload,
     scan_paths,
     scan_text,
 )
@@ -78,6 +80,24 @@ def _public_text_scan_candidate(path: Path) -> bool:
     return not any(part in PUBLIC_SCAN_SKIPPED_PARTS for part in relative.parts)
 
 
+def _iter_public_text_scan_candidates() -> list[Path]:
+    paths: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(MICROCOSM_ROOT):
+        current = Path(dirpath)
+        relative = current.relative_to(MICROCOSM_ROOT)
+        if relative.parts[:2] == ("fixtures", "first_wave"):
+            dirnames[:] = []
+            continue
+        dirnames[:] = sorted(
+            dirname for dirname in dirnames if dirname not in PUBLIC_SCAN_SKIPPED_PARTS
+        )
+        for filename in sorted(filenames):
+            path = current / filename
+            if _public_text_scan_candidate(path):
+                paths.append(path)
+    return paths
+
+
 def test_secret_exclusion_scan_is_receipt_owner_not_redaction_contract(
     tmp_path: Path,
 ) -> None:
@@ -97,21 +117,20 @@ def test_secret_exclusion_scan_is_receipt_owner_not_redaction_contract(
 
 
 def test_public_surfaces_do_not_emit_true_authority_fields_outside_negative_fixtures() -> None:
-    field_patterns = [
-        (field, re.compile(r'"' + re.escape(field) + r'"\s*:\s*true'))
-        for field in AUTHORITY_TRUE_FIELD_NAMES
-    ]
+    field_pattern = re.compile(
+        r'"('
+        + "|".join(re.escape(field) for field in AUTHORITY_TRUE_FIELD_NAMES)
+        + r')"\s*:\s*true'
+    )
 
     violations: list[str] = []
-    for path in sorted(MICROCOSM_ROOT.rglob("*")):
-        if not _public_text_scan_candidate(path):
-            continue
+    for path in _iter_public_text_scan_candidates():
         relative = path.relative_to(MICROCOSM_ROOT)
         text = path.read_text(encoding="utf-8", errors="ignore")
         for line_number, line in enumerate(text.splitlines(), start=1):
-            for field, pattern in field_patterns:
-                if pattern.search(line):
-                    violations.append(f"{relative}:{line_number}:{field}")
+            match = field_pattern.search(line)
+            if match:
+                violations.append(f"{relative}:{line_number}:{match.group(1)}")
 
     assert violations == []
 
@@ -148,6 +167,59 @@ def test_secret_exclusion_expected_negative_fixture_does_not_block() -> None:
     assert result["hits"][0]["expected_negative_case"] is True
     assert result["hits"][0]["body_in_receipt"] is False
     assert "body_redacted" not in _walk_keys(result)
+
+
+def test_secret_exclusion_json_payload_blocks_receipt_body_fields() -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+
+    result = scan_json_payload(
+        {
+            "receipt_id": "example_receipt",
+            "payload": {
+                "body": "public macro body belongs in source modules, not receipts",
+                "matched_excerpt": "raw excerpts stay out of receipt metadata",
+                "body_in_receipt": False,
+            },
+        },
+        path="receipts/first_wave/example_receipt.json",
+        forbidden_classes=policy,
+    )
+
+    assert result["status"] == BLOCKED_SECRET_EXCLUSION
+    assert result["receipt_payload_field_guard"]["status"] == BLOCKED_SECRET_EXCLUSION
+    assert result["receipt_payload_field_guard"]["blocking_field_count"] == 2
+    assert result["blocking_hit_count"] == 2
+    assert {hit["term_id"] for hit in result["hits"]} == {
+        "receipt_payload_field:body",
+        "receipt_payload_field:matched_excerpt",
+    }
+    assert {hit["field_path"] for hit in result["hits"]} == {
+        "payload.body",
+        "payload.matched_excerpt",
+    }
+    assert all(hit["body_in_receipt"] is False for hit in result["hits"])
+    assert "body" not in _walk_keys(result)
+    assert "matched_excerpt" not in _walk_keys(result)
+
+
+def test_secret_exclusion_json_payload_allows_expected_negative_body_fields() -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+
+    result = scan_json_payload(
+        {
+            "expected_negative_case": True,
+            "body": "expected negative fixture body marker",
+        },
+        path="fixtures/first_wave/example/input/body_field_negative.json",
+        forbidden_classes=policy,
+    )
+
+    assert result["status"] == PASS
+    assert result["receipt_payload_field_guard"]["forbidden_field_count"] == 1
+    assert result["receipt_payload_field_guard"]["blocking_field_count"] == 0
+    assert result["hits"][0]["expected_negative_case"] is True
+    assert result["hits"][0]["body_in_receipt"] is False
+    assert "body" not in _walk_keys(result)
 
 
 def test_secret_exclusion_macro_import_defaults_to_real_substrate() -> None:

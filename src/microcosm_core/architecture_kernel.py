@@ -338,8 +338,22 @@ def project_relative(project: Path, path: Path) -> str:
         return path.name
 
 
+def _path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
+
+
+def _path_is_dir(path: Path) -> bool:
+    try:
+        return path.is_dir()
+    except OSError:
+        return False
+
+
 def read_json_if_exists(path: Path) -> dict[str, Any]:
-    if not path.is_file():
+    if not _path_is_file(path):
         return {}
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
@@ -350,7 +364,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
-    if not path.is_file():
+    if not _path_is_file(path):
         return
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
@@ -645,7 +659,7 @@ def _base(project: Path, schema_version: str) -> dict[str, Any]:
 
 
 def _iter_json_children(path: Path) -> Iterator[Path]:
-    if not path.is_dir():
+    if not _path_is_dir(path):
         return
     try:
         with os.scandir(path) as entries:
@@ -701,11 +715,11 @@ def build_state_index(
     for kind, rel, description in assets:
         path = state / rel
         if kind in {"evidence", "explanation"}:
-            count = _count_json_children(path) if path.is_dir() else 0
-            exists = path.is_dir()
+            exists = _path_is_dir(path)
+            count = _count_json_children(path) if exists else 0
         else:
             count = None
-            exists = path.is_file()
+            exists = _path_is_file(path)
         row: dict[str, Any] = {
             "asset_id": kind,
             "ref": f"{STATE_DIR}/{rel}",

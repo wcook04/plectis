@@ -2,6 +2,32 @@
 
 Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 
+## Typed Skill Mapping
+
+```json
+{
+  "triad_role": "author",
+  "operates_standard": "std_microcosm_atlas_route",
+  "acts_on_kind": "atlas_route",
+  "trigger_summary": [
+    "Fresh public clone entry into microcosm-substrate.",
+    "Cold reader or Type A agent needs a first-screen route before opening receipts."
+  ],
+  "workflow_summary": [
+    "Run the source-root probe before install-oriented work.",
+    "Open the generated first-screen route card before raw receipt trees.",
+    "Use status, authority, workingness, proof-lab, observe, and serve cards as typed drilldowns."
+  ],
+  "concept_refs": [
+    "concept.first_screen_doctrine_effect_frame"
+  ],
+  "mechanism_refs": [
+    "mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle"
+  ],
+  "mapping_basis": "The standard JSON at standards/std_microcosm_atlas_route.json declares this skill route; relationships.used_by_organs=[\"navigation_hologram_route_plane\"] names organ atlas rows whose mechanism_refs=[\"mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle\"] and concept_refs=[] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness."
+}
+```
+
 ## Source-Root Probe
 
 Before installing the console script or bringing an external project folder,
@@ -112,8 +138,15 @@ expect `release_authorized=false` until a separate operator decision exists.
 
 ## Reader-Typed Branches
 
-`atlas/entry_packet.json::reader_first_screen_routes` names the four cold
+`atlas/entry_packet.json::reader_first_screen_routes` names the six cold
 reader branches after the shared `microcosm tour --card <project>` card:
+
+The `hello` card also accepts three public-reader aliases for the most common
+entry pressures: `cold_cloner` maps to `public_github_visitor`,
+`skeptical_reviewer` maps to `safety_evals_engineer`, and `agent` maps to
+`type_a_agent`. Aliases are shortcuts into these existing branches, not new
+routes; the card echoes the requested alias or route id for copy/paste while
+resolving it to the existing branch.
 
 - Public GitHub visitor: run `microcosm hello <project>`, then
   `microcosm tour --card <project>`; read the copyable first command, shared
@@ -134,6 +167,19 @@ reader branches after the shared `microcosm tour --card <project>` card:
   selected route id, the compact route/work/event/evidence graph chain, and
   `source_files_mutated=false`. Use `microcosm observe <project>` for full
   event rows.
+- Domain specialist: run
+  `microcosm hello --reader domain_specialist <project>`, open
+  `ORGANS.md#find-your-specialty`, then run
+  `microcosm tour --card <project>`; map the domain to a specialty route,
+  evidence class, authority ceiling, and explicit non-claim of domain
+  correctness or expert review before opening raw receipts.
+- Type A agent: run `microcosm first-screen --card <project>`, read
+  `doctrine_effect_frame`, then run
+  `microcosm organ-surface-contract --card --root .`; read the agent
+  first-read contract, mechanism-versus-validator/projection status, owner
+  surface, and claim ceiling before mutating source. Use
+  `AGENTS.md::Concept And Mechanism Entry` as the follow-up route when the
+  concept/mechanism distinction is the pressure.
 
 ## Concept And Mechanism Drilldown
 

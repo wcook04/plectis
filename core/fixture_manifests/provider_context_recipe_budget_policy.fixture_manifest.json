@@ -19,11 +19,11 @@
   "inputs": [
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json",
-      "role": "synthetic public provider context recipe budget table"
+      "role": "public provider-context recipe budget table matching the macro provider-context recipe ids and authority ceiling"
     },
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json",
-      "role": "synthetic redacted context section metadata"
+      "role": "source-backed public context section metadata with copied macro source refs, validator-checked anchors, byte budgets, and body redaction"
     },
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
@@ -84,6 +84,10 @@
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/omitted_sections_suppressed.json",
       "role": "negative case: over-budget omitted-section manifest suppressed"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/synthetic_section_materials.json",
+      "role": "negative case: synthetic section material without source refs or source anchors"
     }
   ],
   "negative_case_ids": [
@@ -92,7 +96,8 @@
     "proof_body_leakage",
     "provider_call_authorized",
     "deliverable_type_route_mismatch",
-    "omitted_sections_suppressed"
+    "omitted_sections_suppressed",
+    "synthetic_section_materials"
   ],
   "organ_id": "provider_context_recipe_budget_policy",
   "purpose": "Validate copied non-secret provider context source modules and public recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",

@@ -10,7 +10,7 @@
       "command": "microcosm tour <project>",
       "docs_refs": [
         "README.md#try-it-on-your-repo",
-        "AGENTS.md#microcosm-entry-contract"
+        "AGENTS.md#rules"
       ],
       "shows": [
         "first_screen.selected_route_id",
@@ -46,7 +46,7 @@
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "docs_refs": [
         "README.md#try-it-on-your-repo",
-        "README.md#first-proof-lab-route"
+        "AGENTS.md#rules"
       ],
       "shows": [
         "formal_prover_context_strategy_gate",
@@ -63,7 +63,7 @@
       "command": "microcosm compile <project>",
       "docs_refs": [
         "README.md#first-run",
-        "AGENTS.md#microcosm-entry-contract"
+        "AGENTS.md#rules"
       ],
       "shows": [
         ".microcosm/catalog.json",
@@ -79,7 +79,7 @@
       "title": "Inspect one route card before opening raw JSON",
       "command": "microcosm explain <project> <selected_route_id>",
       "docs_refs": [
-        "README.md#route-cards",
+        "README.md#architecture-kernel",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [
@@ -97,7 +97,7 @@
       "title": "Open the local observatory after route selection",
       "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
       "docs_refs": [
-        "README.md#observatory",
+        "README.md#architecture-kernel",
         "paper_modules/public_reveal_walkthrough.md"
       ],
       "shows": [
@@ -130,7 +130,7 @@
       "title": "Open projection intake without private macro context",
       "command": "microcosm intake",
       "docs_refs": [
-        "README.md#macro-projection-import-protocol",
+        "README.md#try-it-on-your-repo",
         "paper_modules/macro_projection_import_protocol.md"
       ],
       "shows": [
@@ -146,7 +146,7 @@
       "title": "Open the ten-minute public reveal board",
       "command": "microcosm reveal",
       "docs_refs": [
-        "README.md#public-reveal-walkthrough",
+        "README.md#try-it-on-your-repo",
         "paper_modules/public_reveal_walkthrough.md"
       ],
       "shows": [
@@ -163,7 +163,7 @@
       "title": "Validate the route map itself",
       "command": "microcosm cold-reader-route-map run-route-map-bundle",
       "docs_refs": [
-        "README.md#cold-reader-route-map",
+        "README.md#try-it-on-your-repo",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [

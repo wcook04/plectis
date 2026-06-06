@@ -9,9 +9,43 @@
     "raw_operator_voice_export_authority": false,
     "release_authority": false,
     "source_mutation_authority": false,
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#executable_doctrine_grammar",
+    "claim_ceiling_ref": "core/organ_registry.json#executable_doctrine_grammar.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "kind_id": "executable_doctrine_grammar",
+  "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.executable_doctrine_grammar",
+    "mechanism_ref": "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle",
+    "module_slug": "executable_doctrine_grammar",
+    "required": true
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "atlas_refs": [
+      "core/organ_atlas.json::organs[organ_id=executable_doctrine_grammar].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=executable_doctrine_grammar].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=executable_doctrine_grammar].code_loci"
+    ],
+    "authority_boundary": "Structured doctrine population binds the source-backed capsule, mechanism, and atlas source rows while preserving the organ's grammar-only evidence ceiling; generated atlas docs, generated coverage projections, and generated receipts remain builder-owned or evidence-only projections.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_executable_doctrine_grammar_population_resolves_required_edges",
+      "tests/test_executable_doctrine_grammar.py",
+      "microcosm_core.organs.executable_doctrine_grammar validate",
+      "microcosm_core.organs.executable_doctrine_grammar validate-standards-bundle",
+      "microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle"
+    ]
+  },
   "public_private_boundary": {
     "allowed_public_material": [
       "public-safe standards rows",
@@ -57,6 +91,48 @@
     "report imported standards-registry/type-plane/lattice source refs and digests without duplicating body text",
     "report imported kind-atlas and standards option-surface tool refs and digests without duplicating body text"
   ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "doctrine_completeness_authorized": false,
+      "private_standards_engine_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 12,
+    "body_material_ids": [
+      "executable_grammar_metabolism_readme_body_import",
+      "executable_grammar_metabolism_board_body_import",
+      "executable_grammar_metabolism_receipt_body_import",
+      "standards_registry_root_body_import",
+      "std_standards_registry_body_import",
+      "std_standards_group_index_body_import",
+      "std_standard_type_plane_body_import",
+      "core_authority_index_body_import",
+      "lattice_registry_body_import",
+      "std_lattice_registry_body_import",
+      "standard_option_surface_tool_body_import",
+      "kind_atlas_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
+    "body_text_exported_in_receipts": false,
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus copied executable-grammar specimen, standards-registry/type-plane, lattice-registry, kind-atlas, and standards option-surface bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "executable_doctrine_grammar_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "relationships": {
     "governed_by": [
       "std_microcosm_organ",
@@ -86,18 +162,18 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     {
-      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "path": "private-macro-source/microcosms/executable_grammar_metabolism/README.md",
       "role": "macro_public_specimen_entry"
     },
     {
-      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "path": "private-macro-source/microcosms/executable_grammar_metabolism/grammar_board.json",
       "role": "macro_public_specimen_body"
     },
     {
-      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "path": "private-macro-source/microcosms/executable_grammar_metabolism/receipt.json",
       "role": "macro_public_specimen_receipt_body"
     },
     {
@@ -164,9 +240,27 @@
       "kind-atlas or standards option-surface body imported as a pointer instead of copied non-secret source"
     ],
     "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and option-surface bodies.",
-    "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority."
+    "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.executable_doctrine_grammar",
+      "receipt_id": "receipt.microcosm.executable_doctrine_grammar",
+      "organ_authority_receipt": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require standard rows to carry teleology, governing standard, receipt expectations, and anti-claim",
     "reject duplicate standard slugs deterministically",
@@ -193,7 +287,35 @@
     "validator_id": "validator.microcosm.organs.executable_doctrine_grammar"
   },
   "validator_refs": [
-    "src/microcosm_core/organs/executable_doctrine_grammar.py",
-    "tests/test_executable_doctrine_grammar.py"
+    "validator.microcosm.organs.executable_doctrine_grammar",
+    "PYTHONPATH=src python3 -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar --card",
+    "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.executable_doctrine_grammar.author",
+      "status": "planned",
+      "purpose": "create a valid Executable doctrine grammar instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.executable_doctrine_grammar.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Executable doctrine grammar without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.executable_doctrine_grammar.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_executable_doctrine_grammar and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "receipt_refs": [
+    "receipt.microcosm.executable_doctrine_grammar",
+    "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+    "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
   ]
 }

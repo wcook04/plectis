@@ -1,0 +1,35 @@
+{
+  "barrier": {
+    "description": "cycle should never reach dispatch",
+    "group_label": "engine_room_synthesis"
+  },
+  "campaign_id": "engine-room-cycle",
+  "case_id": "cycle_rejected",
+  "continuation": {
+    "next_action": "this must not dispatch",
+    "packet_schema": "v1_receipts_navigational"
+  },
+  "expected_ok": false,
+  "intent": "reject a cyclic bridge campaign",
+  "kind": "bridge_campaign",
+  "nodes": [
+    {
+      "depends_on": [
+        "engine_room_synthesis"
+      ],
+      "label": "probe_a",
+      "role": "probe"
+    },
+    {
+      "depends_on": [
+        "probe_a"
+      ],
+      "label": "engine_room_synthesis",
+      "role": "synthesis"
+    }
+  ],
+  "plan_path": "tools/meta/apply/observe_plans/engine_room_public_probe.json",
+  "provider": "chatgpt",
+  "schema_version": "1.0",
+  "workers": 2
+}

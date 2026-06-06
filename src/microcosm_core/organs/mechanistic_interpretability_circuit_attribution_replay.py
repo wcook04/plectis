@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -65,6 +66,7 @@ NEGATIVE_INPUT_NAMES = (
     "transparency_claim_without_intervention.json",
     "faithfulness_claim_without_sufficiency_limit.json",
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 
 EXPECTED_NEGATIVE_CASES = {
     "private_model_weights_export": ["INTERPRETABILITY_PRIVATE_WEIGHTS_FORBIDDEN"],
@@ -131,6 +133,7 @@ AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": "public_circuit_attribution_runtime_receipt_only",
     "public_runtime_receipt_required": True,
+    "public_toy_transformer_runtime_authorized": True,
     "private_model_weights_export_authorized": False,
     "raw_activation_dump_export_authorized": False,
     "proprietary_prompt_export_authorized": False,
@@ -147,7 +150,9 @@ AUTHORITY_CEILING = {
 
 ANTI_CLAIM = (
     "Mechanistic interpretability circuit-attribution replay validates public "
-    "runtime receipt rows plus copied public-safe macro source bodies: toy prompt refs, sparse feature ids, "
+    "runtime receipt rows, a deterministic public toy transformer forward, "
+    "gradient, and ablation attribution receipt, plus copied public-safe macro "
+    "source bodies: toy prompt refs, sparse feature ids, "
     "machine-readable graph edges, replacement-model approximation scores, "
     "causal inhibition and injection deltas, sufficiency and faithfulness "
     "limits, contradiction cases, target refs, cold replay refs, Oracle attribution "
@@ -277,7 +282,11 @@ def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None
 
 
 def _sha256_hex(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _sha256_ref(path: Path) -> str:
@@ -285,7 +294,11 @@ def _sha256_ref(path: Path) -> str:
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:
@@ -399,6 +412,22 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("command") != command:
         return None
+    toy_runtime = payload.get("toy_transformer_attribution_runtime")
+    if not isinstance(toy_runtime, dict):
+        return None
+    fabrication_guard = toy_runtime.get("fabrication_guard")
+    if not isinstance(fabrication_guard, dict):
+        return None
+    if toy_runtime.get("spec_source") != "attribution_replays.toy_transformer_runtime":
+        return None
+    if toy_runtime.get("input_coupled_fixture") is not True:
+        return None
+    if fabrication_guard.get("passed") is not True:
+        return None
+    if fabrication_guard.get("input_coupled_verdict") is not True:
+        return None
+    if fabrication_guard.get("failure_codes") not in ([], ()):
+        return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
     if not isinstance(existing_basis, dict):
@@ -433,6 +462,18 @@ def _source_module_manifest_result(
     findings: list[dict[str, Any]] = []
     module_results: list[dict[str, Any]] = []
     material_classes: set[str] = set()
+    if manifest_payload.get("body_text_in_receipt") is True:
+        findings.append(
+            {
+                "error_code": "INTERPRETABILITY_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "module_id": SOURCE_MODULE_MANIFEST_NAME,
+                "source_ref": "",
+                "target_ref": SOURCE_MODULE_MANIFEST_NAME,
+                "missing_anchors": [],
+                "reasons": ["manifest_body_text_in_receipt_forbidden"],
+                "body_in_receipt": False,
+            }
+        )
     for row in _rows(manifest_payload, "modules"):
         module_id = str(row.get("module_id") or "source_module")
         source_ref = str(row.get("source_ref") or "")
@@ -449,6 +490,21 @@ def _source_module_manifest_result(
             material_classes.add(str(material_class))
         if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
             row_findings.append("body_must_be_copied_without_receipt_body_text")
+        if row.get("body_text_in_receipt") is True:
+            row_findings.append("body_text_in_receipt_forbidden")
+            findings.append(
+                {
+                    "error_code": (
+                        "INTERPRETABILITY_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN"
+                    ),
+                    "module_id": module_id,
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "missing_anchors": [],
+                    "reasons": ["body_text_in_receipt_forbidden"],
+                    "body_in_receipt": False,
+                }
+            )
         if not target.is_file():
             row_findings.append("target_ref_missing")
 
@@ -494,6 +550,7 @@ def _source_module_manifest_result(
                 "material_class": row.get("material_class"),
                 "classification": row.get("classification"),
                 "body_copied": row.get("body_copied"),
+                "body_text_in_receipt": False,
                 "body_in_receipt": row.get("body_in_receipt"),
                 "source_sha256": row.get("source_sha256"),
                 "target_sha256": row.get("target_sha256"),
@@ -802,16 +859,424 @@ def _replay_policy_findings(
     return findings
 
 
+def _edge_weight(row: dict[str, Any]) -> float:
+    weight = row.get("weight")
+    return float(weight) if isinstance(weight, (int, float)) else 0.0
+
+
+def _graph_analysis_for_replay(
+    row: dict[str, Any],
+    *,
+    case_id: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    replay_id = str(row.get("replay_id") or case_id)
+    nodes = _rows(row, "graph_nodes")
+    edges = _rows(row, "graph_edges")
+    node_ids = {str(node.get("node_id")) for node in nodes if node.get("node_id")}
+    start_ids = set(_strings(row.get("sparse_feature_ids")))
+    target_ids = {
+        str(node.get("node_id"))
+        for node in nodes
+        if node.get("node_kind") == "public_error_node" and node.get("node_id")
+    }
+    findings: list[dict[str, Any]] = []
+    adjacency: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for edge in edges:
+        source = str(edge.get("source") or "")
+        target = str(edge.get("target") or "")
+        if source not in node_ids or target not in node_ids:
+            findings.append(
+                _finding(
+                    "INTERPRETABILITY_GRAPH_EDGE_ENDPOINT_UNRESOLVED",
+                    "attribution graph edges must resolve to machine-readable graph nodes",
+                    case_id=case_id,
+                    subject_id=replay_id,
+                    subject_kind="circuit_attribution_replay",
+                )
+            )
+        adjacency[source].append(edge)
+
+    path_rows: list[dict[str, Any]] = []
+    stack: list[tuple[str, list[str], float]] = [
+        (start_id, [start_id], 1.0) for start_id in sorted(start_ids)
+    ]
+    max_depth = max(len(node_ids), 1)
+    while stack:
+        node_id, path, path_weight = stack.pop()
+        if len(path) > max_depth:
+            continue
+        if node_id in target_ids and len(path) > 1:
+            path_rows.append(
+                {
+                    "path": path,
+                    "target_node_id": node_id,
+                    "path_weight": round(path_weight, 6),
+                    "body_in_receipt": False,
+                }
+            )
+            continue
+        for edge in adjacency.get(node_id, []):
+            target = str(edge.get("target") or "")
+            if not target or target in path:
+                continue
+            stack.append(
+                (
+                    target,
+                    [*path, target],
+                    path_weight * _edge_weight(edge),
+                )
+            )
+
+    reachable_targets = {row["target_node_id"] for row in path_rows}
+    if not target_ids or not path_rows:
+        findings.append(
+            _finding(
+                "INTERPRETABILITY_GRAPH_PATH_REQUIRED",
+                "attribution graph must contain at least one traversable sparse-feature to public-error-node path",
+                case_id=case_id,
+                subject_id=replay_id,
+                subject_kind="circuit_attribution_replay",
+            )
+        )
+    return (
+        {
+            "replay_id": replay_id,
+            "node_count": len(node_ids),
+            "edge_count": len(edges),
+            "start_feature_ids": sorted(start_ids),
+            "target_error_node_ids": sorted(target_ids),
+            "path_count": len(path_rows),
+            "reachable_error_node_count": len(reachable_targets),
+            "max_path_weight": max(
+                (float(path["path_weight"]) for path in path_rows),
+                default=0.0,
+            ),
+            "path_rows": sorted(path_rows, key=lambda item: item["path"]),
+            "body_in_receipt": False,
+        },
+        findings,
+    )
+
+
+def _constant_delta_sequence(values: list[float]) -> bool:
+    if len(values) < 4:
+        return False
+    deltas = [round(values[index + 1] - values[index], 6) for index in range(len(values) - 1)]
+    return len(set(deltas)) == 1 and deltas[0] != 0
+
+
+def _weight_sequence_analysis(
+    replays: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    findings: list[dict[str, Any]] = []
+    edge_columns: dict[int, list[float]] = defaultdict(list)
+    for replay in replays:
+        for index, edge in enumerate(_rows(replay, "graph_edges")):
+            edge_columns[index].append(_edge_weight(edge))
+    sequence_rows: list[dict[str, Any]] = []
+    for index, values in sorted(edge_columns.items()):
+        is_constant_delta = _constant_delta_sequence(values)
+        if is_constant_delta:
+            findings.append(
+                _finding(
+                    "INTERPRETABILITY_DECORATIVE_WEIGHT_SEQUENCE",
+                    "edge weights must not be simple arithmetic sequences across replay rows",
+                    case_id="positive_fixture",
+                    subject_id=f"edge_column_{index}",
+                    subject_kind="circuit_attribution_replay",
+                )
+            )
+        sequence_rows.append(
+            {
+                "edge_index": index,
+                "weights": values,
+                "constant_delta_sequence": is_constant_delta,
+                "body_in_receipt": False,
+            }
+        )
+    return (
+        {
+            "status": PASS if not findings else "blocked",
+            "analysis_kind": "graph_weight_sequence_fabrication_check",
+            "edge_column_count": len(edge_columns),
+            "decorative_sequence_detected": bool(findings),
+            "sequence_rows": sequence_rows,
+            "body_in_receipt": False,
+        },
+        findings,
+    )
+
+
+def _round_vector(values: list[float]) -> list[float]:
+    return [round(float(value), 6) for value in values]
+
+
+def _mean_vectors(rows: list[list[float]]) -> list[float]:
+    width = len(rows[0])
+    return [sum(row[index] for row in rows) / len(rows) for index in range(width)]
+
+
+def _vector_matrix_product(
+    vector: list[float], matrix: list[list[float]]
+) -> list[float]:
+    width = len(matrix[0])
+    return [
+        sum(
+            vector[row_index] * matrix[row_index][column_index]
+            for row_index in range(len(vector))
+        )
+        for column_index in range(width)
+    ]
+
+
+def _toy_transformer_forward(
+    token_ids: list[int],
+    embeddings: list[list[float]],
+    layer1: list[list[float]],
+    layer2: list[list[float]],
+) -> dict[str, list[float] | list[list[float]]]:
+    token_embeddings = [embeddings[token_id] for token_id in token_ids]
+    context = _mean_vectors(token_embeddings)
+    hidden_linear = _vector_matrix_product(context, layer1)
+    hidden = [math.tanh(value) for value in hidden_linear]
+    logits = _vector_matrix_product(hidden, layer2)
+    return {
+        "token_embeddings": token_embeddings,
+        "context": context,
+        "hidden_linear": hidden_linear,
+        "hidden": hidden,
+        "logits": logits,
+    }
+
+
+DEFAULT_TOY_TRANSFORMER_RUNTIME = {
+    "token_ids": [0, 1, 2],
+    "embeddings": [
+        [1.0, 0.0],
+        [0.0, 1.0],
+        [1.0, 1.0],
+    ],
+    "layer1": [
+        [0.8, -0.4, 0.2],
+        [0.1, 0.7, -0.6],
+    ],
+    "layer2": [
+        [0.6, -0.2],
+        [-0.1, 0.9],
+        [0.4, 0.1],
+    ],
+    "target_logit_index": 1,
+    "expected_top_feature_by_attribution": "toy_hidden_feature_1",
+    "expected_top_feature_by_ablation": "toy_hidden_feature_1",
+}
+
+
+def _float_matrix(value: object) -> list[list[float]] | None:
+    if not isinstance(value, list) or not value:
+        return None
+    matrix: list[list[float]] = []
+    width: int | None = None
+    for row in value:
+        if not isinstance(row, list) or not row:
+            return None
+        converted: list[float] = []
+        for item in row:
+            if not isinstance(item, int | float):
+                return None
+            converted.append(float(item))
+        if width is None:
+            width = len(converted)
+        elif len(converted) != width:
+            return None
+        matrix.append(converted)
+    return matrix
+
+
+def _toy_runtime_payload(payload: object | None) -> tuple[dict[str, Any], str]:
+    if isinstance(payload, dict) and isinstance(payload.get("toy_transformer_runtime"), dict):
+        return dict(payload["toy_transformer_runtime"]), (
+            "attribution_replays.toy_transformer_runtime"
+        )
+    return dict(DEFAULT_TOY_TRANSFORMER_RUNTIME), "internal_default_for_direct_unit_call"
+
+
+def _toy_transformer_attribution_runtime(payload: object | None = None) -> dict[str, Any]:
+    spec, spec_source = _toy_runtime_payload(payload)
+    failure_codes: list[str] = []
+    token_ids_raw = spec.get("token_ids")
+    token_ids = [
+        int(item)
+        for item in token_ids_raw
+        if isinstance(item, int) and not isinstance(item, bool)
+    ] if isinstance(token_ids_raw, list) else []
+    embeddings = _float_matrix(spec.get("embeddings"))
+    layer1 = _float_matrix(spec.get("layer1"))
+    layer2 = _float_matrix(spec.get("layer2"))
+    target_logit_index = spec.get("target_logit_index")
+    if not isinstance(target_logit_index, int) or isinstance(target_logit_index, bool):
+        target_logit_index = -1
+    if (
+        not token_ids
+        or embeddings is None
+        or layer1 is None
+        or layer2 is None
+        or any(token_id < 0 or token_id >= len(embeddings) for token_id in token_ids)
+        or len(layer1) != len(embeddings[0])
+        or len(layer2) != len(layer1[0])
+        or target_logit_index < 0
+        or target_logit_index >= len(layer2[0])
+    ):
+        failure_codes.append("INTERPRETABILITY_TOY_TRANSFORMER_SPEC_INVALID")
+        token_ids = list(DEFAULT_TOY_TRANSFORMER_RUNTIME["token_ids"])
+        embeddings = [list(row) for row in DEFAULT_TOY_TRANSFORMER_RUNTIME["embeddings"]]
+        layer1 = [list(row) for row in DEFAULT_TOY_TRANSFORMER_RUNTIME["layer1"]]
+        layer2 = [list(row) for row in DEFAULT_TOY_TRANSFORMER_RUNTIME["layer2"]]
+        target_logit_index = int(DEFAULT_TOY_TRANSFORMER_RUNTIME["target_logit_index"])
+    forward = _toy_transformer_forward(token_ids, embeddings, layer1, layer2)
+    hidden = forward["hidden"]
+    hidden_linear = forward["hidden_linear"]
+    baseline_logit = float(forward["logits"][target_logit_index])
+    gradient_scores = [
+        layer2[index][target_logit_index] * (1.0 - hidden[index] * hidden[index])
+        for index in range(len(hidden))
+    ]
+    attribution_scores = [
+        hidden_linear[index] * gradient_scores[index] for index in range(len(hidden))
+    ]
+    ablation_rows: list[dict[str, Any]] = []
+    for feature_index in range(len(hidden)):
+        ablated_hidden = hidden.copy()
+        ablated_hidden[feature_index] = 0.0
+        ablated_logit = _vector_matrix_product(ablated_hidden, layer2)[target_logit_index]
+        ablation_rows.append(
+            {
+                "feature_id": f"toy_hidden_feature_{feature_index}",
+                "ablated_logit": round(ablated_logit, 6),
+                "logit_delta_from_baseline": round(baseline_logit - ablated_logit, 6),
+                "body_in_receipt": False,
+            }
+        )
+    attribution_rows = [
+        {
+            "feature_id": f"toy_hidden_feature_{index}",
+            "gradient_score": round(float(gradient_scores[index]), 6),
+            "activation_gradient_attribution": round(float(attribution_scores[index]), 6),
+            "ablation_logit_delta": ablation_rows[index]["logit_delta_from_baseline"],
+            "body_in_receipt": False,
+        }
+        for index in range(len(ablation_rows))
+    ]
+    top_by_attribution = max(
+        attribution_rows,
+        key=lambda row: abs(float(row["activation_gradient_attribution"])),
+    )["feature_id"]
+    top_by_ablation = max(
+        ablation_rows,
+        key=lambda row: abs(float(row["logit_delta_from_baseline"])),
+    )["feature_id"]
+    declared_top_by_attribution = str(spec.get("expected_top_feature_by_attribution") or "")
+    declared_top_by_ablation = str(spec.get("expected_top_feature_by_ablation") or "")
+    declared_matches_recompute = (
+        declared_top_by_attribution == top_by_attribution
+        and declared_top_by_ablation == top_by_ablation
+    )
+    if not declared_matches_recompute:
+        failure_codes.append(
+            "INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH"
+        )
+    weight_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "token_ids": token_ids,
+                "embeddings": embeddings,
+                "layer1": layer1,
+                "layer2": layer2,
+                "target_logit_index": target_logit_index,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    input_coupled_verdict = (
+        top_by_attribution == top_by_ablation
+        and declared_matches_recompute
+        and not failure_codes
+    )
+    fabrication_guard_passed = (
+        input_coupled_verdict
+        and baseline_logit != 0.0
+        and any(abs(float(row["logit_delta_from_baseline"])) > 0 for row in ablation_rows)
+    )
+    return {
+        "schema_version": "mechanistic_interpretability_toy_transformer_attribution_v1",
+        "status": PASS if fabrication_guard_passed else "blocked",
+        "runtime_kind": "pure_python_two_layer_toy_transformer_forward_gradient_ablation",
+        "spec_source": spec_source,
+        "input_coupled_fixture": spec_source != "internal_default_for_direct_unit_call",
+        "model_scope": "public_toy_model_only",
+        "token_ids": token_ids,
+        "weight_digest": f"sha256:{weight_digest}",
+        "target_logit_index": target_logit_index,
+        "forward_receipt": {
+            "context_vector": _round_vector(forward["context"]),
+            "hidden_linear": _round_vector(forward["hidden_linear"]),
+            "hidden_activation_summary": _round_vector(forward["hidden"]),
+            "logits": _round_vector(forward["logits"]),
+            "target_logit": round(baseline_logit, 6),
+            "body_in_receipt": False,
+        },
+        "gradient_scores": attribution_rows,
+        "ablation_result": {
+            "baseline_target_logit": round(baseline_logit, 6),
+            "rows": ablation_rows,
+            "top_feature_by_ablation": top_by_ablation,
+            "body_in_receipt": False,
+        },
+        "fabrication_guard": {
+            "verdict_source": (
+                "fixture_claim_compared_to_recomputed_forward_gradient_ablation"
+            ),
+            "recompute_input_fields": [
+                "token_ids",
+                "embeddings",
+                "layer1",
+                "layer2",
+                "target_logit_index",
+            ],
+            "claimed_top_feature_fields": [
+                "expected_top_feature_by_attribution",
+                "expected_top_feature_by_ablation",
+            ],
+            "declared_top_feature_by_attribution": declared_top_by_attribution,
+            "declared_top_feature_by_ablation": declared_top_by_ablation,
+            "top_feature_by_attribution": top_by_attribution,
+            "top_feature_by_ablation": top_by_ablation,
+            "declared_matches_recompute": declared_matches_recompute,
+            "input_coupled_verdict": input_coupled_verdict,
+            "passed": fabrication_guard_passed,
+            "failure_codes": sorted(set(failure_codes)),
+            "body_in_receipt": False,
+        },
+        "private_model_weights_exported": False,
+        "raw_activation_dump_exported": False,
+        "body_in_receipt": False,
+    }
+
+
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
         return False
     return (
         ceiling.get("public_runtime_receipt_required") is True
+        and ceiling.get("public_toy_transformer_runtime_authorized") is True
         and all(
             value is False
             for key, value in ceiling.items()
-            if key != "public_runtime_receipt_required"
+            if key
+            not in {
+                "public_runtime_receipt_required",
+                "public_toy_transformer_runtime_authorized",
+            }
         )
     )
 
@@ -907,6 +1372,7 @@ def _build_result(
             )
         )
     feature_ids = {str(row.get("feature_id")) for row in features if row.get("feature_id")}
+    graph_analyses: list[dict[str, Any]] = []
     for row in replays:
         positive_findings.extend(
             _replay_policy_findings(
@@ -915,6 +1381,12 @@ def _build_result(
                 observed=observed_negative_codes,
             )
         )
+        graph_analysis, graph_findings = _graph_analysis_for_replay(
+            row,
+            case_id="positive_fixture",
+        )
+        graph_analyses.append(graph_analysis)
+        positive_findings.extend(graph_findings)
         for feature_id in _strings(row.get("sparse_feature_ids")):
             if feature_id not in feature_ids:
                 positive_findings.append(
@@ -938,6 +1410,33 @@ def _build_result(
                 subject_kind="protocol",
             )
         )
+    weight_sequence_analysis, weight_sequence_findings = _weight_sequence_analysis(replays)
+    positive_findings.extend(weight_sequence_findings)
+    toy_runtime = _toy_transformer_attribution_runtime(payloads.get("attribution_replays"))
+    if toy_runtime.get("input_coupled_fixture") is not True:
+        positive_findings.append(
+            _finding(
+                "INTERPRETABILITY_TOY_TRANSFORMER_FIXTURE_SPEC_REQUIRED",
+                "mechanistic interpretability proof must load token ids and weights from the public fixture, not the internal default runtime",
+                case_id="positive_fixture",
+                subject_id="toy_transformer_attribution_runtime",
+                subject_kind="runtime_receipt",
+            )
+        )
+    if toy_runtime["status"] != PASS:
+        failure_codes = toy_runtime.get("fabrication_guard", {}).get("failure_codes", [])
+        for failure_code in failure_codes or [
+            "INTERPRETABILITY_TOY_TRANSFORMER_RUNTIME_REQUIRED"
+        ]:
+            positive_findings.append(
+                _finding(
+                    str(failure_code),
+                    "mechanistic interpretability claim requires a fixture-coupled toy transformer forward, gradient, ablation, and fabrication guard receipt",
+                    case_id="positive_fixture",
+                    subject_id="toy_transformer_attribution_runtime",
+                    subject_kind="runtime_receipt",
+                )
+            )
 
     negative_findings: list[dict[str, Any]] = []
     if include_negative:
@@ -972,6 +1471,8 @@ def _build_result(
         bool(features)
         and bool(replays)
         and not positive_findings
+        and weight_sequence_analysis["status"] == PASS
+        and toy_runtime["status"] == PASS
         and source_module_summary["status"] in {PASS, "not_present"}
         and body_free_public_rows
         and not expected_missing
@@ -1012,6 +1513,9 @@ def _build_result(
         "selected_pattern_ids": replay_ids,
         "features": features,
         "attribution_replays": replays,
+        "attribution_graph_analyses": graph_analyses,
+        "weight_sequence_analysis": weight_sequence_analysis,
+        "toy_transformer_attribution_runtime": toy_runtime,
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": source_module_summary["body_import_status"],
@@ -1029,6 +1533,35 @@ def _build_result(
             "replay_count": len(replays),
             "target_ref_count": sum(1 for row in replays if row.get("target_ref")),
             "attribution_edge_count": sum(len(_rows(row, "graph_edges")) for row in replays),
+            "attribution_path_count": sum(
+                int(row["path_count"]) for row in graph_analyses
+            ),
+            "reachable_error_node_count": sum(
+                int(row["reachable_error_node_count"]) for row in graph_analyses
+            ),
+            "decorative_weight_sequence_detected": weight_sequence_analysis[
+                "decorative_sequence_detected"
+            ],
+            "toy_transformer_runtime_status": toy_runtime["status"],
+            "toy_transformer_input_coupled_fixture": toy_runtime[
+                "input_coupled_fixture"
+            ],
+            "toy_transformer_weight_digest": toy_runtime["weight_digest"],
+            "toy_transformer_target_logit": toy_runtime["forward_receipt"][
+                "target_logit"
+            ],
+            "toy_transformer_ablation_count": len(
+                toy_runtime["ablation_result"]["rows"]
+            ),
+            "toy_transformer_top_feature_by_attribution": toy_runtime[
+                "fabrication_guard"
+            ]["top_feature_by_attribution"],
+            "toy_transformer_top_feature_by_ablation": toy_runtime[
+                "fabrication_guard"
+            ]["top_feature_by_ablation"],
+            "toy_transformer_fabrication_guard_passed": toy_runtime[
+                "fabrication_guard"
+            ]["passed"],
             "causal_intervention_count": sum(
                 1
                 for row in replays
@@ -1104,6 +1637,56 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "attribution_edge_count": summary.get("attribution_edge_count", 0)
         if isinstance(summary, dict)
         else 0,
+        "attribution_path_count": summary.get("attribution_path_count", 0)
+        if isinstance(summary, dict)
+        else 0,
+        "reachable_error_node_count": summary.get("reachable_error_node_count", 0)
+        if isinstance(summary, dict)
+        else 0,
+        "decorative_weight_sequence_detected": summary.get(
+            "decorative_weight_sequence_detected",
+            True,
+        )
+        if isinstance(summary, dict)
+        else True,
+        "toy_transformer_runtime_status": summary.get(
+            "toy_transformer_runtime_status"
+        )
+        if isinstance(summary, dict)
+        else None,
+        "toy_transformer_input_coupled_fixture": summary.get(
+            "toy_transformer_input_coupled_fixture", False
+        )
+        if isinstance(summary, dict)
+        else False,
+        "toy_transformer_weight_digest": summary.get(
+            "toy_transformer_weight_digest", ""
+        )
+        if isinstance(summary, dict)
+        else "",
+        "toy_transformer_ablation_count": summary.get(
+            "toy_transformer_ablation_count", 0
+        )
+        if isinstance(summary, dict)
+        else 0,
+        "toy_transformer_top_feature_by_attribution": summary.get(
+            "toy_transformer_top_feature_by_attribution", ""
+        )
+        if isinstance(summary, dict)
+        else "",
+        "toy_transformer_top_feature_by_ablation": summary.get(
+            "toy_transformer_top_feature_by_ablation", ""
+        )
+        if isinstance(summary, dict)
+        else "",
+        "toy_transformer_fabrication_guard_passed": summary.get(
+            "toy_transformer_fabrication_guard_passed", False
+        )
+        if isinstance(summary, dict)
+        else False,
+        "toy_transformer_attribution_runtime": result.get(
+            "toy_transformer_attribution_runtime"
+        ),
         "causal_intervention_count": summary.get("causal_intervention_count", 0)
         if isinstance(summary, dict)
         else 0,
@@ -1114,6 +1697,9 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         if isinstance(negatives, dict)
         else 0,
         "authority_ceiling": AUTHORITY_CEILING,
+        "toy_transformer_attribution_runtime": result.get(
+            "toy_transformer_attribution_runtime"
+        ),
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result["source_module_import_status"],
@@ -1199,6 +1785,9 @@ def _write_receipts(
         "board_ref": receipt_paths[1],
         "validation_ref": receipt_paths[2],
         "authority_ceiling": AUTHORITY_CEILING,
+        "toy_transformer_attribution_runtime": result.get(
+            "toy_transformer_attribution_runtime"
+        ),
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result["source_module_import_status"],
@@ -1314,6 +1903,39 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "target_ref_count": attribution_summary.get("target_ref_count"),
             "attribution_edge_count": attribution_summary.get(
                 "attribution_edge_count"
+            ),
+            "attribution_path_count": attribution_summary.get(
+                "attribution_path_count"
+            ),
+            "reachable_error_node_count": attribution_summary.get(
+                "reachable_error_node_count"
+            ),
+            "decorative_weight_sequence_detected": attribution_summary.get(
+                "decorative_weight_sequence_detected"
+            ),
+            "toy_transformer_runtime_status": attribution_summary.get(
+                "toy_transformer_runtime_status"
+            ),
+            "toy_transformer_input_coupled_fixture": attribution_summary.get(
+                "toy_transformer_input_coupled_fixture"
+            ),
+            "toy_transformer_weight_digest": attribution_summary.get(
+                "toy_transformer_weight_digest"
+            ),
+            "toy_transformer_target_logit": attribution_summary.get(
+                "toy_transformer_target_logit"
+            ),
+            "toy_transformer_ablation_count": attribution_summary.get(
+                "toy_transformer_ablation_count"
+            ),
+            "toy_transformer_top_feature_by_attribution": attribution_summary.get(
+                "toy_transformer_top_feature_by_attribution"
+            ),
+            "toy_transformer_top_feature_by_ablation": attribution_summary.get(
+                "toy_transformer_top_feature_by_ablation"
+            ),
+            "toy_transformer_fabrication_guard_passed": attribution_summary.get(
+                "toy_transformer_fabrication_guard_passed"
             ),
             "causal_intervention_count": attribution_summary.get(
                 "causal_intervention_count"

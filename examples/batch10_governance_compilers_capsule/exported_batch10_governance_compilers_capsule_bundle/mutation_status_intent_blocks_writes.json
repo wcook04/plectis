@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "case_id": "mutation_status_intent_blocks_writes",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "negative_intent.prohibit_file_writes",
+  "error_codes": [
+    "BATCH10_MUTATION_STATUS_INTENT_BLOCKS_WRITES"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "mutation_governance_intent_gate",
+  "probe_input": {
+    "latest_user_message": "diagnose the attached transcript and pattern ledger seed",
+    "requested_route": "public_microcosm_evolution_seed"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

@@ -43,6 +43,7 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#L344",
     "state/microcosm_portfolio/reconstruction/public_microcosm_seed_pattern_reconstruction.jsonl#sleeper_memory_poisoning_quarantine_replay_compound",
     "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet",
-    "microcosm-substrate/receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+    "microcosm-substrate/receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+    "system/lib/strict_json.py"
   ]
 }

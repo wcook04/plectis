@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Closeout faithfulness audit verifies that a referenced public fixture commit object, ledger row, or pytest span exists and records whether a span passed only when pass status is explicitly checked. It does not prove arbitrary live commits landed, close Task Ledger work, mutate Git, run providers, or authorize release.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.agent_closeout_faithfulness_audit",
+  "organ_id": "agent_closeout_faithfulness_audit",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json"
+}

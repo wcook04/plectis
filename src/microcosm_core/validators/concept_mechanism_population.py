@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.schemas import read_json_strict
+
 
 ALLOWED_RESIDUAL_DISPOSITIONS = {
     "already_valid_projection_consumer",
@@ -13,9 +15,52 @@ ALLOWED_RESIDUAL_DISPOSITIONS = {
     "redirected_to_projection_consumer",
 }
 
+DEFAULT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_ENTRY_PACKET = DEFAULT_ROOT / "atlas/entry_packet.json"
+DEFAULT_PRESSURE = DEFAULT_ROOT / "core/public_standard_pressure.json"
+
+RESOLVED_TARGET_STATUSES = {
+    "declared_receipt_id",
+    "declared_receipt_ref",
+    "resolved_code_locus",
+    "resolved_json_instance",
+    "resolved_receipt_ref",
+    "resolved_registry_or_atlas_target",
+}
+
+PLANNED_TARGET_PREFIXES = (
+    "planned_",
+)
+
+MECHANISM_POPULATION_BINDING_REQUIRED = (
+    "mechanism_role",
+    "concept_pair_ref",
+    "source_refs",
+    "transformation_shape",
+    "state_or_proof_effect",
+    "omission_receipt",
+    "anti_claims",
+    "validator_refs",
+)
+
+CONCEPT_CLUSTER_FLAG_REQUIRED = (
+    "schema_version",
+    "cluster_id",
+    "kind",
+    "concept_id",
+    "claim",
+    "source_ref",
+    "specimen_id",
+    "mechanism_count",
+    "principle_count",
+    "axiom_count",
+    "drilldown",
+    "authority_boundary",
+)
+
 
 def _load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return read_json_strict(path)
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
@@ -41,9 +86,361 @@ def _has_ref_list(row: dict[str, Any], key: str) -> bool:
     return isinstance(refs, list) and any(isinstance(ref, str) and ref.strip() for ref in refs)
 
 
+def _is_planned_target_status(status: Any) -> bool:
+    return isinstance(status, str) and status.startswith(PLANNED_TARGET_PREFIXES)
+
+
 def _validator_ref_is_inspectable(ref: str) -> bool:
     prefixes = ("microcosm ", "python ", "./", "tests/")
     return ref.startswith(prefixes) or "::test_" in ref or "/tests/" in ref
+
+
+def _required_fields(standard: dict[str, Any]) -> list[str]:
+    return [field for field in _as_list(standard.get("required_fields")) if isinstance(field, str)]
+
+
+def _receipt_ref_path(root: Path, ref: str) -> Path | None:
+    if not ref.startswith("receipts/"):
+        return None
+    return root / ref
+
+
+def _record_receipt_index(root: Path, receipt_refs: list[str]) -> dict[str, set[str]]:
+    indexed: dict[str, set[str]] = {}
+    for ref in receipt_refs:
+        path = _receipt_ref_path(root, ref)
+        if path is None or not path.is_file():
+            continue
+        try:
+            payload = _load_json(path)
+        except Exception:
+            continue
+        ids: set[str] = set()
+        for row in _as_list(payload.get("record_receipts")):
+            if isinstance(row, dict) and isinstance(row.get("record_id"), str):
+                ids.add(row["record_id"])
+        if ids:
+            indexed[ref] = ids
+    return indexed
+
+
+def _receipt_refs_cover_record(
+    *,
+    root: Path,
+    record_id: str,
+    receipt_refs: list[str],
+    receipt_index: dict[str, set[str]],
+) -> bool:
+    for ref in receipt_refs:
+        if ref.startswith("receipt."):
+            return True
+        path = _receipt_ref_path(root, ref)
+        if path is not None and path.is_file() and (
+            not receipt_index.get(ref) or record_id in receipt_index.get(ref, set())
+        ):
+            return True
+    return False
+
+
+def _validate_record_edges(
+    *,
+    record: dict[str, Any],
+    path: Path,
+    errors: list[dict[str, str]],
+) -> None:
+    for index, edge in enumerate(_as_list(_as_dict(record.get("relationships")).get("edges"))):
+        edge_path = f"{path.as_posix()}.relationships.edges[{index}]"
+        if not isinstance(edge, dict):
+            _add_error(
+                errors,
+                path=edge_path,
+                code="edge_not_object",
+                message="Relationship edge must be an object.",
+            )
+            continue
+        justification = _as_dict(edge.get("justification"))
+        if not _has_text(justification, "source_ref") or not _has_text(
+            justification, "summary"
+        ):
+            _add_error(
+                errors,
+                path=f"{edge_path}.justification",
+                code="edge_missing_justification",
+                message="Forward source edge must carry justification.source_ref and justification.summary.",
+            )
+        status = edge.get("target_status")
+        if status not in RESOLVED_TARGET_STATUSES and not _is_planned_target_status(status):
+            _add_error(
+                errors,
+                path=f"{edge_path}.target_status",
+                code="edge_target_unresolved_not_planned",
+                message="Unresolved concept/mechanism-owned edge targets must resolve or be marked planned.",
+            )
+
+
+def _validate_mechanism_population_binding(
+    *,
+    record: dict[str, Any],
+    path: Path,
+    errors: list[dict[str, str]],
+) -> None:
+    binding = _as_dict(_as_dict(record.get("mechanism_payload")).get("population_binding"))
+    for key in MECHANISM_POPULATION_BINDING_REQUIRED:
+        if key in {"source_refs", "anti_claims", "validator_refs"}:
+            if not _has_ref_list(binding, key):
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.mechanism_payload.population_binding.{key}",
+                    code="missing_mechanism_population_binding_ref_list",
+                    message=f"Mechanism population binding must carry non-empty {key}.",
+                )
+        elif key == "omission_receipt":
+            if not _has_text(_as_dict(binding.get(key)), "drilldown"):
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.mechanism_payload.population_binding.omission_receipt",
+                    code="missing_mechanism_population_binding_omission",
+                    message="Mechanism population binding must carry omission_receipt.drilldown.",
+                )
+        elif not _has_text(binding, key):
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.mechanism_payload.population_binding.{key}",
+                code="missing_mechanism_population_binding_field",
+                message="Mechanism population binding must name role, concept pair, transformation shape, and state/proof effect.",
+            )
+
+
+def _validate_concept_cluster_flag(
+    *,
+    record: dict[str, Any],
+    path: Path,
+    errors: list[dict[str, str]],
+) -> bool:
+    flag = _as_dict(record.get("cluster_flag"))
+    flag_path = f"{path.as_posix()}.cluster_flag"
+    if not flag:
+        _add_error(
+            errors,
+            path=flag_path,
+            code="concept_cluster_flag_missing",
+            message="Concept records must expose a source-backed cluster_flag row.",
+        )
+        return False
+    for key in CONCEPT_CLUSTER_FLAG_REQUIRED:
+        if flag.get(key) in (None, "", []):
+            _add_error(
+                errors,
+                path=f"{flag_path}.{key}",
+                code="concept_cluster_flag_missing_field",
+                message=f"Concept cluster_flag is missing required field {key}.",
+            )
+    relationships = _as_dict(record.get("relationships"))
+    count_expectations = {
+        "mechanism_count": len(_as_list(relationships.get("mechanism_refs"))),
+        "principle_count": len(_as_list(relationships.get("principle_refs"))),
+        "axiom_count": len(_as_list(relationships.get("axiom_refs"))),
+    }
+    if flag.get("kind") != "concept":
+        _add_error(
+            errors,
+            path=f"{flag_path}.kind",
+            code="concept_cluster_flag_kind_mismatch",
+            message="Concept cluster_flag.kind must be concept.",
+        )
+    if flag.get("concept_id") != record.get("id"):
+        _add_error(
+            errors,
+            path=f"{flag_path}.concept_id",
+            code="concept_cluster_flag_id_mismatch",
+            message="Concept cluster_flag.concept_id must match the record id.",
+        )
+    if flag.get("specimen_id") != relationships.get("specimen_id"):
+        _add_error(
+            errors,
+            path=f"{flag_path}.specimen_id",
+            code="concept_cluster_flag_specimen_mismatch",
+            message="Concept cluster_flag.specimen_id must match relationships.specimen_id.",
+        )
+    for key, expected in count_expectations.items():
+        if flag.get(key) != expected:
+            _add_error(
+                errors,
+                path=f"{flag_path}.{key}",
+                code="concept_cluster_flag_count_mismatch",
+                message=f"Concept cluster_flag.{key} must match relationships refs.",
+            )
+    if not str(flag.get("drilldown", "")).startswith("concepts/"):
+        _add_error(
+            errors,
+            path=f"{flag_path}.drilldown",
+            code="concept_cluster_flag_drilldown_not_local",
+            message="Concept cluster_flag.drilldown must point at the local concept record.",
+        )
+    if "not_source_authority" not in str(flag.get("authority_boundary", "")):
+        _add_error(
+            errors,
+            path=f"{flag_path}.authority_boundary",
+            code="concept_cluster_flag_authority_boundary_missing",
+            message="Concept cluster_flag must state that it is not source authority.",
+        )
+    return True
+
+
+def _validate_record_corpus(root: Path, errors: list[dict[str, str]]) -> dict[str, Any]:
+    concept_standard = _load_json(root / "standards/std_microcosm_concept.json")
+    mechanism_standard = _load_json(root / "standards/std_microcosm_mechanism.json")
+    concept_required = _required_fields(concept_standard)
+    mechanism_required = _required_fields(mechanism_standard)
+    concept_paths = sorted((root / "concepts").glob("*.json"))
+    mechanism_paths = sorted((root / "mechanisms").glob("*.json"))
+    concepts = {path: _load_json(path) for path in concept_paths}
+    mechanisms = {path: _load_json(path) for path in mechanism_paths}
+    concept_ids = {row.get("id") for row in concepts.values()}
+    mechanism_ids = {row.get("id") for row in mechanisms.values()}
+    receipt_refs = sorted(
+        {
+            ref
+            for row in [*concepts.values(), *mechanisms.values()]
+            for ref in _as_list(row.get("receipt_refs"))
+            if isinstance(ref, str) and ref.strip()
+        }
+    )
+    receipt_index = _record_receipt_index(root, receipt_refs)
+
+    draft_or_seed_count = 0
+    empty_receipt_count = 0
+    planned_target_count = 0
+    unresolved_target_count = 0
+    cluster_flag_count = 0
+
+    for path, record in concepts.items():
+        record_id = str(record.get("id") or path.stem)
+        status = str(record.get("status") or "")
+        if status in {"draft", "seed"}:
+            draft_or_seed_count += 1
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.status",
+                code="concept_not_active",
+                message="Concept records must be active, not draft or seed.",
+            )
+        for key in concept_required:
+            if record.get(key) in (None, "", []):
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.{key}",
+                    code="concept_missing_required_field",
+                    message=f"Concept record is missing required field {key}.",
+                )
+        refs = [ref for ref in _as_list(record.get("receipt_refs")) if isinstance(ref, str)]
+        if not refs:
+            empty_receipt_count += 1
+        if not _receipt_refs_cover_record(
+            root=root, record_id=record_id, receipt_refs=refs, receipt_index=receipt_index
+        ):
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.receipt_refs",
+                code="concept_receipt_not_bound",
+                message="Concept record must point to a declared or local receipt that covers this record.",
+            )
+        if not _has_ref_list(record, "validator_refs"):
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.validator_refs",
+                code="concept_validator_refs_missing",
+                message="Concept record must carry validator_refs.",
+            )
+        if _validate_concept_cluster_flag(record=record, path=path, errors=errors):
+            cluster_flag_count += 1
+        _validate_record_edges(record=record, path=path, errors=errors)
+        for mechanism_id in _as_list(_as_dict(record.get("relationships")).get("mechanism_refs")):
+            if mechanism_id not in mechanism_ids:
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.relationships.mechanism_refs",
+                    code="concept_mechanism_ref_unresolved",
+                    message=f"Concept mechanism ref {mechanism_id} must resolve to a mechanism record.",
+                )
+
+    concept_mechanism_refs = {
+        str(record.get("id")): set(_as_list(_as_dict(record.get("relationships")).get("mechanism_refs")))
+        for record in concepts.values()
+    }
+    for path, record in mechanisms.items():
+        record_id = str(record.get("id") or path.stem)
+        status = str(record.get("status") or "")
+        if status in {"draft", "seed"}:
+            draft_or_seed_count += 1
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.status",
+                code="mechanism_not_active",
+                message="Mechanism records must be active, not draft or seed.",
+            )
+        for key in mechanism_required:
+            if record.get(key) in (None, "", []):
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.{key}",
+                    code="mechanism_missing_required_field",
+                    message=f"Mechanism record is missing required field {key}.",
+                )
+        refs = [ref for ref in _as_list(record.get("receipt_refs")) if isinstance(ref, str)]
+        if not refs:
+            empty_receipt_count += 1
+        if not _receipt_refs_cover_record(
+            root=root, record_id=record_id, receipt_refs=refs, receipt_index=receipt_index
+        ):
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.receipt_refs",
+                code="mechanism_receipt_not_bound",
+                message="Mechanism record must point to a declared or local receipt that covers this record.",
+            )
+        if not _has_ref_list(record, "validator_refs"):
+            _add_error(
+                errors,
+                path=f"{path.as_posix()}.validator_refs",
+                code="mechanism_validator_refs_missing",
+                message="Mechanism record must carry validator_refs.",
+            )
+        _validate_mechanism_population_binding(record=record, path=path, errors=errors)
+        _validate_record_edges(record=record, path=path, errors=errors)
+        for edge in _as_list(_as_dict(record.get("relationships")).get("edges")):
+            if isinstance(edge, dict):
+                status = edge.get("target_status")
+                if _is_planned_target_status(status):
+                    planned_target_count += 1
+                elif status not in RESOLVED_TARGET_STATUSES:
+                    unresolved_target_count += 1
+        for concept_id in _as_list(_as_dict(record.get("relationships")).get("concept_refs")):
+            if concept_id not in concept_ids:
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.relationships.concept_refs",
+                    code="mechanism_concept_ref_unresolved",
+                    message=f"Mechanism concept ref {concept_id} must resolve to a concept record.",
+                )
+            elif record_id not in concept_mechanism_refs.get(concept_id, set()):
+                _add_error(
+                    errors,
+                    path=f"{path.as_posix()}.relationships.concept_refs",
+                    code="concept_missing_mechanism_backref",
+                    message=f"Concept {concept_id} must list mechanism {record_id} back.",
+                )
+
+    return {
+        "concept_count": len(concept_paths),
+        "mechanism_count": len(mechanism_paths),
+        "draft_or_seed_status_count": draft_or_seed_count,
+        "empty_receipt_ref_count": empty_receipt_count,
+        "planned_target_count": planned_target_count,
+        "unresolved_target_count": unresolved_target_count,
+        "receipt_ref_count": len(receipt_refs),
+        "cluster_flag_count": cluster_flag_count,
+    }
 
 
 def _validate_concept_binding(
@@ -346,6 +743,7 @@ def validate_concept_mechanism_population(
     *,
     entry_packet: dict[str, Any],
     pressure_payload: dict[str, Any] | None = None,
+    root: Path | None = None,
     command: str = "concept-mechanism-population-validator",
 ) -> dict[str, Any]:
     errors: list[dict[str, str]] = []
@@ -373,6 +771,9 @@ def validate_concept_mechanism_population(
             code="activation_validator_command_missing",
             message="Validation commands must expose the activation population validator.",
         )
+    record_validation = None
+    if root is not None:
+        record_validation = _validate_record_corpus(root, errors)
 
     return {
         "schema": "microcosm_concept_mechanism_population_validation_v0",
@@ -382,6 +783,7 @@ def validate_concept_mechanism_population(
         "activation_receipt_count": len(receipt_ids),
         "activation_receipt_ids": receipt_ids,
         "pressure_checked": pressure_checked,
+        "record_validation": record_validation,
         "parallel_index_authorized": False,
         "anti_claim": (
             "This validator checks specimen/activation route shape only; it does not "
@@ -397,12 +799,14 @@ def validate_paths(
     entry_packet_path: Path,
     pressure_path: Path | None,
     out: Path | None,
+    root: Path | None = None,
     command: str,
 ) -> dict[str, Any]:
     pressure_payload = _load_json(pressure_path) if pressure_path else None
     receipt = validate_concept_mechanism_population(
         entry_packet=_load_json(entry_packet_path),
         pressure_payload=pressure_payload,
+        root=root,
         command=command,
     )
     if out:
@@ -418,20 +822,27 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Validate Microcosm concept/mechanism population specimens and activation receipts."
     )
-    parser.add_argument("--entry-packet", required=True, type=Path)
+    parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
+    parser.add_argument("--entry-packet", type=Path)
     parser.add_argument("--pressure", type=Path)
     parser.add_argument("--out", type=Path)
     args = parser.parse_args(argv)
+    root = args.root.resolve()
+    entry_packet_path = args.entry_packet or root / "atlas/entry_packet.json"
+    pressure_path = args.pressure
+    if pressure_path is None and (root / "core/public_standard_pressure.json").is_file():
+        pressure_path = root / "core/public_standard_pressure.json"
     command = (
         "python -m microcosm_core.validators.concept_mechanism_population "
-        f"--entry-packet {args.entry_packet}"
-        + (f" --pressure {args.pressure}" if args.pressure else "")
+        f"--root {root} --entry-packet {entry_packet_path}"
+        + (f" --pressure {pressure_path}" if pressure_path else "")
         + (f" --out {args.out}" if args.out else "")
     )
     receipt = validate_paths(
-        entry_packet_path=args.entry_packet,
-        pressure_path=args.pressure,
+        entry_packet_path=entry_packet_path,
+        pressure_path=pressure_path,
         out=args.out,
+        root=root,
         command=command,
     )
     print(json.dumps(receipt, indent=2, sort_keys=True))

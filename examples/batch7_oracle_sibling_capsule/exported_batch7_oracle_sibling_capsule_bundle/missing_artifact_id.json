@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "case_id": "missing_artifact_id",
+  "error_codes": [
+    "BATCH7_ORACLE_ARTIFACT_ID_REQUIRED"
+  ]
+}

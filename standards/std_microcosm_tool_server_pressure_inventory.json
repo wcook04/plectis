@@ -1,0 +1,191 @@
+{
+  "anti_claim": "Tool-server pressure inventory validates a public read-only helper-process pressure contract over synthetic process tables only. It does not read live host processes, signal processes, mutate host state, authorize release, call providers, export private account/session state, or claim whole-system correctness.",
+  "authority_boundary": "public_tool_server_pressure_inventory_projection_not_process_control_authority",
+  "authority_ceiling": {
+    "host_mutation_authorized": false,
+    "live_process_table_read_authorized": false,
+    "private_data_equivalence_claim": false,
+    "process_signal_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "first_wave_required": true,
+  "kind_id": "tool_server_pressure_inventory",
+  "kind_name": "Tool-server pressure inventory",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic ps-shaped process table rows",
+      "synthetic helper-kind policy rows",
+      "synthetic owner-status taxonomy rows",
+      "source refs, target refs, target digests, and anchor lists",
+      "negative case ids and stable error codes"
+    ],
+    "default_posture": "public_safe_no_actuator_pressure_inventory",
+    "forbidden_public_inputs": [
+      "absolute host paths",
+      "live process command bodies",
+      "provider payload bodies",
+      "account/session state and cookies",
+      "credential values",
+      "process-signal results",
+      "release approval state"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "active_owner_kill_candidate.json",
+      "unknown_owner_kill.json",
+      "premature_safe_close.json",
+      "process_signal_sent.json",
+      "command_preview_leak.json",
+      "absolute_path_leak.json",
+      "owner_release_overclaim.json"
+    ],
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "tool_server_pressure_inventory_result.json",
+    "tool_server_pressure_inventory_board.json",
+    "tool_server_pressure_inventory_validation_receipt.json",
+    "tool_server_pressure_inventory_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
+    ],
+    "used_by_organs": [
+      "tool_server_pressure_inventory"
+    ]
+  },
+  "required_fields": [
+    "process_table.json",
+    "pressure_policy.json",
+    "owner_classes.json",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
+    "inventory_projection",
+    "negative_case_ids",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "tools/meta/control/orphan_reaper.py",
+    "src/microcosm_core/organs/tool_server_pressure_inventory.py",
+    "tests/test_tool_server_pressure_inventory.py",
+    "fixtures/first_wave/tool_server_pressure_inventory/input",
+    "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle",
+    "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle/source_module_manifest.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_result.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_board.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_validation_receipt.json",
+    "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+    "paper_modules/tool_server_pressure_inventory.md"
+  ],
+  "standard_id": "std_microcosm_tool_server_pressure_inventory",
+  "standard_payload": {
+    "anti_purpose": "A host cleanup script, process kill list, live process inspector, release authority, or fixture-only regression wrapper that lacks source-module provenance.",
+    "compression_bands": [
+      "synthetic_process_table",
+      "owner_chain_classification",
+      "active_owner_release_request",
+      "source_module_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "active-owner descendant admitted as a safe-close candidate",
+      "unknown-owner or young detached process admitted as safe-close",
+      "over-budget active owner converted into a kill or terminate action instead of a release request",
+      "receipt or imported public body carries an absolute host path or live command body",
+      "source module manifest missing, target digest stale, or declared anchor absent",
+      "fixture result claims live process read, process signalling, host mutation, release authority, provider calls, private-data equivalence, or whole-system correctness"
+    ],
+    "ontology": "A public-safe accepted organ that ports the macro orphan_reaper read-only helper pressure classifier into synthetic fixtures with provenance-backed source-module body support.",
+    "teleology": "Expose the real system's helper-process pressure hygiene membrane as runnable substrate without giving the public surface any host process-control authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.tool_server_pressure_inventory",
+      "receipt_id": "receipt.microcosm.tool_server_pressure_inventory",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "Positive fixtures must classify detached safe-close candidates, active-owner descendants, unknown owners, and keep runtimes from injected synthetic process rows.",
+    "Active-owner descendants must never be safe-close candidates.",
+    "Over-budget active-owner groups must produce release requests, not process signals or termination results.",
+    "Exported runtime bundle must include source_module_manifest.json and a public-safe refactor body whose target hash and anchors validate.",
+    "Receipts must carry refs, hashes, counts, verdicts, and omission boundaries without embedding copied macro body text.",
+    "Absolute host paths, live command bodies, process-signal claims, release authority, provider-call authority, host mutation, private-data equivalence, and whole-system correctness claims are rejected."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.tool_server_pressure_inventory run --input fixtures/first_wave/tool_server_pressure_inventory/input --out receipts/first_wave/tool_server_pressure_inventory --acceptance-out receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.tool_server_pressure_inventory",
+    "runtime_bundle_command": "python -m microcosm_core.organs.tool_server_pressure_inventory run-pressure-bundle --input examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle --out receipts/runtime_shell/demo_project/organs/tool_server_pressure_inventory"
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.tool_server_pressure_inventory"
+  ],
+  "wave": "w1_tool_server_pressure_inventory",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.tool_server_pressure_inventory.author",
+      "status": "planned",
+      "purpose": "create a valid Tool-server pressure inventory instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.tool_server_pressure_inventory.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Tool-server pressure inventory without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.tool_server_pressure_inventory.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_tool_server_pressure_inventory and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_tool_server_pressure_inventory.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.tool_server_pressure_inventory"
+  ],
+  "anti_claims": [
+    "Tool-server pressure inventory validates a public read-only helper-process pressure contract over synthetic process tables only. It does not read live host processes, signal processes, mutate host state, authorize release, call providers, export private account/session state, or claim whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_tool_server_pressure_inventory",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.tool_server_pressure_inventory",
+    "receipt_id": "receipt.microcosm.tool_server_pressure_inventory",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_tool_server_pressure_inventory_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

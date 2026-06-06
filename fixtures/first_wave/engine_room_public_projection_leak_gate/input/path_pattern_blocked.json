@@ -1,0 +1,16 @@
+{
+  "case_id": "path_pattern_blocked",
+  "expected_status": "red",
+  "files": [
+    {
+      "path_parts": [
+        "state",
+        "/",
+        "task_ledger",
+        "/",
+        "shadow.json"
+      ],
+      "text": "Path names for private task history are blocked even with harmless content.\n"
+    }
+  ]
+}

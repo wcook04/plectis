@@ -1,0 +1,37 @@
+{
+  "body_in_receipt": false,
+  "entities": [],
+  "materialization_rows": [
+    {
+      "kind_id": "concepts",
+      "system_atlas_kind_atlas_row_count_snapshot": 41,
+      "system_atlas_materialization_status": "partial_row_level_materialization",
+      "system_atlas_materialized_entity_count": 30,
+      "title": "Concepts"
+    },
+    {
+      "kind_id": "mechanisms",
+      "system_atlas_kind_atlas_row_count_snapshot": 35,
+      "system_atlas_materialization_status": "partial_row_level_materialization",
+      "system_atlas_materialized_entity_count": 28,
+      "title": "Mechanisms"
+    },
+    {
+      "kind_id": "paper_modules",
+      "system_atlas_kind_atlas_row_count_snapshot": 220,
+      "system_atlas_materialization_status": "row_level_materialized",
+      "system_atlas_materialized_entity_count": 220,
+      "title": "Paper Modules"
+    },
+    {
+      "kind_id": "standards",
+      "system_atlas_kind_atlas_row_count_snapshot": 198,
+      "system_atlas_materialization_status": "partial_row_level_materialization",
+      "system_atlas_materialized_entity_count": 29,
+      "title": "Standards"
+    }
+  ],
+  "schema_version": "generated_system_atlas_materialization_snapshot_v1",
+  "source_ref": "state/system_atlas/system_atlas.graph.json",
+  "system_atlas_snapshot_generated_at": "2026-05-31T13:44:52Z"
+}

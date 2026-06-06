@@ -5,6 +5,7 @@
     "rule": "benchmark integrity material must state that synthetic replay is not a benchmark score"
   },
   "authority_boundary": "source_open_pattern_provenance_body_import_plus_body_free_regression_benchmark_integrity_replay_not_benchmark_score_authority",
+  "authority_boundary_detail": "Accepts copied non-secret macro pattern provenance bodies plus body-free synthetic benchmark-integrity replay receipts as regression-negative fixture evidence only; it never authorizes benchmark scores, hidden-gold access, private issue or oracle patch body export, provider calls, live repository mutation, product-progress evidence, release, publication, or private macro equivalence.",
   "authority_ceiling": {
     "benchmark_score_authority": false,
     "live_repo_mutation_authority": false,
@@ -13,6 +14,104 @@
     "standard_authority": "copied_non_secret_macro_pattern_provenance_body_manifest_plus_body_free_regression_benchmark_integrity_replay_schema",
     "status": "pass"
   },
+  "body_import_verification": {
+    "bundle_manifest_anti_claim": "These copied pattern provenance bodies make the public benchmark-integrity organ accountable to real macro ledger rows and reconstruction state. They do not authorize benchmark scores, expose private issue/oracle/hidden-gold/provider bodies, run providers, mutate repositories, or authorize release.",
+    "bundle_manifest_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+    "source_open_body_import_floor": {
+      "aggregate_floor_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json::modules",
+      "authority_ceiling": {
+        "benchmark_score_authority": false,
+        "body_text_in_receipt": false,
+        "hidden_gold_exported": false,
+        "live_repo_mutation_authorized": false,
+        "oracle_patch_body_exported": false,
+        "private_issue_body_exported": false,
+        "provider_payload_exported": false,
+        "release_authorized": false
+      },
+      "body_material_count": 3,
+      "body_material_ids": [
+        "benchmark_integrity_extracted_pattern_ledger_row_body_import",
+        "benchmark_integrity_high_novelty_growth_receipt_body_import",
+        "benchmark_integrity_deterministic_pattern_order_body_import"
+      ],
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "body_text_exported_in_receipts": false,
+      "body_text_exported_in_workingness": false,
+      "material_classes": [
+        "public_macro_pattern_body"
+      ],
+      "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests, refs, classes, and validation status only.",
+      "source_manifest_refs": [
+        "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+        "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+        "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json"
+      ],
+      "status": "pass"
+    }
+  },
+  "copied_macro_body_artifacts": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 72,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_extracted_pattern_ledger_row_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:f23773f9bc0d6304c10ed9a5c332f077f50e8c03684db7156b48b6c00707eb43",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_353::agent_benchmark_integrity_anti_gaming_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 121,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_high_novelty_growth_receipt_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 40,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_deterministic_pattern_order_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:178c8b1feff6a5a6301ee9d3e65942a1af5061e45bfcd6298ac7545f153fae64",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
   "first_wave_required": true,
   "kind_id": "agent_benchmark_integrity_anti_gaming_replay",
   "kind_name": "Agent benchmark integrity anti-gaming replay",
@@ -29,7 +128,10 @@
   },
   "paper_module_contract": {
     "module_slug": "agent_benchmark_integrity_anti_gaming_replay",
-    "required": true
+    "required": true,
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.agent_benchmark_integrity_anti_gaming_replay",
+    "mechanism_ref": "mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+    "source_authority": "json_capsule_with_authored_markdown_projection_and_receipts"
   },
   "public_private_boundary": {
     "allowed_public_inputs": [
@@ -80,7 +182,12 @@
     "receipt must cite source refs, source pattern ids, source module import status, source_open_body_imports, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, body_in_receipt=false, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
-    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+    "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#agent_benchmark_integrity_anti_gaming_replay",
@@ -103,9 +210,11 @@
     "benchmark_cases",
     "replay_observations",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "copied_macro_body_artifacts",
+    "body_import_verification"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay public-root relative in receipts, copied pattern provenance bodies live under source_artifacts with source_module_manifest digest verification, and benchmark bodies remain omitted"
@@ -146,6 +255,21 @@
       "field": "source_module_manifest",
       "path": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "role": "copied_non_secret_macro_pattern_provenance_body_manifest"
+    },
+    {
+      "field": "paper_module_contract.module_slug",
+      "path": "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "field": "paper_module_contract.capsule_ref",
+      "path": "core/paper_module_capsules.json#paper_module.agent_benchmark_integrity_anti_gaming_replay",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "field": "paper_module_contract.mechanism_ref",
+      "path": "core/mechanism_sources.json#mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay",
+      "role": "mechanism_source"
     }
   ],
   "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
@@ -174,10 +298,31 @@
       "unregistered_case_replay"
     ],
     "ontology": "A copied-source-provenance plus body-free regression-negative benchmark integrity replay: public-safe macro pattern provenance bodies, locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, negative cases, fixture refs, and authority ceilings.",
-    "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming regression receipts before any public score language, without counting the fixture as product-progress substrate."
+    "rebuild_action": "validate exported benchmark integrity bundle, source module manifest digest floor, workingness map, and release claim boundary",
+    "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming regression receipts before any public score language, without counting the fixture as product-progress substrate.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+        "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+        "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require locked evaluator id and config hash before score interpretation",
     "require each replay row to bind to a case id declared in benchmark_cases.json",
@@ -202,7 +347,108 @@
     "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
   },
   "validator_refs": [
-    "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay"
+    "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+    "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
   ],
-  "wave": "w1_agent_benchmark_integrity_anti_gaming_replay"
+  "source_module_manifest_contract": {
+    "required": true,
+    "bundle_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle",
+    "manifest_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_material_count": 3,
+    "verified_source_module_count": 3,
+    "body_text_exported_in_receipts": false,
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_for_sibling_organ_atlas_lane",
+    "atlas_reentry_refs": [
+      "cap_quick_prestage_agent_benchmark_integrity_anti_gaming_per_organ_capsule",
+      "core/organ_atlas.json::organs[organ_id=agent_benchmark_integrity_anti_gaming_replay].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=agent_benchmark_integrity_anti_gaming_replay].mechanism_ref",
+      "core/organ_atlas.json::organs[organ_id=agent_benchmark_integrity_anti_gaming_replay].code_loci"
+    ],
+    "coverage_projection_status": "json_corpus_populated_atlas_edges_pending",
+    "source_module_manifest_status": "populated",
+    "authority_boundary": "Copied public macro pattern provenance bodies, body-free synthetic benchmark-integrity replay rows, locked evaluator policy, public case ids, contamination/file-access/output replay refs, trusted-reference score refs, and runtime validation receipts only; no benchmark score, SWE-bench performance claim, hidden-gold access, oracle patch body export, private issue body export, provider payload, live repository mutation, product-progress evidence, release authority, publication authority, or source mutation.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_agent_benchmark_integrity_anti_gaming_replay_population_has_capsule_and_mechanism_prestaged_until_atlas_binding",
+      "tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+      "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run",
+      "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run-benchmark-integrity-bundle"
+    ]
+  },
+  "negative_cases": {
+    "coverage_status": "all_observed",
+    "expected": [
+      "evaluator_edit_attempt",
+      "final_answer_only_grading",
+      "hidden_gold_access",
+      "misleading_test_admitted",
+      "oracle_patch_body_leakage",
+      "pass_k_cherry_picking",
+      "private_issue_body_leakage",
+      "provider_payload_leakage",
+      "score_overclaim",
+      "train_test_leakage",
+      "unregistered_case_replay"
+    ],
+    "receipt_ref": "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json"
+  },
+  "wave": "w1_agent_benchmark_integrity_anti_gaming_replay",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.agent_benchmark_integrity_anti_gaming_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Agent benchmark integrity anti-gaming replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.agent_benchmark_integrity_anti_gaming_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Agent benchmark integrity anti-gaming replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.agent_benchmark_integrity_anti_gaming_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_agent_benchmark_integrity_anti_gaming_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "anti_claims": [
+    "This standard governs copied source-open macro pattern provenance bodies plus body-free synthetic benchmark-integrity regression receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay",
+    "receipt_id": "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
+    "validator_refs": [
+      "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+      "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+      "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+      "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+      "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+      "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+      "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay"
+    ]
+  }
 }

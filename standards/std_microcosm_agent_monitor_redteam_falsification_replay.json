@@ -1,8 +1,8 @@
 {
-  "anti_claim": "This standard governs synthetic agent-monitor redteam replay receipts only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live agent traffic, call providers, mutate source, or authorize release/publication work.",
+  "anti_claim": "This standard governs synthetic agent-monitor redteam replay receipts plus sanitized release-visible public dogfood command trace evidence only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live agent traffic, call providers, mutate source, or authorize release/publication work.",
   "anti_claim_contract": {
     "required": true,
-    "rule": "monitor redteam material must state that synthetic replay is not product monitor performance or complete-control-eval authority"
+    "rule": "monitor redteam material must state that synthetic replay and public dogfood trace slices are not product monitor performance or complete-control-eval authority"
   },
   "authority_boundary": "regression_negative_agent_monitor_redteam_replay_not_monitor_product_performance_authority",
   "authority_ceiling": {
@@ -15,7 +15,16 @@
     "provider_authority": false,
     "release_authority": false,
     "standard_authority": "regression_negative_monitor_redteam_replay_schema_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#agent_monitor_redteam_falsification_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#agent_monitor_redteam_falsification_replay.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "agent_monitor_redteam_falsification_replay",
@@ -31,7 +40,7 @@
       "provider payloads",
       "monitor product performance claims"
     ],
-    "reason": "public slice carries synthetic monitor metadata and body-free receipt evidence only"
+    "reason": "public slice carries synthetic monitor metadata, body-free receipt evidence, and sanitized release-visible dogfood command trace summaries only"
   },
   "paper_module_contract": {
     "module_slug": "agent_monitor_redteam_falsification_replay",
@@ -50,6 +59,7 @@
       "body-omission refs",
       "mitigation refs",
       "cold replay refs",
+      "sanitized public dogfood command trace event ids and counts",
       "negative case ids"
     ],
     "default_posture": "public_safe_when_body_free_regression_fixture_only",
@@ -89,6 +99,10 @@
     "receipt must cite source refs, source pattern ids, trajectory count, observation count, adversarial probe count, verdict counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
+    "receipt.microcosm.agent_monitor_redteam_falsification_replay",
+    "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
     "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json"
   ],
   "relationships": {
@@ -114,7 +128,7 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata and public regression fixture refs stay public-root relative"
@@ -129,11 +143,16 @@
       "field": "runtime_example",
       "path": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "public_dogfood_trace_slice",
+      "path": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json",
+      "role": "sanitized_public_trace_source_artifact"
     }
   ],
   "standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
   "standard_payload": {
-    "anti_purpose": "Treating synthetic monitor metadata as product monitor performance, live control-eval results, or complete-security evidence.",
+    "anti_purpose": "Treating synthetic monitor metadata or sanitized public dogfood trace slices as product monitor performance, live control-eval results, or complete-security evidence.",
     "compression_bands": [
       "protocol",
       "trajectory",
@@ -153,18 +172,36 @@
       "monitor_product_performance_claim",
       "coverage_without_adversarial_probe"
     ],
-    "ontology": "A regression-negative monitor redteam replay: synthetic trajectories, adversarial probe refs, monitor verdicts, escalation refs, mitigation refs, body-omission refs, cold replay refs, and falsification fixtures.",
+    "ontology": "A regression-negative monitor redteam replay: synthetic trajectories, one sanitized release-visible public dogfood command trace slice, adversarial probe refs, monitor verdicts, escalation refs, mitigation refs, body-omission refs, cold replay refs, and falsification fixtures.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how agent-monitor honesty claims are gated by adversarial probes, body-free evidence, negative cases, and authority ceilings before any public claim is admitted."
+    "teleology": "Make Microcosm show how agent-monitor honesty claims are gated by adversarial probes, body-free evidence, negative cases, and authority ceilings before any public claim is admitted.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay",
+      "receipt_id": "receipt.microcosm.agent_monitor_redteam_falsification_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require monitor verdicts to be one of pass, escalate, or block",
     "require suspicious span, adversarial probe, escalation, body omission, mitigation, and cold replay refs",
     "reject private reasoning, internal code, exploit instruction detail, credential material, and live traffic exports",
     "reject monitor product performance and control-eval score overclaims",
     "reject coverage labels that lack adversarial probe refs",
-    "emit body-free regression receipts and private-state scan"
+    "emit body-free regression receipts and private-state scan over inputs and copied source artifact targets"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -179,7 +216,27 @@
     "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay"
   },
   "validator_refs": [
-    "microcosm_core.organs.agent_monitor_redteam_falsification_replay"
+    "validator.microcosm.organs.agent_monitor_redteam_falsification_replay",
+    "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
   ],
-  "wave": "w1_agent_monitor_redteam_falsification_replay"
+  "wave": "w1_agent_monitor_redteam_falsification_replay",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.agent_monitor_redteam_falsification_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Agent monitor redteam falsification replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.agent_monitor_redteam_falsification_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Agent monitor redteam falsification replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.agent_monitor_redteam_falsification_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_agent_monitor_redteam_falsification_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

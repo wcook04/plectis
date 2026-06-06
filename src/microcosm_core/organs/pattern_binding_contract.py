@@ -336,13 +336,12 @@ def _append_tree_files(paths: list[Path], path: Path) -> None:
 
 def _iter_tree_files(path: Path) -> Iterator[Path]:
     with os.scandir(path) as entries:
-        entry_rows = list(entries)
-    for entry in entry_rows:
-        child = path / entry.name
-        if entry.is_dir(follow_symlinks=False):
-            yield from _iter_tree_files(child)
-        elif entry.is_file():
-            yield child
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_tree_files(child)
+            elif entry.is_file(follow_symlinks=False):
+                yield child
 
 
 def _substrate_bundle_input_paths(input_dir: Path, *, public_root: Path) -> list[Path]:

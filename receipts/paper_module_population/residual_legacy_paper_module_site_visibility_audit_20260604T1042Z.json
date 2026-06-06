@@ -1,0 +1,219 @@
+{
+  "schema_version": "microcosm_residual_paper_module_site_visibility_audit_v1",
+  "receipt_id": "residual_legacy_paper_module_site_visibility_audit_20260604T1042Z",
+  "generated_at": "2026-06-04T10:42:00Z",
+  "phase_id": "09_54_1",
+  "family_id": "09",
+  "agent_session_id": "codex_20260604T1042Z_residual_paper_module_visibility_audit",
+  "agent_read_receipt_id": "wlr_0e7b810654cc4086",
+  "head_at_audit": "23e0735dac9bf1bdb5568b1d838bab3373038f38",
+  "status": "site_visibility_audited_source_splice_blocked_by_live_owners",
+  "authority_boundary": "This receipt audits generated public-site visibility for residual paper-module gaps. It does not mutate source authority, admit mechanisms, append paper-module capsules, regenerate projections, or approve release.",
+  "anti_claim": "Reachability of legacy/subject-gap modules in the public site is not JSON capsule authority, accepted organ authority, release readiness, source verification, private-root equivalence, or whole-system correctness.",
+  "source_population_blocker": {
+    "target_paper_module_id": "paper_module.engine_room_command_run_singleflight",
+    "target_source_authority_status": "legacy_markdown_projection",
+    "candidate_handoff_receipt": "microcosm-substrate/receipts/paper_module_population/engine_room_command_run_singleflight_admission_handoff_20260604T0955Z.json",
+    "blocked_shared_surfaces": [
+      {
+        "path": "microcosm-substrate/core/mechanism_sources.json",
+        "owner_session_id": "codex_goal_microcosm_doctrine_lattice_saturation_20260604T103920Z_microcosm_mechanism_parity_edge_repair",
+        "claim_id": "wlc_44cb612a88f544f9",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00",
+        "coordination_request_id": "syr_20260604T104208Z_41aefb6d"
+      },
+      {
+        "path": "microcosm-substrate/core/paper_module_capsules.json",
+        "owner_session_id": "codex_20260604T1040Z_drift_gate_json_transition_repair",
+        "claim_id": "wlc_5a299641671d418a",
+        "leased_until": "2026-06-04T11:25:34.603279+00:00",
+        "coordination_request_id": "syr_20260604T104216Z_c925a58a"
+      }
+    ],
+    "reentry_condition": "After the live owners land or release mechanism_sources.json, paper_module_capsules.json, and lattice projection claims, splice the candidate command-run singleflight mechanism and paper-module capsule rows from the handoff receipt, regenerate doctrine projections, refresh the public site builder outputs, validate, and commit scoped paths."
+  },
+  "coverage_snapshot": {
+    "source_ref": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus",
+    "projection_authority_boundary": "generated_coverage_projection_for_deficit_classification_not_source_authority",
+    "json_capsule_backed_count": 85,
+    "legacy_only_count": 13,
+    "required_subject_gap_count": 13,
+    "residual_legacy_only_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_command_run_singleflight",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ]
+  },
+  "site_visibility_audit": {
+    "checked_files": [
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "legacy_count": 13,
+    "required_subject_gap_count": 13,
+    "invisible_count": 0,
+    "not_in_object_map_count": 0,
+    "not_in_content_graph_count": 0,
+    "llms_txt_listing_count": 0,
+    "site_availability_boundary": "All residual paper modules are reachable in generated object-map, content-graph, search index, and paper-modules page surfaces; llms.txt does not enumerate these residual legacy modules."
+  },
+  "residual_rows": [
+    {
+      "paper_module_id": "paper_module.batch7_secondary_runtime_capsule",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.batch7_zenith_macos_capsule",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.cold_clone_probe",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_annex_knowledge_router",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_bridge_campaign_dag",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_command_run_singleflight",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_derived_fact_provider_engine",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_egress_self_compliance_gate",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_lean_proof_search_lab",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_metabolism_runtime",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_navigation_fitness_benchmark",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.first_screen_composition_root",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    },
+    {
+      "paper_module_id": "paper_module.microcosm_axiom_substrate",
+      "object_map": true,
+      "content_graph": true,
+      "search_index": true,
+      "paper_modules_page": true,
+      "llms_txt": false
+    }
+  ],
+  "proof_commands": [
+    {
+      "command": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/mechanism_sources.json --path microcosm-substrate/core/paper_module_capsules.json --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/atlas/doctrine_lattice_projection.json --path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --path microcosm-substrate/atlas/doctrine_lattice_health.json --path microcosm-substrate/atlas/doctrine_lattice_entry_card.json --require-exclusive",
+      "status": "blocked_by_live_owner_claims"
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "status": "pass_before_shared_source_blocker_recheck",
+      "drift_count": 0,
+      "internal_links_checked": 2572
+    },
+    {
+      "command": "read-only residual visibility audit over sites/microcosm/object-map.json, content-graph.json, assets/search-index.js, docs/paper-modules.html, and llms.txt",
+      "status": "pass",
+      "invisible_count": 0
+    }
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "allowed_material": [
+      "public paper-module ids",
+      "generated site path names",
+      "coverage counts",
+      "claim ids",
+      "owner session ids",
+      "coordination request ids",
+      "validation counts"
+    ],
+    "forbidden_material_not_included": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "raw_operator_voice",
+      "private account state",
+      "browser_or_hud_state",
+      "private macro source bodies",
+      "live command_runs state bodies"
+    ]
+  },
+  "next_lane": "When owner claims release, re-enter engine_room_command_run_singleflight source admission from the existing handoff. If claims remain blocked, continue with disjoint reader availability audits or exact handoff receipts only."
+}

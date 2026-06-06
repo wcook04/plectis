@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 from collections import Counter, defaultdict
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +18,7 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
-from microcosm_core.schemas import read_json_strict
+from microcosm_core.schemas import StrictJsonError, read_json_strict
 
 
 ORGAN_ID = "formal_math_premise_retrieval"
@@ -32,6 +34,7 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_premise_retrieval_bundle_validation_result.json"
 CARD_SCHEMA_VERSION = "formal_math_premise_retrieval_card_v1"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "authority_ceiling",
     "anti_claim",
@@ -45,6 +48,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "public_runtime_refs",
     "retrievals",
     "secret_exclusion_scan",
+    "source_module_results",
     "source_pattern_ids",
     "source_refs",
 )
@@ -117,6 +121,10 @@ BODY_MATERIAL_CONTRACT = {
         "private_source_body",
     ],
 }
+SOURCE_MODULE_ALLOWED_IMPORT_CLASSES = {
+    "copied_non_secret_macro_body",
+    "source_faithful_public_safe_macro_body",
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -141,6 +149,16 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _iter_source_module_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_source_module_files(child)
+            elif entry.is_file(follow_symlinks=False):
+                yield child
+
+
 def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     paths = _input_paths(input_dir, include_negative=include_negative)
     for name in OPTIONAL_BUNDLE_SCAN_NAMES:
@@ -149,7 +167,7 @@ def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
             paths.append(path)
     source_modules = input_dir / "source_modules"
     if source_modules.is_dir():
-        paths.extend(sorted(path for path in source_modules.rglob("*") if path.is_file()))
+        paths.extend(sorted(_iter_source_module_files(source_modules)))
     return paths
 
 
@@ -222,8 +240,8 @@ def _fresh_retrieval_bundle_receipt(
     if not receipt_path.is_file():
         return None
     try:
-        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        payload = read_json_strict(receipt_path)
+    except (OSError, StrictJsonError):
         return None
     if not isinstance(payload, dict):
         return None
@@ -241,10 +259,213 @@ def _fresh_retrieval_bundle_receipt(
     return result
 
 
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _normalize_sha256(value: object) -> str:
+    digest = str(value or "")
+    if digest and not digest.startswith("sha256:"):
+        return f"sha256:{digest}"
+    return digest
+
+
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
+    }
+
+
+def _read_source_module_manifest(input_dir: Path) -> dict[str, Any]:
+    path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if not path.is_file():
+        return {}
+    payload = read_json_strict(path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _bundle_source_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    return [*_rows(manifest, "modules"), *_rows(manifest, "source_faithful_modules")]
+
+
+def _public_ref_path(public_root: Path, ref: object) -> Path | None:
+    value = str(ref or "")
+    if not value:
+        return None
+    return public_root / _strip_microcosm_prefix(value)
+
+
+def _source_ref_path(public_root: Path, ref: object) -> Path | None:
+    value = str(ref or "")
+    if not value or value.startswith("lean-toolchain://"):
+        return None
+    if value.startswith("microcosm-substrate/"):
+        return public_root / _strip_microcosm_prefix(value)
+    return public_root.parent / value
+
+
+def _bundle_source_module_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    findings: list[dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
+    verified_target_count = 0
+    manifest = _read_source_module_manifest(input_dir)
+    rows = _bundle_source_module_rows(manifest)
+
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported premise retrieval bundle must include source_module_manifest.json.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    elif str(manifest.get("source_import_class") or "") != "copied_non_secret_macro_body":
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_SOURCE_IMPORT_CLASS_UNSUPPORTED",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest_path.is_file() and not rows:
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_SOURCE_MODULE_ROWS_MISSING",
+                "Exported premise retrieval bundle must carry copied source-module rows.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in rows:
+        module_id = str(row.get("module_id") or "source_module")
+        source_import_class = str(row.get("source_import_class") or "")
+        if source_import_class not in SOURCE_MODULE_ALLOWED_IMPORT_CLASSES:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_MODULE_IMPORT_CLASS_UNSUPPORTED",
+                    "Source module rows must declare a copied public-safe source import class.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+        target_paths: list[Path] = []
+        row_path = str(row.get("path") or "")
+        if row_path:
+            target_paths.append(input_dir / row_path)
+        for ref in _strings(row.get("target_refs")):
+            target = _public_ref_path(public_root, ref)
+            if target is not None and target.exists() and target not in target_paths:
+                target_paths.append(target)
+
+        expected_target_digest = _normalize_sha256(row.get("target_sha256")) or _normalize_sha256(
+            row.get("sha256")
+        )
+        expected_source_digest = _normalize_sha256(row.get("source_sha256")) or _normalize_sha256(
+            row.get("sha256")
+        )
+        source_path = _source_ref_path(public_root, row.get("source_ref"))
+        source_exists = bool(source_path and source_path.is_file())
+        actual_source_digest = _sha256(source_path) if source_exists and source_path else None
+        source_digest_match = (
+            actual_source_digest == expected_source_digest
+            if source_exists and expected_source_digest
+            else None
+        )
+
+        verified_targets: list[dict[str, Any]] = []
+        all_targets_match = True
+        for target_path in target_paths:
+            exists = target_path.is_file()
+            actual_target_digest = _sha256(target_path) if exists else None
+            digest_match = actual_target_digest == expected_target_digest if exists else False
+            all_targets_match &= digest_match
+            if digest_match:
+                verified_target_count += 1
+            verified_targets.append(
+                {
+                    "target_ref": _display(target_path, public_root=public_root),
+                    "exists": exists,
+                    "expected_target_sha256": expected_target_digest,
+                    "target_sha256": actual_target_digest,
+                    "sha256_match": digest_match,
+                }
+            )
+
+        if source_digest_match is False:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                    "Declared macro source digest must match the live source artifact.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif target_paths and not all_targets_match:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied public premise retrieval artifacts must match the declared source-module manifest digests.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not target_paths:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module rows must resolve to at least one copied public artifact in the bundle.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+        results.append(
+            {
+                "module_id": module_id,
+                "source_ref": str(row.get("source_ref") or ""),
+                "source_exists": source_exists,
+                "expected_source_sha256": expected_source_digest,
+                "actual_source_sha256": actual_source_digest,
+                "source_digest_match": source_digest_match,
+                "verified_targets": verified_targets,
+                "body_material_status": BODY_MATERIAL_STATUS,
+            }
+        )
+
+    status = PASS if not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "source_module_result_count": len(results),
+        "source_module_verified_target_count": verified_target_count,
+        "source_module_results": results,
+        "findings": findings,
     }
 
 
@@ -339,6 +560,16 @@ def _tokenize(values: object) -> Counter[str]:
         for token in re.findall(r"[A-Za-z0-9_]+", value.lower()):
             tokens[token] += 1
     return tokens
+
+
+def _premise_scoring_fields(premise: dict[str, Any]) -> list[tuple[str, object]]:
+    return [
+        ("premise_id", premise.get("premise_id", "")),
+        ("namespace", premise.get("namespace", "")),
+        ("theorem_or_def_name", premise.get("theorem_or_def_name", "")),
+        ("statement_excerpt", premise.get("statement_excerpt", "")),
+        ("retrieval_terms", premise.get("retrieval_terms", [])),
+    ]
 
 
 def _forbidden_keys(row: dict[str, Any]) -> list[str]:
@@ -437,6 +668,8 @@ def validate_premise_index(
             {
                 "premise_id": premise_id,
                 "namespace": row.get("namespace"),
+                "theorem_or_def_name": row.get("theorem_or_def_name"),
+                "statement_excerpt": row.get("statement_excerpt"),
                 "retrieval_terms": _strings(row.get("retrieval_terms")),
                 "allowed_for_split": _strings(row.get("allowed_for_split")),
                 "strategy_tags": _strings(row.get("strategy_tags")),
@@ -587,13 +820,14 @@ def _score_query(
         allowed = set(premise.get("allowed_for_split", []))
         if split not in allowed:
             continue
-        premise_terms = _tokenize(
-            [
-                premise.get("premise_id", ""),
-                premise.get("namespace", ""),
-                *premise.get("retrieval_terms", []),
-            ]
-        )
+        premise_terms: Counter[str] = Counter()
+        field_hits: list[dict[str, Any]] = []
+        for field, values in _premise_scoring_fields(premise):
+            field_terms = _tokenize(values)
+            premise_terms.update(field_terms)
+            hit_terms = sorted(set(query_terms) & set(field_terms))
+            if hit_terms:
+                field_hits.append({"field": field, "hit_terms": hit_terms})
         overlap = sorted(set(query_terms) & set(premise_terms))
         strategy_bonus = 1 if strategy_id in set(premise.get("strategy_tags", [])) else 0
         score = sum(min(query_terms[token], premise_terms[token]) for token in overlap)
@@ -603,6 +837,8 @@ def _score_query(
                 "premise_id": premise["premise_id"],
                 "score": score,
                 "overlap_terms": overlap,
+                "field_hits": field_hits,
+                "matched_fields": [row["field"] for row in field_hits],
                 "strategy_bonus": strategy_bonus,
                 "source_ref": premise.get("source_ref"),
                 "body_material_status": "retrieval_score_over_imported_index",
@@ -624,6 +860,8 @@ def validate_retrieval_queries(
     observed: dict[str, set[str]] = defaultdict(set)
     retrievals: list[dict[str, Any]] = []
     recall_scores: list[float] = []
+    source_index_size = len(premises)
+    retrieval_candidates_considered = 0
 
     def inspect_query(row: dict[str, Any], *, negative: bool = False) -> None:
         query_id = str(row.get("query_id") or "query")
@@ -661,8 +899,10 @@ def validate_retrieval_queries(
             )
 
     for query in _rows(payload, "queries"):
+        query_id = str(query.get("query_id") or "query")
         inspect_query(query)
         ranked = _score_query(query, premises)
+        retrieval_candidates_considered += len(ranked)
         top_k = max(1, int(query.get("top_k") or 3))
         top = ranked[:top_k]
         expected = set(_strings(query.get("expected_public_premise_ids")))
@@ -670,6 +910,16 @@ def validate_retrieval_queries(
         recall = len(expected & retrieved) / len(expected) if expected else None
         if recall is not None:
             recall_scores.append(recall)
+        if expected and recall != 1.0:
+            findings.append(
+                _finding(
+                    "FORMAL_RETRIEVAL_EXPECTED_PUBLIC_PREMISE_MISSED",
+                    "Retrieval query missed one or more expected public premise ids.",
+                    case_id="retrieval_query_recall_floor",
+                    subject_id=query_id,
+                    subject_kind="retrieval_query",
+                )
+            )
         retrievals.append(
             {
                 "query_id": str(query.get("query_id") or ""),
@@ -677,7 +927,10 @@ def validate_retrieval_queries(
                 "strategy_id": query.get("strategy_id"),
                 "recipe_id": query.get("recipe_id"),
                 "top_k": top_k,
+                "source_index_size": source_index_size,
+                "retrieval_candidates_considered": len(ranked),
                 "retrieved_premise_ids": [str(row["premise_id"]) for row in top],
+                "top_retrieval_rows": top,
                 "expected_public_premise_count": len(expected),
                 "public_retrieval_recall": recall,
                 "body_material_status": "retrieval_result_over_imported_index",
@@ -692,11 +945,17 @@ def validate_retrieval_queries(
             inspect_query(row, negative=True)
 
     mean_recall = sum(recall_scores) / len(recall_scores) if recall_scores else None
+    blocking_findings = [
+        row for row in findings if row.get("subject_kind") != "negative_case"
+    ]
     return {
-        "status": PASS if retrievals else "blocked",
+        "status": PASS if retrievals and not blocking_findings else "blocked",
         "query_count": len(retrievals),
+        "source_index_size": source_index_size,
+        "retrieval_candidates_considered": retrieval_candidates_considered,
         "retrievals": sorted(retrievals, key=lambda row: row["query_id"]),
         "mean_public_retrieval_recall": mean_recall,
+        "retrieval_query_blocking_finding_count": len(blocking_findings),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
     }
@@ -738,6 +997,18 @@ def _build_result(
             display_root=public_root,
         )
     )
+    source_module_manifest = (
+        _bundle_source_module_result(input_dir, public_root=public_root)
+        if input_mode == "exported_premise_retrieval_bundle"
+        else {
+            "status": "not_present",
+            "source_module_manifest_ref": None,
+            "source_module_result_count": 0,
+            "source_module_verified_target_count": 0,
+            "source_module_results": [],
+            "findings": [],
+        }
+    )
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     premise_index = validate_premise_index(
@@ -763,7 +1034,14 @@ def _build_result(
     observed = _merge_observed(projection, premise_index, recipes, strategies, retrieval)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, premise_index, recipes, strategies, retrieval)
+    findings = _merge_findings(
+        source_module_manifest,
+        projection,
+        premise_index,
+        recipes,
+        strategies,
+        retrieval,
+    )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
@@ -774,6 +1052,7 @@ def _build_result(
         PASS
         if not missing
         and secret_scan["blocking_hit_count"] == 0
+        and source_module_manifest["status"] in {PASS, "not_present"}
         and projection["status"] == PASS
         and premise_index["status"] == PASS
         and recipes["status"] == PASS
@@ -797,6 +1076,13 @@ def _build_result(
         "error_codes": error_codes,
         "findings": findings,
         "secret_exclusion_scan": secret_scan,
+        "source_module_manifest_ref": source_module_manifest["source_module_manifest_ref"],
+        "source_module_manifest_status": source_module_manifest["status"],
+        "source_module_result_count": source_module_manifest["source_module_result_count"],
+        "source_module_verified_target_count": source_module_manifest[
+            "source_module_verified_target_count"
+        ],
+        "source_module_results": source_module_manifest["source_module_results"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_material_contract": BODY_MATERIAL_CONTRACT,
@@ -811,19 +1097,40 @@ def _build_result(
         "body_copied_material_count": projection["body_copied_material_count"],
         "premise_count": premise_index["premise_count"],
         "query_count": retrieval["query_count"],
+        "source_index_size": retrieval["source_index_size"],
+        "retrieval_candidates_considered": retrieval["retrieval_candidates_considered"],
         "recipe_count": recipes["recipe_count"],
         "strategy_case_count": strategies["strategy_case_count"],
         "allowed_strategy_ids": strategies["allowed_strategy_ids"],
         "mean_public_retrieval_recall": retrieval["mean_public_retrieval_recall"],
+        "retrieval_query_blocking_finding_count": retrieval[
+            "retrieval_query_blocking_finding_count"
+        ],
         "retrievals": retrieval["retrievals"],
         "premise_retrieval_board": {
             "headline": "Lean/Std premise retrieval runs over copied public macro premise-index metadata.",
             "protocol_id": projection["protocol_id"],
             "premise_count": premise_index["premise_count"],
             "query_count": retrieval["query_count"],
+            "source_index_size": retrieval["source_index_size"],
+            "retrieval_candidates_considered": retrieval["retrieval_candidates_considered"],
             "recipe_count": recipes["recipe_count"],
             "strategy_case_count": strategies["strategy_case_count"],
             "mean_public_retrieval_recall": retrieval["mean_public_retrieval_recall"],
+            "retrieval_query_blocking_finding_count": retrieval[
+                "retrieval_query_blocking_finding_count"
+            ],
+            "source_module_manifest_status": source_module_manifest["status"],
+            "source_module_verified_target_count": source_module_manifest[
+                "source_module_verified_target_count"
+            ],
+            "scoring_fields": [
+                "premise_id",
+                "namespace",
+                "theorem_or_def_name",
+                "statement_excerpt",
+                "retrieval_terms",
+            ],
             "retrieval_authority": "term_scoring_fixture_not_theorem_proving",
             "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; retrieval still does not claim theorem proof authority",
             "lean_lake_execution_authorized": False,
@@ -855,6 +1162,10 @@ def _common_receipt(
         "error_codes",
         "findings",
         "secret_exclusion_scan",
+        "source_module_manifest_ref",
+        "source_module_manifest_status",
+        "source_module_result_count",
+        "source_module_verified_target_count",
         "authority_ceiling",
         "anti_claim",
         "body_material_contract",
@@ -869,10 +1180,13 @@ def _common_receipt(
         "body_copied_material_count",
         "premise_count",
         "query_count",
+        "source_index_size",
+        "retrieval_candidates_considered",
         "recipe_count",
         "strategy_case_count",
         "allowed_strategy_ids",
         "mean_public_retrieval_recall",
+        "retrieval_query_blocking_finding_count",
     )
     payload = {
         "schema_version": schema_version,
@@ -944,10 +1258,19 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
         "body_copied_material_count": result.get("body_copied_material_count"),
         "premise_count": result.get("premise_count"),
         "query_count": result.get("query_count"),
+        "source_index_size": result.get("source_index_size"),
+        "retrieval_candidates_considered": result.get("retrieval_candidates_considered"),
         "recipe_count": result.get("recipe_count"),
         "strategy_case_count": result.get("strategy_case_count"),
         "allowed_strategy_ids": result.get("allowed_strategy_ids", []),
         "mean_public_retrieval_recall": result.get("mean_public_retrieval_recall"),
+        "retrieval_query_blocking_finding_count": result.get(
+            "retrieval_query_blocking_finding_count"
+        ),
+        "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_module_verified_target_count": result.get(
+            "source_module_verified_target_count"
+        ),
         "retrieval_rows_omitted": True,
         "source_refs_exported": False,
         "proof_bodies_exported": False,

@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from system.lib import work_ledger_runtime
+from system.lib.codex_paths import canonicalize_write_path
 from system.lib.work_ledger_commands import (
     WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
     WORK_LEDGER_FULL_CLAIMS_CARDS_COMMAND,
@@ -30,6 +31,7 @@ ORCHESTRATION_STATE_PATH = Path("tools/meta/control/orchestration_state.json")
 SCHEDULABLE_VIEW_PATH = Path("state/task_ledger/views/execution_menu_schedulable.json")
 ACTIVE_CLAIMS_SNAPSHOT_PATH = Path("state/work_ledger/active_claims_snapshot.json")
 WORK_LEDGER_RUNTIME_STATUS_PATH = Path("state/work_ledger/runtime_status.json")
+AGENT_BOOTSTRAP_LIVE_PATH = Path("codex/doctrine/agent_bootstrap_live.json")
 ENTRY_PRIORITY_ROW_LIMIT = 1
 CLAIM_TOPOLOGY_BUCKETS = (
     "true_09_54_dissemination",
@@ -53,6 +55,26 @@ def _read_json(path: Path) -> dict[str, Any]:
     except (OSError, json.JSONDecodeError):
         return {}
     return data if isinstance(data, dict) else {}
+
+
+def _active_phase_from_bootstrap_live(repo_root: Path) -> dict[str, Any] | None:
+    payload = _read_json(repo_root / AGENT_BOOTSTRAP_LIVE_PATH)
+    live_bindings = payload.get("live_bindings")
+    if not isinstance(live_bindings, Mapping):
+        return None
+    phase_dir = canonicalize_write_path(str(live_bindings.get("active_phase_dir") or "").strip())
+    if not phase_dir:
+        return None
+    return {
+        "family_dir": canonicalize_write_path(str(live_bindings.get("active_family_dir") or "").strip()) or None,
+        "phase_id": str(live_bindings.get("active_phase_id") or "").strip() or None,
+        "phase_number": str(live_bindings.get("active_phase_number") or "").strip() or None,
+        "phase_title": str(live_bindings.get("active_phase_title") or "").strip() or None,
+        "phase_dir": phase_dir,
+        "changed_at": payload.get("generated_at"),
+        "source_path": AGENT_BOOTSTRAP_LIVE_PATH.as_posix(),
+        "source": "agent_bootstrap_live",
+    }
 
 
 def _parse_timestamp(value: Any) -> datetime | None:
@@ -490,8 +512,9 @@ def _session_scope_ref(session: Mapping[str, Any]) -> str:
 def _heartbeat_gap_command(session_id: str, scope_ref: str) -> str:
     return (
         "./repo-python tools/meta/factory/work_ledger.py "
-        f"session-heartbeat --session-id {shlex.quote(session_id)} --state <state> "
-        "--now '<public current pass>' --done '<public previous result>' "
+        f"session-heartbeat --session-id {shlex.quote(session_id)} --state inspecting "
+        "--current-pass-line '<public current pass>' "
+        "--last-pass-result-line '<public previous result>' "
         f"--scope-ref {shlex.quote(scope_ref)}"
     )
 
@@ -1109,6 +1132,65 @@ def _demotion_guard(
     }
 
 
+def _continuation_selection_policy(
+    live_sessions: Mapping[str, Any],
+    work_priority: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Explain how a continuation should choose work under live coordination pressure."""
+    counts = live_sessions.get("counts") if isinstance(live_sessions.get("counts"), Mapping) else {}
+    active_claim_count = int(counts.get("active_claims") or 0)
+    effective_session_count = int(counts.get("effective_active_sessions") or 0)
+    claim_collision_count = int(counts.get("claim_collisions") or 0)
+
+    priority_counts = (
+        work_priority.get("view_counts")
+        if isinstance(work_priority.get("view_counts"), Mapping)
+        else {}
+    )
+    schedulable_count = int(priority_counts.get("execution_menu_schedulable") or 0)
+    global_pressure_count = int(priority_counts.get("unlock_pressure") or 0)
+
+    if active_claim_count or effective_session_count:
+        status = "owner_lane_first"
+        first_move = (
+            "Use live Work Ledger sessions and claims as the liveness authority; "
+            "choose an unclaimed support surface or coordinate with the owning session."
+        )
+        blocked_move = (
+            "Do not clone the claimed phase-primary work or treat global/hidden pressure as "
+            "executable unless Task Ledger exposes a schedulable or claimable lane."
+        )
+    elif schedulable_count:
+        status = "task_ledger_schedulable_first"
+        first_move = "Prefer the top schedulable Task Ledger lane before creating new work."
+        blocked_move = "Do not substitute static phase text for the schedulable Task Ledger view."
+    else:
+        status = "support_or_capture"
+        first_move = (
+            "If no executable lane exists, improve the smallest owner surface that reduces the "
+            "next agent's routing ambiguity, or capture a typed blocker."
+        )
+        blocked_move = "Do not make validation-only, classification-only, or prose-only passes."
+
+    return {
+        "schema_version": "active_execution_continuation_selection_policy_v0",
+        "status": status,
+        "first_move": first_move,
+        "blocked_move": blocked_move,
+        "signals": {
+            "active_claim_count": active_claim_count,
+            "effective_active_session_count": effective_session_count,
+            "claim_collision_count": claim_collision_count,
+            "schedulable_workitem_count": schedulable_count,
+            "global_unlock_pressure_count": global_pressure_count,
+        },
+        "required_checks": [
+            WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
+            "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        ],
+    }
+
+
 def build_active_execution_constellation(
     repo_root: Path,
     *,
@@ -1129,7 +1211,10 @@ def build_active_execution_constellation(
     """
     repo_root = Path(repo_root)
     if active_phase is None:
-        active_phase = load_explicit_active_phase(repo_root) or {}
+        if not include_runtime_status:
+            active_phase = _active_phase_from_bootstrap_live(repo_root)
+        if active_phase is None:
+            active_phase = load_explicit_active_phase(repo_root) or {}
     orchestration_path = repo_root / ORCHESTRATION_STATE_PATH
     orchestration = _read_json(orchestration_path)
     schedulable_view = _read_json(repo_root / SCHEDULABLE_VIEW_PATH)
@@ -1201,6 +1286,10 @@ def build_active_execution_constellation(
             sessions,
             scope_candidates,
             freshness,
+        ),
+        "continuation_selection_policy": _continuation_selection_policy(
+            sessions,
+            work_priority_payload,
         ),
         "type_a_type_b_boundary": {
             "type_a": "Work Ledger sessions and claims are the repo-substrate runtime authority.",
@@ -1615,6 +1704,7 @@ def compact_active_execution_constellation_for_entry(payload: Mapping[str, Any])
             for pointer in stale_pointers
         ],
         "demotion_guard": _compact_demotion_guard(payload.get("demotion_guard") or {}),
+        "continuation_selection_policy": payload.get("continuation_selection_policy") or {},
         "type_a_type_b_boundary": payload.get("type_a_type_b_boundary") or {},
         "next_actions": list(payload.get("next_actions") or [])[:2],
         "omission_receipt": {

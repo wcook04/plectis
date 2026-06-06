@@ -1,0 +1,56 @@
+{
+  "schema_version": "microcosm_rank_saturation_realness_delta_receipt_v1",
+  "organ_id": "tactic_portfolio_availability_probe",
+  "created_at": "2026-06-05T07:26:35Z",
+  "thread_id": "019e9585-3688-7582-8885-299f94152a20",
+  "worker": "codex_20260605T072452Z_tactic_portfolio_availability_probe_realness_delta",
+  "claim": {
+    "status": "claimed_exclusive",
+    "work_ledger_session_id": "codex_20260605T072452Z_tactic_portfolio_availability_probe_realness_delta",
+    "mutation_check": "clear",
+    "mission_transaction_preflight": "watch_claim_then_mutate_no_collision"
+  },
+  "proof": {
+    "target": "committed mutated-real rejection and input-dependence floor over recorded tactic availability artifacts",
+    "source_behavior": "organ derives availability rows from copied source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke tactic availability JSON bodies and checks public projection consistency against them",
+    "real_good_passes": "test_tactic_portfolio_availability_observes_required_negative_cases",
+    "mutated_real_count_moves": [
+      "test_tactic_portfolio_availability_moves_when_authoritative_source_row_changes",
+      "test_tactic_portfolio_availability_moves_when_authoritative_duration_changes"
+    ],
+    "baked_labels_fail": "test_tactic_portfolio_availability_rejects_baked_labels_when_authoritative_source_moves",
+    "new_floor": {
+      "perturbation": "mutates copied authoritative rfl source rows to FAIL while leaving public tactic_portfolio_probe labels unchanged",
+      "expected_verdict": "blocked",
+      "expected_error": "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION",
+      "expected_available_count": 6,
+      "expected_compile_status_counts": {
+        "compile_fail": 1,
+        "compile_pass": 6,
+        "environment_fail": 1
+      },
+      "expected_moved_ids": {
+        "removed_from_available": [
+          "rfl"
+        ],
+        "added_to_unavailable": [
+          "rfl"
+        ]
+      }
+    }
+  },
+  "validation": {
+    "pytest": {
+      "command": "./repo-pytest microcosm-substrate/tests/test_tactic_portfolio_availability_probe.py",
+      "status": "pass",
+      "summary": "14 passed in 2.59s"
+    },
+    "py_compile": {
+      "command": "./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/tactic_portfolio_availability_probe.py microcosm-substrate/tests/test_tactic_portfolio_availability_probe.py",
+      "status": "pass"
+    }
+  },
+  "body_material_status": "receipt_only_no_probe_body_export",
+  "body_in_receipt": false,
+  "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority"
+}

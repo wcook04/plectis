@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import argparse
+from contextlib import contextmanager
+import errno
 import json
 import os
 import subprocess
@@ -29,6 +32,7 @@ from system.lib.generated_state_drainer import (
 )
 
 pytestmark = [pytest.mark.integration_generated_state, pytest.mark.slow_control_plane]
+TEST_WORK_LEDGER_SESSION_ID = "codex_test_generated_state_drainer"
 full_drainer_settlement = pytest.mark.skipif(
     os.environ.get("AI_WORKFLOW_FULL_DRAINER_SETTLEMENT") != "1",
     reason="full two-owner settlement integration is explicit; default drainer validation keeps focused landing proofs",
@@ -194,6 +198,81 @@ def _write_mission_blackboard(root: Path) -> None:
     )
 
 
+def test_work_ledger_refresh_uses_stale_projection_targets(tmp_path: Path, monkeypatch) -> None:
+    calls: list[tuple[str, list[str], bool]] = []
+
+    def fail_project_all(repo_root: Path) -> dict:
+        raise AssertionError("targeted refresh should not call project_all")
+
+    def fake_targeted_refresh(
+        repo_root: Path,
+        *,
+        family_id: str,
+        phase_ids,
+        compare_existing: bool = True,
+    ) -> list[dict]:
+        calls.append((family_id, list(phase_ids), compare_existing))
+        return [
+            {
+                "phase_id": phase_id,
+                "index_path": f"codex/ledger/{phase_id}/work_ledger_index.json",
+                "targeted": True,
+            }
+            for phase_id in phase_ids
+        ]
+
+    monkeypatch.setattr(generated_state_drainer.work_ledger, "project_all", fail_project_all)
+    monkeypatch.setattr(
+        generated_state_drainer.work_ledger,
+        "write_family_projection_targets",
+        fake_targeted_refresh,
+    )
+
+    result = generated_state_drainer._refresh_work_ledger_projection_for_landing_plan(
+        tmp_path,
+        {
+            "owner_id": WORK_LEDGER_OWNER_ID,
+            "stale_projection_targets": [
+                {
+                    "generated_path": "codex/ledger/09_35/work_ledger_index.json",
+                    "phase_id": "09_35",
+                    "family_id": "09",
+                },
+                {
+                    "generated_path": "codex/ledger/09_36/work_ledger_index.json",
+                    "phase_id": "09_36",
+                    "family_id": "09",
+                },
+            ],
+        },
+    )
+
+    assert calls == [("09", ["09_35", "09_36"], False)]
+    assert result["targeted"] is True
+    assert result["families"][0]["projection_results"][0]["targeted"] is True
+
+
+def test_work_ledger_refresh_falls_back_without_stale_projection_targets(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    calls = {"project_all": 0}
+
+    def fake_project_all(repo_root: Path) -> dict:
+        calls["project_all"] += 1
+        return {"ok": True, "families": []}
+
+    monkeypatch.setattr(generated_state_drainer.work_ledger, "project_all", fake_project_all)
+
+    result = generated_state_drainer._refresh_work_ledger_projection_for_landing_plan(
+        tmp_path,
+        {"owner_id": WORK_LEDGER_OWNER_ID},
+    )
+
+    assert calls == {"project_all": 1}
+    assert result == {"ok": True, "families": []}
+
+
 def test_status_classifies_stale_work_ledger_projection(tmp_path: Path) -> None:
     root = tmp_path
     _make_projection_stale(root)
@@ -316,6 +395,7 @@ def test_status_task_ledger_owner_uses_mission_blackboard_like_rebuild_check(tmp
     _write_mission_blackboard(root)
     rebuild = task_ledger_events.rebuild_projections(root)
     assert rebuild["ok"] is True
+    assert rebuild.get("rebuild_skipped") is not True
 
     owner_check = task_ledger_events.rebuild_projections(root, check=True)
     assert owner_check["ok"] is True
@@ -429,6 +509,85 @@ def test_landing_plan_requires_refresh_for_stale_projection(tmp_path: Path) -> N
         "./repo-python tools/meta/control/generated_state_drainer.py apply --only "
         "work_ledger_projection_refresh"
     )
+    assert plan["stale_projection_paths"] == ["codex/ledger/09_52/work_ledger_index.json"]
+    assert plan["stale_projection_targets"] == [
+        {
+            "generated_path": "codex/ledger/09_52/work_ledger_index.json",
+            "phase_id": "09_52",
+            "family_id": "09",
+        }
+    ]
+
+
+def test_landing_plan_treats_historical_work_ledger_fanout_stale_as_advisory(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path
+    latest_index = root / "codex/ledger/09_54_1/work_ledger_index.json"
+    latest_source = root / "codex/ledger/09_54_1/work_ledger.jsonl"
+    latest_index.parent.mkdir(parents=True, exist_ok=True)
+    latest_index.write_text('{"counts":{"events":3}}\n', encoding="utf-8")
+    latest_source.write_text('{"event_id":"wle_latest"}\n', encoding="utf-8")
+
+    status = {
+        "schema": "generated_state_drainer_status_v0",
+        "projection_targets": [
+            {
+                "generated_path": "codex/ledger/09_35/work_ledger_index.json",
+                "owner_id": WORK_LEDGER_OWNER_ID,
+                "source_event_hash": "sha256:family",
+                "projection_hash": "sha256:old",
+                "freshness_status": "projection_stale",
+                "dirty_status": "modified",
+                "phase_id": "09_35",
+                "family_id": "09",
+            },
+            {
+                "generated_path": "codex/ledger/09_54_1/work_ledger_index.json",
+                "owner_id": WORK_LEDGER_OWNER_ID,
+                "source_event_hash": "sha256:family",
+                "projection_hash": "sha256:latest",
+                "freshness_status": "fresh",
+                "dirty_status": "modified",
+                "phase_id": "09_54_1",
+                "family_id": "09",
+            },
+        ],
+        "owner_checks": {},
+    }
+    status_map = {
+        "codex/ledger/09_35/work_ledger_index.json": "modified",
+        "codex/ledger/09_54_1/work_ledger_index.json": "modified",
+        "codex/ledger/09_54_1/work_ledger.jsonl": "modified",
+    }
+
+    plan = build_generated_projection_landing_plan(
+        root,
+        status=status,
+        status_map=status_map,
+        collect_diff_stat=False,
+    )
+
+    assert plan["status"] == "append_exempt_manifest_available"
+    assert plan["freshness_status"] == "fresh_dirty"
+    assert plan["can_apply"] is True
+    assert plan["blocked_by"] == []
+    assert plan["stale_projection_paths"] == []
+    assert plan["projection_paths"] == ["codex/ledger/09_54_1/work_ledger_index.json"]
+    assert plan["projection_paths_to_stage"] == [
+        "codex/ledger/09_54_1/work_ledger_index.json"
+    ]
+    assert plan["source_authority_paths"] == ["codex/ledger/09_54_1/work_ledger.jsonl"]
+    assert plan["source_authority_paths_to_stage"] == [
+        "codex/ledger/09_54_1/work_ledger.jsonl"
+    ]
+    assert plan["advisory_stale_projection_paths"] == [
+        "codex/ledger/09_35/work_ledger_index.json"
+    ]
+    assert (
+        plan["advisory_stale_projection_disposition"]
+        == "historical_work_ledger_family_fanout_not_settlement_blocking"
+    )
 
 
 def test_append_exempt_landing_dry_run_reports_manifest_and_exact_paths(tmp_path: Path) -> None:
@@ -506,13 +665,51 @@ def test_append_exempt_landing_refuses_unsupported_owner(tmp_path: Path) -> None
     assert result["reason"] == "unsupported_owner_for_landing"
 
 
+def test_append_exempt_landing_refuses_missing_work_ledger_session_id_for_mutation(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path
+    _init_git_repo(root)
+    _open_work_ledger_thread(root)
+
+    def fail_commit(**kwargs) -> dict:
+        raise AssertionError("landing must refuse before scoped_commit without a session id")
+
+    result = land_generated_projection_bundle(
+        root,
+        mode=APPEND_EXEMPT_LANDING_MODE,
+        commit_func=fail_commit,
+    )
+
+    assert result["ok"] is False
+    assert result["status"] == "refused"
+    assert result["reason"] == "missing_work_ledger_session_id"
+    assert result["blocked_by"] == ["work_ledger_session_id_required"]
+    assert result["mutation_guard"]["work_ledger_session_id_required_for_mutation"] is True
+    assert "session-status --seed-speed" in result["mutation_guard"]["active_session_status_command"]
+    assert "session-preflight" in result["mutation_guard"]["session_preflight_command_template"]
+    assert [
+        row["step"] for row in result["mutation_guard"]["repair_sequence"]
+    ] == [
+        "inspect_active_work_ledger_sessions",
+        "open_or_reuse_claimed_session",
+        "rerun_generated_state_mutation",
+    ]
+    assert "--work-ledger-session-id <session_id>" in result["required_next_command"]
+    assert result["normal_work_ledger_event_after_refresh_allowed"] is False
+
+
 def test_append_exempt_landing_commits_without_appending_work_ledger_event(tmp_path: Path) -> None:
     root = tmp_path
     _init_git_repo(root)
     _open_work_ledger_thread(root)
     event_count_before = len(work_ledger.load_events(root, family_id="09"))
 
-    result = land_generated_projection_bundle(root, mode=APPEND_EXEMPT_LANDING_MODE)
+    result = land_generated_projection_bundle(
+        root,
+        mode=APPEND_EXEMPT_LANDING_MODE,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is True
     assert result["status"] == "landed"
@@ -598,6 +795,85 @@ def test_landing_plan_requires_refresh_for_stale_task_ledger_projection(tmp_path
     )
 
 
+def test_task_ledger_refresh_landing_returns_retry_later_when_source_lock_held(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    if task_ledger_events.fcntl is None:
+        pytest.skip("nonblocking Task Ledger source lock probe requires fcntl")
+    root = tmp_path
+    subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
+    _make_task_ledger_projection_stale(root)
+    monkeypatch.setattr(generated_state_drainer, "TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S", 0)
+    lock_path = root / task_ledger_events.LOCK_REL
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        task_ledger_events.fcntl.flock(
+            handle.fileno(),
+            task_ledger_events.fcntl.LOCK_EX | task_ledger_events.fcntl.LOCK_NB,
+        )
+        try:
+            result = land_generated_projection_bundle(
+                root,
+                owner_id=TASK_LEDGER_OWNER_ID,
+                mode=APPEND_EXEMPT_LANDING_MODE,
+                work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+            )
+        finally:
+            task_ledger_events.fcntl.flock(handle.fileno(), task_ledger_events.fcntl.LOCK_UN)
+
+    assert result["schema"] == "generated_projection_landing_v0"
+    assert result["ok"] is False
+    assert result["status"] == "retry_later"
+    assert result["reason"] == "task_ledger_source_mutation_in_progress"
+    assert result["retry_later"] is True
+    assert result["blocked_by"] == ["task_ledger_source_writer_lock_held"]
+    assert result["source_lock"]["attempts"] == generated_state_drainer.TASK_LEDGER_SOURCE_LOCK_ATTEMPTS
+    assert result["source_lock"]["wait_budget_s"] >= 0
+    assert result["source_lock"]["lock_file_exists"] is True
+    assert result["source_lock"]["lock_file_size"] == 0
+    assert result["normal_task_ledger_event_after_refresh_allowed"] is False
+    assert not (root / "state/generated_projection_landing/task_ledger_projection_manifest.json").exists()
+
+
+def test_task_ledger_source_lock_retries_transient_busy(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    if task_ledger_events.fcntl is None:
+        pytest.skip("nonblocking Task Ledger source lock probe requires fcntl")
+    real_flock = task_ledger_events.fcntl.flock
+    observed = {"busy_count": 0, "sleeps": []}
+
+    def flaky_flock(fd: int, operation: int) -> None:
+        if (
+            operation & task_ledger_events.fcntl.LOCK_NB
+            and observed["busy_count"] == 0
+        ):
+            observed["busy_count"] += 1
+            raise BlockingIOError(errno.EAGAIN, "temporary writer overlap")
+        real_flock(fd, operation)
+
+    monkeypatch.setattr(task_ledger_events.fcntl, "flock", flaky_flock)
+    monkeypatch.setattr(
+        generated_state_drainer.time,
+        "sleep",
+        lambda seconds: observed["sleeps"].append(seconds),
+    )
+
+    with generated_state_drainer._task_ledger_source_lock_for_landing(tmp_path) as probe:
+        assert probe["acquired"] is True
+        assert probe["status"] == "acquired"
+        assert probe["busy_retry_count"] == 1
+        assert probe["wait_budget_s"] >= generated_state_drainer.TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S
+        assert probe["lock_file_exists"] is True
+
+    assert observed["sleeps"] == [
+        generated_state_drainer.TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S
+    ]
+
+
 def test_task_ledger_append_exempt_landing_dry_run_reports_manifest_and_exact_paths(tmp_path: Path) -> None:
     root = tmp_path
     subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
@@ -644,6 +920,7 @@ def test_task_ledger_append_exempt_landing_commits_without_appending_task_ledger
         root,
         owner_id=TASK_LEDGER_OWNER_ID,
         mode=APPEND_EXEMPT_LANDING_MODE,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -663,6 +940,53 @@ def test_task_ledger_append_exempt_landing_commits_without_appending_task_ledger
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest["schema"] == LANDING_MANIFEST_SCHEMA
     assert manifest["commit_hash"] is None
+
+
+def test_task_ledger_landing_holds_source_lock_through_commit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root = tmp_path
+    _init_git_repo(root)
+    _append_task_ledger_capture(root)
+    lock_events: list[str] = []
+
+    @contextmanager
+    def fake_source_lock(repo_root: Path):
+        assert repo_root == root.resolve()
+        lock_events.append("enter")
+        try:
+            yield {
+                "schema": "task_ledger_source_lock_probe_v0",
+                "acquired": True,
+                "status": "acquired",
+                "mode": "test_lock",
+            }
+        finally:
+            lock_events.append("exit")
+
+    def fake_commit(**kwargs) -> dict:
+        assert lock_events[-1] == "enter"
+        lock_events.append("commit")
+        return _fake_scoped_commit_result(**kwargs)
+
+    monkeypatch.setattr(
+        generated_state_drainer,
+        "_task_ledger_source_lock_for_landing",
+        fake_source_lock,
+    )
+
+    result = land_generated_projection_bundle(
+        root,
+        owner_id=TASK_LEDGER_OWNER_ID,
+        mode=APPEND_EXEMPT_LANDING_MODE,
+        commit_func=fake_commit,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "landed"
+    assert lock_events == ["enter", "exit", "enter", "commit", "exit"]
 
 
 def test_task_ledger_landing_does_not_refresh_fresh_dirty_bundle(
@@ -686,6 +1010,7 @@ def test_task_ledger_landing_does_not_refresh_fresh_dirty_bundle(
         owner_id=TASK_LEDGER_OWNER_ID,
         mode=APPEND_EXEMPT_LANDING_MODE,
         commit_func=_fake_scoped_commit_result,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -745,6 +1070,7 @@ def test_append_exempt_landing_filters_clean_declared_paths_before_commit(
         owner_id=TASK_LEDGER_OWNER_ID,
         mode=APPEND_EXEMPT_LANDING_MODE,
         commit_func=_fake_scoped_commit_result,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -806,6 +1132,7 @@ def test_append_exempt_landing_ignores_index_only_manifest_residue(
         root,
         owner_id=TASK_LEDGER_OWNER_ID,
         mode=APPEND_EXEMPT_LANDING_MODE,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -881,6 +1208,7 @@ def test_append_exempt_landing_refreshes_index_only_projection_residue(
         root,
         owner_id=TASK_LEDGER_OWNER_ID,
         mode=APPEND_EXEMPT_LANDING_MODE,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -953,6 +1281,7 @@ def test_append_exempt_landing_refreshes_index_only_projection_residue_after_com
         mode=APPEND_EXEMPT_LANDING_MODE,
         landing_plan=plan,
         commit_func=_fake_scoped_commit_result,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -977,6 +1306,7 @@ def test_work_ledger_landing_does_not_refresh_fresh_dirty_bundle(
         root,
         mode=APPEND_EXEMPT_LANDING_MODE,
         commit_func=_fake_scoped_commit_result,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
     )
 
     assert result["ok"] is True
@@ -998,6 +1328,29 @@ def test_task_ledger_projection_owner_is_distinct_and_apply_supported(tmp_path: 
 
     assert owner_rows[TASK_LEDGER_OWNER_ID]["apply_supported"] is True
     assert owner_rows["work_ledger_index_projection"]["apply_supported"] is True
+
+
+def test_task_ledger_alias_routes_to_projection_owner(tmp_path: Path) -> None:
+    root = tmp_path
+    _init_git_repo(root)
+    _append_task_ledger_capture(root)
+
+    status = build_generated_state_drainer_status(root, owner_ids=["task_ledger"])
+    assert status["selected_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert status["missing_owner_ids"] == []
+
+    plan = build_generated_projection_landing_plan(root, owner_id="task_ledger")
+    assert plan["owner_id"] == TASK_LEDGER_OWNER_ID
+    assert plan["blocked_by"] == []
+
+    fast_plan = build_generated_projection_settlement_fast_plan(root, owner_ids=["task_ledger"])
+    assert fast_plan["settlement_order"] == [TASK_LEDGER_OWNER_ID]
+    assert "unsupported_owner_id" not in fast_plan["blocked_by"]
+    assert fast_plan["owners"][0]["owner_id"] == TASK_LEDGER_OWNER_ID
+
+    dry_run = land_generated_projection_bundle(root, owner_id="task_ledger", dry_run=True)
+    assert dry_run["owner_id"] == TASK_LEDGER_OWNER_ID
+    assert dry_run["status"] in {"would_land", "already_landed"}
 
 
 def test_system_atlas_landing_plan_blocks_source_coupling_before_projection_landing(
@@ -1056,6 +1409,141 @@ def test_system_atlas_landing_plan_blocks_source_coupling_before_projection_land
         "task_ledger_ledger"
     )
     assert "owner_settlement_blocked" in settlement["blocked_by"]
+
+
+def test_system_atlas_landing_plan_routes_clean_source_coupling_to_owner_rebuild(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    root = tmp_path
+    subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
+    atlas_path = root / "state/system_atlas/system_atlas.graph.json"
+    atlas_path.parent.mkdir(parents=True, exist_ok=True)
+    atlas_path.write_text("{}\n", encoding="utf-8")
+
+    def fake_owner_check(repo_root: Path, argv):
+        return {
+            "ok": False,
+            "source_coupling": {
+                "status": "source_inputs_changed_since_artifact_generation",
+                "reason": "clean committed source moved",
+                "changed_source_count": 1,
+                "blocking_changed_source_count": 1,
+                "dirty_changed_source_count": 0,
+                "claimed_dirty_source_count": 0,
+                "unknown_git_status_source_count": 0,
+                "refresh_policy": "rebuild_generated_atlas_with_owner_builder_then_check",
+                "safe_to_commit_generated_outputs_without_sources": False,
+                "blocking_changed_sources": [
+                    {
+                        "source_id": "annex_distillation_index",
+                        "path": "annexes/annex_distillation_index.json",
+                        "git_pathspec": "annexes/annex_distillation_index.json",
+                        "git_status": "clean",
+                        "owner_route_hint": "./repo-python annex_import.py validate --all --read-only",
+                    }
+                ],
+            },
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "_run_owner_json_command", fake_owner_check)
+
+    plan = build_generated_projection_landing_plan(root, owner_id=SYSTEM_ATLAS_OWNER_ID)
+    settlement = build_generated_projection_settlement_plan(root, owner_ids=[SYSTEM_ATLAS_OWNER_ID])
+
+    assert plan["owner_id"] == SYSTEM_ATLAS_OWNER_ID
+    assert plan["status"] == "refresh_required"
+    assert plan["blocked_by"] == ["projection_not_fresh"]
+    assert plan["required_next_command"] == (
+        "./repo-python tools/meta/control/generated_state_drainer.py apply --only "
+        "system_atlas_projection_refresh"
+    )
+    assert plan["owner_handoff_class"] == "system_atlas_owner_rebuild"
+    assert plan["source_coupling"]["refresh_policy"] == (
+        "rebuild_generated_atlas_with_owner_builder_then_check"
+    )
+    assert plan["source_coupling"]["unknown_git_status_source_count"] == 0
+    assert settlement["status"] == "settlement_required"
+    assert settlement["owners"][0]["required_action"] == "refresh_then_land_append_exempt"
+    assert settlement["owners"][0]["can_apply"] is True
+
+
+def test_system_atlas_landing_plan_omits_tolerated_live_task_ledger_sources() -> None:
+    source_coupling = {
+        "status": "live_task_ledger_source_churn_tolerated",
+        "reason": "clean append-tail Task Ledger source moved",
+        "changed_source_count": 2,
+        "blocking_changed_source_count": 0,
+        "dirty_changed_source_count": 2,
+        "claimed_dirty_source_count": 0,
+        "unknown_git_status_source_count": 0,
+        "source_coupled_blocker_status": "none",
+        "refresh_policy": (
+            "stable_snapshot_check_tolerates_clean_task_ledger_churn_"
+            "rebuild_before_atlas_output_commit"
+        ),
+        "safe_to_commit_generated_outputs_without_sources": True,
+    }
+
+    assert generated_state_drainer._system_atlas_source_coupling_allows_append_exempt_landing(
+        source_coupling
+    )
+    assert generated_state_drainer._filter_system_atlas_append_exempt_safe_source_paths(
+        [
+            "state/task_ledger/ledger.json",
+            "state/task_ledger/views/active_wip.json",
+            "docs/system_atlas/generated_system_atlas_snapshot.md",
+        ],
+        source_coupling,
+    ) == ["docs/system_atlas/generated_system_atlas_snapshot.md"]
+
+
+def test_system_atlas_landing_plan_blocks_unknown_source_coupling_even_with_rebuild_policy(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    root = tmp_path
+    subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
+    atlas_path = root / "state/system_atlas/system_atlas.graph.json"
+    atlas_path.parent.mkdir(parents=True, exist_ok=True)
+    atlas_path.write_text("{}\n", encoding="utf-8")
+
+    def fake_owner_check(repo_root: Path, argv):
+        return {
+            "ok": False,
+            "source_coupling": {
+                "status": "source_inputs_changed_since_artifact_generation",
+                "reason": "git status unavailable for source",
+                "changed_source_count": 1,
+                "blocking_changed_source_count": 1,
+                "dirty_changed_source_count": 0,
+                "claimed_dirty_source_count": 0,
+                "unknown_git_status_source_count": 1,
+                "refresh_policy": "rebuild_generated_atlas_with_owner_builder_then_check",
+                "safe_to_commit_generated_outputs_without_sources": False,
+                "blocking_changed_sources": [
+                    {
+                        "source_id": "manual_system_atlas_docs",
+                        "path": "docs/system_atlas/*.md",
+                        "git_pathspec": "docs/system_atlas",
+                        "git_status": "unknown",
+                        "owner_route_hint": "./repo-python tools/meta/factory/build_system_atlas.py --check",
+                    }
+                ],
+            },
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "_run_owner_json_command", fake_owner_check)
+
+    plan = build_generated_projection_landing_plan(root, owner_id=SYSTEM_ATLAS_OWNER_ID)
+    settlement = build_generated_projection_settlement_plan(root, owner_ids=[SYSTEM_ATLAS_OWNER_ID])
+
+    assert plan["status"] == "source_coupling_unsettled"
+    assert plan["can_apply"] is False
+    assert plan["blocked_by"] == ["source_coupling_not_settled"]
+    assert plan["source_coupling"]["unknown_git_status_source_count"] == 1
+    assert settlement["status"] == "blocked"
+    assert settlement["owners"][0]["required_action"] == "blocked"
 
 
 def test_fast_settlement_plan_supports_explicit_system_atlas_owner_without_owner_check(
@@ -1229,11 +1717,28 @@ def test_settlement_plan_reports_dirty_owners_in_settlement_order(
 
     assert plan["status"] == "settlement_required"
     assert plan["can_settle"] is True
-    assert plan["required_next_command"] == "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run"
+    assert plan["required_next_command"] == (
+        "./repo-python tools/meta/control/generated_state_drainer.py settle "
+        "--owner-id task_ledger_projection --owner-id work_ledger_index_projection "
+        "--owner-id system_atlas_projection --dry-run"
+    )
     by_owner = {row["owner_id"]: row for row in plan["owners"]}
     assert by_owner[TASK_LEDGER_OWNER_ID]["required_action"] == "land_append_exempt"
+    assert by_owner[TASK_LEDGER_OWNER_ID]["required_next_command"] == (
+        "./repo-python tools/meta/control/generated_state_drainer.py "
+        "settle --owner-id task_ledger_projection --dry-run"
+    )
+    assert by_owner[TASK_LEDGER_OWNER_ID]["settlement_item"]["schema"] == "projection_settlement_item_v1"
+    assert by_owner[TASK_LEDGER_OWNER_ID]["settlement_item_class"] == "source_dirty_projection_stale"
+    assert by_owner[TASK_LEDGER_OWNER_ID]["settlement_item"]["reentry_command"].endswith(
+        "settle --owner-id task_ledger_projection --dry-run"
+    )
+    assert by_owner[TASK_LEDGER_OWNER_ID]["settlement_item"]["retirement_condition"].startswith("owner required_action")
+    assert by_owner[TASK_LEDGER_OWNER_ID]["closeout_relevance"] is True
     assert by_owner[WORK_LEDGER_OWNER_ID]["required_action"] == "land_append_exempt"
     assert by_owner[SYSTEM_ATLAS_OWNER_ID]["required_action"] == "none"
+    assert by_owner[SYSTEM_ATLAS_OWNER_ID]["settlement_item_class"] == "none"
+    assert by_owner[SYSTEM_ATLAS_OWNER_ID]["closeout_relevance"] is False
     assert plan["owners"][0]["owner_id"] == TASK_LEDGER_OWNER_ID
     assert plan["owners"][1]["owner_id"] == WORK_LEDGER_OWNER_ID
     assert plan["owners"][2]["owner_id"] == SYSTEM_ATLAS_OWNER_ID
@@ -1482,6 +1987,174 @@ def test_fast_settlement_plan_uses_cached_status_without_owner_checks(
     assert "codex/ledger/09_52/work_ledger.jsonl" in by_owner["work_ledger_index_projection"]["source_authority_paths"]
 
 
+def test_compact_settlement_plan_cli_uses_fast_plan_by_default(monkeypatch) -> None:
+    calls = {"fast": 0, "full": 0}
+    printed: list[dict] = []
+
+    def fake_fast_plan(repo_root: Path, *, owner_ids=None):
+        calls["fast"] += 1
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "planning_mode": "cached_git_status",
+            "authority_level": "cached_status_only",
+            "supported_owner_ids": [TASK_LEDGER_OWNER_ID],
+            "settlement_order": [TASK_LEDGER_OWNER_ID],
+            "owners": [
+                {
+                    "owner_id": TASK_LEDGER_OWNER_ID,
+                    "status": "append_exempt_manifest_available",
+                    "freshness_status": "not_checked_cached_status_only",
+                    "dirty_status": "dirty",
+                    "source_dirty_status": "dirty",
+                    "can_apply": True,
+                    "blocked_by": [],
+                    "required_action": "land_append_exempt",
+                    "required_next_command": "settle --dry-run --fast-plan",
+                    "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+                    "path_count": 1,
+                    "diff_stat": {"path_count": 1, "stat_mode": "status_only"},
+                    "planning_mode": "cached_git_status",
+                }
+            ],
+            "dirty_owner_count": 1,
+            "refresh_required_owner_count": 0,
+            "blocked_owner_count": 0,
+            "can_settle": True,
+            "blocked_by": [],
+            "required_next_command": "settle --dry-run --fast-plan",
+            "eventful_closeout_allowed_after_settlement": False,
+            "normal_source_event_after_refresh_allowed": False,
+        }
+
+    def fail_full_plan(*args, **kwargs):
+        calls["full"] += 1
+        raise AssertionError("compact settlement-plan should use cached fast plan by default")
+
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_projection_settlement_fast_plan", fake_fast_plan)
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_projection_settlement_plan", fail_full_plan)
+    monkeypatch.setattr(generated_state_drainer_cli, "_print", lambda payload: printed.append(payload) or 0)
+
+    args = generated_state_drainer_cli.build_parser().parse_args(["settlement-plan", "--compact"])
+
+    assert generated_state_drainer_cli.cmd_settlement_plan(args) == 0
+    assert calls == {"fast": 1, "full": 0}
+    assert printed[0]["schema"] == "generated_projection_settlement_plan_compact_v0"
+    assert printed[0]["planning_mode"] == "cached_git_status"
+    assert printed[0]["authority_level"] == "cached_status_only"
+
+
+def test_compact_settlement_plan_cli_full_authority_uses_owner_checks(monkeypatch) -> None:
+    calls = {"fast": 0, "full": 0}
+    printed: list[dict] = []
+
+    def fail_fast_plan(*args, **kwargs):
+        calls["fast"] += 1
+        raise AssertionError("full-authority compact settlement-plan should not use fast plan")
+
+    def fake_full_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        calls["full"] += 1
+        assert collect_diff_stat is False
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "clean",
+            "supported_owner_ids": [TASK_LEDGER_OWNER_ID],
+            "settlement_order": [TASK_LEDGER_OWNER_ID],
+            "owners": [],
+            "dirty_owner_count": 0,
+            "refresh_required_owner_count": 0,
+            "blocked_owner_count": 0,
+            "can_settle": True,
+            "blocked_by": [],
+            "required_next_command": "none",
+            "eventful_closeout_allowed_after_settlement": False,
+            "normal_source_event_after_refresh_allowed": False,
+        }
+
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_projection_settlement_fast_plan", fail_fast_plan)
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_projection_settlement_plan", fake_full_plan)
+    monkeypatch.setattr(generated_state_drainer_cli, "_print", lambda payload: printed.append(payload) or 0)
+
+    args = generated_state_drainer_cli.build_parser().parse_args(
+        ["settlement-plan", "--compact", "--full-authority"]
+    )
+
+    assert generated_state_drainer_cli.cmd_settlement_plan(args) == 0
+    assert calls == {"fast": 0, "full": 1}
+    assert printed[0]["schema"] == "generated_projection_settlement_plan_compact_v0"
+    assert printed[0]["status"] == "clean"
+
+
+def test_fast_settlement_plan_owner_rows_use_fast_compact_dry_run(tmp_path: Path) -> None:
+    root = tmp_path
+    subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
+    _append_task_ledger_capture(root)
+
+    plan = build_generated_projection_settlement_fast_plan(root, owner_ids=[TASK_LEDGER_OWNER_ID])
+    owner = plan["owners"][0]
+
+    assert plan["required_next_command"].endswith(
+        "settle --owner-id task_ledger_projection --dry-run --fast-plan"
+    )
+    assert owner["required_next_command"] == (
+        "./repo-python tools/meta/control/generated_state_drainer.py "
+        "settle --owner-id task_ledger_projection --dry-run --fast-plan --compact"
+    )
+    assert owner["settlement_item"]["reentry_command"].endswith(
+        "settle --owner-id task_ledger_projection --dry-run --fast-plan --compact"
+    )
+
+
+def test_fast_compact_status_marks_settle_mutation_as_claim_guarded(tmp_path: Path) -> None:
+    root = tmp_path
+    subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL)
+    _append_task_ledger_capture(root)
+    _open_work_ledger_thread(root)
+
+    plan = build_generated_projection_settlement_fast_plan(root)
+    payload = generated_state_drainer_cli._fast_compact_status_payload(plan, owner_ids=[])
+
+    guard = payload["actionability"]["mutation_guard"]
+    assert guard["status"] == "claim_required_for_mutation"
+    assert guard["can_apply_scope"] == "owner_plan_only_not_worktree_permission"
+    assert guard["work_ledger_session_id_required_for_mutation"] is True
+    assert "session-status --seed-speed" in guard["active_session_status_command"]
+    assert "session-preflight" in guard["session_preflight_command_template"]
+    assert guard["repair_sequence"][-1]["step"] == "rerun_generated_state_settle"
+    assert "--work-ledger-session-id <session_id>" in guard["mutating_command_template"]
+
+    guarded_owner_actions = [
+        row for row in payload["owner_actions"] if row["required_action"] != "none"
+    ]
+    assert guarded_owner_actions
+    assert all(row["mutation_guard"]["status"] == "claim_required_for_mutation" for row in guarded_owner_actions)
+
+
+def test_settlement_refuses_missing_work_ledger_session_id_for_mutation(tmp_path: Path) -> None:
+    root = tmp_path
+    _init_git_repo(root)
+    _append_task_ledger_capture(root)
+    _open_work_ledger_thread(root)
+
+    result = settle_generated_projection_owners(root)
+
+    assert result["ok"] is False
+    assert result["status"] == "refused"
+    assert result["reason"] == "missing_work_ledger_session_id"
+    assert result["blocked_by"] == ["work_ledger_session_id_required"]
+    assert result["mutation_guard"]["work_ledger_session_id_required_for_mutation"] is True
+    assert "session-status --seed-speed" in result["mutation_guard"]["active_session_status_command"]
+    assert "session-preflight" in result["mutation_guard"]["session_preflight_command_template"]
+    assert result["mutation_guard"]["repair_sequence"][-1]["command_template"] == result[
+        "required_next_command"
+    ]
+    assert "--work-ledger-session-id <session_id>" in result["required_next_command"]
+    assert result["owners"] == []
+    assert result["settlement_done"] is False
+
+
 def test_settlement_fast_dry_run_uses_cached_status_plan(
     tmp_path: Path,
     monkeypatch,
@@ -1514,6 +2187,90 @@ def test_settlement_fast_dry_run_uses_cached_status_plan(
     assert "state/task_ledger/events_audit.jsonl" in task_owner["source_authority_paths_to_stage"]
     assert task_owner["owner_bundle_completeness"]["task_ledger_audit_journal_declared"] is True
     assert task_owner["owner_bundle_completeness"]["all_expected_stage_paths_reported"] is True
+
+
+def test_settlement_fast_mutating_plan_uses_cached_initial_selection(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    work_dirty = {
+        "owner_id": WORK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "not_checked_cached_status_only",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/work_ledger_index_projection_manifest.json",
+        "path_count": 1,
+        "path_bundle": {
+            "source_authority_paths": ["codex/ledger/09_54_1/work_ledger.jsonl"],
+            "source_authority_paths_to_stage": ["codex/ledger/09_54_1/work_ledger.jsonl"],
+            "projection_paths": ["codex/ledger/09_54_1/work_ledger_index.json"],
+            "projection_paths_to_stage": ["codex/ledger/09_54_1/work_ledger_index.json"],
+            "landing_manifest_path": "state/generated_projection_landing/work_ledger_index_projection_manifest.json",
+        },
+    }
+    clean_plan = {
+        "schema": "generated_projection_settlement_plan_v0",
+        "ok": True,
+        "status": "clean",
+        "authority_level": "full_owner_checks",
+        "can_settle": True,
+        "blocked_by": [],
+        "owners": [],
+    }
+    calls = {"fast_plan": 0, "full_plan": 0, "land": 0}
+
+    def fake_fast_plan(repo_root: Path, *, owner_ids=None):
+        calls["fast_plan"] += 1
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "planning_mode": "cached_git_status",
+            "authority_level": "cached_status_only",
+            "can_settle": True,
+            "blocked_by": [],
+            "dirty_owner_count": 1,
+            "blocked_owner_count": 0,
+            "owners": [work_dirty],
+        }
+
+    def fake_full_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        calls["full_plan"] += 1
+        return clean_plan
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        calls["land"] += 1
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": "commit-work",
+            "paths_staged": ["codex/ledger/09_54_1/work_ledger.jsonl"],
+            "landing_manifest_path": work_dirty["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_fast_plan", fake_fast_plan)
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_full_plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        owner_ids=[WORK_LEDGER_OWNER_ID],
+        fast_plan=True,
+        max_passes=1,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert calls == {"fast_plan": 1, "full_plan": 1, "land": 1}
+    assert result["ok"] is True
+    assert result["status"] == "settled"
+    assert result["before_plan"]["authority_level"] == "cached_status_only"
+    assert result["final_plan"]["authority_level"] == "full_owner_checks"
+    assert result["timing"]["phases"][0]["fast_plan"] is True
+    assert result["timing"]["phases"][0]["authority_level"] == "cached_status_only"
 
 
 def test_settlement_stewardship_detects_task_ledger_audit_sidecar_omission(
@@ -1651,6 +2408,108 @@ def test_settle_cli_uses_command_singleflight(monkeypatch, tmp_path: Path) -> No
     assert calls[0]["env"][generated_state_drainer_cli.SETTLE_SINGLEFLIGHT_CHILD_ENV] == "1"
 
 
+def test_compact_settle_cli_uses_fast_initial_plan(monkeypatch, tmp_path: Path, capsys) -> None:
+    observed: dict[str, object] = {}
+
+    def fake_settle(repo_root: Path, **kwargs) -> dict:
+        observed.update(kwargs)
+        return {
+            "schema": "generated_projection_settlement_v0",
+            "ok": True,
+            "status": "settled",
+        }
+
+    monkeypatch.setattr(generated_state_drainer_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(generated_state_drainer_cli, "settle_generated_projection_owners", fake_settle)
+
+    args = argparse.Namespace(
+        owner_id=[WORK_LEDGER_OWNER_ID],
+        dry_run=False,
+        max_passes=1,
+        fast_plan=False,
+        compact=True,
+        work_ledger_session_id="codex_session",
+        quiet_progress=True,
+    )
+
+    assert generated_state_drainer_cli.cmd_settle(args) == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "settled"
+    assert observed["fast_plan"] is True
+    assert observed["bounded_final_plan"] is True
+    assert observed["work_ledger_session_id"] == "codex_session"
+
+
+def test_fast_plan_settle_cli_uses_bounded_final_plan_for_mutation(
+    monkeypatch,
+    tmp_path: Path,
+    capsys,
+) -> None:
+    observed: dict[str, object] = {}
+
+    def fake_settle(repo_root: Path, **kwargs) -> dict:
+        observed.update(kwargs)
+        return {
+            "schema": "generated_projection_settlement_v0",
+            "ok": True,
+            "status": "settled",
+        }
+
+    monkeypatch.setattr(generated_state_drainer_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(generated_state_drainer_cli, "settle_generated_projection_owners", fake_settle)
+
+    args = argparse.Namespace(
+        owner_id=[TASK_LEDGER_OWNER_ID],
+        dry_run=False,
+        max_passes=1,
+        fast_plan=True,
+        compact=False,
+        work_ledger_session_id="codex_session",
+        quiet_progress=True,
+    )
+
+    assert generated_state_drainer_cli.cmd_settle(args) == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "settled"
+    assert observed["fast_plan"] is True
+    assert observed["bounded_final_plan"] is True
+    assert observed["work_ledger_session_id"] == "codex_session"
+
+
+def test_fast_plan_settle_cli_keeps_dry_run_full_output_available(
+    monkeypatch,
+    tmp_path: Path,
+    capsys,
+) -> None:
+    observed: dict[str, object] = {}
+
+    def fake_settle(repo_root: Path, **kwargs) -> dict:
+        observed.update(kwargs)
+        return {
+            "schema": "generated_projection_settlement_v0",
+            "ok": True,
+            "dry_run": True,
+            "status": "would_settle",
+        }
+
+    monkeypatch.setattr(generated_state_drainer_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(generated_state_drainer_cli, "settle_generated_projection_owners", fake_settle)
+
+    args = argparse.Namespace(
+        owner_id=[TASK_LEDGER_OWNER_ID],
+        dry_run=True,
+        max_passes=1,
+        fast_plan=True,
+        compact=False,
+        work_ledger_session_id=None,
+        quiet_progress=True,
+    )
+
+    assert generated_state_drainer_cli.cmd_settle(args) == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "would_settle"
+    assert observed["fast_plan"] is True
+    assert observed["bounded_final_plan"] is False
+    assert observed["work_ledger_session_id"] is None
+
+
 def test_land_cli_streams_progress_to_stderr(monkeypatch, tmp_path: Path, capsys) -> None:
     def fake_land(repo_root: Path, **kwargs) -> dict:
         progress_callback = kwargs.get("progress_callback")
@@ -1722,7 +2581,11 @@ def test_settlement_dry_run_uses_active_plan_without_owner_replan(
         "owners": [task_dirty],
     }
 
-    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", lambda *args, **kwargs: plan)
+    monkeypatch.setattr(
+        generated_state_drainer,
+        "build_generated_projection_settlement_plan",
+        lambda *args, **kwargs: plan,
+    )
 
     def fail_owner_replan(*args, **kwargs):
         raise AssertionError("dry-run settlement should render from the active plan without re-planning the owner")
@@ -1853,7 +2716,10 @@ def test_settlement_lands_dirty_owners_serially_without_appending_events(tmp_pat
     task_event_count = len(task_ledger_events.load_and_validate_events(root))
     work_event_count = len(work_ledger.load_events(root, family_id="09"))
 
-    result = settle_generated_projection_owners(root)
+    result = settle_generated_projection_owners(
+        root,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is True
     assert result["status"] == "settled"
@@ -1937,7 +2803,11 @@ def test_settlement_reports_blocked_replan_after_prior_progress(
     monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
     monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
 
-    result = generated_state_drainer.settle_generated_projection_owners(tmp_path, max_passes=3)
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=3,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is False
     assert result["status"] == "blocked"
@@ -2024,7 +2894,11 @@ def test_settlement_rechecks_to_fixed_point_when_later_owner_dirties_prior_owner
     monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
     monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
 
-    result = generated_state_drainer.settle_generated_projection_owners(tmp_path, max_passes=3)
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=3,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is True
     assert result["status"] == "settled"
@@ -2072,7 +2946,11 @@ def test_settlement_reports_repeated_signature_before_duplicate_commit(
     monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", lambda *args, **kwargs: plan)
     monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
 
-    result = generated_state_drainer.settle_generated_projection_owners(tmp_path, max_passes=2)
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=2,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is False
     assert result["status"] == "settlement_residual_repeated_signature"
@@ -2096,6 +2974,77 @@ def test_settlement_reports_repeated_signature_before_duplicate_commit(
             "total_changed_lines": 4,
         }
     ]
+
+
+def test_settlement_repeated_signature_reports_source_moved_after_prior_progress(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    task_source_moved = {
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "fresh_dirty",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        "path_count": 2,
+        "diff_stat": {"path_count": 2, "total_changed_lines": 4},
+        "path_bundle": {
+            "source_authority_paths_to_stage": [
+                "state/task_ledger/events.jsonl",
+                "state/task_ledger/events_audit.jsonl",
+            ],
+            "dirty_path_summary": {"source_authority_dirty_count": 2},
+        },
+    }
+    plan = {
+        "schema": "generated_projection_settlement_plan_v0",
+        "ok": True,
+        "status": "settlement_required",
+        "can_settle": True,
+        "blocked_by": [],
+        "owners": [task_source_moved],
+    }
+    state = {"land_count": 0}
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        state["land_count"] += 1
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": f"commit-{state['land_count']}",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": task_source_moved["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", lambda *args, **kwargs: plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=2,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_source_moved"
+    assert result["reason"] == "source_authority_moved_during_settlement"
+    assert result["partial_success"] is True
+    assert result["residual_class"] == "concurrent_source_authority_moved"
+    assert result["terminal_residual"] is True
+    assert result["residual_actionability"] == "wait_for_source_authority_quiescence_before_retry"
+    assert result["retry_policy"] == "do_not_loop_immediately_after_partial_settlement_progress"
+    assert "settlement-plan --fast --compact" in result["next_safe_command"]
+    assert "do not repeat settlement in a tight loop" in result["reentry_condition"]
+    assert result["progress"]["commit_count"] == 1
+    assert result["progress"]["commit_hashes"] == ["commit-1"]
+    assert result["source_moved_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["previous_pass_index"] == 1
+    assert result["current_pass_index"] == 2
+    assert state["land_count"] == 1
 
 
 def test_settlement_reports_capped_residual_when_passes_change_but_do_not_converge(
@@ -2144,7 +3093,11 @@ def test_settlement_reports_capped_residual_when_passes_change_but_do_not_conver
     monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
     monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
 
-    result = generated_state_drainer.settle_generated_projection_owners(tmp_path, max_passes=2)
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=2,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is False
     assert result["status"] == "settlement_residual_capped"
@@ -2153,6 +3106,532 @@ def test_settlement_reports_capped_residual_when_passes_change_but_do_not_conver
     assert result["progress"]["commit_count"] == 2
     assert result["progress"]["commit_hashes"] == ["commit-1", "commit-2"]
     assert result["residual_owners"][0]["total_changed_lines"] == 7
+
+
+def test_settlement_reports_source_moved_residual_when_refresh_required_after_progress(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    def refresh_plan(plan_count: int) -> dict:
+        task_dirty = {
+            "owner_id": TASK_LEDGER_OWNER_ID,
+            "status": "refresh_required",
+            "freshness_status": "stale",
+            "dirty_status": "dirty",
+            "source_dirty_status": "dirty",
+            "can_apply": True,
+            "blocked_by": ["projection_not_fresh"],
+            "required_action": "refresh_then_land_append_exempt",
+            "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+            "path_count": 2,
+            "diff_stat": {"path_count": 2, "total_changed_lines": 4 + plan_count},
+        }
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "can_settle": True,
+            "blocked_by": [],
+            "owners": [task_dirty],
+        }
+
+    state = {"plan_count": 0, "land_count": 0}
+
+    def fake_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        state["plan_count"] += 1
+        return refresh_plan(state["plan_count"])
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        state["land_count"] += 1
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": f"commit-{state['land_count']}",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=1,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_source_moved"
+    assert result["reason"] == "source_authority_moved_during_settlement"
+    assert result["partial_success"] is True
+    assert result["residual_class"] == "concurrent_source_authority_moved"
+    assert result["terminal_residual"] is True
+    assert result["retry_policy"] == "do_not_loop_immediately_after_partial_settlement_progress"
+    assert result["settlement_done"] is False
+    assert result["progress"]["commit_count"] == 1
+    assert result["source_moved_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["residual_owners"][0]["required_action"] == "refresh_then_land_append_exempt"
+
+
+def test_settlement_reports_source_moved_residual_when_append_exempt_source_dirty_after_progress(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    work_dirty = {
+        "owner_id": WORK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "fresh_dirty",
+        "dirty_status": "dirty",
+        "source_dirty_status": "clean",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/work_ledger_index_projection_manifest.json",
+        "path_count": 1,
+        "diff_stat": {"path_count": 1, "total_changed_lines": 2},
+    }
+    task_source_moved = {
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "fresh_dirty",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        "path_count": 2,
+        "diff_stat": {"path_count": 2, "total_changed_lines": 6},
+        "path_bundle": {
+            "source_authority_paths_to_stage": [
+                "state/task_ledger/events.jsonl",
+                "state/task_ledger/events_audit.jsonl",
+            ],
+            "dirty_path_summary": {"source_authority_dirty_count": 2},
+        },
+    }
+    plans = [
+        {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "can_settle": True,
+            "blocked_by": [],
+            "owners": [work_dirty],
+        },
+        {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "can_settle": True,
+            "blocked_by": [],
+            "owners": [task_source_moved],
+        },
+    ]
+    state = {"plan_index": 0}
+
+    def fake_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        index = min(state["plan_index"], len(plans) - 1)
+        state["plan_index"] += 1
+        return plans[index]
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": "commit-work",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": work_dirty["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=1,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_source_moved"
+    assert result["reason"] == "source_authority_moved_during_settlement"
+    assert result["partial_success"] is True
+    assert result["residual_class"] == "concurrent_source_authority_moved"
+    assert result["terminal_residual"] is True
+    assert result["retry_policy"] == "do_not_loop_immediately_after_partial_settlement_progress"
+    assert result["progress"]["commit_hashes"] == ["commit-work"]
+    assert result["source_moved_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["residual_owners"][0]["required_action"] == "land_append_exempt"
+
+
+def test_settlement_bounded_final_plan_avoids_full_replan_after_commit_progress(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    initial_owner = {
+        "owner_id": WORK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "fresh_dirty",
+        "dirty_status": "dirty",
+        "source_dirty_status": "clean",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/work_ledger_index_projection_manifest.json",
+        "path_count": 1,
+        "diff_stat": {"path_count": 1, "total_changed_lines": 2},
+    }
+    moved_owner = {
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "refresh_required",
+        "freshness_status": "not_checked_cached_status_only",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "refresh_then_land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        "path_count": 2,
+        "diff_stat": {"path_count": 2, "stat_mode": "status_only"},
+    }
+    call_count = {"full_plan": 0, "fast_plan": 0}
+
+    def fake_full_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        call_count["full_plan"] += 1
+        if call_count["full_plan"] > 1:
+            raise AssertionError("bounded final plan should skip the full post-commit replan")
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "can_settle": True,
+            "blocked_by": [],
+            "owners": [initial_owner],
+        }
+
+    def fake_fast_plan(repo_root: Path, *, owner_ids=None):
+        call_count["fast_plan"] += 1
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "authority_level": "cached_status_only",
+            "can_settle": True,
+            "blocked_by": [],
+            "dirty_owner_count": 1,
+            "blocked_owner_count": 0,
+            "owners": [moved_owner],
+        }
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": "commit-work",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": initial_owner["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_full_plan)
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_fast_plan", fake_fast_plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=1,
+        bounded_final_plan=True,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert call_count == {"full_plan": 1, "fast_plan": 1}
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_source_moved"
+    assert result["source_moved_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["terminal_residual"] is True
+    assert result["timing"]["phases"][-1]["phase"] == "final_fast_plan"
+    assert result["final_plan"]["authority_level"] == "cached_status_only"
+
+
+def test_settlement_reports_source_moved_residual_when_refresh_owner_fails_after_prior_commit(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    work_dirty = {
+        "owner_id": WORK_LEDGER_OWNER_ID,
+        "status": "append_exempt_manifest_available",
+        "freshness_status": "fresh_dirty",
+        "dirty_status": "dirty",
+        "source_dirty_status": "clean",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/work_ledger_index_projection_manifest.json",
+        "path_count": 1,
+        "diff_stat": {"path_count": 1, "total_changed_lines": 2},
+    }
+    task_refresh = {
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "refresh_required",
+        "freshness_status": "stale",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": ["projection_not_fresh"],
+        "required_action": "refresh_then_land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        "path_count": 2,
+        "diff_stat": {"path_count": 2, "total_changed_lines": 5},
+    }
+    plan = {
+        "schema": "generated_projection_settlement_plan_v0",
+        "ok": True,
+        "status": "settlement_required",
+        "can_settle": True,
+        "blocked_by": [],
+        "owners": [work_dirty, task_refresh],
+    }
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        if owner_id == WORK_LEDGER_OWNER_ID:
+            return {
+                "ok": True,
+                "status": "landed",
+                "commit_hash": "commit-work",
+                "paths_staged": [owner_id],
+                "landing_manifest_path": work_dirty["landing_manifest_path"],
+            }
+        return {
+            "ok": False,
+            "status": "refresh_required",
+            "reason": "projection_not_fresh",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": task_refresh["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", lambda *args, **kwargs: plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=3,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_source_moved"
+    assert result["reason"] == "source_authority_moved_during_settlement"
+    assert result["partial_success"] is True
+    assert result["residual_class"] == "concurrent_source_authority_moved"
+    assert result["terminal_residual"] is True
+    assert result["retry_policy"] == "do_not_loop_immediately_after_partial_settlement_progress"
+    assert result["settlement_done"] is False
+    assert result["progress"]["commit_hashes"] == ["commit-work"]
+    assert result["source_moved_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["owners"][1]["result_status"] == "refresh_required"
+
+
+def test_settlement_reports_freshness_only_residual_after_zero_diff_refresh(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    initial_owner = {
+        "owner_id": SYSTEM_ATLAS_OWNER_ID,
+        "status": "refresh_required",
+        "freshness_status": "stale",
+        "dirty_status": "dirty",
+        "source_dirty_status": "clean",
+        "can_apply": True,
+        "blocked_by": [],
+        "required_action": "refresh_then_land_append_exempt",
+        "landing_manifest_path": (
+            "state/generated_projection_landing/system_atlas_projection_manifest.json"
+        ),
+        "path_count": 1,
+        "diff_stat": {"path_count": 1, "total_changed_lines": 2},
+    }
+    freshness_only_owner = {
+        "owner_id": SYSTEM_ATLAS_OWNER_ID,
+        "status": "refresh_required",
+        "freshness_status": "stale",
+        "dirty_status": "clean",
+        "source_dirty_status": "clean",
+        "can_apply": True,
+        "blocked_by": ["projection_not_fresh"],
+        "required_action": "refresh_then_land_append_exempt",
+        "landing_manifest_path": (
+            "state/generated_projection_landing/system_atlas_projection_manifest.json"
+        ),
+        "path_count": 1,
+        "diff_stat": {"path_count": 1, "total_changed_lines": 0},
+        "path_bundle": {
+            "source_authority_paths_to_stage": [],
+            "projection_paths_to_stage": [],
+            "dirty_path_summary": {
+                "source_authority_dirty_count": 0,
+                "projection_dirty_count": 0,
+                "landing_manifest_dirty": False,
+            },
+        },
+    }
+    calls = {"plan": 0}
+
+    def fake_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        calls["plan"] += 1
+        owner = initial_owner if calls["plan"] == 1 else freshness_only_owner
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settlement_required",
+            "can_settle": True,
+            "blocked_by": [],
+            "dirty_owner_count": 1,
+            "blocked_owner_count": 0,
+            "owners": [owner],
+        }
+
+    def fake_land(
+        repo_root: Path,
+        *,
+        owner_id: str,
+        mode: str,
+        dry_run: bool = False,
+        **kwargs,
+    ):
+        return {
+            "ok": True,
+            "status": "landed",
+            "commit_hash": "commit-system-atlas",
+            "paths_staged": [owner_id],
+            "landing_manifest_path": initial_owner["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(
+        generated_state_drainer,
+        "build_generated_projection_settlement_plan",
+        fake_plan,
+    )
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=1,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is True
+    assert result["status"] == "settlement_residual_freshness_only"
+    assert result["reason"] == "zero_diff_freshness_marker_after_settlement"
+    assert result["residual_class"] == "zero_diff_freshness_only"
+    assert result["freshness_only_owner_ids"] == [SYSTEM_ATLAS_OWNER_ID]
+    assert result["retry_policy"] == "do_not_loop_for_zero_diff_freshness_residual"
+    assert result["residual_owners"][0]["total_changed_lines"] == 0
+    assert result["progress"]["commit_hashes"] == ["commit-system-atlas"]
+
+
+def test_settlement_returns_retry_later_when_task_ledger_source_lock_held(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    if task_ledger_events.fcntl is None:
+        pytest.skip("nonblocking Task Ledger source lock probe requires fcntl")
+    monkeypatch.setattr(generated_state_drainer, "TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S", 0)
+    lock_path = tmp_path / task_ledger_events.LOCK_REL
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        task_ledger_events.fcntl.flock(
+            handle.fileno(),
+            task_ledger_events.fcntl.LOCK_EX | task_ledger_events.fcntl.LOCK_NB,
+        )
+        try:
+            result = generated_state_drainer.settle_generated_projection_owners(
+                tmp_path,
+                owner_ids=[TASK_LEDGER_OWNER_ID],
+            )
+        finally:
+            task_ledger_events.fcntl.flock(handle.fileno(), task_ledger_events.fcntl.LOCK_UN)
+
+    assert result["ok"] is False
+    assert result["status"] == "settlement_retry_later"
+    assert result["reason"] == "task_ledger_source_mutation_in_progress"
+    assert result["retry_later"] is True
+    assert result["retry_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["source_moving_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert result["blocked_by"] == ["task_ledger_source_writer_lock_held"]
+    assert result["source_lock"]["attempts"] == (
+        generated_state_drainer.TASK_LEDGER_SOURCE_LOCK_ATTEMPTS
+    )
+    assert result["source_lock"]["lock_file_exists"] is True
+    assert result["progress_events"] == [
+        {
+            "event": "source_lock_retry_later",
+            "owner_id": TASK_LEDGER_OWNER_ID,
+            "status": "busy",
+            "reason": "task_ledger_source_writer_lock_held",
+        }
+    ]
+
+
+def test_settlement_owner_retry_later_skips_final_replan(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    task_refresh = {
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "refresh_required",
+        "freshness_status": "stale",
+        "dirty_status": "dirty",
+        "source_dirty_status": "dirty",
+        "can_apply": True,
+        "blocked_by": ["projection_not_fresh"],
+        "required_action": "refresh_then_land_append_exempt",
+        "landing_manifest_path": "state/generated_projection_landing/task_ledger_projection_manifest.json",
+        "path_count": 2,
+        "diff_stat": {"path_count": 2, "total_changed_lines": 5},
+    }
+    plan = {
+        "schema": "generated_projection_settlement_plan_v0",
+        "ok": True,
+        "status": "settlement_required",
+        "can_settle": True,
+        "blocked_by": [],
+        "owners": [task_refresh],
+    }
+    state = {"plan_count": 0, "land_count": 0}
+
+    def fake_plan(repo_root: Path, *, owner_ids=None, collect_diff_stat: bool = True):
+        state["plan_count"] += 1
+        return plan
+
+    def fake_land(repo_root: Path, *, owner_id: str, mode: str, dry_run: bool = False, **kwargs):
+        state["land_count"] += 1
+        return {
+            "ok": False,
+            "status": "retry_later",
+            "reason": "task_ledger_source_mutation_in_progress",
+            "retry_later": True,
+            "blocked_by": ["task_ledger_source_writer_lock_held"],
+            "landing_manifest_path": task_refresh["landing_manifest_path"],
+        }
+
+    monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", fake_plan)
+    monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
+
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        owner_ids=[TASK_LEDGER_OWNER_ID],
+        max_passes=3,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
+
+    assert result["ok"] is False
+    assert result["status"] == "settlement_retry_later"
+    assert result["reason"] == "task_ledger_source_mutation_in_progress"
+    assert result["retry_owner_ids"] == [TASK_LEDGER_OWNER_ID]
+    assert state["land_count"] == 1
+    assert state["plan_count"] == 1
+    assert result["owners"][0]["result_status"] == "retry_later"
 
 
 def test_settlement_reports_no_progress_residual_when_dirty_owner_lands_no_commit(
@@ -2193,7 +3672,11 @@ def test_settlement_reports_no_progress_residual_when_dirty_owner_lands_no_commi
     monkeypatch.setattr(generated_state_drainer, "build_generated_projection_settlement_plan", lambda *args, **kwargs: plan)
     monkeypatch.setattr(generated_state_drainer, "land_generated_projection_bundle", fake_land)
 
-    result = generated_state_drainer.settle_generated_projection_owners(tmp_path, max_passes=3)
+    result = generated_state_drainer.settle_generated_projection_owners(
+        tmp_path,
+        max_passes=3,
+        work_ledger_session_id=TEST_WORK_LEDGER_SESSION_ID,
+    )
 
     assert result["ok"] is False
     assert result["status"] == "settlement_residual_no_progress"
@@ -2242,6 +3725,8 @@ def test_settlement_plans_refresh_then_land_when_owner_projection_requires_refre
     assert plan["refresh_required_owner_count"] == 1
     task_owner = plan["owners"][0]
     assert task_owner["required_action"] == "refresh_then_land_append_exempt"
+    assert task_owner["settlement_item_class"] == "source_dirty_projection_stale"
+    assert task_owner["settlement_item"]["closeout_relevance"] is True
     assert result["ok"] is True
     assert result["status"] == "would_settle"
     assert result["owners"][0]["result_status"] == "would_refresh_then_land"
@@ -2257,5 +3742,7 @@ def test_settlement_refuses_unsupported_owner(tmp_path: Path) -> None:
     assert plan["status"] == "blocked"
     assert plan["can_settle"] is False
     assert plan["blocked_by"] == ["unsupported_owner_id", "owner_settlement_blocked"]
+    assert plan["owners"][0]["settlement_item_class"] == "owner_landing_policy_not_implemented"
+    assert plan["owners"][0]["settlement_item"]["reentry_command"] == "none"
     assert result["ok"] is False
     assert result["status"] == "blocked"

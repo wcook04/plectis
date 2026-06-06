@@ -48,23 +48,23 @@
   "authority_rejection_count": 1,
   "body_import_verification": {
     "body_in_receipt": false,
-    "copied_source_module_count": 7,
+    "copied_source_module_count": 8,
     "private_body_exported": false,
-    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_trace_analytics",
     "source_ref": "source_module_manifest.json",
-    "source_to_target_relation": "copied_non_secret_macro_body_plus_public_synthetic_fixture_over_live_decision_logic",
+    "source_to_target_relation": "copied_non_secret_macro_body_plus_public_synthetic_fixture_driving_copied_trace_analytics",
     "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle",
     "verification_mode": "exact_source_module_manifest_digest_check",
     "verification_status": "pass"
   },
   "body_in_receipt": false,
   "browser_hud_cockpit_state_exported": false,
-  "bundle_fingerprint": "f35a4438737d15475b0fca8321ad108d1444e719ad0721779d01690a62478736",
+  "bundle_fingerprint": "fe5fa63bbc0c1cb043373a721504b949d9755edbf924c1fe9babb302fbd92605",
   "bundle_id": "public_route_compliance_audit_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out receipts/first_wave/agent_route_observability_runtime",
-  "copied_macro_source_count": 7,
-  "created_at": "2026-05-29T17:10:16+00:00",
+  "copied_macro_source_count": 8,
+  "created_at": "2026-06-01T18:42:31+00:00",
   "duplicate_trace_event_ids": [],
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
@@ -76,11 +76,12 @@
     "body_in_receipt": false,
     "source_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-      "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
-      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-      "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
-      "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "sha256:2f63260fd4c7579df1fa28729c2ae394ebed1436ab3d98ba3ec98b6910e3dfc2",
+      "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+      "sha256:d7e4b3c5fa368e8a7f8ce2b4418ffda4a3da6346a8b94b2c73a944e6395abb9e",
+      "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "sha256:5bbc58a9ddb58b8cf1dd35fdf4f75f977ae44c8a84f3f2ffda245f9a894f5216",
       "sha256:b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce"
     ],
     "source_refs": [
@@ -89,17 +90,19 @@
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "system/lib/agent_execution_trace.py",
       "system/lib/navigation_coverage_matrix.py",
+      "system/lib/strict_json.py",
       "tools/meta/factory/build_agent_execution_trace.py",
       "tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
     ],
     "source_to_target_relation": "exact_copy",
     "target_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-      "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
-      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-      "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
-      "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "sha256:2f63260fd4c7579df1fa28729c2ae394ebed1436ab3d98ba3ec98b6910e3dfc2",
+      "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+      "sha256:d7e4b3c5fa368e8a7f8ce2b4418ffda4a3da6346a8b94b2c73a944e6395abb9e",
+      "sha256:2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "sha256:5bbc58a9ddb58b8cf1dd35fdf4f75f977ae44c8a84f3f2ffda245f9a894f5216",
       "sha256:b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce"
     ],
     "target_refs": [
@@ -108,6 +111,7 @@
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/strict_json.py",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
     ],
@@ -234,7 +238,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 12,
+    "scanned_path_count": 14,
     "status": "pass"
   },
   "provider_payload_exported": false,
@@ -372,9 +376,9 @@
     "all_expected_digests_matched": true,
     "all_expected_line_counts_matched": true,
     "body_in_receipt": false,
-    "copied_macro_source_count": 7,
+    "copied_macro_source_count": 8,
     "findings": [],
-    "module_count": 7,
+    "module_count": 8,
     "observed_modules": [
       {
         "body_in_receipt": false,
@@ -388,51 +392,61 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 47570,
-        "line_count": 664,
+        "byte_count": 49875,
+        "line_count": 678,
         "material_class": "public_standard_body",
         "path": "source_modules/codex/standards/std_agent_execution_trace.json",
-        "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
         "source_ref": "codex/standards/std_agent_execution_trace.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 1376531,
-        "line_count": 18813,
+        "byte_count": 1376313,
+        "line_count": 18809,
         "material_class": "public_macro_pattern_body",
         "path": "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-        "sha256": "89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
+        "sha256": "2f63260fd4c7579df1fa28729c2ae394ebed1436ab3d98ba3ec98b6910e3dfc2",
         "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 224689,
-        "line_count": 5158,
+        "byte_count": 231602,
+        "line_count": 5298,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "sha256": "659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
         "source_ref": "system/lib/agent_execution_trace.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 52459,
-        "line_count": 1220,
+        "byte_count": 69974,
+        "line_count": 1646,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/navigation_coverage_matrix.py",
-        "sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "sha256": "d7e4b3c5fa368e8a7f8ce2b4418ffda4a3da6346a8b94b2c73a944e6395abb9e",
         "source_ref": "system/lib/navigation_coverage_matrix.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 5814,
+        "byte_count": 10373,
+        "line_count": 260,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/strict_json.py",
+        "sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+        "source_ref": "system/lib/strict_json.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/strict_json.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 5769,
         "line_count": 170,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/tools/meta/factory/build_agent_execution_trace.py",
-        "sha256": "46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+        "sha256": "5bbc58a9ddb58b8cf1dd35fdf4f75f977ae44c8a84f3f2ffda245f9a894f5216",
         "source_ref": "tools/meta/factory/build_agent_execution_trace.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py"
       },
@@ -447,7 +461,7 @@
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
       }
     ],
-    "required_module_count": 7,
+    "required_module_count": 8,
     "source_import_class": "copied_non_secret_macro_body",
     "status": "pass"
   },
@@ -456,6 +470,7 @@
     "agent_route_observability_runtime",
     "agent_route_compliance_audit",
     "agent_session_attribution",
+    "agent_harness_configuration_audit",
     "agent_trace_to_route_repair_observability_compound",
     "agent_principle_lens",
     "entry_payload_admission_nonnegotiable_floor",
@@ -469,13 +484,163 @@
   "source_refs": [
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
     "codex/standards/std_agent_execution_trace.json",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit"
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit",
+    "system/lib/strict_json.py"
   ],
   "status": "pass",
   "target_refs": [
     "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape"
   ],
+  "trace_analytics": {
+    "average_route_compliance": 0.967,
+    "body_in_receipt": false,
+    "findings": [],
+    "fixture_schema_version": "agent_route_observability_runtime_trace_analytics_spans_v1",
+    "pattern_counts": {
+      "anti_pattern_grep_before_kernel": 1,
+      "positive_kernel_ladder_climb": 1
+    },
+    "route_lease_mode_control_counts": {
+      "entry_lease_issued": 2,
+      "full_output_kernel_bloat": 1
+    },
+    "schema_version": "agent_route_observability_runtime_trace_analytics_v1",
+    "session_count": 3,
+    "sessions": [
+      {
+        "anti_pattern_ids": [
+          "positive_kernel_ladder_climb"
+        ],
+        "body_redacted": true,
+        "bottlenecks": {
+          "bash_other": {
+            "count": 1,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          },
+          "kernel_command": {
+            "count": 2,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          }
+        },
+        "route_compliance": {
+          "deviation_count": 0,
+          "first_grep_span_index": -1,
+          "first_kernel_span_index": 0,
+          "ladder_position": 2,
+          "ladder_rungs_hit": [
+            "--preflight"
+          ],
+          "score": 1.0,
+          "violations": []
+        },
+        "route_lease_mode_control": {
+          "signal_counts": {
+            "entry_lease_issued": 1
+          },
+          "status": "observed",
+          "warning_count": 0
+        },
+        "session_id": "synthetic_route_compliant_ladder",
+        "span_count": 3
+      },
+      {
+        "anti_pattern_ids": [
+          "anti_pattern_grep_before_kernel"
+        ],
+        "body_redacted": true,
+        "bottlenecks": {
+          "bash_other": {
+            "count": 1,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          },
+          "kernel_command": {
+            "count": 1,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          }
+        },
+        "route_compliance": {
+          "deviation_count": 1,
+          "first_grep_span_index": 0,
+          "first_kernel_span_index": 1,
+          "ladder_position": 3,
+          "ladder_rungs_hit": [
+            "--pulse"
+          ],
+          "score": 0.9,
+          "violations": [
+            {
+              "grep_span": 0,
+              "kernel_span": 1,
+              "rule": "grep_before_kernel"
+            }
+          ]
+        },
+        "route_lease_mode_control": {
+          "signal_counts": {},
+          "status": "route_lease_not_seen",
+          "warning_count": null
+        },
+        "session_id": "synthetic_grep_before_kernel",
+        "span_count": 2
+      },
+      {
+        "anti_pattern_ids": [],
+        "body_redacted": true,
+        "bottlenecks": {
+          "bash_other": {
+            "count": 1,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          },
+          "kernel_command": {
+            "count": 2,
+            "p50_ms": 1000,
+            "p95_ms": 1000,
+            "slow_count": 0
+          }
+        },
+        "route_compliance": {
+          "deviation_count": 0,
+          "first_grep_span_index": 2,
+          "first_kernel_span_index": 0,
+          "ladder_position": 1,
+          "ladder_rungs_hit": [
+            "--info"
+          ],
+          "score": 1.0,
+          "violations": []
+        },
+        "route_lease_mode_control": {
+          "signal_counts": {
+            "entry_lease_issued": 1,
+            "full_output_kernel_bloat": 1
+          },
+          "status": "warning",
+          "warning_count": 1
+        },
+        "session_id": "synthetic_route_lease_output_bloat",
+        "span_count": 3
+      }
+    ],
+    "source_functions_invoked": [
+      "system/lib/agent_execution_trace.py::_compute_route_compliance",
+      "system/lib/agent_execution_trace.py::_detect_anti_patterns",
+      "system/lib/agent_execution_trace.py::_compute_bottlenecks",
+      "system/lib/agent_execution_trace.py::_route_lease_mode_control"
+    ],
+    "source_module_path": "source_modules/system/lib/agent_execution_trace.py",
+    "status": "pass"
+  },
   "trace_count": 5,
   "validator_asserted_feeds_patterns": [
     {

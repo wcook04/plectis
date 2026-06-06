@@ -1,0 +1,7 @@
+{
+  "authority_ceiling": "public_fixture_closeout_evidence_only",
+  "body_in_receipt": false,
+  "organ_id": "agent_closeout_faithfulness_audit",
+  "schema_version": "microcosm_crown_jewel_projection_protocol_v1",
+  "source_module_manifest_ref": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json"
+}

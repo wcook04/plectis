@@ -1,0 +1,84 @@
+{
+  "anti_claim": "Self-ignorance coverage ledger projects known coverage debt between public fixture Kind Atlas rows and materialized Atlas entities. It does not claim literal unknown-unknown omniscience, absence proof, source mutation, or release authority.",
+  "authority_ceiling": "known Kind Atlas coverage debt projection only",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::self_ignorance_coverage_ledger::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_result.json",
+    "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_board.json",
+    "receipts/first_wave/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_validation_receipt.json",
+    "receipts/acceptance/first_wave/self_ignorance_coverage_ledger_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/self_ignorance_coverage_ledger/input/coverage_debt_mismatch.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/self_ignorance_coverage_ledger/input/forbidden_absence_inference.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/self_ignorance_coverage_ledger/input/kind_atlas_rows.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/self_ignorance_coverage_ledger/input/materialized_entities.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/self_ignorance_coverage_ledger/input/projection_protocol.json",
+      "role": "positive public fixture input"
+    }
+  ],
+  "organ_id": "self_ignorance_coverage_ledger",
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/fixture_manifests/self_ignorance_coverage_ledger.fixture_manifest.json",
+      "fixtures/first_wave/self_ignorance_coverage_ledger/input",
+      "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle",
+      "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
+      "paper_modules/self_ignorance_coverage_ledger.md"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "absence_proof_authorized": false,
+      "authority_ceiling": "known_kind_atlas_coverage_debt_projection_only",
+      "literal_unknown_unknown_omniscience_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "status": "pass"
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 1,
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "reader_action": "Open the source module manifest and source_modules directory for copied bodies; receipts carry refs, hashes, counts, verdicts, and anti-claims only.",
+    "schema_version": "self_ignorance_coverage_ledger_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Self-ignorance coverage ledger fixture",
+  "validator": "microcosm_core.organs.self_ignorance_coverage_ledger",
+  "validator_command": "python -m microcosm_core.organs.self_ignorance_coverage_ledger run --input fixtures/first_wave/self_ignorance_coverage_ledger/input --out receipts/first_wave/self_ignorance_coverage_ledger --acceptance-out receipts/acceptance/first_wave/self_ignorance_coverage_ledger_fixture_acceptance.json"
+}

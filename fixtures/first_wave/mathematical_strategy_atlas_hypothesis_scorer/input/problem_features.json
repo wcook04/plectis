@@ -1,5 +1,5 @@
 {
-  "schema_version": "mathematical_strategy_problem_features_v1",
+  "schema_version": "mathematical_strategy_problem_features_v2",
   "problems": [
     {
       "problem_id": "toy_iff_equivalence",
@@ -9,6 +9,11 @@
         "equivalence",
         "bidirectional_reasoning",
         "boolean_connective"
+      ],
+      "retrieval_query_terms": [
+        "iff",
+        "intro",
+        "equivalence"
       ],
       "statement_shape": "P iff Q",
       "oracle_labels_visible": false,
@@ -22,6 +27,11 @@
         "list_structure",
         "induction_candidate"
       ],
+      "retrieval_query_terms": [
+        "list",
+        "append",
+        "length"
+      ],
       "statement_shape": "length append equals sum lengths",
       "oracle_labels_visible": false,
       "body_redacted": true
@@ -33,7 +43,53 @@
         "topology_like",
         "unmapped_goal_shape"
       ],
+      "retrieval_query_terms": [
+        "unmapped"
+      ],
       "statement_shape": "unmapped public toy shape",
+      "oracle_labels_visible": false,
+      "body_redacted": true
+    },
+    {
+      "problem_id": "toy_reversed_length_append",
+      "split": "dev",
+      "feature_tags": [
+        "equality_target",
+        "nat_add",
+        "length_append",
+        "reversed_orientation",
+        "symmetry_needed"
+      ],
+      "retrieval_query_terms": [
+        "orientation",
+        "length"
+      ],
+      "statement_shape": "rhs = lhs when library lemma gives lhs = rhs",
+      "oracle_labels_visible": false,
+      "body_redacted": true
+    },
+    {
+      "problem_id": "toy_iff_with_arithmetic_retrieval_noise",
+      "split": "dev",
+      "feature_tags": [
+        "iff_goal",
+        "equivalence",
+        "bidirectional_reasoning"
+      ],
+      "retrieval_query_terms": [
+        "arithmetic",
+        "normalization",
+        "commutativity",
+        "associativity",
+        "Nat.add_comm",
+        "Nat.add_assoc",
+        "Nat.mul_comm",
+        "Iff.intro",
+        "equivalence",
+        "intro",
+        "implication"
+      ],
+      "statement_shape": "P iff Q with many irrelevant retrieval keywords",
       "oracle_labels_visible": false,
       "body_redacted": true
     }

@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "source_surgeon_context_mismatch",
+  "error_codes": [
+    "BATCH7_SOURCE_SURGEON_CONTEXT_MISMATCH"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

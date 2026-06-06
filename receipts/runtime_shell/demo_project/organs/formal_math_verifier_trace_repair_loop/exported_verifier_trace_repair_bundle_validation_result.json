@@ -151,7 +151,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-30T21:36:33+00:00",
+  "created_at": "2026-05-31T10:07:16+00:00",
   "curriculum_edge_count": 3,
   "curriculum_edges": [
     {
@@ -314,12 +314,12 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1780110858259852205,
+      "mtime_ns": 1780204704844454087,
       "path": "src/microcosm_core/private_state_scan.py",
-      "size_bytes": 20760
+      "size_bytes": 21115
     }
   ],
-  "freshness_digest": "sha256:f69c3de76a47dc67993b1b74e76a75160b5a41f4c923c6931fca3867b803ea25",
+  "freshness_digest": "sha256:6c52298c2bf6e79297f504c4c08155fe4f59c277f8015a8326557d90219231e9",
   "freshness_status": "current",
   "input_mode": "exported_verifier_trace_repair_bundle",
   "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",

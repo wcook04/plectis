@@ -1,0 +1,56 @@
+{
+  "schema_version": "microcosm_axiom_support_provenance_order_v1",
+  "component_id": "provenance_class",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover provenance-class ordering; it classifies bound support-case material and does not certify freshness, domain generality, authority scope, projection scope, release readiness, or anti-axiom rejection.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=provenance_class]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._provenance_class_component",
+  "order_values": [
+    "declared_negative_case_only_no_positive_witness_material",
+    "checker_surface_refs_only",
+    "accepted_organ_material_chain",
+    "accepted_organ_material_chain_with_checker_surfaces"
+  ],
+  "order_semantics": {
+    "declared_negative_case_only_no_positive_witness_material": {
+      "rank": 0,
+      "meaning": "The obligation names a negative-case code but no positive witness organ, checker surface, bundle, or receipt material.",
+      "claim_effect": "Classifies provenance as declared route pressure only; it cannot witness positive support."
+    },
+    "checker_surface_refs_only": {
+      "rank": 1,
+      "meaning": "The obligation binds source/checker surface references but no accepted-organ bundle plus receipt chain.",
+      "claim_effect": "Classifies local checker-material provenance only; checker breadth and semantic completeness remain separate."
+    },
+    "accepted_organ_material_chain": {
+      "rank": 2,
+      "meaning": "The obligation binds accepted-organ example bundles and receipt refs without a direct checker surface ref.",
+      "claim_effect": "Classifies accepted-organ material provenance only; receipt existence is not proof."
+    },
+    "accepted_organ_material_chain_with_checker_surfaces": {
+      "rank": 3,
+      "meaning": "The obligation binds accepted-organ example bundles, receipt refs, and source/checker surface refs.",
+      "claim_effect": "Classifies the richest currently ordered material chain; it still cannot override unowned dimensions or unverified rejection mapping."
+    }
+  },
+  "material_inputs": [
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_organs",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_surfaces",
+    "examples/<organ>/exported_*_bundle/{bundle_manifest.json,source_module_manifest.json}",
+    "receipts/first_wave/<organ>/*.json",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes"
+  ],
+  "non_laundering_rules": [
+    "Provenance classification is not source freshness, domain generality, checker completeness, release authority, or public-readiness authority.",
+    "Receipt presence, bundle presence, and endpoint negative-case coverage cannot become proof that an anti-axiom is rejected for a specific obligation.",
+    "Generated support-cover output and generated doctrine-lattice projections are never evidence for this registry.",
+    "A higher provenance class cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "If no ordered provenance material is present, the validator emits unknown_no_provenance_material as an explicit witness gap rather than bottom or support.",
+  "anti_claims": [
+    "This registry makes the support calculus more computed and less hand-stamped; it does not make any axiom strong.",
+    "This registry does not resolve checker_scope, freshness_state, domain_scope, authority_scope, or projection_scope.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping."
+  ]
+}

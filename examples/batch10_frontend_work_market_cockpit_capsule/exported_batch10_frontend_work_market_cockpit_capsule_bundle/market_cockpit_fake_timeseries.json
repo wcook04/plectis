@@ -1,0 +1,8 @@
+{
+  "case_id": "market_cockpit_fake_timeseries",
+  "error_codes": [
+    "BATCH10_FRONTEND_MARKET_FAKE_TIMESERIES_REFUSED"
+  ],
+  "blocked_claim": "A market cockpit may not draw fake line charts when the substrate lacks time-series evidence.",
+  "body_in_receipt": false
+}

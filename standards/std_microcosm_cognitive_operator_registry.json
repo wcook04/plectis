@@ -71,7 +71,7 @@
     "negative_case_ids",
     "authority_ceiling"
   ],
-  "schema_version": "std_microcosm_cognitive_operator_registry_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
     "src/microcosm_core/organs/cognitive_operator_registry.py",
     "tests/test_cognitive_operator_registry.py",
@@ -107,9 +107,26 @@
       "synthetic fixture row counted as operator coverage without the source-open macro registry, standard, and validator body imports"
     ],
     "ontology": "A public cognitive-operator registry organ that validates operator ids, roles, runtime refs, dogfood receipts, negative cases, secret-exclusion policy, and copied non-secret macro registry/standard/validator bodies.",
-    "teleology": "Show how the macro system names reusable cognitive operations without leaking private operator material or pretending a registry card can execute, mutate, or release work."
+    "teleology": "Show how the macro system names reusable cognitive operations without leaking private operator material or pretending a registry card can execute, mutate, or release work.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_cognitive_operator_registry_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "src/microcosm_core/organs/cognitive_operator_registry.py",
+        "tests/test_cognitive_operator_registry.py",
+        "validator.microcosm.organs.cognitive_operator_registry"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.cognitive_operator_registry"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "status": "accepted_public_runtime_standard",
+  "status": "active",
   "validation_rules": [
     "Every operator row must carry an id, role, purpose, and public runtime reference.",
     "Every dogfood receipt must cite validator refs and observed negative-case coverage.",
@@ -124,6 +141,82 @@
   },
   "validator_refs": [
     "src/microcosm_core/organs/cognitive_operator_registry.py",
-    "tests/test_cognitive_operator_registry.py"
-  ]
+    "tests/test_cognitive_operator_registry.py",
+    "validator.microcosm.organs.cognitive_operator_registry"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "cognitive_operator_registry",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.cognitive_operator_registry",
+    "mechanism_ref": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "atlas_refs": [
+      "core/organ_atlas.json::organs[organ_id=cognitive_operator_registry].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=cognitive_operator_registry].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=cognitive_operator_registry].code_loci"
+    ],
+    "authority_boundary": "Structured doctrine population binds source-backed capsule, mechanism, and atlas source rows; generated atlas docs remain builder-owned projections.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_cognitive_operator_registry_population_has_capsule_and_mechanism_source",
+      "tests/test_cognitive_operator_registry.py",
+      "microcosm_core.organs.cognitive_operator_registry run",
+      "microcosm_core.organs.cognitive_operator_registry run-registry-bundle"
+    ]
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Cognitive operator registry instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Cognitive operator registry without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_cognitive_operator_registry and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_cognitive_operator_registry.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.cognitive_operator_registry"
+  ],
+  "anti_claims": [
+    "Cognitive operator registry rows validate a public operator taxonomy and dogfood receipt shape only; they do not authorize live operator execution, source mutation, release, provider calls, private-data equivalence, account/session export, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_cognitive_operator_registry",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_cognitive_operator_registry_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.cognitive_operator_registry",
+    "receipt_id": "receipt.microcosm.cognitive_operator_registry",
+    "validator_refs": [
+      "src/microcosm_core/organs/cognitive_operator_registry.py",
+      "tests/test_cognitive_operator_registry.py",
+      "validator.microcosm.organs.cognitive_operator_registry"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.cognitive_operator_registry"
+    ]
+  }
 }

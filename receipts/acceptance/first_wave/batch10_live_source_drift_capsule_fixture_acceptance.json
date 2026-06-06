@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 10 Live Source Drift imports exact current Python bodies for the option-surface router, mission-transaction landing preflight, work landing controller, and Work Ledger controller after macro source drift. It proves byte-copy freshness, anchors, Python compileability, and claim ceilings. It is not route authority, not Work Ledger or Task Ledger mutation authority, not mission-transaction execution, not git staging/commit approval, and not permission to export private runtime state.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch10_live_source_drift_capsule",
+  "organ_id": "batch10_live_source_drift_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch10_live_source_drift_capsule/batch10_live_source_drift_capsule_validation_receipt.json"
+}

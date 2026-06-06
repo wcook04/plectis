@@ -27,17 +27,17 @@
       "step_id": "inspect_route_explanation",
       "minute_range": "2-4",
       "commands": [
-        "microcosm explain /tmp/microcosm-scratch readme_onboarding_route"
+        "microcosm explain /tmp/microcosm-scratch missing_tests_route"
       ],
       "inspect_refs": [
-        ".microcosm/explanations/readme_onboarding_route.json",
+        ".microcosm/explanations/missing_tests_route.json",
         ".microcosm/evidence/"
       ],
       "evidence_refs": [
         "core/public_standard_pressure.json",
         "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
       ],
-      "expected_signal": "The route explains grounded refs, patterns, standards, work, events, and evidence."
+      "expected_signal": "The selected route explains pattern pressure, standards, work, events, and evidence."
     },
     {
       "step_id": "open_observatory",

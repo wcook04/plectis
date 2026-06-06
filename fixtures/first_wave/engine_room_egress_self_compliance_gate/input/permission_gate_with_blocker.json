@@ -1,0 +1,5 @@
+{
+  "case_id": "permission_gate_with_blocker",
+  "expected_status": "green",
+  "text": "Should I proceed? I am stopping before a remote push because that crosses the publication boundary."
+}

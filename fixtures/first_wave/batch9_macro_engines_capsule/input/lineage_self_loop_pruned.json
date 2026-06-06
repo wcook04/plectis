@@ -1,0 +1,18 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "lineage_self_loop_pruned",
+  "error_codes": [
+    "BATCH9_LINEAGE_SELF_LOOP_PRUNED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "lineage": {
+      "contexts": {
+        "RUN_SELF": {
+          "source_run_id": "RUN_SELF"
+        }
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

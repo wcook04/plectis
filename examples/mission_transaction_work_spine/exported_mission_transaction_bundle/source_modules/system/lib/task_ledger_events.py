@@ -16,6 +16,7 @@ import os
 import re
 import shutil
 import tempfile
+import threading
 import uuid
 from collections import Counter, defaultdict
 from contextlib import contextmanager
@@ -31,12 +32,16 @@ except ImportError:  # pragma: no cover - non-posix fallback
     fcntl = None  # type: ignore[assignment]
 
 
+_FILE_LOCK_LOCAL = threading.local()
+
+
 TASK_LEDGER_ROOT_REL = Path("state/task_ledger")
 EVENTS_REL = TASK_LEDGER_ROOT_REL / "events.jsonl"
 EVENTS_AUDIT_REL = TASK_LEDGER_ROOT_REL / "events_audit.jsonl"
 LOCK_REL = TASK_LEDGER_ROOT_REL / ".task_ledger.lock"
 LEDGER_REL = TASK_LEDGER_ROOT_REL / "ledger.json"
 SIGNOFFS_REL = TASK_LEDGER_ROOT_REL / "sign_offs.json"
+PROJECTION_MANIFEST_REL = TASK_LEDGER_ROOT_REL / "projection_manifest.json"
 VIEWS_REL = TASK_LEDGER_ROOT_REL / "views"
 DISCOVERY_RECEIPTS_REL = TASK_LEDGER_ROOT_REL / "discovery_receipts"
 TASK_LEDGER_INTAKE_ROOT_REL = Path("state/task_ledger_intake")
@@ -48,6 +53,14 @@ MISSION_BLACKBOARD_REL = Path("state/mission_blackboard/board.json")
 PROMPT_LEDGER_MISSION_TRACE_CURRENT_STATE_REL = Path(
     "state/prompt_ledger/views/mission_trace_current_state.json"
 )
+PROJECTION_MANIFEST_SOURCE_INPUT_RELS = (MISSION_BLACKBOARD_REL,)
+PROJECTION_MANIFEST_SOURCE_INPUT_DEPENDENTS = {
+    str(MISSION_BLACKBOARD_REL): (
+        VIEWS_REL / "mission_operating_picture.json",
+        VIEWS_REL / "cap_census.json",
+        VIEWS_REL / "cap_cartography.json",
+    ),
+}
 RAW_SEED_PRINCIPLES_REL = Path(
     "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json"
 )
@@ -55,15 +68,68 @@ RAW_SEED_PRINCIPLES_REL = Path(
 TASK_LEDGER_EVENT_SCHEMA = "task_ledger_event_v1"
 TASK_LEDGER_PROJECTION_SCHEMA = "task_ledger_v2"
 TASK_SIGNOFF_PROJECTION_SCHEMA = "task_sign_off_ledger_v2"
+TASK_LEDGER_PROJECTION_MANIFEST_SCHEMA = "task_ledger_projection_manifest_v0"
 TASK_LEDGER_INTAKE_REQUEST_SCHEMA = "task_ledger_intake_request_v0"
 OPERATOR_AUTHORIZATION_POLICY_SCHEMA = "operator_authorization_policy_v1"
 TASK_LEDGER_REBUILD_COMMAND = "./repo-python tools/meta/factory/task_ledger_apply.py rebuild"
 TASK_LEDGER_REBUILD_CHECK_COMMAND = "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --check"
+TASK_LEDGER_REBUILD_STATUS_ONLY_QUIET_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+)
+TASK_LEDGER_REBUILD_QUIET_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --quiet-progress"
+)
+TASK_LEDGER_REBUILD_CHECK_QUIET_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --check --quiet-progress"
+)
+TASK_LEDGER_DRAIN_DEFERRED_REBUILD_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1"
+)
+TASK_LEDGER_DRAIN_DEFERRED_REBUILD_QUIET_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1 --quiet-progress"
+)
 TaskLedgerProgressCallback = Callable[[Mapping[str, Any]], None]
 TASK_LEDGER_MIN_FREE_BYTES_ENV = "AIW_TASK_LEDGER_MIN_FREE_BYTES"
 TASK_LEDGER_MIN_FREE_BYTES_DEFAULT = 512 * 1024 * 1024
 TASK_LEDGER_WRITE_ESTIMATE_FLOOR_BYTES = 64 * 1024 * 1024
 TASK_LEDGER_WRITE_AMPLIFICATION = 3
+TASK_LEDGER_AUTHORITY_STORAGE_SCHEMA = "task_ledger_authority_storage_pressure_v0"
+TASK_LEDGER_EVENTS_MONOLITH_ATTENTION_BYTES_ENV = "AIW_TASK_LEDGER_EVENTS_MONOLITH_ATTENTION_BYTES"
+TASK_LEDGER_EVENTS_MONOLITH_CRITICAL_BYTES_ENV = "AIW_TASK_LEDGER_EVENTS_MONOLITH_CRITICAL_BYTES"
+TASK_LEDGER_AUTHORITY_TOTAL_ATTENTION_BYTES_ENV = "AIW_TASK_LEDGER_AUTHORITY_TOTAL_ATTENTION_BYTES"
+TASK_LEDGER_AUTHORITY_TOTAL_CRITICAL_BYTES_ENV = "AIW_TASK_LEDGER_AUTHORITY_TOTAL_CRITICAL_BYTES"
+TASK_LEDGER_ALLOW_MONOLITH_APPEND_ENV = "AIW_TASK_LEDGER_ALLOW_MONOLITH_APPEND"
+TASK_LEDGER_AUTHORITY_MIGRATION_SEGMENT_BYTES_ENV = "AIW_TASK_LEDGER_AUTHORITY_MIGRATION_SEGMENT_BYTES"
+TASK_LEDGER_EVENTS_MONOLITH_ATTENTION_BYTES_DEFAULT = 32 * 1024 * 1024
+TASK_LEDGER_EVENTS_MONOLITH_CRITICAL_BYTES_DEFAULT = 40 * 1024 * 1024
+TASK_LEDGER_AUTHORITY_TOTAL_ATTENTION_BYTES_DEFAULT = 64 * 1024 * 1024
+TASK_LEDGER_AUTHORITY_TOTAL_CRITICAL_BYTES_DEFAULT = 96 * 1024 * 1024
+TASK_LEDGER_AUTHORITY_MIGRATION_SEGMENT_BYTES_DEFAULT = 8 * 1024 * 1024
+TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL = TASK_LEDGER_ROOT_REL / "events"
+TASK_LEDGER_AUTHORITY_SEGMENTS_REL = TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL / "segments"
+TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL = TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL / "open" / "current.jsonl"
+TASK_LEDGER_AUTHORITY_MANIFEST_REL = TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL / "manifest.json"
+TASK_LEDGER_AUTHORITY_AUDIT_SEGMENTS_REL = TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL / "audit_segments"
+TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL = (
+    TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL / "audit_open" / "current.jsonl"
+)
+TASK_LEDGER_AUTHORITY_MANIFEST_SCHEMA = "task_ledger_authority_segment_manifest_v0"
+TASK_LEDGER_AUTHORITY_MODE_LEGACY = "legacy_monolith"
+TASK_LEDGER_AUTHORITY_MODE_PREPARED = "prepared_segmented"
+TASK_LEDGER_AUTHORITY_MODE_ACTIVE = "active_segmented"
+TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID = "valid"
+TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_STALE = "stale"
+TASK_LEDGER_AUTHORITY_MIGRATION_PLAN_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py authority-migration-plan"
+)
+TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py authority-migration-apply"
+)
+TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_COMMAND = (
+    "./repo-python tools/meta/factory/task_ledger_apply.py authority-export-compatibility"
+)
+_JSONL_EVENT_ID_FIELD_RE = re.compile(rb'"event_id"\s*:\s*"((?:\\.|[^"\\])*)"')
+_JSONL_EVENT_HASH_FIELD_RE = re.compile(rb'"event_hash"\s*:\s*"((?:\\.|[^"\\])*)"')
 
 
 def _emit_progress(
@@ -83,25 +149,122 @@ def _emit_progress(
     progress_callback(payload)
 
 
-def _projection_check_payload(mismatches: Sequence[str]) -> Dict[str, Any]:
+def _projection_rebuild_priority(comparison: Mapping[str, Any] | None) -> Dict[str, Any]:
+    delta = comparison.get("delta") if isinstance(comparison, Mapping) else None
+    if isinstance(delta, int) and delta > 0:
+        if delta <= 5:
+            return {
+                "schema": "task_ledger_projection_rebuild_priority_v0",
+                "status": "low_active_authority_delta",
+                "delta_event_count": delta,
+                "threshold": 5,
+                "recommended_action": (
+                    "continue_with_authority_visible_receipts_unless_projection_or_card_visibility_is_required"
+                ),
+                "full_rebuild_required_for": [
+                    "card_visibility",
+                    "generated_view_freshness",
+                    "operator_requested_projection_refresh",
+                ],
+                "authority_only_closeout_ok": True,
+            }
+        if delta <= 50:
+            return {
+                "schema": "task_ledger_projection_rebuild_priority_v0",
+                "status": "medium_authority_delta",
+                "delta_event_count": delta,
+                "threshold": 50,
+                "recommended_action": "run_owner_rebuild_when_projection_visibility_matters",
+                "authority_only_closeout_ok": False,
+            }
+        return {
+            "schema": "task_ledger_projection_rebuild_priority_v0",
+            "status": "high_authority_delta",
+            "delta_event_count": delta,
+            "threshold": 50,
+            "recommended_action": "run_owner_rebuild_or_drain_deferred_rebuild",
+            "authority_only_closeout_ok": False,
+        }
+    return {
+        "schema": "task_ledger_projection_rebuild_priority_v0",
+        "status": "unknown_delta",
+        "delta_event_count": delta,
+        "recommended_action": "use_owner_rebuild_or_drain_route_before_trusting_generated_views",
+        "authority_only_closeout_ok": False,
+    }
+
+
+def _projection_check_payload(
+    mismatches: Sequence[str],
+    *,
+    projection_event_count: int | None = None,
+    authority_event_count: int | None = None,
+) -> Dict[str, Any]:
     mismatch_list = [str(path) for path in mismatches]
+    comparison: Dict[str, Any] | None = None
+    mismatch_status = "projection_rebuild_required"
+    if projection_event_count is not None or authority_event_count is not None:
+        delta = None
+        comparison_status = "unknown"
+        if projection_event_count is not None and authority_event_count is not None:
+            delta = authority_event_count - projection_event_count
+            if delta > 0:
+                comparison_status = "projection_behind_authority"
+                mismatch_status = comparison_status
+            elif delta < 0:
+                comparison_status = "projection_ahead_of_authority"
+            else:
+                comparison_status = "event_counts_match"
+        comparison = {
+            "schema": "task_ledger_projection_event_count_comparison_v0",
+            "projection_event_count": projection_event_count,
+            "authority_event_count": authority_event_count,
+            "delta": delta,
+            "status": comparison_status,
+        }
     payload: Dict[str, Any] = {
         "ok": not mismatch_list,
         "checked": True,
-        "status": "clean" if not mismatch_list else "projection_rebuild_required",
+        "status": "clean" if not mismatch_list else mismatch_status,
         "mismatches": mismatch_list,
         "mismatch_count": len(mismatch_list),
     }
+    if comparison is not None:
+        payload["event_count_comparison"] = comparison
     if mismatch_list:
+        if mismatch_status == "projection_behind_authority":
+            rebuild_priority = _projection_rebuild_priority(comparison)
+            payload.update(
+                {
+                    "rebuild_priority": rebuild_priority,
+                    "reason": (
+                        "Task Ledger authority has newer events than the current deterministic "
+                        "projection. This is normal under concurrent writers and should be "
+                        "settled with the owner rebuild route, not treated as projector drift."
+                    ),
+                    "next_step": (
+                        "Task Ledger deterministic projections are behind the authority log; "
+                        "use the compact check/drain lane first, then run the full owner "
+                        "rebuild route only when the projection-builder lane is admitted."
+                    ),
+                    "next_command": TASK_LEDGER_REBUILD_STATUS_ONLY_QUIET_COMMAND,
+                    "safe_next_command": TASK_LEDGER_DRAIN_DEFERRED_REBUILD_QUIET_COMMAND,
+                    "verification_command": TASK_LEDGER_REBUILD_STATUS_ONLY_QUIET_COMMAND,
+                    "owner_route": TASK_LEDGER_REBUILD_COMMAND,
+                    "full_rebuild_command": TASK_LEDGER_REBUILD_QUIET_COMMAND,
+                    "deferred_rebuild_command": TASK_LEDGER_DRAIN_DEFERRED_REBUILD_QUIET_COMMAND,
+                }
+            )
+            return payload
         payload.update(
             {
                 "next_step": (
                     "Task Ledger deterministic projections are stale; run the owner rebuild "
                     "route before trusting generated views."
                 ),
-                "next_command": TASK_LEDGER_REBUILD_COMMAND,
-                "safe_next_command": TASK_LEDGER_REBUILD_COMMAND,
-                "verification_command": TASK_LEDGER_REBUILD_CHECK_COMMAND,
+                "next_command": TASK_LEDGER_REBUILD_QUIET_COMMAND,
+                "safe_next_command": TASK_LEDGER_REBUILD_QUIET_COMMAND,
+                "verification_command": TASK_LEDGER_REBUILD_CHECK_QUIET_COMMAND,
                 "owner_route": TASK_LEDGER_REBUILD_COMMAND,
             }
         )
@@ -109,10 +272,262 @@ def _projection_check_payload(mismatches: Sequence[str]) -> Dict[str, Any]:
         payload.update(
             {
                 "next_step": "Task Ledger deterministic projections match event authority.",
-                "verification_command": TASK_LEDGER_REBUILD_CHECK_COMMAND,
+                "verification_command": TASK_LEDGER_REBUILD_CHECK_QUIET_COMMAND,
             }
         )
     return payload
+
+
+def _file_sha256(path: Path) -> str | None:
+    if not path.exists() or not path.is_file():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _projection_target_metadata(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {
+            "exists": False,
+            "size_bytes": None,
+            "mtime_ns": None,
+            "ctime_ns": None,
+        }
+    if not path.is_file():
+        return {
+            "exists": True,
+            "size_bytes": None,
+            "mtime_ns": None,
+            "ctime_ns": None,
+        }
+    stat = path.stat()
+    return {
+        "exists": True,
+        "size_bytes": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+        "ctime_ns": stat.st_ctime_ns,
+    }
+
+
+def _projection_manifest_source_input_hashes(repo_root: Path) -> Dict[str, str | None]:
+    return {
+        str(rel_path): _file_sha256(repo_root / rel_path)
+        for rel_path in PROJECTION_MANIFEST_SOURCE_INPUT_RELS
+    }
+
+
+def _projection_manifest_source_input_metadata(repo_root: Path) -> Dict[str, Dict[str, Any]]:
+    return {
+        str(rel_path): _projection_target_metadata(repo_root / rel_path)
+        for rel_path in PROJECTION_MANIFEST_SOURCE_INPUT_RELS
+    }
+
+
+def _projection_manifest_source_input_dependent_paths(source_inputs: Sequence[str]) -> List[str]:
+    paths: List[str] = []
+    for source_input in source_inputs:
+        for rel_path in PROJECTION_MANIFEST_SOURCE_INPUT_DEPENDENTS.get(source_input, ()):
+            text = str(rel_path)
+            if text not in paths:
+                paths.append(text)
+    return paths or list(source_inputs)
+
+
+def _projection_manifest_payload(
+    repo_root: Path,
+    targets: Mapping[Path, Mapping[str, Any]],
+    *,
+    authority_event_count: int,
+    authority_tail_hash: str | None,
+) -> Dict[str, Any]:
+    target_hashes: List[Dict[str, Any]] = []
+    for rel_path in sorted(targets, key=lambda path: str(path)):
+        path = repo_root / rel_path
+        metadata = _projection_target_metadata(path)
+        target_hashes.append(
+            {
+                "path": str(rel_path),
+                **metadata,
+                "sha256": _file_sha256(path),
+            }
+        )
+    return {
+        "kind": "task_ledger_projection_manifest",
+        "schema_version": TASK_LEDGER_PROJECTION_MANIFEST_SCHEMA,
+        "generated_at": utc_now(),
+        "authority_event_count": int(authority_event_count),
+        "authority_tail_hash": authority_tail_hash,
+        "source_input_hashes": _projection_manifest_source_input_hashes(repo_root),
+        "source_input_metadata": _projection_manifest_source_input_metadata(repo_root),
+        "target_count": len(target_hashes),
+        "target_hashes": target_hashes,
+        "projection_paths": [row["path"] for row in target_hashes],
+    }
+
+
+def _write_projection_manifest(
+    repo_root: Path,
+    targets: Mapping[Path, Mapping[str, Any]],
+    *,
+    authority_event_count: int,
+    authority_tail_hash: str | None,
+) -> Dict[str, Any]:
+    manifest = _projection_manifest_payload(
+        repo_root,
+        targets,
+        authority_event_count=authority_event_count,
+        authority_tail_hash=authority_tail_hash,
+    )
+    atomic_write_json(repo_root / PROJECTION_MANIFEST_REL, manifest)
+    return manifest
+
+
+def _projection_manifest_fast_check(
+    repo_root: Path,
+    *,
+    authority_event_count: int,
+    authority_tail_hash: str | None,
+) -> Dict[str, Any] | None:
+    manifest_path = repo_root / PROJECTION_MANIFEST_REL
+    manifest = _safe_read_json(manifest_path)
+    if manifest.get("schema_version") != TASK_LEDGER_PROJECTION_MANIFEST_SCHEMA:
+        return None
+    projection_event_count = _optional_int(manifest.get("authority_event_count"))
+    manifest_tail_hash = str(manifest.get("authority_tail_hash") or "").strip() or None
+    target_rows = manifest.get("target_hashes")
+    if not isinstance(target_rows, list):
+        return None
+    mismatches: List[str] = []
+    authority_event_count_matches = projection_event_count == authority_event_count
+    authority_tail_hash_matches = manifest_tail_hash == authority_tail_hash
+    if not authority_event_count_matches or not authority_tail_hash_matches:
+        mismatches.append(str(LEDGER_REL))
+        payload = _projection_check_payload(
+            sorted(set(mismatches)),
+            projection_event_count=projection_event_count,
+            authority_event_count=authority_event_count,
+        )
+        payload["projection_manifest_check"] = {
+            "schema": "task_ledger_projection_manifest_check_v0",
+            "status": "used",
+            "manifest_path": str(PROJECTION_MANIFEST_REL),
+            "target_count": len(target_rows),
+            "target_hashes_checked": 0,
+            "target_hash_check_skipped_reason": "authority_log_mismatch",
+            "authority_tail_hash_matches": authority_tail_hash_matches,
+            "authority_event_count_matches": authority_event_count_matches,
+            "full_rebuild_skipped": False,
+        }
+        return payload
+    manifest_source_hashes = manifest.get("source_input_hashes")
+    if not isinstance(manifest_source_hashes, Mapping):
+        return None
+    manifest_source_metadata = (
+        manifest.get("source_input_metadata")
+        if isinstance(manifest.get("source_input_metadata"), Mapping)
+        else {}
+    )
+    current_source_hashes: Dict[str, str | None] = {}
+    source_input_metadata_checked = 0
+    source_input_hashes_checked = 0
+    source_input_hashes_skipped_by_metadata = 0
+    for rel_path in PROJECTION_MANIFEST_SOURCE_INPUT_RELS:
+        rel_text = str(rel_path)
+        expected_metadata = manifest_source_metadata.get(rel_text)
+        if isinstance(expected_metadata, Mapping):
+            source_input_metadata_checked += 1
+            if _projection_target_metadata(repo_root / rel_path) == dict(expected_metadata):
+                current_source_hashes[rel_text] = manifest_source_hashes.get(rel_text)
+                source_input_hashes_skipped_by_metadata += 1
+                continue
+        current_source_hashes[rel_text] = _file_sha256(repo_root / rel_path)
+        source_input_hashes_checked += 1
+    source_input_mismatches = sorted(
+        rel_path
+        for rel_path, current_hash in current_source_hashes.items()
+        if manifest_source_hashes.get(rel_path) != current_hash
+    )
+    if source_input_mismatches:
+        payload = _projection_check_payload(
+            _projection_manifest_source_input_dependent_paths(source_input_mismatches),
+            projection_event_count=projection_event_count,
+            authority_event_count=authority_event_count,
+        )
+        payload["reason"] = "projection_source_input_mismatch"
+        payload["source_input_mismatches"] = source_input_mismatches
+        payload["projection_manifest_check"] = {
+            "schema": "task_ledger_projection_manifest_check_v0",
+            "status": "used",
+            "manifest_path": str(PROJECTION_MANIFEST_REL),
+            "target_count": len(target_rows),
+            "target_hashes_checked": 0,
+            "target_hash_check_skipped_reason": "source_input_mismatch",
+            "source_input_metadata_checked": source_input_metadata_checked,
+            "source_input_hashes_checked": source_input_hashes_checked,
+            "source_input_hashes_skipped_by_metadata": source_input_hashes_skipped_by_metadata,
+            "source_input_mismatch_count": len(source_input_mismatches),
+            "source_input_mismatches": source_input_mismatches,
+            "full_rebuild_skipped": False,
+        }
+        return payload
+    target_metadata_checked = 0
+    target_hashes_checked = 0
+    target_hashes_skipped_by_metadata = 0
+    for row in target_rows:
+        if not isinstance(row, Mapping):
+            return None
+        rel_text = str(row.get("path") or "").strip()
+        if not rel_text:
+            return None
+        path = repo_root / rel_text
+        expected_metadata = {
+            "exists": row.get("exists"),
+            "size_bytes": row.get("size_bytes"),
+            "mtime_ns": row.get("mtime_ns"),
+            "ctime_ns": row.get("ctime_ns"),
+        }
+        if all(key in row for key in expected_metadata):
+            target_metadata_checked += 1
+            if _projection_target_metadata(path) == expected_metadata:
+                target_hashes_skipped_by_metadata += 1
+                continue
+        expected = str(row.get("sha256") or "").strip() or None
+        target_hashes_checked += 1
+        current = _file_sha256(path)
+        if current != expected:
+            mismatches.append(rel_text)
+    payload = _projection_check_payload(
+        sorted(set(mismatches)),
+        projection_event_count=projection_event_count,
+        authority_event_count=authority_event_count,
+    )
+    payload["projection_manifest_check"] = {
+        "schema": "task_ledger_projection_manifest_check_v0",
+        "status": "used",
+        "manifest_path": str(PROJECTION_MANIFEST_REL),
+        "target_count": len(target_rows),
+        "target_metadata_checked": target_metadata_checked,
+        "target_hashes_checked": target_hashes_checked,
+        "target_hashes_skipped_by_metadata": target_hashes_skipped_by_metadata,
+        "target_hash_check_mode": "metadata_then_hash",
+        "source_input_metadata_checked": source_input_metadata_checked,
+        "source_input_hashes_checked": source_input_hashes_checked,
+        "source_input_hashes_skipped_by_metadata": source_input_hashes_skipped_by_metadata,
+        "authority_tail_hash_matches": manifest_tail_hash == authority_tail_hash,
+        "authority_event_count_matches": projection_event_count == authority_event_count,
+        "full_rebuild_skipped": not mismatches,
+    }
+    return payload
+
+
+def _optional_int(value: object) -> int | None:
+    try:
+        return int(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
 
 
 def _existing_parent(path: Path) -> Path:
@@ -130,6 +545,31 @@ def _configured_min_free_bytes() -> int:
         return max(0, int(raw))
     except ValueError:
         return TASK_LEDGER_MIN_FREE_BYTES_DEFAULT
+
+
+def _configured_nonnegative_bytes(env_var: str, default: int) -> int:
+    raw = os.environ.get(env_var)
+    if not raw:
+        return default
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return default
+
+
+def _human_bytes(value: int | None) -> str | None:
+    if value is None:
+        return None
+    amount = float(max(0, int(value)))
+    units = ("bytes", "KiB", "MiB", "GiB", "TiB")
+    unit = units[0]
+    for unit in units:
+        if amount < 1024 or unit == units[-1]:
+            break
+        amount /= 1024
+    if unit == "bytes":
+        return f"{int(amount)} bytes"
+    return f"{amount:.2f} {unit}"
 
 
 def _rel_path_size(repo_root: Path, rel_path: Path) -> int:
@@ -163,6 +603,191 @@ def _current_projection_rel_paths(repo_root: Path) -> list[Path]:
     return rel_paths
 
 
+def task_ledger_authority_storage_status(repo_root: Path) -> Dict[str, Any]:
+    repo_root = Path(repo_root)
+    storage_state = task_ledger_authority_storage_state(repo_root)
+    authority_mode = str(storage_state.get("mode") or TASK_LEDGER_AUTHORITY_MODE_LEGACY)
+    active_segmented = authority_mode == TASK_LEDGER_AUTHORITY_MODE_ACTIVE
+    event_bytes = _rel_path_size(repo_root, EVENTS_REL)
+    audit_bytes = _rel_path_size(repo_root, EVENTS_AUDIT_REL)
+    hot_event_rel = TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL if active_segmented else EVENTS_REL
+    hot_audit_rel = TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL if active_segmented else EVENTS_AUDIT_REL
+    hot_event_bytes = _rel_path_size(repo_root, hot_event_rel)
+    hot_audit_bytes = _rel_path_size(repo_root, hot_audit_rel)
+    projection_bytes = _rel_path_size(repo_root, LEDGER_REL)
+    views_bytes = _rel_path_size(repo_root, VIEWS_REL)
+    authority_bytes = hot_event_bytes + hot_audit_bytes
+    attention_event_bytes = _configured_nonnegative_bytes(
+        TASK_LEDGER_EVENTS_MONOLITH_ATTENTION_BYTES_ENV,
+        TASK_LEDGER_EVENTS_MONOLITH_ATTENTION_BYTES_DEFAULT,
+    )
+    critical_event_bytes = _configured_nonnegative_bytes(
+        TASK_LEDGER_EVENTS_MONOLITH_CRITICAL_BYTES_ENV,
+        TASK_LEDGER_EVENTS_MONOLITH_CRITICAL_BYTES_DEFAULT,
+    )
+    attention_total_bytes = _configured_nonnegative_bytes(
+        TASK_LEDGER_AUTHORITY_TOTAL_ATTENTION_BYTES_ENV,
+        TASK_LEDGER_AUTHORITY_TOTAL_ATTENTION_BYTES_DEFAULT,
+    )
+    critical_total_bytes = _configured_nonnegative_bytes(
+        TASK_LEDGER_AUTHORITY_TOTAL_CRITICAL_BYTES_ENV,
+        TASK_LEDGER_AUTHORITY_TOTAL_CRITICAL_BYTES_DEFAULT,
+    )
+    critical_reasons: list[str] = []
+    attention_reasons: list[str] = []
+    if hot_event_bytes >= critical_event_bytes:
+        critical_reasons.append(
+            "events_open_tail_critical" if active_segmented else "events_jsonl_monolith_critical"
+        )
+    elif hot_event_bytes >= attention_event_bytes:
+        attention_reasons.append(
+            "events_open_tail_attention" if active_segmented else "events_jsonl_monolith_attention"
+        )
+    if authority_bytes >= critical_total_bytes:
+        critical_reasons.append("authority_total_critical")
+    elif authority_bytes >= attention_total_bytes:
+        attention_reasons.append("authority_total_attention")
+    size_pressure_status = (
+        "critical"
+        if critical_reasons
+        else "attention"
+        if attention_reasons
+        else "ok"
+    )
+    status = size_pressure_status
+    reasons = list(critical_reasons if critical_reasons else attention_reasons)
+    hard_block_reasons: list[str] = []
+    authority_health_summary: Dict[str, Any] | None = None
+    if critical_reasons:
+        try:
+            authority_health = _authority_health_unlocked(repo_root)
+            authority_health_summary = {
+                "schema": "task_ledger_authority_health_summary_v0",
+                "status": authority_health.get("status"),
+                "ok": bool(authority_health.get("ok")),
+                "authority_event_count": authority_health.get("authority_event_count"),
+                "audit_event_count": authority_health.get("audit_event_count"),
+                "lost_count": authority_health.get("lost_count"),
+                "lost_event_ids_preview": list(authority_health.get("lost_event_ids") or [])[:8],
+                "next_step": authority_health.get("next_step"),
+            }
+        except Exception as exc:
+            authority_health_summary = {
+                "schema": "task_ledger_authority_health_summary_v0",
+                "status": "authority_health_check_failed",
+                "ok": False,
+                "error_type": type(exc).__name__,
+                "error_preview": str(exc)[:240],
+            }
+        if authority_health_summary.get("status") == "clean":
+            status = "attention"
+            reasons = [
+                *critical_reasons,
+                *attention_reasons,
+                "critical_size_pressure_demoted_by_clean_authority",
+            ]
+        else:
+            status = "critical"
+            reasons = [
+                *critical_reasons,
+                *attention_reasons,
+                "authority_not_clean_under_critical_size_pressure",
+            ]
+            hard_block_reasons.append(
+                str(authority_health_summary.get("status") or "authority_not_clean")
+            )
+    override = os.environ.get(TASK_LEDGER_ALLOW_MONOLITH_APPEND_ENV) == "1"
+    append_allowed = status != "critical" or override
+    if append_allowed:
+        write_admission = "append_allowed_with_storage_pressure_receipt" if status != "ok" else "append_allowed"
+    else:
+        write_admission = "blocked_rotate_or_migrate_authority_before_append"
+    if append_allowed:
+        next_step = (
+            "Task Ledger append admitted with a storage pressure receipt; run "
+            f"{TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --activate to move ordinary "
+            "appends to segmented open-tail authority."
+            if status != "ok"
+            else "Task Ledger append admitted by current storage threshold."
+        )
+    else:
+        recovery_step = (
+            authority_health_summary.get("next_step")
+            if isinstance(authority_health_summary, Mapping)
+            else None
+        )
+        next_step = (
+            str(recovery_step)
+            if recovery_step
+            else (
+                f"Run {TASK_LEDGER_AUTHORITY_MIGRATION_PLAN_COMMAND} before ordinary appends, "
+                f"then {TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --activate, "
+                f"or set {TASK_LEDGER_ALLOW_MONOLITH_APPEND_ENV}=1 only for an explicitly "
+                "authorized emergency append."
+            )
+        )
+    return {
+        "schema": TASK_LEDGER_AUTHORITY_STORAGE_SCHEMA,
+        "status": status,
+        "ok": append_allowed,
+        "append_allowed": append_allowed,
+        "override_active": override,
+        "write_admission": write_admission,
+        "storage_state": storage_state,
+        "authority_mode": authority_mode,
+        "active_segmented": active_segmented,
+        "size_pressure_status": size_pressure_status,
+        "reasons": reasons,
+        "critical_reasons": critical_reasons,
+        "attention_reasons": attention_reasons,
+        "hard_block_reasons": hard_block_reasons,
+        "authority_health": authority_health_summary,
+        "events_path": str(hot_event_rel),
+        "events_bytes": hot_event_bytes,
+        "events_human": _human_bytes(hot_event_bytes),
+        "audit_path": str(hot_audit_rel),
+        "audit_bytes": hot_audit_bytes,
+        "audit_human": _human_bytes(hot_audit_bytes),
+        "compatibility_export_path": str(EVENTS_REL),
+        "compatibility_export_bytes": event_bytes,
+        "compatibility_export_human": _human_bytes(event_bytes),
+        "compatibility_audit_export_path": str(EVENTS_AUDIT_REL),
+        "compatibility_audit_export_bytes": audit_bytes,
+        "compatibility_audit_export_human": _human_bytes(audit_bytes),
+        "authority_bytes": authority_bytes,
+        "authority_human": _human_bytes(authority_bytes),
+        "projection_bytes": projection_bytes,
+        "projection_human": _human_bytes(projection_bytes),
+        "views_bytes": views_bytes,
+        "views_human": _human_bytes(views_bytes),
+        "thresholds": {
+            "events_attention_bytes": attention_event_bytes,
+            "events_attention_human": _human_bytes(attention_event_bytes),
+            "events_critical_bytes": critical_event_bytes,
+            "events_critical_human": _human_bytes(critical_event_bytes),
+            "authority_total_attention_bytes": attention_total_bytes,
+            "authority_total_attention_human": _human_bytes(attention_total_bytes),
+            "authority_total_critical_bytes": critical_total_bytes,
+            "authority_total_critical_human": _human_bytes(critical_total_bytes),
+        },
+        "target_storage_model": {
+            "segments_dir": str(TASK_LEDGER_AUTHORITY_SEGMENTS_REL),
+            "open_tail": str(TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL),
+            "manifest": str(TASK_LEDGER_AUTHORITY_MANIFEST_REL),
+            "compatibility_export": str(EVENTS_REL),
+            "policy": (
+                "immutable closed segments plus one small open tail; events.jsonl becomes "
+                "a compatibility export or pointer after the migration lane lands"
+            ),
+            "dry_run_plan_command": TASK_LEDGER_AUTHORITY_MIGRATION_PLAN_COMMAND,
+            "prepare_command": f"{TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --prepare",
+            "activate_command": f"{TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --activate",
+            "compatibility_export_command": TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_COMMAND,
+        },
+        "next_step": next_step,
+    }
+
+
 def task_ledger_disk_write_headroom(
     repo_root: Path,
     *,
@@ -178,14 +803,26 @@ def task_ledger_disk_write_headroom(
     configured_floor = (
         _configured_min_free_bytes() if min_free_bytes is None else max(0, int(min_free_bytes))
     )
+    authority_storage = task_ledger_authority_storage_status(repo_root)
+    authority_append_touches = any(
+        rel_path == EVENTS_REL or rel_path == EVENTS_AUDIT_REL for rel_path in rel_path_list
+    )
     required_bytes = max(
         configured_floor,
         TASK_LEDGER_WRITE_ESTIMATE_FLOOR_BYTES
         + (existing_bytes * TASK_LEDGER_WRITE_AMPLIFICATION),
     )
+    disk_ok = int(usage.free) >= int(required_bytes)
+    authority_ok = not authority_append_touches or bool(authority_storage.get("append_allowed"))
+    status = "ok"
+    if not disk_ok:
+        status = "insufficient_disk_headroom"
+    elif not authority_ok:
+        status = "authority_storage_bloat"
     return {
         "schema": "task_ledger_disk_write_headroom_v0",
-        "ok": int(usage.free) >= int(required_bytes),
+        "ok": disk_ok and authority_ok,
+        "status": status,
         "operation": operation,
         "usage_path": str(usage_path),
         "free_bytes": int(usage.free),
@@ -194,7 +831,11 @@ def task_ledger_disk_write_headroom(
         "estimated_existing_write_bytes": int(existing_bytes),
         "write_amplification": TASK_LEDGER_WRITE_AMPLIFICATION,
         "checked_paths": [str(path) for path in rel_path_list],
+        "authority_storage": authority_storage,
         "next_step": (
+            authority_storage.get("next_step")
+            if not authority_ok
+            else
             "Free disposable scratch space or lower "
             f"{TASK_LEDGER_MIN_FREE_BYTES_ENV} only for an explicitly safe emergency write."
         ),
@@ -209,7 +850,7 @@ def _emit_disk_headroom_blocked(
         progress_callback,
         "disk_headroom_blocked",
         operation=headroom.get("operation"),
-        status="insufficient_disk_headroom",
+        status=headroom.get("status") or "insufficient_disk_headroom",
         free_bytes=headroom.get("free_bytes"),
         required_bytes=headroom.get("required_bytes"),
         usage_path=headroom.get("usage_path"),
@@ -220,8 +861,9 @@ def _disk_headroom_block_result(headroom: Mapping[str, Any]) -> Dict[str, Any]:
     return {
         "ok": False,
         "checked": False,
-        "status": "insufficient_disk_headroom",
+        "status": headroom.get("status") or "insufficient_disk_headroom",
         "disk_headroom": dict(headroom),
+        "authority_storage": dict(headroom.get("authority_storage") or {}),
         "next_step": headroom.get("next_step"),
     }
 
@@ -435,12 +1077,22 @@ def _safe_read_json(path: Path) -> Dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
-def atomic_write_json(path: Path, payload: Mapping[str, Any]) -> None:
+def atomic_write_json(path: Path, payload: Mapping[str, Any], *, compact: bool = False) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
     try:
         with tmp_path.open("w", encoding="utf-8") as handle:
-            json.dump(payload, handle, indent=2, ensure_ascii=False, sort_keys=False)
+            if compact:
+                handle.write(
+                    json.dumps(
+                        payload,
+                        ensure_ascii=False,
+                        sort_keys=False,
+                        separators=(",", ":"),
+                    )
+                )
+            else:
+                json.dump(payload, handle, indent=2, ensure_ascii=False, sort_keys=False)
             handle.write("\n")
             handle.flush()
             os.fsync(handle.fileno())
@@ -452,29 +1104,295 @@ def atomic_write_json(path: Path, payload: Mapping[str, Any]) -> None:
 
 @contextmanager
 def file_lock(lock_path: Path) -> Iterator[None]:
+    lock_path = Path(lock_path)
+    lock_key = str(lock_path.absolute())
+    depth_by_key = getattr(_FILE_LOCK_LOCAL, "depth_by_key", None)
+    if depth_by_key is None:
+        depth_by_key = {}
+        _FILE_LOCK_LOCAL.depth_by_key = depth_by_key
+    current_depth = int(depth_by_key.get(lock_key, 0))
+    if current_depth > 0:
+        depth_by_key[lock_key] = current_depth + 1
+        try:
+            yield
+        finally:
+            next_depth = int(depth_by_key.get(lock_key, 1)) - 1
+            if next_depth > 0:
+                depth_by_key[lock_key] = next_depth
+            else:
+                depth_by_key.pop(lock_key, None)
+        return
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     with lock_path.open("a+", encoding="utf-8") as handle:
         if fcntl is not None:
             fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        depth_by_key[lock_key] = 1
         try:
             yield
         finally:
+            depth_by_key.pop(lock_key, None)
             if fcntl is not None:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
 
+def _iter_jsonl_rows(path: Path) -> Iterator[Dict[str, Any]]:
+    if not path.exists():
+        return
+    with path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            item = loads_json_strict(line, source=f"{path}:{line_number}")
+            if not isinstance(item, dict):
+                raise TaskLedgerError(f"{path}:{line_number} is not a JSON object")
+            yield item
+
+
+def _decode_json_string_token(raw: bytes) -> str:
+    try:
+        value = json.loads(b'"' + raw + b'"')
+    except json.JSONDecodeError:
+        return raw.decode("utf-8", errors="replace")
+    return str(value)
+
+
+def _jsonl_string_field_from_raw_line(raw_line: bytes, pattern: re.Pattern[bytes]) -> str | None:
+    matches = list(pattern.finditer(raw_line))
+    if not matches:
+        return None
+    return _decode_json_string_token(matches[-1].group(1))
+
+
+def _jsonl_row_from_raw_line(path: Path, line_number: int, raw_line: bytes) -> Dict[str, Any]:
+    text = raw_line.decode("utf-8")
+    item = loads_json_strict(text, source=f"{path}:{line_number}")
+    if not isinstance(item, dict):
+        raise TaskLedgerError(f"{path}:{line_number} is not a JSON object")
+    return item
+
+
+def _iter_jsonl_event_id_lines(path: Path) -> Iterator[tuple[int, str, bytes]]:
+    if not path.exists():
+        return
+    with path.open("rb") as handle:
+        for line_number, raw_line in enumerate(handle, start=1):
+            stripped = raw_line.strip()
+            if not stripped:
+                continue
+            event_id = _jsonl_string_field_from_raw_line(stripped, _JSONL_EVENT_ID_FIELD_RE)
+            if event_id is None:
+                event_id = str(_jsonl_row_from_raw_line(path, line_number, stripped).get("event_id") or "")
+            yield line_number, event_id, stripped
+
+
 def read_jsonl(path: Path) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
-    if not path.exists():
-        return rows
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-        if not line.strip():
-            continue
-        item = loads_json_strict(line, source=f"{path}:{line_number}")
-        if not isinstance(item, dict):
-            raise TaskLedgerError(f"{path}:{line_number} is not a JSON object")
+    for item in _iter_jsonl_rows(path):
         rows.append(item)
     return rows
+
+
+def _authority_manifest_path(repo_root: Path) -> Path:
+    return repo_root / TASK_LEDGER_AUTHORITY_MANIFEST_REL
+
+
+def _read_authority_manifest(repo_root: Path) -> Dict[str, Any] | None:
+    path = _authority_manifest_path(repo_root)
+    if not path.exists() or not path.is_file():
+        return None
+    payload = read_json_strict(path)
+    if not isinstance(payload, Mapping):
+        raise TaskLedgerError(f"{TASK_LEDGER_AUTHORITY_MANIFEST_REL} must be a JSON object")
+    manifest = dict(payload)
+    schema = str(manifest.get("schema") or "").strip()
+    if schema != TASK_LEDGER_AUTHORITY_MANIFEST_SCHEMA:
+        raise TaskLedgerError(
+            f"{TASK_LEDGER_AUTHORITY_MANIFEST_REL} schema {schema!r} is not "
+            f"{TASK_LEDGER_AUTHORITY_MANIFEST_SCHEMA!r}"
+        )
+    return manifest
+
+
+def _authority_manifest_mode(manifest: Mapping[str, Any] | None) -> str:
+    if not manifest:
+        return TASK_LEDGER_AUTHORITY_MODE_LEGACY
+    mode = str(manifest.get("mode") or "").strip()
+    if mode in {
+        TASK_LEDGER_AUTHORITY_MODE_PREPARED,
+        TASK_LEDGER_AUTHORITY_MODE_ACTIVE,
+    }:
+        return mode
+    return TASK_LEDGER_AUTHORITY_MODE_LEGACY
+
+
+def _active_authority_manifest(repo_root: Path) -> Dict[str, Any] | None:
+    manifest = _read_authority_manifest(repo_root)
+    if _authority_manifest_mode(manifest) != TASK_LEDGER_AUTHORITY_MODE_ACTIVE:
+        return None
+    return manifest
+
+
+def _path_from_manifest(value: Any, fallback: Path) -> Path:
+    token = ""
+    if isinstance(value, Mapping):
+        token = str(value.get("path") or "").strip()
+    elif value is not None:
+        token = str(value or "").strip()
+    return Path(token) if token else fallback
+
+
+def _manifest_open_tail_rel(manifest: Mapping[str, Any]) -> Path:
+    storage_model = manifest.get("storage_model") if isinstance(manifest.get("storage_model"), Mapping) else {}
+    return _path_from_manifest(
+        manifest.get("open_tail"),
+        _path_from_manifest(storage_model.get("open_tail"), TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL),
+    )
+
+
+def _manifest_audit_open_tail_rel(manifest: Mapping[str, Any]) -> Path:
+    audit = manifest.get("audit_journal") if isinstance(manifest.get("audit_journal"), Mapping) else {}
+    storage_model = manifest.get("storage_model") if isinstance(manifest.get("storage_model"), Mapping) else {}
+    audit_model = (
+        storage_model.get("audit_journal_model")
+        if isinstance(storage_model.get("audit_journal_model"), Mapping)
+        else {}
+    )
+    return _path_from_manifest(
+        audit.get("open_tail") if isinstance(audit, Mapping) else None,
+        _path_from_manifest(
+            audit_model.get("open_tail") if isinstance(audit_model, Mapping) else None,
+            TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL,
+        ),
+    )
+
+
+def _manifest_segment_rels(manifest: Mapping[str, Any], *, audit: bool = False) -> list[Path]:
+    if audit:
+        audit_journal = manifest.get("audit_journal")
+        segment_rows = (
+            audit_journal.get("segments")
+            if isinstance(audit_journal, Mapping) and isinstance(audit_journal.get("segments"), list)
+            else []
+        )
+    else:
+        segment_rows = manifest.get("segments") if isinstance(manifest.get("segments"), list) else []
+    rows = [row for row in segment_rows if isinstance(row, Mapping)]
+    rows.sort(key=lambda row: int(row.get("index") or 0))
+    return [Path(str(row.get("path") or "")) for row in rows if str(row.get("path") or "").strip()]
+
+
+def _authority_jsonl_rel_paths(repo_root: Path, *, audit: bool = False) -> list[Path]:
+    manifest = _active_authority_manifest(repo_root)
+    if manifest is None:
+        return [EVENTS_AUDIT_REL if audit else EVENTS_REL]
+    rel_paths = _manifest_segment_rels(manifest, audit=audit)
+    rel_paths.append(_manifest_audit_open_tail_rel(manifest) if audit else _manifest_open_tail_rel(manifest))
+    return rel_paths
+
+
+def _authority_write_rel_paths(repo_root: Path) -> list[Path]:
+    manifest = _active_authority_manifest(repo_root)
+    if manifest is None:
+        return [EVENTS_REL, EVENTS_AUDIT_REL]
+    return [_manifest_open_tail_rel(manifest), _manifest_audit_open_tail_rel(manifest)]
+
+
+def _read_authority_jsonl(repo_root: Path, *, audit: bool = False) -> List[Dict[str, Any]]:
+    rows: list[Dict[str, Any]] = []
+    for rel_path in _authority_jsonl_rel_paths(repo_root, audit=audit):
+        rows.extend(read_jsonl(repo_root / rel_path))
+    return rows
+
+
+def read_authority_events(repo_root: Path) -> List[Dict[str, Any]]:
+    return _read_authority_jsonl(repo_root, audit=False)
+
+
+def read_authority_audit_events(repo_root: Path) -> List[Dict[str, Any]]:
+    return _read_authority_jsonl(repo_root, audit=True)
+
+
+def _iter_authority_event_id_lines(
+    repo_root: Path,
+    *,
+    audit: bool = False,
+) -> Iterator[tuple[Path, int, str, bytes]]:
+    for rel_path in _authority_jsonl_rel_paths(repo_root, audit=audit):
+        path = repo_root / rel_path
+        for line_number, event_id, raw_line in _iter_jsonl_event_id_lines(path):
+            yield path, line_number, event_id, raw_line
+
+
+def _normalized_jsonl_file_summary(path: Path, *, rel_path: Path | None = None) -> Dict[str, Any]:
+    digest = hashlib.sha256()
+    event_count = 0
+    byte_count = 0
+    first_event_id = ""
+    last_event_id = ""
+    tail_raw_line: bytes | None = None
+    for _line_number, event_id, normalized_line in _iter_normalized_jsonl_event_lines(path):
+        digest.update(normalized_line)
+        event_count += 1
+        byte_count += len(normalized_line)
+        if not first_event_id:
+            first_event_id = event_id
+        last_event_id = event_id
+        tail_raw_line = normalized_line.rstrip(b"\r\n")
+    payload: Dict[str, Any] = {
+        "path": str(rel_path) if rel_path is not None else str(path),
+        "exists": path.exists(),
+        "event_count": event_count,
+        "byte_count": byte_count,
+        "byte_human": _human_bytes(byte_count),
+        "sha256": "sha256:" + digest.hexdigest(),
+        "first_event_id": first_event_id,
+        "last_event_id": last_event_id,
+        "tail_hash": _tail_hash_from_raw_event_line(path, tail_raw_line),
+    }
+    return payload
+
+
+def _authority_mtime_ns(repo_root: Path) -> int:
+    mtimes: list[int] = []
+    manifest_path = _authority_manifest_path(repo_root)
+    if manifest_path.exists():
+        try:
+            mtimes.append(int(manifest_path.stat().st_mtime_ns))
+        except OSError:
+            pass
+    for rel_path in _authority_jsonl_rel_paths(repo_root):
+        path = repo_root / rel_path
+        if path.exists():
+            try:
+                mtimes.append(int(path.stat().st_mtime_ns))
+            except OSError:
+                continue
+    return max(mtimes) if mtimes else 0
+
+
+def task_ledger_authority_storage_state(repo_root: Path) -> Dict[str, Any]:
+    repo_root = Path(repo_root)
+    manifest = _read_authority_manifest(repo_root)
+    mode = _authority_manifest_mode(manifest)
+    compatibility_export = (
+        manifest.get("compatibility_export")
+        if isinstance(manifest, Mapping) and isinstance(manifest.get("compatibility_export"), Mapping)
+        else {}
+    )
+    return {
+        "schema": "task_ledger_authority_storage_state_v0",
+        "mode": mode,
+        "manifest_path": str(TASK_LEDGER_AUTHORITY_MANIFEST_REL),
+        "manifest_exists": manifest is not None,
+        "active_segmented": mode == TASK_LEDGER_AUTHORITY_MODE_ACTIVE,
+        "prepared_segmented": mode == TASK_LEDGER_AUTHORITY_MODE_PREPARED,
+        "compatibility_export_status": str(compatibility_export.get("status") or "").strip()
+        if compatibility_export
+        else "",
+        "authority_event_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root, audit=False)],
+        "authority_audit_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root, audit=True)],
+        "append_paths": [str(path) for path in _authority_write_rel_paths(repo_root)],
+    }
 
 
 def _strict_json_surface_paths(repo_root: Path) -> List[Path]:
@@ -485,6 +1403,7 @@ def _strict_json_surface_paths(repo_root: Path) -> List[Path]:
         RAW_SEED_PRINCIPLES_REL,
         LEDGER_REL,
         SIGNOFFS_REL,
+        PROJECTION_MANIFEST_REL,
     ]
     paths = [repo_root / rel_path for rel_path in rel_paths if (repo_root / rel_path).exists()]
     for rel_root in [VIEWS_REL, DISCOVERY_RECEIPTS_REL]:
@@ -532,7 +1451,19 @@ def task_ledger_mutation_serialization_receipt(
     event_count: int,
     projection_rebuilt: bool,
     projection_rebuilt_under_same_lock: bool,
+    projection_build_under_same_lock: bool | None = None,
+    projection_write_under_same_lock: bool | None = None,
 ) -> Dict[str, Any]:
+    build_under_lock = (
+        bool(projection_rebuilt_under_same_lock)
+        if projection_build_under_same_lock is None
+        else bool(projection_build_under_same_lock)
+    )
+    write_under_lock = (
+        bool(projection_rebuilt_under_same_lock)
+        if projection_write_under_same_lock is None
+        else bool(projection_write_under_same_lock)
+    )
     return {
         "schema": "task_ledger_mutation_serialization_receipt_v0",
         "mode": "single_writer_file_lock",
@@ -540,6 +1471,8 @@ def task_ledger_mutation_serialization_receipt(
         "event_count": int(event_count),
         "projection_rebuilt": bool(projection_rebuilt),
         "projection_rebuilt_under_same_lock": bool(projection_rebuilt_under_same_lock),
+        "projection_build_under_same_lock": build_under_lock,
+        "projection_write_under_same_lock": write_under_lock,
         "parallel_mutation_policy": (
             "Do not launch Task Ledger mutation commands in parallel; use the batch lane "
             "when multiple events belong to one logical closeout."
@@ -560,20 +1493,32 @@ def _event_summary(row: Mapping[str, Any]) -> Dict[str, Any]:
 def _find_lost_audit_events_from_rows(
     repo_root: Path,
     authority_events: Sequence[Mapping[str, Any]],
+    *,
+    audit_events: Sequence[Mapping[str, Any]] | None = None,
 ) -> List[Dict[str, Any]]:
-    main_path = event_log_path(repo_root)
     audit_path = events_audit_path(repo_root)
-    if not audit_path.exists():
+    if audit_events is None and not audit_path.exists():
         return []
-    if not main_path.exists():
-        main_ids: set[str] = set()
-    else:
-        main_ids = {str(row.get("event_id") or "") for row in authority_events}
+    main_ids = {str(row.get("event_id") or "") for row in authority_events}
+    if audit_events is None:
+        return _find_lost_audit_events_from_authority_ids(audit_path, main_ids)
+    audit_rows = audit_events
     lost: List[Dict[str, Any]] = []
-    for row in read_jsonl(audit_path):
+    for row in audit_rows:
         event_id = str(row.get("event_id") or "")
         if event_id and event_id not in main_ids:
-            lost.append(row)
+            lost.append(dict(row))
+    return lost
+
+
+def _find_lost_audit_events_from_authority_ids(
+    audit_path: Path,
+    authority_event_ids: set[str],
+) -> List[Dict[str, Any]]:
+    lost: List[Dict[str, Any]] = []
+    for line_number, event_id, raw_line in _iter_jsonl_event_id_lines(audit_path):
+        if event_id and event_id not in authority_event_ids:
+            lost.append(_jsonl_row_from_raw_line(audit_path, line_number, raw_line))
     return lost
 
 
@@ -585,7 +1530,11 @@ def find_lost_audit_events(repo_root: Path) -> List[Dict[str, Any]]:
     while the audit journal (under gitignored state/) survived. The append-only
     contract is restored by replaying these events through `append_event`.
     """
-    return _find_lost_audit_events_from_rows(repo_root, read_jsonl(event_log_path(repo_root)))
+    return _find_lost_audit_events_from_rows(
+        repo_root,
+        read_authority_events(repo_root),
+        audit_events=read_authority_audit_events(repo_root),
+    )
 
 
 def _projection_visibility_from_ledger(repo_root: Path, ids: Sequence[str]) -> Dict[str, Dict[str, Any]]:
@@ -607,17 +1556,46 @@ def _projection_visibility_from_ledger(repo_root: Path, ids: Sequence[str]) -> D
     return visibility
 
 
+def _unchecked_projection_visibility(ids: Sequence[str]) -> Dict[str, Dict[str, Any]]:
+    return {
+        str(item_id): {
+            "visible": False,
+            "state": None,
+            "source_event_ids": [],
+        }
+        for item_id in ids
+    }
+
+
 def _authority_health_unlocked(
     repo_root: Path,
     *,
     ids: Sequence[str] | None = None,
+    event_ids: Sequence[str] | None = None,
 ) -> Dict[str, Any]:
     selected_ids = [str(item).strip() for item in (ids or []) if str(item).strip()]
-    events_path = event_log_path(repo_root)
-    audit_path = events_audit_path(repo_root)
-    authority_events = read_jsonl(events_path)
-    audit_events = read_jsonl(audit_path) if audit_path.exists() else []
-    lost = _find_lost_audit_events_from_rows(repo_root, authority_events)
+    selected_event_ids = [str(item).strip() for item in (event_ids or []) if str(item).strip()]
+    selected_event_visibility = {event_id: False for event_id in selected_event_ids}
+    unresolved_selected_event_ids = set(selected_event_ids)
+    authority_event_ids: set[str] = set()
+    authority_event_count = 0
+    authority_tail_raw_line: bytes | None = None
+    authority_tail_path = event_log_path(repo_root)
+    for path, _line_number, event_id, raw_line in _iter_authority_event_id_lines(repo_root):
+        authority_event_count += 1
+        if event_id:
+            authority_event_ids.add(event_id)
+            if event_id in unresolved_selected_event_ids:
+                selected_event_visibility[event_id] = True
+                unresolved_selected_event_ids.discard(event_id)
+        authority_tail_path = path
+        authority_tail_raw_line = raw_line
+    audit_event_count = 0
+    lost: List[Dict[str, Any]] = []
+    for path, line_number, event_id, raw_line in _iter_authority_event_id_lines(repo_root, audit=True):
+        audit_event_count += 1
+        if event_id and event_id not in authority_event_ids:
+            lost.append(_jsonl_row_from_raw_line(path, line_number, raw_line))
     lost_summaries = [_event_summary(row) for row in lost]
     lost_subject_ids = sorted({row["subject_id"] for row in lost_summaries if row["subject_id"]})
     lost_event_types = dict(Counter(row["event_type"] for row in lost_summaries if row["event_type"]))
@@ -626,22 +1604,25 @@ def _authority_health_unlocked(
         "schema": "task_ledger_authority_health_v0",
         "ok": not lost,
         "status": status,
-        "authority_event_count": len(authority_events),
-        "audit_event_count": len(audit_events),
+        "authority_event_count": authority_event_count,
+        "audit_event_count": audit_event_count,
         "lost_count": len(lost),
         "lost_event_ids": [row["event_id"] for row in lost_summaries],
         "lost_subject_ids": lost_subject_ids,
         "lost_event_types": lost_event_types,
         "lost_events": lost_summaries,
-        "tail_hash": _tail_hash(authority_events),
         "paths": {
             "event_log": str(EVENTS_REL),
-            "event_log_exists": events_path.exists(),
+            "event_log_exists": event_log_path(repo_root).exists(),
+            "authority_event_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root)],
             "audit_journal": str(EVENTS_AUDIT_REL),
-            "audit_journal_exists": audit_path.exists(),
+            "audit_journal_exists": events_audit_path(repo_root).exists(),
+            "authority_audit_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root, audit=True)],
             "projection": str(LEDGER_REL),
             "projection_exists": (repo_root / LEDGER_REL).exists(),
         },
+        "tail_hash": _tail_hash_from_raw_event_line(authority_tail_path, authority_tail_raw_line),
+        "storage_state": task_ledger_authority_storage_state(repo_root),
         "next_step": (
             "./repo-python tools/meta/factory/task_ledger_apply.py audit-recover --replay && "
             "./repo-python tools/meta/factory/task_ledger_apply.py rebuild"
@@ -655,6 +1636,9 @@ def _authority_health_unlocked(
         health["selected_ids"] = selected_ids
         health["selected_card_visibility"] = visibility
         health["unrecovered_authority_gap_ids"] = unrecovered
+    if selected_event_ids:
+        health["selected_event_ids"] = selected_event_ids
+        health["selected_event_visibility"] = selected_event_visibility
     return health
 
 
@@ -662,12 +1646,19 @@ def authority_health(
     repo_root: Path,
     *,
     ids: Sequence[str] | None = None,
+    event_ids: Sequence[str] | None = None,
     projection_check: bool = False,
 ) -> Dict[str, Any]:
     with file_lock(repo_root / LOCK_REL):
-        health = _authority_health_unlocked(repo_root, ids=ids)
+        health = _authority_health_unlocked(repo_root, ids=ids, event_ids=event_ids)
     if projection_check and health.get("status") == "clean":
-        projection_result = rebuild_projections(repo_root, check=True)
+        projection_result = _projection_manifest_fast_check(
+            repo_root,
+            authority_event_count=int(health.get("authority_event_count") or 0),
+            authority_tail_hash=str(health.get("tail_hash") or "").strip() or None,
+        )
+        if projection_result is None:
+            projection_result = rebuild_projections(repo_root, check=True)
         health["projection_check"] = projection_result
         if not bool(projection_result.get("ok")):
             health["projection_status"] = projection_result.get("status")
@@ -693,17 +1684,33 @@ def visibility_receipt(
     event_ids: Sequence[str] | None = None,
     projection_rebuilt: bool = False,
     projection_result: Mapping[str, Any] | None = None,
+    projection_rebuild_deferred: Mapping[str, Any] | None = None,
+    authority_health_hint: Mapping[str, Any] | None = None,
 ) -> Dict[str, Any]:
     selected_subject_ids = [str(item).strip() for item in subject_ids if str(item).strip()]
     selected_event_ids = [str(item).strip() for item in (event_ids or []) if str(item).strip()]
-    health = authority_health(repo_root, ids=selected_subject_ids)
-    authority_events = read_jsonl(event_log_path(repo_root))
-    authority_event_ids = {str(row.get("event_id") or "") for row in authority_events}
-    event_visibility = {
-        event_id: event_id in authority_event_ids
-        for event_id in selected_event_ids
-    }
-    card_visibility = health.get("selected_card_visibility") if isinstance(health.get("selected_card_visibility"), Mapping) else {}
+    check_projection_cards = bool(projection_rebuilt)
+    if authority_health_hint and not check_projection_cards:
+        health = dict(authority_health_hint)
+    else:
+        health = authority_health(
+            repo_root,
+            ids=selected_subject_ids if check_projection_cards else None,
+            event_ids=selected_event_ids,
+        )
+    event_visibility = (
+        health.get("selected_event_visibility")
+        if isinstance(health.get("selected_event_visibility"), Mapping)
+        else {event_id: False for event_id in selected_event_ids}
+    )
+    if check_projection_cards:
+        card_visibility = (
+            health.get("selected_card_visibility")
+            if isinstance(health.get("selected_card_visibility"), Mapping)
+            else {}
+        )
+    else:
+        card_visibility = _unchecked_projection_visibility(selected_subject_ids)
     all_cards_visible = (
         all(bool((card_visibility.get(item) or {}).get("visible")) for item in selected_subject_ids)
         if selected_subject_ids
@@ -714,6 +1721,64 @@ def visibility_receipt(
         projection_status = "stale_until_rebuild"
     elif projection_result and not projection_result.get("ok", True):
         projection_status = str(projection_result.get("status") or "rebuild_failed")
+    deferred = (
+        projection_rebuild_deferred
+        if isinstance(projection_rebuild_deferred, Mapping)
+        else {}
+    )
+    queued_work = deferred.get("queued_work") if isinstance(deferred.get("queued_work"), Mapping) else {}
+    queue_id = str(queued_work.get("queue_id") or "").strip()
+    authority_event_visible = (
+        all(event_visibility.values()) if selected_event_ids else None
+    )
+    if projection_rebuilt and projection_result and not projection_result.get("ok", True):
+        assimilation_status = "projection_rebuild_failed"
+    elif projection_rebuilt:
+        assimilation_status = "authority_and_projection_checked"
+    elif deferred:
+        assimilation_status = (
+            "authority_appended_projection_rebuild_deferred"
+            if deferred.get("authority_appended")
+            else "projection_rebuild_deferred_without_authority_append"
+        )
+    else:
+        assimilation_status = "authority_visible_projection_not_rebuilt"
+    projection_visible = all_cards_visible if projection_rebuilt else False
+    if projection_rebuilt:
+        projection_card_visibility = "checked"
+        next_safe_action = "continue from the selected Task Ledger projection card"
+        receipt_condition = "authority and projection visibility checked"
+    elif deferred:
+        projection_card_visibility = "deferred_until_rebuild"
+        next_safe_action = "drain the queued Task Ledger projection rebuild, then re-open the selected card"
+        receipt_condition = "authority event visible; projection rebuild deferred and queued"
+    else:
+        projection_card_visibility = "not_checked_until_rebuild"
+        next_safe_action = "run a Task Ledger projection rebuild before relying on card visibility"
+        receipt_condition = "authority event visible; projection rebuild not requested or not run"
+    assimilation_state: Dict[str, Any] = {
+        "schema": "task_ledger_projection_assimilation_state_v1",
+        "status": assimilation_status,
+        "subject_ids": selected_subject_ids,
+        "event_ids": selected_event_ids,
+        "authority_status": health.get("status"),
+        "authority_event_visible": authority_event_visible,
+        "projection_rebuilt": bool(projection_rebuilt),
+        "projection_status": projection_status,
+        "projection_visible": projection_visible,
+        "projection_card_visibility": projection_card_visibility,
+        "queued_for_drain": bool(deferred.get("queued_for_drain")) if deferred else False,
+        "receipt_condition": receipt_condition,
+        "next_safe_action": next_safe_action,
+    }
+    if queue_id:
+        assimilation_state["queue_id"] = queue_id
+    if deferred:
+        assimilation_state["deferred_status"] = deferred.get("status")
+        assimilation_state["deferred_reason"] = deferred.get("reason")
+        assimilation_state["reentry_condition"] = deferred.get("reentry_condition")
+        if queued_work:
+            assimilation_state["queued_work_status"] = queued_work.get("status")
     return {
         "schema": "task_ledger_visibility_receipt_v0",
         "authority_status": health.get("status"),
@@ -726,11 +1791,59 @@ def visibility_receipt(
         "event_ids_visible_in_authority": event_visibility,
         "selected_card_visibility": card_visibility,
         "all_selected_cards_visible": all_cards_visible if projection_rebuilt else None,
+        "projection_assimilation_state": assimilation_state,
         "note": (
             "event appended to authority; projection/card visibility requires rebuild"
             if not projection_rebuilt
             else "event authority and projection visibility checked"
         ),
+    }
+
+
+def authority_health_hint_from_append_result(
+    repo_root: Path,
+    append_result: Mapping[str, Any],
+    *,
+    event_ids: Sequence[str] | None = None,
+) -> Dict[str, Any] | None:
+    """Build a narrow authority-health receipt from a just-serialized append."""
+    if not append_result.get("ok", True):
+        return None
+    if append_result.get("status") not in {"appended", "duplicate_idempotent"}:
+        return None
+    event = append_result.get("event") if isinstance(append_result.get("event"), Mapping) else {}
+    appended_event_id = str(event.get("event_id") or "").strip()
+    selected_event_ids = [str(item).strip() for item in (event_ids or []) if str(item).strip()]
+    selected_visibility = {
+        event_id: bool(appended_event_id and event_id == appended_event_id)
+        for event_id in selected_event_ids
+    }
+    if selected_event_ids and not all(selected_visibility.values()):
+        return None
+    return {
+        "schema": "task_ledger_authority_health_v0",
+        "ok": True,
+        "status": "clean",
+        "lost_count": 0,
+        "lost_event_ids": [],
+        "lost_subject_ids": [],
+        "lost_event_types": {},
+        "lost_events": [],
+        "paths": {
+            "event_log": str(EVENTS_REL),
+            "event_log_exists": event_log_path(repo_root).exists(),
+            "authority_event_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root)],
+            "audit_journal": str(EVENTS_AUDIT_REL),
+            "audit_journal_exists": events_audit_path(repo_root).exists(),
+            "authority_audit_paths": [str(path) for path in _authority_jsonl_rel_paths(repo_root, audit=True)],
+            "projection": str(LEDGER_REL),
+            "projection_exists": (repo_root / LEDGER_REL).exists(),
+        },
+        "storage_state": task_ledger_authority_storage_state(repo_root),
+        "selected_event_ids": selected_event_ids,
+        "selected_event_visibility": selected_visibility,
+        "next_step": "events.jsonl covers every audit-journal event.",
+        "source": "append_event_and_rebuild.serialized_append_result",
     }
 
 
@@ -787,8 +1900,858 @@ def compute_event_hash(event: Mapping[str, Any]) -> str:
 def _tail_hash(events: List[Mapping[str, Any]]) -> str | None:
     if not events:
         return None
-    value = str(events[-1].get("event_hash") or "").strip()
-    return value or compute_event_hash(events[-1])
+    return _tail_hash_from_event(events[-1])
+
+
+def _tail_hash_from_event(event: Mapping[str, Any] | None) -> str | None:
+    if event is None:
+        return None
+    value = str(event.get("event_hash") or "").strip()
+    return value or compute_event_hash(event)
+
+
+def _tail_hash_from_raw_event_line(path: Path, raw_line: bytes | None) -> str | None:
+    if not raw_line:
+        return None
+    value = _jsonl_string_field_from_raw_line(raw_line, _JSONL_EVENT_HASH_FIELD_RE)
+    if value:
+        return value
+    event = _jsonl_row_from_raw_line(path, 0, raw_line)
+    return _tail_hash_from_event(event)
+
+
+def _sha256_empty_jsonl() -> str:
+    return "sha256:" + hashlib.sha256(b"").hexdigest()
+
+
+def _configured_migration_segment_bytes(max_segment_bytes: int | None = None) -> int:
+    if max_segment_bytes is not None:
+        return max(1024, int(max_segment_bytes))
+    return max(
+        1024,
+        _configured_nonnegative_bytes(
+            TASK_LEDGER_AUTHORITY_MIGRATION_SEGMENT_BYTES_ENV,
+            TASK_LEDGER_AUTHORITY_MIGRATION_SEGMENT_BYTES_DEFAULT,
+        ),
+    )
+
+
+def _segment_path(base_rel: Path, stem: str, index: int) -> Path:
+    return base_rel / f"{stem}-{index:06d}.jsonl"
+
+
+def _hash_mapping(payload: Mapping[str, Any]) -> str:
+    return "sha256:" + hashlib.sha256(_canonical_json(payload).encode("utf-8")).hexdigest()
+
+
+def _iter_normalized_jsonl_event_lines(path: Path) -> Iterator[tuple[int, str, bytes]]:
+    if not path.exists():
+        return
+    with path.open("rb") as handle:
+        for line_number, raw_line in enumerate(handle, start=1):
+            if not raw_line.strip():
+                continue
+            stripped = raw_line.strip()
+            event_id = _jsonl_string_field_from_raw_line(stripped, _JSONL_EVENT_ID_FIELD_RE)
+            if event_id is None:
+                event_id = str(
+                    _jsonl_row_from_raw_line(path, line_number, stripped).get("event_id") or ""
+                )
+            yield line_number, event_id, raw_line.rstrip(b"\r\n") + b"\n"
+
+
+def _jsonl_segment_plan(
+    repo_root: Path,
+    *,
+    source_rel: Path,
+    segment_dir_rel: Path,
+    segment_stem: str,
+    max_segment_bytes: int,
+) -> Dict[str, Any]:
+    source_path = repo_root / source_rel
+    source_exists = source_path.exists()
+    source_size = int(source_path.stat().st_size) if source_path.exists() and source_path.is_file() else 0
+    source_digest = hashlib.sha256()
+    segments: list[dict[str, Any]] = []
+    previous_chain_hash: str | None = None
+    current_digest = hashlib.sha256()
+    current_count = 0
+    current_bytes = 0
+    current_start_line: int | None = None
+    current_end_line: int | None = None
+    current_first_event_id = ""
+    current_last_event_id = ""
+    event_count = 0
+    normalized_bytes = 0
+    first_event_id = ""
+    last_event_id = ""
+    tail_raw_line: bytes | None = None
+
+    def flush_segment() -> None:
+        nonlocal current_count
+        nonlocal current_bytes
+        nonlocal current_start_line
+        nonlocal current_end_line
+        nonlocal current_first_event_id
+        nonlocal current_last_event_id
+        nonlocal current_digest
+        nonlocal previous_chain_hash
+        if current_count <= 0:
+            return
+        index = len(segments) + 1
+        row: dict[str, Any] = {
+            "index": index,
+            "path": str(_segment_path(segment_dir_rel, segment_stem, index)),
+            "start_line": current_start_line,
+            "end_line": current_end_line,
+            "event_count": current_count,
+            "byte_count": current_bytes,
+            "sha256": "sha256:" + current_digest.hexdigest(),
+            "first_event_id": current_first_event_id,
+            "last_event_id": current_last_event_id,
+            "previous_chain_hash": previous_chain_hash,
+        }
+        row["chain_hash"] = _hash_mapping(
+            {
+                "path": row["path"],
+                "index": row["index"],
+                "start_line": row["start_line"],
+                "end_line": row["end_line"],
+                "event_count": row["event_count"],
+                "byte_count": row["byte_count"],
+                "sha256": row["sha256"],
+                "previous_chain_hash": row["previous_chain_hash"],
+            }
+        )
+        previous_chain_hash = str(row["chain_hash"])
+        segments.append(row)
+        current_digest = hashlib.sha256()
+        current_count = 0
+        current_bytes = 0
+        current_start_line = None
+        current_end_line = None
+        current_first_event_id = ""
+        current_last_event_id = ""
+
+    for line_number, event_id, normalized_line in _iter_normalized_jsonl_event_lines(source_path):
+        line_bytes = len(normalized_line)
+        if current_count > 0 and current_bytes + line_bytes > max_segment_bytes:
+            flush_segment()
+        if current_count == 0:
+            current_start_line = line_number
+            current_first_event_id = event_id
+        source_digest.update(normalized_line)
+        current_digest.update(normalized_line)
+        event_count += 1
+        normalized_bytes += line_bytes
+        current_count += 1
+        current_bytes += line_bytes
+        current_end_line = line_number
+        current_last_event_id = event_id
+        if not first_event_id:
+            first_event_id = event_id
+        last_event_id = event_id
+        tail_raw_line = normalized_line.rstrip(b"\r\n")
+    flush_segment()
+    source_hash = "sha256:" + source_digest.hexdigest()
+    return {
+        "source": {
+            "path": str(source_rel),
+            "exists": source_exists,
+            "size_bytes": source_size,
+            "size_human": _human_bytes(source_size),
+            "normalized_jsonl_bytes": normalized_bytes,
+            "normalized_jsonl_human": _human_bytes(normalized_bytes),
+            "event_count": event_count,
+            "first_event_id": first_event_id,
+            "last_event_id": last_event_id,
+            "tail_hash": _tail_hash_from_raw_event_line(source_path, tail_raw_line),
+            "normalized_jsonl_sha256": source_hash,
+        },
+        "segments": segments,
+        "segment_count": len(segments),
+        "closed_segment_event_count": event_count,
+        "closed_segment_bytes": normalized_bytes,
+        "closed_segment_sha256": source_hash,
+        "chain_tail_hash": previous_chain_hash,
+    }
+
+
+def _task_ledger_authority_migration_plan_unlocked(
+    repo_root: Path,
+    *,
+    max_segment_bytes: int | None = None,
+    include_audit: bool = True,
+) -> Dict[str, Any]:
+    """Return a reversible, read-only plan for migrating Task Ledger authority.
+
+    The first landing deliberately does not rewrite events.jsonl or change the
+    append writer. It creates the proof shape needed for a later under-lock
+    cutover: closed historical segments, one empty open tail, manifest hash, and
+    compatibility-export equivalence requirements.
+    """
+    repo_root = Path(repo_root)
+    segment_bytes = _configured_migration_segment_bytes(max_segment_bytes)
+    health = _authority_health_unlocked(repo_root)
+    storage = task_ledger_authority_storage_status(repo_root)
+    authority_plan = _jsonl_segment_plan(
+        repo_root,
+        source_rel=EVENTS_REL,
+        segment_dir_rel=TASK_LEDGER_AUTHORITY_SEGMENTS_REL,
+        segment_stem="events",
+        max_segment_bytes=segment_bytes,
+    )
+    audit_plan = (
+        _jsonl_segment_plan(
+            repo_root,
+            source_rel=EVENTS_AUDIT_REL,
+            segment_dir_rel=TASK_LEDGER_AUTHORITY_AUDIT_SEGMENTS_REL,
+            segment_stem="events_audit",
+            max_segment_bytes=segment_bytes,
+        )
+        if include_audit
+        else None
+    )
+
+    open_tail_hash = _sha256_empty_jsonl()
+    proposed_model: Dict[str, Any] = {
+        "schema": "task_ledger_authority_segmented_storage_model_v0",
+        "segments_dir": str(TASK_LEDGER_AUTHORITY_SEGMENTS_REL),
+        "open_tail": str(TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL),
+        "manifest": str(TASK_LEDGER_AUTHORITY_MANIFEST_REL),
+        "compatibility_export": str(EVENTS_REL),
+        "policy": (
+            "closed historical segments are immutable; exactly one open tail receives "
+            "future appends after an explicit cutover; events.jsonl remains a generated "
+            "compatibility export until dependents are migrated"
+        ),
+        "open_tail_initialization": {
+            "status": "empty_tail_after_closed_history",
+            "path": str(TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL),
+            "event_count": 0,
+            "byte_count": 0,
+            "sha256": open_tail_hash,
+        },
+    }
+    if audit_plan is not None:
+        proposed_model["audit_journal_model"] = {
+            "segments_dir": str(TASK_LEDGER_AUTHORITY_AUDIT_SEGMENTS_REL),
+            "open_tail": str(TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL),
+            "compatibility_export": str(EVENTS_AUDIT_REL),
+            "policy": (
+                "co-migrate audit history before writer cutover or keep the audit journal "
+                "as explicitly monolithic compatibility authority with its own pressure receipt"
+            ),
+        }
+
+    manifest_material: Dict[str, Any] = {
+        "schema": "task_ledger_authority_segment_manifest_v0",
+        "storage_model": proposed_model,
+        "source_authority": authority_plan["source"],
+        "segments": authority_plan["segments"],
+        "open_tail": proposed_model["open_tail_initialization"],
+        "compatibility_export": {
+            "path": str(EVENTS_REL),
+            "expected_normalized_jsonl_sha256": authority_plan["closed_segment_sha256"],
+            "expected_event_count": authority_plan["closed_segment_event_count"],
+        },
+    }
+    if audit_plan is not None:
+        manifest_material["audit_journal"] = {
+            "source": audit_plan["source"],
+            "segments": audit_plan["segments"],
+            "open_tail": {
+                "path": str(TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL),
+                "event_count": 0,
+                "byte_count": 0,
+                "sha256": open_tail_hash,
+            },
+            "compatibility_export": {
+                "path": str(EVENTS_AUDIT_REL),
+                "expected_normalized_jsonl_sha256": audit_plan["closed_segment_sha256"],
+                "expected_event_count": audit_plan["closed_segment_event_count"],
+            },
+        }
+    manifest_hash = _hash_mapping(manifest_material)
+    source_hash = str(authority_plan["closed_segment_sha256"])
+    equivalence_status = (
+        "planned_segment_stream_matches_source"
+        if authority_plan["closed_segment_event_count"] == authority_plan["source"]["event_count"]
+        and authority_plan["closed_segment_sha256"] == authority_plan["source"]["normalized_jsonl_sha256"]
+        else "planned_segment_stream_mismatch"
+    )
+    return {
+        "schema": "task_ledger_authority_migration_plan_v0",
+        "ok": bool(health.get("ok")) and equivalence_status == "planned_segment_stream_matches_source",
+        "mode": "dry_run",
+        "status": "plan_ready" if bool(health.get("ok")) else "authority_recovery_required_first",
+        "cutover_allowed": False,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "segment_policy": {
+            "max_segment_bytes": segment_bytes,
+            "max_segment_human": _human_bytes(segment_bytes),
+            "reason": "keep authority chunks below monolith pressure thresholds and host VCS warning sizes",
+        },
+        "authority_health": health,
+        "authority_storage": storage,
+        "source_authority": authority_plan["source"],
+        "proposed_model": proposed_model,
+        "segment_plan": {
+            "segment_count": authority_plan["segment_count"],
+            "closed_segment_event_count": authority_plan["closed_segment_event_count"],
+            "closed_segment_bytes": authority_plan["closed_segment_bytes"],
+            "closed_segment_human": _human_bytes(authority_plan["closed_segment_bytes"]),
+            "closed_segment_sha256": source_hash,
+            "chain_tail_hash": authority_plan["chain_tail_hash"],
+            "segments": authority_plan["segments"],
+        },
+        "manifest_plan": {
+            "path": str(TASK_LEDGER_AUTHORITY_MANIFEST_REL),
+            "schema": "task_ledger_authority_segment_manifest_v0",
+            "manifest_sha256": manifest_hash,
+            "material": manifest_material,
+        },
+        "compatibility_export_plan": {
+            "path": str(EVENTS_REL),
+            "role": "generated_compatibility_export_after_cutover",
+            "pre_cutover_status": "current_hot_append_authority_remains_unchanged",
+            "expected_event_count": authority_plan["source"]["event_count"],
+            "expected_normalized_jsonl_sha256": source_hash,
+        },
+        "projection_equivalence_plan": {
+            "schema": "task_ledger_projection_equivalence_plan_v0",
+            "status": equivalence_status,
+            "source_replay_hash": source_hash,
+            "planned_segment_replay_hash": authority_plan["closed_segment_sha256"],
+            "expected_event_count": authority_plan["source"]["event_count"],
+            "required_after_apply_commands": [
+                TASK_LEDGER_AUTHORITY_MIGRATION_PLAN_COMMAND,
+                TASK_LEDGER_REBUILD_CHECK_QUIET_COMMAND,
+                "./repo-python tools/meta/factory/task_ledger_apply.py authority-health --projection-check",
+            ],
+            "cutover_gate": (
+                "Before writer cutover, materialize segments under the Task Ledger lock, "
+                "rebuild events.jsonl from segments plus open tail, verify the normalized "
+                "compatibility-export hash equals source_replay_hash, then run projection checks."
+            ),
+        },
+        "rollback_restore": {
+            "status": "no_mutation_in_dry_run",
+            "restore_route": (
+                "If a later apply attempt fails before writer cutover, delete the new events/ "
+                "segmented directory and keep the original events.jsonl/events_audit.jsonl. "
+                "If it fails after writer cutover, restore events.jsonl and events_audit.jsonl "
+                "from the compatibility exports/backups recorded in that apply receipt."
+            ),
+        },
+        "audit_co_migration": (
+            {
+                "status": "included_in_dry_run_plan",
+                "recommended_before_writer_cutover": True,
+                "source": audit_plan["source"],
+                "segment_plan": {
+                    "segment_count": audit_plan["segment_count"],
+                    "closed_segment_event_count": audit_plan["closed_segment_event_count"],
+                    "closed_segment_bytes": audit_plan["closed_segment_bytes"],
+                    "closed_segment_human": _human_bytes(audit_plan["closed_segment_bytes"]),
+                    "closed_segment_sha256": audit_plan["closed_segment_sha256"],
+                    "chain_tail_hash": audit_plan["chain_tail_hash"],
+                    "segments": audit_plan["segments"],
+                },
+            }
+            if audit_plan is not None
+            else {
+                "status": "not_included",
+                "recommended_before_writer_cutover": True,
+                "reason": "rerun without --skip-audit before cutover readiness",
+            }
+        ),
+        "next_step": (
+            f"Plan only. Run {TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --prepare "
+            f"or {TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --activate after reviewing "
+            "authority health and projection checks."
+        ),
+    }
+
+
+def task_ledger_authority_migration_plan(
+    repo_root: Path,
+    *,
+    max_segment_bytes: int | None = None,
+    include_audit: bool = True,
+) -> Dict[str, Any]:
+    with file_lock(Path(repo_root) / LOCK_REL):
+        return _task_ledger_authority_migration_plan_unlocked(
+            repo_root,
+            max_segment_bytes=max_segment_bytes,
+            include_audit=include_audit,
+        )
+
+
+def _segment_staging_path(staging_root: Path, rel_path: Path) -> Path:
+    try:
+        under_events = rel_path.relative_to(TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL)
+    except ValueError as exc:
+        raise TaskLedgerError(
+            f"segmented authority path {rel_path} is not under {TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL}"
+        ) from exc
+    return staging_root / under_events
+
+
+def _write_segment_files_from_plan(
+    repo_root: Path,
+    *,
+    source_rel: Path,
+    segment_rows: Sequence[Mapping[str, Any]],
+    staging_root: Path,
+) -> None:
+    rows = [dict(row) for row in segment_rows]
+    rows.sort(key=lambda row: int(row.get("index") or 0))
+    if not rows:
+        return
+    prepared_rows: list[tuple[Mapping[str, Any], Path, int, int, Path]] = []
+    for row in rows:
+        rel_path = Path(str(row.get("path") or ""))
+        if not str(rel_path):
+            raise TaskLedgerError("segment row missing path")
+        start_line = int(row.get("start_line") or 0)
+        end_line = int(row.get("end_line") or 0)
+        if start_line <= 0 or end_line < start_line:
+            raise TaskLedgerError(f"invalid segment line range for {rel_path}")
+        path = _segment_staging_path(staging_root, rel_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prepared_rows.append((row, rel_path, start_line, end_line, path))
+
+    row_index = 0
+    active_handle: Any = None
+    active_end_line = 0
+    try:
+        for line_number, _event_id, normalized_line in _iter_normalized_jsonl_event_lines(
+            repo_root / source_rel
+        ):
+            while row_index < len(prepared_rows) and line_number > prepared_rows[row_index][3]:
+                row_index += 1
+            if row_index >= len(prepared_rows):
+                break
+            _row, _rel_path, start_line, end_line, path = prepared_rows[row_index]
+            if line_number < start_line:
+                continue
+            if active_handle is None:
+                active_handle = path.open("wb")
+                active_end_line = end_line
+            active_handle.write(normalized_line)
+            if line_number >= active_end_line:
+                active_handle.flush()
+                os.fsync(active_handle.fileno())
+                active_handle.close()
+                active_handle = None
+                row_index += 1
+        if active_handle is not None:
+            active_handle.flush()
+            os.fsync(active_handle.fileno())
+            active_handle.close()
+            active_handle = None
+    finally:
+        if active_handle is not None:
+            active_handle.close()
+    if row_index < len(prepared_rows):
+        missing = prepared_rows[row_index][1]
+        raise TaskLedgerError(f"source {source_rel} ended before segment {missing} was complete")
+
+    for row, rel_path, _start_line, _end_line, path in prepared_rows:
+        summary = _normalized_jsonl_file_summary(path, rel_path=rel_path)
+        if summary["sha256"] != row.get("sha256"):
+            raise TaskLedgerError(
+                f"segment {rel_path} sha mismatch: {summary['sha256']} != {row.get('sha256')}"
+            )
+        if int(summary["event_count"]) != int(row.get("event_count") or 0):
+            raise TaskLedgerError(
+                f"segment {rel_path} event count mismatch: "
+                f"{summary['event_count']} != {row.get('event_count')}"
+            )
+        if int(summary["byte_count"]) != int(row.get("byte_count") or 0):
+            raise TaskLedgerError(
+                f"segment {rel_path} byte count mismatch: "
+                f"{summary['byte_count']} != {row.get('byte_count')}"
+            )
+
+
+def _manifest_material_for_apply(
+    plan: Mapping[str, Any],
+    *,
+    mode: str,
+) -> Dict[str, Any]:
+    manifest_plan = plan.get("manifest_plan") if isinstance(plan.get("manifest_plan"), Mapping) else {}
+    material = manifest_plan.get("material") if isinstance(manifest_plan.get("material"), Mapping) else None
+    if material is None:
+        raise TaskLedgerError("authority migration plan is missing manifest material")
+    manifest = dict(material)
+    now = utc_now()
+    manifest["schema"] = TASK_LEDGER_AUTHORITY_MANIFEST_SCHEMA
+    manifest["mode"] = mode
+    manifest["created_at"] = now
+    manifest["updated_at"] = now
+    manifest["plan_generated_at"] = plan.get("generated_at")
+    manifest["source_authority"] = dict(plan.get("source_authority") or manifest.get("source_authority") or {})
+    open_tail = dict(manifest.get("open_tail") or {})
+    open_tail["path"] = str(TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL)
+    open_tail.setdefault("status", "empty_tail_after_closed_history")
+    open_tail.setdefault("event_count", 0)
+    open_tail.setdefault("byte_count", 0)
+    open_tail.setdefault("sha256", _sha256_empty_jsonl())
+    manifest["open_tail"] = open_tail
+    manifest["open_tail_event_count"] = int(open_tail.get("event_count") or 0)
+    manifest["authority_event_count"] = int(
+        (manifest.get("source_authority") or {}).get("event_count") or 0
+    )
+    compat = dict(manifest.get("compatibility_export") or {})
+    compat["path"] = str(EVENTS_REL)
+    compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID
+    compat["valid_at"] = now
+    compat["role"] = "legacy_path_export_unchanged_at_cutover"
+    manifest["compatibility_export"] = compat
+    audit_journal = dict(manifest.get("audit_journal") or {})
+    audit_open_tail = dict(audit_journal.get("open_tail") or {})
+    audit_open_tail["path"] = str(TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL)
+    audit_open_tail.setdefault("event_count", 0)
+    audit_open_tail.setdefault("byte_count", 0)
+    audit_open_tail.setdefault("sha256", _sha256_empty_jsonl())
+    audit_journal["open_tail"] = audit_open_tail
+    audit_journal["open_tail_event_count"] = int(audit_open_tail.get("event_count") or 0)
+    audit_source = audit_journal.get("source") if isinstance(audit_journal.get("source"), Mapping) else {}
+    audit_journal["audit_event_count"] = int(audit_source.get("event_count") or 0)
+    audit_compat = dict(audit_journal.get("compatibility_export") or {})
+    audit_compat["path"] = str(EVENTS_AUDIT_REL)
+    audit_compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID
+    audit_compat["valid_at"] = now
+    audit_compat["role"] = "legacy_audit_export_unchanged_at_cutover"
+    audit_journal["compatibility_export"] = audit_compat
+    manifest["audit_journal"] = audit_journal
+    manifest["apply_policy"] = {
+        "writer_cutover_mode": mode,
+        "closed_segments_immutable": True,
+        "compatibility_export_updated_on_append": False,
+        "compatibility_export_refresh_command": TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_COMMAND,
+    }
+    return manifest
+
+
+def _touch_empty_jsonl(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("ab") as handle:
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def _materialize_authority_segments_from_plan(
+    repo_root: Path,
+    *,
+    plan: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+) -> Dict[str, Any]:
+    final_root = repo_root / TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL
+    if final_root.exists():
+        existing = _read_authority_manifest(repo_root)
+        if existing is None:
+            raise TaskLedgerError(
+                f"{TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL} already exists without a readable manifest"
+            )
+        expected_hash = str((plan.get("source_authority") or {}).get("normalized_jsonl_sha256") or "")
+        existing_hash = str((existing.get("source_authority") or {}).get("normalized_jsonl_sha256") or "")
+        if expected_hash and existing_hash and expected_hash != existing_hash:
+            raise TaskLedgerError(
+                "existing segmented authority manifest was prepared from a different source hash"
+            )
+        return {
+            "status": "already_materialized",
+            "root": str(TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL),
+        }
+    staging_root = repo_root / TASK_LEDGER_ROOT_REL / f".events_staging_{os.getpid()}_{uuid.uuid4().hex}"
+    try:
+        _write_segment_files_from_plan(
+            repo_root,
+            source_rel=EVENTS_REL,
+            segment_rows=list(manifest.get("segments") or []),
+            staging_root=staging_root,
+        )
+        audit = manifest.get("audit_journal") if isinstance(manifest.get("audit_journal"), Mapping) else {}
+        _write_segment_files_from_plan(
+            repo_root,
+            source_rel=EVENTS_AUDIT_REL,
+            segment_rows=list(audit.get("segments") or []) if isinstance(audit, Mapping) else [],
+            staging_root=staging_root,
+        )
+        _touch_empty_jsonl(_segment_staging_path(staging_root, TASK_LEDGER_AUTHORITY_OPEN_TAIL_REL))
+        _touch_empty_jsonl(_segment_staging_path(staging_root, TASK_LEDGER_AUTHORITY_AUDIT_OPEN_TAIL_REL))
+        atomic_write_json(_segment_staging_path(staging_root, TASK_LEDGER_AUTHORITY_MANIFEST_REL), manifest)
+        final_root.parent.mkdir(parents=True, exist_ok=True)
+        os.replace(staging_root, final_root)
+    finally:
+        if staging_root.exists():
+            shutil.rmtree(staging_root)
+    return {
+        "status": "materialized",
+        "root": str(TASK_LEDGER_AUTHORITY_EVENTS_ROOT_REL),
+    }
+
+
+def _verify_authority_segment_material(repo_root: Path, manifest: Mapping[str, Any]) -> Dict[str, Any]:
+    checked: list[str] = []
+    for row in list(manifest.get("segments") or []):
+        if not isinstance(row, Mapping):
+            continue
+        rel_path = Path(str(row.get("path") or ""))
+        summary = _normalized_jsonl_file_summary(repo_root / rel_path, rel_path=rel_path)
+        if summary["sha256"] != row.get("sha256"):
+            raise TaskLedgerError(f"authority segment {rel_path} failed sha verification")
+        checked.append(str(rel_path))
+    audit = manifest.get("audit_journal") if isinstance(manifest.get("audit_journal"), Mapping) else {}
+    for row in list(audit.get("segments") or []) if isinstance(audit, Mapping) else []:
+        if not isinstance(row, Mapping):
+            continue
+        rel_path = Path(str(row.get("path") or ""))
+        summary = _normalized_jsonl_file_summary(repo_root / rel_path, rel_path=rel_path)
+        if summary["sha256"] != row.get("sha256"):
+            raise TaskLedgerError(f"authority audit segment {rel_path} failed sha verification")
+        checked.append(str(rel_path))
+    return {
+        "schema": "task_ledger_authority_segment_material_verification_v0",
+        "status": "verified",
+        "checked_count": len(checked),
+        "paths": checked,
+    }
+
+
+def task_ledger_authority_migration_apply(
+    repo_root: Path,
+    *,
+    activate: bool = False,
+    max_segment_bytes: int | None = None,
+    include_audit: bool = True,
+) -> Dict[str, Any]:
+    repo_root = Path(repo_root)
+    requested_mode = (
+        TASK_LEDGER_AUTHORITY_MODE_ACTIVE if activate else TASK_LEDGER_AUTHORITY_MODE_PREPARED
+    )
+    with file_lock(repo_root / LOCK_REL):
+        existing_manifest = _read_authority_manifest(repo_root)
+        existing_mode = _authority_manifest_mode(existing_manifest)
+        if existing_mode == TASK_LEDGER_AUTHORITY_MODE_ACTIVE:
+            return {
+                "schema": "task_ledger_authority_migration_apply_v0",
+                "ok": True,
+                "status": "already_active",
+                "mode": TASK_LEDGER_AUTHORITY_MODE_ACTIVE,
+                "storage_state": task_ledger_authority_storage_state(repo_root),
+            }
+        plan = _task_ledger_authority_migration_plan_unlocked(
+            repo_root,
+            max_segment_bytes=max_segment_bytes,
+            include_audit=include_audit,
+        )
+        if not bool(plan.get("ok")):
+            return {
+                "schema": "task_ledger_authority_migration_apply_v0",
+                "ok": False,
+                "status": str(plan.get("status") or "migration_plan_not_ok"),
+                "mode": existing_mode,
+                "plan": plan,
+            }
+        manifest = _manifest_material_for_apply(plan, mode=requested_mode)
+        materialized = _materialize_authority_segments_from_plan(
+            repo_root,
+            plan=plan,
+            manifest=manifest,
+        )
+        current_manifest = _read_authority_manifest(repo_root) or manifest
+        if activate and _authority_manifest_mode(current_manifest) != TASK_LEDGER_AUTHORITY_MODE_ACTIVE:
+            activated = dict(current_manifest)
+            activated["mode"] = TASK_LEDGER_AUTHORITY_MODE_ACTIVE
+            activated["updated_at"] = utc_now()
+            compat = dict(activated.get("compatibility_export") or {})
+            compat.setdefault("path", str(EVENTS_REL))
+            compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID
+            compat["valid_at"] = utc_now()
+            activated["compatibility_export"] = compat
+            audit = dict(activated.get("audit_journal") or {})
+            audit_compat = dict(audit.get("compatibility_export") or {})
+            audit_compat.setdefault("path", str(EVENTS_AUDIT_REL))
+            audit_compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID
+            audit_compat["valid_at"] = compat["valid_at"]
+            audit["compatibility_export"] = audit_compat
+            activated["audit_journal"] = audit
+            atomic_write_json(_authority_manifest_path(repo_root), activated)
+            current_manifest = activated
+        verification = _verify_authority_segment_material(repo_root, current_manifest)
+        health = _authority_health_unlocked(repo_root)
+        status = (
+            "active_segmented_enabled"
+            if _authority_manifest_mode(current_manifest) == TASK_LEDGER_AUTHORITY_MODE_ACTIVE
+            else "prepared_segmented_materialized"
+        )
+        return {
+            "schema": "task_ledger_authority_migration_apply_v0",
+            "ok": bool(health.get("ok")),
+            "status": status,
+            "mode": _authority_manifest_mode(current_manifest),
+            "materialization": materialized,
+            "verification": verification,
+            "authority_health": health,
+            "storage_state": task_ledger_authority_storage_state(repo_root),
+            "compatibility_export": current_manifest.get("compatibility_export"),
+            "next_step": (
+                "active segmented writer is enabled; ordinary appends now target the open tail"
+                if status == "active_segmented_enabled"
+                else f"run {TASK_LEDGER_AUTHORITY_MIGRATION_APPLY_COMMAND} --activate after validation"
+            ),
+        }
+
+
+def _export_authority_stream_to_jsonl(repo_root: Path, *, dest_rel: Path, audit: bool = False) -> Dict[str, Any]:
+    dest_path = repo_root / dest_rel
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = dest_path.with_name(f".{dest_path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+    try:
+        with tmp_path.open("wb") as handle:
+            for rel_path in _authority_jsonl_rel_paths(repo_root, audit=audit):
+                for _line_number, _event_id, normalized_line in _iter_normalized_jsonl_event_lines(
+                    repo_root / rel_path
+                ):
+                    handle.write(normalized_line)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp_path, dest_path)
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
+    return _normalized_jsonl_file_summary(dest_path, rel_path=dest_rel)
+
+
+def task_ledger_authority_export_compatibility(repo_root: Path) -> Dict[str, Any]:
+    repo_root = Path(repo_root)
+    with file_lock(repo_root / LOCK_REL):
+        manifest = _active_authority_manifest(repo_root)
+        if manifest is None:
+            return {
+                "schema": "task_ledger_authority_compatibility_export_v0",
+                "ok": True,
+                "status": "legacy_monolith_already_authority",
+                "mode": TASK_LEDGER_AUTHORITY_MODE_LEGACY,
+                "storage_state": task_ledger_authority_storage_state(repo_root),
+            }
+        event_export = _export_authority_stream_to_jsonl(repo_root, dest_rel=EVENTS_REL, audit=False)
+        audit_export = _export_authority_stream_to_jsonl(repo_root, dest_rel=EVENTS_AUDIT_REL, audit=True)
+        refreshed = dict(manifest)
+        compat = dict(refreshed.get("compatibility_export") or {})
+        compat.update(
+            {
+                "path": str(EVENTS_REL),
+                "status": TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID,
+                "valid_at": utc_now(),
+                "normalized_jsonl_sha256": event_export["sha256"],
+                "event_count": event_export["event_count"],
+                "byte_count": event_export["byte_count"],
+            }
+        )
+        refreshed["compatibility_export"] = compat
+        audit = dict(refreshed.get("audit_journal") or {})
+        audit_compat = dict(audit.get("compatibility_export") or {})
+        audit_compat.update(
+            {
+                "path": str(EVENTS_AUDIT_REL),
+                "status": TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_VALID,
+                "valid_at": compat["valid_at"],
+                "normalized_jsonl_sha256": audit_export["sha256"],
+                "event_count": audit_export["event_count"],
+                "byte_count": audit_export["byte_count"],
+            }
+        )
+        audit["compatibility_export"] = audit_compat
+        refreshed["audit_journal"] = audit
+        refreshed["updated_at"] = utc_now()
+        atomic_write_json(_authority_manifest_path(repo_root), refreshed)
+        return {
+            "schema": "task_ledger_authority_compatibility_export_v0",
+            "ok": True,
+            "status": "compatibility_export_refreshed",
+            "mode": TASK_LEDGER_AUTHORITY_MODE_ACTIVE,
+            "event_export": event_export,
+            "audit_export": audit_export,
+            "storage_state": task_ledger_authority_storage_state(repo_root),
+        }
+
+
+def _event_log_tail_state(repo_root: Path) -> tuple[str | None, int]:
+    count = 0
+    tail_raw_line: bytes | None = None
+    tail_path = event_log_path(repo_root)
+    for path, _line_number, _event_id, raw_line in _iter_authority_event_id_lines(repo_root):
+        count += 1
+        tail_path = path
+        tail_raw_line = raw_line
+    return _tail_hash_from_raw_event_line(tail_path, tail_raw_line), count
+
+
+def _closed_segment_event_count(manifest: Mapping[str, Any], *, audit: bool = False) -> int:
+    if audit:
+        audit_journal = manifest.get("audit_journal")
+        segments = (
+            audit_journal.get("segments")
+            if isinstance(audit_journal, Mapping) and isinstance(audit_journal.get("segments"), list)
+            else []
+        )
+    else:
+        segments = manifest.get("segments") if isinstance(manifest.get("segments"), list) else []
+    return sum(
+        int(row.get("event_count") or 0)
+        for row in segments
+        if isinstance(row, Mapping)
+    )
+
+
+def _active_append_targets(repo_root: Path) -> tuple[Path, Path, Dict[str, Any] | None]:
+    manifest = _active_authority_manifest(repo_root)
+    if manifest is None:
+        return EVENTS_REL, EVENTS_AUDIT_REL, None
+    return _manifest_open_tail_rel(manifest), _manifest_audit_open_tail_rel(manifest), manifest
+
+
+def _refresh_active_authority_manifest_after_append_unlocked(repo_root: Path) -> None:
+    manifest = _active_authority_manifest(repo_root)
+    if manifest is None:
+        return
+    event_tail_rel = _manifest_open_tail_rel(manifest)
+    audit_tail_rel = _manifest_audit_open_tail_rel(manifest)
+    refreshed = dict(manifest)
+    event_tail = _normalized_jsonl_file_summary(repo_root / event_tail_rel, rel_path=event_tail_rel)
+    refreshed["open_tail"] = event_tail
+    refreshed["open_tail_event_count"] = int(event_tail.get("event_count") or 0)
+    refreshed["authority_event_count"] = _closed_segment_event_count(refreshed) + int(
+        event_tail.get("event_count") or 0
+    )
+    compat = dict(refreshed.get("compatibility_export") or {})
+    compat["path"] = str(EVENTS_REL)
+    compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_STALE
+    compat["stale_since"] = utc_now()
+    compat["stale_reason"] = "active segmented append is not mirrored to compatibility export"
+    refreshed["compatibility_export"] = compat
+    audit_journal = dict(refreshed.get("audit_journal") or {})
+    audit_tail = _normalized_jsonl_file_summary(repo_root / audit_tail_rel, rel_path=audit_tail_rel)
+    audit_journal["open_tail"] = audit_tail
+    audit_journal["open_tail_event_count"] = int(audit_tail.get("event_count") or 0)
+    audit_journal["audit_event_count"] = _closed_segment_event_count(refreshed, audit=True) + int(
+        audit_tail.get("event_count") or 0
+    )
+    audit_compat = dict(audit_journal.get("compatibility_export") or {})
+    audit_compat["path"] = str(EVENTS_AUDIT_REL)
+    audit_compat["status"] = TASK_LEDGER_AUTHORITY_COMPAT_EXPORT_STALE
+    audit_compat["stale_since"] = compat["stale_since"]
+    audit_compat["stale_reason"] = "active segmented audit append is not mirrored to compatibility export"
+    audit_journal["compatibility_export"] = audit_compat
+    refreshed["audit_journal"] = audit_journal
+    refreshed["updated_at"] = utc_now()
+    refreshed["last_append_storage_effect"] = "open_tail_appended_compatibility_export_marked_stale"
+    atomic_write_json(_authority_manifest_path(repo_root), refreshed)
 
 
 def _coerce_refs(value: Any) -> Dict[str, Any]:
@@ -1012,7 +2975,11 @@ def _projected_state_after_candidates(
         validate_event(repo_root, event)
         for event in candidate_events
     ]
-    return build_projection([*normalized_existing, *normalized_candidates], repo_root=repo_root)
+    return build_projection(
+        [*normalized_existing, *normalized_candidates],
+        mission_blackboard=_safe_read_json(repo_root / MISSION_BLACKBOARD_REL),
+        repo_root=repo_root,
+    )
 
 
 def _validate_projected_state_after_candidates(
@@ -1032,6 +2999,7 @@ def append_event(
     *,
     expected_previous_event_hash: str | None = None,
     allow_authority_recovery: bool = False,
+    preflight_projection: bool = True,
 ) -> Dict[str, Any]:
     with file_lock(repo_root / LOCK_REL):
         return _append_event_unlocked(
@@ -1039,6 +3007,7 @@ def append_event(
             event,
             expected_previous_event_hash=expected_previous_event_hash,
             allow_authority_recovery=allow_authority_recovery,
+            preflight_projection=preflight_projection,
         )
 
 
@@ -1052,8 +3021,9 @@ def _append_event_unlocked(
     return_preflight_projection: bool = False,
     progress_callback: TaskLedgerProgressCallback | None = None,
 ) -> Dict[str, Any]:
-    path = event_log_path(repo_root)
-    events = read_jsonl(path)
+    event_rel, audit_rel, active_manifest = _active_append_targets(repo_root)
+    path = repo_root / event_rel
+    events = read_authority_events(repo_root)
     if not allow_authority_recovery:
         lost = _find_lost_audit_events_from_rows(repo_root, events)
         if lost:
@@ -1118,16 +3088,179 @@ def _append_event_unlocked(
             event_count=len(events) + 1,
         )
     path.parent.mkdir(parents=True, exist_ok=True)
+    if not allow_authority_recovery:
+        headroom = task_ledger_disk_write_headroom(
+            repo_root,
+            operation="append_event",
+            rel_paths=[event_rel, audit_rel],
+        )
+        if not bool(headroom.get("ok")):
+            raise TaskLedgerError(
+                f"Task Ledger append blocked by {headroom.get('status')}: "
+                f"{headroom.get('next_step')}"
+            )
     line = json.dumps(normalized, ensure_ascii=False, sort_keys=False)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(line + "\n")
         handle.flush()
         os.fsync(handle.fileno())
-    _append_audit_journal(events_audit_path(repo_root), line)
+    _append_audit_journal(repo_root / audit_rel, line)
+    if active_manifest is not None:
+        _refresh_active_authority_manifest_after_append_unlocked(repo_root)
     result: Dict[str, Any] = {"ok": True, "status": "appended", "event": normalized}
     if return_preflight_projection and preflight_projection_payload is not None:
         result["_preflight_projection"] = preflight_projection_payload
     return result
+
+
+def _duplicate_append_result(
+    normalized: Mapping[str, Any],
+    existing: Mapping[str, Any],
+) -> Dict[str, Any]:
+    incoming_hash = str(normalized.get("event_hash") or "").strip()
+    existing_hash = str(existing.get("event_hash") or "").strip()
+    if incoming_hash and incoming_hash != existing_hash:
+        raise TaskLedgerError(
+            f"duplicate event_id {normalized['event_id']} carries a different event_hash"
+        )
+    candidate = dict(normalized)
+    candidate["previous_event_hash"] = existing.get("previous_event_hash")
+    if compute_event_hash(candidate) != existing_hash:
+        raise TaskLedgerError(
+            f"duplicate event_id {normalized['event_id']} carries different event content"
+        )
+    return {"ok": True, "status": "duplicate_idempotent", "event": dict(existing)}
+
+
+def _prepare_event_append_candidate(
+    repo_root: Path,
+    event: Mapping[str, Any],
+    events: Sequence[Mapping[str, Any]],
+    *,
+    expected_previous_event_hash: str | None = None,
+    allow_authority_recovery: bool = False,
+    build_preflight_projection: bool = True,
+    progress_callback: TaskLedgerProgressCallback | None = None,
+) -> Dict[str, Any]:
+    if not allow_authority_recovery:
+        lost = _find_lost_audit_events_from_rows(repo_root, events)
+        if lost:
+            raise TaskLedgerError(_authority_recovery_error(lost))
+    existing_by_id = {str(row.get("event_id") or ""): row for row in events}
+    normalized = validate_event(repo_root, event)
+    event_id = str(normalized.get("event_id") or "")
+    if event_id in existing_by_id:
+        duplicate = _duplicate_append_result(normalized, existing_by_id[event_id])
+        duplicate["authority_tail_hash"] = _tail_hash(events)
+        duplicate["preflight_event_count"] = len(events)
+        return duplicate
+    tail = _tail_hash(events)
+    expected = expected_previous_event_hash or normalized.pop("expected_previous_event_hash", None)
+    if expected is not None and expected != tail:
+        raise TaskLedgerError(
+            f"expected_previous_event_hash {expected!r} does not match current tail {tail!r}"
+        )
+    _enforce_closeout_assurance_for_append(events, normalized)
+    normalized["previous_event_hash"] = tail
+    normalized["event_hash"] = compute_event_hash(normalized)
+    preflight_projection_payload = None
+    if build_preflight_projection:
+        _emit_progress(
+            progress_callback,
+            "load_validate_start",
+            check=False,
+            mode="prelock_preflight_projection",
+        )
+        _emit_progress(
+            progress_callback,
+            "build_projection_start",
+            check=False,
+            mode="prelock_preflight_projection",
+            event_count=len(events) + 1,
+        )
+        preflight_projection_payload = _validate_projected_state_after_candidates(
+            repo_root, events, [normalized]
+        )
+        _emit_progress(
+            progress_callback,
+            "build_projection_done",
+            check=False,
+            mode="prelock_preflight_projection",
+            event_count=len(events) + 1,
+            projection_path_count=len(_projection_targets(preflight_projection_payload)),
+            work_item_count=len(preflight_projection_payload["ledger"].get("work_items") or []),
+            signoff_count=len(preflight_projection_payload["sign_offs"].get("sign_offs") or []),
+        )
+        _emit_progress(
+            progress_callback,
+            "load_validate_done",
+            check=False,
+            mode="prelock_preflight_projection",
+            event_count=len(events) + 1,
+        )
+    return {
+        "ok": True,
+        "status": "prepared_append",
+        "event": normalized,
+        "authority_tail_hash": tail,
+        "preflight_event_count": len(events),
+        "_preflight_projection": preflight_projection_payload,
+    }
+
+
+def _prepare_fast_unique_capture_append_candidate(
+    repo_root: Path,
+    event: Mapping[str, Any],
+    *,
+    expected_previous_event_hash: str | None = None,
+    allow_authority_recovery: bool = False,
+) -> Dict[str, Any] | None:
+    if expected_previous_event_hash is not None or allow_authority_recovery:
+        return None
+    normalized = validate_event(repo_root, event)
+    if str(normalized.get("event_type") or "") != "work_item.captured":
+        return None
+    event_id = str(normalized.get("event_id") or "").strip()
+    if not event_id:
+        return None
+    health = _authority_health_unlocked(repo_root, event_ids=[event_id])
+    if health.get("status") != "clean":
+        raise TaskLedgerError(_authority_recovery_error(health.get("lost_events") or []))
+    selected_visibility = (
+        health.get("selected_event_visibility")
+        if isinstance(health.get("selected_event_visibility"), Mapping)
+        else {}
+    )
+    if selected_visibility.get(event_id):
+        return None
+    tail = str(health.get("tail_hash") or "").strip() or None
+    normalized["previous_event_hash"] = tail
+    normalized["event_hash"] = compute_event_hash(normalized)
+    return {
+        "ok": True,
+        "status": "prepared_append",
+        "event": normalized,
+        "authority_tail_hash": tail,
+        "preflight_event_count": int(health.get("authority_event_count") or 0),
+        "_preflight_projection": None,
+        "_authority_health": health,
+        "prepare_mode": "fast_unique_capture_append",
+    }
+
+
+def _append_normalized_event_unlocked(repo_root: Path, normalized: Mapping[str, Any]) -> Dict[str, Any]:
+    event_rel, audit_rel, active_manifest = _active_append_targets(repo_root)
+    path = repo_root / event_rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    line = json.dumps(dict(normalized), ensure_ascii=False, sort_keys=False)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(line + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    _append_audit_journal(repo_root / audit_rel, line)
+    if active_manifest is not None:
+        _refresh_active_authority_manifest_after_append_unlocked(repo_root)
+    return {"ok": True, "status": "appended", "event": dict(normalized)}
 
 
 def _rebuild_projections_with_health_unlocked(
@@ -1154,6 +3287,40 @@ def _rebuild_projections_with_health_unlocked(
             "checked": bool(check),
             "status": "authority_recovery_required",
             "authority_health": health,
+        }
+    fast_check = _projection_manifest_fast_check(
+        repo_root,
+        authority_event_count=int(health.get("authority_event_count") or 0),
+        authority_tail_hash=str(health.get("tail_hash") or "").strip() or None,
+    )
+    if check and fast_check is not None:
+        fast_check["authority_health"] = health
+        return fast_check
+    if not check and fast_check is not None and bool(fast_check.get("ok")):
+        manifest_check = fast_check.get("projection_manifest_check")
+        manifest_check = manifest_check if isinstance(manifest_check, Mapping) else {}
+        manifest = _safe_read_json(repo_root / PROJECTION_MANIFEST_REL)
+        target_rows = manifest.get("target_hashes") if isinstance(manifest, Mapping) else []
+        projection_paths = [
+            str(row.get("path"))
+            for row in target_rows
+            if isinstance(row, Mapping) and str(row.get("path") or "").strip()
+        ]
+        return {
+            "ok": True,
+            "checked": False,
+            "status": "already_current",
+            "event_count": health.get("authority_event_count"),
+            "projection_paths": projection_paths,
+            "projection_manifest": {
+                "path": str(PROJECTION_MANIFEST_REL),
+                "target_count": manifest_check.get("target_count")
+                or len(projection_paths),
+            },
+            "projection_manifest_check": manifest_check,
+            "authority_health": health,
+            "rebuild_skipped": True,
+            "skip_reason": "projection_manifest_current",
         }
     result = _rebuild_projections_unlocked(repo_root, check=check, progress_callback=progress_callback)
     result["authority_health"] = health
@@ -1220,7 +3387,7 @@ def _write_projection_from_preflight_unlocked(
     headroom = task_ledger_disk_write_headroom(
         repo_root,
         operation="task_ledger_projection_write",
-        rel_paths=list(targets),
+        rel_paths=[*list(targets), PROJECTION_MANIFEST_REL],
     )
     if not bool(headroom.get("ok")):
         _emit_disk_headroom_blocked(progress_callback, headroom)
@@ -1231,7 +3398,13 @@ def _write_projection_from_preflight_unlocked(
         projection_path_count=len(targets),
     )
     for rel_path, payload in targets.items():
-        atomic_write_json(repo_root / rel_path, payload)
+        atomic_write_json(repo_root / rel_path, payload, compact=True)
+    manifest = _write_projection_manifest(
+        repo_root,
+        targets,
+        authority_event_count=int(health.get("authority_event_count") or 0),
+        authority_tail_hash=str(health.get("tail_hash") or "").strip() or None,
+    )
     _emit_progress(
         progress_callback,
         "projection_write_done",
@@ -1242,6 +3415,10 @@ def _write_projection_from_preflight_unlocked(
     result["build_reuse"] = {
         "mode": "preflight_projection_reused",
         "saved_projection_rebuild": True,
+    }
+    result["projection_manifest"] = {
+        "path": str(PROJECTION_MANIFEST_REL),
+        "target_count": manifest.get("target_count"),
     }
     return result
 
@@ -1254,117 +3431,205 @@ def append_event_and_rebuild(
     rebuild: bool = True,
     allow_authority_recovery: bool = False,
     progress_callback: TaskLedgerProgressCallback | None = None,
+    fast_unique_capture_append: bool = False,
 ) -> Dict[str, Any]:
-    _emit_progress(
-        progress_callback,
-        "lock_wait_start",
-        operation="append_event_and_rebuild",
-        rebuild=bool(rebuild),
-        event_count=1,
-    )
-    with file_lock(repo_root / LOCK_REL):
+    max_attempts = 3
+    for attempt in range(1, max_attempts + 1):
         _emit_progress(
             progress_callback,
-            "lock_acquired",
+            "prelock_prepare_start",
             operation="append_event_and_rebuild",
             rebuild=bool(rebuild),
             event_count=1,
+            attempt=attempt,
+        )
+        prepared = None
+        if fast_unique_capture_append and not rebuild:
+            prepared = _prepare_fast_unique_capture_append_candidate(
+                repo_root,
+                event,
+                expected_previous_event_hash=expected_previous_event_hash,
+                allow_authority_recovery=allow_authority_recovery,
+            )
+        if prepared is None:
+            snapshot_events = read_authority_events(repo_root)
+            prepared = _prepare_event_append_candidate(
+                repo_root,
+                event,
+                snapshot_events,
+                expected_previous_event_hash=expected_previous_event_hash,
+                allow_authority_recovery=allow_authority_recovery,
+                build_preflight_projection=bool(rebuild),
+                progress_callback=progress_callback,
+            )
+        _emit_progress(
+            progress_callback,
+            "prelock_prepare_done",
+            operation="append_event_and_rebuild",
+            status=prepared.get("status"),
+            rebuild=bool(rebuild),
+            event_count=1,
+            attempt=attempt,
         )
         _emit_progress(
             progress_callback,
-            "append_start",
+            "lock_wait_start",
             operation="append_event_and_rebuild",
-            event_type=event.get("event_type"),
-            subject_id=event.get("subject_id"),
+            rebuild=bool(rebuild),
+            event_count=1,
+            attempt=attempt,
         )
-        headroom_paths = [EVENTS_REL, EVENTS_AUDIT_REL]
-        if rebuild:
-            headroom_paths.extend(_current_projection_rel_paths(repo_root))
-        headroom = task_ledger_disk_write_headroom(
-            repo_root,
-            operation="append_event_and_rebuild",
-            rel_paths=headroom_paths,
-        )
-        if not bool(headroom.get("ok")):
-            _emit_disk_headroom_blocked(progress_callback, headroom)
-            blocked_result = _disk_headroom_block_result(headroom)
-            blocked_result["task_ledger_mutation_serialization"] = (
-                task_ledger_mutation_serialization_receipt(
-                    event_count=0,
-                    projection_rebuilt=False,
-                    projection_rebuilt_under_same_lock=False,
-                )
-            )
+        with file_lock(repo_root / LOCK_REL):
             _emit_progress(
                 progress_callback,
-                "done",
+                "lock_acquired",
                 operation="append_event_and_rebuild",
-                status=blocked_result.get("status"),
                 rebuild=bool(rebuild),
-                projection_rebuilt=False,
+                event_count=1,
+                attempt=attempt,
             )
-            return blocked_result
-        result = _append_event_unlocked(
-            repo_root,
-            event,
-            expected_previous_event_hash=expected_previous_event_hash,
-            allow_authority_recovery=allow_authority_recovery,
-            return_preflight_projection=bool(rebuild),
-            progress_callback=progress_callback,
-        )
-        appended_event = result.get("event") if isinstance(result.get("event"), Mapping) else {}
-        _emit_progress(
-            progress_callback,
-            "append_done",
-            operation="append_event_and_rebuild",
-            status=result.get("status"),
-            event_id=appended_event.get("event_id"),
-            subject_id=appended_event.get("subject_id"),
-        )
-        projection_result = None
-        if rebuild:
-            _emit_progress(
-                progress_callback,
-                "rebuild_start",
-                operation="append_event_and_rebuild",
-                check=False,
-            )
-            preflight_projection = result.pop("_preflight_projection", None)
-            if preflight_projection is not None:
-                projection_result = _write_projection_from_preflight_unlocked(
-                    repo_root,
-                    preflight_projection,
-                    progress_callback=progress_callback,
+            current_tail, current_event_count = _event_log_tail_state(repo_root)
+            prepared_tail = prepared.get("authority_tail_hash")
+            if current_tail != prepared_tail:
+                _emit_progress(
+                    progress_callback,
+                    "authority_snapshot_changed_retry",
+                    operation="append_event_and_rebuild",
+                    attempt=attempt,
+                    max_attempts=max_attempts,
+                    snapshot_event_count=prepared.get("preflight_event_count"),
+                    current_event_count=current_event_count,
                 )
+                continue
+            if prepared.get("status") == "duplicate_idempotent":
+                result = {
+                    "ok": True,
+                    "status": "duplicate_idempotent",
+                    "event": dict(prepared.get("event") or {}),
+                }
+                projection_result = None
             else:
+                _emit_progress(
+                    progress_callback,
+                    "append_start",
+                    operation="append_event_and_rebuild",
+                    event_type=event.get("event_type"),
+                    subject_id=event.get("subject_id"),
+                )
+                headroom_paths = _authority_write_rel_paths(repo_root)
+                preflight_projection = prepared.get("_preflight_projection")
+                if rebuild:
+                    if isinstance(preflight_projection, Mapping):
+                        headroom_paths.extend(_projection_targets(preflight_projection))
+                    else:
+                        headroom_paths.extend(_current_projection_rel_paths(repo_root))
+                headroom = task_ledger_disk_write_headroom(
+                    repo_root,
+                    operation="append_event_and_rebuild",
+                    rel_paths=headroom_paths,
+                )
+                if not bool(headroom.get("ok")):
+                    _emit_disk_headroom_blocked(progress_callback, headroom)
+                    blocked_result = _disk_headroom_block_result(headroom)
+                    blocked_result["task_ledger_mutation_serialization"] = (
+                        task_ledger_mutation_serialization_receipt(
+                            event_count=0,
+                            projection_rebuilt=False,
+                            projection_rebuilt_under_same_lock=False,
+                            projection_build_under_same_lock=False,
+                            projection_write_under_same_lock=False,
+                        )
+                    )
+                    _emit_progress(
+                        progress_callback,
+                        "done",
+                        operation="append_event_and_rebuild",
+                        status=blocked_result.get("status"),
+                        rebuild=bool(rebuild),
+                        projection_rebuilt=False,
+                    )
+                    return blocked_result
+                result = _append_normalized_event_unlocked(
+                    repo_root,
+                    prepared["event"],
+                )
+                appended_event = result.get("event") if isinstance(result.get("event"), Mapping) else {}
+                _emit_progress(
+                    progress_callback,
+                    "append_done",
+                    operation="append_event_and_rebuild",
+                    status=result.get("status"),
+                    event_id=appended_event.get("event_id"),
+                    subject_id=appended_event.get("subject_id"),
+                )
+                projection_result = None
+                if rebuild:
+                    _emit_progress(
+                        progress_callback,
+                        "rebuild_start",
+                        operation="append_event_and_rebuild",
+                        check=False,
+                        mode="preflight_projection_write",
+                    )
+                    if isinstance(preflight_projection, Mapping):
+                        projection_result = _write_projection_from_preflight_unlocked(
+                            repo_root,
+                            preflight_projection,
+                            progress_callback=progress_callback,
+                        )
+                    else:
+                        projection_result = _rebuild_projections_with_health_unlocked(
+                            repo_root,
+                            progress_callback=progress_callback,
+                        )
+                    _emit_progress(
+                        progress_callback,
+                        "rebuild_done",
+                        operation="append_event_and_rebuild",
+                        status=projection_result.get("status"),
+                        ok=projection_result.get("ok"),
+                        event_count=projection_result.get("event_count"),
+                        projection_path_count=len(projection_result.get("projection_paths") or []),
+                    )
+                    result["projection"] = projection_result
+            if rebuild and prepared.get("status") == "duplicate_idempotent":
                 projection_result = _rebuild_projections_with_health_unlocked(
                     repo_root,
                     progress_callback=progress_callback,
                 )
+                result["projection"] = projection_result
             _emit_progress(
                 progress_callback,
-                "rebuild_done",
+                "done",
                 operation="append_event_and_rebuild",
-                status=projection_result.get("status"),
-                ok=projection_result.get("ok"),
-                event_count=projection_result.get("event_count"),
-                projection_path_count=len(projection_result.get("projection_paths") or []),
+                status=result.get("status"),
+                rebuild=bool(rebuild),
+                projection_rebuilt=bool(projection_result),
             )
-            result["projection"] = projection_result
-        result["task_ledger_mutation_serialization"] = task_ledger_mutation_serialization_receipt(
-            event_count=1,
-            projection_rebuilt=bool(projection_result),
-            projection_rebuilt_under_same_lock=bool(projection_result),
-        )
-        _emit_progress(
-            progress_callback,
-            "done",
-            operation="append_event_and_rebuild",
-            status=result.get("status"),
-            rebuild=bool(rebuild),
-            projection_rebuilt=bool(projection_result),
-        )
-        return result
+            result["task_ledger_mutation_serialization"] = task_ledger_mutation_serialization_receipt(
+                event_count=0 if result.get("status") == "duplicate_idempotent" else 1,
+                projection_rebuilt=bool(projection_result),
+                projection_rebuilt_under_same_lock=False,
+                projection_build_under_same_lock=False,
+                projection_write_under_same_lock=bool(projection_result),
+            )
+            return result
+    return {
+        "ok": False,
+        "status": "authority_snapshot_changed_retry_required",
+        "reason": (
+            "Task Ledger authority changed during repeated append preflight attempts; "
+            "rerun the append command so projection validation uses a fresh authority tail."
+        ),
+        "attempt_count": max_attempts,
+        "task_ledger_mutation_serialization": task_ledger_mutation_serialization_receipt(
+            event_count=0,
+            projection_rebuilt=False,
+            projection_rebuilt_under_same_lock=False,
+            projection_build_under_same_lock=False,
+            projection_write_under_same_lock=False,
+        ),
+    }
 
 
 def append_events_and_rebuild(
@@ -1396,7 +3661,7 @@ def append_events_and_rebuild(
             operation="append_events_and_rebuild",
             event_count=len(event_list),
         )
-        headroom_paths = [EVENTS_REL, EVENTS_AUDIT_REL]
+        headroom_paths = _authority_write_rel_paths(repo_root)
         if rebuild:
             headroom_paths.extend(_current_projection_rel_paths(repo_root))
         headroom = task_ledger_disk_write_headroom(
@@ -1423,9 +3688,22 @@ def append_events_and_rebuild(
                 projection_rebuilt=False,
             )
             return blocked_result
-        existing_events = read_jsonl(event_log_path(repo_root))
+        existing_events = read_authority_events(repo_root)
         normalized_events = [validate_event(repo_root, event) for event in event_list]
         _validate_projected_state_after_candidates(repo_root, existing_events, normalized_events)
+        candidate_history: list[Mapping[str, Any]] = list(existing_events)
+        prepared_results: list[Dict[str, Any]] = []
+        for event in normalized_events:
+            prepared = _prepare_event_append_candidate(
+                repo_root,
+                event,
+                candidate_history,
+                build_preflight_projection=False,
+                progress_callback=progress_callback,
+            )
+            prepared_results.append(prepared)
+            if prepared.get("status") == "prepared_append":
+                candidate_history.append(dict(prepared.get("event") or {}))
         _emit_progress(
             progress_callback,
             "batch_preflight_done",
@@ -1439,10 +3717,20 @@ def append_events_and_rebuild(
             operation="append_events_and_rebuild",
             event_count=len(normalized_events),
         )
-        append_results = [
-            _append_event_unlocked(repo_root, event, preflight_projection=False)
-            for event in normalized_events
-        ]
+        append_results = []
+        for prepared in prepared_results:
+            if prepared.get("status") == "duplicate_idempotent":
+                append_results.append(
+                    {
+                        "ok": True,
+                        "status": "duplicate_idempotent",
+                        "event": dict(prepared.get("event") or {}),
+                    }
+                )
+                continue
+            append_results.append(
+                _append_normalized_event_unlocked(repo_root, prepared["event"])
+            )
         _emit_progress(
             progress_callback,
             "append_done",
@@ -1778,7 +4066,7 @@ def _surface_durability_summary(contract: Any) -> Dict[str, Any]:
 
 
 def _requires_signoff(item: Mapping[str, Any]) -> bool:
-    if item.get("sign_off_id"):
+    if item.get("sign_off_id") or _has_terminal_execution_receipt(item):
         return False
     state = str(item.get("state") or item.get("status") or "")
     if state in {"review", "signoff", "done"}:
@@ -2093,11 +4381,19 @@ def _iter_text_items(value: Any) -> Iterator[str]:
             yield text
 
 
+def _transition_target_state(payload: Mapping[str, Any]) -> str:
+    for key in ("state", "to_state"):
+        text = str(payload.get(key) or "").strip()
+        if text:
+            return text
+    return ""
+
+
 def _closeout_event_attempts_claim(event_type: str, payload: Mapping[str, Any]) -> bool:
     if event_type == "work_item.signoff_recorded":
         return True
     if event_type == "work_item.state_transitioned":
-        state = _normalized_closeout_text(payload.get("state"))
+        state = _normalized_closeout_text(_transition_target_state(payload))
         status = _normalized_closeout_text(payload.get("status"))
         return state in _CLOSEOUT_ASSURANCE_CLOSEOUT_STATES or _closeout_status_matches(status)
     if event_type == "work_item.propagation_recorded":
@@ -2554,6 +4850,40 @@ def _safe_read_json(path: Path) -> Dict[str, Any]:
     return dict(payload) if isinstance(payload, Mapping) else {}
 
 
+def _read_intake_request_at(repo_root: Path, *, status: str, request_id: str) -> dict[str, Any] | None:
+    token = str(request_id or "").strip()
+    if not token or "/" in token or "\\" in token:
+        return None
+    path = repo_root / _intake_status_rel(status) / f"{token}.json"
+    request = _safe_read_json(path)
+    if not request:
+        return None
+    request["_intake_status"] = status
+    request["_intake_path"] = str(path.relative_to(repo_root))
+    return request
+
+
+def _task_ledger_intake_requests_for_ids(
+    repo_root: Path,
+    *,
+    statuses: Sequence[str],
+    request_ids: Sequence[str],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    for request_id in sorted(_normalized_filter_values(request_ids)):
+        for status in statuses:
+            request = _read_intake_request_at(repo_root, status=status, request_id=request_id)
+            if not request:
+                continue
+            key = (status, str(request.get("request_id") or "").strip())
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append(request)
+    return rows
+
+
 def task_ledger_intake_requests(
     repo_root: Path,
     *,
@@ -2593,11 +4923,48 @@ def task_ledger_intake_status(
     *,
     request_ids: Sequence[str] | None = None,
     idempotency_keys: Sequence[str] | None = None,
+    full: bool = False,
+    limit: int = 20,
 ) -> Dict[str, Any]:
     request_id_filter = _normalized_filter_values(request_ids)
     idempotency_key_filter = _normalized_filter_values(idempotency_keys)
     requests = []
-    for request in task_ledger_intake_requests(repo_root):
+    if request_id_filter:
+        source_requests = _task_ledger_intake_requests_for_ids(
+            repo_root,
+            statuses=("pending", "applied", "blocked"),
+            request_ids=sorted(request_id_filter),
+        )
+        if idempotency_key_filter:
+            covered_keys = {
+                str(request.get("idempotency_key") or "").strip()
+                for request in source_requests
+                if str(request.get("idempotency_key") or "").strip()
+            }
+            missing_keys = idempotency_key_filter - covered_keys
+            if missing_keys:
+                seen = {
+                    (
+                        str(request.get("_intake_status") or "").strip(),
+                        str(request.get("request_id") or "").strip(),
+                    )
+                    for request in source_requests
+                }
+                for request in task_ledger_intake_requests(repo_root):
+                    request_key = str(request.get("idempotency_key") or "").strip()
+                    if request_key not in missing_keys:
+                        continue
+                    dedupe_key = (
+                        str(request.get("_intake_status") or "").strip(),
+                        str(request.get("request_id") or "").strip(),
+                    )
+                    if dedupe_key in seen:
+                        continue
+                    seen.add(dedupe_key)
+                    source_requests.append(request)
+    else:
+        source_requests = task_ledger_intake_requests(repo_root)
+    for request in source_requests:
         request_id = str(request.get("request_id") or "").strip()
         idempotency_key = str(request.get("idempotency_key") or "").strip()
         if request_id_filter and request_id not in request_id_filter:
@@ -2609,16 +4976,67 @@ def task_ledger_intake_status(
     for request in requests:
         status = str(request.get("_intake_status") or "unknown")
         counts[status] = counts.get(status, 0) + 1
-    return {
+    exact = bool(request_id_filter or idempotency_key_filter)
+    payload: Dict[str, Any] = {
         "schema": "task_ledger_intake_status_v0",
         "root": str(TASK_LEDGER_INTAKE_ROOT_REL),
         "counts": counts,
         "scope": {
-            "exact": bool(request_id_filter or idempotency_key_filter),
+            "exact": exact,
             "request_ids": sorted(request_id_filter),
             "idempotency_keys": sorted(idempotency_key_filter),
         },
-        "requests": requests,
+        "output_profile": "full_requests" if (full or exact) else "compact_cards",
+    }
+    if full or exact:
+        payload["requests"] = requests
+        return payload
+
+    card_limit = max(0, int(limit))
+    cards = [_intake_request_card(request) for request in requests[:card_limit]]
+    payload.update(
+        {
+            "request_cards": cards,
+            "request_count": len(requests),
+            "request_cards_emitted": len(cards),
+            "request_cards_omitted": max(0, len(requests) - len(cards)),
+            "requests_omitted": True,
+            "full_profile_command": (
+                "./repo-python tools/meta/factory/task_ledger_apply.py intake-status --full"
+            ),
+            "omission_receipt": {
+                "omitted": ["full intake request bodies"],
+                "reason": (
+                    "Default intake-status is a coordination counter/card surface; "
+                    "full request payloads are available with --full or exact filters."
+                ),
+                "drilldown": (
+                    "./repo-python tools/meta/factory/task_ledger_apply.py intake-status --full"
+                ),
+            },
+        }
+    )
+    return payload
+
+
+def _intake_request_card(request: Mapping[str, Any]) -> Dict[str, Any]:
+    payload = request.get("payload")
+    payload_map = payload if isinstance(payload, Mapping) else {}
+    raw_receipt = payload_map.get("execution_receipt")
+    receipt = raw_receipt if isinstance(raw_receipt, Mapping) else {}
+    return {
+        "request_id": request.get("request_id"),
+        "kind": request.get("kind"),
+        "event_type": request.get("event_type"),
+        "subject_id": request.get("subject_id"),
+        "state": request.get("state"),
+        "intake_status": request.get("_intake_status"),
+        "created_at": request.get("created_at"),
+        "created_by": request.get("created_by"),
+        "transaction_id": receipt.get("transaction_id"),
+        "closeout_state": receipt.get("closeout_state"),
+        "commit_hash": receipt.get("commit_hash"),
+        "request_path": request.get("_intake_path"),
     }
 
 
@@ -2767,7 +5185,6 @@ def drain_task_ledger_intake(
     request_ids: Sequence[str] = (),
     idempotency_keys: Sequence[str] = (),
 ) -> Dict[str, Any]:
-    pending = task_ledger_intake_requests(repo_root, statuses=("pending",))
     wanted_request_ids = {
         str(request_id or "").strip()
         for request_id in request_ids
@@ -2778,6 +5195,41 @@ def drain_task_ledger_intake(
         for key in idempotency_keys
         if str(key or "").strip()
     }
+    if wanted_request_ids:
+        pending = _task_ledger_intake_requests_for_ids(
+            repo_root,
+            statuses=("pending",),
+            request_ids=sorted(wanted_request_ids),
+        )
+        if wanted_idempotency_keys:
+            covered_keys = {
+                str(request.get("idempotency_key") or "").strip()
+                for request in pending
+                if str(request.get("idempotency_key") or "").strip()
+            }
+            missing_keys = wanted_idempotency_keys - covered_keys
+            if missing_keys:
+                seen = {
+                    (
+                        str(request.get("_intake_status") or "").strip(),
+                        str(request.get("request_id") or "").strip(),
+                    )
+                    for request in pending
+                }
+                for request in task_ledger_intake_requests(repo_root, statuses=("pending",)):
+                    request_key = str(request.get("idempotency_key") or "").strip()
+                    if request_key not in missing_keys:
+                        continue
+                    dedupe_key = (
+                        str(request.get("_intake_status") or "").strip(),
+                        str(request.get("request_id") or "").strip(),
+                    )
+                    if dedupe_key in seen:
+                        continue
+                    seen.add(dedupe_key)
+                    pending.append(request)
+    else:
+        pending = task_ledger_intake_requests(repo_root, statuses=("pending",))
     if wanted_request_ids or wanted_idempotency_keys:
         pending = [
             request
@@ -2839,7 +5291,7 @@ def drain_task_ledger_intake(
             "payload": payload,
         }
         event = {key: value for key, value in event.items() if value not in (None, {}, [])}
-        append_result = append_event(repo_root, event)
+        append_result = append_event(repo_root, event, preflight_projection=bool(rebuild))
         appended_count += 1 if append_result.get("status") == "appended" else 0
         appended_event = append_result.get("event") if isinstance(append_result.get("event"), Mapping) else {}
         if appended_event.get("event_id"):
@@ -3202,7 +5654,7 @@ def build_projection(
             _merge_dependency_fields(item, payload)
             _merge_tag_fields(item, payload)
         elif event_type == "work_item.promoted":
-            item["work_item_type"] = payload.get("work_item_type") or "task"
+            item["work_item_type"] = payload.get("work_item_type") or item.get("work_item_type") or "task"
             item["state"] = payload.get("state") or "ready"
             item["status"] = payload.get("status") or "ready"
             item["rank"] = payload.get("rank", item.get("rank"))
@@ -3250,7 +5702,7 @@ def build_projection(
             item["status"] = item["state"]
             item["release_reason"] = payload.get("reason")
         elif event_type == "work_item.state_transitioned":
-            state = str(payload.get("state") or "").strip()
+            state = _transition_target_state(payload)
             if state in WORK_ITEM_STATES:
                 item["state"] = state
                 item["status"] = payload.get("status") or state
@@ -3838,8 +6290,57 @@ def _item_state(item: Mapping[str, Any]) -> str:
     return str(item.get("state") or item.get("status") or "").strip()
 
 
+TERMINAL_EXECUTION_RECEIPT_STATES = {
+    "accepted",
+    "closed",
+    "committed",
+    "complete",
+    "completed",
+    "done",
+    "landed",
+    "propagated",
+    "refined",
+    "released",
+    "signed_off",
+    "signed-off",
+}
+
+TERMINAL_EXECUTION_RECEIPT_SUFFIXES = (
+    "_landed",
+)
+
+
+def _latest_execution_receipt_state(item: Mapping[str, Any]) -> str:
+    receipt = item.get("latest_execution_receipt")
+    if not isinstance(receipt, Mapping):
+        receipts = item.get("execution_receipts")
+        if isinstance(receipts, list):
+            receipt = next(
+                (row for row in reversed(receipts) if isinstance(row, Mapping)),
+                {},
+            )
+        else:
+            receipt = {}
+    return str(receipt.get("closeout_state") or receipt.get("status") or "").strip().lower()
+
+
+def _is_terminal_execution_receipt_state(state: str) -> bool:
+    normalized = str(state or "").strip().lower()
+    if normalized in TERMINAL_EXECUTION_RECEIPT_STATES:
+        return True
+    return any(normalized.endswith(suffix) for suffix in TERMINAL_EXECUTION_RECEIPT_SUFFIXES)
+
+
+def _has_terminal_execution_receipt(item: Mapping[str, Any]) -> bool:
+    return _is_terminal_execution_receipt_state(_latest_execution_receipt_state(item))
+
+
 def _is_closed_or_signed_off(item: Mapping[str, Any]) -> bool:
-    return _item_state(item) in CLOSED_WORK_ITEM_STATES or bool(item.get("sign_off_id"))
+    return (
+        _item_state(item) in CLOSED_WORK_ITEM_STATES
+        or bool(item.get("sign_off_id"))
+        or _has_terminal_execution_receipt(item)
+    )
 
 
 def _item_event_count(item: Mapping[str, Any]) -> int:
@@ -3953,6 +6454,9 @@ def _capture_triage_row(item: Mapping[str, Any]) -> Dict[str, Any]:
         reasons.append("signoff_recorded")
     if state in CLOSED_WORK_ITEM_STATES:
         reasons.append(f"state:{state}")
+    receipt_state = _latest_execution_receipt_state(item)
+    if _is_terminal_execution_receipt_state(receipt_state):
+        reasons.append(f"execution_receipt:{receipt_state}")
     if missing:
         reasons.extend(f"missing:{field}" for field in missing)
     return {
@@ -4050,6 +6554,65 @@ def _build_capture_triage_view(captures: List[Mapping[str, Any]], generated_at: 
     }
 
 
+CAPTURE_INBOX_CARD_FIELDS = (
+    "id",
+    "title",
+    "state",
+    "status",
+    "work_item_type",
+    "candidate_work_item_type",
+    "created_at",
+    "created_by",
+    "updated_at",
+    "rank",
+    "confidence",
+    "tags",
+    "source_event_ids",
+    "source_event_types",
+)
+
+CAPTURE_INBOX_CARD_OMITTED_FIELDS = (
+    "acceptance",
+    "authority",
+    "closeout_assurance",
+    "completion",
+    "event_history",
+    "execution_receipts",
+    "impact",
+    "integration_contract",
+    "latest_execution_receipt",
+    "notes",
+    "problem",
+    "projection_completeness",
+    "provenance",
+    "satisfaction_contract",
+    "statement",
+)
+
+
+def _capture_inbox_raw_capture_ids(capture_triage: Mapping[str, Any]) -> set[str]:
+    raw_ids: set[str] = set()
+    for row in capture_triage.get("items") or []:
+        if not isinstance(row, Mapping):
+            continue
+        if "raw_capture_inbox" not in (row.get("categories") or []):
+            continue
+        item_id = str(row.get("id") or "").strip()
+        if item_id:
+            raw_ids.add(item_id)
+    return raw_ids
+
+
+def _capture_inbox_card(item: Mapping[str, Any]) -> Dict[str, Any]:
+    card = {
+        field: item.get(field)
+        for field in CAPTURE_INBOX_CARD_FIELDS
+        if item.get(field) not in (None, "", [], {})
+    }
+    card["item_shape"] = "capture_inbox_card_v0"
+    return card
+
+
 def _build_capture_inbox_view(
     captures: List[Mapping[str, Any]],
     capture_triage: Mapping[str, Any],
@@ -4060,12 +6623,17 @@ def _build_capture_inbox_view(
     category_counts = capture_triage.get("category_counts") or _capture_triage_category_counts(rows)
     raw_capture_count = int(category_counts.get("raw_capture_inbox", 0) or 0)
     closed_count = int(status_counts.get("closed_or_signed_off", 0) or 0)
+    raw_capture_ids = _capture_inbox_raw_capture_ids(capture_triage)
+    items = [
+        dict(item) if str(item.get("id") or "").strip() in raw_capture_ids else _capture_inbox_card(item)
+        for item in captures
+    ]
     return {
         "kind": "task_ledger_view",
         "schema_version": "task_ledger_view_v1",
         "view_id": "capture_inbox",
         "generated_at": generated_at,
-        "items": list(captures),
+        "items": items,
         "count": len(captures),
         "count_semantics": "total_capture_log_including_closed_shaped_and_raw_rows",
         "projection_semantics": {
@@ -4078,6 +6646,21 @@ def _build_capture_inbox_view(
         "raw_capture_inbox_count": raw_capture_count,
         "active_raw_capture_count": raw_capture_count,
         "closed_or_signed_off_count": closed_count,
+        "items_compaction": {
+            "profile": "raw_capture_full_else_card_v0",
+            "full_item_count": sum(
+                1 for item in captures if str(item.get("id") or "").strip() in raw_capture_ids
+            ),
+            "card_item_count": sum(
+                1 for item in captures if str(item.get("id") or "").strip() not in raw_capture_ids
+            ),
+            "full_item_rule": "rows categorized as raw_capture_inbox stay full for active triage",
+            "card_item_shape": "capture_inbox_card_v0",
+            "card_fields": list(CAPTURE_INBOX_CARD_FIELDS),
+            "card_omitted_fields": list(CAPTURE_INBOX_CARD_OMITTED_FIELDS),
+            "authority_for_full_rows": str(LEDGER_REL),
+            "triage_source": "state/task_ledger/views/capture_triage.json",
+        },
     }
 
 
@@ -4152,12 +6735,23 @@ def _annotate_capture_triage_menu_membership(
     }
 
 
-def _build_promotion_candidates_view(capture_triage: Mapping[str, Any], generated_at: str) -> Dict[str, Any]:
+def _build_promotion_candidates_view(
+    capture_triage: Mapping[str, Any],
+    generated_at: str,
+    *,
+    execution_menu: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
+    execution_menu_ids = {
+        str(row.get("id") or "").strip()
+        for row in (execution_menu or {}).get("items", [])
+        if isinstance(row, Mapping)
+    }
     rows = [
         dict(row)
         for row in capture_triage.get("items", [])
         if isinstance(row, Mapping)
         and str(row.get("triage_status") or "") in {"shaped_ready", "shaped_needs_completion_contract"}
+        and str(row.get("id") or "").strip() not in execution_menu_ids
     ]
     rows.sort(key=_execution_priority)
     candidates: List[Dict[str, Any]] = []
@@ -4297,8 +6891,8 @@ def _build_execution_menu_view(work_items: Sequence[Mapping[str, Any]], generate
         item
         for item in work_items
         if _has_execution_commitment_event(item)
-        and str(item.get("state") or item.get("status") or "") not in CLOSED_WORK_ITEM_STATES | {"blocked", "signoff"}
-        and not item.get("sign_off_id")
+        and not _is_closed_or_signed_off(item)
+        and _item_state(item) not in {"blocked", "signoff"}
     ]
     rows.sort(key=_rank_key)
     menu = [_committed_menu_row(item, menu_rank=index) for index, item in enumerate(rows[:EXECUTION_MENU_LIMIT], start=1)]
@@ -4357,6 +6951,9 @@ def _dependency_is_satisfied(
         return True, "signoff_recorded"
     if state == "retired":
         return False, "retired_requires_dependency_resolution"
+    receipt_state = _latest_execution_receipt_state(dependency)
+    if _is_terminal_execution_receipt_state(receipt_state):
+        return True, f"execution_receipt:{receipt_state}"
     return False, f"state:{state or 'unknown'}"
 
 
@@ -4812,13 +7409,26 @@ CAP_CENSUS_SCHEMA = "cap_census_v0"
 CAP_CENSUS_SOURCE_REFS = [
     str(LEDGER_REL),
     str(SIGNOFFS_REL),
+    str(VIEWS_REL / "active_wip.json"),
+    str(VIEWS_REL / "bridge_assignable.json"),
+    str(VIEWS_REL / "capture_inbox.json"),
     str(VIEWS_REL / "dependency_graph.json"),
+    str(VIEWS_REL / "dependency_blocked.json"),
     str(VIEWS_REL / "execution_menu.json"),
     str(VIEWS_REL / "execution_menu_schedulable.json"),
     str(VIEWS_REL / "mission_operating_picture.json"),
+    str(VIEWS_REL / "provider_assignable.json"),
+    str(VIEWS_REL / "ready_by_rank.json"),
     str(VIEWS_REL / "signoffs.json"),
     str(VIEWS_REL / "unlocks_by_rank.json"),
 ]
+CAP_CENSUS_STALE_WARNING_DAYS = 7
+CAP_CENSUS_ACTIONABLE_LIFECYCLE_STATES = {
+    "assigned",
+    "claimable",
+    "dependency_gated",
+    "visible",
+}
 CAP_CARTOGRAPHY_VIEW_ID = "cap_cartography"
 CAP_CARTOGRAPHY_SCHEMA = "cap_cartography_v0"
 CAP_CARTOGRAPHY_SOURCE_REFS = list(
@@ -4836,6 +7446,23 @@ CAP_CARTOGRAPHY_SUPPORT_NODE_LIMIT = 256
 CAP_CARTOGRAPHY_EDGE_LIMIT = 512
 CAP_CARTOGRAPHY_OMITTED_EDGE_SAMPLE_LIMIT = 12
 CAP_CARTOGRAPHY_UNCLASSIFIED_SAMPLE_LIMIT = 10
+CAP_EXECUTION_MARKET_VIEW_ID = "cap_execution_market"
+CAP_EXECUTION_MARKET_SCHEMA = "cap_execution_market_v1"
+CAP_EXECUTION_MARKET_QUEUES = (
+    "must_reenter_now",
+    "claimable_next",
+    "dependency_gated",
+    "historical_or_superseded",
+)
+CAP_EXECUTION_MARKET_SOURCE_REFS = list(
+    dict.fromkeys(
+        [
+            str(VIEWS_REL / "cap_census.json"),
+            str(VIEWS_REL / "cap_cartography.json"),
+            *CAP_CENSUS_SOURCE_REFS,
+        ]
+    )
+)
 
 WORKITEM_CARTOGRAPHY_VIEW_ID = "workitem_cartography"
 WORKITEM_CARTOGRAPHY_SCHEMA = "workitem_cartography_v1"
@@ -5595,13 +8222,13 @@ def _cap_census_namespace_kind(item: Mapping[str, Any]) -> str | None:
 
 
 def _cap_census_nested_nonempty(value: Any, names: set[str]) -> bool:
-    if isinstance(value, Mapping):
+    if isinstance(value, dict):
         for key, nested in value.items():
             if key in names and bool(nested):
                 return True
             if _cap_census_nested_nonempty(nested, names):
                 return True
-    elif isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+    elif isinstance(value, list):
         return any(_cap_census_nested_nonempty(nested, names) for nested in value)
     return False
 
@@ -5640,19 +8267,20 @@ def _cap_census_done_or_signoff(item: Mapping[str, Any], signoff_work_item_ids: 
     return (
         _item_state(item) in {"done", "signoff", "completed", "propagated"}
         or bool(item.get("sign_off_id"))
+        or _has_terminal_execution_receipt(item)
         or _cap_census_item_id(item) in signoff_work_item_ids
     )
 
 
 def _cap_census_collect_work_item_ids(value: Any, known_ids: set[str]) -> set[str]:
     found: set[str] = set()
-    if isinstance(value, Mapping):
+    if isinstance(value, dict):
         for key, nested in value.items():
             if key in {"id", "work_item_id", "subject_id", "source", "target"} and isinstance(nested, str) and nested in known_ids:
                 found.add(nested)
             else:
                 found.update(_cap_census_collect_work_item_ids(nested, known_ids))
-    elif isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+    elif isinstance(value, list):
         for nested in value:
             found.update(_cap_census_collect_work_item_ids(nested, known_ids))
     return found
@@ -5666,8 +8294,8 @@ def _cap_census_view_memberships(
     memberships: Dict[str, set[str]] = {}
     for view_id, payload in views.items():
         source_rows = payload.get("items")
-        if not isinstance(source_rows, Sequence) or isinstance(source_rows, (str, bytes)):
-            source_rows = payload.get("rows") if isinstance(payload.get("rows"), Sequence) else []
+        if not isinstance(source_rows, list):
+            source_rows = payload.get("rows") if isinstance(payload.get("rows"), list) else []
         memberships[view_id] = _cap_census_collect_work_item_ids(source_rows, known_ids)
     return memberships
 
@@ -5727,6 +8355,109 @@ def _cap_census_temporal_role(
     return "future_open"
 
 
+def _cap_census_parse_datetime(value: Any) -> datetime | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if text.endswith("Z"):
+        text = f"{text[:-1]}+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _cap_census_dependency_refs(item: Mapping[str, Any]) -> List[str]:
+    refs = set(_coerce_id_list(item.get("depends_on")))
+    dependency_status = item.get("dependency_status")
+    if isinstance(dependency_status, Mapping):
+        refs.update(_coerce_id_list(dependency_status.get("blocked_dependency_ids")))
+        refs.update(_coerce_id_list(dependency_status.get("unsatisfied_dependency_ids")))
+        for edge in dependency_status.get("upstream_dependency_edges") or []:
+            if isinstance(edge, Mapping):
+                dep_id = str(edge.get("dependency_id") or edge.get("id") or "").strip()
+                if dep_id:
+                    refs.add(dep_id)
+    return sorted(refs)
+
+
+def _cap_census_owner_lane(item: Mapping[str, Any]) -> str:
+    for key in ("owner_lane", "owner", "assignee", "actor", "created_by", "last_actor"):
+        value = str(item.get(key) or "").strip()
+        if value:
+            return value
+    execution = item.get("execution") if isinstance(item.get("execution"), Mapping) else {}
+    for key in ("owner_lane", "owner", "provider"):
+        value = str(execution.get(key) or "").strip()
+        if value:
+            return value
+    return "task_ledger"
+
+
+def _cap_census_blocker_class(item: Mapping[str, Any]) -> str:
+    text = _cap_census_text(item)
+    if re.search(r"projection|generated|sidecar|refresh|drift|stale", text):
+        return "projection_refresh"
+    if re.search(r"closeout|commit|landing|landable|publication|push|finalizer", text):
+        return "closeout_or_landing"
+    if re.search(r"claim|owner|session|thread|concurrent|sibling|work ledger", text):
+        return "claim_or_owner_coordination"
+    if re.search(r"validation|test|ci|failure|red|gate", text):
+        return "validation"
+    if re.search(r"route|cli|discoverability|hud|trace", text):
+        return "route_or_visibility"
+    return "general_cap"
+
+
+def _cap_census_actionable_lifecycle(
+    item: Mapping[str, Any],
+    *,
+    temporal_role: str,
+    done_or_signoff: bool,
+    view_memberships: Mapping[str, set[str]],
+) -> tuple[str, List[str]]:
+    item_id = _cap_census_item_id(item)
+    state = _item_state(item)
+    if state == "retired":
+        return "retired", ["state:retired"]
+    if state == "superseded" or item.get("superseded_by"):
+        return "superseded", ["state_or_field:superseded"]
+    if done_or_signoff:
+        return "retired", ["terminal_evidence:done_or_signoff"]
+
+    if state == "blocked" or item_id in view_memberships.get("dependency_blocked", set()):
+        return "dependency_gated", ["state_or_view:blocked_or_dependency_blocked"]
+    if temporal_role == "active_conversion":
+        return "assigned", ["temporal_role:active_conversion"]
+
+    claimable_views = {
+        "ready_by_rank",
+        "execution_menu",
+        "execution_menu_schedulable",
+        "bridge_assignable",
+        "provider_assignable",
+        "unlocks_by_rank",
+    }
+    if any(item_id in view_memberships.get(view_id, set()) for view_id in claimable_views):
+        return "claimable", ["view_membership:claimable_execution_queue"]
+    if state in {"ready", "accepted", "shaped"}:
+        return "claimable", [f"state:{state}"]
+    if state == "captured" or item_id in view_memberships.get("capture_inbox", set()):
+        return "visible", ["state_or_view:captured_or_capture_inbox"]
+    return "visible", ["default_visible_cap"]
+
+
+def _cap_census_age_days(item: Mapping[str, Any], generated_at: str) -> int | None:
+    observed = _cap_census_parse_datetime(generated_at)
+    started = _cap_census_parse_datetime(item.get("updated_at") or item.get("last_event_at") or item.get("created_at"))
+    if observed is None or started is None:
+        return None
+    return max(0, int((observed - started).total_seconds() // 86400))
+
+
 def _build_cap_census_view(
     *,
     work_items: Sequence[Mapping[str, Any]],
@@ -5753,6 +8484,8 @@ def _build_cap_census_view(
     temporal_counts: Counter[str] = Counter()
     semantic_counts: Counter[str] = Counter()
     view_membership_counts: Counter[str] = Counter()
+    lifecycle_counts: Counter[str] = Counter()
+    blocker_class_counts: Counter[str] = Counter()
 
     cap_prefixed_count = 0
     typed_cap_count = 0
@@ -5767,6 +8500,9 @@ def _build_cap_census_view(
     integration_contract_count = 0
     integration_grounded_count = 0
     unclassified_count = 0
+    actionable_lifecycle_count = 0
+    stale_actionable_count = 0
+    missing_reentry_count = 0
 
     for item in sorted(work_items, key=lambda row: str(row.get("id") or "")):
         item_id = _cap_census_item_id(item)
@@ -5807,6 +8543,26 @@ def _build_cap_census_view(
         has_integration_contract = _cap_census_has_integration_contract(item)
         has_grounded_integration = _cap_census_has_grounded_integration(item)
         done_or_signoff = _cap_census_done_or_signoff(item, signoff_work_item_ids)
+        actionable_lifecycle_state, lifecycle_basis = _cap_census_actionable_lifecycle(
+            item,
+            temporal_role=temporal_role,
+            done_or_signoff=done_or_signoff,
+            view_memberships=view_memberships,
+        )
+        dependency_refs = _cap_census_dependency_refs(item)
+        blocker_class = _cap_census_blocker_class(item)
+        owner_lane = _cap_census_owner_lane(item)
+        reentry_route = (
+            "./repo-python kernel.py --option-surface task_ledger --band card --ids "
+            f"{item_id}"
+        )
+        retirement_evidence_required = actionable_lifecycle_state in CAP_CENSUS_ACTIONABLE_LIFECYCLE_STATES
+        stale_age_days = _cap_census_age_days(item, generated_at)
+        stale_age_warning = bool(
+            retirement_evidence_required
+            and stale_age_days is not None
+            and stale_age_days >= CAP_CENSUS_STALE_WARNING_DAYS
+        )
 
         done_or_signoff_count += int(done_or_signoff)
         captured_count += int(state == "captured")
@@ -5817,6 +8573,11 @@ def _build_cap_census_view(
         proof_backed_count += int(has_proof_refs)
         integration_contract_count += int(has_integration_contract)
         integration_grounded_count += int(has_grounded_integration)
+        lifecycle_counts[actionable_lifecycle_state] += 1
+        blocker_class_counts[blocker_class] += 1
+        actionable_lifecycle_count += int(actionable_lifecycle_state in CAP_CENSUS_ACTIONABLE_LIFECYCLE_STATES)
+        stale_actionable_count += int(stale_age_warning)
+        missing_reentry_count += int(not reentry_route)
 
         confidence = "missing_source" if semantic_role == "unknown" else "projection_inferred"
         if semantic_role != "unknown" and temporal_role in {"past_proven", "past_retired", "blocked_future"}:
@@ -5840,6 +8601,17 @@ def _build_cap_census_view(
                 "has_proof_refs": has_proof_refs,
                 "has_integration_contract": has_integration_contract,
                 "has_grounded_integration_surfaces": has_grounded_integration,
+                "actionable_lifecycle_state": actionable_lifecycle_state,
+                "lifecycle_basis": lifecycle_basis,
+                "owner_lane": owner_lane,
+                "dependency_refs": dependency_refs,
+                "dependency_ref_count": len(dependency_refs),
+                "reentry_route": reentry_route,
+                "blocker_class": blocker_class,
+                "retirement_evidence_required": retirement_evidence_required,
+                "stale_age_days": stale_age_days,
+                "stale_age_warning": stale_age_warning,
+                "trace_hud_visible": actionable_lifecycle_state in CAP_CENSUS_ACTIONABLE_LIFECYCLE_STATES,
                 "classification_basis": basis,
                 "confidence": confidence,
             }
@@ -5888,6 +8660,9 @@ def _build_cap_census_view(
             "integration_contract_count": integration_contract_count,
             "integration_grounded_count": integration_grounded_count,
             "unclassified_count": unclassified_count,
+            "actionable_lifecycle_count": actionable_lifecycle_count,
+            "stale_actionable_count": stale_actionable_count,
+            "missing_reentry_count": missing_reentry_count,
         },
         "namespace_kind_counts": dict(namespace_kind_counts.most_common()),
         "type_counts": dict(type_counts.most_common()),
@@ -5896,6 +8671,8 @@ def _build_cap_census_view(
         "view_membership_counts": dict(view_membership_counts.most_common()),
         "temporal_role_counts": dict(temporal_counts.most_common()),
         "semantic_role_counts": dict(semantic_counts.most_common()),
+        "actionable_lifecycle_counts": dict(lifecycle_counts.most_common()),
+        "blocker_class_counts": dict(blocker_class_counts.most_common()),
         "classification_basis": {
             "cap_universe_primary": "id starts with cap_ plus strictly cap-like non-prefixed rows from work_item_type, candidate_work_item_type, or tags",
             "typed_cap": "work_item_type == cap",
@@ -5903,6 +8680,10 @@ def _build_cap_census_view(
             "umbrella_linked": "satisfaction_contract imagined-state/umbrella/north-star/teleology refs",
             "integration_grounded": "projection_completeness.exact_surfaces_grounded",
             "semantic_roles": "deterministic field-token projection; not source authority unless confidence is source_evidenced",
+            "actionable_lifecycle_state": (
+                "deterministic scheduling projection over state, dependency views, active/ready views, "
+                "and terminal evidence; Task Ledger events remain authority"
+            ),
         },
         "rows": rows,
         "items": rows,
@@ -5957,6 +8738,12 @@ def _cap_cartography_cluster_specs(row: Mapping[str, Any]) -> List[Dict[str, Any
             "value": row.get("state") or "unknown",
             "source_evidence": "cap_census.rows[].state",
             "confidence": "source_evidenced",
+        },
+        {
+            "cluster_kind": "actionable_lifecycle_state",
+            "value": row.get("actionable_lifecycle_state") or "unknown",
+            "source_evidence": "cap_census.rows[].actionable_lifecycle_state",
+            "confidence": "projection_inferred",
         },
         {
             "cluster_kind": "proof_readiness",
@@ -6128,6 +8915,12 @@ def _cap_cartography_node(
                 "cap_namespace_kind": row.get("cap_namespace_kind"),
                 "semantic_role": row.get("semantic_role"),
                 "temporal_role": row.get("temporal_role"),
+                "actionable_lifecycle_state": row.get("actionable_lifecycle_state"),
+                "blocker_class": row.get("blocker_class"),
+                "owner_lane": row.get("owner_lane"),
+                "dependency_ref_count": row.get("dependency_ref_count"),
+                "retirement_evidence_required": bool(row.get("retirement_evidence_required")),
+                "stale_age_warning": bool(row.get("stale_age_warning")),
                 "proof_backed": bool(row.get("has_proof_refs")),
                 "integration_grounded": bool(row.get("has_grounded_integration_surfaces")),
                 "umbrella_linked": bool(row.get("has_umbrella_refs")),
@@ -6145,7 +8938,8 @@ def _cap_cartography_node(
                 f"{item_id}"
             ),
             "views": list(row.get("views") or []),
-            "frontend_actionable": False,
+            "frontend_actionable": bool(row.get("trace_hud_visible")),
+            "reentry_route": row.get("reentry_route"),
         },
     }
 
@@ -7423,6 +10217,246 @@ def _build_cap_cartography_view(
         "warnings": warnings,
         "items": clusters,
         "count": cluster_count,
+    }
+
+
+def _cap_market_text(row: Mapping[str, Any], item: Mapping[str, Any]) -> str:
+    parts = [
+        row.get("id"),
+        row.get("title"),
+        row.get("state"),
+        row.get("owner_lane"),
+        row.get("blocker_class"),
+        item.get("title"),
+        item.get("statement"),
+        item.get("body"),
+        item.get("description"),
+        item.get("status"),
+        item.get("superseded_by"),
+        item.get("resolution_note"),
+    ]
+    for field in ("tags", "labels", "evidence_refs", "receipt_refs", "depends_on"):
+        value = item.get(field)
+        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+            parts.extend(str(part) for part in value)
+        elif value:
+            parts.append(value)
+    return " ".join(str(part or "") for part in parts).lower()
+
+
+def _cap_market_failure_family(text: str) -> str:
+    families = [
+        (
+            "bankruptcy_related",
+            ("bankruptcy", "rescue-ref", "rescue ref", "dirty tree", "checkpoint", "publication", "ahead", "behind"),
+        ),
+        (
+            "resource_plane_related",
+            ("dev server", "vite", "playwright", "browser", "daemon", "resource lease", "host pressure", "cache", "watcher"),
+        ),
+        (
+            "projection_settlement_related",
+            ("projection settlement", "generated view", "generated_state_drainer", "projection queue", "settlement group"),
+        ),
+        (
+            "claim_semantics_related",
+            ("claim", "collision", "scope", "ownership", "path lease", "hard mutation", "same-path"),
+        ),
+        (
+            "session_message_related",
+            ("session message", "yield", "handoff", "signal", "workflow message", "heartbeat"),
+        ),
+        (
+            "host_pressure_related",
+            ("host pressure", "swap", "cpu", "memory pressure", "load shed", "throttle"),
+        ),
+    ]
+    for family, needles in families:
+        if any(needle in text for needle in needles):
+            return family
+    return "other_cap_family"
+
+
+def _cap_market_current_compatibility(
+    row: Mapping[str, Any],
+    item: Mapping[str, Any],
+    text: str,
+) -> str:
+    lifecycle = str(row.get("actionable_lifecycle_state") or "")
+    state = str(row.get("state") or "")
+    if lifecycle in {"retired", "superseded"} or state in {"done", "closed", "retired", "superseded"}:
+        return "old_system_historical_signal"
+    if item.get("superseded_by") or "0fefa7d1b" in text or "18b135e33" in text:
+        return "superseded_by_landed_kernel"
+    if not row.get("reentry_route"):
+        return "dead_capture_no_reentry"
+    if not bool(row.get("has_integration_contract")) and not bool(row.get("has_grounded_integration_surfaces")):
+        return "needs_migration_to_current_schema"
+    return "still_live_current_system"
+
+
+def _cap_market_queue(
+    *,
+    lifecycle: str,
+    failure_family: str,
+    compatibility: str,
+) -> str:
+    if lifecycle in {"retired", "superseded"} or compatibility in {
+        "old_system_historical_signal",
+        "superseded_by_landed_kernel",
+    }:
+        return "historical_or_superseded"
+    if lifecycle == "dependency_gated":
+        return "dependency_gated"
+    if failure_family in {
+        "bankruptcy_related",
+        "resource_plane_related",
+        "projection_settlement_related",
+        "claim_semantics_related",
+        "session_message_related",
+        "host_pressure_related",
+    }:
+        return "must_reenter_now"
+    return "claimable_next"
+
+
+def _build_cap_execution_market_view(
+    *,
+    work_items: Sequence[Mapping[str, Any]],
+    signoffs: Sequence[Mapping[str, Any]],
+    cap_census: Mapping[str, Any],
+    cap_cartography: Mapping[str, Any],
+    generated_at: str,
+) -> Dict[str, Any]:
+    cap_rows = [row for row in cap_census.get("rows") or [] if isinstance(row, Mapping)]
+    work_items_by_id = {_cap_census_item_id(item): item for item in work_items if _cap_census_item_id(item)}
+    signed_off_ids = {
+        str(signoff.get("work_item_id") or "").strip()
+        for signoff in signoffs
+        if str(signoff.get("work_item_id") or "").strip()
+    }
+    queue_rows: Dict[str, List[Dict[str, Any]]] = {queue: [] for queue in CAP_EXECUTION_MARKET_QUEUES}
+    failure_counts: Counter[str] = Counter()
+    compatibility_counts: Counter[str] = Counter()
+    queue_counts: Counter[str] = Counter()
+    heatmap_counts: Counter[tuple[str, str, str]] = Counter()
+    items: List[Dict[str, Any]] = []
+
+    for row in sorted(cap_rows, key=lambda candidate: str(candidate.get("id") or "")):
+        cap_id = str(row.get("id") or "").strip()
+        if not cap_id:
+            continue
+        item = work_items_by_id.get(cap_id, {})
+        text = _cap_market_text(row, item)
+        lifecycle = str(row.get("actionable_lifecycle_state") or "visible")
+        failure_family = _cap_market_failure_family(text)
+        compatibility = _cap_market_current_compatibility(row, item, text)
+        if cap_id in signed_off_ids and compatibility == "still_live_current_system":
+            compatibility = "old_system_historical_signal"
+        queue_id = _cap_market_queue(
+            lifecycle=lifecycle,
+            failure_family=failure_family,
+            compatibility=compatibility,
+        )
+        stale_age_days = row.get("stale_age_days") if isinstance(row.get("stale_age_days"), int) else None
+        dependency_state = "gated" if lifecycle == "dependency_gated" or int(row.get("dependency_ref_count") or 0) else "clear"
+        market_row = {
+            "cap_id": cap_id,
+            "id": cap_id,
+            "title": row.get("title"),
+            "queue_id": queue_id,
+            "lifecycle_state": lifecycle,
+            "state": row.get("state"),
+            "owner_lane": row.get("owner_lane"),
+            "dependency_state": dependency_state,
+            "dependency_refs": list(row.get("dependency_refs") or []),
+            "stale_age_days": stale_age_days,
+            "blocker_class": row.get("blocker_class"),
+            "failure_family": failure_family,
+            "current_system_compatibility": compatibility,
+            "current_value": "high" if queue_id == "must_reenter_now" else "medium" if queue_id == "claimable_next" else "reference",
+            "risk_if_ignored": (
+                "live_concurrency_or_settlement_pressure_stays_unrouted"
+                if queue_id == "must_reenter_now"
+                else "older_capture_continues_to_occupy_attention_without_execution"
+            ),
+            "estimated_effort": "small_to_medium_projection_or_control_patch",
+            "reentry_command": row.get("reentry_route"),
+            "retirement_condition": "land evidence refs, set lifecycle retired/superseded, or attach proof-backed signoff",
+            "next_claimable_surface": (
+                "./repo-python kernel.py --option-surface task_ledger --band card --ids "
+                f"{cap_id}"
+            ),
+            "superseded_by": item.get("superseded_by"),
+            "trace_hud_visible": queue_id in {"must_reenter_now", "claimable_next", "dependency_gated"},
+            "source_refs": _cap_cartography_source_refs(item),
+            "projection_basis": {
+                "cap_census_fields": [
+                    "actionable_lifecycle_state",
+                    "owner_lane",
+                    "dependency_refs",
+                    "blocker_class",
+                    "stale_age_days",
+                ],
+                "cap_cartography_summary_seen": bool(cap_cartography.get("summary")),
+            },
+        }
+        items.append(market_row)
+        queue_rows.setdefault(queue_id, []).append(market_row)
+        failure_counts[failure_family] += 1
+        compatibility_counts[compatibility] += 1
+        queue_counts[queue_id] += 1
+        heatmap_counts[(failure_family, compatibility, queue_id)] += 1
+
+    heatmap = [
+        {
+            "failure_family": family,
+            "current_system_compatibility": compatibility,
+            "queue_id": queue_id,
+            "count": count,
+        }
+        for (family, compatibility, queue_id), count in sorted(
+            heatmap_counts.items(),
+            key=lambda item: (-item[1], item[0][0], item[0][1], item[0][2]),
+        )
+    ]
+    queues = {
+        queue_id: {
+            "queue_id": queue_id,
+            "count": len(rows),
+            "cap_ids": [str(row.get("cap_id") or "") for row in rows],
+            "items": rows,
+        }
+        for queue_id, rows in queue_rows.items()
+    }
+    return {
+        "kind": "task_ledger_view",
+        "schema_version": CAP_EXECUTION_MARKET_SCHEMA,
+        "view_id": CAP_EXECUTION_MARKET_VIEW_ID,
+        "generated_at": generated_at,
+        "authority": {
+            "source": str(EVENTS_REL),
+            "projection_inputs": list(CAP_EXECUTION_MARKET_SOURCE_REFS),
+            "mutation_rule": "read-only CAP execution market; append Task Ledger events to change source facts",
+            "classification_policy": "queues and failure families are deterministic projections over cap_census/cap_cartography fields",
+        },
+        "source_refs": list(CAP_EXECUTION_MARKET_SOURCE_REFS),
+        "summary": {
+            "cap_count": len(items),
+            "must_reenter_now_count": queue_counts.get("must_reenter_now", 0),
+            "claimable_next_count": queue_counts.get("claimable_next", 0),
+            "dependency_gated_count": queue_counts.get("dependency_gated", 0),
+            "historical_or_superseded_count": queue_counts.get("historical_or_superseded", 0),
+            "failure_family_count": len(failure_counts),
+            "compatibility_class_count": len(compatibility_counts),
+        },
+        "queue_counts": dict(queue_counts.most_common()),
+        "failure_family_counts": dict(failure_counts.most_common()),
+        "current_system_compatibility_counts": dict(compatibility_counts.most_common()),
+        "heatmap": heatmap,
+        "queues": queues,
+        "items": items,
+        "count": len(items),
     }
 
 
@@ -8981,11 +12015,23 @@ def build_views(
             )
         return payload
 
-    captures = [item for item in work_items if str(item.get("work_item_type") or "") == "capture"]
-    ready = [item for item in work_items if str(item.get("state") or item.get("status")) in {"ready", "accepted"}]
-    active = [item for item in work_items if str(item.get("state") or item.get("status")) in {"claimed", "active"}]
-    blocked = [item for item in work_items if str(item.get("state") or item.get("status")) == "blocked"]
     action_relevant_items = [item for item in work_items if not _is_closed_or_signed_off(item)]
+    captures = [item for item in work_items if str(item.get("work_item_type") or "") == "capture"]
+    ready = [
+        item
+        for item in action_relevant_items
+        if str(item.get("state") or item.get("status")) in {"ready", "accepted"}
+    ]
+    active = [
+        item
+        for item in action_relevant_items
+        if str(item.get("state") or item.get("status")) in {"claimed", "active"}
+    ]
+    blocked = [
+        item
+        for item in action_relevant_items
+        if str(item.get("state") or item.get("status")) == "blocked"
+    ]
     operator_needed = [
         item
         for item in action_relevant_items
@@ -9042,7 +12088,7 @@ def build_views(
     ]
     work_ledger_unlinked = [
         item
-        for item in work_items
+        for item in action_relevant_items
         if str(item.get("state") or item.get("status")) in {"claimed", "active", "review", "signoff"}
         and not (item.get("projection_completeness") or {}).get("has_work_ledger_claim_ref")
     ]
@@ -9064,9 +12110,13 @@ def build_views(
     ]
     recent_events = sorted(events, key=lambda row: (str(row.get("created_at") or ""), str(row.get("event_id") or "")), reverse=True)[:50]
     propagation_needed = _build_propagation_needed_view(work_items, signoffs, generated_at)
-    capture_triage = _build_capture_triage_view(captures, generated_at)
-    promotion_candidates = _build_promotion_candidates_view(capture_triage, generated_at)
     execution_menu = _build_execution_menu_view(work_items, generated_at)
+    capture_triage = _build_capture_triage_view(captures, generated_at)
+    promotion_candidates = _build_promotion_candidates_view(
+        capture_triage,
+        generated_at,
+        execution_menu=execution_menu,
+    )
     dependency_views = _build_dependency_views(work_items, execution_menu, generated_at)
     capture_triage = _annotate_capture_triage_menu_membership(capture_triage, execution_menu, promotion_candidates)
     active_wip = view("active_wip", sorted(active, key=_rank_key))
@@ -9147,6 +12197,13 @@ def build_views(
         cap_census=views["cap_census"],
         mission_operating_picture=mission_operating_picture,
         dependency_views=dependency_views,
+        generated_at=generated_at,
+    )
+    views["cap_execution_market"] = _build_cap_execution_market_view(
+        work_items=work_items,
+        signoffs=signoffs,
+        cap_census=views["cap_census"],
+        cap_cartography=views["cap_cartography"],
         generated_at=generated_at,
     )
     queue_visible_ids, queue_membership_stats = _compute_queue_membership_crosswalk(repo_root)
@@ -10059,7 +13116,7 @@ def _family_target_dependency_status(
             continue
 
         state = _item_state(item)
-        if state in CLOSED_WORK_ITEM_STATES or item.get("sign_off_id"):
+        if _is_closed_or_signed_off(item):
             closed_ids.append(target_id)
             continue
 
@@ -11262,7 +14319,7 @@ def _propagation_needed_rows(
         propagation = item.get("propagation") if isinstance(item.get("propagation"), Mapping) else {}
         if propagation:
             continue
-        if state not in CLOSED_WORK_ITEM_STATES and not item.get("sign_off_id"):
+        if not _is_closed_or_signed_off(item):
             continue
         if signoff:
             if signoff.get("lessons_propagated") or signoff.get("propagation_targets"):
@@ -11572,11 +14629,8 @@ def _adapter_classification_basis(
 
 def _adapter_captured_source_refs(repo_root: Path) -> set[str]:
     refs: set[str] = set()
-    events_path = repo_root / EVENTS_REL
-    if not events_path.exists():
-        return refs
     try:
-        events = read_jsonl(events_path)
+        events = read_authority_events(repo_root)
     except Exception:
         return refs
     for event in events:
@@ -11715,7 +14769,7 @@ def _scan_adapter_leaks(
                     "disposition": disposition,
                     "classification_basis": classification_basis,
                     "excerpt": _compact_excerpt(haystack),
-                    "recommended_capture_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title '<title>' --statement '<statement>' --source-ref '<transcript_ref>' --tag adapter_leak --rebuild"
+                    "recommended_capture_command": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --title '<title>' --statement '<statement>' --source-ref '<transcript_ref>' --tag adapter_leak --created-by <agent_id>"
                     if disposition == "possible_leak"
                     else None,
                 }
@@ -11815,9 +14869,30 @@ def build_organizer_report(
         if detail_profile == "full"
         else ORGANIZER_REPORT_COMPACT_CALIBRATION_SAMPLES
     )
-    authority = authority_health(repo_root)
-    events = load_and_validate_events(repo_root)
-    projection = build_projection(events)
+    projection_read_model = (
+        _load_current_projection_read_model(repo_root)
+        if detail_profile == "compact"
+        else None
+    )
+    if projection_read_model:
+        projection = projection_read_model["projection"]
+        authority = {
+            "schema": "task_ledger_projection_read_model_health_v0",
+            "status": "clean",
+            "mode": "projection_read_model",
+            "ok": True,
+            "full_authority_scan": False,
+            "projection_stale_possible": projection_read_model["read_model"].get(
+                "projection_stale_possible"
+            ),
+            "full_authority_check_command": (
+                "./repo-python tools/meta/factory/task_ledger_apply.py authority-health"
+            ),
+        }
+        events: List[Dict[str, Any]] = []
+    else:
+        authority = authority_health(repo_root)
+        events, projection = _load_validate_events_and_projection(repo_root)
     views = projection["views"]
     ledger = projection["ledger"]
     work_items = list(ledger.get("work_items") or [])
@@ -11900,6 +14975,16 @@ def build_organizer_report(
         },
         "generated_at": utc_now(),
         "authority_health": authority,
+        "projection_read_model": (
+            projection_read_model["read_model"]
+            if projection_read_model
+            else {
+                "schema": "task_ledger_projection_read_model_v0",
+                "mode": "full_authority_rebuild",
+                "full_authority_scan": True,
+                "projection_stale_possible": False,
+            }
+        ),
         "authority": {
             "source": str(EVENTS_REL),
             "mutation_rule": "read-only report; append Task Ledger events for changes",
@@ -12092,6 +15177,9 @@ def _rebuild_projections_unlocked(
     if check:
         current_ledger = _safe_read_json(repo_root / LEDGER_REL)
         generated_at = str(current_ledger.get("generated_at") or "").strip() or None
+        current_projection_event_count = _optional_int(current_ledger.get("event_count"))
+    else:
+        current_projection_event_count = None
     _emit_progress(
         progress_callback,
         "build_projection_start",
@@ -12104,6 +15192,7 @@ def _rebuild_projections_unlocked(
         mission_blackboard=_safe_read_json(repo_root / MISSION_BLACKBOARD_REL),
         repo_root=repo_root,
     )
+    _validate_projection_state(projection)
     targets = {
         LEDGER_REL: projection["ledger"],
         SIGNOFFS_REL: projection["sign_offs"],
@@ -12137,11 +15226,15 @@ def _rebuild_projections_unlocked(
             ok=not mismatches,
             mismatch_count=len(mismatches),
         )
-        return _projection_check_payload(mismatches)
+        return _projection_check_payload(
+            mismatches,
+            projection_event_count=current_projection_event_count,
+            authority_event_count=len(events),
+        )
     headroom = task_ledger_disk_write_headroom(
         repo_root,
         operation="task_ledger_projection_rebuild",
-        rel_paths=list(targets),
+        rel_paths=[*list(targets), PROJECTION_MANIFEST_REL],
     )
     if not bool(headroom.get("ok")):
         _emit_disk_headroom_blocked(progress_callback, headroom)
@@ -12152,7 +15245,13 @@ def _rebuild_projections_unlocked(
         projection_path_count=len(targets),
     )
     for rel_path, payload in targets.items():
-        atomic_write_json(repo_root / rel_path, payload)
+        atomic_write_json(repo_root / rel_path, payload, compact=True)
+    manifest = _write_projection_manifest(
+        repo_root,
+        targets,
+        authority_event_count=len(events),
+        authority_tail_hash=_tail_hash(events),
+    )
     _emit_progress(
         progress_callback,
         "projection_write_done",
@@ -12168,6 +15267,10 @@ def _rebuild_projections_unlocked(
             "tasks": len(projection["ledger"].get("tasks") or []),
             "captures": projection["views"]["capture_inbox"]["count"],
             "sign_offs": len(projection["sign_offs"].get("sign_offs") or []),
+        },
+        "projection_manifest": {
+            "path": str(PROJECTION_MANIFEST_REL),
+            "target_count": manifest.get("target_count"),
         },
     }
 
@@ -12223,8 +15326,8 @@ def rebuild_projections(
         return result
 
 
-def load_and_validate_events(repo_root: Path) -> List[Dict[str, Any]]:
-    events = read_jsonl(event_log_path(repo_root))
+def _load_validate_event_rows(repo_root: Path) -> List[Dict[str, Any]]:
+    events = read_authority_events(repo_root)
     seen: set[str] = set()
     previous: str | None = None
     normalized_rows: List[Dict[str, Any]] = []
@@ -12248,9 +15351,67 @@ def load_and_validate_events(repo_root: Path) -> List[Dict[str, Any]]:
             raise TaskLedgerError(f"event {event_id} has invalid event_hash")
         previous = str(normalized.get("event_hash") or "")
         normalized_rows.append(normalized)
+    return normalized_rows
+
+
+def _load_validate_events_and_projection(
+    repo_root: Path,
+) -> tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    normalized_rows = _load_validate_event_rows(repo_root)
     projection = build_projection(normalized_rows)
     _validate_projection_state(projection)
-    return normalized_rows
+    return normalized_rows, projection
+
+
+def _load_current_projection_read_model(repo_root: Path) -> Dict[str, Any] | None:
+    ledger_path = repo_root / LEDGER_REL
+    signoffs_path = repo_root / SIGNOFFS_REL
+    views_root = repo_root / VIEWS_REL
+    if not ledger_path.exists() or not signoffs_path.exists() or not views_root.exists():
+        return None
+    try:
+        ledger = _safe_read_json(ledger_path)
+        sign_offs = _safe_read_json(signoffs_path)
+        views = {
+            path.stem: _safe_read_json(path)
+            for path in sorted(views_root.glob("*.json"))
+            if path.is_file()
+        }
+    except Exception:
+        return None
+    try:
+        event_mtime_ns = _authority_mtime_ns(repo_root)
+        projection_mtime_ns = max(
+            [ledger_path.stat().st_mtime_ns, signoffs_path.stat().st_mtime_ns]
+            + [path.stat().st_mtime_ns for path in views_root.glob("*.json") if path.is_file()]
+        )
+    except OSError:
+        event_mtime_ns = 0
+        projection_mtime_ns = 0
+    stale_possible = bool(event_mtime_ns and projection_mtime_ns and event_mtime_ns > projection_mtime_ns)
+    return {
+        "projection": {
+            "ledger": ledger,
+            "sign_offs": sign_offs,
+            "views": views,
+        },
+        "read_model": {
+            "schema": "task_ledger_projection_read_model_v0",
+            "mode": "disk_projection_read_model",
+            "full_authority_scan": False,
+            "projection_stale_possible": stale_possible,
+            "event_log_mtime_ns": int(event_mtime_ns),
+            "projection_max_mtime_ns": int(projection_mtime_ns),
+            "ledger_path": str(LEDGER_REL),
+            "signoffs_path": str(SIGNOFFS_REL),
+            "view_count": len(views),
+            "fallback_full_authority_condition": "missing_or_unreadable_projection_files",
+        },
+    }
+
+
+def load_and_validate_events(repo_root: Path) -> List[Dict[str, Any]]:
+    return _load_validate_event_rows(repo_root)
 
 
 def _surface_exists_now(repo_root: Path, entry: Mapping[str, Any]) -> bool:
@@ -12392,10 +15553,9 @@ def _validate_dependency_cycles(work_items: Mapping[str, Mapping[str, Any]]) -> 
 def validate_event_log(repo_root: Path) -> Dict[str, Any]:
     health = authority_health(repo_root)
     strict_json = validate_strict_json_surfaces(repo_root)
-    events = load_and_validate_events(repo_root)
-    strict_json["jsonl_paths"] = [str(EVENTS_REL)]
+    events, projection = _load_validate_events_and_projection(repo_root)
+    strict_json["jsonl_paths"] = [str(path) for path in _authority_jsonl_rel_paths(repo_root)]
     strict_json["jsonl_event_count"] = len(events)
-    projection = build_projection(events)
     evidence_durability = _event_log_evidence_durability(repo_root, events)
     evidence_status = str(evidence_durability.get("status") or "clean")
     validation_status = "valid_with_warnings" if evidence_status == "warning" else (
@@ -12421,7 +15581,7 @@ def validate_event_log(repo_root: Path) -> Dict[str, Any]:
 
 
 def bootstrap_legacy_events(repo_root: Path, *, created_by: str = "codex") -> Dict[str, Any]:
-    existing = read_jsonl(event_log_path(repo_root))
+    existing = read_authority_events(repo_root)
     bootstrapped_subjects = {
         str(event.get("subject_id") or "")
         for event in existing

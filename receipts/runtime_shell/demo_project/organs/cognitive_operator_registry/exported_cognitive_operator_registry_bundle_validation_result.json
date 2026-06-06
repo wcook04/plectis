@@ -21,14 +21,14 @@
     "cogop_operator_accretion_governor",
     "cogop_pressure_to_action_reducer"
   ],
-  "created_at": "2026-05-30T21:37:00+00:00",
+  "created_at": "2026-06-01T09:10:12+00:00",
   "dogfood_receipt_count": 3,
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.cognitive_operator_registry",
   "freshness_basis": {
-    "basis_digest": "sha256:80b485b4c27a618191f2a3e776fcc70389165461e1b03004a08877c0a4164c02",
+    "basis_digest": "sha256:2f42e7830dae085e9f2dabd73262917e9d35cdf0f5baa5f617ea0dda64f706a3",
     "card_schema_version": "cognitive_operator_registry_command_card_v1",
     "include_negative": false,
     "input_count": 9,
@@ -55,18 +55,18 @@
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_module_manifest.json",
-        "sha256": "145a57a3782c1f06b9f4e60b8078f01389e00e1af3a5aebb0b0f4cbf040c5833",
+        "sha256": "c0e8a00854ad5075b16ed86a7d744ddabc20db229843a6e48dfbd7bd17df89fb",
         "size_bytes": 7162
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
-        "sha256": "e174c3f23e5fb81100d8a450b2bffec3a4d29ef7e0e321f087785f16abf6388d",
-        "size_bytes": 112393
+        "sha256": "30e045062cfc93325e3221f18d7e24560b85aa42e5e835a7f3c7b2031e8e8f9a",
+        "size_bytes": 118369
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/standards/std_cognitive_operator.json",
-        "sha256": "6fdbb9461ee60e8c15fbc6d466716b960d3d8e466ddfbe9373cde5b8d0e0817b",
-        "size_bytes": 12624
+        "sha256": "3a6742aba364dc67c7f6fbc14e80a022846f2c028249af8254e8f50b0325bc85",
+        "size_bytes": 13023
       },
       {
         "path": "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/system/lib/cognitive_operator_registry.py",
@@ -75,8 +75,8 @@
       },
       {
         "path": "src/microcosm_core/organs/cognitive_operator_registry.py",
-        "sha256": "e80d3363f7a0a73d894c41a01c99b9e31fe1793e9e9f6076f805b27d13a69644",
-        "size_bytes": 51537
+        "sha256": "da929c8c433c76867a0c6f80d2e2edb541acf0de4a37b9c06fa81cf6828e551a",
+        "size_bytes": 51675
       }
     ],
     "missing_inputs": [],

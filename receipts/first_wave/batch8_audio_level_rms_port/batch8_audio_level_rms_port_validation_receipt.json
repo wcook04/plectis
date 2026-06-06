@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 8 audio-level RMS port validates the pure normalizedLevel math from AudioLevelMonitor.swift over public synthetic sample arrays. It is not a macOS audio-session witness, not microphone permission authority, not device capture, not UI readiness, not repository mutation authority, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch8_audio_level_rms_port",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch8_audio_level_rms_port_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_audio_level_rms_port"
+}

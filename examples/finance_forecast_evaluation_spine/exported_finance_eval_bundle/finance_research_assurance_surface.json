@@ -97,7 +97,8 @@
   "module_coverage": {
     "coverage_policy": "no_silent_omissions",
     "deferred_modules_require_contract": true,
-    "imported_public_body_count": 9,
+    "deferred_public_safe_statistical_count": 2,
+    "imported_public_body_count": 13,
     "macro_finance_module_count": 19,
     "operational_receipt_only_count": 2,
     "silent_omission_count": 0,

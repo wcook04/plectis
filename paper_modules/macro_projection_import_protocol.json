@@ -1,0 +1,425 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
+    "card": "Macro Projection Import Protocol is the public import membrane for source-backed Microcosm growth. It validates fixture and exported projection bundles by checking source refs, public target refs, content digests, source-to-target relations, per-slice source-module manifests, validation refs, omitted-material receipts, body-free receipt policy, secret-exclusion scans, projection cell statuses, and negative cases while keeping true private bodies, provider payloads, release material, and static count claims out of public authority.",
+    "one_line": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.macro_projection_import_protocol",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.macro_projection_import_protocol",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/macro_projection_import_protocol.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.macro_projection_import_protocol.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/macro_projection_import_protocol.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/macro_projection_import_protocol.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-4"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for public-safe macro projection import validation, intake previews, exported bundle validation, per-slice source-module refresh, and body-free receipts.",
+          "symbols": [
+            "run",
+            "run_projection_bundle",
+            "preview_import_plan",
+            "validate_projection_protocol",
+            "validate_import_plan",
+            "refresh_exact_copy_source_modules",
+            "main"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Verified public-safe macro body imports, fixture receipts, exported projection-bundle receipts, per-slice manifest refs, and body-free receipt fields only; no live macro source authority, private-root equivalence, release, publication, hosted deployment, recipient work, provider or Lean/Lake execution, secret/private body export, source mutation, or whole-system correctness.",
+        "card": "Macro Projection Import Protocol is the public import membrane for source-backed Microcosm growth. It validates fixture and exported projection bundles by checking source refs, public target refs, content digests, source-to-target relations, per-slice source-module manifests, validation refs, omitted-material receipts, body-free receipt policy, secret-exclusion scans, projection cell statuses, and negative cases while keeping true private bodies, provider payloads, release material, and static count claims out of public authority.",
+        "one_line": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "depends_on": [
+        "paper_module.agent_route_observability_runtime",
+        "paper_module.navigation_hologram_route_plane",
+        "paper_module.pattern_binding_contract",
+        "paper_module.formal_math_readiness_gate",
+        "paper_module.mission_transaction_work_spine",
+        "paper_module.batch11_saturation_engines_capsule",
+        "paper_module.batch8_compliance_pipeline_capsule"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.macro_projection_import_protocol",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/macro_projection_import_protocol.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.macro_projection_import_protocol.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.macro_projection_import_protocol",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/macro_projection_import_protocol.md",
+      "principle_refs": [
+        "P-14",
+        "P-15",
+        "P-5"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol]",
+      "strangler_note": "This capsule binds the authored Markdown projection, first-wave projection-import fixture, exported projection-import bundle, per-slice source-module manifest contract, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated atlas docs, copied-body presence, intake status counts, or digest refs as source authority, release authority, private-root equivalence, or static count claims.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "macro_projection_import_protocol"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
+        }
+      ],
+      "title": "Macro Projection Import Protocol"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, first-wave projection-import fixture, exported projection-import bundle, per-slice source-module manifest contract, mechanism row, Microcosm organ source locus, and source atlas row without treating Markdown, generated atlas docs, copied-body presence, intake status counts, or digest refs as source authority, release authority, private-root equivalence, or static count claims.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-4"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for public-safe macro projection import validation, intake previews, exported bundle validation, per-slice source-module refresh, and body-free receipts.",
+        "symbols": [
+          "run",
+          "run_projection_bundle",
+          "preview_import_plan",
+          "validate_projection_protocol",
+          "validate_import_plan",
+          "refresh_exact_copy_source_modules",
+          "main"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [
+      "paper_module.agent_route_observability_runtime",
+      "paper_module.navigation_hologram_route_plane",
+      "paper_module.pattern_binding_contract",
+      "paper_module.formal_math_readiness_gate",
+      "paper_module.mission_transaction_work_spine",
+      "paper_module.batch11_saturation_engines_capsule",
+      "paper_module.batch8_compliance_pipeline_capsule"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "macro_projection_import_protocol",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-14",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.agent_route_observability_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.navigation_hologram_route_plane",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.pattern_binding_contract",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.formal_math_readiness_gate",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.mission_transaction_work_spine",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.batch11_saturation_engines_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.batch8_compliance_pipeline_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for public-safe macro projection import validation, intake previews, exported bundle validation, per-slice source-module refresh, and body-free receipts."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/macro_projection_import_protocol.md",
+    "principle_refs": [
+      "P-14",
+      "P-15",
+      "P-5"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "macro_projection_import_protocol"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
+      }
+    ],
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[19:paper_module.macro_projection_import_protocol]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/macro_projection_import_protocol.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/macro_projection_import_protocol.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "The public macro-projection import protocol validates classified macro-to-Microcosm projection cells, per-slice source-module manifests, digest relations, omission receipts, intake statuses, and authority ceilings without claiming source or release authority.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "macro_projection_import_protocol"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports"
+    }
+  ],
+  "title": "Macro Projection Import Protocol",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

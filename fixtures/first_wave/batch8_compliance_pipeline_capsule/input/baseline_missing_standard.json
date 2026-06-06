@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "baseline_missing_standard",
+  "error_codes": [
+    "BATCH8_BASELINE_STANDARD_FILE_REQUIRED"
+  ],
+  "schema_version": "batch8_compliance_pipeline_negative_case_v1"
+}

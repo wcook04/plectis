@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "sidecars": {
+      "polymarket_market_identity_snapshot": {
+        "rows": [
+          {
+            "end_date_iso": "2026-12-31",
+            "event_id": "evt-fixture-1",
+            "event_slug": "fixture-event",
+            "event_title": "Fixture event",
+            "lifecycle": {
+              "state": "open"
+            },
+            "liquidity": 8000.0,
+            "market_id": "mkt-fixture-1",
+            "market_question": "Will the fixture event happen?",
+            "market_slug": "known-event-market"
+          }
+        ]
+      }
+    }
+  },
+  "schema_version": "batch12_polymarket_identity_artifact_v1"
+}

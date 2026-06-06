@@ -1,8 +1,8 @@
 {
-  "schema_version": "std_microcosm_ring2_premise_retrieval_precision_recall_harness_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
   "kind_id": "microcosm_runtime_organ",
-  "status": "accepted",
+  "status": "active",
   "authority_boundary": {
     "owner": "ring2_premise_retrieval_precision_recall_harness",
     "allowed_claim": "Copied non-secret Ring-2 premise-retrieval run rankings can be scored against after-the-fact labels to report precision, recall, adversarial misses, and retrieval-versus-proof failure attribution.",
@@ -132,7 +132,22 @@
       "adversarial decoy/miss case is absent from the evaluation policy",
       "retrieval hit is conflated with proof success instead of reporting proof_failure_despite_hit"
     ],
-    "rebuild_action": "run ring2_premise_retrieval_precision_recall_harness on fixture and exported bundle, then refresh macro projection import accounting and workingness"
+    "rebuild_action": "run ring2_premise_retrieval_precision_recall_harness on fixture and exported bundle, then refresh macro projection import accounting and workingness",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted",
+      "previous_source_schema_version": "std_microcosm_ring2_premise_retrieval_precision_recall_harness_v1",
+      "previous_source_status": "accepted",
+      "validator_refs": [
+        "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.ring2_premise_retrieval_precision_recall_harness"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "source_digests": {
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
@@ -161,6 +176,58 @@
     "source_manifest_refs": [
       "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
       "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json"
+    ]
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.author",
+      "status": "planned",
+      "purpose": "create a valid Ring-2 premise retrieval precision/recall harness instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Ring-2 premise retrieval precision/recall harness without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_runtime_organ.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_ring2_premise_retrieval_precision_recall_harness and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.ring2_premise_retrieval_precision_recall_harness"
+  ],
+  "anti_claims": [
+    "This standard governs copied non-secret Ring-2 premise-retrieval run metrics only; it does not expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+    "registry_status": "accepted",
+    "source_status_before_v2_uplift": "accepted",
+    "source_schema_before_v2_uplift": "std_microcosm_ring2_premise_retrieval_precision_recall_harness_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness",
+    "receipt_id": "receipt.microcosm.ring2_premise_retrieval_precision_recall_harness",
+    "validator_refs": [
+      "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.ring2_premise_retrieval_precision_recall_harness"
     ]
   }
 }

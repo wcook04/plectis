@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 12 release claim-language gate validation executes the copied macro lexical gate over public-safe markdown fixtures. It is not release approval, publication authority, semantic NLP truth, complete secret detection, portability proof, or whole-system correctness.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch12_release_claim_language_gate",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch12_release_claim_language_gate_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch12_release_claim_language_gate"
+}

@@ -9,6 +9,7 @@ from typing import Any
 from microcosm_core.organs.formal_evidence_cell_anchor_resolver import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    SOURCE_REFS,
     _line_count,
     _sha256_file,
     main,
@@ -25,6 +26,56 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle"
 )
+
+
+def _ref_path(ref: str) -> str:
+    return ref.split("::", 1)[0]
+
+
+def _copy_public_ref(public_root: Path, ref: str) -> None:
+    repo_root = MICROCOSM_ROOT.parent
+    path_ref = _ref_path(ref)
+    if path_ref.startswith("microcosm-substrate/"):
+        source = repo_root / path_ref
+        target = public_root / path_ref.removeprefix("microcosm-substrate/")
+    elif (MICROCOSM_ROOT / path_ref).is_file():
+        source = MICROCOSM_ROOT / path_ref
+        target = public_root / path_ref
+    else:
+        source = repo_root / path_ref
+        target = public_root.parent / path_ref
+    if not source.is_file():
+        return
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, target)
+
+
+def _materialize_public_anchor_refs(public_root: Path, input_dir: Path) -> None:
+    projection = json.loads((input_dir / "projection_protocol.json").read_text())
+    registry = json.loads((input_dir / "evidence_cell_registry.json").read_text())
+    refs = [
+        *projection.get("real_ring2_anchor_refs", []),
+        *projection.get("projection_receipt_refs", []),
+        *projection.get("public_runtime_refs", []),
+    ]
+    for cell in registry.get("evidence_cells", []):
+        refs.extend(cell.get("source_anchor_refs", []))
+    for ref in refs:
+        _copy_public_ref(public_root, ref)
+
+
+def _copy_exported_bundle(public_root: Path) -> Path:
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/formal_evidence_cell_anchor_resolver/"
+        "exported_evidence_cell_anchor_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    _materialize_public_anchor_refs(public_root, bundle)
+    for ref in SOURCE_REFS:
+        _copy_public_ref(public_root, ref)
+    return bundle
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -149,6 +200,10 @@ def test_formal_evidence_cell_anchor_receipts_are_public_relative_with_secret_ex
         MICROCOSM_ROOT / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
         public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
     )
+    _materialize_public_anchor_refs(
+        public_root,
+        public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
+    )
 
     result = run(
         public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input",
@@ -185,6 +240,99 @@ def test_formal_evidence_cell_anchor_receipts_are_public_relative_with_secret_ex
         assert "private_source_ref" not in _walk_keys(payload)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
+
+
+def test_formal_evidence_cell_anchor_resolver_recomputes_public_anchor_refs(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
+        public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
+    )
+    input_dir = (
+        public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input"
+    )
+    _materialize_public_anchor_refs(public_root, input_dir)
+
+    good = run(
+        input_dir,
+        public_root / "receipts/good/formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert good["status"] == "pass"
+    assert good["anchor_resolution_status"] == "pass"
+    assert good["resolved_anchor_ref_count"] >= 10
+    assert all(row["body_in_receipt"] is False for row in good["anchor_resolution_rows"])
+    assert all(
+        cell["anchor_resolution_status"] == "pass" for cell in good["evidence_cells"]
+    )
+
+    board = (
+        public_root
+        / "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+        "verifier_trace_repair_board.json"
+    )
+    board.write_text(
+        board.read_text(encoding="utf-8").replace(
+            "failure_mode_ledger",
+            "removed_marker_for_test",
+        ),
+        encoding="utf-8",
+    )
+    mutated = run(
+        input_dir,
+        public_root / "receipts/mutated/formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert mutated["status"] == "blocked"
+    assert "EVIDENCE_CELL_SOURCE_ANCHOR_MARKER_MISSING" in mutated["error_codes"]
+    assert any(
+        row["ref"].endswith("verifier_trace_repair_board.json::failure_mode_ledger")
+        and row["status"] == "blocked"
+        for row in mutated["anchor_resolution_rows"]
+    )
+    for receipt_ref in mutated["receipt_paths"]:
+        text = (public_root / receipt_ref).read_text(encoding="utf-8")
+        assert "removed_marker_for_test" not in text
+        assert '"body":' not in text
+        assert "matched_excerpt" not in text
+
+
+def test_formal_evidence_cell_anchor_resolver_rejects_missing_public_anchor_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
+        public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver",
+    )
+    input_dir = (
+        public_root / "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input"
+    )
+    _materialize_public_anchor_refs(public_root, input_dir)
+    (
+        public_root / "receipts/runtime_shell/public_formal_evidence_cell_lens.json"
+    ).unlink()
+
+    result = run(
+        input_dir,
+        public_root / "receipts/missing/formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "EVIDENCE_CELL_SOURCE_ANCHOR_REF_MISSING" in result["error_codes"]
+    assert any(
+        row["ref"] == "receipts/runtime_shell/public_formal_evidence_cell_lens.json"
+        and row["status"] == "blocked"
+        for row in result["anchor_resolution_rows"]
+    )
+    assert result["body_in_receipt"] is False
 
 
 def test_formal_evidence_cell_anchor_exported_bundle_validates_runtime_shape(
@@ -229,6 +377,151 @@ def test_formal_evidence_cell_anchor_exported_bundle_validates_runtime_shape(
         for ref in result["projection_receipt_refs"]
     )
     assert result["authority_ceiling"]["theorem_correctness_authority"] is False
+
+
+def test_formal_evidence_cell_anchor_bundle_rejects_theorem_correctness_overclaim(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = _copy_exported_bundle(public_root)
+    claims_path = bundle / "paper_claims.json"
+    claims = json.loads(claims_path.read_text(encoding="utf-8"))
+    claims["claims"][0]["claims_theorem_correctness"] = True
+    claims_path.write_text(
+        json.dumps(claims, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_anchor_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "EVIDENCE_CELL_THEOREM_CORRECTNESS_OVERCLAIM" in result["error_codes"]
+    assert result["source_modules_pass"] is True
+    assert result["body_in_receipt"] is False
+
+
+def test_formal_evidence_cell_anchor_bundle_rejects_textual_theorem_correctness_overclaim(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = _copy_exported_bundle(public_root)
+    claims_path = bundle / "paper_claims.json"
+    claims = json.loads(claims_path.read_text(encoding="utf-8"))
+    claims["claims"][0]["claim_text"] = (
+        "This evidence cell proves theorem correctness for the declaration."
+    )
+    claims_path.write_text(
+        json.dumps(claims, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_anchor_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "EVIDENCE_CELL_THEOREM_CORRECTNESS_OVERCLAIM" in result["error_codes"]
+    assert result["source_modules_pass"] is True
+    assert result["body_in_receipt"] is False
+
+
+def test_formal_evidence_cell_anchor_bundle_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = _copy_exported_bundle(public_root)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    corrupted_module = manifest["modules"][0]
+    corrupted_module_id = corrupted_module["module_id"]
+    corrupted_module["sha256"] = "0" * 64
+    corrupted_module["target_sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_anchor_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "EVIDENCE_CELL_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["source_modules_pass"] is False
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 5
+    assert result["source_open_body_imports"]["body_material_count"] == 5
+    source_module = next(
+        row for row in result["source_modules"] if row["module_id"] == corrupted_module_id
+    )
+    assert source_module["digest_matches"] is False
+    assert source_module["body_in_receipt"] is False
+    assert result["source_module_secret_exclusion_scan"]["blocking_hit_count"] == 0
+
+
+def test_formal_evidence_cell_anchor_bundle_rejects_rehashed_source_body_swap(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = _copy_exported_bundle(public_root)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    swapped_module = manifest["modules"][0]
+    swapped_module_id = swapped_module["module_id"]
+    target = bundle / swapped_module["path"]
+    target.write_text(
+        target.read_text(encoding="utf-8")
+        + "\n# rehashed copied body swap must not become source authority\n",
+        encoding="utf-8",
+    )
+    swapped_digest = _sha256_file(target)
+    swapped_module["sha256"] = swapped_digest
+    swapped_module["target_sha256"] = swapped_digest
+    swapped_module["source_sha256"] = swapped_digest
+    swapped_module["line_count"] = _line_count(target)
+    swapped_module["byte_count"] = target.stat().st_size
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_anchor_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "formal_evidence_cell_anchor_resolver",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert (
+        "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_AUTHORITY_DIGEST_MISMATCH"
+        in result["error_codes"]
+    )
+    assert result["source_modules_pass"] is False
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 5
+    source_module = next(
+        row for row in result["source_modules"] if row["module_id"] == swapped_module_id
+    )
+    assert source_module["digest_matches"] is True
+    assert source_module["source_authority_digest_matches"] is False
+    assert source_module["body_in_receipt"] is False
+    assert result["source_module_secret_exclusion_scan"]["blocking_hit_count"] == 0
 
 
 def test_formal_evidence_cell_anchor_bundle_card_is_compact(

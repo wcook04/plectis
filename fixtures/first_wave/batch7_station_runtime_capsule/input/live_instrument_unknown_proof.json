@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "live_instrument_unknown_proof",
+  "error_codes": [
+    "BATCH7_STATION_UNKNOWN_PROOF_NOT_COLLAPSED"
+  ],
+  "negative_contract": "Unknown proof status or scope must stay in the missingness taxonomy instead of collapsing into pass.",
+  "schema_version": "batch7_station_runtime_negative_case_v1"
+}

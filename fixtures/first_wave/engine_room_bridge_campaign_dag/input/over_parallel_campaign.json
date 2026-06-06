@@ -1,0 +1,32 @@
+{
+  "barrier": {
+    "description": "provider ceiling should reject this before dispatch",
+    "group_label": "engine_room_synthesis"
+  },
+  "campaign_id": "engine-room-over-parallel",
+  "case_id": "provider_ceiling_rejected",
+  "continuation": {
+    "next_action": "this must not dispatch",
+    "packet_schema": "v1_receipts_navigational"
+  },
+  "expected_ok": false,
+  "intent": "reject over-parallel bridge campaign",
+  "kind": "bridge_campaign",
+  "nodes": [
+    {
+      "label": "probe_a",
+      "role": "probe"
+    },
+    {
+      "depends_on": [
+        "probe_a"
+      ],
+      "label": "engine_room_synthesis",
+      "role": "synthesis"
+    }
+  ],
+  "plan_path": "tools/meta/apply/observe_plans/engine_room_public_probe.json",
+  "provider": "chatgpt",
+  "schema_version": "1.0",
+  "workers": 99
+}

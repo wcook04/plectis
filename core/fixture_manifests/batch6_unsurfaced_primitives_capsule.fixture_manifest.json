@@ -1,0 +1,95 @@
+{
+  "anti_claim": "This Batch-6 fixture accepts exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not export raw operator transcripts, prompt-shelf private logs, provider/browser state, live market data, credentials, media assets, publication authority, release approval, or source mutation authority.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch6_public_substrate_capsule_not_live_runtime_authority",
+    "launch_authorized": false,
+    "live_market_data_fetch_authorized": false,
+    "live_operator_transcript_export_authorized": false,
+    "live_provider_browser_state_export_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "runtime_execution": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch6_unsurfaced_primitives_capsule run --input fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input --out receipts/first_wave/batch6_unsurfaced_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json",
+  "example_bundle": "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle",
+  "expected_error_codes": [
+    "BATCH6_KEYPHRASE_STOPWORD_ONLY_EMPTY",
+    "BATCH6_SCHEMA_LOOSE_ROLE_CONFLATION_REJECTED",
+    "BATCH6_HANDOFF_UNRELATED_BELOW_FLOOR",
+    "BATCH6_OBSERVED_TURN_RERENDER_NOT_DUPLICATED",
+    "BATCH6_MARKET_SITUATION_COUNTEREVIDENCE_REQUIRED",
+    "BATCH6_FINANCE_UNIT_SCALE_MISMATCH_BLOCKED",
+    "BATCH6_STATUS_POLICY_FAILS_CLOSED",
+    "BATCH6_CONCURRENCY_PARENT_CHILD_CONFLICT",
+    "BATCH6_MARKET_CLOCK_DUPLICATE_FIRE_SUPPRESSED",
+    "BATCH6_PROVIDER_TIMEOUT_SCOPE_NARROW",
+    "BATCH6_DEMO_TAKE_PAUSE_REMAP_CORRECTED"
+  ],
+  "fixture_id": "first_wave.batch6_unsurfaced_primitives_capsule",
+  "input_refs": [
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/batch6_probe_manifest.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/stopword_only_keyphrase_empty.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/schema_loose_voice_conflation.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/handoff_unrelated_below_floor.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/observed_turn_duplicate_rerender.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/market_situation_missing_counterevidence.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/finance_unit_scale_mismatch.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/status_policy_poisoned.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/concurrency_parent_child_conflict.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/market_clock_duplicate_fire_suppressed.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/provider_timeout_scope_narrow.json",
+    "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input/demo_take_pause_remap.json"
+  ],
+  "input_root": "fixtures/first_wave/batch6_unsurfaced_primitives_capsule/input",
+  "kind_id": "batch6_unsurfaced_primitives_capsule",
+  "mechanism_count": 11,
+  "negative_cases": [
+    "stopword_only_keyphrase_empty",
+    "schema_loose_voice_conflation",
+    "handoff_unrelated_below_floor",
+    "observed_turn_duplicate_rerender",
+    "market_situation_missing_counterevidence",
+    "finance_unit_scale_mismatch",
+    "status_policy_poisoned",
+    "concurrency_parent_child_conflict",
+    "market_clock_duplicate_fire_suppressed",
+    "provider_timeout_scope_narrow",
+    "demo_take_pause_remap"
+  ],
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "purpose": "Validate Batch-6 unsurfaced macro primitives as exact copied non-secret source bodies plus public source-executing exercises across text, provenance, market, finance, governance, concurrency, scheduling, provider recovery, and demo temporal remapping.",
+  "receipt_refs": [
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_result.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_board.json",
+    "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch6_unsurfaced_primitives_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_count": 26,
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 26,
+    "body_material_status": "copied_non_secret_batch6_macro_bodies_and_public_dependencies_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_dependency_body",
+      "public_macro_support_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_modules/ inside the exported bundle for copied source evidence; receipts carry refs, hashes, anchors, counts, and verdicts only.",
+    "schema_version": "batch6_unsurfaced_primitives_capsule_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "validator_id": "validator.microcosm.organs.batch6_unsurfaced_primitives_capsule"
+}

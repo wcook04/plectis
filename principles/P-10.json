@@ -1,0 +1,244 @@
+{
+  "anti_claims": [
+    "This active principle JSON record does not flip source authority away from PRINCIPLES.md.",
+    "Grounding to an axiom obligation is not proof that the principle is obligation-supported.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.",
+    "Absent governs edges are residual pressure, not evidence that no governed concepts or mechanisms exist."
+  ],
+  "authority_boundary": "public_principle_json_instance_synchronized_from_legacy_markdown_receipt_bound_not_source_authority_flip",
+  "axiom_refs": [
+    "AX-9"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "governs": [
+    "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+    "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+    "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+  ],
+  "id": "P-10",
+  "kind": "principle",
+  "obligation_refs": [
+    "AX-9.O1.effect_boundary_declared",
+    "AX-9.O2.cas_parent_enforced",
+    "AX-9.O3.single_writer_claim_constraint"
+  ],
+  "omission_receipt": {
+    "drilldown": "PRINCIPLES.md::P-10",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "concept and mechanism governance targets not named by legacy markdown or organ-atlas rows"
+    ],
+    "reason": "Principle instance preserves public-safe legacy markdown content and typed source-derived governance edges only."
+  },
+  "principle_payload": {
+    "body_markdown": "Writes, release steps, claim release, source imports, and rollback-shaped\noperations need ordered transaction evidence. Release locks after durable\nrecords, recompute after release, and block stale parent or same-path conflicts.",
+    "contract_version": "microcosm_principle_instance_payload_v1",
+    "grounding_axiom_ids": [
+      "AX-9"
+    ],
+    "grounding_obligation_refs": [
+      "AX-9.O1.effect_boundary_declared",
+      "AX-9.O2.cas_parent_enforced",
+      "AX-9.O3.single_writer_claim_constraint"
+    ],
+    "legacy_grounding_text": "AX-9.",
+    "legacy_heading": "P-10 Do not land effects without compensation",
+    "legacy_obligation_grounding_text": "AX-9.O1.effect_boundary_declared, AX-9.O2.cas_parent_enforced, AX-9.O3.single_writer_claim_constraint.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "PRINCIPLES.md"
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "principles/P-10.md",
+      "legacy_markdown_status": "legacy_markdown_source_of_record_with_receipt_bound_json_projection",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "principles/P-10.json"
+    },
+    "substrate_governance_contract": {
+      "claim_ceiling": {
+        "boundary": "Governance reach is navigability and routing pressure, not proof that the principle is obligation-supported or complete.",
+        "computed_by": "validator.microcosm.axiom_support_cover"
+      },
+      "contract_version": "microcosm_principle_substrate_governance_v1",
+      "principle_to_substrate": {
+        "governed_concept_ids": [
+          "concept.work_landing_and_continuity_control_bundle"
+        ],
+        "governed_mechanism_ids": [
+          "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+          "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+          "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+        ],
+        "grounding_axiom_ids": [
+          "AX-9"
+        ],
+        "grounding_obligation_refs": [
+          "AX-9.O1.effect_boundary_declared",
+          "AX-9.O2.cas_parent_enforced",
+          "AX-9.O3.single_writer_claim_constraint"
+        ],
+        "guarding_anti_principle_ids": [
+          "AP-8"
+        ],
+        "projection_edge_relation_ids": [
+          "principle.grounded_by.axiom",
+          "principle.governs.mechanism",
+          "principle.governs.concept",
+          "anti_principle.negates_failure_of.principle"
+        ],
+        "rule": "The principle guides mechanisms and concepts only through source-derived governance edges; it is not a witness and does not raise the support ceiling of its grounding axioms."
+      },
+      "source_authority_ref": "PRINCIPLES.md::P-10",
+      "substrate_to_principle": {
+        "derived_from": [
+          "PRINCIPLES.md grounding text",
+          "PRINCIPLES.md obligation grounding text",
+          "core/organ_atlas.json principle_refs plus mechanism_refs/concept_refs"
+        ],
+        "governance_source_ref_count": 3,
+        "refinement_rule": "Substrate rows may refine which mechanisms or concepts the principle governs when organ-atlas source rows name those ids; support remains inherited from specific grounding axiom obligations.",
+        "residual_relation_count": 0
+      }
+    },
+    "support_contract": {
+      "computed_by": "validator.microcosm.axiom_support_cover",
+      "grounding_obligation_refs": [
+        "AX-9.O1.effect_boundary_declared",
+        "AX-9.O2.cas_parent_enforced",
+        "AX-9.O3.single_writer_claim_constraint"
+      ],
+      "support_status": "computed_in_generated_projection_not_asserted_in_source_instance"
+    }
+  },
+  "receipt_refs": [
+    "receipts/doctrine_records/principles/P-10.receipt.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-9"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "PRINCIPLES.md::P-10.grounding",
+          "summary": "Legacy principle grounding names this axiom; axiom JSON parity corpus resolves the target while support strength remains computed separately."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounds",
+        "target_id": "AX-9",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[75:concurrency_mission_control]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[21:durable_agent_work_landing_replay]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ mechanism ref; the principle governs the mechanism route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.mechanism",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+          "summary": "Organ atlas row names this principle as governing an organ and names the organ concept ref; the principle governs the concept route without turning the generated projection into source evidence."
+        },
+        "relation_id": "principle.governs.concept",
+        "relation_verb": "governs",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governed_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[8:AX-9]",
+          "summary": "Axiom routing names this anti-principle as a guard for the same axiom that grounds the principle; the reverse edge exposes the failure guard without converting rejection into positive support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "failure_guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "negates_failure_of",
+        "target_id": "AP-8",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "failure_guarded_by_anti_principle_ids": [
+      "AP-8"
+    ],
+    "governs_concept_ids": [
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "governs_mechanism_ids": [
+      "mechanism.concurrency_mission_control.validates_public_concurrency_mission_control",
+      "mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract",
+      "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+    ],
+    "obligation_refs": [
+      "AX-9.O1.effect_boundary_declared",
+      "AX-9.O2.cas_parent_enforced",
+      "AX-9.O3.single_writer_claim_constraint"
+    ],
+    "source_markdown_ref": "PRINCIPLES.md::P-10",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_principle_instance_v1",
+  "source_refs": [
+    {
+      "path": "PRINCIPLES.md::P-10",
+      "role": "legacy_markdown_source_of_record_with_receipt_bound_json_projection"
+    },
+    {
+      "path": "PRINCIPLES.md::P-10.obligation_grounding",
+      "role": "source_owned_principle_to_axiom_obligation_grounding"
+    },
+    {
+      "path": "principles/P-10.json",
+      "role": "governed_json_instance"
+    }
+  ],
+  "statement": "Writes, release steps, claim release, source imports, and rollback-shaped\noperations need ordered transaction evidence. Release locks after durable\nrecords, recompute after release, and block stale parent or same-path conflicts.",
+  "status": "active",
+  "title": "Do not land effects without compensation",
+  "validator_refs": [
+    "validator.microcosm.principle",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

@@ -13,7 +13,15 @@
     "raw_activation_dump_export_authorized": false,
     "release_authorized": false,
     "standard_authority": "public_circuit_attribution_runtime_receipt_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#mechanistic_interpretability_circuit_attribution_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#mechanistic_interpretability_circuit_attribution_replay.claim_ceiling",
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "mechanistic_interpretability_circuit_attribution_replay",
@@ -111,7 +119,7 @@
     "source_open_body_imports",
     "body_copied_material_count"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_open_body_import_floor": {
     "accepted_material_classes": [
       "public_macro_pattern_body",
@@ -165,9 +173,27 @@
       "Oracle attribution-map prompt body or runtime receipt treated as live provider execution, benchmark result, or product transparency authority"
     ],
     "ontology": "A public-safe circuit-attribution replay organ that combines body-free replay rows with exact copied non-secret attribution-map source nodes, explicit causal-intervention refs, and failure-mode boundaries before any interpretability claim is allowed.",
-    "teleology": "Make interpretability evidence falsifiable and source-open without leaking private model internals, provider payloads, prompt bodies, hidden reasoning, or benchmark/product authority."
+    "teleology": "Make interpretability evidence falsifiable and source-open without leaking private model internals, provider payloads, prompt bodies, hidden reasoning, or benchmark/product authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay",
+      "receipt_id": "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require every replay row to cite toy prompt refs, sparse feature ids, machine-readable graph nodes and edges, replacement-model approximation scores, feature visualization summary refs, causal inhibition and injection deltas, sufficiency labels, faithfulness limits, contradiction cases, cold replay refs, and public runtime target refs",
     "reject private model weights, raw activation dumps, proprietary prompts, hidden chain-of-thought, screenshot-only graphs, unverifiable feature names, transparency claims without causal intervention receipts, faithfulness claims without limits, benchmark claims, and release authority",
@@ -186,5 +212,35 @@
       "faithfulness_claim_without_sufficiency_limit"
     ],
     "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay"
-  }
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.mechanistic_interpretability_circuit_attribution_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Mechanistic interpretability circuit attribution replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.mechanistic_interpretability_circuit_attribution_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Mechanistic interpretability circuit attribution replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.mechanistic_interpretability_circuit_attribution_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_mechanistic_interpretability_circuit_attribution_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay",
+    "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
+    "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json"
+  ]
 }

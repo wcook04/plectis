@@ -1,0 +1,30 @@
+{
+  "anti_claim": "Concurrency Mission Control imports the real public macro specimen builder and its provider/task-ledger bridge fixtures, then runs the copied builder against public synthetic lanes to prove fail-closed transaction gating. It is not the private mission-control runtime, not a live scheduler, not provider dispatch, not public release approval, and not production concurrency-safety evidence.",
+  "authority_ceiling": {
+    "authority_ceiling": "concurrency_mission_control_public_fixture_not_live_scheduler",
+    "browser_or_wallet_access": false,
+    "hosted_orchestration_claim": false,
+    "model_dispatch": false,
+    "private_task_ledger_export": false,
+    "private_work_ledger_export": false,
+    "production_concurrency_safety_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 4,
+    "source_module_count": 7
+  },
+  "organ_id": "concurrency_mission_control",
+  "schema_version": "concurrency_mission_control_board_v1",
+  "status": "pass",
+  "title": "Concurrency Mission Control",
+  "verdict": "pass"
+}

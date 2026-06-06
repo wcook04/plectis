@@ -1,0 +1,26 @@
+{
+  "anti_claim": "Batch 12 release claim-language gate validation executes the copied macro lexical gate over public-safe markdown fixtures. It is not release approval, publication authority, semantic NLP truth, complete secret detection, portability proof, or whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch12_release_claim_language_gate_lexical_scan_only",
+    "nlp_semantic_truth": false,
+    "portability_gate_passed": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "secret_scan_passed": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 2,
+    "source_module_count": 1
+  },
+  "organ_id": "batch12_release_claim_language_gate",
+  "schema_version": "batch12_release_claim_language_gate_board_v1",
+  "status": "pass",
+  "title": "Batch 12 release claim-language gate",
+  "verdict": "pass"
+}

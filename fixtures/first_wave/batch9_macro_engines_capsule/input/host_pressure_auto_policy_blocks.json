@@ -1,0 +1,24 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "host_pressure_auto_policy_blocks",
+  "error_codes": [
+    "BATCH9_HOST_PRESSURE_AUTO_POLICY_BLOCKS"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "host_pressure": {
+      "quote": {
+        "recommendation": "queue_until_pressure_clears",
+        "host_pressure_admission": {
+          "status": "available",
+          "should_block_run": true,
+          "decision": "require_operator_override",
+          "admission": {
+            "operator_override_required": true
+          }
+        }
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

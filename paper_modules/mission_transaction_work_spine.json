@@ -1,0 +1,314 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
+    "card": "Mission Transaction Work Spine is the public replay membrane for Microcosm work-landing discipline. It checks fixed WorkItem, claim, dependency, transaction, receipt-drain, closeout, scoped mutation, and checkpoint-lane rows; validates copied Task Ledger, Work Ledger, checkpoint, scoped-commit, and mission-preflight source modules by manifest; and writes body-free receipts with secret-exclusion and authority ceilings.",
+    "one_line": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.mission_transaction_work_spine",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.mission_transaction_work_spine",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/mission_transaction_work_spine.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.mission_transaction_work_spine.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/mission_transaction_work_spine.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/mission_transaction_work_spine.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-9"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for public mission-transaction fixture validation, copied source-module manifest checks, negative-case enforcement, and body-free receipts.",
+          "symbols": [
+            "run",
+            "run_mission_transaction_bundle",
+            "validate_task_ledger_source_import",
+            "validate_work_ledger_source_import",
+            "validate_checkpoint_source_import",
+            "validate_mission_control_source_import",
+            "validate_claim_preflight",
+            "validate_checkpoint_lane_policy",
+            "write_receipts"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Public fixture and exported-bundle receipts only; no live Task Ledger mutation, live Work Ledger mutation, live git mutation, private backup execution, broad checkpoint authorization, release approval, publication approval, or whole-system correctness.",
+        "card": "Mission Transaction Work Spine is the public replay membrane for Microcosm work-landing discipline. It checks fixed WorkItem, claim, dependency, transaction, receipt-drain, closeout, scoped mutation, and checkpoint-lane rows; validates copied Task Ledger, Work Ledger, checkpoint, scoped-commit, and mission-preflight source modules by manifest; and writes body-free receipts with secret-exclusion and authority ceilings.",
+        "one_line": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git."
+      },
+      "concept_refs": [
+        "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.mission_transaction_work_spine",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/mission_transaction_work_spine.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.mission_transaction_work_spine.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.mission_transaction_work_spine",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/mission_transaction_work_spine.md",
+      "principle_refs": [
+        "P-10",
+        "P-16"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine]",
+      "strangler_note": "This capsule binds the authored Markdown projection, first-wave mission-transaction fixture, exported mission-transaction bundle, copied non-secret Task Ledger/Work Ledger/checkpoint/mission-control source-module manifests, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, copied-body presence, or receipt projections as live ledger, git, checkpoint, release, or whole-system authority.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "mission_transaction_work_spine"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+        }
+      ],
+      "title": "Mission Transaction Work Spine"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, first-wave mission-transaction fixture, exported mission-transaction bundle, copied non-secret Task Ledger/Work Ledger/checkpoint/mission-control source-module manifests, mechanism row, and Microcosm organ source locus without treating Markdown, generated atlas docs, copied-body presence, or receipt projections as live ledger, git, checkpoint, release, or whole-system authority.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-9"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for public mission-transaction fixture validation, copied source-module manifest checks, negative-case enforcement, and body-free receipts.",
+        "symbols": [
+          "run",
+          "run_mission_transaction_bundle",
+          "validate_task_ledger_source_import",
+          "validate_work_ledger_source_import",
+          "validate_checkpoint_source_import",
+          "validate_mission_control_source_import",
+          "validate_claim_preflight",
+          "validate_checkpoint_lane_policy",
+          "write_receipts"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mission_transaction_work_spine",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-10",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-16",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-9",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for public mission-transaction fixture validation, copied source-module manifest checks, negative-case enforcement, and body-free receipts."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/mission_transaction_work_spine.md",
+    "principle_refs": [
+      "P-10",
+      "P-16"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "mission_transaction_work_spine"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[20:paper_module.mission_transaction_work_spine]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/mission_transaction_work_spine.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/mission_transaction_work_spine.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "mission_transaction_work_spine"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle"
+    }
+  ],
+  "title": "Mission Transaction Work Spine",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

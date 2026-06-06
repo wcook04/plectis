@@ -1,0 +1,29 @@
+{
+  "anti_claim": "Batch 7 station runtime imports public-safe source bodies for the agent trace workbench host, live agent instrument view model, and station store resilience loop. It is not a hosted UI, not browser or operator-thread authority, not provider access, not release approval, and not proof that all frontend states are covered.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch7_station_runtime_capsule_not_release_or_ui_runtime_authority",
+    "browser_or_wallet_access": false,
+    "model_dispatch": false,
+    "operator_thread_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_truth_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 5,
+    "source_module_count": 5
+  },
+  "organ_id": "batch7_station_runtime_capsule",
+  "schema_version": "batch7_station_runtime_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 7 Station Runtime Capsule",
+  "verdict": "pass"
+}

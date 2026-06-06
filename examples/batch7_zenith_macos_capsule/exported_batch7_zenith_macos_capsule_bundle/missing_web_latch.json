@@ -1,0 +1,14 @@
+{
+  "schema_version": "batch7_zenith_negative_case_v1",
+  "case_id": "missing_web_latch",
+  "body_in_receipt": false,
+  "error_codes": [
+    "BATCH7_ZENITH_WEB_LATCH_REQUIRED"
+  ],
+  "mutant": {
+    "remove_tokens": [
+      "loadedWebViewWindowIDs.contains(windowID)",
+      "webLensLoadLatchSuppressesBootOverlayForLoadedWindow"
+    ]
+  }
+}

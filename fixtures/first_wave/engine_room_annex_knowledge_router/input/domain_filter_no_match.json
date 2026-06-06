@@ -1,0 +1,22 @@
+{
+  "case_id": "domain_filter_no_match",
+  "problem": "forecast error scoring",
+  "domain": "agent-runtime",
+  "expected_status": "no_match",
+  "catalog": {
+    "annexes": [
+      {
+        "slug": "finance-forecast-eval",
+        "display_name": "Finance Forecast Evaluation",
+        "description": "Forecast scoring and market outcome evaluation.",
+        "source_kind": "sanitized_fixture",
+        "routing_summary": {
+          "domains": ["finance"],
+          "clusters": ["forecasting"],
+          "problem_spaces": ["forecast error scoring"],
+          "capabilities": ["forecast evaluation"]
+        }
+      }
+    ]
+  }
+}

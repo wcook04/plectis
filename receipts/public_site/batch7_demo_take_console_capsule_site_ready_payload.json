@@ -1,0 +1,205 @@
+{
+  "schema_version": "microcosm_public_site_ready_payload_v1",
+  "payload_id": "site_ready.batch7_demo_take_console_capsule.20260604T0823Z",
+  "generated_at": "2026-06-04T08:23:20Z",
+  "subject": {
+    "paper_module_id": "paper_module.batch7_demo_take_console_capsule",
+    "mechanism_id": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+    "authority_source_refs": [
+      "microcosm-substrate/core/paper_module_capsules.json::paper_modules[83:paper_module.batch7_demo_take_console_capsule]",
+      "microcosm-substrate/core/mechanism_sources.json::mechanisms[87:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule]",
+      "microcosm-substrate/paper_modules/batch7_demo_take_console_capsule.json",
+      "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json"
+    ],
+    "authority_ceiling": "Mechanism-backed paper-module source availability only; no accepted-organ authority, linked Atlas card authority, app launch authority, screen or microphone capture authority, FFmpeg execution, WhisperKit dispatch, source mutation, publication approval, release approval, complete UI coverage, or whole-system correctness."
+  },
+  "source_population_delta": {
+    "paper_module_legacy_only_count": {
+      "before": 15,
+      "after": 14
+    },
+    "paper_module_required_subject_gap_count": {
+      "before": 15,
+      "after": 14
+    },
+    "paper_module_unpopulated_selective_relation_count": {
+      "before": 117,
+      "after": 114
+    },
+    "mechanism_unpopulated_selective_relation_count": {
+      "before": 38,
+      "after": 39,
+      "reason": "This slice added a real mechanism with no accepted-organ or sibling-upstream edges; the residual is retained rather than invented away."
+    },
+    "mechanism_json_instance_count": 88,
+    "paper_module_json_instance_count": 98
+  },
+  "live_site_write_decision": {
+    "status": "deferred_site_ready_payload_emitted",
+    "reason": "Live site files already carried unrelated working-tree edits; this lane did not claim or overwrite them.",
+    "dirty_live_site_paths_observed": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/style.css",
+      "sites/microcosm/index.html"
+    ],
+    "safe_reentry_condition": "After the live site owner lands or reconciles the existing site edits, run the existing public-site builder from repo root and review only generated projection deltas plus the site-packet/search/object-map delta for this paper module."
+  },
+  "global_lattice_projection_write_decision": {
+    "status": "deferred_handoff_captured",
+    "reason": "The generated coverage and Atlas projection paths are owned by this lane, but the current coverage freshness check depends on non-owned source inputs that changed after this slice was generated.",
+    "non_owned_source_digest_drift_observed": [
+      "microcosm-substrate/core/standards_registry.json",
+      "microcosm-substrate/standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
+    ],
+    "deferred_generated_paths": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/atlas/doctrine_lattice_projection.json",
+      "microcosm-substrate/atlas/doctrine_lattice_graph.mmd",
+      "microcosm-substrate/atlas/doctrine_lattice_health.json",
+      "microcosm-substrate/atlas/doctrine_lattice_entry_card.json"
+    ],
+    "task_ledger_ref": "cap_quick_microcosm_batch7_global_lattice_projecti_50cab13d6ad6 / wie_20260604T084532Z_fa3af339",
+    "safe_reentry_condition": "After the spatial-standard/standards-registry owner lands or reconciles those inputs, rerun microcosm_core.doctrine_lattice --check/--write and land the global coverage plus Atlas projections from fresh source authority."
+  },
+  "site_builder_contract": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "source_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "source_refs_consumed": [
+      "microcosm-substrate/core/paper_module_capsules.json",
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/paper_modules/batch7_demo_take_console_capsule.md",
+      "microcosm-substrate/paper_modules/batch7_demo_take_console_capsule.json",
+      "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json"
+    ],
+    "handoff_commands": [
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ],
+    "surgical_builder_wiring_delta": {
+      "path": "tools/meta/dissemination/build_microcosm_public_site.py",
+      "change": "Unsafe inline code spans in paper-module Markdown now fall back to public vocabulary text after snake_case/path token normalization instead of rendering as blank gaps.",
+      "reason": "The Demo paper-module page contains source ids and paths that are correct source authority but unsafe as public-site verbatim code spans. The builder already scrubbed prose; this patch makes the existing fallback work for snake_case/path-like spans without changing layout, styling, or source authority."
+    }
+  },
+  "temp_builder_receipt": {
+    "temp_site_root": "/tmp/microcosm-demo-site.preseeded.H9AYDv",
+    "site_root_preseed": "rsync -a sites/microcosm/ /tmp/microcosm-demo-site.preseeded.H9AYDv/",
+    "write_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-demo-site.preseeded.H9AYDv --write --validate",
+    "check_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-demo-site.preseeded.H9AYDv --check --validate",
+    "write_status": "written",
+    "check_status": "pass",
+    "drift_count": 0,
+    "validation_status": "pass",
+    "validation_summary": {
+      "html_file_count": 18,
+      "internal_links_checked": 2539,
+      "internal_links_missing": [],
+      "private_scan_hit_count": 0,
+      "banned_visible_term_hits": [],
+      "external_asset_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "missing_security_headers": [],
+      "unsafe_url_hit_count": 0
+    },
+    "generated_outputs_written": [
+      "assets/object-map.js",
+      "assets/search-index.js",
+      "assets/site-packet.js",
+      "content-graph.json",
+      "content-manifest.json",
+      "docs/paper-modules.html",
+      "docs/rules-and-ideas.html",
+      "docs/source.html",
+      "llms.txt",
+      "object-map.json",
+      "projection-status.json"
+    ],
+    "rendering_spot_check": {
+      "paper_module_route": "paper-modules.html#paper-module-batch7-demo-take-console-capsule",
+      "mechanism_route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch7-demo-take-console-capsule-validates-public-demo-take-console-capsule",
+      "blank_source_identifier_gap_present": false,
+      "public_code_fallback_present": true
+    }
+  },
+  "content_graph_delta": {
+    "schema": "microcosm_public_content_graph_v1",
+    "source_fingerprint": "fb7036d154451d797b1f97d522a600ff",
+    "paper_module_count": 84,
+    "paper_module_availability_gap_count": 14,
+    "coverage_deficit_count": 5,
+    "coverage_deficit_total_count": 210,
+    "source_hashes": {
+      "microcosm-substrate/core/paper_module_capsules.json": "sha256:a4b1ff50a09a2d4cc55dfe8b3e3ef82b0ba31050d209a0a3ae4b8e223bfd8e14",
+      "microcosm-substrate/core/mechanism_sources.json": "sha256:3a5d6309308f76be3ad036fc077e6ea95bfb7184539391efcf2350d4dcf5c41a",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:b5ad814bbfd831e7b127f29d2611bf295727410db343eb354455146a723fead1",
+      "microcosm-substrate/paper_modules/batch7_demo_take_console_capsule.md": "sha256:a40c5ef82b39a128d0c1d0b243531b794f8caf4b7fd64b84367c1edc5bdeb188",
+      "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json": "sha256:2c38b9db742bee512ba4596e0270d97f380cbce851c27b7f33a63a889078c04c",
+      "tools/meta/dissemination/build_microcosm_public_site.py": "sha256:603c015b0c1653cd0ca65f7600301707fb7fba2a33476c4adbaba8fe2aa4a0c1"
+    },
+    "paper_module_record": {
+      "paper_module_id": "paper_module.batch7_demo_take_console_capsule",
+      "title": "Set 7 Demo Take Console Bundle",
+      "anchor": "paper-module-batch7-demo-take-console-capsule",
+      "route": "paper-modules.html#paper-module-batch7-demo-take-console-capsule",
+      "summary_line": "Set 7 Demo Take Console Bundle imports public-safe Swift capture-console source bodies and exercises SwiftPM build, recording-state, helper-bridge, recorder-store, hotkey/audio-meter, and transcribe-payload boundaries.",
+      "doctrine_feed_links": [
+        {
+          "kind": "mechanism",
+          "id": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+          "relation": "explains",
+          "route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch7-demo-take-console-capsule-validates-public-demo-take-console-capsule"
+        },
+        {
+          "kind": "concept",
+          "id": "concept.import_projection_and_drift_control_bundle",
+          "relation": "governed by",
+          "route": "rules-and-ideas.html#lattice-concept-concept-import-projection-and-drift-control-bundle"
+        }
+      ]
+    }
+  },
+  "object_map_delta": {
+    "object_count": 771,
+    "kind_counts": {
+      "mechanism": 88,
+      "paper_module": 84,
+      "paper_module_gap": 14,
+      "relation": 190
+    },
+    "paper_module_object": {
+      "id": "paper_module:paper_module.batch7_demo_take_console_capsule",
+      "kind": "paper_module",
+      "label": "Set 7 Demo Take Console Bundle",
+      "route": "paper-modules.html#paper-module-batch7-demo-take-console-capsule",
+      "searchable": true,
+      "source_linked": true,
+      "backrefs": [
+        "mechanism:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+        "concept:concept.import_projection_and_drift_control_bundle"
+      ]
+    },
+    "mechanism_object": {
+      "id": "mechanism:mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+      "kind": "mechanism",
+      "label": "validates public demo take console bundle",
+      "route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch7-demo-take-console-capsule-validates-public-demo-take-console-capsule",
+      "searchable": true,
+      "source_linked": true
+    }
+  },
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "recording_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false
+  }
+}

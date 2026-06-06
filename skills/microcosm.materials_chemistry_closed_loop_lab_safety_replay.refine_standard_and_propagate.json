@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "materials_chemistry_closed_loop_lab_safety_replay",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.research_and_science_replay_evidence_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "materials_chemistry_closed_loop_lab_safety_replay",
+    "concept_refs": [
+      "concept.research_and_science_replay_evidence_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md::typed_skill_mapping.operates_standard",
+          "summary": "The standard JSON at standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json declares this refine_standard_and_propagate skill route for materials_chemistry_closed_loop_lab_safety_replay, and core/organ_atlas.json::materials_chemistry_closed_loop_lab_safety_replay names mechanism_refs=mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay and concept_refs=concept.research_and_science_replay_evidence_bundle. This source mapping binds the skill to those accepted organ neighbours without inferring from prose, generated projections, endpoint coverage, or release claims."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md::typed_skill_mapping.acts_on_kind",
+          "summary": "The standard JSON at standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json declares this refine_standard_and_propagate skill route for materials_chemistry_closed_loop_lab_safety_replay, and core/organ_atlas.json::materials_chemistry_closed_loop_lab_safety_replay names mechanism_refs=mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay and concept_refs=concept.research_and_science_replay_evidence_bundle. This source mapping binds the skill to those accepted organ neighbours without inferring from prose, generated projections, endpoint coverage, or release claims."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "materials_chemistry_closed_loop_lab_safety_replay",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.research_and_science_replay_evidence_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay"
+    ],
+    "operates_standard": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+    "source_markdown_digest": "1d17e04d95c09b06db350ad1e0d8519b6255e25c3170c0ed81e622bd97934556",
+    "source_markdown_line_count": 39,
+    "source_markdown_ref": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md",
+    "triad_role": "refine_standard_and_propagate",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "The standard JSON at standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json declares this refine_standard_and_propagate skill route for materials_chemistry_closed_loop_lab_safety_replay, and core/organ_atlas.json::materials_chemistry_closed_loop_lab_safety_replay names mechanism_refs=mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay and concept_refs=concept.research_and_science_replay_evidence_bundle. This source mapping binds the skill to those accepted organ neighbours without inferring from prose, generated projections, endpoint coverage, or release claims.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.json"
+    },
+    "source_markdown_digest": "1d17e04d95c09b06db350ad1e0d8519b6255e25c3170c0ed81e622bd97934556",
+    "source_markdown_line_count": 39,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.materials_chemistry_closed_loop_lab_safety_replay.refine_standard_and_propagate.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Materials Chemistry Closed Loop Lab Safety Replay Refine Standard And Propagate",
+  "status": "active",
+  "title": "Microcosm Materials Chemistry Closed Loop Lab Safety Replay Refine Standard And Propagate",
+  "triad_role": "refine_standard_and_propagate",
+  "triggers": [
+    "The Materials chemistry closed-loop lab-safety replay standard declares this refine standard and propagate skill id with status planned.",
+    "A governed skill source row is needed before standard.owns_triad.skill can resolve without treating generated projections as authority."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Read std_microcosm_materials_chemistry_closed_loop_lab_safety_replay JSON, its authority ceiling, validator refs, receipt refs, and lattice health before editing materials_chemistry_closed_loop_lab_safety_replay artifacts.",
+    "Change the source standard only with reusable evidence, then propagate through governed instances, validators, receipts, generated skill corpus, and lattice projections.",
+    "Regenerate the skill corpus and preserve missing mechanism or concept neighbours as residual pressure unless a source mapping names them."
+  ]
+}

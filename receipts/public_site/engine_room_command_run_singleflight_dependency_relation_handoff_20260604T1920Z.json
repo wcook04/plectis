@@ -1,0 +1,89 @@
+{
+  "schema_version": "microcosm_public_site_availability_handoff_v1",
+  "created_at": "2026-06-04T19:20:00Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T1919Z_command_run_dependency",
+  "subject": {
+    "paper_module_id": "paper_module.engine_room_command_run_singleflight",
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_command_run_singleflight]"
+  },
+  "source_delta": {
+    "relation_id": "paper_module.depends_on.paper_module",
+    "target_id": "paper_module.engine_room_metabolism_runtime",
+    "target_status": "resolved_json_instance",
+    "source_evidence": "paper_modules/engine_room_command_run_singleflight.md names engine_room_metabolism_runtime as the sibling idempotency pattern for active-work dedupe and distinguishes it from completed-result caching.",
+    "anti_claim": "This dependency relation does not claim an accepted engine_room_command_run_singleflight organ, scheduler authority, daemon authority, distributed lock service behavior, release approval, or public-site source authority."
+  },
+  "projection_delta": {
+    "generated_json_instance": "paper_modules/engine_room_command_run_singleflight.json",
+    "dependency_edge_status": "resolved_json_instance",
+    "unpopulated_selective_relations_after": [],
+    "residual_delta": {
+      "paper_module.depends_on.paper_module": -1,
+      "paper_module_selective_residual_count_after_focused_builder": 73
+    },
+    "global_projection_outputs": "not_refreshed_by_this_receipt"
+  },
+  "validation": [
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_doctrine_projection.py --write-paper-module-corpus",
+      "status": "pass",
+      "evidence": "paper-module corpus builder wrote the generated JSON instance from the capsule source row."
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "evidence": "microcosm_paper_module_instance_validation_v1 status=pass actual_count=98 expected_count=98."
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_command_run_singleflight.py -q --basetemp /tmp/microcosm-command-run-singleflight*",
+      "status": "intermittent_failure",
+      "evidence": "Initial run and rerun2 failed test_concurrent_duplicate_replays_leader_output with second.returncode=124; rerun1 passed 7/7. This source/projection patch does not modify runtime code, so the failure is carried as a validation residual rather than hidden.",
+      "task_ledger_events": [
+        "wie_20260604T192546Z_d3f21e85",
+        "wie_20260604T192654Z_d7c871f8"
+      ]
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root <tmp> --write --validate",
+      "status": "pass",
+      "evidence": "temporary site copy wrote successfully and microcosm_public_site_validation_v1 status=pass with private_scan_hit_count=0, public_safety_scan_hit_count=0, unsafe_url_hit_count=0, missing internal links=0."
+    }
+  ],
+  "temporary_site_routeability": {
+    "site_root": "/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/tmp.ek9rIZojAz",
+    "object_map_json": {
+      "paper_module.engine_room_command_run_singleflight": true,
+      "paper_module.engine_room_metabolism_runtime": true,
+      "Engine Room Command-Run Singleflight": true,
+      "Engine Room Metabolism Runtime": true
+    },
+    "content_graph": {
+      "paper_module.engine_room_command_run_singleflight": true,
+      "paper_module.engine_room_metabolism_runtime": true,
+      "paper_module.depends_on.paper_module": true,
+      "Engine Room Command-Run Singleflight": true,
+      "Engine Room Metabolism Runtime": true,
+      "active-work dedupe": true,
+      "idempotency pattern": true
+    },
+    "paper_modules_html": {
+      "Engine Room Command-Run Singleflight": true,
+      "Engine Room Metabolism Runtime": true,
+      "paper_module.depends_on.paper_module": true,
+      "active-work dedupe": true,
+      "idempotency pattern": true
+    },
+    "search_index_js": {
+      "Engine Room Command-Run Singleflight": true,
+      "Engine Room Metabolism Runtime": true,
+      "command-run singleflight": true
+    }
+  },
+  "real_site_output_status": {
+    "status": "deferred",
+    "reason": "The real site output tree was not written because an earlier same-turn site check reported blocked_dirty_source_inputs for unrelated dirty source inputs and generated output drift.",
+    "task_ledger_residual_event": "wie_20260604T191127Z_24d213f7",
+    "reentry_condition": "After dirty source coupling clears or the source owner lands its changes, rerun build_microcosm_public_site.py --write --validate, then --check --validate, and land real generated site outputs through the public-site builder."
+  }
+}

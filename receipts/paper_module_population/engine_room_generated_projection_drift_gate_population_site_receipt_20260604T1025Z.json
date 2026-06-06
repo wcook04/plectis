@@ -1,0 +1,314 @@
+{
+  "schema_version": "microcosm_paper_module_population_site_receipt_v1",
+  "receipt_id": "engine_room_generated_projection_drift_gate_population_site_receipt_20260604T1025Z",
+  "generated_at": "2026-06-04T10:25:00Z",
+  "phase_id": "09_54_1",
+  "family_id": "09",
+  "agent_session_id": "codex_20260604T1013Z_engine_room_drift_gate_admission_handoff",
+  "status": "source_populated_and_site_available",
+  "selected_module": {
+    "paper_module_id": "paper_module.engine_room_generated_projection_drift_gate",
+    "slug": "engine_room_generated_projection_drift_gate",
+    "title": "Engine Room Generated Projection Drift Gate"
+  },
+  "work_ledger_binding": {
+    "work_item_id": "cap_quick_microcosm_legacy_paper_module_admission_first_20260604",
+    "read_receipts": [
+      "wlr_d1c65eeecf354e10",
+      "wlr_660c99e6b7a542f2",
+      "wlr_868e2aa05d954e7e",
+      "wlr_0fe30c4afebf4697",
+      "wlr_4a8c586c71004e37"
+    ],
+    "claimed_source_paths": [
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/paper_module_capsules.json",
+      "microcosm-substrate/paper_modules/engine_room_generated_projection_drift_gate.md"
+    ],
+    "claimed_generated_paths": [
+      "microcosm-substrate/mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json",
+      "microcosm-substrate/mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.md",
+      "microcosm-substrate/paper_modules/engine_room_generated_projection_drift_gate.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/atlas/doctrine_lattice_projection.json",
+      "microcosm-substrate/atlas/doctrine_lattice_graph.mmd",
+      "microcosm-substrate/atlas/doctrine_lattice_health.json",
+      "microcosm-substrate/atlas/doctrine_lattice_entry_card.json",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ]
+  },
+  "changed_authority": {
+    "mechanism_row_added": {
+      "path": "microcosm-substrate/core/mechanism_sources.json",
+      "id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+      "status": "active",
+      "subject_role": "resolving_mechanism_subject_for_paper_module"
+    },
+    "paper_module_capsule_added": {
+      "path": "microcosm-substrate/core/paper_module_capsules.json",
+      "id": "paper_module.engine_room_generated_projection_drift_gate",
+      "source_authority": "json_capsule",
+      "subjects": [
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+        }
+      ],
+      "code_loci": [
+        "src/microcosm_core/engine_room/generated_projection_drift_gate.py"
+      ]
+    },
+    "paper_module_markdown_repaired": {
+      "path": "microcosm-substrate/paper_modules/engine_room_generated_projection_drift_gate.md",
+      "reason": "Remove stale legacy-only boundary prose after mechanism and capsule admission; preserve accepted-organ and release ceilings."
+    }
+  },
+  "authority_ceiling": "Mechanism-backed public fixture, focused regression, JSON capsule, generated doctrine lattice, and generated static-site availability only. This does not prove semantic freshness for every source-system generated projection, run repair commands, admit an organ, authorize release, claim private-root equivalence, or prove whole-system correctness.",
+  "anti_claims": [
+    "not_semantic_drift_proof",
+    "not_full_registry_validation",
+    "not_repair_authority",
+    "not_release_authority",
+    "not_accepted_organ_authority",
+    "not_private_root_equivalence",
+    "not_whole_system_correctness"
+  ],
+  "coverage_delta": {
+    "source_ref": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus",
+    "before": {
+      "json_capsule_backed_count": 84,
+      "legacy_only_count": 14,
+      "required_subject_gap_count": 14,
+      "target_in_legacy_only_ids": true,
+      "target_in_required_subject_gap_ids": true,
+      "target_mermaid_status": "blocked_required_subject_gap",
+      "target_atlas_status": "blocked_required_subject_gap"
+    },
+    "after": {
+      "json_capsule_backed_count": 85,
+      "legacy_only_count": 13,
+      "required_subject_gap_count": 13,
+      "target_in_legacy_only_ids": false,
+      "target_in_required_subject_gap_ids": false,
+      "target_source_authority": "json_capsule",
+      "target_mermaid_status": "available_from_capsule_edges",
+      "target_atlas_status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+    },
+    "delta": {
+      "json_capsule_backed_count": 1,
+      "legacy_only_count": -1,
+      "required_subject_gap_count": -1
+    }
+  },
+  "source_authority_evidence": {
+    "runtime": {
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+      "symbols": [
+        "ProjectionOwner",
+        "select_projection_owners",
+        "check_projection_drift",
+        "evaluate_fixture_dir",
+        "evaluate_case",
+        "CLAIM_CEILING",
+        "ANTI_CLAIMS",
+        "main"
+      ],
+      "source_to_target_relation": "source_faithful_public_refactor",
+      "declared_source_refs": [
+        "tools/meta/control/projection_drift.py",
+        "system/lib/generated_projection_registry.py"
+      ]
+    },
+    "standard": {
+      "path": "microcosm-substrate/standards/std_microcosm_engine_room_generated_projection_drift_gate.json",
+      "standard_id": "std_microcosm_engine_room_generated_projection_drift_gate",
+      "status": "staged_capsule_pending_shared_registry_integration"
+    },
+    "fixtures": {
+      "fixture_manifest": "microcosm-substrate/core/fixture_manifests/engine_room_generated_projection_drift_gate.fixture_manifest.json",
+      "input_dir": "microcosm-substrate/fixtures/first_wave/engine_room_generated_projection_drift_gate/input",
+      "positive_cases": [
+        "clean_owner",
+        "scoped_changed_path"
+      ],
+      "negative_cases": [
+        "planted_byte_detected",
+        "missing_artifact"
+      ]
+    },
+    "tests": [
+      "microcosm-substrate/tests/test_engine_room_generated_projection_drift_gate.py"
+    ]
+  },
+  "projection_refresh": {
+    "doctrine_builder": {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --write",
+      "status": "pass",
+      "mechanism_json_instance_count": 89,
+      "paper_module_json_instance_count": 98,
+      "paper_module_legacy_only_count": 13,
+      "paper_module_required_subject_gap_count": 13
+    },
+    "site_builder": {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "status": "written",
+      "validation_status": "pass",
+      "written_count_last_refresh": 9
+    }
+  },
+  "website_availability_delta": {
+    "status": "available_from_existing_generated_site_contract",
+    "site_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "generated_surfaces_refreshed": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "availability_evidence": [
+      "sites/microcosm/object-map.json contains paper_module:paper_module.engine_room_generated_projection_drift_gate",
+      "sites/microcosm/object-map.json contains mechanism:mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+      "sites/microcosm/content-graph.json contains paper_module.engine_room_generated_projection_drift_gate",
+      "sites/microcosm/content-graph.json contains mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+      "sites/microcosm/docs/paper-modules.html contains the repaired Engine Room Generated Projection Drift Gate body",
+      "sites/microcosm/projection-status.json contains the generated mechanism source digest"
+    ],
+    "site_check_after": {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "status": "pass",
+      "drift_count": 0,
+      "validation_status": "pass",
+      "private_scan_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "unsafe_url_hit_count": 0,
+      "internal_links_missing": []
+    }
+  },
+  "validation_receipts": [
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.engine_room.generated_projection_drift_gate evaluate-fixtures --input fixtures/first_wave/engine_room_generated_projection_drift_gate/input --json",
+      "status": "pass",
+      "case_count": 4,
+      "passed_case_count": 4,
+      "anti_claims": [
+        "not_semantic_drift_proof",
+        "not_full_registry_validation",
+        "not_repair_authority",
+        "not_release_authority"
+      ]
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_generated_projection_drift_gate.py -q --basetemp /tmp/microcosm-generated-projection-drift-gate",
+      "status": "pass",
+      "pytest_summary": "8 passed"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "actual_count": 98,
+      "expected_count": 98
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+      "status": "pass",
+      "mechanism_expected_count": 89,
+      "paper_module_expected_count": 98
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+      "status": "pass"
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "status": "pass",
+      "drift_count": 0,
+      "validation_status": "pass",
+      "internal_links_checked": 2572,
+      "internal_links_missing": []
+    },
+    {
+      "command": "./repo-python - <<'PY' # target-only stale phrase scan over drift-gate Markdown, content graph, and paper-modules page",
+      "status": "pass",
+      "target_stale_body_hits": 0,
+      "note": "The target-only scan found zero stale drift-gate phrases in the Markdown source, content graph, or generated paper-modules page; unrelated legacy modules on the shared page still mention blocked_required_subject_gap."
+    }
+  ],
+  "task_ledger_bindings": [
+    {
+      "subject_id": "cap_quick_microcosm_legacy_paper_module_admission_first_20260604",
+      "event_id": "wie_20260604T095414Z_a3646886",
+      "purpose": "Admission-first residual for legacy-only paper-module gaps."
+    },
+    {
+      "subject_id": "cap_quick_self_error_microcosm_stale_markdown_finding_before_capture_20260604",
+      "event_id": "wie_20260604T102112Z_2f39fe2b",
+      "purpose": "Captured commentary-before-capture error before final closeout."
+    }
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "site_validation_private_scan_hit_count": 0,
+    "site_validation_forbidden_source_link_hit_count": 0,
+    "site_validation_external_asset_hit_count": 0,
+    "forbidden_material_not_included": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "raw_operator_voice",
+      "private account state",
+      "browser_or_hud_state",
+      "private macro source bodies",
+      "release approval state"
+    ]
+  },
+  "residual_invisible_or_not_yet_capsule_backed_material": {
+    "legacy_only_count": 13,
+    "required_subject_gap_count": 13,
+    "ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_command_run_singleflight",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ]
+  },
+  "next_lane": {
+    "recommendation": "Admit the next Engine Room legacy-only paper module with an existing public fixture and standard, then regenerate doctrine and site projections through the same source-first/site-builder cycle.",
+    "candidate_ids": [
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.engine_room_command_run_singleflight"
+    ]
+  },
+  "closeout": {
+    "head_before_landing": "e996b0e89efb7afd97e50e2006e847c0a7cda576",
+    "commit_expected": true,
+    "refinement_result": "nothing_to_refine: stewardship_checked=true; next_best_lane_checked=true; reentry_condition=continue legacy-only paper-module admission cycle after scoped commit"
+  }
+}

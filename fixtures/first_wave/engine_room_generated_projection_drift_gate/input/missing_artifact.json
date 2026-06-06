@@ -1,0 +1,29 @@
+{
+  "case_id": "missing_artifact",
+  "expected_status": "drift",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"missing\"}\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "missing_projection",
+      "description": "Artifact presence is still required even when the owner check passes.",
+      "artifacts": [
+        "generated/missing.md"
+      ],
+      "source_authorities": [
+        "source/spec.json"
+      ],
+      "check_command": [
+        "builtin:pass"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ]
+    }
+  ]
+}

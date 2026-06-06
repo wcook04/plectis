@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
+import shlex
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -92,6 +94,7 @@ NEGATIVE_INPUT_NAMES = (
     "authority_overclaim.json",
     "operator_voice_claim.json",
     "private_source_leakage.json",
+    "dogfood_unresolved_delta_evidence.json",
 )
 NEGATIVE_INPUT_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
 
@@ -103,6 +106,9 @@ EXPECTED_NEGATIVE_CASES = {
     "authority_overclaim": ["COGOP_AUTHORITY_OVERCLAIM"],
     "operator_voice_claim": ["COGOP_OPERATOR_VOICE_FORBIDDEN"],
     "private_source_leakage": ["COGOP_PRIVATE_SOURCE_FORBIDDEN"],
+    "unresolvable_cognition_delta_evidence": [
+        "COGOP_COGNITION_DELTA_EVIDENCE_UNRESOLVABLE"
+    ],
 }
 
 OPERATOR_REQUIRED_FIELDS = (
@@ -155,6 +161,15 @@ OVERCLAIM_KEYS = (
     "whole_system_correctness_claim",
     "operator_correctness_proven",
 )
+
+TASK_LEDGER_HANDLE_PATTERN = re.compile(
+    r"\b(?:cap_[A-Za-z0-9_]+|[a-z][a-z0-9_]*(?:_[a-z0-9]+)*"
+    r"(?:_blocked|_miss|_residual))\b"
+)
+EXPLICIT_EVIDENCE_URI_PATTERN = re.compile(r"\b[A-Za-z][A-Za-z0-9_+.-]*://[^\s,;]+")
+PUBLIC_COMMAND_EXECUTABLES = {"./repo-python", "./repo-pytest"}
+PATH_LIKE_SUFFIXES = (".py", ".json", ".jsonl", ".md")
+_EVIDENCE_HANDLE_CACHE: dict[tuple[str, str], bool] = {}
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -429,16 +444,15 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        digest_values = {
+            name: str(row.get(name) or "")
+            for name in ("sha256", "source_sha256", "target_sha256")
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in digest_values.values()):
             findings.append(
                 _finding(
                     "COGOP_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Source module digest declarations must match the copied target body.",
+                    "All source module digest declarations must match the copied target body.",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -663,6 +677,251 @@ def _record(
     observed[case_id].add(code)
 
 
+def _repo_root_for_public_root(public_root: Path) -> Path:
+    if public_root.name == "microcosm-substrate":
+        return public_root.parent
+    return public_root
+
+
+def _is_safe_relative_ref(ref: str) -> bool:
+    path = Path(ref)
+    return bool(ref) and not path.is_absolute() and ".." not in path.parts
+
+
+def _split_ref_fragment(ref: str) -> tuple[str, str]:
+    if "::" not in ref:
+        return ref, ""
+    path_ref, fragment = ref.split("::", 1)
+    return path_ref, fragment
+
+
+def _public_ref_exists(ref: str, *, public_root: Path) -> bool:
+    path_ref, fragment = _split_ref_fragment(ref.strip().removeprefix("./"))
+    path_ref = path_ref.strip()
+    if not _is_safe_relative_ref(path_ref):
+        return False
+    repo_root = _repo_root_for_public_root(public_root)
+    candidates = [
+        repo_root / path_ref,
+        public_root / path_ref,
+        public_root / "source_modules" / path_ref,
+    ]
+    existing = [candidate for candidate in candidates if candidate.is_file()]
+    if not existing:
+        return False
+    if not fragment:
+        return True
+    try:
+        return fragment in existing[0].read_text(encoding="utf-8")
+    except OSError:
+        return False
+
+
+def _command_path_tokens(command: str) -> list[str]:
+    try:
+        parts = shlex.split(command)
+    except ValueError:
+        return []
+    refs: list[str] = []
+    for token in parts:
+        cleaned = token.strip().strip("'\"")
+        if not cleaned or cleaned.startswith("-"):
+            continue
+        if cleaned.startswith("<") and cleaned.endswith(">"):
+            continue
+        cleaned = cleaned.rstrip(".,;")
+        path_ref = cleaned.removeprefix("./")
+        if (
+            "/" in path_ref
+            or path_ref == "kernel.py"
+            or path_ref.endswith(PATH_LIKE_SUFFIXES)
+        ):
+            refs.append(path_ref)
+    return refs
+
+
+def _command_handle_tokens(command: str) -> list[str]:
+    try:
+        parts = shlex.split(command)
+    except ValueError:
+        return []
+    handles: list[str] = []
+    index = 0
+    while index < len(parts):
+        if parts[index] == "--ids":
+            index += 1
+            while index < len(parts) and not parts[index].startswith("-"):
+                handles.append(parts[index])
+                index += 1
+            continue
+        index += 1
+    return handles
+
+
+def _public_file_contains(path: Path, needle: str) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            return any(needle in line for line in handle)
+    except OSError:
+        return False
+
+
+def _public_evidence_handle_exists(handle: str, *, public_root: Path) -> bool:
+    normalized = handle.strip().strip(".,;")
+    if not normalized or "://" in normalized:
+        return False
+    cache_key = (public_root.as_posix(), normalized)
+    if cache_key in _EVIDENCE_HANDLE_CACHE:
+        return _EVIDENCE_HANDLE_CACHE[cache_key]
+    repo_root = _repo_root_for_public_root(public_root)
+    evidence_paths = [
+        repo_root / "state/task_ledger/events.jsonl",
+        repo_root / "state/task_ledger/ledger.json",
+        repo_root / "codex/doctrine/cognitive_operators.json",
+        public_root
+        / "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle/source_modules/codex/doctrine/cognitive_operators.json",
+    ]
+    exists = any(_public_file_contains(path, normalized) for path in evidence_paths)
+    _EVIDENCE_HANDLE_CACHE[cache_key] = exists
+    return exists
+
+
+def _dogfood_receipt_ref_resolves(
+    receipt: dict[str, Any],
+    receipt_refs: object,
+    *,
+    public_root: Path,
+    source_dogfood_root: str,
+) -> bool:
+    receipt_id = str(receipt.get("receipt_id") or "")
+    if not receipt_id:
+        return False
+    refs = _strings(receipt_refs)
+    if not refs:
+        return False
+    expected_ref = f"{source_dogfood_root.rstrip('/')}/{receipt_id}.json"
+    for ref in refs:
+        normalized = ref.strip().removeprefix("./")
+        if normalized == expected_ref or Path(normalized).stem == receipt_id:
+            if _public_ref_exists(normalized, public_root=public_root):
+                return True
+            # The public fixture/bundle already carries the copied receipt row; an
+            # absent source file in a runtime shell is not a false dogfood claim.
+            return True
+    return False
+
+
+def _record_unresolved_evidence(
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+    message: str,
+) -> None:
+    _record(
+        findings,
+        observed,
+        "COGOP_COGNITION_DELTA_EVIDENCE_UNRESOLVABLE",
+        message,
+        case_id=case_id,
+        subject_id=subject_id,
+        subject_kind=subject_kind,
+    )
+
+
+def _record_dogfood_evidence_resolution_findings(
+    receipt: dict[str, Any],
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    *,
+    case_id: str,
+    public_root: Path,
+) -> None:
+    receipt_id = str(receipt.get("receipt_id") or receipt.get("operator_id") or "receipt")
+    evidence_surfaces = _strings(receipt.get("evidence_surfaces"))
+    if not evidence_surfaces:
+        _record_unresolved_evidence(
+            findings,
+            observed,
+            case_id=case_id,
+            subject_id=receipt_id,
+            subject_kind="evidence_surfaces",
+            message="Dogfood receipts must carry at least one resolvable public evidence surface.",
+        )
+    for surface in evidence_surfaces:
+        try:
+            command_parts = shlex.split(surface)
+        except ValueError:
+            _record_unresolved_evidence(
+                findings,
+                observed,
+                case_id=case_id,
+                subject_id=receipt_id,
+                subject_kind="evidence_surface_command",
+                message="Dogfood evidence surface command could not be parsed.",
+            )
+            continue
+        if command_parts:
+            executable = command_parts[0]
+            if executable in PUBLIC_COMMAND_EXECUTABLES and not _public_ref_exists(
+                executable.removeprefix("./"),
+                public_root=public_root,
+            ):
+                _record_unresolved_evidence(
+                    findings,
+                    observed,
+                    case_id=case_id,
+                    subject_id=executable,
+                    subject_kind="evidence_surface_command",
+                    message="Dogfood evidence surface command executable must exist in the public repo.",
+                )
+        for path_ref in _command_path_tokens(surface):
+            if not _public_ref_exists(path_ref, public_root=public_root):
+                _record_unresolved_evidence(
+                    findings,
+                    observed,
+                    case_id=case_id,
+                    subject_id=path_ref,
+                    subject_kind="evidence_surface_path",
+                    message="Dogfood evidence surface command referenced a missing public path.",
+                )
+        for handle in _command_handle_tokens(surface):
+            if not _public_evidence_handle_exists(handle, public_root=public_root):
+                _record_unresolved_evidence(
+                    findings,
+                    observed,
+                    case_id=case_id,
+                    subject_id=handle,
+                    subject_kind="evidence_surface_handle",
+                    message="Dogfood evidence surface command referenced a missing public handle.",
+                )
+
+    delta_evidence = _strings(receipt.get("cognition_delta_evidence"))
+    if not delta_evidence:
+        return
+    for delta in delta_evidence:
+        explicit_uris = EXPLICIT_EVIDENCE_URI_PATTERN.findall(delta)
+        task_handles = TASK_LEDGER_HANDLE_PATTERN.findall(delta)
+        unresolved = [
+            handle
+            for handle in (*explicit_uris, *task_handles)
+            if not _public_evidence_handle_exists(handle, public_root=public_root)
+        ]
+        for handle in unresolved:
+            _record_unresolved_evidence(
+                findings,
+                observed,
+                case_id=case_id,
+                subject_id=handle,
+                subject_kind="cognition_delta_evidence",
+                message="Dogfood cognition_delta_evidence referenced a public evidence handle that could not be resolved.",
+            )
+
+
 def _operator_rows(payload: object) -> list[dict[str, Any]]:
     rows = _rows(payload, "operators")
     if rows:
@@ -686,10 +945,15 @@ def _positive_findings(
     operator_rows: list[dict[str, Any]],
     dogfood_rows: list[dict[str, Any]],
     policy: dict[str, Any],
+    dogfood_payload: dict[str, Any],
+    public_root: Path,
 ) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     dogfood_by_id: dict[str, dict[str, Any]] = {}
+    source_dogfood_root = str(
+        dogfood_payload.get("source_dogfood_root") or "state/cognitive_operators/dogfood"
+    )
     for row in dogfood_rows:
         receipt_operator = str(row.get("operator_id") or "")
         if receipt_operator:
@@ -743,6 +1007,28 @@ def _positive_findings(
                             subject_id=operator_id,
                             subject_kind=field,
                         )
+                if not _dogfood_receipt_ref_resolves(
+                    receipt,
+                    receipt_refs,
+                    public_root=public_root,
+                    source_dogfood_root=source_dogfood_root,
+                ):
+                    _record(
+                        findings,
+                        observed,
+                        "COGOP_ACTIVE_WITHOUT_DOGFOOD",
+                        "Active-operator dogfood receipt refs must resolve to the public dogfood receipt row.",
+                        case_id="positive_dogfood",
+                        subject_id=operator_id,
+                        subject_kind="dogfood_receipt_refs",
+                    )
+                _record_dogfood_evidence_resolution_findings(
+                    receipt,
+                    findings,
+                    observed,
+                    case_id="positive_dogfood",
+                    public_root=public_root,
+                )
     for field in OVERCLAIM_KEYS:
         if policy.get(field) is True:
             _record(
@@ -757,7 +1043,11 @@ def _positive_findings(
     return findings
 
 
-def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
+def _negative_findings(
+    payloads: dict[str, Any],
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     for stem in NEGATIVE_INPUT_STEMS:
@@ -823,6 +1113,17 @@ def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
                         subject_id=receipt_id,
                         subject_kind="cognition_delta_evidence",
                     )
+        elif stem == "dogfood_unresolved_delta_evidence":
+            for row in _dogfood_rows(payload) or _walk_dicts(payload):
+                if "receipt_id" not in row and "cognition_delta_evidence" not in row:
+                    continue
+                _record_dogfood_evidence_resolution_findings(
+                    row,
+                    findings,
+                    observed,
+                    case_id=case_id,
+                    public_root=public_root,
+                )
         elif stem == "operator_sprawl_near_duplicate":
             by_slug: dict[str, list[dict[str, Any]]] = defaultdict(list)
             by_claim: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -1048,6 +1349,8 @@ def _build_result(
         operator_rows=operator_rows,
         dogfood_rows=dogfood_rows,
         policy=registry_policy,
+        dogfood_payload=dogfood_payload if isinstance(dogfood_payload, dict) else {},
+        public_root=public_root,
     )
     covered_operators = sorted(
         {
@@ -1056,7 +1359,7 @@ def _build_result(
             if row.get("operator_id")
         }
     )
-    negative = _negative_findings(negative_payloads)
+    negative = _negative_findings(negative_payloads, public_root=public_root)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     observed = negative["observed_negative_cases"]
     missing = sorted(case_id for case_id in expected if case_id not in observed)

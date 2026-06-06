@@ -83,6 +83,54 @@ def test_launch_compression_private_hit_scan_streams_nested_payloads(
     assert launch_compression._state_files_have_private_hits(private_hit_then_unavailable())
 
 
+def test_launch_compression_doc_reads_fail_soft_on_oserror(
+    tmp_path: Path, monkeypatch
+) -> None:
+    readme = tmp_path / "README.md"
+    readme.write_text("one\ntwo\nthree\n", encoding="utf-8")
+    original_open = Path.open
+    original_read_text = Path.read_text
+
+    def guarded_open(self: Path, *args, **kwargs):
+        if self == readme:
+            raise OSError("transient read failure")
+        return original_open(self, *args, **kwargs)
+
+    def guarded_read_text(self: Path, *args, **kwargs) -> str:
+        if self == readme:
+            raise OSError("transient read failure")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", guarded_open)
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert launch_compression._first_lines(readme, 3) == ""
+    assert launch_compression._read_text_or_empty(readme) == ""
+
+
+def test_launch_compression_state_walk_streams_without_path_rglob(
+    tmp_path: Path, monkeypatch
+) -> None:
+    state = tmp_path / ".microcosm"
+    nested = state / "nested"
+    nested.mkdir(parents=True)
+    (state / "catalog.json").write_text("{}", encoding="utf-8")
+    (nested / "events.jsonl").write_text("{}\n", encoding="utf-8")
+    (state / "notes.txt").write_text("public note\n", encoding="utf-8")
+
+    def guarded_rglob(path: Path, pattern: str):
+        raise AssertionError("launch compression state walk should not use Path.rglob")
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    refs = {
+        path.relative_to(state).as_posix()
+        for path in launch_compression._walk_state_files(tmp_path)
+    }
+
+    assert refs == {"catalog.json", "nested/events.jsonl", "notes.txt"}
+
+
 def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> None:
     project = _scratch_project(tmp_path)
     out = tmp_path / "launch_compression.json"

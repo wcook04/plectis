@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "verisoft_prefix_answer_leakage", "error_codes": ["BATCH4_VERISOFT_PREFIX_ANSWER_LEAKAGE_REJECTED"], "runtime_probe": {"observer_id": "verisoft_calibration_check_presence", "source_module_id": "verisoftbench_calibration_rows", "required_text": "def check_outputs("}, "body_in_receipt": false}

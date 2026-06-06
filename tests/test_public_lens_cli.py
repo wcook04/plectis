@@ -202,6 +202,11 @@ def test_cli_verifier_lab_execution_spine_lens_smoke(
     assert payload["execution_summary"]["accepted_transition_count"] == 4
     assert payload["execution_summary"]["cp2_downstream_effect_count"] == 1
     assert payload["execution_summary"]["evolve_accepted_count"] == 1
+    assert payload["source_statuses"]["source_open_body_imports"] == "pass"
+    assert payload["source_open_body_imports"]["body_material_count"] == 5
+    assert payload["source_open_body_imports"]["body_in_receipt"] is False
+    assert payload["source_open_body_material_count"] == 5
+    assert payload["body_copied_material_count"] == 5
     assert payload["authority_ceiling"]["external_tool_witness_only"] is True
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["payload_boundary"]["boundary_id"] == (

@@ -1,0 +1,47 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch8_compliance_pipeline_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch8_compliance_pipeline_capsule/input",
+  "organ_id": "batch8_compliance_pipeline_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "body_copied_material_count": 11,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_material_count": 11,
+    "body_material_ids": [
+      "system/lib/compliance/__init__.py",
+      "system/lib/compliance/compliance_coverage_adapter.py",
+      "system/lib/compliance/standard_baseline_adapter.py",
+      "system/lib/compliance/microcosm_adapter.py",
+      "tools/meta/factory/build_compliance_ledger.py",
+      "system/lib/pipeline/stage_extract.py",
+      "system/lib/pipeline/stage_select.py",
+      "system/lib/pipeline/stage_emit.py",
+      "system/lib/pipeline/stage_compile.py",
+      "system/lib/pipeline/stage_execute.py",
+      "system/lib/pipeline/stage_process.py"
+    ],
+    "material_classes": [
+      "public_macro_compliance_python_body",
+      "public_macro_factory_tool_body",
+      "public_macro_pipeline_python_body"
+    ],
+    "aggregate_floor_ref": "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Inspect the Batch 8 source_module_manifest and rerun the capsule validator before treating the workingness row as source-body evidence.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "full_compliance_ledger_freshness_claim": false,
+      "full_pipeline_dispatch_authority": false,
+      "provider_dispatch": false,
+      "raw_seed_mutation_authorized": false,
+      "release_authorized": false
+    }
+  }
+}

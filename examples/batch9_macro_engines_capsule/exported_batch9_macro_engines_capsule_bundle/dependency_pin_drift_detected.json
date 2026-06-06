@@ -1,0 +1,23 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "dependency_pin_drift_detected",
+  "error_codes": [
+    "BATCH9_DEPENDENCY_PIN_DRIFT_DETECTED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "dependency_pin": {
+      "requirements": [
+        "fastapi>=0.100,<1.0",
+        "starlette<1.0.0",
+        "missingpkg==9.9.9",
+        "bad @@ spec"
+      ],
+      "installed": {
+        "fastapi": "0.110.0",
+        "starlette": "1.1.0"
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

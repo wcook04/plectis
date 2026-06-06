@@ -1,0 +1,341 @@
+{
+  "anti_claim": "Batch 7 Oracle sibling imports public-safe source bodies for subject index, subject snapshot, macro truth-diff, and deterministic quartet repair planning. It is not an Oracle reasoning run, not provider or bridge authority, not GodModeEngine invocation, not source mutation authority, and not proof that all Oracle paths are covered.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch7_oracle_sibling_capsule_not_oracle_reasoning_or_provider_authority",
+    "browser_or_wallet_access": false,
+    "godmode_engine_invocation_authorized": false,
+    "model_dispatch": false,
+    "operator_thread_authority": false,
+    "oracle_run_missing_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "semantic_truth_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "command": "batch7_oracle_sibling_capsule run",
+  "created_at": "2026-05-31T20:43:06+00:00",
+  "error_codes": [
+    "BATCH7_ORACLE_ARTIFACT_ID_REQUIRED",
+    "BATCH7_ORACLE_ORIGINAL_PYTEST_WITNESS_REQUIRED",
+    "BATCH7_ORACLE_RUN_MISSING_EXCLUDED",
+    "BATCH7_ORACLE_SUBJECT_RUN_REQUIRED",
+    "BATCH7_ORACLE_TRUTH_RUN_REQUIRED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 6,
+    "engine_count": 5,
+    "engine_ids": [
+      "oracle_subject_index_grounding_map",
+      "oracle_subject_snapshot_hydration",
+      "oracle_truth_diff_macro_series_delta",
+      "oracle_quartet_repair_alias_plan",
+      "oracle_original_pytest_witness"
+    ],
+    "engines": [
+      {
+        "claim_ceiling": "Subject-side grounding map only; no Oracle reasoning or provider dispatch.",
+        "engine_id": "oracle_subject_index_grounding_map",
+        "metadata_success": true,
+        "missing_admissible_support_target_preserved": true,
+        "source_tool": "tools.oracle.subject_index.run",
+        "status": "pass",
+        "subject_price_map_hydrated": true,
+        "tlt_stays_contextual": true,
+        "valid_prediction_targets_sorted": true,
+        "xle_has_etf_support": true,
+        "xom_has_stock_support": true
+      },
+      {
+        "claim_ceiling": "Subject artifact hydration only; no artifact body is copied into receipts.",
+        "engine_id": "oracle_subject_snapshot_hydration",
+        "metadata_success": true,
+        "prediction_payload_hydrated": true,
+        "source_artifact_id_preserved": true,
+        "source_tool": "tools.oracle.subject_snapshot.run",
+        "status": "pass",
+        "subject_run_id_preserved": true
+      },
+      {
+        "changed_series_ranked": true,
+        "claim_ceiling": "Deterministic macro before/after diff only; no market feed access occurs.",
+        "dropped_series_detected": true,
+        "engine_id": "oracle_truth_diff_macro_series_delta",
+        "metadata_success": true,
+        "new_series_detected": true,
+        "source_tool": "tools.oracle.truth_diff_macro.run",
+        "status": "pass",
+        "subject_as_of_preserved": true,
+        "truth_as_of_preserved": true,
+        "value_field_changed": true
+      },
+      {
+        "alias_metadata_preserved": true,
+        "claim_ceiling": "Deterministic quartet plan and temp-run alias materialization only; run_missing_quartet is not invoked.",
+        "deepest_missing_target_preserved": true,
+        "engine_id": "oracle_quartet_repair_alias_plan",
+        "godmode_engine_not_invoked": true,
+        "materialize_alias_written": true,
+        "materializer": "tools.oracle.run_quartet.materialize_missing_aliases",
+        "plan_status_blocked_until_source_nodes_exist": true,
+        "prediction_reconciliation_aliasable": true,
+        "run_missing_quartet_excluded": true,
+        "source_tool": "tools.oracle.run_quartet.build_quartet_repair_plan",
+        "status": "pass",
+        "status_counts": {
+          "alias_source_present": 1,
+          "missing_source": 3
+        }
+      },
+      {
+        "claim_ceiling": "Original focused pytest witness only; stdout and stderr bodies stay out of receipts.",
+        "engine_id": "oracle_original_pytest_witness",
+        "original_witness": {
+          "body_in_receipt": false,
+          "expected_min_passed_count": 7,
+          "passed_test_count_observed": 7,
+          "returncode": 0,
+          "status": "pass",
+          "stderr_byte_count": 0,
+          "stdout_byte_count": 98
+        },
+        "status": "pass"
+      }
+    ],
+    "error_codes": [],
+    "original_pytest_witness": {
+      "body_in_receipt": false,
+      "expected_min_passed_count": 7,
+      "passed_test_count_observed": 7,
+      "returncode": 0,
+      "status": "pass",
+      "stderr_byte_count": 0,
+      "stdout_byte_count": 98
+    },
+    "run_missing_quartet_excluded": true,
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "macro_truth_run_missing",
+    "missing_artifact_id",
+    "missing_subject_run_dir",
+    "original_pytest_witness_required",
+    "quartet_run_missing_excluded"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch7_oracle_sibling_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch7_oracle_sibling_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "macro_truth_run_missing",
+    "missing_artifact_id",
+    "missing_subject_run_dir",
+    "original_pytest_witness_required",
+    "quartet_run_missing_excluded"
+  ],
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_result.json",
+    "microcosm-substrate/receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_board.json",
+    "microcosm-substrate/receipts/first_wave/batch7_oracle_sibling_capsule/batch7_oracle_sibling_capsule_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch7_oracle_sibling_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+    "module_count": 6,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 244,
+        "expected_sha256": "a136505fd6204538b853217af5761f5f2f97164239e3965112b5cc02a293cb61",
+        "line_count": 244,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/oracle/subject_index.py",
+        "required_anchor_count": 4,
+        "sha256": "a136505fd6204538b853217af5761f5f2f97164239e3965112b5cc02a293cb61",
+        "source_exists": true,
+        "source_ref": "tools/oracle/subject_index.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/subject_index.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 94,
+        "expected_sha256": "4e596e802f23b781f7dba573716c3ee7c910c9e00c492a159a8574423c702283",
+        "line_count": 94,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/oracle/subject_snapshot.py",
+        "required_anchor_count": 3,
+        "sha256": "4e596e802f23b781f7dba573716c3ee7c910c9e00c492a159a8574423c702283",
+        "source_exists": true,
+        "source_ref": "tools/oracle/subject_snapshot.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/subject_snapshot.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 196,
+        "expected_sha256": "120282615a57512ca1b4ea3e2343009d40f85cd31ab4cc1d831f5fc32eaed893",
+        "line_count": 196,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/oracle/truth_diff_macro.py",
+        "required_anchor_count": 5,
+        "sha256": "120282615a57512ca1b4ea3e2343009d40f85cd31ab4cc1d831f5fc32eaed893",
+        "source_exists": true,
+        "source_ref": "tools/oracle/truth_diff_macro.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/truth_diff_macro.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 286,
+        "expected_sha256": "2f3379646c557a6ac3c0a8237f00ef4bd80ac8cee48268133c421b5884e063ab",
+        "line_count": 286,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/oracle/run_quartet.py",
+        "required_anchor_count": 5,
+        "sha256": "2f3379646c557a6ac3c0a8237f00ef4bd80ac8cee48268133c421b5884e063ab",
+        "source_exists": true,
+        "source_ref": "tools/oracle/run_quartet.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/run_quartet.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 289,
+        "expected_sha256": "fd06bfb4533878ad0c48454d8190f6bcad8b71dc547f4749ca79c047e70416a3",
+        "line_count": 289,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/tests/test_oracle_v1_tools.py",
+        "required_anchor_count": 3,
+        "sha256": "fd06bfb4533878ad0c48454d8190f6bcad8b71dc547f4749ca79c047e70416a3",
+        "source_exists": true,
+        "source_ref": "system/server/tests/test_oracle_v1_tools.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_oracle_v1_tools.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 579,
+        "expected_sha256": "8364d31c84e27c5c9f30f55c25cd2bec45bb5288cbaf947a2ea01d8c0aa39d39",
+        "line_count": 579,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/tests/test_evolve_runner.py",
+        "required_anchor_count": 2,
+        "sha256": "8364d31c84e27c5c9f30f55c25cd2bec45bb5288cbaf947a2ea01d8c0aa39d39",
+        "source_exists": true,
+        "source_ref": "system/server/tests/test_evolve_runner.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_evolve_runner.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 7,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/subject_index.py",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/subject_snapshot.py",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/truth_diff_macro.py",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/tools/oracle/run_quartet.py",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_oracle_v1_tools.py",
+      "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_modules/system/server/tests/test_evolve_runner.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch7_oracle_sibling_capsule"
+}

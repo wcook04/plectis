@@ -15,7 +15,40 @@
     "source_mutation_authority": false,
     "standard_authority": "synthetic_governed_mutation_authorization_schema_only",
     "standing_credential_authority": false,
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#proof_derived_governed_mutation_authorization",
+    "claim_ceiling_ref": "core/organ_registry.json#proof_derived_governed_mutation_authorization.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
+  },
+  "research_bet_contract": {
+    "governing_mechanism": "mech_036",
+    "positive_claim": "Synthetic mutation proposals are authorized only when evidence refs resolve to visible policy verdicts, proof-cell validator receipts, evidence-chain hashes, side-effect logs, rollback receipts, and cold replay receipts.",
+    "required_witnesses": [
+      "at least two visible non-hidden allow_or_warn policy verdicts",
+      "proof cell carrying validator receipt refs and evidence_chain_hash",
+      "logged side-effect diff refs for writes",
+      "verified rollback receipt paired before write authorization"
+    ],
+    "negative_floor": [
+      "standing credential authority rejected",
+      "hidden policy vote rejected",
+      "policy-after-execution rejected",
+      "rollback-free write rejected",
+      "unlogged side effect rejected"
+    ],
+    "denied_authority": [
+      "live cloud or account mutation",
+      "standing credential authority",
+      "source mutation",
+      "benchmark security result",
+      "release authority"
+    ]
   },
   "first_wave_required": true,
   "kind_id": "proof_derived_governed_mutation_authorization",
@@ -33,8 +66,28 @@
     "reason": "public slice carries synthetic governed-mutation metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.proof_derived_governed_mutation_authorization",
+    "mechanism_ref": "mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization",
     "module_slug": "proof_derived_governed_mutation_authorization",
     "required": true
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "atlas_refs": [
+      "core/organ_atlas.json::organs[organ_id=proof_derived_governed_mutation_authorization].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=proof_derived_governed_mutation_authorization].mechanism_refs",
+      "core/organ_atlas.json::organs[organ_id=proof_derived_governed_mutation_authorization].code_loci"
+    ],
+    "authority_boundary": "Structured doctrine population binds source-backed capsule, mechanism, and atlas source rows while preserving the organ's synthetic mutation-authorization evidence ceiling; generated atlas docs, generated coverage projections, generated receipts, copied body presence, credential-shaped refs, and standing credential authority claims remain builder-owned or evidence-only projections.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_proof_derived_governed_mutation_authorization_population_has_capsule_and_mechanism_source",
+      "tests/test_proof_derived_governed_mutation_authorization.py",
+      "microcosm_core.organs.proof_derived_governed_mutation_authorization run",
+      "microcosm_core.organs.proof_derived_governed_mutation_authorization run-authorization-bundle"
+    ]
   },
   "public_private_boundary": {
     "allowed_public_inputs": [
@@ -86,6 +139,10 @@
     "receipt must cite source refs, source pattern ids, proposal count, authorized mutation count, proof-cell count, visible verdict count, side-effect count, rollback count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
+    "receipt.microcosm.proof_derived_governed_mutation_authorization",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json"
   ],
   "relationships": {
@@ -115,7 +172,7 @@
     "authority_ceiling",
     "anti_claim"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative; exact non-secret macro control bodies may be copied only through digest-verified source_module_manifest rows with body text kept out of receipts"
@@ -126,6 +183,46 @@
     "required": true,
     "source_manifest_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
     "status": "required_for_exported_runtime_bundle"
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "body_text_in_receipt": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 6,
+    "body_material_ids": [
+      "proof_governed_mutation_extracted_patterns_ledger_body_import",
+      "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+      "mission_transaction_preflight_control_body_import",
+      "scoped_commit_private_index_control_body_import",
+      "work_ledger_claim_runtime_body_import",
+      "work_landing_reconcile_control_body_import"
+    ],
+    "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_ledger_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported governed-mutation authorization bundle for copied macro pattern, receipt, Work Ledger, scoped-commit, mission-transaction, and work-landing control bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "proof_derived_governed_mutation_authorization_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_refs": [
     {
@@ -170,9 +267,27 @@
     ],
     "ontology": "A public-safe governed-mutation authorization replay: synthetic proposals, proof cells, visible policy verdicts, ephemeral identity refs, side-effect diffs, rollback receipts, cold replay, and falsification fixtures.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how mutation-authority claims are admitted only when proof, policy consensus, side-effect evidence, rollback, replay, negative cases, and authority ceilings align."
+    "teleology": "Make Microcosm show how mutation-authority claims are admitted only when proof, policy consensus, side-effect evidence, rollback, replay, negative cases, and authority ceilings align.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": null,
+      "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization",
+      "receipt_id": "receipt.microcosm.proof_derived_governed_mutation_authorization",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require three synthetic proposals: read-only inspection, scoped config write, and rollback",
     "require every proposal to cite intent capsule, proof cells, visible policy verdicts, authority ceiling, ephemeral identity, evidence-chain hash, and cold replay refs",
@@ -195,7 +310,27 @@
     "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization"
   },
   "validator_refs": [
-    "microcosm_core.organs.proof_derived_governed_mutation_authorization"
+    "validator.microcosm.organs.proof_derived_governed_mutation_authorization",
+    "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization"
   ],
-  "wave": "w1_proof_derived_governed_mutation_authorization"
+  "wave": "w1_proof_derived_governed_mutation_authorization",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.proof_derived_governed_mutation_authorization.author",
+      "status": "planned",
+      "purpose": "create a valid Proof-derived governed mutation authorization instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.proof_derived_governed_mutation_authorization.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Proof-derived governed mutation authorization without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.proof_derived_governed_mutation_authorization.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_proof_derived_governed_mutation_authorization and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

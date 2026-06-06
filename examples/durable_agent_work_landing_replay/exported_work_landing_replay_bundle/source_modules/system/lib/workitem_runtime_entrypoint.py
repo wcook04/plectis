@@ -179,13 +179,23 @@ def _task_ledger_projection_payload(
     }
 
 
-def _task_ledger_materialized_projection_packet(repo_root: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def _task_ledger_materialized_projection_packet(
+    repo_root: Path,
+    *,
+    view_names: Sequence[str] | None = None,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     ledger = _safe_read_json(repo_root / task_ledger_events.LEDGER_REL)
     signoffs = _safe_read_json(repo_root / task_ledger_events.SIGNOFFS_REL)
     views: dict[str, Any] = {}
+    requested_views = {str(name) for name in (view_names or []) if str(name or "").strip()}
     views_root = repo_root / task_ledger_events.VIEWS_REL
     if views_root.exists():
-        for path in sorted(views_root.glob("*.json")):
+        view_paths = (
+            [views_root / f"{name}.json" for name in sorted(requested_views)]
+            if requested_views
+            else sorted(views_root.glob("*.json"))
+        )
+        for path in view_paths:
             payload = _safe_read_json(path)
             if payload:
                 views[path.stem] = payload
@@ -210,6 +220,7 @@ def _task_ledger_materialized_projection_packet(repo_root: Path) -> tuple[dict[s
         "authority_validation": "skipped_for_fast_agent_wake_packet",
         "projection": str(task_ledger_events.LEDGER_REL),
         "projection_mtime": _safe_mtime_iso(repo_root / task_ledger_events.LEDGER_REL),
+        "view_filter": sorted(requested_views) if requested_views else None,
     }
     return (
         _task_ledger_projection_payload(

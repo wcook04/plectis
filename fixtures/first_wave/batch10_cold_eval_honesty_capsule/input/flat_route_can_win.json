@@ -1,0 +1,18 @@
+{
+  "body_in_receipt": false,
+  "case_id": "flat_route_can_win",
+  "schema_version": "batch10_cold_eval_workspace_mutation_negative_case_v1",
+  "workspace_mutation": {
+    "expected_refs": [
+      "README.md",
+      "docs/quickstart.md",
+      "pyproject.toml"
+    ],
+    "kind": "rewrite_tasks_route_refs",
+    "path": "cold_eval_workspace/evals/cold_agent_ab/tasks.json",
+    "route_source_summary": {
+      "flat_route_ref_count": 3,
+      "idea_route_ref_count": 3
+    }
+  }
+}

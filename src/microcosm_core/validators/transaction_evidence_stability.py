@@ -122,8 +122,16 @@ def _iter_state_files(path: Path) -> Iterator[Path]:
             child = path / entry.name
             if entry.is_dir(follow_symlinks=False):
                 yield from _iter_state_files(child)
-            elif entry.is_file():
+            elif entry.is_file(follow_symlinks=False):
                 yield child
+
+
+def _iter_json_files(path: Path) -> Iterator[Path]:
+    if not path.is_dir():
+        return
+    for child in _iter_state_files(path):
+        if child.suffix == ".json":
+            yield child
 
 
 def _state_files(project: Path) -> list[Path]:
@@ -142,13 +150,13 @@ def _evidence_refs(project: Path) -> set[str]:
     if not evidence_dir.is_dir():
         return set()
     return {
-        f"{STATE_DIR}/{EVIDENCE_DIR}/{path.name}"
-        for path in evidence_dir.glob("*.json")
+        _project_relative(project, path)
+        for path in _iter_json_files(evidence_dir)
     }
 
 
 def _has_json_file(path: Path) -> bool:
-    return path.is_dir() and any(path.glob("*.json"))
+    return path.is_dir() and any(_iter_json_files(path))
 
 
 def _state_artifact_semantics(project: Path) -> list[dict[str, Any]]:
@@ -285,7 +293,7 @@ def validate_stability(
         findings.append({"finding_id": "project_route_standard_refs_unresolved", "routes": unresolved_standard_refs})
 
     explanation_findings: list[dict[str, Any]] = []
-    for path in sorted((state / EXPLANATION_DIR).glob("*.json")) if (state / EXPLANATION_DIR).is_dir() else []:
+    for path in sorted(_iter_json_files(state / EXPLANATION_DIR)):
         explanation = _read_json(path)
         route_id = str(explanation.get("route_id") or "")
         pattern_bindings = _rows(explanation, "pattern_bindings")
@@ -307,7 +315,7 @@ def validate_stability(
         if missing:
             explanation_findings.append(
                 {
-                    "explanation_ref": f"{STATE_DIR}/{EXPLANATION_DIR}/{path.name}",
+                    "explanation_ref": _project_relative(project_path, path),
                     "missing_or_unresolved": sorted(set(missing)),
                 }
             )
@@ -377,10 +385,10 @@ def validate_stability(
         findings.append({"finding_id": "project_event_evidence_refs_unstable", "events": event_findings})
 
     evidence_findings: list[dict[str, Any]] = []
-    for path in sorted((state / EVIDENCE_DIR).glob("*.json")) if (state / EVIDENCE_DIR).is_dir() else []:
+    for path in sorted(_iter_json_files(state / EVIDENCE_DIR)):
         payload = _read_json(path)
         replacement = payload.get("evidence_replacement")
-        stable_ref = f"{STATE_DIR}/{EVIDENCE_DIR}/{path.name}"
+        stable_ref = _project_relative(project_path, path)
         if not isinstance(replacement, dict):
             evidence_findings.append({"evidence_ref": stable_ref, "missing": "evidence_replacement"})
             continue

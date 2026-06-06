@@ -50,7 +50,7 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "Secret-exclusion and vulnerability-reporting boundary. |",
         "| [.github/workflows/ci.yml](.github/workflows/ci.yml) / "
         "[Makefile](Makefile) | GitHub Actions and local command surface; "
-        "both route through `make ci`. |",
+        "both route through `make ci`, including package install smoke. |",
         "| [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | "
         "Package metadata, console entry point, and source distribution inventory. |",
         "| [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | "
@@ -90,10 +90,11 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "| Runtime package | [src/microcosm_core/](src/microcosm_core/) | "
         "CLI-backed local behavior: first-screen cards, project scan, route "
         "selection, validators, server, and release export. |",
-        "| Command cards | `hello`, `tour --card`, `status --card`, "
-        "`authority --card`, `workingness --card` | The copyable first "
-        "screen, behavior proof, evidence classes, authority ceiling, and "
-        "failure envelope. |",
+        "| Command cards | `microcosm hello`, `microcosm tour --card`, "
+        "`microcosm status --card`, `microcosm authority --card`, "
+        "`microcosm workingness --card` | The copyable first screen, "
+        "behavior proof, evidence classes, authority ceiling, and failure "
+        "envelope. |",
         "| Public doctrine | [core/](core/), [standards/](standards/), "
         "[paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, "
         "standards, bounded explanations, and the first-screen entry packet. |",
@@ -106,14 +107,16 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "light-edit receipts. |",
         "| Validation shell | [tests/](tests/), [Makefile](Makefile), "
         "[.github/workflows/ci.yml](.github/workflows/ci.yml) | The public "
-        "verification floor that keeps docs, CLI cards, fixtures, packaging, "
-        "and standalone export honest. |",
+        "verification floor that keeps docs, CLI cards, fixtures, "
+        "package install, and standalone export honest. |",
     ):
         assert component_row in opening
     assert "This component map is still navigation, not authority." in opening
     assert "From an uninstalled source checkout" in opening
     assert "PYTHONPATH=src python3 -m microcosm_core hello ." in opening
     assert "After `python3 -m pip install -e '.[test]'` or `make install`" in opening
+    assert "make package-smoke" in opening
+    assert "make ci` includes that package smoke" in opening
     assert "microcosm hello ." in opening
     assert "microcosm compile ." in opening
     assert "full `.microcosm/` rebuild JSON" in opening
@@ -150,7 +153,11 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     assert "Most projects do not publish that boundary" in section
     assert "Read the evidence class counters as a claim-boundary legend:" in section
     assert "microcosm authority --card && microcosm workingness --card" not in section
-    assert "then `microcosm authority --card`, then `microcosm workingness --card`" in section
+    assert (
+        "| Safety/evals engineer | `microcosm tour --card <project>`, then "
+        "`microcosm status --card <project>`, then `microcosm authority --card` / "
+        "`microcosm workingness --card` |"
+    ) in section
     for evidence_class in (
         "verified_macro_body_import",
         "external_subprocess_witness",
@@ -174,6 +181,10 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
 
 def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     text = _readme_text()
+    try_it = text.split("## Try It On Your Repo", 1)[1].split(
+        "## What This Proves",
+        1,
+    )[0]
     direct_path = text.split(
         "Or run the same product CLI directly from the checkout without installing the\n"
         "entry point:",
@@ -195,6 +206,10 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     direct_first_screen_card = (
         "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
     )
+    assert "./bootstrap.sh" in try_it
+    assert "./bootstrap.sh --dry-run" in try_it
+    assert ".microcosm/cold_clone_probe.json" in try_it
+    assert try_it.index("./bootstrap.sh") < try_it.index("python3 -m pip install .")
     assert direct_hello in direct_path
     assert direct_path.index(direct_hello) < direct_path.index(direct_tour_card)
     assert direct_first_screen_card in direct_path
@@ -270,16 +285,21 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         "## Accepted Public Runtime Spine"
     )
     agent_smoke = agents.split(
-        "The smoke target runs the compact route directly.",
+        "The smoke target writes ignored receipts under `.microcosm/smoke/`, "
+        "validates",
         1,
     )[1].split("Before publishing", 1)[0]
+    assert "Microcosm smoke check: pass" in agent_smoke
+    assert "authority: pass" in agent_smoke
+    assert "workingness: clear" in agent_smoke
+    assert "served status: pass" in agent_smoke
     assert "microcosm first-screen --card ." in agent_smoke
     assert (
         agent_smoke.index("microcosm hello .")
         < agent_smoke.index("microcosm first-screen --card .")
         < agent_smoke.index("microcosm tour --card .")
     )
-    assert "`first-screen --card` is the compact JSON reader map" in agent_smoke
+    assert "`microcosm first-screen --card` is the compact JSON reader map" in agent_smoke
     assert "The shared\n   state-writing behavior proof is" in agents
     assert agents.index("microcosm hello <project>") < agents.index(
         "microcosm tour --card <project>"

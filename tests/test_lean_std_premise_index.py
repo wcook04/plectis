@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
@@ -8,7 +9,9 @@ from typing import Any
 from microcosm_core.organs.lean_std_premise_index import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    HASH_CHUNK_SIZE,
     _line_count,
+    _sha256_hex,
     main,
     run,
     run_index_bundle,
@@ -57,6 +60,23 @@ RING2_SOURCE_MODULES = [
 ]
 
 
+def _copy_fixture_input_with_source_artifact(tmp_path: Path) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    input_dir = public_root / "fixtures/first_wave/lean_std_premise_index/input"
+    source_target = (
+        tmp_path
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    )
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+    shutil.copytree(SOURCE_RUN, source_target)
+    return input_dir
+
+
+def _rewrite_json(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -91,6 +111,25 @@ def test_lean_std_premise_index_line_count_streams_source_modules(
 
     assert _line_count(source) == 3
     assert _line_count(empty) == 1
+
+
+def test_lean_std_premise_index_hash_streams_source_modules(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "large_source_module.json"
+    body = b'{"payload":"' + (b"x" * (HASH_CHUNK_SIZE + 17)) + b'"}'
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path) -> bytes:
+        if self == source:
+            raise AssertionError("source-module hash should stream file bodies")
+        return original_read_bytes(self)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert _sha256_hex(source) == sha256(body).hexdigest()
 
 
 def test_lean_std_premise_index_observes_negative_cases(tmp_path: Path) -> None:
@@ -143,6 +182,99 @@ def test_lean_std_premise_index_imports_real_macro_premise_index(tmp_path: Path)
     assert copied["source_ref"] == premise_index["source_ref"]
     assert copied["source_sha256"] == premise_index["source_sha256"]
     assert "fixtures/first_wave/lean_std_premise_index/input/premise_index.json" in copied["target_refs"]
+
+
+def test_lean_std_premise_index_rejects_mutated_source_digest(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
+    premise_path = input_dir / "premise_index.json"
+    premise_index = json.loads(premise_path.read_text(encoding="utf-8"))
+    premise_index["source_sha256"] = "sha256:" + ("0" * 64)
+    _rewrite_json(premise_path, premise_index)
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_artifact_status"] == "blocked"
+    assert "LEAN_STD_INDEX_SOURCE_ARTIFACT_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["source_artifact_premise_count"] == 11
+
+
+def test_lean_std_premise_index_rejects_mutated_source_artifact_body(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
+    source_path = (
+        tmp_path
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_index.json"
+    )
+    source_payload = json.loads(source_path.read_text(encoding="utf-8"))
+    source_payload["premises"][0]["statement_excerpt"] = "stale mutated source"
+    _rewrite_json(source_path, source_payload)
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_artifact_status"] == "blocked"
+    assert "LEAN_STD_INDEX_SOURCE_ARTIFACT_DIGEST_MISMATCH" in result["error_codes"]
+    assert "LEAN_STD_INDEX_SOURCE_ARTIFACT_ROW_MISMATCH" in result["error_codes"]
+
+
+def test_lean_std_premise_index_rejects_mutated_source_ref(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
+    premise_path = input_dir / "premise_index.json"
+    premise_index = json.loads(premise_path.read_text(encoding="utf-8"))
+    premise_index["source_ref"] = (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "stale_premise_index.json"
+    )
+    _rewrite_json(premise_path, premise_index)
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_artifact_status"] == "blocked"
+    assert "LEAN_STD_INDEX_SOURCE_ARTIFACT_MISSING" in result["error_codes"]
+    assert result["source_artifact_premise_count"] == 0
+
+
+def test_lean_std_premise_index_rejects_mutated_index_and_count_perturbation(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_fixture_input_with_source_artifact(tmp_path)
+    premise_path = input_dir / "premise_index.json"
+    premise_index = json.loads(premise_path.read_text(encoding="utf-8"))
+    premise_index["premises"] = premise_index["premises"][:8]
+    premise_index["premise_count"] = 8
+    _rewrite_json(premise_path, premise_index)
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["premise_count"] == 8
+    assert result["source_artifact_premise_count"] == 11
+    assert "LEAN_STD_INDEX_SOURCE_ARTIFACT_ROW_COUNT_MISMATCH" in result["error_codes"]
+    assert "LEAN_STD_INDEX_DENSITY_MISSING" in result["error_codes"]
 
 
 def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None:
@@ -246,6 +378,89 @@ def test_lean_std_premise_index_bundle_validates_runtime_shape(
     assert result["source_module_count"] == 6
     assert result["verified_source_module_count"] == 6
     assert len(result["source_module_imports"]) == 6
+
+
+def test_lean_std_premise_index_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    source_target = (
+        tmp_path
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    )
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/lean_std_premise_index",
+        public_root / "examples/lean_std_premise_index",
+    )
+    shutil.copytree(SOURCE_RUN, source_target)
+    bundle = (
+        public_root
+        / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    result = run_index_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "LEAN_STD_INDEX_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_lean_std_premise_index_rejects_rehashed_copied_source_body_swap(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    source_target = (
+        tmp_path
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    )
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/lean_std_premise_index",
+        public_root / "examples/lean_std_premise_index",
+    )
+    shutil.copytree(SOURCE_RUN, source_target)
+    bundle = (
+        public_root
+        / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
+    )
+    target_path = (
+        bundle
+        / "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"
+    )
+    payload = json.loads(target_path.read_text(encoding="utf-8"))
+    payload["aggregate_kind"] = "tampered_after_copy"
+    _rewrite_json(target_path, payload)
+
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for row in manifest["modules"]:
+        if row["module_id"] == "lean_std_ring2_top_aggregate_report_body_import":
+            row["target_sha256"] = "sha256:" + _sha256_hex(target_path)
+            row["target_line_count"] = _line_count(target_path)
+            row["target_byte_count"] = target_path.stat().st_size
+            break
+    _rewrite_json(manifest_path, manifest)
+
+    result = run_index_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/lean_std_premise_index",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_TARGET_DIVERGED" in result["error_codes"]
 
 
 def test_lean_std_premise_index_bundle_card_is_compact_and_source_open(

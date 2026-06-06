@@ -1,0 +1,98 @@
+{
+  "schema_version": "batch5_authority_systems_capsule_exercise_manifest_v1",
+  "receipt_validator": {
+    "grant": {
+      "provider": "public-offline-fixture",
+      "allowed_context_classes": ["public_task", "result_summary"],
+      "artifact_sha256": "abc123",
+      "runtime_grant_issued": true
+    },
+    "valid_receipt": {
+      "provider": "public-offline-fixture",
+      "context_classes": ["public_task"],
+      "artifact_sha256": "abc123",
+      "runtime_execution": false
+    },
+    "drifted_receipt": {
+      "provider": "substituted-provider",
+      "context_classes": ["public_task", "private_seed"],
+      "artifact_sha256": "def456",
+      "runtime_execution": true
+    }
+  },
+  "replay_scope": {
+    "consumed_context_classes": ["task_spec", "public_fixture"],
+    "changed_context_classes": ["ambient_browser_state"],
+    "expected": "no_replay"
+  },
+  "proof_repair": {
+    "declared_theorem": "micro10_public_target",
+    "bad_proof": "plan: I will prove micro10_public_target later. sorry"
+  },
+  "orphan_reaper": {
+    "process": {
+      "pid": 4242,
+      "ppid": 1,
+      "age_seconds": 900,
+      "allowlisted": true,
+      "live_session_descendant": true,
+      "requested_signal": "SIGKILL"
+    }
+  },
+  "fixpoint_drainer": {
+    "expected_classification": "settlement_residual_source_moved",
+    "residual_signatures": [
+      {
+        "residual_id": "projection_A",
+        "source_signature": "old"
+      },
+      {
+        "residual_id": "projection_A",
+        "source_signature": "new"
+      }
+    ]
+  },
+  "trace_tape": {
+    "max_chars": 120,
+    "spans": [
+      {
+        "text": "span 1: command, status, and timing metadata for a long public-safe agent trace"
+      },
+      {
+        "text": "span 2: repeated trace row that should be compacted behind a pointer when budget is tight"
+      },
+      {
+        "text": "span 3: final status must remain represented through an omission receipt"
+      }
+    ]
+  },
+  "blast_radius": {
+    "target": "system/lib/semantic_routing.py",
+    "leaf_target": "leaf.py",
+    "graph": {
+      "system/lib/kernel_navigation.py": ["system/lib/semantic_routing.py"],
+      "kernel.py": ["system/lib/kernel_navigation.py"],
+      "tests/test_kernel_navigation.py": ["system/lib/kernel_navigation.py"],
+      "leaf.py": []
+    }
+  },
+  "doctrine_graph": {
+    "nodes": [
+      {
+        "id": "mech_live",
+        "code_ref": "system/lib/semantic_routing.py",
+        "code_path_exists": true
+      },
+      {
+        "id": "mech_deleted",
+        "code_ref": "system/lib/deleted_surface.py",
+        "code_path_exists": false
+      },
+      {
+        "id": "legacy_route",
+        "status": "tombstone",
+        "replacement_id": "modern_route"
+      }
+    ]
+  }
+}

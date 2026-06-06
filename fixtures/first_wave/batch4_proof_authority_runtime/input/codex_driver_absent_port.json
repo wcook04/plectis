@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "codex_driver_absent_port", "error_codes": ["BATCH4_CODEX_DRIVER_ABSENT_PORT_TYPED_UNREACHABLE"], "runtime_probe": {"observer_id": "codex_driver_doctor_unreachable_anchor", "source_module_id": "codex_driver", "required_text": "codex_driver_doctor"}, "body_in_receipt": false}

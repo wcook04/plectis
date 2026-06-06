@@ -1,0 +1,91 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "receipt_id": "materials_chemistry_closed_loop_lab_safety_replay_rerank_binding_receipt_20260605T1725Z",
+  "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "component": "materials_chemistry_closed_loop_lab_safety_replay.numeric_verdict_replay",
+  "created_at": "2026-06-05T17:25:00Z",
+  "created_by": "codex_20260605T1706Z_microcosm_materials_lab_safety_realness_r3",
+  "status": "queued_rerank_bound",
+  "previous_triage": {
+    "realness_rung": "R2",
+    "status": "operator_declared_target_context"
+  },
+  "rerank_binding": {
+    "bound_rank": "R3",
+    "bound_state": "public_safe_numeric_verdict_replay",
+    "rerank_decision": "local_component_r2_to_r3_bound_broad_portfolio_rerank_deferred",
+    "broad_rerank_deferred": true,
+    "broad_rerank_reentry_condition": "Run the portfolio/fleet rerank lane after this scoped commit lands and the owning broad-rerank session can consume current HEAD.",
+    "work_ledger_session_id": "codex_20260605T1706Z_microcosm_materials_lab_safety_realness_r3",
+    "claimed_path": "microcosm-substrate/receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_rerank_binding_receipt_20260605T1725Z.json"
+  },
+  "validated_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
+    "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py",
+    "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json",
+    "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/candidate_materials.json",
+    "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/simulator_assays.json",
+    "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/active_learning_decisions.json"
+  ],
+  "proof_contract": {
+    "real_good_input_passes": true,
+    "real_bad_numeric_artifact_rejects": true,
+    "single_numeric_perturbation_moves_selected_fixture_row": true,
+    "missing_numeric_replay_rejects": true,
+    "baked_expected_label_not_sufficient": true,
+    "rank_rung_rederived_from_numeric_fixture_content": true,
+    "focused_tests_pass": true,
+    "test_local_bundle_replay_passes": true,
+    "claim_assurance_passes": true,
+    "live_lab_or_wetlab_authority_authorized": false,
+    "release_or_publication_authorized": false,
+    "body_in_receipt": false
+  },
+  "implementation_receipts": {
+    "runtime_validator": "microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay::_numeric_replay_result",
+    "realness_evidence_builder": "microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay::_numeric_replay_realness_evidence",
+    "focused_tests": [
+      "test_materials_chemistry_numeric_replay_recomputes_verdict_from_fixture_numbers",
+      "test_materials_chemistry_numeric_replay_policy_requires_score_backed_rows",
+      "test_materials_chemistry_numeric_replay_is_required_for_passing_verdict",
+      "test_materials_chemistry_exported_bundle_recomputes_numeric_replay_verdict",
+      "test_materials_chemistry_exported_bundle_validates_runtime_shape"
+    ]
+  },
+  "validation": {
+    "py_compile": {
+      "command": "./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
+      "exit_code": 0
+    },
+    "focused_pytest": {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py -q --basetemp /tmp/materials-r3-full-5",
+      "exit_code": 0,
+      "summary": "18 passed"
+    },
+    "test_local_bundle_replay": {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py -q --basetemp /tmp/materials-r3-full-5",
+      "exit_code": 0,
+      "summary": "test-local copied exported bundles carried injected numeric replay rows and passed runtime shape, numeric replay, and card reuse assertions"
+    },
+    "claim_assurance": {
+      "command": "PYTHONPATH=microcosm-substrate/src python3 -m microcosm_core.validators.research_claim_assurance --repo-root . --json",
+      "exit_code": 0,
+      "summary": "status=pass issue_count=0"
+    }
+  },
+  "authority_ceiling": {
+    "public_fixture_and_exported_bundle_receipt_only": true,
+    "simulator_only": true,
+    "chemical_safety_approval_authorized": false,
+    "wetlab_protocol_authorized": false,
+    "hazardous_synthesis_authorized": false,
+    "reagent_amounts_authorized": false,
+    "robot_command_authorized": false,
+    "live_assay_data_authorized": false,
+    "discovery_claim_authorized": false,
+    "benchmark_score_claim_authorized": false,
+    "release_or_publication_authorized": false,
+    "whole_system_correctness_claimed": false
+  },
+  "body_in_receipt": false
+}

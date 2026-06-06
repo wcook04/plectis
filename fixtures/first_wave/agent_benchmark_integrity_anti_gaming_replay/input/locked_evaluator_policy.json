@@ -9,6 +9,15 @@
     "locked_repo_repair_scorer_v1",
     "locked_regression_guard_scorer_v1"
   ],
+  "locked_evaluator_config_hashes": {
+    "locked_regression_guard_scorer_v1": [
+      "sha256:evaluator002"
+    ],
+    "locked_repo_repair_scorer_v1": [
+      "sha256:evaluator001",
+      "sha256:evaluator003"
+    ]
+  },
   "policy_id": "public_synthetic_locked_benchmark_evaluator_policy",
   "provider_calls_authorized": false,
   "release_authorized": false,
@@ -20,6 +29,7 @@
     "contamination_check_ref",
     "trusted_reference_score_ref",
     "output_replay_ref",
+    "real_benchmark_trace_ref",
     "integrity_verdict"
   ],
   "schema_version": "locked_evaluator_policy_v1"

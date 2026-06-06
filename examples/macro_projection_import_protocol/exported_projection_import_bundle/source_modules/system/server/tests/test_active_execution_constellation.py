@@ -155,6 +155,69 @@ def test_projection_degrades_when_work_ledger_snapshot_is_missing(tmp_path: Path
     assert payload["demotion_guard"]["blockers"][0]["blocker_id"] == "work_ledger_claim_snapshot_not_decisive"
 
 
+def test_projection_carries_owner_lane_first_policy_when_claims_are_live(tmp_path: Path) -> None:
+    _write_json(
+        tmp_path / "tools/meta/control/orchestration_state.json",
+        {
+            "kind": "orchestration_state",
+            "active_driver": "phase_pipeline",
+            "updated_at": "2026-05-17T09:00:00+00:00",
+        },
+    )
+    _write_json(
+        tmp_path / "state/task_ledger/views/execution_menu_schedulable.json",
+        {"kind": "task_ledger_view", "generated_at": "2026-05-17T09:00:30+00:00", "items": []},
+    )
+    _write_json(
+        tmp_path / "state/work_ledger/active_claims_snapshot.json",
+        {
+            "schema": "work_ledger_active_claims_snapshot_v1",
+            "generated_at": "2026-05-17T09:01:00+00:00",
+            "counts": {
+                "active_claims": 1,
+                "effective_active_sessions": 1,
+                "orphaned_active_sessions": 0,
+                "claim_collisions": 0,
+            },
+            "active_claims": [
+                {
+                    "scope_kind": "path",
+                    "scope_id": "microcosm-substrate/src/microcosm_core/organs/live.py",
+                    "path": "microcosm-substrate/src/microcosm_core/organs/live.py",
+                    "session_id": "session_owner",
+                    "actor": "codex",
+                    "phase_id": "09_54_1",
+                    "leased_until": "2099-01-01T00:00:00+00:00",
+                }
+            ],
+        },
+    )
+
+    payload = build_active_execution_constellation(
+        tmp_path,
+        active_phase={"active_phase_id": "09_54_1", "active_phase_title": "Static phase"},
+        work_priority={
+            "schema_version": "task_ledger_priority_constellation_v1",
+            "view_counts": {
+                "execution_menu_schedulable": 0,
+                "unlock_pressure": 7,
+            },
+            "top_global_unlock_pressure_workitems": [
+                {"id": "cap_hidden", "title": "Hidden pressure", "rank": 1}
+            ],
+        },
+    )
+
+    policy = payload["continuation_selection_policy"]
+    assert policy["status"] == "owner_lane_first"
+    assert policy["signals"]["active_claim_count"] == 1
+    assert policy["signals"]["global_unlock_pressure_count"] == 7
+    assert "global/hidden pressure" in policy["blocked_move"]
+
+    compact = compact_active_execution_constellation_for_entry(payload)
+    assert compact["continuation_selection_policy"]["status"] == "owner_lane_first"
+
+
 def test_projection_carries_work_ledger_pass_awareness_cards(tmp_path: Path) -> None:
     _write_json(
         tmp_path / "tools/meta/control/orchestration_state.json",
@@ -254,8 +317,9 @@ def test_projection_carries_work_ledger_pass_awareness_cards(tmp_path: Path) -> 
         in compact["live_sessions"]["heartbeat_gap_claim_sessions"][0]["heartbeat_command"]
     )
     assert snapshot["seed_speed_hint"]["counts"]["claim_session_heartbeat_gap_count"] == 1
+    assert snapshot["seed_speed_hint"]["first_action_kind"] == "choose_disjoint_write_lane"
     assert (
-        "session-status --session-id sess_heartbeat --full"
+        "session-claims --refresh --session-summary"
         in snapshot["seed_speed_hint"]["first_action_command"]
     )
 
@@ -292,7 +356,7 @@ def test_projection_can_use_active_claims_sidecar_without_runtime_status(
             "seed_speed_hint": {
                 "first_action": "Publish heartbeat for claim-owning seed sessions listed in heartbeat_gap_claim_sessions.",
                 "first_action_kind": "heartbeat_gap",
-                "first_action_command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id sess_fast_gap --state <state> --now '<public current pass>' --done '<public previous result>' --scope-ref system/lib/fast.py",
+                "first_action_command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id sess_fast_gap --state inspecting --current-pass-line '<public current pass>' --last-pass-result-line '<public previous result>' --scope-ref system/lib/fast.py",
                 "first_action_ref": "heartbeat_gap_claim_sessions[0].heartbeat_command",
                 "counts": {"claim_session_heartbeat_gap_count": 1},
                 "heartbeat_gap_claim_sessions": [
@@ -300,7 +364,7 @@ def test_projection_can_use_active_claims_sidecar_without_runtime_status(
                         "session_id": "sess_fast_gap",
                         "active_claim_count": 1,
                         "scope_ref": "system/lib/fast.py",
-                        "heartbeat_command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id sess_fast_gap --state <state> --now '<public current pass>' --done '<public previous result>' --scope-ref system/lib/fast.py",
+                        "heartbeat_command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id sess_fast_gap --state inspecting --current-pass-line '<public current pass>' --last-pass-result-line '<public previous result>' --scope-ref system/lib/fast.py",
                     }
                 ],
             },
@@ -479,8 +543,37 @@ def test_entry_packet_routes_subphase_liveness_to_active_execution_constellation
     assert "projection_freshness" in payload["active_execution_constellation"]
     assert "demotion_guard" in payload["active_execution_constellation"]
     assert "blocker_topology" in payload["active_execution_constellation"]["demotion_guard"]
+    assert (
+        payload["active_execution_constellation"]["continuation_selection_policy"]["status"]
+        in {"owner_lane_first", "task_ledger_schedulable_first", "support_or_capture"}
+    )
     assert "claim_topology_summary" in payload["active_execution_constellation"]["live_sessions"]
     assert "claim_topology" not in payload["active_execution_constellation"]["live_sessions"]
+
+
+def test_general_entry_packet_defers_active_execution_constellation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from system.lib import active_execution_constellation
+    from system.lib.kernel.commands import comprehension_snapshot
+
+    def fail_if_built(*args: object, **kwargs: object) -> dict[str, object]:
+        raise AssertionError("active execution constellation should be lazy for general entry")
+
+    monkeypatch.setattr(
+        active_execution_constellation,
+        "build_active_execution_constellation",
+        fail_if_built,
+    )
+
+    payload = comprehension_snapshot.build_entry_packet(
+        REPO_ROOT,
+        task="write a focused local patch",
+        context_budget=12000,
+    )
+
+    assert payload["recognized_situation"] != "active_execution_constellation"
+    assert "active_execution_constellation" not in payload
 
 
 def test_phase_summary_overlay_prefers_workitems_over_phase_step(
@@ -671,6 +764,41 @@ def test_annex_landing_summary_uses_bounded_index_parse(
     assert summary["placeholder_count"] == 3
     assert summary["adopted_count"] == 5
     assert summary["landing_rate_pct"] == 25.0
+
+
+def test_annex_landing_summary_cache_reuses_manifest_valid_payload(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    index_path = tmp_path / "annexes" / "annex_distillation_index.json"
+    index_path.parent.mkdir(parents=True)
+    index_path.write_text('{"pattern_count": 1, "adoption_summary": {}}', encoding="utf-8")
+    monkeypatch.setattr(kernel_navigate.state, "REPO_ROOT", tmp_path, raising=False)
+    calls = {"count": 0}
+
+    def build_summary() -> dict:
+        calls["count"] += 1
+        return {
+            "available": True,
+            "total_patterns": 1,
+            "adopted_count": 1,
+            "evaluated_count": 0,
+            "proposed_count": 0,
+            "rejected_count": 0,
+            "deferred_count": 0,
+            "landing_rate_pct": 100.0,
+            "under_fire": False,
+        }
+
+    monkeypatch.setattr(kernel_navigate, "_pulse_annex_landing_summary", build_summary)
+
+    first, first_status = kernel_navigate._pulse_annex_landing_summary_cached()
+    second, second_status = kernel_navigate._pulse_annex_landing_summary_cached()
+
+    assert calls["count"] == 1
+    assert first["landing_rate_pct"] == 100.0
+    assert second["landing_rate_pct"] == 100.0
+    assert first_status["status"] == "miss_built"
+    assert second_status["status"] == "hit"
 
 
 def test_pulse_snapshot_includes_active_execution_constellation(monkeypatch: pytest.MonkeyPatch) -> None:

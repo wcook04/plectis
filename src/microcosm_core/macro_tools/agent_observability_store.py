@@ -19,8 +19,9 @@ from collections import Counter, deque
 from dataclasses import asdict, dataclass, field, is_dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping, Optional, cast
 
+from microcosm_core.schemas import read_json_strict
 
 PASS = "pass"
 BLOCKED = "blocked"
@@ -131,6 +132,7 @@ FORBIDDEN_PAYLOAD_KEYS = {
 MAX_EVENT_LINE_BYTES = 64 * 1024
 MAX_PAYLOAD_VALUE_BYTES = 16 * 1024
 MAX_PAYLOAD_CONTAINER_ITEMS = 80
+HASH_CHUNK_SIZE = 1024 * 1024
 
 
 @dataclass(frozen=True)
@@ -403,7 +405,7 @@ class PublicAgentObservabilitySampler:
 def load_public_agent_observability_store_bundle(input_dir: str | Path) -> dict[str, Any]:
     root = Path(input_dir)
     return {
-        path.stem: json.loads(path.read_text(encoding="utf-8"))
+        path.stem: cast(dict[str, Any], read_json_strict(path))
         for path in (root / name for name in INPUT_NAMES)
     }
 
@@ -947,7 +949,11 @@ def _stable_digest(payload: object) -> str:
 
 
 def _file_sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _repo_root_from_target() -> Path | None:

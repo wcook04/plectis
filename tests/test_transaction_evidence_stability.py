@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core import cli
 from microcosm_core import project_substrate
 from microcosm_core.validators import transaction_evidence_stability
@@ -30,6 +32,11 @@ def _scratch_project(tmp_path: Path) -> Path:
     return project
 
 
+def _write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, sort_keys=True), encoding="utf-8")
+
+
 def _run_causal_loop(project: Path) -> str:
     project_substrate.init_project(project)
     project_substrate.index_project(project)
@@ -47,29 +54,19 @@ def test_state_artifact_semantics_checks_json_presence_without_materializing_glo
     tmp_path: Path, monkeypatch
 ) -> None:
     json_dir = tmp_path / ".microcosm/explanations"
-    json_dir.mkdir(parents=True)
-    first = json_dir / "first.json"
-    second = json_dir / "second.json"
-    first.write_text("{}", encoding="utf-8")
-    second.write_text("{}", encoding="utf-8")
+    nested = json_dir / "routes"
+    nested.mkdir(parents=True)
+    (nested / "first.json").write_text("{}", encoding="utf-8")
     original_glob = Path.glob
-    yielded: list[str] = []
 
     def guarded_glob(self: Path, pattern: str):
         if self == json_dir and pattern == "*.json":
-            def stream():
-                yielded.append("first")
-                yield first
-                yielded.append("second")
-                raise AssertionError("json presence check should stop after first match")
-
-            return stream()
+            raise AssertionError("json presence check should use recursive state streaming")
         return original_glob(self, pattern)
 
     monkeypatch.setattr(Path, "glob", guarded_glob)
 
     assert transaction_evidence_stability._has_json_file(json_dir) is True
-    assert yielded == ["first"]
 
 
 def test_transaction_evidence_stability_state_files_stream_without_path_rglob(
@@ -95,6 +92,27 @@ def test_transaction_evidence_stability_state_files_stream_without_path_rglob(
         path.relative_to(state).as_posix()
         for path in transaction_evidence_stability._state_files(project)
     ] == ["events.jsonl", "nested/artifact.json"]
+
+
+def test_transaction_evidence_stability_state_files_skip_symlinked_json(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "scratch_project"
+    state = project / ".microcosm"
+    state.mkdir(parents=True)
+    (state / "project_manifest.json").write_text("{}", encoding="utf-8")
+    outside = tmp_path / "outside_state.json"
+    outside.write_text('{"outside": true}', encoding="utf-8")
+    symlink = state / "linked_state.json"
+    try:
+        symlink.symlink_to(outside)
+    except (NotImplementedError, OSError) as exc:
+        pytest.skip(f"symlink creation unavailable: {exc}")
+
+    assert [
+        path.relative_to(state).as_posix()
+        for path in transaction_evidence_stability._state_files(project)
+    ] == ["project_manifest.json"]
 
 
 def test_transaction_evidence_stability_state_file_walk_recurses_without_entry_list(
@@ -243,6 +261,116 @@ def test_transaction_evidence_stability_validator_proves_resolved_chain(tmp_path
     }
     assert semantics[".microcosm/events.jsonl"] == "append_only_event_history"
     assert semantics[".microcosm/evidence/*.json"] == "stable_ref_latest_body_with_replacement_metadata"
+
+
+def test_transaction_evidence_stability_validator_resolves_nested_evidence_and_explanations(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    state = project / ".microcosm"
+    state.mkdir()
+    route_id = "readme_onboarding_route"
+    pattern_id = "pat_readme"
+    work_id = "work_0001"
+    event_id = "evt_0001"
+    evidence_ref = ".microcosm/evidence/routes/readme_onboarding.json"
+
+    _write_json(state / "patterns.json", {"patterns": [{"pattern_id": pattern_id}]})
+    _write_json(
+        state / "routes.json",
+        {
+            "routes": [
+                {
+                    "route_id": route_id,
+                    "pattern_refs": [pattern_id],
+                    "standard_pressure_refs": [],
+                }
+            ]
+        },
+    )
+    _write_json(
+        state / "work_items.json",
+        {
+            "work_items": [
+                {
+                    "work_id": work_id,
+                    "route_id": route_id,
+                    "route_snapshot": {"route_id": route_id},
+                    "satisfaction_contract": {"status": "declared"},
+                    "integration_contract": {"status": "declared"},
+                    "transaction_policy": {"source_files_mutated": False},
+                    "status": "closed",
+                    "state_history": [
+                        {"state": "created"},
+                        {"state": "selected"},
+                        {"state": "planned"},
+                        {"state": "executed_simulation"},
+                        {"state": "closed"},
+                    ],
+                    "closeout": {
+                        "satisfaction_contract_met": True,
+                        "integration_contract_met": True,
+                        "evidence_ref": evidence_ref,
+                    },
+                    "event_refs": [{"event_id": event_id}],
+                    "evidence_refs": [evidence_ref],
+                    "source_files_mutated": False,
+                }
+            ]
+        },
+    )
+    (state / "events.jsonl").write_text(
+        json.dumps({"event_id": event_id, "span": "work.closed", "evidence_ref": evidence_ref}) + "\n",
+        encoding="utf-8",
+    )
+    _write_json(
+        state / "explanations/routes/readme_onboarding.json",
+        {
+            "route_id": route_id,
+            "pattern_bindings": [{"pattern_id": pattern_id, "resolved": True}],
+            "standard_bindings": [{"standard_id": "std_microcosm", "resolved": True}],
+            "evidence_refs": [evidence_ref],
+        },
+    )
+    _write_json(
+        state / "evidence/routes/readme_onboarding.json",
+        {
+            "evidence_id": "evidence_0001",
+            "evidence_replacement": {
+                "stable_ref": evidence_ref,
+                "policy": "stable_ref_latest_body",
+                "replacement_recorded": True,
+                "append_only_event_history_ref": ".microcosm/events.jsonl",
+            },
+        },
+    )
+    _write_json(
+        state / "graph.json",
+        {
+            "nodes": [
+                {"node_id": f"route:{route_id}"},
+                {"node_id": f"work:{work_id}"},
+            ],
+            "edges": [
+                {
+                    "from": f"work:{work_id}",
+                    "to": f"route:{route_id}",
+                    "relation": "uses_route",
+                }
+            ],
+        },
+    )
+
+    out = tmp_path / "transaction_evidence_stability_nested.json"
+    receipt = validate_stability(MICROCOSM_ROOT, project, out, command="pytest")
+
+    assert receipt["status"] == "pass"
+    assert receipt["blocking_codes"] == []
+    assert receipt["evidence_count"] == 1
+    assert receipt["consistency_summary"]["explain_refs_resolve"] is True
+    assert receipt["consistency_summary"]["work_event_evidence_refs_resolve"] is True
+    assert receipt["consistency_summary"]["events_reference_existing_evidence"] is True
+    assert receipt["consistency_summary"]["evidence_replacements_recorded"] is True
 
 
 def test_transaction_evidence_stability_validator_streams_event_summary(

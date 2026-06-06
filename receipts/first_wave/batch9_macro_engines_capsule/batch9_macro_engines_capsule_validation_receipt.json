@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 9 validates copied non-secret macro source bodies plus public source-faithful exercises for provenance lineage, approval adjudication, Python AST indexing, finance headline clustering, mission graph waves, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker pre-dispatch gating, and milestone-relative quality accounting. It is not live authority, not real market or doctrine truth, not provider dispatch, not Work Ledger truth, not source mutation permission, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch9_macro_engines_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch9_macro_engines_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch9_macro_engines_capsule"
+}

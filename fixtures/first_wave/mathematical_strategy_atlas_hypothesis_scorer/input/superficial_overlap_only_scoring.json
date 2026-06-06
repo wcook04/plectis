@@ -1,0 +1,7 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "superficial_overlap_only_scoring",
+  "subject_id": "legacy_feature_overlap_count",
+  "legacy_overlap_only_scoring_allowed": true,
+  "anti_claim": "A strategy with more legacy match_features cannot win when weighted trigger, negative-trigger, and retrieval evidence points elsewhere."
+}

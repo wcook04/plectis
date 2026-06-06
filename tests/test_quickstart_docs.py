@@ -85,3 +85,22 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         in quickstart
     )
     assert "not authorize release" in quickstart
+
+
+def test_quickstart_cross_doc_anchors_resolve_in_generated_organs() -> None:
+    # ORGANS.md is builder-generated (build_organ_atlas.py). QUICKSTART and README
+    # advertise these anchors as the cold-reader "one-line organ ladder" and the
+    # "find your specialty" index. Lock each advertised anchor literal to the live
+    # generated heading literal in the same test so a future build_organ_atlas.py
+    # heading rename must update both sides together (no silent 404 for a cold reader).
+    quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+    organs = (MICROCOSM_ROOT / "ORGANS.md").read_text(encoding="utf-8")
+
+    # "one-line organ ladder": the em-dash drops out and the two spaces around it
+    # each become a hyphen, so the GitHub slug carries a doubled hyphen.
+    assert "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line" in quickstart
+    assert "## Microcosm at a glance — every organ in one line" in organs
+
+    # "find your specialty" human index.
+    assert "ORGANS.md#find-your-specialty" in quickstart
+    assert "## Find your specialty" in organs

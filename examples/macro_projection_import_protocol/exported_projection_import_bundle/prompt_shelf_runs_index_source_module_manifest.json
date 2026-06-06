@@ -9,9 +9,9 @@
       "anchor_count": 12,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 70743,
+      "byte_count": 82224,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 1710,
+      "line_count": 1988,
       "material_class": "public_macro_tool_body",
       "module_id": "prompt_shelf_runs_index_body_import",
       "required_anchors": [
@@ -32,9 +32,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_prompt_body_raw_event_body_provider_payload_browser_hud_live_access_generated_runs_index_state_account_session_or_credential_equivalent_material",
       "source_ref": "tools/meta/observability/prompt_shelf_runs_index.py",
       "source_role": "Macro prompt-shelf runs-index projector that builds a compact metadata-only index over captured prompt-shelf runs, raw-event paths, receipt status, coverage, nesting audit, and B3 packet lint status without copying prompt or provider bodies into the projection.",
-      "source_sha256": "e5d992ba30238e71e0ed12b780582ba32633f8adafcaec0eee023e5c39d52e29",
+      "source_sha256": "edc8dab34ff91e57a09f53e8ad90b52473953d9b1e1ed4591fb7ce73aaf9d860",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_runs_index.py",
-      "target_sha256": "e5d992ba30238e71e0ed12b780582ba32633f8adafcaec0eee023e5c39d52e29"
+      "target_sha256": "edc8dab34ff91e57a09f53e8ad90b52473953d9b1e1ed4591fb7ce73aaf9d860"
     },
     {
       "anchor_count": 11,
@@ -70,9 +70,9 @@
       "anchor_count": 9,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 40997,
+      "byte_count": 47048,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 952,
+      "line_count": 1122,
       "material_class": "public_macro_tool_body",
       "module_id": "prompt_shelf_runs_index_test_body_import",
       "required_anchors": [
@@ -90,9 +90,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_prompt_body_raw_prompt_shelf_event_body_provider_payload_browser_hud_live_access_generated_runs_index_state_account_session_or_credential_equivalent_material; synthetic raw-event fixtures and tiny prompt-anchor snippets remain validation-only test inputs",
       "source_ref": "system/server/tests/test_prompt_shelf_runs_index.py",
       "source_role": "Macro synthetic regression suite for the prompt-shelf runs index, covering metadata-only indexing, B3 lint status, receipt detection, slot coverage, B2.2 variant summaries, zero-count slots, and nested-anchor diagnostics around synthetic run/raw-event fixtures.",
-      "source_sha256": "7ac4955686e203bbd8733b6064f799a2b67153f8270278c1cf5be88617371bf4",
+      "source_sha256": "f94e3eaaf4b895cb9558c2945610fdfb4013668b835909126c926500a676e830",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
-      "target_sha256": "7ac4955686e203bbd8733b6064f799a2b67153f8270278c1cf5be88617371bf4"
+      "target_sha256": "f94e3eaaf4b895cb9558c2945610fdfb4013668b835909126c926500a676e830"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, metadata-boundary assertions, and synthetic runs-index assertions; copied source modules are body evidence, while support fixtures remain validation-only and not authority to read live prompt-shelf raw events, export prompt bodies, access browser/HUD state, call providers, write generated runs-index state, mutate private state, or claim release authority.",

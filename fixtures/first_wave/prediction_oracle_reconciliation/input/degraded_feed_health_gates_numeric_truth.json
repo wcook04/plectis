@@ -1,0 +1,193 @@
+{
+  "schema_version": "prediction_oracle_reconciliation_packet_v1",
+  "packet_id": "negative_degraded_feed_health_gates_numeric_truth",
+  "source_pattern_ids": [
+    "synthetic_science_oracle_dossier_reconciliation_compound",
+    "cp1_bifurcation_reconciliation_spine",
+    "epistemic_hierarchy_lane_resolution_order",
+    "cp2_universe_constraint_valid_prediction_targets_gate",
+    "oracle_cp2_grounding_firewall",
+    "evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "source_refs": [
+    "microcosm_pattern_ledger:synthetic_science_oracle_dossier_reconciliation_compound",
+    "microcosm_pattern_ledger:cp1_bifurcation_reconciliation_spine",
+    "microcosm_pattern_ledger:cp2_universe_constraint_valid_prediction_targets_gate",
+    "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "valid_prediction_targets": [
+    "SYNTH_TARGET_ALPHA",
+    "SYNTH_TARGET_BETA",
+    "SYNTH_TARGET_GAMMA"
+  ],
+  "target_universe": [
+    {
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "asset_class": "STOCK",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:alpha"
+    },
+    {
+      "target_id": "SYNTH_TARGET_BETA",
+      "asset_class": "ETF",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:beta"
+    },
+    {
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "asset_class": "STOCK",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:gamma"
+    }
+  ],
+  "cp1_branches": [
+    {
+      "branch_id": "cp1_alpha_up_over_flat",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "lane": "synthetic_science",
+      "selected_side": "up",
+      "rationale_refs": [
+        "T-2:alpha_prior"
+      ],
+      "opposite_side_invalidation_ref": "T-1:alpha_flat_rejected",
+      "equity_lane_confirmation": true
+    },
+    {
+      "branch_id": "cp1_beta_down_over_up",
+      "target_id": "SYNTH_TARGET_BETA",
+      "lane": "synthetic_science",
+      "selected_side": "down",
+      "rationale_refs": [
+        "T-2:beta_prior"
+      ],
+      "opposite_side_invalidation_ref": "T-1:beta_up_rejected",
+      "equity_lane_confirmation": true
+    },
+    {
+      "branch_id": "cp1_gamma_flat_over_up",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "lane": "synthetic_science",
+      "selected_side": "flat",
+      "rationale_refs": [
+        "T-2:gamma_prior"
+      ],
+      "opposite_side_invalidation_ref": "T-1:gamma_up_rejected",
+      "equity_lane_confirmation": true
+    }
+  ],
+  "cp2_predictions": [
+    {
+      "prediction_id": "pred_alpha_direction",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "direction": "up",
+      "confidence_band": "medium",
+      "evidence_refs": [
+        "T-1:alpha_grounding"
+      ],
+      "grounding_ids": [
+        "ground_alpha"
+      ]
+    },
+    {
+      "prediction_id": "pred_beta_direction",
+      "target_id": "SYNTH_TARGET_BETA",
+      "direction": "down",
+      "confidence_band": "medium",
+      "evidence_refs": [
+        "T-1:beta_grounding"
+      ],
+      "grounding_ids": [
+        "ground_beta"
+      ]
+    },
+    {
+      "prediction_id": "pred_gamma_direction",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "direction": "flat",
+      "confidence_band": "low",
+      "evidence_refs": [
+        "T-1:gamma_grounding"
+      ],
+      "grounding_ids": [
+        "ground_gamma"
+      ]
+    }
+  ],
+  "oracle_diff": [
+    {
+      "row_id": "oracle_alpha_degraded",
+      "prediction_id": "pred_alpha_direction",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "asset_class": "STOCK",
+      "predicted_direction": "up",
+      "realized_direction": "degraded",
+      "feed_health": "degraded",
+      "snapshot_price": 100.0,
+      "predicted_price": 104.0,
+      "realized_price": 106.0,
+      "abs_error": 2.0,
+      "pred_error_pct": 2.0
+    },
+    {
+      "row_id": "oracle_beta_control",
+      "prediction_id": "pred_beta_direction",
+      "target_id": "SYNTH_TARGET_BETA",
+      "asset_class": "ETF",
+      "predicted_direction": "down",
+      "realized_direction": "down",
+      "feed_health": "ok",
+      "snapshot_price": 200.0,
+      "predicted_price": 198.0,
+      "realized_price": 197.0,
+      "abs_error": 1.0,
+      "pred_error_pct": 0.5
+    },
+    {
+      "row_id": "oracle_gamma_control",
+      "prediction_id": "pred_gamma_direction",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "asset_class": "STOCK",
+      "predicted_direction": "flat",
+      "realized_direction": "flat",
+      "feed_health": "ok",
+      "snapshot_price": 50.0,
+      "predicted_price": 50.0,
+      "realized_price": 50.2,
+      "abs_error": 0.2,
+      "pred_error_pct": 0.4
+    }
+  ],
+  "dossier_mutations": [
+    {
+      "mutation_id": "mutation_alpha_degraded_feed",
+      "operation": "retire_claim",
+      "target_claim_id": "pred_alpha_direction",
+      "severity": "medium",
+      "evidence_run_refs": [
+        "T-1:alpha_grounding",
+        "T+0:oracle_alpha_degraded"
+      ],
+      "allowed_public_delta": true
+    }
+  ],
+  "authority_ceiling": {
+    "status": "pass",
+    "trading_authorized": false,
+    "financial_advice_authorized": false,
+    "investment_advice_authorized": false,
+    "live_market_data_authorized": false,
+    "provider_calls_authorized": false,
+    "live_provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "private_data_equivalence_claim": false
+  },
+  "public_runtime_refs": [
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/degraded_feed_health_gates_numeric_truth.json",
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
+    "paper_modules/prediction_oracle_reconciliation.md"
+  ]
+}

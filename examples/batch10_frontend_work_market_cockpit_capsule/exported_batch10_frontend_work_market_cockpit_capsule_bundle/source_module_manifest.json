@@ -1,0 +1,123 @@
+{
+  "body_in_receipt": false,
+  "module_count": 5,
+  "modules": [
+    {
+      "body_copied": true,
+      "byte_count": 130581,
+      "line_count": 3000,
+      "module_id": "work_lens_source",
+      "path": "source_modules/system/server/ui/src/components/intelligence/WorkLens.tsx",
+      "required_anchors": [
+        "Work lens",
+        "api.worldModel.workLedgerOverview",
+        "api.worldModel.taskLedgerProjection",
+        "Mutation flows live in",
+        "WORK_LEDGER_OVERVIEW_TIMEOUT_MS",
+        "selectedRouteReason",
+        "data-zenith-work-priority-queue"
+      ],
+      "sha256": "5599e421918f86b61d92ff12c8d6caada0b1d6030bfc9cb5b9ff147dfef11e60",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/intelligence/WorkLens.tsx",
+      "source_role": "WorkItems and CAPs live-state read lens with read-only mutation boundary.",
+      "source_sha256": "5599e421918f86b61d92ff12c8d6caada0b1d6030bfc9cb5b9ff147dfef11e60",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkLens.tsx",
+      "target_sha256": "5599e421918f86b61d92ff12c8d6caada0b1d6030bfc9cb5b9ff147dfef11e60"
+    },
+    {
+      "body_copied": true,
+      "byte_count": 15161,
+      "line_count": 408,
+      "module_id": "work_lens_test_source",
+      "path": "source_modules/system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+      "required_anchors": [
+        "deduplicates repeated WorkItems",
+        "times out a cold Work Ledger overview",
+        "keeps the cold-open queue selection local",
+        "__workLensLaneForMarkForTests"
+      ],
+      "sha256": "8a2b788e2ee523ffa6479d32ae932f27fa0983d0ce527581ed2a753a6e1cd6e7",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+      "source_role": "Source test witness for work queue dedupe, timeout, and local selection behavior.",
+      "source_sha256": "8a2b788e2ee523ffa6479d32ae932f27fa0983d0ce527581ed2a753a6e1cd6e7",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+      "target_sha256": "8a2b788e2ee523ffa6479d32ae932f27fa0983d0ce527581ed2a753a6e1cd6e7"
+    },
+    {
+      "body_copied": true,
+      "byte_count": 154453,
+      "line_count": 4036,
+      "module_id": "market_cockpit_source",
+      "path": "source_modules/system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+      "required_anchors": [
+        "Intelligence v0.6",
+        "No frontend finance computation",
+        "no fake",
+        "normalizeEntity",
+        "REASON_CODE_TRANSLATIONS",
+        "calendarDaysBetween",
+        "stockgrid \u00b7 salience, not a recommendation",
+        "data-zenith-market-cockpit"
+      ],
+      "sha256": "dacefc7dd7957df4689ab08b1b216f0610da55d5cf20c97b31076c73297225aa",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+      "source_role": "Human-readable market cockpit source body with honest signal presentation boundary.",
+      "source_sha256": "dacefc7dd7957df4689ab08b1b216f0610da55d5cf20c97b31076c73297225aa",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+      "target_sha256": "dacefc7dd7957df4689ab08b1b216f0610da55d5cf20c97b31076c73297225aa"
+    },
+    {
+      "body_copied": true,
+      "byte_count": 38967,
+      "line_count": 1045,
+      "module_id": "market_intelligence_lens_source",
+      "path": "source_modules/system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+      "required_anchors": [
+        "FinanceAssuranceStrip",
+        "Situations are not trading recommendations",
+        "objectTokenIssue",
+        "marketReadinessState",
+        "data-zenith-market-intelligence-route-ready",
+        "latest_market_dashboard_read_model"
+      ],
+      "sha256": "8ff634f7f856f686a42a67af1de54951b8dbb6fbb8d629d48cc25f98347ac183",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+      "source_role": "Market intelligence route-readiness and assurance lens source body.",
+      "source_sha256": "8ff634f7f856f686a42a67af1de54951b8dbb6fbb8d629d48cc25f98347ac183",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+      "target_sha256": "8ff634f7f856f686a42a67af1de54951b8dbb6fbb8d629d48cc25f98347ac183"
+    },
+    {
+      "body_copied": true,
+      "byte_count": 42346,
+      "line_count": 1011,
+      "module_id": "market_cockpit_test_source",
+      "path": "source_modules/system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx",
+      "required_anchors": [
+        "Smoke test for v0.6 MarketCockpit",
+        "not.toContain('equity:ARM')",
+        "Market Insight Matrix",
+        "data-zenith-market-cockpit-version",
+        "flow salience, not a recommendation"
+      ],
+      "sha256": "59d05e30a4f20f4f2eef77edad0a8681fd14c05dc58b2a0e1b9383750bc31874",
+      "sha256_match": true,
+      "source_ref": "system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx",
+      "source_role": "Source test witness for market cockpit normalization, matrix, and honesty boundaries.",
+      "source_sha256": "59d05e30a4f20f4f2eef77edad0a8681fd14c05dc58b2a0e1b9383750bc31874",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx",
+      "target_sha256": "59d05e30a4f20f4f2eef77edad0a8681fd14c05dc58b2a0e1b9383750bc31874"
+    }
+  ],
+  "schema_version": "source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body"
+}

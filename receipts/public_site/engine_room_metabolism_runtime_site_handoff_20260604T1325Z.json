@@ -1,0 +1,175 @@
+{
+  "receipt_id": "engine_room_metabolism_runtime_site_handoff_20260604T1325Z",
+  "schema_version": "microcosm_public_site_handoff_receipt_v1",
+  "generated_at": "2026-06-04T13:25:00Z",
+  "status": "site_ready_source_landed_builder_refresh_required",
+  "subject": "paper_module.engine_room_metabolism_runtime",
+  "source_population_delta": {
+    "paper_module_json_capsule_backed_count": {
+      "before": 86,
+      "after": 87
+    },
+    "paper_module_legacy_only_count": {
+      "before": 12,
+      "after": 11
+    },
+    "paper_module_required_subject_gap_count": {
+      "before": 12,
+      "after": 11
+    },
+    "removed_from_required_subject_gap_ids": [
+      "paper_module.engine_room_metabolism_runtime"
+    ],
+    "remaining_required_subject_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ]
+  },
+  "source_authority": {
+    "capsule_row": "core/paper_module_capsules.json::paper_modules[paper_module.engine_room_metabolism_runtime]",
+    "generated_instance": "paper_modules/engine_room_metabolism_runtime.json",
+    "legacy_markdown_projection": "paper_modules/engine_room_metabolism_runtime.md",
+    "source_authority_status": "json_capsule",
+    "subjects": [
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
+      }
+    ],
+    "code_loci": [
+      "src/microcosm_core/engine_room/metabolism_runtime.py",
+      "src/microcosm_core/engine_room/demo.py"
+    ],
+    "supporting_source_refs": [
+      "core/mechanism_sources.json::mechanism.engine_room_demo.validates_public_engine_room_demo",
+      "core/organ_registry.json::engine_room_demo",
+      "standards/std_microcosm_engine_room_metabolism_runtime.json",
+      "core/fixture_manifests/engine_room_metabolism_runtime.fixture_manifest.json",
+      "tests/test_engine_room_metabolism_runtime.py",
+      "tests/test_engine_room_demo.py",
+      "tests/test_microcosm_paper_module_coverage_contract.py"
+    ]
+  },
+  "publication_lane": {
+    "existing_builder": "../repo-python tools/meta/dissemination/build_microcosm_public_site.py",
+    "source_ref_read_by_builder": "microcosm-substrate/core/paper_module_capsules.json",
+    "expected_builder_records": [
+      "content-graph.json::paper_module.engine_room_metabolism_runtime",
+      "docs/paper-modules.html#paper-module-engine-room-metabolism-runtime",
+      "assets/search-index.js::paper_module.engine_room_metabolism_runtime",
+      "assets/site-packet.js::paper_module.engine_room_metabolism_runtime",
+      "object-map.json::paper_module.engine_room_metabolism_runtime",
+      "object-map.js::paper_module.engine_room_metabolism_runtime",
+      "llms.txt::paper_module.engine_room_metabolism_runtime"
+    ],
+    "current_site_status": "source_ready_current_dirty_site_projection_routeable_commit_deferred",
+    "handoff_reason": "Public site builder outputs are generated aggregate surfaces; concurrent Microcosm public-site/render lanes were active, so this lane leaves a site-ready source/data receipt instead of colliding with broad generated site writes.",
+    "safe_reentry_commands": [
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ]
+  },
+  "current_verification": {
+    "checked_at": "2026-06-05T16:44:20Z",
+    "status": "current_dirty_projection_partially_routeable",
+    "source_authority_present": true,
+    "generated_site_outputs_committed_by_this_receipt": false,
+    "routeability": {
+      "object_map": {
+        "status": "present",
+        "object_id": "paper_module:paper_module.engine_room_metabolism_runtime",
+        "route": "paper-modules.html#paper-module-engine-room-metabolism-runtime"
+      },
+      "content_graph": {
+        "status": "present",
+        "paper_module_anchor": "paper-module-engine-room-metabolism-runtime"
+      },
+      "paper_modules_page": {
+        "status": "present",
+        "anchor": "paper-module-engine-room-metabolism-runtime"
+      },
+      "search_index": {
+        "status": "label_and_anchor_present_exact_id_absent",
+        "label": "Engine Room Metabolism Runtime",
+        "anchor": "paper-module-engine-room-metabolism-runtime"
+      },
+      "content_manifest": {
+        "status": "exact_id_absent"
+      },
+      "llms_txt": {
+        "status": "exact_id_absent"
+      }
+    },
+    "validation_refs": [
+      "cd microcosm-substrate && ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus => pass actual_count=99 expected_count=99 errors=[]",
+      "projection_secret_scan.py --root microcosm-substrate/receipts/public_site --fail-on-blocking => green blocking_hit_count=0 review_hit_count=0",
+      "Current generated sites/microcosm outputs remain dirty and were not claimed or committed by this receipt lane."
+    ],
+    "reentry_condition": "After source-coupling and generated-site ownership are clear, claim microcosm_public_site_projection, rerun build_microcosm_public_site.py --write --validate and --check --validate, then commit only claimed generated site outputs if public scan remains green."
+  },
+  "validation_receipts": [
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "summary": "actual_count=98, expected_count=98, errors=[]"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.engine_room.metabolism_runtime evaluate-fixtures --input fixtures/first_wave/engine_room_metabolism_runtime/input --json",
+      "status": "pass",
+      "summary": "case_count=5, passed_case_count=5; anti-claims retained for live runtime export, agent dispatch, provider execution, ambiguous auto-repair, and distributed database behavior."
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_metabolism_runtime.py microcosm-substrate/tests/test_engine_room_demo.py microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py -q --basetemp /tmp/microcosm-metabolism-runtime-4 --host-pressure-policy=warn",
+      "status": "pass",
+      "summary": "49 passed"
+    },
+    {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --write",
+      "status": "blocked_projection_written",
+      "summary": "Coverage projection was refreshed and remains status=blocked because 11 paper-module required-subject gaps and other lattice residuals remain."
+    }
+  ],
+  "public_safety": {
+    "status": "public_safe",
+    "allowed_public_content": [
+      "paper-module ids",
+      "source paths",
+      "fixture ids",
+      "test names",
+      "coverage counts",
+      "authority ceilings",
+      "anti-claims"
+    ],
+    "forbidden_content_excluded": [
+      "private macro runtime database state",
+      "provider payload bodies",
+      "browser or HUD session state",
+      "raw operator voice",
+      "credentials",
+      "live private logs"
+    ],
+    "claim_ceiling": "Component evidence for the accepted staged Engine Room demo only; not a standalone organ or mechanism, not live private runtime export, not provider execution, not agent dispatch, not distributed database proof, not release readiness, and not source-mutation authority."
+  },
+  "residual_invisible_material": {
+    "site_outputs_waiting_for_builder_refresh": true,
+    "remaining_paper_module_required_subject_gap_count": 11,
+    "organ_atlas_binding_status": "blocked_until_organ_atlas_owner_lane_binds_edges",
+    "full_doctrine_lattice_status": "blocked_by_residual_gaps_not_closed_by_this_lane",
+    "next_availability_slice": "Run the public site builder after aggregate site/render ownership clears, then verify the content graph, search index, object map, and paper-modules page expose paper_module.engine_room_metabolism_runtime."
+  },
+  "work_binding": {
+    "task_ledger_subject_id": "cap_microcosm_engine_room_metabolism_runtime_component_capsule_20260604",
+    "task_ledger_capture_event_id": "wie_20260604T132508Z_8eee6a29",
+    "work_ledger_session_id": "codex_20260604T1325Z_engine_room_metabolism_runtime_component_capsule"
+  }
+}

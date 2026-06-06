@@ -1,0 +1,158 @@
+{
+  "schema_version": "microcosm_public_site_source_handoff_v1",
+  "receipt_id": "agent_route_observability_runtime_source_prose_site_handoff_20260604T1935Z",
+  "created_at": "2026-06-04T19:35:00Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T1935Z_agent_route_prose",
+  "subject_id": "paper_module.agent_route_observability_runtime",
+  "source_authority": {
+    "capsule_registry_ref": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[2:paper_module.agent_route_observability_runtime]",
+    "authored_markdown_projection": "microcosm-substrate/paper_modules/agent_route_observability_runtime.md",
+    "generated_json_sidecar": "microcosm-substrate/paper_modules/agent_route_observability_runtime.json",
+    "source_authority": "json_capsule",
+    "markdown_role": "reader_projection_over_json_capsule_not_source_authority"
+  },
+  "source_patch": {
+    "kind": "authored_markdown_reconciliation",
+    "changed_fields": [
+      "structured_lattice_dependency_list",
+      "validation_receipt_path_expected_projection_readback",
+      "public_site_availability_boundary"
+    ],
+    "live_generated_row_readback": {
+      "edge_count": 12,
+      "unresolved_selective_relation_count": 0,
+      "mermaid_status": "available_from_capsule_edges",
+      "atlas_card_status": "linked_from_capsule_edges",
+      "depends_on": [
+        "paper_module.navigation_hologram_route_plane",
+        "paper_module.cold_reader_route_map",
+        "paper_module.routing_anti_patterns_registry",
+        "paper_module.pattern_binding_contract",
+        "paper_module.macro_projection_import_protocol"
+      ]
+    }
+  },
+  "public_safety": {
+    "status": "public_safe_source_projection",
+    "allowed_material": [
+      "source refs",
+      "digest and manifest refs",
+      "receipt refs",
+      "authority ceilings",
+      "generated relationship counts",
+      "public fixture and copied non-secret macro body refs"
+    ],
+    "excluded_material": [
+      "live operator traces",
+      "provider payloads",
+      "browser or HUD state",
+      "account/session material",
+      "credentials or cookies",
+      "raw private bodies",
+      "hook/session control material"
+    ],
+    "release_authority": false,
+    "hosted_product_authority": false,
+    "provider_authority": false,
+    "source_mutation_authority": false,
+    "whole_system_correctness_authority": false
+  },
+  "site_availability": {
+    "status": "source_ready_for_existing_builder",
+    "site_output_mode": "builder_projection_required",
+    "tracked_site_outputs_written_by_this_receipt": false,
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "tracked_refresh_reentry_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "builder_refresh_surfaces": [
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "temp_site_root": "/tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z",
+    "temp_routeability_status": "partially_verified_by_surface_role",
+    "verified_routeability": [
+      {
+        "surface": "content_graph",
+        "path": "/tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z/content-graph.json",
+        "check": "rg -q \"paper_module.agent_route_observability_runtime\"",
+        "status": "pass",
+        "role": "paper_module_identity_and_relation_graph"
+      },
+      {
+        "surface": "object_map",
+        "path": "/tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z/object-map.json",
+        "check": "rg -q \"paper_module:paper_module.agent_route_observability_runtime\"",
+        "status": "pass",
+        "role": "linkable_object_route"
+      },
+      {
+        "surface": "search_index",
+        "path": "/tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z/assets/search-index.js",
+        "check": "rg -q \"Agent Route Observability Runtime\"",
+        "status": "pass",
+        "role": "searchable_module_title_and_component_card"
+      },
+      {
+        "surface": "paper_modules_page",
+        "path": "/tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z/docs/paper-modules.html",
+        "check": "rg -n \"Agent Route Observability|observability_runtime\"",
+        "status": "pass",
+        "role": "paper_module_card_and_dependency_links"
+      }
+    ],
+    "non_equivalent_surfaces": [
+      {
+        "surface": "paper_modules_page_body",
+        "check": "rg -q \"12 generated relationship edges\"",
+        "status": "not_exact_body_projection",
+        "meaning": "The page exposes the card, rule-feed links, source link, and dependency route; it does not prove exact Markdown-body propagation for this sentence."
+      },
+      {
+        "surface": "llms_txt",
+        "check": "rg -q \"agent_route_observability_runtime\"",
+        "status": "not_exact_module_handle_projection",
+        "meaning": "The generated llms.txt surface is not the proof surface for this paper-module body update."
+      }
+    ],
+    "handoff_boundary": "Do not hand-edit generated site outputs; refresh through the existing builder after source-input ownership is safe. Treat generated surfaces as role-specific projections, not equivalent full-body mirrors."
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/agent_route_observability_runtime_source_prose_site_handoff_20260604T1935Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "summary": {
+          "actual_count": 98,
+          "expected_count": 98
+        }
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-agent-route-prose-coverage",
+        "status": "pass",
+        "summary": "47 passed"
+      },
+      {
+        "command": "jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' microcosm-substrate/paper_modules/agent_route_observability_runtime.json",
+        "status": "pass",
+        "summary": "paper_module.agent_route_observability_runtime\t12\t0\tavailable_from_capsule_edges\tlinked_from_capsule_edges"
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-agent-route-prose-site-stable-20260604T1944Z --write --validate",
+        "status": "pass",
+        "summary": {
+          "validation_status": "pass",
+          "internal_links_missing": 0,
+          "public_safety_scan_hit_count": 0,
+          "written_count": 13
+        }
+      }
+    ]
+  }
+}

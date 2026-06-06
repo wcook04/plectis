@@ -48,6 +48,42 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _public_ref_path(ref: str) -> Path:
+    return Path(ref.partition("#")[0].removeprefix("microcosm-substrate/"))
+
+
+def _copy_public_route_replay_refs(public_root: Path, input_dir: Path) -> None:
+    route_map = json.loads((input_dir / "route_map.json").read_text(encoding="utf-8"))
+    route_receipts = json.loads(
+        (input_dir / "route_receipts.json").read_text(encoding="utf-8")
+    )
+    refs = {
+        *cold_reader_route_map.ROUTE_SOURCE_REPLAY_PUBLIC_REFS,
+        *(
+            ref
+            for row in route_map["routes"]
+            for ref in row.get("docs_refs", [])
+            if isinstance(ref, str)
+        ),
+        *(
+            ref
+            for row in route_receipts["route_receipts"]
+            for ref in row.get("receipt_refs", [])
+            if isinstance(ref, str)
+        ),
+    }
+    for ref in sorted(refs):
+        relative = _public_ref_path(ref)
+        if not str(relative) or relative.is_absolute() or ".." in relative.parts:
+            continue
+        source = MICROCOSM_ROOT / relative
+        target = public_root / relative
+        if not source.is_file():
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+
+
 def test_cold_reader_route_map_observes_negative_cases(tmp_path: Path) -> None:
     result = run(
         FIXTURE_INPUT,
@@ -77,6 +113,10 @@ def test_cold_reader_route_map_observes_negative_cases(tmp_path: Path) -> None:
     ]
     assert result["front_door_command_count"] == 3
     assert result["authority_ceiling"]["route_registry_authority"] is False
+    assert result["route_source_replay"]["status"] == "pass"
+    assert result["route_source_replay"]["supported_route_count"] == 10
+    assert result["route_source_replay"]["resolved_docs_ref_count"] == 20
+    assert result["route_source_replay"]["resolved_pass_receipt_ref_count"] == 10
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -113,6 +153,15 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
         "proof_lab",
     ]
     assert result["front_door_command_count"] == 3
+    route_source_replay = result["route_source_replay"]
+    assert route_source_replay["status"] == "pass"
+    assert route_source_replay["route_count"] == 10
+    assert route_source_replay["supported_route_count"] == 10
+    assert route_source_replay["docs_ref_count"] == 20
+    assert route_source_replay["resolved_docs_ref_count"] == 20
+    assert route_source_replay["receipt_ref_count"] == 10
+    assert route_source_replay["resolved_pass_receipt_ref_count"] == 10
+    assert all(row["status"] == "pass" for row in route_source_replay["rows"])
     assert "microcosm-substrate/src/microcosm_core/runtime_shell.py" in result["source_refs"]
     assert "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle" in result[
         "public_runtime_refs"
@@ -130,11 +179,186 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
         "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/"
         "source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
     ) in result["real_substrate_refs"]
-    assert result["body_import_verification"]["verification_status"] == "pass"
+    verification = result["body_import_verification"]
+    expected_digests = sorted(
+        f"sha256:{row['source_sha256']}" for row in result["source_module_results"]
+    )
+    assert verification["verification_status"] == "pass"
+    assert verification["verification_mode"] == (
+        "exact_source_digest_match_plus_required_anchor_check"
+    )
+    assert verification["source_to_target_relation"] == "exact_copy"
+    assert verification["digest_relation"] == "source_target_digest_sets_match"
+    assert verification["source_module_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert verification["copied_source_module_count"] == len(
+        COLD_READER_SOURCE_MODULE_IDS
+    )
+    assert verification["source_body_digests"] == expected_digests
+    assert verification["target_body_digests"] == expected_digests
+    assert verification["source_refs"] == sorted(
+        {row["source_ref"] for row in result["source_module_results"]}
+    )
+    assert verification["target_refs"] == result["source_module_refs"]
+    assert verification["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
+
+
+def test_cold_reader_exported_bundle_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    _copy_public_route_replay_refs(public_root, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_map_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "COLD_ROUTE_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    mismatch_rows = [
+        row for row in result["source_module_results"] if not row["digest_match"]
+    ]
+    assert [row["module_id"] for row in mismatch_rows] == [
+        "agent_instruction_router_body_import"
+    ]
+
+
+def test_cold_reader_exported_bundle_rejects_unsupported_route_command(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    _copy_public_route_replay_refs(public_root, bundle)
+    route_map_path = bundle / "route_map.json"
+    route_map = json.loads(route_map_path.read_text(encoding="utf-8"))
+    for row in route_map["routes"]:
+        if row["route_id"] == "open_import_bridge":
+            row["command"] = "microcosm hallucinated-import"
+    route_map_path.write_text(
+        json.dumps(route_map, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_map_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "COLD_ROUTE_COMMAND_SOURCE_UNSUPPORTED" in result["error_codes"]
+    replay_row = next(
+        row
+        for row in result["route_source_replay"]["rows"]
+        if row["route_id"] == "open_import_bridge"
+    )
+    assert replay_row["status"] == "blocked"
+    assert replay_row["command_support"]["status"] == "blocked"
+
+
+def test_cold_reader_exported_bundle_rejects_stale_docs_anchor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    _copy_public_route_replay_refs(public_root, bundle)
+    route_map_path = bundle / "route_map.json"
+    route_map = json.loads(route_map_path.read_text(encoding="utf-8"))
+    route_map["routes"][0]["docs_refs"][0] = "README.md#not-a-real-heading"
+    route_map_path.write_text(
+        json.dumps(route_map, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_map_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "COLD_ROUTE_DOC_REF_ANCHOR_MISSING" in result["error_codes"]
+    replay_row = next(
+        row
+        for row in result["route_source_replay"]["rows"]
+        if row["route_id"] == "tour_project"
+    )
+    assert replay_row["status"] == "blocked"
+    assert replay_row["docs_ref_results"][0]["status"] == "blocked"
+
+
+def test_cold_reader_exported_bundle_rejects_non_pass_receipt_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    _copy_public_route_replay_refs(public_root, bundle)
+    route_receipts = json.loads(
+        (bundle / "route_receipts.json").read_text(encoding="utf-8")
+    )
+    proof_lab_receipt = next(
+        row["receipt_refs"][0]
+        for row in route_receipts["route_receipts"]
+        if row["route_id"] == "proof_lab"
+    )
+    receipt_path = public_root / _public_ref_path(proof_lab_receipt)
+    payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    payload["status"] = "blocked"
+    receipt_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_map_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "COLD_ROUTE_RECEIPT_STATUS_UNSUPPORTED" in result["error_codes"]
+    replay_row = next(
+        row
+        for row in result["route_source_replay"]["rows"]
+        if row["route_id"] == "proof_lab"
+    )
+    assert replay_row["status"] == "blocked"
+    assert replay_row["receipt_ref_results"][0]["status"] == "blocked"
+    assert replay_row["receipt_ref_results"][0]["receipt_status"] == "blocked"
 
 
 def test_cold_reader_line_count_streams_without_materializing_file(
@@ -254,6 +478,9 @@ def test_cold_reader_receipts_are_public_relative_with_secret_exclusion(tmp_path
         MICROCOSM_ROOT / "fixtures/first_wave/cold_reader_route_map",
         public_root / "fixtures/first_wave/cold_reader_route_map",
     )
+    _copy_public_route_replay_refs(
+        public_root, public_root / "fixtures/first_wave/cold_reader_route_map/input"
+    )
     result = run(
         public_root / "fixtures/first_wave/cold_reader_route_map/input",
         public_root / "receipts/first_wave/cold_reader_route_map",
@@ -291,6 +518,10 @@ def test_cold_reader_exported_bundle_receipt_omits_source_bodies(tmp_path: Path)
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
         BUNDLE_INPUT,
+        public_root / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    )
+    _copy_public_route_replay_refs(
+        public_root,
         public_root / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
     )
     result = run_route_map_bundle(

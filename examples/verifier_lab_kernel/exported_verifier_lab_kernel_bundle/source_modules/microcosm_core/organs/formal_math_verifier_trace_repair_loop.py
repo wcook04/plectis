@@ -15,7 +15,7 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
-from microcosm_core.schemas import read_json_strict
+from microcosm_core.schemas import StrictJsonError, read_json_strict
 
 
 ORGAN_ID = "formal_math_verifier_trace_repair_loop"
@@ -212,6 +212,7 @@ AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": "copied_ring2_verifier_trace_repair_metadata_not_proof_authority",
     "lean_lake_execution_authorized": False,
+    "toy_theorem_repair_rerun_authorized": True,
     "formal_proof_authority": False,
     "provider_calls_authorized": False,
     "proof_bodies_allowed": False,
@@ -222,9 +223,11 @@ AUTHORITY_CEILING = {
 ANTI_CLAIM = (
     "Formal math verifier-trace repair loop validates copied non-secret Ring2 "
     "failure taxonomy, graph-update, and oracle-repair contrast rows as public "
-    "repair-loop evidence. It does not run Lean or Lake here, call providers, "
-    "expose proof bodies or oracle premise ids, treat human or provider advice "
-    "as proof correctness, prove theorem correctness, or authorize release."
+    "repair-loop evidence and runs one deterministic public toy-theorem repair "
+    "rerun over body-free expressions. It does not run Lean or Lake here, call "
+    "providers, expose proof bodies or oracle premise ids, treat human or "
+    "provider advice as proof correctness, prove theorem correctness, or "
+    "authorize release."
 )
 
 
@@ -269,8 +272,11 @@ def _sha256_file(path: Path) -> str:
 
 
 def _line_count(path: Path) -> int:
+    line_count = 0
     with path.open("r", encoding="utf-8") as handle:
-        return sum(1 for _ in handle)
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
@@ -384,8 +390,8 @@ def _fresh_loop_bundle_receipt(
     if not receipt_path.is_file():
         return None
     try:
-        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        payload = read_json_strict(receipt_path)
+    except (OSError, StrictJsonError):
         return None
     if not isinstance(payload, dict):
         return None
@@ -763,6 +769,266 @@ def validate_source_module_manifest(
     }
 
 
+def _load_source_payloads(input_dir: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {}
+    try:
+        manifest = read_json_strict(manifest_path)
+    except (OSError, StrictJsonError):
+        return {}
+    payloads: dict[str, Any] = {}
+    for row in _rows(manifest, "modules"):
+        source_ref = str(row.get("source_ref") or "")
+        target = _target_path_from_module(input_dir, row)
+        if not source_ref or not target.is_file():
+            continue
+        try:
+            payloads[source_ref] = read_json_strict(target)
+        except (OSError, StrictJsonError):
+            continue
+    return payloads
+
+
+def _split_source_ref(ref: object) -> tuple[str, str]:
+    base, _separator, fragment = str(ref or "").partition("#")
+    return base, fragment
+
+
+def _fragment_value(fragment: str, prefix: str) -> str:
+    if not fragment.startswith(prefix):
+        return ""
+    return fragment[len(prefix) :]
+
+
+def _problem_result_map(payload: object) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("problem_id")): row
+        for row in _rows(payload, "problem_results")
+        if row.get("problem_id")
+    }
+
+
+def _candidate_map(payload: object) -> dict[str, dict[str, Any]]:
+    return {
+        str(row.get("candidate_id")): row
+        for row in _rows(payload, "candidates")
+        if row.get("candidate_id")
+    }
+
+
+def _lookup_problem_result(
+    source_payloads: dict[str, Any],
+    ref: object,
+) -> dict[str, Any] | None:
+    base_ref, fragment = _split_source_ref(ref)
+    problem_id = _fragment_value(fragment, "problem_results.")
+    payload = source_payloads.get(base_ref)
+    if not problem_id or payload is None:
+        return None
+    return _problem_result_map(payload).get(problem_id)
+
+
+def _lookup_candidate(
+    source_payloads: dict[str, Any],
+    ref: object,
+) -> dict[str, Any] | None:
+    base_ref, fragment = _split_source_ref(ref)
+    candidate_id = _fragment_value(fragment, "candidates.")
+    payload = source_payloads.get(base_ref)
+    if not candidate_id or payload is None:
+        return None
+    return _candidate_map(payload).get(candidate_id)
+
+
+def _all_candidates(source_payloads: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    candidates: dict[str, dict[str, Any]] = {}
+    for payload in source_payloads.values():
+        candidates.update(_candidate_map(payload))
+    return candidates
+
+
+def _trace_event(row: dict[str, Any], event_class: str) -> dict[str, Any] | None:
+    for event in _rows(row, "trace_events"):
+        if event.get("event_class") == event_class:
+            return event
+    return None
+
+
+def _source_replay_finding(
+    code: str,
+    message: str,
+    *,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return _finding(
+        code,
+        message,
+        case_id="source_body_replay_floor",
+        subject_id=subject_id,
+        subject_kind=subject_kind,
+    )
+
+
+def _validate_attempt_source_replay(
+    row: dict[str, Any],
+    source_payloads: dict[str, Any],
+    findings: list[dict[str, Any]],
+) -> int:
+    if not source_payloads:
+        return 0
+    check_count = 0
+    attempt_id = str(row.get("attempt_id") or "attempt")
+    source_problem_id = str(row.get("source_problem_id") or "")
+    source_result = _lookup_problem_result(source_payloads, row.get("source_run_ref"))
+    oracle_result = _lookup_problem_result(
+        source_payloads, row.get("oracle_repair_contrast_ref")
+    )
+    if source_result is None:
+        findings.append(
+            _source_replay_finding(
+                "VERIFIER_TRACE_SOURCE_REPLAY_REF_MISSING",
+                "Verifier attempt must dereference its premise run source body.",
+                subject_id=attempt_id,
+                subject_kind="verifier_attempt",
+            )
+        )
+        return check_count
+
+    check_count += 1
+    if (
+        source_problem_id != str(source_result.get("problem_id") or "")
+        or row.get("source_split") != source_result.get("split")
+        or row.get("source_domain") != source_result.get("domain")
+        or row.get("verifier_class") != source_result.get("error_class")
+    ):
+        findings.append(
+            _source_replay_finding(
+                "VERIFIER_TRACE_SOURCE_REPLAY_MISMATCH",
+                "Verifier attempt labels must match the imported premise run source body.",
+                subject_id=attempt_id,
+                subject_kind="verifier_attempt",
+            )
+        )
+
+    premise_event = _trace_event(row, "premise_retrieval_graph_verifier_result")
+    if premise_event is None:
+        findings.append(
+            _source_replay_finding(
+                "VERIFIER_TRACE_SOURCE_REPLAY_EVENT_MISSING",
+                "Verifier attempt must carry a premise-run event tied to the source body.",
+                subject_id=attempt_id,
+                subject_kind="verifier_attempt",
+            )
+        )
+    else:
+        check_count += 1
+        if (
+            premise_event.get("lean_compile_status")
+            != source_result.get("lean_compile_status")
+            or premise_event.get("error_class") != source_result.get("error_class")
+        ):
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_TRACE_SOURCE_REPLAY_MISMATCH",
+                    "Premise trace event status must match the imported premise run source body.",
+                    subject_id=attempt_id,
+                    subject_kind="trace_event",
+                )
+            )
+
+    if oracle_result is None:
+        findings.append(
+            _source_replay_finding(
+                "VERIFIER_TRACE_ORACLE_REPLAY_REF_MISSING",
+                "Verifier attempt must dereference its oracle-repair contrast source body.",
+                subject_id=attempt_id,
+                subject_kind="verifier_attempt",
+            )
+        )
+    else:
+        oracle_event = _trace_event(row, "oracle_repair_graph_cold_rerun_contrast")
+        if oracle_event is None:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_TRACE_ORACLE_REPLAY_EVENT_MISSING",
+                    "Verifier attempt must carry an oracle-repair contrast event tied to the source body.",
+                    subject_id=attempt_id,
+                    subject_kind="verifier_attempt",
+                )
+            )
+        else:
+            check_count += 1
+            if (
+                oracle_event.get("lean_compile_status")
+                != oracle_result.get("lean_compile_status")
+                or oracle_event.get("error_class") != oracle_result.get("error_class")
+            ):
+                findings.append(
+                    _source_replay_finding(
+                        "VERIFIER_TRACE_ORACLE_REPLAY_MISMATCH",
+                        "Oracle contrast event status must match the imported oracle-repair source body.",
+                        subject_id=attempt_id,
+                        subject_kind="trace_event",
+                    )
+                )
+        if row.get("promoted_after_cold_rerun") is True:
+            check_count += 1
+            if (
+                row.get("cold_rerun_receipt_ref")
+                != row.get("oracle_repair_contrast_ref")
+                or oracle_result.get("lean_compile_status") != PASS.upper()
+                or oracle_result.get("repair_success") is not True
+            ):
+                findings.append(
+                    _source_replay_finding(
+                        "VERIFIER_TRACE_COLD_RERUN_SOURCE_MISMATCH",
+                        "Promoted attempts must match a successful imported oracle-repair rerun.",
+                        subject_id=attempt_id,
+                        subject_kind="verifier_attempt",
+                    )
+                )
+
+    candidate_event = _trace_event(row, "graph_update_candidate_from_real_run")
+    if candidate_event is None:
+        findings.append(
+            _source_replay_finding(
+                "VERIFIER_TRACE_CANDIDATE_REPLAY_EVENT_MISSING",
+                "Verifier attempt must carry a graph-update candidate event tied to the source body.",
+                subject_id=attempt_id,
+                subject_kind="verifier_attempt",
+            )
+        )
+    else:
+        candidate = _lookup_candidate(source_payloads, candidate_event.get("source_ref"))
+        if candidate is None:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_TRACE_CANDIDATE_REPLAY_REF_MISSING",
+                    "Graph-update event must dereference an imported candidate source body.",
+                    subject_id=attempt_id,
+                    subject_kind="trace_event",
+                )
+            )
+        else:
+            check_count += 1
+            source_problem_ids = set(_strings(candidate.get("source_problem_ids")))
+            if (
+                candidate_event.get("candidate_id") != candidate.get("candidate_id")
+                or source_problem_id not in source_problem_ids
+            ):
+                findings.append(
+                    _source_replay_finding(
+                        "VERIFIER_TRACE_CANDIDATE_REPLAY_MISMATCH",
+                        "Graph-update candidate event must match imported candidate source membership.",
+                        subject_id=attempt_id,
+                        subject_kind="trace_event",
+                    )
+                )
+    return check_count
+
+
 def _inspect_attempt_row(
     row: dict[str, Any],
     *,
@@ -848,12 +1114,21 @@ def _inspect_attempt_row(
 def validate_verifier_attempts(
     payload: object,
     negative_payloads: dict[str, object],
+    source_payloads: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     attempts: list[dict[str, Any]] = []
     findings: list[dict[str, Any]] = []
+    source_findings: list[dict[str, Any]] = []
+    source_replay_check_count = 0
+    source_replay_payloads = source_payloads or {}
     observed: dict[str, set[str]] = defaultdict(set)
     for row in _rows(payload, "attempts"):
         _inspect_attempt_row(row, findings=findings, observed=observed, negative=False)
+        source_replay_check_count += _validate_attempt_source_replay(
+            row,
+            source_replay_payloads,
+            source_findings,
+        )
         trace_events = _rows(row, "trace_events")
         if not row.get("verifier_class") or not trace_events:
             findings.append(
@@ -891,26 +1166,256 @@ def validate_verifier_attempts(
             rows = [payload]
         for row in rows:
             _inspect_attempt_row(row, findings=findings, observed=observed, negative=True)
+    findings.extend(source_findings)
     return {
         "status": PASS if len(attempts) >= 3 and not any(
             row.get("negative_case_id") == "attempt_floor" for row in findings
-        ) else "blocked",
+        ) and not source_findings else "blocked",
         "attempt_count": len(attempts),
         "trace_event_count": sum(int(row["trace_event_count"]) for row in attempts),
         "repair_action_count": sum(1 for row in attempts if row.get("repair_action_id")),
         "cold_rerun_promotion_count": sum(
             1 for row in attempts if row.get("promoted_after_cold_rerun")
         ),
+        "source_replay_check_count": source_replay_check_count,
+        "source_replay_mismatch_count": len(source_findings),
         "attempts": sorted(attempts, key=lambda row: row["attempt_id"]),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
     }
 
 
-def validate_repair_curriculum(payload: object) -> dict[str, Any]:
+def _eval_toy_expr(expr: str, n: int) -> int:
+    if expr == "n":
+        return n
+    if expr == "0":
+        return 0
+    if expr == "n + 0":
+        return n + 0
+    if expr == "0 + n":
+        return 0 + n
+    raise ValueError(f"unsupported public toy expression: {expr}")
+
+
+def _run_toy_theorem_repair_rerun() -> dict[str, Any]:
+    theorem_id = "toy_add_zero_identity"
+    examples = [0, 1, 2, 7]
+    failed_candidate = {
+        "lhs_expr": "n + 0",
+        "rhs_expr": "0",
+        "repair_action_id": "replace_constant_zero_rhs_with_variable_n",
+    }
+
+    def evaluate(rhs_expr: str) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for value in examples:
+            lhs = _eval_toy_expr(failed_candidate["lhs_expr"], value)
+            rhs = _eval_toy_expr(rhs_expr, value)
+            rows.append(
+                {
+                    "input_ref": f"public_toy_nat:{value}",
+                    "lhs_value": lhs,
+                    "rhs_value": rhs,
+                    "passed": lhs == rhs,
+                    "body_in_receipt": False,
+                }
+            )
+        return rows
+
+    failed_rows = evaluate(failed_candidate["rhs_expr"])
+    repaired_rhs = "n"
+    repaired_rows = evaluate(repaired_rhs)
+    failure_count = sum(1 for row in failed_rows if row["passed"] is not True)
+    repaired_pass_count = sum(1 for row in repaired_rows if row["passed"] is True)
+    status = PASS if failure_count > 0 and repaired_pass_count == len(examples) else "blocked"
+    return {
+        "schema_version": "formal_math_toy_theorem_repair_rerun_v1",
+        "status": status,
+        "theorem_id": theorem_id,
+        "runtime_kind": "deterministic_public_toy_theorem_evaluator",
+        "certificate_lab_route_ref": "certificate_kernel_execution_lab::public_lake_witness_route",
+        "lean_lake_execution_authorized_here": False,
+        "source_candidate": failed_candidate,
+        "failure_capture": {
+            "attempt_id": f"{theorem_id}:failed_candidate",
+            "failure_class": "rhs_constant_does_not_match_public_inputs",
+            "failing_input_count": failure_count,
+            "rows": failed_rows,
+            "body_in_receipt": False,
+        },
+        "repair": {
+            "repair_action_id": failed_candidate["repair_action_id"],
+            "patched_rhs_expr": repaired_rhs,
+            "repair_applied": True,
+            "body_in_receipt": False,
+        },
+        "rerun": {
+            "attempt_id": f"{theorem_id}:after_repair",
+            "passed_input_count": repaired_pass_count,
+            "total_input_count": len(examples),
+            "rows": repaired_rows,
+            "body_in_receipt": False,
+        },
+        "body_in_receipt": False,
+    }
+
+
+def _source_failure_taxonomy(source_payloads: dict[str, Any]) -> dict[str, Any]:
+    payload = source_payloads.get(PREMISE_FAILURE_TAXONOMY_REF)
+    taxonomy = payload.get("failure_taxonomy") if isinstance(payload, dict) else None
+    return taxonomy if isinstance(taxonomy, dict) else {}
+
+
+def _representative_problem_ids(
+    source_payloads: dict[str, Any],
+    verifier_class: object,
+) -> list[str]:
+    payload = source_payloads.get(PREMISE_FAILURE_TAXONOMY_REF)
+    if not isinstance(payload, dict):
+        return []
+    return sorted(
+        str(row.get("problem_id"))
+        for row in _rows(payload, "representative_failures")
+        if row.get("error_class") == verifier_class and row.get("problem_id")
+    )
+
+
+def _variant_comparison_metrics(source_payloads: dict[str, Any]) -> dict[str, Any]:
+    payload = source_payloads.get(GRAPH_VARIANT_COMPARISON_REF)
+    metrics = payload.get("before_after") if isinstance(payload, dict) else None
+    return metrics if isinstance(metrics, dict) else {}
+
+
+def _validate_curriculum_source_replay(
+    payload: object,
+    ledger_rows: list[dict[str, Any]],
+    curriculum_edges: list[dict[str, Any]],
+    source_payloads: dict[str, Any],
+    findings: list[dict[str, Any]],
+) -> int:
+    if not source_payloads:
+        return 0
+    check_count = 0
+    curriculum = payload if isinstance(payload, dict) else {}
+    taxonomy = _source_failure_taxonomy(source_payloads)
+    if taxonomy:
+        check_count += 1
+        declared_taxonomy = curriculum.get("source_failure_taxonomy")
+        if declared_taxonomy is not None and declared_taxonomy != taxonomy:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_SOURCE_TAXONOMY_MISMATCH",
+                    "Curriculum source failure taxonomy must match the imported failure-taxonomy body.",
+                    subject_id="source_failure_taxonomy",
+                    subject_kind="repair_curriculum",
+                )
+            )
+    candidates = _all_candidates(source_payloads)
+    oracle_results = _problem_result_map(source_payloads.get(ORACLE_REPAIR_RUN_SUMMARY_REF))
+    for row in ledger_rows:
+        failure_mode_id = str(row.get("failure_mode_id") or "failure_mode")
+        verifier_class = row.get("verifier_class")
+        source_problem_ids = sorted(_strings(row.get("source_problem_ids")))
+        expected_problem_ids = _representative_problem_ids(
+            source_payloads, verifier_class
+        )
+        check_count += 1
+        if (
+            taxonomy
+            and row.get("source_failure_count") != taxonomy.get(str(verifier_class))
+        ):
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_SOURCE_REPLAY_MISMATCH",
+                    "Failure-mode count must match the imported Ring2 failure taxonomy.",
+                    subject_id=failure_mode_id,
+                    subject_kind="repair_curriculum",
+                )
+            )
+        if expected_problem_ids and source_problem_ids != expected_problem_ids:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_SOURCE_REPLAY_MISMATCH",
+                    "Failure-mode source problems must match representative imported failures.",
+                    subject_id=failure_mode_id,
+                    subject_kind="repair_curriculum",
+                )
+            )
+        candidate_id = str(row.get("source_candidate_id") or "")
+        candidate = candidates.get(candidate_id)
+        if candidate is None:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_CANDIDATE_REF_MISSING",
+                    "Failure-mode row must cite an imported graph-update candidate body.",
+                    subject_id=failure_mode_id,
+                    subject_kind="repair_curriculum",
+                )
+            )
+        else:
+            check_count += 1
+            candidate_problem_ids = set(_strings(candidate.get("source_problem_ids")))
+            if not set(source_problem_ids).issubset(candidate_problem_ids):
+                findings.append(
+                    _source_replay_finding(
+                        "VERIFIER_CURRICULUM_CANDIDATE_REPLAY_MISMATCH",
+                        "Failure-mode source problems must be contained by the imported candidate body.",
+                        subject_id=failure_mode_id,
+                        subject_kind="repair_curriculum",
+                    )
+                )
+        if row.get("accepted_after_cold_rerun") is True:
+            for problem_id in source_problem_ids:
+                check_count += 1
+                oracle_result = oracle_results.get(problem_id)
+                if (
+                    oracle_result is None
+                    or oracle_result.get("lean_compile_status") != PASS.upper()
+                    or oracle_result.get("repair_success") is not True
+                ):
+                    findings.append(
+                        _source_replay_finding(
+                            "VERIFIER_CURRICULUM_COLD_RERUN_SOURCE_MISMATCH",
+                            "Accepted curriculum rows must be backed by successful imported oracle-repair results.",
+                            subject_id=failure_mode_id,
+                            subject_kind="repair_curriculum",
+                        )
+                    )
+    for edge in curriculum_edges:
+        check_count += 1
+        candidate_id = str(edge.get("source_candidate_id") or "")
+        if candidate_id not in candidates:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_EDGE_CANDIDATE_REF_MISSING",
+                    "Curriculum edges must cite imported graph-update candidate bodies.",
+                    subject_id=str(edge.get("to_curriculum_node_id") or "curriculum_edge"),
+                    subject_kind="repair_curriculum",
+                )
+            )
+    expected_metrics = _variant_comparison_metrics(source_payloads)
+    if expected_metrics:
+        check_count += 1
+        if curriculum.get("variant_comparison_metrics") != expected_metrics:
+            findings.append(
+                _source_replay_finding(
+                    "VERIFIER_CURRICULUM_VARIANT_METRICS_MISMATCH",
+                    "Curriculum variant metrics must match the imported graph comparison body.",
+                    subject_id="variant_comparison_metrics",
+                    subject_kind="repair_curriculum",
+                )
+            )
+    return check_count
+
+
+def validate_repair_curriculum(
+    payload: object,
+    source_payloads: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     ledger_rows = _rows(payload, "failure_mode_ledger")
     curriculum_edges = _rows(payload, "curriculum_edges")
     findings: list[dict[str, Any]] = []
+    source_findings: list[dict[str, Any]] = []
     for row in ledger_rows:
         if row.get("accepted_after_cold_rerun") is True and not row.get("cold_rerun_receipt_ref"):
             findings.append(
@@ -922,10 +1427,20 @@ def validate_repair_curriculum(payload: object) -> dict[str, Any]:
                     subject_kind="repair_curriculum",
                 )
             )
+    source_replay_check_count = _validate_curriculum_source_replay(
+        payload,
+        ledger_rows,
+        curriculum_edges,
+        source_payloads or {},
+        source_findings,
+    )
+    findings.extend(source_findings)
     return {
         "status": PASS if ledger_rows and curriculum_edges and not findings else "blocked",
         "failure_mode_count": len(ledger_rows),
         "curriculum_edge_count": len(curriculum_edges),
+        "source_replay_check_count": source_replay_check_count,
+        "source_replay_mismatch_count": len(source_findings),
         "failure_mode_ledger": [
             {
                 "failure_mode_id": row.get("failure_mode_id"),
@@ -978,6 +1493,78 @@ def validate_promotion_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def _runtime_realness_evidence(
+    *,
+    input_mode: str,
+    secret_scan: dict[str, Any],
+    projection: dict[str, Any],
+    source_modules: dict[str, Any],
+    attempts: dict[str, Any],
+    curriculum: dict[str, Any],
+    promotion: dict[str, Any],
+    toy_repair: dict[str, Any],
+) -> dict[str, Any]:
+    source_replay_check_count = int(attempts["source_replay_check_count"]) + int(
+        curriculum["source_replay_check_count"]
+    )
+    source_replay_mismatch_count = int(attempts["source_replay_mismatch_count"]) + int(
+        curriculum["source_replay_mismatch_count"]
+    )
+    positive_trace_bound = (
+        input_mode == "exported_verifier_trace_repair_bundle"
+        and source_modules["source_modules_pass"] is True
+        and source_modules["verified_module_count"] == len(SOURCE_REFS)
+        and source_replay_check_count >= 30
+        and source_replay_mismatch_count == 0
+        and attempts["attempt_count"] >= 3
+        and attempts["trace_event_count"] >= 9
+        and curriculum["failure_mode_count"] >= 3
+        and toy_repair["status"] == PASS
+    )
+    mutated_trace_rejected = (
+        input_mode == "exported_verifier_trace_repair_bundle"
+        and source_modules["source_modules_pass"] is True
+        and source_replay_mismatch_count > 0
+    )
+    fixture_negative_bound = bool(projection["copied_material"]) and bool(
+        attempts["observed_negative_cases"]
+    )
+    if positive_trace_bound:
+        realness_rank = 4
+        rung_state = "runtime_source_trace_repair_evidence_bound"
+    elif mutated_trace_rejected:
+        realness_rank = 3
+        rung_state = "mutated_runtime_source_trace_rejected"
+    elif fixture_negative_bound:
+        realness_rank = 2
+        rung_state = "fixture_negative_cases_and_copied_material_bound"
+    else:
+        realness_rank = 1
+        rung_state = "metadata_floor_only"
+
+    return {
+        "schema_version": "formal_math_verifier_trace_repair_realness_evidence_v1",
+        "realness_rank": realness_rank,
+        "realness_rung": f"R{realness_rank}",
+        "rung_state": rung_state,
+        "rank_derivation": "runtime_evidence_recomputed_from_source_modules_trace_replay_curriculum_and_rerun",
+        "positive_trace_bound": positive_trace_bound,
+        "mutated_or_stale_trace_rejected": mutated_trace_rejected,
+        "baked_fixture_label_sufficient": False,
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_verified_count": source_modules["verified_module_count"],
+        "source_replay_check_count": source_replay_check_count,
+        "source_replay_mismatch_count": source_replay_mismatch_count,
+        "attempt_count": attempts["attempt_count"],
+        "trace_event_count": attempts["trace_event_count"],
+        "failure_mode_count": curriculum["failure_mode_count"],
+        "curriculum_edge_count": curriculum["curriculum_edge_count"],
+        "toy_repair_status": toy_repair["status"],
+        "promotion_policy_status": promotion["status"],
+        "secret_exclusion_blocking_hit_count": secret_scan["blocking_hit_count"],
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -1005,6 +1592,7 @@ def _build_result(
         public_root=public_root,
         required=input_mode == "exported_verifier_trace_repair_bundle",
     )
+    source_payloads = _load_source_payloads(input_dir)
     attempts = validate_verifier_attempts(
         payloads["verifier_attempts"],
         {
@@ -1012,14 +1600,31 @@ def _build_result(
             for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
             if name in payloads
         },
+        source_payloads,
     )
-    curriculum = validate_repair_curriculum(payloads["repair_curriculum"])
+    curriculum = validate_repair_curriculum(
+        payloads["repair_curriculum"],
+        source_payloads,
+    )
     promotion = validate_promotion_policy(payloads["promotion_policy"])
+    toy_repair = _run_toy_theorem_repair_rerun()
+    realness_evidence = _runtime_realness_evidence(
+        input_mode=input_mode,
+        secret_scan=secret_scan,
+        projection=projection,
+        source_modules=source_modules,
+        attempts=attempts,
+        curriculum=curriculum,
+        promotion=promotion,
+        toy_repair=toy_repair,
+    )
 
-    observed = _merge_observed(projection, attempts, curriculum, promotion)
+    observed = _merge_observed(projection, attempts, curriculum, promotion, toy_repair)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, source_modules, attempts, curriculum, promotion)
+    findings = _merge_findings(
+        projection, source_modules, attempts, curriculum, promotion, toy_repair
+    )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -1031,6 +1636,7 @@ def _build_result(
         and attempts["status"] == PASS
         and curriculum["status"] == PASS
         and promotion["status"] == PASS
+        and toy_repair["status"] == PASS
         else "blocked"
     )
     return {
@@ -1051,6 +1657,7 @@ def _build_result(
         "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "realness_evidence": realness_evidence,
         "macro_run_id": RUN_ID,
         "premise_retrieval_variant_id": PREMISE_RETRIEVAL_VARIANT_ID,
         "oracle_repair_variant_id": ORACLE_REPAIR_VARIANT_ID,
@@ -1074,8 +1681,21 @@ def _build_result(
         "trace_event_count": attempts["trace_event_count"],
         "repair_action_count": attempts["repair_action_count"],
         "cold_rerun_promotion_count": attempts["cold_rerun_promotion_count"],
+        "toy_theorem_repair_rerun": toy_repair,
+        "toy_theorem_failure_count": toy_repair["failure_capture"][
+            "failing_input_count"
+        ],
+        "toy_theorem_repaired_pass_count": toy_repair["rerun"]["passed_input_count"],
         "failure_mode_count": curriculum["failure_mode_count"],
         "curriculum_edge_count": curriculum["curriculum_edge_count"],
+        "source_replay_check_count": (
+            attempts["source_replay_check_count"]
+            + curriculum["source_replay_check_count"]
+        ),
+        "source_replay_mismatch_count": (
+            attempts["source_replay_mismatch_count"]
+            + curriculum["source_replay_mismatch_count"]
+        ),
         "verifier_attempts": attempts["attempts"],
         "failure_mode_ledger": curriculum["failure_mode_ledger"],
         "curriculum_edges": curriculum["curriculum_edges"],
@@ -1121,18 +1741,25 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "promotion_requires_cold_rerun_receipt",
             },
             {
+                "mechanic_id": "toy_theorem_failure_repair_rerun",
+                "count": result["toy_theorem_repaired_pass_count"],
+                "authority": "one public toy theorem candidate must fail, receive a deterministic repair, and pass the rerun evaluator",
+            },
+            {
                 "mechanic_id": "curriculum_delta",
                 "count": result["curriculum_edge_count"],
                 "authority": "failure_mode_ledger_delta_not_theorem_correctness",
             },
         ],
         "verifier_attempts": result["verifier_attempts"],
+        "toy_theorem_repair_rerun": result["toy_theorem_repair_rerun"],
         "failure_mode_ledger": result["failure_mode_ledger"],
         "curriculum_edges": result["curriculum_edges"],
         "formal_proof_authority": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
     }
 
 
@@ -1191,10 +1818,16 @@ def _write_receipts(
         "trace_attempt_count": result["attempt_count"],
         "repair_action_count": result["repair_action_count"],
         "cold_rerun_promotion_count": result["cold_rerun_promotion_count"],
+        "toy_theorem_repair_rerun": result["toy_theorem_repair_rerun"],
+        "toy_theorem_failure_count": result["toy_theorem_failure_count"],
+        "toy_theorem_repaired_pass_count": result[
+            "toy_theorem_repaired_pass_count"
+        ],
         "formal_proof_authority": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
         "receipt_paths": receipt_paths,
     }
     acceptance = {
@@ -1212,9 +1845,11 @@ def _write_receipts(
         "source_refs": result["source_refs"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
+        "toy_theorem_repair_rerun": result["toy_theorem_repair_rerun"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "realness_evidence": result["realness_evidence"],
         "receipt_paths": receipt_paths,
     }
     write_json_atomic(result_path, result_receipt)
@@ -1305,6 +1940,8 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
     scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
     source_imports = result.get("source_open_body_imports")
     source_import_summary = source_imports if isinstance(source_imports, dict) else {}
+    realness = result.get("realness_evidence")
+    realness_summary = realness if isinstance(realness, dict) else {}
     input_mode = result.get("input_mode")
     action = (
         "run-loop-bundle"
@@ -1370,11 +2007,29 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
         "trace_event_count": result.get("trace_event_count"),
         "repair_action_count": result.get("repair_action_count"),
         "cold_rerun_promotion_count": result.get("cold_rerun_promotion_count"),
+        "toy_theorem_repair_rerun": {
+            "status": (
+                result.get("toy_theorem_repair_rerun", {}).get("status")
+                if isinstance(result.get("toy_theorem_repair_rerun"), dict)
+                else None
+            ),
+            "failure_count": result.get("toy_theorem_failure_count"),
+            "repaired_pass_count": result.get("toy_theorem_repaired_pass_count"),
+        },
         "failure_mode_count": result.get("failure_mode_count"),
         "curriculum_edge_count": result.get("curriculum_edge_count"),
         "source_ref_count": len(result.get("source_refs", [])),
         "source_module_count": result.get("source_module_count"),
         "source_modules_pass": result.get("source_modules_pass"),
+        "source_replay_check_count": result.get("source_replay_check_count"),
+        "source_replay_mismatch_count": result.get("source_replay_mismatch_count"),
+        "realness_evidence_summary": {
+            "realness_rung": realness_summary.get("realness_rung"),
+            "positive_trace_bound": realness_summary.get("positive_trace_bound"),
+            "baked_fixture_label_sufficient": realness_summary.get(
+                "baked_fixture_label_sufficient"
+            ),
+        },
         "trace_rows_omitted": True,
         "source_module_bodies_omitted": True,
         "proof_bodies_exported": False,

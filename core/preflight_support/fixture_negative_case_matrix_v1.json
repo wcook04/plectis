@@ -317,7 +317,7 @@
       "status": "covered_by_fixture_manifest"
     },
     {
-      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "agentic_vulnerability_discovery_patch_proof_replay_negative_cases",
       "expected_negative_cases": [
         "benchmark_score_claim",
@@ -329,11 +329,11 @@
         "real_cve_exploitation",
         "weaponized_payload_export"
       ],
-      "status": "covered_by_fixture_manifest",
-      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts."
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "status": "covered_by_fixture_manifest"
     },
     {
-      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "materials_chemistry_closed_loop_lab_safety_replay_negative_cases",
       "expected_negative_cases": [
         "wetlab_protocol_steps",
@@ -345,11 +345,11 @@
         "private_lab_notebook_export",
         "discovery_claim"
       ],
-      "status": "covered_by_fixture_manifest",
-      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts."
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "status": "covered_by_fixture_manifest"
     },
     {
-      "organ_id": "certificate_kernel_execution_lab",
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "certificate_kernel_execution_lab_negative_cases",
       "expected_negative_cases": [
         "transition_provider_oracle_visible",
@@ -357,11 +357,11 @@
         "evolve_certificate_mutates_source",
         "certificate_manifest_private_source_ref"
       ],
-      "status": "covered_by_fixture_manifest",
-      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts."
+      "organ_id": "certificate_kernel_execution_lab",
+      "status": "covered_by_fixture_manifest"
     },
     {
-      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "voice_to_doctrine_self_improvement_loop_negative_cases",
       "expected_negative_cases": [
         "raw_operator_voice_export",
@@ -371,8 +371,74 @@
         "global_promotion_without_owner_validation",
         "private_thread_body_export"
       ],
-      "status": "covered_by_fixture_manifest",
-      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts."
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_closeout_faithfulness_audit_negative_cases",
+      "expected_negative_cases": [
+        "fake_cap_claim",
+        "fake_commit_claim",
+        "fake_test_claim"
+      ],
+      "organ_id": "agent_closeout_faithfulness_audit",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "doctrine_fact_claim_audit_negative_cases",
+      "expected_negative_cases": [
+        "dead_code_locus",
+        "missing_code_locus",
+        "wrong_fact_count"
+      ],
+      "organ_id": "doctrine_fact_claim_audit",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "self_ignorance_coverage_ledger_negative_cases",
+      "expected_negative_cases": [
+        "forbidden_absence_inference"
+      ],
+      "organ_id": "self_ignorance_coverage_ledger",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "bounded_autonomy_campaign_packet_negative_cases",
+      "expected_negative_cases": [
+        "repeated_failed_campaign_digest",
+        "source_write_campaign_packet"
+      ],
+      "organ_id": "bounded_autonomy_campaign_packet",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "finance_forecast_evaluation_spine_negative_cases",
+      "expected_negative_cases": [
+        "finance_hln_dependency_refusal",
+        "finance_leakage_lookahead_split",
+        "finance_no_advice_overclaim"
+      ],
+      "organ_id": "finance_forecast_evaluation_spine",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "batch8_validator_checker_capsule_negative_cases",
+      "expected_negative_cases": [
+        "missing_validator_source",
+        "policy_allows_poisoning",
+        "private_boundary_blind",
+        "specimen_checker_missing",
+        "release_gate_missing",
+        "validate_entrypoint_bypassed"
+      ],
+      "organ_id": "batch8_validator_checker_capsule",
+      "status": "covered_by_fixture_manifest"
     }
   ],
   "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1"

@@ -66,6 +66,28 @@
     ],
     "reader_rule": "A real pressure activation must record which specimen carried the pressure and what concept boundary changed; a frontend or projection surface may consume this route but must not become a parallel concept index."
   },
+  "cluster_flag_contract": {
+    "schema_version": "microcosm_concept_cluster_flag_contract_v1",
+    "required": true,
+    "authority_boundary": "cluster_flag_is_compact_navigation_row_not_source_authority",
+    "required_fields": [
+      "schema_version",
+      "cluster_id",
+      "kind",
+      "concept_id",
+      "claim",
+      "source_ref",
+      "specimen_id",
+      "mechanism_count",
+      "principle_count",
+      "axiom_count",
+      "drilldown",
+      "authority_boundary"
+    ],
+    "derivation_rule": "Derive from the concept record relationships and source specimen; do not maintain a parallel concept index.",
+    "reader_rule": "Use cluster_flag as a compact route row, then open the concept JSON for source authority and relationship evidence.",
+    "validator_ref": "python -m microcosm_core.validators.concept_mechanism_population"
+  },
   "first_wave_required": true,
   "kind_id": "concept",
   "kind_name": "Concept",
@@ -118,7 +140,10 @@
     "receipt.microcosm.concept",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipt.microcosm.concept",
+    "receipts/concept_mechanism_population/concept_cluster_flag_receipt_20260605T1804Z.json"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 163,
@@ -161,13 +186,14 @@
     "entry_surface_contract",
     "population_specimen_contract",
     "activation_receipt_contract",
+    "cluster_flag",
     "validator_refs",
     "receipt_refs",
     "omission_receipt",
     "anti_claims",
     "concept_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -225,7 +251,7 @@
   "standard_payload": {
     "anti_purpose": "A glossary entry with no behavior or lineage.",
     "compression_bands": [],
-      "failure_modes": [
+    "failure_modes": [
       "untyped artifact admitted into rebuilt substrate",
       "concept standard exists but is not reachable from the agent entry or first-screen doctrine frame",
       "current public microcosm surface treated as sufficient without coverage check",
@@ -236,7 +262,7 @@
     "rebuild_action": "project",
     "teleology": "Give cold readers precise handles for substrate terms."
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -256,6 +282,167 @@
     "required": true,
     "validator_id": "validator.microcosm.concept"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "validator.microcosm.concept"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/concepts/*.json",
+  "doctrine_kind_envelope": {
+    "governed_by": "std_microcosm_standard",
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown/mermaid/atlas are generated projections of this JSON source."
+  },
+  "instance_schema": {
+    "required_keys": [
+      "id",
+      "kind",
+      "statement",
+      "status"
+    ],
+    "optional_keys": [
+      "principle_edges",
+      "mechanism_edges",
+      "synthesis",
+      "anti_concept",
+      "tags"
+    ],
+    "field_semantics": {
+      "id": "con_NNN",
+      "statement": "the theory/idea \u2014 the why between principle and mechanism",
+      "synthesis": "optional 600-1500 word depth body (bridge-injectable)"
+    }
+  },
+  "lattice_edges": {
+    "required": [],
+    "selective": [
+      {
+        "to_kind": "principle",
+        "relation_verb": "implements_or_refines",
+        "reverse_verb": "refined_by",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      },
+      {
+        "to_kind": "mechanism",
+        "relation_verb": "instantiated_by",
+        "reverse_verb": "instantiates",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      },
+      {
+        "to_kind": "axiom",
+        "relation_verb": "abides_by",
+        "reverse_verb": "constrains",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      }
+    ],
+    "edge_shape": [
+      "to_kind",
+      "relation_verb",
+      "reverse_verb",
+      "cardinality",
+      "requirement"
+    ],
+    "cardinality_enum": [
+      "one_to_one",
+      "one_to_many",
+      "zero_to_one",
+      "zero_to_many"
+    ],
+    "requirement_enum": [
+      "required",
+      "selective",
+      "forbidden"
+    ],
+    "bidirectional_gloss_required": true
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.concept.author",
+      "status": "planned",
+      "purpose": "create a valid concept instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.concept.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing concept without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.concept.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_concept and propagate through every governed artifact + projection"
+    }
+  },
+  "projections": {
+    "markdown": {
+      "generated": true,
+      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py (PLANNED)",
+      "path_pattern": "microcosm-substrate/concepts/<id>.md",
+      "note": "human-readable projection; never source"
+    },
+    "mermaid": {
+      "generated": true,
+      "compiled_from": "lattice_edges + instance edges",
+      "note": "diagram projection; never source"
+    },
+    "atlas_card": {
+      "generated": true,
+      "surface": "agent entry / option-surface band / atlas card",
+      "note": "agent-routing projection; must link back to JSON source"
+    }
+  },
+  "validation": {
+    "schema_check": {
+      "required": true,
+      "validator_id": "validator.microcosm.concept",
+      "rule": "instance validates against instance_schema"
+    },
+    "link_resolution": {
+      "required": true,
+      "rule": "every required/selective lattice edge target must resolve to an existing instance id OR be marked planned"
+    },
+    "projection_freshness": {
+      "required": true,
+      "rule": "generated markdown/mermaid/atlas must be regenerable from JSON source; a stale projection is a trust downgrade, not source authority"
+    }
+  },
+  "compression": {
+    "rule": "Russian-rule fan-in-weighted compression (see macro std_paper_module.compression_formula)",
+    "required_on_instance": [
+      "one_line"
+    ],
+    "one_line_max_chars": 160,
+    "bands": [
+      "one_line",
+      "card",
+      "tldr"
+    ],
+    "purpose": "one_line drives the compressed per-instance row projection (e.g. the 77-organ atlas) for agent entry + routing"
+  },
+  "provisional_policy": {
+    "public_source_status": "active",
+    "proof_required_for_axiom": false,
+    "axiom_posture": "imposed constitutional commitment; provenance optional; never evidence-gated",
+    "principle_posture": "operative commitment authored substantively",
+    "forbidden_shipped_status": [
+      "candidate",
+      "provisional",
+      "seed",
+      "draft"
+    ],
+    "candidate_lane": "candidate/provisional doctrine may exist ONLY in an explicit import/drafting lane OUTSIDE public source, never as a shipped public-doctrine status",
+    "overrides": "macro candidate-axiom 'pressure only / not active law' posture does NOT apply to shipped microcosm public doctrine"
+  },
+  "refinement_provenance": {
+    "refined_by": "claude_code",
+    "wave": "microcosm_doctrine_kind_envelope_v2",
+    "workflow_run": "wf_7540e090-390",
+    "cap": "cap_quick_microcosm_doctrine_kind_standard_refinem_1a57b8a34ca3",
+    "base": "public_microcosm_standard_v1 @ git HEAD",
+    "method": "additive_envelope_merge; required_fields/authority_ceiling/anti_claims preserved verbatim; envelope landed as new keys (not via required_fields)"
+  }
 }

@@ -6,10 +6,14 @@
   "module_count": 2,
   "modules": [
     {
+      "anchor_count": 12,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 756449,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 17215,
+      "material_class": "public_macro_tool_body",
       "module_id": "standard_option_surface_body_import",
-      "source_ref": "system/lib/standard_option_surface.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
-      "source_role": "Macro standard-owned option-surface builder that enumerates artifact kinds, cluster-first rows, card drilldowns, Task Ledger organizer routing, Python scope/file navigation, principles, skills, raw-seed shards, frontend surfaces, and runtime-pressure diagnostics without keyword-search-first or payload-body export.",
       "required_anchors": [
         "Build standard-owned option surfaces for artifact-kind-first navigation.",
         "def build_option_surface(",
@@ -24,23 +28,23 @@
         "source_coupling_status",
         "routing_scent_not_authority"
       ],
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_generated_option_surface_outputs_task_ledger_live_mutation_prompt_or_provider_payload_bodies_raw_seed_body_browser_hud_live_access_account_session_state_cookies_recipient_send_state_or_credential_equivalent_material",
-      "source_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
-      "target_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
       "sha256_match": true,
-      "line_count": 16457,
-      "byte_count": 725919,
-      "anchor_count": 12,
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "material_class": "public_macro_tool_body"
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_generated_option_surface_outputs_task_ledger_live_mutation_prompt_or_provider_payload_bodies_raw_seed_body_browser_hud_live_access_account_session_state_cookies_recipient_send_state_or_credential_equivalent_material",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "source_role": "Macro standard-owned option-surface builder that enumerates artifact kinds, cluster-first rows, card drilldowns, Task Ledger organizer routing, Python scope/file navigation, principles, skills, raw-seed shards, frontend surfaces, and runtime-pressure diagnostics without keyword-search-first or payload-body export.",
+      "source_sha256": "cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
+      "target_sha256": "cdc3b5c47b42fa20721607da5dee02f8927c920dada1b89d99c1af9da52bca59"
     },
     {
+      "anchor_count": 9,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 290691,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 6306,
+      "material_class": "public_macro_tool_body",
       "module_id": "standard_option_surface_test_body_import",
-      "source_ref": "system/server/tests/test_standard_option_surface.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_standard_option_surface.py",
-      "source_role": "Macro regression suite for the standard option-surface builder, covering cluster-first browsing, stale-source coupling, Task Ledger organizer rows, kernel command redirects, Python file/scope overlays, principles/standards/skills/frontend surfaces, and payload-boundary behavior using public synthetic fixtures.",
       "required_anchors": [
         "Regression coverage for standard-owned option-surface navigation.",
         "def test_task_ledger_cluster_flag_groups_workitem_views(",
@@ -52,17 +56,13 @@
         "def test_option_surface_kernel_command_redirects_frontend_components_flag_to_cluster_json(",
         "def test_frontend_views_option_surface_exposes_visual_settlement_refs("
       ],
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_generated_option_surface_outputs_live_task_ledger_mutation_prompt_or_provider_payload_bodies_raw_seed_body_browser_hud_live_access_account_session_state_cookies_recipient_send_state_or_credential_equivalent_material; synthetic tmp_path fixtures remain validation-only inputs",
-      "source_sha256": "c1e8ca3f00bfa8d9bbc580941334204005cd9f3eaace9ca4f8c6171c6e88363a",
-      "target_sha256": "c1e8ca3f00bfa8d9bbc580941334204005cd9f3eaace9ca4f8c6171c6e88363a",
       "sha256_match": true,
-      "line_count": 5773,
-      "byte_count": 267771,
-      "anchor_count": 9,
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "material_class": "public_macro_tool_body"
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_generated_option_surface_outputs_live_task_ledger_mutation_prompt_or_provider_payload_bodies_raw_seed_body_browser_hud_live_access_account_session_state_cookies_recipient_send_state_or_credential_equivalent_material; synthetic tmp_path fixtures remain validation-only inputs",
+      "source_ref": "system/server/tests/test_standard_option_surface.py",
+      "source_role": "Macro regression suite for the standard option-surface builder, covering cluster-first browsing, stale-source coupling, Task Ledger organizer rows, kernel command redirects, Python file/scope overlays, principles/standards/skills/frontend surfaces, and payload-boundary behavior using public synthetic fixtures.",
+      "source_sha256": "6465d56610e2936f57d8fd4c6b300b3da5720c64d3c45dac413a9bdcfc6095cd",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_standard_option_surface.py",
+      "target_sha256": "6465d56610e2936f57d8fd4c6b300b3da5720c64d3c45dac413a9bdcfc6095cd"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, option-surface contract anchors, and payload-boundary assertions; copied source modules are body evidence, while generated option-surface outputs remain runtime projections and not imported product substrate.",

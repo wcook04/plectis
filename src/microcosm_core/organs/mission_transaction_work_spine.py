@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
+import importlib
 import json
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
+import sys
 from typing import Any
 
 from microcosm_core.macro_tools.work_landing import (
@@ -48,6 +52,7 @@ CLOSEOUT_STATUS_NAME = "closeout_status_projection.json"
 DEPENDENCY_UNLOCK_NAME = "dependency_unlock_scheduler_receipt.json"
 RECONCILE_PLAN_NAME = "work_landing_reconcile_plan.json"
 MISSION_BUNDLE_RESULT_NAME = "exported_mission_transaction_bundle_validation_result.json"
+REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME = "real_work_ledger_active_claims_snapshot.json"
 
 EXPECTED_RECEIPT_PATHS = [
     PREFLIGHT_REL,
@@ -70,6 +75,9 @@ EXPECTED_NEGATIVE_CASES = {
         "EXPECTED_PARENT_MISMATCH",
         "SAME_PATH_CLAIM_CONFLICT",
     ],
+    "real_work_ledger_same_path_claim_conflict": ["SAME_PATH_CLAIM_CONFLICT"],
+    "real_work_ledger_expected_parent_mismatch": ["EXPECTED_PARENT_MISMATCH"],
+    "real_work_ledger_mutated_landing_row": ["CHECKPOINT_BROAD_AUTH_REQUIRED"],
     "mission_claim_missing_owned_path": ["MISSING_OWNED_PATH"],
     "scoped_commit_receipt_claims_global_authority": [
         "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
@@ -229,6 +237,7 @@ WORK_LEDGER_SOURCE_MODULES = [
         "required_anchors": [
             "session-preflight",
             "session-claims",
+            "session-status --seed-speed",
             "session-heartbeat",
             "session-finalize",
             "mutation-check",
@@ -264,11 +273,16 @@ WORK_LEDGER_SOURCE_MODULES = [
         ),
         "required_anchors": [
             "WORK_LEDGER_RUNTIME_SCHEMA",
+            "ACTIVE_CLAIMS_SNAPSHOT_REL",
             "def bootstrap_session(",
             "def mark_session_pass_heartbeat(",
             "def finalize_session(",
             "def claim_work_scope(",
             "def release_claim(",
+            "def build_active_claims_snapshot(",
+            "def active_claim_collisions_for_paths(",
+            "def load_active_claims_snapshot(",
+            "session-status --seed-speed --limit 12",
             "ACTIVE_CLAIM_LEASE_MAX",
         ],
     },
@@ -287,6 +301,7 @@ WORK_LEDGER_SOURCE_MODULES = [
             '"session_preflight_contract"',
             '"pass_heartbeat_contract"',
             '"host_runtime_cli"',
+            "session-status --seed-speed",
         ],
     },
 ]
@@ -403,6 +418,7 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
         "task_ledger_events.jsonl",
         "work_ledger_claims.json",
         "toy_repo_state.json",
+        REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
         "dependency_graph.json",
         "claim_missing_owned_path.json",
         "scoped_receipt_global_authority_claim.json",
@@ -428,6 +444,7 @@ def _mission_bundle_paths(input_dir: Path) -> list[Path]:
         "closeout_projection_packet.json",
         "scoped_mutation_policy.json",
         "checkpoint_lane_policy.json",
+        REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
     )
     return [input_dir / name for name in names]
 
@@ -494,6 +511,9 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
         "task_events": _load_jsonl(input_dir / "task_ledger_events.jsonl"),
         "claims": read_json_strict(input_dir / "work_ledger_claims.json"),
         "repo_state": read_json_strict(input_dir / "toy_repo_state.json"),
+        "real_active_claims_snapshot": read_json_strict(
+            input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME
+        ),
         "dependency_graph": read_json_strict(input_dir / "dependency_graph.json"),
         "missing_owned_path": read_json_strict(input_dir / "claim_missing_owned_path.json"),
         "scoped_receipt": read_json_strict(
@@ -514,10 +534,12 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_mission_bundle_payloads(input_dir: Path) -> dict[str, Any]:
-    return {
-        path.stem: read_json_strict(path)
-        for path in _mission_bundle_paths(input_dir)
-    }
+    payloads: dict[str, Any] = {}
+    for path in _mission_bundle_paths(input_dir):
+        if path.name == REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME and not path.exists():
+            continue
+        payloads[path.stem] = read_json_strict(path)
+    return payloads
 
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
@@ -527,14 +549,18 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    paths = [
+        *_mission_bundle_paths(input_dir),
+        *_task_ledger_source_paths(input_dir),
+        *_work_ledger_source_paths(input_dir),
+        *_checkpoint_source_paths(input_dir),
+        *_mission_control_source_paths(input_dir),
+    ]
+    real_snapshot_path = input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME
+    if real_snapshot_path.is_file():
+        paths.append(real_snapshot_path)
     return scan_paths(
-        [
-            *_mission_bundle_paths(input_dir),
-            *_task_ledger_source_paths(input_dir),
-            *_work_ledger_source_paths(input_dir),
-            *_checkpoint_source_paths(input_dir),
-            *_mission_control_source_paths(input_dir),
-        ],
+        paths,
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -565,6 +591,812 @@ def _line_count(path: Path) -> int:
         for line_count, _line in enumerate(handle, start=1):
             pass
     return line_count or 1
+
+
+def _strings(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if str(item).strip()]
+
+
+def _parse_iso_utc(value: object) -> datetime:
+    token = str(value or "").strip()
+    if token.endswith("Z"):
+        token = f"{token[:-1]}+00:00"
+    if not token:
+        return datetime(2026, 6, 4, 10, 25, 0, tzinfo=timezone.utc)
+    parsed = datetime.fromisoformat(token)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _work_ledger_source_modules_root(input_dir: Path, public_root: Path) -> Path:
+    candidates = [
+        input_dir / "source_modules",
+        public_root
+        / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules",
+    ]
+    for candidate in candidates:
+        if (candidate / "system/lib/work_ledger_runtime.py").is_file():
+            return candidate
+    return candidates[-1]
+
+
+def _import_exact_copy_work_ledger_runtime(source_modules_root: Path) -> Any:
+    source_root = str(source_modules_root.resolve(strict=False))
+    saved_path = list(sys.path)
+    saved_system_modules = {
+        name: module
+        for name, module in list(sys.modules.items())
+        if name == "system" or name.startswith("system.")
+    }
+    try:
+        for name in list(saved_system_modules):
+            sys.modules.pop(name, None)
+        sys.path.insert(0, source_root)
+        return importlib.import_module("system.lib.work_ledger_runtime")
+    finally:
+        for name in [
+            module_name
+            for module_name in list(sys.modules)
+            if module_name == "system" or module_name.startswith("system.")
+        ]:
+            sys.modules.pop(name, None)
+        sys.modules.update(saved_system_modules)
+        sys.path[:] = saved_path
+
+
+def _snapshot_path_claims(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        dict(claim)
+        for claim in snapshot.get("active_claims") or []
+        if isinstance(claim, dict) and str(claim.get("scope_kind") or "") == "path"
+    ]
+
+
+def _public_claim_rows_from_snapshot(
+    path_claims: list[dict[str, Any]],
+    expected_parent_by_claim: dict[str, Any],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for claim in path_claims:
+        claim_id = str(claim.get("claim_id") or "").strip()
+        owned_path = str(claim.get("path") or claim.get("scope_id") or "").strip()
+        if not claim_id or not owned_path:
+            continue
+        rows.append(
+            {
+                "claim_id": claim_id,
+                "session_id": claim.get("session_id"),
+                "actor": claim.get("actor"),
+                "work_item_id": claim.get("work_item_id") or "",
+                "owned_paths": [owned_path],
+                "status": "active",
+                "expected_parent_sha": str(expected_parent_by_claim.get(claim_id) or ""),
+                "source_scope_kind": claim.get("scope_kind"),
+                "source_claim_intent": claim.get("claim_intent"),
+                "projection_not_authority": True,
+                "body_in_receipt": False,
+            }
+        )
+    return rows
+
+
+def _public_preflight_from_runtime_snapshot(
+    work_ledger_runtime: Any,
+    public_root: Path,
+    runtime_status: dict[str, Any],
+    *,
+    snapshot_now: datetime,
+    subject_ids: list[str],
+    owned_paths: list[str],
+    expected_parent_by_claim: dict[str, Any],
+    current_parent_by_claim: dict[str, Any],
+    checkpoint_policy: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    snapshot = work_ledger_runtime.build_active_claims_snapshot(
+        public_root,
+        runtime_status,
+        now=snapshot_now,
+    )
+    path_claims = _snapshot_path_claims(snapshot)
+    public_claims = _public_claim_rows_from_snapshot(path_claims, expected_parent_by_claim)
+    preflight = _with_landing_decision_status(
+        build_public_mission_transaction_preflight(
+            subject_ids=subject_ids,
+            owned_paths=owned_paths,
+            claims_payload={"claims": public_claims},
+            repo_state={"current_parent_by_claim": current_parent_by_claim},
+            checkpoint_lane_policy=checkpoint_policy,
+            checkpoint_negative_cases=[],
+            require_exclusive=True,
+        )
+    )
+    preflight["claim_row_source"] = "rebuilt_work_ledger_active_claims_snapshot"
+    preflight["claim_row_count"] = len(public_claims)
+    preflight["accepted_claim_ids"] = sorted(
+        {
+            str(claim.get("claim_id") or "")
+            for claim in public_claims
+            if str(claim.get("claim_id") or "")
+        }
+    )
+    preflight["runtime_snapshot_source_hash"] = snapshot.get("source_hash")
+    return snapshot, preflight
+
+
+def _claim_maps_from_runtime_status(
+    runtime_status: dict[str, Any],
+    field_name: str,
+) -> dict[str, Any]:
+    rows: dict[str, Any] = {}
+    sessions = runtime_status.get("sessions") if isinstance(runtime_status.get("sessions"), dict) else {}
+    for session in sessions.values():
+        if not isinstance(session, dict):
+            continue
+        claims = session.get("claims") if isinstance(session.get("claims"), list) else []
+        for claim in claims:
+            if not isinstance(claim, dict):
+                continue
+            claim_id = str(claim.get("claim_id") or "").strip()
+            value = claim.get(field_name)
+            if claim_id and value:
+                rows[claim_id] = value
+    return rows
+
+
+def _runtime_status_with_mutated_path_conflict(
+    runtime_status: dict[str, Any],
+    *,
+    source_claim: dict[str, Any],
+    mutation_case: dict[str, Any],
+) -> dict[str, Any]:
+    mutated = copy.deepcopy(runtime_status)
+    session_id = str(mutation_case.get("session_id") or "real_snapshot_conflict_session")
+    claim_id = str(mutation_case.get("claim_id") or "real_snapshot_conflict_claim")
+    claim = copy.deepcopy(source_claim)
+    mutated_path = str(
+        mutation_case.get("path")
+        or mutation_case.get("scope_id")
+        or source_claim.get("path")
+        or source_claim.get("scope_id")
+        or ""
+    )
+    claim.update(
+        {
+            "claim_id": claim_id,
+            "session_id": session_id,
+            "scope_id": mutated_path,
+            "path": mutated_path,
+            "claimed_at": mutation_case.get("claimed_at") or source_claim.get("claimed_at"),
+            "leased_until": mutation_case.get("leased_until")
+            or source_claim.get("leased_until"),
+            "released_at": None,
+            "expired_at": None,
+            "note": "public_safe_same_path_conflict_mutation",
+        }
+    )
+    signal_at = str(mutation_case.get("claimed_at") or source_claim.get("claimed_at") or "")
+    leased_until = str(
+        mutation_case.get("leased_until") or source_claim.get("leased_until") or ""
+    )
+    sessions = mutated.setdefault("sessions", {})
+    sessions[session_id] = {
+        "session_id": session_id,
+        "actor": mutation_case.get("actor") or "public_safe_conflict_mutation",
+        "phase_id": mutation_case.get("phase_id") or "09_54_1",
+        "bootstrapped_at": signal_at,
+        "last_activity_at": signal_at,
+        "last_activity_action": "session-heartbeat",
+        "touched_work": True,
+        "ended_at": None,
+        "pass_heartbeat": {
+            "schema": "runtime_pass_heartbeat_v0",
+            "session_id": session_id,
+            "actor": mutation_case.get("actor") or "public_safe_conflict_mutation",
+            "phase_id": mutation_case.get("phase_id") or "09_54_1",
+            "family_id": "09",
+            "pass_id": "wlp_public_safe_conflict_mutation",
+            "pass_seq": 1,
+            "pass_state": "editing",
+            "current_pass_line": "Public-safe same-path conflict mutation.",
+            "last_pass_result_line": "Real-good owner-excluded collision check was clear.",
+            "scope_refs": [
+                {
+                    "kind": "ref",
+                    "ref": mutated_path,
+                }
+            ],
+            "updated_at": signal_at,
+            "expires_at": leased_until,
+            "current_pass_updated_at": signal_at,
+            "last_pass_completed_at": signal_at,
+            "source": "manual_cli",
+        },
+        "claims": [claim],
+    }
+    return mutated
+
+
+def _runtime_status_with_mutated_expected_parent(
+    runtime_status: dict[str, Any],
+    *,
+    claim_id: str,
+    expected_parent_sha: str,
+) -> dict[str, Any]:
+    mutated = copy.deepcopy(runtime_status)
+    sessions = mutated.get("sessions") if isinstance(mutated.get("sessions"), dict) else {}
+    for session in sessions.values():
+        if not isinstance(session, dict):
+            continue
+        claims = session.get("claims") if isinstance(session.get("claims"), list) else []
+        for claim in claims:
+            if not isinstance(claim, dict):
+                continue
+            if str(claim.get("claim_id") or "") == claim_id:
+                claim["expected_parent_sha"] = expected_parent_sha
+                return mutated
+    return mutated
+
+
+def _checkpoint_policy_with_mutated_landing_row(
+    checkpoint_policy: object,
+    *,
+    mutation_case: dict[str, Any],
+) -> dict[str, Any]:
+    mutated = copy.deepcopy(checkpoint_policy) if isinstance(checkpoint_policy, dict) else {}
+    cases = mutated.get("lane_cases")
+    if not isinstance(cases, list):
+        cases = []
+    mutated["lane_cases"] = list(cases)
+    mutated["lane_cases"].append(
+        {
+            "case_id": str(
+                mutation_case.get("case_id")
+                or "real_snapshot_broad_checkpoint_without_operator_authorization"
+            ),
+            "negative_case_id": "real_work_ledger_mutated_landing_row",
+            "tree_state": "mixed_dirty_tree",
+            "dirty_tree_present": True,
+            "owned_paths_isolated": False,
+            "broad_checkpoint_requested": True,
+            "operator_authorized_broad_checkpoint": False,
+            "suspected_secret": False,
+            "selected_lane": "broad_checkpoint",
+        }
+    )
+    return mutated
+
+
+def _with_landing_decision_status(preflight: dict[str, Any]) -> dict[str, Any]:
+    result = dict(preflight)
+    landing_decision = result.get("landing_decision")
+    if isinstance(landing_decision, dict) and landing_decision.get("status"):
+        result["checkpoint_lane_status"] = result.get("status")
+        result["status"] = landing_decision["status"]
+    return result
+
+
+def _collision_claim_ids(collisions: list[dict[str, Any]]) -> list[str]:
+    return sorted(
+        {
+            str(collision.get("claim_id") or "")
+            for collision in collisions
+            if str(collision.get("claim_id") or "").strip()
+        }
+    )
+
+
+def validate_real_active_claims_snapshot(
+    payload: object,
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    if not isinstance(payload, dict):
+        _record(
+            findings,
+            observed,
+            "REAL_ACTIVE_CLAIMS_SNAPSHOT_INVALID",
+            "Real active-claims snapshot fixture must be a JSON object.",
+            case_id="real_work_ledger_active_claim_snapshot_invalid",
+            subject_id=REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
+            subject_kind="real_work_ledger_snapshot_fixture",
+        )
+        return {
+            "status": "blocked",
+            "findings": findings,
+            "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        }
+
+    runtime_status = payload.get("runtime_status")
+    if not isinstance(runtime_status, dict):
+        runtime_status = {}
+    source_modules_root = _work_ledger_source_modules_root(input_dir, public_root)
+    work_ledger_runtime = _import_exact_copy_work_ledger_runtime(source_modules_root)
+    snapshot_now = _parse_iso_utc(payload.get("snapshot_now"))
+    snapshot = work_ledger_runtime.build_active_claims_snapshot(
+        public_root,
+        runtime_status,
+        now=snapshot_now,
+    )
+    declared_source_hash = str(payload.get("source_snapshot_hash") or "").strip()
+    recomputed_source_hash = str(snapshot.get("source_hash") or "").strip()
+    source_hash_integrity_passed = (
+        len(declared_source_hash) == 64
+        and all(char in "0123456789abcdef" for char in declared_source_hash.lower())
+        and declared_source_hash != ("0" * 64)
+        and bool(recomputed_source_hash)
+        and declared_source_hash == recomputed_source_hash
+    )
+    if not source_hash_integrity_passed:
+        _record(
+            findings,
+            observed,
+            "REAL_ACTIVE_CLAIMS_SNAPSHOT_HASH_MISMATCH",
+            "Declared sanitized Work Ledger source snapshot hash must match the recomputed runtime snapshot digest.",
+            case_id="real_work_ledger_receipt_artifact_mutation",
+            subject_id=REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
+            subject_kind="real_work_ledger_snapshot_fixture",
+        )
+    path_claims = _snapshot_path_claims(snapshot)
+    expected_parent_by_claim = (
+        payload.get("expected_parent_by_claim")
+        if isinstance(payload.get("expected_parent_by_claim"), dict)
+        else {}
+    )
+    expected_parent_by_claim = {
+        **expected_parent_by_claim,
+        **_claim_maps_from_runtime_status(runtime_status, "expected_parent_sha"),
+    }
+    current_parent_by_claim = (
+        payload.get("current_parent_by_claim")
+        if isinstance(payload.get("current_parent_by_claim"), dict)
+        else {}
+    )
+    current_parent_by_claim = {
+        **current_parent_by_claim,
+        **_claim_maps_from_runtime_status(runtime_status, "current_parent_sha"),
+    }
+    subject_ids = _strings(payload.get("subject_ids")) or [
+        str(payload.get("work_item_id") or "cap_quick_mission_transaction_real_claim_snapshot")
+    ]
+    owned_paths = _strings(payload.get("owned_paths")) or sorted(
+        {
+            owned_path
+            for claim in _public_claim_rows_from_snapshot(path_claims, expected_parent_by_claim)
+            for owned_path in _strings(claim.get("owned_paths"))
+        }
+    )
+    checkpoint_policy = payload.get("checkpoint_lane_policy")
+    if not isinstance(checkpoint_policy, dict):
+        checkpoint_policy = {"lane_cases": []}
+
+    snapshot, real_good_preflight = _public_preflight_from_runtime_snapshot(
+        work_ledger_runtime,
+        public_root,
+        runtime_status,
+        snapshot_now=snapshot_now,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        expected_parent_by_claim=expected_parent_by_claim,
+        current_parent_by_claim=current_parent_by_claim,
+        checkpoint_policy=checkpoint_policy,
+    )
+
+    mutation_cases = payload.get("mutation_cases")
+    mutation_cases = mutation_cases if isinstance(mutation_cases, dict) else {}
+    conflict_case = mutation_cases.get("same_path_conflict")
+    conflict_case = conflict_case if isinstance(conflict_case, dict) else {}
+    stale_case = mutation_cases.get("expected_parent_mismatch")
+    stale_case = stale_case if isinstance(stale_case, dict) else {}
+    landing_case = mutation_cases.get("landing_row_violation")
+    landing_case = landing_case if isinstance(landing_case, dict) else {}
+
+    source_conflict_claim = path_claims[0] if path_claims else {}
+    mutated_runtime_status = _runtime_status_with_mutated_path_conflict(
+        runtime_status,
+        source_claim=source_conflict_claim,
+        mutation_case=conflict_case,
+    ) if source_conflict_claim else runtime_status
+    _conflict_snapshot, conflict_preflight = _public_preflight_from_runtime_snapshot(
+        work_ledger_runtime,
+        public_root,
+        mutated_runtime_status,
+        snapshot_now=snapshot_now,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        expected_parent_by_claim=expected_parent_by_claim,
+        current_parent_by_claim=current_parent_by_claim,
+        checkpoint_policy=checkpoint_policy,
+    )
+
+    stale_claims = _snapshot_path_claims(snapshot)
+    stale_claim_id = str(
+        stale_case.get("claim_id")
+        or (stale_claims[0].get("claim_id") if stale_claims else "")
+        or "real_snapshot_stale_parent_claim"
+    )
+    stale_runtime_status = _runtime_status_with_mutated_expected_parent(
+        runtime_status,
+        claim_id=stale_claim_id,
+        expected_parent_sha=str(
+            stale_case.get("mutated_expected_parent_sha") or "stale_parent_sha"
+        ),
+    )
+    stale_expected_parent_by_claim = {
+        **expected_parent_by_claim,
+        **_claim_maps_from_runtime_status(stale_runtime_status, "expected_parent_sha"),
+    }
+    _stale_snapshot, stale_preflight = _public_preflight_from_runtime_snapshot(
+        work_ledger_runtime,
+        public_root,
+        stale_runtime_status,
+        snapshot_now=snapshot_now,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        expected_parent_by_claim=stale_expected_parent_by_claim,
+        current_parent_by_claim=current_parent_by_claim,
+        checkpoint_policy=checkpoint_policy,
+    )
+    equal_parent_expected_by_claim = dict(expected_parent_by_claim)
+    equal_parent_expected_by_claim[stale_claim_id] = str(
+        current_parent_by_claim.get(stale_claim_id)
+        or expected_parent_by_claim.get(stale_claim_id)
+        or ""
+    )
+    _equal_parent_snapshot, equal_parent_preflight = _public_preflight_from_runtime_snapshot(
+        work_ledger_runtime,
+        public_root,
+        runtime_status,
+        snapshot_now=snapshot_now,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        expected_parent_by_claim=equal_parent_expected_by_claim,
+        current_parent_by_claim=current_parent_by_claim,
+        checkpoint_policy=checkpoint_policy,
+    )
+    source_path = str(source_conflict_claim.get("path") or source_conflict_claim.get("scope_id") or "")
+    disjoint_path = str(
+        conflict_case.get("disjoint_path")
+        or "public_safe_disjoint_mutation/outside_requested_scope.txt"
+    )
+    disjoint_runtime_status = _runtime_status_with_mutated_path_conflict(
+        runtime_status,
+        source_claim=source_conflict_claim,
+        mutation_case={**conflict_case, "path": disjoint_path, "scope_id": disjoint_path},
+    ) if source_conflict_claim else runtime_status
+    _disjoint_snapshot, disjoint_preflight = _public_preflight_from_runtime_snapshot(
+        work_ledger_runtime,
+        public_root,
+        disjoint_runtime_status,
+        snapshot_now=snapshot_now,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        expected_parent_by_claim=expected_parent_by_claim,
+        current_parent_by_claim=current_parent_by_claim,
+        checkpoint_policy=checkpoint_policy,
+    )
+    landing_mutation_preflight = _with_landing_decision_status(
+        build_public_mission_transaction_preflight(
+            subject_ids=subject_ids,
+            owned_paths=owned_paths,
+            claims_payload={"claims": _public_claim_rows_from_snapshot(path_claims, expected_parent_by_claim)},
+            repo_state={"current_parent_by_claim": current_parent_by_claim},
+            checkpoint_lane_policy=_checkpoint_policy_with_mutated_landing_row(
+                checkpoint_policy,
+                mutation_case=landing_case,
+            ),
+            checkpoint_negative_cases=[],
+            require_exclusive=True,
+        )
+    )
+
+    source_session_id = str(payload.get("source_session_id") or "")
+    requested_path = str(source_conflict_claim.get("path") or source_conflict_claim.get("scope_id") or "")
+    owner_excluded_collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        public_root,
+        [requested_path] if requested_path else [],
+        status=runtime_status,
+        session_id=source_session_id,
+        now=snapshot_now,
+    )
+    mutated_runtime_collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        public_root,
+        [requested_path] if requested_path else [],
+        status=mutated_runtime_status,
+        session_id=source_session_id,
+        now=snapshot_now,
+    )
+    disjoint_runtime_collisions = work_ledger_runtime.active_claim_collisions_for_paths(
+        public_root,
+        [requested_path] if requested_path else [],
+        status=disjoint_runtime_status,
+        session_id=source_session_id,
+        now=snapshot_now,
+    )
+    real_good_preflight["runtime_collision_row_source"] = (
+        "work_ledger_runtime.active_claim_collisions_for_paths"
+    )
+    real_good_preflight["runtime_collision_claim_ids"] = _collision_claim_ids(
+        owner_excluded_collisions
+    )
+    conflict_preflight["runtime_collision_row_source"] = (
+        "work_ledger_runtime.active_claim_collisions_for_paths"
+    )
+    conflict_preflight["runtime_collision_claim_ids"] = _collision_claim_ids(
+        mutated_runtime_collisions
+    )
+    disjoint_preflight["runtime_collision_row_source"] = (
+        "work_ledger_runtime.active_claim_collisions_for_paths"
+    )
+    disjoint_preflight["runtime_collision_claim_ids"] = _collision_claim_ids(
+        disjoint_runtime_collisions
+    )
+
+    if conflict_preflight["status"] == "blocked" and conflict_preflight["conflict_claim_ids"]:
+        _record(
+            findings,
+            observed,
+            "SAME_PATH_CLAIM_CONFLICT",
+            "Real Work Ledger path claim rejects a one-field same-path mutation.",
+            case_id="real_work_ledger_same_path_claim_conflict",
+            subject_id=str(conflict_case.get("claim_id") or "real_snapshot_same_path_conflict_claim"),
+            subject_kind="real_work_ledger_claim_mutation",
+        )
+    if stale_preflight["status"] == "blocked" and stale_preflight["stale_expected_parent_claim_ids"]:
+        _record(
+            findings,
+            observed,
+            "EXPECTED_PARENT_MISMATCH",
+            "Real Work Ledger path claim rejects a one-field expected-parent mutation.",
+            case_id="real_work_ledger_expected_parent_mismatch",
+            subject_id=stale_claim_id,
+            subject_kind="real_work_ledger_claim_mutation",
+        )
+    if (
+        landing_mutation_preflight["status"] == "blocked"
+        and "checkpoint_lane_violation"
+        in landing_mutation_preflight["landing_decision"]["blockers"]
+        and landing_mutation_preflight["broad_checkpoint_authorization_required_case_ids"]
+    ):
+        _record(
+            findings,
+            observed,
+            "CHECKPOINT_BROAD_AUTH_REQUIRED",
+            "Real Work Ledger landing preflight rejects a one-row broad checkpoint mutation.",
+            case_id="real_work_ledger_mutated_landing_row",
+            subject_id=landing_mutation_preflight[
+                "broad_checkpoint_authorization_required_case_ids"
+            ][0],
+            subject_kind="mission_transaction_landing_row_mutation",
+        )
+
+    good_passed = (
+        real_good_preflight["status"] == "pass"
+        and not real_good_preflight["conflict_claim_ids"]
+        and not real_good_preflight["stale_expected_parent_claim_ids"]
+    )
+    runtime_collision_discriminates = (
+        len(owner_excluded_collisions) == 0 and len(mutated_runtime_collisions) > 0
+    )
+    mutation_blocked = (
+        conflict_preflight["status"] == "blocked"
+        and stale_preflight["status"] == "blocked"
+        and landing_mutation_preflight["status"] == "blocked"
+        and runtime_collision_discriminates
+    )
+    mutation_clears = (
+        disjoint_preflight["status"] == "pass"
+        and equal_parent_preflight["status"] == "pass"
+        and len(disjoint_runtime_collisions) == 0
+    )
+    landing_mutation_discriminates = (
+        real_good_preflight["status"] == "pass"
+        and landing_mutation_preflight["status"] == "blocked"
+        and "checkpoint_lane_violation"
+        in landing_mutation_preflight["landing_decision"]["blockers"]
+    )
+    source_snapshot_ref = str(payload.get("source_snapshot_ref") or "")
+    source_session = (
+        runtime_status.get("sessions", {}).get(source_session_id)
+        if isinstance(runtime_status.get("sessions"), dict) and source_session_id
+        else {}
+    )
+    source_session = source_session if isinstance(source_session, dict) else {}
+    source_heartbeat = (
+        source_session.get("pass_heartbeat")
+        if isinstance(source_session.get("pass_heartbeat"), dict)
+        else {}
+    )
+    source_session_claim_ids = sorted(
+        {
+            str(claim.get("claim_id") or "")
+            for claim in source_session.get("claims", [])
+            if isinstance(claim, dict) and str(claim.get("claim_id") or "")
+        }
+    )
+    session_snapshot_bound = bool(
+        source_session_id
+        and source_session.get("session_id") == source_session_id
+        and source_session_claim_ids
+        and source_heartbeat.get("current_pass_line")
+        and source_heartbeat.get("last_pass_result_line")
+    )
+    source_ref_public_safe = bool(source_snapshot_ref) and not any(
+        private_token in source_snapshot_ref
+        for private_token in ("/Users/", "/private/", "src/ai_workflow", "raw_seed")
+    )
+    realness_r3_bound = (
+        good_passed
+        and mutation_blocked
+        and mutation_clears
+        and landing_mutation_discriminates
+        and source_hash_integrity_passed
+        and session_snapshot_bound
+        and source_ref_public_safe
+    )
+    realness_rank = 3 if realness_r3_bound else 2 if mutation_blocked else 1
+    realness_evidence = {
+        "schema_version": "mission_transaction_work_spine_realness_evidence_v1",
+        "status": PASS if realness_r3_bound else "blocked",
+        "realness_rank": realness_rank,
+        "realness_rung": f"R{realness_rank}",
+        "realness_state": (
+            "public_safe_real_work_ledger_session_snapshot_replay"
+            if realness_r3_bound
+            else "fixture_negative_cases_and_runtime_mutations_bound"
+            if mutation_blocked
+            else "metadata_floor_only"
+        ),
+        "rank_derivation": (
+            "copied_work_ledger_runtime_recomputed_public_preflight_plus_"
+            "mutated_same_path_expected_parent_and_landing_row_rejection"
+        ),
+        "evidence_source": (
+            "sanitized_real_work_ledger_runtime_status_and_copied_work_ledger_runtime"
+        ),
+        "verdict_rederived_from_runtime_evidence": True,
+        "expected_labels_used_for_verdict": False,
+        "baked_fixture_label_sufficient": False,
+        "real_good_input_passed": good_passed,
+        "mutated_or_stale_snapshot_rejected": mutation_blocked,
+        "clear_input_perturbation_moves_verdict": mutation_clears,
+        "landing_row_mutation_rejected": landing_mutation_discriminates,
+        "source_snapshot_hash_bound": source_hash_integrity_passed,
+        "source_snapshot_ref": source_snapshot_ref,
+        "source_snapshot_ref_public_safe": source_ref_public_safe,
+        "source_snapshot_hash": declared_source_hash,
+        "runtime_snapshot_source_hash": recomputed_source_hash,
+        "session_snapshot_bound": session_snapshot_bound,
+        "source_session_id": source_session_id,
+        "source_session_claim_ids": source_session_claim_ids,
+        "source_session_claim_count": len(source_session_claim_ids),
+        "source_session_heartbeat_bound": bool(source_heartbeat),
+        "source_session_public_line_fields": [
+            field
+            for field in ("current_pass_line", "last_pass_result_line")
+            if source_heartbeat.get(field)
+        ],
+        "source_runtime_symbols": [
+            "system.lib.work_ledger_runtime::build_active_claims_snapshot",
+            "system.lib.work_ledger_runtime::active_claim_collisions_for_paths",
+        ],
+        "authority_ceiling_bound": True,
+        "release_authorized": False,
+        "body_in_receipt": False,
+    }
+
+    return {
+        "status": (
+            PASS
+            if good_passed
+            and mutation_blocked
+            and mutation_clears
+            and landing_mutation_discriminates
+            and source_hash_integrity_passed
+            and realness_r3_bound
+            else "blocked"
+        ),
+        "findings": findings,
+        "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        "fixture_ref": public_relative_path(
+            input_dir / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
+            display_root=public_root,
+        ),
+        "sanitization_boundary": payload.get("sanitization_boundary"),
+        "source_snapshot_ref": payload.get("source_snapshot_ref"),
+        "source_snapshot_hash": payload.get("source_snapshot_hash"),
+        "realness_evidence": realness_evidence,
+        "realness_rank": realness_evidence["realness_rank"],
+        "realness_rung": realness_evidence["realness_rung"],
+        "realness_state": realness_evidence["realness_state"],
+        "source_runtime_module_ref": public_relative_path(
+            source_modules_root / "system/lib/work_ledger_runtime.py",
+            display_root=public_root,
+        ),
+        "source_runtime_symbols": [
+            "system.lib.work_ledger_runtime::build_active_claims_snapshot",
+            "system.lib.work_ledger_runtime::active_claim_collisions_for_paths",
+        ],
+        "runtime_snapshot_counts": snapshot.get("counts") or {},
+        "runtime_snapshot_source_hash": snapshot.get("source_hash"),
+        "source_snapshot_hash_check": {
+            "status": PASS if source_hash_integrity_passed else "blocked",
+            "declared_source_snapshot_hash": declared_source_hash,
+            "recomputed_runtime_snapshot_hash": recomputed_source_hash,
+            "verdict_source": (
+                "declared_source_artifact_digest_sanity_plus_"
+                "copied_work_ledger_runtime_build_active_claims_snapshot"
+            ),
+            "body_in_receipt": False,
+        },
+        "real_good_public_preflight": real_good_preflight,
+        "same_path_conflict_public_preflight": conflict_preflight,
+        "expected_parent_mismatch_public_preflight": stale_preflight,
+        "disjoint_path_mutation_public_preflight": disjoint_preflight,
+        "equal_parent_mutation_public_preflight": equal_parent_preflight,
+        "landing_row_mutation_public_preflight": landing_mutation_preflight,
+        "runtime_collision_check": {
+            "requested_path": requested_path,
+            "owner_session_id": source_session_id,
+            "collision_row_source": "work_ledger_runtime.active_claim_collisions_for_paths",
+            "owner_excluded_collision_count": len(owner_excluded_collisions),
+            "mutated_runtime_collision_count": len(mutated_runtime_collisions),
+            "disjoint_runtime_collision_count": len(disjoint_runtime_collisions),
+            "owner_excluded_collision_claim_ids": _collision_claim_ids(
+                owner_excluded_collisions
+            ),
+            "mutated_runtime_collision_claim_ids": _collision_claim_ids(
+                mutated_runtime_collisions
+            ),
+            "disjoint_runtime_collision_claim_ids": _collision_claim_ids(
+                disjoint_runtime_collisions
+            ),
+            "mutated_runtime_collisions": mutated_runtime_collisions,
+            "body_in_receipt": False,
+        },
+        "landing_row_mutation_check": {
+            "status": PASS if landing_mutation_discriminates else "blocked",
+            "good_landing_status": real_good_preflight["landing_decision"]["status"],
+            "mutated_landing_status": landing_mutation_preflight["landing_decision"][
+                "status"
+            ],
+            "mutated_landing_blockers": landing_mutation_preflight["landing_decision"][
+                "blockers"
+            ],
+            "mutated_checkpoint_violation_case_ids": landing_mutation_preflight[
+                "checkpoint_lane_violation_case_ids"
+            ],
+            "body_in_receipt": False,
+        },
+        "baked_expected_label_policy": {
+            "status": "ignored",
+            "ignored_input_fields": sorted(
+                set(payload)
+                & {
+                    "active_claim_count",
+                    "claim_collision_count",
+                    "expected_negative_cases",
+                    "expected_verdict",
+                    "real_active_claims_snapshot_status",
+                    "runtime_snapshot_counts",
+                    "seed_speed_status",
+                }
+            ),
+            "verdict_source": "recomputed_work_ledger_runtime_and_public_mission_preflight",
+            "body_in_receipt": False,
+        },
+        "subject_ids": subject_ids,
+        "owned_paths": owned_paths,
+        "source_session_id": source_session_id,
+        "real_good_input_passed": good_passed,
+        "real_wrong_input_rejected": mutation_blocked,
+        "real_wrong_input_clear_mutation_passed": mutation_clears,
+        "body_in_receipt": False,
+    }
 
 
 def _load_optional_json_document(
@@ -855,6 +1687,7 @@ def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> di
         module_id = str(module["module_id"])
         row = manifest_by_id.get(module_id, {})
         module_path = input_dir / str(module["bundle_path"])
+        required_anchors = [str(anchor) for anchor in module.get("required_anchors", [])]
         missing_anchors: list[str] = []
         actual_sha = ""
         actual_line_count = 0
@@ -876,7 +1709,7 @@ def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> di
             actual_byte_count = _file_size_bytes(module_path)
             missing_anchors = [
                 str(anchor)
-                for anchor in module.get("required_anchors", [])
+                for anchor in required_anchors
                 if str(anchor) not in text
             ]
             if missing_anchors:
@@ -907,6 +1740,20 @@ def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> di
                             subject_kind="work_ledger_source_import",
                         )
                     )
+            manifest_anchors = (
+                [str(anchor) for anchor in row.get("required_anchors", [])]
+                if isinstance(row.get("required_anchors"), list)
+                else []
+            )
+            if manifest_anchors != required_anchors:
+                findings.append(
+                    _bundle_finding(
+                        "WORK_LEDGER_SOURCE_MANIFEST_ANCHORS_MISMATCH",
+                        "Work Ledger source module manifest must declare the required seed-speed and mutation-check coordination anchors.",
+                        subject_id=module_id,
+                        subject_kind="work_ledger_source_import",
+                    )
+                )
             if row.get("sha256_match") is not True or (
                 actual_sha and row.get("target_sha256") != actual_sha
             ):
@@ -940,7 +1787,7 @@ def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> di
                 "sha256": actual_sha,
                 "line_count": actual_line_count,
                 "byte_count": actual_byte_count,
-                "anchor_count": len(module.get("required_anchors", [])),
+                "anchor_count": len(required_anchors),
                 "missing_anchors": missing_anchors,
                 "body_copied": module_path.exists(),
                 "body_in_receipt": False,
@@ -1960,6 +2807,7 @@ def validate_checkpoint_lane_policy(
     hard_stop_case_ids: list[str] = []
     broad_authorization_required_case_ids: list[str] = []
     dirty_tree_not_scoped_blocker_case_ids: list[str] = []
+    selected_lane_mismatch_case_ids: list[str] = []
 
     for index, case in enumerate(cases, start=1):
         case_id = str(case.get("case_id") or f"checkpoint_lane_case_{index}")
@@ -2012,6 +2860,17 @@ def validate_checkpoint_lane_policy(
                 subject_id=case_id,
                 subject_kind="checkpoint_lane_case",
             )
+        if selected_lane and selected_lane != recommended_lane:
+            selected_lane_mismatch_case_ids.append(case_id)
+            _record(
+                findings,
+                observed,
+                "CHECKPOINT_SELECTED_LANE_MISMATCH",
+                "Checkpoint lane selection must match the recommended lane for the declared case.",
+                case_id=negative_case_id,
+                subject_id=case_id,
+                subject_kind="checkpoint_lane_case",
+            )
         if not selected_lane:
             _record(
                 findings,
@@ -2052,6 +2911,7 @@ def validate_checkpoint_lane_policy(
         "dirty_tree_not_scoped_blocker_case_ids": sorted(
             set(dirty_tree_not_scoped_blocker_case_ids)
         ),
+        "selected_lane_mismatch_case_ids": sorted(set(selected_lane_mismatch_case_ids)),
         "selection_policy": (
             "dirty_trees_block_broad_accidental_staging_not_scoped_owned_path_commits"
         ),
@@ -2242,15 +3102,139 @@ def validate_claim_preflight(
     return {
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
-        "claim_id": "claim_b",
-        "decision": "blocked_replan_required",
+        "claim_id": (
+            sorted(set(conflict_claim_ids))[0]
+            if conflict_claim_ids
+            else sorted(stale_claim_ids)[0]
+            if stale_claim_ids
+            else missing_claim_id
+        ),
+        "decision": "blocked_replan_required" if findings else "pass_metadata_preflight",
         "conflict_claim_ids": sorted(set(conflict_claim_ids)),
         "same_path_conflict_claim_ids": sorted(set(same_path_conflict_claim_ids)),
-        "claim_conflict_recheck_status": "live_conflict_detected",
-        "expected_parent_status": "stale_parent_rejected",
+        "claim_conflict_recheck_status": (
+            "live_conflict_detected" if conflict_claim_ids else "no_conflict_in_public_snapshot"
+        ),
+        "expected_parent_status": (
+            "stale_parent_rejected" if stale_claim_ids else "parent_ok_or_not_declared"
+        ),
         "stale_expected_parent_claim_ids": sorted(stale_claim_ids),
-        "missing_owned_path_claim_ids": [missing_claim_id],
-        "replan_required": True,
+        "missing_owned_path_claim_ids": (
+            [missing_claim_id] if not missing_owned_path.get("owned_paths") else []
+        ),
+        "replan_required": bool(findings),
+    }
+
+
+def _primary_claim_preflight_from_real_snapshot(
+    *,
+    legacy_claim_result: dict[str, Any],
+    real_snapshot_result: dict[str, Any],
+    public_mission_preflight: dict[str, Any],
+) -> dict[str, Any]:
+    real_good = (
+        real_snapshot_result.get("real_good_public_preflight")
+        if isinstance(real_snapshot_result.get("real_good_public_preflight"), dict)
+        else {}
+    )
+    same_path_mutation = (
+        real_snapshot_result.get("same_path_conflict_public_preflight")
+        if isinstance(real_snapshot_result.get("same_path_conflict_public_preflight"), dict)
+        else {}
+    )
+    parent_mutation = (
+        real_snapshot_result.get("expected_parent_mismatch_public_preflight")
+        if isinstance(
+            real_snapshot_result.get("expected_parent_mismatch_public_preflight"), dict
+        )
+        else {}
+    )
+    runtime_collision = (
+        real_snapshot_result.get("runtime_collision_check")
+        if isinstance(real_snapshot_result.get("runtime_collision_check"), dict)
+        else {}
+    )
+    accepted_claim_ids = _strings(real_good.get("accepted_claim_ids"))
+    real_conflict_claim_ids = _strings(
+        runtime_collision.get("mutated_runtime_collision_claim_ids")
+    ) or _strings(same_path_mutation.get("runtime_collision_claim_ids"))
+    real_parent_mismatch_claim_ids = _strings(
+        parent_mutation.get("stale_expected_parent_claim_ids")
+    )
+    source_claim_id = (
+        accepted_claim_ids[0]
+        if accepted_claim_ids
+        else real_conflict_claim_ids[0]
+        if real_conflict_claim_ids
+        else real_parent_mismatch_claim_ids[0]
+        if real_parent_mismatch_claim_ids
+        else str(legacy_claim_result.get("claim_id") or "real_work_ledger_claim")
+    )
+
+    return {
+        **legacy_claim_result,
+        "claim_id": source_claim_id,
+        "decision": public_mission_preflight["landing_decision"]["decision"],
+        "conflict_claim_ids": _strings(public_mission_preflight.get("conflict_claim_ids")),
+        "same_path_conflict_claim_ids": _strings(
+            public_mission_preflight.get("same_path_conflict_claim_ids")
+        ),
+        "claim_conflict_recheck_status": public_mission_preflight[
+            "claim_conflict_recheck_status"
+        ],
+        "expected_parent_status": public_mission_preflight["expected_parent_status"],
+        "stale_expected_parent_claim_ids": _strings(
+            public_mission_preflight.get("stale_expected_parent_claim_ids")
+        ),
+        "missing_owned_path_claim_ids": _strings(
+            public_mission_preflight.get("missing_owned_path_claim_ids")
+        ),
+        "replan_required": public_mission_preflight["status"] != PASS,
+        "decision_basis": "real_active_claims_snapshot_public_preflight",
+        "public_mission_preflight_status": public_mission_preflight["status"],
+        "public_mission_preflight_landing_decision": public_mission_preflight[
+            "landing_decision"
+        ]["decision"],
+        "realness_evidence": real_snapshot_result["realness_evidence"],
+        "realness_rank": real_snapshot_result["realness_rank"],
+        "realness_rung": real_snapshot_result["realness_rung"],
+        "realness_state": real_snapshot_result["realness_state"],
+        "accepted_claim_ids": accepted_claim_ids,
+        "real_active_claims_snapshot_status": real_snapshot_result["status"],
+        "real_good_input_passed": real_snapshot_result["real_good_input_passed"],
+        "real_wrong_input_rejected": real_snapshot_result["real_wrong_input_rejected"],
+        "real_wrong_input_clear_mutation_passed": real_snapshot_result[
+            "real_wrong_input_clear_mutation_passed"
+        ],
+        "real_snapshot_fixture_ref": real_snapshot_result["fixture_ref"],
+        "real_same_path_conflict_claim_ids": real_conflict_claim_ids,
+        "real_same_path_conflict_public_claim_ids": _strings(
+            same_path_mutation.get("conflict_claim_ids")
+        ),
+        "real_same_path_owner_claim_ids": _strings(
+            same_path_mutation.get("same_path_conflict_claim_ids")
+        ),
+        "real_expected_parent_mismatch_claim_ids": real_parent_mismatch_claim_ids,
+        "real_disjoint_path_mutation_claim_ids": _strings(
+            runtime_collision.get("disjoint_runtime_collision_claim_ids")
+        ),
+        "real_collision_row_source": runtime_collision.get("collision_row_source"),
+        "legacy_regression_fixture_decision": legacy_claim_result["decision"],
+        "legacy_regression_fixture_replan_required": legacy_claim_result[
+            "replan_required"
+        ],
+        "legacy_regression_fixture_conflict_claim_ids": _strings(
+            legacy_claim_result.get("conflict_claim_ids")
+        ),
+        "legacy_regression_fixture_same_path_conflict_claim_ids": _strings(
+            legacy_claim_result.get("same_path_conflict_claim_ids")
+        ),
+        "legacy_regression_fixture_stale_expected_parent_claim_ids": _strings(
+            legacy_claim_result.get("stale_expected_parent_claim_ids")
+        ),
+        "legacy_regression_fixture_decision_basis": (
+            "toy_work_ledger_claims_and_repo_state_compatibility_only"
+        ),
     }
 
 
@@ -2649,6 +3633,12 @@ def _write_mission_bundle_receipt(
             "work_ledger_source_validation_refs": validation_result[
                 "work_ledger_source_validation_refs"
             ],
+            "real_active_claims_snapshot_status": validation_result[
+                "real_active_claims_snapshot_status"
+            ],
+            "real_active_claims_snapshot_result": validation_result[
+                "real_active_claims_snapshot_result"
+            ],
             "checkpoint_lane_source_import_status": validation_result[
                 "checkpoint_lane_source_import_status"
             ],
@@ -2743,6 +3733,34 @@ def run_mission_transaction_bundle(
     checkpoint_lane_result = validate_checkpoint_lane_policy(
         payloads["checkpoint_lane_policy"]
     )
+    real_snapshot_path = input_path / REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME
+    real_snapshot_result: dict[str, Any] | None = None
+    if real_snapshot_path.is_file():
+        real_snapshot_result = validate_real_active_claims_snapshot(
+            read_json_strict(real_snapshot_path),
+            input_path,
+            public_root,
+        )
+    real_snapshot_status = (
+        real_snapshot_result["status"] if real_snapshot_result is not None else "missing"
+    )
+    real_snapshot_missing_findings = (
+        []
+        if real_snapshot_result is not None
+        else [
+            _bundle_finding(
+                "REAL_ACTIVE_CLAIMS_SNAPSHOT_MISSING",
+                "Exported mission transaction bundle must carry sanitized real Work Ledger active-claims evidence.",
+                subject_id=REAL_ACTIVE_CLAIMS_SNAPSHOT_NAME,
+                subject_kind="real_work_ledger_snapshot_fixture",
+            )
+        ]
+    )
+    real_snapshot_blocking_findings = (
+        real_snapshot_result["findings"]
+        if real_snapshot_result is not None and real_snapshot_result["status"] != PASS
+        else []
+    )
 
     all_findings = sorted(
         [
@@ -2758,6 +3776,8 @@ def run_mission_transaction_bundle(
             *work_ledger_source_import["findings"],
             *checkpoint_source_import["findings"],
             *mission_control_source_import["findings"],
+            *real_snapshot_missing_findings,
+            *real_snapshot_blocking_findings,
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -2788,19 +3808,28 @@ def run_mission_transaction_bundle(
     ]
     body_import_fields = _body_import_fields(input_refs)
     public_work_landing_status = build_public_work_landing_status(
-        subject_ids=subject_ids,
-        owned_paths=scoped_owned_paths,
-        session_id=first_claim,
+        subject_ids=list((real_snapshot_result or {}).get("subject_ids") or subject_ids),
+        owned_paths=list((real_snapshot_result or {}).get("owned_paths") or scoped_owned_paths),
+        session_id=str((real_snapshot_result or {}).get("source_session_id") or first_claim or ""),
         require_exclusive=True,
     )
-    public_mission_preflight = build_public_mission_transaction_preflight(
-        subject_ids=subject_ids,
-        owned_paths=scoped_owned_paths,
-        claims_payload=payloads["claim_table"],
-        repo_state={},
-        checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
-        require_exclusive=True,
+    public_mission_preflight = dict(
+        (real_snapshot_result or {}).get("real_good_public_preflight") or {}
     )
+    claim_preflight_decision_basis = "exported_claim_table_projection_public_preflight"
+    if public_mission_preflight:
+        claim_preflight_decision_basis = (
+            "exported_bundle_real_active_claims_snapshot_public_preflight"
+        )
+    else:
+        public_mission_preflight = build_public_mission_transaction_preflight(
+            subject_ids=subject_ids,
+            owned_paths=scoped_owned_paths,
+            claims_payload=payloads["claim_table"],
+            repo_state={},
+            checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
+            require_exclusive=True,
+        )
     public_reconcile_plan = _public_work_landing_reconcile_plan(
         subject_ids=subject_ids,
         owned_paths=scoped_owned_paths,
@@ -2824,6 +3853,8 @@ def run_mission_transaction_bundle(
         and mission_control_source_import["status"] == PASS
         and transaction_result["ordered_controller_action_ids"] == ORDERED_CONTROLLER_ACTION_IDS
         and public_mission_preflight["status"] == PASS
+        and real_snapshot_result is not None
+        and real_snapshot_result["status"] == PASS
         else "blocked"
     )
     bundle_fingerprint = _stable_hash(
@@ -2925,6 +3956,15 @@ def run_mission_transaction_bundle(
                 "public_runtime_refs"
             ],
             "work_ledger_source_validation_refs": WORK_LEDGER_SOURCE_VALIDATION_REFS,
+            "real_active_claims_snapshot_status": real_snapshot_status,
+            "real_active_claims_snapshot_result": real_snapshot_result,
+            "realness_evidence": (real_snapshot_result or {}).get("realness_evidence", {}),
+            "realness_rank": (real_snapshot_result or {}).get("realness_rank", 0),
+            "realness_rung": (real_snapshot_result or {}).get("realness_rung", "blocked"),
+            "realness_state": (
+                (real_snapshot_result or {}).get("realness_state")
+                or "blocked_real_work_ledger_session_snapshot_replay"
+            ),
             "checkpoint_lane_source_import_status": CHECKPOINT_SOURCE_IMPORT_STATUS,
             "checkpoint_lane_source_import": checkpoint_source_import,
             "copied_checkpoint_source_count": checkpoint_source_import["module_count"],
@@ -2996,6 +4036,25 @@ def run_mission_transaction_bundle(
                 ],
                 "public_mission_preflight_status": public_mission_preflight["status"],
                 "replan_required": public_mission_preflight["status"] != PASS,
+                "decision_basis": claim_preflight_decision_basis,
+                "realness_evidence": (real_snapshot_result or {}).get(
+                    "realness_evidence", {}
+                ),
+                "realness_rank": (real_snapshot_result or {}).get("realness_rank", 0),
+                "realness_rung": (
+                    (real_snapshot_result or {}).get("realness_rung", "blocked")
+                ),
+                "realness_state": (
+                    (real_snapshot_result or {}).get("realness_state")
+                    or "blocked_real_work_ledger_session_snapshot_replay"
+                ),
+                "real_active_claims_snapshot_status": real_snapshot_status,
+                "real_good_input_passed": (real_snapshot_result or {}).get(
+                    "real_good_input_passed"
+                ),
+                "real_wrong_input_rejected": (real_snapshot_result or {}).get(
+                    "real_wrong_input_rejected"
+                ),
             },
             "scoped_mutation_receipt": scoped_policy_result,
             "checkpoint_lane_decision": checkpoint_lane_result,
@@ -3042,6 +4101,11 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         payloads["repo_state"],
         payloads["missing_owned_path"],
     )
+    real_snapshot_result = validate_real_active_claims_snapshot(
+        payloads["real_active_claims_snapshot"],
+        input_path,
+        public_root,
+    )
     scoped_result = validate_scoped_receipt_authority(payloads["scoped_receipt"])
     private_marker_result = validate_private_marker(payloads["private_marker"])
     preflight_result = validate_preflight_overclaim(payloads["preflight_overclaim"])
@@ -3053,6 +4117,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     observed = _merge_observed(
         dependency_result,
         claim_result,
+        real_snapshot_result,
         scoped_result,
         private_marker_result,
         preflight_result,
@@ -3064,6 +4129,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         [
             *dependency_result["findings"],
             *claim_result["findings"],
+            *real_snapshot_result["findings"],
             *scoped_result["findings"],
             *private_marker_result["findings"],
             *preflight_result["findings"],
@@ -3085,44 +4151,61 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         for path in _input_file_paths(input_path)
     ]
     body_import_fields = _body_import_fields(fixture_refs)
+    real_subject_ids = list(real_snapshot_result.get("subject_ids") or []) or [
+        "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
+    ]
+    real_owned_paths = list(real_snapshot_result.get("owned_paths") or []) or [
+        "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py"
+    ]
+    real_session_id = str(
+        real_snapshot_result.get("source_session_id")
+        or "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade"
+    )
     public_work_landing_status = build_public_work_landing_status(
-        subject_ids=["cap_toy_route_fixture"],
-        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
-        session_id="session_a",
+        subject_ids=real_subject_ids,
+        owned_paths=real_owned_paths,
+        session_id=real_session_id,
         require_exclusive=True,
     )
-    public_mission_preflight = build_public_mission_transaction_preflight(
-        subject_ids=["cap_toy_route_fixture"],
-        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
-        claims_payload=payloads["claims"],
-        repo_state=payloads["repo_state"],
-        checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
-        checkpoint_negative_cases=payloads["checkpoint_negative_cases"],
-        require_exclusive=True,
+    public_mission_preflight = dict(
+        real_snapshot_result.get("real_good_public_preflight") or {}
     )
-    claim_result = {
-        **claim_result,
-        "public_mission_preflight_status": public_mission_preflight["status"],
-        "public_mission_preflight_landing_decision": public_mission_preflight[
-            "landing_decision"
-        ]["decision"],
-    }
+    if not public_mission_preflight:
+        public_mission_preflight = build_public_mission_transaction_preflight(
+            subject_ids=real_subject_ids,
+            owned_paths=real_owned_paths,
+            claims_payload=payloads["claims"],
+            repo_state=payloads["repo_state"],
+            checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
+            checkpoint_negative_cases=payloads["checkpoint_negative_cases"],
+            require_exclusive=True,
+        )
+    claim_result = _primary_claim_preflight_from_real_snapshot(
+        legacy_claim_result=claim_result,
+        real_snapshot_result=real_snapshot_result,
+        public_mission_preflight=public_mission_preflight,
+    )
     public_work_landing_attempt = _public_work_landing_attempt(
-        subject_ids=["cap_toy_route_fixture"],
-        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
-        session_id="session_a",
+        subject_ids=real_subject_ids,
+        owned_paths=real_owned_paths,
+        session_id=real_session_id,
     )
     public_work_landing_attempt.update(
         {
-            "read_set": ["fixtures/toy_repo/core/route_plane.json@toy-route-plane-before"],
-            "write_set": ["fixtures/toy_repo/core/route_plane.json"],
+            "read_set": [
+                (
+                    f"{real_snapshot_result['fixture_ref']}"
+                    f"@{real_snapshot_result.get('source_snapshot_hash') or 'public-safe'}"
+                )
+            ],
+            "write_set": real_owned_paths,
         }
     )
     public_reconcile_plan = _public_work_landing_reconcile_plan(
-        subject_ids=["cap_toy_route_fixture"],
-        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
-        session_id="session_a",
-        transaction_id="mtx_toy_route_fixture",
+        subject_ids=real_subject_ids,
+        owned_paths=real_owned_paths,
+        session_id=real_session_id,
+        transaction_id="mtx_real_work_ledger_active_claim_snapshot",
         recommended_next_action="verify_scoped_commit_landed_then_drain_exact_receipt",
         receipt_drain_prerequisite_status="commit_landing_required_before_drain",
     )
@@ -3130,7 +4213,13 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
         {
-            "status": PASS if not missing_cases and scan_result["status"] == PASS else "blocked",
+            "status": (
+                PASS
+                if not missing_cases
+                and scan_result["status"] == PASS
+                and real_snapshot_result["status"] == PASS
+                else "blocked"
+            ),
             "validator_id": VALIDATOR_ID,
             "anti_claim": MISSION_ANTI_CLAIM,
             "authority_ceiling": MISSION_AUTHORITY_CEILING,
@@ -3142,6 +4231,11 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "secret_exclusion_scan": secret_scan,
             "public_work_landing_status": public_work_landing_status,
             "public_mission_transaction_preflight": public_mission_preflight,
+            "real_active_claims_snapshot_result": real_snapshot_result,
+            "realness_evidence": real_snapshot_result["realness_evidence"],
+            "realness_rank": real_snapshot_result["realness_rank"],
+            "realness_rung": real_snapshot_result["realness_rung"],
+            "realness_state": real_snapshot_result["realness_state"],
             **body_import_fields,
             "blocked_workitem_ids": dependency_result["blocked_workitem_ids"],
             "ready_but_unsatisfied_workitem_ids": dependency_result[
@@ -3172,18 +4266,18 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "work_landing_attempt": {
                 **public_work_landing_attempt,
                 "attempt_id": public_work_landing_attempt["idempotency_key"],
-                "work_item_id": "cap_toy_route_fixture",
+                "work_item_id": real_subject_ids[0],
             },
             "scoped_mutation_receipt": {
-                "owned_paths": ["fixtures/toy_repo/core/route_plane.json"],
-                "mutation_status": "regression_fixture_scoped_mutation_valid_for_claim_a",
-                "expected_parent_status": "pass_for_claim_a_stale_for_claim_b",
+                "owned_paths": real_owned_paths,
+                "mutation_status": "real_snapshot_scoped_mutation_valid_for_source_claims",
+                "expected_parent_status": "pass_for_real_snapshot_mutation_rejected",
                 "broad_stage_used": False,
                 "authority_upgrade_rejected": scoped_result["scoped_receipt_authority_rejected"],
                 "body_in_receipt": False,
             },
             "closeout_status_projection": {
-                "work_item_id": "cap_toy_route_fixture",
+                "work_item_id": real_subject_ids[0],
                 "status_before": "ready",
                 "status_after": "closed_regression_fixture",
                 "receipt_refs_drained": ["receipt_expected_001"],

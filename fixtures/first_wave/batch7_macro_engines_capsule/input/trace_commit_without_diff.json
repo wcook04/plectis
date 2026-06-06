@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "trace_commit_without_diff",
+  "error_codes": [
+    "BATCH7_TRACE_COMMIT_WITHOUT_DIFF_REJECTED"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

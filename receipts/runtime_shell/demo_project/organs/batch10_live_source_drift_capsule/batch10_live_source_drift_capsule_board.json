@@ -1,0 +1,31 @@
+{
+  "anti_claim": "Batch 10 Live Source Drift imports exact current Python bodies for the option-surface router, mission-transaction landing preflight, work landing controller, and Work Ledger controller after macro source drift. It proves byte-copy freshness, anchors, Python compileability, and claim ceilings. It is not route authority, not Work Ledger or Task Ledger mutation authority, not mission-transaction execution, not git staging/commit approval, and not permission to export private runtime state.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch10_live_source_drift_import_not_mutation_or_route_authority",
+    "git_staging_or_commit_authorized": false,
+    "macro_source_mutation_authorized": false,
+    "mission_transaction_execution_authorized": false,
+    "private_runtime_state_export_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "route_authority_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "task_ledger_mutation_authorized": false,
+    "work_ledger_mutation_authorized": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 4,
+    "source_module_count": 4
+  },
+  "organ_id": "batch10_live_source_drift_capsule",
+  "schema_version": "batch10_live_source_drift_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 10 Live Source Drift Capsule",
+  "verdict": "pass"
+}

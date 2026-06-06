@@ -1,0 +1,78 @@
+{
+  "body_storage_policy": "exact_non_secret_work_admission_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "work_admission_source_modules_import",
+  "module_count": 2,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 121204,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 2970,
+      "material_class": "public_macro_tool_body",
+      "module_id": "work_admission_body_import",
+      "required_anchors": [
+        "WORK_ADMISSION_SCHEMA = \"work_creation_admission_decision_v0\"",
+        "def classify_work_creation_request(",
+        "Scoped edits to test/build-named files are not validation launches;",
+        "def build_session_yield_control_surface(",
+        "def build_pressure_budget_relief_decision("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/work_admission.py",
+      "source_role": "Typed work-start admission gate that separates cheap edits from validation launches, consults host-pressure only for heavy work, and exposes helper lease, session-yield, and pressure-budget relief receipts without killing unknown-owner processes.",
+      "source_sha256": "ceb39893f439ee61836678294d9df7a13646a13ac76b4c0cb965e49eeb5b651e",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/work_admission.py",
+      "target_sha256": "ceb39893f439ee61836678294d9df7a13646a13ac76b4c0cb965e49eeb5b651e"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 48135,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1230,
+      "material_class": "public_macro_tool_body",
+      "module_id": "work_admission_test_body_import",
+      "required_anchors": [
+        "test_heavy_work_queues_under_synthetic_host_pressure",
+        "test_test_path_claim_classifies_as_light_edit_not_validation_launch",
+        "test_explicit_test_plane_still_classifies_as_validation_work",
+        "test_session_yield_control_surface_separates_pending_and_applied",
+        "front_door_gate_sufficient_for_recovery"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/server/tests/test_work_admission.py",
+      "source_role": "Focused regression tests for host-pressure work admission, the claim-preflight test-path classification fix, helper lease/yield safety, resident relief escalation, and pressure-budget decision surfaces.",
+      "source_sha256": "7703c75dfbf1ca9c011534c2517b4e703c86b2c0ce381310100d97ac3fc214d6",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_admission.py",
+      "target_sha256": "7703c75dfbf1ca9c011534c2517b4e703c86b2c0ce381310100d97ac3fc214d6"
+    }
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and focused contract assertions for work admission; copied source modules are body evidence, not authority to launch live validation, kill or close unknown-owner processes, mutate Work Ledger or Task Ledger, inspect private trace payloads, or override host-pressure controls.",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "schema_version": "macro_projection_work_admission_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_work_admission_sources_compile_and_carry_admission_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

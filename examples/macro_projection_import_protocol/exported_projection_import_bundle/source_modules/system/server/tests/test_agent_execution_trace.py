@@ -27,6 +27,7 @@ from pathlib import Path
 import pytest
 
 from tools.meta.factory import build_agent_execution_trace as trace_cli
+from system.lib import agent_execution_trace as trace_lib
 from system.lib.kernel.commands import navigate
 from system.lib.agent_execution_trace import (
     build_process_trace_route_packet,
@@ -107,7 +108,7 @@ def test_agent_execution_trace_cli_check_json_preserves_check_mode(
     assert "sources" not in payload
 
 
-def test_process_summary_missing_cache_points_to_writing_refresh(tmp_path: Path) -> None:
+def test_process_summary_missing_cache_returns_pressure_safe_status(tmp_path: Path) -> None:
     _seed_rules(tmp_path)
     standard = tmp_path / "codex/standards/std_agent_execution_trace.json"
     standard.parent.mkdir(parents=True, exist_ok=True)
@@ -118,15 +119,82 @@ def test_process_summary_missing_cache_points_to_writing_refresh(tmp_path: Path)
         request="codex:latest",
     )
 
-    assert code == 1
+    assert code == 0
+    assert payload["summary"]["status"] == "missing_cached_summary"
+    assert payload["summary"]["authority"] == "status_only_no_live_rollout_parse"
     assert payload["source_freshness"]["status"] == "missing_or_malformed_summary"
     assert payload["source_freshness"]["refresh_command"] == (
         "./repo-python tools/meta/factory/build_agent_execution_trace.py"
     )
-    assert payload["next"][1]["command"] == (
+    assert payload["payload"]["output_economy"]["profile"] == "compact_missing_read_model_status"
+    assert payload["payload"]["output_economy"]["live_rollout_parse_started"] is False
+    assert payload["next"][0]["command"] == (
+        "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git"
+    )
+    assert payload["next"][3]["command"] == (
         "./repo-python tools/meta/factory/build_agent_execution_trace.py"
     )
     assert "--summary" not in json.dumps(payload)
+
+
+def test_process_summary_followups_preserve_explicit_window(monkeypatch, tmp_path: Path) -> None:
+    session_id = "2026-06-01T19-31-09-019e8474-37b4-7923-b25b-13958c6212cb"
+    since_ts = "2026-06-01T00:00:00+00:00"
+
+    def fake_build_agent_execution_trace(*, repo_root, since_ts: str | None, session_limit: int, **_: object) -> dict:
+        assert repo_root == tmp_path.resolve()
+        assert since_ts == "2026-06-01T00:00:00+00:00"
+        assert session_limit == 80
+        return {
+            "summary": {"generated_at": "2026-06-02T00:00:00+00:00"},
+            "ledger": {
+                "sessions": [
+                    {
+                        "session_id": session_id,
+                        "agent": "codex",
+                        "span_count": 1,
+                        "duration_ms": 1,
+                        "ended_at": "2026-06-02T00:00:00+00:00",
+                        "route_compliance": {"score": 1.0, "ladder_position": 3},
+                        "summary_thought_trace": {
+                            "schema_version": "summary_thought_trace_v1",
+                            "boundary": "observable_actions_only_not_hidden_chain_of_thought",
+                        },
+                    }
+                ]
+            },
+            "audit": {
+                "summary": {"warning_count": 0, "error_count": 0, "finding_count": 0},
+                "findings": [],
+                "patterns": [],
+                "bottlenecks": {},
+                "context_yield_attribution": {"rows": []},
+                "parse_failures": [],
+            },
+        }
+
+    monkeypatch.setattr(trace_lib, "build_agent_execution_trace", fake_build_agent_execution_trace)
+
+    code, payload = trace_lib.build_process_summary_route_packet(
+        repo_root=tmp_path,
+        request=session_id,
+        since_ts=since_ts,
+        session_limit=80,
+        force_live=True,
+    )
+
+    expected_command = (
+        f"./repo-python kernel.py --process-summary {session_id} --force "
+        f"--after {since_ts} --limit 80"
+    )
+    assert code == 0
+    assert payload["source_freshness"]["requested_window"] == {
+        "since": since_ts,
+        "session_limit": 80,
+    }
+    assert payload["source_freshness"]["force_live_command"] == expected_command
+    assert payload["payload"]["output_economy"]["full_authority_commands"][1] == expected_command
+    assert payload["next"][1]["command"] == expected_command
 
 
 def _claude_tool_use_pair(
@@ -322,11 +390,81 @@ def test_trace_compactness_levels_show_command_output_and_edit_diff(tmp_path: Pa
     assert "1→" not in tape
 
 
+def test_process_trace_closeout_level_summarizes_work_and_drilldowns() -> None:
+    session = {
+        "session_id": "session_closeout_123",
+        "agent": "codex",
+        "turn_count": 1,
+        "total_output_bytes": 4096,
+    }
+    spans = [
+        {
+            "sequence_index": 0,
+            "turn_index": 1,
+            "action_kind": "kernel_command",
+            "normalized_command": "./repo-python kernel.py --entry trace",
+            "duration_ms": 120,
+            "outcome": "ok",
+            "output_byte_count": 180,
+            "output_line_count": 4,
+            "output_preview": ["entry packet"],
+        },
+        {
+            "sequence_index": 1,
+            "turn_index": 1,
+            "action_kind": "edit_file",
+            "normalized_command": "Edit system/lib/agent_execution_trace.py",
+            "target_paths": ["system/lib/agent_execution_trace.py"],
+            "duration_ms": 50,
+            "outcome": "ok",
+            "edit_summary": {
+                "target_paths": ["system/lib/agent_execution_trace.py"],
+                "added_line_count": 4,
+                "removed_line_count": 1,
+                "preview": ["+closeout level", "-outline only"],
+            },
+        },
+        {
+            "sequence_index": 2,
+            "turn_index": 1,
+            "action_kind": "exec_command",
+            "normalized_command": "./repo-pytest system/server/tests/test_agent_execution_trace.py",
+            "duration_ms": 900,
+            "outcome": "ok",
+            "output_byte_count": 1200,
+            "output_line_count": 12,
+            "output_preview": ["1 passed"],
+        },
+    ]
+
+    tape = render_trace_tape(spans, session=session, selected_level="closeout", max_chars=4000)
+    assert "level=closeout" in tape
+    assert "exact_closeout=./repo-python tools/meta/observability/cli_prompt_trace.py" in tape
+    assert "--format thread-closeouts" in tape
+    assert "worked_on system/lib/agent_execution_trace.py" in tape
+    assert "changed +4/-1 system/lib/agent_execution_trace.py" in tape
+    assert "validation" in tape
+    assert "./repo-pytest system/server/tests/test_agent_execution_trace.py" in tape
+    assert "recent" in tape
+    assert "--process-trace session_closeout_123 --process-trace-level <level>" in tape
+
+    levels = build_trace_compactness_levels(
+        spans,
+        session_id=session["session_id"],
+        selected_level="closeout",
+        session=session,
+    )
+    assert "closeout" in [row["level"] for row in levels["available_levels"]]
+    assert levels["closeout_summary"]["exact_closeout_message"]["command"].endswith(
+        "--format thread-closeouts --allow-ambiguous"
+    )
+
+
 def test_process_trace_route_rejects_unknown_compactness_level(tmp_path: Path) -> None:
     code, payload = build_process_trace_route_packet(repo_root=tmp_path, trace_level="maximal")
 
     assert code == 2
-    assert payload["available_levels"] == ["outline", "tape", "tape+diff", "audit", "raw"]
+    assert payload["available_levels"] == ["outline", "closeout", "tape", "tape+diff", "audit", "raw"]
 
 
 def test_latest_trace_alias_prefers_non_empty_session() -> None:
@@ -896,6 +1034,16 @@ def test_codex_trace_can_skip_output_previews_for_summary_fast_path(tmp_path: Pa
     assert "output_preview" not in span
 
 
+def test_command_shape_tag_cache_returns_fresh_lists() -> None:
+    first = trace_lib._command_shape_tags("bash_cat", "git diff", [])
+    first.append("caller_mutation")
+
+    second = trace_lib._command_shape_tags("bash_cat", "git diff", [])
+
+    assert "global_raw_diff" in second
+    assert "caller_mutation" not in second
+
+
 def test_codex_namespaced_exec_command_classifies_kernel_shape(tmp_path: Path) -> None:
     _seed_rules(tmp_path)
     codex_dir = tmp_path / "home_codex" / ".codex" / "sessions" / "2026" / "04" / "21"
@@ -1164,7 +1312,7 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
         tool_name="Read",
         start=t0 + timedelta(seconds=226),
         end=t0 + timedelta(seconds=286),
-        input_body={"file_path": "/private/tmp/claude-501/-Users-willcook-src-ai_workflow/session/tasks/b123.output"},
+        input_body={"file_path": "/private/tmp/claude-501/-Users-example-src-ai_workflow/session/tasks/b123.output"},
     )
     records += _claude_tool_use_pair(
         use_id="toolu_find_head",
@@ -1188,7 +1336,7 @@ def test_bottleneck_aggregation(tmp_path: Path) -> None:
         input_body={
             "command": (
                 "until grep -q -E \"(Test Files|Error:)\" "
-                "/private/tmp/claude-501/-Users-willcook-src-ai_workflow/session/tasks/b456.output; "
+                "/private/tmp/claude-501/-Users-example-src-ai_workflow/session/tasks/b456.output; "
                 "do sleep 2; done"
             )
         },
@@ -1641,6 +1789,55 @@ def test_context_yield_attribution_ignores_small_diagnostic_packets(tmp_path: Pa
     assert "diagnostic_packet_over_budget" not in motifs
 
 
+def test_context_yield_attribution_accepts_bounded_diagnostic_owner_packets(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = "-" + str(tmp_path).replace("/", "-").lstrip("-").replace("_", "-")
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    project_dir.mkdir(parents=True, exist_ok=True)
+    t0 = datetime(2026, 5, 14, 2, 5, 0, tzinfo=timezone.utc)
+    records = []
+    records += _claude_tool_use_pair(
+        use_id="toolu_bounded_process_bottlenecks",
+        tool_name="Bash",
+        start=t0,
+        end=t0 + timedelta(seconds=1),
+        input_body={"command": "./repo-python kernel.py --process-bottlenecks --force"},
+        content="bounded owner packet\n" * 2100,
+    )
+    records += _claude_tool_use_pair(
+        use_id="toolu_large_process_bottlenecks",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=2),
+        end=t0 + timedelta(seconds=3),
+        input_body={"command": "./repo-python kernel.py --process-bottlenecks --force"},
+        content="oversized owner packet\n" * 2600,
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "context_yield_bounded_diagnostic.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    motifs = {row["motif"]: row for row in result["audit"]["context_yield_attribution"]["rows"]}
+    diagnostic = motifs["diagnostic_packet_over_budget"]
+    assert diagnostic["governance_status_counts"]["accepted_required_context"] == 1
+    assert diagnostic["governance_status_counts"]["needs_owner_patch"] == 1
+    assert diagnostic["owner_coverage"]["route_used"] is True
+    assert diagnostic["actionable_span_count"] == 1
+    assert diagnostic["actionable_active_bytes"] > 0
+    accepted_example = next(
+        example
+        for example in diagnostic["examples"]
+        if example["span_id"].endswith("toolu_bounded_process_bottlenecks")
+    )
+    assert accepted_example["governance_status"] == "accepted_required_context"
+
+
 def test_context_yield_attribution_ignores_in_budget_route_packets(tmp_path: Path) -> None:
     _seed_rules(tmp_path)
     slug = "-" + str(tmp_path).replace("/", "-").lstrip("-").replace("_", "-")
@@ -1678,6 +1875,125 @@ def test_context_yield_attribution_ignores_in_budget_route_packets(tmp_path: Pat
     motifs = {row["motif"]: row for row in result["audit"]["context_yield_attribution"]["rows"]}
     assert "entry_over_admission" not in motifs
     assert "context_pack_selected_rows" not in motifs
+
+
+def test_context_yield_attribution_accepts_bounded_context_pack_packets(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = "-" + str(tmp_path).replace("/", "-").lstrip("-").replace("_", "-")
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    project_dir.mkdir(parents=True, exist_ok=True)
+    t0 = datetime(2026, 5, 14, 2, 20, 0, tzinfo=timezone.utc)
+    records = []
+    records += _claude_tool_use_pair(
+        use_id="toolu_bounded_context_pack",
+        tool_name="Bash",
+        start=t0,
+        end=t0 + timedelta(seconds=1),
+        input_body={"command": './repo-python kernel.py --context-pack "context economy"'},
+        content="bounded context pack\n" * 2100,
+    )
+    records += _claude_tool_use_pair(
+        use_id="toolu_large_context_pack",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=2),
+        end=t0 + timedelta(seconds=3),
+        input_body={"command": './repo-python kernel.py --context-pack "context economy"'},
+        content="oversized context pack\n" * 2600,
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "context_yield_bounded_context_pack.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    motifs = {row["motif"]: row for row in result["audit"]["context_yield_attribution"]["rows"]}
+    context_pack = motifs["context_pack_selected_rows"]
+    assert context_pack["governance_status_counts"]["accepted_required_context"] == 1
+    assert context_pack["governance_status_counts"]["needs_owner_patch"] == 1
+    assert context_pack["owner_coverage"]["route_used"] is True
+    assert context_pack["actionable_span_count"] == 1
+    accepted_example = next(
+        example
+        for example in context_pack["examples"]
+        if example["span_id"].endswith("toolu_bounded_context_pack")
+    )
+    assert accepted_example["governance_status"] == "accepted_required_context"
+
+
+def test_context_yield_attribution_accepts_bounded_compact_preflight_packets(tmp_path: Path) -> None:
+    _seed_rules(tmp_path)
+    slug = "-" + str(tmp_path).replace("/", "-").lstrip("-").replace("_", "-")
+    project_dir = tmp_path / "home_claude" / ".claude" / "projects" / slug
+    project_dir.mkdir(parents=True, exist_ok=True)
+    t0 = datetime(2026, 5, 14, 2, 25, 0, tzinfo=timezone.utc)
+    records = []
+    records += _claude_tool_use_pair(
+        use_id="toolu_bounded_compact_preflight",
+        tool_name="Bash",
+        start=t0,
+        end=t0 + timedelta(seconds=1),
+        input_body={
+            "command": (
+                "./repo-python tools/meta/factory/work_ledger.py session-preflight "
+                "--session-id s --path system/lib/agent_execution_trace.py"
+            )
+        },
+        content="bounded compact preflight row\n" * 1500,
+    )
+    records += _claude_tool_use_pair(
+        use_id="toolu_large_compact_preflight",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=2),
+        end=t0 + timedelta(seconds=3),
+        input_body={
+            "command": (
+                "./repo-python tools/meta/factory/work_ledger.py session-preflight "
+                "--session-id s --path system/lib/agent_execution_trace.py"
+            )
+        },
+        content="oversized compact preflight row\n" * 2600,
+    )
+    records += _claude_tool_use_pair(
+        use_id="toolu_full_preflight",
+        tool_name="Bash",
+        start=t0 + timedelta(seconds=4),
+        end=t0 + timedelta(seconds=5),
+        input_body={
+            "command": (
+                "./repo-python tools/meta/factory/work_ledger.py session-preflight "
+                "--session-id s --path system/lib/agent_execution_trace.py --full"
+            )
+        },
+        content="full preflight row\n" * 1500,
+    )
+    for rec in records:
+        rec["cwd"] = str(tmp_path)
+    _write_claude_session(project_dir / "context_yield_bounded_preflight.jsonl", records)
+
+    result = build_agent_execution_trace(
+        repo_root=tmp_path,
+        rules_path=tmp_path / "codex/doctrine/process/trace_rules.json",
+        home=tmp_path / "home_claude",
+        session_files_codex=[],
+    )
+
+    motifs = {row["motif"]: row for row in result["audit"]["context_yield_attribution"]["rows"]}
+    metadata = motifs["metadata_cargo"]
+    assert metadata["governance_status_counts"]["accepted_required_context"] == 1
+    assert metadata["governance_status_counts"]["needs_owner_patch"] == 2
+    assert metadata["owner_coverage"]["route_used"] is True
+    assert metadata["actionable_span_count"] == 2
+    accepted_example = next(
+        example
+        for example in metadata["examples"]
+        if example["span_id"].endswith("toolu_bounded_compact_preflight")
+    )
+    assert accepted_example["governance_status"] == "accepted_required_context"
 
 
 def test_process_audit_after_window_filters_old_spans_inside_fresh_session(tmp_path: Path) -> None:
@@ -1876,12 +2192,37 @@ def test_kernel_route_process_audit_shape() -> None:
     )
     payload = json.loads(result.stdout)
     assert payload["kind"] == "kernel.navigate.process_audit"
+    assert payload["output_profile"] in {
+        "compact_process_audit_default",
+        "compact_process_audit_missing_read_model",
+    }
     assert "summary" in payload
     assert "payload" in payload
     assert "findings" in payload["payload"]
     assert "bottlenecks" in payload["payload"]
     assert "patterns" in payload["payload"]
     assert "mode_control" in payload["payload"]
+    assert payload["payload"]["output_economy"]["full_payload_command"] == (
+        "./repo-python kernel.py --process-audit --full"
+    )
+    assert len(result.stdout.encode()) < 60_000
+
+
+def test_kernel_route_process_audit_full_shape() -> None:
+    result = subprocess.run(
+        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-audit", "--full"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=True,
+    )
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "kernel.navigate.process_audit"
+    assert payload["output_profile"] == "full_process_audit"
+    assert isinstance(payload["payload"]["findings"], list)
+    assert isinstance(payload["payload"]["bottlenecks"], dict)
+    assert isinstance(payload["payload"]["patterns"], list)
+    assert isinstance(payload["payload"]["mode_control"], dict)
 
 
 def test_kernel_route_process_audit_after_window_shape() -> None:
@@ -1931,6 +2272,23 @@ def test_kernel_route_process_patterns_after_window_shape() -> None:
     assert payload["query"]["after"] == "2999-01-01T00:00:00Z"
     assert payload["query"]["limit"] == 3
     assert payload["payload"]["patterns"] == []
+
+
+def test_kernel_route_process_patterns_default_uses_cached_read_model() -> None:
+    result = subprocess.run(
+        [str(REPO_ROOT / "repo-python"), "kernel.py", "--process-patterns"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
+        check=True,
+    )
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "kernel.navigate.process_patterns"
+    assert payload["schema_version"] == "process_patterns_v1"
+    assert payload["source_freshness"]["mode"] == "cached_patterns"
+    assert payload["query"]["after"] is None
+    assert payload["query"]["limit"] is None
+    assert isinstance(payload["payload"]["patterns"], list)
 
 
 def test_kernel_route_process_bottlenecks_after_window_shape() -> None:
@@ -2093,11 +2451,23 @@ def test_kernel_route_process_bottlenecks_shape() -> None:
     assert payload["kind"] == "kernel.navigate.process_bottlenecks"
     assert payload["schema_version"] == "process_bottlenecks_v1"
     assert payload["query"]["force_live"] is False
-    assert payload["source_freshness"]["mode"] in {
+    source_mode = payload["source_freshness"]["mode"]
+    assert source_mode in {
         "cached_summary",
+        "deferred_missing_read_model",
         "speedboard_embedded_summary",
         "live_in_memory",
     }
+    if source_mode == "deferred_missing_read_model":
+        assert payload["source_freshness"]["status"] == "missing_read_model"
+        assert payload["summary"]["ranking_status"] == "unavailable_missing_read_model"
+        assert payload["decision_authority"]["safe_first_command"].endswith(
+            "build_agent_execution_trace.py --cached-summary --limit 6"
+        )
+        assert (
+            payload["payload"]["summary"]["source"]
+            == "missing_process_bottleneck_read_model"
+        )
     assert isinstance(payload["payload"]["top_bottlenecks"], list)
     assert isinstance(payload["payload"]["top_output_producers"], list)
     if payload["payload"]["top_bottlenecks"]:
@@ -2132,8 +2502,26 @@ def test_process_bottleneck_next_commands_start_with_top_context_route() -> None
 
     assert next_commands[0]["command"] == "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
     assert "raw_body_before_selection" in next_commands[0]["reason"]
-    assert next_commands[1]["command"] == "python3 kernel.py --process-audit"
-    assert next_commands[2]["command"] == "python3 kernel.py --process-bottlenecks --force"
+    assert next_commands[1]["command"] == "./repo-python kernel.py --process-audit"
+    assert next_commands[2]["command"] == "./repo-python kernel.py --process-bottlenecks --force"
+
+
+def test_process_bottleneck_live_build_skips_output_previews(monkeypatch: pytest.MonkeyPatch) -> None:
+    observed = {}
+
+    def fake_build_agent_execution_trace(**kwargs):
+        observed.update(kwargs)
+        return {"summary": {"summary": {"session_count": 0}}}
+
+    monkeypatch.setattr(navigate.state, "REPO_ROOT", REPO_ROOT, raising=False)
+    monkeypatch.setattr(navigate, "build_agent_execution_trace", fake_build_agent_execution_trace)
+
+    payload = navigate._process_build(since_ts="2026-01-01T00:00:00+00:00", session_limit=6)
+
+    assert payload["summary"]["summary"]["session_count"] == 0
+    assert observed["since_ts"] == "2026-01-01T00:00:00+00:00"
+    assert observed["session_limit"] == 6
+    assert observed["include_output_previews"] is False
 
 
 def test_kernel_route_process_bottlenecks_force_compacts_owner_packet() -> None:

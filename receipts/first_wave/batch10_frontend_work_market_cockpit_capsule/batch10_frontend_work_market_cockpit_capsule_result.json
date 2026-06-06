@@ -1,0 +1,322 @@
+{
+  "anti_claim": "Batch 10 Frontend Work/Market Cockpit imports exact non-secret TS/TSX source bodies for WorkLens, MarketCockpit, MarketIntelligenceLens, and their source tests, then audits their read-only work-state and honest market-signal contracts over public fixtures. It is not a browser run, not frontend release approval, not Task Ledger or Work Ledger mutation authority, not market advice, and not proof of live UI correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch10_frontend_work_market_cockpit_not_runtime_or_market_authority",
+    "browser_or_wallet_access": false,
+    "frontend_runtime_authorized": false,
+    "market_recommendation_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "task_ledger_mutation_authorized": false,
+    "trading_or_prediction_authorized": false,
+    "work_ledger_mutation_authorized": false
+  },
+  "body_in_receipt": false,
+  "command": "batch10_frontend_work_market_cockpit_capsule run",
+  "created_at": "2026-06-01T00:06:27+00:00",
+  "error_codes": [
+    "BATCH10_FRONTEND_MARKET_FAKE_TIMESERIES_REFUSED",
+    "BATCH10_FRONTEND_MARKET_RECOMMENDATION_LEAK_REFUSED",
+    "BATCH10_FRONTEND_PRIVATE_REF_REJECTED",
+    "BATCH10_FRONTEND_WORK_LENS_MUTATION_CREEP_REFUSED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 5,
+    "engine_count": 4,
+    "engine_ids": [
+      "frontend_source_test_witness",
+      "market_cockpit_honest_signal_contract",
+      "market_lens_route_readiness_contract",
+      "work_lens_live_state_read_contract"
+    ],
+    "engines": [
+      {
+        "body_in_receipt": false,
+        "deduped_ids": [
+          "td_duplicate",
+          "td_unique"
+        ],
+        "deduped_row_count": 2,
+        "engine_id": "work_lens_live_state_read_contract",
+        "fixture_row_count": 4,
+        "mutation_boundary": "observes_only_cli_capture_and_scoped_commits_own_mutation",
+        "required_fragments": {
+          "mutation_boundary_copy": true,
+          "queue_containment": true,
+          "route_reason_drillthrough": true,
+          "selection_locality": true,
+          "task_ledger_projection_api": true,
+          "timeout_budget": true,
+          "work_ledger_api": true
+        },
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "engine_id": "market_cockpit_honest_signal_contract",
+        "fake_timeseries_allowed": false,
+        "normalized_entities": [
+          {
+            "hint": null,
+            "kind": "equity",
+            "label": "ARM"
+          }
+        ],
+        "recommendation_claims_allowed": false,
+        "required_fragments": {
+          "calendar_days_not_trading_days": true,
+          "entity_normalization": true,
+          "no_fake_time_series": true,
+          "no_frontend_finance_computation": true,
+          "primary_market_surface": true,
+          "reason_translations": true,
+          "recommendation_boundary": true
+        },
+        "status": "pass",
+        "translated_reason_codes": {
+          "FLOW_SALIENCE_NOT_RECOMMENDATION": "Flow salience, not a recommendation",
+          "STOCKGRID_FLOW_TOP": "Top of Stockgrid flow board"
+        }
+      },
+      {
+        "body_in_receipt": false,
+        "engine_id": "market_lens_route_readiness_contract",
+        "projection_status": "in_sync",
+        "required_fragments": {
+          "finance_assurance_strip": true,
+          "not_trading_recommendations": true,
+          "object_token_guard": true,
+          "readiness_state": true,
+          "route_ready_attr": true,
+          "source_read_model": true
+        },
+        "route_ready": false,
+        "situation_count": 1,
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "engine_id": "frontend_source_test_witness",
+        "status": "pass",
+        "witnesses": {
+          "market_hmc_matrix_assertion": true,
+          "market_normalization_assertion": true,
+          "market_primary_demotes_diagnostics": true,
+          "market_version_assertion": true,
+          "work_dedupe_test": true,
+          "work_local_selection_test": true,
+          "work_timeout_test": true
+        }
+      }
+    ],
+    "error_codes": [
+      "BATCH10_FRONTEND_WORK_LENS_MUTATION_CREEP_REFUSED",
+      "BATCH10_FRONTEND_MARKET_FAKE_TIMESERIES_REFUSED",
+      "BATCH10_FRONTEND_MARKET_RECOMMENDATION_LEAK_REFUSED",
+      "BATCH10_FRONTEND_PRIVATE_REF_REJECTED"
+    ],
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "market_claim_recommendation_leak",
+    "market_cockpit_fake_timeseries",
+    "private_frontend_source_ref",
+    "work_lens_mutation_creep"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch10_frontend_work_market_cockpit_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch10_frontend_work_market_cockpit_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "market_claim_recommendation_leak",
+    "market_cockpit_fake_timeseries",
+    "private_frontend_source_ref",
+    "work_lens_mutation_creep"
+  ],
+  "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_result.json",
+    "microcosm-substrate/receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_board.json",
+    "microcosm-substrate/receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/batch10_frontend_work_market_cockpit_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch10_frontend_work_market_cockpit_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 5,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
+    "module_count": 5,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2900,
+        "expected_sha256": "34bc701ccac49f78e3826f819488669b3cce492facddee3055e007ac3166ffa1",
+        "line_count": 2900,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/intelligence/WorkLens.tsx",
+        "required_anchor_count": 7,
+        "sha256": "34bc701ccac49f78e3826f819488669b3cce492facddee3055e007ac3166ffa1",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/intelligence/WorkLens.tsx",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkLens.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 204,
+        "expected_sha256": "21a3a6fe33c6fff440805995f979897b58ab37cb42011eb352ae92918ed30ca2",
+        "line_count": 204,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+        "required_anchor_count": 4,
+        "sha256": "21a3a6fe33c6fff440805995f979897b58ab37cb42011eb352ae92918ed30ca2",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 4036,
+        "expected_sha256": "dacefc7dd7957df4689ab08b1b216f0610da55d5cf20c97b31076c73297225aa",
+        "line_count": 4036,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+        "required_anchor_count": 8,
+        "sha256": "dacefc7dd7957df4689ab08b1b216f0610da55d5cf20c97b31076c73297225aa",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1045,
+        "expected_sha256": "8ff634f7f856f686a42a67af1de54951b8dbb6fbb8d629d48cc25f98347ac183",
+        "line_count": 1045,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+        "required_anchor_count": 6,
+        "sha256": "8ff634f7f856f686a42a67af1de54951b8dbb6fbb8d629d48cc25f98347ac183",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1011,
+        "expected_sha256": "59d05e30a4f20f4f2eef77edad0a8681fd14c05dc58b2a0e1b9383750bc31874",
+        "line_count": 1011,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx",
+        "required_anchor_count": 5,
+        "sha256": "59d05e30a4f20f4f2eef77edad0a8681fd14c05dc58b2a0e1b9383750bc31874",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 1,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_module_manifest.json",
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkLens.tsx",
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/__tests__/WorkLens.test.tsx",
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketCockpit.tsx",
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/MarketIntelligenceLens.tsx",
+      "examples/batch10_frontend_work_market_cockpit_capsule/exported_batch10_frontend_work_market_cockpit_capsule_bundle/source_modules/system/server/ui/src/components/marketIntelligence/__tests__/MarketCockpit.test.tsx"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch10_frontend_work_market_cockpit_capsule"
+}

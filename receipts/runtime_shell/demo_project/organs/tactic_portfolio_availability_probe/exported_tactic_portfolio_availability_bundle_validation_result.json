@@ -5,12 +5,17 @@
     "availability_is_environment_scoped": true,
     "benchmark_performance_authority": false,
     "formal_proof_authority": false,
+    "latency_profile_is_environment_scoped": true,
+    "latency_profile_not_benchmark_authority": true,
     "lean_lake_execution_authorized": false,
     "mathlib_absence_is_probe_result": true,
     "provider_calls_authorized": false,
     "release_authorized": false,
     "status": "pass"
   },
+  "available_tactic_duration_ms_max": 8852,
+  "available_tactic_duration_ms_median": 2567,
+  "available_tactic_duration_ms_min": 1971,
   "available_tactic_ids": [
     "decide",
     "grind",
@@ -23,20 +28,33 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "tactic_portfolio_availability_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run-availability-bundle --input examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe",
   "compile_status_counts": {
     "compile_pass": 7,
     "environment_fail": 1
   },
   "copied_source_artifact_count": 13,
   "copied_source_body_artifact_count": 3,
-  "created_at": "2026-05-30T21:36:33+00:00",
+  "created_at": "2026-06-02T01:56:46+00:00",
   "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
   "error_codes": [],
   "expected_negative_cases": {},
+  "fastest_available_tactic_ids": [
+    "decide",
+    "native_decide",
+    "simp"
+  ],
   "findings": [],
   "fixture_id": "first_wave.tactic_portfolio_availability_probe",
   "input_mode": "exported_tactic_portfolio_availability_bundle",
+  "latency_band_counts": {
+    "fast": 3,
+    "moderate": 3,
+    "slow": 1
+  },
+  "latency_missing_tactic_ids": [],
+  "latency_profile_available_tactic_count": 7,
+  "latency_profile_status": "copied_probe_duration_rows_environment_scoped_not_benchmark_authority",
   "mathlib_absence_gate_enforced": true,
   "mathlib_dependent_tactic_ids": [
     "aesop"
@@ -102,6 +120,11 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
+  "slowest_available_tactic_ids": [
+    "rfl",
+    "grind",
+    "simp_all"
+  ],
   "source_artifact_count": 13,
   "source_artifact_imports": [
     {
@@ -287,6 +310,67 @@
   "status": "pass",
   "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
   "tactic_count": 8,
+  "tactic_latency_profile": [
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 1971,
+      "latency_band": "fast",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "tactic_id": "decide"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 1994,
+      "latency_band": "fast",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "tactic_id": "native_decide"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 2081,
+      "latency_band": "fast",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "tactic_id": "simp"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 2567,
+      "latency_band": "moderate",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "tactic_id": "omega"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 3685,
+      "latency_band": "moderate",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "tactic_id": "simp_all"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 3797,
+      "latency_band": "moderate",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "tactic_id": "grind"
+    },
+    {
+      "compile_status": "compile_pass",
+      "duration_ms": 8852,
+      "latency_band": "slow",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "tactic_id": "rfl"
+    }
+  ],
+  "unavailable_reason_counts": {
+    "MATHLIB_IMPORT_MISSING": 1
+  },
   "unavailable_tactic_ids": [
     "aesop"
   ],

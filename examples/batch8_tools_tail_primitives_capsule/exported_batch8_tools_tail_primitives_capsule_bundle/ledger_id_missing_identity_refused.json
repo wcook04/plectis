@@ -1,0 +1,10 @@
+{
+  "schema_version": "batch8_tools_tail_primitives_capsule_negative_case_v1",
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "case_id": "ledger_id_missing_identity_refused",
+  "error_codes": [
+    "BATCH8_LEDGER_ID_MISSING_IDENTITY_REFUSED"
+  ],
+  "body_in_receipt": false,
+  "private_state_excluded": true
+}

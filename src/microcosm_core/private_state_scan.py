@@ -430,12 +430,9 @@ def scan_text(
     )
 
 
-def _merge_scan_results(
-    results: list[dict[str, Any]], forbidden_classes: dict[str, Any]
+def _merge_scan_hits(
+    hits: list[dict[str, Any]], forbidden_classes: dict[str, Any]
 ) -> dict[str, Any]:
-    hits: list[dict[str, Any]] = []
-    for result in results:
-        hits.extend(result.get("hits", []))
     blocking_hits = [hit for hit in hits if not hit.get("expected_negative_case")]
     if any(hit.get("forbidden_class") == "target_only_not_source" for hit in blocking_hits):
         status = BLOCKED_PUBLIC_WRITE
@@ -453,6 +450,15 @@ def _merge_scan_results(
         "scan_scope": _scan_scope(forbidden_classes),
         "anti_claim": _anti_claim(forbidden_classes),
     }
+
+
+def _merge_scan_results(
+    results: list[dict[str, Any]], forbidden_classes: dict[str, Any]
+) -> dict[str, Any]:
+    hits: list[dict[str, Any]] = []
+    for result in results:
+        hits.extend(result.get("hits", []))
+    return _merge_scan_hits(hits, forbidden_classes)
 
 
 def _unreadable_text_result(
@@ -580,7 +586,7 @@ def scan_paths(
     source_context: str = "target",
     display_root: str | Path | None = None,
 ) -> dict[str, Any]:
-    results: list[dict[str, Any]] = []
+    hits: list[dict[str, Any]] = []
     scanned = 0
     candidate_paths = (Path(raw_path) for raw_path in paths)
     if display_root is not None:
@@ -591,20 +597,19 @@ def scan_paths(
         root = _infer_display_root(paths_to_scan)
     terms = _terms(forbidden_classes)
     for path in paths_to_scan:
-        if not path.is_file() or not is_text_scan_candidate(path):
+        if path.is_symlink() or not path.is_file() or not is_text_scan_candidate(path):
             continue
         scanned += 1
         public_path = public_relative_path(path, display_root=root)
-        results.append(
-            _scan_path_with_terms(
-                path,
-                public_path=public_path,
-                forbidden_classes=forbidden_classes,
-                terms=terms,
-                source_context=source_context,
-            )
+        scan_result = _scan_path_with_terms(
+            path,
+            public_path=public_path,
+            forbidden_classes=forbidden_classes,
+            terms=terms,
+            source_context=source_context,
         )
-    merged = _merge_scan_results(results, forbidden_classes)
+        hits.extend(scan_result.get("hits", []))
+    merged = _merge_scan_hits(hits, forbidden_classes)
     merged["scanned_path_count"] = scanned
     return merged
 

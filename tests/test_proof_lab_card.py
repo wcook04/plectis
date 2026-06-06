@@ -241,6 +241,90 @@ def test_cli_proof_lab_cache_freshness_skips_symlinked_input_files(
     assert symlink not in cli._proof_lab_input_files(str(input_dir))
 
 
+def test_cli_proof_lab_cache_freshness_skips_unreadable_scan_paths(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_dir = tmp_path / "verifier-bundle"
+    nested = input_dir / "nested"
+    nested.mkdir(parents=True)
+    direct = input_dir / "proof_lab_route.json"
+    direct.write_text("{}", encoding="utf-8")
+    skipped = nested / "bundle_manifest.json"
+    skipped.write_text("{}", encoding="utf-8")
+    receipt = tmp_path / "cached_proof_lab_receipt.json"
+    receipt.write_text("{}", encoding="utf-8")
+    base_mtime_ns = direct.stat().st_mtime_ns
+    os.utime(receipt, ns=(base_mtime_ns + 1_000_000, base_mtime_ns + 1_000_000))
+    original_scandir = cli.os.scandir
+
+    def guarded_scandir(path: object) -> object:
+        try:
+            path_ref = Path(path)
+        except TypeError:
+            return original_scandir(path)
+        if path_ref == nested:
+            raise OSError("transient scan failure")
+        return original_scandir(path)
+
+    monkeypatch.setattr(cli.os, "scandir", guarded_scandir)
+
+    freshness = cli._proof_lab_cache_freshness(str(input_dir), receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 1
+    assert freshness["stale_input_count"] == 0
+    assert cli._proof_lab_input_files(str(nested)) == []
+
+
+def test_cli_proof_lab_cached_result_treats_unreadable_receipt_metadata_as_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_dir = tmp_path / "verifier-bundle"
+    input_dir.mkdir()
+    (input_dir / "proof_lab_route.json").write_text("{}", encoding="utf-8")
+    out_dir = tmp_path / "proof-lab"
+    out_dir.mkdir()
+    receipt = out_dir / cli.verifier_lab_kernel.BUNDLE_RESULT_NAME
+    receipt.write_text(
+        json.dumps(
+            {
+                "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
+                "status": "pass",
+                "proof_lab_component_metrics": {},
+                "body_in_receipt": False,
+                "authority_ceiling": {"status": "pass"},
+                "anti_claim": "receipt-only proof-lab card",
+                "receipt_paths": [str(receipt)],
+            }
+        ),
+        encoding="utf-8",
+    )
+    original_stat = Path.stat
+
+    def guarded_stat(self: Path, *_args: object, **_kwargs: object) -> object:
+        if self == receipt:
+            raise OSError("transient receipt metadata failure")
+        return original_stat(self, *_args, **_kwargs)
+
+    monkeypatch.setattr(
+        cli,
+        "_proof_lab_canonical_receipt_result",
+        lambda **_kwargs: None,
+    )
+    monkeypatch.setattr(Path, "stat", guarded_stat)
+
+    payload = cli._proof_lab_cached_result(str(input_dir), str(out_dir))
+
+    assert payload["status"] == "missing_cached_receipt"
+    assert payload["cache_status"] == "missing_cached_receipt"
+    assert payload["cached_receipt_bytes"] == 0
+    assert payload["cache_freshness"]["status"] == "missing_cached_receipt"
+    assert payload["cache_freshness"]["input_status"] == "not_checked"
+
+
 def test_runtime_shell_proof_lab_cache_freshness_skips_symlinked_input_files(
     tmp_path: Path,
 ) -> None:
@@ -269,6 +353,88 @@ def test_runtime_shell_proof_lab_cache_freshness_skips_symlinked_input_files(
     assert freshness["tracked_input_count"] == 1
     assert freshness["stale_input_count"] == 0
     assert symlink not in runtime_shell._proof_lab_input_files(tmp_path)
+
+
+def test_runtime_shell_proof_lab_cache_freshness_skips_unreadable_scan_paths(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_dir = tmp_path / runtime_shell.PROOF_LAB_BUNDLE_REF
+    nested = input_dir / "nested"
+    nested.mkdir(parents=True)
+    direct = input_dir / "proof_lab_route.json"
+    direct.write_text("{}", encoding="utf-8")
+    skipped = nested / "bundle_manifest.json"
+    skipped.write_text("{}", encoding="utf-8")
+    receipt = tmp_path / runtime_shell.PROOF_LAB_RECEIPT_REF
+    receipt.parent.mkdir(parents=True)
+    receipt.write_text("{}", encoding="utf-8")
+    base_mtime_ns = direct.stat().st_mtime_ns
+    os.utime(receipt, ns=(base_mtime_ns + 1_000_000, base_mtime_ns + 1_000_000))
+    original_scandir = runtime_shell.os.scandir
+
+    def guarded_scandir(path: object) -> object:
+        try:
+            path_ref = Path(path)
+        except TypeError:
+            return original_scandir(path)
+        if path_ref == nested:
+            raise OSError("transient scan failure")
+        return original_scandir(path)
+
+    monkeypatch.setattr(runtime_shell.os, "scandir", guarded_scandir)
+
+    freshness = runtime_shell._proof_lab_cache_freshness(tmp_path, receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 1
+    assert freshness["stale_input_count"] == 0
+
+
+def test_runtime_shell_proof_lab_card_treats_unreadable_receipt_metadata_as_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    input_dir = tmp_path / runtime_shell.PROOF_LAB_BUNDLE_REF
+    input_dir.mkdir(parents=True)
+    (input_dir / "proof_lab_route.json").write_text("{}", encoding="utf-8")
+    receipt = tmp_path / runtime_shell.PROOF_LAB_RECEIPT_REF
+    receipt.parent.mkdir(parents=True)
+    receipt.write_text(
+        json.dumps(
+            {
+                "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
+                "status": "pass",
+                "proof_lab_component_metrics": {},
+                "body_in_receipt": False,
+                "authority_ceiling": {"status": "pass"},
+                "anti_claim": "receipt-only proof-lab card",
+                "receipt_paths": [str(receipt)],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        runtime_shell,
+        "_current_default_proof_lab_receipt",
+        lambda _root: None,
+    )
+    original_stat = Path.stat
+
+    def guarded_stat(self: Path, *_args: object, **_kwargs: object) -> object:
+        if self == receipt:
+            raise OSError("transient receipt metadata failure")
+        return original_stat(self, *_args, **_kwargs)
+
+    monkeypatch.setattr(Path, "stat", guarded_stat)
+
+    payload = runtime_shell._proof_lab_first_screen_card(tmp_path)
+
+    assert payload["cache_status"] == "missing_cached_receipt"
+    assert payload["cached_receipt_bytes"] == 0
+    assert payload["cache_freshness"]["status"] == "missing_cached_receipt"
+    assert payload["cache_freshness"]["input_status"] == "not_checked"
 
 
 def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> None:

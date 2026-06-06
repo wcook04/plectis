@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 10 Frontend Work/Market Cockpit imports exact non-secret TS/TSX source bodies for WorkLens, MarketCockpit, MarketIntelligenceLens, and their source tests, then audits their read-only work-state and honest market-signal contracts over public fixtures. It is not a browser run, not frontend release approval, not Task Ledger or Work Ledger mutation authority, not market advice, and not proof of live UI correctness.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch10_frontend_work_market_cockpit_capsule",
+  "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "microcosm-substrate/receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "microcosm-substrate/receipts/first_wave/batch10_frontend_work_market_cockpit_capsule/batch10_frontend_work_market_cockpit_capsule_validation_receipt.json"
+}

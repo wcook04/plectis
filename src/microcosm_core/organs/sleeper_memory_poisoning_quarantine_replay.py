@@ -13,7 +13,11 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -236,6 +240,48 @@ def _source_module_target_path(
     return public_root / normalized
 
 
+def _macro_repo_root_candidate() -> Path | None:
+    try:
+        return Path(__file__).resolve().parents[4]
+    except IndexError:  # pragma: no cover - defensive for unusual packaging
+        return None
+
+
+def _source_module_source_path(
+    source_ref: str,
+    *,
+    public_root: Path,
+) -> Path | None:
+    if not source_ref:
+        return None
+    ref = source_ref.split("::", 1)[0]
+    ref_path = Path(ref)
+    if ref_path.is_absolute() or ".." in ref_path.parts:
+        return None
+
+    candidates: list[Path] = []
+    if ref.startswith("microcosm-substrate/"):
+        candidates.append(public_root / ref.removeprefix("microcosm-substrate/"))
+    else:
+        candidates.append(public_root.parent / ref)
+        repo_root = _macro_repo_root_candidate()
+        if repo_root is not None:
+            candidates.append(repo_root / ref)
+
+    seen: set[Path] = set()
+    unique_candidates: list[Path] = []
+    for candidate in candidates:
+        key = candidate.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique_candidates.append(candidate)
+    for candidate in unique_candidates:
+        if candidate.is_file():
+            return candidate
+    return unique_candidates[0] if unique_candidates else None
+
+
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -357,7 +403,9 @@ def _fresh_quarantine_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_sleeper_memory_poisoning_bundle":
         return None
-    if payload.get("command") != command:
+    command_payload = normalize_public_receipt_paths({"command": command})
+    public_command = command_payload.get("command")
+    if payload.get("command") != public_command:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
@@ -486,6 +534,8 @@ def _source_module_manifest_result(
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
     source_refs = [manifest_ref]
+    source_ref_count = 0
+    verified_source_ref_count = 0
 
     if not isinstance(manifest, dict):
         modules = []
@@ -592,16 +642,33 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        source_ref = str(row.get("source_ref") or "")
+        source_path = _source_module_source_path(source_ref, public_root=public_root)
+        source_exists = bool(source_path and source_path.is_file())
+        source_ref_count += 1 if source_ref else 0
+        if source_exists and source_path is not None:
+            actual_source = _sha256(source_path)
+            if actual_source != actual:
+                findings.append(
+                    _finding(
+                        "SLEEPER_MEMORY_SOURCE_MODULE_SOURCE_REF_MISMATCH",
+                        "Copied source module body must match the live source_ref body when source_ref is available.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            else:
+                verified_source_ref_count += 1
+        digest_values = {
+            name: str(row.get(name) or "")
+            for name in ("sha256", "source_sha256", "target_sha256")
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in digest_values.values()):
             findings.append(
                 _finding(
                     "SLEEPER_MEMORY_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Source module digest declarations must match the copied target body.",
+                    "All source module digest declarations must match the copied target body.",
                     case_id="source_module_manifest_floor",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -637,6 +704,8 @@ def _source_module_manifest_result(
         "source_module_manifest_ref": manifest_ref,
         "module_count": len(modules),
         "verified_module_count": verified_count,
+        "source_ref_count": source_ref_count,
+        "verified_source_ref_count": verified_source_ref_count,
         "module_ids": module_ids,
         "material_classes": sorted(material_class_counts),
         "body_material_classes": material_class_counts,
@@ -698,6 +767,10 @@ def _source_open_body_import_summary(
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     return any(key in row for key in FORBIDDEN_KEYS)
+
+
+def _ref_has_prefix(value: object, prefix: str) -> bool:
+    return isinstance(value, str) and value.startswith(prefix) and len(value) > len(prefix)
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
@@ -877,6 +950,7 @@ def _validate_write_row(
     ]
     trust_tier = str(row.get("source_trust_tier") or "")
     verdict = str(row.get("quarantine_verdict") or "")
+    audit_ref = row.get("audit_ref")
     labels = _strings(row.get("classifier_labels"))
     reasons: list[str] = []
 
@@ -939,6 +1013,17 @@ def _validate_write_row(
         )
     if row.get("body_redacted") is not True:
         reasons.append("body_not_redacted")
+    if audit_ref and not _ref_has_prefix(audit_ref, "audit."):
+        reasons.append("quarantine_audit_ref_invalid")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_QUARANTINE_AUDIT_REF_INVALID",
+            "Quarantine write rows need a typed public audit ref, not an arbitrary positive label.",
+            case_id=case_id,
+            subject_id=proposal_id,
+            subject_kind=subject_kind,
+        )
     if missing:
         reasons.append("write_field_missing")
     return {
@@ -951,12 +1036,29 @@ def _validate_write_row(
         "quarantine_verdict": verdict,
         "classifier_labels": labels,
         "trusted_promotion": row.get("trusted_promotion") is True,
-        "audit_ref": row.get("audit_ref"),
+        "audit_ref": audit_ref,
         "computed_verdict": "accepted_write_metadata" if not reasons else "blocked",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
         "body_redacted": True,
     }
+
+
+def _quarantined_audit_refs_by_memory_ref(
+    quarantine_result: dict[str, Any],
+) -> dict[str, set[str]]:
+    refs_by_memory: dict[str, set[str]] = defaultdict(set)
+    for row in _rows(quarantine_result, "write_rows"):
+        if (
+            row.get("quarantine_verdict") == "quarantine"
+            and row.get("source_trust_tier") == "untrusted_context"
+            and row.get("computed_verdict") == "accepted_write_metadata"
+        ):
+            memory_ref = str(row.get("proposed_memory_ref") or "")
+            audit_ref = str(row.get("audit_ref") or "")
+            if memory_ref and audit_ref:
+                refs_by_memory[memory_ref].add(audit_ref)
+    return refs_by_memory
 
 
 def validate_quarantine_events(
@@ -1007,8 +1109,14 @@ def validate_quarantine_events(
         if row["quarantine_verdict"] == "quarantine"
         and row["source_trust_tier"] == "untrusted_context"
         and "sleeper_poisoning" in row["classifier_labels"]
+        and row["computed_verdict"] == "accepted_write_metadata"
     ]
-    admitted_control = [row for row in rows if row["quarantine_verdict"] == "admit"]
+    admitted_control = [
+        row
+        for row in rows
+        if row["quarantine_verdict"] == "admit"
+        and row["computed_verdict"] == "accepted_write_metadata"
+    ]
     positive_findings = [row for row in rows if row["reason_codes"]]
     floor_blocked = not rows or not quarantined or not admitted_control or positive_findings
     if floor_blocked and not positive_findings:
@@ -1025,6 +1133,13 @@ def validate_quarantine_events(
         "status": PASS if not floor_blocked else "blocked",
         "proposal_count": len(rows),
         "quarantined_write_count": len(quarantined),
+        "quarantined_memory_refs": sorted(
+            {
+                str(row["proposed_memory_ref"])
+                for row in quarantined
+                if row.get("proposed_memory_ref")
+            }
+        ),
         "admitted_control_count": len(admitted_control),
         "write_rows": sorted(rows, key=lambda row: row["proposal_id"]),
         "findings": findings,
@@ -1101,6 +1216,9 @@ def _validate_retrieval_row(
 def validate_retrieval_replays(
     payload: object,
     negative_payloads: dict[str, object],
+    *,
+    quarantined_memory_refs: set[str] | None = None,
+    quarantined_audit_refs_by_memory_ref: dict[str, set[str]] | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1139,6 +1257,63 @@ def validate_retrieval_replays(
         for row in rows
         if row["action_gate"] == "blocked_before_action"
         and row["influence_grade"] == "quarantined_before_action"
+        and row["computed_verdict"] == "accepted_replay_metadata"
+    ]
+    if quarantined_memory_refs:
+        for row in blocked_before_action:
+            proposed_ref = str(row.get("proposed_memory_ref") or "")
+            if proposed_ref not in quarantined_memory_refs:
+                row["reason_codes"] = sorted(
+                    {*row["reason_codes"], "quarantined_memory_ref_mismatch"}
+                )
+                row["computed_verdict"] = "blocked"
+                findings.append(
+                    _finding(
+                        "SLEEPER_MEMORY_RETRIEVAL_QUARANTINE_REF_MISMATCH",
+                        "Blocked retrieval replay must target the same memory ref that the quarantine write row quarantined.",
+                        case_id="retrieval_quarantine_ref_coupling",
+                        subject_id=str(row.get("replay_id") or "retrieval_replay"),
+                        subject_kind="retrieval_replay",
+                    )
+                )
+            else:
+                required_audit_refs = (
+                    quarantined_audit_refs_by_memory_ref or {}
+                ).get(proposed_ref, set())
+                evidence_refs = set(_strings(row.get("evidence_used_refs")))
+                if required_audit_refs and not required_audit_refs.intersection(
+                    evidence_refs
+                ):
+                    row["reason_codes"] = sorted(
+                        {*row["reason_codes"], "quarantine_audit_ref_missing"}
+                    )
+                    row["computed_verdict"] = "blocked"
+                    findings.append(
+                        _finding(
+                            "SLEEPER_MEMORY_RETRIEVAL_QUARANTINE_AUDIT_REF_MISSING",
+                            "Blocked retrieval replay must cite the quarantine audit ref for the memory candidate it gates.",
+                            case_id="retrieval_quarantine_audit_ref_coupling",
+                            subject_id=str(row.get("replay_id") or "retrieval_replay"),
+                            subject_kind="retrieval_replay",
+                        )
+                    )
+                cold_replay_ref = str(row.get("cold_replay_receipt_ref") or "")
+                if cold_replay_ref and cold_replay_ref not in evidence_refs:
+                    row["reason_codes"] = sorted(
+                        {*row["reason_codes"], "cold_replay_ref_missing"}
+                    )
+                    row["computed_verdict"] = "blocked"
+                    findings.append(
+                        _finding(
+                            "SLEEPER_MEMORY_RETRIEVAL_COLD_REPLAY_REF_MISSING",
+                            "Blocked retrieval replay must include the cold replay receipt ref in its evidence refs.",
+                            case_id="retrieval_cold_replay_ref_coupling",
+                            subject_id=str(row.get("replay_id") or "retrieval_replay"),
+                            subject_kind="retrieval_replay",
+                        )
+                    )
+    blocked_before_action = [
+        row for row in blocked_before_action if not row["reason_codes"]
     ]
     positive_findings = [row for row in rows if row["reason_codes"]]
     floor_blocked = not rows or not blocked_before_action or positive_findings
@@ -1175,8 +1350,11 @@ def _validate_rollback_row(
     missing = [
         field for field in REQUIRED_ROLLBACK_FIELDS if field not in row or row.get(field) in ("", None)
     ]
+    deletion_audit_ref = row.get("deletion_audit_ref")
+    rollback_receipt_ref = row.get("rollback_receipt_ref")
+    rerun_receipt_ref = row.get("rerun_receipt_ref")
     reasons: list[str] = []
-    if not row.get("deletion_audit_ref"):
+    if not deletion_audit_ref:
         reasons.append("deletion_without_audit")
         _record(
             findings,
@@ -1187,8 +1365,72 @@ def _validate_rollback_row(
             subject_id=rollback_id,
             subject_kind=subject_kind,
         )
+    elif not _ref_has_prefix(deletion_audit_ref, "audit."):
+        reasons.append("deletion_audit_ref_invalid")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_DELETION_AUDIT_REF_INVALID",
+            "Rollback/delete evidence must use a typed public deletion audit ref.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
+    if not rollback_receipt_ref:
+        reasons.append("rollback_receipt_ref_missing")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_ROLLBACK_RECEIPT_REF_MISSING",
+            "Rollback evidence must include a public rollback receipt ref.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
+    elif not _ref_has_prefix(rollback_receipt_ref, "receipt."):
+        reasons.append("rollback_receipt_ref_invalid")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_ROLLBACK_RECEIPT_REF_INVALID",
+            "Rollback evidence must use a typed public rollback receipt ref.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
+    if not rerun_receipt_ref:
+        reasons.append("rerun_receipt_ref_missing")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_ROLLBACK_RERUN_RECEIPT_REF_MISSING",
+            "Rollback evidence must include a public cold-rerun receipt ref.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
+    elif not _ref_has_prefix(rerun_receipt_ref, "receipt."):
+        reasons.append("rerun_receipt_ref_invalid")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_ROLLBACK_RERUN_RECEIPT_REF_INVALID",
+            "Rollback evidence must use a typed public cold-rerun receipt ref.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
     if row.get("memory_absent_after_rerun") is not True:
         reasons.append("memory_present_after_rerun")
+        _record(
+            findings,
+            observed,
+            "SLEEPER_MEMORY_ROLLBACK_MEMORY_PRESENT_AFTER_RERUN",
+            "Rollback cold-rerun evidence must prove the poisoned memory is absent.",
+            case_id=case_id,
+            subject_id=rollback_id,
+            subject_kind=subject_kind,
+        )
     if row.get("body_redacted") is not True:
         reasons.append("body_not_redacted")
     if missing:
@@ -1197,9 +1439,9 @@ def _validate_rollback_row(
         "rollback_id": rollback_id,
         "session_id": str(row.get("session_id") or ""),
         "proposed_memory_ref": row.get("proposed_memory_ref"),
-        "rollback_receipt_ref": row.get("rollback_receipt_ref"),
-        "deletion_audit_ref": row.get("deletion_audit_ref"),
-        "rerun_receipt_ref": row.get("rerun_receipt_ref"),
+        "rollback_receipt_ref": rollback_receipt_ref,
+        "deletion_audit_ref": deletion_audit_ref,
+        "rerun_receipt_ref": rerun_receipt_ref,
         "memory_absent_after_rerun": row.get("memory_absent_after_rerun") is True,
         "computed_verdict": "accepted_rollback_metadata" if not reasons else "blocked",
         "reason_codes": sorted(set(reasons)),
@@ -1211,6 +1453,8 @@ def _validate_rollback_row(
 def validate_rollback_rerun(
     payload: object,
     negative_payloads: dict[str, object],
+    *,
+    quarantined_memory_refs: set[str] | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1244,7 +1488,30 @@ def validate_rollback_rerun(
                 negative=True,
             )
 
-    rerun_passes = [row for row in rows if row["memory_absent_after_rerun"]]
+    rerun_passes = [
+        row
+        for row in rows
+        if row["memory_absent_after_rerun"]
+        and row["computed_verdict"] == "accepted_rollback_metadata"
+    ]
+    if quarantined_memory_refs:
+        for row in rows:
+            proposed_ref = str(row.get("proposed_memory_ref") or "")
+            if proposed_ref not in quarantined_memory_refs:
+                row["reason_codes"] = sorted(
+                    {*row["reason_codes"], "quarantined_memory_ref_mismatch"}
+                )
+                row["computed_verdict"] = "blocked"
+                findings.append(
+                    _finding(
+                        "SLEEPER_MEMORY_ROLLBACK_QUARANTINE_REF_MISMATCH",
+                        "Rollback and cold rerun must target the same memory ref that the quarantine write row quarantined.",
+                        case_id="rollback_quarantine_ref_coupling",
+                        subject_id=str(row.get("rollback_id") or "rollback_rerun"),
+                        subject_kind="rollback_rerun",
+                    )
+                )
+    rerun_passes = [row for row in rerun_passes if not row["reason_codes"]]
     positive_findings = [row for row in rows if row["reason_codes"]]
     floor_blocked = not rows or not rerun_passes or positive_findings
     if floor_blocked and not positive_findings:
@@ -1297,13 +1564,20 @@ def _build_result(
         payloads["quarantine_events"],
         negative_payloads,
     )
+    quarantined_memory_refs = set(quarantine["quarantined_memory_refs"])
+    quarantined_audit_refs_by_memory_ref = _quarantined_audit_refs_by_memory_ref(
+        quarantine
+    )
     retrieval = validate_retrieval_replays(
         payloads["retrieval_replays"],
         negative_payloads,
+        quarantined_memory_refs=quarantined_memory_refs,
+        quarantined_audit_refs_by_memory_ref=quarantined_audit_refs_by_memory_ref,
     )
     rollback = validate_rollback_rerun(
         payloads["rollback_rerun"],
         negative_payloads,
+        quarantined_memory_refs=quarantined_memory_refs,
     )
     source_modules = _source_module_manifest_result(
         input_dir,
@@ -1406,6 +1680,7 @@ def _build_result(
         "session_roles": sessions["session_roles"],
         "proposal_count": quarantine["proposal_count"],
         "quarantined_write_count": quarantine["quarantined_write_count"],
+        "quarantined_memory_refs": quarantine["quarantined_memory_refs"],
         "admitted_control_count": quarantine["admitted_control_count"],
         "retrieval_replay_count": retrieval["retrieval_replay_count"],
         "blocked_before_action_count": retrieval["blocked_before_action_count"],

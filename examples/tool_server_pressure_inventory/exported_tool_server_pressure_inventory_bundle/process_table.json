@@ -1,0 +1,5 @@
+{
+  "schema_version": "tool_server_process_table_v1",
+  "description": "Synthetic process table (ps -Ao pid,ppid,etime,%cpu,rss,command shape). No live host state; commands are synthetic kind tokens, never real paths.",
+  "ps_text": "100 1 30:00 0.0 8200 session-runtime-shell --id A\n101 100 12:00 0.0 21000 node tool-helper-mcp --port 3001\n102 100 11:00 0.0 30500 node tool-helper-mcp --port 3002\n103 100 09:00 0.0 40500 node tool-helper-mcp --port 3003\n200 1 20:00 0.1 22000 node tool-helper-mcp --port 4000\n201 1 02:00 0.0 18000 browser-tool-mcp --headless\n300 1 40:00 0.2 65000 backend-service-main --serve\n400 999 15:00 0.0 20000 node tool-helper-mcp --port 5000\n"
+}

@@ -58,6 +58,7 @@ TERMINAL_GROUP_STATES = {"success", "quality_error", "error", "aborted", "blocke
 ATTENTION_SESSION_STATES = {"error", "cancelled", "aborted", "blocked"}
 ATTENTION_GROUP_STATES = {"quality_error", "error", "aborted", "blocked", "skipped_no_dump", "skipped_missing_dump"}
 REVIEW_INTERVAL_CYCLES = 2
+BRIDGE_WAIT_POLL_AFTER_SECONDS = 60
 BRIDGE_LOCKS_REL = "tools/meta/apply/observe_history/bridge_locks"
 CONTROLLER_GATE_SUMMARIES = {
     "apply_review_pending": "Apply packet compiled and validated. Review before any mutation.",
@@ -942,6 +943,19 @@ def compute_codex_attention(state: dict) -> dict:
 def check_responses_ready(state: dict) -> dict:
     """Check if bridge dispatch responses are ready."""
     stage = str(state.get("stage") or "").strip()
+    gate_reason = str(state.get("gate_reason") or "").strip()
+    if gate_reason and gate_reason != "none":
+        return _with_readiness_next_action({
+            "status": "controller_gate_active",
+            "stage": stage or "unknown",
+            "gate_reason": gate_reason,
+            "ready": False,
+            "not_applicable": True,
+            "controller_gate_active": True,
+            "retryable_gate": gate_reason in {"uncertainty_block", "error_spike_block"},
+            "reason": "controller_gate_precedes_response_processing",
+            "suggested_command": _gate_command_for_state(state, gate_reason),
+        })
     manifest_rel = str(state.get("observe_manifest_path") or "").strip()
     observe_id = str(state.get("observe_session_id") or "").strip()
     plan_dump_dir = _dump_dir(state)
@@ -975,35 +989,35 @@ def check_responses_ready(state: dict) -> dict:
                 if str(group.get("response_status") or group.get("runtime_state") or "").strip() in TERMINAL_GROUP_STATES
             )
             total = len(groups)
-            return {
+            return _with_readiness_next_action({
                 "status": runtime_state or "grouped_observe",
                 "responses_found": terminal,
                 "groups_expected": total,
                 "ready": runtime_state in TERMINAL_SESSION_STATES or terminal >= total,
                 "record_path": rel_path,
-            }
+            })
 
         node_states = manifest.get("node_states", {})
         if node_states:
             done_count = sum(1 for value in node_states.values() if value == "done")
             total = len(node_states)
-            return {
+            return _with_readiness_next_action({
                 "status": manifest.get("status", "unknown"),
                 "nodes_done": done_count,
                 "nodes_total": total,
                 "ready": manifest.get("status") == "done",
                 "record_path": rel_path,
-            }
+            })
 
     if stage != "observe_dispatched":
-        return {
+        return _with_readiness_next_action({
             "status": "not_applicable_no_observe_dispatch",
             "stage": stage or "unknown",
             "ready": False,
             "not_applicable": True,
             "reason": "check_responses_only_applies_after_observe_dispatch",
             "suggested_command": "python3 pipeline_advance.py --advance",
-        }
+        })
 
     # No manifest — check if dump_dir has response files
     plan_path = state.get("observe_plan_path")
@@ -1022,15 +1036,15 @@ def check_responses_ready(state: dict) -> dict:
                 and str(state.get("stage") or "").strip() == "observe_dispatched"
             ):
                 if live_locks:
-                    return {
+                    return _with_readiness_next_action({
                         "status": "dispatch_in_progress",
                         "responses_found": 0,
                         "groups_expected": len(groups),
                         "ready": False,
                         "dump_dir": str(dump_dir.relative_to(REPO_ROOT)),
                         "live_bridge_locks": live_locks,
-                    }
-                return {
+                    })
+                return _with_readiness_next_action({
                     "status": "dispatch_unmaterialized",
                     "responses_found": 0,
                     "groups_expected": len(groups),
@@ -1039,25 +1053,99 @@ def check_responses_ready(state: dict) -> dict:
                     "retryable_dispatch": True,
                     "suggested_command": _dispatch_command(),
                     "reason": "observe_dispatched_without_manifest_or_live_bridge_lock",
-                }
-            return {
+                })
+            return _with_readiness_next_action({
                 "status": "checking",
                 "responses_found": len(responses),
                 "groups_expected": len(groups),
                 "ready": len(responses) >= max(1, len(groups) - 1),
                 "dump_dir": str(dump_dir.relative_to(REPO_ROOT)),
+            })
+    return _with_readiness_next_action({"status": "no_manifest", "ready": False})
+
+
+def _with_readiness_next_action(readiness: dict) -> dict:
+    if readiness.get("controller_gate_active"):
+        if readiness.get("retryable_gate"):
+            next_action_payload = {
+                "key": "retry_gate",
+                "summary": "A retryable controller gate is active. Clear or review that gate before processing bridge responses.",
+                "command": readiness.get("suggested_command") or "python3 seed_pipeline.py --retry-gate",
             }
-    return {"status": "no_manifest", "ready": False}
+        else:
+            next_action_payload = {
+                "key": "controller_gate",
+                "summary": "A controller gate is active. Review that gate before processing bridge responses.",
+                "command": readiness.get("suggested_command") or "python3 seed_pipeline.py --status",
+            }
+    elif readiness.get("ready"):
+        next_action_payload = {
+            "key": "process_results",
+            "summary": "Bridge responses are ready; process results now.",
+            "command": "python3 pipeline_advance.py --advance",
+        }
+    elif readiness.get("retryable_dispatch"):
+        next_action_payload = {
+            "key": "retry_bridge_dispatch",
+            "summary": "Bridge dispatch did not materialize an observe session or live provider lock. Retry the bridge dispatch instead of polling responses forever.",
+            "command": readiness.get("suggested_command") or _dispatch_command(),
+        }
+    elif readiness.get("not_applicable"):
+        next_action_payload = {
+            "key": "advance_one_step",
+            "summary": "No bridge dispatch is active for this stage; advance the pipeline instead of checking responses.",
+            "command": readiness.get("suggested_command") or "python3 pipeline_advance.py --advance",
+        }
+    else:
+        next_action_payload = _wait_for_bridge_action()
+    enriched = dict(readiness)
+    enriched["next_action"] = next_action_payload
+    return enriched
+
+
+def _wait_for_bridge_action() -> dict:
+    return {
+        "key": "wait_for_bridge",
+        "summary": "Bridge work is still in progress. Do not keep a chat thread open just to wait.",
+        "command": "python3 pipeline_advance.py --check-responses",
+        "poll_after_seconds": BRIDGE_WAIT_POLL_AFTER_SECONDS,
+    }
+
+
+def check_responses_exit_code(readiness: dict) -> int:
+    """Return the CLI exit code for a bridge readiness packet."""
+    if readiness.get("ready") or readiness.get("not_applicable"):
+        return 0
+    status = str(readiness.get("status") or "").strip()
+    next_key = str((readiness.get("next_action") or {}).get("key") or "").strip()
+    healthy_wait_statuses = {"checking", "dispatching", "dispatch_in_progress"}
+    if next_key == "wait_for_bridge" and status in healthy_wait_statuses:
+        return 0
+    return 1
+
+
+def _state_file_for_state(state: dict) -> str:
+    return f"{state['phase_dir']}/pipeline_state.json" if state.get("phase_dir") else "pipeline_state.json"
+
+
+def _gate_command_for_state(state: dict, gate_reason: str) -> str:
+    if gate_reason in {"uncertainty_block", "error_spike_block"}:
+        return f"python3 seed_pipeline.py --retry-gate --state '{_state_file_for_state(state)}'"
+    if gate_reason == "apply_review_pending":
+        return "python3 seed_pipeline.py --status"
+    return "python3 pipeline_advance.py --attention-gate"
 
 
 def next_action(state: dict) -> dict:
     """Return the next bounded move for the current pipeline stage."""
     stage = state["stage"]
     gate_reason = str(state.get("gate_reason") or "").strip()
-    state_file = f"{state['phase_dir']}/pipeline_state.json" if state.get("phase_dir") else "pipeline_state.json"
+    state_file = _state_file_for_state(state)
 
     if stage == "observe_dispatched":
         resp = check_responses_ready(state)
+        if resp.get("controller_gate_active"):
+            return dict(resp["next_action"])
         if resp.get("ready"):
             return {
                 "key": "process_results",
@@ -1070,11 +1158,7 @@ def next_action(state: dict) -> dict:
                 "summary": "Bridge dispatch did not materialize an observe session or live provider lock. Retry the bridge dispatch instead of polling responses forever.",
                 "command": resp.get("suggested_command") or _dispatch_command(),
             }
-        return {
-            "key": "wait_for_bridge",
-            "summary": "Bridge work is still in progress. Do not keep a chat thread open just to wait.",
-            "command": "python3 pipeline_advance.py --check-responses",
-        }
+        return _wait_for_bridge_action()
 
     if stage == "observe_plan_compiled":
         dispatch_status = str(state.get("observe_dispatch_status") or "").strip()
@@ -2045,7 +2129,7 @@ def main():
         else:
             for k, v in result.items():
                 print(f"  {k}: {v}")
-        sys.exit(0 if result.get("ready") or result.get("not_applicable") else 1)
+        sys.exit(check_responses_exit_code(result))
 
     if args.write_resume:
         resume_json, resume_md = write_resume_artifacts(state_path, state)

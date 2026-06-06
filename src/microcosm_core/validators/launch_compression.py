@@ -36,11 +36,21 @@ def _public_relative(root: Path, path: Path) -> str:
         return path.as_posix()
 
 
+def _read_text_or_empty(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8") if path.is_file() else ""
+    except OSError:
+        return ""
+
+
 def _first_lines(path: Path, count: int) -> str:
     if count <= 0:
         return ""
-    with path.open("r", encoding="utf-8") as fh:
-        return "\n".join(line.rstrip("\r\n") for line in islice(fh, count))
+    try:
+        with path.open("r", encoding="utf-8") as fh:
+            return "\n".join(line.rstrip("\r\n") for line in islice(fh, count))
+    except OSError:
+        return ""
 
 
 def _without_fenced_code_blocks(text: str) -> str:
@@ -89,13 +99,23 @@ def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
     return False
 
 
-def _walk_state_files(project: Path) -> Iterator[Path]:
-    state = project / project_substrate.STATE_DIR
-    if not state.is_dir():
+def _walk_files(root: Path) -> Iterator[Path]:
+    try:
+        with os.scandir(root) as entries:
+            for entry in entries:
+                try:
+                    if entry.is_dir(follow_symlinks=False):
+                        yield from _walk_files(Path(entry.path))
+                    elif entry.is_file(follow_symlinks=False):
+                        yield Path(entry.path)
+                except OSError:
+                    continue
+    except OSError:
         return
-    for path in state.rglob("*"):
-        if path.is_file():
-            yield path
+
+
+def _walk_state_files(project: Path) -> Iterator[Path]:
+    yield from _walk_files(project / project_substrate.STATE_DIR)
 
 
 def validate_launch_compression(
@@ -110,10 +130,10 @@ def validate_launch_compression(
     output_file = Path(out_path)
     readme_path = public_root / "README.md"
     pyproject_path = public_root / "pyproject.toml"
-    readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
-    readme_first_screen = _first_lines(readme_path, 45) if readme_path.is_file() else ""
+    readme_text = _read_text_or_empty(readme_path)
+    readme_first_screen = _first_lines(readme_path, 45) if readme_text else ""
     launch_intro = readme_text.split("## Public Repo Map", 1)[0]
-    pyproject_text = pyproject_path.read_text(encoding="utf-8") if pyproject_path.is_file() else ""
+    pyproject_text = _read_text_or_empty(pyproject_path)
 
     compiled = project_substrate.compile_project(project_path)
     prior_receipt_write_gate = os.environ.get("MICROCOSM_RUNTIME_RECEIPT_WRITES")

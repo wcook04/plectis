@@ -1,0 +1,363 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for public circuit-attribution replay validation, source-module digest checks, secret-exclusion policy, negative cases, and authority ceilings.",
+      "symbols": [
+        "run",
+        "run_attribution_bundle",
+        "_replay_policy_findings",
+        "_source_module_manifest_result",
+        "_source_open_body_import_summary",
+        "_build_result",
+        "_write_receipts",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.research_and_science_replay_evidence_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+  "entry_surface_contract": null,
+  "evidence_class": "semantic_validator",
+  "family": "research_and_science_replays",
+  "id": "mechanistic_interpretability_circuit_attribution_replay",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The tracked public fixtures, exported bundle receipts, source-module digest checks, negative cases, body-free receipts, and authority ceilings validate this replay boundary without granting provider, benchmark, source-mutation, release, or broader production authority.",
+      "ref": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "organ_payload": {
+    "claim_ceiling": "It validates only the declared public circuit-attribution runtime-receipt contract. It does not authorize model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, provider calls, benchmark scores, or publication/release.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/mechanistic_interpretability_circuit_attribution_replay.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/mechanistic_interpretability_circuit_attribution_replay.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to check that a circuit-attribution replay bundle meets the declared public contract: each row carries feature-to-edge links, causal intervention deltas, sufficiency and faithfulness limits, a secret-exclusion scan, and target/source refs, while private or raw bodies (weights, activations, prompts, hidden reasoning) and any release/provider/benchmark authority are absent. It validates the receipt contract only; it does not inspect a live model.",
+      "axiom_refs": [
+        "AX-1"
+      ],
+      "claim_ceiling_restated": "It validates only the declared public circuit-attribution runtime-receipt contract. It does not authorize model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, provider calls, benchmark scores, or publication/release.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for public circuit-attribution replay validation, source-module digest checks, secret-exclusion policy, negative cases, and authority ceilings.",
+          "symbols": [
+            "run",
+            "run_attribution_bundle",
+            "_replay_policy_findings",
+            "_source_module_manifest_result",
+            "_source_open_body_import_summary",
+            "_build_result",
+            "_write_receipts",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.research_and_science_replay_evidence_bundle"
+      ],
+      "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+      "evidence_class": "semantic_validator",
+      "family": "research_and_science_replays",
+      "first_command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "human_gloss": "This takes the workflow of \"tracing which internal features inside a model drove an answer\" and turns it into inspectable local records. Each row links feature ids to a machine-readable graph of connections, records the before/after results of poking those features (the causal-intervention deltas), notes how far the explanation can be trusted (its faithfulness limit), and points to where the underlying evidence lives. The records show that every interpretability claim is backed by checkable evidence, and that they deliberately hold no model weights, no raw activations, no prompts, and no hidden reasoning — they carry only refs, digests, counts, and verdicts.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The tracked public fixtures, exported bundle receipts, source-module digest checks, negative cases, body-free receipts, and authority ceilings validate this replay boundary without granting provider, benchmark, source-mutation, release, or broader production authority.",
+          "ref": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "paper_module_ref": "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
+      "principle_refs": [
+        "P-2",
+        "P-3"
+      ],
+      "receipt_refs": [
+        "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+        "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+      "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [],
+      "wiring_note": "binds only to the shared kernel + evidence/authority spine (copies non-secret macro source bodies into its own bundle rather than feeding or consuming other named organs)"
+    },
+    "source_registry_row": {
+      "claim_ceiling": "bounded public toy transformer runtime plus public runtime receipt validation only, not private model transparency, benchmark, release, provider-call, product, or private model internals authority",
+      "classification_basis": "bounded deterministic NumPy two-layer toy transformer forward pass, gradient-score computation, ablation attribution check, fabrication guard, public circuit-attribution runtime receipts, and copied non-secret macro source bodies; scoped to public toy model only",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[mechanistic_interpretability_circuit_attribution_replay]",
+      "evidence_strength_rank": 4,
+      "generated_receipts": [
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-2",
+    "P-3"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for public circuit-attribution replay validation, source-module digest checks, secret-exclusion policy, negative cases, and authority ceilings.",
+        "symbols": [
+          "run",
+          "run_attribution_bundle",
+          "_replay_policy_findings",
+          "_source_module_manifest_result",
+          "_source_open_body_import_summary",
+          "_build_result",
+          "_write_receipts",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.research_and_science_replay_evidence_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.mechanistic_interpretability_circuit_attribution_replay",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].mechanism_refs[0]",
+          "summary": "The tracked public fixtures, exported bundle receipts, source-module digest checks, negative cases, body-free receipts, and authority ceilings validate this replay boundary without granting provider, benchmark, source-mutation, release, or broader production authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for public circuit-attribution replay validation, source-module digest checks, secret-exclusion policy, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.research_and_science_replay_evidence_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The tracked public fixtures, exported bundle receipts, source-module digest checks, negative cases, body-free receipts, and authority ceilings validate this replay boundary without granting provider, benchmark, source-mutation, release, or broader production authority.",
+        "ref": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
+    "principle_refs": [
+      "P-2",
+      "P-3"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Organ atlas row does not name sibling wires_to targets.",
+        "relation_id": "organ.wires_to.organ",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ],
+    "wires_to": []
+  },
+  "role": "An agent runs it to check that a circuit-attribution replay bundle meets the declared public contract: each row carries feature-to-edge links, causal intervention deltas, sufficiency and faithfulness limits, a secret-exclusion scan, and target/source refs, while private or raw bodies (weights, activations, prompts, hidden reasoning) and any release/provider/benchmark authority are absent. It validates the receipt contract only; it does not inspect a live model.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[25:mechanistic_interpretability_circuit_attribution_replay]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/mechanistic_interpretability_circuit_attribution_replay.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "research-workflows",
+    "forecasting",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to check that a circuit-attribution replay bundle meets the declared public contract: each row carries feature-to-edge links, causal intervention deltas, sufficiency and faithfulness limits, a secret-exclusion scan, and target/source refs, while private or raw bodies (weights, activations, prompts, hidden reasoning) and any release/provider/benchmark authority are absent. It validates the receipt contract only; it does not inspect a live model.",
+  "status": "accepted_current_authority",
+  "title": "Mechanistic Interpretability Circuit Attribution Replay",
+  "validator_refs": [
+    "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": []
+}

@@ -1,0 +1,161 @@
+{
+  "acts_on_kind": "microcosm_runtime_organ",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.standards_meta_diagnostics_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.microcosm_runtime_organ.author",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.microcosm_runtime_organ.author.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_target_shape_tactic_routing_gate",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "microcosm_runtime_organ",
+    "concept_refs": [
+      "concept.standards_meta_diagnostics_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_runtime_organ.author.md::typed_skill_mapping.operates_standard",
+          "summary": "These three accepted standards all declare the same microcosm_runtime_organ author skill id. The target-shape tactic routing gate is the representative runtime-route anchor because it names a pre-execution organ, fixture manifest, paper module, validator contract, receipt contract, and public/private anti-claims; shared_standard_refs preserve the full accepted source set so resolving the skill id is route coverage, not per-organ runtime proof."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_target_shape_tactic_routing_gate",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_runtime_organ.author.md::typed_skill_mapping.acts_on_kind",
+          "summary": "These three accepted standards all declare the same microcosm_runtime_organ author skill id. The target-shape tactic routing gate is the representative runtime-route anchor because it names a pre-execution organ, fixture manifest, paper module, validator contract, receipt contract, and public/private anti-claims; shared_standard_refs preserve the full accepted source set so resolving the skill id is route coverage, not per-organ runtime proof."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "microcosm_runtime_organ",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_runtime_organ.author.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.standards_meta_diagnostics_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.microcosm_runtime_organ.author.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.target_shape_tactic_routing_gate.validates_public_tactic_routing_boundary"
+    ],
+    "operates_standard": "std_microcosm_target_shape_tactic_routing_gate",
+    "source_markdown_digest": "e3a63805452e68b42bdb6a7f1f5addacd377dee1b9e2b69f7b5ebe6ad706702e",
+    "source_markdown_line_count": 44,
+    "source_markdown_ref": "skills/microcosm.microcosm_runtime_organ.author.md",
+    "triad_role": "author",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "These three accepted standards all declare the same microcosm_runtime_organ author skill id. The target-shape tactic routing gate is the representative runtime-route anchor because it names a pre-execution organ, fixture manifest, paper module, validator contract, receipt contract, and public/private anti-claims; shared_standard_refs preserve the full accepted source set so resolving the skill id is route coverage, not per-organ runtime proof.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.microcosm_runtime_organ.author.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.microcosm_runtime_organ.author.json"
+    },
+    "source_markdown_digest": "e3a63805452e68b42bdb6a7f1f5addacd377dee1b9e2b69f7b5ebe6ad706702e",
+    "source_markdown_line_count": 44,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.microcosm_runtime_organ.author.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.microcosm_runtime_organ.author.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Runtime Organ Author",
+  "status": "active",
+  "title": "Microcosm Runtime Organ Author",
+  "triad_role": "author",
+  "triggers": [
+    "An accepted runtime organ standard names the shared microcosm_runtime_organ author skill and needs source-backed organ admission rather than projection-only route pressure.",
+    "The organ can be authored from public fixture evidence, copied non-secret source modules, source digests, validator contracts, receipt expectations, paper-module capsules, mechanism refs, and explicit public/private boundaries."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Read the target standard JSON, organ atlas row, mechanism source, fixture manifest, source-module manifest, paper-module capsule, validator receipts, generated health, and relation registry before authoring.",
+    "Admit only public-safe runtime-organ fields: source refs, fixture refs, mechanism refs, paper-module refs, validator refs, receipt expectations, authority boundary, public/private boundary, and anti-claims.",
+    "Regenerate the skill corpus and doctrine lattice; keep theorem correctness, provider authority, private equivalence, release authority, and whole-organ completion as explicit non-claims unless source evidence proves them."
+  ]
+}

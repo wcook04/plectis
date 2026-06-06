@@ -1,0 +1,105 @@
+{
+  "anti_claim": "Closeout faithfulness audit verifies that a referenced public fixture commit object, ledger row, or pytest span exists and records whether a span passed only when pass status is explicitly checked. It does not prove arbitrary live commits landed, close Task Ledger work, mutate Git, run providers, or authorize release.",
+  "authority_ceiling": "verified means the referenced evidence object exists or a pytest span ran; span pass requires explicit exit-zero status check",
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::agent_closeout_faithfulness_audit::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_result.json",
+    "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_board.json",
+    "receipts/first_wave/agent_closeout_faithfulness_audit/agent_closeout_faithfulness_audit_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/closeout_claims.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_cap_claim.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_commit_claim.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fake_test_claim.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/unchecked_pass_claim.json",
+      "role": "negative case fixture: pass claim without explicit pass-status check"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/fixture_ledger.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/projection_protocol.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/micro_pkg/__init__.py",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/micro_pkg/arithmetic.py",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_closeout_faithfulness_audit/input/public_fixture_repo/tests/test_closeout_fixture.py",
+      "role": "positive public fixture input"
+    }
+  ],
+  "organ_id": "agent_closeout_faithfulness_audit",
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/fixture_manifests/agent_closeout_faithfulness_audit.fixture_manifest.json",
+      "fixtures/first_wave/agent_closeout_faithfulness_audit/input",
+      "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle",
+      "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
+      "paper_modules/agent_closeout_faithfulness_audit.md"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "authority_ceiling": "public_fixture_closeout_evidence_existence_and_pytest_span_witness_only",
+      "cap_closed_without_fixture_ledger_row_authorized": false,
+      "commit_landed_without_head_match_authorized": false,
+      "live_repo_mutation_authorized": false,
+      "pytest_pass_claim_without_exit_zero_authorized": false,
+      "release_authorized": false,
+      "status": "pass"
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_source_body": 1
+    },
+    "body_material_count": 1,
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "reader_action": "Open the source module manifest and source_modules directory for copied bodies; receipts carry refs, hashes, counts, verdicts, and anti-claims only.",
+    "schema_version": "agent_closeout_faithfulness_audit_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/agent_closeout_faithfulness_audit/exported_agent_closeout_faithfulness_audit_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Agent closeout faithfulness audit fixture",
+  "validator": "microcosm_core.organs.agent_closeout_faithfulness_audit",
+  "validator_command": "python -m microcosm_core.organs.agent_closeout_faithfulness_audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit --acceptance-out receipts/acceptance/first_wave/agent_closeout_faithfulness_audit_fixture_acceptance.json"
+}

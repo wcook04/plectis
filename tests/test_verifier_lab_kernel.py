@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
+
+import pytest
 
 from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs.verifier_lab_kernel import (
@@ -40,6 +44,35 @@ EXPECTED_COMPONENTS = {
 }
 
 
+@pytest.fixture(scope="module")
+def verifier_kernel_fixture_run(
+    tmp_path_factory: pytest.TempPathFactory,
+) -> tuple[dict[str, Any], Path, Path]:
+    root = tmp_path_factory.mktemp("verifier_kernel_fixture")
+    out = root / "receipts/first_wave/verifier_lab_kernel"
+    acceptance = (
+        root
+        / "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+    )
+    result = run(
+        FIXTURE_INPUT,
+        out,
+        command="pytest",
+        acceptance_out=acceptance,
+    )
+    return result, out, acceptance
+
+
+@pytest.fixture(scope="module")
+def verifier_kernel_bundle_run(
+    tmp_path_factory: pytest.TempPathFactory,
+) -> tuple[dict[str, Any], Path]:
+    root = tmp_path_factory.mktemp("verifier_kernel_bundle")
+    out = root / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel"
+    result = run_kernel_bundle(BUNDLE_INPUT, out, command="pytest")
+    return result, out
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -54,16 +87,77 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
-def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
+def test_verifier_lab_kernel_dependency_scan_streams_without_path_rglob(
     tmp_path: Path,
+    monkeypatch: Any,
 ) -> None:
-    result = run(
-        FIXTURE_INPUT,
-        tmp_path / "receipts/first_wave/verifier_lab_kernel",
-        command="pytest",
-        acceptance_out=tmp_path
-        / "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+    dependency_dir = tmp_path / "dependencies"
+    nested = dependency_dir / "nested"
+    cache = dependency_dir / "__pycache__"
+    nested.mkdir(parents=True)
+    cache.mkdir()
+    (dependency_dir / "alpha.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (nested / "data.json").write_text("{}", encoding="utf-8")
+    (nested / "skip.pyc").write_bytes(b"cache")
+    (cache / "ignored.py").write_text("VALUE = 2\n", encoding="utf-8")
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == dependency_dir:
+            raise AssertionError("dependency scan should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    assert [
+        path.relative_to(dependency_dir).as_posix()
+        for path in verifier_lab_kernel._iter_dependency_files(dependency_dir)
+    ] == [
+        "alpha.py",
+        "nested/data.json",
+    ]
+
+
+def test_verifier_lab_kernel_receipt_normalization_streams_without_path_rglob(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    component_dir = tmp_path / "components"
+    nested = component_dir / "proof"
+    nested.mkdir(parents=True)
+    receipt = nested / "receipt.json"
+    receipt.write_text(
+        json.dumps(
+            {
+                "private_state_scan": {"blocking_hit_count": 0},
+                "body_redacted": True,
+                "path_ref": "/private/tmp/verifier",
+            }
+        ),
+        encoding="utf-8",
     )
+    original_rglob = Path.rglob
+
+    def guarded_rglob(self: Path, *args: Any, **kwargs: Any) -> Any:
+        if self == component_dir:
+            raise AssertionError("receipt normalization should not call Path.rglob")
+        return original_rglob(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    verifier_lab_kernel._normalize_component_receipt_surface(component_dir)
+    payload = json.loads(receipt.read_text(encoding="utf-8"))
+
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in payload
+    assert payload["secret_exclusion_scan"] == {"blocking_hit_count": 0}
+    assert payload["path_ref"] == "/tmp/verifier"
+
+
+def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
+    verifier_kernel_fixture_run: tuple[dict[str, Any], Path, Path],
+) -> None:
+    result, _out, _acceptance = verifier_kernel_fixture_run
 
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
@@ -107,20 +201,10 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
 
 
 def test_verifier_lab_kernel_fixture_reuses_fresh_receipt(
-    tmp_path: Path,
+    verifier_kernel_fixture_run: tuple[dict[str, Any], Path, Path],
     monkeypatch,
 ) -> None:
-    out_dir = tmp_path / "receipts/first_wave/verifier_lab_kernel"
-    acceptance_out = (
-        tmp_path
-        / "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
-    )
-    result = run(
-        FIXTURE_INPUT,
-        out_dir,
-        command="pytest",
-        acceptance_out=acceptance_out,
-    )
+    result, out_dir, acceptance_out = verifier_kernel_fixture_run
     assert result["status"] == "pass"
     assert result["cache_status"] == "rebuilt"
 
@@ -192,15 +276,10 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
 
 
 def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
-    tmp_path: Path,
+    verifier_kernel_bundle_run: tuple[dict[str, Any], Path],
     monkeypatch,
 ) -> None:
-    result = run_kernel_bundle(
-        BUNDLE_INPUT,
-        tmp_path
-        / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel",
-        command="pytest",
-    )
+    result, out_dir = verifier_kernel_bundle_run
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_verifier_lab_kernel_bundle"
@@ -210,11 +289,17 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["proof_lab_route_source_sha256"] == SUBSTRATE_BINDINGS_SHA256
     assert result["proof_lab_route_component_count"] == len(EXPECTED_COMPONENTS)
     assert result["source_module_imports"]["status"] == "pass"
-    assert result["source_module_imports"]["module_count"] == 10
+    assert result["source_module_imports"]["module_count"] == 14
+    assert result["source_module_imports"]["body_text_in_receipt"] is False
+    assert all(
+        row["body_text_in_receipt"] is False
+        for row in result["source_module_imports"]["modules"]
+    )
     assert result["source_open_body_imports"]["status"] == "pass"
-    assert result["source_open_body_imports"]["body_material_count"] == 10
+    assert result["source_open_body_imports"]["body_material_count"] == 14
     assert result["source_open_body_imports"]["body_in_receipt"] is False
-    assert result["body_copied_material_count"] == 10
+    assert result["source_open_body_imports"]["body_text_in_receipt"] is False
+    assert result["body_copied_material_count"] == 14
     assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
@@ -244,13 +329,74 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     monkeypatch.setattr(verifier_lab_kernel, "_build_result", fail_rebuild)
     cached = run_kernel_bundle(
         BUNDLE_INPUT,
-        tmp_path
-        / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel",
+        out_dir,
         command="pytest",
     )
     assert cached["cache_status"] == "fresh_receipt_reused"
     assert cached["status"] == "pass"
     assert cached["receipt_paths"] == result["receipt_paths"]
+
+
+def test_verifier_lab_kernel_exported_bundle_uses_standalone_component_contract(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    def fail_component(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("exported verifier kernel should not rerun component organs")
+
+    patched = {
+        organ_id: {mode: fail_component for mode in runners}
+        for organ_id, runners in verifier_lab_kernel.COMPONENT_RUNNERS.items()
+    }
+    monkeypatch.setattr(verifier_lab_kernel, "COMPONENT_RUNNERS", patched)
+
+    result = run_kernel_bundle(
+        BUNDLE_INPUT,
+        tmp_path / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["component_witness_mode"] == "standalone_exported_receipt_ref_contract"
+    assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
+    assert all(result["component_receipt_refs"].values())
+    assert result["lean_lake_return_code"] == 0
+    assert result["lean_compiled_declaration_count"] == 8
+
+
+def test_verifier_lab_kernel_exported_bundle_blocks_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    bundle_input = tmp_path / "exported_verifier_lab_kernel_bundle"
+    shutil.copytree(BUNDLE_INPUT, bundle_input)
+    manifest_path = bundle_input / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    first_module = manifest["modules"][0]
+    first_module["sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+    result = run_kernel_bundle(
+        bundle_input,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_imports"]["status"] == "blocked"
+    assert result["source_module_imports"]["module_count"] == 14
+    assert result["source_open_body_imports"]["status"] == "blocked"
+    assert result["body_copied_material_count"] == 14
+    assert result["body_in_receipt"] is False
+    assert result["source_module_imports"]["body_text_in_receipt"] is False
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["source_open_body_imports"]["body_text_in_receipt"] is False
+    source_findings = result["source_module_imports"]["findings"]
+    assert [row["error_code"] for row in source_findings] == [
+        "VERIFIER_LAB_SOURCE_MODULE_DIGEST_MISMATCH"
+    ]
+    assert source_findings[0]["subject_kind"] == "source_module"
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
 
 
 def test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor() -> None:
@@ -263,20 +409,115 @@ def test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor()
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] == 10
+    assert manifest["body_text_in_receipt"] is False
+    assert manifest["module_count"] == 14
     assert source_imports["status"] == "pass"
-    assert source_imports["module_count"] == 10
+    assert source_imports["module_count"] == 14
+    assert source_imports["body_text_in_receipt"] is False
 
     module_ids = {row["module_id"] for row in source_imports["modules"]}
     assert "verifier_lab_kernel_source_body_import" in module_ids
+    assert "prover_statement_only_hammer_bandit_runner_body_import" in module_ids
+    assert "prover_proof_state_search_curriculum_runner_body_import" in module_ids
     for row in manifest["modules"]:
-        source_path = MICROCOSM_ROOT / row["source_ref"]
+        source_ref = str(row["source_ref"])
+        source_root = (
+            MICROCOSM_ROOT
+            if source_ref.startswith("src/microcosm_core/")
+            else MICROCOSM_ROOT.parent
+        )
+        source_path = source_root / source_ref
         target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
         target_path = MICROCOSM_ROOT / target_ref
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
         assert row["material_class"] == "public_macro_tool_body"
         assert source_path.read_bytes() == target_path.read_bytes()
+    assert all(
+        row["body_text_in_receipt"] is False for row in source_imports["modules"]
+    )
+
+
+def test_verifier_lab_kernel_blocks_source_module_body_text_receipt_flags(
+    tmp_path: Path,
+) -> None:
+    cases = {
+        "manifest_missing": "VERIFIER_LAB_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+        "manifest_true": "VERIFIER_LAB_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+        "row_missing": "VERIFIER_LAB_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+        "row_true": "VERIFIER_LAB_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+    }
+
+    for case_id, expected_error in cases.items():
+        bundle_input = tmp_path / case_id / "exported_verifier_lab_kernel_bundle"
+        shutil.copytree(BUNDLE_INPUT, bundle_input)
+        manifest_path = bundle_input / "source_module_manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if case_id == "manifest_missing":
+            manifest.pop("body_text_in_receipt")
+        elif case_id == "manifest_true":
+            manifest["body_text_in_receipt"] = True
+        elif case_id == "row_missing":
+            manifest["modules"][0].pop("body_text_in_receipt")
+        elif case_id == "row_true":
+            manifest["modules"][0]["body_text_in_receipt"] = True
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        result = run_kernel_bundle(
+            bundle_input,
+            tmp_path
+            / f"receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/{case_id}",
+            command="pytest",
+        )
+
+        assert result["status"] == "blocked"
+        assert result["source_module_imports"]["status"] == "blocked"
+        assert result["source_module_imports"]["body_text_in_receipt"] is False
+        assert result["source_open_body_imports"]["status"] == "blocked"
+        assert result["source_open_body_imports"]["body_text_in_receipt"] is False
+        assert result["body_in_receipt"] is False
+        source_findings = result["source_module_imports"]["findings"]
+        assert expected_error in {row["error_code"] for row in source_findings}
+        assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "proof_body" not in _walk_keys(result)
+
+
+def test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands() -> None:
+    source_modules = BUNDLE_INPUT / "source_modules"
+    runners = {
+        "tools/meta/factory/run_prover_statement_only_hammer_bandit.py": [
+            "--problem-limit",
+            "--timeout-seconds",
+            "--check",
+            "--json",
+        ],
+        "tools/meta/factory/run_prover_proof_state_search_curriculum.py": [
+            "--external-limit",
+            "--local-limit",
+            "--timeout-seconds",
+            "--check",
+            "--json",
+        ],
+    }
+
+    for runner_ref, expected_args in runners.items():
+        runner = source_modules / runner_ref
+        result = subprocess.run(
+            ["python3", str(runner), "--help"],
+            cwd=MICROCOSM_ROOT,
+            env={**os.environ, "PYTHONPATH": str(source_modules)},
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+        )
+        help_text = result.stdout + result.stderr
+        for arg in expected_args:
+            assert arg in help_text
 
 
 def test_verifier_lab_kernel_route_slice_is_source_faithful() -> None:

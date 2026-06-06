@@ -13,13 +13,13 @@
   "body_in_receipt": false,
   "bundle_id": null,
   "diagnostic_projection": {
-    "accepted_organ_count": 44,
+    "accepted_organ_count": 77,
     "body_in_receipt": false,
-    "pressure_row_count": 44,
-    "receipt_ref_count": 184,
-    "runtime_contract_count": 44,
+    "pressure_row_count": 77,
+    "receipt_ref_count": 319,
+    "runtime_contract_count": 77,
     "source_open_body_material_count": 0,
-    "standard_mapping_count": 44
+    "standard_mapping_count": 77
   },
   "input_mode": "first_wave_fixture",
   "organ_id": "standards_meta_diagnostics",

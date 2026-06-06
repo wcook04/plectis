@@ -20,6 +20,7 @@
     "proprietary_prompt_export_authorized": false,
     "provider_calls_authorized": false,
     "public_runtime_receipt_required": true,
+    "public_toy_transformer_runtime_authorized": true,
     "publication_authorized": false,
     "raw_activation_dump_export_authorized": false,
     "release_authorized": false

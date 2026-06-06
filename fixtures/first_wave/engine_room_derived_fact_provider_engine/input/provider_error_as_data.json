@@ -1,0 +1,38 @@
+{
+  "case_id": "provider_error_as_data",
+  "expected_status": "degraded",
+  "expected_error_ids": [
+    "demo.missing_source",
+    "demo.bad_callable"
+  ],
+  "files": {
+    "README.md": "fixture root exists\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.missing_source",
+        "title": "Missing source becomes error row",
+        "provider_type": "json_pointer",
+        "source_path": "missing.json",
+        "pointer": "/value",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "error"
+        ]
+      },
+      {
+        "id": "demo.bad_callable",
+        "title": "Unknown callable becomes error row",
+        "provider_type": "callable",
+        "callable": "missing_callable",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "error"
+        ]
+      }
+    ]
+  }
+}

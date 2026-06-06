@@ -86,7 +86,7 @@
     }
   ],
   "copied_source_artifact_count": 4,
-  "created_at": "2026-05-26T22:59:07+00:00",
+  "created_at": "2026-06-02T02:56:06+00:00",
   "error_codes": [
     "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
     "RING2_RETRIEVAL_METRIC_OVERCLAIM",
@@ -394,6 +394,88 @@
     }
   ],
   "fixture_id": "first_wave.ring2_premise_retrieval_precision_recall_harness",
+  "freshness_basis": {
+    "basis_digest": "sha256:92b3b01c83dcbcab778f0686f29a56d9db3f974bf49e9169abf9e8a3f039150d",
+    "card_schema_version": "ring2_precision_recall_command_card_v1",
+    "include_negative": true,
+    "input_count": 14,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json",
+        "sha256": "sha256:9485b55f7ba1e566e6d660269aca68f09ce66ec68f0a1fe9f6c923c3f2e6ff1b",
+        "size_bytes": 8930
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json",
+        "sha256": "sha256:6f482c55886c41297f4e68f86958d22048e8613596da020b5fd0d298b082466a",
+        "size_bytes": 8192
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json",
+        "sha256": "sha256:9d73a010c15ecbcebc5aecc3e1f338a50be2a73566924d92aac014efa0ac2cb5",
+        "size_bytes": 8407
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json",
+        "sha256": "sha256:3a2488f72ae04665ec943dad17c1e1f532849a77ae5b6882309619e8af609123",
+        "size_bytes": 813
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/oracle_labels_in_ranking.json",
+        "sha256": "sha256:6032d4dfcaa518dddbd539c942bbe3f9d441c91e0846727d448358452c31ad19",
+        "size_bytes": 464
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/proof_body_leakage.json",
+        "sha256": "sha256:334355decb1c46e336bf0aca44954a6b062cddebbe0efc5752c108109a0116d2",
+        "size_bytes": 359
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/test_split_tuning_attempt.json",
+        "sha256": "sha256:d407981c1938fb481001f6aa5d0fa011a894d2e43b7b3ddfaa3f3999a0bca57d",
+        "size_bytes": 369
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/metric_overclaim.json",
+        "sha256": "sha256:aa89bc66cd2df2e00f17ffea3147138c4acd9c1647b05c0f9119de40d269b8f0",
+        "size_bytes": 435
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/missing_adversarial_decoy.json",
+        "sha256": "sha256:24b4dbf75addb79ef1631a2b36893d552dbb3f1a001cfdca7b3d1892146ea8a4",
+        "size_bytes": 327
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+        "size_bytes": 371
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+        "size_bytes": 51112
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+        "sha256": "sha256:38a1ce15461bca6b6811934ac8fcf4e0e82280bd7435a4f241280c5cadcbd074",
+        "size_bytes": 25250
+      },
+      {
+        "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+        "sha256": "sha256:9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33",
+        "size_bytes": 18068
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "ring2_precision_recall_freshness_basis_v1",
+    "validator_schema_version": "ring2_precision_recall_result_v1"
+  },
   "input_mode": "fixture_input",
   "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
   "macro_run_variant_id": "premise_retrieval_graph_v0",
@@ -430,10 +512,11 @@
   "problem_count": 10,
   "receipt_id": "ring2_precision_recall_validation_receipt_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
+    "receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+    "receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+    "receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
   ],
+  "receipt_reused": false,
   "schema_version": "ring2_precision_recall_validation_receipt_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -460,49 +543,69 @@
       "body_material_status": "copied_ring2_source_artifacts_verified",
       "digest_match": true,
       "exists": true,
+      "public_safe_digest_matches": false,
+      "public_safe_sha256": null,
+      "public_safe_transform": null,
+      "source_digest_matches": true,
       "source_line_count": 13,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
       "source_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
       "source_to_target_relation": "exact_copy",
       "target_line_count": 13,
       "target_ref": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
-      "target_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0"
+      "target_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+      "verification_mode": "exact_source_digest_match"
     },
     {
       "body_material_status": "copied_ring2_source_artifacts_verified",
       "digest_match": true,
       "exists": true,
+      "public_safe_digest_matches": true,
+      "public_safe_sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "source_digest_matches": false,
       "source_line_count": 801,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
       "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
-      "source_to_target_relation": "exact_copy",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_line_count": 801,
       "target_ref": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "target_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+      "target_sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+      "verification_mode": "verified_light_edit_recipe"
     },
     {
       "body_material_status": "copied_ring2_source_artifacts_verified",
       "digest_match": true,
       "exists": true,
+      "public_safe_digest_matches": true,
+      "public_safe_sha256": "sha256:38a1ce15461bca6b6811934ac8fcf4e0e82280bd7435a4f241280c5cadcbd074",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "source_digest_matches": false,
       "source_line_count": 490,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
       "source_sha256": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
-      "source_to_target_relation": "exact_copy",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_line_count": 490,
       "target_ref": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
-      "target_sha256": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+      "target_sha256": "sha256:38a1ce15461bca6b6811934ac8fcf4e0e82280bd7435a4f241280c5cadcbd074",
+      "verification_mode": "verified_light_edit_recipe"
     },
     {
       "body_material_status": "copied_ring2_source_artifacts_verified",
       "digest_match": true,
       "exists": true,
+      "public_safe_digest_matches": true,
+      "public_safe_sha256": "sha256:9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "source_digest_matches": false,
       "source_line_count": 537,
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
       "source_sha256": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b",
-      "source_to_target_relation": "exact_copy",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_line_count": 537,
       "target_ref": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
-      "target_sha256": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
+      "target_sha256": "sha256:9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33",
+      "verification_mode": "verified_light_edit_recipe"
     }
   ],
   "source_artifact_status": "copied_ring2_source_artifacts_verified",
@@ -533,7 +636,7 @@
       "ring2_precision_recall_graph_variant_comparison_body_import",
       "ring2_precision_recall_problem_source_manifest_body_import"
     ],
-    "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+    "body_material_status": "digest_verified_public_safe_ring2_precision_recall_source_artifacts_with_provenance",
     "body_text_exported_in_receipts": false,
     "material_classes": [
       "public_macro_receipt_body"

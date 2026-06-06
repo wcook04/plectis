@@ -1,13 +1,15 @@
 {
-  "anti_claim": "Proof-derived governed mutation authorization validates a synthetic mutation-authorization contract: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "accepted_real_record_count": 3,
+  "anti_claim": "Proof-derived governed mutation authorization validates public-safe real governed-mutation records bound to redacted mutation-authorization metadata: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_proof_derived_governed_mutation_authorization_receipts_only",
+    "authority_ceiling": "public_safe_real_governed_mutation_records_plus_redacted_fixture_metadata_only",
     "benchmark_score_claim_authorized": false,
     "hidden_policy_votes_authorized": false,
     "irreversible_mutation_authorized": false,
     "live_cloud_account_authorized": false,
     "policy_after_execution_authorized": false,
     "provider_calls_authorized": false,
+    "real_public_safe_record_required": true,
     "release_authorized": false,
     "source_mutation_authorized": false,
     "standing_credentials_authorized": false,
@@ -16,9 +18,10 @@
   "authorized_mutation_count": 3,
   "body_copied_material_count": 0,
   "cold_replay_pass_count": 3,
-  "created_at": "2026-05-27T02:53:57+00:00",
+  "created_at": "2026-06-05T07:23:40+00:00",
   "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
   "logged_side_effect_count": 2,
+  "missing_real_record_proposal_ids": [],
   "negative_case_coverage": {
     "expected": [
       "consensus_without_evidence",
@@ -36,24 +39,31 @@
         "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE"
       ],
       "final_answer_only_success": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS"
       ],
       "hidden_policy_vote": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_HIDDEN_POLICY_VOTE"
       ],
       "irreversible_mutation": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_IRREVERSIBLE_MUTATION"
       ],
       "live_cloud_credential": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_LIVE_CLOUD_CREDENTIAL"
       ],
       "policy_after_execution": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_POLICY_AFTER_EXECUTION"
       ],
       "standing_credential_authority": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY"
       ],
       "unlogged_side_effect": [
+        "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
         "GOV_MUT_UNLOGGED_SIDE_EFFECT"
       ]
     }
@@ -75,16 +85,18 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 16,
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "proof_cell_count": 3,
   "proposal_count": 3,
+  "real_record_count": 3,
+  "real_record_status": "real_public_safe_governed_mutation_record_bound",
   "receipt_paths": [
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
   "rollback_pass_count": 2,
   "schema_version": "proof_derived_governed_mutation_authorization_validation_receipt_v1",

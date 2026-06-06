@@ -7,14 +7,21 @@ projection bundles opportunistically.
 """
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import subprocess
 import time
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any, Callable, Iterator, Mapping, Sequence
 
-from system.lib import generated_projection_registry, task_ledger_events, work_ledger
+from system.lib import (
+    generated_projection_registry,
+    resource_work_queue,
+    task_ledger_events,
+    work_ledger,
+)
 
 
 STATUS_SCHEMA = "generated_state_drainer_status_v0"
@@ -30,9 +37,37 @@ SYSTEM_ATLAS_OWNER_ID = "system_atlas_projection"
 WORK_LEDGER_REFRESH_ACTION = "work_ledger_projection_refresh"
 TASK_LEDGER_REFRESH_ACTION = "task_ledger_projection_refresh"
 SYSTEM_ATLAS_REFRESH_ACTION = "system_atlas_projection_refresh"
+SYSTEM_ATLAS_OWNER_REBUILD_REFRESH_POLICY = "rebuild_generated_atlas_with_owner_builder_then_check"
+SYSTEM_ATLAS_TOLERATED_CHURN_REFRESH_POLICIES = frozenset(
+    {
+        "stable_snapshot_check_tolerates_clean_task_ledger_churn_rebuild_before_atlas_output_commit",
+        "stable_snapshot_check_tolerates_clean_live_count_only_churn_rebuild_before_atlas_output_commit",
+    }
+)
+SYSTEM_ATLAS_OWNER_REBUILD_SOURCE_COUPLING_STATUSES = frozenset(
+    {
+        "source_inputs_changed_since_artifact_generation",
+    }
+)
+SYSTEM_ATLAS_APPEND_EXEMPT_SAFE_SOURCE_COUPLING_STATUSES = frozenset(
+    {
+        "live_task_ledger_source_churn_tolerated",
+        "clean_live_count_only_source_churn_tolerated",
+    }
+)
 APPEND_EXEMPT_LANDING_MODE = "append-exempt"
 SUPPORTED_LANDING_OWNER_IDS = (WORK_LEDGER_OWNER_ID, TASK_LEDGER_OWNER_ID, SYSTEM_ATLAS_OWNER_ID)
 SUPPORTED_SETTLEMENT_OWNER_IDS = (TASK_LEDGER_OWNER_ID, WORK_LEDGER_OWNER_ID, SYSTEM_ATLAS_OWNER_ID)
+PROJECTION_OWNER_ID_ALIASES = {
+    "work_ledger": WORK_LEDGER_OWNER_ID,
+    "work-ledger": WORK_LEDGER_OWNER_ID,
+    "task_ledger": TASK_LEDGER_OWNER_ID,
+    "task-ledger": TASK_LEDGER_OWNER_ID,
+    "system_atlas": SYSTEM_ATLAS_OWNER_ID,
+    "system-atlas": SYSTEM_ATLAS_OWNER_ID,
+}
+TASK_LEDGER_SOURCE_LOCK_ATTEMPTS = 60
+TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S = 0.1
 ProgressCallback = Callable[[Mapping[str, Any]], None]
 
 
@@ -53,6 +88,128 @@ def _emit_progress(
     }
     payload.update({key: value for key, value in fields.items() if value is not None})
     progress_callback(payload)
+
+
+def normalize_projection_owner_id(
+    owner_id: object,
+    *,
+    default: str = WORK_LEDGER_OWNER_ID,
+) -> str:
+    text = str(owner_id or "").strip()
+    if not text:
+        return default
+    return PROJECTION_OWNER_ID_ALIASES.get(text, text)
+
+
+def normalize_projection_owner_ids(owner_ids: Sequence[str] | None = None) -> list[str]:
+    requested = [
+        normalize_projection_owner_id(owner_id, default="")
+        for owner_id in (owner_ids or [])
+        if str(owner_id or "").strip()
+    ]
+    if not requested:
+        return []
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for owner_id in requested:
+        if not owner_id or owner_id in seen:
+            continue
+        seen.add(owner_id)
+        ordered.append(owner_id)
+    return ordered
+
+
+def _task_ledger_lock_file_facts(lock_path: Path) -> dict[str, Any]:
+    if not lock_path.exists():
+        return {"lock_file_exists": False}
+    try:
+        stat = lock_path.stat()
+    except OSError as exc:
+        return {
+            "lock_file_exists": True,
+            "lock_file_stat_error": str(exc),
+        }
+    return {
+        "lock_file_exists": True,
+        "lock_file_size": stat.st_size,
+        "lock_file_mtime_epoch_s": stat.st_mtime,
+        "lock_file_age_s": round(max(0.0, time.time() - stat.st_mtime), 3),
+    }
+
+
+@contextmanager
+def _task_ledger_source_lock_for_landing(repo_root: Path) -> Iterator[dict[str, Any]]:
+    """Serialize Task Ledger refresh landing without failing on tiny writer races."""
+    lock_path = repo_root / task_ledger_events.LOCK_REL
+    lock_file_facts = _task_ledger_lock_file_facts(lock_path)
+    fcntl_mod = getattr(task_ledger_events, "fcntl", None)
+    if fcntl_mod is None:  # pragma: no cover - non-posix fallback
+        with task_ledger_events.file_lock(lock_path):
+            yield {
+                "schema": "task_ledger_source_lock_probe_v0",
+                "acquired": True,
+                "status": "acquired",
+                "mode": "blocking_fallback_no_fcntl",
+                "lock_path": str(task_ledger_events.LOCK_REL),
+                **lock_file_facts,
+            }
+        return
+
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        attempts = max(1, TASK_LEDGER_SOURCE_LOCK_ATTEMPTS)
+        busy_retry_count = 0
+        last_errno: int | None = None
+        for attempt_index in range(attempts):
+            try:
+                fcntl_mod.flock(handle.fileno(), fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
+                break
+            except (BlockingIOError, OSError) as exc:
+                exc_errno = getattr(exc, "errno", None)
+                if not (
+                    isinstance(exc, BlockingIOError)
+                    or exc_errno in {errno.EACCES, errno.EAGAIN, errno.EWOULDBLOCK}
+                ):
+                    raise
+                last_errno = exc_errno
+                if attempt_index >= attempts - 1:
+                    yield {
+                        "schema": "task_ledger_source_lock_probe_v0",
+                        "acquired": False,
+                        "status": "busy",
+                        "mode": "bounded_nonblocking_exclusive",
+                        "lock_path": str(task_ledger_events.LOCK_REL),
+                        "reason": "task_ledger_source_writer_lock_held",
+                        "errno": last_errno,
+                        "attempts": attempts,
+                        "busy_retry_count": busy_retry_count,
+                        "retry_sleep_s": TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S,
+                        "wait_budget_s": round(
+                            max(0, attempts - 1) * TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S,
+                            3,
+                        ),
+                        **_task_ledger_lock_file_facts(lock_path),
+                    }
+                    return
+                busy_retry_count += 1
+                time.sleep(TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S)
+        try:
+            yield {
+                "schema": "task_ledger_source_lock_probe_v0",
+                "acquired": True,
+                "status": "acquired",
+                "mode": "bounded_nonblocking_exclusive",
+                "lock_path": str(task_ledger_events.LOCK_REL),
+                "attempts": attempts,
+                "busy_retry_count": busy_retry_count,
+                "wait_budget_s": round(
+                    max(0, attempts - 1) * TASK_LEDGER_SOURCE_LOCK_RETRY_SLEEP_S,
+                    3,
+                ),
+                **_task_ledger_lock_file_facts(lock_path),
+            }
+        finally:
+            fcntl_mod.flock(handle.fileno(), fcntl_mod.LOCK_UN)
 
 
 def _hash_bytes(data: bytes) -> str:
@@ -618,12 +775,30 @@ def _registered_projection_rows(
     check = _run_owner_json_command(repo_root, owner.check_command)
     source_coupling = check.get("source_coupling") if isinstance(check.get("source_coupling"), Mapping) else {}
     source_coupling_status = str(source_coupling.get("status") or "").strip()
-    if check.get("ok"):
+    source_coupling_allows_owner_refresh = (
+        owner_id == SYSTEM_ATLAS_OWNER_ID
+        and _system_atlas_source_coupling_allows_owner_refresh(source_coupling)
+    )
+    if (
+        owner_id == SYSTEM_ATLAS_OWNER_ID
+        and _system_atlas_source_coupling_allows_append_exempt_landing(source_coupling)
+    ):
+        freshness = "fresh"
+        recommended_owner_action = "none"
+    elif source_coupling_allows_owner_refresh:
+        freshness = source_coupling_status
+        recommended_owner_action = _command_text(owner.repair_command)
+    elif check.get("ok"):
         freshness = "fresh"
         recommended_owner_action = "none"
     elif source_coupling_status:
         freshness = source_coupling_status
-        recommended_owner_action = "settle_source_coupling_before_projection_refresh"
+        recommended_owner_action = (
+            _command_text(owner.repair_command)
+            if owner_id == SYSTEM_ATLAS_OWNER_ID
+            and _system_atlas_source_coupling_allows_owner_refresh(source_coupling)
+            else "settle_source_coupling_before_projection_refresh"
+        )
     else:
         freshness = "projection_stale"
         recommended_owner_action = _command_text(owner.repair_command)
@@ -698,6 +873,36 @@ def _dirty_projection_paths(projection_rows: Sequence[Mapping[str, Any]]) -> lis
     ]
 
 
+def _work_ledger_settlement_rows(
+    projection_rows: Sequence[Mapping[str, Any]],
+) -> tuple[list[Mapping[str, Any]], list[Mapping[str, Any]]]:
+    by_family: dict[str, list[Mapping[str, Any]]] = {}
+    for row in projection_rows:
+        family_id = str(row.get("family_id") or "").strip()
+        if not family_id:
+            return list(projection_rows), []
+        by_family.setdefault(family_id, []).append(row)
+
+    required: list[Mapping[str, Any]] = []
+    advisory: list[Mapping[str, Any]] = []
+    for rows in by_family.values():
+        ordered = sorted(rows, key=lambda row: str(row.get("phase_id") or ""))
+        canonical = ordered[-1] if ordered else None
+        canonical_fresh = bool(canonical and canonical.get("freshness_status") == "fresh")
+        canonical_phase = str(canonical.get("phase_id") or "") if canonical else ""
+        for row in ordered:
+            phase_id = str(row.get("phase_id") or "")
+            if (
+                canonical_fresh
+                and phase_id != canonical_phase
+                and row.get("freshness_status") != "fresh"
+            ):
+                advisory.append(row)
+            else:
+                required.append(row)
+    return required, advisory
+
+
 def _owner_source_authority_label(owner_id: str) -> str:
     if owner_id == WORK_LEDGER_OWNER_ID:
         return "codex/ledger/*/work_ledger.jsonl"
@@ -754,6 +959,69 @@ def _source_coupling_route_hints(source_coupling: Mapping[str, Any]) -> list[str
     return hints
 
 
+def _source_coupling_count(source_coupling: Mapping[str, Any], key: str) -> int:
+    try:
+        return int(source_coupling.get(key) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _system_atlas_source_coupling_allows_owner_refresh(source_coupling: Mapping[str, Any]) -> bool:
+    """True when source drift is already committed and only the Atlas owner must rebuild."""
+    status = str(source_coupling.get("status") or "").strip()
+    if status not in SYSTEM_ATLAS_OWNER_REBUILD_SOURCE_COUPLING_STATUSES:
+        return False
+    refresh_policy = str(source_coupling.get("refresh_policy") or "").strip()
+    if status == "source_inputs_changed_since_artifact_generation":
+        if refresh_policy != SYSTEM_ATLAS_OWNER_REBUILD_REFRESH_POLICY:
+            return False
+        return not any(
+            _source_coupling_count(source_coupling, key) > 0
+            for key in (
+                "dirty_changed_source_count",
+                "claimed_dirty_source_count",
+                "unknown_git_status_source_count",
+            )
+        )
+    return False
+
+
+def _system_atlas_source_coupling_allows_append_exempt_landing(
+    source_coupling: Mapping[str, Any],
+) -> bool:
+    status = str(source_coupling.get("status") or "").strip()
+    if status not in SYSTEM_ATLAS_APPEND_EXEMPT_SAFE_SOURCE_COUPLING_STATUSES:
+        return False
+    refresh_policy = str(source_coupling.get("refresh_policy") or "").strip()
+    if refresh_policy not in SYSTEM_ATLAS_TOLERATED_CHURN_REFRESH_POLICIES:
+        return False
+    if str(source_coupling.get("source_coupled_blocker_status") or "none") != "none":
+        return False
+    return not any(
+        _source_coupling_count(source_coupling, key) > 0
+        for key in (
+            "blocking_changed_source_count",
+            "claimed_dirty_source_count",
+            "unknown_git_status_source_count",
+        )
+    )
+
+
+def _filter_system_atlas_append_exempt_safe_source_paths(
+    source_paths_to_stage: Sequence[str],
+    source_coupling: Mapping[str, Any],
+) -> list[str]:
+    status = str(source_coupling.get("status") or "").strip()
+    if status != "live_task_ledger_source_churn_tolerated":
+        return [str(path) for path in source_paths_to_stage]
+    return [
+        str(path)
+        for path in source_paths_to_stage
+        if str(path) != "state/task_ledger/ledger.json"
+        and not str(path).startswith("state/task_ledger/views/")
+    ]
+
+
 def _compact_source_coupling(source_coupling: Mapping[str, Any]) -> dict[str, Any]:
     compact = {
         key: source_coupling.get(key)
@@ -808,7 +1076,7 @@ def build_generated_state_drainer_status(
     status_map: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
-    requested = {str(owner_id).strip() for owner_id in (owner_ids or []) if str(owner_id).strip()}
+    requested = set(normalize_projection_owner_ids(owner_ids))
     status_map = status_map if status_map is not None else _git_status_map(repo_root)
     projection_rows: list[dict[str, Any]] = []
     checks: dict[str, Any] = {}
@@ -859,7 +1127,7 @@ def build_generated_projection_landing_plan(
     collect_diff_stat: bool = True,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
-    owner = str(owner_id or WORK_LEDGER_OWNER_ID).strip()
+    owner = normalize_projection_owner_id(owner_id, default=WORK_LEDGER_OWNER_ID)
     if owner not in SUPPORTED_LANDING_OWNER_IDS:
         return {
             "schema": LANDING_PLAN_SCHEMA,
@@ -877,27 +1145,49 @@ def build_generated_projection_landing_plan(
     projection_rows = [
         row for row in list(status.get("projection_targets") or []) if row.get("owner_id") == owner
     ]
-    summary = _projection_summary(projection_rows)
-    projection_paths = [str(row.get("generated_path") or "") for row in projection_rows]
-    source_paths = _owner_source_paths(repo_root, owner, projection_rows)
+    settlement_projection_rows = list(projection_rows)
+    advisory_projection_rows: list[Mapping[str, Any]] = []
+    if owner == WORK_LEDGER_OWNER_ID:
+        settlement_projection_rows, advisory_projection_rows = _work_ledger_settlement_rows(
+            projection_rows
+        )
+    summary = _projection_summary(settlement_projection_rows)
+    projection_paths = [str(row.get("generated_path") or "") for row in settlement_projection_rows]
+    stale_projection_rows = [
+        row
+        for row in settlement_projection_rows
+        if row.get("generated_path") and row.get("freshness_status") != "fresh"
+    ]
+    stale_projection_paths = [str(row.get("generated_path") or "") for row in stale_projection_rows]
+    stale_projection_targets = [
+        {
+            "generated_path": str(row.get("generated_path") or ""),
+            "phase_id": row.get("phase_id"),
+            "family_id": row.get("family_id"),
+        }
+        for row in stale_projection_rows
+        if row.get("phase_id") and row.get("family_id")
+    ]
+    source_paths = _owner_source_paths(repo_root, owner, settlement_projection_rows)
     source_paths_to_stage = _dirty_existing_paths(repo_root, source_paths, status_map=status_map)
     source_hashes = {
         str(row.get("family_id") or owner): row.get("source_event_hash")
-        for row in projection_rows
+        for row in settlement_projection_rows
         if row.get("source_event_hash")
     }
     projection_hashes = {
         str(row.get("generated_path") or ""): row.get("projection_hash")
-        for row in projection_rows
+        for row in settlement_projection_rows
         if row.get("generated_path")
     }
     unique_source_hashes = sorted({str(value) for value in source_hashes.values() if value})
     stale_count = int(summary.get("stale_count") or 0)
     dirty_count = int(summary.get("dirty_count") or 0)
-    source_dirty_count = len(source_paths_to_stage)
-    projection_paths_to_stage = _dirty_projection_paths(projection_rows)
+    projection_paths_to_stage = _dirty_projection_paths(settlement_projection_rows)
     source_authority_missing_count = sum(
-        1 for row in projection_rows if row.get("freshness_status") == "source_authority_missing"
+        1
+        for row in settlement_projection_rows
+        if row.get("freshness_status") == "source_authority_missing"
     )
     owner_checks = status.get("owner_checks") if isinstance(status.get("owner_checks"), Mapping) else {}
     owner_check = owner_checks.get(owner) if isinstance(owner_checks, Mapping) else {}
@@ -907,15 +1197,28 @@ def build_generated_projection_landing_plan(
         else {}
     )
     source_coupling_status = str(source_coupling.get("status") or "").strip()
+    if owner == SYSTEM_ATLAS_OWNER_ID and _system_atlas_source_coupling_allows_append_exempt_landing(
+        source_coupling
+    ):
+        source_paths_to_stage = _filter_system_atlas_append_exempt_safe_source_paths(
+            source_paths_to_stage,
+            source_coupling,
+        )
+    source_dirty_count = len(source_paths_to_stage)
+    source_coupling_allows_owner_refresh = (
+        owner == SYSTEM_ATLAS_OWNER_ID
+        and _system_atlas_source_coupling_allows_owner_refresh(source_coupling)
+    )
     source_coupling_unsettled = (
         owner == SYSTEM_ATLAS_OWNER_ID
         and source_coupling_status == "source_inputs_changed_since_artifact_generation"
+        and not source_coupling_allows_owner_refresh
     )
     manifest_rel = _landing_manifest_rel(owner)
     manifest_dirty = _dirty_status(str(manifest_rel), status_map) != "clean" or not (repo_root / manifest_rel).exists()
     diff_stat = _projection_diff_stat(
         repo_root,
-        projection_rows,
+        settlement_projection_rows,
         status_map=status_map,
         collect_numstat=collect_diff_stat,
     )
@@ -979,6 +1282,8 @@ def build_generated_projection_landing_plan(
         "source_event_hashes": source_hashes,
         "source_path_hashes": _path_hashes(repo_root, source_paths),
         "projection_paths": projection_paths,
+        "stale_projection_paths": stale_projection_paths,
+        "stale_projection_targets": stale_projection_targets,
         "projection_hashes": projection_hashes,
         "freshness_status": summary.get("status"),
         "dirty_status": "dirty" if dirty_count or source_dirty_count or manifest_dirty else "clean",
@@ -1021,9 +1326,25 @@ def build_generated_projection_landing_plan(
             "summary": summary,
         },
     }
-    if source_coupling_unsettled:
+    if source_coupling_status and owner == SYSTEM_ATLAS_OWNER_ID:
         result["source_coupling"] = _compact_source_coupling(source_coupling)
         result["source_coupling_owner_route_hints"] = _source_coupling_route_hints(source_coupling)
+    if advisory_projection_rows:
+        result["advisory_stale_projection_paths"] = [
+            str(row.get("generated_path") or "")
+            for row in advisory_projection_rows
+            if row.get("generated_path")
+        ]
+        result["advisory_stale_projection_count"] = len(advisory_projection_rows)
+        result["advisory_stale_projection_disposition"] = (
+            "historical_work_ledger_family_fanout_not_settlement_blocking"
+        )
+    if source_coupling_allows_owner_refresh:
+        result["owner_handoff_class"] = "system_atlas_owner_rebuild"
+        result["required_owner_resolution"] = (
+            "Run the System Atlas owner builder and land regenerated Atlas projections."
+        )
+    if source_coupling_unsettled:
         result["owner_handoff_class"] = "source_coupling_source_owner_handoff"
         result["required_owner_resolution"] = (
             "Settle or claim the changed System Atlas source inputs before refreshing generated Atlas outputs."
@@ -1087,6 +1408,620 @@ def _unsupported_landing_payload(owner_id: str, *, dry_run: bool) -> dict[str, A
     }
 
 
+def _has_work_ledger_session_id(value: str | None) -> bool:
+    return bool(str(value or "").strip())
+
+
+def _session_required_guard(*, command_template: str) -> dict[str, Any]:
+    session_status_command = "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12"
+    session_preflight_template = (
+        "./repo-python tools/meta/factory/work_ledger.py session-preflight "
+        "--session-id <session_id> --actor codex --phase-id <phase_id> "
+        "--path <owned_generated_state_path> --work-admission-class edit_light_patch "
+        "--require-exclusive"
+    )
+    return {
+        "schema": "generated_state_drainer_mutation_guard_v0",
+        "status": "work_ledger_session_id_required",
+        "blocked_by": ["missing_work_ledger_session_id"],
+        "work_ledger_session_id_required_for_mutation": True,
+        "command_template": command_template,
+        "active_session_status_command": session_status_command,
+        "session_preflight_command_template": session_preflight_template,
+        "repair_sequence": [
+            {
+                "step": "inspect_active_work_ledger_sessions",
+                "command": session_status_command,
+            },
+            {
+                "step": "open_or_reuse_claimed_session",
+                "command_template": session_preflight_template,
+            },
+            {
+                "step": "rerun_generated_state_mutation",
+                "command_template": command_template,
+            },
+        ],
+    }
+
+
+def _landing_missing_session_payload(
+    *,
+    owner: str,
+    dry_run: bool,
+    plan: Mapping[str, Any],
+) -> dict[str, Any]:
+    command_template = (
+        "./repo-python tools/meta/control/generated_state_drainer.py land "
+        f"--owner-id {owner} --mode append-exempt --work-ledger-session-id <session_id>"
+    )
+    payload: dict[str, Any] = {
+        "schema": LANDING_SCHEMA,
+        "ok": False,
+        "dry_run": bool(dry_run),
+        "owner_id": owner,
+        "status": "refused",
+        "reason": "missing_work_ledger_session_id",
+        "blocked_by": ["work_ledger_session_id_required"],
+        "mutation_guard": _session_required_guard(command_template=command_template),
+        "required_next_command": command_template,
+        "plan": plan,
+        "normal_source_event_after_refresh_allowed": False,
+    }
+    if owner == WORK_LEDGER_OWNER_ID:
+        payload["normal_work_ledger_event_after_refresh_allowed"] = False
+    if owner == TASK_LEDGER_OWNER_ID:
+        payload["normal_task_ledger_event_after_refresh_allowed"] = False
+    if owner == SYSTEM_ATLAS_OWNER_ID:
+        payload["normal_system_atlas_event_after_refresh_allowed"] = False
+    return payload
+
+
+def _refresh_work_ledger_projection_for_landing_plan(
+    repo_root: Path,
+    plan: Mapping[str, Any],
+) -> dict[str, Any]:
+    grouped_phase_ids: dict[str, list[str]] = {}
+    for row in plan.get("stale_projection_targets") or []:
+        if not isinstance(row, Mapping):
+            continue
+        family_id = str(row.get("family_id") or "").strip()
+        phase_id = str(row.get("phase_id") or "").strip()
+        if family_id and phase_id:
+            grouped_phase_ids.setdefault(family_id, []).append(phase_id)
+    if not grouped_phase_ids:
+        return work_ledger.project_all(repo_root)
+
+    families: list[dict[str, Any]] = []
+    for family_id, phase_ids in sorted(grouped_phase_ids.items()):
+        unique_phase_ids = sorted(dict.fromkeys(phase_ids))
+        families.append(
+            {
+                "family_id": family_id,
+                "targeted": True,
+                "requested_phase_ids": unique_phase_ids,
+                "projection_results": work_ledger.write_family_projection_targets(
+                    repo_root,
+                    family_id=family_id,
+                    phase_ids=unique_phase_ids,
+                    compare_existing=False,
+                ),
+            }
+        )
+    return {
+        "ok": True,
+        "mode": "targeted_stale_projection_refresh",
+        "targeted": True,
+        "family_count": len(families),
+        "families": families,
+        "fallback_used": False,
+    }
+
+
+def _task_ledger_locked_landing_plan_from_current_state(repo_root: Path) -> dict[str, Any]:
+    """Build an apply-safe Task Ledger landing plan while the writer lock is held."""
+    status_map = _git_status_map(repo_root)
+    row = _fast_settlement_owner_row(
+        repo_root,
+        owner_id=TASK_LEDGER_OWNER_ID,
+        status_map=status_map,
+    )
+    source_paths = [str(path) for path in row.get("source_authority_paths") or []]
+    projection_paths = [str(path) for path in row.get("projection_paths") or []]
+    source_path_hashes = _path_hashes(repo_root, source_paths)
+    projection_hashes = _path_hashes(repo_root, projection_paths)
+    source_event_hash = source_path_hashes.get(str(task_ledger_events.EVENTS_REL))
+    return {
+        "schema": LANDING_PLAN_SCHEMA,
+        "ok": row.get("status") != "source_authority_missing",
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": row.get("status"),
+        "source_authority": row.get("source_authority"),
+        "source_authority_paths": source_paths,
+        "source_authority_paths_to_stage": [
+            str(path) for path in row.get("source_authority_paths_to_stage") or []
+        ],
+        "projection_paths_to_stage": [
+            str(path) for path in row.get("projection_paths_to_stage") or []
+        ],
+        "dirty_path_summary": (
+            row.get("path_bundle", {}).get("dirty_path_summary")
+            if isinstance(row.get("path_bundle"), Mapping)
+            else {}
+        ),
+        "owner_bundle_rationale": (
+            row.get("path_bundle", {}).get("owner_bundle_rationale")
+            if isinstance(row.get("path_bundle"), Mapping)
+            else None
+        ),
+        "source_event_hash": source_event_hash,
+        "source_event_hashes": (
+            {TASK_LEDGER_OWNER_ID: source_event_hash} if source_event_hash else {}
+        ),
+        "source_path_hashes": source_path_hashes,
+        "projection_paths": projection_paths,
+        "stale_projection_paths": [],
+        "stale_projection_targets": [],
+        "projection_hashes": projection_hashes,
+        "freshness_status": row.get("freshness_status"),
+        "dirty_status": row.get("dirty_status"),
+        "source_dirty_status": row.get("source_dirty_status"),
+        "diff_stat": row.get("diff_stat") or {},
+        "bloat_class": row.get("bloat_class"),
+        "push_gate_status": (
+            "watch"
+            if isinstance(row.get("diff_stat"), Mapping)
+            and row.get("diff_stat", {}).get("review_status") == "watch"
+            else "clear"
+        ),
+        "landing_policy": "serial_drainer_only",
+        "normal_agent_commit_allowed": False,
+        "safe_to_commit_by_agent": False,
+        "self_invalidating_if_eventful": True,
+        "self_invalidation_reason": (
+            "Task Ledger projections are derived from state/task_ledger/events.jsonl; "
+            "a normal Task Ledger event for projection landing changes the source event "
+            "hash after projection refresh."
+        ),
+        "scoped_commit_directly_appends_work_ledger_event": False,
+        "scoped_commit_directly_appends_task_ledger_event": False,
+        "normal_work_ledger_event_after_refresh_allowed": None,
+        "normal_task_ledger_event_after_refresh_allowed": False,
+        "normal_system_atlas_event_after_refresh_allowed": None,
+        "append_exempt_policy_verified": True,
+        "marker_epoch_policy_verified": False,
+        "recommended_mode": "append_exempt_projection_landing",
+        "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
+        "can_apply": bool(row.get("can_apply")) and row.get("status") != "refresh_required",
+        "blocked_by": row.get("blocked_by") or [],
+        "required_next_command": row.get("required_next_command"),
+        "status_ref": {
+            "schema": "generated_projection_settlement_fast_owner_row_v0",
+            "summary": {
+                "status": row.get("status"),
+                "freshness_status": row.get("freshness_status"),
+                "dirty_status": row.get("dirty_status"),
+            },
+        },
+    }
+
+
+def _task_ledger_landing_retry_later_payload(
+    *,
+    dry_run: bool,
+    source_lock: Mapping[str, Any],
+    plan: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "schema": LANDING_SCHEMA,
+        "ok": False,
+        "dry_run": bool(dry_run),
+        "owner_id": TASK_LEDGER_OWNER_ID,
+        "status": "retry_later",
+        "reason": "task_ledger_source_mutation_in_progress",
+        "retry_later": True,
+        "blocked_by": ["task_ledger_source_writer_lock_held"],
+        "source_lock": dict(source_lock),
+        "normal_source_event_after_refresh_allowed": False,
+        "normal_task_ledger_event_after_refresh_allowed": False,
+    }
+    if plan is not None:
+        payload["plan"] = dict(plan)
+    return payload
+
+
+def _land_task_ledger_projection_bundle_locked(
+    repo_root: Path,
+    *,
+    mode: str,
+    dry_run: bool,
+    landing_plan: Mapping[str, Any] | None = None,
+    commit_func: Callable[..., Mapping[str, Any]] | None = None,
+    work_ledger_session_id: str | None = None,
+    progress_callback: ProgressCallback | None = None,
+) -> dict[str, Any]:
+    """Land Task Ledger projection state while holding the writer lock.
+
+    The source event log and its projections must move as one append-exempt
+    bundle. Holding the Task Ledger writer lock through refresh, manifest write,
+    and scoped commit prevents another append from making the just-refreshed
+    projection stale before the commit is created.
+    """
+    with _task_ledger_source_lock_for_landing(repo_root) as source_lock:
+        if not source_lock.get("acquired"):
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="retry_later",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status="retry_later",
+                reason=source_lock.get("reason"),
+            )
+            return _task_ledger_landing_retry_later_payload(
+                dry_run=dry_run,
+                source_lock=source_lock,
+            )
+    _emit_progress(
+        progress_callback,
+        surface="landing",
+        event="source_lock_probe_clear",
+        owner_id=TASK_LEDGER_OWNER_ID,
+        status="acquired_then_released",
+    )
+    plan_started = time.perf_counter()
+    plan = (
+        dict(landing_plan)
+        if landing_plan is not None
+        and str(landing_plan.get("owner_id") or "").strip() == TASK_LEDGER_OWNER_ID
+        else build_generated_projection_landing_plan(
+            repo_root,
+            owner_id=TASK_LEDGER_OWNER_ID,
+        )
+    )
+    _emit_progress(
+        progress_callback,
+        surface="landing",
+        event="landing_plan_ready",
+        owner_id=TASK_LEDGER_OWNER_ID,
+        status=plan.get("status"),
+        dirty_status=plan.get("dirty_status"),
+        source_dirty_status=plan.get("source_dirty_status"),
+        wall_ms=round((time.perf_counter() - plan_started) * 1000.0, 3),
+        reused_plan=bool(landing_plan is not None),
+    )
+    if (
+        plan.get("status") in {"append_exempt_manifest_available", "refresh_required"}
+        and not _has_work_ledger_session_id(work_ledger_session_id)
+    ):
+        return _landing_missing_session_payload(
+            owner=TASK_LEDGER_OWNER_ID,
+            dry_run=False,
+            plan=plan,
+        )
+    if plan.get("status") not in {"append_exempt_manifest_available", "refresh_required"}:
+        if plan.get("status") == "refresh_required":
+            return {
+                "schema": LANDING_SCHEMA,
+                "ok": False,
+                "dry_run": False,
+                "owner_id": TASK_LEDGER_OWNER_ID,
+                "status": "refresh_required",
+                "blocked_by": plan.get("blocked_by") or ["projection_not_fresh"],
+                "required_next_command": plan.get("required_next_command"),
+                "plan": plan,
+            }
+        if not plan.get("can_apply"):
+            return {
+                "schema": LANDING_SCHEMA,
+                "ok": False,
+                "dry_run": False,
+                "owner_id": TASK_LEDGER_OWNER_ID,
+                "status": "refused",
+                "reason": "landing_plan_not_apply_safe",
+                "blocked_by": plan.get("blocked_by") or [],
+                "plan": plan,
+            }
+    with _task_ledger_source_lock_for_landing(repo_root) as source_lock:
+        if not source_lock.get("acquired"):
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="retry_later",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status="retry_later",
+                reason=source_lock.get("reason"),
+            )
+            return _task_ledger_landing_retry_later_payload(
+                dry_run=dry_run,
+                source_lock=source_lock,
+                plan=plan,
+            )
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="source_lock_acquired",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            status=source_lock.get("status"),
+            lock_mode=source_lock.get("mode"),
+            hold_scope="plan_refresh_manifest_commit",
+        )
+        if plan.get("status") == "refresh_required":
+            refresh_started = time.perf_counter()
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="refresh_start",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status=plan.get("status"),
+            )
+            rebuild_result = task_ledger_events._rebuild_projections_with_health_unlocked(
+                repo_root
+            )
+            if not bool(rebuild_result.get("ok")):
+                return {
+                    "schema": LANDING_SCHEMA,
+                    "ok": False,
+                    "dry_run": False,
+                    "owner_id": TASK_LEDGER_OWNER_ID,
+                    "status": "failed",
+                    "reason": "task_ledger_projection_rebuild_failed",
+                    "projection_result": rebuild_result,
+                    "plan": plan,
+                    "normal_source_event_after_refresh_allowed": False,
+                    "normal_task_ledger_event_after_refresh_allowed": False,
+                }
+            plan = _task_ledger_locked_landing_plan_from_current_state(repo_root)
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="refresh_done",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status=plan.get("status"),
+                dirty_status=plan.get("dirty_status"),
+                wall_ms=round((time.perf_counter() - refresh_started) * 1000.0, 3),
+            )
+        elif (
+            plan.get("source_dirty_status") == "dirty"
+            or plan.get("source_authority_paths_to_stage")
+        ):
+            plan = _task_ledger_locked_landing_plan_from_current_state(repo_root)
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="locked_plan_ready",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status=plan.get("status"),
+                dirty_status=plan.get("dirty_status"),
+                source_dirty_status=plan.get("source_dirty_status"),
+            )
+        else:
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="locked_plan_ready",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status=plan.get("status"),
+                dirty_status=plan.get("dirty_status"),
+                source_dirty_status=plan.get("source_dirty_status"),
+            )
+        if plan.get("status") == "refresh_required":
+            return {
+                "schema": LANDING_SCHEMA,
+                "ok": False,
+                "dry_run": False,
+                "owner_id": TASK_LEDGER_OWNER_ID,
+                "status": "refresh_required",
+                "blocked_by": plan.get("blocked_by") or ["projection_not_fresh"],
+                "required_next_command": plan.get("required_next_command"),
+                "plan": plan,
+            }
+        if not plan.get("can_apply"):
+            return {
+                "schema": LANDING_SCHEMA,
+                "ok": False,
+                "dry_run": False,
+                "owner_id": TASK_LEDGER_OWNER_ID,
+                "status": "refused",
+                "reason": "landing_plan_not_apply_safe",
+                "blocked_by": plan.get("blocked_by") or [],
+                "plan": plan,
+            }
+
+        manifest_started = time.perf_counter()
+        manifest = build_generated_projection_landing_manifest(repo_root, plan=plan)
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="manifest_ready",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            projection_path_count=len(plan.get("projection_paths") or []),
+            wall_ms=round((time.perf_counter() - manifest_started) * 1000.0, 3),
+        )
+        status_started = time.perf_counter()
+        status_map = _git_status_map(repo_root)
+        projection_paths_to_stage = _dirty_existing_paths(
+            repo_root,
+            [str(path) for path in plan.get("projection_paths") or []],
+            status_map=status_map,
+        )
+        paths_to_stage = sorted(
+            {
+                *[str(path) for path in plan.get("source_authority_paths_to_stage") or []],
+                *projection_paths_to_stage,
+                str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
+            }
+        )
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="paths_selected",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            source_stage_path_count=len(plan.get("source_authority_paths_to_stage") or []),
+            projection_stage_path_count=len(projection_paths_to_stage),
+            total_path_count=len(paths_to_stage),
+            wall_ms=round((time.perf_counter() - status_started) * 1000.0, 3),
+        )
+        dry_payload = {
+            "schema": LANDING_SCHEMA,
+            "ok": True,
+            "dry_run": True,
+            "owner_id": TASK_LEDGER_OWNER_ID,
+            "status": "would_land" if plan.get("dirty_status") == "dirty" else "already_landed",
+            "mode": mode,
+            "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
+            "paths_to_stage": paths_to_stage,
+            "manifest": manifest,
+            "plan": plan,
+            "normal_source_event_after_refresh_allowed": False,
+            "normal_task_ledger_event_after_refresh_allowed": False,
+        }
+        if dry_run:
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="done",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status=dry_payload["status"],
+                commit_hash=None,
+            )
+            return dry_payload
+        if plan.get("dirty_status") != "dirty":
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="done",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status="already_landed",
+                commit_hash=None,
+            )
+            return {
+                **dry_payload,
+                "dry_run": False,
+                "status": "already_landed",
+            }
+
+        manifest_path = repo_root / _landing_manifest_rel(TASK_LEDGER_OWNER_ID)
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        commit_plan_started = time.perf_counter()
+        status_map = _git_status_map(repo_root)
+        paths_to_commit = _head_changed_existing_paths(
+            repo_root,
+            paths_to_stage,
+            status_map=status_map,
+        )
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="commit_paths_selected",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            declared_path_count=len(paths_to_stage),
+            commit_path_count=len(paths_to_commit),
+            wall_ms=round((time.perf_counter() - commit_plan_started) * 1000.0, 3),
+        )
+        if not paths_to_commit:
+            refreshed_index_paths = _refresh_index_only_projection_residue(
+                repo_root,
+                paths_to_stage,
+                status_map=status_map,
+            )
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="done",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                status="already_landed",
+                commit_hash=None,
+            )
+            return {
+                **dry_payload,
+                "dry_run": False,
+                "status": "already_landed",
+                "paths_to_stage": [],
+                "paths_index_refreshed": refreshed_index_paths,
+                **(
+                    {"reason": "index_only_projection_residue_refreshed"}
+                    if refreshed_index_paths
+                    else {}
+                ),
+            }
+        try:
+            if commit_func is None:
+                from tools.meta.control.scoped_commit import perform_scoped_commit
+
+                commit_callable: Callable[..., Mapping[str, Any]] = perform_scoped_commit
+            else:
+                commit_callable = commit_func
+
+            commit_started = time.perf_counter()
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="commit_start",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                path_count=len(paths_to_commit),
+            )
+            commit_result = commit_callable(
+                repo_root=repo_root,
+                paths=paths_to_commit,
+                message=f"Land {_owner_tool_label(TASK_LEDGER_OWNER_ID)} projections append-exempt",
+                allow_untracked=True,
+                allow_multi_hunk_full_paths=True,
+                collect_full_path_hunk_counts=False,
+                work_ledger_session_id=work_ledger_session_id,
+            )
+            _emit_progress(
+                progress_callback,
+                surface="landing",
+                event="commit_done",
+                owner_id=TASK_LEDGER_OWNER_ID,
+                commit_hash=commit_result.get("new_commit"),
+                path_count=len(commit_result.get("changed_paths") or []),
+                wall_ms=round((time.perf_counter() - commit_started) * 1000.0, 3),
+            )
+        except Exception as exc:
+            return {
+                "schema": LANDING_SCHEMA,
+                "ok": False,
+                "dry_run": False,
+                "owner_id": TASK_LEDGER_OWNER_ID,
+                "status": "failed",
+                "reason": "private_index_commit_failed",
+                "error": str(exc),
+                "paths_to_stage": paths_to_commit,
+                "declared_paths_to_stage": paths_to_stage,
+            }
+        refreshed_index_paths = _refresh_index_only_projection_residue(repo_root, paths_to_stage)
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="done",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            status="landed",
+            commit_hash=commit_result.get("new_commit"),
+            index_refreshed_path_count=len(refreshed_index_paths),
+        )
+        result = {
+            "schema": LANDING_SCHEMA,
+            "ok": True,
+            "dry_run": False,
+            "owner_id": TASK_LEDGER_OWNER_ID,
+            "status": "landed",
+            "mode": mode,
+            "commit_hash": commit_result.get("new_commit"),
+            "paths_staged": commit_result.get("changed_paths"),
+            "landing_manifest_path": str(_landing_manifest_rel(TASK_LEDGER_OWNER_ID)),
+            "normal_source_event_after_refresh_allowed": False,
+            "normal_task_ledger_event_after_refresh_allowed": False,
+        }
+        if refreshed_index_paths:
+            result["paths_index_refreshed"] = refreshed_index_paths
+        return result
+
+
 def land_generated_projection_bundle(
     repo_root: Path,
     *,
@@ -1099,7 +2034,7 @@ def land_generated_projection_bundle(
     progress_callback: ProgressCallback | None = None,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
-    owner = str(owner_id or WORK_LEDGER_OWNER_ID).strip()
+    owner = normalize_projection_owner_id(owner_id, default=WORK_LEDGER_OWNER_ID)
     landing_mode = str(mode or "").strip()
     if owner not in SUPPORTED_LANDING_OWNER_IDS:
         return _unsupported_landing_payload(owner, dry_run=dry_run)
@@ -1122,6 +2057,47 @@ def land_generated_projection_bundle(
         dry_run=bool(dry_run),
         mode=landing_mode,
     )
+    if owner == TASK_LEDGER_OWNER_ID and not dry_run:
+        return _land_task_ledger_projection_bundle_locked(
+            repo_root,
+            mode=landing_mode,
+            dry_run=False,
+            landing_plan=landing_plan,
+            commit_func=commit_func,
+            work_ledger_session_id=work_ledger_session_id,
+            progress_callback=progress_callback,
+        )
+    if owner == TASK_LEDGER_OWNER_ID and not dry_run and landing_plan is None:
+        with _task_ledger_source_lock_for_landing(repo_root) as source_lock:
+            if not source_lock.get("acquired"):
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="retry_later",
+                    owner_id=owner,
+                    status="retry_later",
+                    reason=source_lock.get("reason"),
+                )
+                return {
+                    "schema": LANDING_SCHEMA,
+                    "ok": False,
+                    "dry_run": False,
+                    "owner_id": owner,
+                    "status": "retry_later",
+                    "reason": "task_ledger_source_mutation_in_progress",
+                    "retry_later": True,
+                    "blocked_by": ["task_ledger_source_writer_lock_held"],
+                    "source_lock": source_lock,
+                    "normal_source_event_after_refresh_allowed": False,
+                    "normal_task_ledger_event_after_refresh_allowed": False,
+                }
+        _emit_progress(
+            progress_callback,
+            surface="landing",
+            event="source_lock_probe_clear",
+            owner_id=owner,
+            status="acquired_then_released",
+        )
     plan_started = time.perf_counter()
     plan = (
         dict(landing_plan)
@@ -1139,6 +2115,12 @@ def land_generated_projection_bundle(
         wall_ms=round((time.perf_counter() - plan_started) * 1000.0, 3),
         reused_plan=bool(landing_plan is not None),
     )
+    if (
+        not dry_run
+        and plan.get("status") in {"append_exempt_manifest_available", "refresh_required"}
+        and not _has_work_ledger_session_id(work_ledger_session_id)
+    ):
+        return _landing_missing_session_payload(owner=owner, dry_run=False, plan=plan)
     if plan.get("status") == "refresh_required" and not dry_run:
         refresh_started = time.perf_counter()
         _emit_progress(
@@ -1149,9 +2131,54 @@ def land_generated_projection_bundle(
             status=plan.get("status"),
         )
         if owner == WORK_LEDGER_OWNER_ID:
-            work_ledger.project_all(repo_root)
+            _refresh_work_ledger_projection_for_landing_plan(repo_root, plan)
         elif owner == TASK_LEDGER_OWNER_ID:
-            task_ledger_events.rebuild_projections(repo_root)
+            with _task_ledger_source_lock_for_landing(repo_root) as source_lock:
+                if not source_lock.get("acquired"):
+                    _emit_progress(
+                        progress_callback,
+                        surface="landing",
+                        event="retry_later",
+                        owner_id=owner,
+                        status="retry_later",
+                        reason=source_lock.get("reason"),
+                    )
+                    return {
+                        "schema": LANDING_SCHEMA,
+                        "ok": False,
+                        "dry_run": False,
+                        "owner_id": owner,
+                        "status": "retry_later",
+                        "reason": "task_ledger_source_mutation_in_progress",
+                        "retry_later": True,
+                        "blocked_by": ["task_ledger_source_writer_lock_held"],
+                        "source_lock": source_lock,
+                        "plan": plan,
+                        "normal_source_event_after_refresh_allowed": False,
+                        "normal_task_ledger_event_after_refresh_allowed": False,
+                    }
+                _emit_progress(
+                    progress_callback,
+                    surface="landing",
+                    event="source_lock_acquired",
+                    owner_id=owner,
+                    status=source_lock.get("status"),
+                    lock_mode=source_lock.get("mode"),
+                )
+                rebuild_result = task_ledger_events._rebuild_projections_with_health_unlocked(repo_root)
+            if not bool(rebuild_result.get("ok")):
+                return {
+                    "schema": LANDING_SCHEMA,
+                    "ok": False,
+                    "dry_run": False,
+                    "owner_id": owner,
+                    "status": "failed",
+                    "reason": "task_ledger_projection_rebuild_failed",
+                    "projection_result": rebuild_result,
+                    "plan": plan,
+                    "normal_source_event_after_refresh_allowed": False,
+                    "normal_task_ledger_event_after_refresh_allowed": False,
+                }
         else:
             owner_row = generated_projection_registry.get_projection_owner(owner)
             proc = subprocess.run(
@@ -1422,6 +2449,10 @@ def _settlement_action_for_plan(plan: Mapping[str, Any]) -> str:
 def _settlement_owner_row(plan: Mapping[str, Any]) -> dict[str, Any]:
     owner_id = str(plan.get("owner_id") or "").strip()
     required_action = _settlement_action_for_plan(plan)
+    owner_settle_dry_run = (
+        "./repo-python tools/meta/control/generated_state_drainer.py "
+        f"settle --owner-id {owner_id} --dry-run"
+    )
     row = {
         "_landing_plan": dict(plan),
         "owner_id": owner_id,
@@ -1434,7 +2465,7 @@ def _settlement_owner_row(plan: Mapping[str, Any]) -> dict[str, Any]:
         "required_action": required_action,
         "owner_required_next_command": plan.get("required_next_command"),
         "required_next_command": (
-            "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run"
+            owner_settle_dry_run
             if required_action in {"land_append_exempt", "refresh_then_land_append_exempt"}
             else plan.get("required_next_command")
         ),
@@ -1464,7 +2495,56 @@ def _settlement_owner_row(plan: Mapping[str, Any]) -> dict[str, Any]:
         row["source_coupling_owner_route_hints"] = list(plan.get("source_coupling_owner_route_hints") or [])
         row["owner_handoff_class"] = plan.get("owner_handoff_class")
         row["required_owner_resolution"] = plan.get("required_owner_resolution")
+    row.update(_projection_settlement_item_fields(row))
     return row
+
+
+def _projection_settlement_item_class(row: Mapping[str, Any]) -> str:
+    blocked_by = {str(item) for item in (row.get("blocked_by") or [])}
+    required_action = str(row.get("required_action") or "")
+    source_dirty_status = str(row.get("source_dirty_status") or "")
+    if "owner_landing_policy_not_implemented" in blocked_by:
+        return "owner_landing_policy_not_implemented"
+    if "source_authority_missing" in blocked_by:
+        return "source_authority_missing"
+    if any("active_claim" in blocker for blocker in blocked_by):
+        return "active_claim_refused_refresh"
+    if required_action == "refresh_then_land_append_exempt":
+        return "source_dirty_projection_stale"
+    if required_action == "land_append_exempt":
+        return "source_clean_projection_stale" if source_dirty_status == "clean" else "source_dirty_projection_stale"
+    if required_action == "blocked":
+        return "blocked_projection_settlement"
+    return "none"
+
+
+def _projection_settlement_item_fields(row: Mapping[str, Any]) -> dict[str, Any]:
+    owner_id = str(row.get("owner_id") or "").strip()
+    item_class = _projection_settlement_item_class(row)
+    closeout_relevance = item_class != "none"
+    reentry_command = str(row.get("required_next_command") or row.get("owner_required_next_command") or "none").strip()
+    item = {
+        "schema": "projection_settlement_item_v1",
+        "item_id": f"projection_settlement:{owner_id}",
+        "item_class": item_class,
+        "owner_id": owner_id,
+        "owner_lane": owner_id,
+        "source_dirty_status": row.get("source_dirty_status"),
+        "dirty_status": row.get("dirty_status"),
+        "blocked_by": list(row.get("blocked_by") or []),
+        "reentry_command": reentry_command,
+        "closeout_relevance": closeout_relevance,
+        "retirement_condition": "owner required_action becomes none in generated_projection_settlement_plan_v0",
+        "retirement_evidence": "settlement plan owner row required_action=none and dirty_status=clean",
+    }
+    return {
+        "settlement_item_id": item["item_id"],
+        "settlement_item_class": item_class,
+        "settlement_reentry_command": reentry_command,
+        "settlement_retirement_condition": item["retirement_condition"],
+        "closeout_relevance": closeout_relevance,
+        "settlement_item": item,
+    }
 
 
 def _public_settlement_plan(plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -1480,7 +2560,7 @@ def _public_settlement_plan(plan: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _settlement_owner_ids(owner_ids: Sequence[str] | None = None) -> list[str]:
-    requested = [str(owner_id).strip() for owner_id in (owner_ids or []) if str(owner_id).strip()]
+    requested = normalize_projection_owner_ids(owner_ids)
     if not requested:
         return list(SUPPORTED_SETTLEMENT_OWNER_IDS)
     seen: set[str] = set()
@@ -1491,6 +2571,28 @@ def _settlement_owner_ids(owner_ids: Sequence[str] | None = None) -> list[str]:
         seen.add(owner_id)
         ordered.append(owner_id)
     return ordered
+
+
+def _unsupported_projection_settlement_owner_row(owner_id: str, *, planning_mode: str | None = None) -> dict[str, Any]:
+    row: dict[str, Any] = {
+        "owner_id": owner_id,
+        "status": "refused",
+        "freshness_status": None,
+        "dirty_status": None,
+        "source_dirty_status": None,
+        "can_apply": False,
+        "blocked_by": ["owner_landing_policy_not_implemented"],
+        "required_action": "blocked",
+        "required_next_command": "none",
+        "landing_manifest_path": None,
+        "normal_source_event_after_refresh_allowed": False,
+        "path_count": 0,
+        "diff_stat": {},
+    }
+    if planning_mode:
+        row["planning_mode"] = planning_mode
+    row.update(_projection_settlement_item_fields(row))
+    return row
 
 
 def _fast_settlement_owner_row(
@@ -1528,6 +2630,10 @@ def _fast_settlement_owner_row(
         required_task_source_missing
         or (owner_id in {WORK_LEDGER_OWNER_ID, TASK_LEDGER_OWNER_ID} and not source_paths)
     )
+    owner_settle_dry_run = (
+        "./repo-python tools/meta/control/generated_state_drainer.py "
+        f"settle --owner-id {owner_id} --dry-run --fast-plan --compact"
+    )
     if source_missing_with_projections:
         status_text = "source_authority_missing"
         dirty_status = "dirty" if projection_dirty or manifest_dirty else "clean"
@@ -1546,7 +2652,7 @@ def _fast_settlement_owner_row(
         required_action = "refresh_then_land_append_exempt"
         can_apply = True
         blocked_by = []
-        required_next = "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run"
+        required_next = owner_settle_dry_run
     elif source_dirty or projection_dirty or manifest_dirty:
         status_text = "append_exempt_manifest_available"
         dirty_status = "dirty"
@@ -1554,7 +2660,7 @@ def _fast_settlement_owner_row(
         required_action = "land_append_exempt"
         can_apply = True
         blocked_by = []
-        required_next = "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run"
+        required_next = owner_settle_dry_run
     else:
         status_text = "already_landed"
         dirty_status = "clean"
@@ -1624,6 +2730,7 @@ def _fast_settlement_owner_row(
         row["normal_task_ledger_event_after_refresh_allowed"] = False
     if owner_id == SYSTEM_ATLAS_OWNER_ID:
         row["normal_system_atlas_event_after_refresh_allowed"] = False
+    row.update(_projection_settlement_item_fields(row))
     return row
 
 
@@ -1640,24 +2747,7 @@ def build_generated_projection_settlement_fast_plan(
     for owner_id in requested_owner_ids:
         if owner_id not in SUPPORTED_LANDING_OWNER_IDS:
             unsupported_owner_ids.append(owner_id)
-            owners.append(
-                {
-                    "owner_id": owner_id,
-                    "status": "refused",
-                    "freshness_status": None,
-                    "dirty_status": None,
-                    "source_dirty_status": None,
-                    "can_apply": False,
-                    "blocked_by": ["owner_landing_policy_not_implemented"],
-                    "required_action": "blocked",
-                    "required_next_command": "none",
-                    "landing_manifest_path": None,
-                    "normal_source_event_after_refresh_allowed": False,
-                    "path_count": 0,
-                    "diff_stat": {},
-                    "planning_mode": "cached_git_status",
-                }
-            )
+            owners.append(_unsupported_projection_settlement_owner_row(owner_id, planning_mode="cached_git_status"))
             continue
         owners.append(_fast_settlement_owner_row(repo_root, owner_id=owner_id, status_map=status_map))
 
@@ -1680,13 +2770,17 @@ def build_generated_projection_settlement_fast_plan(
     if blocked:
         blocked_by.append("owner_settlement_blocked")
     can_settle = status in {"clean", "settlement_required"}
+    owner_arg = "".join(f" --owner-id {owner_id}" for owner_id in requested_owner_ids)
     return {
         "schema": SETTLEMENT_PLAN_SCHEMA,
         "ok": not blocked,
         "status": status,
         "planning_mode": "cached_git_status",
         "authority_level": "cached_status_only",
-        "full_authority_command": "./repo-python tools/meta/control/generated_state_drainer.py settlement-plan --full-diff-stat",
+        "full_authority_command": (
+            "./repo-python tools/meta/control/generated_state_drainer.py "
+            f"settlement-plan{owner_arg} --full-diff-stat"
+        ),
         "supported_owner_ids": list(SUPPORTED_LANDING_OWNER_IDS),
         "settlement_order": requested_owner_ids,
         "owners": owners,
@@ -1698,7 +2792,10 @@ def build_generated_projection_settlement_fast_plan(
         "required_next_command": (
             "none"
             if status == "clean"
-            else "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run --fast-plan"
+            else (
+                "./repo-python tools/meta/control/generated_state_drainer.py "
+                f"settle{owner_arg} --dry-run --fast-plan"
+            )
             if status == "settlement_required"
             else "repair blocked projection owner before settlement"
         ),
@@ -1736,23 +2833,7 @@ def build_generated_projection_settlement_plan(
     for owner_id in requested_owner_ids:
         if owner_id not in SUPPORTED_LANDING_OWNER_IDS:
             unsupported_owner_ids.append(owner_id)
-            owners.append(
-                {
-                    "owner_id": owner_id,
-                    "status": "refused",
-                    "freshness_status": None,
-                    "dirty_status": None,
-                    "source_dirty_status": None,
-                    "can_apply": False,
-                    "blocked_by": ["owner_landing_policy_not_implemented"],
-                    "required_action": "blocked",
-                    "required_next_command": "none",
-                    "landing_manifest_path": None,
-                    "normal_source_event_after_refresh_allowed": False,
-                    "path_count": 0,
-                    "diff_stat": {},
-                }
-            )
+            owners.append(_unsupported_projection_settlement_owner_row(owner_id))
             continue
         owners.append(
             _settlement_owner_row(
@@ -1785,6 +2866,7 @@ def build_generated_projection_settlement_plan(
     if blocked:
         blocked_by.append("owner_settlement_blocked")
     can_settle = status in {"clean", "settlement_required"}
+    owner_arg = "".join(f" --owner-id {owner_id}" for owner_id in requested_owner_ids)
     return {
         "schema": SETTLEMENT_PLAN_SCHEMA,
         "ok": not blocked,
@@ -1800,7 +2882,10 @@ def build_generated_projection_settlement_plan(
         "required_next_command": (
             "none"
             if status == "clean"
-            else "./repo-python tools/meta/control/generated_state_drainer.py settle --dry-run"
+            else (
+                "./repo-python tools/meta/control/generated_state_drainer.py "
+                f"settle{owner_arg} --dry-run"
+            )
             if status == "settlement_required"
             else "repair blocked projection owner before settlement"
         ),
@@ -1866,6 +2951,121 @@ def _settlement_progress_summary(owner_results: Sequence[Mapping[str, Any]]) -> 
         "commit_hashes": commits,
         "landed_count": sum(1 for row in owner_results if row.get("result_status") == "landed"),
         "already_landed_count": sum(1 for row in owner_results if row.get("result_status") == "already_landed"),
+    }
+
+
+def _settlement_source_moved_owner_ids(plan: Mapping[str, Any]) -> list[str]:
+    owner_ids: list[str] = []
+    for owner in plan.get("owners") or []:
+        if not isinstance(owner, Mapping):
+            continue
+        if owner.get("required_action") not in {
+            "land_append_exempt",
+            "refresh_then_land_append_exempt",
+        }:
+            continue
+        path_bundle = owner.get("path_bundle") if isinstance(owner.get("path_bundle"), Mapping) else {}
+        dirty_summary = (
+            path_bundle.get("dirty_path_summary")
+            if isinstance(path_bundle.get("dirty_path_summary"), Mapping)
+            else {}
+        )
+        source_dirty_count = dirty_summary.get("source_authority_dirty_count")
+        try:
+            source_dirty_count_int = int(source_dirty_count or 0)
+        except (TypeError, ValueError):
+            source_dirty_count_int = 0
+        source_dirty = (
+            owner.get("source_dirty_status") == "dirty"
+            or source_dirty_count_int > 0
+            or bool(path_bundle.get("source_authority_paths_to_stage"))
+        )
+        if source_dirty:
+            owner_id = str(owner.get("owner_id") or "")
+            if owner_id:
+                owner_ids.append(owner_id)
+    return owner_ids
+
+
+def _settlement_source_moved_residual_fields(owner_ids: Sequence[str]) -> dict[str, Any]:
+    owner_ids = [str(owner_id) for owner_id in owner_ids if str(owner_id)]
+    return {
+        "terminal_residual": True,
+        "residual_actionability": "wait_for_source_authority_quiescence_before_retry",
+        "retry_policy": "do_not_loop_immediately_after_partial_settlement_progress",
+        "reentry_condition": (
+            "Rerun settlement-plan after recent Task/Work Ledger writers are quiet and source authority "
+            "paths remain stable; do not repeat settlement in a tight loop while these owners keep moving."
+        ),
+        "next_safe_command": "./repo-python tools/meta/control/generated_state_drainer.py settlement-plan --fast --compact",
+        "source_moved_owner_ids": owner_ids,
+    }
+
+
+def _settlement_freshness_only_owner_ids(plan: Mapping[str, Any]) -> list[str]:
+    owner_ids: list[str] = []
+    for owner in plan.get("owners") or []:
+        if not isinstance(owner, Mapping):
+            continue
+        if owner.get("required_action") != "refresh_then_land_append_exempt":
+            continue
+        if (
+            owner.get("dirty_status") != "clean"
+            or owner.get("source_dirty_status") != "clean"
+        ):
+            continue
+        path_bundle = (
+            owner.get("path_bundle") if isinstance(owner.get("path_bundle"), Mapping) else {}
+        )
+        dirty_summary = (
+            path_bundle.get("dirty_path_summary")
+            if isinstance(path_bundle.get("dirty_path_summary"), Mapping)
+            else {}
+        )
+        try:
+            source_dirty_count = int(
+                dirty_summary.get("source_authority_dirty_count") or 0
+            )
+            projection_dirty_count = int(dirty_summary.get("projection_dirty_count") or 0)
+        except (TypeError, ValueError):
+            continue
+        if (
+            source_dirty_count
+            or projection_dirty_count
+            or dirty_summary.get("landing_manifest_dirty")
+        ):
+            continue
+        if path_bundle.get("source_authority_paths_to_stage") or path_bundle.get(
+            "projection_paths_to_stage"
+        ):
+            continue
+        diff_stat = (
+            owner.get("diff_stat") if isinstance(owner.get("diff_stat"), Mapping) else {}
+        )
+        total_changed_lines = diff_stat.get("total_changed_lines")
+        if total_changed_lines not in (None, 0):
+            continue
+        owner_id = str(owner.get("owner_id") or "")
+        if owner_id:
+            owner_ids.append(owner_id)
+    return owner_ids
+
+
+def _settlement_freshness_only_residual_fields(owner_ids: Sequence[str]) -> dict[str, Any]:
+    owner_ids = [str(owner_id) for owner_id in owner_ids if str(owner_id)]
+    return {
+        "terminal_residual": True,
+        "residual_actionability": "no_dirty_outputs_recheck_full_authority_before_retry",
+        "retry_policy": "do_not_loop_for_zero_diff_freshness_residual",
+        "reentry_condition": (
+            "Rerun the full-authority settlement plan if a later git status shows dirty "
+            "projection paths; do not repeat settlement just for a zero-diff freshness marker."
+        ),
+        "next_safe_command": (
+            "./repo-python tools/meta/control/generated_state_drainer.py "
+            "settlement-plan --compact --full-authority"
+        ),
+        "freshness_only_owner_ids": owner_ids,
     }
 
 
@@ -1974,6 +3174,8 @@ def _resource_lease_surface_status(repo_root: Path) -> dict[str, Any]:
         repo_root / "tools/meta/control/resource_lease.py",
         repo_root / "state/resource_leases/leases.jsonl",
         repo_root / "state/resource_leases/leases.json",
+        repo_root / "state/resource_leases/work_queue_events.jsonl",
+        repo_root / "state/resource_leases/work_queue.json",
     ]
     existing = [path for path in candidates if path.exists()]
     if not existing:
@@ -1983,12 +3185,33 @@ def _resource_lease_surface_status(repo_root: Path) -> dict[str, Any]:
                 "tools/meta/control/resource_lease.py",
                 "state/resource_leases/leases.jsonl",
                 "state/resource_leases/leases.json",
+                "state/resource_leases/work_queue_events.jsonl",
+                "state/resource_leases/work_queue.json",
             ],
         }
-    return {
+    status = {
         "status": "available",
         "surface": str(existing[0].relative_to(repo_root)),
     }
+    queue_path = repo_root / resource_work_queue.RESOURCE_QUEUE_VIEW_REL
+    if queue_path.exists():
+        try:
+            queue = resource_work_queue.load_resource_work_queue(repo_root)
+            status["resource_work_queue"] = {
+                "status": "available",
+                "authority": str(resource_work_queue.RESOURCE_QUEUE_EVENTS_REL),
+                "projection": str(resource_work_queue.RESOURCE_QUEUE_VIEW_REL),
+                "pending_count": queue.get("pending_count"),
+                "running_count": queue.get("running_count"),
+                "operating_picture": queue.get("operating_picture")
+                or resource_work_queue.build_resource_work_queue_operating_picture(queue),
+            }
+        except Exception as exc:
+            status["resource_work_queue"] = {
+                "status": "unavailable",
+                "error": str(exc),
+            }
+    return status
 
 
 def _settlement_base_controls(repo_root: Path) -> dict[str, Any]:
@@ -2217,6 +3440,7 @@ def settle_generated_projection_owners(
     dry_run: bool = False,
     max_passes: int = 3,
     fast_plan: bool = False,
+    bounded_final_plan: bool = False,
     work_ledger_session_id: str | None = None,
     progress_callback: ProgressCallback | None = None,
 ) -> dict[str, Any]:
@@ -2261,10 +3485,73 @@ def settle_generated_projection_owners(
         )
         return payload
 
+    controls = _settlement_base_controls(repo_root)
+    requested_owner_ids = _settlement_owner_ids(owner_ids)
+    if not dry_run and TASK_LEDGER_OWNER_ID in requested_owner_ids:
+        with _task_ledger_source_lock_for_landing(repo_root) as source_lock:
+            if not source_lock.get("acquired"):
+                retry_plan = {
+                    "schema": SETTLEMENT_PLAN_SCHEMA,
+                    "ok": False,
+                    "status": "retry_later",
+                    "settlement_order": requested_owner_ids,
+                    "owners": [],
+                    "dirty_owner_count": 0,
+                    "refresh_required_owner_count": 0,
+                    "blocked_owner_count": 1,
+                    "can_settle": False,
+                    "blocked_by": ["task_ledger_source_writer_lock_held"],
+                    "eventful_closeout_allowed_after_settlement": False,
+                    "normal_source_event_after_refresh_allowed": False,
+                }
+                return _with_timing({
+                    "schema": SETTLEMENT_SCHEMA,
+                    "ok": False,
+                    "dry_run": False,
+                    "status": "settlement_retry_later",
+                    "reason": "task_ledger_source_mutation_in_progress",
+                    "retry_later": True,
+                    "retry_owner_ids": [TASK_LEDGER_OWNER_ID],
+                    "source_moving_owner_ids": [TASK_LEDGER_OWNER_ID],
+                    "blocked_by": ["task_ledger_source_writer_lock_held"],
+                    "source_lock": source_lock,
+                    "retry_after_condition": (
+                        "Task Ledger writer lock is free and the settlement plan still requires owner landing"
+                    ),
+                    "owners": [],
+                    "progress_events": [
+                        {
+                            "event": "source_lock_retry_later",
+                            "owner_id": TASK_LEDGER_OWNER_ID,
+                            "status": source_lock.get("status"),
+                            "reason": source_lock.get("reason"),
+                        }
+                    ],
+                    "before_plan": retry_plan,
+                    "final_plan": retry_plan,
+                    **controls,
+                    **_settlement_closeout_fields(
+                        repo_root,
+                        status="settlement_retry_later",
+                        dry_run=False,
+                        final_plan=retry_plan,
+                    ),
+                    "normal_source_event_after_refresh_allowed": False,
+                    "eventful_closeout_allowed_after_settlement": False,
+                })
+        _emit_progress(
+            progress_callback,
+            surface="settlement",
+            event="source_lock_probe_clear",
+            owner_id=TASK_LEDGER_OWNER_ID,
+            status="acquired_then_released",
+        )
+
+    use_fast_initial_plan = bool(fast_plan)
     collect_plan_diff_stat = not dry_run
     plan_builder = (
         build_generated_projection_settlement_fast_plan
-        if dry_run and fast_plan
+        if use_fast_initial_plan
         else build_generated_projection_settlement_plan
     )
     initial_plan_started = time.perf_counter()
@@ -2273,11 +3560,11 @@ def settle_generated_projection_owners(
         surface="settlement",
         event="initial_plan_start",
         dry_run=bool(dry_run),
-        fast_plan=bool(dry_run and fast_plan),
+        fast_plan=use_fast_initial_plan,
     )
     before = (
         plan_builder(repo_root, owner_ids=owner_ids)
-        if dry_run and fast_plan
+        if use_fast_initial_plan
         else plan_builder(repo_root, owner_ids=owner_ids, collect_diff_stat=collect_plan_diff_stat)
     )
     initial_plan_wall_ms = round((time.perf_counter() - initial_plan_started) * 1000.0, 3)
@@ -2287,7 +3574,8 @@ def settle_generated_projection_owners(
         status=before.get("status"),
         dirty_owner_count=before.get("dirty_owner_count"),
         blocked_owner_count=before.get("blocked_owner_count"),
-        fast_plan=bool(dry_run and fast_plan),
+        fast_plan=use_fast_initial_plan,
+        authority_level=before.get("authority_level"),
     )
     _emit_progress(
         progress_callback,
@@ -2298,7 +3586,6 @@ def settle_generated_projection_owners(
         blocked_owner_count=before.get("blocked_owner_count"),
         wall_ms=initial_plan_wall_ms,
     )
-    controls = _settlement_base_controls(repo_root)
     progress_events: list[dict[str, Any]] = [
         {
             "event": "settlement_plan_built",
@@ -2351,11 +3638,86 @@ def settle_generated_projection_owners(
             "normal_source_event_after_refresh_allowed": False,
             "eventful_closeout_allowed_after_settlement": False,
         })
+    if not dry_run and not _has_work_ledger_session_id(work_ledger_session_id):
+        command_template = (
+            "./repo-python tools/meta/control/generated_state_drainer.py settle "
+            "--work-ledger-session-id <session_id>"
+        )
+        status = "refused"
+        return _with_timing({
+            "schema": SETTLEMENT_SCHEMA,
+            "ok": False,
+            "dry_run": False,
+            "status": status,
+            "reason": "missing_work_ledger_session_id",
+            "blocked_by": ["work_ledger_session_id_required"],
+            "mutation_guard": _session_required_guard(command_template=command_template),
+            "required_next_command": command_template,
+            "owners": [],
+            "progress_events": progress_events,
+            "before_plan": _public_settlement_plan(before),
+            "final_plan": _public_settlement_plan(before),
+            **controls,
+            **_settlement_closeout_fields(
+                repo_root,
+                status=status,
+                dry_run=False,
+                final_plan=before,
+            ),
+            "normal_source_event_after_refresh_allowed": False,
+            "eventful_closeout_allowed_after_settlement": False,
+        })
 
     owner_results: list[dict[str, Any]] = []
     final_plan = before
     pass_limit = max(1, int(max_passes or 1))
     seen_residual_signatures: dict[str, int] = {}
+
+    def _has_commit_progress() -> bool:
+        return any(row.get("commit_hash") for row in owner_results)
+
+    def _build_post_progress_plan(*, reason: str) -> tuple[dict[str, Any], float, str]:
+        """Build the final settlement plan without turning compact closeout into a full audit."""
+        final_plan_started = time.perf_counter()
+        use_bounded_plan = bool(bounded_final_plan and not dry_run and _has_commit_progress())
+        _emit_progress(
+            progress_callback,
+            surface="settlement",
+            event="final_plan_start" if not use_bounded_plan else "final_fast_plan_start",
+            reason=reason,
+        )
+        plan = (
+            build_generated_projection_settlement_fast_plan(repo_root, owner_ids=owner_ids)
+            if use_bounded_plan
+            else build_generated_projection_settlement_plan(
+                repo_root,
+                owner_ids=owner_ids,
+                collect_diff_stat=True,
+            )
+        )
+        wall_ms = round((time.perf_counter() - final_plan_started) * 1000.0, 3)
+        phase_name = "final_fast_plan" if use_bounded_plan else "final_plan"
+        _record_phase(
+            phase_name,
+            final_plan_started,
+            reason=reason,
+            status=plan.get("status"),
+            dirty_owner_count=plan.get("dirty_owner_count"),
+            blocked_owner_count=plan.get("blocked_owner_count"),
+            authority_level=plan.get("authority_level"),
+        )
+        _emit_progress(
+            progress_callback,
+            surface="settlement",
+            event="final_plan_done" if not use_bounded_plan else "final_fast_plan_done",
+            reason=reason,
+            status=plan.get("status"),
+            dirty_owner_count=plan.get("dirty_owner_count"),
+            blocked_owner_count=plan.get("blocked_owner_count"),
+            wall_ms=wall_ms,
+        )
+        return plan, wall_ms, phase_name
+
     for pass_index in range(1, pass_limit + 1):
         if pass_index == 1:
             active_plan = before
@@ -2369,7 +3731,7 @@ def settle_generated_projection_owners(
             )
             active_plan = (
                 plan_builder(repo_root, owner_ids=owner_ids)
-                if dry_run and fast_plan
+                if use_fast_initial_plan
                 else plan_builder(repo_root, owner_ids=owner_ids, collect_diff_stat=collect_plan_diff_stat)
             )
             replan_wall_ms = round((time.perf_counter() - replan_started) * 1000.0, 3)
@@ -2440,19 +3802,60 @@ def settle_generated_projection_owners(
             residual_signature = _settlement_residual_signature(active_plan)
             previous_pass_index = seen_residual_signatures.get(residual_signature or "")
             if residual_signature and previous_pass_index is not None:
+                progress = _settlement_progress_summary(owner_results)
+                source_moved_owner_ids = _settlement_source_moved_owner_ids(active_plan)
+                freshness_only_owner_ids = _settlement_freshness_only_owner_ids(active_plan)
+                source_moved_after_progress = bool(
+                    progress.get("commit_count") and source_moved_owner_ids
+                )
+                freshness_only_after_progress = bool(
+                    progress.get("commit_count") and freshness_only_owner_ids
+                )
+                status = (
+                    "settlement_residual_source_moved"
+                    if source_moved_after_progress
+                    else "settlement_residual_freshness_only"
+                    if freshness_only_after_progress
+                    else "settlement_residual_repeated_signature"
+                )
+                reason = (
+                    "source_authority_moved_during_settlement"
+                    if source_moved_after_progress
+                    else "zero_diff_freshness_marker_after_settlement"
+                    if freshness_only_after_progress
+                    else "residual_plan_repeated_after_progress"
+                )
                 return _with_timing({
                     "schema": SETTLEMENT_SCHEMA,
-                    "ok": False,
+                    "ok": bool(source_moved_after_progress or freshness_only_after_progress),
                     "dry_run": False,
-                    "status": "settlement_residual_repeated_signature",
-                    "reason": "residual_plan_repeated_after_progress",
+                    "status": status,
+                    "reason": reason,
+                    **(
+                        {
+                            "partial_success": True,
+                            "residual_class": "concurrent_source_authority_moved",
+                        }
+                        if source_moved_after_progress
+                        else {}
+                    ),
                     "pass_count": pass_index - 1,
                     "max_passes": pass_limit,
                     "previous_pass_index": previous_pass_index,
                     "current_pass_index": pass_index,
                     "residual_signature": residual_signature,
-                    "progress": _settlement_progress_summary(owner_results),
+                    "progress": progress,
                     "residual_owners": _settlement_residual_owner_rows(active_plan),
+                    **(
+                        _settlement_source_moved_residual_fields(source_moved_owner_ids)
+                        if source_moved_owner_ids
+                        else {}
+                    ),
+                    **(
+                        _settlement_freshness_only_residual_fields(freshness_only_owner_ids)
+                        if freshness_only_owner_ids
+                        else {}
+                    ),
                     "owners": owner_results,
                     "progress_events": progress_events,
                     "before_plan": _public_settlement_plan(before),
@@ -2460,7 +3863,7 @@ def settle_generated_projection_owners(
                     **controls,
                     **_settlement_closeout_fields(
                         repo_root,
-                        status="settlement_residual_repeated_signature",
+                        status=status,
                         dry_run=False,
                         final_plan=active_plan,
                     ),
@@ -2589,43 +3992,76 @@ def settle_generated_projection_owners(
                 owner_result["error"] = result.get("error")
                 owner_result["reason"] = result.get("reason")
                 owner_results.append(owner_result)
+                if result.get("retry_later"):
+                    retry_owner_ids = [owner_id] if owner_id else []
+                    return _with_timing({
+                        "schema": SETTLEMENT_SCHEMA,
+                        "ok": False,
+                        "dry_run": bool(dry_run),
+                        "status": "settlement_retry_later",
+                        "reason": result.get("reason") or "owner_landing_retry_later",
+                        "retry_later": True,
+                        "retry_owner_ids": retry_owner_ids,
+                        "source_moving_owner_ids": retry_owner_ids,
+                        "blocked_by": result.get("blocked_by") or [],
+                        "retry_after_condition": (
+                            "Task Ledger writer lock is free and the settlement plan still requires owner landing"
+                        ),
+                        "progress": _settlement_progress_summary(owner_results),
+                        "residual_owners": _settlement_residual_owner_rows(active_plan),
+                        "owners": owner_results,
+                        "progress_events": progress_events,
+                        "before_plan": _public_settlement_plan(before),
+                        "final_plan": _public_settlement_plan(active_plan),
+                        **controls,
+                        **_settlement_closeout_fields(
+                            repo_root,
+                            status="settlement_retry_later",
+                            dry_run=bool(dry_run),
+                            final_plan=active_plan,
+                        ),
+                        "normal_source_event_after_refresh_allowed": False,
+                        "eventful_closeout_allowed_after_settlement": False,
+                    })
                 if dry_run:
                     final_plan = before
                 else:
-                    final_plan_started = time.perf_counter()
-                    _emit_progress(
-                        progress_callback,
-                        surface="settlement",
-                        event="final_replan_start",
-                        reason="owner_failed",
-                    )
-                    final_plan = build_generated_projection_settlement_plan(
-                        repo_root,
-                        owner_ids=owner_ids,
-                        collect_diff_stat=True,
-                    )
-                    final_replan_wall_ms = round((time.perf_counter() - final_plan_started) * 1000.0, 3)
-                    _record_phase(
-                        "final_replan",
-                        final_plan_started,
-                        status=final_plan.get("status"),
-                        dirty_owner_count=final_plan.get("dirty_owner_count"),
-                        blocked_owner_count=final_plan.get("blocked_owner_count"),
-                    )
-                    _emit_progress(
-                        progress_callback,
-                        surface="settlement",
-                        event="final_replan_done",
-                        status=final_plan.get("status"),
-                        dirty_owner_count=final_plan.get("dirty_owner_count"),
-                        blocked_owner_count=final_plan.get("blocked_owner_count"),
-                        wall_ms=final_replan_wall_ms,
-                    )
+                    final_plan, _, _ = _build_post_progress_plan(reason="owner_failed")
+                failed_status = "failed"
+                failed_reason = None
+                source_moved_owner_ids = _settlement_source_moved_owner_ids(final_plan)
+                progress = _settlement_progress_summary(owner_results)
+                source_moved_after_progress = bool(
+                    not dry_run and progress.get("commit_count") and source_moved_owner_ids
+                )
+                if source_moved_after_progress:
+                    failed_status = "settlement_residual_source_moved"
+                    failed_reason = "source_authority_moved_during_settlement"
                 return _with_timing({
                     "schema": SETTLEMENT_SCHEMA,
-                    "ok": False,
+                    "ok": bool(source_moved_after_progress),
                     "dry_run": bool(dry_run),
-                    "status": "failed",
+                    "status": failed_status,
+                    **({"reason": failed_reason} if failed_reason else {}),
+                    **(
+                        {
+                            "partial_success": True,
+                            "residual_class": "concurrent_source_authority_moved",
+                        }
+                        if source_moved_after_progress
+                        else {}
+                    ),
+                    **({"progress": progress} if failed_status != "failed" else {}),
+                    **(
+                        {"residual_owners": _settlement_residual_owner_rows(final_plan)}
+                        if failed_status != "failed"
+                        else {}
+                    ),
+                    **(
+                        _settlement_source_moved_residual_fields(source_moved_owner_ids)
+                        if source_moved_owner_ids
+                        else {}
+                    ),
                     "owners": owner_results,
                     "progress_events": progress_events,
                     "before_plan": _public_settlement_plan(before),
@@ -2633,7 +4069,7 @@ def settle_generated_projection_owners(
                     **controls,
                     **_settlement_closeout_fields(
                         repo_root,
-                        status="failed",
+                        status=failed_status,
                         dry_run=bool(dry_run),
                         final_plan=final_plan,
                     ),
@@ -2645,35 +4081,7 @@ def settle_generated_projection_owners(
             break
         pass_results = [row for row in owner_results if int(row.get("pass_index") or 0) == pass_index]
         if pass_results and not any(row.get("commit_hash") for row in pass_results):
-            final_plan_started = time.perf_counter()
-            _emit_progress(
-                progress_callback,
-                surface="settlement",
-                event="final_replan_start",
-                reason="no_commit_progress",
-            )
-            final_plan = build_generated_projection_settlement_plan(
-                repo_root,
-                owner_ids=owner_ids,
-                collect_diff_stat=True,
-            )
-            final_replan_wall_ms = round((time.perf_counter() - final_plan_started) * 1000.0, 3)
-            _record_phase(
-                "final_replan",
-                final_plan_started,
-                status=final_plan.get("status"),
-                dirty_owner_count=final_plan.get("dirty_owner_count"),
-                blocked_owner_count=final_plan.get("blocked_owner_count"),
-            )
-            _emit_progress(
-                progress_callback,
-                surface="settlement",
-                event="final_replan_done",
-                status=final_plan.get("status"),
-                dirty_owner_count=final_plan.get("dirty_owner_count"),
-                blocked_owner_count=final_plan.get("blocked_owner_count"),
-                wall_ms=final_replan_wall_ms,
-            )
+            final_plan, _, _ = _build_post_progress_plan(reason="no_commit_progress")
             if final_plan.get("status") != "clean":
                 return _with_timing({
                     "schema": SETTLEMENT_SCHEMA,
@@ -2700,54 +4108,72 @@ def settle_generated_projection_owners(
                     "eventful_closeout_allowed_after_settlement": False,
                 })
     if not dry_run:
-        final_plan_started = time.perf_counter()
-        _emit_progress(
-            progress_callback,
-            surface="settlement",
-            event="final_plan_start",
-        )
-        final_plan = build_generated_projection_settlement_plan(
-            repo_root,
-            owner_ids=owner_ids,
-            collect_diff_stat=True,
-        )
-        final_plan_wall_ms = round((time.perf_counter() - final_plan_started) * 1000.0, 3)
-        _record_phase(
-            "final_plan",
-            final_plan_started,
-            status=final_plan.get("status"),
-            dirty_owner_count=final_plan.get("dirty_owner_count"),
-            blocked_owner_count=final_plan.get("blocked_owner_count"),
-        )
-        _emit_progress(
-            progress_callback,
-            surface="settlement",
-            event="final_plan_done",
-            status=final_plan.get("status"),
-            dirty_owner_count=final_plan.get("dirty_owner_count"),
-            blocked_owner_count=final_plan.get("blocked_owner_count"),
-            wall_ms=final_plan_wall_ms,
-        )
+        final_plan, _, _ = _build_post_progress_plan(reason="post_pass_validation")
+    progress = _settlement_progress_summary(owner_results)
+    source_moved_owner_ids = [] if dry_run else _settlement_source_moved_owner_ids(final_plan)
+    freshness_only_owner_ids = [] if dry_run else _settlement_freshness_only_owner_ids(final_plan)
     if dry_run:
         status = "would_settle"
         reason = None
     elif final_plan.get("status") == "clean":
         status = "settled"
         reason = None
+    elif progress.get("commit_count") and source_moved_owner_ids:
+        status = "settlement_residual_source_moved"
+        reason = "source_authority_moved_during_settlement"
+    elif progress.get("commit_count") and freshness_only_owner_ids:
+        status = "settlement_residual_freshness_only"
+        reason = "zero_diff_freshness_marker_after_settlement"
     else:
         status = "settlement_residual_capped"
         reason = "max_passes_exhausted"
-    progress = _settlement_progress_summary(owner_results)
+    source_moved_after_progress = bool(
+        not dry_run and progress.get("commit_count") and source_moved_owner_ids
+    )
+    freshness_only_after_progress = bool(
+        not dry_run and progress.get("commit_count") and freshness_only_owner_ids
+    )
     return _with_timing({
         "schema": SETTLEMENT_SCHEMA,
-        "ok": bool(dry_run or final_plan.get("status") == "clean"),
+        "ok": bool(
+            dry_run
+            or final_plan.get("status") == "clean"
+            or source_moved_after_progress
+            or freshness_only_after_progress
+        ),
         "dry_run": bool(dry_run),
         "status": status,
         **({"reason": reason} if reason else {}),
+        **(
+            {
+                "partial_success": True,
+                "residual_class": "concurrent_source_authority_moved",
+            }
+            if source_moved_after_progress
+            else {}
+        ),
+        **(
+            {
+                "partial_success": True,
+                "residual_class": "zero_diff_freshness_only",
+            }
+            if freshness_only_after_progress
+            else {}
+        ),
         "pass_count": max([int(row.get("pass_index") or 0) for row in owner_results] or [0]),
         "max_passes": pass_limit,
         "progress": progress,
         "residual_owners": [] if dry_run or final_plan.get("status") == "clean" else _settlement_residual_owner_rows(final_plan),
+        **(
+            _settlement_source_moved_residual_fields(source_moved_owner_ids)
+            if source_moved_owner_ids
+            else {}
+        ),
+        **(
+            _settlement_freshness_only_residual_fields(freshness_only_owner_ids)
+            if freshness_only_owner_ids
+            else {}
+        ),
         "owners": owner_results,
         "progress_events": progress_events,
         "before_plan": _public_settlement_plan(before),

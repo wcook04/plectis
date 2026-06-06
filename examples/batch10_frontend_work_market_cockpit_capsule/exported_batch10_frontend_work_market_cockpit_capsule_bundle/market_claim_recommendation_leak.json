@@ -1,0 +1,8 @@
+{
+  "case_id": "market_claim_recommendation_leak",
+  "error_codes": [
+    "BATCH10_FRONTEND_MARKET_RECOMMENDATION_LEAK_REFUSED"
+  ],
+  "blocked_claim": "Stockgrid, macro, and prediction-market observations are salience and evidence context, not recommendations.",
+  "body_in_receipt": false
+}

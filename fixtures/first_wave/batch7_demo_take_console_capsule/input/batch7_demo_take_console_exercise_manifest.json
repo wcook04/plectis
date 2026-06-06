@@ -1,0 +1,15 @@
+{
+  "body_in_receipt": false,
+  "claim_ceiling": "Public-safe Demo Take Console Swift source and build witness only; no app launch, recording, screen capture, microphone capture, or model dispatch.",
+  "expected_engines": [
+    "demo_take_swiftpm_build_witness",
+    "recording_state_control_model",
+    "capture_helper_bridge_contract",
+    "recorder_store_capture_fsm",
+    "hotkey_audio_meter_contract",
+    "transcribe_payload_builder"
+  ],
+  "organ_id": "batch7_demo_take_console_capsule",
+  "schema_version": "batch7_demo_take_console_exercise_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json"
+}

@@ -20,8 +20,8 @@ ROUTE_READINESS = (
     REPO_ROOT / "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
 )
 BRIDGE_MANIFEST = (
-    MICROCOSM_ROOT
-    / "core/fixture_manifests/"
+    REPO_ROOT
+    / "state/microcosm_portfolio/reconstruction/fixture_manifests/"
     "bridge_phase_continuity_runtime.fixture_manifest.json"
 )
 OBSERVE_RUNTIME_MANIFEST = (
@@ -146,13 +146,20 @@ def test_observe_apply_fixture_carries_synthetic_runtime_and_rollback_floor() ->
     assert finalizer["finalizer_status"] == "closed_with_receipts"
     assert finalizer["closeout_transition_path"].endswith("closeout_transition.json")
     assert "work_landed_without_closeout_transition" in finalizer["must_not_claim"]
-    assert rollback == {
-        "case_id": "apply_validation_failure_rolls_back_observe_promotion",
-        "validation_status": "fail",
-        "rollback_required": True,
-        "writes_allowed_after_failure": False,
-        "expected_error_code": "OBSERVE_APPLY_VALIDATION_FAILED",
+    assert rollback["case_id"] == "apply_validation_failure_rolls_back_observe_promotion"
+    assert rollback["validation_status"] == "fail"
+    assert rollback["rollback_required"] is True
+    assert rollback["writes_allowed_after_failure"] is False
+    assert "expected_error_code" not in rollback
+    assert bridge_runtime._rollback_validation_failure_rejected(rollback) is True
+
+    moved_good = {
+        **rollback,
+        "validation_status": "pass",
+        "rollback_required": False,
+        "writes_allowed_after_failure": True,
     }
+    assert bridge_runtime._rollback_validation_failure_rejected(moved_good) is False
     assert boundary["payload_text_included"] is False
     assert boundary["private_live_state_included"] is False
     assert boundary["public_write_authorized"] is False

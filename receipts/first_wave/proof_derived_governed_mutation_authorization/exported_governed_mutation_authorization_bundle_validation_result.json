@@ -1,0 +1,667 @@
+{
+  "accepted_proof_cell_count": 3,
+  "accepted_real_record_count": 3,
+  "action_classes": [
+    "read_only_inspection",
+    "rollback",
+    "scoped_config_write"
+  ],
+  "allowed_action_classes": [
+    "read_only_inspection",
+    "rollback",
+    "scoped_config_write"
+  ],
+  "anti_claim": "Proof-derived governed mutation authorization validates public-safe real governed-mutation records bound to redacted mutation-authorization metadata: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_safe_real_governed_mutation_records_plus_redacted_fixture_metadata_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_policy_votes_authorized": false,
+    "irreversible_mutation_authorized": false,
+    "live_cloud_account_authorized": false,
+    "policy_after_execution_authorized": false,
+    "provider_calls_authorized": false,
+    "real_public_safe_record_required": true,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "standing_credentials_authorized": false,
+    "status": "pass"
+  },
+  "authorization_policy_id": "authorization.policy.synthetic_governed_mutation.v1",
+  "authorized_mutation_count": 3,
+  "body_copied_material_count": 6,
+  "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+  "bundle_id": "proof_derived_governed_mutation_authorization_runtime_example",
+  "cold_replay_count": 3,
+  "cold_replay_pass_count": 3,
+  "cold_replay_rows": [
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.inspect.repo_state.v1",
+        "verdict.inspect.policy.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.inspect_repo_state",
+      "replay_id": "cold.readonly_inspection.v1",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.write.scoped_config.v1",
+        "rollback.synthetic_config_write.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.scoped_config_change",
+      "replay_id": "cold.scoped_config_write.v1",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.rollback.scoped_config.v1",
+        "rollback.rollback_verification.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.rollback_config_change",
+      "replay_id": "cold.rollback_config_change.v1",
+      "status": "pass"
+    }
+  ],
+  "command": "proof_derived_governed_mutation_authorization run-authorization-bundle",
+  "created_at": "2026-06-05T07:23:40+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
+  "freshness_basis": {
+    "basis_digest": "sha256:27c4f9028fc4bc18c05e9ae35c87027a467d9c2ed2f5c4e051b57bd52a34718b",
+    "card_schema_version": "governed_mutation_authorization_command_card_v1",
+    "include_negative": false,
+    "input_count": 19,
+    "inputs": [
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/projection_protocol.json",
+        "sha256": "sha256:5ee57868a4896ddc479beb372c671b90500e9bc95af98c7e508311732ed06c60",
+        "size_bytes": 2238
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/authorization_policy.json",
+        "sha256": "sha256:15abaed52136ba16fd73d710f42a34dbdc1b931bee64bc656c1bd392eb236687",
+        "size_bytes": 907
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/mutation_proposals.json",
+        "sha256": "sha256:2bd8d46de84fd2fffaad3752d11fec443124252e8d6646cf8f238d4dc1c9ab9a",
+        "size_bytes": 3032
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/proof_evidence_cells.json",
+        "sha256": "sha256:29df9bf49c14cce94b498e259b4d7a019f1ba7b27c12099b3168b30ed47463ed",
+        "size_bytes": 2061
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/policy_verdicts.json",
+        "sha256": "sha256:c97ea6d8cf4b746186cb16f7f37deeaa659f86de192ca6c12f923e856086bc1a",
+        "size_bytes": 2173
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/side_effect_ledger.json",
+        "sha256": "sha256:7617feea7baa8238e72f9de57c93513f242455f5c05edfb55bf7b0143a9a88b9",
+        "size_bytes": 949
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/rollback_receipts.json",
+        "sha256": "sha256:d826a15aa3247acdf65837c71efb8e0b45342f3205e81ece5b7616ddae7e2b7c",
+        "size_bytes": 867
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/cold_replay.json",
+        "sha256": "sha256:7474535f6bf2839c70fea68636c0db8cda876df5a7d98da0f552665f1a385408",
+        "size_bytes": 1009
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/governed_mutation_records.json",
+        "sha256": "sha256:48f35cbd535a40bf74c0d9cf5f7c15632af44f69d7c63aa5cebd5d9e5b4ec25f",
+        "size_bytes": 4234
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/bundle_manifest.json",
+        "sha256": "sha256:e82413acf9b1b8f6829ddb86e00c06e269522912d861135d9a7312bd524df0de",
+        "size_bytes": 794
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+        "sha256": "sha256:4709e5cd2f31d1089ed3a3d0cafbfd5eaa821e251f093fac4ced4b7eb7bd3831",
+        "size_bytes": 15675
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "size_bytes": 936934
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "size_bytes": 295524
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+        "sha256": "sha256:17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
+        "size_bytes": 31199
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
+        "sha256": "sha256:6851235e19eb53884a7ca3f8bc9bb1c667c3f489d90f0913b5819b2759bd3392",
+        "size_bytes": 107972
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
+        "sha256": "sha256:098d9f4719f0cab8259ca64273aecb5ce21e0da7a6f014805efd2f048c061843",
+        "size_bytes": 327300
+      },
+      {
+        "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/system/lib/work_landing_status.py",
+        "sha256": "sha256:a98ced45a7fb05bbd4dfecbe221364fef2c10891515680012b9b9236a4040a11",
+        "size_bytes": 195753
+      },
+      {
+        "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "sha256": "sha256:1107e698f321b3e3a19ffd9ef0f5567646136ba2bbea4255c16175257d350deb",
+        "size_bytes": 97339
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "governed_mutation_authorization_freshness_basis_v1",
+    "validator_schema_version": "exported_governed_mutation_authorization_bundle_validation_result_v1"
+  },
+  "governed_mutation_record_rows": [
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "derived_rollback_receipt_ref": "",
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "proposal.inspect_repo_state",
+      "real_evidence_ref_digest": "sha256:cb3f71b79912f4765900d9b20f356d97508c8db2671b10b4d8b6dce9fe1a18db",
+      "reason_codes": [],
+      "record_id": "real_record.inspect_repo_state.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "",
+      "side_effect_diff_ref": "",
+      "source_record_class": "real_repo_mission_transaction_record",
+      "source_ref_count": 5,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.rollback_config_change",
+      "real_evidence_ref_digest": "sha256:26c61e03e382a204a7afff4903d47e8348e985fac5f3c4641c14811b2f76154e",
+      "reason_codes": [],
+      "record_id": "real_record.rollback_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_diff_ref": "diff.synthetic_rollback.v1",
+      "source_record_class": "real_repo_work_landing_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.scoped_config_change",
+      "real_evidence_ref_digest": "sha256:06ee65100cffc4ffae9dbe3bb26f4b1a3fbf38cdfafe2cdcf97d0ebefc33853b",
+      "reason_codes": [],
+      "record_id": "real_record.scoped_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1",
+      "source_record_class": "real_repo_scoped_commit_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    }
+  ],
+  "input_mode": "exported_governed_mutation_authorization_bundle",
+  "logged_side_effect_count": 2,
+  "minimum_independent_verdicts": 2,
+  "missing_negative_cases": [],
+  "missing_real_record_proposal_ids": [],
+  "observed_negative_cases": {},
+  "organ_id": "proof_derived_governed_mutation_authorization",
+  "policy_verdict_count": 6,
+  "policy_verdict_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "owner_scope.synthetic",
+      "proposal_id": "proposal.inspect_repo_state",
+      "reason_codes": [],
+      "verdict": "warn",
+      "verdict_id": "verdict.inspect.owner.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "policy_gate.synthetic",
+      "proposal_id": "proposal.inspect_repo_state",
+      "reason_codes": [],
+      "verdict": "allow",
+      "verdict_id": "verdict.inspect.policy.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "owner_scope.synthetic",
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "verdict": "warn",
+      "verdict_id": "verdict.rollback.owner.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "policy_gate.synthetic",
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "verdict": "allow",
+      "verdict_id": "verdict.rollback.policy.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "owner_scope.synthetic",
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "verdict": "warn",
+      "verdict_id": "verdict.write.owner.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_policy_verdict",
+      "evaluator_id": "policy_gate.synthetic",
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "verdict": "allow",
+      "verdict_id": "verdict.write.policy.v1",
+      "visible_to_receipt": true
+    }
+  ],
+  "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 17,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+  ],
+  "proof_cell_count": 3,
+  "proof_cell_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_proof_cell",
+      "evidence_kind": "read_only_precondition",
+      "evidence_ref_count": 2,
+      "proof_cell_id": "proof.inspect.repo_state.v1",
+      "proposal_id": "proposal.inspect_repo_state",
+      "reason_codes": [],
+      "validator_receipt_ref_count": 1
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_proof_cell",
+      "evidence_kind": "rollback_authorization",
+      "evidence_ref_count": 2,
+      "proof_cell_id": "proof.rollback.scoped_config.v1",
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "validator_receipt_ref_count": 1
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_proof_cell",
+      "evidence_kind": "scoped_write_authorization",
+      "evidence_ref_count": 2,
+      "proof_cell_id": "proof.write.scoped_config.v1",
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "validator_receipt_ref_count": 2
+    }
+  ],
+  "proposal_consensus_counts": {
+    "proposal.inspect_repo_state": 2,
+    "proposal.rollback_config_change": 2,
+    "proposal.scoped_config_change": 2
+  },
+  "proposal_count": 3,
+  "proposal_rows": [
+    {
+      "action_class": "read_only_inspection",
+      "authority_ceiling_ref": "authority.synthetic_governed_mutation.readonly.v1",
+      "body_redacted": true,
+      "cold_replay_ref": "cold.readonly_inspection.v1",
+      "computed_verdict": "authorized_synthetic_mutation_metadata",
+      "ephemeral_identity_ref": "ephemeral.synthetic.readonly.v1",
+      "evidence_chain_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "execution_state": "not_executed_in_public_fixture",
+      "intent_capsule_ref": "intent.inspect_repo_state.v1",
+      "missing_required_fields": [],
+      "policy_evaluated_before_execution": true,
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "proposal.inspect_repo_state",
+      "reason_codes": [],
+      "rollback_receipt_ref": "",
+      "side_effect_class": "none",
+      "side_effect_diff_ref": ""
+    },
+    {
+      "action_class": "rollback",
+      "authority_ceiling_ref": "authority.synthetic_governed_mutation.rollback.v1",
+      "body_redacted": true,
+      "cold_replay_ref": "cold.rollback_config_change.v1",
+      "computed_verdict": "authorized_synthetic_mutation_metadata",
+      "ephemeral_identity_ref": "ephemeral.synthetic.rollback.v1",
+      "evidence_chain_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "execution_state": "not_executed_in_public_fixture",
+      "intent_capsule_ref": "intent.rollback_config_change.v1",
+      "missing_required_fields": [],
+      "policy_evaluated_before_execution": true,
+      "policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_class": "rollback",
+      "side_effect_diff_ref": "diff.synthetic_rollback.v1"
+    },
+    {
+      "action_class": "scoped_config_write",
+      "authority_ceiling_ref": "authority.synthetic_governed_mutation.scoped_write.v1",
+      "body_redacted": true,
+      "cold_replay_ref": "cold.scoped_config_write.v1",
+      "computed_verdict": "authorized_synthetic_mutation_metadata",
+      "ephemeral_identity_ref": "ephemeral.synthetic.scoped_write.v1",
+      "evidence_chain_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "execution_state": "not_executed_in_public_fixture",
+      "intent_capsule_ref": "intent.scoped_config_change.v1",
+      "missing_required_fields": [],
+      "policy_evaluated_before_execution": true,
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_class": "scoped_config_write",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1"
+    }
+  ],
+  "protocol_id": "projection.protocol.proof_derived_governed_mutation_authorization.v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/mutation_proposals.json",
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/proof_evidence_cells.json",
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
+    "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle"
+  ],
+  "real_record_count": 3,
+  "real_record_status": "real_public_safe_governed_mutation_record_bound",
+  "receipt_paths": [
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json"
+  ],
+  "receipt_reused": false,
+  "rollback_pass_count": 2,
+  "rollback_receipt_count": 2,
+  "rollback_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_rollback_receipt",
+      "evidence_ref_count": 2,
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "rollback_id": "rollback.rollback_verification.v1",
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "rollback_status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_rollback_receipt",
+      "evidence_ref_count": 2,
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "rollback_id": "rollback.synthetic_config_write.v1",
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "rollback_status": "pass"
+    }
+  ],
+  "schema_version": "exported_governed_mutation_authorization_bundle_validation_result_v1",
+  "side_effect_count": 2,
+  "side_effect_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_side_effect_metadata",
+      "diff_ref": "diff.synthetic_config_write.v1",
+      "proposal_id": "proposal.scoped_config_change",
+      "reason_codes": [],
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_class": "scoped_config_write",
+      "side_effect_id": "side_effect.synthetic_config_write.v1",
+      "synthetic_side_effect": true
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_side_effect_metadata",
+      "diff_ref": "diff.synthetic_rollback.v1",
+      "proposal_id": "proposal.rollback_config_change",
+      "reason_codes": [],
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_class": "rollback",
+      "side_effect_id": "side_effect.synthetic_rollback.v1",
+      "synthetic_side_effect": true
+    }
+  ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 3,
+      "public_macro_ledger_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_ledger_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body"
+    ],
+    "module_count": 6,
+    "module_ids": [
+      "proof_governed_mutation_extracted_patterns_ledger_body_import",
+      "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+      "mission_transaction_preflight_control_body_import",
+      "scoped_commit_private_index_control_body_import",
+      "work_ledger_claim_runtime_body_import",
+      "work_landing_reconcile_control_body_import"
+    ],
+    "observed_negative_cases": {},
+    "source_module_import_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+    "source_module_manifest_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+    "source_refs": [
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/control/scoped_commit.py",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/system/lib/work_landing_status.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 6
+  },
+  "source_module_manifest_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 3,
+      "public_macro_ledger_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "proof_governed_mutation_extracted_patterns_ledger_body_import",
+      "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+      "mission_transaction_preflight_control_body_import",
+      "scoped_commit_private_index_control_body_import",
+      "work_ledger_claim_runtime_body_import",
+      "work_landing_reconcile_control_body_import"
+    ],
+    "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_ledger_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported governed-mutation authorization bundle for copied macro pattern, receipt, Work Ledger, scoped-commit, mission-transaction, and work-landing control bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "proof_derived_governed_mutation_authorization_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "proof_derived_governed_mutation_authorization_compound",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims",
+    "mcp_tool_authority_replay_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::proof_derived_governed_mutation_authorization_compound",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "tools/meta/factory/work_ledger.py",
+    "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization",
+  "visible_policy_verdict_count": 6,
+  "write_or_rollback_count": 2
+}

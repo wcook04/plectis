@@ -1,0 +1,18 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "approval_preacquired_claim_refused",
+  "error_codes": [
+    "BATCH9_APPROVAL_PREACQUIRED_CLAIM_REFUSED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "approval": {
+      "preacquired": {
+        "APPROVAL_1": {
+          "nonce": "other"
+        }
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

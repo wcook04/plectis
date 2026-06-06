@@ -1,0 +1,283 @@
+{
+  "schema_version": "microcosm_public_site_source_handoff_v1",
+  "receipt_id": "pattern_assimilation_site_handoff_20260604T205624Z",
+  "created_at": "2026-06-04T20:56:24Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T205624Z_pattern_assimilation_site_handoff",
+  "updated_at": "2026-06-04T21:43:29Z",
+  "updated_by": "codex_goal_microcosm_doctrine_site_availability_20260604T2113Z_pattern_assimilation_handoff_landing_retry",
+  "subject_id": "paper_module.pattern_assimilation",
+  "source_authority": {
+    "capsule_registry_ref": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[74:paper_module.pattern_assimilation]",
+    "authored_markdown_projection": "microcosm-substrate/paper_modules/pattern_assimilation.md",
+    "generated_json_sidecar": "microcosm-substrate/paper_modules/pattern_assimilation.json",
+    "source_authority": "json_capsule",
+    "markdown_role": "reader_projection_over_json_capsule_not_source_authority"
+  },
+  "source_patch": {
+    "kind": "authored_markdown_public_site_boundary_and_generated_row_readback_refresh",
+    "changed_fields": [
+      "public_site_availability_boundary",
+      "public_safe_body_handling"
+    ],
+    "live_generated_row_readback": {
+      "edge_count": 26,
+      "unresolved_selective_relation_count": 0,
+      "mermaid_status": "available_from_capsule_edges",
+      "atlas_card_status": "linked_from_capsule_edges",
+      "resolved_subjects": [
+        "pattern_assimilation_step",
+        "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
+      ],
+      "sibling_paper_modules": [
+        "paper_module.cold_reader_route_map",
+        "paper_module.pattern_binding_contract",
+        "paper_module.voice_to_doctrine_self_improvement_loop"
+      ],
+      "code_loci": [
+        "src/microcosm_core/validators/acceptance.py"
+      ]
+    }
+  },
+  "public_safety": {
+    "status": "public_safe_source_projection",
+    "allowed_material": [
+      "closeout-learning validator shape",
+      "fixture and validator commands",
+      "negative-case codes",
+      "source-module manifest refs",
+      "digest and anchor status summaries",
+      "body-free receipt refs",
+      "capsule subject ids",
+      "concept and law refs",
+      "dependency paper-module links",
+      "code-locus refs",
+      "generated projection statuses",
+      "authority ceilings"
+    ],
+    "excluded_material": [
+      "raw operator voice",
+      "private macro-root bodies",
+      "provider or account material",
+      "browser or HUD state",
+      "credentials",
+      "copied body text in receipt or site payloads",
+      "live Task Ledger or Work Ledger mutation state",
+      "release or publication authorization",
+      "source mutation authority",
+      "global doctrine promotion authority"
+    ],
+    "release_authority": false,
+    "publication_authority": false,
+    "hosted_product_authority": false,
+    "provider_authority": false,
+    "source_mutation_authority": false,
+    "global_doctrine_promotion_authority": false,
+    "whole_system_correctness_authority": false,
+    "private_root_equivalence_authority": false
+  },
+  "site_availability": {
+    "status": "source_ready_for_existing_builder",
+    "site_output_mode": "builder_projection_required",
+    "tracked_site_outputs_written_by_this_receipt": false,
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "tracked_refresh_reentry_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "builder_refresh_surfaces": [
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "temp_site_root": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z",
+    "temp_site_root_contract": "Temp validation copies the existing curated site root first, then lets build_microcosm_public_site.py refresh generated docs, data, and envelope files. The landing page and assets/style.css are curated site inputs, not docs-only builder outputs.",
+    "temp_routeability_status": "verified_by_full_temp_site_copy",
+    "verified_routeability": [
+      {
+        "surface": "content_graph",
+        "path": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/content-graph.json",
+        "check": "rg -q \"paper_module.pattern_assimilation\"",
+        "status": "pass",
+        "role": "paper_module_identity_and_relation_graph"
+      },
+      {
+        "surface": "object_map",
+        "path": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/object-map.json",
+        "check": "rg -q \"paper_module:paper_module.pattern_assimilation\"",
+        "status": "pass",
+        "role": "linkable_object_route"
+      },
+      {
+        "surface": "search_index",
+        "path": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/assets/search-index.js",
+        "check": "rg -q \"Pattern Assimilation\"",
+        "status": "pass",
+        "role": "searchable_module_title_and_component_card"
+      },
+      {
+        "surface": "paper_modules_page",
+        "path": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/docs/paper-modules.html",
+        "check": "rg -n -m 5 \"Pattern Assimilation|pattern_assimilation\"",
+        "status": "pass",
+        "role": "paper_module_card_and_rule_feed_links"
+      }
+    ],
+    "non_equivalent_surfaces": [
+      {
+        "surface": "llms_txt",
+        "check": "rg -q \"pattern_assimilation\"",
+        "status": "not_used_as_exact_module_handle_projection",
+        "meaning": "The generated llms.txt surface is not the proof surface for this paper-module handle."
+      },
+      {
+        "surface": "paper_modules_page_body",
+        "check": "rg -q \"Pattern Assimilation source projection\"",
+        "status": "not_exact_body_projection",
+        "meaning": "The paper-module page exposes the card, rule-feed links, source link, and body context; this exact handoff sentence is not the availability proof."
+      }
+    ],
+    "handoff_boundary": "Do not hand-edit generated site outputs; refresh through the existing builder after source-input ownership is safe. Treat generated surfaces as role-specific projections, not equivalent full-body mirrors.",
+    "post_head_cas_retry_validation": {
+      "head": "da5ddf64c9dbb8c1d2649e828f44500e0a31c195",
+      "reentry_session_id": "codex_goal_microcosm_doctrine_site_availability_20260604T2113Z_pattern_assimilation_handoff_landing_retry",
+      "earlier_intervening_commits_inspected": [
+        {
+          "commit": "efbd3ac9c67ad6112487a1c21972311e4c442b06",
+          "subject": "Bind host find quote to speedboard",
+          "owned_path_overlap": false,
+          "paths": [
+            "state/performance/latency_speedboard.json",
+            "state/performance/latency_speedboard.md",
+            "state/performance/latency_speedboard_measurements.jsonl",
+            "system/lib/latency_speedboard.py",
+            "system/server/tests/test_latency_speedboard.py"
+          ]
+        },
+        {
+          "commit": "dbdeea78f77467a0a866e68eb4f1dd51f13eda47",
+          "subject": "Normalize verifier scoreboard receipt intake",
+          "owned_path_overlap": false,
+          "paths": [
+            "tests/test_microcosm_public_current_findings_receipt.py",
+            "tools/meta/microcosm_public_safety/build_current_findings_receipt.py"
+          ]
+        },
+        {
+          "commit": "74d6c80786507c5ec4257e82c12675d0e7757198",
+          "subject": "Reflow world model projection drift control room paper module",
+          "owned_path_overlap": false,
+          "paths": [
+            "microcosm-substrate/paper_modules/world_model_projection_drift_control_room.md"
+          ]
+        }
+      ],
+      "post_quiet_window_current_parent_inspection": {
+        "base": "74d6c80786507c5ec4257e82c12675d0e7757198",
+        "head": "a0dd6b7da4a3237730cf85854a15c3205e64160b",
+        "command": "./repo-git diff --name-only 74d6c80786507c5ec4257e82c12675d0e7757198..HEAD",
+        "owned_path_overlap": false,
+        "inspected_changed_paths": [
+          "docs/microcosm_reader_audit/cycle_074_mechanistic_interpretability_trace.md",
+          "docs/microcosm_reader_audit/cycle_074_owner_fix_packets.md",
+          "docs/microcosm_reader_audit/cycle_074_scorecards.json",
+          "microcosm-substrate/paper_modules/verifier_lab_execution_spine.md",
+          "microcosm-substrate/src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
+          "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py",
+          "state/microcosm_verifier/receipts/20260604T2114Z_mechanistic_interpretability_circuit_attribution_replay_focus_blocked_source_drift_public_safety_review.json",
+          "state/microcosm_verifier/scoreboard.json",
+          "state/performance/latency_speedboard.json",
+          "state/performance/latency_speedboard.md",
+          "state/performance/latency_speedboard_measurements.jsonl",
+          "system/lib/action_quote.py",
+          "system/lib/generated_state_drainer.py",
+          "system/lib/latency_speedboard.py",
+          "system/server/tests/test_action_quote.py",
+          "system/server/tests/test_generated_state_drainer.py",
+          "system/server/tests/test_latency_speedboard.py",
+          "tools/meta/microcosm_public_safety/current_findings_receipt_20260604T2112Z.json",
+          "tools/meta/microcosm_public_safety/public_path_secret_policy.md"
+        ],
+        "top_commits": [
+          "a0dd6b7da4a3237730cf85854a15c3205e64160b Allow Task Ledger projection settlement monolith override",
+          "4c6cdff2729294f05dadcfc64bd6da0ff4b7bd16 Add Microcosm mechanistic interpretability reader audit",
+          "5cc988fe63ada19e44a35969316918f9b5cd3773 Document public-safe Microcosm policy convergence",
+          "094fa601dcef9227657b1818e3ac30547f6d78f2 Record mechanistic verifier blocked proof",
+          "3b02f254b4de6b6d5cb8318c6215284c21363314 Route filtered process bottlenecks to cached status",
+          "7a8045df0b7f62dd5b44f3deb2ea0e8961720c29 Add ring2 aggregate metric floor"
+        ]
+      },
+      "latest_parent_before_scoped_commit": {
+        "base": "cec4a3e54370b6d010dce56a85df91ea616bf034",
+        "head": "da5ddf64c9dbb8c1d2649e828f44500e0a31c195",
+        "command": "./repo-git diff --name-only cec4a3e54370b6d010dce56a85df91ea616bf034..HEAD",
+        "owned_path_overlap": false,
+        "changed_path_scope": "public_safety_handoff_agentic_vulnerability_exact_copy_task_ledger_migration_speedboard_and_resource_pressure_routes_only",
+        "commit_subjects": [
+          "da5ddf64c9dbb8c1d2649e828f44500e0a31c195 Record formal math Lean witness verifier pass",
+          "d8fbda46f82b83dde6b4a08127c1defcd6bad570 Bind artifact discovery fixes to speedboard",
+          "cbf4e766db Add macro projection public safety handoff",
+          "6b262cbf60 Refresh agentic vulnerability copied macro bodies",
+          "743383b712 Add Task Ledger authority migration plan",
+          "2df276af12 Add Microcosm public safety reentry ledger",
+          "809447bc9f Route process summaries to status quote"
+        ]
+      },
+      "passed_current_head_checks": [
+        "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-pattern-assimilation-site-coverage-current-20260604T2140Z",
+        "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_pattern_assimilation_step.py -q --basetemp /tmp/microcosm-pattern-assimilation-specific-current-20260604T2140Z",
+        "rm -rf /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z",
+        "rsync -a --delete sites/microcosm/ /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/",
+        "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z --write --validate"
+      ],
+      "pytest_retry_substitution": {
+        "status": "retired_by_current_head_pytest_pass",
+        "retired_task_ledger_event_id": "wie_20260604T210737Z_d58d8ce3",
+        "current_head_pass": "15 passed at /tmp/microcosm-pattern-assimilation-specific-current-20260604T2140Z"
+      }
+    }
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/pattern_assimilation_site_handoff_20260604T205624Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "summary": {
+          "actual_count": 98,
+          "expected_count": 98
+        }
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-pattern-assimilation-site-coverage-current-20260604T2140Z",
+        "status": "pass",
+        "summary": "47 passed"
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_pattern_assimilation_step.py -q --basetemp /tmp/microcosm-pattern-assimilation-specific-current-20260604T2140Z",
+        "status": "pass",
+        "summary": "15 passed"
+      },
+      {
+        "command": "jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' microcosm-substrate/paper_modules/pattern_assimilation.json",
+        "status": "pass",
+        "summary": "paper_module.pattern_assimilation\t26\t0\tavailable_from_capsule_edges\tlinked_from_capsule_edges"
+      },
+      {
+        "command": "rm -rf /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z && rsync -a --delete sites/microcosm/ /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/ && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z --write --validate",
+        "status": "pass",
+        "summary": {
+          "validation_status": "pass",
+          "internal_links_missing": 0,
+          "public_safety_scan_hit_count": 0,
+          "written_count": 13
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,494 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-8"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for market-dashboard read-model fixtures, source digest checks, freshness and related-situation cases, negative cases, and authority ceilings.",
+      "symbols": [
+        "_market_dashboard_import_stubs",
+        "_compute_validator_cases",
+        "_compute_freshness_cases",
+        "_compute_related_cases",
+        "_evaluate",
+        "run",
+        "run_batch12_market_dashboard_read_model_bundle",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.research_and_science_replay_evidence_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Market Dashboard Read-Model Capsule",
+  "entry_surface_contract": null,
+  "evidence_class": "verified_macro_body_import",
+  "family": "research_and_science_replays",
+  "id": "batch12_market_dashboard_read_model_capsule",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The copied public market-dashboard read-model helper, synthetic fixture and bundle exercises, source-module manifest, negative cases, and body-free receipts bind this organ to a verified macro-body import without granting market truth, investment advice, provider dispatch, release, publication, or whole-system correctness authority.",
+      "ref": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "batch12_market_dashboard_read_model_capsule",
+  "organ_payload": {
+    "claim_ceiling": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market truth, not investment advice, not provider dispatch, not release authority, and not whole-system correctness.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/batch12_market_dashboard_read_model_capsule.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/batch12_market_dashboard_read_model_capsule.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate copied market_dashboard_read_model.py digests and anchors, execute validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over bounded fixtures, confirm all planted negative cases are observed, and keep receipts free of copied body text and live market/provider authority.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-8"
+      ],
+      "claim_ceiling_restated": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market truth, not investment advice, not provider dispatch, not release authority, and not whole-system correctness.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for market-dashboard read-model fixtures, source digest checks, freshness and related-situation cases, negative cases, and authority ceilings.",
+          "symbols": [
+            "_market_dashboard_import_stubs",
+            "_compute_validator_cases",
+            "_compute_freshness_cases",
+            "_compute_related_cases",
+            "_evaluate",
+            "run",
+            "run_batch12_market_dashboard_read_model_bundle",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.research_and_science_replay_evidence_bundle"
+      ],
+      "display_name": "Market Dashboard Read-Model Capsule",
+      "family": "research_and_science_replays",
+      "first_command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+      "human_gloss": "This capsule imports the market dashboard read-model source as public runnable substrate. Running it over synthetic market-dashboard rows shows how structural read-model checks, feed freshness classification, and related-situation grouping catch dangling graph edges, unsafe route refs, auto-apply overclaims, trading-language overclaims, silent omissions, stale or missing readiness, and no-overlap relation cases.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The copied public market-dashboard read-model helper, synthetic fixture and bundle exercises, source-module manifest, negative cases, and body-free receipts bind this organ to a verified macro-body import without granting market truth, investment advice, provider dispatch, release, publication, or whole-system correctness authority.",
+          "ref": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "paper_module_ref": "paper_modules/batch12_market_dashboard_read_model_capsule.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-5",
+        "P-6",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "finance",
+        "frontend"
+      ],
+      "wires_to": [
+        "batch10_frontend_work_market_cockpit_capsule",
+        "batch6_unsurfaced_primitives_capsule"
+      ]
+    },
+    "source_registry_row": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret market dashboard read-model source body; the runnable exercise invokes validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over public fixtures, verifies source digest anchors, observes ten negative cases for graph/ref, trading-language, freshness, omission, and related-situation regressions, and keeps live market truth, investment advice, provider dispatch, release, publication, source-mutation, and whole-system authority false",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch12_market_dashboard_read_model_capsule]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_result.json",
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_board.json",
+        "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.batch12_market_dashboard_read_model_capsule",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/batch12_market_dashboard_read_model_capsule.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-5",
+    "P-6",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_result.json",
+    "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_board.json",
+    "receipts/first_wave/batch12_market_dashboard_read_model_capsule/batch12_market_dashboard_read_model_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-8"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for market-dashboard read-model fixtures, source digest checks, freshness and related-situation cases, negative cases, and authority ceilings.",
+        "symbols": [
+          "_market_dashboard_import_stubs",
+          "_compute_validator_cases",
+          "_compute_freshness_cases",
+          "_compute_related_cases",
+          "_evaluate",
+          "run",
+          "run_batch12_market_dashboard_read_model_bundle",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.research_and_science_replay_evidence_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.batch12_market_dashboard_read_model_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].mechanism_refs[0]",
+          "summary": "The copied public market-dashboard read-model helper, synthetic fixture and bundle exercises, source-module manifest, negative cases, and body-free receipts bind this organ to a verified macro-body import without granting market truth, investment advice, provider dispatch, release, publication, or whole-system correctness authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for market-dashboard read-model fixtures, source digest checks, freshness and related-situation cases, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/batch12_market_dashboard_read_model_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.research_and_science_replay_evidence_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch10_frontend_work_market_cockpit_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch6_unsurfaced_primitives_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The copied public market-dashboard read-model helper, synthetic fixture and bundle exercises, source-module manifest, negative cases, and body-free receipts bind this organ to a verified macro-body import without granting market truth, investment advice, provider dispatch, release, publication, or whole-system correctness authority.",
+        "ref": "mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/batch12_market_dashboard_read_model_capsule.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-5",
+      "P-6",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch10_frontend_work_market_cockpit_capsule",
+      "batch6_unsurfaced_primitives_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate copied market_dashboard_read_model.py digests and anchors, execute validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over bounded fixtures, confirm all planted negative cases are observed, and keep receipts free of copied body text and live market/provider authority.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[78:batch12_market_dashboard_read_model_capsule]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[78:batch12_market_dashboard_read_model_capsule]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/batch12_market_dashboard_read_model_capsule.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "research-workflows",
+    "forecasting",
+    "finance",
+    "frontend"
+  ],
+  "statement": "An agent runs it to validate copied market_dashboard_read_model.py digests and anchors, execute validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over bounded fixtures, confirm all planted negative cases are observed, and keep receipts free of copied body text and live market/provider authority.",
+  "status": "accepted_current_authority",
+  "title": "Market Dashboard Read-Model Capsule",
+  "validator_refs": [
+    "python -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch10_frontend_work_market_cockpit_capsule",
+    "batch6_unsurfaced_primitives_capsule"
+  ]
+}

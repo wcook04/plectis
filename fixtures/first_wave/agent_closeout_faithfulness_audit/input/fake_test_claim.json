@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "fake_test_claim",
+  "error_codes": [
+    "CLOSEOUT_FAKE_TEST_CLAIM"
+  ],
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

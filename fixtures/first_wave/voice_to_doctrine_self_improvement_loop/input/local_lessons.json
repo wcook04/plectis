@@ -12,11 +12,11 @@
       "owner_action": "refine_skill_hard_rule",
       "status": "refined_existing_surface",
       "evidence_refs": [
-        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::recursive_self_improvement_operating_loop",
-        "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md::Hard Rules"
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md::Public Mechanics",
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md::Reader Proof Boundary"
       ],
-      "changed_surface_ref": "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md::Workflow",
-      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "changed_surface_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md::Public Mechanics",
+      "validation_ref": "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_loop_observes_negative_cases",
       "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md",
       "owner_surface_validated": true,
       "body_exported": false,
@@ -35,11 +35,11 @@
       "owner_action": "add_public_runtime_organ",
       "status": "refined_existing_surface",
       "evidence_refs": [
-        "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md::Shape",
-        "codex/doctrine/paper_modules/doctrine_population_loop.md::Shape"
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md::Shape",
+        "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py::def run("
       ],
       "changed_surface_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
-      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "validation_ref": "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_loop_observes_negative_cases",
       "closeout_ref": "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
       "owner_surface_validated": true,
       "body_exported": false,
@@ -57,11 +57,11 @@
       "owner_action": "capture_blocked_private_body_import",
       "status": "workitem_captured",
       "evidence_refs": [
-        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
-        "AGENTS.md::Real Substrate Posture"
+        "paper_modules/voice_to_doctrine_self_improvement_loop.md::Public-Safe Body Handling",
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json::workitem_capture_count"
       ],
-      "changed_surface_ref": "state/task_ledger/events.jsonl::metadata_only_residual",
-      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "changed_surface_ref": "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json::workitem_capture_count",
+      "validation_ref": "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_loop_observes_negative_cases",
       "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md::Anti-Claim",
       "reentry_condition": "A public-safe synthetic voice fixture or redacted source capsule is selected.",
       "owner_surface_validated": true,
@@ -84,7 +84,7 @@
         "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe"
       ],
       "changed_surface_ref": "",
-      "validation_ref": "pytest tests/test_runtime_shell.py -k option_surface_lens",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe",
       "closeout_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
       "stewardship_checked": true,
       "next_best_lane_checked": true,

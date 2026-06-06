@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 6 validates exact copied non-secret macro source bodies and public synthetic exercises for keyphrase scoring, schema-loose distillation, operator handoff scoring, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider-recovery scoping, and demo-take temporal remapping. It is not live operator memory, not raw prompt-shelf content, not live market data, not provider/browser state, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch6_unsurfaced_primitives_capsule",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch6_unsurfaced_primitives_capsule/batch6_unsurfaced_primitives_capsule_validation_receipt.json"
+}

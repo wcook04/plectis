@@ -1,0 +1,22 @@
+{
+  "schema_version": "batch7_zenith_macos_exercise_manifest_v1",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_zenith_macos_capsule",
+  "organ_id": "batch7_zenith_macos_capsule",
+  "expected_engine_ids": [
+    "zenith_route_identity_catalog",
+    "zenith_backend_boot_policy",
+    "zenith_recording_telemetry_contract",
+    "zenith_swiftpm_witness"
+  ],
+  "source_package": "apps/zenith-macos",
+  "swiftpm_witness_command": "swift test",
+  "public_safe_carveout_ref": "cap_quick_batch_7_zenith_macos_capsule_needs_narro_c099bd13f9ca",
+  "expected_swift_test_count": 17,
+  "claims": {
+    "real_substrate_import": true,
+    "full_app_launch_authority": false,
+    "provider_or_browser_authority": false,
+    "operator_thread_authority": false
+  }
+}

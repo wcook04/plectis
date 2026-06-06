@@ -1,0 +1,166 @@
+{
+  "standard_id": "std_microcosm_engine_room_bridge_campaign_dag",
+  "schema_version": "std_microcosm_engine_room_bridge_campaign_dag_v1",
+  "kind_id": "engine_room_bridge_campaign_dag",
+  "status": "staged_capsule_pending_shared_registry_integration",
+  "authority_boundary": "public_bridge_campaign_contract_validator_capsule",
+  "source_refs": [
+    {
+      "path": "tools/meta/bridge/bridge_campaign.py",
+      "role": "declared_source_ref"
+    },
+    {
+      "path": "tools/meta/bridge/dispatch_validator.py",
+      "role": "declared_source_ref"
+    },
+    {
+      "path": "tools/meta/bridge/provider_capabilities.py",
+      "role": "declared_source_ref"
+    },
+    {
+      "path": "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "role": "public_target_ref"
+    },
+    {
+      "path": "tests/test_engine_room_bridge_campaign_dag.py",
+      "role": "public_target_ref"
+    },
+    {
+      "path": "fixtures/first_wave/engine_room_bridge_campaign_dag/input",
+      "role": "public_target_ref"
+    },
+    {
+      "path": "core/fixture_manifests/engine_room_bridge_campaign_dag.fixture_manifest.json",
+      "role": "public_target_ref"
+    },
+    {
+      "path": "paper_modules/engine_room_bridge_campaign_dag.md",
+      "role": "public_target_ref"
+    }
+  ],
+  "target_refs": [
+    "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+    "tests/test_engine_room_bridge_campaign_dag.py",
+    "fixtures/first_wave/engine_room_bridge_campaign_dag/input",
+    "core/fixture_manifests/engine_room_bridge_campaign_dag.fixture_manifest.json",
+    "paper_modules/engine_room_bridge_campaign_dag.md"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "required_negative_cases": [
+    "cycle_rejected",
+    "provider_ceiling_rejected",
+    "dangling_synthesis_rejected"
+  ],
+  "authority_ceiling": {
+    "dispatch_authorized": false,
+    "live_multi_agent_execution_claim": false,
+    "private_root_equivalence_claim": false,
+    "provider_safety_proof": false,
+    "release_authority": false,
+    "status": "pass"
+  },
+  "anti_claim": "The capsule validates a public bridge-campaign DAG contract and provider worker ceiling. It is not a dispatcher, not a live multi-agent run, not a provider safety proof, and not release authority.",
+  "validator_contract": {
+    "fixture_command": "PYTHONPATH=src python3 -m microcosm_core.engine_room.bridge_campaign_dag validate-fixtures --input fixtures/first_wave/engine_room_bridge_campaign_dag/input --json",
+    "runner": "microcosm_core.engine_room.bridge_campaign_dag",
+    "required": true,
+    "validator_id": "validator.microcosm.organs.engine_room_bridge_campaign_dag"
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.engine_room_bridge_campaign_dag"
+  ],
+  "kind_name": "Engine room bridge campaign dag",
+  "legacy_kind_id": "microcosm_public_runtime_capsule_standard",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "relationships": {
+    "used_by_organs": [],
+    "source_ref": "standards/std_microcosm_engine_room_bridge_campaign_dag.json",
+    "registry_integration_status": "inventory_only_registered_not_active_v2_promoted"
+  },
+  "required_fields": [
+    "cycle_rejected",
+    "provider_ceiling_rejected",
+    "dangling_synthesis_rejected"
+  ],
+  "validation_rules": [
+    "validate required source refs or target refs remain public-safe",
+    "preserve draft/staged status until an active v2 acceptance lane supplies validator and receipt evidence",
+    "reject release, provider dispatch, source mutation, private-root equivalence, and whole-system correctness claims"
+  ],
+  "receipt_expectations": [
+    "record validator command and result when an admitting validator exists",
+    "record authority_ceiling and anti_claim",
+    "do not place source bodies, private paths, credentials, provider payloads, or operator thread content in receipts"
+  ],
+  "activation_boundary": {
+    "status": "blocked_until_active_v2_admission",
+    "required_reentry": [
+      "claim the shared mechanism, capsule, registry, and aggregate projection surfaces only under the admitting owner lane",
+      "run validator_contract.fixture_command and the focused public pytest for this standard",
+      "record receipt_contract evidence with validator result, authority ceiling, anti-claim, and body-in-receipt boundary",
+      "refresh aggregate doctrine-lattice projections only after source admission is landed and the aggregate owner claim is clean"
+    ],
+    "non_laundering_rules": [
+      "fixture pass is not active v2 standard support",
+      "legacy Markdown or generated paper-module projection is not subject authority",
+      "empty used_by_organs is intentional until an organ or mechanism subject is admitted",
+      "receipt_contract.required remains false while receipt_id is null"
+    ],
+    "claim_ceiling": "fixture-backed staged standard pressure only, not active public runtime standard, accepted organ, release approval, or whole-system correctness",
+    "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+  },
+  "receipt_contract": {
+    "required": false,
+    "receipt_id": null,
+    "must_record": [
+      "validator_result_when_admitted",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt_boundary"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_inventory_standard_until_active_v2_admission",
+    "allowed_public_inputs": [
+      "standard ids",
+      "public source refs",
+      "fixture ids",
+      "validator ids",
+      "receipt ids",
+      "authority ceilings",
+      "anti-claims"
+    ],
+    "forbidden_public_inputs": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "private account state",
+      "raw operator transcripts",
+      "private home-path literals",
+      "release approval state"
+    ]
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.engine_room_bridge_campaign_dag.author",
+      "status": "planned",
+      "purpose": "create a valid Engine room bridge campaign dag instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.engine_room_bridge_campaign_dag.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Engine room bridge campaign dag without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.engine_room_bridge_campaign_dag.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_engine_room_bridge_campaign_dag and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "doctrine_kind_envelope": {
+    "status": "legacy_or_staged_contract_visible_as_residual_pressure",
+    "kind_id": "engine_room_bridge_campaign_dag",
+    "claim_ceiling": "inventory and standard-shape visibility only, not active v2 acceptance"
+  }
+}

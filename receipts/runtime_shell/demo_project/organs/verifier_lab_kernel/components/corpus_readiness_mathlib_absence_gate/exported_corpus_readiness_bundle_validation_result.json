@@ -45,7 +45,7 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "public_corpus_readiness_mathlib_absence_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project :: component corpus_readiness_mathlib_absence_gate",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component corpus_readiness_mathlib_absence_gate",
   "consumer_case_count": 4,
   "consumer_gate_cases": [
     {
@@ -230,7 +230,7 @@
   ],
   "corpus_count": 7,
   "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
-  "created_at": "2026-05-30T21:36:44+00:00",
+  "created_at": "2026-06-01T22:03:59+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -431,6 +431,7 @@
     "source_module_import_status": "copied_corpus_readiness_source_modules_verified",
     "source_module_imports": [
       {
+        "actual_source_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
         "body_in_receipt": false,
         "body_material_status": "copied_non_secret_macro_body_with_provenance",
         "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -440,6 +441,8 @@
         "material_class": "public_macro_receipt_body",
         "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
         "public_safe_transform": null,
+        "source_digest_match": true,
+        "source_exists": true,
         "source_line_count": 75,
         "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
         "source_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
@@ -451,6 +454,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "actual_source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
         "body_in_receipt": false,
         "body_material_status": "copied_non_secret_macro_body_with_provenance",
         "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -460,6 +464,8 @@
         "material_class": "public_macro_receipt_body",
         "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
         "public_safe_transform": "private_absolute_path_rewrite_only",
+        "source_digest_match": true,
+        "source_exists": true,
         "source_line_count": 128,
         "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
         "source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
@@ -471,6 +477,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
+        "actual_source_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
         "body_in_receipt": false,
         "body_material_status": "copied_non_secret_macro_body_with_provenance",
         "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -480,6 +487,8 @@
         "material_class": "public_macro_tool_body",
         "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
         "public_safe_transform": null,
+        "source_digest_match": true,
+        "source_exists": true,
         "source_line_count": 4,
         "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
         "source_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
@@ -491,6 +500,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "actual_source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
         "body_in_receipt": false,
         "body_material_status": "copied_non_secret_macro_body_with_provenance",
         "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -500,6 +510,8 @@
         "material_class": "public_macro_receipt_body",
         "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
         "public_safe_transform": "private_absolute_path_rewrite_only",
+        "source_digest_match": true,
+        "source_exists": true,
         "source_line_count": 93,
         "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
         "source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
@@ -585,6 +597,7 @@
   "source_module_import_status": "copied_corpus_readiness_source_modules_verified",
   "source_module_imports": [
     {
+      "actual_source_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
       "body_in_receipt": false,
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
       "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -594,6 +607,8 @@
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
       "public_safe_transform": null,
+      "source_digest_match": true,
+      "source_exists": true,
       "source_line_count": 75,
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
       "source_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
@@ -605,6 +620,7 @@
       "verification_mode": "exact_source_digest_match"
     },
     {
+      "actual_source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
       "body_in_receipt": false,
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
       "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -614,6 +630,8 @@
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
       "public_safe_transform": "private_absolute_path_rewrite_only",
+      "source_digest_match": true,
+      "source_exists": true,
       "source_line_count": 128,
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
       "source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
@@ -625,6 +643,7 @@
       "verification_mode": "verified_light_edit_recipe"
     },
     {
+      "actual_source_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
       "body_in_receipt": false,
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
       "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -634,6 +653,8 @@
       "material_class": "public_macro_tool_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
       "public_safe_transform": null,
+      "source_digest_match": true,
+      "source_exists": true,
       "source_line_count": 4,
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
       "source_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
@@ -645,6 +666,7 @@
       "verification_mode": "exact_source_digest_match"
     },
     {
+      "actual_source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
       "body_in_receipt": false,
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
       "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
@@ -654,6 +676,8 @@
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
       "public_safe_transform": "private_absolute_path_rewrite_only",
+      "source_digest_match": true,
+      "source_exists": true,
       "source_line_count": 93,
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
       "source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",

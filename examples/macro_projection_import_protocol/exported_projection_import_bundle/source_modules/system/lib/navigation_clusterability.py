@@ -13,10 +13,22 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from system.lib.command_node_cache import cached_command_node
 from system.lib.kind_atlas import build_kind_atlas
 from system.lib.standard_option_surface import build_option_surface
 
 HIGH_CARDINALITY_THRESHOLD = 80
+DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET = 12000
+FULL_CLUSTERABILITY_AUDIT_COMMAND = "./repo-python kernel.py --clusterability-audit --context-budget 40000"
+CLUSTERABILITY_AUDIT_CACHE_TTL_SECONDS = 600.0
+_CLUSTERABILITY_AUDIT_CACHE_INPUT_PATHS: tuple[str, ...] = (
+    "state/system_atlas/system_atlas.graph.json",
+    "codex/standards/std_kind_atlas.json",
+    "codex/standards/std_system_atlas.json",
+    "system/lib/kind_atlas.py",
+    "system/lib/standard_option_surface.py",
+    "system/lib/navigation_clusterability.py",
+)
 
 _ROUTE_SPECIFIC_CLUSTER_COMMANDS = {
     "derived_facts": {
@@ -222,6 +234,79 @@ def _implemented_cluster_summary(
     }
 
 
+def _compact_no_debt_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    grouping_keys = row.get("grouping_keys_available") if isinstance(row.get("grouping_keys_available"), list) else []
+    return {
+        "kind_id": row.get("kind_id"),
+        "row_count": row.get("row_count"),
+        "cluster_flag_status": row.get("cluster_flag_status"),
+        "cluster_flag_budget_relation": row.get("cluster_flag_budget_relation"),
+        "cluster_flag_measured_bytes": row.get("cluster_flag_measured_bytes"),
+        "all_row_flag_budget_relation": row.get("all_row_flag_budget_relation"),
+        "all_row_flag_measured_bytes": row.get("all_row_flag_measured_bytes"),
+        "grouping_key_count": len(grouping_keys),
+    }
+
+
+def compact_navigation_clusterability_audit_for_cli(
+    payload: Mapping[str, Any],
+    *,
+    context_budget: int = DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET,
+    pressure_preview_limit: int = 8,
+) -> dict[str, Any]:
+    """Compact no-debt clusterability audit output for first-contact CLI use."""
+    rows = [dict(row) for row in payload.get("rows", []) if isinstance(row, Mapping)]
+    debt_rows = [dict(row) for row in payload.get("debt_rows", []) if isinstance(row, Mapping)]
+    if debt_rows:
+        return dict(payload)
+
+    def pressure_key(row: Mapping[str, Any]) -> tuple[int, int, int]:
+        cluster_relation = str(row.get("cluster_flag_budget_relation") or "")
+        all_row_relation = str(row.get("all_row_flag_budget_relation") or "")
+        return (
+            1 if cluster_relation == "exceeds_context_budget" else 0,
+            1 if all_row_relation == "exceeds_context_budget" else 0,
+            int(row.get("cluster_flag_measured_bytes") or row.get("all_row_flag_measured_bytes") or 0),
+        )
+
+    pressure_rows = sorted(rows, key=pressure_key, reverse=True)[: max(0, pressure_preview_limit)]
+    summary = dict(payload.get("summary") if isinstance(payload.get("summary"), Mapping) else {})
+    summary.update(
+        {
+            "rows_emitted_count": 0,
+            "rows_omitted_count": len(rows),
+            "row_budget_pressure_preview_count": len(pressure_rows),
+            "compact_first_contact_status": "rows_omitted_no_clusterability_debt",
+        }
+    )
+    return {
+        "kind": payload.get("kind") or "navigation_clusterability_audit",
+        "schema_version": payload.get("schema_version") or "navigation_clusterability_audit_v0",
+        "output_profile": "clusterability_no_debt_cli_compact_v0",
+        "generated_at": payload.get("generated_at"),
+        "budget": payload.get("budget"),
+        "summary": summary,
+        "rows": [],
+        "row_budget_pressure_preview": [_compact_no_debt_row(row) for row in pressure_rows],
+        "debt_rows": [],
+        "next_commands": [
+            FULL_CLUSTERABILITY_AUDIT_COMMAND,
+            *[str(command) for command in payload.get("next_commands", []) if command],
+        ],
+        "source_surfaces": payload.get("source_surfaces", []),
+        "omission_receipt": {
+            "status": "omitted_for_compact_first_contact_no_clusterability_debt",
+            "omitted_row_count": len(rows),
+            "reason": (
+                "All high-cardinality kinds already have implemented cluster surfaces or route-specific "
+                "alternatives, so the first-contact CLI keeps only summary and pressure preview rows."
+            ),
+            "full_evidence_command": FULL_CLUSTERABILITY_AUDIT_COMMAND,
+            "context_budget_tokens": context_budget,
+        },
+    }
+
+
 def build_navigation_clusterability_audit(
     repo_root: Path | str,
     *,
@@ -408,3 +493,33 @@ def build_navigation_clusterability_audit(
             "system/lib/kind_atlas.py",
         ],
     }
+
+
+def cached_navigation_clusterability_audit(
+    repo_root: Path | str,
+    *,
+    context_budget: int = 12000,
+    measure_all_rows: bool = True,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    root = Path(repo_root)
+    budget = max(1000, int(context_budget or 12000))
+    payload, cache_status = cached_command_node(
+        root,
+        node_id="navigation_clusterability.audit",
+        key={
+            "kind": "navigation_clusterability_audit",
+            "schema": "navigation_clusterability_audit_v0",
+            "context_budget": budget,
+            "measure_all_rows": bool(measure_all_rows),
+        },
+        input_paths=_CLUSTERABILITY_AUDIT_CACHE_INPUT_PATHS,
+        ttl_s=CLUSTERABILITY_AUDIT_CACHE_TTL_SECONDS,
+        builder=lambda: build_navigation_clusterability_audit(
+            root,
+            context_budget=budget,
+            measure_all_rows=measure_all_rows,
+        ),
+        freshness_policy="ttl_for_clusterability_audit_plus_static_source_manifest",
+        dynamic_inputs_manifested=False,
+    )
+    return dict(payload) if isinstance(payload, Mapping) else {"status": "unavailable"}, cache_status

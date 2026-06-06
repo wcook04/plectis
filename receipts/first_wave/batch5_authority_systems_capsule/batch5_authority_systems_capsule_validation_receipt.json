@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 5 validates copied public macro source bodies and bounded synthetic negative exercises for post-execution authority checks, incremental replay scope, verifier-gated proof repair, process orphan classification, generated state fixpoint settlement, trace compaction, blast-radius static analysis, and doctrine graph compilation. It is not live provider dispatch, not proof success, not process management authority, not generated-state mutation authority, not private-root equivalence, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch5_authority_systems_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch5_authority_systems_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch5_authority_systems_capsule"
+}

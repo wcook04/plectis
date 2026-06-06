@@ -1,0 +1,23 @@
+{
+  "body_in_receipt": false,
+  "claims": [
+    {
+      "claim_id": "claim_public_head_exists",
+      "claim_type": "commit",
+      "commit_ref": "HEAD"
+    },
+    {
+      "cap_id": "cap_fixture_closeout_receipt_exists",
+      "claim_id": "claim_cap_exists",
+      "claim_type": "task_ledger_cap"
+    },
+    {
+      "claim_id": "claim_pytest_span_passed",
+      "claim_type": "pytest_span",
+      "expected_pass": true,
+      "nodeid": "tests/test_closeout_fixture.py::test_public_fixture_addition",
+      "pass_status_checked": true
+    }
+  ],
+  "schema_version": "closeout_faithfulness_claims_v1"
+}

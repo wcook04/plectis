@@ -36,7 +36,7 @@
     "source_mutation_count": 0,
     "transition_count": 10
   },
-  "body_copied_material_count": 0,
+  "body_copied_material_count": 9,
   "body_in_receipt": false,
   "body_material_status": "",
   "bundle_id": null,
@@ -536,7 +536,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-29T05:45:51+00:00",
+  "created_at": "2026-06-01T04:18:23+00:00",
   "error_codes": [
     "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
     "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
@@ -825,48 +825,57 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_module_count": 0,
+  "source_module_count": 9,
   "source_module_imports": {
-    "blocked_source_refs": [],
     "body_in_receipt": false,
-    "body_material_classes": {},
-    "findings": [],
-    "material_classes": [],
-    "module_count": 0,
-    "module_ids": [],
-    "omitted_material": [],
-    "source_module_import_status": "not_present",
-    "source_module_manifest_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/source_module_manifest.json",
+    "body_text_in_receipt": false,
+    "module_count": 9,
+    "source_module_import_status": "pass",
+    "source_module_manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
     "source_refs": [],
-    "status": "not_present",
-    "verified_module_count": 0
+    "status": "pass",
+    "target_refs": [],
+    "verified_module_count": 9
   },
-  "source_module_manifest_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/source_module_manifest.json",
-  "source_module_manifest_status": "not_present",
+  "source_module_manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
   "source_open_body_imports": {
-    "aggregate_floor_ref": "",
+    "aggregate_floor_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only",
       "proof_bodies_in_receipts": false,
       "provider_calls_authorized": false,
       "release_authorized": false
     },
-    "blocked_source_refs": [],
     "body_in_receipt": false,
-    "body_material_classes": {},
-    "body_material_count": 0,
-    "body_material_ids": [],
-    "body_material_status": "",
+    "body_material_count": 9,
+    "body_material_ids": [
+      "period_noncollapse_strike_runner_body_import",
+      "period_noncollapse_lakefile_body_import",
+      "period_noncollapse_toolchain_body_import",
+      "period_noncollapse_root_module_body_import",
+      "certificate_kernel_lean_body_import",
+      "generated_certificates_lean_body_import",
+      "generated_certificate_shard_b10_l6_a11_body_import",
+      "certificate_kernel_profile_receipt_body_import",
+      "generated_certificates_profile_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
     "body_text_in_receipt": false,
-    "material_classes": [],
-    "omitted_material": [],
-    "reader_action": "",
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported certificate-kernel bundle for copied macro Lean kernel, generated certificate, strike-runner, toolchain, and Lean profile receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
     "schema_version": "certificate_kernel_execution_lab_source_open_body_imports_v1",
-    "source_import_class": "",
-    "source_manifest_refs": [],
-    "status": "not_present"
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,
@@ -1097,5 +1106,5 @@
     }
   ],
   "validator_id": "validator.microcosm.organs.certificate_kernel_execution_lab",
-  "verified_source_module_count": 0
+  "verified_source_module_count": 9
 }

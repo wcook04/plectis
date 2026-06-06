@@ -1,40 +1,28 @@
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
 
 from microcosm_core import cli
 from microcosm_core.runtime_shell import RuntimeShell
+from runtime_fixture_tree import copy_microcosm_runtime_root
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
-
-
-def _copytree_fixture(source: Path, destination: Path) -> None:
-    shutil.copytree(source, destination, ignore=FIXTURE_COPY_IGNORE)
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
-    public_root = tmp_path / "microcosm-substrate"
-    _copytree_fixture(MICROCOSM_ROOT / "core", public_root / "core")
-    _copytree_fixture(MICROCOSM_ROOT / "examples", public_root / "examples")
-    _copytree_fixture(MICROCOSM_ROOT / "src", public_root / "src")
-    _copytree_fixture(MICROCOSM_ROOT / "standards", public_root / "standards")
-    _copytree_fixture(
-        MICROCOSM_ROOT / "receipts/first_wave",
-        public_root / "receipts/first_wave",
+    return copy_microcosm_runtime_root(
+        tmp_path,
+        MICROCOSM_ROOT,
+        static_refs=("examples", "src", "standards"),
+        mutable_refs=(
+            "core",
+            "receipts/first_wave",
+            "receipts/runtime_shell",
+            "receipts/preflight",
+        ),
     )
-    _copytree_fixture(
-        MICROCOSM_ROOT / "receipts/runtime_shell",
-        public_root / "receipts/runtime_shell",
-    )
-    _copytree_fixture(
-        MICROCOSM_ROOT / "receipts/preflight",
-        public_root / "receipts/preflight",
-    )
-    return public_root
 
 
 def _scratch_project(tmp_path: Path) -> Path:

@@ -1,0 +1,167 @@
+{
+  "schema_version": "microcosm_standard_v1",
+  "standard_id": "std_microcosm_batch7_zenith_macos_capsule",
+  "title": "Batch 7 Zenith macOS Capsule Standard",
+  "organ_id": "batch7_zenith_macos_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "requirements": [
+    {
+      "id": "exact_public_safe_swift_copies",
+      "status": "required",
+      "description": "The source_module_manifest must exact-copy non-secret Swift source bodies and tests from apps/zenith-macos."
+    },
+    {
+      "id": "original_swiftpm_witness",
+      "status": "required",
+      "description": "The organ must run or record the original apps/zenith-macos swift test witness and keep stdout/stderr bodies out of receipts."
+    },
+    {
+      "id": "negative_cases",
+      "status": "required",
+      "description": "Negative fixtures must cover web latch, shutdown command gate, recording telemetry snake-case encoding, and missing SwiftPM witness."
+    },
+    {
+      "id": "private_path_carveout",
+      "status": "required",
+      "description": "Swift files with private path markers must not be copied into the public bundle until generalized upstream."
+    },
+    {
+      "id": "authority_ceiling",
+      "status": "required",
+      "description": "The capsule must deny app launch, provider/browser, source mutation, operator-thread, release, and semantic truth authority."
+    }
+  ],
+  "validator": "validator.microcosm.organs.batch7_zenith_macos_capsule",
+  "body_in_receipt": false,
+  "status": "draft",
+  "kind_id": "batch7_zenith_macos_capsule",
+  "kind_name": "Batch 7 Zenith macOS Capsule Standard",
+  "authority_boundary": "batch7_zenith_macos_capsule_draft_or_staged_standard_inventory_boundary",
+  "authority_ceiling": {
+    "status": "pass",
+    "release_authority": false,
+    "publication_authority": false,
+    "provider_dispatch_authority": false,
+    "source_mutation_authority": false,
+    "private_root_equivalence_authority": false,
+    "whole_system_correctness_authority": false,
+    "standard_authority": "draft_or_staged_inventory_contract_only_not_active_v2_acceptance",
+    "authority_boundary_ref": "batch7_zenith_macos_capsule_draft_or_staged_standard_inventory_boundary"
+  },
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_refs": [
+    {
+      "path": "core/standards_registry.json",
+      "role": "registry_inventory_only_no_source_body_claim"
+    }
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "batch7_zenith_macos_capsule"
+    ],
+    "source_ref": "standards/std_microcosm_batch7_zenith_macos_capsule.json",
+    "registry_integration_status": "inventory_only_registered_not_active_v2_promoted"
+  },
+  "required_fields": [
+    "exact_public_safe_swift_copies",
+    "original_swiftpm_witness",
+    "negative_cases",
+    "private_path_carveout",
+    "authority_ceiling"
+  ],
+  "validation_rules": [
+    "validate required source refs or target refs remain public-safe",
+    "preserve draft/staged status until an active v2 acceptance lane supplies validator and receipt evidence",
+    "reject release, provider dispatch, source mutation, private-root equivalence, and whole-system correctness claims"
+  ],
+  "activation_boundary": {
+    "status": "blocked_until_active_v2_admission",
+    "required_reentry": [
+      "land an accepted organ or mechanism subject for batch7_zenith_macos_capsule before treating used_by_organs as support",
+      "claim the Batch7 Zenith macOS organ, standard, registry, capsule, and aggregate projection surfaces only under the admitting owner lane",
+      "run validator.microcosm.organs.batch7_zenith_macos_capsule plus the focused Batch7 Zenith macOS pytest and exact-copy checks",
+      "record receipt_contract evidence with validator result, original SwiftPM witness, authority ceiling, anti-claim, and body-in-receipt boundary",
+      "refresh aggregate doctrine-lattice projections only after source admission is landed and the aggregate owner claim is clean"
+    ],
+    "non_laundering_rules": [
+      "registered validator id is not active v2 standard support",
+      "draft used_by_organs entry is residual pressure until the target organ is accepted current authority",
+      "original SwiftPM witness requirement is not app launch, release, provider dispatch, or private-root equivalence authority",
+      "receipt_contract.required remains false while receipt_id is null"
+    ],
+    "claim_ceiling": "draft inventory standard pressure only, not active public runtime standard, accepted organ, app launch, release approval, provider dispatch, or whole-system correctness",
+    "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+  },
+  "receipt_expectations": [
+    "record validator command and result when an admitting validator exists",
+    "record authority_ceiling and anti_claim",
+    "do not place source bodies, private paths, credentials, provider payloads, or operator thread content in receipts"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.batch7_zenith_macos_capsule",
+    "minimum_checks": [
+      "schema_shape",
+      "authority_boundary",
+      "no_source_body_in_receipt"
+    ]
+  },
+  "receipt_contract": {
+    "required": false,
+    "receipt_id": null,
+    "must_record": [
+      "validator_result_when_admitted",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt_boundary"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_inventory_standard_until_active_v2_admission",
+    "allowed_public_inputs": [
+      "standard ids",
+      "public source refs",
+      "fixture ids",
+      "validator ids",
+      "receipt ids",
+      "authority ceilings",
+      "anti-claims"
+    ],
+    "forbidden_public_inputs": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "private account state",
+      "raw operator transcripts",
+      "private home-path literals",
+      "release approval state"
+    ]
+  },
+  "anti_claim": "The Batch7 zenith macos capsule standard is registered as draft inventory only; this does not authorize release, provider dispatch, source mutation, private-root equivalence, active v2 acceptance, or whole-system correctness.",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch7_zenith_macos_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch7 zenith macos capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch7_zenith_macos_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch7 zenith macos capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch7_zenith_macos_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch7_zenith_macos_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "doctrine_kind_envelope": {
+    "status": "legacy_or_staged_contract_visible_as_residual_pressure",
+    "kind_id": "batch7_zenith_macos_capsule",
+    "claim_ceiling": "inventory and standard-shape visibility only, not active v2 acceptance"
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch7_zenith_macos_capsule"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "expected_negative_case_id": "synthetic_section_materials",
+  "schema_version": "provider_context_negative_fixture_v1",
+  "sections": [
+    {
+      "declared_byte_size": 720,
+      "material_kind": "synthetic_public_section",
+      "section_id": "statement",
+      "text": "Synthetic public theorem statement shape used as placeholder context."
+    }
+  ]
+}

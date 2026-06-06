@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "description": "Unknown shell groups must not create a new territory; they route to the unassigned column.",
+  "error_codes": [
+    "BATCH8_STATION_LAYOUT_UNKNOWN_GROUP_ROUTED_UNASSIGNED"
+  ],
+  "expected_column_group": "unassigned",
+  "schema_version": "batch8_station_surface_atlas_layout_negative_case_v1"
+}

@@ -1,0 +1,31 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_macro_engines_capsule",
+  "input_dir": "fixtures/first_wave/batch7_macro_engines_capsule/input",
+  "negative_cases": [
+    "calculator_outlier",
+    "clean_clone_network_call",
+    "codemap_overlap",
+    "dag_cycle",
+    "pagerank_missing_source",
+    "regression_selection_empty",
+    "release_root_bad_ref",
+    "source_surgeon_context_mismatch",
+    "trace_commit_without_diff"
+  ],
+  "organ_id": "batch7_macro_engines_capsule",
+  "required_inputs": [
+    "batch7_exercise_manifest.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_count": 15,
+    "source_manifest_refs": [
+      "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false
+  },
+  "source_module_manifest_ref": "examples/batch7_macro_engines_capsule/exported_batch7_macro_engines_capsule_bundle/source_module_manifest.json"
+}

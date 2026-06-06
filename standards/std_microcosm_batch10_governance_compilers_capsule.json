@@ -1,0 +1,234 @@
+{
+  "schema_version": "public_microcosm_standard_v2",
+  "standard_id": "std_microcosm_batch10_governance_compilers_capsule",
+  "kind_id": "batch10_governance_compilers_capsule",
+  "kind_name": "Batch 10 governance compilers capsule",
+  "status": "active",
+  "first_wave_required": true,
+  "authority_boundary": "public_batch10_governance_compilers_source_open_capsule_not_live_ledger_release_or_publication_authority",
+  "anti_claim": "This Batch-10 capsule accepts exact copied non-secret macro source bodies plus one source-faithful public refactor and deterministic public exercises. It does not claim release approval, publication approval, live Work Ledger truth, neutral benchmark evidence, source mutation authority, private-root equivalence, provider/browser authority, or investment advice.",
+  "authority_ceiling": {
+    "status": "pass",
+    "authority_ceiling": "batch10_governance_compilers_capsule_not_live_authority_or_release_approval",
+    "real_substrate_disposition": "real_substrate_capsule",
+    "standard_authority": "public_batch10_source_open_capsule_and_source_body_digest_contract_only",
+    "provider_dispatch": false,
+    "browser_or_hud_authority": false,
+    "work_ledger_authority": false,
+    "source_mutation_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "market_advice": false,
+    "neutral_benchmark_claim": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_source_open_capsule_with_exact_copied_non_secret_macro_body_modules_source_faithful_public_refactor_and_source_faithful_exercises",
+    "allowed_public_inputs": [
+      "public mechanism ids and source-module ids",
+      "public negative-case ids and stable error codes",
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "source-faithful public refactor metadata when private path literals are removed",
+      "bounded synthetic exercise inputs and outcomes",
+      "authority ceilings and anti-claims"
+    ],
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private home-path literals copied from source",
+      "live Work Ledger state as authority",
+      "publication operation state",
+      "release approval state",
+      "investment advice or live market advice"
+    ]
+  },
+  "required_fields": [
+    "mechanisms",
+    "source_module_manifest",
+    "runtime_exercises",
+    "integrity_matrix",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt",
+    "blocked_binding_repair_count"
+  ],
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.batch10_governance_compilers_capsule",
+    "must_record": [
+      "mechanism_count",
+      "passed_mechanism_count",
+      "blocked_binding_repair_count",
+      "source_module_manifest",
+      "runtime_exercises",
+      "integrity_matrix",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ]
+  },
+  "receipt_expectations": [
+    "batch10_governance_compilers_capsule_result.json",
+    "batch10_governance_compilers_capsule_board.json",
+    "batch10_governance_compilers_capsule_validation_receipt.json",
+    "batch10_governance_compilers_capsule_fixture_acceptance.json"
+  ],
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch10_governance_compilers_capsule/input",
+      "role": "public_mechanism_and_negative_case_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest_plus_public_refactor_metadata"
+    }
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "batch10_governance_compilers_capsule"
+    ],
+    "source_pattern_id_sample": [
+      "mutation_governance_intent_gate",
+      "observe_apply_plan_compiler",
+      "flagship_reviewer_persona_gauntlet_adjudicator",
+      "release_public_toggle_blocker_closure_triage",
+      "publication_manifest_selector_contract_verifier",
+      "constitution_workspace_receipt_reuse_decider",
+      "finance_no_lookahead_temporal_contract",
+      "session_dependency_wave_executor",
+      "claim_conflict_wait_tax_detector",
+      "role_aware_dag_block_propagation",
+      "generic_table_shaping_sort_filter_paginate_kernel",
+      "annex_source_kind_group_ranker",
+      "recent_change_fingerprint_coalescer",
+      "weighted_lane_width_apportionment_binding_repair"
+    ],
+    "canonical_organ_model_ref": "core/organ_registry.json#batch10_governance_compilers_capsule"
+  },
+  "standard_payload": {
+    "ontology": "A public-safe composite organ that imports Batch-10 governance, compiler, release, finance, dependency, DAG, table, annex, and recent-change macro mechanisms as exact copied macro source bodies plus a private-path-safe public refactor.",
+    "teleology": "Let a cold reader inspect and rerun representative governance/compiler mechanics without inheriting live ledger, release, publication, provider, browser, market, or private-root authority.",
+    "anti_purpose": "Receipt-only claims, fixture-only authority, live Work Ledger authority, source mutation, publication or release signaling, private-root equivalence, neutral benchmark claims, or investment advice.",
+    "failure_modes": [
+      "mechanism count drifts from the fourteen Batch-10 target rows without updating fixture, receipts, and docs",
+      "passed mechanism count hides the explicitly blocked Batch-9 lane-width binding repair",
+      "source module count drifts from thirteen without manifest and test updates",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required anchors",
+      "publication manifest selector logic reintroduces private home-path literals instead of the public refactor",
+      "runtime exercises stop checking the named source-faithful semantics and become receipt-only checks",
+      "negative-case fixtures become verdict authority instead of labels paired to computed mechanism outcomes",
+      "receipts include copied body text, raw operator transcripts, provider/browser state, credentials, live ledger state, private paths, or publication/release state"
+    ],
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "validator.microcosm.organs.batch10_governance_compilers_capsule"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.batch10_governance_compilers_capsule"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "validation_rules": [
+    "require exactly fourteen Batch-10 mechanism rows",
+    "require exactly thirteen passed mechanisms and one blocked binding-repair witness",
+    "require exactly thirteen copied macro source modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "represent publication selector semantics as a source-faithful public refactor with private path literals removed",
+    "execute source-faithful public exercises for all thirteen passing mechanisms",
+    "require an integrity-matrix row for every mechanism with source relation, claim ceiling, current action, and computed positive/negative behavior",
+    "require stable negative-case codes for all fourteen negative cases while treating fixture files as labels, not verdict authority",
+    "require every negative-case code to be paired to computed evaluator evidence under exercise.integrity_matrix",
+    "keep provider dispatch, browser/HUD authority, live Work Ledger authority, source mutation, publication, release, market advice, private-root equivalence, neutral benchmark, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.batch10_governance_compilers_capsule",
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_governance_compilers_capsule run --input fixtures/first_wave/batch10_governance_compilers_capsule/input --out receipts/first_wave/batch10_governance_compilers_capsule --acceptance-out receipts/acceptance/first_wave/batch10_governance_compilers_capsule_fixture_acceptance.json",
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_governance_compilers_capsule validate-bundle --input examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle --out /tmp/batch10_governance_compilers_capsule_bundle_receipts",
+    "expected_mechanism_count": 14,
+    "expected_passed_mechanism_count": 13,
+    "expected_blocked_binding_repair_count": 1,
+    "expected_source_module_count": 13,
+    "expected_negative_case_count": 14
+  },
+  "wave": "w1_batch10_governance_compilers_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch10_governance_compilers_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 10 governance compilers capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch10_governance_compilers_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 10 governance compilers capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch10_governance_compilers_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch10_governance_compilers_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch10_governance_compilers_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch10_governance_compilers_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch10_governance_compilers_capsule"
+  ],
+  "anti_claims": [
+    "This Batch-10 capsule accepts exact copied non-secret macro source bodies plus one source-faithful public refactor and deterministic public exercises. It does not claim release approval, publication approval, live Work Ledger truth, neutral benchmark evidence, source mutation authority, private-root equivalence, provider/browser authority, or investment advice.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch10_governance_compilers_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.batch10_governance_compilers_capsule",
+    "receipt_id": "receipt.microcosm.batch10_governance_compilers_capsule",
+    "validator_refs": [
+      "validator.microcosm.organs.batch10_governance_compilers_capsule"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.batch10_governance_compilers_capsule"
+    ]
+  }
+}

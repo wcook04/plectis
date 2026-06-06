@@ -3,15 +3,15 @@
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "agent_execution_trace_source_modules_import",
-  "module_count": 3,
+  "module_count": 4,
   "modules": [
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 229460,
+      "byte_count": 300634,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5256,
+      "line_count": 6828,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_source_body_import",
       "required_anchors": [
@@ -25,17 +25,41 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace builder that turns observable Claude/Codex tool-call records into span, route-compliance, bottleneck, and compactness ledgers while excluding prompt bodies, hidden reasoning, and raw tool-output bodies.",
-      "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "source_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
+      "target_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 102371,
+      "byte_count": 10373,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 2418,
+      "line_count": 260,
+      "material_class": "public_macro_tool_body",
+      "module_id": "strict_json_source_body_import",
+      "required_anchors": [
+        "class StrictJsonError",
+        "class DuplicateJsonKeyError",
+        "def loads_json_strict(",
+        "def read_json_strict(",
+        "def strict_json_artifact_report("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/lib/strict_json.py",
+      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
+      "source_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/strict_json.py",
+      "target_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 118552,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 2806,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_test_body_import",
       "required_anchors": [
@@ -49,17 +73,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "system/server/tests/test_agent_execution_trace.py",
       "source_role": "Focused regression-test body for the macro agent-execution trace pipeline, using synthetic JSONL fixtures instead of live Claude/Codex account/session state.",
-      "source_sha256": "15554aaef995730c692a7cf0b04a73b0a6539fdb5cdf8c474241ca4980bac49e",
+      "source_sha256": "5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
-      "target_sha256": "15554aaef995730c692a7cf0b04a73b0a6539fdb5cdf8c474241ca4980bac49e"
+      "target_sha256": "5b8db1b21f8eff31ad801bcd7698ea7dc41952d83d91b1d171bd13c03684406a"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 49875,
+      "byte_count": 50351,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 678,
+      "line_count": 679,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_standard_body_import",
       "required_anchors": [
@@ -73,9 +97,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Formal standard for the agent-execution trace observability boundary, source authority ladder, trace projections, and frontend API surface.",
-      "source_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "source_sha256": "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559"
+      "target_sha256": "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic privacy-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",

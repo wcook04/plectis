@@ -12,6 +12,7 @@ from microcosm_core.organs import (
 from microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    _line_count,
     main,
     result_card,
     run,
@@ -40,6 +41,7 @@ MACRO_SOURCE_BODY_MATERIAL_IDS = [
     "agent_execution_trace_tool_body_import",
     "std_agent_execution_trace_standard_body_import",
     "std_extracted_pattern_route_readiness_standard_body_import",
+    "strict_json_source_body_import",
 ]
 MACRO_SOURCE_BODY_MATERIAL_CLASSES = {
     "oracle_attribution_legacy_node_body_import": "public_macro_pattern_body",
@@ -50,6 +52,7 @@ MACRO_SOURCE_BODY_MATERIAL_CLASSES = {
     "projection_readiness_checker_control_plane_body_import": "public_macro_tool_body",
     "mission_transaction_preflight_tool_body_import": "public_macro_tool_body",
     "agent_execution_trace_tool_body_import": "public_macro_tool_body",
+    "strict_json_source_body_import": "public_macro_tool_body",
     "std_agent_execution_trace_standard_body_import": "public_macro_proof_body",
     "std_extracted_pattern_route_readiness_standard_body_import": "public_macro_proof_body",
 }
@@ -78,6 +81,94 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def test_mechanistic_interpretability_line_count_streams_without_full_text_read(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "interpretability_source.py"
+    empty_source = tmp_path / "empty_interpretability_source.py"
+    source.write_text("one\n\ntwo\n", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
+    guarded_paths = {source, empty_source}
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in guarded_paths:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _line_count(source) == 3
+    assert _line_count(empty_source) == 1
+
+
+def test_mechanistic_interpretability_sha256_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "circuit_source.py"
+    body = b"FEATURE_ATTRIBUTION_EDGE = True\n" * 1024
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source:
+            raise AssertionError("digest should stream circuit attribution input")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert circuit_attribution._sha256_hex(source) == hashlib.sha256(body).hexdigest()
+    assert circuit_attribution._sha256_ref(source) == (
+        "sha256:" + hashlib.sha256(body).hexdigest()
+    )
+
+
+def test_mechanistic_interpretability_toy_transformer_runtime_computes_attribution() -> None:
+    runtime = circuit_attribution._toy_transformer_attribution_runtime()
+
+    assert runtime["status"] == "pass"
+    assert (
+        runtime["runtime_kind"]
+        == "pure_python_two_layer_toy_transformer_forward_gradient_ablation"
+    )
+    assert runtime["spec_source"] == "internal_default_for_direct_unit_call"
+    assert runtime["input_coupled_fixture"] is False
+    assert runtime["forward_receipt"]["target_logit"] == 0.044176
+    assert len(runtime["gradient_scores"]) == 3
+    assert len(runtime["ablation_result"]["rows"]) == 3
+    assert runtime["ablation_result"]["top_feature_by_ablation"] == (
+        "toy_hidden_feature_1"
+    )
+    assert runtime["fabrication_guard"]["top_feature_by_attribution"] == (
+        "toy_hidden_feature_1"
+    )
+    assert runtime["fabrication_guard"]["top_feature_by_ablation"] == (
+        "toy_hidden_feature_1"
+    )
+    assert runtime["fabrication_guard"]["verdict_source"] == (
+        "fixture_claim_compared_to_recomputed_forward_gradient_ablation"
+    )
+    assert runtime["fabrication_guard"]["recompute_input_fields"] == [
+        "token_ids",
+        "embeddings",
+        "layer1",
+        "layer2",
+        "target_logit_index",
+    ]
+    assert runtime["fabrication_guard"]["claimed_top_feature_fields"] == [
+        "expected_top_feature_by_attribution",
+        "expected_top_feature_by_ablation",
+    ]
+    assert runtime["fabrication_guard"]["declared_matches_recompute"] is True
+    assert runtime["fabrication_guard"]["input_coupled_verdict"] is True
+    assert runtime["fabrication_guard"]["passed"] is True
+    assert runtime["private_model_weights_exported"] is False
+    assert runtime["raw_activation_dump_exported"] is False
+    assert runtime["body_in_receipt"] is False
+
+
 def test_mechanistic_interpretability_circuit_attribution_replay_observes_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -98,6 +189,49 @@ def test_mechanistic_interpretability_circuit_attribution_replay_observes_negati
     assert result["attribution_summary"]["feature_count"] == 6
     assert result["attribution_summary"]["replay_count"] == 6
     assert result["attribution_summary"]["attribution_edge_count"] == 12
+    assert result["attribution_summary"]["attribution_path_count"] >= 6
+    assert result["attribution_summary"]["reachable_error_node_count"] == 6
+    assert (
+        result["attribution_summary"]["decorative_weight_sequence_detected"]
+        is False
+    )
+    assert result["weight_sequence_analysis"]["status"] == "pass"
+    assert result["toy_transformer_attribution_runtime"]["status"] == "pass"
+    assert (
+        result["toy_transformer_attribution_runtime"]["spec_source"]
+        == "attribution_replays.toy_transformer_runtime"
+    )
+    assert (
+        result["toy_transformer_attribution_runtime"]["input_coupled_fixture"]
+        is True
+    )
+    assert result["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "passed"
+    ] is True
+    assert result["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "declared_matches_recompute"
+    ] is True
+    assert result["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "top_feature_by_attribution"
+    ] == "toy_hidden_feature_1"
+    assert result["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "top_feature_by_ablation"
+    ] == "toy_hidden_feature_1"
+    assert result["attribution_summary"]["toy_transformer_runtime_status"] == "pass"
+    assert result["attribution_summary"]["toy_transformer_target_logit"] == 0.044176
+    assert result["attribution_summary"]["toy_transformer_ablation_count"] == 3
+    assert (
+        result["attribution_summary"]["toy_transformer_fabrication_guard_passed"]
+        is True
+    )
+    assert (
+        result["authority_ceiling"]["public_toy_transformer_runtime_authorized"]
+        is True
+    )
+    assert all(
+        row["path_count"] >= 1
+        for row in result["attribution_graph_analyses"]
+    )
     assert result["attribution_summary"]["causal_intervention_count"] == 6
     assert result["attribution_summary"]["contradiction_case_count"] == 6
     assert result["negative_case_summary"]["expected_negative_case_count"] == len(
@@ -154,6 +288,223 @@ def test_mechanistic_interpretability_circuit_attribution_replay_observes_negati
         assert result["negative_case_summary"]["observed_codes"][case_id] == codes
 
 
+def test_mechanistic_interpretability_rejects_wrong_toy_transformer_top_feature(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = (
+        public_root
+        / "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay"
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay",
+        fixture,
+    )
+    replay_path = fixture / "input/attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    payload["toy_transformer_runtime"][
+        "expected_top_feature_by_attribution"
+    ] = "toy_hidden_feature_0"
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root
+        / "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    guard = result["toy_transformer_attribution_runtime"]["fabrication_guard"]
+    assert guard["top_feature_by_attribution"] == "toy_hidden_feature_1"
+    assert guard["declared_top_feature_by_attribution"] == "toy_hidden_feature_0"
+    assert guard["declared_matches_recompute"] is False
+    assert guard["input_coupled_verdict"] is False
+    assert (
+        "INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH"
+        in guard["failure_codes"]
+    )
+    assert {
+        finding["error_code"] for finding in result["positive_findings"]
+    } >= {"INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH"}
+
+
+def test_mechanistic_interpretability_rejects_internal_default_toy_runtime(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+    replay_path = bundle / "attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    payload.pop("toy_transformer_runtime")
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert (
+        result["toy_transformer_attribution_runtime"]["spec_source"]
+        == "internal_default_for_direct_unit_call"
+    )
+    assert (
+        result["attribution_summary"]["toy_transformer_input_coupled_fixture"]
+        is False
+    )
+    assert {
+        finding["error_code"] for finding in result["positive_findings"]
+    } >= {"INTERPRETABILITY_TOY_TRANSFORMER_FIXTURE_SPEC_REQUIRED"}
+
+
+def test_mechanistic_interpretability_toy_transformer_input_perturbation_moves_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+
+    baseline = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay/baseline",
+        command="pytest",
+    )
+
+    replay_path = bundle / "attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    toy_runtime = payload["toy_transformer_runtime"]
+    toy_runtime["layer2"][0][1] = -0.5
+    toy_runtime["expected_top_feature_by_attribution"] = "toy_hidden_feature_0"
+    toy_runtime["expected_top_feature_by_ablation"] = "toy_hidden_feature_0"
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    perturbed = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay/perturbed",
+        command="pytest",
+    )
+
+    assert baseline["status"] == "pass"
+    assert perturbed["status"] == "pass"
+    assert (
+        baseline["toy_transformer_attribution_runtime"]["weight_digest"]
+        != perturbed["toy_transformer_attribution_runtime"]["weight_digest"]
+    )
+    assert baseline["attribution_summary"]["toy_transformer_target_logit"] == 0.044176
+    assert perturbed["attribution_summary"]["toy_transformer_target_logit"] == -0.116939
+    assert (
+        baseline["attribution_summary"]["toy_transformer_top_feature_by_attribution"]
+        == "toy_hidden_feature_1"
+    )
+    assert (
+        perturbed["attribution_summary"]["toy_transformer_top_feature_by_attribution"]
+        == "toy_hidden_feature_0"
+    )
+    assert (
+        baseline["attribution_summary"]["toy_transformer_top_feature_by_ablation"]
+        == "toy_hidden_feature_1"
+    )
+    assert (
+        perturbed["attribution_summary"]["toy_transformer_top_feature_by_ablation"]
+        == "toy_hidden_feature_0"
+    )
+    assert (
+        perturbed["toy_transformer_attribution_runtime"]["fabrication_guard"][
+            "declared_matches_recompute"
+        ]
+        is True
+    )
+    assert (
+        perturbed["toy_transformer_attribution_runtime"]["fabrication_guard"][
+            "input_coupled_verdict"
+        ]
+        is True
+    )
+
+
+def test_mechanistic_interpretability_input_perturbation_rejects_stale_claims(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+    replay_path = bundle / "attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    payload["toy_transformer_runtime"]["layer2"][0][1] = -0.5
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay/stale_claim",
+        command="pytest",
+    )
+
+    guard = result["toy_transformer_attribution_runtime"]["fabrication_guard"]
+    assert result["status"] == "blocked"
+    assert result["attribution_summary"]["toy_transformer_target_logit"] == -0.116939
+    assert guard["top_feature_by_attribution"] == "toy_hidden_feature_0"
+    assert guard["top_feature_by_ablation"] == "toy_hidden_feature_0"
+    assert guard["declared_top_feature_by_attribution"] == "toy_hidden_feature_1"
+    assert guard["declared_top_feature_by_ablation"] == "toy_hidden_feature_1"
+    assert guard["input_coupled_verdict"] is False
+    assert (
+        "INTERPRETABILITY_TOY_TRANSFORMER_DECLARED_TOP_FEATURE_MISMATCH"
+        in guard["failure_codes"]
+    )
+
+
 def test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs(
     tmp_path: Path,
 ) -> None:
@@ -179,6 +530,13 @@ def test_mechanistic_interpretability_circuit_attribution_receipts_consume_publi
     assert result["body_in_receipt"] is False
     assert result["body_import_verification"]["classification"] == "real_runtime_receipt"
     assert result["body_import_verification"]["body_in_receipt"] is False
+    assert result["toy_transformer_attribution_runtime"]["status"] == "pass"
+    assert result["mechanistic_interpretability_board"][
+        "toy_transformer_runtime_status"
+    ] == "pass"
+    assert result["mechanistic_interpretability_board"][
+        "toy_transformer_fabrication_guard_passed"
+    ] is True
     assert result["source_module_import_status"] == (
         "copied_non_secret_macro_body_landed"
     )
@@ -220,6 +578,21 @@ def test_mechanistic_interpretability_exported_bundle_validates_runtime_shape(
         "mechanistic_interpretability_circuit_attribution_replay"
     )
     assert result["attribution_summary"]["replay_count"] == 6
+    assert result["attribution_summary"]["attribution_path_count"] >= 6
+    assert result["attribution_summary"]["reachable_error_node_count"] == 6
+    assert (
+        result["attribution_summary"]["decorative_weight_sequence_detected"]
+        is False
+    )
+    assert result["weight_sequence_analysis"]["status"] == "pass"
+    assert result["toy_transformer_attribution_runtime"]["status"] == "pass"
+    assert (
+        result["toy_transformer_attribution_runtime"]["runtime_kind"]
+        == "pure_python_two_layer_toy_transformer_forward_gradient_ablation"
+    )
+    assert result["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "passed"
+    ] is True
     assert result["negative_case_summary"]["expected_negative_case_count"] == 0
     assert result["negative_case_summary"]["expected_missing"] == {}
     assert result["finding_count"] == 0
@@ -277,11 +650,25 @@ def test_mechanistic_interpretability_bundle_card_reuses_fresh_receipt(
     assert first["receipt_reused"] is False
     assert first_card["schema_version"] == CARD_SCHEMA_VERSION
     assert first_card["command_speed"]["receipt_reused"] is False
-    assert first_card["command_speed"]["freshness_input_count"] == 17
+    assert first_card["command_speed"]["freshness_input_count"] == 18
     assert first_card["circuit_attribution"]["feature_count"] == 6
     assert first_card["circuit_attribution"]["replay_count"] == 6
-    assert first_card["circuit_attribution"]["source_module_count"] == 10
-    assert first_card["circuit_attribution"]["source_open_body_material_count"] == 10
+    assert first_card["circuit_attribution"]["attribution_path_count"] >= 6
+    assert first_card["circuit_attribution"]["toy_transformer_runtime_status"] == "pass"
+    assert first_card["circuit_attribution"]["toy_transformer_target_logit"] == 0.044176
+    assert first_card["circuit_attribution"]["toy_transformer_ablation_count"] == 3
+    assert (
+        first_card["circuit_attribution"][
+            "toy_transformer_fabrication_guard_passed"
+        ]
+        is True
+    )
+    assert (
+        first_card["circuit_attribution"]["decorative_weight_sequence_detected"]
+        is False
+    )
+    assert first_card["circuit_attribution"]["source_module_count"] == 11
+    assert first_card["circuit_attribution"]["source_open_body_material_count"] == 11
     assert first_card["body_floor"]["features_in_card"] is False
     assert first_card["body_floor"]["attribution_replays_in_card"] is False
     assert first_card["body_floor"]["source_open_body_imports_in_card"] is False
@@ -314,6 +701,55 @@ def test_mechanistic_interpretability_bundle_card_reuses_fresh_receipt(
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
+def test_mechanistic_interpretability_bundle_card_rejects_uncoupled_cached_receipt(
+    tmp_path: Path,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay"
+    )
+    command = (
+        "python -m microcosm_core.organs."
+        "mechanistic_interpretability_circuit_attribution_replay "
+        f"run-attribution-bundle --input {BUNDLE_INPUT} --out {out} --card"
+    )
+    first = run_attribution_bundle(
+        BUNDLE_INPUT,
+        out,
+        command=command,
+        reuse_fresh_receipt=True,
+    )
+    receipt_path = out / "exported_circuit_attribution_bundle_validation_result.json"
+    cached = json.loads(receipt_path.read_text(encoding="utf-8"))
+    cached["toy_transformer_attribution_runtime"]["input_coupled_fixture"] = False
+    cached["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "input_coupled_verdict"
+    ] = False
+    receipt_path.write_text(
+        json.dumps(cached, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    rebuilt = run_attribution_bundle(
+        BUNDLE_INPUT,
+        out,
+        command=command,
+        reuse_fresh_receipt=True,
+    )
+
+    assert first["status"] == "pass"
+    assert rebuilt["status"] == "pass"
+    assert rebuilt["receipt_reused"] is False
+    assert (
+        rebuilt["toy_transformer_attribution_runtime"]["input_coupled_fixture"]
+        is True
+    )
+    assert rebuilt["toy_transformer_attribution_runtime"]["fabrication_guard"][
+        "input_coupled_verdict"
+    ] is True
+
+
 def test_mechanistic_interpretability_macro_source_modules_are_exact_imports(
     tmp_path: Path,
 ) -> None:
@@ -343,6 +779,51 @@ def test_mechanistic_interpretability_macro_source_modules_are_exact_imports(
         assert row["body_in_receipt"] is False
         assert row["target_body_digest"] == _sha256_ref(target)
         assert _sha256_ref(source) == _sha256_ref(target)
+
+
+def test_mechanistic_interpretability_source_modules_reject_body_text_in_receipt(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["body_text_in_receipt"] = True
+    manifest["modules"][0]["body_text_in_receipt"] = True
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_summary"]["status"] == "blocked"
+    error_codes = {
+        finding["error_code"]
+        for finding in result["source_module_summary"]["findings"]
+    }
+    assert "INTERPRETABILITY_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN" in error_codes
+    assert (
+        "INTERPRETABILITY_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN"
+        in error_codes
+    )
 
 
 def test_mechanistic_interpretability_fixture_manifest_exports_body_floor() -> None:
@@ -378,3 +859,100 @@ def test_mechanistic_interpretability_fixture_manifest_exports_body_floor() -> N
     assert manifest["body_copied_material_count"] == len(
         MACRO_SOURCE_BODY_MATERIAL_IDS
     )
+    bundle_manifest = json.loads(
+        (BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    bundle_body_imports = bundle_manifest["source_open_body_imports"]
+    assert bundle_body_imports["body_material_count"] == len(
+        MACRO_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        bundle_body_imports["body_material_ids"]
+        == MACRO_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert bundle_manifest["body_copied_material_count"] == len(
+        MACRO_SOURCE_BODY_MATERIAL_IDS
+    )
+
+
+def test_mechanistic_interpretability_rejects_decorative_weight_sequences(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+    replay_path = bundle / "attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    for index, replay in enumerate(payload["attribution_replays"]):
+        replay["graph_edges"][0]["weight"] = round(0.45 + (index * 0.03), 2)
+        replay["graph_edges"][1]["weight"] = round(0.23 + (index * 0.02), 2)
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["weight_sequence_analysis"]["decorative_sequence_detected"] is True
+    assert {
+        finding["error_code"] for finding in result["positive_findings"]
+    } >= {"INTERPRETABILITY_DECORATIVE_WEIGHT_SEQUENCE"}
+
+
+def test_mechanistic_interpretability_rejects_disconnected_graph_edges(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/mechanistic_interpretability_circuit_attribution_replay",
+        public_root / "examples/mechanistic_interpretability_circuit_attribution_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/mechanistic_interpretability_circuit_attribution_replay/"
+        "exported_circuit_attribution_bundle"
+    )
+    replay_path = bundle / "attribution_replays.json"
+    payload = json.loads(replay_path.read_text(encoding="utf-8"))
+    payload["attribution_replays"][0]["graph_edges"][1]["target"] = (
+        "missing_public_error_node"
+    )
+    replay_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_attribution_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["attribution_graph_analyses"][0]["path_count"] == 0
+    assert {
+        finding["error_code"] for finding in result["positive_findings"]
+    } >= {
+        "INTERPRETABILITY_GRAPH_EDGE_ENDPOINT_UNRESOLVED",
+        "INTERPRETABILITY_GRAPH_PATH_REQUIRED",
+    }

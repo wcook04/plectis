@@ -35,6 +35,7 @@ SENTRUX_ANNEX = "sentrux"
 DEFAULT_QUERY = "navigation context compression and agent route behavior"
 METABOLISM_PROFILES = {"quick", "full"}
 _COMMAND_CACHE_REFRESH_TRUE_VALUES = {"1", "true", "yes", "on", "refresh", "force"}
+_STALE_COMMAND_CACHE_STATUSES = {"stale_ok_hit", "deferred_stale_cache"}
 TACO_NAVIGATION_RATCHET_TARGETS = {
     "system/lib/navigation_metabolism_ledger.py",
     "system/lib/agent_execution_trace.py",
@@ -50,8 +51,20 @@ def _command_cache_refresh_requested() -> bool:
 QUICK_COMMAND_CACHE_TTL_SECONDS = 600.0
 QUICK_PROFILE_PHASE_WARN_MS = 2500.0
 QUICK_PROFILE_TOTAL_WARN_MS = 10000.0
+USER_PERCEIVED_COMMAND_WARN_MS = 3000.0
 QUICK_CLI_OUTPUT_TARGET_TOKENS = 8000
 QUICK_CLI_ROUTE_LIFECYCLE_ROW_LIMIT = 8
+QUICK_CLI_CLEAN_ADVISORY_ROW_LIMIT = 3
+SPEED_CONTRACT_AXES: tuple[str, ...] = (
+    "toolhost_wall_clock_ms",
+    "agent_loop_elapsed_ms",
+    "startup_import_dispatch_ms",
+    "stdout_serialization_wait_ms",
+    "queue_or_coordination_wait_ms",
+    "retry_rework_elapsed_ms",
+    "inner_phase_ms",
+    "output_bytes",
+)
 _NAVIGATION_MECHANISM_CACHE_INPUT_PATHS: tuple[str, ...] = (
     "system/lib/agent_execution_trace.py",
     "system/lib/navigation_mechanism_factory.py",
@@ -75,6 +88,15 @@ _ACTOR_DELIVERY_CACHE_INPUT_PATHS: tuple[str, ...] = (
     "codex/doctrine/agent_bootstrap.json",
     "codex/standards/std_agent_entry_surface.json",
     "tools/meta/factory/check_agent_bootstrap_projection.py",
+)
+_ENTRYPOINT_HEALTH_CACHE_INPUT_PATHS: tuple[str, ...] = (
+    "AGENTS.override.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CODEX.md",
+    "codex/standards/std_agent_entry_surface.json",
+    "system/lib/entrypoint_health.py",
+    "system/lib/navigation_metabolism_ledger.py",
 )
 _ROUTING_STATUS_CACHE_INPUT_PATHS: tuple[str, ...] = (
     "AGENTS.md",
@@ -302,18 +324,47 @@ def _latency_profile(
         for row in phase_rows
         if float(row.get("ms") or 0.0) > phase_warn_ms
     ]
+    status = "latency_debt" if slow_phases or total_ms > total_warn_ms else "within_budget"
     return {
         "schema_version": "navigation_metabolism_latency_profile_v0",
+        "speed_contract": {
+            "schema_version": "navigation_speed_contract_v0",
+            "primary_question": "How long until the agent or operator gets the next useful signal?",
+            "axes": list(SPEED_CONTRACT_AXES),
+            "internal_phase_axis": "inner_phase_ms",
+            "user_perceived_warn_ms": USER_PERCEIVED_COMMAND_WARN_MS,
+            "within_budget_rule": (
+                "within_budget is only an internal-route statement unless external wall-clock "
+                "or toolhost elapsed evidence is present."
+            ),
+        },
+        "measurement_scope": "in_process_internal_phases_only",
+        "external_wall_clock_status": "unmeasured",
+        "status_scope": "internal_only",
+        "status_qualifier": (
+            "internal_latency_debt_external_elapsed_unmeasured"
+            if status == "latency_debt"
+            else "within_budget_internal_only_external_elapsed_unmeasured"
+        ),
+        "truth_floor": (
+            "This profile cannot close speed by itself: it excludes wrapper startup, imports, "
+            "argparse dispatch, stdout serialization, toolhost wait, retries, and coordination delay."
+        ),
         "phase_warn_ms": phase_warn_ms,
         "total_warn_ms": total_warn_ms,
         "total_ms": round(total_ms, 3),
         "phase_count": len(phase_rows),
         "slow_phase_count": len(slow_phases),
-        "status": "latency_debt" if slow_phases or total_ms > total_warn_ms else "within_budget",
+        "status": status,
         "phases": [dict(row) for row in phase_rows],
         "slow_phases": slow_phases,
         "profile_command": "./repo-python kernel.py --command-profile navigation-metabolism --metabolism-profile quick --context-budget 12000",
         "process_bottleneck_command": "./repo-python kernel.py --process-bottlenecks",
+        "external_wall_clock_probe_commands": [
+            "./repo-python tools/meta/observability/command_startup_profile.py --preset latency-first-contact --repeat 1",
+            "./repo-python kernel.py --command-profile entry-ladder \"<task>\" --context-budget 12000",
+            "/usr/bin/time -p ./repo-python kernel.py --<surface>",
+        ],
     }
 
 
@@ -326,6 +377,45 @@ def _latency_profile_debt_rows(
     total_warn_ms: float,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    rows.append(
+        _debt_row(
+            debt_id=f"latency:{surface}:external_wall_clock_scope_gap",
+            debt_class="latency_debt",
+            priority=90,
+            title="Speed profile lacks external wall-clock elapsed evidence",
+            evidence=(
+                f"{surface} internal profile took {round(total_ms, 3)}ms, but speed is user-perceived "
+                "elapsed time across toolhost wait, startup/import/dispatch, stdout serialization, retries, "
+                "and coordination. Internal within-budget status cannot close speed."
+            ),
+            repair_class="perceived_latency_measurement_repair",
+            target_files=[
+                "system/lib/navigation_metabolism_ledger.py",
+                "system/lib/kernel/commands/navigate.py",
+                "tools/meta/observability/command_startup_profile.py",
+            ],
+            tests=[
+                "./repo-python kernel.py --navigation-metabolism \"command latency\" --metabolism-profile quick --context-budget 12000",
+                "./repo-python kernel.py --command-profile entry-ladder \"command latency\" --context-budget 12000",
+            ],
+            source_surface=f"{surface}.latency_profile",
+            route_id="external_wall_clock",
+            extra={
+                "measurement_scope": "in_process_internal_phases_only",
+                "missing_axes": [
+                    axis
+                    for axis in SPEED_CONTRACT_AXES
+                    if axis not in {"inner_phase_ms", "output_bytes"}
+                ],
+                "user_perceived_warn_ms": USER_PERCEIVED_COMMAND_WARN_MS,
+                "profile_command": "./repo-python kernel.py --command-profile navigation-metabolism --metabolism-profile quick --context-budget 12000",
+                "startup_probe_command": (
+                    "./repo-python tools/meta/observability/command_startup_profile.py "
+                    "--preset latency-first-contact --repeat 1"
+                ),
+            },
+        )
+    )
     for row in phase_rows:
         phase = str(row.get("phase") or "unknown")
         ms = float(row.get("ms") or 0.0)
@@ -796,6 +886,32 @@ def _actor_delivery_debt_rows(receipt: Mapping[str, Any]) -> list[dict[str, Any]
                 )
             )
     return rows
+
+
+def _cached_entrypoint_health_quick(
+    root: Path,
+    *,
+    allow_build: bool = True,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    kwargs = {
+        "node_id": "navigation_metabolism.entrypoint_health.quick",
+        "key": {"scope": "quick", "include_generated_targets": False},
+        "input_paths": _ENTRYPOINT_HEALTH_CACHE_INPUT_PATHS,
+        "ttl_s": QUICK_COMMAND_CACHE_TTL_SECONDS,
+        "freshness_policy": "ttl_for_entrypoint_files_plus_budget_standard_manifest",
+        "dynamic_inputs_manifested": True,
+    }
+    if not allow_build:
+        payload, status = peek_cached_command_node(root, **kwargs)
+        if payload is None:
+            return build_entrypoint_health(root, include_generated_targets=False), status
+        return dict(payload) if isinstance(payload, Mapping) else {"status": "unavailable"}, status
+    payload, status = cached_command_node(
+        root,
+        **kwargs,
+        builder=lambda: build_entrypoint_health(root, include_generated_targets=False),
+    )
+    return dict(payload) if isinstance(payload, Mapping) else {"status": "unavailable"}, status
 
 
 def _fitness_debt_rows(fitness_payload: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -1635,8 +1751,19 @@ def _paper_module_compression_record(root: Path, artifact_id: str) -> Mapping[st
 
 def _quick_authoring_debt_rows(root: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+    target_ids = {artifact_id for artifact_id, _priority in _QUICK_PAPER_MODULE_AUTHORING_TARGETS}
+    index = _load_json(root / "codex" / "doctrine" / "paper_modules" / "_index.json")
+    compression_by_slug: dict[str, Mapping[str, Any]] = {}
+    for module in index.get("modules") or []:
+        if not isinstance(module, Mapping):
+            continue
+        slug = str(module.get("slug") or "")
+        if slug not in target_ids:
+            continue
+        compression = module.get("compression")
+        compression_by_slug[slug] = compression if isinstance(compression, Mapping) else {}
     for artifact_id, priority in _QUICK_PAPER_MODULE_AUTHORING_TARGETS:
-        compression = _paper_module_compression_record(root, artifact_id)
+        compression = compression_by_slug.get(artifact_id, {})
         compression_status = str(compression.get("compression_status") or "unknown")
         findings = compression.get("findings") if isinstance(compression.get("findings"), list) else []
         if compression_status == "authored" and not findings:
@@ -2102,7 +2229,7 @@ def _process_audit_cache_authority(cache_status: Mapping[str, Any] | None) -> di
     except (TypeError, ValueError):
         ttl_s = None
     stale_by_age = age_s is not None and ttl_s is not None and ttl_s > 0 and age_s > ttl_s
-    stale_by_status = status in {"stale_ok_hit", "deferred_stale_cache"}
+    stale_by_status = status in _STALE_COMMAND_CACHE_STATUSES
     authority_status = "advisory_only_stale_read_model" if stale_by_age or stale_by_status else "current_cached_read_model"
     return {
         "status": authority_status,
@@ -2120,6 +2247,17 @@ def _process_audit_cache_authority(cache_status: Mapping[str, Any] | None) -> di
             '"<task>" --metabolism-profile quick --context-budget 12000'
         ),
     }
+
+
+def _command_cache_patch_selection_policy(node_id: str, value: Mapping[str, Any]) -> str | None:
+    explicit = value.get("patch_selection_policy")
+    if explicit:
+        return str(explicit)
+    if str(value.get("status") or "") not in _STALE_COMMAND_CACHE_STATUSES:
+        return None
+    if node_id == "process_audit":
+        return "refresh_before_selecting_process_audit_source_patch"
+    return "refresh_before_selecting_source_patch"
 
 
 def _annotate_process_audit_source_freshness(
@@ -3460,6 +3598,9 @@ def _budget_trim(packet: dict[str, Any], *, context_budget: int) -> dict[str, An
                 "stale_count": summary.get("stale_count"),
                 "max_stale_days": summary.get("max_stale_days"),
                 "currentness_debt": summary.get("currentness_debt"),
+                "projection_freshness_status": summary.get("projection_freshness_status"),
+                "projection_currentness_debt": summary.get("projection_currentness_debt"),
+                "projection_freshness_deferred": summary.get("projection_freshness_deferred"),
                 "bucket_counts": summary.get("bucket_counts"),
             },
             "source": {
@@ -3759,6 +3900,7 @@ def _budget_trim(packet: dict[str, Any], *, context_budget: int) -> dict[str, An
                 "age_s": value.get("age_s"),
                 "ttl_s": value.get("ttl_s"),
                 "freshness_policy": value.get("freshness_policy"),
+                "patch_selection_policy": _command_cache_patch_selection_policy(str(key), value),
                 "dynamic_inputs_manifested": value.get("dynamic_inputs_manifested"),
             }
             for key, value in cache.items()
@@ -3891,10 +4033,9 @@ def _compact_mapping_keys(source: Mapping[str, Any], keys: Sequence[str]) -> dic
 
 
 def _compact_navigation_mechanism_for_cli(source: Mapping[str, Any]) -> dict[str, Any]:
+    raw_top_claims = [row for row in list(source.get("top_candidate_claims") or []) if isinstance(row, Mapping)]
     top_claims: list[dict[str, Any]] = []
-    for row in list(source.get("top_candidate_claims") or [])[:2]:
-        if not isinstance(row, Mapping):
-            continue
+    for row in raw_top_claims[:1]:
         future = row.get("future_observation") if isinstance(row.get("future_observation"), Mapping) else {}
         compact = _compact_mapping_keys(
             row,
@@ -3913,13 +4054,14 @@ def _compact_navigation_mechanism_for_cli(source: Mapping[str, Any]) -> dict[str
         if compact:
             top_claims.append(compact)
 
-    observed_refs: list[dict[str, Any]] = []
-    for row in list(source.get("observed_claim_refs") or [])[:8]:
+    observed_ref_state_counts: dict[str, int] = {}
+    observed_ref_count = 0
+    for row in list(source.get("observed_claim_refs") or []):
         if not isinstance(row, Mapping):
             continue
-        compact = _compact_mapping_keys(row, ("claim_id", "anti_pattern_id", "state"))
-        if compact:
-            observed_refs.append(compact)
+        observed_ref_count += 1
+        state = str(row.get("state") or "unknown")
+        observed_ref_state_counts[state] = observed_ref_state_counts.get(state, 0) + 1
 
     compact = _compact_mapping_keys(
         source,
@@ -3944,8 +4086,50 @@ def _compact_navigation_mechanism_for_cli(source: Mapping[str, Any]) -> dict[str
         compact["observed_anti_pattern_ids"] = list(source.get("observed_anti_pattern_ids") or [])[:8]
     if top_claims:
         compact["top_candidate_claims"] = top_claims
-    if observed_refs:
-        compact["observed_claim_refs"] = observed_refs
+        if len(raw_top_claims) > len(top_claims):
+            compact["top_candidate_claims_omitted"] = len(raw_top_claims) - len(top_claims)
+    if observed_ref_count:
+        compact["observed_claim_ref_count"] = observed_ref_count
+        compact["observed_claim_ref_state_counts"] = dict(sorted(observed_ref_state_counts.items()))
+    compact["cli_compacted"] = True
+    return compact
+
+
+def _compact_quality_signal_for_cli(source: Mapping[str, Any]) -> dict[str, Any]:
+    compact = _compact_mapping_keys(
+        source,
+        (
+            "score",
+            "status",
+            "bottleneck_debt_class",
+            "components",
+            "scoring_model",
+            "preserves_drilldowns",
+            "sentrux_provenance",
+        ),
+    )
+    source_freshness = source.get("source_freshness")
+    if isinstance(source_freshness, Mapping):
+        compact_freshness = _compact_mapping_keys(
+            source_freshness,
+            ("computed_at", "process_audit_status"),
+        )
+        process_cache = source_freshness.get("process_audit_cache")
+        if isinstance(process_cache, Mapping):
+            compact_freshness["process_audit_cache"] = _compact_mapping_keys(
+                process_cache,
+                (
+                    "status",
+                    "cache_status",
+                    "age_s",
+                    "ttl_s",
+                    "patch_selection_policy",
+                ),
+            )
+        if compact_freshness:
+            compact["source_freshness"] = compact_freshness
+    if source.get("drilldown_into_components"):
+        compact["component_drilldown_policy"] = "filter debt_rows by debt_class"
     compact["cli_compacted"] = True
     return compact
 
@@ -4001,28 +4185,38 @@ def _compact_route_lifecycle_for_cli(
                 "generic_existing_slug_support",
             ),
         )
-        if row.get("purpose"):
-            compact["purpose"] = _trim(row.get("purpose"), max_chars=90)
-        if row.get("compatibility_behavior"):
-            compact["compatibility_behavior"] = _trim(row.get("compatibility_behavior"), max_chars=90)
         if row.get("entry_condition"):
-            compact["entry_condition"] = _trim(row.get("entry_condition"), max_chars=90)
+            compact["entry_condition_present"] = True
         residual_lanes = row.get("residual_lanes")
         if isinstance(residual_lanes, Sequence) and not isinstance(residual_lanes, (str, bytes, bytearray)):
             compact["residual_lanes"] = [
-                _compact_mapping_keys(lane, ("lane_id", "status", "entry_command_template"))
+                _compact_mapping_keys(lane, ("lane_id", "status"))
                 for lane in residual_lanes
                 if isinstance(lane, Mapping)
             ][:2]
+            omitted_templates = sum(
+                1
+                for lane in residual_lanes
+                if isinstance(lane, Mapping) and lane.get("entry_command_template")
+            )
+            if omitted_templates:
+                compact["residual_lane_command_templates_omitted"] = omitted_templates
         owner_surfaces = row.get("owner_surfaces")
         if isinstance(owner_surfaces, Sequence) and not isinstance(owner_surfaces, (str, bytes, bytearray)):
             compact["owner_surfaces"] = [
-                _compact_mapping_keys(surface, ("surface_id", "template"))
+                _compact_mapping_keys(surface, ("surface_id",))
                 for surface in owner_surfaces
                 if isinstance(surface, Mapping)
             ][:2]
+            omitted_templates = sum(
+                1
+                for surface in owner_surfaces
+                if isinstance(surface, Mapping) and surface.get("template")
+            )
+            if omitted_templates:
+                compact["owner_surface_templates_omitted"] = omitted_templates
         if row.get("write_guard"):
-            compact["write_guard"] = _trim(row.get("write_guard"), max_chars=90)
+            compact["write_guard_present"] = True
         compact_rows.append({key: value for key, value in compact.items() if value not in (None, "", [], {})})
     return compact_rows
 
@@ -4064,13 +4258,51 @@ def _route_lifecycle_cli_summary(
     return summary
 
 
+def _clean_advisory_row_omission_requested(query: Any) -> bool:
+    query_text = str(query or "").lower()
+    if not query_text:
+        return False
+    control_plane_markers = {
+        "context",
+        "context management",
+        "context-management",
+        "control plane",
+        "control-plane",
+        "microcosm",
+    }
+    economy_markers = {
+        "efficiency",
+        "latency",
+        "optimisation",
+        "optimization",
+        "route cost",
+        "speed",
+        "throughput",
+    }
+    return any(marker in query_text for marker in control_plane_markers) and any(
+        marker in query_text for marker in economy_markers
+    )
+
+
 def _compact_observation_sources_for_cli(value: Any) -> dict[str, Any]:
     if not isinstance(value, Mapping):
         return {}
 
     compact: dict[str, Any] = {}
+    deferred_status_only_sources: list[str] = []
+
+    def add_source(source_key: str, row: Mapping[str, Any]) -> None:
+        material = dict(row)
+        if material == {"status": "deferred_by_quick_profile"}:
+            deferred_status_only_sources.append(str(source_key))
+            return
+        compact[source_key] = material
+
     for key, source in value.items():
         if not isinstance(source, Mapping):
+            continue
+        if source.get("status") == "deferred_by_quick_profile" and set(source.keys()) == {"status"}:
+            deferred_status_only_sources.append(str(key))
             continue
         if key == "agent_path_events":
             row = _compact_mapping_keys(
@@ -4086,61 +4318,86 @@ def _compact_observation_sources_for_cli(value: Any) -> dict[str, Any]:
                 ),
             )
             if source.get("process_audit_pattern_classes"):
-                row["process_audit_pattern_classes"] = list(source.get("process_audit_pattern_classes") or [])[:6]
+                pattern_classes = list(source.get("process_audit_pattern_classes") or [])
+                row["process_audit_pattern_class_count"] = len(pattern_classes)
+                row["process_audit_pattern_classes_preview"] = pattern_classes[:3]
             if source.get("sentrux_provenance"):
                 row["sentrux_provenance"] = list(source.get("sentrux_provenance") or [])[:3]
-            compact[key] = row
+            for zero_key in ("supplied_event_count", "process_audit_active_behavior_debt_count"):
+                if row.get(zero_key) == 0:
+                    row.pop(zero_key, None)
+            add_source(key, row)
             continue
         if key == "observed_mechanism_debt_retirement":
-            compact[key] = _compact_mapping_keys(
+            row = _compact_mapping_keys(
                 source,
                 (
                     "status",
                     "observed_anti_pattern_count",
                     "retired_debt_count",
-                    "authority",
                 ),
             )
+            if source.get("authority"):
+                row["authority_ref"] = "std_navigation_mechanism_acceptance"
+            add_source(key, row)
             continue
         if key == "annex_currentness":
             summary = source.get("summary")
             row = _compact_mapping_keys(source, ("status",))
             if isinstance(summary, Mapping):
-                row["summary"] = _compact_mapping_keys(
+                summary_row = _compact_mapping_keys(
                     summary,
                     (
                         "digest_status",
-                        "attention_count",
-                        "stale_count",
                         "sync_status",
-                        "sync_failure_count",
-                        "currentness_debt",
                         "projection_freshness_status",
                         "movement_to_row_job_status",
-                        "movement_to_row_job_gap_count",
-                        "bucket_counts",
                     ),
                 )
-            compact[key] = row
+                for count_key in (
+                    "attention_count",
+                    "stale_count",
+                    "sync_failure_count",
+                    "currentness_debt",
+                    "movement_to_row_job_gap_count",
+                ):
+                    count_value = summary.get(count_key)
+                    if count_value not in (None, 0, "", [], {}):
+                        summary_row[count_key] = count_value
+                bucket_counts = summary.get("bucket_counts")
+                if isinstance(bucket_counts, Mapping):
+                    nonzero_buckets = {
+                        str(bucket): count
+                        for bucket, count in bucket_counts.items()
+                        if count not in (None, 0, "", [], {})
+                    }
+                    if nonzero_buckets:
+                        summary_row["bucket_counts_nonzero"] = dict(sorted(nonzero_buckets.items()))
+                    zero_omitted = len(bucket_counts) - len(nonzero_buckets)
+                    if zero_omitted:
+                        summary_row["bucket_counts_zero_omitted"] = zero_omitted
+                row["summary"] = summary_row
+            add_source(key, row)
             continue
         if key == "annex_movement_pressure_map":
             summary = source.get("summary")
             row = _compact_mapping_keys(source, ("status",))
             if isinstance(summary, Mapping):
-                row["summary"] = _compact_mapping_keys(
-                    summary,
-                    (
-                        "row_count",
-                        "selected_row_job_count",
-                        "missing_report_count",
-                        "unclassified_count",
-                        "source_job_blocker_count",
-                        "blocker_routing_count",
-                        "source_row_job_count",
-                        "source_classification_counts",
-                    ),
-                )
-            compact[key] = row
+                summary_row = _compact_mapping_keys(summary, ("row_count",))
+                for count_key in (
+                    "selected_row_job_count",
+                    "missing_report_count",
+                    "unclassified_count",
+                    "source_job_blocker_count",
+                    "blocker_routing_count",
+                    "source_row_job_count",
+                    "source_classification_counts",
+                ):
+                    count_value = summary.get(count_key)
+                    if count_value not in (None, 0, "", [], {}):
+                        summary_row[count_key] = count_value
+                row["summary"] = summary_row
+            add_source(key, row)
             continue
         if key == "routing_projection_status":
             row = _compact_mapping_keys(source, ("status", "stale", "artifact_path", "safe_alternative"))
@@ -4150,30 +4407,38 @@ def _compact_observation_sources_for_cli(value: Any) -> dict[str, Any]:
                     source_coupling,
                     ("status", "safe_to_commit_generated_outputs_without_sources"),
                 )
-            compact[key] = row
+            add_source(key, row)
             continue
         if key == "clusterability":
             row = _compact_mapping_keys(source, ("status",))
             summary = source.get("summary")
             if isinstance(summary, Mapping):
                 row["summary"] = _compact_mapping_keys(summary, ("debt_count",))
-            compact[key] = row
+            add_source(key, row)
             continue
-        compact[key] = _compact_mapping_keys(
-            source,
-            (
-                "status",
-                "contract_status",
-                "reason",
-                "safe_alternative",
-                "authority",
-                "accepted_count",
-                "projected_count",
-                "observed_count",
-                "validated_count",
-                "candidate_count",
+        add_source(
+            key,
+            _compact_mapping_keys(
+                source,
+                (
+                    "status",
+                    "contract_status",
+                    "safe_alternative",
+                    "authority",
+                    "accepted_count",
+                    "projected_count",
+                    "observed_count",
+                    "validated_count",
+                    "candidate_count",
+                ),
             ),
         )
+    if deferred_status_only_sources:
+        compact["deferred_by_quick_profile_sources"] = {
+            "count": len(deferred_status_only_sources),
+            "ids_preview": deferred_status_only_sources[:5],
+            "ids_omitted": max(0, len(deferred_status_only_sources) - 5),
+        }
     return {key: row for key, row in compact.items() if row}
 
 
@@ -4242,6 +4507,29 @@ def _compact_debt_row_for_cli(row: Mapping[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in compact.items() if value not in (None, "", [], {})}
 
 
+def _compact_command_node_cache_for_cli(cache: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    compact: dict[str, dict[str, Any]] = {}
+    for node_id, value in cache.items():
+        if not isinstance(value, Mapping):
+            continue
+        row = {
+            "status": value.get("status"),
+            "reason": value.get("reason"),
+            "age_s": value.get("age_s"),
+            "ttl_s": value.get("ttl_s"),
+            "freshness_policy": value.get("freshness_policy"),
+            "patch_selection_policy": _command_cache_patch_selection_policy(str(node_id), value),
+        }
+        if value.get("dynamic_inputs_manifested") is True:
+            row["dynamic_inputs_manifested"] = True
+        compact[str(node_id)] = {
+            key: field_value
+            for key, field_value in row.items()
+            if field_value not in (None, "", [], {})
+        }
+    return {key: value for key, value in compact.items() if value}
+
+
 def _compact_top_repair_for_cli(row: Mapping[str, Any]) -> dict[str, Any]:
     compact = _compact_debt_row_for_cli(row)
     if row.get("tests"):
@@ -4258,6 +4546,7 @@ def compact_quick_navigation_metabolism_packet_for_cli(
     packet: Mapping[str, Any],
     *,
     context_budget: int,
+    force: bool = False,
 ) -> dict[str, Any]:
     """Return the quick metabolism packet shape suitable for CLI first contact.
 
@@ -4270,18 +4559,57 @@ def compact_quick_navigation_metabolism_packet_for_cli(
 
     target_tokens = min(max(1000, int(context_budget or 12000)), QUICK_CLI_OUTPUT_TARGET_TOKENS)
     target_bytes = target_tokens * 4
-    if _json_bytes(packet) <= target_bytes:
+    if not force and _json_bytes(packet) <= target_bytes:
         return dict(packet)
 
     compact = dict(packet)
-    compact["debt_rows"] = [
-        _compact_debt_row_for_cli(row)
+    source_debt_rows = [
+        row
+        for row in compact.get("debt_rows", [])
+        if isinstance(row, Mapping)
+    ]
+    source_active_rows = _active_debt_rows(source_debt_rows)
+    full_profile_drilldown = (
+        (compact.get("strategy") or {}).get("full_profile_drilldown")
+        if isinstance(compact.get("strategy"), Mapping)
+        else None
+    )
+    trimmed_debt_rows = [
+        row
         for row in _priority_trim_debt_rows(
-            compact.get("debt_rows", []),
+            source_debt_rows,
             limit=8,
             required_active_class=_packet_bottleneck_debt_class(compact),
         )
         if isinstance(row, Mapping)
+    ]
+    if not source_active_rows and _clean_advisory_row_omission_requested(compact.get("query")):
+        compact["clean_advisory_rows_omission_receipt"] = {
+            "status": "omitted_for_clean_speed_context_first_contact",
+            "omitted_row_count": len(source_debt_rows),
+            "reason": (
+                "The query asks for speed/context/control-plane economy and the packet has "
+                "no active debt rows, so advisory-only rows are kept behind explicit "
+                "drilldown routes."
+            ),
+            "preserved_fields": [
+                "summary.*_debt",
+                "summary.advisory_debt_rows",
+                "summary.total_rows_including_advisory",
+                "quality_signal",
+                "observation_sources",
+                "next_commands",
+            ],
+            "full_evidence_routes": [
+                route for route in [full_profile_drilldown] if route
+            ],
+        }
+        trimmed_debt_rows = []
+    elif not _active_debt_rows(trimmed_debt_rows):
+        trimmed_debt_rows = trimmed_debt_rows[:QUICK_CLI_CLEAN_ADVISORY_ROW_LIMIT]
+    compact["debt_rows"] = [
+        _compact_debt_row_for_cli(row)
+        for row in trimmed_debt_rows
     ]
     compact["top_repairs"] = [
         _compact_top_repair_for_cli(row)
@@ -4293,11 +4621,6 @@ def compact_quick_navigation_metabolism_packet_for_cli(
         route_lifecycle_rows,
         limit=QUICK_CLI_ROUTE_LIFECYCLE_ROW_LIMIT,
     )
-    full_profile_drilldown = (
-        (compact.get("strategy") or {}).get("full_profile_drilldown")
-        if isinstance(compact.get("strategy"), Mapping)
-        else None
-    )
     compact["route_lifecycle_summary"] = _route_lifecycle_cli_summary(
         route_lifecycle_rows,
         [row for row in compact.get("route_lifecycle", []) if isinstance(row, Mapping)],
@@ -4307,6 +4630,8 @@ def compact_quick_navigation_metabolism_packet_for_cli(
         compact["navigation_mechanism_metabolism"] = _compact_navigation_mechanism_for_cli(
             compact["navigation_mechanism_metabolism"]
         )
+    if isinstance(compact.get("quality_signal"), Mapping):
+        compact["quality_signal"] = _compact_quality_signal_for_cli(compact["quality_signal"])
     if isinstance(compact.get("entrypoint_health"), Mapping):
         entrypoint = compact.get("entrypoint_health") or {}
         compact["entrypoint_health"] = {
@@ -4349,6 +4674,10 @@ def compact_quick_navigation_metabolism_packet_for_cli(
         for row in list(compact.get("annex_intake") or [])[:3]
         if isinstance(row, Mapping)
     ]
+    if isinstance(compact.get("command_node_cache"), Mapping):
+        compact["command_node_cache"] = _compact_command_node_cache_for_cli(
+            compact.get("command_node_cache") or {}
+        )
     compact["observation_sources"] = _compact_observation_sources_for_cli(compact.get("observation_sources"))
     compact["next_commands"] = list(compact.get("next_commands") or [])[:7]
     compact["source_surfaces"] = list(compact.get("source_surfaces") or [])[:5]
@@ -4412,6 +4741,10 @@ def compact_quick_navigation_metabolism_packet_for_cli(
         rows = [row for row in compact.get("debt_rows", []) if isinstance(row, Mapping)]
         active_rows = _active_debt_rows(rows)
         summary["total_debt_rows_after_cli_compaction"] = len(active_rows)
+        summary["advisory_debt_rows_after_cli_compaction"] = len(rows) - len(active_rows)
+        receipt = compact.get("clean_advisory_rows_omission_receipt")
+        if isinstance(receipt, Mapping):
+            summary["clean_advisory_rows_omitted"] = receipt.get("omitted_row_count")
         bottleneck = str(summary.get("quality_signal_bottleneck") or "")
         if bottleneck:
             summary["bottleneck_drilldowns_in_packet"] = sum(
@@ -4428,17 +4761,21 @@ def _build_quick_navigation_metabolism_ledger(
     behavior_events: Sequence[Mapping[str, Any]] | None = None,
     fitness_payload: Mapping[str, Any] | None = None,
     profile_sink: list[dict[str, Any]] | None = None,
+    output_profile: str = "library",
 ) -> dict[str, Any]:
     started = perf_counter()
     phase_profile = profile_sink if profile_sink is not None else []
     allow_cache_build = _command_cache_refresh_requested()
     budget = max(1000, int(context_budget or 12000))
-    entrypoint_health = _profile_phase(
+    command_node_cache: dict[str, Any] = {}
+    entrypoint_health, command_node_cache["entrypoint_health"] = _profile_phase(
         phase_profile,
         "entrypoint_health",
-        lambda: build_entrypoint_health(root, include_generated_targets=False),
+        lambda: _cached_entrypoint_health_quick(
+            root,
+            allow_build=True,
+        ),
     )
-    command_node_cache: dict[str, Any] = {}
     clusterability, command_node_cache["clusterability"] = _profile_phase(
         phase_profile,
         "clusterability",
@@ -4844,6 +5181,24 @@ def _build_quick_navigation_metabolism_ledger(
                 "ms": round((perf_counter() - packet_started) * 1000, 3),
             }
         )
+    if str(output_profile or "library").strip().lower() == "cli":
+        compact_started = perf_counter()
+        compact_packet = compact_quick_navigation_metabolism_packet_for_cli(
+            packet,
+            context_budget=budget,
+            force=True,
+        )
+        if phase_profile is not None:
+            phase_profile.append(
+                {
+                    "phase": "quick_cli_source_compaction",
+                    "ms": round((perf_counter() - compact_started) * 1000, 3),
+                    "output_bytes": _json_bytes(compact_packet),
+                    "source_profile": "cli",
+                }
+            )
+        return compact_packet
+
     trim_started = perf_counter()
     trimmed_packet = _budget_trim(packet, context_budget=budget)
     if phase_profile is not None:
@@ -4874,6 +5229,7 @@ def build_navigation_metabolism_ledger(
     fitness_suite: str = "smoke",
     metabolism_profile: str = "full",
     profile_sink: list[dict[str, Any]] | None = None,
+    output_profile: str = "library",
 ) -> dict[str, Any]:
     root = Path(repo_root)
     budget = max(1000, int(context_budget or 12000))
@@ -4882,14 +5238,67 @@ def build_navigation_metabolism_ledger(
     if profile not in METABOLISM_PROFILES:
         profile = "full"
     if profile == "quick":
-        return _build_quick_navigation_metabolism_ledger(
+        cache_eligible = (
+            behavior_events is None
+            and fitness_payload is None
+            and profile_sink is None
+            and include_session_summary is True
+            and include_fitness is True
+        )
+        if not cache_eligible:
+            return _build_quick_navigation_metabolism_ledger(
+                root,
+                query=task_query,
+                context_budget=budget,
+                behavior_events=behavior_events,
+                fitness_payload=fitness_payload,
+                profile_sink=profile_sink,
+                output_profile=output_profile,
+            )
+
+        from system.lib.kernel.navigation_metabolism_fast import (
+            DEFAULT_NAVIGATION_METABOLISM_CACHE_TTL_S,
+            NAVIGATION_METABOLISM_CACHE_NODE_ID,
+            default_navigation_metabolism_cache_manifest,
+            with_navigation_metabolism_cache_status,
+        )
+
+        normalized_output_profile = str(output_profile or "library").strip().lower()
+        cache_key, input_paths = default_navigation_metabolism_cache_manifest(
             root,
             query=task_query,
             context_budget=budget,
-            behavior_events=behavior_events,
-            fitness_payload=fitness_payload,
-            profile_sink=profile_sink,
+            output_profile=normalized_output_profile,
         )
+        payload, cache_status = cached_command_node(
+            root,
+            node_id=NAVIGATION_METABOLISM_CACHE_NODE_ID,
+            key=cache_key,
+            input_paths=input_paths,
+            ttl_s=DEFAULT_NAVIGATION_METABOLISM_CACHE_TTL_S,
+            builder=lambda: _build_quick_navigation_metabolism_ledger(
+                root,
+                query=task_query,
+                context_budget=budget,
+                behavior_events=behavior_events,
+                fitness_payload=fitness_payload,
+                profile_sink=profile_sink,
+                output_profile=normalized_output_profile,
+            ),
+            freshness_policy="ttl_for_dynamic_navigation_metabolism_plus_static_manifest",
+            dynamic_inputs_manifested=False,
+        )
+        if not isinstance(payload, dict) or payload.get("kind") != "navigation_metabolism_ledger":
+            payload = _build_quick_navigation_metabolism_ledger(
+                root,
+                query=task_query,
+                context_budget=budget,
+                behavior_events=behavior_events,
+                fitness_payload=fitness_payload,
+                profile_sink=profile_sink,
+                output_profile=normalized_output_profile,
+            )
+        return with_navigation_metabolism_cache_status(payload, cache_status)
 
     from system.lib.annex_navigation_dogfood import build_annex_navigation_dogfood
     from system.lib.annex_routing_coverage import build_annex_routing_coverage

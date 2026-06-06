@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "quartet_run_missing_excluded",
+  "error_codes": [
+    "BATCH7_ORACLE_RUN_MISSING_EXCLUDED"
+  ],
+  "excluded_symbol": "tools.oracle.run_quartet.run_missing_quartet"
+}

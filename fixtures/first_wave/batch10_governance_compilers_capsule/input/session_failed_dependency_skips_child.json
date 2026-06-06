@@ -1,0 +1,20 @@
+{
+  "body_in_receipt": false,
+  "case_id": "session_failed_dependency_skips_child",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "node_states.C",
+  "error_codes": [
+    "BATCH10_SESSION_FAILED_DEPENDENCY_SKIPS_CHILD"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "session_dependency_wave_executor",
+  "probe_input": {
+    "B": "failure",
+    "depends_on": [
+      "B"
+    ],
+    "node": "C"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

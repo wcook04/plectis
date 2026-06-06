@@ -1,0 +1,55 @@
+{
+  "schema_version": "microcosm_axiom_support_checker_scope_order_v1",
+  "component_id": "checker_scope",
+  "authority_boundary": "Source registry for validator.microcosm.axiom_support_cover checker-scope ordering; it classifies only the witness surfaces bound to an axiom obligation and does not certify checker completeness, suite breadth, semantic proof, release authority, or anti-axiom rejection.",
+  "standard_ref": "standards/std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice",
+  "dimension_registry_ref": "core/axiom_support_ceiling_dimensions.json::components[component_id=checker_scope]",
+  "validator_ref": "validator.microcosm.axiom_support_cover",
+  "computed_by": "microcosm_core.validators.axiom_support_cover._checker_scope_component",
+  "order_values": [
+    "no_checker_surface_bound",
+    "non_checker_source_surface_refs_only",
+    "checker_surface_refs_bound",
+    "checker_surface_refs_with_negative_case_reference"
+  ],
+  "order_semantics": {
+    "no_checker_surface_bound": {
+      "rank": 0,
+      "meaning": "The obligation binds no witness surface reference that can be inspected by this evaluator.",
+      "claim_effect": "Classifies checker-scope absence only; it cannot support checker breadth or completeness."
+    },
+    "non_checker_source_surface_refs_only": {
+      "rank": 1,
+      "meaning": "The obligation binds witness surface references, but none are local Python checker/test surfaces.",
+      "claim_effect": "Classifies source-surface reach only; it cannot claim executable checker coverage."
+    },
+    "checker_surface_refs_bound": {
+      "rank": 2,
+      "meaning": "The obligation binds one or more local Python checker/test surfaces, but no bound negative-case code is found in those surfaces.",
+      "claim_effect": "Classifies local checker-surface reach only; negative-case status and rejection mapping remain separate gates."
+    },
+    "checker_surface_refs_with_negative_case_reference": {
+      "rank": 3,
+      "meaning": "The obligation binds local Python checker/test surfaces and at least one bound negative-case code appears in those surfaces.",
+      "claim_effect": "Classifies the strongest checker-scope reach currently ordered; it still cannot certify anti-axiom rejection or global checker completeness."
+    }
+  },
+  "material_inputs": [
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.witness_surfaces",
+    "core/axiom_organ_routing.json::rows[].obligations[].binding.negative_case_codes",
+    "local Python source/test files named by bound witness_surfaces"
+  ],
+  "non_laundering_rules": [
+    "Checker-scope classification is not checker completeness, suite breadth, semantic proof, release authority, or public-readiness authority.",
+    "Finding a negative-case code in a checker surface is not proof that the anti-axiom is rejected for the obligation.",
+    "Endpoint or negative-case coverage cannot become propagation proof through this component.",
+    "Generated support-cover output and generated doctrine-lattice projections are never evidence for this registry.",
+    "A higher checker-scope class cannot raise an axiom above the meet of positive support and anti-axiom rejection mapping."
+  ],
+  "unknown_policy": "If a computed checker-scope value is outside this source registry, the validator emits unknown_checker_scope_not_in_source_order rather than support.",
+  "anti_claims": [
+    "This registry makes checker-scope reach computed; it does not make any checker complete.",
+    "This registry does not resolve freshness_state, domain_scope, authority_scope, or projection_scope.",
+    "This registry does not verify exact_obligation_rejection or subsumes_obligation mapping."
+  ]
+}

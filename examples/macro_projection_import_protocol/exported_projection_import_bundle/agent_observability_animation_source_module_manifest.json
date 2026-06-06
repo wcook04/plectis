@@ -1,12 +1,159 @@
 {
-  "schema_version": "macro_projection_agent_observability_animation_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "agent_observability_animation_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_prompt_bodies_hidden_reasoning_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
   "body_storage_policy": "exact_non_secret_agent_observability_animation_coverage_attribution_source_and_test_modules_copied_into_public_projection_bundle",
-  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic semantic-camera checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "agent_observability_animation_source_modules_import",
+  "module_count": 6,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 72253,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1782,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_observability_animation_source_body_import",
+      "required_anchors": [
+        "Animation-ready projection over the agent observability plane.",
+        "INFRASTRUCTURE_SOURCE_RUNTIMES",
+        "def build_agent_observability_animation_scene(",
+        "def build_agent_observability_animation_delta(",
+        "stream_contract"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/lib/agent_observability_animation.py",
+      "source_role": "Macro semantic-camera compiler that converts bounded agent-observability event tails and status reducers into frontend-ready actors, spans, flows, counters, file impacts, proof receipts, scene cursors, and delta operations.",
+      "source_sha256": "62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
+      "target_sha256": "62b293d2567c0cb8e49d86e8e7ecbcad4a4c615f1ec187b937698856b017ada1"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 18744,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 459,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_observability_animation_coverage_body_import",
+      "required_anchors": [
+        "Coverage evaluator for the agent observability animation contract.",
+        "REQUIRED_PRIMITIVE_FAMILIES",
+        "REQUIRED_DELTA_OPS",
+        "def build_agent_observability_animation_coverage(",
+        "not classify from summaries"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/lib/agent_observability_animation_coverage.py",
+      "source_role": "Macro semantic-camera coverage evaluator that checks normalized scene and delta primitives without reclassifying from summaries, commands, raw payload text, or natural-language trace prose.",
+      "source_sha256": "9ae7eaf4848b3ab5d91780afb911fc72d20260ff77d8d5776a11b3f9773da663",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
+      "target_sha256": "9ae7eaf4848b3ab5d91780afb911fc72d20260ff77d8d5776a11b3f9773da663"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 23870,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 652,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_session_attribution_source_body_import",
+      "required_anchors": [
+        "Agent session attribution: read-only join",
+        "SOURCE_RUNTIME_TO_WORKLEDGER_ACTOR",
+        "INFRASTRUCTURE_SOURCE_RUNTIMES",
+        "def attribute_sessions(",
+        "def identify_self_session("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/lib/agent_session_attribution.py",
+      "source_role": "Macro read-only join of AgentTraceStore active sessions with Work Ledger runtime status so observability consumers can distinguish self, concurrent sessions, infrastructure, and stale actors.",
+      "source_sha256": "2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_session_attribution.py",
+      "target_sha256": "2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf"
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 36001,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 939,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_observability_animation_test_body_import",
+      "required_anchors": [
+        "def test_animation_scene_ties_tool_segments_to_real_event_ids",
+        "def test_animation_scene_emits_semantic_camera_primitives",
+        "def test_animation_delta_returns_cursor_ops_and_backpressure",
+        "def test_animation_route_returns_scene_from_trace_store"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/server/tests/test_agent_observability_animation.py",
+      "source_role": "Focused macro regression-test body for semantic-camera scenes and deltas, using synthetic events/status dictionaries and route monkeypatches instead of live provider, account, browser, or session payloads.",
+      "source_sha256": "9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
+      "target_sha256": "9e3c3ea521c8915c605a23178f79156ef656c662579c575b59b86b93024b1b2a"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 10903,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 308,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_observability_animation_coverage_test_body_import",
+      "required_anchors": [
+        "def test_animation_coverage_accepts_mixed_provider_semantic_camera_contract",
+        "def test_animation_coverage_does_not_depend_on_summary_strings",
+        "def test_animation_coverage_reports_backend_gaps_that_would_force_ui_heuristics"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/server/tests/test_agent_observability_animation_coverage.py",
+      "source_role": "Focused macro regression-test body for semantic-camera coverage, using synthetic normalized scene and delta primitives to prove UI consumers need not parse summary strings.",
+      "source_sha256": "1703d79395feddda85aed88679e5f9860818695c9bcceb4df8ac49777087eaa2",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation_coverage.py",
+      "target_sha256": "1703d79395feddda85aed88679e5f9860818695c9bcceb4df8ac49777087eaa2"
+    },
+    {
+      "anchor_count": 4,
+      "applied_edits": [
+        "operator_absolute_path_prefixes_redacted_to_/Users/example"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 9553,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 309,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_session_attribution_test_body_import",
+      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
+      "required_anchors": [
+        "def test_direct_uuid_match_yields_matched_with_phase_attribution",
+        "def test_codex_prefix_normalization_matches_across_stores",
+        "def test_metabolism_source_is_classified_as_infrastructure",
+        "def test_identify_self_session_falls_back_from_title_to_cwd"
+      ],
+      "sha256_match": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_ref": "system/server/tests/test_agent_session_attribution.py",
+      "source_role": "Focused macro regression-test body for read-only session attribution across direct ids, Codex-prefix normalization, infrastructure classification, liveness, and self-session identification.",
+      "source_sha256": "3fa4370e2fc2b53a8ca239429eff390ae51dac485399fac54589265182e99e11",
+      "source_to_target_relation": "public_light_edit_private_path_redaction",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_session_attribution.py",
+      "target_sha256": "63dd4e066550397712ef67020d7a7fcf9c42a80aa40067cf3b3d1e92a948078e"
+    }
+  ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic semantic-camera, coverage, and attribution checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority. Declared public light-edit redactions may rewrite operator-specific absolute path literals without importing credential, session, provider, or raw operator bodies.",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic semantic-camera checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "schema_version": "macro_projection_agent_observability_animation_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -24,152 +171,5 @@
     "generated state output",
     "credential-equivalent payloads"
   ],
-  "module_count": 6,
-  "modules": [
-    {
-      "module_id": "agent_observability_animation_source_body_import",
-      "source_ref": "system/lib/agent_observability_animation.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
-      "source_role": "Macro semantic-camera compiler that converts bounded agent-observability event tails and status reducers into frontend-ready actors, spans, flows, counters, file impacts, proof receipts, scene cursors, and delta operations.",
-      "required_anchors": [
-        "Animation-ready projection over the agent observability plane.",
-        "INFRASTRUCTURE_SOURCE_RUNTIMES",
-        "def build_agent_observability_animation_scene(",
-        "def build_agent_observability_animation_delta(",
-        "stream_contract"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "db78bdeca879e50328a439ce5d84d3bd642c6f8ab67667212014ee282f0bde45",
-      "target_sha256": "db78bdeca879e50328a439ce5d84d3bd642c6f8ab67667212014ee282f0bde45",
-      "sha256_match": true,
-      "line_count": 1741,
-      "byte_count": 70988,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "agent_observability_animation_coverage_body_import",
-      "source_ref": "system/lib/agent_observability_animation_coverage.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
-      "source_role": "Macro semantic-camera coverage evaluator that checks normalized scene and delta primitives without reclassifying from summaries, commands, raw payload text, or natural-language trace prose.",
-      "required_anchors": [
-        "Coverage evaluator for the agent observability animation contract.",
-        "REQUIRED_PRIMITIVE_FAMILIES",
-        "REQUIRED_DELTA_OPS",
-        "def build_agent_observability_animation_coverage(",
-        "not classify from summaries"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "9ae7eaf4848b3ab5d91780afb911fc72d20260ff77d8d5776a11b3f9773da663",
-      "target_sha256": "9ae7eaf4848b3ab5d91780afb911fc72d20260ff77d8d5776a11b3f9773da663",
-      "sha256_match": true,
-      "line_count": 459,
-      "byte_count": 18744,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "agent_session_attribution_source_body_import",
-      "source_ref": "system/lib/agent_session_attribution.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_session_attribution.py",
-      "source_role": "Macro read-only join of AgentTraceStore active sessions with Work Ledger runtime status so observability consumers can distinguish self, concurrent sessions, infrastructure, and stale actors.",
-      "required_anchors": [
-        "Agent session attribution: read-only join",
-        "SOURCE_RUNTIME_TO_WORKLEDGER_ACTOR",
-        "INFRASTRUCTURE_SOURCE_RUNTIMES",
-        "def attribute_sessions(",
-        "def identify_self_session("
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
-      "target_sha256": "2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
-      "sha256_match": true,
-      "line_count": 652,
-      "byte_count": 23870,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "agent_observability_animation_test_body_import",
-      "source_ref": "system/server/tests/test_agent_observability_animation.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
-      "source_role": "Focused macro regression-test body for semantic-camera scenes and deltas, using synthetic events/status dictionaries and route monkeypatches instead of live provider, account, browser, or session payloads.",
-      "required_anchors": [
-        "def test_animation_scene_ties_tool_segments_to_real_event_ids",
-        "def test_animation_scene_emits_semantic_camera_primitives",
-        "def test_animation_delta_returns_cursor_ops_and_backpressure",
-        "def test_animation_route_returns_scene_from_trace_store"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "a07b0569d09070f8cb93a94923f1e9e408519b01e7188e3ff5759842d84d5693",
-      "target_sha256": "a07b0569d09070f8cb93a94923f1e9e408519b01e7188e3ff5759842d84d5693",
-      "sha256_match": true,
-      "line_count": 361,
-      "byte_count": 14037,
-      "anchor_count": 4
-    },
-    {
-      "module_id": "agent_observability_animation_coverage_test_body_import",
-      "source_ref": "system/server/tests/test_agent_observability_animation_coverage.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation_coverage.py",
-      "source_role": "Focused macro regression-test body for semantic-camera coverage, using synthetic normalized scene and delta primitives to prove UI consumers need not parse summary strings.",
-      "required_anchors": [
-        "def test_animation_coverage_accepts_mixed_provider_semantic_camera_contract",
-        "def test_animation_coverage_does_not_depend_on_summary_strings",
-        "def test_animation_coverage_reports_backend_gaps_that_would_force_ui_heuristics"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "1703d79395feddda85aed88679e5f9860818695c9bcceb4df8ac49777087eaa2",
-      "target_sha256": "1703d79395feddda85aed88679e5f9860818695c9bcceb4df8ac49777087eaa2",
-      "sha256_match": true,
-      "line_count": 308,
-      "byte_count": 10903,
-      "anchor_count": 3
-    },
-    {
-      "module_id": "agent_session_attribution_test_body_import",
-      "source_ref": "system/server/tests/test_agent_session_attribution.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_session_attribution.py",
-      "source_role": "Focused macro regression-test body for read-only session attribution across direct ids, Codex-prefix normalization, infrastructure classification, liveness, and self-session identification.",
-      "required_anchors": [
-        "def test_direct_uuid_match_yields_matched_with_phase_attribution",
-        "def test_codex_prefix_normalization_matches_across_stores",
-        "def test_metabolism_source_is_classified_as_infrastructure",
-        "def test_identify_self_session_falls_back_from_title_to_cwd"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
-      "source_sha256": "3fa4370e2fc2b53a8ca239429eff390ae51dac485399fac54589265182e99e11",
-      "target_sha256": "63dd4e066550397712ef67020d7a7fcf9c42a80aa40067cf3b3d1e92a948078e",
-      "sha256_match": false,
-      "line_count": 309,
-      "byte_count": 9553,
-      "anchor_count": 4,
-      "source_to_target_relation": "public_light_edit_private_path_redaction",
-      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
-      "applied_edits": [
-        "operator_absolute_path_prefixes_redacted_to_/Users/example"
-      ]
-    }
-  ]
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_prompt_bodies_hidden_reasoning_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material"
 }

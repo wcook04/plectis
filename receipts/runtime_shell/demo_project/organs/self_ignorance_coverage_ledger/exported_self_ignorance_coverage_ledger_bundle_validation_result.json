@@ -1,0 +1,155 @@
+{
+  "anti_claim": "Self-ignorance coverage ledger projects known coverage debt between public fixture Kind Atlas rows and materialized Atlas entities. It does not claim literal unknown-unknown omniscience, absence proof, source mutation, or release authority.",
+  "authority_ceiling": {
+    "absence_proof_authorized": false,
+    "authority_ceiling": "known_kind_atlas_coverage_debt_projection_only",
+    "literal_unknown_unknown_omniscience_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T09:10:36+00:00",
+  "error_codes": [
+    "SELF_IGNORANCE_COVERAGE_DEBT_MISMATCH",
+    "SELF_IGNORANCE_FORBIDDEN_ABSENCE_INFERENCE"
+  ],
+  "exercise": {
+    "coverage_scope": "known_fixture_kind_atlas_debt_only",
+    "kind_counts": {
+      "demos": 1,
+      "organs": 1,
+      "standards": 1
+    },
+    "kind_row_count": 3,
+    "known_coverage_debt_count": 2,
+    "known_coverage_debt_ids": [
+      "demo.crown_jewel",
+      "std.doctrine_fact_claim_audit"
+    ],
+    "literal_unknown_unknown_omniscience_authorized": false,
+    "materialized_entity_count": 3,
+    "required_entity_count": 5,
+    "status": "pass",
+    "unexpected_materialized_ids": []
+  },
+  "expected_negative_cases": [
+    "coverage_debt_mismatch",
+    "forbidden_absence_inference"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.self_ignorance_coverage_ledger",
+  "input_count": 3,
+  "input_mode": "exported_self_ignorance_coverage_ledger_bundle",
+  "input_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "coverage_debt_mismatch",
+    "forbidden_absence_inference"
+  ],
+  "organ_id": "self_ignorance_coverage_ledger",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_board.json",
+    "receipts/runtime_shell/demo_project/organs/self_ignorance_coverage_ledger/self_ignorance_coverage_ledger_validation_receipt.json"
+  ],
+  "schema_version": "self_ignorance_coverage_ledger_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 5,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
+    "module_count": 1,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 4391,
+        "expected_sha256": "3d9662455ebd0f26d4ec15a8580c3cbec4cccdaefe2cd9ff5c81160d64a3d8bf",
+        "line_count": 4391,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/factory/build_system_atlas.py",
+        "required_anchor_count": 2,
+        "sha256": "3d9662455ebd0f26d4ec15a8580c3cbec4cccdaefe2cd9ff5c81160d64a3d8bf",
+        "source_exists": true,
+        "source_ref": "tools/meta/factory/build_system_atlas.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_modules/tools/meta/factory/build_system_atlas.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 2,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json",
+      "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_modules/tools/meta/factory/build_system_atlas.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.self_ignorance_coverage_ledger"
+}

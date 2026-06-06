@@ -1,0 +1,458 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-4",
+    "AX-8",
+    "AX-10",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings.",
+      "symbols": [
+        "_ui_vitest_witness",
+        "_agent_trace_view_model_exercise",
+        "_lane_progress_exercise",
+        "_universal_graph_lens_exercise",
+        "_graph_projection_exercise",
+        "_cap_cartography_exercise",
+        "_stockgrid_exercise",
+        "_polymarket_clob_exercise",
+        "_polymarket_score_exercise",
+        "_evaluate",
+        "run",
+        "run_batch7_secondary_bundle",
+        "result_card",
+        "EXPECTED_ENGINES",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.import_projection_and_drift_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Secondary Runtime Source Capsule",
+  "entry_surface_contract": null,
+  "evidence_class": "verified_macro_body_import",
+  "family": "import_projection_and_drift",
+  "id": "batch7_secondary_runtime_capsule",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The copied public secondary runtime, graph, cartography, stockgrid, and Polymarket bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting browser/session export, wallet authority, live market data, investment advice, source mutation, publication, release, or whole-system correctness authority.",
+      "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "batch7_secondary_runtime_capsule",
+  "organ_payload": {
+    "claim_ceiling": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, source mutation, private-root equivalence, publication, release, semantic-truth, or whole-system correctness claim",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/batch7_secondary_runtime_capsule.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/batch7_secondary_runtime_capsule.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the Batch 7 secondary runtime capsule: all eight runtime, graph, cartography, stockgrid, and Polymarket fixture engines must execute, copied source modules must preserve digest anchors, planted negative cases must stay visible, and receipts must remain body-free inside the public authority ceiling.",
+      "axiom_refs": [
+        "AX-4",
+        "AX-8",
+        "AX-10",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment advice, provider dispatch, source mutation, private-root equivalence, publication, release, semantic-truth, or whole-system correctness claim",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings.",
+          "symbols": [
+            "_ui_vitest_witness",
+            "_agent_trace_view_model_exercise",
+            "_lane_progress_exercise",
+            "_universal_graph_lens_exercise",
+            "_graph_projection_exercise",
+            "_cap_cartography_exercise",
+            "_stockgrid_exercise",
+            "_polymarket_clob_exercise",
+            "_polymarket_score_exercise",
+            "_evaluate",
+            "run",
+            "run_batch7_secondary_bundle",
+            "result_card",
+            "EXPECTED_ENGINES",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "display_name": "Secondary Runtime Source Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "human_gloss": "This capsule imports a second Batch 7 runtime slice as public runnable substrate. It checks agent trace view-model trust classes, lane-progress state normalization, graph-lens focus roles, graph projection summaries, observe-only cartography rendering, stockgrid payload terms, Polymarket CLOB microstructure, and four-lens market scanning over synthetic public fixtures without exporting sessions, fetching live markets, or giving trading advice.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The copied public secondary runtime, graph, cartography, stockgrid, and Polymarket bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting browser/session export, wallet authority, live market data, investment advice, source mutation, publication, release, or whole-system correctness authority.",
+          "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "paper_module_ref": "paper_modules/batch7_secondary_runtime_capsule.md",
+      "principle_refs": [
+        "P-2",
+        "P-5",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "frontend",
+        "market-boundary"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [],
+      "wiring_note": "Binds exact copied runtime view-model, graph, cartography, stockgrid, and Polymarket source bodies to fixture, receipt, source-digest, negative-case, CLI/runtime-shell, standards, and authority-ceiling checks; it does not export browser or wallet state, fetch live markets, provide investment advice, mutate source, publish, release, or claim private-root equivalence."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "verified non-secret macro body import only, not browser or wallet access, live market data, investment advice, source authority, private-root equivalence, release, or publication",
+      "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch7_secondary_runtime_capsule]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_result.json",
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_board.json",
+        "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.batch7_secondary_runtime_capsule",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch7_secondary_runtime_capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/batch7_secondary_runtime_capsule.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-2",
+    "P-5",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_result.json",
+    "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_board.json",
+    "receipts/first_wave/batch7_secondary_runtime_capsule/batch7_secondary_runtime_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-4",
+      "AX-8",
+      "AX-10",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings.",
+        "symbols": [
+          "_ui_vitest_witness",
+          "_agent_trace_view_model_exercise",
+          "_lane_progress_exercise",
+          "_universal_graph_lens_exercise",
+          "_graph_projection_exercise",
+          "_cap_cartography_exercise",
+          "_stockgrid_exercise",
+          "_polymarket_clob_exercise",
+          "_polymarket_score_exercise",
+          "_evaluate",
+          "run",
+          "run_batch7_secondary_bundle",
+          "result_card",
+          "EXPECTED_ENGINES",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.batch7_secondary_runtime_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].mechanism_refs[0]",
+          "summary": "The copied public secondary runtime, graph, cartography, stockgrid, and Polymarket bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting browser/session export, wallet authority, live market data, investment advice, source mutation, publication, release, or whole-system correctness authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for Batch 7 secondary runtime copied source witnesses, UI witness checks, graph/cartography/market exercises, negative cases, and authority ceilings."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/batch7_secondary_runtime_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-10",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The copied public secondary runtime, graph, cartography, stockgrid, and Polymarket bodies, deterministic fixture and bundle exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bind this organ to a verified macro-body import without granting browser/session export, wallet authority, live market data, investment advice, source mutation, publication, release, or whole-system correctness authority.",
+        "ref": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/batch7_secondary_runtime_capsule.md",
+    "principle_refs": [
+      "P-2",
+      "P-5",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Organ atlas row does not name sibling wires_to targets.",
+        "relation_id": "organ.wires_to.organ",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ],
+    "wires_to": []
+  },
+  "role": "An agent runs it to validate the Batch 7 secondary runtime capsule: all eight runtime, graph, cartography, stockgrid, and Polymarket fixture engines must execute, copied source modules must preserve digest anchors, planted negative cases must stay visible, and receipts must remain body-free inside the public authority ceiling.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[77:batch7_secondary_runtime_capsule]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[77:batch7_secondary_runtime_capsule]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/batch7_secondary_runtime_capsule.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "source-import",
+    "provenance",
+    "drift-control",
+    "frontend",
+    "market-boundary"
+  ],
+  "statement": "An agent runs it to validate the Batch 7 secondary runtime capsule: all eight runtime, graph, cartography, stockgrid, and Polymarket fixture engines must execute, copied source modules must preserve digest anchors, planted negative cases must stay visible, and receipts must remain body-free inside the public authority ceiling.",
+  "status": "accepted_current_authority",
+  "title": "Secondary Runtime Source Capsule",
+  "validator_refs": [
+    "python -m microcosm_core.organs.batch7_secondary_runtime_capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": []
+}

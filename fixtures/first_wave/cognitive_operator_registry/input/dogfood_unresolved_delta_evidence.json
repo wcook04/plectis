@@ -1,0 +1,27 @@
+{
+  "dogfood_receipts": [
+    {
+      "actions_taken": [
+        "Recorded a fabricated delta evidence handle while preserving required dogfood receipt shape."
+      ],
+      "candidate_set": [
+        "Install fabricated demo operator."
+      ],
+      "cognition_delta_evidence": [
+        "cognition_delta_evidence://fabricated/not-present"
+      ],
+      "evidence_surfaces": [
+        "./repo-python kernel.py --option-surface cognitive_operators --band flag"
+      ],
+      "live_problem": "A claimed live cognition change with a fabricated evidence handle.",
+      "operator_id": "cogop_unresolvable_delta_demo",
+      "receipt_id": "cogop_unresolvable_delta_demo_20260605",
+      "result_state": "claimed_delta_with_unresolvable_handle",
+      "selected_operator": {
+        "operator_id": "cogop_unresolvable_delta_demo"
+      }
+    }
+  ],
+  "expected_negative_case_id": "unresolvable_cognition_delta_evidence",
+  "schema_version": "cognitive_operator_registry_negative_case_v1"
+}

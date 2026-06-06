@@ -42,6 +42,7 @@ SOURCE_REFS = [
 ]
 SOURCE_SHA256 = "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
 PUBLIC_LEAN_TOOLCHAIN_PREFIX = "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/"
+HASH_CHUNK_SIZE = 1024 * 1024
 
 INPUT_NAMES = ("projection_protocol.json", "premise_index.json", "index_policy.json")
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
@@ -171,7 +172,11 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 
 def _sha256_hex(path: Path) -> str:
-    return sha256(path.read_bytes()).hexdigest()
+    digest = sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _line_count(path: Path) -> int:
@@ -257,6 +262,221 @@ def _source_module_target_paths(
     return paths
 
 
+def _dedupe_paths(paths: list[Path]) -> list[Path]:
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def _candidate_source_artifact_paths(
+    ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> list[Path]:
+    path = Path(ref)
+    if path.is_absolute():
+        return [path]
+    return _dedupe_paths(
+        [
+            input_dir / path,
+            public_root / path,
+            public_root.parent / path,
+            Path.cwd() / path,
+        ]
+    )
+
+
+def _resolve_source_artifact_path(
+    ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path | None:
+    for candidate in _candidate_source_artifact_paths(
+        ref,
+        input_dir=input_dir,
+        public_root=public_root,
+    ):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _normalize_source_ref(source_ref: object, *, source_root: object) -> str:
+    ref = str(source_ref or "")
+    root = str(source_root or "")
+    if root and ref.startswith(root.rstrip("/") + "/"):
+        suffix = ref[len(root.rstrip("/")) + 1 :]
+        return f"{PUBLIC_LEAN_TOOLCHAIN_PREFIX}{suffix}"
+    return ref
+
+
+def _source_row_signature(row: dict[str, Any], *, source_root: object) -> dict[str, Any]:
+    return {
+        "theorem_or_def_name": row.get("theorem_or_def_name"),
+        "namespace": row.get("namespace"),
+        "source_ref": _normalize_source_ref(row.get("source_ref"), source_root=source_root),
+        "statement_excerpt": row.get("statement_excerpt"),
+        "retrieval_terms": _strings(row.get("retrieval_terms")),
+        "allowed_for_split": _strings(row.get("allowed_for_split")),
+    }
+
+
+def _public_row_signature(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "theorem_or_def_name": row.get("theorem_or_def_name"),
+        "namespace": row.get("namespace"),
+        "source_ref": row.get("source_ref"),
+        "statement_excerpt": row.get("statement_excerpt"),
+        "retrieval_terms": _strings(row.get("retrieval_terms")),
+        "allowed_for_split": _strings(row.get("allowed_for_split")),
+    }
+
+
+def _validate_source_artifact(
+    payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {
+            "status": "blocked",
+            "findings": [
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_ARTIFACT_INDEX_REQUIRED",
+                    "Lean/Std premise index payload is required before source-artifact validation.",
+                    case_id="source_artifact",
+                    subject_id="premise_index",
+                    subject_kind="source_artifact",
+                )
+            ],
+            "source_artifact_ref": None,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+        }
+
+    findings: list[dict[str, Any]] = []
+    source_ref = str(payload.get("source_ref") or "")
+    source_sha256 = _strip_sha256_prefix(payload.get("source_sha256"))
+    if not source_ref:
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_SOURCE_ARTIFACT_REF_REQUIRED",
+                "Lean/Std premise index must carry a real source_ref for the imported source artifact.",
+                case_id="source_artifact",
+                subject_id="premise_index.source_ref",
+                subject_kind="source_artifact",
+            )
+        )
+        return {
+            "status": "blocked",
+            "findings": findings,
+            "source_artifact_ref": source_ref,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+        }
+
+    source_path = _resolve_source_artifact_path(
+        source_ref,
+        input_dir=input_dir,
+        public_root=public_root,
+    )
+    if source_path is None:
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_SOURCE_ARTIFACT_MISSING",
+                "Declared Lean/Std premise-index source artifact could not be opened.",
+                case_id="source_artifact",
+                subject_id=source_ref,
+                subject_kind="source_artifact",
+            )
+        )
+        return {
+            "status": "blocked",
+            "findings": findings,
+            "source_artifact_ref": source_ref,
+            "source_artifact_sha256": None,
+            "source_artifact_premise_count": 0,
+        }
+
+    digest = _sha256_hex(source_path)
+    if not source_sha256 or digest != source_sha256:
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                "Declared Lean/Std premise-index source digest does not match the opened source artifact.",
+                case_id="source_artifact",
+                subject_id=source_ref,
+                subject_kind="source_artifact",
+            )
+        )
+
+    source_payload = read_json_strict(source_path)
+    source_rows = _entry_rows(source_payload)
+    public_rows = _entry_rows(payload)
+    if len(source_rows) != len(public_rows):
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_SOURCE_ARTIFACT_ROW_COUNT_MISMATCH",
+                "Public Lean/Std premise-index row count must match the opened source artifact.",
+                case_id="source_artifact",
+                subject_id=source_ref,
+                subject_kind="source_artifact",
+            )
+        )
+
+    source_by_id = {str(row.get("premise_id") or ""): row for row in source_rows}
+    for public_row in public_rows:
+        premise_id = str(public_row.get("premise_id") or "")
+        source_row = source_by_id.get(premise_id)
+        if source_row is None:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_ARTIFACT_ROW_MISMATCH",
+                    "Public Lean/Std premise row must derive from an opened source-artifact row with the same premise_id.",
+                    case_id="source_artifact",
+                    subject_id=premise_id or "missing_premise_id",
+                    subject_kind="source_artifact",
+                )
+            )
+            continue
+        source_signature = _source_row_signature(
+            source_row,
+            source_root=(
+                source_payload.get("local_or_annex_path")
+                if isinstance(source_payload, dict)
+                else None
+            ),
+        )
+        public_signature = _public_row_signature(public_row)
+        if public_signature != source_signature:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_ARTIFACT_ROW_MISMATCH",
+                    "Public Lean/Std premise row must match the opened source artifact after public source-ref normalization.",
+                    case_id="source_artifact",
+                    subject_id=premise_id,
+                    subject_kind="source_artifact",
+                )
+            )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_artifact_ref": source_ref,
+        "source_artifact_sha256": f"sha256:{digest}",
+        "source_artifact_premise_count": len(source_rows),
+    }
+
+
 def _source_module_manifest_result(
     payload: object,
     *,
@@ -304,6 +524,7 @@ def _source_module_manifest_result(
     for row in rows:
         module_id = str(row.get("module_id") or "")
         material_class = str(row.get("material_class") or "")
+        source_ref = str(row.get("source_ref") or "")
         target = _resolve_target_path(row, input_dir=input_dir, public_root=public_root)
         if not module_id:
             findings.append(
@@ -347,6 +568,35 @@ def _source_module_manifest_result(
                 )
             )
             continue
+        source_path = (
+            _resolve_source_artifact_path(
+                source_ref,
+                input_dir=input_dir,
+                public_root=public_root,
+            )
+            if source_ref
+            else None
+        )
+        if not source_ref:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_REF_REQUIRED",
+                    "Source module imports must cite the real source_ref they were copied from.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif source_path is None or not source_path.is_file():
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_MISSING",
+                    "Declared source module import source_ref could not be opened.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         digest = _sha256_hex(target)
         expected_digest = _strip_sha256_prefix(row.get("target_sha256") or row.get("sha256"))
         if expected_digest and digest != expected_digest:
@@ -361,8 +611,26 @@ def _source_module_manifest_result(
             )
         lines = _line_count(target)
         bytes_count = target.stat().st_size
+        source_digest = _sha256_hex(source_path) if source_path is not None and source_path.is_file() else None
+        source_lines = _line_count(source_path) if source_path is not None and source_path.is_file() else None
+        source_bytes_count = (
+            source_path.stat().st_size if source_path is not None and source_path.is_file() else None
+        )
+        expected_source_digest = _strip_sha256_prefix(row.get("source_sha256"))
+        if expected_source_digest and source_digest != expected_source_digest:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                    "Source module source_ref digest does not match the manifest's source_sha256.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         expected_lines = row.get("target_line_count", row.get("line_count"))
         expected_bytes = row.get("target_byte_count", row.get("byte_count"))
+        expected_source_lines = row.get("source_line_count")
+        expected_source_bytes = row.get("source_byte_count")
         if isinstance(expected_lines, int) and lines != expected_lines:
             findings.append(
                 _finding(
@@ -378,6 +646,40 @@ def _source_module_manifest_result(
                 _finding(
                     "LEAN_STD_INDEX_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
                     "Source module target file byte count does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if isinstance(expected_source_lines, int) and source_lines != expected_source_lines:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_LINE_COUNT_MISMATCH",
+                    "Source module source_ref line count does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if isinstance(expected_source_bytes, int) and source_bytes_count != expected_source_bytes:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_BYTE_COUNT_MISMATCH",
+                    "Source module source_ref byte count does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if (
+            source_digest is not None
+            and (row.get("sha256_match") is True or row.get("source_to_target_relation") == "exact_public_safe_macro_copy")
+            and digest != source_digest
+        ):
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_TARGET_DIVERGED",
+                    "Exact copied source module target must still match the opened source artifact.",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -839,7 +1141,18 @@ def _build_result(
         public_root=public_root,
         require_manifest=input_mode == "exported_lean_std_premise_index_bundle",
     )
-    positive_findings = _merge_findings(protocol, index, policy, source_module_manifest)
+    source_artifact = _validate_source_artifact(
+        payloads.get("premise_index"),
+        input_dir=input_dir,
+        public_root=public_root,
+    )
+    positive_findings = _merge_findings(
+        protocol,
+        index,
+        policy,
+        source_artifact,
+        source_module_manifest,
+    )
     negative_findings = _merge_findings(*negative_results)
     error_codes = sorted({row["error_code"] for row in positive_findings + negative_findings})
     secret_scan = _scan_inputs(
@@ -880,6 +1193,13 @@ def _build_result(
         ),
         "omitted_material_count": protocol.get("omitted_material_count", 0),
         "source_module_manifest_status": source_module_manifest.get("status"),
+        "source_artifact_status": source_artifact.get("status"),
+        "source_artifact_ref": source_artifact.get("source_artifact_ref"),
+        "source_artifact_sha256": source_artifact.get("source_artifact_sha256"),
+        "source_artifact_premise_count": source_artifact.get(
+            "source_artifact_premise_count",
+            0,
+        ),
         "source_module_manifest_ref": source_module_manifest.get("source_module_manifest_ref"),
         "source_module_count": source_module_manifest.get("source_module_count", 0),
         "verified_source_module_count": source_module_manifest.get(
@@ -935,6 +1255,10 @@ def _common_receipt(
         "body_copied_material_count": result["body_copied_material_count"],
         "omitted_material_count": result["omitted_material_count"],
         "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_artifact_status": result.get("source_artifact_status"),
+        "source_artifact_ref": result.get("source_artifact_ref"),
+        "source_artifact_sha256": result.get("source_artifact_sha256"),
+        "source_artifact_premise_count": result.get("source_artifact_premise_count"),
         "source_module_manifest_ref": result.get("source_module_manifest_ref"),
         "source_module_count": result.get("source_module_count"),
         "verified_source_module_count": result.get("verified_source_module_count"),
@@ -976,6 +1300,8 @@ def _build_board(result: dict[str, Any]) -> dict[str, Any]:
         "body_material_status": result["body_material_status"],
         "body_copied_material_count": result["body_copied_material_count"],
         "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_artifact_status": result.get("source_artifact_status"),
+        "source_artifact_premise_count": result.get("source_artifact_premise_count"),
         "verified_source_module_count": result.get("verified_source_module_count"),
     }
 
@@ -1020,6 +1346,8 @@ def _source_summary_card(result: dict[str, Any]) -> dict[str, Any]:
         "body_copied_material_count": result.get("body_copied_material_count"),
         "omitted_material_count": result.get("omitted_material_count"),
         "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_artifact_status": result.get("source_artifact_status"),
+        "source_artifact_premise_count": result.get("source_artifact_premise_count"),
         "source_module_count": result.get("source_module_count"),
         "verified_source_module_count": result.get("verified_source_module_count"),
         "body_material_status": result.get("body_material_status"),

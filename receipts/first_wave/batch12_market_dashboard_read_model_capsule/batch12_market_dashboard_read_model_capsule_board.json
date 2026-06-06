@@ -1,0 +1,27 @@
+{
+  "anti_claim": "Batch 12 market-dashboard read-model validation executes copied non-secret macro source over bounded public fixtures. It validates structure, feed freshness states, and entity-overlap cohort behavior only; it is not live market truth, investment advice, provider capability, release authority, or whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch12_market_dashboard_read_model_capsule_fixture_only_not_market_truth",
+    "investment_advice": false,
+    "live_market_truth": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 3,
+    "observed_negative_case_count": 10,
+    "source_module_count": 1
+  },
+  "organ_id": "batch12_market_dashboard_read_model_capsule",
+  "schema_version": "batch12_market_dashboard_read_model_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 12 market dashboard read-model capsule",
+  "verdict": "pass"
+}

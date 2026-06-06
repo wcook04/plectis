@@ -23,13 +23,13 @@
     "mode_in_chat_only",
     "zero_write_disk"
   ],
-  "created_at": "2026-05-30T21:37:00+00:00",
+  "created_at": "2026-06-01T09:10:12+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.routing_anti_patterns_registry",
   "freshness_basis": {
-    "basis_digest": "sha256:14e722d01a1425e37ea7a15557e2075bcdb3eead755fab78593602f239f79b0a",
+    "basis_digest": "sha256:7468a3e4c2bc9ff3a9486959cee5f66c8ec19ee1b2a61dc5951c01733d3a4db9",
     "card_schema_version": "routing_anti_patterns_registry_command_card_v1",
     "include_negative": false,
     "input_count": 5,
@@ -56,8 +56,8 @@
       },
       {
         "path": "src/microcosm_core/organs/routing_anti_patterns_registry.py",
-        "sha256": "827a2d32b1dcd1f503f89d0261c343bede254194584e9b07596d7735e9c46b25",
-        "size_bytes": 44005
+        "sha256": "689bef8898ae8f9b88a5723e9cf727bee5e8d1afb0dc9eab322bf784c68a9063",
+        "size_bytes": 45447
       }
     ],
     "missing_inputs": [],

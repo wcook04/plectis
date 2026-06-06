@@ -1,0 +1,10 @@
+{
+  "schema_version": "batch6_unsurfaced_primitives_capsule_negative_case_v1",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "case_id": "status_policy_poisoned",
+  "error_codes": [
+    "BATCH6_STATUS_POLICY_FAILS_CLOSED"
+  ],
+  "body_in_receipt": false,
+  "public_private_boundary": "public synthetic negative case only; no private source body or runtime state"
+}

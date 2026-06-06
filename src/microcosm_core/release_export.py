@@ -9,13 +9,17 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tomllib
 from collections import Counter
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
 from . import secret_exclusion_scan
 from .organs import macro_projection_import_protocol
 from .receipts import utc_now, write_json_atomic
+from .schemas import StrictJsonError, read_json_strict
+from .validators.evidence_truth_floor import audit_evidence_truth_floor
 
 
 ARTIFACT_DIR_NAME = "microcosm-substrate"
@@ -28,21 +32,29 @@ RELEASE_AUTHORIZATION_GATE_ID = "explicit_release_authorization_gate"
 RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION = (
     "microcosm_release_candidate_invalidation_v1"
 )
+RELEASE_ASSURANCE_SCHEMA_VERSION = "microcosm_release_assurance_v2"
 DEFAULT_INCLUDE_REFS = (
     ".github",
     ".gitignore",
     "AGENTS.md",
+    "AGENT_ROUTES.md",
     "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
     "AXIOMS.md",
+    "CLAUDE.md",
     "CONSTITUTION.md",
     "CONTRIBUTING.md",
+    "CODEX.md",
+    "CURSOR.md",
     "LICENSE",
     "MANIFEST.in",
     "Makefile",
+    "NOTICE",
     "ORGANS.md",
     "PRINCIPLES.md",
+    "PROVENANCE.md",
     "QUICKSTART.md",
+    "RELEASE_DISCIPLINE.md",
     "README.md",
     "SECURITY.md",
     "atlas",
@@ -61,9 +73,20 @@ DEFAULT_INCLUDE_REFS = (
 )
 STANDALONE_REQUIRED_PUBLIC_REFS = (
     "README.md",
+    "LICENSE",
+    "NOTICE",
+    "PROVENANCE.md",
+    "CLAUDE.md",
+    "CODEX.md",
+    "CURSOR.md",
     "AGENTS.md",
+    "AGENT_ROUTES.md",
+    "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
+    "AXIOMS.md",
+    "CONSTITUTION.md",
     "ORGANS.md",
+    "PRINCIPLES.md",
     "MANIFEST.in",
     "pyproject.toml",
     "src",
@@ -73,10 +96,119 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     ".github",
     "CONTRIBUTING.md",
     "QUICKSTART.md",
+    "RELEASE_DISCIPLINE.md",
     "SECURITY.md",
 )
+LICENSE_NOTICE_REQUIRED_REFS = (
+    "LICENSE",
+    "NOTICE",
+    "PROVENANCE.md",
+    "README.md",
+    "pyproject.toml",
+    "MANIFEST.in",
+)
+CLAIM_LANGUAGE_REVIEW_PATTERNS = (
+    {
+        "pattern_id": "private_root_repo_link",
+        "category": "source_boundary",
+        "pattern": r"github\.com/wcook04/zenith",
+        "release_candidate_blocking_if_positive": True,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "whole_system_released",
+        "category": "release_boundary",
+        "pattern": r"\bthe whole system is released\b",
+        "release_candidate_blocking_if_positive": True,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "macro_system_released",
+        "category": "release_boundary",
+        "pattern": r"\bthe macro system is released\b",
+        "release_candidate_blocking_if_positive": True,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "private_root_source_public",
+        "category": "source_boundary",
+        "pattern": r"\bprivate root source is public\b",
+        "release_candidate_blocking_if_positive": True,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "provider_or_institution_affiliation",
+        "category": "affiliation_boundary",
+        "pattern": r"\b(?:provider-approved|university-backed|affiliated with OpenAI|affiliated with Anthropic|affiliated with Cursor|affiliated with Bristol)\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "hosted_or_production_security_claim",
+        "category": "product_claim_boundary",
+        "pattern": r"\b(?:hosted service|hosted product|production security product)\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+)
+FINANCE_PROMOTION_REVIEW_PATTERNS = (
+    {
+        "pattern_id": "investment_recommendation",
+        "category": "financial_promotion_boundary",
+        "pattern": r"\binvestment recommendations?\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "financial_or_investment_advice",
+        "category": "financial_promotion_boundary",
+        "pattern": r"\bfinancial or investment advice\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "trading_system_or_strategy",
+        "category": "financial_promotion_boundary",
+        "pattern": r"\b(?:trading system|trading strategy)\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+    {
+        "pattern_id": "buy_sell_hold_trade_recommendation",
+        "category": "financial_promotion_boundary",
+        "pattern": r"\b(?:recommend(?:s|ed|ing)?|should)\b.{0,80}\b(?:buy|sell|hold|trade)\b",
+        "release_candidate_blocking_if_positive": False,
+        "release_authorization_blocking_if_positive": True,
+    },
+)
+PUBLICATION_REVIEW_CHECKLISTS = {
+    "github_repository": [
+        "initialize_public_repo_from_generated_artifact_not_private_root_history",
+        "verify_public_remote_points_to_github.com/wcook04/microcosm-substrate",
+        "enable_secret_scanning_and_push_protection_where_available",
+        "protect_default_branch_and_require_public_ci",
+        "publish_SECURITY_md_and_issue_reporting_policy",
+        "verify_pages_source_custom_domain_and_https_before_site_launch",
+    ],
+    "package_registry": [
+        "build_from_generated_standalone_artifact",
+        "generate_sdist_and_wheel_from_clean_export",
+        "run_package_smoke_from_outside_source_root",
+        "verify_LICENSE_NOTICE_PROVENANCE_in_package_payload",
+        "prefer_trusted_publishing_or_scoped_api_token",
+        "generate_or_attach_sbom_before_registry_publication_when_required",
+    ],
+    "site_and_video": [
+        "site_links_resolve_to_standalone_public_repo",
+        "site_copy_keeps_research_prototype_and_no_advice_boundaries",
+        "walkthrough_media_hides_private_paths_accounts_and_provider_sessions",
+        "walkthrough_media_has_rights_or_originality_for_all_visual_audio_assets",
+        "platform_ai_or_synthetic_disclosures_completed_when_applicable",
+    ],
+}
 SKIPPED_DIR_NAMES = {
     ".git",
+    ".microcosm",
     ".hg",
     ".mypy_cache",
     ".nox",
@@ -125,6 +257,8 @@ STRONG_SECRET_PATTERNS = (
 )
 HOST_TEMP_ROOT_NEEDLE = "/private/" + "var/folders/"
 HOST_TEMP_SYNTHETIC_EXAMPLE_NEEDLE = HOST_TEMP_ROOT_NEEDLE + "wn/example/"
+PUBLIC_EXAMPLE_HOME = "/Users/example"
+CONCRETE_HOME_PATH_RE = re.compile(r"/Users/(?!example(?:/|$))[A-Za-z0-9_.-]+")
 EXTERNAL_WARNING_CLASSIFICATION_ROWS = (
     {
         "warning_id": "historical_evidence_durability_backlog",
@@ -214,16 +348,22 @@ def _public_role(rel: str) -> str:
     if rel in {
         "README.md",
         "AGENTS.md",
+        "AGENT_ROUTES.md",
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
         "AXIOMS.md",
+        "CLAUDE.md",
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
+        "CODEX.md",
+        "CURSOR.md",
         "PRINCIPLES.md",
         "ORGANS.md",
         "QUICKSTART.md",
         "SECURITY.md",
         "LICENSE",
+        "NOTICE",
+        "PROVENANCE.md",
     }:
         return "public_entry_document"
     if top == "atlas":
@@ -231,8 +371,6 @@ def _public_role(rel: str) -> str:
     if top == "core":
         return "authority_or_registry"
     if top == "examples":
-        if "/.microcosm/" in f"/{rel}":
-            return "intentional_example_generated_state"
         return "example_evidence"
     if top == "fixtures":
         return "fixture"
@@ -383,13 +521,37 @@ def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], l
     return files, excluded, missing
 
 
-def _copy_allowed_files(files: list[Path], *, root: Path, target: Path) -> list[dict[str, Any]]:
+def _copy_allowed_files(
+    files: list[Path],
+    *,
+    root: Path,
+    target: Path,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     inventory: list[dict[str, Any]] = []
+    home_redaction_rows: list[dict[str, Any]] = []
     for source in files:
         rel = source.relative_to(root).as_posix()
         destination = target / rel
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
+        text = _read_text_if_small(source)
+        if text is not None and "source_modules" in Path(rel).parts:
+            redacted_text, redaction_count = CONCRETE_HOME_PATH_RE.subn(
+                PUBLIC_EXAMPLE_HOME,
+                text,
+            )
+            destination.write_text(redacted_text, encoding="utf-8")
+            shutil.copystat(source, destination)
+            if redaction_count:
+                home_redaction_rows.append(
+                    {
+                        "path": rel,
+                        "concrete_home_path_replacement_count": redaction_count,
+                        "replacement": PUBLIC_EXAMPLE_HOME,
+                        "body_in_receipt": False,
+                    }
+                )
+        else:
+            shutil.copy2(source, destination)
         stat = destination.stat()
         inventory.append(
             {
@@ -399,7 +561,10 @@ def _copy_allowed_files(files: list[Path], *, root: Path, target: Path) -> list[
                 "sha256": _sha256_file(destination),
             }
         )
-    return sorted(inventory, key=lambda row: row["path"])
+    return (
+        sorted(inventory, key=lambda row: row["path"]),
+        sorted(home_redaction_rows, key=lambda row: row["path"]),
+    )
 
 
 def _artifact_payload_hash(inventory: list[dict[str, Any]]) -> str:
@@ -423,6 +588,33 @@ def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None
         return path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
         return None
+
+
+def _iter_artifact_paths(target: Path) -> Iterator[Path]:
+    """Yield artifact paths deterministically without materializing the tree."""
+
+    try:
+        entries = sorted(os.scandir(target), key=lambda entry: entry.name)
+    except OSError:
+        return
+
+    for entry in entries:
+        path = Path(entry.path)
+        yield path
+        try:
+            is_dir = entry.is_dir(follow_symlinks=False)
+        except OSError:
+            is_dir = False
+        if is_dir:
+            yield from _iter_artifact_paths(path)
+
+
+def _iter_artifact_files(target: Path) -> Iterator[Path]:
+    for path in _iter_artifact_paths(target):
+        if path.is_symlink():
+            continue
+        if path.is_file():
+            yield path
 
 
 def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None:
@@ -457,9 +649,7 @@ def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[s
         private_needles.append(
             (home_text, "<operator-home>", "operator_home_root")
         )
-    for path in sorted(target.rglob("*")):
-        if not path.is_file():
-            continue
+    for path in _iter_artifact_files(target):
         rel = path.relative_to(target).as_posix()
         text = _read_text_if_small(path)
         if text is None:
@@ -474,9 +664,7 @@ def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[s
 
 def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
     hits: list[dict[str, str]] = []
-    for path in sorted(target.rglob("*")):
-        if not path.is_file():
-            continue
+    for path in _iter_artifact_files(target):
         rel = path.relative_to(target).as_posix()
         text = _read_text_if_small(path)
         if text is None:
@@ -495,7 +683,7 @@ def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
 
 def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
     violations: list[dict[str, str]] = []
-    for path in sorted(target.rglob("*")):
+    for path in _iter_artifact_paths(target):
         rel = path.relative_to(target)
         rel_text = rel.as_posix()
         parts = rel.parts
@@ -503,8 +691,8 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
             continue
         if any(rel_text.startswith(prefix) for prefix in ROOT_FORBIDDEN_PREFIXES):
             violations.append({"path": rel_text, "reason": "forbidden_private_root"})
-        if parts[0] == ".microcosm":
-            violations.append({"path": rel_text, "reason": "root_local_microcosm_state"})
+        if ".microcosm" in parts:
+            violations.append({"path": rel_text, "reason": "generated_microcosm_state"})
         if parts[0] == ARTIFACT_DIR_NAME:
             violations.append({"path": rel_text, "reason": "nested_self_export"})
         if rel.name == ".DS_Store":
@@ -521,7 +709,7 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
 def _artifact_symlink_refs(target: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     target_root = target.resolve(strict=True)
-    for path in sorted(target.rglob("*")):
+    for path in _iter_artifact_paths(target):
         if not path.is_symlink():
             continue
         rel = path.relative_to(target).as_posix()
@@ -658,6 +846,439 @@ def _standalone_severance_receipt(
     }
 
 
+def _flatten_data_file_refs(pyproject: dict[str, Any]) -> set[str]:
+    tool = pyproject.get("tool") if isinstance(pyproject.get("tool"), dict) else {}
+    setuptools = tool.get("setuptools") if isinstance(tool.get("setuptools"), dict) else {}
+    data_files = (
+        setuptools.get("data-files")
+        if isinstance(setuptools.get("data-files"), dict)
+        else {}
+    )
+    refs: set[str] = set()
+    for patterns in data_files.values():
+        if not isinstance(patterns, list):
+            continue
+        for pattern in patterns:
+            if isinstance(pattern, str):
+                refs.add(pattern)
+    return refs
+
+
+def _pyproject_payload(target: Path) -> dict[str, Any]:
+    path = target / "pyproject.toml"
+    if not path.is_file():
+        return {}
+    try:
+        return tomllib.loads(path.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return {}
+
+
+def _materials_ledger(
+    target: Path,
+    *,
+    inventory: list[dict[str, Any]],
+    artifact: dict[str, Any],
+) -> dict[str, Any]:
+    inventory_paths = {str(row["path"]) for row in inventory}
+    required_missing = [
+        ref
+        for ref in LICENSE_NOTICE_REQUIRED_REFS
+        if not _inventory_covers_ref(inventory_paths, ref)
+    ]
+    required_present = [
+        ref
+        for ref in LICENSE_NOTICE_REQUIRED_REFS
+        if _inventory_covers_ref(inventory_paths, ref)
+    ]
+    pyproject = _pyproject_payload(target)
+    project = (
+        pyproject.get("project") if isinstance(pyproject.get("project"), dict) else {}
+    )
+    build_system = (
+        pyproject.get("build-system")
+        if isinstance(pyproject.get("build-system"), dict)
+        else {}
+    )
+    optional_dependencies = (
+        project.get("optional-dependencies")
+        if isinstance(project.get("optional-dependencies"), dict)
+        else {}
+    )
+    data_file_refs = _flatten_data_file_refs(pyproject)
+    license_expression = project.get("license")
+    if isinstance(license_expression, dict):
+        license_expression = license_expression.get("text") or license_expression.get("file")
+    license_notice_data_refs = {
+        ref: ref in data_file_refs or _inventory_covers_ref(inventory_paths, ref)
+        for ref in ("LICENSE", "NOTICE", "PROVENANCE.md")
+    }
+    license_notice_status = (
+        "pass"
+        if not required_missing
+        and str(license_expression or "") == "Apache-2.0"
+        and all(license_notice_data_refs.values())
+        else "blocked"
+    )
+    role_counts = Counter(str(row["role"]) for row in inventory)
+    top_level_counts = Counter(str(row["path"]).split("/", 1)[0] for row in inventory)
+    runtime_dependencies = project.get("dependencies")
+    if not isinstance(runtime_dependencies, list):
+        runtime_dependencies = []
+    build_requires = build_system.get("requires")
+    if not isinstance(build_requires, list):
+        build_requires = []
+    optional_dependency_counts = {
+        str(group): len(values) if isinstance(values, list) else 0
+        for group, values in optional_dependencies.items()
+    }
+    return {
+        "schema_version": "microcosm_public_materials_ledger_v1",
+        "status": "pass" if license_notice_status == "pass" else "blocked",
+        "artifact_payload_hash_sha256": artifact.get("artifact_payload_hash_sha256"),
+        "required_license_notice_refs": list(LICENSE_NOTICE_REQUIRED_REFS),
+        "required_license_notice_refs_present": required_present,
+        "required_license_notice_refs_missing": required_missing,
+        "license_notice_chain": {
+            "status": license_notice_status,
+            "license_expression": license_expression,
+            "license_files": project.get("license-files") or [],
+            "required_refs_in_export_or_package_data": license_notice_data_refs,
+            "copyright_notice_ref": "NOTICE",
+            "authorship_and_no_affiliation_ref": "PROVENANCE.md",
+        },
+        "inventory_role_counts": dict(sorted(role_counts.items())),
+        "top_level_material_counts": dict(sorted(top_level_counts.items())),
+        "dependency_summary": {
+            "runtime_dependency_count": len(runtime_dependencies),
+            "runtime_dependencies": sorted(str(dep) for dep in runtime_dependencies),
+            "optional_dependency_group_counts": dict(
+                sorted(optional_dependency_counts.items())
+            ),
+            "build_requires": sorted(str(dep) for dep in build_requires),
+            "dependency_scope": (
+                "pyproject metadata only; transitive dependency license review "
+                "and SBOM are separate publication checks."
+            ),
+        },
+        "sbom": {
+            "status": "not_generated",
+            "required_before_registry_publication": "when operator chooses package registry publication or downstream policy requires it",
+            "anti_claim": "This export receipt does not claim a complete dependency SBOM.",
+        },
+        "body_in_receipt": False,
+    }
+
+
+def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
+    git_metadata_refs: list[str] = []
+    for path in _iter_artifact_paths(target):
+        rel = path.relative_to(target).as_posix()
+        if rel == ".git" or rel.startswith(".git/") or rel == ".gitmodules":
+            git_metadata_refs.append(rel)
+    return {
+        "schema_version": "microcosm_publication_history_receipt_v1",
+        "status": "pass" if not git_metadata_refs else "blocked",
+        "artifact_contains_git_metadata": bool(git_metadata_refs),
+        "git_metadata_refs": git_metadata_refs[:20],
+        "git_metadata_ref_overflow_count": max(0, len(git_metadata_refs) - 20),
+        "source_private_history_exported": bool(git_metadata_refs),
+        "fresh_public_repository_required": True,
+        "required_publication_rule": (
+            "Initialize the public repository from the generated standalone "
+            "artifact or an equivalent clean export, not by pushing the private "
+            "macro-root repository history."
+        ),
+        "recommended_fresh_repo_sequence": [
+            "generate_standalone_export",
+            "scan_exported_artifact",
+            "initialize_new_public_repository_from_artifact",
+            "set_public_remote_to_github.com/wcook04/microcosm-substrate",
+            "push_clean_initial_history_after_operator_release_authorization",
+        ],
+        "body_in_receipt": False,
+    }
+
+
+def _hit_boundary_context(text: str, *, start: int, end: int) -> str:
+    before = text[max(0, start - 120) : start].lower()
+    window = text[max(0, start - 120) : min(len(text), end + 120)].lower()
+    boundary_markers = (
+        "not",
+        "no ",
+        "never",
+        "without",
+        "does not",
+        "do not",
+        "cannot",
+        "anti_claim",
+        "forbidden",
+        "boundary",
+    )
+    if any(marker in before for marker in boundary_markers):
+        return "boundary_or_anti_claim_context"
+    if "not a" in window or "not an" in window:
+        return "boundary_or_anti_claim_context"
+    return "suspect_positive_claim"
+
+
+def _scan_review_patterns(
+    target: Path,
+    patterns: tuple[dict[str, Any], ...],
+    *,
+    schema_version: str,
+    scan_id: str,
+) -> dict[str, Any]:
+    hits: list[dict[str, Any]] = []
+    for path in _iter_artifact_files(target):
+        rel = path.relative_to(target).as_posix()
+        text = _read_text_if_small(path)
+        if text is None:
+            continue
+        for pattern_row in patterns:
+            regex = re.compile(str(pattern_row["pattern"]), flags=re.IGNORECASE)
+            for match in regex.finditer(text):
+                context = _hit_boundary_context(
+                    text,
+                    start=match.start(),
+                    end=match.end(),
+                )
+                positive = context == "suspect_positive_claim"
+                hits.append(
+                    {
+                        "path": rel,
+                        "line": text.count("\n", 0, match.start()) + 1,
+                        "pattern_id": pattern_row["pattern_id"],
+                        "category": pattern_row["category"],
+                        "context": context,
+                        "release_candidate_blocking": (
+                            positive
+                            and pattern_row.get(
+                                "release_candidate_blocking_if_positive"
+                            )
+                            is True
+                        ),
+                        "release_authorization_blocking": (
+                            positive
+                            and pattern_row.get(
+                                "release_authorization_blocking_if_positive"
+                            )
+                            is True
+                        ),
+                        "body_in_receipt": False,
+                    }
+                )
+    release_candidate_blocking_count = sum(
+        1 for row in hits if row["release_candidate_blocking"] is True
+    )
+    release_authorization_blocking_count = sum(
+        1 for row in hits if row["release_authorization_blocking"] is True
+    )
+    suspect_positive_count = sum(
+        1 for row in hits if row["context"] == "suspect_positive_claim"
+    )
+    return {
+        "schema_version": schema_version,
+        "scan_id": scan_id,
+        "status": "pass" if release_candidate_blocking_count == 0 else "blocked",
+        "suspect_positive_hit_count": suspect_positive_count,
+        "boundary_context_hit_count": len(hits) - suspect_positive_count,
+        "release_candidate_blocking_hit_count": release_candidate_blocking_count,
+        "release_authorization_blocking_hit_count": (
+            release_authorization_blocking_count
+        ),
+        "hit_count": len(hits),
+        "hits": hits[:50],
+        "hit_overflow_count": max(0, len(hits) - 50),
+        "anti_claim": (
+            "Pattern hits in explicit boundary or anti-claim contexts are "
+            "reported for review but do not by themselves authorize or block "
+            "the export candidate."
+        ),
+        "body_in_receipt": False,
+    }
+
+
+def _privacy_review_receipt(
+    *,
+    exclusion_receipt: dict[str, Any],
+    authority_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    bounded_secret = exclusion_receipt.get("bounded_secret_exclusion_scan") or {}
+    private_path_hits = list(exclusion_receipt.get("private_path_hits") or [])
+    strong_secret_hits = list(exclusion_receipt.get("strong_secret_hits") or [])
+    blocking_codes: list[str] = []
+    if private_path_hits:
+        blocking_codes.append("PRIVACY_PRIVATE_PATH_HIT")
+    if strong_secret_hits:
+        blocking_codes.append("PRIVACY_STRONG_SECRET_PATTERN")
+    if bounded_secret.get("status") != "pass":
+        blocking_codes.append("PRIVACY_BOUNDED_SECRET_SCAN_BLOCKED")
+    return {
+        "schema_version": "microcosm_privacy_release_review_receipt_v1",
+        "status": "pass" if not blocking_codes else "blocked",
+        "private_path_hit_count": len(private_path_hits),
+        "strong_secret_hit_count": len(strong_secret_hits),
+        "bounded_secret_scan_status": bounded_secret.get("status"),
+        "private_data_equivalence_authorized": authority_receipt.get(
+            "private_data_equivalence_authorized"
+        ),
+        "hosted_service_privacy_policy_required": (
+            authority_receipt.get("hosted_launch_authorized") is True
+        ),
+        "operator_review_required_before_hosted_launch": True,
+        "blocking_codes": blocking_codes,
+        "anti_claim": (
+            "This is a bounded artifact privacy scan over the generated export. "
+            "It is not a complete personal-data audit of any private workspace."
+        ),
+        "body_in_receipt": False,
+    }
+
+
+def _operator_publication_checklists() -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_operator_publication_checklists_v1",
+        "status": "operator_review_required",
+        "release_authorized": False,
+        "publish_authorized": False,
+        "checklists": {
+            key: {
+                "status": "not_run_operator_review_required",
+                "required_before_publication": True,
+                "items": list(items),
+            }
+            for key, items in PUBLICATION_REVIEW_CHECKLISTS.items()
+        },
+        "anti_claim": (
+            "Checklist presence does not mean the public GitHub repository, "
+            "package registry release, site, or walkthrough media has been "
+            "reviewed or launched."
+        ),
+    }
+
+
+def _release_substance_selector(target: Path) -> dict[str, Any]:
+    truth_floor = audit_evidence_truth_floor(target)
+    return {
+        "schema_version": "microcosm_release_substance_selector_v1",
+        "selector_id": "evidence_truth_floor",
+        "status": truth_floor.get("status"),
+        "evidence_truth_floor_status": truth_floor.get("status"),
+        "candidate_count": truth_floor.get("candidate_count"),
+        "blocking_issue_count": truth_floor.get("blocking_issue_count"),
+        "advisory_only": truth_floor.get("advisory_only"),
+        "source_ref": truth_floor.get("source_ref"),
+        "registry_ref": truth_floor.get("registry_ref"),
+        "receipt_root_ref": truth_floor.get("receipt_root_ref"),
+        "truth_floor_receipt": truth_floor,
+        "required_for_release_candidate": True,
+        "body_in_receipt": False,
+        "anti_claim": (
+            "This selector makes the evidence truth floor a release-candidate "
+            "substance gate. It does not promote fixture evidence, authorize "
+            "publication, or replace owner review of candidate rows."
+        ),
+    }
+
+
+def _release_assurance_receipt(
+    target: Path,
+    *,
+    inventory: list[dict[str, Any]],
+    artifact: dict[str, Any],
+    exclusion_receipt: dict[str, Any],
+    authority_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    materials = _materials_ledger(target, inventory=inventory, artifact=artifact)
+    publication_history = _artifact_publication_history_receipt(target)
+    claim_language = _scan_review_patterns(
+        target,
+        CLAIM_LANGUAGE_REVIEW_PATTERNS,
+        schema_version="microcosm_claim_language_scan_v1",
+        scan_id="public_claim_language_scan",
+    )
+    finance_promotion = _scan_review_patterns(
+        target,
+        FINANCE_PROMOTION_REVIEW_PATTERNS,
+        schema_version="microcosm_finance_promotion_scan_v1",
+        scan_id="finance_promotion_language_scan",
+    )
+    privacy = _privacy_review_receipt(
+        exclusion_receipt=exclusion_receipt,
+        authority_receipt=authority_receipt,
+    )
+    release_substance_selector = _release_substance_selector(target)
+    publication_checklists = _operator_publication_checklists()
+    candidate_blocking_codes: list[str] = []
+    if materials.get("status") != "pass":
+        candidate_blocking_codes.append("RELEASE_ASSURANCE_MATERIALS_LEDGER_BLOCKED")
+    if publication_history.get("status") != "pass":
+        candidate_blocking_codes.append(
+            "RELEASE_ASSURANCE_PUBLICATION_HISTORY_BLOCKED"
+        )
+    if claim_language.get("status") != "pass":
+        candidate_blocking_codes.append("RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED")
+    if privacy.get("status") != "pass":
+        candidate_blocking_codes.append("RELEASE_ASSURANCE_PRIVACY_SCAN_BLOCKED")
+    if release_substance_selector.get("status") != "pass":
+        candidate_blocking_codes.append(
+            "RELEASE_ASSURANCE_EVIDENCE_TRUTH_FLOOR_BLOCKED"
+        )
+    release_authorization_blocking_codes: list[str] = []
+    if claim_language.get("release_authorization_blocking_hit_count"):
+        release_authorization_blocking_codes.append(
+            "RELEASE_ASSURANCE_CLAIM_LANGUAGE_REVIEW_REQUIRED"
+        )
+    if finance_promotion.get("release_authorization_blocking_hit_count"):
+        release_authorization_blocking_codes.append(
+            "RELEASE_ASSURANCE_FINANCE_PROMOTION_REVIEW_REQUIRED"
+        )
+    release_authorization_blocking_codes.extend(
+        [
+            "GITHUB_PUBLICATION_SETTINGS_REVIEW_REQUIRED",
+            "PACKAGE_PUBLICATION_REVIEW_REQUIRED",
+            "SITE_AND_VIDEO_MEDIA_REVIEW_REQUIRED",
+        ]
+    )
+    return {
+        "schema_version": RELEASE_ASSURANCE_SCHEMA_VERSION,
+        "status": "pass" if not candidate_blocking_codes else "blocked",
+        "release_candidate_status": (
+            "pass" if not candidate_blocking_codes else "blocked"
+        ),
+        "operator_publication_status": "operator_review_required",
+        "release_authorized": False,
+        "publish_authorized": False,
+        "hosted_launch_authorized": False,
+        "materials_ledger": materials,
+        "publication_history_receipt": publication_history,
+        "claim_language_scan": claim_language,
+        "finance_promotion_scan": finance_promotion,
+        "privacy_review_receipt": privacy,
+        "release_substance_selector": release_substance_selector,
+        "operator_publication_checklists": publication_checklists,
+        "release_candidate_blocking_codes": candidate_blocking_codes,
+        "release_authorization_blocking_codes": release_authorization_blocking_codes,
+        "publication_gate": {
+            "status": "operator_review_required",
+            "release_authorization_allowed_now": False,
+            "required_before_publication": [
+                "operator_reviews_github_repository_settings",
+                "operator_reviews_package_registry_and_sbom_requirements",
+                "operator_reviews_public_site_and_walkthrough_media",
+                "operator_records_explicit_release_authorization_receipt",
+            ],
+        },
+        "anti_claim": (
+            "Release Assurance v2 validates the generated artifact as a "
+            "candidate and names publication review work. It does not publish, "
+            "authorize release, or prove complete legal/privacy/security review."
+        ),
+        "body_in_receipt": False,
+    }
+
+
 def _expected_sentinel_fixture_path(path_ref: object) -> bool:
     path = str(path_ref)
     return (
@@ -684,9 +1305,8 @@ def _secret_scan(target: Path) -> dict[str, Any]:
             "body_in_receipt": False,
         }
     forbidden_classes = secret_exclusion_scan.load_forbidden_classes(policy_path)
-    files = [path for path in sorted(target.rglob("*")) if path.is_file()]
     scan = secret_exclusion_scan.scan_paths(
-        files,
+        _iter_artifact_files(target),
         forbidden_classes=forbidden_classes,
         source_context="release_artifact",
         display_root=target,
@@ -799,6 +1419,23 @@ def _projection_finding_diagnostics(
     }
 
 
+def _invalid_projection_freshness_receipt() -> dict[str, Any]:
+    invalid_code = "INVALID_PROJECTION_FRESHNESS_RECEIPT"
+    return {
+        "status": "blocked",
+        "receipt_ref": PROJECTION_FRESHNESS_RECEIPT_REF,
+        "source_status": "invalid_json",
+        "error_codes": [invalid_code],
+        "blocking_codes": [invalid_code],
+        "runtime_shape_validation": {
+            "status": "not_run",
+            "reason": "invalid_projection_freshness_receipt",
+        },
+        "release_authorized": False,
+        "body_in_receipt": False,
+    }
+
+
 def _projection_freshness(target: Path) -> dict[str, Any]:
     receipt_path = target / PROJECTION_FRESHNESS_RECEIPT_REF
     if not receipt_path.is_file():
@@ -808,7 +1445,12 @@ def _projection_freshness(target: Path) -> dict[str, Any]:
             "blocking_codes": ["MISSING_PROJECTION_FRESHNESS_RECEIPT"],
             "release_authorized": False,
         }
-    payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    try:
+        payload = read_json_strict(receipt_path)
+    except (OSError, StrictJsonError):
+        return _invalid_projection_freshness_receipt()
+    if not isinstance(payload, dict):
+        return _invalid_projection_freshness_receipt()
     error_codes = payload.get("error_codes")
     if not isinstance(error_codes, list):
         error_codes = []
@@ -1455,6 +2097,7 @@ def _release_candidate_packet(
     install_smoke_receipt: dict[str, Any],
     standalone_severance_receipt: dict[str, Any],
     projection_freshness_receipt: dict[str, Any],
+    release_assurance_receipt: dict[str, Any],
     blocking_codes: list[str],
 ) -> dict[str, Any]:
     source = _source_identity(source_root)
@@ -1527,6 +2170,63 @@ def _release_candidate_packet(
             "projection_freshness_receipt_ref": projection_freshness_receipt.get(
                 "receipt_ref"
             ),
+            "release_assurance_v2_status": release_assurance_receipt.get("status"),
+            "release_assurance_v2_candidate_status": (
+                release_assurance_receipt.get("release_candidate_status")
+            ),
+            "release_assurance_v2_publication_status": (
+                release_assurance_receipt.get("operator_publication_status")
+            ),
+            "materials_ledger_status": (
+                (release_assurance_receipt.get("materials_ledger") or {}).get(
+                    "status"
+                )
+            ),
+            "publication_history_status": (
+                (
+                    release_assurance_receipt.get("publication_history_receipt")
+                    or {}
+                ).get("status")
+            ),
+            "claim_language_scan_status": (
+                (release_assurance_receipt.get("claim_language_scan") or {}).get(
+                    "status"
+                )
+            ),
+            "finance_promotion_scan_status": (
+                (release_assurance_receipt.get("finance_promotion_scan") or {}).get(
+                    "status"
+                )
+            ),
+            "privacy_review_status": (
+                (release_assurance_receipt.get("privacy_review_receipt") or {}).get(
+                    "status"
+                )
+            ),
+            "release_substance_selector_status": (
+                (
+                    release_assurance_receipt.get("release_substance_selector")
+                    or {}
+                ).get("status")
+            ),
+            "evidence_truth_floor_status": (
+                (
+                    release_assurance_receipt.get("release_substance_selector")
+                    or {}
+                ).get("evidence_truth_floor_status")
+            ),
+            "evidence_truth_floor_blocking_issue_count": (
+                (
+                    release_assurance_receipt.get("release_substance_selector")
+                    or {}
+                ).get("blocking_issue_count")
+            ),
+            "evidence_truth_floor_candidate_count": (
+                (
+                    release_assurance_receipt.get("release_substance_selector")
+                    or {}
+                ).get("candidate_count")
+            ),
             "install_mode": authority_receipt.get("supported_public_mode"),
             "wheel_install_supported": authority_receipt.get("wheel_install_supported"),
         },
@@ -1587,7 +2287,7 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
             runtime_args = [
                 sys.executable,
                 "-m",
-                "microcosm_core.cli",
+                "microcosm_core",
                 display_args[0],
                 str(project),
             ]
@@ -1604,7 +2304,7 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
                 _command_receipt_row(
                     command_id,
                     completed,
-                    display_argv=["python3", "-m", "microcosm_core.cli", *display_args],
+                    display_argv=["python3", "-m", "microcosm_core", *display_args],
                     cwd="<temp-smoke-root>",
                     target=target,
                     source_root=source_root,
@@ -1633,7 +2333,7 @@ def _venv_bin_path(venv: Path, name: str) -> Path:
 def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "status": _receipt_status_from_rows(rows),
-        "mode": "outside_source_root_package_install",
+        "mode": "outside_source_root_package_prefix_install",
         "command_count": len(rows),
         "commands": rows,
         "console_entrypoint_used": True,
@@ -1642,6 +2342,7 @@ def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "source_tree_pythonpath_used": False,
         "release_artifact_cwd_used": False,
         "release_artifact_pythonpath_used": False,
+        "installed_prefix_pythonpath_used": True,
         "isolated_artifact_copy_used": True,
         "install_artifact_source": "isolated_release_artifact_copy",
         "bytecode_write_suppressed": True,
@@ -1658,7 +2359,7 @@ def _run_install_smoke(
     rows: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="microcosm-release-install-smoke-") as tmp:
         tmp_root = Path(tmp)
-        venv = tmp_root / "venv"
+        install_prefix = tmp_root / "install-prefix"
         smoke_artifact = tmp_root / ARTIFACT_DIR_NAME
         shutil.copytree(
             target,
@@ -1680,33 +2381,9 @@ def _run_install_smoke(
         env["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
         env["PIP_NO_INPUT"] = "1"
 
-        create_venv = subprocess.run(
-            [sys.executable, "-m", "venv", str(venv)],
-            cwd=tmp_root,
-            env=env,
-            text=True,
-            capture_output=True,
-            timeout=timeout_seconds,
-            check=False,
-        )
-        rows.append(
-            _command_receipt_row(
-                "create_venv",
-                create_venv,
-                display_argv=["python3", "-m", "venv", "<venv>"],
-                cwd="<temp-smoke-root>",
-                target=target,
-                source_root=source_root,
-            )
-        )
-        if create_venv.returncode != 0:
-            return _install_smoke_summary(rows)
-
-        python_exe = _venv_bin_path(venv, "python")
-        microcosm_exe = _venv_bin_path(venv, "microcosm")
         install = subprocess.run(
             [
-                str(python_exe),
+                sys.executable,
                 "-m",
                 "pip",
                 "install",
@@ -1714,6 +2391,8 @@ def _run_install_smoke(
                 "--no-input",
                 "--no-compile",
                 "-q",
+                "--prefix",
+                str(install_prefix),
                 str(smoke_artifact),
             ],
             cwd=tmp_root,
@@ -1728,7 +2407,7 @@ def _run_install_smoke(
                 "install_artifact",
                 install,
                 display_argv=[
-                    "<venv-python>",
+                    "python3",
                     "-m",
                     "pip",
                     "install",
@@ -1736,6 +2415,8 @@ def _run_install_smoke(
                     "--no-input",
                     "--no-compile",
                     "-q",
+                    "--prefix",
+                    "<isolated-install-prefix>",
                     "<isolated-release-artifact-copy>",
                 ],
                 cwd="<temp-smoke-root>",
@@ -1746,6 +2427,29 @@ def _run_install_smoke(
         if install.returncode != 0:
             return _install_smoke_summary(rows)
 
+        site_packages = next(install_prefix.glob("lib/python*/site-packages"), None)
+        microcosm_exe = _venv_bin_path(install_prefix, "microcosm")
+        if site_packages is None or not microcosm_exe.is_file():
+            missing_install = subprocess.CompletedProcess(
+                args=["microcosm", "--installed-prefix-check"],
+                returncode=1,
+                stdout="",
+                stderr="installed prefix did not expose site-packages or console script",
+            )
+            rows.append(
+                _command_receipt_row(
+                    "installed_prefix_check",
+                    missing_install,
+                    display_argv=["microcosm", "--installed-prefix-check"],
+                    cwd="<temp-smoke-root>",
+                    target=target,
+                    source_root=source_root,
+                )
+            )
+            return _install_smoke_summary(rows)
+
+        runtime_env = dict(env)
+        runtime_env["PYTHONPATH"] = str(site_packages)
         command_specs = (
             ("hello", ["hello", str(project)], ["microcosm", "hello", "<smoke-project>"]),
             (
@@ -1768,7 +2472,7 @@ def _run_install_smoke(
             completed = subprocess.run(
                 [str(microcosm_exe), *runtime_args],
                 cwd=tmp_root,
-                env=env,
+                env=runtime_env,
                 text=True,
                 capture_output=True,
                 timeout=timeout_seconds,
@@ -1814,7 +2518,11 @@ def build_release_export(
     source_root = Path(root).expanduser().resolve(strict=True)
     target = _prepare_target(source_root, Path(out), force=force)
     allowed_files, excluded_rows, missing_include_refs = _iter_allowed_files(source_root)
-    inventory = _copy_allowed_files(allowed_files, root=source_root, target=target)
+    inventory, home_redaction_rows = _copy_allowed_files(
+        allowed_files,
+        root=source_root,
+        target=target,
+    )
     artifact_payload_hash = _artifact_payload_hash(inventory)
     private_path_hits = _strong_private_path_hits(target, source_root=source_root)
     strong_secret_hits = _strong_secret_hits(target)
@@ -1906,6 +2614,21 @@ def build_release_export(
                 "scan_purpose": bounded_secret_scan.get("scan_purpose"),
                 "anti_claim": bounded_secret_scan.get("anti_claim"),
             },
+            "source_module_home_redaction": {
+                "status": "pass",
+                "policy": (
+                    "concrete_non_example_home_paths_in_text_source_modules_are_"
+                    "rewritten_to_public_example_home"
+                ),
+                "replacement": PUBLIC_EXAMPLE_HOME,
+                "redacted_file_count": len(home_redaction_rows),
+                "concrete_home_path_replacement_count": sum(
+                    int(row["concrete_home_path_replacement_count"])
+                    for row in home_redaction_rows
+                ),
+                "redacted_files": home_redaction_rows,
+                "body_in_receipt": False,
+            },
             "body_in_receipt": False,
         },
         "authority_receipt": {
@@ -1920,7 +2643,7 @@ def build_release_export(
             "wheel_install_supported": wheel_install_supported,
             "wheel_install_authority": wheel_install_authority,
             "standalone_run_command": (
-                "PYTHONPATH=src python3 -m microcosm_core.cli hello <project>"
+                "PYTHONPATH=src python3 -m microcosm_core hello <project>"
             ),
             "installed_run_command": "microcosm hello <project>",
         },
@@ -1948,6 +2671,15 @@ def build_release_export(
     receipt["standalone_severance_receipt"] = standalone_severance_receipt
     if standalone_severance_receipt.get("status") != "pass":
         blocking_codes.append("RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED")
+    receipt["release_assurance_v2"] = _release_assurance_receipt(
+        target,
+        inventory=inventory,
+        artifact=receipt["artifact"],
+        exclusion_receipt=receipt["exclusion_receipt"],
+        authority_receipt=receipt["authority_receipt"],
+    )
+    if receipt["release_assurance_v2"].get("status") != "pass":
+        blocking_codes.append("RELEASE_EXPORT_ASSURANCE_V2_BLOCKED")
     receipt["status"] = "pass" if not blocking_codes else "blocked"
     receipt["blocking_codes"] = blocking_codes
     receipt["release_candidate_packet"] = _release_candidate_packet(
@@ -1960,6 +2692,7 @@ def build_release_export(
         install_smoke_receipt=receipt["install_smoke_receipt"],
         standalone_severance_receipt=receipt["standalone_severance_receipt"],
         projection_freshness_receipt=receipt["projection_freshness_receipt"],
+        release_assurance_receipt=receipt["release_assurance_v2"],
         blocking_codes=blocking_codes,
     )
     write_json_atomic(target / RELEASE_RECEIPT_REF, receipt)
@@ -1970,6 +2703,7 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
     artifact = receipt.get("artifact") or {}
     authority = receipt.get("authority_receipt") or {}
     candidate = receipt.get("release_candidate_packet") or {}
+    assurance = receipt.get("release_assurance_v2") or {}
     validation = candidate.get("validation_summary") or {}
     warnings = candidate.get("external_warning_classification") or {}
     gate = candidate.get("release_authorization_gate_decision") or {}
@@ -2004,6 +2738,13 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
             ),
             "projection_freshness_status": validation.get(
                 "projection_freshness_status"
+            ),
+            "release_assurance_v2_status": assurance.get("status"),
+            "release_assurance_v2_publication_status": assurance.get(
+                "operator_publication_status"
+            ),
+            "release_substance_selector_status": validation.get(
+                "release_substance_selector_status"
             ),
             "release_blocking_warning_count": warnings.get(
                 "release_blocking_warning_count"
@@ -2070,7 +2811,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.assess_candidate:
         receipt_path = Path(args.assess_candidate).expanduser().resolve(strict=True)
-        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+        payload = read_json_strict(receipt_path)
         candidate_packet = payload.get("release_candidate_packet") or payload
         assessment = assess_candidate_invalidation(
             candidate_packet,

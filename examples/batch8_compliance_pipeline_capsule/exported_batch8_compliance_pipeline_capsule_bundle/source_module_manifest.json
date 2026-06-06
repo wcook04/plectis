@@ -1,0 +1,249 @@
+{
+  "body_copied": true,
+  "body_in_receipt": false,
+  "module_count": 11,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 21733,
+      "line_count": 487,
+      "material_class": "public_macro_compliance_python_body",
+      "path": "source_modules/system/lib/compliance/__init__.py",
+      "required_anchors": [
+        "ADAPTERS: dict[standard_id, callable]",
+        "_STATIC_ADAPTERS",
+        "BASELINE_ADAPTER_STANDARD_IDS",
+        "def scan_all(repo_root: Path)"
+      ],
+      "sha256": "5785635eb7c4ebcba3568f1dd88565c55acfed797d41bedbc1506a642606ca44",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/compliance/__init__.py",
+      "source_sha256": "5785635eb7c4ebcba3568f1dd88565c55acfed797d41bedbc1506a642606ca44",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/__init__.py",
+      "target_sha256": "5785635eb7c4ebcba3568f1dd88565c55acfed797d41bedbc1506a642606ca44"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 13667,
+      "line_count": 338,
+      "material_class": "public_macro_compliance_python_body",
+      "path": "source_modules/system/lib/compliance/compliance_coverage_adapter.py",
+      "required_anchors": [
+        "def scan_compliance_coverage(repo_root: Path)",
+        "_baseline_companion_finding",
+        "domain_scanner_coverage"
+      ],
+      "sha256": "95a67b023438e8617b74e4aa73ce61c5c04937ccbbc60ecf5d5024a3140832ee",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/compliance/compliance_coverage_adapter.py",
+      "source_sha256": "95a67b023438e8617b74e4aa73ce61c5c04937ccbbc60ecf5d5024a3140832ee",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/compliance_coverage_adapter.py",
+      "target_sha256": "95a67b023438e8617b74e4aa73ce61c5c04937ccbbc60ecf5d5024a3140832ee"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 9961,
+      "line_count": 251,
+      "material_class": "public_macro_compliance_python_body",
+      "path": "source_modules/system/lib/compliance/standard_baseline_adapter.py",
+      "required_anchors": [
+        "def scan_standard_baseline(repo_root: Path, standard_id: str)",
+        "baseline_standard_file_only",
+        "make_standard_baseline_scanner"
+      ],
+      "sha256": "baec9b4aa07de1ef085a64a77c5e27daae69295eab608364a78b1d3e629ab6df",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/compliance/standard_baseline_adapter.py",
+      "source_sha256": "baec9b4aa07de1ef085a64a77c5e27daae69295eab608364a78b1d3e629ab6df",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/standard_baseline_adapter.py",
+      "target_sha256": "baec9b4aa07de1ef085a64a77c5e27daae69295eab608364a78b1d3e629ab6df"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 57330,
+      "line_count": 1352,
+      "material_class": "public_macro_compliance_python_body",
+      "path": "source_modules/system/lib/compliance/microcosm_adapter.py",
+      "required_anchors": [
+        "def scan_microcosm(repo_root: Path)",
+        "_scan_doctrine_lattice",
+        "_MICROCOSM_REQUIRED_STANDARD_FIELDS"
+      ],
+      "sha256": "10ede2cc0732e026951b9cf3541d24343a4e374ca1df88b96f1e082816b75b10",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/compliance/microcosm_adapter.py",
+      "source_sha256": "10ede2cc0732e026951b9cf3541d24343a4e374ca1df88b96f1e082816b75b10",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/compliance/microcosm_adapter.py",
+      "target_sha256": "10ede2cc0732e026951b9cf3541d24343a4e374ca1df88b96f1e082816b75b10"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 52962,
+      "line_count": 1267,
+      "material_class": "public_macro_factory_tool_body",
+      "path": "source_modules/tools/meta/factory/build_compliance_ledger.py",
+      "required_anchors": [
+        "def _adapter_registry_snapshot(repo_root: Path)",
+        "--standard-id",
+        "projection_self_audit",
+        "ratchet_next_command"
+      ],
+      "sha256": "59ee2fa1a69ec60c7320be50e802680560248435292042435b581aa2bf7ef30a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/factory/build_compliance_ledger.py",
+      "source_sha256": "59ee2fa1a69ec60c7320be50e802680560248435292042435b581aa2bf7ef30a",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/tools/meta/factory/build_compliance_ledger.py",
+      "target_sha256": "59ee2fa1a69ec60c7320be50e802680560248435292042435b581aa2bf7ef30a"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 40468,
+      "line_count": 1021,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_extract.py",
+      "required_anchors": [
+        "def extract_shards(state: dict",
+        "def digest_raw_seed(raw_text: str",
+        "def _normalize_shards_payload(payload: dict)",
+        "def _extract_synthesis_json(text: str)"
+      ],
+      "sha256": "e9bf1ccac95c06e88bbc620f63a9d2c1685fadfb043e8c3f93159440b0505ce7",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_extract.py",
+      "source_sha256": "e9bf1ccac95c06e88bbc620f63a9d2c1685fadfb043e8c3f93159440b0505ce7",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_extract.py",
+      "target_sha256": "e9bf1ccac95c06e88bbc620f63a9d2c1685fadfb043e8c3f93159440b0505ce7"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 26463,
+      "line_count": 632,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_select.py",
+      "required_anchors": [
+        "def select_shards(state: dict",
+        "constrain_shard_candidates",
+        "active_task_dag_layer",
+        "_find_meta_ledger"
+      ],
+      "sha256": "260edaa7949ed796bcab05891f2be53abf6d8c51a764c39026aa5e3ac83295d8",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_select.py",
+      "source_sha256": "260edaa7949ed796bcab05891f2be53abf6d8c51a764c39026aa5e3ac83295d8",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_select.py",
+      "target_sha256": "260edaa7949ed796bcab05891f2be53abf6d8c51a764c39026aa5e3ac83295d8"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 8340,
+      "line_count": 160,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_emit.py",
+      "required_anchors": [
+        "def emit_synth_seed(state: dict",
+        "write_controller_artifacts",
+        "source_shards"
+      ],
+      "sha256": "7e15bf071e24e5b77bc0791a65f6dc664f21361e0d22133f5953694b6bc78fbc",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_emit.py",
+      "source_sha256": "7e15bf071e24e5b77bc0791a65f6dc664f21361e0d22133f5953694b6bc78fbc",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_emit.py",
+      "target_sha256": "7e15bf071e24e5b77bc0791a65f6dc664f21361e0d22133f5953694b6bc78fbc"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 44029,
+      "line_count": 977,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_compile.py",
+      "required_anchors": [
+        "def compile_observe_plan(state: dict",
+        "def _probe_questions_for_plan_path",
+        "def _priority_followup_files",
+        "Do not return a descriptive edit inventory"
+      ],
+      "sha256": "69913a1d6622030a6b166c925a237bca9a2f6447325ba665524e4dfe143bfadc",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_compile.py",
+      "source_sha256": "69913a1d6622030a6b166c925a237bca9a2f6447325ba665524e4dfe143bfadc",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_compile.py",
+      "target_sha256": "69913a1d6622030a6b166c925a237bca9a2f6447325ba665524e4dfe143bfadc"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 8223,
+      "line_count": 174,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_execute.py",
+      "required_anchors": [
+        "def execute_observe(",
+        "observe_dispatch_skipped",
+        "run_once",
+        "save_state_if_not_stale"
+      ],
+      "sha256": "ca94c5b8774575714af460e46972ad56be88373317ad484d987ccf67c2a1bac7",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_execute.py",
+      "source_sha256": "ca94c5b8774575714af460e46972ad56be88373317ad484d987ccf67c2a1bac7",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_execute.py",
+      "target_sha256": "ca94c5b8774575714af460e46972ad56be88373317ad484d987ccf67c2a1bac7"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 62950,
+      "line_count": 1395,
+      "material_class": "public_macro_pipeline_python_body",
+      "path": "source_modules/system/lib/pipeline/stage_process.py",
+      "required_anchors": [
+        "def process_results(state: dict)",
+        "def _select_primary_receipt(",
+        "def _apply_synthesis_updates_to_shards",
+        "carry_forward_context"
+      ],
+      "sha256": "50e8e60666041a02b164cce260d44cb9ae1f77acd432637fd221450d626b5b67",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/pipeline/stage_process.py",
+      "source_sha256": "50e8e60666041a02b164cce260d44cb9ae1f77acd432637fd221450d626b5b67",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle/source_modules/system/lib/pipeline/stage_process.py",
+      "target_sha256": "50e8e60666041a02b164cce260d44cb9ae1f77acd432637fd221450d626b5b67"
+    }
+  ],
+  "organ_id": "batch8_compliance_pipeline_capsule",
+  "schema_version": "batch8_compliance_pipeline_capsule_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_to_target_relation": "exact_copy"
+}

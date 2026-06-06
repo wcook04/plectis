@@ -1,0 +1,10 @@
+{
+  "body_in_receipt": false,
+  "case_id": "audio_level_unknown_format_refused",
+  "error_codes": [
+    "BATCH8_AUDIO_LEVEL_UNKNOWN_FORMAT_REFUSED"
+  ],
+  "expected_decision": "raise ValueError",
+  "fixture_summary": "Unsupported public sample format is refused by the Python port wrapper.",
+  "schema_version": "batch8_audio_level_rms_port_negative_case_v1"
+}

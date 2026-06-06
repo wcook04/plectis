@@ -1,0 +1,7 @@
+{
+  "case_id": "provider_bridge_missing",
+  "error_codes": [
+    "CONCURRENCY_MISSION_CONTROL_PROVIDER_BRIDGE_BLOCKED"
+  ],
+  "body_in_receipt": false
+}

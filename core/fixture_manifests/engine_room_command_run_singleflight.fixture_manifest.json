@@ -1,0 +1,19 @@
+{
+  "fixture_id": "engine_room_command_run_singleflight_fixture_v1",
+  "organ_id": "engine_room_command_run_singleflight",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_command_run_singleflight/input/single_leader.json",
+    "fixtures/first_wave/engine_room_command_run_singleflight/input/completed_reuse.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_command_run_singleflight/input/scope_mutation_changes_key.json",
+    "fixtures/first_wave/engine_room_command_run_singleflight/input/missing_command_rejected.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.command_run_singleflight evaluate-fixtures --input fixtures/first_wave/engine_room_command_run_singleflight/input --json",
+  "source_refs": [
+    "system/lib/command_run_singleflight.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Content-addressed subprocess singleflight capsule; not a job scheduler, daemon, live state export, or distributed lock service."
+}

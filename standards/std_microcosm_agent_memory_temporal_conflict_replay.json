@@ -14,7 +14,16 @@
     "provider_authority": false,
     "release_authority": false,
     "standard_authority": "public_memory_temporal_conflict_trace_refactor_and_fixture_contract",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#agent_memory_temporal_conflict_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#agent_memory_temporal_conflict_replay.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "agent_memory_temporal_conflict_replay",
@@ -91,6 +100,10 @@
     "receipt must cite source refs, source pattern ids, decision counts, conflict-edge count, stale-downgrade count, replay-pair counts, answer-delta ref, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
+    "receipt.microcosm.agent_memory_temporal_conflict_replay",
+    "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
     "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
   ],
   "relationships": {
@@ -124,7 +137,7 @@
     "body_material_status",
     "body_copied_material_count"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "body_floor": {
       "allowed_relations": [
@@ -281,9 +294,27 @@
     ],
     "ontology": "A public-safe memory temporal-conflict replay: memory event trace spans, conflict edges, stale downgrade refs, metadata-only private refs, paired cold replay receipts, answer-delta refs, and falsification fixtures.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how agent-memory honesty claims are gated by public trace spans, temporal conflict edges, stale-memory downgrades, negative cases, and authority ceilings before any public claim is admitted."
+    "teleology": "Make Microcosm show how agent-memory honesty claims are gated by public trace spans, temporal conflict edges, stale-memory downgrades, negative cases, and authority ceilings before any public claim is admitted.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay",
+      "receipt_id": "receipt.microcosm.agent_memory_temporal_conflict_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require ADD, UPDATE, DELETE, and NOOP memory decisions",
     "require conflict-edge refs before updates or stale fact deletion can affect replay",
@@ -314,7 +345,27 @@
     "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay"
   },
   "validator_refs": [
-    "microcosm_core.organs.agent_memory_temporal_conflict_replay"
+    "validator.microcosm.organs.agent_memory_temporal_conflict_replay",
+    "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay"
   ],
-  "wave": "w1_agent_memory_temporal_conflict_replay"
+  "wave": "w1_agent_memory_temporal_conflict_replay",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.agent_memory_temporal_conflict_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Agent memory temporal-conflict replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.agent_memory_temporal_conflict_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Agent memory temporal-conflict replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.agent_memory_temporal_conflict_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_agent_memory_temporal_conflict_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

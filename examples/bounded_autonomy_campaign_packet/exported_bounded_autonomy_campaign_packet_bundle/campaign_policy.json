@@ -1,0 +1,11 @@
+{
+  "allowed_actions": [
+    "draft_candidate_packet",
+    "emit_receipt_ref"
+  ],
+  "body_in_receipt": false,
+  "max_candidate_count": 2,
+  "schema_version": "bounded_autonomy_campaign_policy_v1",
+  "self_repair_authorized": false,
+  "source_mutation_authorized": false
+}

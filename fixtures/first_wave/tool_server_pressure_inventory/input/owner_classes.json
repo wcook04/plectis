@@ -1,0 +1,12 @@
+{
+  "schema_version": "tool_server_owner_classes_v1",
+  "owner_note": "Public owner taxonomy replaces the macro's Codex.app/Claude.app/.claude path fingerprints with synthetic owner-status classes.",
+  "active_owner_status_values": ["active_session_chain", "active_parent_process"],
+  "detached_status": "launchd_detached",
+  "owner_hints": [
+    {"substring": "session-runtime-shell", "status": "active_session_chain"}
+  ],
+  "owner_release_targets": {
+    "active_session_chain": "owning_session"
+  }
+}

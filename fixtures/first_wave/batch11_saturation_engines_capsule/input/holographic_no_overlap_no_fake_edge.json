@@ -1,0 +1,44 @@
+{
+  "binding_disposition": "tier_a_new_capsule_import",
+  "body_in_receipt": false,
+  "case_id": "holographic_no_overlap_no_fake_edge",
+  "computed_path": "missing_provenance_not_invented",
+  "error_codes": [
+    "BATCH11_HOLOGRAPHIC_NO_OVERLAP_NO_FAKE_EDGE"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "holographic_research_bundle_graph_and_evidence_select",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "chunks": {
+      "a": {
+        "chunk_id": "a",
+        "content": "projection scan content",
+        "source_uri": "repo://tools/meta/dissemination/projection_secret_scan.py",
+        "terms": [
+          "secret"
+        ]
+      },
+      "b": {
+        "chunk_id": "b",
+        "content": "unrelated content",
+        "source_uri": "repo://docs/unrelated.md",
+        "terms": []
+      }
+    },
+    "claim": {
+      "preferred_paths": [
+        "tools/meta/dissemination/projection_secret_scan.py"
+      ],
+      "terms": [
+        "secret",
+        "projection"
+      ],
+      "text": "Projection secret scan blocks private material"
+    },
+    "missing_chunk_id": "missing"
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

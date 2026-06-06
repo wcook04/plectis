@@ -1,0 +1,14 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "doctrine_enrichment_unindexed_empty",
+  "error_codes": [
+    "BATCH9_DOCTRINE_UNINDEXED_EMPTY"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "doctrine_enrichment": {
+      "miss_path": "system/lib/missing.py"
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

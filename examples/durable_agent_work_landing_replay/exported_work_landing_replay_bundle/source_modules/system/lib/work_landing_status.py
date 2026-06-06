@@ -33,6 +33,7 @@ LEGACY_RECONCILE_SCHEMA = "work_landing_reconcile_dry_run_v0"
 ATTEMPT_BINDING_SCHEMA = "work_landing_attempt_binding_v0"
 BLOCKED_PATCH_CAPSULE_SCHEMA = "blocked_patch_capsule_v0"
 WRITE_ADMISSION_SCHEMA = "workitem_write_admission_v0"
+AUTHORITY_RECEIPT_OVERLAY_SCHEMA = "work_landing_authority_execution_receipt_overlay_v0"
 
 RECEIPT_INTAKE_ACTION_ID = "ensure_task_ledger_receipt_intake_or_event"
 RECEIPT_INTAKE_APPLY_ALIASES = {RECEIPT_INTAKE_ACTION_ID, "receipt_intake"}
@@ -54,6 +55,9 @@ LAND_SCOPED_COMMIT_ATTEMPT_ALIASES = {
     "land_scoped_commit",
     "commit_and_closeout",
 }
+WORK_LANDING_APPEND_PROJECTION_MODE = "append_event_target_only"
+TRANSACTION_READINESS_SCHEMA = "work_landing_transaction_readiness_contract_v0"
+WRITE_READINESS_SCHEMA = "workitem_write_readiness_contract_v0"
 RECEIPT_INTAKE_READY_OUTCOMES = {
     "receipt_ready_to_record",
     "receipt_blocked_claim_collision",
@@ -75,6 +79,24 @@ ORDERED_CONTROLLER_ACTION_IDS = [
     "release_claims",
     "recompute_convergence",
 ]
+
+CONTROLLER_ACTION_PREREQUISITES = {
+    "release_claims": ["finalize_work_ledger_session"],
+    "recompute_convergence": ["release_claims"],
+}
+CONTROLLER_ACTION_ORDER_GUARDS = {
+    "release_claims": "claim_release_after_work_ledger_session_finalize_only",
+    "recompute_convergence": "convergence_after_claim_release_only",
+}
+CONTROLLER_ACTION_ROW_EXTRAS = {
+    "finalize_work_ledger_session": {
+        "also_satisfies_action_ids": ["release_claims"],
+        "claim_release_mode": "work_ledger_runtime.finalize_session_release_claims_true",
+    },
+    "release_claims": {
+        "satisfaction_source_action_id": "finalize_work_ledger_session",
+    },
+}
 
 
 def _elapsed_ms(started: float) -> float:
@@ -139,6 +161,14 @@ def _strings(values: Sequence[Any] | None) -> list[str]:
     return out
 
 
+def _string_values(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return _strings([value])
+    if isinstance(value, Sequence):
+        return _strings(value)
+    return _strings([value] if value not in (None, "", [], {}) else [])
+
+
 def _first_string(values: Sequence[Any] | None) -> str | None:
     for value in values or []:
         text = str(value or "").strip()
@@ -164,14 +194,43 @@ def _subject_exists(repo_root: Path, subject_id: str) -> bool:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except Exception:
-        return False
+        return _subject_exists_in_task_ledger_authority(repo_root, token)
     if not isinstance(payload, Mapping):
-        return False
+        return _subject_exists_in_task_ledger_authority(repo_root, token)
     rows = payload.get("work_items") if isinstance(payload.get("work_items"), list) else None
     if rows is None:
         ledger = payload.get("ledger") if isinstance(payload.get("ledger"), Mapping) else {}
         rows = ledger.get("work_items") if isinstance(ledger, Mapping) else []
-    return any(isinstance(row, Mapping) and str(row.get("id") or "").strip() == token for row in rows or [])
+    if any(isinstance(row, Mapping) and str(row.get("id") or "").strip() == token for row in rows or []):
+        return True
+    return _subject_exists_in_task_ledger_authority(repo_root, token)
+
+
+def _subject_exists_in_task_ledger_authority(repo_root: Path, subject_id: str) -> bool:
+    token = str(subject_id or "").strip()
+    if not token:
+        return False
+    path = repo_root / task_ledger_events.EVENTS_REL
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return False
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(event, Mapping):
+            continue
+        if str(event.get("subject_id") or "").strip() != token:
+            continue
+        event_type = str(event.get("event_type") or "")
+        subject_kind = str(event.get("subject_kind") or "")
+        if subject_kind == "work_item" or event_type.startswith("work_item."):
+            return True
+    return False
 
 
 def _safe_slug(value: str, *, fallback: str = "agent") -> str:
@@ -742,10 +801,21 @@ def _attempt_metadata_from_thread(thread: Mapping[str, Any]) -> dict[str, Any]:
         "owned_paths": list(attempt.get("owned_paths") or []),
         "claim_ids": list(attempt.get("claim_ids") or []),
         "idempotency_key": attempt.get("idempotency_key"),
+        "subject_authority_override": attempt.get("subject_authority_override"),
         "commit_hash": attempt.get("commit_hash"),
         "landing_action": attempt.get("landing_action"),
         "pre_mutation_transaction_id": attempt.get("pre_mutation_transaction_id"),
     }
+
+
+def _normalized_owned_path_set(paths: Sequence[Any]) -> set[str]:
+    return {str(path or "").strip().strip("/") for path in paths if str(path or "").strip().strip("/")}
+
+
+def _attempt_covers_requested_paths(attempt: Mapping[str, Any], requested_paths: set[str]) -> bool:
+    if not requested_paths:
+        return True
+    return requested_paths.issubset(_normalized_owned_path_set(attempt.get("owned_paths") or []))
 
 
 def _find_attempt_thread(
@@ -757,6 +827,7 @@ def _find_attempt_thread(
     transaction_id: str | None = None,
     subject_id: str | None = None,
     session_id: str | None = None,
+    requested_owned_paths: Sequence[str] = (),
     include_closed: bool = False,
 ) -> dict[str, Any] | None:
     try:
@@ -764,7 +835,9 @@ def _find_attempt_thread(
     except Exception:
         return None
     threads = projection.get("threads") if isinstance(projection.get("threads"), Mapping) else {}
+    requested_paths = _normalized_owned_path_set(requested_owned_paths)
     fallback_thread: dict[str, Any] | None = None
+    noncovering_exact_thread: dict[str, Any] | None = None
     sorted_threads = sorted(
         [dict(thread) for thread in threads.values() if isinstance(thread, Mapping)],
         key=lambda thread: str(thread.get("last_event_at") or thread.get("opened_at") or ""),
@@ -780,6 +853,8 @@ def _find_attempt_thread(
             continue
         if idempotency_key and str(attempt.get("idempotency_key") or "") == idempotency_key:
             return dict(thread)
+        if idempotency_key:
+            continue
         if (
             transaction_id
             and subject_id
@@ -788,16 +863,22 @@ def _find_attempt_thread(
             and str(attempt.get("subject_id") or "") == subject_id
             and str(attempt.get("session_id") or "") == session_id
         ):
-            return dict(thread)
+            if _attempt_covers_requested_paths(attempt, requested_paths):
+                return dict(thread)
+            if noncovering_exact_thread is None:
+                noncovering_exact_thread = dict(thread)
+            continue
         if (
             subject_id
             and session_id
             and str(attempt.get("subject_id") or "") == subject_id
             and str(attempt.get("session_id") or "") == session_id
-            and fallback_thread is None
         ):
-            fallback_thread = dict(thread)
-    return fallback_thread
+            if _attempt_covers_requested_paths(attempt, requested_paths):
+                return dict(thread)
+            if fallback_thread is None:
+                fallback_thread = dict(thread)
+    return noncovering_exact_thread or fallback_thread
 
 
 def _attempt_binding_from_work_ledger(
@@ -806,6 +887,7 @@ def _attempt_binding_from_work_ledger(
     preflight: Mapping[str, Any],
     subject_id: str | None,
     session_id: str | None,
+    requested_owned_paths: Sequence[str] = (),
 ) -> dict[str, Any] | None:
     transaction = _mapping(preflight.get("transaction_candidate"))
     phase_id = str(_first([preflight.get("phase_id"), transaction.get("phase_id"), "09_52"]) or "09_52")
@@ -817,6 +899,7 @@ def _attempt_binding_from_work_ledger(
         transaction_id=str(transaction.get("transaction_id") or ""),
         subject_id=subject_id,
         session_id=session_id,
+        requested_owned_paths=requested_owned_paths,
         include_closed=True,
     )
     if not thread:
@@ -848,6 +931,7 @@ def _compact_work_ledger_event_result(result: Mapping[str, Any] | None) -> dict[
         "event_id": event.get("event_id"),
         "td_id": event.get("td_id"),
         "event_kind": event.get("event_kind"),
+        "projection_mode": result.get("projection_mode"),
         "raw_path": result.get("raw_path"),
     }
 
@@ -909,6 +993,214 @@ def _build_work_landing_preflight(
     )
 
 
+def _append_unique(out: list[str], value: Any) -> None:
+    text = str(value or "").strip()
+    if text and text not in out:
+        out.append(text)
+
+
+def _receipt_merge_key(receipt: Mapping[str, Any]) -> tuple[str, str]:
+    source_event_id = str(receipt.get("source_event_id") or "").strip()
+    if source_event_id:
+        return ("event", source_event_id)
+    transaction_id = str(receipt.get("transaction_id") or receipt.get("id") or "").strip()
+    commit_hash = str(receipt.get("commit_hash") or "").strip()
+    if transaction_id or commit_hash:
+        return ("identity", f"{transaction_id}:{commit_hash}")
+    return ("receipt", _json_digest(receipt))
+
+
+def _task_ledger_authority_execution_receipt_overlay(
+    repo_root: Path,
+    *,
+    subject_ids: Sequence[str],
+) -> dict[str, Any]:
+    subjects = _unique_strings(subject_ids)
+    if not subjects:
+        return {
+            "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
+            "status": "not_requested",
+            "source": str(task_ledger_events.EVENTS_REL),
+            "subject_ids": [],
+        }
+    path = repo_root / task_ledger_events.EVENTS_REL
+    if not path.exists():
+        return {
+            "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
+            "status": "event_log_missing",
+            "source": str(task_ledger_events.EVENTS_REL),
+            "subject_ids": subjects,
+        }
+
+    subject_set = set(subjects)
+    event_ids: list[str] = []
+    receipt_refs: list[str] = []
+    commit_refs: list[str] = []
+    work_ledger_refs: list[str] = []
+    receipts: list[dict[str, Any]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        return {
+            "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
+            "status": "event_log_unreadable",
+            "source": str(task_ledger_events.EVENTS_REL),
+            "subject_ids": subjects,
+            "error": str(exc),
+        }
+
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(event, Mapping):
+            continue
+        if str(event.get("event_type") or "").strip() != "work_item.execution_receipt_recorded":
+            continue
+        payload = _mapping(event.get("payload"))
+        subject_id = str(_first([event.get("subject_id"), payload.get("subject_id")]) or "").strip()
+        if subject_id not in subject_set:
+            continue
+        raw_receipt = payload.get("execution_receipt") or payload.get("receipt")
+        if not isinstance(raw_receipt, Mapping):
+            continue
+
+        receipt = dict(raw_receipt)
+        event_id = str(event.get("event_id") or "").strip()
+        receipt_id = str(_first([receipt.get("id"), receipt.get("transaction_id"), event_id]) or "").strip()
+        if receipt_id:
+            receipt.setdefault("id", receipt_id)
+        if event_id:
+            receipt["source_event_id"] = event_id
+            _append_unique(event_ids, event_id)
+        receipt["subject_id"] = subject_id
+        receipt["authority_source"] = str(task_ledger_events.EVENTS_REL)
+        receipts.append(receipt)
+
+        refs = _mapping(event.get("refs"))
+        for ref in [
+            receipt.get("transaction_id"),
+            receipt.get("id"),
+            *_string_values(payload.get("receipt_refs")),
+            *_string_values(refs.get("receipt_refs")),
+        ]:
+            _append_unique(receipt_refs, ref)
+        for ref in [
+            receipt.get("commit_hash"),
+            *_string_values(receipt.get("commit_refs")),
+            *_string_values(payload.get("commit_refs")),
+            *_string_values(refs.get("commit_refs")),
+        ]:
+            _append_unique(commit_refs, ref)
+        for ref in [
+            receipt.get("work_ledger_session_id"),
+            *_string_values(receipt.get("work_ledger_refs")),
+            *_string_values(payload.get("work_ledger_refs")),
+            *_string_values(refs.get("work_ledger_refs")),
+        ]:
+            _append_unique(work_ledger_refs, ref)
+
+    visibility: dict[str, Any] | None = None
+    if event_ids:
+        try:
+            visibility = task_ledger_events.visibility_receipt(
+                repo_root,
+                subject_ids=subjects,
+                event_ids=event_ids,
+                projection_rebuilt=False,
+            )
+        except Exception as exc:
+            visibility = {
+                "schema": "task_ledger_visibility_receipt_v0",
+                "authority_status": "not_checked",
+                "reason": f"visibility_receipt_unavailable:{type(exc).__name__}",
+            }
+    overlay_status = "no_matching_execution_receipt"
+    if receipts:
+        overlay_status = (
+            "authority_visible"
+            if _mapping(visibility).get("authority_status") == "clean"
+            else "authority_receipt_unverified"
+        )
+    return {
+        "schema": AUTHORITY_RECEIPT_OVERLAY_SCHEMA,
+        "status": overlay_status,
+        "source": str(task_ledger_events.EVENTS_REL),
+        "subject_ids": subjects,
+        "receipt_count": len(receipts),
+        "event_ids": event_ids,
+        "receipt_refs": receipt_refs,
+        "commit_refs": commit_refs,
+        "work_ledger_refs": work_ledger_refs,
+        "execution_receipts": receipts,
+        "latest_execution_receipt": receipts[-1] if receipts else None,
+        "visibility_receipt": visibility,
+    }
+
+
+def _merge_receipt_state_with_authority_overlay(
+    receipt_state: Mapping[str, Any],
+    overlay: Mapping[str, Any],
+) -> dict[str, Any]:
+    merged = dict(receipt_state)
+    if overlay.get("status") != "authority_visible":
+        return merged
+
+    for key in ("receipt_refs", "commit_refs", "work_ledger_refs"):
+        values = list(merged.get(key) or [])
+        for value in overlay.get(key) or []:
+            _append_unique(values, value)
+        merged[key] = values
+
+    receipt_rows = [dict(row) for row in merged.get("execution_receipts") or [] if isinstance(row, Mapping)]
+    index_by_key = {_receipt_merge_key(row): index for index, row in enumerate(receipt_rows)}
+    for receipt in overlay.get("execution_receipts") or []:
+        if not isinstance(receipt, Mapping):
+            continue
+        row = dict(receipt)
+        key = _receipt_merge_key(row)
+        if key in index_by_key:
+            index = index_by_key[key]
+            receipt_rows[index] = {**receipt_rows[index], **row}
+        else:
+            index_by_key[key] = len(receipt_rows)
+            receipt_rows.append(row)
+    if receipt_rows:
+        merged["execution_receipts"] = receipt_rows
+    latest = overlay.get("latest_execution_receipt")
+    if isinstance(latest, Mapping):
+        merged["latest_execution_receipt"] = dict(latest)
+    merged["authority_execution_receipt_overlay"] = {
+        "schema": overlay.get("schema"),
+        "status": overlay.get("status"),
+        "source": overlay.get("source"),
+        "receipt_count": overlay.get("receipt_count"),
+        "event_ids": list(overlay.get("event_ids") or []),
+        "visibility_receipt": overlay.get("visibility_receipt"),
+        "projection_card_visibility": _mapping(
+            _mapping(overlay.get("visibility_receipt")).get("projection_assimilation_state")
+        ).get("projection_card_visibility"),
+    }
+    return merged
+
+
+def _merge_convergence_with_authority_overlay(
+    convergence: Mapping[str, Any],
+    overlay: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    merged = dict(convergence)
+    if not isinstance(overlay, Mapping) or overlay.get("status") != "authority_visible":
+        return merged
+    merged["task_ledger_receipt_state"] = _merge_receipt_state_with_authority_overlay(
+        _mapping(merged.get("task_ledger_receipt_state")),
+        overlay,
+    )
+    return merged
+
+
 def _receipt_evidence_state(
     *,
     transaction_id: str,
@@ -919,6 +1211,7 @@ def _receipt_evidence_state(
     receipt_refs = [str(ref) for ref in receipt_state.get("receipt_refs") or []]
     latest = _mapping(receipt_state.get("latest_execution_receipt"))
     latest_transaction_id = str(latest.get("transaction_id") or latest.get("id") or "")
+    authority_overlay = _mapping(receipt_state.get("authority_execution_receipt_overlay"))
     return {
         "receipt_ref_present": bool(transaction_id and transaction_id in receipt_refs),
         "latest_receipt_matches_current": bool(transaction_id and latest_transaction_id == transaction_id),
@@ -927,6 +1220,9 @@ def _receipt_evidence_state(
         "reconcile_next_action": reconcile.get("next_action"),
         "receipt_refs": receipt_refs,
         "commit_refs": list(receipt_state.get("commit_refs") or []),
+        "authority_overlay_status": authority_overlay.get("status"),
+        "authority_overlay_event_ids": list(authority_overlay.get("event_ids") or []),
+        "authority_overlay_projection_card_visibility": authority_overlay.get("projection_card_visibility"),
     }
 
 
@@ -1089,6 +1385,142 @@ def _controller_gap_rows(
     return gaps
 
 
+def _axis_status(value: Any, *, default: str = "not_evaluated") -> str:
+    text = str(value or "").strip()
+    return text or default
+
+
+def _readiness_overall_status(axes: Mapping[str, Mapping[str, Any]]) -> str:
+    statuses = {_axis_status(row.get("status")) for row in axes.values()}
+    if statuses & {"blocked", "hard_stop"}:
+        return "blocked"
+    if statuses & {"watch", "deferred", "pending", "not_run_pre_edit", "not_evaluated"}:
+        return "watch"
+    return "ready"
+
+
+def _transaction_readiness_contract(
+    *,
+    preflight: Mapping[str, Any],
+    subject_ids: Sequence[str],
+    owned_paths: Sequence[str],
+    session_id: str | None,
+    transaction_id: str,
+    transaction_candidate: Mapping[str, Any],
+    convergence: Mapping[str, Any],
+    reconcile: Mapping[str, Any],
+    shared_index: Mapping[str, Any],
+    finalizers: Sequence[Mapping[str, Any]],
+    intake: Mapping[str, Any],
+    attempt_binding: Mapping[str, Any] | None,
+    recommended_next_action: str,
+) -> dict[str, Any]:
+    closeout_settlement = _mapping(preflight.get("transaction_closeout_settlement"))
+    generated_settlement = _mapping(preflight.get("generated_projection_settlement"))
+    microcosm_admission = _mapping(preflight.get("microcosm_accepted_organ_admission"))
+    landing_decision = _mapping(preflight.get("landing_decision"))
+    autonomous_edit_gate = _mapping(preflight.get("autonomous_edit_gate"))
+    base_head = str(_first([transaction_candidate.get("base_head"), _mapping(convergence.get("current_transaction")).get("base_head")]) or "").strip()
+    claim_bound = bool(session_id or transaction_candidate.get("work_ledger_session_id") or attempt_binding)
+    projection_status = _first(
+        [
+            closeout_settlement.get("projection_settlement_status"),
+            generated_settlement.get("status"),
+        ]
+    )
+    companion_status = _axis_status(microcosm_admission.get("status"), default="not_triggered")
+    axes = {
+        "authority_state": {
+            "status": "selected" if subject_ids else "not_selected",
+            "subject_ids": list(subject_ids),
+            "authority_source": "state/task_ledger/events.jsonl",
+            "projection_source": "state/task_ledger/ledger.json",
+        },
+        "projection_state": {
+            "status": _axis_status(projection_status),
+            "required_next_command": _first(
+                [
+                    generated_settlement.get("required_next_command"),
+                    closeout_settlement.get("required_next_command"),
+                ]
+            ),
+            "settlement_deferred_reason": _first(
+                [
+                    closeout_settlement.get("projection_settlement_deferred_reason"),
+                    generated_settlement.get("reason"),
+                ]
+            ),
+        },
+        "claim_state": {
+            "status": "bound" if claim_bound else "unbound",
+            "session_id": session_id or transaction_candidate.get("work_ledger_session_id"),
+            "attempt_binding_present": bool(attempt_binding),
+        },
+        "companion_gate_state": {
+            "status": companion_status,
+            "schema": microcosm_admission.get("schema"),
+            "blocking_reason": microcosm_admission.get("blocking_reason"),
+            "missing_companion_paths": list(microcosm_admission.get("missing_companion_paths") or []),
+            "content_proof_status": microcosm_admission.get("content_proof_status"),
+            "next_action": microcosm_admission.get("next_action"),
+        },
+        "validation_state": {
+            "status": "not_run_pre_edit",
+            "policy": "post_edit_validation_required; queued validation must carry queue id and must not be reported as passed",
+        },
+        "staged_index_state": {
+            "status": _axis_status(shared_index.get("status")),
+            "staged_path_count": shared_index.get("staged_path_count"),
+            "unowned_staged_path_count": shared_index.get("unowned_staged_path_count"),
+            "private_index_scoped_commit_allowed": shared_index.get("private_index_scoped_commit_allowed"),
+            "normal_git_commit_allowed": shared_index.get("normal_git_commit_allowed"),
+        },
+        "parent_cas_state": {
+            "status": "bound" if base_head else "unknown",
+            "base_head": base_head or None,
+            "read_set_hash": transaction_candidate.get("read_set_hash"),
+            "write_set_hash": transaction_candidate.get("write_set_hash"),
+        },
+        "landing_decision_state": {
+            "status": _axis_status(landing_decision.get("status"), default="not_evaluated"),
+            "reason": landing_decision.get("reason"),
+            "recommended_lane": landing_decision.get("recommended_lane"),
+        },
+        "allowed_next_action": {
+            "status": "available" if recommended_next_action else "missing",
+            "command_or_action": recommended_next_action,
+        },
+    }
+    return {
+        "schema": TRANSACTION_READINESS_SCHEMA,
+        "status": _readiness_overall_status(axes),
+        "transaction_id": transaction_id or None,
+        "owned_paths": list(owned_paths),
+        "axis_order": list(axes.keys()),
+        "axes": axes,
+        "reconcile": {
+            "status": reconcile.get("status"),
+            "next_action": reconcile.get("next_action"),
+            "counts": reconcile.get("counts") or {},
+        },
+        "finalizer_count": len(finalizers),
+        "intake": {
+            "available": intake.get("available"),
+            "counts": intake.get("counts") or {},
+        },
+        "autonomous_edit_gate": {
+            "status": autonomous_edit_gate.get("status"),
+            "required_mode": autonomous_edit_gate.get("required_mode"),
+            "autonomous_feature_mutation_allowed": autonomous_edit_gate.get("autonomous_feature_mutation_allowed"),
+        },
+        "command_hints": {
+            "control_summary": "./repo-python tools/meta/control/mission_transaction_preflight.py --control-summary",
+            "reconcile": "./repo-python tools/meta/control/work_landing.py reconcile --dry-run",
+            "status": "./repo-python tools/meta/control/work_landing.py status",
+        },
+    }
+
+
 def build_work_landing_status_from_preflight(
     preflight: Mapping[str, Any],
     *,
@@ -1097,8 +1529,14 @@ def build_work_landing_status_from_preflight(
     session_id: str | None = None,
     intake_status: Mapping[str, Any] | None = None,
     attempt_binding: Mapping[str, Any] | None = None,
+    closed_attempt_overlay: bool = True,
+    authority_receipt_overlay: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    convergence = _mapping(preflight.get("transaction_convergence"))
+    authority_overlay = _mapping(authority_receipt_overlay)
+    convergence = _merge_convergence_with_authority_overlay(
+        _mapping(preflight.get("transaction_convergence")),
+        authority_overlay,
+    )
     reconcile = _mapping(preflight.get("transaction_convergence_reconcile"))
     shared_index = _mapping(preflight.get("shared_index_quarantine"))
     transaction_candidate = _mapping(preflight.get("transaction_candidate"))
@@ -1139,6 +1577,46 @@ def build_work_landing_status_from_preflight(
         )
         for row in open_finalizers
     ]
+    closed_attempt = (
+        _closed_attempt_status_overlay(attempt_binding)
+        if closed_attempt_overlay
+        else {}
+    )
+    if closed_attempt:
+        classified_finalizers = []
+        convergence_finalizer_classes = {
+            **dict(convergence_finalizer_classes),
+            "transaction_local_finalizers": [],
+            "ambient_pressure": [],
+            "compatibility_finalizers": [],
+            "closed_attempt_overlay": closed_attempt,
+        }
+        transaction_id = str(closed_attempt.get("transaction_id") or transaction_id or "")
+    recommended_next_action = (
+        "safe_to_continue_sibling_agents"
+        if closed_attempt
+        else _recommended_next_action(
+            finalizers=classified_finalizers,
+            convergence=convergence,
+            reconcile=reconcile,
+            shared_index=shared_index,
+        )
+    )
+    transaction_readiness = _transaction_readiness_contract(
+        preflight=preflight_with_intake,
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        session_id=session_id,
+        transaction_id=transaction_id,
+        transaction_candidate=transaction_candidate,
+        convergence=convergence,
+        reconcile=reconcile,
+        shared_index=shared_index,
+        finalizers=classified_finalizers,
+        intake=intake,
+        attempt_binding=attempt_binding,
+        recommended_next_action=recommended_next_action,
+    )
     return {
         "schema": STATUS_SCHEMA,
         "mode": "read_only",
@@ -1157,18 +1635,34 @@ def build_work_landing_status_from_preflight(
         },
         "transaction": {
             "transaction_id": transaction_id or None,
-            "status": _first([current_transaction.get("status"), transaction_candidate.get("status")]),
-            "base_head": _first([current_transaction.get("base_head"), transaction_candidate.get("base_head")]),
+            "status": (
+                closed_attempt.get("status")
+                if closed_attempt
+                else _first([current_transaction.get("status"), transaction_candidate.get("status")])
+            ),
+            "base_head": (
+                closed_attempt.get("base_head")
+                if closed_attempt
+                else _first([current_transaction.get("base_head"), transaction_candidate.get("base_head")])
+            ),
             "read_set_hash": _first([current_transaction.get("read_set_hash"), transaction_candidate.get("read_set_hash")]),
             "write_set_hash": _first([current_transaction.get("write_set_hash"), transaction_candidate.get("write_set_hash")]),
-            "work_ledger_session_id": transaction_candidate.get("work_ledger_session_id"),
-            "work_ledger_read_receipt_id": transaction_candidate.get("work_ledger_read_receipt_id"),
+            "work_ledger_session_id": (
+                closed_attempt.get("session_id")
+                if closed_attempt
+                else transaction_candidate.get("work_ledger_session_id")
+            ),
+            "work_ledger_read_receipt_id": (
+                closed_attempt.get("read_receipt_id")
+                if closed_attempt
+                else transaction_candidate.get("work_ledger_read_receipt_id")
+            ),
             "canonical_state": convergence.get("canonical_transaction_state"),
             "shadow_state": current_transaction.get("shadow_state"),
         },
         "convergence": {
-            "status": convergence.get("status"),
-            "next_action": convergence.get("next_action"),
+            "status": "clear" if closed_attempt else convergence.get("status"),
+            "next_action": "none" if closed_attempt else convergence.get("next_action"),
             "summary": convergence.get("summary") or {},
             "receipt_state": convergence.get("task_ledger_receipt_state") or {},
             "canonical_transaction_state": convergence.get("canonical_transaction_state"),
@@ -1176,14 +1670,16 @@ def build_work_landing_status_from_preflight(
             "recent_transaction_count": len(convergence.get("recent_transactions") or []),
         },
         "reconcile": {
-            "status": reconcile.get("status"),
-            "next_action": reconcile.get("next_action"),
+            "status": "clear" if closed_attempt else reconcile.get("status"),
+            "next_action": "none" if closed_attempt else reconcile.get("next_action"),
             "counts": reconcile.get("counts") or {},
-            "actions": reconcile.get("actions") or [],
+            "actions": [] if closed_attempt else reconcile.get("actions") or [],
             "mutation_policy": reconcile.get("mutation_policy") or {},
         },
         "task_ledger_intake": intake,
         "attempt_binding": dict(attempt_binding or {}),
+        "closed_attempt": closed_attempt,
+        "authority_receipt_overlay": authority_overlay,
         "shared_index": {
             "status": shared_index.get("status"),
             "next_action": shared_index.get("next_action"),
@@ -1204,12 +1700,28 @@ def build_work_landing_status_from_preflight(
             session_id=session_id,
             attempt_binding=attempt_binding,
         ),
-        "recommended_next_action": _recommended_next_action(
-            finalizers=classified_finalizers,
-            convergence=convergence,
-            reconcile=reconcile,
-            shared_index=shared_index,
-        ),
+        "transaction_readiness": transaction_readiness,
+        "recommended_next_action": recommended_next_action,
+    }
+
+
+def _closed_attempt_status_overlay(attempt_binding: Mapping[str, Any] | None) -> dict[str, Any]:
+    attempt = _mapping(attempt_binding)
+    status = str(attempt.get("status") or "").strip()
+    commit_hash = str(attempt.get("commit_hash") or "").strip()
+    if status != "closed_after_commit_landing" or not commit_hash:
+        return {}
+    return {
+        "schema": "work_landing_closed_attempt_overlay_v0",
+        "status": status,
+        "transaction_id": attempt.get("transaction_id"),
+        "pre_mutation_transaction_id": attempt.get("pre_mutation_transaction_id"),
+        "commit_hash": commit_hash,
+        "td_id": attempt.get("td_id"),
+        "session_id": attempt.get("session_id"),
+        "read_receipt_id": attempt.get("read_receipt_id"),
+        "base_head": attempt.get("base_head"),
+        "reason": "closed_attempt_binding_supersedes_newer_head_candidate_for_this_status_call",
     }
 
 
@@ -1238,6 +1750,7 @@ def build_work_landing_status(
     owned_paths: Sequence[str] = (),
     session_id: str | None = None,
     require_exclusive: bool = False,
+    closed_attempt_overlay: bool = True,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     preflight = _build_work_landing_preflight(
@@ -1254,6 +1767,11 @@ def build_work_landing_status(
         preflight=preflight,
         subject_id=subject_id,
         session_id=session_id,
+        requested_owned_paths=owned_paths,
+    )
+    authority_receipt_overlay = _task_ledger_authority_execution_receipt_overlay(
+        repo_root,
+        subject_ids=subject_ids,
     )
     return build_work_landing_status_from_preflight(
         preflight,
@@ -1262,6 +1780,8 @@ def build_work_landing_status(
         session_id=session_id,
         intake_status=intake_status,
         attempt_binding=attempt_binding,
+        closed_attempt_overlay=closed_attempt_overlay,
+        authority_receipt_overlay=authority_receipt_overlay,
     )
 
 
@@ -1297,6 +1817,18 @@ def _refusal_payload(
     return payload
 
 
+def _clip_public_heartbeat_line(value: object, *, limit: int) -> str | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    normalized = " ".join(text.split())
+    if len(normalized) <= limit:
+        return normalized
+    if limit <= 3:
+        return normalized[:limit]
+    return f"{normalized[: limit - 3].rstrip()}..."
+
+
 def build_work_landing_attempt_binding(
     repo_root: Path,
     *,
@@ -1306,6 +1838,13 @@ def build_work_landing_attempt_binding(
     require_exclusive: bool = True,
     created_by: str = "codex",
     lease_minutes: float = 120.0,
+    heartbeat_current_pass_line: str | None = None,
+    heartbeat_last_pass_result_line: str | None = None,
+    heartbeat_clip_lines: bool = False,
+    heartbeat_state: str = "inspecting",
+    heartbeat_scope_refs: Sequence[object] | None = None,
+    heartbeat_source: str = "manual_cli",
+    explicit_subject_override: bool = False,
 ) -> dict[str, Any]:
     """Establish or return a pre-mutation WorkItem landing attempt binding.
 
@@ -1327,7 +1866,9 @@ def build_work_landing_attempt_binding(
             session_id=session_id,
         )
     subject_id = subjects[0]
-    if not _subject_exists(repo_root, subject_id):
+    subject_exists = _subject_exists(repo_root, subject_id)
+    subject_override_accepted = bool(explicit_subject_override and not subject_exists)
+    if not subject_exists and not subject_override_accepted:
         return _refusal_payload(
             status="refused",
             reason="subject_id_not_found_in_task_ledger",
@@ -1530,6 +2071,12 @@ def build_work_landing_attempt_binding(
             "claim_ids": claim_ids,
             "idempotency_key": idempotency_key,
         }
+        if subject_override_accepted:
+            attempt_metadata["subject_authority_override"] = {
+                "mode": "explicit_non_workitem_subject_override",
+                "subject_exists_in_task_ledger": False,
+                "normal_missing_subject_refusal_preserved": True,
+            }
         metadata = {
             "work_landing_attempt": attempt_metadata,
             "transaction_id": transaction_id,
@@ -1556,6 +2103,7 @@ def build_work_landing_attempt_binding(
             read_receipt_id=read_receipt_id,
             metadata=metadata,
             task_ledger_work_item_id=subject_id,
+            projection_mode=WORK_LANDING_APPEND_PROJECTION_MODE,
         )
         td_id = str(_mapping(event_result.get("event")).get("td_id") or "").strip()
         work_ledger_runtime.mark_ledger_append(
@@ -1589,6 +2137,48 @@ def build_work_landing_attempt_binding(
             preflight=bound_preflight,
         )
 
+    resolved_current_pass_line = heartbeat_current_pass_line
+    resolved_last_pass_result_line = heartbeat_last_pass_result_line
+    if heartbeat_clip_lines:
+        resolved_current_pass_line = _clip_public_heartbeat_line(
+            resolved_current_pass_line,
+            limit=work_ledger_runtime.PASS_CURRENT_LINE_LIMIT,
+        )
+        resolved_last_pass_result_line = _clip_public_heartbeat_line(
+            resolved_last_pass_result_line,
+            limit=work_ledger_runtime.PASS_RESULT_LINE_LIMIT,
+        )
+
+    initial_heartbeat: dict[str, Any] = {"status": "not_requested"}
+    if resolved_current_pass_line or resolved_last_pass_result_line:
+        explicit_scope_refs = _unique_strings(heartbeat_scope_refs or [])
+        if explicit_scope_refs:
+            resolved_scope_refs = explicit_scope_refs
+            scope_ref_policy = "explicit"
+        else:
+            resolved_scope_refs = _unique_strings([subject_id, td_id, *paths])
+            scope_ref_policy = "attempt_claims"
+        heartbeat_status = work_ledger_runtime.mark_session_pass_heartbeat(
+            repo_root,
+            session_id=resolved_session_id,
+            pass_state=heartbeat_state,
+            current_pass_line=resolved_current_pass_line,
+            last_pass_result_line=resolved_last_pass_result_line,
+            td_id=subject_id,
+            scope_refs=resolved_scope_refs,
+            source=heartbeat_source,
+        )
+        heartbeat_session = _mapping(
+            _mapping(heartbeat_status.get("sessions")).get(resolved_session_id)
+        )
+        initial_heartbeat = {
+            "schema": "work_landing_begin_initial_heartbeat_v0",
+            "status": "written",
+            "scope_ref_policy": scope_ref_policy,
+            "scope_refs": resolved_scope_refs,
+            "pass_heartbeat": dict(heartbeat_session.get("pass_heartbeat") or {}),
+        }
+
     claim_ids = [
         str(_mapping(result.get("claim")).get("claim_id") or "")
         for result in claim_results
@@ -1611,6 +2201,7 @@ def build_work_landing_attempt_binding(
         "claim_ids": claim_ids,
         "claims": claim_results,
         "idempotency_key": idempotency_key,
+        "subject_exists_in_task_ledger": subject_exists,
         "td_thread_status": td_status,
         "mutated": bool(
             not existing_thread
@@ -1626,8 +2217,15 @@ def build_work_landing_attempt_binding(
             "git_index_touched": False,
         },
         "bootstrap": _compact_bootstrap(bootstrap),
+        "initial_heartbeat": initial_heartbeat,
         "event": _compact_work_ledger_event_result(event_result),
     }
+    if subject_override_accepted:
+        binding["subject_authority_override"] = {
+            "mode": "explicit_non_workitem_subject_override",
+            "subject_exists_in_task_ledger": False,
+            "normal_missing_subject_refusal_preserved": True,
+        }
     return binding
 
 
@@ -1689,7 +2287,7 @@ def _compact_claim_ids(claim_state: Mapping[str, Any]) -> list[str]:
 def _write_admission_reason(
     *,
     subject_count_ok: bool,
-    subject_exists: bool,
+    subject_authority_selected: bool,
     selector_allowed: bool,
     owned_paths: Sequence[str],
     attempt_binding: Mapping[str, Any],
@@ -1700,7 +2298,7 @@ def _write_admission_reason(
 ) -> str:
     if not subject_count_ok:
         return "exactly_one_subject_id_required"
-    if not subject_exists:
+    if not subject_authority_selected:
         return "subject_id_not_found_in_task_ledger"
     if not selector_allowed:
         return "workitem_not_agent_executable"
@@ -1719,6 +2317,92 @@ def _write_admission_reason(
             return "missing_active_claims"
         return "missing_required_admission_fields"
     return "ready_to_write"
+
+
+def _write_readiness_contract(
+    *,
+    can_write: bool,
+    reason: str,
+    subject_count_ok: bool,
+    subject_exists: bool,
+    subject_authority_selected: bool,
+    subject_override_accepted: bool,
+    selector_allowed: bool,
+    selection: Mapping[str, Any],
+    status: Mapping[str, Any],
+    claim_state: Mapping[str, Any],
+    claim_collisions: Sequence[Mapping[str, Any]],
+    base_head: str,
+    required_next_command: str,
+    entry_packet_ref: str,
+    landing_status_ref: str,
+) -> dict[str, Any]:
+    transaction_readiness = _mapping(status.get("transaction_readiness"))
+    transaction_axes = _mapping(transaction_readiness.get("axes"))
+    claim_missing = _strings(claim_state.get("missing"))
+    authority_mode = (
+        "explicit_non_workitem_subject_override"
+        if subject_override_accepted
+        else "task_ledger_work_item"
+    )
+    axes = {
+        "authority_state": {
+            "status": "ready"
+            if subject_count_ok and subject_authority_selected and selector_allowed
+            else "blocked",
+            "subject_count_ok": subject_count_ok,
+            "subject_exists": subject_exists,
+            "subject_authority_selected": subject_authority_selected,
+            "subject_override_accepted": subject_override_accepted,
+            "authority_mode": authority_mode,
+            "selector_allowed": selector_allowed,
+            "selected_subject_id": selection.get("subject_id"),
+            "executable_by": selection.get("executable_by"),
+            "authority_source": "state/task_ledger/events.jsonl",
+            "projection_source": "state/task_ledger/ledger.json",
+        },
+        "projection_state": transaction_axes.get("projection_state") or {
+            "status": "not_evaluated",
+            "required_next_command": None,
+        },
+        "claim_state": {
+            "status": "ready" if claim_state.get("ok") else "blocked",
+            "missing": claim_missing,
+            "collision_count": len(claim_collisions),
+        },
+        "companion_gate_state": transaction_axes.get("companion_gate_state") or {
+            "status": "not_evaluated",
+        },
+        "validation_state": {
+            "status": "not_run_pre_edit",
+            "policy": "post_edit_validation_required; queued validation must carry queue id and must not be reported as passed",
+        },
+        "staged_index_state": transaction_axes.get("staged_index_state") or {
+            "status": "not_evaluated",
+        },
+        "parent_cas_state": {
+            "status": "bound" if base_head else "blocked",
+            "base_head": base_head or None,
+        },
+        "allowed_next_action": {
+            "status": "available" if required_next_command else "missing",
+            "command_or_action": required_next_command,
+        },
+    }
+    return {
+        "schema": WRITE_READINESS_SCHEMA,
+        "status": "ready" if can_write else "blocked",
+        "reason": reason,
+        "axis_order": list(axes.keys()),
+        "axes": axes,
+        "source_readiness_schema": transaction_readiness.get("schema"),
+        "source_readiness_status": transaction_readiness.get("status"),
+        "command_hints": {
+            "entry_packet": entry_packet_ref,
+            "landing_status": landing_status_ref,
+            "required_next": required_next_command,
+        },
+    }
 
 
 def build_workitem_write_admission(
@@ -1740,6 +2424,8 @@ def build_workitem_write_admission(
     subject_id = subjects[0] if len(subjects) == 1 else None
     subject_count_ok = len(subjects) == 1
     subject_exists = bool(subject_id and _subject_exists(repo_root, subject_id))
+    subject_override_accepted = bool(subject_id and explicit_subject_override and not subject_exists)
+    subject_authority_selected = subject_exists or subject_override_accepted
     selection_picture = build_workitem_control_picture(
         repo_root,
         subject_id=subject_id,
@@ -1751,7 +2437,22 @@ def build_workitem_write_admission(
     )
     selection = _mapping(selection_picture.get("selection"))
     executable_by = str(selection.get("executable_by") or "unknown")
-    selector_allowed = bool(subject_id and (executable_by == "agent" or explicit_subject_override))
+    if subject_override_accepted:
+        selection = {
+            **selection,
+            "subject_id": subject_id,
+            "source": "explicit_non_workitem_subject_override",
+            "executable_by": "agent",
+            "defer_reason": "explicit_subject_not_found",
+        }
+        executable_by = "agent"
+    selector_allowed = bool(
+        subject_id
+        and (
+            (subject_exists and executable_by == "agent")
+            or explicit_subject_override
+        )
+    )
 
     status = build_work_landing_status(
         repo_root,
@@ -1807,7 +2508,7 @@ def build_workitem_write_admission(
         missing_fields.append("agent_executable_workitem")
     reason = _write_admission_reason(
         subject_count_ok=subject_count_ok,
-        subject_exists=subject_exists,
+        subject_authority_selected=subject_authority_selected,
         selector_allowed=selector_allowed,
         owned_paths=paths,
         attempt_binding=attempt,
@@ -1826,12 +2527,42 @@ def build_workitem_write_admission(
             owned_paths=paths,
             session_id=session_id,
         )
+        if subject_override_accepted:
+            required_next_command = f"{required_next_command} --explicit-subject-override"
     elif reason == "workitem_not_agent_executable":
         required_next_command = "./repo-python tools/meta/control/work_control.py next --for-agent"
     else:
         required_next_command = "inspect_work_landing_admission_check"
 
     active_claim_ids = _compact_claim_ids(claim_state) if attempt else []
+    entry_packet_ref = (
+        f"./repo-python tools/meta/control/work_control.py entry --subject-id {subject_id} --for-agent"
+        if subject_id
+        else "./repo-python tools/meta/control/work_control.py entry --for-agent"
+    )
+    landing_status_ref = _command_with_paths(
+        "./repo-python tools/meta/control/work_landing.py status",
+        subject_id=subject_id,
+        owned_paths=paths,
+        session_id=attempt_session_id or session_id,
+    )
+    readiness_contract = _write_readiness_contract(
+        can_write=can_write,
+        reason=reason,
+        subject_count_ok=subject_count_ok,
+        subject_exists=subject_exists,
+        subject_authority_selected=subject_authority_selected,
+        subject_override_accepted=subject_override_accepted,
+        selector_allowed=selector_allowed,
+        selection=selection,
+        status=status,
+        claim_state=claim_state,
+        claim_collisions=claim_collisions,
+        base_head=attempt_base_head,
+        required_next_command=required_next_command,
+        entry_packet_ref=entry_packet_ref,
+        landing_status_ref=landing_status_ref,
+    )
     return {
         "schema": WRITE_ADMISSION_SCHEMA,
         "mode": "read_only",
@@ -1860,18 +2591,11 @@ def build_workitem_write_admission(
             "defer_reason": selection.get("defer_reason"),
             "selected_is_signoff_bound": selection.get("selected_is_signoff_bound"),
             "explicit_subject_override": bool(explicit_subject_override),
+            "subject_override_accepted": subject_override_accepted,
         },
-        "entry_packet_ref": (
-            f"./repo-python tools/meta/control/work_control.py entry --subject-id {subject_id} --for-agent"
-            if subject_id
-            else "./repo-python tools/meta/control/work_control.py entry --for-agent"
-        ),
-        "landing_status_ref": _command_with_paths(
-            "./repo-python tools/meta/control/work_landing.py status",
-            subject_id=subject_id,
-            owned_paths=paths,
-            session_id=attempt_session_id or session_id,
-        ),
+        "readiness_contract": readiness_contract,
+        "entry_packet_ref": entry_packet_ref,
+        "landing_status_ref": landing_status_ref,
         "attempt_binding": {
             key: attempt.get(key)
             for key in (
@@ -1885,6 +2609,7 @@ def build_workitem_write_admission(
                 "base_head",
                 "idempotency_key",
                 "binding_relation",
+                "subject_authority_override",
             )
             if attempt.get(key) not in (None, "", [], {})
         },
@@ -2268,23 +2993,38 @@ def _receipt_action_identity(
     status: Mapping[str, Any],
     action: Mapping[str, Any] | None,
 ) -> dict[str, Any]:
+    action_map = _mapping(action or {})
     transaction = _mapping(status.get("transaction"))
-    subject_id = str(_first([_mapping(action or {}).get("subject_id"), (status.get("subject_ids") or [None])[0]]) or "").strip()
-    transaction_id = str(_first([_mapping(action or {}).get("transaction_id"), transaction.get("transaction_id")]) or "").strip()
-    commit_hash = str(_mapping(action or {}).get("commit_hash") or "").strip()
+    subject_id = str(_first([action_map.get("subject_id"), (status.get("subject_ids") or [None])[0]]) or "").strip()
+    transaction_id = str(_first([action_map.get("transaction_id"), transaction.get("transaction_id")]) or "").strip()
+    commit_hash = str(action_map.get("commit_hash") or "").strip()
+    closeout_state = str(action_map.get("closeout_state") or "").strip()
+    valid_uncommitted_closeout = (
+        not commit_hash
+        and closeout_state in task_ledger_events.VALIDATED_UNCOMMITTED_CLOSEOUT_STATES
+    )
     idempotency_key = (
         task_ledger_events.execution_receipt_idempotency_key(
             subject_id=subject_id,
             transaction_id=transaction_id,
             commit_hash=commit_hash,
+            closeout_state=closeout_state if valid_uncommitted_closeout else None,
         )
-        if subject_id and transaction_id and commit_hash
+        if subject_id and transaction_id and (commit_hash or valid_uncommitted_closeout)
         else None
     )
     return {
         "subject_id": subject_id or None,
         "transaction_id": transaction_id or None,
         "commit_hash": commit_hash or None,
+        "closeout_state": closeout_state or None,
+        "receipt_landing_mode": (
+            "git_commit"
+            if commit_hash
+            else "validated_uncommitted"
+            if valid_uncommitted_closeout
+            else None
+        ),
         "idempotency_key": idempotency_key,
     }
 
@@ -2369,9 +3109,11 @@ def _receipt_apply_state(status: Mapping[str, Any]) -> dict[str, Any]:
     identity = _receipt_action_identity(status, action)
     missing = [
         key
-        for key in ("subject_id", "transaction_id", "commit_hash")
+        for key in ("subject_id", "transaction_id")
         if not identity.get(key)
     ]
+    if not identity.get("commit_hash") and identity.get("receipt_landing_mode") != "validated_uncommitted":
+        missing.append("commit_hash")
     if action is None:
         return {
             **identity,
@@ -2390,6 +3132,10 @@ def _receipt_apply_state(status: Mapping[str, Any]) -> dict[str, Any]:
             "work_ledger_event_ids": action.get("work_ledger_event_ids"),
             "work_ledger_session_ids": action.get("work_ledger_session_ids"),
             "read_receipt_ids": action.get("read_receipt_ids"),
+            "closeout_state": action.get("closeout_state"),
+            "validation_refs": action.get("validation_refs"),
+            "no_commit_reason": action.get("no_commit_reason"),
+            "commit_blocker_refs": action.get("commit_blocker_refs"),
         }.items()
         if value not in (None, "", [], {})
     }
@@ -2685,10 +3431,17 @@ def _controller_action_row(
     idempotency_key: str | None = None,
     evidence_if_already_done: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    sequence = (
+        ORDERED_CONTROLLER_ACTION_IDS.index(action_id) + 1
+        if action_id in ORDERED_CONTROLLER_ACTION_IDS
+        else None
+    )
+    row = {
         "action_id": action_id,
+        "sequence": sequence,
         "owner_plane": owner_plane,
         "preconditions": list(preconditions),
+        "prerequisite_action_ids": list(CONTROLLER_ACTION_PREREQUISITES.get(action_id, [])),
         "blocked_by": list(blocked_by),
         "would_mutate": bool(would_mutate),
         "idempotency_key": idempotency_key,
@@ -2697,6 +3450,10 @@ def _controller_action_row(
         "apply_supported": bool(apply_supported),
         "apply_status": apply_status,
     }
+    if action_id in CONTROLLER_ACTION_ORDER_GUARDS:
+        row["order_guard"] = CONTROLLER_ACTION_ORDER_GUARDS[action_id]
+    row.update(CONTROLLER_ACTION_ROW_EXTRAS.get(action_id, {}))
+    return row
 
 
 def _ordered_controller_actions(
@@ -2798,7 +3555,7 @@ def _ordered_controller_actions(
             preconditions=[
                 "subject_id_present",
                 "transaction_id_present",
-                "commit_hash_present",
+                "commit_hash_present_or_validated_uncommitted_closeout_present",
                 "receipt_not_already_recorded",
             ],
             command_or_function="system.lib.task_ledger_events.enqueue_task_ledger_intake_request",
@@ -2905,24 +3662,58 @@ def _receipt_request_from_action(
     commit_hash = str(receipt_state.get("commit_hash") or "").strip()
     work_ledger_session_id = _first_string(action.get("work_ledger_session_ids") or [transaction.get("work_ledger_session_id"), session_id])
     read_receipt_id = _first_string(action.get("read_receipt_ids") or [transaction.get("work_ledger_read_receipt_id")])
+    closeout_state = str(
+        action.get("closeout_state")
+        or (
+            "landed"
+            if commit_hash
+            else task_ledger_events.DEFAULT_VALIDATED_UNCOMMITTED_CLOSEOUT_STATE
+        )
+        or ""
+    ).strip()
+    no_commit_reason = str(
+        action.get("no_commit_reason")
+        or (
+            "commit_hash_absent_in_work_landing_receipt_action"
+            if not commit_hash
+            else ""
+        )
+    ).strip()
+    commit_blocker_refs = _strings(
+        action.get("commit_blocker_refs")
+        or (
+            ["missing_commit_hash", "validated_uncommitted_git_metadata_blocked"]
+            if not commit_hash
+            else []
+        )
+    )
     validation_refs = _strings(
         [
             "work_landing.py reconcile --apply --only receipt_intake",
             "work_landing_status_v0",
+            *_string_values(action.get("validation_refs")),
         ]
     )
-    projection_refs = _strings(["work_landing_reconcile_plan_v0", "transaction_convergence_reconcile_v0"])
+    projection_refs = _strings(
+        [
+            "work_landing_reconcile_plan_v0",
+            "transaction_convergence_reconcile_v0",
+            *_string_values(action.get("projection_refs")),
+        ]
+    )
     receipt = {
         "schema": "transaction_receipt_v0",
         "transaction_id": transaction_id,
         "work_ledger_session_id": work_ledger_session_id,
         "read_receipt_id": read_receipt_id,
-        "commit_hash": commit_hash,
+        **({"commit_hash": commit_hash} if commit_hash else {}),
         "read_set_hash": transaction.get("read_set_hash"),
         "write_set_hash": transaction.get("write_set_hash"),
         "validation_refs": validation_refs,
         "projection_refs": projection_refs,
-        "closeout_state": action.get("closeout_state") or "landed",
+        "closeout_state": closeout_state,
+        "no_commit_reason": no_commit_reason,
+        "commit_blocker_refs": commit_blocker_refs,
     }
     receipt = {key: value for key, value in receipt.items() if value not in (None, "", [], {})}
     attempt = _mapping(status.get("attempt_binding"))
@@ -2936,29 +3727,47 @@ def _receipt_request_from_action(
     evidence_refs = _strings(
         [
             f"commit:{commit_hash}" if commit_hash else "",
+            f"validated_uncommitted:{closeout_state}" if not commit_hash and closeout_state else "",
+            f"no_commit_reason:{no_commit_reason}" if no_commit_reason else "",
             f"transaction:{transaction_id}" if transaction_id else "",
             f"work_ledger_session:{work_ledger_session_id}" if work_ledger_session_id else "",
             f"read_receipt:{read_receipt_id}" if read_receipt_id else "",
             *work_refs,
+            *commit_blocker_refs,
             *validation_refs,
             *projection_refs,
         ]
     )
-    closeout_assurance = {
-        "claim": (
+    if commit_hash:
+        closeout_claim = (
             "Work Landing recorded a controller-owned execution receipt for "
             f"scoped commit {commit_hash} against transaction {transaction_id}."
-        ),
+        )
+        counterexample_checks = [
+            "execution_receipt_reconcile_state accepted the receipt identity before intake enqueue",
+            "Task Ledger receipt idempotency key binds subject, transaction, and commit hash",
+            "scoped commit hash is carried in execution_receipt and commit_refs",
+            "Work Ledger session and read receipt refs are carried when available",
+        ]
+        commit_refs = [commit_hash]
+    else:
+        closeout_claim = (
+            "Work Landing recorded a validated-uncommitted execution receipt for "
+            f"transaction {transaction_id}; this is an auditable blocker receipt, not a scoped commit replacement."
+        )
+        counterexample_checks = [
+            "execution_receipt_reconcile_state accepted the validated-uncommitted closeout state before intake enqueue",
+            "Task Ledger receipt idempotency key binds subject, transaction, and validated-uncommitted state",
+            "no_commit_reason and validation_refs are carried with the execution receipt",
+            "commit_refs are not claimed when no scoped commit hash exists",
+            "Work Ledger session and read receipt refs are carried when available",
+        ]
+        commit_refs = []
+    closeout_assurance = {
+        "claim": closeout_claim,
         "evidence_refs": evidence_refs,
         "corrective_action_strength": "strong",
-        "counterexample_checks": _strings(
-            [
-                "execution_receipt_reconcile_state accepted the receipt identity before intake enqueue",
-                "Task Ledger receipt idempotency key binds subject, transaction, and commit hash",
-                "scoped commit hash is carried in execution_receipt and commit_refs",
-                "Work Ledger session and read receipt refs are carried when available",
-            ]
-        ),
+        "counterexample_checks": _strings(counterexample_checks),
         "owner_surface": "work_landing_controller_v0",
         "owner_surfaces_changed": owned_paths,
         "residuals": [],
@@ -2981,11 +3790,11 @@ def _receipt_request_from_action(
         },
         "refs": {
             "work_ledger_refs": work_refs,
-            "commit_refs": [commit_hash],
+            "commit_refs": commit_refs,
             "receipt_refs": [transaction_id],
         },
         "work_ledger_refs": work_refs,
-        "commit_refs": [commit_hash],
+        "commit_refs": commit_refs,
         "receipt_refs": [transaction_id],
     }
     payload = {key: value for key, value in payload.items() if value not in (None, "", [], {})}
@@ -3001,7 +3810,7 @@ def _receipt_request_from_action(
         },
         "refs": {
             "work_ledger_refs": work_refs,
-            "commit_refs": [commit_hash],
+            "commit_refs": commit_refs,
             "receipt_refs": [transaction_id],
         },
         "idempotency_key": receipt_state.get("idempotency_key"),
@@ -3119,7 +3928,13 @@ def _apply_record_scoped_commit_landing(
     transaction_id = str(landing_state.get("transaction_id") or "").strip()
     td_id = str(landing_state.get("td_id") or "").strip()
     session_id = str(landing_state.get("session_id") or "").strip()
-    read_receipt_id = str(attempt.get("read_receipt_id") or transaction.get("work_ledger_read_receipt_id") or "").strip()
+    attempt_read_receipt_id = str(attempt.get("read_receipt_id") or transaction.get("work_ledger_read_receipt_id") or "").strip()
+    read_receipt_resolution = _resolve_landing_runtime_read_receipt(
+        repo_root,
+        read_receipt_id=attempt_read_receipt_id,
+        session_id=session_id,
+    )
+    read_receipt_id = str(read_receipt_resolution.get("read_receipt_id") or attempt_read_receipt_id).strip()
     resolved_commit = str(landing_state.get("commit_hash") or "").strip()
     actor = str(created_by or "codex").strip() or "codex"
     pre_mutation_transaction_id = str(attempt.get("transaction_id") or "").strip()
@@ -3134,7 +3949,7 @@ def _apply_record_scoped_commit_landing(
         "transaction_id": transaction_id,
         "pre_mutation_transaction_id": pre_mutation_transaction_id,
         "session_id": session_id,
-        "read_receipt_id": read_receipt_id,
+        "read_receipt_id": attempt_read_receipt_id or read_receipt_id,
         "td_id": td_id,
         "base_head": landing_state.get("base_head"),
         "commit_hash": resolved_commit,
@@ -3145,6 +3960,8 @@ def _apply_record_scoped_commit_landing(
         "idempotency_key": attempt.get("idempotency_key"),
         "landing_action": RECORD_SCOPED_COMMIT_LANDING_ACTION_ID,
     }
+    if str(read_receipt_resolution.get("status") or "") == "refreshed_read_receipt":
+        attempt_metadata["runtime_read_receipt_id"] = read_receipt_id
     attempt_metadata = {key: value for key, value in attempt_metadata.items() if value not in (None, "", [], {})}
     metadata = {
         "work_landing_attempt": attempt_metadata,
@@ -3162,6 +3979,8 @@ def _apply_record_scoped_commit_landing(
             "requested_work_ledger_td_id": subject_id,
         },
     }
+    if str(read_receipt_resolution.get("status") or "") == "refreshed_read_receipt":
+        metadata["read_receipt_refresh"] = read_receipt_resolution
     metadata = {key: value for key, value in metadata.items() if value not in (None, "", [], {})}
     event_result = work_ledger.progress_thread(
         repo_root,
@@ -3183,9 +4002,10 @@ def _apply_record_scoped_commit_landing(
         read_receipt_id=read_receipt_id,
         metadata=metadata,
         task_ledger_work_item_id=subject_id,
+        projection_mode=WORK_LANDING_APPEND_PROJECTION_MODE,
     )
     event = _mapping(event_result.get("event"))
-    work_ledger_runtime.mark_ledger_append(
+    runtime_append_mark = _mark_landing_runtime_append(
         repo_root,
         read_receipt_id=read_receipt_id,
         session_id=session_id,
@@ -3203,6 +4023,10 @@ def _apply_record_scoped_commit_landing(
         "work_ledger_event_id": event.get("event_id"),
         "td_id": td_id,
         "read_receipt_id": read_receipt_id,
+        "original_read_receipt_id": attempt_read_receipt_id if attempt_read_receipt_id != read_receipt_id else None,
+        "read_receipt_resolution": read_receipt_resolution,
+        "runtime_append_mark": runtime_append_mark,
+        "projection_mode": event_result.get("projection_mode"),
     }
 
 
@@ -3254,13 +4078,25 @@ def _drain_exact_receipt_request(
             if item not in applied_request_ids and item not in applied_idempotency_keys
         ]
         if not remaining_missing:
+            projection = task_ledger_events.rebuild_projections(repo_root)
+            if not projection.get("ok"):
+                return {
+                    "ok": False,
+                    "status": "task_ledger_projection_rebuild_failed",
+                    "mutated": False,
+                    "blocked_by": ["task_ledger_projection_rebuild_failed"],
+                    "drain_result": result,
+                    "applied_requests": applied_requests,
+                    "projection": projection,
+                }
             return {
                 "ok": True,
                 "status": "already_drained",
-                "mutated": False,
+                "mutated": True,
                 "drain_result": result,
                 "applied_requests": applied_requests,
-                "projection_rebuild": "skipped_exact_closeout_fast_path",
+                "projection_rebuild": "rebuilt_already_drained_exact_receipt",
+                "projection": projection,
             }
         return {
             "ok": False,
@@ -3269,12 +4105,147 @@ def _drain_exact_receipt_request(
             "blocked_by": [f"exact_receipt_request_not_pending:{item}" for item in remaining_missing],
             "drain_result": result,
         }
+    projection = _mapping(result.get("projection"))
+    if result.get("appended_count") and not projection.get("ok"):
+        visibility = _mapping(result.get("visibility_receipt"))
+        if visibility.get("authority_status") == "clean":
+            return {
+                "ok": bool(result.get("ok")),
+                "status": "drained",
+                "mutated": bool(result.get("processed_count")),
+                "drain_result": result,
+                "projection_rebuild": "deferred_exact_receipt_drain",
+            }
+        return {
+            "ok": False,
+            "status": "task_ledger_projection_rebuild_failed",
+            "mutated": bool(result.get("processed_count")),
+            "blocked_by": ["task_ledger_projection_rebuild_failed"],
+            "drain_result": result,
+        }
     return {
         "ok": bool(result.get("ok")),
         "status": "drained" if result.get("processed_count") else "nothing_to_drain",
         "mutated": bool(result.get("processed_count")),
         "drain_result": result,
-        "projection_rebuild": "skipped_exact_closeout_fast_path",
+        "projection_rebuild": "rebuilt_exact_receipt_drain" if projection.get("ok") else "not_needed_no_append",
+    }
+
+
+def _mark_landing_runtime_append(
+    repo_root: Path,
+    *,
+    read_receipt_id: str,
+    session_id: str,
+    td_ids: Sequence[str],
+    work_item_ids: Sequence[str],
+    event_ids: Sequence[str],
+) -> dict[str, Any]:
+    read_receipt_resolution = _resolve_landing_runtime_read_receipt(
+        repo_root,
+        read_receipt_id=read_receipt_id,
+        session_id=session_id,
+        allow_ended=True,
+    )
+    effective_read_receipt_id = str(read_receipt_resolution.get("read_receipt_id") or read_receipt_id).strip()
+    try:
+        work_ledger_runtime.mark_ledger_append(
+            repo_root,
+            read_receipt_id=effective_read_receipt_id,
+            session_id=session_id,
+            td_ids=list(td_ids),
+            work_item_ids=list(work_item_ids),
+            event_ids=list(event_ids),
+        )
+    except ValueError as exc:
+        reason = str(exc)
+        if "ended session" not in reason:
+            raise
+        return {
+            "ok": True,
+            "status": "already_ended",
+            "reason": reason,
+            "read_receipt_id": effective_read_receipt_id,
+            "original_read_receipt_id": read_receipt_id if read_receipt_id != effective_read_receipt_id else None,
+            "read_receipt_resolution": read_receipt_resolution,
+            "session_id": session_id,
+        }
+    return {
+        "ok": True,
+        "status": "refreshed_read_receipt"
+        if str(read_receipt_resolution.get("status") or "") == "refreshed_read_receipt"
+        else "marked",
+        "read_receipt_id": effective_read_receipt_id,
+        "original_read_receipt_id": read_receipt_id if read_receipt_id != effective_read_receipt_id else None,
+        "read_receipt_resolution": read_receipt_resolution,
+        "session_id": session_id,
+    }
+
+
+def _current_active_session_read_receipt(
+    repo_root: Path,
+    *,
+    session_id: str,
+) -> str:
+    token = str(session_id or "").strip()
+    if not token:
+        return ""
+    runtime_status = work_ledger_runtime.load_runtime_status(repo_root, rebuild=False)
+    sessions = _mapping(runtime_status.get("sessions"))
+    session = _mapping(sessions.get(token))
+    if session.get("ended_at"):
+        return ""
+    return str(session.get("read_receipt_id") or "").strip()
+
+
+def _resolve_landing_runtime_read_receipt(
+    repo_root: Path,
+    *,
+    read_receipt_id: str,
+    session_id: str,
+    allow_ended: bool = False,
+) -> dict[str, Any]:
+    requested = str(read_receipt_id or "").strip()
+    token = str(session_id or "").strip()
+    try:
+        work_ledger_runtime.validate_read_receipt(
+            repo_root,
+            read_receipt_id=requested,
+            session_id=token or None,
+        )
+    except ValueError as exc:
+        reason = str(exc)
+        if allow_ended and "ended session" in reason:
+            return {
+                "ok": True,
+                "status": "already_ended",
+                "read_receipt_id": requested,
+                "session_id": token,
+                "reason": reason,
+            }
+        if "read_receipt_id is not valid" not in reason:
+            raise
+        refreshed = _current_active_session_read_receipt(repo_root, session_id=token)
+        if not refreshed or refreshed == requested:
+            raise
+        work_ledger_runtime.validate_read_receipt(
+            repo_root,
+            read_receipt_id=refreshed,
+            session_id=token or None,
+        )
+        return {
+            "ok": True,
+            "status": "refreshed_read_receipt",
+            "read_receipt_id": refreshed,
+            "original_read_receipt_id": requested,
+            "session_id": token,
+            "reason": reason,
+        }
+    return {
+        "ok": True,
+        "status": "valid",
+        "read_receipt_id": requested,
+        "session_id": token,
     }
 
 
@@ -3373,7 +4344,14 @@ def _apply_closeout_landing_attempt(
     thread_satisfied = bool(thread and str(thread.get("status") or "") == "closed")
     default_context = _default_work_ledger_context(repo_root)
     td_id = str(refreshed_state.get("td_id") or refreshed_attempt.get("td_id") or "").strip()
-    read_receipt_id = str(refreshed_state.get("read_receipt_id") or refreshed_attempt.get("read_receipt_id") or "").strip()
+    attempt_read_receipt_id = str(refreshed_state.get("read_receipt_id") or refreshed_attempt.get("read_receipt_id") or "").strip()
+    read_receipt_resolution = _resolve_landing_runtime_read_receipt(
+        repo_root,
+        read_receipt_id=attempt_read_receipt_id,
+        session_id=effective_session_id,
+        allow_ended=True,
+    )
+    read_receipt_id = str(read_receipt_resolution.get("read_receipt_id") or attempt_read_receipt_id).strip()
     resolved_commit = str(refreshed_state.get("commit_hash") or "").strip()
     transaction_id = str(refreshed_state.get("transaction_id") or "").strip()
     latest_receipt = _mapping(_mapping(status.get("convergence")).get("receipt_state")).get("latest_execution_receipt")
@@ -3420,6 +4398,8 @@ def _apply_closeout_landing_attempt(
             },
             "landing_action": CLOSEOUT_LANDING_ATTEMPT_ACTION_ID,
         }
+        if str(read_receipt_resolution.get("status") or "") == "refreshed_read_receipt":
+            metadata["read_receipt_refresh"] = read_receipt_resolution
         close_result = work_ledger.close_thread(
             repo_root,
             td_id=td_id,
@@ -3440,10 +4420,12 @@ def _apply_closeout_landing_attempt(
             ]),
             read_receipt_id=read_receipt_id,
             metadata={key: value for key, value in metadata.items() if value not in (None, "", [], {})},
+            projection_mode=WORK_LANDING_APPEND_PROJECTION_MODE,
         )
         close_result = {**close_result, "elapsed_ms": _elapsed_ms(step_started)}
+        close_result["read_receipt_resolution"] = read_receipt_resolution
         close_event = _mapping(close_result.get("event"))
-        work_ledger_runtime.mark_ledger_append(
+        close_result["runtime_append_mark"] = _mark_landing_runtime_append(
             repo_root,
             read_receipt_id=read_receipt_id,
             session_id=effective_session_id,
@@ -3462,6 +4444,7 @@ def _apply_closeout_landing_attempt(
             subject_ids=[subject_id],
             owned_paths=owned_paths,
             session_id=effective_session_id,
+            closed_attempt_overlay=False,
         )
         after_close_receipt_state = _receipt_apply_state(after_close_status)
         after_close_receipt_status = str(after_close_receipt_state.get("apply_status") or "")
@@ -3570,10 +4553,13 @@ def _apply_closeout_landing_attempt(
         final_blocked_by.append("session_not_finalized")
     final_apply_status = "already_done" if not final_blocked_by else "ready"
     final_receipt_event_id = _receipt_event_id_from_step_results(step_results) or receipt_event_id or None
+    exact_drain_projection_rebuild = str(
+        _mapping(step_results.get("exact_receipt_drain")).get("projection_rebuild") or ""
+    ).strip()
     step_results["closeout_fast_path"] = {
         "status": "used",
         "skipped_status_recomputes": 2 if not receipt_deferred_until_close else 1,
-        "task_ledger_projection_rebuild": "skipped_exact_receipt_drain",
+        "task_ledger_projection_rebuild": exact_drain_projection_rebuild or "not_applicable_no_exact_receipt_drain",
         "task_ledger_receipt_event_id": final_receipt_event_id,
         "step_elapsed_ms": {
             name: _mapping(result).get("elapsed_ms")
@@ -3648,6 +4634,7 @@ def _apply_land_scoped_commit_attempt(
         subject_ids=effective_subject_ids,
         owned_paths=owned_paths,
         session_id=effective_session_id or session_id,
+        closed_attempt_overlay=False,
     )
 
     step_started = time.perf_counter()
@@ -3712,6 +4699,7 @@ def build_work_landing_reconcile_plan(
         owned_paths=owned_paths,
         session_id=session_id,
         require_exclusive=require_exclusive,
+        closed_attempt_overlay=False,
     )
     actions = _ordered_controller_actions(status, repo_root=repo_root.resolve(), commit_hash=commit_hash)
     mode = "apply" if apply else "dry_run"
@@ -3768,13 +4756,18 @@ def build_work_landing_reconcile_plan(
             )
             applied_action_id = RECEIPT_INTAKE_ACTION_ID
         if apply_result is not None and applied_action_id:
-            if apply_result.get("mutated"):
+            refresh_after_apply = (
+                bool(apply_result.get("mutated"))
+                and applied_action_id != LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID
+            )
+            if refresh_after_apply:
                 status = build_work_landing_status(
                     repo_root,
                     subject_ids=subject_ids,
                     owned_paths=owned_paths,
                     session_id=session_id,
                     require_exclusive=require_exclusive,
+                    closed_attempt_overlay=False,
                 )
                 actions = _ordered_controller_actions(status, repo_root=repo_root.resolve(), commit_hash=commit_hash)
             for row in actions:
@@ -3782,6 +4775,8 @@ def build_work_landing_reconcile_plan(
                     row["apply_result"] = apply_result
                     row["apply_status"] = str(apply_result.get("status") or row.get("apply_status") or "")
                     row["would_mutate"] = bool(apply_result.get("mutated"))
+                    if apply_result.get("mutated") and not refresh_after_apply:
+                        row["post_apply_status_refresh"] = "skipped_serial_landing_apply_result_authoritative"
                     break
     return {
         "schema": RECONCILE_SCHEMA,
@@ -3793,6 +4788,15 @@ def build_work_landing_reconcile_plan(
         "recommended_next_action": status.get("recommended_next_action"),
         "actions": actions,
         "apply_result": apply_result,
+        "post_apply_status_refresh": (
+            "skipped_serial_landing_apply_result_authoritative"
+            if apply_result
+            and apply_result.get("mutated")
+            and applied_action_id == LAND_SCOPED_COMMIT_ATTEMPT_ACTION_ID
+            else "refreshed"
+            if apply_result and apply_result.get("mutated")
+            else "not_needed"
+        ),
         "mutation_policy": {
             "would_mutate": bool(apply_result and apply_result.get("mutated")),
             "auto_mutation_allowed": bool(apply),

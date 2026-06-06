@@ -1,0 +1,600 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-7",
+    "AX-8",
+    "AX-11"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/public_reveal_walkthrough.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public reveal fixture validation, exported public reveal bundle validation, copied source-module digest checks, negative-case enforcement, card compression, and receipt writing.",
+      "symbols": [
+        "run",
+        "run_reveal_bundle",
+        "_source_module_manifest_result",
+        "_source_open_body_import_summary",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING",
+        "PUBLIC_SAFE_SOURCE_BODY_CLASSES"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.entry_and_reveal_route_readiness_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Public Reveal Walkthrough",
+  "entry_surface_contract": null,
+  "evidence_class": "bounded_runtime_computation",
+  "family": "entry_and_reveal",
+  "id": "public_reveal_walkthrough",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's source module, exported public-reveal bundle, fixture receipts, acceptance receipt, source-module manifest, secret-exclusion checks, and mechanism row validate bounded public reveal material without claiming release, hosting, provider work, private equivalence, or whole-system correctness.",
+      "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "public_reveal_walkthrough",
+  "organ_payload": {
+    "claim_ceiling": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/public_reveal_walkthrough.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/public_reveal_walkthrough.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate the public reveal card, require the exported reveal-bundle witness, digest-check five copied non-secret public source bodies, confirm source-open body accounting, keep the secret scan clean, and prove the negative cases reject release/hosting overclaim, private-data-equivalence overclaim, missing evidence refs, marketing-only material, and tampered source-module digests.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "claim_ceiling_restated": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/public_reveal_walkthrough.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public reveal fixture validation, exported public reveal bundle validation, copied source-module digest checks, negative-case enforcement, card compression, and receipt writing.",
+          "symbols": [
+            "run",
+            "run_reveal_bundle",
+            "_source_module_manifest_result",
+            "_source_open_body_import_summary",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "PUBLIC_SAFE_SOURCE_BODY_CLASSES"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.entry_and_reveal_route_readiness_bundle"
+      ],
+      "display_name": "Public Reveal Walkthrough",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "entry_and_reveal",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+      "human_gloss": "This checks the short guided tour Microcosm advertises for a first-time reader and binds it to real public evidence: the declared route through patterns, work, events, and evidence must still point to receipts, and the exported reveal bundle must carry digest-verified copies of the public source bodies that back the walkthrough. The card remains bounded, but each impressive-looking count now leads to a source-body witness instead of stopping at marketing copy.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's source module, exported public-reveal bundle, fixture receipts, acceptance receipt, source-module manifest, secret-exclusion checks, and mechanism row validate bounded public reveal material without claiming release, hosting, provider work, private equivalence, or whole-system correctness.",
+          "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "public_reveal_walkthrough",
+      "paper_module_ref": "paper_modules/public_reveal_walkthrough.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[29:public_reveal_walkthrough]",
+      "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+      "specialty": [
+        "getting-started",
+        "evaluation",
+        "finance"
+      ],
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "batch12_release_claim_language_gate",
+        "mechanistic_interpretability_circuit_attribution_replay",
+        "batch8_audio_level_rms_port",
+        "batch8_validator_checker_capsule"
+      ],
+      "wiring_note": "validates a reveal path that explicitly names the `microcosm intake` runtime bridge, `formal_math_readiness_extensions`, and the observatory/macro-projection intake board, while itself consuming only fixtures and the shared kernel + evidence/authority spine. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",
+      "classification_basis": "fixture card requires the exported reveal bundle witness; bundle validation digest-verifies five copied non-secret public macro bodies, rejects tampered source-module digests, and the focused proof ladder exercises microcosm compile/explain over a scratch project",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[public_reveal_walkthrough]",
+      "evidence_strength_rank": 4,
+      "generated_receipts": [
+        "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+        "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+        "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+        "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
+      ],
+      "organ_id": "public_reveal_walkthrough",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.public_reveal_walkthrough",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.public_reveal_walkthrough run-reveal-bundle --input examples/public_reveal_walkthrough/exported_public_reveal_bundle --out receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/public_reveal_walkthrough.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-3",
+    "P-5",
+    "P-6",
+    "P-8",
+    "P-9",
+    "P-12",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+    "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+    "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/public_reveal_walkthrough.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public reveal fixture validation, exported public reveal bundle validation, copied source-module digest checks, negative-case enforcement, card compression, and receipt writing.",
+        "symbols": [
+          "run",
+          "run_reveal_bundle",
+          "_source_module_manifest_result",
+          "_source_open_body_import_summary",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "PUBLIC_SAFE_SOURCE_BODY_CLASSES"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.entry_and_reveal_route_readiness_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.public_reveal_walkthrough",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].mechanism_refs[0]",
+          "summary": "The organ's source module, exported public-reveal bundle, fixture receipts, acceptance receipt, source-module manifest, secret-exclusion checks, and mechanism row validate bounded public reveal material without claiming release, hosting, provider work, private equivalence, or whole-system correctness."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].code_loci[0]",
+          "summary": "Runtime authority for public reveal fixture validation, exported public reveal bundle validation, copied source-module digest checks, negative-case enforcement, card compression, and receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/public_reveal_walkthrough.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.entry_and_reveal_route_readiness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch12_release_claim_language_gate",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "mechanistic_interpretability_circuit_attribution_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_audio_level_rms_port",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_validator_checker_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's source module, exported public-reveal bundle, fixture receipts, acceptance receipt, source-module manifest, secret-exclusion checks, and mechanism row validate bounded public reveal material without claiming release, hosting, provider work, private equivalence, or whole-system correctness.",
+        "ref": "mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/public_reveal_walkthrough.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[29:public_reveal_walkthrough]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch12_release_claim_language_gate",
+      "mechanistic_interpretability_circuit_attribution_replay",
+      "batch8_audio_level_rms_port",
+      "batch8_validator_checker_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate the public reveal card, require the exported reveal-bundle witness, digest-check five copied non-secret public source bodies, confirm source-open body accounting, keep the secret scan clean, and prove the negative cases reject release/hosting overclaim, private-data-equivalence overclaim, missing evidence refs, marketing-only material, and tampered source-module digests.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[29:public_reveal_walkthrough]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[29:public_reveal_walkthrough]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/public_reveal_walkthrough.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "getting-started",
+    "evaluation",
+    "finance"
+  ],
+  "statement": "An agent runs it to validate the public reveal card, require the exported reveal-bundle witness, digest-check five copied non-secret public source bodies, confirm source-open body accounting, keep the secret scan clean, and prove the negative cases reject release/hosting overclaim, private-data-equivalence overclaim, missing evidence refs, marketing-only material, and tampered source-module digests.",
+  "status": "accepted_current_authority",
+  "title": "Public Reveal Walkthrough",
+  "validator_refs": [
+    "python -m microcosm_core.organs.public_reveal_walkthrough run-reveal-bundle --input examples/public_reveal_walkthrough/exported_public_reveal_bundle --out receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch12_release_claim_language_gate",
+    "mechanistic_interpretability_circuit_attribution_replay",
+    "batch8_audio_level_rms_port",
+    "batch8_validator_checker_capsule"
+  ]
+}

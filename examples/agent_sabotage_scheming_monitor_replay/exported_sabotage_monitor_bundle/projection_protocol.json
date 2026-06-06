@@ -22,12 +22,14 @@
     "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json",
     "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json",
     "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json",
-    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json"
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json",
+    "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.sanitized_command_trace.json"
   ],
   "reimplemented_public_logic": [
     "typed episode-action-score joins",
     "per-step monitor verdict validation",
     "counterfactual benign replay requirement",
+    "digest-verified sanitized public dogfood trace source-artifact citation",
     "negative-case admission boundary",
     "authority ceiling receipt"
   ],
@@ -37,6 +39,7 @@
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sabotage_scheming_monitor_replay_compound",
     "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json::claim_contract_shape",
-    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json::scheming_monitor_disagreement"
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json::scheming_monitor_disagreement",
+    "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json::authority_card_workingness_card_proof_lab_card"
   ]
 }

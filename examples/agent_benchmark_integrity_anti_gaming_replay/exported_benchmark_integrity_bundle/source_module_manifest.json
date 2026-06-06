@@ -1,9 +1,9 @@
 {
-  "anti_claim": "These copied pattern provenance bodies make the public benchmark-integrity organ accountable to real macro ledger rows and reconstruction state. They do not authorize benchmark scores, expose private issue/oracle/hidden-gold/provider bodies, run providers, mutate repositories, or authorize release.",
+  "anti_claim": "These copied pattern provenance bodies and sanitized real benchmark command-run trace make the public benchmark-integrity organ accountable to real macro ledger rows, reconstruction state, and a real focused pytest episode. They do not authorize benchmark scores, expose private issue/oracle/hidden-gold/provider bodies, run providers, mutate repositories, or authorize release.",
   "body_in_receipt": false,
   "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_benchmark_integrity_bundle",
   "manifest_id": "agent_benchmark_integrity_pattern_provenance_source_module_manifest",
-  "module_count": 3,
+  "module_count": 4,
   "modules": [
     {
       "body_copied": true,
@@ -62,6 +62,26 @@
       "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
       "validation_refs": [
         "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 52,
+      "material_class": "public_sanitized_real_benchmark_trace",
+      "module_id": "benchmark_integrity_real_pytest_command_run_trace",
+      "path": "source_artifacts/real_traces/benchmark_integrity_pytest_cmdrun_20260604T215615Z_92860_96643ade2288.json",
+      "public_safe_mode": "sanitized_real_command_run_trace",
+      "sha256": "sha256:cbdfbf5ac4069691ad649e8df40853732d669f52b430c313c57b12ae5f59a0de",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/command_runs/runs/cmdrun_20260604T215615Z_92860_96643ade2288.json + state/command_runs/outputs/cmdrun_20260604T215615Z_92860_96643ade2288.stdout",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/real_traces/benchmark_integrity_pytest_cmdrun_20260604T215615Z_92860_96643ade2288.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_requires_real_benchmark_trace",
         "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
       ]
     }

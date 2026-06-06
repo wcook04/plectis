@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 12 market-dashboard read-model validation executes copied non-secret macro source over bounded public fixtures. It validates structure, feed freshness states, and entity-overlap cohort behavior only; it is not live market truth, investment advice, provider capability, release authority, or whole-system correctness.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch12_market_dashboard_read_model_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch12_market_dashboard_read_model_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch12_market_dashboard_read_model_capsule"
+}

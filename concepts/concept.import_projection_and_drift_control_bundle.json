@@ -1,0 +1,722 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_concept_index_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record which specimen carried the pressure and what concept boundary changed; a frontend or projection surface may consume this route but must not become a parallel concept index.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "concept_role",
+      "mechanism_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This family concept does not flip legacy or generated projections into source authority.",
+    "Digest parity and drift checks are bounded import evidence, not whole-system correctness.",
+    "This concept JSON seed does not flip source authority away from atlas/entry_packet.json.",
+    "A population specimen is not proof of complete concept coverage or principle support.",
+    "Absent concept edges are residual pressure, not evidence that no neighbours exist."
+  ],
+  "authority_boundary": "public_concept_json_seeded_from_entry_packet_specimen_not_authority_flip_until_parity_receipt",
+  "cluster_flag": {
+    "authority_boundary": "cluster_flag_not_source_authority_compact_navigation_row_derived_from_concept_relationships",
+    "axiom_count": 4,
+    "claim": "source import and projection drift controls as provenance-preserving boundaries",
+    "cluster_id": "import_projection_and_drift_control_bundle",
+    "concept_id": "concept.import_projection_and_drift_control_bundle",
+    "drilldown": "concepts/concept.import_projection_and_drift_control_bundle.json",
+    "kind": "concept",
+    "mechanism_count": 31,
+    "principle_count": 4,
+    "schema_version": "microcosm_concept_cluster_flag_v1",
+    "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]",
+    "specimen_id": "import_projection_and_drift_control_bundle"
+  },
+  "concept_payload": {
+    "concept_binding": {
+      "anti_glossary_rule": "Family concept population must remain source-bound to organ_atlas family rows, not glossary labels or specialty prose.",
+      "concept_role": "source import and projection drift controls as provenance-preserving boundaries",
+      "payload_shape_ref": "core/organ_atlas.json.family=import_projection_and_drift plus source-module manifest refs",
+      "relationship_shape": "import/drift organ family -> source-module or projection mechanism -> digest/anchor/receipt boundary"
+    },
+    "contract_version": "microcosm_concept_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "atlas/entry_packet.json"
+    },
+    "paired_mechanism_binding": {
+      "anti_feature_prose_rule": "Family mechanism population must name validator and receipt effects, not feature prose or family marketing copy.",
+      "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
+      "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
+      "state_or_proof_effect": "imported material remains tied to source anchors and drift receipts instead of becoming ambient doctrine authority",
+      "transformation_shape": "macro source or projection bundle -> import/drift validator -> digest-bound public receipt"
+    },
+    "projection_contract": {
+      "entry_packet_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "concepts/concept.import_projection_and_drift_control_bundle.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "concepts/concept.import_projection_and_drift_control_bundle.json"
+    },
+    "source_specimen_id": "import_projection_and_drift_control_bundle",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "specimen_route_boundary_only_not_truth_support_claim"
+    }
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_concept.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_concept]",
+      "core/public_standard_pressure.json::concept_handle_requires_entry_surface"
+    ],
+    "reader_rule": "Use concept rows as typed vocabulary boundaries with source refs, relationships, payload shape, omission receipt, and anti-claims; do not treat them as glossary-only prose.",
+    "required": true
+  },
+  "id": "concept.import_projection_and_drift_control_bundle",
+  "kind": "concept",
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::family=import_projection_and_drift",
+    "omitted": [
+      "private macro bodies not admitted to public receipts",
+      "unstated source refs",
+      "live freshness beyond named receipts"
+    ],
+    "reason": "Concept instance preserves public-safe specimen row fields only; typed concept edges are computed from source-named ids, and unnamed or unresolved relation classes remain residual pressure."
+  },
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated concept row must point to at least one runnable or inspectable specimen that shows why the vocabulary boundary matters; glossary-only prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "concept_role",
+      "mechanism_pair_ref",
+      "source_refs",
+      "relationship_shape",
+      "payload_shape_ref",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-4",
+      "AX-8",
+      "AX-10",
+      "AX-12"
+    ],
+    "concept_role": "source import and projection drift controls as provenance-preserving boundaries",
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].principle_ids",
+          "summary": "The family concept requires recomputed validator or projection evidence rather than copying generated status as authority."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].principle_ids",
+          "summary": "Family edges carry provenance through source rows, code loci, and receipt refs."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].principle_ids",
+          "summary": "Drift and freshness facts remain bound to refresh routes and named receipts."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-11",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].principle_ids",
+          "summary": "Generated projections of the family stay below the source registries and receipts."
+        },
+        "relation_id": "concept.implements_or_refines.principle",
+        "relation_verb": "implements_or_refines",
+        "residual_pressure_ref": null,
+        "reverse_verb": "refined_by",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "Population specimen source row names this mechanism as the concrete runtime instance for the concept."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row runs in an accepted organ whose organ_atlas family is import_projection_and_drift."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].mechanism_ids",
+          "summary": "The mechanism source row names this import/projection concept while retaining a planned organ-target marker."
+        },
+        "relation_id": "concept.instantiated_by.mechanism",
+        "relation_verb": "instantiated_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiates",
+        "target_id": "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].axiom_ids",
+          "summary": "Digest, anchor, or source-module identity must be content-addressed where the family imports material."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].axiom_ids",
+          "summary": "Provenance must survive boundary crossings from source rows to generated projections."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].axiom_ids",
+          "summary": "Freshness-sensitive family facts need dated receipts and refresh routes."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-10",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle].axiom_ids",
+          "summary": "Microcosm family concepts obey the same evidence and anti-claim floor as external claims."
+        },
+        "relation_id": "concept.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-12",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "entry_ref": "core/organ_atlas.json::family=import_projection_and_drift",
+    "mechanism_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
+    "mechanism_refs": [
+      "mechanism.batch10_frontend_work_market_cockpit_capsule.validates_frontend_work_market_source_open_capsule",
+      "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule",
+      "mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule",
+      "mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule",
+      "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate",
+      "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule",
+      "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule",
+      "mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule",
+      "mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule",
+      "mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule",
+      "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule",
+      "mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port",
+      "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+      "mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule",
+      "mechanism.batch8_station_surface_atlas_layout_port.validates_public_station_surface_atlas_layout_port",
+      "mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule",
+      "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+      "mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule",
+      "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
+      "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+      "mechanism.engine_room_demo.validates_public_engine_room_demo",
+      "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+      "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+      "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+      "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab",
+      "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
+      "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
+      "mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports",
+      "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory",
+      "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+      "mechanism.batch7_zenith_macos_capsule.validates_public_zenith_macos_capsule"
+    ],
+    "payload_shape_ref": "core/organ_atlas.json.family=import_projection_and_drift plus source-module manifest refs",
+    "principle_refs": [
+      "P-1",
+      "P-9",
+      "P-11",
+      "P-15"
+    ],
+    "relationship_shape": "import/drift organ family -> source-module or projection mechanism -> digest/anchor/receipt boundary",
+    "source_specimen_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]",
+    "specimen_id": "import_projection_and_drift_control_bundle",
+    "specimen_role": "organ_family_concept_specimen",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_concept_instance_v1",
+  "source_refs": [
+    {
+      "path": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]",
+      "role": "entry_packet_population_specimen_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "concepts/concept.import_projection_and_drift_control_bundle.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "core/organ_atlas.json::organs[family=import_projection_and_drift]",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "core/mechanism_sources.json::mechanisms[runs_in.organ.family=import_projection_and_drift]",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[subjects.organ.family=import_projection_and_drift]",
+      "role": "specimen_source_ref"
+    },
+    {
+      "path": "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+      "role": "specimen_source_ref"
+    }
+  ],
+  "statement": "source import and projection drift controls as provenance-preserving boundaries",
+  "status": "active",
+  "title": "source import and projection drift controls as provenance-preserving boundaries",
+  "validator_refs": [
+    "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+    "tests/test_concept_mechanism_population.py::test_family_population_specimens_bind_resolved_mechanisms",
+    "tests/test_doctrine_lattice_runtime.py::test_family_concept_refs_bind_organs_mechanisms_and_paper_modules"
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "anti_claim": "This Batch-8 policy-engine fixture accepts exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not run live campaigns, mutate repositories, call providers, export private artifacts, claim market truth, authorize publication, or approve release.",
+  "authority_boundary": "public_batch8_policy_engine_source_open_capsule_not_runtime_or_release_authority",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_policy_engine_public_substrate_capsule_not_runtime_or_release_authority",
+    "live_campaign_execution_authorized": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "first_wave_required": true,
+  "kind_id": "batch8_policy_engines_capsule",
+  "kind_name": "Batch 8 policy engines capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public engine ids and source-module ids",
+      "public negative-case ids and stable error codes",
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded synthetic exercise outcomes",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_source_open_capsule_with_exact_copied_non_secret_policy_engine_modules",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private artifact bodies",
+      "live campaign execution state",
+      "publication operation state"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "engine_count",
+      "source_module_manifest",
+      "runtime_exercises",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch8_policy_engines_capsule",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch8_policy_engines_capsule_result.json",
+    "batch8_policy_engines_capsule_board.json",
+    "batch8_policy_engines_capsule_validation_receipt.json",
+    "batch8_policy_engines_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch8_policy_engines_capsule",
+    "source_pattern_id_sample": [
+      "lab_contract_audit_deterministic_red_gate",
+      "market_fusion_readiness_fail_closed_gate",
+      "campaign_dispatch_status_transition_adjudicator"
+    ],
+    "used_by_organs": [
+      "batch8_policy_engines_capsule"
+    ]
+  },
+  "required_fields": [
+    "mechanisms",
+    "source_module_manifest",
+    "runtime_exercises",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch8_policy_engines_capsule/input",
+      "role": "public_engine_and_negative_case_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch8_policy_engines_capsule",
+  "standard_payload": {
+    "anti_purpose": "Fixture-only receipts, prose-only claims, live campaign mutation, market truth claims, or provider dispatch that does not copy source bodies, execute source behavior, preserve anti-claims, and block private/live-state export.",
+    "failure_modes": [
+      "engine count drifts from the three Batch-8 policy-engine targets",
+      "source module count drifts from three without manifest and test updates",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required anchors",
+      "runtime exercises stop executing source behavior and become receipt-only checks",
+      "receipts include copied body text, raw operator transcripts, private artifacts, provider/browser state, credentials, or private runtime state"
+    ],
+    "ontology": "A public-safe composite organ that imports Batch-8 policy engines as exact copied macro source bodies plus public exercises.",
+    "teleology": "Let a cold reader inspect and rerun deterministic policy mechanics without confusing source-open executable evidence with live private runtime, campaign, market, mutation, publication, or release authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch8_policy_engines_capsule",
+      "receipt_id": "receipt.microcosm.batch8_policy_engines_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly three Batch-8 policy-engine rows",
+    "require exactly three copied macro source modules",
+    "verify source-to-target digest equality and required anchors for every copied source module",
+    "execute real copied source bodies against public synthetic payloads",
+    "require stable negative-case codes for all three policy engines",
+    "keep provider dispatch, live campaign execution, repository mutation, source mutation, publication, and release authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_policy_engines_capsule run --input fixtures/first_wave/batch8_policy_engines_capsule/input --out receipts/first_wave/batch8_policy_engines_capsule --acceptance-out receipts/acceptance/first_wave/batch8_policy_engines_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 3,
+    "expected_source_module_count": 3,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_policy_engines_capsule validate-bundle --input examples/batch8_policy_engines_capsule/exported_batch8_policy_engines_capsule_bundle --out /tmp/batch8_policy_engines_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch8_policy_engines_capsule"
+  },
+  "wave": "w1_batch8_policy_engines_capsule",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch8_policy_engines_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 8 policy engines capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch8_policy_engines_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 8 policy engines capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch8_policy_engines_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch8_policy_engines_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch8_policy_engines_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch8_policy_engines_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch8_policy_engines_capsule"
+  ],
+  "anti_claims": [
+    "This Batch-8 policy-engine fixture accepts exact copied non-secret macro source bodies, bounded public exercises, and stable negative-case codes only. It does not run live campaigns, mutate repositories, call providers, export private artifacts, claim market truth, authorize publication, or approve release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch8_policy_engines_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch8_policy_engines_capsule",
+    "receipt_id": "receipt.microcosm.batch8_policy_engines_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, and public_private_boundary."
+  }
+}

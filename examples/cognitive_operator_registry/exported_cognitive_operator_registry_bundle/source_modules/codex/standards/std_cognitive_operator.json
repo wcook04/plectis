@@ -153,6 +153,7 @@
   "prompt_route_assimilation_extension": {
     "purpose": "Operators that convert prompt-derived route misses into retained future routing affordances must retain the source lens, phrase evidence, target surface, mutation, validation prompt, and retention check.",
     "retention_policy": "Private or high-context prompt wording must be abstracted into the smallest reusable route phrase before it is retained; do not copy prompt lore into broad aliases when a typed operator, concept, standard, or option surface can carry the route.",
+    "claim_frontier_policy": "When the target operator row is actively claimed by another live session, do not bypass the claim or create a parallel operator. Land only an unclaimed governing-standard clarification or validator/test hunk that preserves the same rule, and require the eventual dogfood receipt to bind the phrase evidence back to the target operator row once the owner lane clears.",
     "operator_field": "prompt_route_assimilation_contract",
     "required_receipt_fields_when_enabled": [
       "source_lens",

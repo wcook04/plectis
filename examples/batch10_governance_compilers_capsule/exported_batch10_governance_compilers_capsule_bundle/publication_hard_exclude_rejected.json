@@ -1,0 +1,17 @@
+{
+  "body_in_receipt": false,
+  "case_id": "publication_hard_exclude_rejected",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "hard_exclude_rejected",
+  "error_codes": [
+    "BATCH10_PUBLICATION_HARD_EXCLUDE_REJECTED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "publication_manifest_selector_contract_verifier",
+  "probe_input": {
+    "hard_exclude": "private/",
+    "included_path": "private/raw_seed.md"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

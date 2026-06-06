@@ -33,6 +33,9 @@ def test_render_profile_pointer_exposes_owner_routes_and_projection_boundary() -
     assert pointer["status_sidecar_path"] == "state/system_atlas/type_b_grounding_packet_status.json"
     assert pointer["projection_not_authority"] is True
     assert pointer["refresh_owner"] == "type_a_or_always_on_metabolism"
+    assert pointer["compression_passport"]["atom"] == "Type B grounding packet"
+    assert "public_safe_projection" in pointer["compression_passport"]["cluster_keys"]
+    assert "Type A verification" in pointer["compression_passport"]["when_not_to_open"]
     assert pointer["owner_routes"]["refresh_command"].endswith(
         "--render-profile type_b_external_grounding_v1"
     )

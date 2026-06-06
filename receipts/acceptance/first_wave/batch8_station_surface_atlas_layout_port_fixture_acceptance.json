@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 8 StationSurfaceAtlas layout port validates a Python parity model of layoutNodes over public synthetic AtlasView rows and an exact copied non-secret TSX source reference. It is not React runtime evidence, not browser visual acceptance, not navigation_graph authority, not repository mutation authority, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch8_station_surface_atlas_layout_port",
+  "organ_id": "batch8_station_surface_atlas_layout_port",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch8_station_surface_atlas_layout_port/batch8_station_surface_atlas_layout_port_validation_receipt.json"
+}

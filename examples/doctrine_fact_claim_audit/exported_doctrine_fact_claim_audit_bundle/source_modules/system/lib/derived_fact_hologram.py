@@ -36,7 +36,12 @@ FACT_OUTPUT_PATHS = {
 }
 VOLATILE_FRESHNESS_FACT_IDS = frozenset(
     {
+        "task_ledger.authority.audit_event_count",
+        "task_ledger.authority.authority_event_count",
         "task_ledger.events_count",
+        "task_ledger.projection.authority_only_closeout_ok",
+        "task_ledger.projection.delta_event_count",
+        "task_ledger.projection.rebuild_priority_status",
     }
 )
 _VOLATILE_FRESHNESS_VALUE = "__volatile_fact_value__"
@@ -62,6 +67,92 @@ STATE_AXIS_COVERAGE_OVERRIDES = {
             "process_audit_behavior_facts",
         ],
     },
+}
+STATE_AXIS_COVERAGE_FAMILY_CLOSURES = {
+    "dissemination_gate_state_facts": {"dissemination_gate.state_family"},
+    "generated_output_freshness_facts": {"generated_output.state_family"},
+    "process_audit_behavior_facts": {"process_audit.state_family"},
+    "skill_state_facts": {"skill.state_family"},
+    "standard_clause_policy_facts": {"standard_clause.state_family"},
+    "system_atlas_freshness_facts": {"system_atlas.state_family"},
+    "task_ledger_state_facts": {"task_ledger.state_family"},
+}
+STANDARD_POLICY_TERMS = {
+    "banned": "banned",
+    "debug only": "debug_only",
+    "do not": "do_not",
+    "forbidden": "forbidden",
+    "must not": "must_not",
+    "never": "never",
+    "not allowed": "not_allowed",
+}
+STANDARD_POLICY_SCAN_EXCLUDED_FILES = {
+    "std_python_scope_index.json",
+}
+PROCESS_AUDIT_PATH = "codex/hologram/process/audit.json"
+PROCESS_AUDIT_SUMMARY_PATH = "codex/hologram/process/summary.json"
+PROCESS_AUDIT_STATIC_SOURCE_PATHS = (
+    "system/lib/agent_execution_trace.py",
+    "system/lib/kernel/commands/navigate.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/doctrine/process/trace_rules.json",
+)
+PROCESS_AUDIT_BANNED_PATTERN_IDS = {
+    "anti_pattern_cold_boot_missing_info",
+    "anti_pattern_deep_without_ladder",
+    "anti_pattern_grep_before_kernel",
+    "anti_pattern_paper_module_skip",
+}
+SKILL_REGISTRY_PATH = "codex/doctrine/skills/skill_registry.json"
+SKILL_POLICY_AGENT_SURFACE_FIELDS = ("must", "not_when", "entry")
+DISSEMINATION_GATE_SOURCE_PATHS = (
+    "docs/dissemination/public_toggle_readiness_gate_v0.json",
+    "docs/dissemination/microcosm_release_candidate_gate_v0.json",
+    "docs/dissemination/release_claim_language_gate_v0.json",
+    "docs/dissemination/microcosm_public_release_boundary_controller_v0.json",
+    "docs/dissemination/portability_gate_report_v0.json",
+)
+DISSEMINATION_PUBLIC_SAFETY_RECEIPT_GLOBS = (
+    "tools/meta/microcosm_public_safety/current_findings_receipt_*.json",
+    "tools/meta/microcosm_public_safety/generated_refresh_blocked_receipt_*.json",
+)
+DISSEMINATION_GATE_TOP_LEVEL_FIELDS = (
+    "hosted_public_authorized",
+    "operator_release_authorization_present",
+    "publication_authorized",
+    "public_toggle",
+    "public_toggle_status",
+    "publish_allowed",
+    "release_action",
+    "release_authorized",
+    "status",
+)
+DISSEMINATION_GATE_NESTED_FIELD_PATHS = (
+    ("authority_boundary", "release_authorized"),
+    ("authority_boundary", "public_grounding_authorized_by_this_gate"),
+    ("release_gate_decision", "overall_release_gate"),
+    ("release_gate_decision", "public_toggle_status"),
+    ("release_gate_decision", "verifier_public_bound_gate"),
+    ("truthful_release_gate", "overall_release_gate"),
+    ("truthful_release_gate", "generated_artifact_gate"),
+    ("truthful_release_gate", "work_admission_gate"),
+)
+DISSEMINATION_BLOCKED_VALUES = {
+    "absent",
+    "amber",
+    "block",
+    "blocked",
+    "blocked_pending_builder_refresh",
+    "dirty",
+    "fail",
+    "false",
+    "no_go",
+    "none",
+    "not_green",
+    "not_green_until_portability_gate",
+    "not_ready",
+    "not_supplied",
+    "red",
 }
 
 FACT_TABLE_COLUMNS = ("fact id", "expected", "mode", "as of", "tolerance", "why")
@@ -139,6 +230,10 @@ def _json_pointer_tokens(pointer: str) -> list[str]:
     if not raw.startswith("/"):
         raise ValueError(f"JSON pointer must start with '/': {pointer}")
     return [token.replace("~1", "/").replace("~0", "~") for token in raw.split("/")[1:]]
+
+
+def _json_pointer_escape(token: Any) -> str:
+    return str(token).replace("~", "~0").replace("/", "~1")
 
 
 def resolve_json_pointer(payload: Any, pointer: str) -> Any:
@@ -289,6 +384,7 @@ def _state_fact(
     owner_surface: str,
     drilldown_command: str,
     mechanism_refs: Sequence[Mapping[str, Any] | str] | None = None,
+    extra: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     normalized_refs: list[Any] = []
     for item in mechanism_refs or []:
@@ -296,7 +392,7 @@ def _state_fact(
             normalized_refs.append(dict(item))
         elif str(item or "").strip():
             normalized_refs.append(_mechanism_ref(str(item).strip()))
-    return {
+    row = {
         "id": fact_id,
         "title": title,
         "family_id": family_id,
@@ -316,6 +412,11 @@ def _state_fact(
         "drilldown_command": drilldown_command,
         "mechanism_refs": normalized_refs,
     }
+    if extra:
+        for key, value in extra.items():
+            if value not in (None, ""):
+                row[str(key)] = value
+    return row
 
 
 def _indexable_value(value: Any) -> str | None:
@@ -641,6 +742,315 @@ def _entry_policy_facts(repo_root: Path, *, family_id: str, base_tags: Sequence[
     return rows
 
 
+def _iter_json_string_leaves(value: Any, tokens: Sequence[Any] = ()) -> list[tuple[list[Any], str]]:
+    if isinstance(value, str):
+        return [(list(tokens), value)]
+    if isinstance(value, Mapping):
+        rows: list[tuple[list[Any], str]] = []
+        for key, item in value.items():
+            rows.extend(_iter_json_string_leaves(item, [*tokens, key]))
+        return rows
+    if isinstance(value, list):
+        rows = []
+        for index, item in enumerate(value):
+            rows.extend(_iter_json_string_leaves(item, [*tokens, index]))
+        return rows
+    return []
+
+
+def _policy_terms(text: str) -> list[str]:
+    lower = text.lower()
+    return [term_id for phrase, term_id in STANDARD_POLICY_TERMS.items() if phrase in lower]
+
+
+def _standard_clause_source_paths(repo_root: Path) -> list[Path]:
+    root = repo_root / "codex/standards"
+    if not root.exists():
+        return []
+    return sorted(
+        path
+        for path in root.glob("std_*.json")
+        if path.is_file() and path.name not in STANDARD_POLICY_SCAN_EXCLUDED_FILES
+    )
+
+
+def _standard_clause_policy_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in _standard_clause_source_paths(repo_root):
+        payload = _safe_read_json(path)
+        if not isinstance(payload, Mapping):
+            continue
+        source_path = _relpath(path, repo_root=repo_root)
+        standard_id = str(payload.get("id") or path.stem).strip()
+        owner_surface = standard_id or path.stem
+        for pointer_tokens, clause in _iter_json_string_leaves(payload):
+            term_ids = _policy_terms(clause)
+            if not term_ids:
+                continue
+            pointer = "/" + "/".join(_json_pointer_escape(token) for token in pointer_tokens)
+            digest = hashlib.sha256(f"{source_path}#{pointer}".encode("utf-8")).hexdigest()[:12]
+            rows.append(
+                _state_fact(
+                    fact_id=f"standard_clause.{_safe_id_token(owner_surface)}.{digest}.policy_status",
+                    title=f"Standard {owner_surface} policy clause {pointer}",
+                    family_id=family_id,
+                    subject_kind="standard_clause",
+                    subject_ref=owner_surface,
+                    facet="policy_status",
+                    value="banned",
+                    tags=_state_tags(
+                        base_tags,
+                        ["standard_clause", "standards", "policy", "banned"],
+                        term_ids,
+                    ),
+                    source_path=source_path,
+                    pointer=pointer,
+                    owner_surface=owner_surface,
+                    drilldown_command=f"jq '.' {source_path}",
+                    mechanism_refs=[],
+                )
+            )
+    return rows
+
+
+def _iter_skill_registry_rows(payload: Mapping[str, Any]) -> list[tuple[int, int, Mapping[str, Any], Mapping[str, Any]]]:
+    rows: list[tuple[int, int, Mapping[str, Any], Mapping[str, Any]]] = []
+    for family_index, family in enumerate(payload.get("families") or []):
+        if not isinstance(family, Mapping):
+            continue
+        for skill_index, skill in enumerate(family.get("skills") or []):
+            if isinstance(skill, Mapping):
+                rows.append((family_index, skill_index, family, skill))
+    return rows
+
+
+def _skill_state_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    path = repo_root / SKILL_REGISTRY_PATH
+    payload = _safe_read_json(path)
+    if not isinstance(payload, Mapping):
+        return []
+    facts: list[dict[str, Any]] = []
+    for family_index, skill_index, family, skill in _iter_skill_registry_rows(payload):
+        skill_id = str(skill.get("id") or "").strip()
+        if not skill_id:
+            continue
+        family_ref = str(family.get("family_id") or skill.get("family") or "").strip()
+        agent_surface = skill.get("agent_surface")
+        if not isinstance(agent_surface, Mapping):
+            continue
+        skill_file = str(skill.get("file") or "").strip()
+        owner_surface = skill_id
+        for field in SKILL_POLICY_AGENT_SURFACE_FIELDS:
+            text = str(agent_surface.get(field) or "").strip()
+            term_ids = _policy_terms(text)
+            if not term_ids:
+                continue
+            pointer = f"/families/{family_index}/skills/{skill_index}/agent_surface/{_json_pointer_escape(field)}"
+            digest = hashlib.sha256(f"{SKILL_REGISTRY_PATH}#{pointer}".encode("utf-8")).hexdigest()[:12]
+            facts.append(
+                _state_fact(
+                    fact_id=f"skill.{_safe_id_token(skill_id)}.{digest}.policy_status",
+                    title=f"Skill {skill_id} policy field {field}",
+                    family_id=family_id,
+                    subject_kind="skill",
+                    subject_ref=skill_id,
+                    facet="policy_status",
+                    value="banned",
+                    tags=_state_tags(
+                        base_tags,
+                        ["skill", "skills", "policy", "banned"],
+                        [family_ref, field, *term_ids],
+                    ),
+                    source_path=SKILL_REGISTRY_PATH,
+                    pointer=pointer,
+                    owner_surface=owner_surface,
+                    drilldown_command=f"./repo-python kernel.py --option-surface skills --band card --ids {skill_id}",
+                    mechanism_refs=[],
+                    extra={
+                        "skill_file": skill_file or None,
+                        "skill_family": family_ref or None,
+                    },
+                )
+            )
+    return facts
+
+
+def _latest_existing_paths(repo_root: Path, patterns: Sequence[str]) -> list[Path]:
+    paths: list[Path] = []
+    for pattern in patterns:
+        matches = sorted(repo_root.glob(pattern))
+        if matches:
+            paths.append(matches[-1])
+    return paths
+
+
+def _dissemination_gate_source_paths(repo_root: Path) -> list[Path]:
+    paths = [repo_root / rel for rel in DISSEMINATION_GATE_SOURCE_PATHS]
+    paths.extend(_latest_existing_paths(repo_root, DISSEMINATION_PUBLIC_SAFETY_RECEIPT_GLOBS))
+    return [path for path in paths if path.exists() and path.is_file()]
+
+
+def _nested_value(payload: Mapping[str, Any], tokens: Sequence[str]) -> Any:
+    value: Any = payload
+    for token in tokens:
+        if not isinstance(value, Mapping):
+            return None
+        value = value.get(token)
+    return value
+
+
+def _dissemination_gate_is_blocked(facet: str, value: Any) -> bool:
+    if isinstance(value, bool):
+        return not value and any(
+            token in facet
+            for token in ("authorized", "allowed", "operator_release_authorization", "public_grounding")
+        )
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value > 0 and facet in {"blocking_condition_count", "blocker_count"}
+    normalized = _safe_id_token(str(value or ""))
+    return normalized in DISSEMINATION_BLOCKED_VALUES or normalized.startswith("blocks_")
+
+
+def _dissemination_gate_tags(facet: str, value: Any, base_tags: Sequence[Any]) -> list[str]:
+    raw = str(value if value is not None else "").strip()
+    normalized = _safe_id_token(raw)
+    tags = ["dissemination_gate", "release_gate", "public_safety", "state", facet]
+    if normalized and len(normalized) <= 80:
+        tags.append(normalized)
+    if _dissemination_gate_is_blocked(facet, value):
+        tags.extend(["blocked", "banned"])
+    elif normalized in {"clear", "green", "pass", "true"} or value is True:
+        tags.append("fresh")
+    return _state_tags(base_tags, tags)
+
+
+def _dissemination_gate_fact(
+    *,
+    gate_id: str,
+    family_id: str,
+    base_tags: Sequence[Any],
+    source_path: str,
+    pointer: str,
+    facet: str,
+    value: Any,
+) -> dict[str, Any]:
+    digest = hashlib.sha256(f"{source_path}#{pointer}".encode("utf-8")).hexdigest()[:12]
+    return _state_fact(
+        fact_id=f"dissemination_gate.{_safe_id_token(gate_id)}.{digest}.{_safe_id_token(facet)}",
+        title=f"Dissemination gate {gate_id} {facet}",
+        family_id=family_id,
+        subject_kind="dissemination_gate",
+        subject_ref=gate_id,
+        facet=facet,
+        value=value,
+        tags=_dissemination_gate_tags(facet, value, base_tags),
+        source_path=source_path,
+        pointer=pointer,
+        owner_surface=gate_id,
+        drilldown_command=f"jq '.' {source_path}",
+        mechanism_refs=[],
+    )
+
+
+def _dissemination_gate_state_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    facts: list[dict[str, Any]] = []
+    for path in _dissemination_gate_source_paths(repo_root):
+        payload = _safe_read_json(path)
+        if not isinstance(payload, Mapping):
+            continue
+        source_path = _relpath(path, repo_root=repo_root)
+        gate_id = str(payload.get("receipt_id") or payload.get("policy_id") or path.stem).strip()
+        gate_id = gate_id or path.stem
+        for field in DISSEMINATION_GATE_TOP_LEVEL_FIELDS:
+            if field in payload:
+                facts.append(
+                    _dissemination_gate_fact(
+                        gate_id=gate_id,
+                        family_id=family_id,
+                        base_tags=base_tags,
+                        source_path=source_path,
+                        pointer=f"/{_json_pointer_escape(field)}",
+                        facet=field,
+                        value=payload.get(field),
+                    )
+                )
+        summary = payload.get("summary")
+        if isinstance(summary, Mapping) and "blocking_condition_count" in summary:
+            facts.append(
+                _dissemination_gate_fact(
+                    gate_id=gate_id,
+                    family_id=family_id,
+                    base_tags=base_tags,
+                    source_path=source_path,
+                    pointer="/summary/blocking_condition_count",
+                    facet="blocking_condition_count",
+                    value=summary.get("blocking_condition_count"),
+                )
+            )
+        blockers = payload.get("blocking_conditions")
+        if isinstance(blockers, list):
+            facts.append(
+                _dissemination_gate_fact(
+                    gate_id=gate_id,
+                    family_id=family_id,
+                    base_tags=base_tags,
+                    source_path=source_path,
+                    pointer="/blocking_conditions",
+                    facet="blocking_condition_count",
+                    value=len(blockers),
+                )
+            )
+            for index, blocker in enumerate(blockers):
+                if not isinstance(blocker, Mapping):
+                    continue
+                blocker_id = str(blocker.get("id") or f"blocker_{index}").strip()
+                release_effect = str(blocker.get("release_effect") or "").strip()
+                if release_effect:
+                    facts.append(
+                        _dissemination_gate_fact(
+                            gate_id=gate_id,
+                            family_id=family_id,
+                            base_tags=base_tags,
+                            source_path=source_path,
+                            pointer=f"/blocking_conditions/{index}/release_effect",
+                            facet=f"blocking_condition.{_safe_id_token(blocker_id)}",
+                            value=release_effect,
+                        )
+                    )
+        for tokens in DISSEMINATION_GATE_NESTED_FIELD_PATHS:
+            value = _nested_value(payload, tokens)
+            if value is None:
+                continue
+            pointer = "/" + "/".join(_json_pointer_escape(token) for token in tokens)
+            facts.append(
+                _dissemination_gate_fact(
+                    gate_id=gate_id,
+                    family_id=family_id,
+                    base_tags=base_tags,
+                    source_path=source_path,
+                    pointer=pointer,
+                    facet=".".join(tokens),
+                    value=value,
+                )
+            )
+    return facts
+
+
 def _module_field_value(module: Mapping[str, Any], dotted: str) -> Any:
     value: Any = module
     for token in dotted.split("."):
@@ -775,11 +1185,677 @@ def _paper_module_state_facts(repo_root: Path, *, family_id: str, base_tags: Seq
     return rows
 
 
+def _generated_output_state_tags(facet: str, value: Any, base_tags: Sequence[Any]) -> list[str]:
+    raw_value = str(value or "").strip()
+    tags = ["generated_output", "generated_projection", "state", facet]
+    if raw_value:
+        tags.append(_safe_id_token(raw_value))
+    if raw_value in {"clean", "already_landed", "none"}:
+        tags.append("fresh")
+    if raw_value not in {"clean", "already_landed", "none", "true"}:
+        tags.append("stale")
+    return _state_tags(base_tags, tags)
+
+
+def _generated_output_settlement_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    from system.lib.generated_state_drainer import build_generated_projection_settlement_fast_plan
+
+    plan = build_generated_projection_settlement_fast_plan(repo_root)
+    owners = plan.get("owners") if isinstance(plan, Mapping) else []
+    if not isinstance(owners, list):
+        owners = []
+    rows: list[dict[str, Any]] = []
+    fields = [
+        ("status", "status"),
+        ("required_action", "required_action"),
+        ("dirty_status", "dirty_status"),
+        ("source_dirty_status", "source_dirty_status"),
+        ("freshness_status", "freshness_status"),
+        ("can_apply", "can_apply"),
+        ("path_count", "path_count"),
+    ]
+    for index, owner in enumerate(owners):
+        if not isinstance(owner, Mapping):
+            continue
+        owner_id = str(owner.get("owner_id") or "").strip()
+        if not owner_id:
+            continue
+        drilldown_command = (
+            "./repo-python tools/meta/control/generated_state_drainer.py "
+            f"settlement-plan --owner-id {owner_id} --fast --compact"
+        )
+        source_path = str(owner.get("landing_manifest_path") or "system/lib/generated_state_drainer.py")
+        for facet, field in fields:
+            if field not in owner:
+                continue
+            value = owner.get(field)
+            rows.append(
+                _state_fact(
+                    fact_id=f"generated_output.{_safe_id_token(owner_id)}.{facet}",
+                    title=f"Generated output {owner_id} {facet}",
+                    family_id=family_id,
+                    subject_kind="generated_output_owner",
+                    subject_ref=owner_id,
+                    facet=facet,
+                    value=value,
+                    tags=_generated_output_state_tags(facet, value, base_tags),
+                    source_path=source_path,
+                    pointer=f"/owners/{index}/{field}",
+                    owner_surface="generated_state_drainer",
+                    drilldown_command=drilldown_command,
+                    mechanism_refs=[],
+                )
+            )
+    return rows
+
+
+def _system_atlas_state_tags(facet: str, value: Any, base_tags: Sequence[Any]) -> list[str]:
+    raw_value = str(value if value is not None else "").strip()
+    tags = ["system_atlas", "state", "freshness", facet]
+    if raw_value:
+        tags.append(_safe_id_token(raw_value))
+    stale_values = {
+        "missing",
+        "system_atlas_graph_missing",
+        "source_inputs_changed_since_artifact_generation",
+        "false",
+        "blocked",
+        "changed",
+        "unreadable_artifact",
+    }
+    fresh_values = {
+        "available",
+        "system_atlas_graph_available",
+        "source_inputs_match_artifact_generation",
+        "true",
+        "clean",
+        "0",
+    }
+    normalized = _safe_id_token(raw_value)
+    if normalized in stale_values:
+        tags.append("stale")
+    if normalized in fresh_values:
+        tags.append("fresh")
+    return _state_tags(base_tags, tags)
+
+
+def _path_latest_mtime(paths: Sequence[Path]) -> str | None:
+    latest = 0.0
+    for path in paths:
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        if not path.is_file():
+            continue
+        latest = max(latest, stat.st_mtime)
+    if latest <= 0:
+        return None
+    return datetime.fromtimestamp(latest, tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _atlas_source_paths(repo_root: Path, row: Mapping[str, Any]) -> list[Path]:
+    raw_path = str(row.get("path") or "").strip()
+    raw_paths = [str(item).strip() for item in row.get("paths") or [] if str(item).strip()]
+    if raw_path and any(char in raw_path for char in "*?[]"):
+        return sorted(path for path in repo_root.glob(raw_path) if path.is_file())
+    if raw_paths:
+        return [repo_root / path for path in raw_paths]
+    return [repo_root / raw_path] if raw_path else []
+
+
+def _system_atlas_source_change_rows(repo_root: Path, graph: Mapping[str, Any]) -> list[dict[str, Any]]:
+    rows = graph.get("source_inputs") if isinstance(graph.get("source_inputs"), list) else []
+    changed: list[dict[str, Any]] = []
+    for index, row in enumerate(rows):
+        if not isinstance(row, Mapping):
+            continue
+        current_paths = _atlas_source_paths(repo_root, row)
+        current_count = sum(1 for path in current_paths if path.is_file())
+        current_latest_mtime = _path_latest_mtime(current_paths)
+        previous_count = int(row.get("count") or 0)
+        previous_latest_mtime = str(row.get("latest_mtime") or "")
+        if current_count == previous_count and str(current_latest_mtime or "") == previous_latest_mtime:
+            continue
+        changed.append(
+            {
+                "index": index,
+                "source_id": str(row.get("source_id") or row.get("kind") or row.get("path") or f"source_{index}"),
+                "path": str(row.get("path") or ""),
+                "current_count": current_count,
+                "previous_count": previous_count,
+                "current_latest_mtime": current_latest_mtime,
+                "previous_latest_mtime": previous_latest_mtime,
+            }
+        )
+    return changed
+
+
+def _system_atlas_currentness_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    graph_path = repo_root / "state/system_atlas/system_atlas.graph.json"
+    drilldown_command = "./repo-python tools/meta/factory/build_system_atlas.py --check"
+    graph = _safe_read_json(graph_path)
+    if not isinstance(graph, Mapping):
+        return [
+            _state_fact(
+                fact_id="system_atlas.projection.graph_status",
+                title="System Atlas projection graph status",
+                family_id=family_id,
+                subject_kind="system_atlas_projection",
+                subject_ref="system_atlas",
+                facet="graph_status",
+                value="system_atlas_graph_missing",
+                tags=_system_atlas_state_tags("graph_status", "system_atlas_graph_missing", base_tags),
+                source_path="state/system_atlas/system_atlas.graph.json",
+                pointer="",
+                owner_surface="std_system_atlas",
+                drilldown_command=drilldown_command,
+                mechanism_refs=[],
+            )
+        ]
+    summary = graph.get("summary") if isinstance(graph.get("summary"), Mapping) else {}
+    source_inputs = graph.get("source_inputs") if isinstance(graph.get("source_inputs"), list) else []
+    changed_sources = _system_atlas_source_change_rows(repo_root, graph)
+    source_coupling_status = (
+        "source_inputs_changed_since_artifact_generation"
+        if changed_sources
+        else "source_inputs_match_artifact_generation"
+    )
+    safe_to_commit = not changed_sources
+    rows = [
+        ("graph_status", "system_atlas_graph_available", "/schema_version"),
+        ("source_coupling_status", source_coupling_status, "/source_inputs"),
+        ("safe_to_commit_generated_outputs_without_sources", safe_to_commit, "/source_inputs"),
+        ("changed_source_count", len(changed_sources), "/source_inputs"),
+        ("source_input_count", len(source_inputs), "/source_inputs"),
+        ("entity_count", summary.get("entity_count"), "/summary/entity_count"),
+        ("finding_count", summary.get("finding_count"), "/summary/finding_count"),
+    ]
+    facts: list[dict[str, Any]] = []
+    for facet, value, pointer in rows:
+        if value is None:
+            continue
+        facts.append(
+            _state_fact(
+                fact_id=f"system_atlas.projection.{facet}",
+                title=f"System Atlas projection {facet}",
+                family_id=family_id,
+                subject_kind="system_atlas_projection",
+                subject_ref="system_atlas",
+                facet=facet,
+                value=value,
+                tags=_system_atlas_state_tags(facet, value, base_tags),
+                source_path="state/system_atlas/system_atlas.graph.json",
+                pointer=pointer,
+                owner_surface="std_system_atlas",
+                drilldown_command=drilldown_command,
+                mechanism_refs=[],
+            )
+        )
+    for changed in changed_sources:
+        source_id = changed["source_id"]
+        facts.append(
+            _state_fact(
+                fact_id=f"system_atlas.source.{_safe_id_token(source_id)}.source_coupling_status",
+                title=f"System Atlas source {source_id} source-coupling status",
+                family_id=family_id,
+                subject_kind="system_atlas_source_input",
+                subject_ref=source_id,
+                facet="source_coupling_status",
+                value="changed",
+                tags=_state_tags(
+                    base_tags,
+                    ["system_atlas", "state", "freshness", "source_coupling", "changed", "stale"],
+                ),
+                source_path="state/system_atlas/system_atlas.graph.json",
+                pointer=f"/source_inputs/{changed['index']}",
+                owner_surface="std_system_atlas",
+                drilldown_command=drilldown_command,
+                mechanism_refs=[],
+            )
+        )
+    return facts
+
+
+def _task_ledger_state_tags(facet: str, value: Any, base_tags: Sequence[Any]) -> list[str]:
+    raw_value = str(value if value is not None else "").strip()
+    normalized = _safe_id_token(raw_value)
+    tags = ["task_ledger", "state", "freshness", facet]
+    volatile_facets = {
+        "audit_event_count",
+        "authority_event_count",
+        "authority_only_closeout_ok",
+        "delta_event_count",
+        "rebuild_priority_status",
+    }
+    volatile = facet in volatile_facets
+    if raw_value and len(raw_value) <= 64 and not volatile:
+        tags.append(normalized)
+    stale_values = {
+        "attention",
+        "authority_recovery_required",
+        "blocked",
+        "blocked_rotate_or_migrate_authority_before_append",
+        "critical",
+        "false",
+        "high_authority_delta",
+        "medium_authority_delta",
+        "projection_ahead_of_authority",
+        "projection_behind_authority",
+        "projection_rebuild_required",
+        "unknown_delta",
+    }
+    fresh_values = {
+        "0",
+        "append_allowed",
+        "clean",
+        "event_counts_match",
+        "ok",
+        "true",
+    }
+    if normalized in stale_values and not volatile:
+        tags.append("stale")
+    if normalized in fresh_values and not volatile:
+        tags.append("fresh")
+    return _state_tags(base_tags, tags)
+
+
+def _task_ledger_state_fact(
+    *,
+    fact_id: str,
+    title: str,
+    family_id: str,
+    subject_kind: str,
+    subject_ref: str,
+    facet: str,
+    value: Any,
+    base_tags: Sequence[Any],
+    source_path: str,
+    pointer: str,
+    drilldown_command: str,
+) -> dict[str, Any]:
+    return _state_fact(
+        fact_id=fact_id,
+        title=title,
+        family_id=family_id,
+        subject_kind=subject_kind,
+        subject_ref=subject_ref,
+        facet=facet,
+        value=value,
+        tags=_task_ledger_state_tags(facet, value, base_tags),
+        source_path=source_path,
+        pointer=pointer,
+        owner_surface="std_task_ledger",
+        drilldown_command=drilldown_command,
+        mechanism_refs=[],
+    )
+
+
+def _task_ledger_state_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    from system.lib import task_ledger_events
+
+    authority = task_ledger_events.authority_health(repo_root, projection_check=True)
+    storage = task_ledger_events.task_ledger_authority_storage_status(repo_root)
+    projection = authority.get("projection_check") if isinstance(authority.get("projection_check"), Mapping) else {}
+    comparison = (
+        projection.get("event_count_comparison")
+        if isinstance(projection.get("event_count_comparison"), Mapping)
+        else {}
+    )
+    rebuild_priority = (
+        projection.get("rebuild_priority") if isinstance(projection.get("rebuild_priority"), Mapping) else {}
+    )
+    authority_command = "./repo-python tools/meta/factory/task_ledger_apply.py authority-health --projection-check"
+    projection_command = "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress"
+    migration_command = "./repo-python tools/meta/factory/task_ledger_apply.py authority-migration-plan"
+    facts: list[dict[str, Any]] = []
+    authority_rows = [
+        ("status", authority.get("status"), "/status"),
+        ("ok", authority.get("ok"), "/ok"),
+        ("authority_event_count", authority.get("authority_event_count"), "/authority_event_count"),
+        ("audit_event_count", authority.get("audit_event_count"), "/audit_event_count"),
+        ("lost_count", authority.get("lost_count"), "/lost_count"),
+    ]
+    for facet, value, pointer in authority_rows:
+        if value is None:
+            continue
+        facts.append(
+            _task_ledger_state_fact(
+                fact_id=f"task_ledger.authority.{facet}",
+                title=f"Task Ledger authority {facet}",
+                family_id=family_id,
+                subject_kind="task_ledger_authority",
+                subject_ref="task_ledger",
+                facet=facet,
+                value=value,
+                base_tags=base_tags,
+                source_path=str(task_ledger_events.EVENTS_REL),
+                pointer=pointer,
+                drilldown_command=authority_command,
+            )
+        )
+    projection_rows = [
+        ("status", projection.get("status"), "/projection_check/status"),
+        ("ok", projection.get("ok"), "/projection_check/ok"),
+        ("mismatch_count", projection.get("mismatch_count"), "/projection_check/mismatch_count"),
+        ("event_count_status", comparison.get("status"), "/projection_check/event_count_comparison/status"),
+        ("delta_event_count", comparison.get("delta"), "/projection_check/event_count_comparison/delta"),
+        ("rebuild_priority_status", rebuild_priority.get("status"), "/projection_check/rebuild_priority/status"),
+        (
+            "authority_only_closeout_ok",
+            rebuild_priority.get("authority_only_closeout_ok"),
+            "/projection_check/rebuild_priority/authority_only_closeout_ok",
+        ),
+    ]
+    for facet, value, pointer in projection_rows:
+        if value is None:
+            continue
+        facts.append(
+            _task_ledger_state_fact(
+                fact_id=f"task_ledger.projection.{facet}",
+                title=f"Task Ledger projection {facet}",
+                family_id=family_id,
+                subject_kind="task_ledger_projection",
+                subject_ref="task_ledger",
+                facet=facet,
+                value=value,
+                base_tags=base_tags,
+                source_path=str(task_ledger_events.LEDGER_REL),
+                pointer=pointer,
+                drilldown_command=projection_command,
+            )
+        )
+    storage_rows = [
+        ("status", storage.get("status"), "/authority_storage/status"),
+        ("ok", storage.get("ok"), "/authority_storage/ok"),
+        ("size_pressure_status", storage.get("size_pressure_status"), "/authority_storage/size_pressure_status"),
+        ("write_admission", storage.get("write_admission"), "/authority_storage/write_admission"),
+    ]
+    for facet, value, pointer in storage_rows:
+        if value is None:
+            continue
+        facts.append(
+            _task_ledger_state_fact(
+                fact_id=f"task_ledger.storage.{facet}",
+                title=f"Task Ledger storage {facet}",
+                family_id=family_id,
+                subject_kind="task_ledger_authority_storage",
+                subject_ref="task_ledger",
+                facet=facet,
+                value=value,
+                base_tags=base_tags,
+                source_path=str(task_ledger_events.EVENTS_REL),
+                pointer=pointer,
+                drilldown_command=migration_command,
+            )
+        )
+    return facts
+
+
+def _process_audit_cache_freshness(repo_root: Path) -> dict[str, Any]:
+    cache_path = repo_root / PROCESS_AUDIT_PATH
+    try:
+        cache_mtime_ns = cache_path.stat().st_mtime_ns
+    except OSError:
+        return {
+            "status": "missing",
+            "static_source_status": "cache_missing",
+            "stale_source_count": 0,
+            "missing_source_count": 0,
+        }
+    stale_sources: list[dict[str, Any]] = []
+    missing_sources: list[str] = []
+    for rel_path in PROCESS_AUDIT_STATIC_SOURCE_PATHS:
+        source_path = repo_root / rel_path
+        try:
+            source_mtime_ns = source_path.stat().st_mtime_ns
+        except OSError:
+            missing_sources.append(rel_path)
+            continue
+        if source_mtime_ns > cache_mtime_ns:
+            stale_sources.append({"path": rel_path, "mtime_ns": source_mtime_ns})
+    if stale_sources:
+        return {
+            "status": "stale_static_sources",
+            "static_source_status": "source_newer_than_cached_audit",
+            "stale_source_count": len(stale_sources),
+            "stale_sources_preview": stale_sources[:5],
+            "missing_source_count": len(missing_sources),
+            "patch_selection_policy": "refresh_or_force_live_before_selecting_process_audit_patch",
+            "authoritative_decision_command": "./repo-python kernel.py --process-bottlenecks --force",
+        }
+    return {
+        "status": "hit",
+        "static_source_status": "cached_audit_current_for_static_trace_inputs",
+        "stale_source_count": 0,
+        "missing_source_count": len(missing_sources),
+    }
+
+
+def _process_audit_behavior_tags(
+    facet: str,
+    value: Any,
+    base_tags: Sequence[Any],
+    *,
+    subject_ref: str = "",
+) -> list[str]:
+    raw_value = str(value if value is not None else "").strip()
+    normalized = _safe_id_token(raw_value)
+    tags = ["process_audit", "agent_execution_trace", "state", "freshness", facet]
+    if raw_value and len(raw_value) <= 64:
+        tags.append(normalized)
+    if normalized in {
+        "cache_missing",
+        "false",
+        "missing",
+        "source_newer_than_cached_audit",
+        "stale_static_sources",
+    }:
+        tags.append("stale")
+    if normalized in {
+        "cached_audit_current_for_static_trace_inputs",
+        "clean",
+        "hit",
+        "ok",
+        "true",
+    }:
+        tags.append("fresh")
+    if facet in {
+        "error_count",
+        "finding_count",
+        "missing_source_count",
+        "parse_failure_count",
+        "pattern_instances",
+        "route_lease_warning_session_count",
+        "stale_source_count",
+        "warning_count",
+    }:
+        try:
+            count = int(value)
+        except (TypeError, ValueError):
+            count = 0
+        tags.append("fresh" if count == 0 else "stale")
+        if count > 0:
+            tags.append("attention")
+    if facet == "average_route_compliance":
+        try:
+            score = float(value)
+        except (TypeError, ValueError):
+            score = 0.0
+        tags.append("fresh" if score >= 0.95 else "stale")
+        if score < 0.95:
+            tags.append("attention")
+    if facet == "pattern_instances" and subject_ref in PROCESS_AUDIT_BANNED_PATTERN_IDS:
+        try:
+            if int(value) > 0:
+                tags.append("banned")
+        except (TypeError, ValueError):
+            pass
+    return _state_tags(base_tags, tags)
+
+
+def _process_audit_state_fact(
+    *,
+    fact_id: str,
+    title: str,
+    family_id: str,
+    subject_kind: str,
+    subject_ref: str,
+    facet: str,
+    value: Any,
+    base_tags: Sequence[Any],
+    source_path: str,
+    pointer: str | None,
+    drilldown_command: str,
+) -> dict[str, Any]:
+    return _state_fact(
+        fact_id=fact_id,
+        title=title,
+        family_id=family_id,
+        subject_kind=subject_kind,
+        subject_ref=subject_ref,
+        facet=facet,
+        value=value,
+        tags=_process_audit_behavior_tags(facet, value, base_tags, subject_ref=subject_ref),
+        source_path=source_path,
+        pointer=pointer,
+        owner_surface="std_agent_execution_trace",
+        drilldown_command=drilldown_command,
+        mechanism_refs=[],
+    )
+
+
+def _process_audit_behavior_facts(
+    repo_root: Path,
+    *,
+    family_id: str,
+    base_tags: Sequence[Any],
+) -> list[dict[str, Any]]:
+    audit = _safe_read_json(repo_root / PROCESS_AUDIT_PATH)
+    if not isinstance(audit, Mapping):
+        audit = {}
+    summary = audit.get("summary") if isinstance(audit.get("summary"), Mapping) else {}
+    if not summary:
+        summary_payload = _safe_read_json(repo_root / PROCESS_AUDIT_SUMMARY_PATH)
+        summary = (
+            summary_payload.get("summary")
+            if isinstance(summary_payload, Mapping) and isinstance(summary_payload.get("summary"), Mapping)
+            else {}
+        )
+    freshness = _process_audit_cache_freshness(repo_root)
+    drilldown_command = "./repo-python kernel.py --process-audit"
+    rows: list[dict[str, Any]] = []
+    cache_rows = [
+        ("cache_status", freshness.get("status"), None),
+        ("static_source_status", freshness.get("static_source_status"), None),
+        ("stale_source_count", freshness.get("stale_source_count"), None),
+        ("missing_source_count", freshness.get("missing_source_count"), None),
+    ]
+    for facet, value, pointer in cache_rows:
+        if value is None:
+            continue
+        rows.append(
+            _process_audit_state_fact(
+                fact_id=f"process_audit.cache.{facet}",
+                title=f"Process audit cache {facet}",
+                family_id=family_id,
+                subject_kind="process_audit_cache",
+                subject_ref="process_audit",
+                facet=facet,
+                value=value,
+                base_tags=base_tags,
+                source_path=PROCESS_AUDIT_PATH,
+                pointer=pointer,
+                drilldown_command=drilldown_command,
+            )
+        )
+    summary_rows = [
+        ("finding_count", summary.get("finding_count"), "/summary/finding_count"),
+        ("warning_count", summary.get("warning_count"), "/summary/warning_count"),
+        ("error_count", summary.get("error_count"), "/summary/error_count"),
+        ("parse_failure_count", summary.get("parse_failure_count"), "/summary/parse_failure_count"),
+        (
+            "route_lease_warning_session_count",
+            summary.get("route_lease_warning_session_count"),
+            "/summary/route_lease_warning_session_count",
+        ),
+        ("average_route_compliance", summary.get("average_route_compliance"), "/summary/average_route_compliance"),
+    ]
+    for facet, value, pointer in summary_rows:
+        if value is None:
+            continue
+        rows.append(
+            _process_audit_state_fact(
+                fact_id=f"process_audit.summary.{facet}",
+                title=f"Process audit summary {facet}",
+                family_id=family_id,
+                subject_kind="process_audit_summary",
+                subject_ref="process_audit",
+                facet=facet,
+                value=value,
+                base_tags=base_tags,
+                source_path=PROCESS_AUDIT_PATH,
+                pointer=pointer,
+                drilldown_command=drilldown_command,
+            )
+        )
+    pattern_counts = summary.get("pattern_counts") if isinstance(summary.get("pattern_counts"), Mapping) else {}
+    for pattern_id, count in sorted(pattern_counts.items()):
+        pattern_ref = str(pattern_id or "").strip()
+        if not pattern_ref:
+            continue
+        rows.append(
+            _process_audit_state_fact(
+                fact_id=f"process_audit.pattern.{_safe_id_token(pattern_ref)}.instances",
+                title=f"Process audit pattern {pattern_ref} instances",
+                family_id=family_id,
+                subject_kind="process_audit_pattern",
+                subject_ref=pattern_ref,
+                facet="pattern_instances",
+                value=count,
+                base_tags=base_tags,
+                source_path=PROCESS_AUDIT_PATH,
+                pointer=f"/summary/pattern_counts/{pattern_ref}",
+                drilldown_command="./repo-python kernel.py --process-patterns",
+            )
+        )
+    return rows
+
+
 def _callable_rows(name: str, repo_root: Path, *, family_id: str, base_tags: Sequence[Any]) -> list[dict[str, Any]]:
     if name == "entry_policy_facts":
         return _entry_policy_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "standard_clause_policy_facts":
+        return _standard_clause_policy_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "skill_state_facts":
+        return _skill_state_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "dissemination_gate_state_facts":
+        return _dissemination_gate_state_facts(repo_root, family_id=family_id, base_tags=base_tags)
     if name == "paper_module_state_facts":
         return _paper_module_state_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "generated_output_settlement_facts":
+        return _generated_output_settlement_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "system_atlas_currentness_facts":
+        return _system_atlas_currentness_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "task_ledger_state_facts":
+        return _task_ledger_state_facts(repo_root, family_id=family_id, base_tags=base_tags)
+    if name == "process_audit_behavior_facts":
+        return _process_audit_behavior_facts(repo_root, family_id=family_id, base_tags=base_tags)
     raise KeyError(f"unknown callable_rows fact provider: {name}")
 
 
@@ -969,9 +2045,14 @@ def _coverage_fields(axis: str, families: Sequence[str]) -> dict[str, Any]:
     if override is not None:
         coverage_posture = str(override.get("coverage_posture") or coverage_posture)
         coverage_note = str(override.get("coverage_note") or coverage_note)
-        missing_known_source_families = [
-            str(item) for item in (override.get("missing_known_source_families") or []) if str(item).strip()
-        ]
+        for item in override.get("missing_known_source_families") or []:
+            missing_family = str(item or "").strip()
+            if not missing_family:
+                continue
+            closure_families = STATE_AXIS_COVERAGE_FAMILY_CLOSURES.get(missing_family, set())
+            if closure_families and any(family in closure_families for family in family_list):
+                continue
+            missing_known_source_families.append(missing_family)
     return {
         "coverage_posture": coverage_posture,
         "covered_fact_families": family_list,
@@ -1293,6 +2374,8 @@ def _normalize_freshness_payload(value: Any) -> Any:
             for key in ("value", "value_repr", "search_text"):
                 if key in out:
                     out[key] = _VOLATILE_FRESHNESS_VALUE
+            if isinstance(out.get("tags"), list):
+                out["tags"] = [_VOLATILE_FRESHNESS_VALUE]
         if "source_fingerprint" in value:
             out["source_fingerprint"] = _stable_digest(out)
         return out

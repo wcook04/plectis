@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "erdos_solution_overclaim", "error_codes": ["BATCH4_ERDOS257_SOLUTION_OVERCLAIM_REJECTED"], "runtime_probe": {"observer_id": "erdos_static_scan_and_authority_delta", "source_module_id": "erdos257_certificate_kernel", "required_text": "theorem no_prime_drop_implies_eq"}, "body_in_receipt": false}

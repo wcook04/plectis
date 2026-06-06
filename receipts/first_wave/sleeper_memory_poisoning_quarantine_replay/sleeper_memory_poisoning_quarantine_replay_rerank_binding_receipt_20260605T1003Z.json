@@ -1,0 +1,172 @@
+{
+  "authority_boundary": {
+    "benchmark_security_claim_authorized": false,
+    "canonical_rank_distribution_mutated": false,
+    "full_77_row_rerank_run": false,
+    "live_memory_product_claim_authorized": false,
+    "live_user_memory_import_authorized": false,
+    "organ_registry_mutated": false,
+    "private_root_widened": false,
+    "provider_call_authorized": false,
+    "public_site_mutated": false,
+    "release_authorized": false,
+    "shared_triage_mutated": false,
+    "shared_worklist_mutated": false,
+    "source_mutation_authorized": false
+  },
+  "binding_status": "current_head_source_test_receipt_bound",
+  "component_id": "sleeper_memory_poisoning_quarantine_replay",
+  "current_head": "bef183cc81c2ccc5bb70ef42f80b3789eb1bad96",
+  "current_head_delta_over_prior_receipts": {
+    "current_head_contains_additional_source_and_test_hardening": true,
+    "focused_suite_pass_count_now": 15,
+    "focused_suite_pass_count_then": 13,
+    "new_current_head_discriminators": [
+      "typed_quarantine_audit_ref_shape_rejection",
+      "retrieval_evidence_must_cite_quarantine_audit_and_cold_replay_receipt",
+      "typed_rollback_and_rerun_receipt_ref_shape_rejection",
+      "bundle_rejects_bogus_rollback_ref_shape",
+      "copied_source_module_body_must_match_live_source_ref_even_if_declared_digests_are_rehashed"
+    ],
+    "prior_head": "67ac353d969750050ac4b46157dc4ba93a900ade"
+  },
+  "issued_at": "2026-06-05T10:00:51Z",
+  "issued_by": "codex_20260605T1003Z_sleeper_memory_quarantine_current_head_receipt",
+  "no_edit_verdict": {
+    "reason": "Live HEAD already clears the requested positive-row mutation, baked-label immunity, public-safe evidence coupling, and live source_ref body-floor discrimination bar.",
+    "reentry_condition": "Reopen the organ only if focused validation regresses, the source/test paths drift, or the owner lane requests full rerank consumption into canonical rank/rung surfaces.",
+    "source_or_test_edit_required": false
+  },
+  "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+  "proof_contract_matrix": [
+    {
+      "evidence": "The focused suite passes on live HEAD, the fixture card returns status=pass with one quarantined write, one admitted control, one blocked retrieval-before-action, one rollback, and one cold rerun, and the exported bundle card returns status=pass.",
+      "requirement": "real-good quarantine and rollback evidence passes"
+    },
+    {
+      "evidence": "test_sleeper_memory_poisoning_rejects_mutated_positive_quarantine_row and test_sleeper_memory_poisoning_rejects_untrusted_admit_positive_row move the positive write row from accepted_write_metadata/pass to blocked with SLEEPER_MEMORY_TRUSTED_PROMOTION_FORBIDDEN.",
+      "requirement": "mutating trust tier or admit verdict flips the positive write path"
+    },
+    {
+      "evidence": "test_sleeper_memory_poisoning_rejects_mutated_positive_rollback_row and test_sleeper_memory_poisoning_bundle_rejects_bogus_rollback_ref_shape move the rollback lane from accepted_rollback_metadata/pass to blocked when deletion/rollback/rerun refs are blank or wrongly typed.",
+      "requirement": "mutating deletion-audit evidence flips the positive rollback path"
+    },
+    {
+      "evidence": "test_sleeper_memory_poisoning_retrieval_evidence_cites_quarantine_audit blocks when evidence_used_refs omits the quarantine audit ref or the cold replay receipt ref.",
+      "requirement": "retrieval proof is coupled to the quarantine audit, not only the declared row label"
+    },
+    {
+      "evidence": "test_sleeper_memory_poisoning_ignores_baked_negative_label_on_positive_row adds fake expected_negative_case_id, expected_error_codes, and declared_status to a valid admitted row; status stays pass and the positive row emits no finding.",
+      "requirement": "declared or baked labels do not decide the verdict"
+    },
+    {
+      "evidence": "test_sleeper_memory_poisoning_rejects_rehashed_source_module_body_swap mutates a copied module, recomputes all declared digests, and still blocks with SLEEPER_MEMORY_SOURCE_MODULE_SOURCE_REF_MISMATCH because the live source_ref body no longer matches.",
+      "requirement": "declared digest self-consistency is not enough when copied source bodies drift from live source"
+    }
+  ],
+  "proof_tests": [
+    "test_sleeper_memory_poisoning_quarantine_observes_negative_cases",
+    "test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape",
+    "test_sleeper_memory_poisoning_rejects_mutated_positive_quarantine_row",
+    "test_sleeper_memory_poisoning_rejects_untrusted_admit_positive_row",
+    "test_sleeper_memory_poisoning_ignores_baked_negative_label_on_positive_row",
+    "test_sleeper_memory_poisoning_rejects_quarantined_ref_decoupling",
+    "test_sleeper_memory_poisoning_rejects_mutated_positive_rollback_row",
+    "test_sleeper_memory_poisoning_rejects_bogus_quarantine_audit_ref",
+    "test_sleeper_memory_poisoning_retrieval_evidence_cites_quarantine_audit",
+    "test_sleeper_memory_poisoning_rejects_bogus_nonempty_rollback_refs",
+    "test_sleeper_memory_poisoning_bundle_rejects_bogus_rollback_ref_shape",
+    "test_sleeper_memory_poisoning_rejects_rehashed_source_module_body_swap"
+  ],
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 1,
+    "replacements": [
+      {
+        "field_path": "validation[3].command",
+        "original_sha256": "sha256:39a1ac917b259b7db0354eaad10cb17e3df1288e29ca30d34fa698bdbe6b7fe0",
+        "replacement": "<host-temp>/sleeper-memory-poisoning-live-proof/pycache",
+        "treatment_class": "host_temp_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "host_temp_path_transform"
+    ]
+  },
+  "rank_saturation_claim": {
+    "baked_expected_labels_used_as_authority": false,
+    "canonical_rank_mutated": false,
+    "copied_source_body_checked_against_live_source_ref": true,
+    "current_state": "focused_current_head_proof_available_awaiting_full_rerank_or_registry_atlas_owner_consumption",
+    "fleet_triage_mutated": false,
+    "public_safe_quarantine_and_rollback_evidence_required": true,
+    "safe_use": "Do not keep routing this component as a fixture-shape-only R1 upgrade suggestion when current source/test proof is the question. Use this receipt as current-head proof until a full rerank mutates canonical rank/rung surfaces.",
+    "score_and_verdict_recomputed_from_live_fields": true,
+    "shared_realness_worklist_mutated": false
+  },
+  "receipt_id": "sleeper_memory_poisoning_quarantine_replay_rerank_binding_receipt_20260605T1003Z",
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "source_evidence": {
+    "bundle_path": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
+    "fixture_input_paths": [
+      "microcosm-substrate/fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/quarantine_events.json",
+      "microcosm-substrate/fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/retrieval_replays.json",
+      "microcosm-substrate/fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/rollback_rerun.json"
+    ],
+    "implementation_path": "microcosm-substrate/src/microcosm_core/organs/sleeper_memory_poisoning_quarantine_replay.py",
+    "recomputed_fields": [
+      "memory_write_proposals[].source_trust_tier",
+      "memory_write_proposals[].quarantine_verdict",
+      "memory_write_proposals[].audit_ref",
+      "retrieval_replays[].action_gate",
+      "retrieval_replays[].influence_grade",
+      "retrieval_replays[].evidence_used_refs",
+      "retrieval_replays[].cold_replay_receipt_ref",
+      "rollback_events[].deletion_audit_ref",
+      "rollback_events[].rollback_receipt_ref",
+      "rollback_events[].rerun_receipt_ref",
+      "rollback_events[].memory_absent_after_rerun",
+      "source_module_manifest.modules[].source_ref",
+      "source_module_manifest.modules[].sha256",
+      "source_module_manifest.modules[].source_sha256",
+      "source_module_manifest.modules[].target_sha256"
+    ],
+    "test_path": "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py"
+  },
+  "supersedes_receipt_refs": [
+    "docs/dissemination/sleeper_memory_poisoning_quarantine_replay_rerank_binding_receipt_20260605T0548Z.json",
+    "microcosm-substrate/receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_rerank_binding_receipt_20260605T0719Z.json"
+  ],
+  "target_class": "rung_delta",
+  "thread_impact_card": {
+    "blocked_state": "none",
+    "changed_state": "Added a current-head component-local rerank binding receipt only; no organ, test, triage, or worklist source was edited in this pass.",
+    "next_reader_hint": "Treat sleeper_memory_poisoning_quarantine_replay as already proven to discriminate over public-safe quarantine/rollback evidence on current HEAD; consume this receipt through a full rerank or registry/atlas owner pass instead of reopening the same source/test lane.",
+    "validated_state": "Focused sleeper-memory pytest passed on live HEAD, fixture and exported-bundle cards both returned pass, and py_compile succeeded."
+  },
+  "validation": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-pytest -p no:cacheprovider microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py -q --basetemp /tmp/sleeper-memory-poisoning-live-proof",
+      "status": "pass",
+      "summary": "15 passed, 1 warning"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input microcosm-substrate/fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out /tmp/sleeper-memory-poisoning-live-proof/fixture-receipts --acceptance-out /tmp/sleeper-memory-poisoning-live-proof/acceptance.json --card",
+      "status": "pass",
+      "summary": "fixture card status=pass; proposal_count=2; quarantined_write_count=1; admitted_control_count=1; blocked_before_action_count=1; rollback_count=1; rerun_pass_count=1"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run-quarantine-bundle --input microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out /tmp/sleeper-memory-poisoning-live-proof/bundle-receipts --card",
+      "status": "pass",
+      "summary": "bundle card status=pass; source_module_manifest_status=pass; body_import_status=copied_non_secret_sleeper_memory_macro_body_landed; body_copied_material_count=7"
+    },
+    {
+      "command": "PYTHONPYCACHEPREFIX=<host-temp>/sleeper-memory-poisoning-live-proof/pycache PYTHONPATH=microcosm-substrate/src ./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/sleeper_memory_poisoning_quarantine_replay.py microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py",
+      "status": "pass",
+      "summary": "py_compile completed without output"
+    }
+  ]
+}

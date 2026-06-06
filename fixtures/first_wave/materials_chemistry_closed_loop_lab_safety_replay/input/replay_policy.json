@@ -19,6 +19,11 @@
     "publication_authorized": false,
     "provider_calls_authorized": false
   },
+  "numeric_replay": {
+    "expected_selected_candidate_material_id": "mat_polymer_membrane_001",
+    "selection_rule": "max_weighted_public_assay_active_learning_and_safety_gate_score",
+    "minimum_safety_gate_score": 0.7
+  },
   "claim_boundary": "source-faithful public Lab/Evolve replay metadata only",
   "anti_claim": "No wetlab protocol, hazardous synthesis, reagent quantity, robot command, discovery, benchmark, or release authority is admitted."
 }

@@ -44,6 +44,37 @@ def test_cli_version_flag_reports_package_version() -> None:
     assert result.stderr == ""
 
 
+def test_cli_version_flag_defers_public_root_discovery() -> None:
+    env = os.environ.copy()
+    src = str(MICROCOSM_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src
+        if not env.get("PYTHONPATH")
+        else src + os.pathsep + env["PYTHONPATH"]
+    )
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-X",
+            "importtime",
+            "-m",
+            "microcosm_core.cli",
+            "--version",
+        ],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=10,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip().startswith("microcosm ")
+    assert "microcosm_core.resource_root" not in result.stderr
+
+
 def test_package_module_entry_delegates_to_cli() -> None:
     pyproject = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
     package_version = pyproject["project"]["version"]

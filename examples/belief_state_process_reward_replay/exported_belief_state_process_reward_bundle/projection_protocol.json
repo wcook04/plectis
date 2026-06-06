@@ -52,6 +52,7 @@
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
     "system/lib/agent_execution_trace.py",
+    "system/lib/strict_json.py",
     "codex/standards/std_agent_execution_trace.json",
     "src/microcosm_core/organs/belief_state_process_reward_replay.py",
     "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
@@ -72,13 +73,13 @@
     "microcosm-substrate/src/microcosm_core/organs/belief_state_process_reward_replay.py"
   ],
   "source_open_body_import_refs": [
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/system/lib/strict_json.py"
   ],
   "target_symbols": [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",

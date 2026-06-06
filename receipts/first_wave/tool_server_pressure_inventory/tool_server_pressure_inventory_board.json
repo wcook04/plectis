@@ -1,0 +1,94 @@
+{
+  "anti_claim": "Tool-server pressure inventory validates a public read-only helper-process pressure contract over synthetic process tables only. It never signals a process, reads a live process table, mutates host state, or authorizes release; an active-owner descendant is never a safe-close candidate; over-budget active owners receive a release REQUEST, not a kill. It does not prove host correctness, call providers, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "tool_server_pressure_inventory_projection_only_not_process_control_authority",
+    "host_mutation_authorized": false,
+    "live_process_table_read_authorized": false,
+    "private_data_equivalence_claim": false,
+    "process_signal_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "input_mode": "first_wave_fixture",
+  "inventory_projection": {
+    "active_owner_pressure_group_count": 1,
+    "active_owner_release_request_count": 1,
+    "candidate_safe_close_count": 1,
+    "command_preview_in_rows": false,
+    "keep_count": 2,
+    "no_process_signal_sent": true,
+    "no_unknown_owner_killed": true,
+    "process_count": 8,
+    "requires_owner_check_count": 5
+  },
+  "organ_id": "tool_server_pressure_inventory",
+  "public_contract": {
+    "absolute_paths_and_command_previews_forbidden": true,
+    "active_owner_descendant_never_safe_close": true,
+    "body_in_receipt": false,
+    "no_live_process_table_read": true,
+    "no_process_signal_sent": true,
+    "over_budget_active_owner_gets_release_request_not_kill": true,
+    "real_runtime_receipt": true,
+    "rows_carry_command_hash_not_preview": true,
+    "safe_close_requires_detached_orphan_allowlist_and_age": true,
+    "source_faithful_macro_body_import_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/process_table.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/pressure_policy.json",
+    "fixtures/first_wave/tool_server_pressure_inventory/input/owner_classes.json",
+    "examples/tool_server_pressure_inventory/exported_tool_server_pressure_inventory_bundle",
+    "paper_modules/tool_server_pressure_inventory.md"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_paths": [
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_result.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_board.json",
+    "receipts/first_wave/tool_server_pressure_inventory/tool_server_pressure_inventory_validation_receipt.json",
+    "receipts/acceptance/first_wave/tool_server_pressure_inventory_fixture_acceptance.json"
+  ],
+  "schema_version": "tool_server_pressure_inventory_board_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 13,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "selected_pattern_ids": [
+    "tool_server_pressure_inventory",
+    "lease_aware_helper_pressure_hygiene",
+    "active_owner_release_request"
+  ],
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
+}

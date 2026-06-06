@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 7 imports and exercises public-safe macro engines for trace IR, code-map layout, DAG scheduling, source indexing, patch validation, clean-clone hermetic checks, robust numeric scoring, PageRank routing, and regression-test selection. It is not a release, not private-root equivalence, not semantic truth, not investment advice, not a complete sandbox, and not proof that selected tests are sufficient.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_macro_engines_capsule",
+  "organ_id": "batch7_macro_engines_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch7_macro_engines_capsule/batch7_macro_engines_capsule_validation_receipt.json"
+}

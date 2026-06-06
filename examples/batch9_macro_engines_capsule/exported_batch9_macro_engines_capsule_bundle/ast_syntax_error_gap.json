@@ -1,0 +1,16 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "ast_syntax_error_gap",
+  "error_codes": [
+    "BATCH9_AST_SYNTAX_ERROR_GAP"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "ast": {
+      "files": {
+        "pkg/broken.py": "def broken(:\n    pass\n"
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

@@ -36,16 +36,36 @@ def _assert_public_safe_cache_action(action: dict) -> None:
     assert action["boundary"] == "fresh_tmp_receipt_not_canonical_or_proof_authority"
 
 
+def _assert_proof_lab_status_scope(proof_lab: dict) -> None:
+    if proof_lab["cache_status"] in {
+        "stale_cached_receipt",
+        "missing_cached_receipt",
+    }:
+        assert proof_lab["status_scope"] == "route_presence_not_cache_freshness"
+        assert proof_lab["fresh_receipt_required"] is True
+        return
+
+    assert proof_lab["status_scope"] == "route_presence_and_cache_freshness"
+    assert proof_lab["fresh_receipt_required"] is False
+
+
 def test_status_card_explains_actionable_proof_lab_cache() -> None:
     _run_json("tour", "--card", ".")
     payload = _run_json("status", "--card", ".")
     proof_lab = payload["front_door"]["proof_lab"]
     assert "cache_action" in proof_lab
+    _assert_proof_lab_status_scope(proof_lab)
+    assert payload["proof_lab"]["status_scope"] == proof_lab["status_scope"]
+    assert (
+        payload["proof_lab"]["fresh_receipt_required"]
+        is proof_lab["fresh_receipt_required"]
+    )
 
     if proof_lab["cache_status"] != "stale_cached_receipt":
         assert proof_lab["cache_action"]["status"] == "not_needed"
         return
 
+    assert proof_lab["status"] == "pass"
     _assert_public_safe_cache_action(proof_lab["cache_action"])
 
 
@@ -84,6 +104,7 @@ def test_status_card_uses_current_default_proof_lab_receipt(
 
     assert updated["proof_lab"]["cache_status"] == "cached_receipt_read"
     assert updated["front_door"]["proof_lab"]["cache_status"] == "cached_receipt_read"
+    _assert_proof_lab_status_scope(updated["front_door"]["proof_lab"])
     assert updated["front_door"]["proof_lab"]["cache_action"]["status"] == "not_needed"
     assert "next_commands" not in updated["proof_lab"]
     assert (
@@ -126,6 +147,8 @@ def test_runtime_status_card_uses_current_default_proof_lab_receipt(
     )
 
     assert payload["proof_lab"]["cache_status"] == "cached_receipt_read"
+    _assert_proof_lab_status_scope(payload["proof_lab"])
+    _assert_proof_lab_status_scope(payload["front_door"]["proof_lab"])
     assert payload["front_door"]["proof_lab"]["cache_action"]["status"] == "not_needed"
     assert (
         payload["front_door"]["proof_lab"]["current_receipt_ref"]
@@ -140,10 +163,47 @@ def test_runtime_status_card_uses_current_default_proof_lab_receipt(
     ]
 
 
+def test_runtime_proof_lab_cache_freshness_streams_bundle_inputs_without_rglob(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "microcosm-root"
+    input_dir = root / runtime_shell.PROOF_LAB_BUNDLE_REF
+    nested = input_dir / "nested"
+    nested.mkdir(parents=True)
+    first = input_dir / "proof_lab_route.json"
+    second = nested / "bundle_manifest.json"
+    first.write_text("{}", encoding="utf-8")
+    second.write_text("{}", encoding="utf-8")
+    receipt = tmp_path / "cached_proof_lab_receipt.json"
+    receipt.write_text("{}", encoding="utf-8")
+    latest_input_mtime_ns = max(
+        first.stat().st_mtime_ns,
+        second.stat().st_mtime_ns,
+    )
+    os.utime(
+        receipt,
+        ns=(latest_input_mtime_ns + 1_000_000, latest_input_mtime_ns + 1_000_000),
+    )
+
+    def guarded_rglob(self: Path, *_args, **_kwargs):
+        raise AssertionError("proof-lab cache freshness should stream without rglob")
+
+    monkeypatch.setattr(Path, "rglob", guarded_rglob)
+
+    freshness = runtime_shell._proof_lab_cache_freshness(root, receipt)
+
+    assert freshness["status"] == "current"
+    assert freshness["input_status"] == "current"
+    assert freshness["tracked_input_count"] == 2
+    assert freshness["stale_input_count"] == 0
+
+
 def test_tour_card_carries_proof_lab_cache_action_hint() -> None:
     payload = _run_json("tour", "--card", ".")
     proof_lab = payload["proof_lab"]
     assert "cache_action" in proof_lab
+    _assert_proof_lab_status_scope(proof_lab)
 
     if proof_lab["cache_status"] != "stale_cached_receipt":
         assert proof_lab["cache_action"]["status"] == "not_needed"

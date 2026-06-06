@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "doctrine_fact_claim_audit_runtime_example",
+  "input_mode": "exported_doctrine_fact_claim_audit_bundle",
+  "organ_id": "doctrine_fact_claim_audit",
+  "schema_version": "microcosm_crown_jewel_bundle_manifest_v1",
+  "source_module_manifest_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json"
+}

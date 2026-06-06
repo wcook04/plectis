@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 12 prediction-market board validation executes the copied macro event join/dedup/aggregate body over synthetic rows only. It does not claim live prediction-market truth, forecast correctness, calibration, investment advice, provider dispatch, release authority, or whole-system correctness.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch12_prediction_market_board_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch12_prediction_market_board_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch12_prediction_market_board_capsule"
+}

@@ -14,6 +14,11 @@ class SmokeCheckError(Exception):
 def _read_json(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise SmokeCheckError(f"{path.name}: missing required smoke receipt")
+    if path.stat().st_size == 0:
+        raise SmokeCheckError(
+            f"{path.name}: file is empty (0 bytes) — likely a stale or partial "
+            "smoke run; re-run `make smoke`"
+        )
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:

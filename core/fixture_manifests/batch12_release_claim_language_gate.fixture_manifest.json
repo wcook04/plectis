@@ -1,0 +1,24 @@
+{
+  "anti_claim": "Fixture exercises copied macro source on synthetic public inputs only; it does not authorize release, provider dispatch, private-root equivalence, or whole-system correctness.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch12_release_claim_language_gate",
+  "generated_receipts": [
+    "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_result.json",
+    "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_board.json",
+    "receipts/first_wave/batch12_release_claim_language_gate/batch12_release_claim_language_gate_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+  ],
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch12_release_claim_language_gate/input",
+  "organ_id": "batch12_release_claim_language_gate",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 1,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

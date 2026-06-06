@@ -442,7 +442,12 @@ def build_agent_principle_lens(
             "capture_command": (
                 "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
                 "--created-by <agent_id> --candidate-work-item-type agent_principle_failure_mode "
-                "--tag agent_principle_candidate --tag failure_mode --payload-json '<json>' --rebuild"
+                "--tag agent_principle_candidate --tag failure_mode --payload-json '<json>'"
+            ),
+            "projection_policy": (
+                "Append authority first. Add --rebuild only when projection/card visibility is "
+                "required now and the Task Ledger projection lane is uncontended; otherwise "
+                "settle through generated_state_drainer.py --owner-id task_ledger_projection."
             ),
             "minimum_payload_fields": [
                 "local_case",
@@ -489,7 +494,11 @@ def build_agent_principle_lens(
                 "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
                 "--created-by <agent_id> --title '<title>' --statement '<statement>' "
                 "--source-ref '<prompt/session/workitem ref>' --tag residual_deliverable "
-                "--rebuild"
+            ),
+            "projection_policy": (
+                "Append authority first. Add --rebuild only when projection/card visibility is "
+                "required now and the Task Ledger projection lane is uncontended; otherwise "
+                "settle through generated_state_drainer.py --owner-id task_ledger_projection."
             ),
             "owner_selection_rule": (
                 "Prefer the active mission/selected WorkItem; otherwise browse Task Ledger "
@@ -551,7 +560,12 @@ def build_agent_principle_authoring_packet(
             "capture_command": (
                 "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
                 "--created-by <agent_id> --candidate-work-item-type agent_principle_failure_mode "
-                "--tag agent_principle_candidate --tag failure_mode --payload-json '<json>' --rebuild"
+                "--tag agent_principle_candidate --tag failure_mode --payload-json '<json>'"
+            ),
+            "projection_policy": (
+                "Append authority first. Add --rebuild only when projection/card visibility is "
+                "required now and the Task Ledger projection lane is uncontended; otherwise "
+                "settle through generated_state_drainer.py --owner-id task_ledger_projection."
             ),
             "aggregate_command": (
                 "./repo-python tools/meta/factory/task_ledger_apply.py search "

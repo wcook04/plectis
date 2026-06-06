@@ -1,0 +1,187 @@
+{
+  "body_copied": true,
+  "body_in_receipt": false,
+  "module_count": 8,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 837,
+      "line_count": 29,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Package.swift",
+      "required_anchors": [
+        ".executable(name: \"DemoTakeConsoleApp\"",
+        ".executable(name: \"demo-take-transcribe\"",
+        "WhisperKit"
+      ],
+      "sha256": "d70a194c18c386a710ac2764dc906cb9c54f0148f2a34f7eef0472605c268083",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Package.swift",
+      "source_sha256": "d70a194c18c386a710ac2764dc906cb9c54f0148f2a34f7eef0472605c268083",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Package.swift",
+      "target_sha256": "d70a194c18c386a710ac2764dc906cb9c54f0148f2a34f7eef0472605c268083"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5670,
+      "line_count": 223,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/Models.swift",
+      "required_anchors": [
+        "enum RecordingState",
+        "case reviewReady = \"review_ready\"",
+        "struct RunMapScheduleState",
+        "wallTSeconds = \"wall_t_seconds\""
+      ],
+      "sha256": "79245bdbd454f7e321d46dacfbcab8117cfabe405a25cf353c1fd26d97082f1f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/Models.swift",
+      "source_sha256": "79245bdbd454f7e321d46dacfbcab8117cfabe405a25cf353c1fd26d97082f1f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/Models.swift",
+      "target_sha256": "79245bdbd454f7e321d46dacfbcab8117cfabe405a25cf353c1fd26d97082f1f"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 9911,
+      "line_count": 281,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/CaptureHelperClient.swift",
+      "required_anchors": [
+        "enum CaptureHelperClient",
+        "JSONSerialization.data(withJSONObject: config, options: [.sortedKeys])",
+        "private static func repoPythonURL()",
+        "private static func helperScriptURL()"
+      ],
+      "sha256": "6719e5a95eb2356bf2c3f92cd262e9f9b7fcfcb1ddac153c21188967b09f9093",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/CaptureHelperClient.swift",
+      "source_sha256": "6719e5a95eb2356bf2c3f92cd262e9f9b7fcfcb1ddac153c21188967b09f9093",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/CaptureHelperClient.swift",
+      "target_sha256": "6719e5a95eb2356bf2c3f92cd262e9f9b7fcfcb1ddac153c21188967b09f9093"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 72131,
+      "line_count": 1947,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
+      "required_anchors": [
+        "final class RecorderStore",
+        "var startBlockers: [String]",
+        "func startRecording() async",
+        "func togglePause()",
+        "func stopRecording() async"
+      ],
+      "sha256": "cea6b2c9d5a2f182d1d418baccd6a6d751548ed15e62b9111b7e421357f38bac",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
+      "source_sha256": "cea6b2c9d5a2f182d1d418baccd6a6d751548ed15e62b9111b7e421357f38bac",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift",
+      "target_sha256": "cea6b2c9d5a2f182d1d418baccd6a6d751548ed15e62b9111b7e421357f38bac"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 1496,
+      "line_count": 47,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/HotkeyMonitor.swift",
+      "required_anchors": [
+        "static let defaultModifiers: NSEvent.ModifierFlags = [.control, .option, .command]",
+        "NSEvent.addGlobalMonitorForEvents",
+        "NSEvent.addLocalMonitorForEvents",
+        "return consumed ? nil : event"
+      ],
+      "sha256": "a19ab4fc7385491e8c2b5408bd71fe28a9e2655c455185939902ff6702d978b0",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/HotkeyMonitor.swift",
+      "source_sha256": "a19ab4fc7385491e8c2b5408bd71fe28a9e2655c455185939902ff6702d978b0",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/HotkeyMonitor.swift",
+      "target_sha256": "a19ab4fc7385491e8c2b5408bd71fe28a9e2655c455185939902ff6702d978b0"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5029,
+      "line_count": 133,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
+      "required_anchors": [
+        "final class AudioLevelMonitor",
+        "kAudioFormatFlagIsFloat",
+        "Int16.max",
+        "return min(max(rms * 8, 0), 1)"
+      ],
+      "sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
+      "source_sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/AudioLevelMonitor.swift",
+      "target_sha256": "9fc1e0fca3d387bf3dc37cc35e0b271b5106dc96266bd144acb34f74415ec095"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5157,
+      "line_count": 138,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/HostEnvironment.swift",
+      "required_anchors": [
+        "AIWorkflowRepoRoot",
+        "static var outputRoot: URL",
+        "static func findTranscribeBinary()",
+        "static func displayMetadata(forFFmpegScreenIndex index: Int)"
+      ],
+      "sha256": "9371b0b7386fbb479df42f9616650d5989733178f7f95857a31c7491b6a2ebcb",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeConsoleApp/HostEnvironment.swift",
+      "source_sha256": "9371b0b7386fbb479df42f9616650d5989733178f7f95857a31c7491b6a2ebcb",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeConsoleApp/HostEnvironment.swift",
+      "target_sha256": "9371b0b7386fbb479df42f9616650d5989733178f7f95857a31c7491b6a2ebcb"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 8155,
+      "line_count": 236,
+      "material_class": "public_macro_macos_swift_body",
+      "path": "source_modules/apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
+      "required_anchors": [
+        "import WhisperKit",
+        "wordTimestamps: true",
+        "\"schema\": \"demo_take_transcript_v0\"",
+        "RuntimeError.audioNotFound"
+      ],
+      "sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
+      "source_sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_modules/apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift",
+      "target_sha256": "95e4b98c782124a5ae76998ffe1fa12a0b084da925e201fa59658cb0a653e0f8"
+    }
+  ],
+  "organ_id": "batch7_demo_take_console_capsule",
+  "schema_version": "batch7_demo_take_console_capsule_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_to_target_relation": "exact_copy"
+}

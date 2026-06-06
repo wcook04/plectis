@@ -1,0 +1,13 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_fixture_v1",
+  "expected_negative_case_id": "available_tactic_missing_duration",
+  "tactics": [
+    {
+      "tactic_id": "simp",
+      "compile_status": "compile_pass",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean"
+    }
+  ],
+  "anti_claim": "A copied availability row that is marked available must preserve its probe duration before downstream routing may use it as latency evidence."
+}

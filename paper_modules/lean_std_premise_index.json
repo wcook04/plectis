@@ -1,0 +1,435 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
+    "card": "Lean/Std Premise Index is the source-open formal-math catalog organ for Microcosm. It imports a public-safe premise descriptor index, validates eleven Lean/Std premise rows across Nat, Bool, List, and Iff namespaces, checks six copied body modules through a source-module manifest, observes Mathlib/proof-body/oracle/test-split/source-ref negative cases, and writes body-free receipts that make premise substrate inspectable without turning metadata into proof authority.",
+    "one_line": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.lean_std_premise_index",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.lean_std_premise_index",
+        "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/lean_std_premise_index.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.lean_std_premise_index.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/lean_std_premise_index.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/lean_std_premise_index.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-1",
+        "AX-2",
+        "AX-5",
+        "AX-7"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/lean_std_premise_index.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for first-wave Lean/Std premise-index fixture validation, exported bundle validation, source-module manifest checks, negative-case enforcement, and authority ceilings.",
+          "symbols": [
+            "run",
+            "run_index_bundle",
+            "_source_module_manifest_result",
+            "_build_result",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "SOURCE_MODULE_MANIFEST_NAME"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Copied public Lean/Std descriptor index and Ring2 premise-retrieval macro receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider call, benchmark claim, release approval, publication approval, source mutation, or theorem-correctness claim.",
+        "card": "Lean/Std Premise Index is the source-open formal-math catalog organ for Microcosm. It imports a public-safe premise descriptor index, validates eleven Lean/Std premise rows across Nat, Bool, List, and Iff namespaces, checks six copied body modules through a source-module manifest, observes Mathlib/proof-body/oracle/test-split/source-ref negative cases, and writes body-free receipts that make premise substrate inspectable without turning metadata into proof authority.",
+        "one_line": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority."
+      },
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "depends_on": [
+        "paper_module.formal_math_premise_retrieval"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.lean_std_premise_index",
+          "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/lean_std_premise_index.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.lean_std_premise_index.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.lean_std_premise_index",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/lean_std_premise_index.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-6",
+        "P-8"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index]",
+      "strangler_note": "This capsule binds the authored Markdown projection, first-wave Lean/Std premise-index fixture, exported runtime bundle, copied public-safe source-module manifest, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, premise metadata, namespace coverage, or negative-case observation as Lean/Lake, Mathlib, proof, provider, release, or theorem-correctness authority.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "lean_std_premise_index"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index"
+        }
+      ],
+      "title": "Lean/Std Premise Index"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, first-wave Lean/Std premise-index fixture, exported runtime bundle, copied public-safe source-module manifest, mechanism row, Microcosm organ source locus, and real validation receipts without treating Markdown, generated atlas docs, copied-body presence, premise metadata, namespace coverage, or negative-case observation as Lean/Lake, Mathlib, proof, provider, release, or theorem-correctness authority.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-2",
+      "AX-5",
+      "AX-7"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/lean_std_premise_index.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for first-wave Lean/Std premise-index fixture validation, exported bundle validation, source-module manifest checks, negative-case enforcement, and authority ceilings.",
+        "symbols": [
+          "run",
+          "run_index_bundle",
+          "_source_module_manifest_result",
+          "_build_result",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "SOURCE_MODULE_MANIFEST_NAME"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.formal_math_and_proof_witness_bundle"
+    ],
+    "depends_on": [
+      "paper_module.formal_math_premise_retrieval"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "lean_std_premise_index",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].subjects[2]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.formal_math_and_proof_witness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.formal_math_premise_retrieval",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for first-wave Lean/Std premise-index fixture validation, exported bundle validation, source-module manifest checks, negative-case enforcement, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/lean_std_premise_index.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/lean_std_premise_index.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-6",
+      "P-8"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "lean_std_premise_index"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index"
+      }
+    ],
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[26:paper_module.lean_std_premise_index]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/lean_std_premise_index.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/lean_std_premise_index.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "The Lean/Std premise index validates a copied public Lean/Std descriptor catalog plus Ring2 premise-retrieval macro bodies without claiming proof, Mathlib, Lean/Lake, provider, release, or theorem-correctness authority.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "lean_std_premise_index"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_index"
+    }
+  ],
+  "title": "Lean/Std Premise Index",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

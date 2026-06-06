@@ -1,10 +1,12 @@
 {
-  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
+  "anti_claim": "Formal math readiness gate emits a real runtime receipt over imported readiness fixtures and source refs. It does not run Lean or Lake, call providers, expose private theorem proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
   "authority_ceiling": {
-    "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+    "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
+    "copied_public_probe_bodies_allowed": true,
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_presence_claim_authorized": false,
+    "private_theorem_proof_bodies_allowed": false,
     "proof_bodies_allowed": false,
     "provider_calls_authorized": false,
     "status": "pass"
@@ -21,10 +23,12 @@
     "lean_std_synthetic_core:mathlib"
   ],
   "board_schema_version": "formal_math_readiness_extension_board_v1",
-  "body_redacted": true,
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_readiness_probe_body_with_provenance",
   "bundle_id": null,
   "cell_id": "formal_math_readiness_extensions",
   "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+  "copied_source_artifact_count": 0,
   "corpus_projection": {
     "blocked_capabilities": [
       "lean_std_synthetic_core:mathlib"
@@ -32,7 +36,7 @@
     "lean_lake_execution_authorized": false,
     "mathlib_available": false
   },
-  "created_at": "2026-05-21T09:33:17+00:00",
+  "created_at": "2026-06-05T07:43:48+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -50,7 +54,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MATHLIB_AVAILABILITY_OVERCLAIM",
       "message": "Corpus readiness attempted to claim Mathlib availability without a passing probe.",
       "negative_case_id": "corpus_readiness_overclaims_mathlib",
@@ -58,7 +62,7 @@
       "subject_kind": "corpus_readiness"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "TACTIC_AVAILABILITY_UNPROBED",
       "message": "Tactic availability was claimed without a probe receipt.",
       "negative_case_id": "tactic_availability_without_probe",
@@ -66,7 +70,7 @@
       "subject_kind": "tactic_availability"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
       "message": "Premise index included forbidden proof/oracle body fields.",
       "negative_case_id": "premise_index_proof_body_forbidden",
@@ -74,7 +78,7 @@
       "subject_kind": "premise_index"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "ROUTING_ALLOWS_UNAVAILABLE_TACTIC",
       "message": "Target-shape routing allowed a tactic marked unavailable by the portfolio probe.",
       "negative_case_id": "routing_allows_unavailable_tactic",
@@ -82,7 +86,7 @@
       "subject_kind": "target_shape_routing"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PROVIDER_RECIPE_BUDGET_EXCEEDED",
       "message": "Provider context recipe exceeded the public readiness byte ceiling.",
       "negative_case_id": "provider_context_recipe_overclaim",
@@ -90,7 +94,7 @@
       "subject_kind": "provider_context_recipe"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PROVIDER_RECIPE_PROOF_BODY_FORBIDDEN",
       "message": "Provider context recipe allowed or embedded proof body material.",
       "negative_case_id": "provider_context_recipe_overclaim",
@@ -144,24 +148,17 @@
       "train": 11
     }
   },
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 10,
-    "status": "pass"
-  },
   "projection_cell_id": "formal_math_readiness_extensions",
   "projection_contract": {
-    "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+    "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
     "body_copied": false,
-    "body_redacted": true,
-    "copy_policy": "metadata_fixture_receipt_ref_only",
-    "private_source_bodies_allowed": false
+    "body_in_receipt": false,
+    "copy_policy": "real_runtime_receipt_with_secret_exclusion",
+    "credential_or_account_bound_bodies_allowed": false,
+    "real_substrate_receipt": true,
+    "synthetic_receipt_standin_allowed": false
   },
-  "projection_status": "public_replacement_landed",
+  "projection_status": "public_runtime_import_landed",
   "provider_context_projection": {
     "byte_budgets": {
       "minimal_4kb": 4096,
@@ -177,24 +174,197 @@
     "provider_calls_authorized": false,
     "recipe_count": 3
   },
-  "readiness_extension_status": "public_replacement_landed",
+  "public_path_sanitization": {
+    "body_text_boundary": "Receipt path normalization records hashed originals, replacements, field paths, and treatment classes only; private host path strings are not public receipt evidence.",
+    "policy_id": "microcosm_public_path_secret_policy_v1",
+    "replacement_count": 1,
+    "replacements": [
+      {
+        "field_path": "receipt_paths[4]",
+        "original_sha256": "sha256:55b882673ee69e07c7fe40d1e442ec37665ef8487d38d93099c41e674a127805",
+        "replacement": "<host-temp>/formal_math_readiness_gate_fixture_acceptance.json",
+        "treatment_class": "host_temp_path_transform"
+      }
+    ],
+    "schema_version": "microcosm_public_receipt_path_normalization_v1",
+    "status": "transformed",
+    "transform_classes": [
+      "host_temp_path_transform"
+    ]
+  },
+  "readiness_extension_status": "public_runtime_import_landed",
+  "realness_evidence": {
+    "candidate_bindings": [
+      {
+        "copied_source_artifact_count": 0,
+        "local_lean_lake_mathlib_evidence": {
+          "available_tactic_ids": [],
+          "body_in_receipt": false,
+          "corpus_readiness_ref": null,
+          "existing_target_ref_count": 0,
+          "lake_available": false,
+          "lean_available": false,
+          "lean_probe_file_count": 0,
+          "local_evidence_bound": false,
+          "manifest_refs_exist": false,
+          "mathlib_available": false,
+          "mathlib_probe_import_seen": false,
+          "missing_target_refs": [],
+          "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+          "source_manifest_refs": [
+            "fixtures/first_wave/formal_math_readiness_gate/input/source_module_manifest.json"
+          ],
+          "std_probe_file_count": 0,
+          "tactic_portfolio_ref": null,
+          "target_ref_count": 0,
+          "unavailable_tactic_ids": []
+        },
+        "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+        "source": "source_module_imports",
+        "source_modules_pass": true,
+        "source_refs": [],
+        "tactic_probe_evidence_bound": false,
+        "target_refs": []
+      },
+      {
+        "body_copied_material_count": 13,
+        "local_lean_lake_mathlib_evidence": {
+          "available_tactic_ids": [
+            "decide",
+            "grind",
+            "native_decide",
+            "omega",
+            "rfl",
+            "simp",
+            "simp_all"
+          ],
+          "body_in_receipt": false,
+          "corpus_readiness_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "existing_target_ref_count": 13,
+          "lake_available": true,
+          "lean_available": true,
+          "lean_probe_file_count": 10,
+          "local_evidence_bound": true,
+          "manifest_refs_exist": true,
+          "mathlib_available": false,
+          "mathlib_probe_import_seen": true,
+          "missing_target_refs": [],
+          "schema_version": "formal_math_readiness_local_lean_lake_mathlib_evidence_v1",
+          "source_manifest_refs": [
+            "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+            "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
+          ],
+          "std_probe_file_count": 9,
+          "tactic_portfolio_ref": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+          "target_ref_count": 13,
+          "unavailable_tactic_ids": [
+            "aesop"
+          ]
+        },
+        "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+        "source": "fixture_manifest_source_open_body_imports",
+        "source_manifest_refs": [
+          "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+          "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json"
+        ],
+        "source_module_manifest_status": "pass",
+        "source_refs": [
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+        ],
+        "tactic_probe_evidence_bound": true,
+        "target_refs": [
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+        ]
+      }
+    ],
+    "required_evidence_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "schema_version": "formal_math_readiness_realness_evidence_v1",
+    "synthetic_probe_labels_allowed": true,
+    "tactic_probe_evidence_bound": true
+  },
   "receipt_id": "formal_math_readiness_extension_board_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
-    "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
+    "<host-temp>/formal_math_readiness_gate_fixture_acceptance.json"
   ],
   "recipe_count": 3,
   "route_case_count": 5,
   "schema_version": "formal_math_readiness_extension_board_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 10,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "tactic_portfolio_availability_probe",
     "target_shape_tactic_routing_gate"
   ],
+  "source_body_import_projection": {
+    "body_in_receipt": false,
+    "body_material_status": "copied_non_secret_macro_readiness_probe_body_with_provenance",
+    "copied_source_artifact_count": 0,
+    "material_classes": [],
+    "source_module_import_count": 0,
+    "source_module_import_status": "copied_formal_readiness_source_modules_verified",
+    "source_module_manifest_ref": "fixtures/first_wave/formal_math_readiness_gate/input/source_module_manifest.json",
+    "source_modules_pass": true,
+    "source_refs": [],
+    "target_refs": []
+  },
   "source_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json#formal_math_readiness_extensions",
+  "source_module_import_count": 0,
+  "source_module_import_status": "copied_formal_readiness_source_modules_verified",
+  "source_module_manifest_ref": "fixtures/first_wave/formal_math_readiness_gate/input/source_module_manifest.json",
+  "source_modules_pass": true,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
@@ -242,7 +412,7 @@
           "decide"
         ],
         "blocked_unavailable_tactic_ids": [],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "route_case_id": "closed_nat_mod_decision",
         "target_shape": "closed_nat_mod_decision"
       },
@@ -251,7 +421,7 @@
           "simp_all"
         ],
         "blocked_unavailable_tactic_ids": [],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "route_case_id": "conjunction_goal",
         "target_shape": "conjunction"
       },
@@ -260,7 +430,7 @@
           "omega"
         ],
         "blocked_unavailable_tactic_ids": [],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "route_case_id": "int_linear_arithmetic",
         "target_shape": "int_linear_arithmetic"
       },
@@ -271,7 +441,7 @@
         "blocked_unavailable_tactic_ids": [
           "aesop"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "route_case_id": "mathlib_search_uses_aesop_without_probe",
         "target_shape": "mathlib_search"
       },
@@ -280,7 +450,7 @@
           "rfl"
         ],
         "blocked_unavailable_tactic_ids": [],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "route_case_id": "true_intro",
         "target_shape": "true_intro"
       }

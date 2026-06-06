@@ -1,0 +1,424 @@
+{
+  "schema_version": "batch9_macro_engines_capsule_probe_manifest_v1",
+  "organ_id": "batch9_macro_engines_capsule",
+  "fixture_id": "first_wave.batch9_macro_engines_capsule",
+  "mechanisms": [
+    {
+      "mechanism_id": "lineage_temporal_provenance_chain_resolver",
+      "source_module_ids": [
+        "lineage_temporal_provenance_chain_resolver"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "approval_sign_off_claim_adjudicator",
+      "source_module_ids": [
+        "approval_sign_off_claim_adjudicator"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "python_ast_symbol_index_doc_tree",
+      "source_module_ids": [
+        "python_ast_symbol_index_doc_tree"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "finance_news_dedup_cluster_ranker",
+      "source_module_ids": [
+        "finance_news_dedup_cluster_ranker"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "mission_graph_topological_compiler",
+      "source_module_ids": [
+        "mission_graph_topological_compiler"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "dependency_pin_drift_auditor",
+      "source_module_ids": [
+        "dependency_pin_drift_auditor"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "config_authority_drift_audit",
+      "source_module_ids": [
+        "config_authority_drift_audit"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "heterogeneous_graph_edge_extractor",
+      "source_module_ids": [
+        "heterogeneous_graph_edge_extractor"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "work_atlas_cell_histogram_aggregator",
+      "source_module_ids": [
+        "work_atlas_cell_histogram_aggregator"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "host_pressure_admission_decision_gate",
+      "source_module_ids": [
+        "host_pressure_admission_decision_gate"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "doctrine_file_enrichment_multihop_join",
+      "source_module_ids": [
+        "doctrine_file_enrichment_multihop_join"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "worker_job_budget_forbidden_surface_gate",
+      "source_module_ids": [
+        "worker_job_budget_forbidden_surface_gate"
+      ],
+      "evidence_class": "semantic_validator",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    },
+    {
+      "mechanism_id": "milestone_relative_promotion_quality_accounting",
+      "source_module_ids": [
+        "milestone_relative_promotion_quality_accounting"
+      ],
+      "evidence_class": "algorithmic_projection",
+      "source_to_target_relation": "exact copied macro body plus source-faithful public exercise",
+      "public_exercise": "Synthetic public fixture exercises the named engine without provider calls, private state, live market data, or source mutation.",
+      "negative_case": "Data-driven negative-case fixture supplies a fixture_patch that the semantic evaluator executes; declared error_codes are advisory only.",
+      "claim_ceiling": "Public fixture-level algorithmic or semantic-validator evidence only; not live macro authority."
+    }
+  ],
+  "positive_fixture": {
+    "lineage": {
+      "start_run_id": "RUN_SUBJECT",
+      "contexts": {
+        "RUN_SUBJECT": {
+          "mission_name": "oracle",
+          "source_run_id": "RUN_FEED",
+          "temporal_contract": {
+            "truth_run_id": "RUN_TRUTH"
+          }
+        },
+        "RUN_FEED": {
+          "run_created_at": "2026-01-01T00:00:00Z"
+        },
+        "RUN_TRUTH": {
+          "run_created_at": "2026-01-01T01:00:00Z"
+        }
+      }
+    },
+    "approval": {
+      "request": {
+        "approval_id": "APPROVAL_1",
+        "source_kind": "fixture",
+        "nonce": "n1"
+      },
+      "decision": {
+        "decision": "approve",
+        "nonce": "n1"
+      }
+    },
+    "ast": {
+      "files": {
+        "pkg/sample.py": "\"\"\"Module doc.\"\"\"\nclass Outer:\n    \"\"\"Outer doc.\"\"\"\n    def method(self):\n        \"\"\"Method doc.\"\"\"\n        return 1\nasync def async_job():\n    return 2\n"
+      }
+    },
+    "finance_news": {
+      "rows": [
+        {
+          "headline": "Fed holds rates steady amid inflation cooling",
+          "confidence": 0.7,
+          "relevance": 0.2
+        },
+        {
+          "headline": "Chip exports rally after earnings surprise",
+          "confidence": 0.4,
+          "relevance": 0.1
+        },
+        {
+          "headline": "Copper inventories rebound after port reopenings",
+          "confidence": 0.5,
+          "relevance": 0.2
+        }
+      ]
+    },
+    "mission_graph": {
+      "nodes": [
+        {
+          "id": "target",
+          "group": "alpha",
+          "dependencies": [
+            "feed"
+          ]
+        },
+        {
+          "id": "sibling",
+          "group": "alpha",
+          "dependencies": []
+        },
+        {
+          "id": "feed",
+          "group": "feeds",
+          "dependencies": []
+        },
+        {
+          "id": "outside",
+          "group": "beta",
+          "dependencies": []
+        }
+      ]
+    },
+    "dependency_pin": {
+      "requirements": [
+        "fastapi>=0.100,<1.0",
+        "starlette<2.0.0"
+      ],
+      "installed": {
+        "fastapi": "0.110.0",
+        "starlette": "1.1.0"
+      }
+    },
+    "config_authority": {
+      "known_roots": [
+        "config/public.json",
+        "state/cache.json"
+      ],
+      "registry": {
+        "row_count": 2,
+        "rows": [
+          {
+            "config_id": "public.runtime",
+            "authority_class": "source_config",
+            "mutability_class": "read_only_source",
+            "root": "config/public.json",
+            "effective_trace": {
+              "mutation_allowed": false
+            }
+          },
+          {
+            "config_id": "generated.cache",
+            "authority_class": "generated_projection_or_cache",
+            "mutability_class": "read_only_generated",
+            "root": "state/cache.json",
+            "effective_trace": {
+              "mutation_allowed": false
+            }
+          }
+        ]
+      }
+    },
+    "heterogeneous_edges": {
+      "row": {
+        "top_dependencies": [
+          "navigation_hologram_theory"
+        ],
+        "related_principles": [
+          "pri_049"
+        ],
+        "principle_edges": [
+          {
+            "target": "pri_088",
+            "relation": "related_to"
+          }
+        ],
+        "code_loci": [
+          {
+            "path": "system/lib/example.py"
+          }
+        ]
+      }
+    },
+    "work_atlas": {
+      "marks": [
+        {
+          "id": "w1",
+          "work_item_type": "repair",
+          "overlays": {
+            "blocked": true
+          },
+          "route_explanation": {
+            "route_reason": "no_owner",
+            "reason_kind": "structural"
+          }
+        },
+        {
+          "id": "w2",
+          "work_item_type": "repair",
+          "overlays": {
+            "unrouted": false
+          },
+          "route_explanation": {
+            "route_reason": "should_not_count",
+            "reason_kind": "noise"
+          }
+        },
+        {
+          "id": "w3",
+          "work_item_type": "feature",
+          "overlays": {
+            "stale": true,
+            "high_unlock": true
+          }
+        }
+      ]
+    },
+    "host_pressure": {
+      "quote": {
+        "recommendation": "run_now",
+        "host_pressure_admission": {
+          "status": "available",
+          "should_block_run": false,
+          "decision": "allow",
+          "admission": {
+            "operator_override_required": false
+          }
+        }
+      }
+    },
+    "doctrine_enrichment": {
+      "hit_path": "system/lib/example.py",
+      "miss_path": "system/lib/example.py",
+      "corpus": {
+        "mechanisms": [
+          {
+            "id": "mech_fixture",
+            "title": "Fixture mechanism",
+            "code_loci": [
+              {
+                "path": "system/lib/example.py"
+              }
+            ],
+            "concept_edges": [
+              {
+                "target": "con_fixture"
+              }
+            ]
+          }
+        ],
+        "concepts": [
+          {
+            "id": "con_fixture",
+            "title": "Fixture concept",
+            "principle_edges": [
+              {
+                "target": "pri_fixture"
+              }
+            ]
+          }
+        ],
+        "principles": [
+          {
+            "id": "pri_fixture",
+            "title": "Fixture principle"
+          }
+        ]
+      }
+    },
+    "worker_gate": {
+      "blocked_job": {
+        "provider_id": "openrouter_api",
+        "model_id": "free/test:free",
+        "provider_budget": {},
+        "forbidden_surfaces": [],
+        "input_packet": {
+          "path": "public_fixture.json"
+        }
+      },
+      "allowed_job": {
+        "provider_id": "openrouter_api",
+        "model_id": "free/test:free",
+        "provider_budget": {},
+        "forbidden_surfaces": [],
+        "input_packet": {
+          "path": "public_fixture.json"
+        }
+      }
+    },
+    "milestone_quality": {
+      "runs": [
+        {
+          "milestone_at": "2026-05-01T00:00:00+00:00"
+        },
+        {
+          "run_at": "2026-05-02T00:00:00+00:00",
+          "apply_green_commit": {
+            "applied_count": 2,
+            "status": "green",
+            "committed_at": "2026-05-02T01:00:00+00:00"
+          },
+          "projection_consumed": true
+        },
+        {
+          "run_at": "2026-05-03T00:00:00+00:00",
+          "apply_green_commit": {
+            "applied_count": 1,
+            "status": "green",
+            "committed_at": "2026-05-03T01:00:00+00:00"
+          },
+          "projection_consumed": true
+        }
+      ]
+    }
+  },
+  "source_module_manifest": "source_module_manifest.json",
+  "body_in_receipt": false
+}

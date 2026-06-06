@@ -1,0 +1,182 @@
+{
+  "anti_claim": "This Batch-8 StationSurfaceAtlas layout fixture accepts TSX source-reference digest evidence, public Python-port geometry cases, and stable negative-case codes only. It does not run React, claim browser visual acceptance, mutate navigation graph authority, authorize publication, or approve release.",
+  "authority_boundary": "public_python_port_over_typescript_layout_nodes_not_react_runtime_or_release_authority",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_station_surface_atlas_layout_python_port_not_ui_runtime_or_release_authority",
+    "browser_render_authorized": false,
+    "navigation_graph_authority": false,
+    "publication_authorized": false,
+    "python_port": true,
+    "react_runtime_started": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "batch8_station_surface_atlas_layout_port",
+  "kind_name": "Batch 8 StationSurfaceAtlas layoutNodes port",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public synthetic AtlasView rows",
+      "expected column geometry",
+      "expected node positions",
+      "source refs and digests",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_python_port_with_exact_copied_tsx_reference",
+    "forbidden_public_inputs": [
+      "browser screenshots",
+      "private operator state",
+      "raw navigation graph snapshots with private paths",
+      "keys",
+      "credentials"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "reference_case_count",
+      "passed_reference_case_count",
+      "negative_exercises",
+      "source_module_manifest",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch8_station_surface_atlas_layout_port",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch8_station_surface_atlas_layout_port_result.json",
+    "batch8_station_surface_atlas_layout_port_board.json",
+    "batch8_station_surface_atlas_layout_port_validation_receipt.json",
+    "batch8_station_surface_atlas_layout_port_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch8_station_surface_atlas_layout_port",
+    "source_pattern_id_sample": [
+      "station_surface_atlas_layout_nodes_python_port"
+    ],
+    "used_by_organs": [
+      "batch8_station_surface_atlas_layout_port"
+    ]
+  },
+  "required_fields": [
+    "reference_cases",
+    "negative_exercises",
+    "source_module_manifest",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch8_station_surface_atlas_layout_port/input",
+      "role": "public_station_layout_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_tsx_reference_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch8_station_surface_atlas_layout_port",
+  "standard_payload": {
+    "anti_purpose": "Fixture-only receipts, browser visual acceptance, navigation graph authority, source mutation, or claims about UI readiness.",
+    "failure_modes": [
+      "TSX source anchors drift",
+      "lane thresholds drift",
+      "band split math drifts",
+      "slack lane spending is removed",
+      "map-pair ordering regresses",
+      "failed/readiness-timeout posture no longer sorts first",
+      "unknown shell groups create ungoverned columns",
+      "receipts include source bodies or private runtime state"
+    ],
+    "ontology": "A public-safe Python port of the deterministic layoutNodes geometry from StationSurfaceAtlas.tsx.",
+    "teleology": "Let a cold reader rerun the Atlas shell-packer semantics without needing React, a browser render, or live navigation graph state.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch8_station_surface_atlas_layout_port",
+      "receipt_id": "receipt.microcosm.batch8_station_surface_atlas_layout_port",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exact copied TSX source reference",
+    "verify required layoutNodes and fitView anchors",
+    "match public banded slack geometry fixtures",
+    "match public map-pair ordering fixtures",
+    "require attention-sort, slack-lane, and unknown-group negatives",
+    "keep React runtime, browser render, navigation graph authority, publication, and release authority false"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_station_surface_atlas_layout_port run --input fixtures/first_wave/batch8_station_surface_atlas_layout_port/input --out receipts/first_wave/batch8_station_surface_atlas_layout_port --acceptance-out receipts/acceptance/first_wave/batch8_station_surface_atlas_layout_port_fixture_acceptance.json",
+    "expected_negative_case_count": 3,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_station_surface_atlas_layout_port validate-bundle --input examples/batch8_station_surface_atlas_layout_port/exported_batch8_station_surface_atlas_layout_port_bundle --out /tmp/batch8_station_surface_atlas_layout_port_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch8_station_surface_atlas_layout_port"
+  },
+  "wave": "w1_batch8_station_surface_atlas_layout_port",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch8_station_surface_atlas_layout_port.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 8 StationSurfaceAtlas layoutNodes port instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch8_station_surface_atlas_layout_port.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 8 StationSurfaceAtlas layoutNodes port without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch8_station_surface_atlas_layout_port.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch8_station_surface_atlas_layout_port and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch8_station_surface_atlas_layout_port.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch8_station_surface_atlas_layout_port"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch8_station_surface_atlas_layout_port"
+  ],
+  "anti_claims": [
+    "This Batch-8 StationSurfaceAtlas layout fixture accepts TSX source-reference digest evidence, public Python-port geometry cases, and stable negative-case codes only. It does not run React, claim browser visual acceptance, mutate navigation graph authority, authorize publication, or approve release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch8_station_surface_atlas_layout_port",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch8_station_surface_atlas_layout_port",
+    "receipt_id": "receipt.microcosm.batch8_station_surface_atlas_layout_port",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, and public_private_boundary."
+  }
+}

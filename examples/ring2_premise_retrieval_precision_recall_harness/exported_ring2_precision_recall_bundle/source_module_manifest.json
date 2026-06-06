@@ -1,0 +1,65 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "non_secret_Ring2_prover_graph_benchmark_runner_copied_as_public_source_module_body",
+  "manifest_id": "ring2_precision_recall_control_plane_source_module_manifest",
+  "module_count": 1,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 315755,
+      "line_count": 7168,
+      "material_class": "public_macro_tool_body",
+      "module_id": "ring2_precision_recall_prover_graph_benchmark_runner_body_import",
+      "path": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "required_anchors": [
+        "def run_ring2_premise_retrieval(",
+        "def _ring2_comparison_report(",
+        "def _premise_index(",
+        "PROVER_BENCHMARK"
+      ],
+      "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "sha256_match": true,
+      "source_byte_count": 315755,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_line_count": 7168,
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+      "source_role": "Ring2 prover graph benchmark control-plane runner that builds premise indexes, executes premise-retrieval graph variants, and emits the run reports consumed by the public precision/recall harness.",
+      "source_sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "source_to_target_relation": "exact_copy",
+      "target_byte_count": 315755,
+      "target_line_count": 7168,
+      "target_ref": "microcosm-substrate/examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "target_sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "validation_refs": [
+        "tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_control_plane_source_module_is_exact_copy",
+        "tests/test_substrate_substitution_ledger.py::test_runtime_run_report_sources_do_not_count_as_real_substrate"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "account/session state",
+    "cookies",
+    "browser/HUD live-access",
+    "recipient-send state",
+    "credential-equivalent material",
+    "private proof bodies",
+    "oracle-needed premise ids"
+  ],
+  "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no proof bodies",
+    "no oracle-needed premise ids"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source-open everything except keys, credentials, account/session state, cookies, provider payload bodies, browser/HUD live-access, recipient-send state, credential-equivalent material, proof bodies, oracle-needed premise ids, and host-local absolute paths",
+  "source_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+}

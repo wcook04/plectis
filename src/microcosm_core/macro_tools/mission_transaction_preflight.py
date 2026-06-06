@@ -346,9 +346,9 @@ def build_public_mission_transaction_preflight(
         owned_paths=owned_paths,
     )
 
+    checkpoint_lane_status = checkpoint_result.get("status")
     return {
         "schema_version": "public_mission_transaction_preflight_v1",
-        "status": landing_decision["status"],
         "source_ref": SOURCE_REF,
         "source_refs": [SOURCE_REF, KERNEL_SOURCE_REF],
         "source_symbols": SOURCE_SYMBOL_REFS,
@@ -361,6 +361,8 @@ def build_public_mission_transaction_preflight(
         **path_result,
         **parent_result,
         **checkpoint_result,
+        "checkpoint_lane_status": checkpoint_lane_status,
+        "status": landing_decision["status"],
         "landing_decision": landing_decision,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,

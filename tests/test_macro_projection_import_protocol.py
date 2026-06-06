@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +35,7 @@ from microcosm_core.macro_tools.work_landing import (
     build_public_work_landing_status,
     build_public_workitem_write_admission,
 )
+from microcosm_core.organs import macro_projection_import_protocol
 from microcosm_core.organs.macro_projection_import_protocol import (
     EXPECTED_NEGATIVE_CASES,
     preview_import_plan,
@@ -42,6 +45,7 @@ from microcosm_core.organs.macro_projection_import_protocol import (
     validate_import_plan,
     validate_projection_protocol,
 )
+from microcosm_core.receipts import normalize_public_receipt_paths
 from microcosm_core.runtime_shell import PRODUCT_PATH_DEMOTED_ORGAN_IDS
 from microcosm_core.secret_exclusion_scan import public_relative_path
 
@@ -53,7 +57,7 @@ BUNDLE_INPUT = (
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
 )
 PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
-OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
+OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "example"
 COMPUTER_USE_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
@@ -246,15 +250,12 @@ NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS = [
 ]
 COMMAND_NODE_CACHE_BODY_MATERIAL_IDS = [
     "command_node_cache_body_import",
+    "pulse_cache_body_import",
     "command_node_cache_test_body_import",
 ]
-WORK_ADMISSION_SOURCE_BODY_MATERIAL_IDS = [
+WORK_ADMISSION_BODY_MATERIAL_IDS = [
     "work_admission_body_import",
     "work_admission_test_body_import",
-]
-REFRESHED_EXACT_COPY_DEPENDENCY_BODY_MATERIAL_IDS = [
-    "pulse_cache_body_import",
-    "strict_json_source_body_import",
 ]
 NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS = [
     "navigation_clusterability_body_import",
@@ -275,13 +276,6 @@ ENTRYPOINT_HEALTH_BODY_MATERIAL_IDS = [
 AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS = [
     "agent_entrypoint_audit_body_import",
     "agent_entrypoint_audit_test_body_import",
-]
-AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS = [
-    *AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
-    "agent_entry_surface_standard_body_import",
-    "agent_entry_surfaces_paper_body_import",
-    "codex_adapter_projection_paper_body_import",
-    "claude_code_adapter_projection_paper_body_import",
 ]
 NAVIGATION_FITNESS_BODY_MATERIAL_IDS = [
     "navigation_fitness_body_import",
@@ -334,6 +328,7 @@ KERNEL_STATE_REGISTRY_BODY_MATERIAL_IDS = [
 ]
 AGENT_EXECUTION_TRACE_SOURCE_BODY_MATERIAL_IDS = [
     "agent_execution_trace_source_body_import",
+    "strict_json_source_body_import",
     "agent_execution_trace_test_body_import",
     "agent_execution_trace_standard_body_import",
 ]
@@ -393,6 +388,13 @@ BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS = [
 AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS = [
     "agent_route_fanin_continuation_source_body_import",
 ]
+AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS = [
+    "agent_route_session_attribution_source_body_import",
+]
+SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS = [
+    "session_heartbeat_source_body_import",
+    "session_heartbeat_test_body_import",
+]
 ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS = [
     "orchestration_control_body_import",
     "pipeline_advance_control_body_import",
@@ -401,13 +403,6 @@ ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS = [
     "pipeline_advance_test_body_import",
     "pipeline_overnight_test_body_import",
     "orchestration_control_test_body_import",
-]
-AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS = [
-    "agent_route_session_attribution_source_body_import",
-]
-SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS = [
-    "session_heartbeat_source_body_import",
-    "session_heartbeat_test_body_import",
 ]
 SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS = [
     "seed_distillation_subagent_lane_body_import",
@@ -653,6 +648,32 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+_MACRO_PROJECTION_BUNDLE_TEMP: tempfile.TemporaryDirectory[str] | None = None
+_MACRO_PROJECTION_BUNDLE_RUN: dict[str, Any] | None = None
+
+
+def _macro_projection_bundle_run() -> dict[str, Any]:
+    global _MACRO_PROJECTION_BUNDLE_TEMP
+    global _MACRO_PROJECTION_BUNDLE_RUN
+    if _MACRO_PROJECTION_BUNDLE_RUN is not None:
+        return _MACRO_PROJECTION_BUNDLE_RUN
+    _MACRO_PROJECTION_BUNDLE_TEMP = tempfile.TemporaryDirectory(
+        prefix="macro_projection_bundle_run_"
+    )
+    temp_root = Path(_MACRO_PROJECTION_BUNDLE_TEMP.name)
+    public_root = _copy_macro_projection_public_tree(temp_root)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        temp_root / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+    _MACRO_PROJECTION_BUNDLE_RUN = {
+        "public_root": public_root,
+        "result": result,
+    }
+    return _MACRO_PROJECTION_BUNDLE_RUN
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -665,6 +686,50 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def test_macro_projection_sha256_digest_streams_without_read_bytes(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "large_source_module.py"
+    body = b"macro projection body import\n" * 8192
+    source.write_bytes(body)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source:
+            raise AssertionError("macro projection digest must stream")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    assert macro_projection_import_protocol._sha256_digest(source) == (
+        "sha256:" + hashlib.sha256(body).hexdigest()
+    )
+
+
+def test_source_ref_candidates_prefer_macro_root_for_macro_only_refs(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    public_tool = public_root / "tools/meta/factory/task_ledger_apply.py"
+    macro_tool = tmp_path / "tools/meta/factory/task_ledger_apply.py"
+    public_source = public_root / "src/microcosm_core/organs/example.py"
+    macro_source = tmp_path / "src/microcosm_core/organs/example.py"
+    for path in (public_tool, macro_tool, public_source, macro_source):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(path.as_posix(), encoding="utf-8")
+
+    macro_candidates = macro_projection_import_protocol._source_ref_file_candidates(
+        "tools/meta/factory/task_ledger_apply.py",
+        public_root=public_root,
+    )
+    public_candidates = macro_projection_import_protocol._source_ref_file_candidates(
+        "src/microcosm_core/organs/example.py",
+        public_root=public_root,
+    )
+
+    assert macro_candidates[:2] == [macro_tool, public_tool]
+    assert public_candidates[:2] == [public_source, macro_source]
 
 
 def _assert_source_digest_matches_import_contract(
@@ -703,12 +768,13 @@ def _assert_public_safe_verification_mode(row: dict[str, Any]) -> None:
     relation = verification.get("source_to_target_relation")
     assert mode in {"exact_source_digest_match", "verified_light_edit_recipe"}
     if mode == "exact_source_digest_match":
-        assert relation == "exact_copy"
+        assert relation in (
+            macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+        )
     else:
-        assert relation in {
-            "public_light_edit_private_path_redaction",
-            "verified_public_safe_private_path_rewrite",
-        }
+        assert relation in (
+            macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+        )
 
 
 def test_macro_projection_import_bundle_manifest_lists_every_source_module_manifest() -> None:
@@ -722,6 +788,51 @@ def test_macro_projection_import_bundle_manifest_lists_every_source_module_manif
 
     assert len(bundle_manifest["inputs"]) == len(input_names)
     assert source_manifest_names <= input_names
+
+
+def test_source_module_manifest_paths_all_examples_streams_without_recursive_glob(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    input_path = public_root / "examples/z_bundle"
+    manifest_paths = [
+        input_path / "source_module_manifest.json",
+        input_path / "z_source_module_manifest.json",
+        public_root / "examples/a_bundle/source_module_manifest.json",
+        public_root / "examples/mid/nested/custom_source_module_manifest.json",
+    ]
+    for path in manifest_paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('{"modules": []}\n', encoding="utf-8")
+    (public_root / "examples/mid/nested/notes.txt").write_text(
+        "not a manifest\n",
+        encoding="utf-8",
+    )
+
+    original_glob = Path.glob
+
+    def fail_recursive_manifest_glob(self: Path, pattern: str):
+        if self == public_root / "examples" and pattern.startswith("**/"):
+            raise AssertionError(
+                "all-examples manifest discovery should stream instead of recursive glob"
+            )
+        return original_glob(self, pattern)
+
+    monkeypatch.setattr(Path, "glob", fail_recursive_manifest_glob)
+
+    result = macro_projection_import_protocol._source_module_manifest_paths(
+        input_path,
+        public_root=public_root,
+        all_examples=True,
+    )
+
+    assert [path.relative_to(public_root).as_posix() for path in result] == [
+        "examples/z_bundle/source_module_manifest.json",
+        "examples/z_bundle/z_source_module_manifest.json",
+        "examples/a_bundle/source_module_manifest.json",
+        "examples/mid/nested/custom_source_module_manifest.json",
+    ]
 
 
 def _test_target_ref_carries_source_ref(*, target_ref: str, source_ref: str) -> bool:
@@ -748,7 +859,7 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
         module_rows.extend(source_manifest["modules"])
 
     assert body_imports["status"] == "pass"
-    assert body_imports["body_material_count"] == len(module_rows) == 172
+    assert body_imports["body_material_count"] == len(module_rows) == 177
     assert body_imports["body_material_ids"] == [
         row["module_id"] for row in module_rows
     ]
@@ -770,14 +881,15 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
         assert row_target_digest == digest
         if row_source_digest != source_digest:
             assert row_source_digest == digest
-            assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
+            assert row.get("source_to_target_relation", "exact_copy") in (
+                macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+            )
             continue
         if source_digest != digest:
             assert row.get("sha256_match") in {False, True}
-            assert row.get("source_to_target_relation") in {
-                "public_light_edit_private_path_redaction",
-                "verified_public_safe_private_path_rewrite",
-            }
+            assert row.get("source_to_target_relation") in (
+                macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+            )
             if not _test_target_ref_carries_source_ref(
                 target_ref=row["target_ref"],
                 source_ref=row["source_ref"],
@@ -785,7 +897,9 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
                 assert "source_modules/" in row["target_ref"]
         else:
             assert row["sha256_match"] is True
-            assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
+            assert row.get("source_to_target_relation", "exact_copy") in (
+                macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+            )
             assert source_digest == digest
 
 
@@ -802,8 +916,8 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["projection_cell_count"] == 64
-    assert result["ready_projection_cell_count"] == 64
+    assert result["projection_cell_count"] == 65
+    assert result["ready_projection_cell_count"] == 65
     assert result["blocked_projection_cell_count"] == 0
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
@@ -832,12 +946,12 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_path"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
     assert result["projection_board"]["runtime_severance_board_embedded"] is True
-    assert result["projection_intake_board"]["ready_cell_count"] == 64
+    assert result["projection_intake_board"]["ready_cell_count"] == 65
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
-    assert result["projection_intake_board"]["landed_cell_count"] == 64
+    assert result["projection_intake_board"]["landed_cell_count"] == 65
     assert result["projection_intake_board"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 62,
+        "public_runtime_import_landed": 63,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
@@ -1052,6 +1166,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         *PROMPT_SHELF_MOVEMENT_SOURCE_BODY_MATERIAL_IDS,
         *PROMPT_SHELF_UPPROPAGATION_SOURCE_BODY_MATERIAL_IDS,
         *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
+        *ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS,
         *NAVIGATION_TRACE_SOURCE_BODY_MATERIAL_IDS,
         *GENERATED_PROJECTION_CONTROL_SOURCE_BODY_MATERIAL_IDS,
         *SHARED_WORKTREE_GUARD_SOURCE_BODY_MATERIAL_IDS,
@@ -1697,13 +1812,33 @@ def test_macro_projection_release_severance_blocks_stale_lifecycle_counts(
     } == {"organ_authority_row_count"}
 
 
-def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+def test_macro_projection_release_severance_accepts_demotion_adjusted_lifecycle_counts(
+    tmp_path: Path,
+) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+    shutil.copy2(
+        MICROCOSM_ROOT / "core/organ_registry.json",
+        public_root / "core/organ_registry.json",
+    )
+
+    result = run(
+        public_root / "fixtures/first_wave/macro_projection_import_protocol/input",
+        public_root / "receipts/first_wave/macro_projection_import_protocol",
         command="pytest",
     )
+
+    gate = result["runtime_severance_board"]["dependency_preflight_gate"]
+    assert result["dependency_preflight_gate_status"] == "pass"
+    assert gate["status"] == "pass"
+    assert gate["accepted_registry_count"] > gate["expected_accepted_organ_count"]
+    assert gate["coverage_counts"]["demoted_drilldown_organ_count"] > 0
+    assert "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE" not in result["error_codes"]
+
+
+def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_projection_import_bundle"
@@ -1711,8 +1846,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 78
-    assert result["projection_intake_board"]["ready_cell_count"] == 78
+    assert result["projection_cell_count"] == 80
+    assert result["projection_intake_board"]["ready_cell_count"] == 80
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
@@ -1754,18 +1889,17 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *BOOTSTRAP_ROUTE_SURFACE_BODY_MATERIAL_IDS,
         *AGENT_OPERATING_PACKET_BODY_MATERIAL_IDS,
         *ACTIVE_EXECUTION_CONSTELLATION_BODY_MATERIAL_IDS,
-            *TASK_LEDGER_STARTUP_PRESSURE_BODY_MATERIAL_IDS,
-            *NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS,
-            *NAVIGATION_METABOLISM_LEDGER_BODY_MATERIAL_IDS,
-            *NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS,
-            *COMMAND_NODE_CACHE_BODY_MATERIAL_IDS,
-            *WORK_ADMISSION_SOURCE_BODY_MATERIAL_IDS,
-            *REFRESHED_EXACT_COPY_DEPENDENCY_BODY_MATERIAL_IDS,
-            *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
+        *TASK_LEDGER_STARTUP_PRESSURE_BODY_MATERIAL_IDS,
+        *NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS,
+        *NAVIGATION_METABOLISM_LEDGER_BODY_MATERIAL_IDS,
+        *NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS,
+        *COMMAND_NODE_CACHE_BODY_MATERIAL_IDS,
+        *WORK_ADMISSION_BODY_MATERIAL_IDS,
+        *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
         *ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
         *ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
         *ENTRYPOINT_HEALTH_BODY_MATERIAL_IDS,
-        *AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS,
+        *AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
         *NAVIGATION_FITNESS_BODY_MATERIAL_IDS,
         *DYNAMIC_PAPER_LATTICE_BODY_MATERIAL_IDS,
         *KIND_ATLAS_BODY_MATERIAL_IDS,
@@ -1786,13 +1920,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *PROMPT_SHELF_MOVEMENT_SOURCE_BODY_MATERIAL_IDS,
         *PROMPT_SHELF_UPPROPAGATION_SOURCE_BODY_MATERIAL_IDS,
         *PROMPT_SHELF_UPPROPAGATION_DIGEST_SOURCE_BODY_MATERIAL_IDS,
-            *PROMPT_SHELF_RUNS_INDEX_SOURCE_BODY_MATERIAL_IDS,
-            *STANDARD_OPTION_SURFACE_SOURCE_BODY_MATERIAL_IDS,
-            *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
-            *AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
-            *ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS,
-            *AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
+        *PROMPT_SHELF_RUNS_INDEX_SOURCE_BODY_MATERIAL_IDS,
+        *STANDARD_OPTION_SURFACE_SOURCE_BODY_MATERIAL_IDS,
+        *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
+        *AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
+        *AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
         *SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS,
+        *ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS,
         *ARTIFACT_PROJECTION_DEBT_SOURCE_BODY_MATERIAL_IDS,
@@ -1856,14 +1990,17 @@ def test_macro_projection_run_routes_exported_bundle_without_traceback(
         "fixture_action": "run",
         "exported_bundle_action": "run-projection-bundle",
     }
-    expected_receipt_path = public_relative_path(
+    raw_receipt_path = public_relative_path(
         tmp_path
         / "macro_projection_run_compat"
         / "exported_projection_import_bundle_validation_result.json",
         display_root=MICROCOSM_ROOT,
     )
+    expected_receipt_path = normalize_public_receipt_paths(
+        {"receipt_paths": [raw_receipt_path]}
+    )["receipt_paths"][0]
     assert result["receipt_paths"] == [expected_receipt_path]
-    receipt_path = Path(expected_receipt_path)
+    receipt_path = Path(raw_receipt_path)
     if not receipt_path.is_absolute():
         public_root_candidate = MICROCOSM_ROOT / receipt_path
         repo_root_candidate = MICROCOSM_ROOT.parent / receipt_path
@@ -1988,7 +2125,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 78
+    assert result["projection_intake_board"]["ready_cell_count"] == 80
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -2004,7 +2141,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 26,
         "public_macro_standard_body": 4,
-            "public_macro_tool_body": 220,
+        "public_macro_tool_body": 220,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -2041,13 +2178,770 @@ def test_macro_projection_plan_reports_source_module_parent_drift_without_block(
     assert result["blocking_surface_ids"] == []
     drift_rows = {
         row["material_id"]: row
-        for row in result["live_source_drift_preview"]
+        for row in result["live_source_drift_rows"]
     }
     assert (
         drift_rows["trace_capsule_cli_prompt_trace_body_import"]["status"]
         == "live_source_drift_not_import_proof_failure"
     )
     assert result["live_source_drift_count"] >= 1
+
+
+def test_refresh_exact_copy_source_modules_refreshes_protocol_alias_rows(
+    tmp_path: Path,
+) -> None:
+    """Protocol material ids may differ from legacy source-module manifest rows."""
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / "examples/example_bundle"
+    source_root = tmp_path
+    source = source_root / "macro/source.py"
+    target = bundle / "source_modules/macro/source.py"
+    policy = public_root / "core/private_state_forbidden_classes.json"
+    protocol_path = bundle / "projection_protocol.json"
+    manifest_path = bundle / "source_module_manifest.json"
+    old_body = "def source():\n    return 'old'\n"
+    new_body = "def source():\n    return 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    source.parent.mkdir(parents=True)
+    target.parent.mkdir(parents=True)
+    policy.parent.mkdir(parents=True)
+    source.write_text(new_body, encoding="utf-8")
+    target.write_text(old_body, encoding="utf-8")
+    policy.write_text("{}", encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "path": "source_modules/macro/source.py",
+                        "source_ref": "macro/source.py",
+                        "body_copied": True,
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    protocol_path.write_text(
+        json.dumps(
+            {
+                "copied_material": [
+                    {
+                        "material_id": "alias_source_body_import",
+                        "material_class": "public_macro_tool_body",
+                        "target_ref": "examples/example_bundle/source_modules/macro/source.py",
+                        "source_refs": [
+                            "macro/source.py",
+                            "microcosm-substrate/examples/example_bundle/source_module_manifest.json",
+                        ],
+                        "body_digest": f"sha256:{old_digest}",
+                        "body_line_count": old_body.count("\n"),
+                        "body_import_verification": {
+                            "verification_status": "verified",
+                            "verification_mode": "exact_source_digest_match",
+                            "source_body_digest": f"sha256:{old_digest}",
+                            "target_body_digest": f"sha256:{old_digest}",
+                            "source_line_count": old_body.count("\n"),
+                            "target_line_count": old_body.count("\n"),
+                            "source_ref": "macro/source.py",
+                            "target_ref": "examples/example_bundle/source_modules/macro/source.py",
+                            "source_to_target_relation": "exact_copy",
+                        },
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        bundle,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    protocol_row = protocol["copied_material"][0]
+    verification = protocol_row["body_import_verification"]
+    assert result["status"] == "pass"
+    assert result["protocol_row_update_count"] == 1
+    assert target.read_text(encoding="utf-8") == new_body
+    assert protocol_row["body_digest"] == f"sha256:{new_digest}"
+    assert verification["source_body_digest"] == f"sha256:{new_digest}"
+    assert verification["target_body_digest"] == f"sha256:{new_digest}"
+
+
+def test_refresh_exact_copy_source_modules_updates_target_adjacent_manifest(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    source_root = tmp_path
+    macro_bundle = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+    )
+    fixture_input = public_root / "fixtures/first_wave/macro_projection_import_protocol/input"
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    target_bundle = public_root / "examples/navigation_hologram_route_plane/exported_bundle"
+    manifest_path = target_bundle / "source_module_manifest.json"
+    target_ref = (
+        "examples/navigation_hologram_route_plane/exported_bundle/"
+        "source_modules/macro/source.py"
+    )
+    source_ref = "macro/source.py"
+    source = source_root / source_ref
+    target = public_root / target_ref
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    for path, text in ((source, new_body), (target, old_body)):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    macro_bundle.mkdir(parents=True, exist_ok=True)
+    fixture_input.mkdir(parents=True, exist_ok=True)
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "cross_bundle_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    def protocol_payload() -> dict[str, Any]:
+        return {
+            "copied_material": [
+                {
+                    "material_id": "cross_bundle_body_import",
+                    "material_class": "public_macro_tool_body",
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "body_digest": f"sha256:{old_digest}",
+                    "body_line_count": old_body.count("\n"),
+                    "body_import_verification": {
+                        "verification_status": "verified",
+                        "verification_mode": "exact_source_digest_match",
+                        "source_body_digest": f"sha256:{old_digest}",
+                        "target_body_digest": f"sha256:{old_digest}",
+                        "source_line_count": old_body.count("\n"),
+                        "target_line_count": old_body.count("\n"),
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": "exact_copy",
+                    },
+                }
+            ]
+        }
+
+    for protocol_path in (
+        macro_bundle / "projection_protocol.json",
+        fixture_input / "projection_protocol.json",
+    ):
+        protocol_path.write_text(
+            json.dumps(protocol_payload(), indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    result = refresh_exact_copy_source_modules(
+        macro_bundle,
+        source_root=source_root,
+        material_ids=["cross_bundle_body_import"],
+        write=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_row = manifest["modules"][0]
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 1
+    assert result["protocol_row_update_count"] == 2
+    assert result["manifest_row_update_count"] == 1
+    assert target.read_text(encoding="utf-8") == new_body
+    assert manifest_row["source_sha256"] == new_digest
+    assert manifest_row["target_sha256"] == new_digest
+
+
+def test_refresh_exact_copy_source_modules_detects_manifest_count_metadata_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    source_root = tmp_path
+    bundle = public_root / "examples/example_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    source_ref = "macro/source.py"
+    target_ref = "examples/example_bundle/source_modules/macro/source.py"
+    source = source_root / source_ref
+    target = public_root / target_ref
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    old_body = "VALUE = 'old'\n"
+    body = "VALUE = 'new'\nEXTRA = True\n"
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+    for path in (source, target):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(body, encoding="utf-8")
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "metadata_only_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "source_to_target_relation": "exact_copy",
+                        "sha256": digest,
+                        "source_sha256": digest,
+                        "target_sha256": digest,
+                        "sha256_match": True,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                        "source_line_count": old_body.count("\n"),
+                        "target_line_count": old_body.count("\n"),
+                        "source_byte_count": len(old_body.encode("utf-8")),
+                        "target_byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    dry_run = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["metadata_only_body_import"],
+        write=False,
+        command="pytest",
+    )
+
+    assert dry_run["status"] == "drift_detected"
+    assert dry_run["manifest_row_update_count"] == 1
+    assert dry_run["target_copy_count"] == 0
+    manifest_row = dry_run["manifest_rows"][0]
+    assert manifest_row["metadata_refresh_required"] is True
+    assert manifest_row["target_refresh_required"] is False
+
+    write_result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["metadata_only_body_import"],
+        write=True,
+        command="pytest",
+    )
+
+    updated = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+    assert write_result["status"] == "pass"
+    assert updated["source_line_count"] == body.count("\n")
+    assert updated["target_line_count"] == body.count("\n")
+    assert updated["source_byte_count"] == len(body.encode("utf-8"))
+    assert updated["target_byte_count"] == len(body.encode("utf-8"))
+
+
+def test_refresh_exact_copy_source_modules_blocks_dirty_pending_source_write(
+    tmp_path: Path,
+) -> None:
+    source_root = tmp_path / "repo"
+    public_root = source_root / "microcosm-substrate"
+    bundle = public_root / "examples/example_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    source_ref = "macro/source.py"
+    target_ref = "examples/example_bundle/source_modules/macro/source.py"
+    source = source_root / source_ref
+    target = public_root / target_ref
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    for path in (source, target):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(old_body, encoding="utf-8")
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "dirty_source_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "source_to_target_relation": "exact_copy",
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "sha256_match": True,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    subprocess.run(["git", "init"], cwd=source_root, check=True, capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=source_root, check=True, capture_output=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.email=test@example.invalid",
+            "-c",
+            "user.name=Test Runner",
+            "commit",
+            "-m",
+            "baseline",
+        ],
+        cwd=source_root,
+        check=True,
+        capture_output=True,
+    )
+    source.write_text(new_body, encoding="utf-8")
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["dirty_source_body_import"],
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["write_applied"] is False
+    assert result["write_guard"] == "dirty_pending_sources_blocked_write"
+    assert result["source_coupling"]["status"] == "dirty_pending_sources_detected"
+    assert result["source_coupling"]["dirty_source_ref_count"] == 1
+    assert result["source_coupling"]["dirty_source_refs"] == [
+        {
+            "source_ref": source_ref,
+            "git_path": source_ref,
+            "git_status": " M",
+        }
+    ]
+    assert result["defects"] == [
+        {
+            "defect_code": "source_module_refresh_dirty_source_requires_review",
+            "dirty_source_ref_count": 1,
+            "dirty_source_refs": result["source_coupling"]["dirty_source_refs"],
+            "body_in_receipt": False,
+        }
+    ]
+    assert target.read_text(encoding="utf-8") == old_body
+
+    override = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["dirty_source_body_import"],
+        write=True,
+        allow_dirty_sources=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    updated = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+    assert override["status"] == "pass"
+    assert override["write_applied"] is True
+    assert override["write_guard"] == "dirty_pending_sources_override"
+    assert target.read_text(encoding="utf-8") == new_body
+    assert updated["source_sha256"] == new_digest
+    assert updated["target_sha256"] == new_digest
+
+
+def test_refresh_exact_copy_source_modules_blocks_dirty_pending_output_write(
+    tmp_path: Path,
+) -> None:
+    source_root = tmp_path / "repo"
+    public_root = source_root / "microcosm-substrate"
+    bundle = public_root / "examples/example_bundle"
+    manifest_path = bundle / "source_module_manifest.json"
+    source_ref = "macro/source.py"
+    target_ref = "examples/example_bundle/source_modules/macro/source.py"
+    source = source_root / source_ref
+    target = public_root / target_ref
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\n"
+    operator_target_body = "VALUE = 'operator draft'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text(new_body, encoding="utf-8")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(old_body, encoding="utf-8")
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "dirty_output_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "body_copied": True,
+                        "source_to_target_relation": "exact_copy",
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "sha256_match": True,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    subprocess.run(["git", "init"], cwd=source_root, check=True, capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=source_root, check=True, capture_output=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.email=test@example.invalid",
+            "-c",
+            "user.name=Test Runner",
+            "commit",
+            "-m",
+            "baseline",
+        ],
+        cwd=source_root,
+        check=True,
+        capture_output=True,
+    )
+
+    target.write_text(operator_target_body, encoding="utf-8")
+    manifest_payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_payload["modules"][0]["operator_note"] = "unrelated manifest draft"
+    manifest_path.write_text(json.dumps(manifest_payload, indent=2) + "\n", encoding="utf-8")
+
+    dry_run = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["dirty_output_body_import"],
+        write=False,
+        command="pytest",
+    )
+
+    assert dry_run["status"] == "drift_detected"
+    assert dry_run["defect_count"] == 0
+    assert dry_run["output_coupling"]["status"] == "dirty_pending_output_paths_detected"
+    assert dry_run["output_coupling"]["dirty_output_path_count"] == 2
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["dirty_output_body_import"],
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["write_applied"] is False
+    assert result["write_guard"] == "dirty_pending_outputs_blocked_write"
+    assert result["source_coupling"]["status"] == "pending_sources_clean"
+    assert result["output_coupling"]["status"] == "dirty_pending_output_paths_detected"
+    dirty_output_paths = sorted(
+        result["output_coupling"]["dirty_output_paths"],
+        key=lambda row: row["git_path"],
+    )
+    assert [row["git_status"] for row in dirty_output_paths] == [" M", " M"]
+    assert [row["output_path_roles"] for row in dirty_output_paths] == [
+        ["manifest_json_update"],
+        ["target_copy"],
+    ]
+    assert result["defects"] == [
+        {
+            "defect_code": "source_module_refresh_dirty_output_requires_review",
+            "dirty_output_path_count": 2,
+            "dirty_output_paths": result["output_coupling"]["dirty_output_paths"],
+            "body_in_receipt": False,
+        }
+    ]
+    assert target.read_text(encoding="utf-8") == operator_target_body
+    manifest_after = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest_after["modules"][0]["operator_note"] == "unrelated manifest draft"
+    assert manifest_after["modules"][0]["source_sha256"] == old_digest
+
+    override = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["dirty_output_body_import"],
+        write=True,
+        allow_dirty_outputs=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    updated = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+    assert override["status"] == "pass"
+    assert override["write_applied"] is True
+    assert override["write_guard"] == "dirty_pending_outputs_override"
+    assert override["allow_dirty_outputs"] is True
+    assert target.read_text(encoding="utf-8") == new_body
+    assert updated["operator_note"] == "unrelated manifest draft"
+    assert updated["source_sha256"] == new_digest
+    assert updated["target_sha256"] == new_digest
+    assert updated["sha256_match"] is True
+
+
+def test_refresh_exact_copy_source_modules_scopes_protocol_rows_for_manifest_file(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+    )
+    source_root = tmp_path
+    manifest_path = bundle / "work_admission_source_module_manifest.json"
+    policy_path = public_root / "core/private_state_forbidden_classes.json"
+    protocol_path = bundle / "projection_protocol.json"
+    old_body = "VALUE = 'old'\n"
+    first_body = "VALUE = 'first'\n"
+    second_body = "VALUE = 'second'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    first_source = source_root / "macro/first.py"
+    second_source = source_root / "macro/second.py"
+    first_target = bundle / "source_modules/macro/first.py"
+    second_target = bundle / "source_modules/macro/second.py"
+    for path, text in (
+        (first_source, first_body),
+        (second_source, second_body),
+        (first_target, old_body),
+        (second_target, old_body),
+    ):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    policy_path.write_text("{}", encoding="utf-8")
+
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "first_body_import",
+                        "source_ref": "macro/first.py",
+                        "target_ref": (
+                            "microcosm-substrate/examples/"
+                            "macro_projection_import_protocol/"
+                            "exported_projection_import_bundle/source_modules/"
+                            "macro/first.py"
+                        ),
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    def protocol_row(material_id: str, source_ref: str, target_name: str) -> dict:
+        target_ref = (
+            "examples/macro_projection_import_protocol/"
+            f"exported_projection_import_bundle/source_modules/macro/{target_name}"
+        )
+        return {
+            "material_id": material_id,
+            "material_class": "public_macro_tool_body",
+            "source_ref": source_ref,
+            "target_ref": target_ref,
+            "body_digest": f"sha256:{old_digest}",
+            "body_line_count": old_body.count("\n"),
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+                "source_body_digest": f"sha256:{old_digest}",
+                "target_body_digest": f"sha256:{old_digest}",
+                "source_line_count": old_body.count("\n"),
+                "target_line_count": old_body.count("\n"),
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "source_to_target_relation": "exact_copy",
+            },
+        }
+
+    protocol_path.write_text(
+        json.dumps(
+            {
+                "copied_material": [
+                    protocol_row("first_body_import", "macro/first.py", "first.py"),
+                    protocol_row("second_body_import", "macro/second.py", "second.py"),
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        write=False,
+        command="pytest",
+    )
+
+    assert result["status"] == "drift_detected"
+    assert result["manifest_row_update_count"] == 1
+    assert result["protocol_row_update_count"] == 1
+    assert result["target_copy_count"] == 1
+    assert [row["material_id"] for row in result["protocol_rows"]] == [
+        "first_body_import"
+    ]
+
+
+def test_refresh_exact_copy_source_modules_can_skip_protocol_scan_for_manifest_write(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    bundle = public_root / "examples/example_bundle"
+    source_root = tmp_path
+    manifest_path = bundle / "source_module_manifest.json"
+    protocol_path = bundle / "projection_protocol.json"
+    source_ref = "macro/source.py"
+    manifest_target_ref = "source_modules/macro/source.py"
+    protocol_target_ref = "examples/example_bundle/source_modules/macro/source.py"
+    source = source_root / source_ref
+    target = bundle / manifest_target_ref
+    old_body = "VALUE = 'old'\n"
+    new_body = "VALUE = 'new'\n"
+    old_digest = hashlib.sha256(old_body.encode("utf-8")).hexdigest()
+
+    for path, text in ((source, new_body), (target, old_body)):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "module_id": "source_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": manifest_target_ref,
+                        "body_copied": True,
+                        "classification": "copied_non_secret_macro_body",
+                        "sha256_match": True,
+                        "source_sha256": old_digest,
+                        "target_sha256": old_digest,
+                        "line_count": old_body.count("\n"),
+                        "byte_count": len(old_body.encode("utf-8")),
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    protocol_path.write_text(
+        json.dumps(
+            {
+                "copied_material": [
+                    {
+                        "material_id": "source_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": protocol_target_ref,
+                        "body_digest": f"sha256:{old_digest}",
+                        "body_line_count": old_body.count("\n"),
+                        "body_import_verification": {
+                            "verification_status": "verified",
+                            "verification_mode": "exact_source_digest_match",
+                            "source_body_digest": f"sha256:{old_digest}",
+                            "target_body_digest": f"sha256:{old_digest}",
+                            "source_line_count": old_body.count("\n"),
+                            "target_line_count": old_body.count("\n"),
+                            "source_ref": source_ref,
+                            "target_ref": protocol_target_ref,
+                            "source_to_target_relation": "exact_copy",
+                        },
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path,
+        source_root=source_root,
+        material_ids=["source_body_import"],
+        scan_protocols=False,
+        write=True,
+        command="pytest",
+    )
+
+    new_digest = hashlib.sha256(new_body.encode("utf-8")).hexdigest()
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_row = manifest["modules"][0]
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    protocol_row = protocol["copied_material"][0]
+    assert result["status"] == "pass"
+    assert result["protocol_scan_enabled"] is False
+    assert result["protocol_count"] == 0
+    assert result["protocol_row_update_count"] == 0
+    assert result["manifest_row_update_count"] == 1
+    assert result["target_copy_count"] == 1
+    assert target.read_text(encoding="utf-8") == new_body
+    assert manifest_row["source_sha256"] == new_digest
+    assert manifest_row["target_sha256"] == new_digest
+    assert protocol_row["body_digest"] == f"sha256:{old_digest}"
 
 
 def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protocol_mirrors(
@@ -2330,48 +3224,58 @@ def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
     assert row["sha256_match"] is True
 
 
-def test_refresh_exact_copy_source_modules_accepts_sealed_manifest_target_copy(
+def test_refresh_exact_copy_source_modules_filters_legacy_source_ref_rows(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     marker_path = public_root / "core/private_state_forbidden_classes.json"
     marker_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
-    source_root = tmp_path / "macro-root"
-    source_root.mkdir()
-    source_ref = "state/runs/unavailable/sealed_runtime_receipt.json"
+    source_root = tmp_path
+    selected_source_ref = "system/lib/selected_observability.py"
+    other_source_ref = "system/lib/other_observability.py"
+    selected_source = source_root / selected_source_ref
+    other_source = source_root / other_source_ref
+    selected_source.parent.mkdir(parents=True, exist_ok=True)
+    selected_source.write_text("SELECTED = 'refreshed exact copy'\n", encoding="utf-8")
+    other_source.write_text("OTHER = 'refreshed exact copy'\n", encoding="utf-8")
 
     manifest_path = (
-        public_root / "examples/sealed_runtime/exported_bundle/source_module_manifest.json"
+        public_root
+        / "examples/legacy_observability/exported_bundle/source_module_manifest.json"
     )
-    target_ref = "source_modules/state/runs/unavailable/sealed_runtime_receipt.json"
-    target = manifest_path.parent / target_ref
-    target.parent.mkdir(parents=True, exist_ok=True)
-    body = '{"kind": "sealed_public_runtime_receipt"}\n'
-    target.write_text(body, encoding="utf-8")
-    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    selected_target_ref = "source_modules/system/lib/selected_observability.py"
+    other_target_ref = "source_modules/system/lib/other_observability.py"
+    for target_ref in (selected_target_ref, other_target_ref):
+        target = manifest_path.parent / target_ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("STALE = True\n", encoding="utf-8")
     manifest_path.write_text(
         json.dumps(
             {
-                "schema_version": "sealed_runtime_source_manifest_v1",
+                "schema_version": "legacy_source_module_manifest_v1",
                 "modules": [
                     {
-                        "module_id": "sealed_runtime_receipt_body_import",
-                        "source_ref": source_ref,
-                        "target_ref": target_ref,
-                        "source_to_target_relation": "exact_copy",
+                        "source_ref": selected_source_ref,
+                        "path": selected_target_ref,
                         "source_import_class": "copied_non_secret_macro_body",
-                        "required_anchors": ["sealed_public_runtime_receipt"],
-                        "body_copied": True,
                         "body_in_receipt": False,
-                        "sha256": digest,
-                        "source_sha256": f"sha256:{digest}",
-                        "target_sha256": f"sha256:{digest}",
-                        "sha256_match": True,
-                        "line_count": body.count("\n"),
-                        "byte_count": len(body.encode("utf-8")),
-                    }
+                        "sha256": "stale",
+                        "source_sha256": "sha256:stale",
+                        "target_sha256": "sha256:stale",
+                        "line_count": 1,
+                    },
+                    {
+                        "source_ref": other_source_ref,
+                        "path": other_target_ref,
+                        "source_import_class": "copied_non_secret_macro_body",
+                        "body_in_receipt": False,
+                        "sha256": "stale",
+                        "source_sha256": "sha256:stale",
+                        "target_sha256": "sha256:stale",
+                        "line_count": 1,
+                    },
                 ],
             },
             indent=2,
@@ -2383,16 +3287,21 @@ def test_refresh_exact_copy_source_modules_accepts_sealed_manifest_target_copy(
     result = refresh_exact_copy_source_modules(
         manifest_path.parent,
         source_root=source_root,
+        material_ids=[selected_source_ref],
         write=True,
         command="pytest",
     )
 
     assert result["status"] == "pass"
-    assert result["defect_count"] == 0
-    assert result["target_copy_count"] == 0
-    assert result["manifest_row_update_count"] == 0
-    assert result["pending_update_count"] == 0
-    assert target.read_text(encoding="utf-8") == body
+    assert result["matched_material_ids"] == [selected_source_ref]
+    assert result["target_copy_count"] == 1
+    assert result["manifest_row_update_count"] == 1
+    assert (
+        manifest_path.parent / selected_target_ref
+    ).read_bytes() == selected_source.read_bytes()
+    assert (manifest_path.parent / other_target_ref).read_text(encoding="utf-8") == (
+        "STALE = True\n"
+    )
 
 
 def test_refresh_exact_copy_source_modules_resolves_microcosm_local_sources(
@@ -2514,15 +3423,68 @@ def test_refresh_exact_copy_source_modules_skips_non_exact_public_light_edit_row
     assert target.read_text(encoding="utf-8") == '{"path": "<repo-root>/state/runs"}\n'
 
 
+def test_refresh_exact_copy_source_modules_accepts_exact_relation_aliases(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path
+    source_ref = "macro/public_safe.py"
+    source = source_root / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("VALUE = 42\n", encoding="utf-8")
+
+    manifest_path = public_root / "examples/exact_alias/exported_bundle/source_module_manifest.json"
+    target_ref = "source_modules/macro/public_safe.py"
+    target = manifest_path.parent / target_ref
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("VALUE = 1\n", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "exact_alias_manifest_v1",
+                "modules": [
+                    {
+                        "module_id": "public_safe_alias_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": "exact_public_safe_macro_copy",
+                        "source_import_class": "copied_non_secret_macro_body",
+                        "required_anchors": ["VALUE = 42"],
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["defect_count"] == 0
+    assert result["target_copy_count"] == 1
+    assert result["manifest_row_update_count"] == 1
+    assert target.read_text(encoding="utf-8") == "VALUE = 42\n"
+
+
 def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     assert result["status"] == "pass"
     assert result["public_safe_body_material_count"] == 254
@@ -2552,12 +3514,9 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
 
 
 def test_pattern_ledger_body_is_imported_as_exact_copy(tmp_path: Path) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     body_import_ids = {
         row["material_id"]
@@ -2598,12 +3557,9 @@ def test_pattern_ledger_body_is_imported_as_exact_copy(tmp_path: Path) -> None:
 
 
 def test_work_landing_tool_body_is_imported_as_light_edit(tmp_path: Path) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     body_import_ids = {
         row["material_id"]
@@ -2650,12 +3606,9 @@ def test_work_landing_tool_body_is_imported_as_light_edit(tmp_path: Path) -> Non
 def test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2689,12 +3642,9 @@ def test_agent_execution_trace_body_import_is_unified_under_macro_projection_spi
 def test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2749,12 +3699,9 @@ def test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_
 def test_agent_observability_store_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2800,12 +3747,9 @@ def test_agent_observability_store_body_import_is_unified_under_macro_projection
 def test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2846,12 +3790,9 @@ def test_agent_session_attribution_body_import_is_unified_under_macro_projection
 def test_continuation_packet_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2892,12 +3833,9 @@ def test_continuation_packet_body_import_is_unified_under_macro_projection_spine
 def test_agent_route_fanin_continuation_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -2910,12 +3848,9 @@ def test_agent_route_fanin_continuation_source_modules_body_import_is_unified_un
 def test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -2928,12 +3863,9 @@ def test_agent_route_session_attribution_source_modules_body_import_is_unified_u
 def test_bridge_resume_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -2978,12 +3910,9 @@ def test_bridge_resume_body_import_is_unified_under_macro_projection_spine(
 def test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3031,12 +3960,9 @@ def test_controller_heartbeat_body_import_is_unified_under_macro_projection_spin
 def test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3090,12 +4016,9 @@ def test_navigation_route_plane_body_import_is_unified_under_macro_projection_sp
 def test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3135,12 +4058,9 @@ def test_work_landing_control_source_modules_body_import_is_unified_under_macro_
 def test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3185,12 +4105,9 @@ def test_task_ledger_control_source_modules_body_import_is_unified_under_macro_p
 def test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3235,12 +4152,9 @@ def test_work_ledger_control_source_modules_body_import_is_unified_under_macro_p
 def test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3287,12 +4201,9 @@ def test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_proje
 def test_command_output_projection_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3342,12 +4253,9 @@ def test_command_output_projection_source_modules_body_import_is_unified_under_m
 def test_trace_capsule_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3373,14 +4281,15 @@ def test_trace_capsule_source_modules_body_import_is_unified_under_macro_project
         target_digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
         if verification["source_body_digest"] == target_digest:
             assert verification["verification_mode"] == "exact_source_digest_match"
-            assert verification["source_to_target_relation"] == "exact_copy"
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+            )
         else:
             assert verification["source_body_digest"] == source_digest
             assert verification["verification_mode"] == "verified_light_edit_recipe"
-            assert verification["source_to_target_relation"] in {
-                "public_light_edit_private_path_redaction",
-                "verified_public_safe_private_path_rewrite",
-            }
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+            )
         assert verification["source_line_count"] == verification["target_line_count"]
         assert row["body_text_in_receipt"] is False
 
@@ -3402,12 +4311,9 @@ def test_trace_capsule_source_modules_body_import_is_unified_under_macro_project
 def test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3454,12 +4360,9 @@ def test_route_selection_control_source_modules_body_import_is_unified_under_mac
 def test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3472,12 +4375,9 @@ def test_route_worker_packet_source_modules_body_import_is_unified_under_macro_p
 def test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3490,12 +4390,9 @@ def test_route_operator_court_source_modules_body_import_is_unified_under_macro_
 def test_route_discovery_confirmation_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3508,12 +4405,9 @@ def test_route_discovery_confirmation_source_modules_body_import_is_unified_unde
 def test_projection_loss_audit_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3526,12 +4420,9 @@ def test_projection_loss_audit_source_modules_body_import_is_unified_under_macro
 def test_semantic_route_quality_audit_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3544,12 +4435,9 @@ def test_semantic_route_quality_audit_source_modules_body_import_is_unified_unde
 def test_reaction_wiring_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3589,13 +4477,14 @@ def test_navigation_context_rosetta_source_modules_body_import_is_unified_under_
         verification = row["body_import_verification"]
         if source_digest == digest:
             assert verification["verification_mode"] == "exact_source_digest_match"
-            assert verification["source_to_target_relation"] == "exact_copy"
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+            )
         else:
             assert verification["verification_mode"] == "verified_light_edit_recipe"
-            assert verification["source_to_target_relation"] in {
-                "public_light_edit_private_path_redaction",
-                "verified_public_safe_private_path_rewrite",
-            }
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+            )
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -3622,12 +4511,9 @@ def test_navigation_context_rosetta_source_modules_body_import_is_unified_under_
 def test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3639,12 +4525,16 @@ def test_bootstrap_route_surface_source_modules_body_import_is_unified_under_mac
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
         digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["target_body_digest"] == digest
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
@@ -3678,12 +4568,9 @@ def test_bootstrap_route_surface_source_modules_body_import_is_unified_under_mac
 def test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3735,12 +4622,9 @@ def test_agent_operating_packet_source_modules_body_import_is_unified_under_macr
 def test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3752,13 +4636,17 @@ def test_active_execution_constellation_source_modules_body_import_is_unified_un
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
         digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["target_body_digest"] == digest
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
@@ -3788,12 +4676,9 @@ def test_active_execution_constellation_source_modules_body_import_is_unified_un
 def test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -3806,12 +4691,9 @@ def test_task_ledger_startup_pressure_source_modules_body_import_is_unified_unde
 def test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3821,14 +4703,18 @@ def test_executable_grammar_metabolism_source_modules_body_import_is_unified_und
         row = by_material[material_id]
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
-        source = MICROCOSM_ROOT.parent / row["source_refs"][0]
         digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
+        source_ref = row["source_refs"][0]
 
         assert target.is_file()
+        assert "self-indexing-cognitive-substrate" not in source_ref
+        assert "self-indexing-cognitive-substrate" not in row["target_ref"]
+        assert source_ref.startswith(
+            "private-macro-source/microcosms/executable_grammar_metabolism/"
+        )
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
+        assert row["body_import_verification"]["source_body_digest"] == digest
         assert row["body_import_verification"]["target_body_digest"] == digest
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
@@ -3865,12 +4751,9 @@ def test_executable_grammar_metabolism_source_modules_body_import_is_unified_und
 def test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3918,12 +4801,9 @@ def test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_
 def test_navigation_metabolism_ledger_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -3971,12 +4851,9 @@ def test_navigation_metabolism_ledger_source_modules_body_import_is_unified_unde
 def test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -4024,12 +4901,9 @@ def test_navigation_surface_audit_source_modules_body_import_is_unified_under_ma
 def test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     by_material = {
         row["material_id"]: row
@@ -4074,6 +4948,21 @@ def test_command_node_cache_source_modules_body_import_is_unified_under_macro_pr
     )
 
 
+def test_work_admission_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=WORK_ADMISSION_BODY_MATERIAL_IDS,
+        cell_id="work_admission_source_modules_import",
+    )
+
+
 def _assert_exact_source_module_body_import(
     *,
     result: dict[str, Any],
@@ -4111,14 +5000,15 @@ def _assert_exact_source_module_body_import(
         )
         if verification["source_body_digest"] == digest:
             assert verification["verification_mode"] == "exact_source_digest_match"
-            assert verification["source_to_target_relation"] == "exact_copy"
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.EXACT_COPY_SOURCE_TO_TARGET_RELATIONS
+            )
         else:
             assert verification["source_body_digest"] == source_digest
             assert verification["verification_mode"] == "verified_light_edit_recipe"
-            assert verification["source_to_target_relation"] in {
-                "public_light_edit_private_path_redaction",
-                "verified_public_safe_private_path_rewrite",
-            }
+            assert verification["source_to_target_relation"] in (
+                macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+            )
         assert verification["source_line_count"] == verification["target_line_count"]
         assert row["body_text_in_receipt"] is False
 
@@ -4140,12 +5030,9 @@ def _assert_exact_source_module_body_import(
 def test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4159,12 +5046,9 @@ def test_provider_context_source_modules_body_import_is_unified_under_macro_proj
 def test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4178,12 +5062,9 @@ def test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_pr
 def test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4196,12 +5077,9 @@ def test_world_model_projection_drift_source_modules_body_import_is_unified_unde
 def test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4214,12 +5092,9 @@ def test_spatial_world_model_source_modules_body_import_is_unified_under_macro_p
 def test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4233,12 +5108,9 @@ def test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_un
 def test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4251,12 +5123,9 @@ def test_navigation_clusterability_source_modules_body_import_is_unified_under_m
 def test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4269,12 +5138,9 @@ def test_annex_routing_coverage_source_modules_body_import_is_unified_under_macr
 def test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4287,12 +5153,9 @@ def test_annex_currentness_source_modules_body_import_is_unified_under_macro_pro
 def test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4305,17 +5168,14 @@ def test_entrypoint_health_source_modules_body_import_is_unified_under_macro_pro
 def test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
         public_root=public_root,
-        material_ids=AGENT_ENTRYPOINT_AUDIT_EXPORTED_BODY_MATERIAL_IDS,
+        material_ids=AGENT_ENTRYPOINT_AUDIT_BODY_MATERIAL_IDS,
         cell_id="agent_entrypoint_audit_source_modules_import",
     )
 
@@ -4323,12 +5183,9 @@ def test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macr
 def test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4341,12 +5198,9 @@ def test_navigation_fitness_source_modules_body_import_is_unified_under_macro_pr
 def test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4359,12 +5213,9 @@ def test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro
 def test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4377,12 +5228,9 @@ def test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection
 def test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4395,12 +5243,9 @@ def test_semantic_routing_source_modules_body_import_is_unified_under_macro_proj
 def test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4413,12 +5258,9 @@ def test_embedding_substrate_source_modules_body_import_is_unified_under_macro_p
 def test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4431,12 +5273,9 @@ def test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_unde
 def test_agent_provider_router_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4449,12 +5288,9 @@ def test_agent_provider_router_source_modules_body_import_is_unified_under_macro
 def test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4467,12 +5303,9 @@ def test_bridge_route_config_source_modules_body_import_is_unified_under_macro_p
 def test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4485,12 +5318,9 @@ def test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_
 def test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4503,12 +5333,9 @@ def test_observe_runtime_source_modules_body_import_is_unified_under_macro_proje
 def test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4521,12 +5348,9 @@ def test_kernel_state_registry_source_modules_body_import_is_unified_under_macro
 def test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4539,12 +5363,9 @@ def test_agent_execution_trace_source_modules_body_import_is_unified_under_macro
 def test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4557,12 +5378,9 @@ def test_agent_observability_source_modules_body_import_is_unified_under_macro_p
 def test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4575,12 +5393,9 @@ def test_agent_observability_animation_source_modules_body_import_is_unified_und
 def test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4593,12 +5408,9 @@ def test_agent_observability_classification_source_modules_body_import_is_unifie
 def test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4611,12 +5423,9 @@ def test_agent_mission_status_source_modules_body_import_is_unified_under_macro_
 def test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4629,12 +5438,9 @@ def test_operator_handoff_linkage_source_modules_body_import_is_unified_under_ma
 def test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4647,12 +5453,9 @@ def test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro
 def test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4665,12 +5468,9 @@ def test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_
 def test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4683,12 +5483,9 @@ def test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified
 def test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4701,12 +5498,9 @@ def test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_mac
 def test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4719,12 +5513,9 @@ def test_standard_option_surface_source_modules_body_import_is_unified_under_mac
 def test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4737,12 +5528,9 @@ def test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_m
 def test_session_heartbeat_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4752,15 +5540,27 @@ def test_session_heartbeat_source_modules_body_import_is_unified_under_macro_pro
     )
 
 
+def test_orchestration_overnight_control_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=ORCHESTRATION_OVERNIGHT_CONTROL_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="orchestration_overnight_control_source_modules_import",
+    )
+
+
 def test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4773,12 +5573,9 @@ def test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_u
 def test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4791,12 +5588,9 @@ def test_seed_distillation_dependency_source_modules_body_import_is_unified_unde
 def test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4809,12 +5603,9 @@ def test_artifact_projection_debt_source_modules_body_import_is_unified_under_ma
 def test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4827,12 +5618,9 @@ def test_navigation_trace_source_modules_body_import_is_unified_under_macro_proj
 def test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4845,12 +5633,9 @@ def test_generated_projection_control_source_modules_body_import_is_unified_unde
 def test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4863,12 +5648,9 @@ def test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro
 def test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4881,12 +5663,9 @@ def test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_
 def test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine(
     tmp_path: Path,
 ) -> None:
-    public_root = _copy_macro_projection_public_tree(tmp_path)
-    result = run_projection_bundle(
-        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
-        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-        command="pytest",
-    )
+    bundle_run = _macro_projection_bundle_run()
+    public_root = bundle_run["public_root"]
+    result = bundle_run["result"]
 
     _assert_exact_source_module_body_import(
         result=result,
@@ -4931,3 +5710,55 @@ def test_import_plan_rejects_missing_public_safe_body_material_id() -> None:
     assert result["findings"][0]["error_code"] == (
         "MACRO_PROJECTION_PUBLIC_SAFE_BODY_MATERIAL_MISSING"
     )
+
+
+def test_import_plan_rejects_public_bound_private_root_refs() -> None:
+    result = validate_import_plan(
+        {
+            "plan_id": "private_root_ref_import_plan",
+            "next_best_lane": "real_substrate_import_path",
+            "proposed_cells": [
+                {
+                    "cell_id": "cell_with_private_root_refs",
+                    "source_refs": [
+                        (
+                            "self-indexing-cognitive-substrate/microcosms/"
+                            "executable_grammar_metabolism/README.md"
+                        )
+                    ],
+                    "target_refs": [
+                        (
+                            "examples/macro_projection_import_protocol/"
+                            "exported_projection_import_bundle/source_modules/"
+                            "self-indexing-cognitive-substrate/microcosms/"
+                            "executable_grammar_metabolism/README.md"
+                        )
+                    ],
+                    "validation_refs": ["receipts/example.json"],
+                },
+                {
+                    "cell_id": "cell_two",
+                    "source_refs": ["public-source.json"],
+                    "target_refs": ["fixtures/example-two.json"],
+                    "validation_refs": ["receipts/example-two.json"],
+                },
+                {
+                    "cell_id": "cell_three",
+                    "source_refs": ["public-source-three.json"],
+                    "target_refs": ["fixtures/example-three.json"],
+                    "validation_refs": ["receipts/example-three.json"],
+                },
+            ],
+        }
+    )
+
+    assert result["status"] == "blocked"
+    assert result["public_bound_private_root_ref_count"] == 2
+    assert {
+        finding["subject_id"]
+        for finding in result["findings"]
+        if finding["error_code"] == "MACRO_PROJECTION_PUBLIC_BOUND_PRIVATE_ROOT_REF"
+    } == {
+        "cell_with_private_root_refs:source_ref:self-indexing-cognitive-substrate",
+        "cell_with_private_root_refs:target_ref:self-indexing-cognitive-substrate",
+    }

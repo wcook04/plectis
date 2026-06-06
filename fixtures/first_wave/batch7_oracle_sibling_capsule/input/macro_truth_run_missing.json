@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "case_id": "macro_truth_run_missing",
+  "error_codes": [
+    "BATCH7_ORACLE_TRUTH_RUN_REQUIRED"
+  ]
+}

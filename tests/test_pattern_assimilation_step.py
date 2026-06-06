@@ -26,8 +26,72 @@ ASSIMILATION_BUNDLE_INPUT = (
 PATTERN_SOURCE_MODULE_IDS = {
     "macro_pattern_autonomy_process_contract_body_import",
     "macro_pattern_assimilation_fixture_manifest_body_import",
+    "pattern_assimilation_acceptance_validator_source_body_import",
     "pattern_assimilation_retracted_adapter_receipt_body_import",
 }
+
+
+def _pattern_registry_row() -> dict[str, Any]:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    return next(
+        row
+        for row in registry["implemented_organs"]
+        if row["organ_id"] == "pattern_assimilation_step"
+    )
+
+
+def _pattern_acceptance_row() -> dict[str, Any]:
+    acceptance = json.loads(
+        (MICROCOSM_ROOT / "core/acceptance/first_wave_acceptance.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    return next(
+        row
+        for row in acceptance["accepted_current_authority_organs"]
+        if row["organ_id"] == "pattern_assimilation_step"
+    )
+
+
+def _copy_public_ref(public_root: Path, ref: str) -> None:
+    ref_path = Path(ref)
+    if ref.startswith("microcosm-substrate/"):
+        source = MICROCOSM_ROOT.parent / ref_path
+        target = public_root.parent / ref_path
+    elif ref_path.parts[:3] == ("state", "microcosm_portfolio", "reconstruction"):
+        source = MICROCOSM_ROOT.parent / ref_path
+        target = public_root.parent / ref_path
+    else:
+        source = MICROCOSM_ROOT / ref_path
+        target = public_root / ref_path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, target)
+
+
+def _copy_fixture_landing_receipts(public_root: Path) -> None:
+    for row in _load_jsonl(ASSIMILATION_FIXTURE_INPUT / "organ_landing_summaries.jsonl"):
+        ref = str(row.get("landing_receipt_ref") or "")
+        if ref:
+            _copy_public_ref(public_root, ref)
+
+
+def _copy_exported_bundle_landing_receipts(public_root: Path, bundle: Path) -> None:
+    payload = json.loads((bundle / "organ_landing_summaries.json").read_text(encoding="utf-8"))
+    for row in payload["organ_landing_summaries"]:
+        ref = str(row.get("landing_receipt_ref") or "")
+        if ref:
+            _copy_public_ref(public_root, ref)
+
+
+def _rewrite_jsonl_row(path: Path, *, index: int, **updates: Any) -> None:
+    rows = _load_jsonl(path)
+    rows[index].update(updates)
+    path.write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        encoding="utf-8",
+    )
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -152,6 +216,31 @@ def test_pattern_assimilation_step_observes_required_negative_cases(tmp_path: Pa
     assert after == before
 
 
+def test_pattern_assimilation_private_seed_case_rejects_label_only_fixture(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = public_root / "fixtures/first_wave/pattern_assimilation_step/input"
+    shutil.copytree(ASSIMILATION_FIXTURE_INPUT, input_dir)
+    missing_case_path = input_dir / "missing_closeout_case.json"
+    missing_case = json.loads(missing_case_path.read_text(encoding="utf-8"))
+    assert missing_case["forbidden_payload_class"] == "seed_origin_payload"
+    missing_case.pop("redacted_private_payload_evidence", None)
+    missing_case_path.write_text(json.dumps(missing_case, indent=2, sort_keys=True) + "\n")
+
+    result = validate_pattern_assimilation(
+        input_dir,
+        tmp_path / "receipts/first_wave/pattern_assimilation_acceptance.json",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "assimilation_private_raw_seed_body" in result["missing_negative_cases"]
+    assert "assimilation_private_raw_seed_body" not in result["observed_negative_cases"]
+    assert "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE" not in result["error_codes"]
+
+
 def test_pattern_assimilation_receipts_are_public_relative_and_redacted(tmp_path: Path) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
@@ -159,6 +248,7 @@ def test_pattern_assimilation_receipts_are_public_relative_and_redacted(tmp_path
         MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step",
         public_root / "fixtures/first_wave/pattern_assimilation_step",
     )
+    _copy_fixture_landing_receipts(public_root)
     result = validate_pattern_assimilation(
         public_root / "fixtures/first_wave/pattern_assimilation_step/input",
         public_root / "receipts/first_wave/pattern_assimilation_acceptance.json",
@@ -200,9 +290,14 @@ def test_pattern_assimilation_receipts_satisfy_macro_field_floor(tmp_path: Path)
         MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step",
         public_root / "fixtures/first_wave/pattern_assimilation_step",
     )
+    _copy_fixture_landing_receipts(public_root)
     shutil.copytree(
         MICROCOSM_ROOT / "examples/pattern_assimilation_step",
         public_root / "examples/pattern_assimilation_step",
+    )
+    _copy_exported_bundle_landing_receipts(
+        public_root,
+        public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle",
     )
     validate_pattern_assimilation(
         public_root / "fixtures/first_wave/pattern_assimilation_step/input",
@@ -259,6 +354,41 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "pass",
         "snapshot_delta",
     }
+
+
+def test_pattern_assimilation_primary_card_uses_exported_bundle_lane() -> None:
+    registry = _pattern_registry_row()
+    acceptance = _pattern_acceptance_row()
+
+    assert "validate-assimilation-bundle" in registry["validator_command"]
+    assert (
+        "examples/pattern_assimilation_step/exported_assimilation_bundle"
+        in registry["validator_command"]
+    )
+    assert "fixtures/first_wave/pattern_assimilation_step/input" not in registry[
+        "validator_command"
+    ]
+    assert EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH in registry["generated_receipts"]
+    assert acceptance["validator_command"] == registry["validator_command"]
+    assert acceptance["generated_receipts"] == registry["generated_receipts"]
+
+
+def test_pattern_assimilation_checked_in_bundle_receipt_matches_body_imports() -> None:
+    receipt = json.loads(
+        (MICROCOSM_ROOT / EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH).read_text(
+            encoding="utf-8"
+        )
+    )
+    source_open_body_imports = receipt["source_open_body_imports"]
+    result = receipt
+
+    assert receipt["status"] == "pass"
+    assert receipt["input_mode"] == "exported_assimilation_bundle"
+    assert receipt["body_copied_material_count"] == len(PATTERN_SOURCE_MODULE_IDS)
+    assert source_open_body_imports["body_material_count"] == len(
+        PATTERN_SOURCE_MODULE_IDS
+    )
+    assert source_open_body_imports["body_in_receipt"] is False
     assert result["landed_organ_ids"] == [
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_memory_temporal_conflict_replay",
@@ -315,20 +445,60 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["assimilation_policy"]["forbidden_authority_rejected"] is True
     assert result["source_module_manifest_status"] == "pass"
     assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
-    assert result["body_copied_material_count"] == 3
+    assert result["body_copied_material_count"] == 4
     source_imports = result["source_open_body_imports"]
     assert source_imports["status"] == "pass"
-    assert source_imports["body_material_count"] == 3
+    assert source_imports["body_material_count"] == 4
     assert set(source_imports["body_material_ids"]) == PATTERN_SOURCE_MODULE_IDS
     assert source_imports["body_material_classes"] == {
         "public_macro_pattern_body": 1,
         "public_macro_receipt_body": 1,
         "public_macro_tool_body": 1,
+        "public_python_source_body": 1,
     }
     assert source_imports["body_in_receipt"] is False
     assert source_imports["body_text_in_receipt"] is False
     assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
     assert any(path.endswith("source_module_manifest.json") for path in result["public_replacement_refs"])
+
+
+def test_pattern_assimilation_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle"
+    )
+    shutil.copytree(ASSIMILATION_BUNDLE_INPUT, bundle)
+    _copy_exported_bundle_landing_receipts(public_root, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_assimilation_bundle(
+        bundle,
+        public_root / "receipts/first_wave/pattern_assimilation_step",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert result["body_copied_material_count"] == len(PATTERN_SOURCE_MODULE_IDS) - 1
+    assert "ASSIMILATION_BUNDLE_SOURCE_MODULE_INVALID" in result["error_codes"]
+    invalid_cards = [
+        card
+        for card in result["source_open_body_imports"]["body_material"]
+        if card["status"] == "blocked"
+    ]
+    assert [card["module_id"] for card in invalid_cards] == [
+        "macro_pattern_autonomy_process_contract_body_import"
+    ]
+    assert invalid_cards[0]["defect_codes"] == ["target_sha256_mismatch"]
 
 
 def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
@@ -339,6 +509,10 @@ def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
     shutil.copytree(
         MICROCOSM_ROOT / "examples/pattern_assimilation_step",
         public_root / "examples/pattern_assimilation_step",
+    )
+    _copy_exported_bundle_landing_receipts(
+        public_root,
+        public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle",
     )
 
     result = run_assimilation_bundle(
@@ -365,8 +539,8 @@ def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
     assert payload["private_state_scan"]["body_redacted"] is True
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["expected_negative_cases"] == {}
-    assert payload["body_copied_material_count"] == 3
-    assert payload["source_open_body_imports"]["body_material_count"] == 3
+    assert payload["body_copied_material_count"] == 4
+    assert payload["source_open_body_imports"]["body_material_count"] == 4
     assert set(payload["source_open_body_imports"]["body_material_ids"]) == (
         PATTERN_SOURCE_MODULE_IDS
     )
@@ -381,6 +555,82 @@ def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
         assert not Path(hit["path"]).is_absolute()
 
 
+def test_pattern_assimilation_rejects_dead_landing_receipt_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/pattern_assimilation_step"
+    shutil.copytree(MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step", fixture)
+    _copy_fixture_landing_receipts(public_root)
+    _rewrite_jsonl_row(
+        fixture / "input/organ_landing_summaries.jsonl",
+        index=0,
+        landing_receipt_ref="receipts/first_wave/fabricated/dead_landing_receipt.json",
+    )
+
+    result = validate_pattern_assimilation(
+        fixture / "input",
+        public_root / "receipts/first_wave/pattern_assimilation_acceptance.json",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "PATTERN_ASSIMILATION_LANDING_RECEIPT_REF_UNRESOLVED" in result["error_codes"]
+
+
+def test_pattern_assimilation_rejects_dead_closeout_receipt_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/pattern_assimilation_step"
+    shutil.copytree(MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step", fixture)
+    _copy_fixture_landing_receipts(public_root)
+    _rewrite_jsonl_row(
+        fixture / "input/organ_landing_summaries.jsonl",
+        index=3,
+        assimilation_receipt_ref="fabricated_closeout_receipt_id",
+    )
+
+    result = validate_pattern_assimilation(
+        fixture / "input",
+        public_root / "receipts/first_wave/pattern_assimilation_acceptance.json",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "PATTERN_ASSIMILATION_CLOSEOUT_RECEIPT_REF_UNRESOLVED" in result["error_codes"]
+
+
+def test_pattern_assimilation_exported_bundle_rejects_dead_landing_receipt_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle"
+    shutil.copytree(ASSIMILATION_BUNDLE_INPUT, bundle)
+    _copy_exported_bundle_landing_receipts(public_root, bundle)
+    payload_path = bundle / "organ_landing_summaries.json"
+    payload = json.loads(payload_path.read_text(encoding="utf-8"))
+    payload["organ_landing_summaries"][0][
+        "landing_receipt_ref"
+    ] = "receipts/acceptance/first_wave/fabricated_dead_ref.json"
+    payload_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_assimilation_bundle(
+        bundle,
+        public_root / "receipts/first_wave/pattern_assimilation_step",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "ASSIMILATION_BUNDLE_LANDING_RECEIPT_REF_UNRESOLVED" in result["error_codes"]
+
+
 def test_pattern_assimilation_source_modules_are_exact_macro_body_imports() -> None:
     manifest_path = ASSIMILATION_BUNDLE_INPUT / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -388,17 +638,17 @@ def test_pattern_assimilation_source_modules_are_exact_macro_body_imports() -> N
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] == 3
+    assert manifest["module_count"] == 4
     assert {row["module_id"] for row in modules} == PATTERN_SOURCE_MODULE_IDS
 
     for row in modules:
         source_path = MICROCOSM_ROOT.parent / row["source_ref"]
         target_path = MICROCOSM_ROOT.parent / row["target_ref"]
+        source_bytes = source_path.read_bytes()
         target_bytes = target_path.read_bytes()
-        digest = hashlib.sha256(target_bytes).hexdigest()
+        digest = hashlib.sha256(source_bytes).hexdigest()
 
-        if source_path.is_file():
-            assert source_path.read_bytes() == target_bytes
+        assert source_bytes == target_bytes
         assert row["source_import_class"] == "copied_non_secret_macro_body"
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False

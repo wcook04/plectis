@@ -50,6 +50,7 @@
     "closeout_projection_packet.json",
     "scoped_mutation_policy.json",
     "checkpoint_lane_policy.json",
+    "real_work_ledger_active_claims_snapshot.json",
     "source_module_manifest.json",
     "task_ledger_control_runtime_contract.json",
     "source_modules/system/lib/task_ledger_events.py",

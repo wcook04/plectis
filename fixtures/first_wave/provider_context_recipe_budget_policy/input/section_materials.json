@@ -1,51 +1,123 @@
 {
-  "schema_version": "provider_context_section_materials_fixture_v1",
-  "section_set_id": "public_provider_context_sections_v1",
+  "schema_version": "provider_context_section_materials_fixture_v2",
+  "section_set_id": "public_provider_context_sections_v2",
   "sections": [
     {
-      "section_id": "statement",
       "declared_byte_size": 720,
-      "text": "Synthetic public theorem statement shape, namespace hints, and problem id only."
+      "material_kind": "public_macro_source_anchor_metadata",
+      "section_id": "statement",
+      "source_anchors": [
+        "problem_statement",
+        "informal_statement"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
-      "section_id": "declared_imports",
       "declared_byte_size": 320,
-      "text": "Init, Std public imports declared as metadata; Mathlib is not assumed."
+      "material_kind": "public_macro_source_anchor_metadata",
+      "section_id": "declared_imports",
+      "source_anchors": [
+        "lean_signature_imports",
+        "required_imports"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
-      "section_id": "retrieved_premises",
       "declared_byte_size": 8200,
-      "text": "Public premise ids, theorem names, namespaces, and retrieval terms only."
+      "material_kind": "public_macro_source_anchor_metadata",
+      "section_id": "retrieved_premises",
+      "source_anchors": [
+        "retrieved_premises",
+        "retrieved_premise_ids"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
-      "section_id": "skill_atlas_card",
       "declared_byte_size": 6400,
-      "text": "Public strategy card with allowed strategy ids and retrieval lens notes."
+      "material_kind": "public_macro_source_anchor_metadata",
+      "section_id": "skill_atlas_card",
+      "source_anchors": [
+        "strategy_atlas",
+        "selected_skill_cell"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
-      "section_id": "target_shape_routes",
       "declared_byte_size": 5600,
-      "text": "Public target-shape route candidates and tactic admissibility metadata."
+      "material_kind": "public_macro_source_anchor_metadata",
+      "section_id": "target_shape_routes",
+      "source_anchors": [
+        "GRAPH_VARIANTS",
+        "STRATEGY_GRAPH_VARIANTS"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
+      "declared_byte_size": 4800,
+      "material_kind": "public_macro_source_anchor_metadata",
       "section_id": "diagnostic_failure_class",
-      "declared_byte_size": 2200,
-      "text": "Typed failure classifier and reducer route id with no proof body."
+      "source_anchors": [
+        "FAILURE_CLASSES",
+        "prior_lean_error"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
+      "declared_byte_size": 1800,
+      "material_kind": "public_macro_source_anchor_metadata",
       "section_id": "known_strategy_ids",
-      "declared_byte_size": 800,
-      "text": "iff_split, recursive_data_induction, algebraic_normalization, unknown."
+      "source_anchors": [
+        "_known_strategy_ids",
+        "strategy_id_classification"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
+      "declared_byte_size": 1100,
+      "material_kind": "public_macro_source_anchor_metadata",
       "section_id": "target_shape_features",
-      "declared_byte_size": 1150,
-      "text": "Closed nat decision, conjunction, linear arithmetic, true intro."
+      "source_anchors": [
+        "expected_tactic_family",
+        "decomposition_hint"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     },
     {
+      "declared_byte_size": 60000,
+      "material_kind": "public_macro_source_anchor_metadata",
       "section_id": "fewshot_examples",
-      "declared_byte_size": 70000,
-      "text": "Synthetic advisory examples intentionally too large for the 64 KiB public recipe."
+      "source_anchors": [
+        "_fewshot_examples",
+        "proof_body_omitted"
+      ],
+      "source_posture": "exact_copied_public_macro_body_anchor",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py"
+      ]
     }
   ]
 }

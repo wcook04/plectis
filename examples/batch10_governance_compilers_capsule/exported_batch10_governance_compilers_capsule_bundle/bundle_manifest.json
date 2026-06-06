@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "public_batch10_governance_compilers_capsule_bundle",
+  "fixture_id": "first_wave.batch10_governance_compilers_capsule",
+  "input_mode": "exported_batch10_governance_compilers_capsule_bundle",
+  "organ_id": "batch10_governance_compilers_capsule",
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "source_module_manifest": "source_module_manifest.json"
+}

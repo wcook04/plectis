@@ -1,0 +1,174 @@
+{
+  "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, and DAG references. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "fact_assertion_code_loci_and_dag_fixture_truth_gate_only",
+    "comprehension_engine_claim_authorized": false,
+    "minimum_read_graph_claim_authorized": false,
+    "private_doctrine_export_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T09:10:36+00:00",
+  "error_codes": [
+    "DOCTRINE_CODE_LOCUS_ANCHOR_MISSING",
+    "DOCTRINE_CODE_LOCUS_MISSING",
+    "DOCTRINE_FACT_COUNT_MISMATCH",
+    "DOCTRINE_FACT_DAG_DEAD_REF"
+  ],
+  "exercise": {
+    "code_locus_count": 3,
+    "comprehension_engine_claim_authorized": false,
+    "dag_edge_count": 2,
+    "expected_fact_count": 3,
+    "fact_count": 3,
+    "minimum_read_graph_claim_authorized": false,
+    "status": "pass",
+    "truth_gate": "fact_count_code_loci_and_fixture_dag_only",
+    "verified_code_locus_count": 3
+  },
+  "expected_negative_cases": [
+    "dead_code_locus",
+    "dead_dag_ref",
+    "missing_code_locus",
+    "wrong_fact_count"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.doctrine_fact_claim_audit",
+  "input_count": 3,
+  "input_mode": "exported_doctrine_fact_claim_audit_bundle",
+  "input_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "dead_code_locus",
+    "dead_dag_ref",
+    "missing_code_locus",
+    "wrong_fact_count"
+  ],
+  "organ_id": "doctrine_fact_claim_audit",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
+    "receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json"
+  ],
+  "schema_version": "doctrine_fact_claim_audit_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+    "module_count": 2,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1739,
+        "expected_sha256": "02b552f5a37554f2c407686b0f626819dff1ce04969aa4c6c4517c23d501d484",
+        "line_count": 1739,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/derived_fact_hologram.py",
+        "required_anchor_count": 2,
+        "sha256": "02b552f5a37554f2c407686b0f626819dff1ce04969aa4c6c4517c23d501d484",
+        "source_exists": true,
+        "source_ref": "system/lib/derived_fact_hologram.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 4848,
+        "expected_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
+        "line_count": 4848,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/paper_modules.py",
+        "required_anchor_count": 2,
+        "sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
+        "source_exists": true,
+        "source_ref": "system/lib/paper_modules.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/paper_modules.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 3,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/paper_modules.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.doctrine_fact_claim_audit"
+}

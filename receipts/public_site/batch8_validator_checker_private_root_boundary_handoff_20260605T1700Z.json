@@ -1,0 +1,121 @@
+{
+  "receipt_id": "batch8_validator_checker_private_root_boundary_handoff_20260605T1700Z",
+  "schema_version": "microcosm_public_site_handoff_receipt_v1",
+  "generated_at": "2026-06-05T17:00:00Z",
+  "status": "site_ready_source_boundary_repair_builder_refresh_required",
+  "subject": "paper_module.batch8_validator_checker_capsule",
+  "source_population_delta": {
+    "type": "public_safety_boundary_repair",
+    "source_surface": "paper_modules/batch8_validator_checker_capsule.md",
+    "repaired_issue_ref": "wie_20260605T165159Z_da1a52f5",
+    "self_correction_ref": "wie_20260605T170139Z_ebc3f70b",
+    "change_summary": "Replaced a bare private-root provenance path with a public bundle-relative source-module locus and a nearby private-root exclusion statement.",
+    "claim_ceiling_preserved": "Exact copied non-secret validator source body and bounded checker fixtures only; not full validator-suite proof, source mutation authority, publication approval, release readiness, provider execution, or private-root export."
+  },
+  "source_authority": {
+    "legacy_markdown_projection": "paper_modules/batch8_validator_checker_capsule.md",
+    "generated_instance": "paper_modules/batch8_validator_checker_capsule.json",
+    "capsule_row": "core/paper_module_capsules.json::paper_modules[paper_module.batch8_validator_checker_capsule]",
+    "mechanism_ref": "mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule",
+    "component_id": "batch8_validator_checker_capsule",
+    "supporting_source_refs": [
+      "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
+      "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+      "src/microcosm_core/organs/batch8_validator_checker_capsule.py",
+      "tests/test_batch8_validator_checker_capsule.py"
+    ]
+  },
+  "publication_lane": {
+    "existing_builder": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py",
+    "current_generated_outputs_committed_by_this_receipt": false,
+    "generated_site_write_policy": "Do not hand-edit sites/microcosm generated outputs. Claim microcosm_public_site_projection before builder writes.",
+    "expected_builder_records": [
+      "content-manifest.json::components[component_id=batch8_validator_checker_capsule]",
+      "content-manifest.json::source_hashes[microcosm-substrate/paper_modules/batch8_validator_checker_capsule.md]",
+      "object-map.json::component:batch8_validator_checker_capsule",
+      "object-map.json::paper_module:paper_module.batch8_validator_checker_capsule",
+      "components.html#component-batch8_validator_checker_capsule",
+      "paper-modules.html#paper-module-batch8-validator-checker-capsule",
+      "assets/search-index.js::Validator Checker Bundle"
+    ],
+    "current_site_status": "existing_generated_projection_routeable_source_hash_stale_until_builder_refresh",
+    "current_site_readback": {
+      "content_manifest_component": "present",
+      "content_manifest_source_ref": "paper_modules/batch8_validator_checker_capsule.md",
+      "content_manifest_previous_source_hash": "sha256:08fd0521a897b603c19a78d1ebe7c642b23faee1b56226ae88334b99d56911be",
+      "object_map_component_route": "components.html#component-batch8_validator_checker_capsule",
+      "object_map_paper_module_route": "paper-modules.html#paper-module-batch8-validator-checker-capsule",
+      "object_map_mechanism_route": "rules-and-ideas.html#lattice-mechanism-mechanism-batch8-validator-checker-capsule-validates-public-validator-checker-capsule"
+    },
+    "safe_reentry_commands": [
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "./repo-python tools/meta/dissemination/projection_secret_scan.py --root sites/microcosm --fail-on-blocking"
+    ],
+    "reentry_condition": "After source-coupling and generated-site ownership are clear, claim microcosm_public_site_projection, rerun the builder/check/secret scan, and commit only claimed generated site outputs if the source hash refresh and public-safety scan are clean."
+  },
+  "validation_receipts": [
+    {
+      "command": "./repo-git diff --check -- microcosm-substrate/paper_modules/batch8_validator_checker_capsule.md",
+      "status": "pass",
+      "summary": "No whitespace or patch hygiene errors on the claimed Markdown source path."
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/projection_secret_scan.py --root /tmp/microcosm_batch8_scan_gKETeI --fail-on-blocking",
+      "status": "pass",
+      "summary": "Focused scan over one Markdown file: status=green, blocking_hit_count=0, review_hit_count=0, public_release_allowed_by_scan=true; the manifest-included public synthetic root is policy-excepted, not a private source grant."
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_batch8_validator_checker_capsule.py -q --basetemp /tmp/microcosm-batch8-validator",
+      "status": "pass",
+      "summary": "9 passed."
+    },
+    {
+      "command": "cd microcosm-substrate && ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "summary": "actual_count=99, expected_count=99, errors=[]."
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/projection_secret_scan.py --root microcosm-substrate/paper_modules --fail-on-blocking",
+      "status": "pass_with_reviews",
+      "summary": "Corpus scan has blocking_hit_count=0 after this repair; non-blocking review hits remain outside this claimed path."
+    },
+    {
+      "command": "./repo-python tools/meta/dissemination/projection_secret_scan.py --root microcosm-substrate/receipts/public_site --fail-on-blocking",
+      "status": "pass",
+      "summary": "Receipt-root scan: status=green, blocking_hit_count=0, review_hit_count=0, public_release_allowed_by_scan=true."
+    }
+  ],
+  "public_safety": {
+    "status": "public_safe_source_patch",
+    "allowed_public_content": [
+      "paper-module ids",
+      "public bundle-relative source-module locus",
+      "fixture ids",
+      "digest values",
+      "validator commands",
+      "authority ceilings",
+      "anti-claims"
+    ],
+    "forbidden_content_excluded": [
+      "private macro-root path export",
+      "private source bodies outside the copied non-secret public bundle",
+      "provider payload bodies",
+      "browser or HUD session state",
+      "raw operator voice",
+      "credentials",
+      "publication or release approval"
+    ]
+  },
+  "residual_invisible_material": {
+    "site_outputs_waiting_for_builder_refresh": true,
+    "source_patch_reachable_via_existing_site_routes": true,
+    "generated_source_hash_stale_until_refresh": true,
+    "next_availability_slice": "Refresh the public site projection after active source owners clear, then verify content-manifest source hash, object map, paper-module page, source page, and search index all reference the repaired source."
+  },
+  "work_binding": {
+    "work_ledger_session_id": "codex_20260605T1657Z_microcosm_batch8_validator_checker_private_root_boundary",
+    "task_ledger_capture_event_id": "wie_20260605T165159Z_da1a52f5"
+  }
+}

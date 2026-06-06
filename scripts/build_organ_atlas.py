@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate ORGANS.md and ARCHITECTURE.md from public substrate.
+"""Generate organ atlas entry surfaces from public substrate.
 
 Thin CLI wrapper over ``microcosm_core.projections.organ_atlas``. The atlas is
 a projection of ``core/organ_registry.json`` + ``core/organ_families.json`` +
@@ -9,7 +9,7 @@ own claim ceiling.
 
 Usage:
   PYTHONPATH=src python3 scripts/build_organ_atlas.py            # status JSON
-  PYTHONPATH=src python3 scripts/build_organ_atlas.py --write    # write the files
+  PYTHONPATH=src python3 scripts/build_organ_atlas.py --write    # write generated files
   PYTHONPATH=src python3 scripts/build_organ_atlas.py --check    # fail on drift
 """
 
@@ -33,11 +33,11 @@ from microcosm_core.projections.organ_atlas import build  # noqa: E402
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="build_organ_atlas",
-        description="Generate ORGANS.md and ARCHITECTURE.md from public substrate.",
+        description="Generate organ atlas entry surfaces from public substrate.",
     )
     parser.add_argument("--root", type=Path, default=MICROCOSM_ROOT)
     parser.add_argument(
-        "--write", action="store_true", help="write ORGANS.md and ARCHITECTURE.md"
+        "--write", action="store_true", help="write generated atlas files"
     )
     parser.add_argument(
         "--check",

@@ -1,7 +1,7 @@
 {
   "kind": "routing_hologram",
   "generated_from": "deterministic_projection",
-  "input_sha256": "a260c94ef17fd7784aa42b946930503efe8331944ea656ef5a0513a57ed0d8a2",
+  "input_sha256": "7203ba77c00eb0d797a3466a2167da146986ca0da19807da9bb22b21cbd41cdc",
   "source_paths": [
     "codex/doctrine/skills/skill_registry.json",
     "codex/standards/observe_apply/std_synth_seed.json",
@@ -50,6 +50,24 @@
       }
     },
     {
+      "skill_id": "agent_session_diagnostics",
+      "skill_path": "kernel/agent_session_diagnostics.md",
+      "family_id": "kernel",
+      "situation_key": "user wants to know what past agents actually did, or asks to improve navigation using observed behavior",
+      "situation": "User asks about the codex/claude session folder, wants to know what past agents actually did, or wants to impro…",
+      "score": {
+        "total": 26.0,
+        "derived": 26,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 8,
+        "governing_principle_count": 5,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
       "skill_id": "dissemination_cycle",
       "skill_path": "dissemination/dissemination_cycle.md",
       "family_id": "dissemination",
@@ -62,24 +80,6 @@
         "alchemy_combo_count": 0,
         "trigger_count": 7,
         "governing_principle_count": 6,
-        "telemetry_shared_hits": 0.0,
-        "telemetry_match_count": 0,
-        "telemetry_top_tokens": []
-      }
-    },
-    {
-      "skill_id": "agent_session_diagnostics",
-      "skill_path": "kernel/agent_session_diagnostics.md",
-      "family_id": "kernel",
-      "situation_key": "user wants to know what past agents actually did, or asks to improve navigation using observed behavior",
-      "situation": "User asks about the codex/claude session folder, wants to know what past agents actually did, or wants to impro…",
-      "score": {
-        "total": 24.0,
-        "derived": 24,
-        "explicit_priority": 96,
-        "alchemy_combo_count": 0,
-        "trigger_count": 7,
-        "governing_principle_count": 5,
         "telemetry_shared_hits": 0.0,
         "telemetry_match_count": 0,
         "telemetry_top_tokens": []

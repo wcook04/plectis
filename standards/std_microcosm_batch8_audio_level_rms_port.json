@@ -1,0 +1,183 @@
+{
+  "anti_claim": "This Batch-8 audio RMS fixture accepts Swift source-reference digest evidence, public Python-port parity cases, and stable negative-case codes only. It does not start audio capture, request microphone permission, claim UI readiness, authorize publication, or approve release.",
+  "authority_boundary": "public_python_port_over_swift_audio_math_not_audio_session_or_release_authority",
+  "authority_ceiling": {
+    "audio_session_started": false,
+    "authority_ceiling": "batch8_audio_level_rms_python_port_not_audio_session_or_capture_authority",
+    "device_capture_authorized": false,
+    "microphone_permission_required": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "python_port": true,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "batch8_audio_level_rms_port",
+  "kind_name": "Batch 8 AudioLevelMonitor normalizedLevel RMS port",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public sample arrays",
+      "format tags float32/int16",
+      "expected normalized levels",
+      "source refs and digests",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_python_port_with_exact_copied_swift_reference",
+    "forbidden_public_inputs": [
+      "microphone device names",
+      "recorded audio",
+      "operator speech",
+      "AVCapture live buffers",
+      "device session state",
+      "keys",
+      "credentials"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "reference_case_count",
+      "passed_reference_case_count",
+      "negative_exercises",
+      "source_module_manifest",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "body_in_receipt"
+    ],
+    "receipt_id": "receipt.microcosm.batch8_audio_level_rms_port",
+    "required": true
+  },
+  "receipt_expectations": [
+    "batch8_audio_level_rms_port_result.json",
+    "batch8_audio_level_rms_port_board.json",
+    "batch8_audio_level_rms_port_validation_receipt.json",
+    "batch8_audio_level_rms_port_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch8_audio_level_rms_port",
+    "source_pattern_id_sample": [
+      "audio_level_rms_dsp_python_port"
+    ],
+    "used_by_organs": [
+      "batch8_audio_level_rms_port"
+    ]
+  },
+  "required_fields": [
+    "reference_cases",
+    "negative_exercises",
+    "source_module_manifest",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/batch8_audio_level_rms_port/input",
+      "role": "public_audio_sample_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle",
+      "role": "source_open_runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_swift_reference_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_batch8_audio_level_rms_port",
+  "standard_payload": {
+    "anti_purpose": "Fixture-only receipts, recorded audio export, microphone/device access, or claims about live capture readiness.",
+    "failure_modes": [
+      "Swift source anchors drift",
+      "float32 parity drifts",
+      "int16 scaling drifts from Int16.max",
+      "over-one clamp is removed",
+      "empty buffers stop returning zero",
+      "unsupported formats are silently accepted",
+      "receipts include recorded audio or private device state"
+    ],
+    "ontology": "A public-safe Python port of the pure normalizedLevel RMS scaling math from AudioLevelMonitor.swift.",
+    "teleology": "Let a cold reader rerun the numeric audio-level semantics without needing macOS microphone permissions, AVCapture sample buffers, or device state.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch8_audio_level_rms_port",
+      "receipt_id": "receipt.microcosm.batch8_audio_level_rms_port",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exact copied Swift source reference",
+    "verify required normalizedLevel anchors",
+    "match float32 and int16 public sample parity fixtures",
+    "require empty-buffer zero, unknown-format refusal, and over-one clamp negatives",
+    "keep audio session, microphone permission, device capture, publication, and release authority false"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_audio_level_rms_port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+    "expected_negative_case_count": 3,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_audio_level_rms_port validate-bundle --input examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle --out /tmp/batch8_audio_level_rms_port_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch8_audio_level_rms_port"
+  },
+  "wave": "w1_batch8_audio_level_rms_port",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch8_audio_level_rms_port.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 8 AudioLevelMonitor normalizedLevel RMS port instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch8_audio_level_rms_port.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 8 AudioLevelMonitor normalizedLevel RMS port without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch8_audio_level_rms_port.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch8_audio_level_rms_port and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch8_audio_level_rms_port.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch8_audio_level_rms_port"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch8_audio_level_rms_port"
+  ],
+  "anti_claims": [
+    "This Batch-8 audio RMS fixture accepts Swift source-reference digest evidence, public Python-port parity cases, and stable negative-case codes only. It does not start audio capture, request microphone permission, claim UI readiness, authorize publication, or approve release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch8_audio_level_rms_port",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch8_audio_level_rms_port",
+    "receipt_id": "receipt.microcosm.batch8_audio_level_rms_port",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, and public_private_boundary."
+  }
+}

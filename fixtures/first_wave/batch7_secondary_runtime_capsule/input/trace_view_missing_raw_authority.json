@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "trace_view_missing_raw_authority",
+  "error_codes": [
+    "BATCH7_SECONDARY_TRACE_VIEW_MISSING_RAW_AUTHORITY"
+  ],
+  "schema_version": "batch7_secondary_runtime_capsule_negative_case_v1"
+}

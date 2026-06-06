@@ -42,10 +42,21 @@
     ]
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-26T23:57:53+00:00",
-  "expected_negative_case_count": 8,
+  "created_at": "2026-06-05T04:57:46+00:00",
+  "expected_negative_case_count": 9,
+  "fact_authority_mesh": {
+    "allowed_treatments": [
+      "curated_exception",
+      "guarded_public_projection"
+    ],
+    "appearance_ref_policy": "appearance_refs_include_target_and_validation_refs",
+    "authority_ref_policy": "authority_ref_equals_source_ref",
+    "guard_ref_policy": "guard_ref_equals_validation_ref",
+    "residual_route_policy": "residual_route_equals_repair_route",
+    "status": "pass"
+  },
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
-  "observed_negative_case_count": 8,
+  "observed_negative_case_count": 9,
   "organ_id": "world_model_projection_drift_control_room",
   "receipt_paths": [
     "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
@@ -55,6 +66,19 @@
   "release_authorized": false,
   "result_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
   "row_count": 8,
+  "runtime_receipt_witness": {
+    "body_in_receipt": false,
+    "findings": [],
+    "invalid_runtime_receipt_refs": [],
+    "missing_drift_row_ids": [],
+    "missing_runtime_receipt_refs": [],
+    "runtime_receipt_refs": [
+      "receipts/runtime_shell/public_projection_drift_control_lens.json"
+    ],
+    "runtime_receipt_row_count": 8,
+    "status": "pass",
+    "witnessed_drift_row_count": 8
+  },
   "schema_version": "world_model_projection_drift_control_room_validation_receipt_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -78,7 +102,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 11,
+    "scanned_path_count": 13,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },

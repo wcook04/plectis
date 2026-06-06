@@ -26,6 +26,13 @@ PATTERN_BINDING_SUBSTRATE_BUNDLE_REQUIRED_INPUTS = {
 }
 
 
+def _path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
+
+
 def load_pattern_binding_fixture(input_dir: str | Path) -> dict[str, Any]:
     root = Path(input_dir)
     required = {
@@ -33,7 +40,7 @@ def load_pattern_binding_fixture(input_dir: str | Path) -> dict[str, Any]:
         "source_capsules": root / "source_capsules.json",
         "forbidden_terms": root / "private_state_forbidden_terms.json",
     }
-    missing = [path.as_posix() for path in required.values() if not path.is_file()]
+    missing = [path.as_posix() for path in required.values() if not _path_is_file(path)]
     if missing:
         raise FileNotFoundError(f"missing pattern-binding fixture input(s): {', '.join(missing)}")
 
@@ -45,7 +52,7 @@ def load_pattern_binding_fixture(input_dir: str | Path) -> dict[str, Any]:
     }
     for key, filename in PATTERN_BINDING_OPTIONAL_INPUTS.items():
         path = root / filename
-        if not path.is_file():
+        if not _path_is_file(path):
             continue
         payload["input_paths"][key] = path.as_posix()
         payload[key] = read_jsonl_strict(path) if filename.endswith(".jsonl") else read_json_strict(path)
@@ -58,7 +65,7 @@ def load_pattern_binding_substrate_bundle(input_dir: str | Path) -> dict[str, An
         key: root / filename
         for key, filename in PATTERN_BINDING_SUBSTRATE_BUNDLE_REQUIRED_INPUTS.items()
     }
-    missing = [path.as_posix() for path in required.values() if not path.is_file()]
+    missing = [path.as_posix() for path in required.values() if not _path_is_file(path)]
     if missing:
         raise FileNotFoundError(f"missing pattern-binding substrate bundle input(s): {', '.join(missing)}")
 

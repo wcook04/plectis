@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import errno
 from fnmatch import fnmatch
+from functools import lru_cache
 import hashlib
 import json
 import os
@@ -20,6 +21,7 @@ import shlex
 import shutil
 import subprocess
 import tempfile
+import tomllib
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -27,6 +29,7 @@ from system.lib import (
     autonomy_subphase,
     generated_state_drainer,
     generated_projection_registry,
+    resource_pressure,
     shared_worktree_guard,
     task_ledger_events,
     work_ledger_runtime,
@@ -38,9 +41,13 @@ from system.lib.forward_integration_policy import (
 )
 
 try:
-    from tools.meta.factory.work_ledger import WRITE_PROFILE_PATHS
+    from tools.meta.factory.work_ledger import (
+        WRITE_PROFILE_PATHS,
+        WRITE_PROFILE_SOURCE_INPUT_PATHS,
+    )
 except Exception:  # pragma: no cover - defensive fallback for import-time CLI drift.
     WRITE_PROFILE_PATHS = {}  # type: ignore[assignment]
+    WRITE_PROFILE_SOURCE_INPUT_PATHS = {}  # type: ignore[assignment]
 
 
 SCHEMA = "mission_transaction_landing_preflight_v0"
@@ -60,12 +67,18 @@ PUBLICATION_RECOVERY_SCHEMA = "publication_recovery_v1"
 AUTONOMOUS_EDIT_GATE_SCHEMA = "autonomous_edit_gate_v0"
 PATCH_BUNDLE_MODE_SCHEMA = "patch_bundle_mode_v0"
 RECONCILIATION_MODE_SCHEMA = "reconciliation_mode_v0"
+WORK_LANDING_TRANSACTION_READINESS_SCHEMA = "work_landing_transaction_readiness_contract_v0"
+WORK_LANDING_TRANSACTION_READINESS_CONTROL_SUMMARY_PROJECTION_SCHEMA = (
+    "work_landing_transaction_readiness_control_summary_projection_v0"
+)
 DIRTY_TREE_CLASSIFICATION_SCHEMA = "dirty_tree_classification_v0"
 SHARED_INDEX_QUARANTINE_SCHEMA = "shared_index_quarantine_v0"
 SHARED_INDEX_ENTRY_STATE_SCHEMA = "shared_index_entry_state_v0"
+MICROCOSM_ACCEPTED_ORGAN_ADMISSION_SCHEMA = "microcosm_accepted_organ_admission_v0"
 WORK_ITEM_BINDING_SCHEMA = "work_item_binding_v0"
 SUBPHASE_BINDING_SCHEMA = "subphase_binding_v0"
 TASK_LEDGER_EVENTS = "state/task_ledger/events.jsonl"
+TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE = "task_ledger_events.read_authority_events"
 TASK_LEDGER_PROJECTION_PREFIXES = (
     "state/task_ledger/ledger.json",
     "state/task_ledger/sign_offs.json",
@@ -96,7 +109,7 @@ PHASE_PIPELINE_RUNTIME_COMMAND = (
     "./repo-python tools/meta/control/phase_convergence_doctor.py --compact"
 )
 MICROCOSM_RUNTIME_RECEIPT_COMMAND = (
-    "cd microcosm-substrate && PYTHONPATH=src .venv/bin/python -m microcosm_core runtime-shell --help"
+    "cd microcosm-substrate && PYTHONPATH=src .venv/bin/python -m microcosm_core.runtime_shell --help"
 )
 RECEIPT_ARTIFACT_OWNER_COMMAND = (
     "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact"
@@ -166,6 +179,42 @@ MICROCOSM_PUBLIC_FIXTURE_SOURCE_INDEX_PATTERNS = (
     "microcosm-substrate/examples/*/exported_*/premise_index.json",
     "microcosm-substrate/examples/*/exported_*/source_modules/*",
 )
+MICROCOSM_ACCEPTED_ORGAN_MUTATION_PATTERNS = (
+    "microcosm-substrate/core/acceptance/first_wave_acceptance.json",
+    "microcosm-substrate/core/fixture_manifests/*",
+    "microcosm-substrate/core/organ_registry.json",
+    "microcosm-substrate/core/organ_families.json",
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/examples/*",
+    "microcosm-substrate/fixtures/first_wave/*",
+    "microcosm-substrate/src/microcosm_core/organs/*",
+)
+MICROCOSM_ACCEPTED_ORGAN_SOURCE_ONLY_PATTERNS = (
+    "microcosm-substrate/src/microcosm_core/organs/*",
+)
+MICROCOSM_ACCEPTED_ORGAN_COPY_ARTIFACT_PATTERNS = (
+    "microcosm-substrate/examples/*/exported_*/source_module_manifest.json",
+    "microcosm-substrate/examples/*/exported_*/source_modules/*",
+)
+MICROCOSM_ACCEPTED_ORGAN_ADMISSION_REQUIRED_REFS = (
+    "microcosm-substrate/core/substrate_substitution_ledger.json",
+    "microcosm-substrate/core/organ_atlas.json",
+    "microcosm-substrate/core/organ_evidence_classes.json",
+    "microcosm-substrate/pyproject.toml",
+    "microcosm-substrate/AGENTS.md",
+    "microcosm-substrate/README.md",
+    "microcosm-substrate/ORGANS.md",
+    "microcosm-substrate/ARCHITECTURE.md",
+)
+MICROCOSM_PUBLIC_DOC_BOUNDARY_TERMS = (
+    "release",
+    "provider",
+    "source mutation",
+    "private-root",
+    "proof authority",
+)
+MICROCOSM_PACKAGE_DATA_EXAMPLES_ROOT = "share/microcosm-substrate/examples/"
+MICROCOSM_PACKAGE_DATA_FIXTURES_ROOT = "share/microcosm-substrate/fixtures/"
 INDEX_MUTATING_COMMANDS = (
     ("add",),
     ("restore", "--staged"),
@@ -183,6 +232,17 @@ RISKY_COMMANDS = (
 )
 RISK_BANDS = ("clear", "watch", "review", "blocked", "hard_stop")
 RISK_BAND_SEVERITY = {band: index for index, band in enumerate(RISK_BANDS)}
+WORK_LANDING_READINESS_AXIS_ORDER = (
+    "authority_state",
+    "projection_state",
+    "claim_state",
+    "companion_gate_state",
+    "validation_state",
+    "staged_index_state",
+    "parent_cas_state",
+    "landing_decision_state",
+    "allowed_next_action",
+)
 GIT_METADATA_WRITE_OK = "git_metadata_write_ok"
 GIT_METADATA_PROTECTED_SANDBOX = "protected_git_metadata_sandbox_or_approval_required"
 GIT_METADATA_UNIX_PERMISSION_DENIED = "unix_or_repo_permission_denied"
@@ -191,6 +251,12 @@ GIT_COMMAND_DIAGNOSTIC_SCHEMA = "git_command_diagnostic_v0"
 GIT_COMMAND_TIMEOUT_RETURN_CODE = 124
 GIT_COMMAND_ERROR_RETURN_CODE = 127
 DEFAULT_GIT_COMMAND_TIMEOUT_SECONDS = 15.0
+MIB = 1024 * 1024
+GIB = 1024 * MIB
+GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD = 6_700
+GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD = 20_000
+GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD = 1 * GIB
+GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD = 10 * GIB
 COMPACT_PREVIEW_LIMIT = 25
 SHARED_INDEX_ENTRY_STATE_SCAN_LIMIT = COMPACT_PREVIEW_LIMIT
 GIT_LS_TREE_CHUNK_SIZE = 200
@@ -227,6 +293,10 @@ BLOCKED_PRIMARY_REQUIRED_RECEIPT_FIELDS = (
     "why_highest_yield_legal_move",
     "reentry_condition",
 )
+COMMAND_ARTIFACT_CONTRACT_SCHEMA = "command_artifact_contract_v0"
+MISSION_TRANSACTION_PREFLIGHT_SCRIPT = "tools/meta/control/mission_transaction_preflight.py"
+MISSION_TRANSACTION_PREFLIGHT_UNSUPPORTED_FLAGS = ("--output-profile",)
+COMMAND_TEMPLATE_TOKEN_RE = re.compile(r"<([^<>]+)>")
 GITHUB_BLOB_RECOMMENDED_LIMIT_BYTES = 1_000_000
 GITHUB_BLOB_HARD_LIMIT_BYTES = 100_000_000
 PUSH_RANGE_CONTAMINATION_COMMIT_THRESHOLD = 25
@@ -417,6 +487,94 @@ DERIVED_STATE_BLOAT_POLICIES = {
         "push_block_threshold": 100,
     },
 }
+
+
+def _command_template_tokens(command: str, argv: Sequence[Any] | None = None) -> list[str]:
+    tokens = {match.group(1).strip() for match in COMMAND_TEMPLATE_TOKEN_RE.finditer(command)}
+    for item in argv or []:
+        value = str(item or "")
+        tokens.update(match.group(1).strip() for match in COMMAND_TEMPLATE_TOKEN_RE.finditer(value))
+    return sorted(token for token in tokens if token)
+
+
+def _command_tokens(command: str, argv: Sequence[Any] | None = None) -> tuple[list[str], str, str | None]:
+    if argv is not None:
+        return [str(item) for item in argv], "provided_argv", None
+    if not command:
+        return [], "empty", None
+    try:
+        return shlex.split(command), "shlex", None
+    except ValueError as exc:
+        return [], "shlex_error", str(exc)
+
+
+def _command_parser_owner(command: str, tokens: Sequence[str]) -> str:
+    token_set = {str(token) for token in tokens}
+    if MISSION_TRANSACTION_PREFLIGHT_SCRIPT in token_set or MISSION_TRANSACTION_PREFLIGHT_SCRIPT in command:
+        return "mission_transaction_preflight"
+    if "tools/meta/control/scoped_commit.py" in token_set or "tools/meta/control/scoped_commit.py" in command:
+        return "scoped_commit"
+    if "tools/meta/factory/work_ledger.py" in token_set or "tools/meta/factory/work_ledger.py" in command:
+        return "work_ledger"
+    if tokens and str(tokens[0]) == "git":
+        return "git"
+    return "shell_or_external"
+
+
+def command_artifact_contract(
+    command: str | None,
+    *,
+    argv: Sequence[Any] | None = None,
+    parser_owner: str | None = None,
+) -> dict[str, Any]:
+    command_text = str(command or "").strip()
+    tokens, tokenization, tokenization_error = _command_tokens(command_text, argv)
+    owner = parser_owner or _command_parser_owner(command_text, tokens)
+    required_bindings = _command_template_tokens(command_text, argv)
+    unsupported_flags: list[str] = []
+    if owner == "mission_transaction_preflight":
+        unsupported_flags = sorted(
+            {
+                str(token)
+                for token in tokens
+                if str(token) in MISSION_TRANSACTION_PREFLIGHT_UNSUPPORTED_FLAGS
+            }
+        )
+
+    if not command_text and argv is None:
+        state = "missing"
+        runnable = False
+        conformance_status = "no_command"
+    elif tokenization_error:
+        state = "invalid_shell"
+        runnable = False
+        conformance_status = "tokenization_failed"
+    elif unsupported_flags:
+        state = "invalid"
+        runnable = False
+        conformance_status = "unsupported_flags_present"
+    elif required_bindings:
+        state = "template"
+        runnable = False
+        conformance_status = "template_requires_binding"
+    else:
+        state = "runnable"
+        runnable = True
+        conformance_status = "runnable_no_known_placeholders"
+
+    contract: dict[str, Any] = {
+        "schema": COMMAND_ARTIFACT_CONTRACT_SCHEMA,
+        "state": state,
+        "runnable": runnable,
+        "parser_owner": owner,
+        "tokenization": tokenization,
+        "required_bindings": required_bindings,
+        "unsupported_flags": unsupported_flags,
+        "conformance_status": conformance_status,
+    }
+    if tokenization_error:
+        contract["tokenization_error"] = tokenization_error
+    return contract
 
 
 @dataclass(frozen=True)
@@ -678,6 +836,38 @@ def _task_ledger_tail_hash(repo_root: Path) -> str | None:
     return None
 
 
+def _task_ledger_work_item_object_at_marker(text: str, marker_index: int) -> dict[str, Any] | None:
+    decoder = json.JSONDecoder()
+    start = text.rfind("{", 0, marker_index)
+    while start >= 0:
+        try:
+            value, end = decoder.raw_decode(text[start:])
+        except json.JSONDecodeError:
+            start = text.rfind("{", 0, start)
+            continue
+        if not isinstance(value, Mapping):
+            start = text.rfind("{", 0, start)
+            continue
+        if end < marker_index - start:
+            start = text.rfind("{", 0, start)
+            continue
+        return dict(value)
+    return None
+
+
+def _task_ledger_subject_rows_selected(text: str, targets: set[str]) -> list[dict[str, Any]]:
+    selected: dict[str, dict[str, Any]] = {}
+    for target in targets:
+        markers = (f'"id": "{target}"', f'"id":"{target}"')
+        marker_index = next((index for marker in markers if (index := text.find(marker)) >= 0), -1)
+        if marker_index < 0:
+            continue
+        row = _task_ledger_work_item_object_at_marker(text, marker_index)
+        if row is not None and str(row.get("id") or "").strip() == target:
+            selected[target] = row
+    return [selected[target] for target in targets if target in selected]
+
+
 def _task_ledger_subject_rows(repo_root: Path, target_ids: Sequence[str]) -> list[dict[str, Any]]:
     targets = {str(item or "").strip() for item in target_ids if str(item or "").strip()}
     if not targets:
@@ -685,8 +875,12 @@ def _task_ledger_subject_rows(repo_root: Path, target_ids: Sequence[str]) -> lis
     path = repo_root / "state/task_ledger/ledger.json"
     if not path.is_file():
         return []
+    text = path.read_text(encoding="utf-8")
+    selected_rows = _task_ledger_subject_rows_selected(text, targets)
+    if selected_rows:
+        return selected_rows
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(text)
     except json.JSONDecodeError:
         return []
     rows = payload.get("work_items") if isinstance(payload, Mapping) else None
@@ -923,7 +1117,141 @@ def _task_ledger_receipt_refs(subject_rows: Sequence[Mapping[str, Any]]) -> dict
         "work_ledger_refs": work_ledger_refs,
         "receipt_refs": receipt_refs,
         "execution_receipts": receipts,
+        "latest_execution_receipt": receipts[-1] if receipts else None,
     }
+
+
+def _task_ledger_authority_receipt_refs(
+    repo_root: Path,
+    target_ids: Sequence[str],
+) -> dict[str, Any]:
+    targets = {str(item or "").strip() for item in target_ids if str(item or "").strip()}
+    base: dict[str, Any] = {
+        "receipt_ids": [],
+        "commit_refs": [],
+        "work_ledger_refs": [],
+        "receipt_refs": [],
+        "execution_receipts": [],
+        "latest_execution_receipt": None,
+        "authority_execution_receipt_overlay": {
+            "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+            "status": "not_requested" if not targets else "no_matching_execution_receipt",
+            "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+            "subject_ids": sorted(targets),
+            "event_ids": [],
+            "receipt_count": 0,
+        },
+    }
+    if not targets:
+        return base
+
+    try:
+        events = task_ledger_events.read_authority_events(repo_root)
+    except Exception as exc:
+        base["authority_execution_receipt_overlay"] = {
+            "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+            "status": "authority_unreadable",
+            "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+            "subject_ids": sorted(targets),
+            "error": str(exc),
+        }
+        return base
+
+    event_ids: list[str] = []
+    for event in events:
+        if str(event.get("event_type") or "").strip() != "work_item.execution_receipt_recorded":
+            continue
+        payload = event.get("payload") if isinstance(event.get("payload"), Mapping) else {}
+        subject_id = str(event.get("subject_id") or payload.get("subject_id") or "").strip()
+        if subject_id not in targets:
+            continue
+        raw_receipt = payload.get("execution_receipt") or payload.get("receipt")
+        if not isinstance(raw_receipt, Mapping):
+            continue
+        receipt = dict(raw_receipt)
+        event_id = str(event.get("event_id") or "").strip()
+        receipt_id = str(receipt.get("id") or receipt.get("transaction_id") or event_id).strip()
+        if receipt_id:
+            receipt.setdefault("id", receipt_id)
+            _append_unique(base["receipt_ids"], receipt_id)
+            _append_unique(base["receipt_refs"], receipt_id)
+        if event_id:
+            receipt["source_event_id"] = event_id
+            _append_unique(event_ids, event_id)
+        receipt["subject_id"] = subject_id
+        receipt["authority_source"] = TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE
+        base["execution_receipts"].append(receipt)
+        _append_unique(base["receipt_refs"], receipt.get("transaction_id"))
+        _append_unique(base["commit_refs"], receipt.get("commit_hash"))
+        for ref in receipt.get("commit_refs") or []:
+            _append_unique(base["commit_refs"], ref)
+        _append_unique(base["work_ledger_refs"], receipt.get("work_ledger_session_id"))
+        for ref in receipt.get("work_ledger_refs") or []:
+            _append_unique(base["work_ledger_refs"], ref)
+        refs = event.get("refs") if isinstance(event.get("refs"), Mapping) else {}
+        for ref in refs.get("receipt_refs") or []:
+            _append_unique(base["receipt_refs"], ref)
+        for ref in refs.get("commit_refs") or []:
+            _append_unique(base["commit_refs"], ref)
+        for ref in refs.get("work_ledger_refs") or []:
+            _append_unique(base["work_ledger_refs"], ref)
+
+    receipts = base["execution_receipts"]
+    base["latest_execution_receipt"] = receipts[-1] if receipts else None
+    base["authority_execution_receipt_overlay"] = {
+        "schema": "task_ledger_authority_execution_receipt_overlay_v0",
+        "status": "authority_visible" if receipts else "no_matching_execution_receipt",
+        "source": TASK_LEDGER_AUTHORITY_RECEIPT_SOURCE,
+        "subject_ids": sorted(targets),
+        "event_ids": event_ids,
+        "receipt_count": len(receipts),
+    }
+    return base
+
+
+def _receipt_merge_key(receipt: Mapping[str, Any]) -> tuple[str, str]:
+    for key in ("transaction_id", "id", "source_event_id"):
+        value = str(receipt.get(key) or "").strip()
+        if value:
+            return (key, value)
+    return ("digest", json.dumps(dict(receipt), sort_keys=True, separators=(",", ":")))
+
+
+def _merge_task_ledger_receipt_refs(
+    projected: Mapping[str, Any],
+    authority: Mapping[str, Any],
+) -> dict[str, Any]:
+    merged = {
+        key: list(projected.get(key) or [])
+        for key in ("receipt_ids", "commit_refs", "work_ledger_refs", "receipt_refs")
+    }
+    for key in ("receipt_ids", "commit_refs", "work_ledger_refs", "receipt_refs"):
+        for value in authority.get(key) or []:
+            _append_unique(merged[key], value)
+
+    receipt_rows = [
+        dict(receipt)
+        for receipt in projected.get("execution_receipts") or []
+        if isinstance(receipt, Mapping)
+    ]
+    index_by_key = {_receipt_merge_key(receipt): index for index, receipt in enumerate(receipt_rows)}
+    for receipt in authority.get("execution_receipts") or []:
+        if not isinstance(receipt, Mapping):
+            continue
+        key = _receipt_merge_key(receipt)
+        if key in index_by_key:
+            index = index_by_key[key]
+            receipt_rows[index] = {**receipt_rows[index], **dict(receipt)}
+        else:
+            index_by_key[key] = len(receipt_rows)
+            receipt_rows.append(dict(receipt))
+    merged["execution_receipts"] = receipt_rows
+    latest = authority.get("latest_execution_receipt") or projected.get("latest_execution_receipt")
+    merged["latest_execution_receipt"] = dict(latest) if isinstance(latest, Mapping) else None
+    overlay = authority.get("authority_execution_receipt_overlay")
+    if isinstance(overlay, Mapping):
+        merged["authority_execution_receipt_overlay"] = dict(overlay)
+    return merged
 
 
 def _receipt_context_commit_refs(
@@ -979,10 +1307,35 @@ def _work_ledger_session_state_for_receipt(
         "session_had_ledger_append": session.get("session_had_ledger_append")
         if session
         else None,
+        "append_exempt": session.get("append_exempt") if session else None,
+        "append_exempt_reason": session.get("append_exempt_reason") if session else None,
+        "append_exempt_refs": list(session.get("append_exempt_refs") or []) if session else [],
+        "append_exempted_at": session.get("append_exempted_at") if session else None,
+        "active_claim_count": _session_active_claim_count(session) if session else None,
         "stale": session.get("stale") if session else None,
         "stale_reason": session.get("stale_reason") if session else None,
         "source": "runtime_status" if session else "receipt_reference_only",
     }
+
+
+def _session_active_claim_count(session: Mapping[str, Any] | None) -> int | None:
+    session = _mapping_value(session)
+    if "active_claim_count" in session:
+        try:
+            return int(session.get("active_claim_count") or 0)
+        except (TypeError, ValueError):
+            return None
+    claims = session.get("claims")
+    if not isinstance(claims, Sequence) or isinstance(claims, (str, bytes, bytearray)):
+        return None
+    count = 0
+    for claim in claims:
+        if not isinstance(claim, Mapping):
+            continue
+        if claim.get("released_at") or claim.get("expired_at"):
+            continue
+        count += 1
+    return count
 
 
 def _receipt_status_for_transaction(
@@ -1016,10 +1369,12 @@ def _session_finalizer_status(
     append_exempt_ids = {str(item or "").strip() for item in append_exempt_session_ids if str(item).strip()}
     session_rows: list[dict[str, Any]] = []
     stale_ids: list[str] = []
+    runtime_append_exempt_ids: list[str] = []
     for session_id in transaction.get("actor_session_ids") or []:
         session = sessions.get(str(session_id))
         if not isinstance(session, Mapping):
             continue
+        active_claim_count = _session_active_claim_count(session)
         session_rows.append(
             {
                 "session_id": session_id,
@@ -1027,12 +1382,21 @@ def _session_finalizer_status(
                 "stale": bool(session.get("stale")),
                 "stale_reason": session.get("stale_reason"),
                 "session_had_ledger_append": bool(session.get("session_had_ledger_append")),
+                "append_exempt": bool(session.get("append_exempt")),
+                "append_exempt_reason": session.get("append_exempt_reason"),
+                "append_exempt_refs": list(session.get("append_exempt_refs") or []),
+                "append_exempted_at": session.get("append_exempted_at"),
+                "active_claim_count": active_claim_count,
             }
         )
         if session.get("stale"):
             stale_ids.append(str(session_id))
+        if _session_closed_clean(session) and session.get("append_exempt"):
+            runtime_append_exempt_ids.append(str(session_id))
     stale_ids_append_exempt = bool(stale_ids and all(session_id in append_exempt_ids for session_id in stale_ids))
-    if stale_ids and (transaction.get("work_ledger_closed") or stale_ids_append_exempt):
+    if runtime_append_exempt_ids:
+        status = "append_exempt"
+    elif stale_ids and (transaction.get("work_ledger_closed") or stale_ids_append_exempt):
         status = "append_exempt"
     elif stale_ids:
         status = "stale_requires_drain"
@@ -1046,6 +1410,7 @@ def _session_finalizer_status(
         "status": status,
         "sessions": session_rows,
         "stale_session_ids": stale_ids,
+        "runtime_append_exempt_session_ids": runtime_append_exempt_ids,
     }
 
 
@@ -2672,6 +3037,9 @@ def _derived_state_bloat_governor(
                 "allowed_git_policy": policy.get("allowed_git_policy"),
                 "push_risk": push_risk,
                 "drain_or_manifest_command": policy.get("drain_or_manifest_command"),
+                "drain_or_manifest_command_contract": command_artifact_contract(
+                    str(policy.get("drain_or_manifest_command") or "")
+                ),
                 "blocks_local_landing": False,
             }
         )
@@ -2745,6 +3113,9 @@ def _derived_state_bloat_governor(
         "owner_hint": primary_row.get("owner_hint"),
         "allowed_git_policy": primary_row.get("allowed_git_policy"),
         "drain_or_manifest_command": primary_row.get("drain_or_manifest_command"),
+        "drain_or_manifest_command_contract": command_artifact_contract(
+            str(primary_row.get("drain_or_manifest_command") or "")
+        ),
         "next_action": primary_next_action,
         "workspace_dirty_count": dirty_tree.get("dirty_path_count", 0),
         "workspace_dirty_is_push_gate": False,
@@ -3074,14 +3445,23 @@ def _scope_contains_path(path: str, scopes: Iterable[str]) -> bool:
     return False
 
 
+@lru_cache(maxsize=1)
+def _generated_projection_owner_artifact_rows() -> tuple[tuple[tuple[str, ...], dict[str, Any]], ...]:
+    return tuple(
+        (tuple(str(artifact or "").strip("/") for artifact in owner.artifacts), owner.to_dict())
+        for owner in generated_projection_registry.iter_projection_owners()
+    )
+
+
 def _registry_owners_for_path(path: str) -> list[dict[str, Any]]:
+    token = str(path or "").strip("/")
     owners: list[dict[str, Any]] = []
-    for owner in generated_projection_registry.iter_projection_owners():
+    for artifacts, owner in _generated_projection_owner_artifact_rows():
         if any(
-            _scope_contains_path(path, (artifact,)) or fnmatch(path, artifact)
-            for artifact in owner.artifacts
+            _scope_contains_path(token, (artifact,)) or fnmatch(token, artifact)
+            for artifact in artifacts
         ):
-            owners.append(owner.to_dict())
+            owners.append(dict(owner))
     return owners
 
 
@@ -3476,13 +3856,16 @@ def _work_ledger_packet(
     target_ids: Sequence[str] = (),
     session_id: str | None = None,
     require_exclusive: bool,
+    runtime_status: Mapping[str, Any] | None = None,
+    claim_overview: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    runtime_status = work_ledger_runtime.load_runtime_status(repo_root)
-    overview = work_ledger_runtime.build_session_cohort_overview(runtime_status)
-    claim_overview = dict(overview)
-    full_active_claims = _runtime_active_claim_rows(runtime_status)
-    if full_active_claims:
-        claim_overview["active_claims"] = full_active_claims
+    runtime_status = runtime_status or work_ledger_runtime.load_runtime_status(repo_root)
+    if claim_overview is None:
+        overview = work_ledger_runtime.build_session_cohort_overview(runtime_status)
+        claim_overview = _work_ledger_claim_overview(runtime_status, overview=overview)
+    else:
+        claim_overview = dict(claim_overview)
+        overview = dict(claim_overview)
     counts = overview.get("counts") if isinstance(overview.get("counts"), Mapping) else {}
     requested_session_id = str(session_id or "").strip()
     initial_path_collisions = _path_claim_collisions(requested_paths, claim_overview, session_id=None)
@@ -3501,6 +3884,21 @@ def _work_ledger_packet(
         "read_receipt_id": session_row.get("read_receipt_id") if isinstance(session_row, Mapping) else None,
         "ended_at": session_row.get("ended_at") if isinstance(session_row, Mapping) else None,
         "session_had_ledger_append": bool(session_row.get("session_had_ledger_append"))
+        if isinstance(session_row, Mapping)
+        else None,
+        "append_exempt": bool(session_row.get("append_exempt"))
+        if isinstance(session_row, Mapping)
+        else None,
+        "append_exempt_reason": session_row.get("append_exempt_reason")
+        if isinstance(session_row, Mapping)
+        else None,
+        "append_exempt_refs": list(session_row.get("append_exempt_refs") or [])
+        if isinstance(session_row, Mapping)
+        else [],
+        "append_exempted_at": session_row.get("append_exempted_at")
+        if isinstance(session_row, Mapping)
+        else None,
+        "active_claim_count": _session_active_claim_count(session_row)
         if isinstance(session_row, Mapping)
         else None,
         "stale": bool(session_row.get("stale")) if isinstance(session_row, Mapping) else None,
@@ -3554,6 +3952,26 @@ def _work_ledger_packet(
         "subject_or_td_collisions": target_collisions,
         "contention": overview.get("contention", {}),
     }
+
+
+def _load_work_ledger_runtime_for_preflight(repo_root: Path) -> dict[str, Any]:
+    try:
+        payload = work_ledger_runtime.load_runtime_status(repo_root, rebuild=False)
+    except TypeError:
+        payload = work_ledger_runtime.load_runtime_status(repo_root)
+    return dict(payload) if isinstance(payload, Mapping) else {}
+
+
+def _work_ledger_claim_overview(
+    runtime_status: Mapping[str, Any],
+    *,
+    overview: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    claim_overview = dict(overview or work_ledger_runtime.build_session_cohort_overview(runtime_status))
+    full_active_claims = _runtime_active_claim_rows(runtime_status)
+    if full_active_claims:
+        claim_overview["active_claims"] = full_active_claims
+    return claim_overview
 
 
 def _parse_claim_datetime(value: Any) -> datetime | None:
@@ -3634,12 +4052,10 @@ def _git_metadata_write_capability(repo_root: Path) -> dict[str, Any]:
             ],
             "probes": [],
         }
-    git_common_dir = _resolved_git_common_dir(repo_root, git_dir)
-    git_objects_dir = git_common_dir / "objects"
     worktree_probe = _git_metadata_write_probe(repo_root, purpose="repo_worktree_control")
     probes = [
         _git_metadata_write_probe(git_dir, purpose="git_dir_index_lock_parent"),
-        _git_metadata_write_probe(git_objects_dir, purpose="git_object_database"),
+        _git_metadata_write_probe(git_dir / "objects", purpose="git_object_database"),
     ]
     blocked = [row for row in probes if row.get("status") != "ok"]
     lockfiles = _git_metadata_lockfiles(repo_root, git_dir)
@@ -3661,12 +4077,9 @@ def _git_metadata_write_capability(repo_root: Path) -> dict[str, Any]:
         "same_context_required": True,
         "worktree_write_probe": worktree_probe,
         "git_dir": _normalize_path(repo_root, str(git_dir)),
-        "git_common_dir": _normalize_path(repo_root, str(git_common_dir)),
-        "git_objects_dir": _normalize_path(repo_root, str(git_objects_dir)),
         "protected_metadata_path": _is_protected_git_metadata_path(repo_root, git_dir),
         "git_dir_permissions": _directory_permission_summary(git_dir),
-        "git_common_dir_permissions": _directory_permission_summary(git_common_dir),
-        "git_objects_permissions": _directory_permission_summary(git_objects_dir),
+        "git_objects_permissions": _directory_permission_summary(git_dir / "objects"),
         "lockfiles": lockfiles,
         "git_gc_maintenance": _git_gc_maintenance_advisory(repo_root, git_dir),
         "owner_repair_commands": _git_metadata_owner_repair_commands(failure_class),
@@ -3681,17 +4094,6 @@ def _resolved_git_dir(repo_root: Path) -> Path | None:
     raw = proc.stdout.strip()
     if not raw:
         return None
-    path = Path(raw)
-    if not path.is_absolute():
-        path = repo_root / path
-    return path
-
-
-def _resolved_git_common_dir(repo_root: Path, git_dir: Path) -> Path:
-    proc = _run_git(repo_root, ["rev-parse", "--git-common-dir"])
-    raw = proc.stdout.strip() if proc.returncode == 0 else ""
-    if not raw:
-        return git_dir
     path = Path(raw)
     if not path.is_absolute():
         path = repo_root / path
@@ -3717,6 +4119,109 @@ def _git_metadata_lockfiles(repo_root: Path, git_dir: Path) -> list[str]:
     ]
 
 
+def _parse_git_human_bytes(value: Any) -> int | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    parts = text.split()
+    if not parts:
+        return None
+    try:
+        amount = float(parts[0])
+    except ValueError:
+        return None
+    unit = (parts[1] if len(parts) > 1 else "bytes").lower()
+    multipliers = {
+        "b": 1,
+        "byte": 1,
+        "bytes": 1,
+        "kib": 1024,
+        "kb": 1024,
+        "mib": MIB,
+        "mb": MIB,
+        "gib": GIB,
+        "gb": GIB,
+        "tib": 1024 * GIB,
+        "tb": 1024 * GIB,
+    }
+    multiplier = multipliers.get(unit)
+    if multiplier is None:
+        return None
+    return max(0, int(amount * multiplier))
+
+
+def _parse_int_field(fields: Mapping[str, str], key: str) -> int | None:
+    raw = fields.get(key)
+    if raw is None:
+        return None
+    try:
+        return int(raw)
+    except ValueError:
+        return None
+
+
+def _git_object_database_pressure_advisory(repo_root: Path) -> dict[str, Any]:
+    proc = _run_git(repo_root, ["count-objects", "-vH"])
+    fields: dict[str, str] = {}
+    for line in proc.stdout.splitlines():
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        fields[key.strip()] = value.strip()
+    warnings = [line for line in proc.stderr.splitlines() if line.strip()]
+    if proc.returncode != 0:
+        return {
+            "schema": "git_object_database_pressure_advisory_v0",
+            "status": "unknown",
+            "returncode": proc.returncode,
+            "reason": "git_count_objects_failed",
+            "warnings_preview": warnings[:COMPACT_PREVIEW_LIMIT],
+            "source": "git count-objects -vH",
+        }
+    loose_count = _parse_int_field(fields, "count")
+    loose_bytes = _parse_git_human_bytes(fields.get("size"))
+    critical_reasons: list[str] = []
+    attention_reasons: list[str] = []
+    if loose_count is not None:
+        if loose_count >= GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD:
+            critical_reasons.append("loose_object_count_critical")
+        elif loose_count >= GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD:
+            attention_reasons.append("loose_object_count_attention")
+    if loose_bytes is not None:
+        if loose_bytes >= GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD:
+            critical_reasons.append("loose_object_bytes_critical")
+        elif loose_bytes >= GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD:
+            attention_reasons.append("loose_object_bytes_attention")
+    if warnings:
+        attention_reasons.append("git_count_objects_warnings_present")
+    if critical_reasons:
+        status = "critical"
+    elif attention_reasons:
+        status = "attention"
+    elif loose_count is None and loose_bytes is None:
+        status = "unknown"
+    else:
+        status = "ok"
+    return {
+        "schema": "git_object_database_pressure_advisory_v0",
+        "status": status,
+        "needs_attention": status in {"attention", "critical"},
+        "reasons": critical_reasons + attention_reasons,
+        "returncode": proc.returncode,
+        "loose_object_count": loose_count,
+        "loose_object_human": fields.get("size"),
+        "pack_object_human": fields.get("size-pack"),
+        "warnings_preview": warnings[:COMPACT_PREVIEW_LIMIT],
+        "thresholds": {
+            "loose_object_count_attention": GIT_LOOSE_OBJECT_COUNT_ATTENTION_THRESHOLD,
+            "loose_object_count_critical": GIT_LOOSE_OBJECT_COUNT_CRITICAL_THRESHOLD,
+            "loose_object_bytes_attention": GIT_LOOSE_OBJECT_BYTES_ATTENTION_THRESHOLD,
+            "loose_object_bytes_critical": GIT_LOOSE_OBJECT_BYTES_CRITICAL_THRESHOLD,
+        },
+        "source": "git count-objects -vH",
+    }
+
+
 def _git_gc_maintenance_advisory(repo_root: Path, git_dir: Path) -> dict[str, Any]:
     gc_log = git_dir / "gc.log"
     preview = None
@@ -3726,14 +4231,22 @@ def _git_gc_maintenance_advisory(repo_root: Path, git_dir: Path) -> dict[str, An
         except OSError:
             preview = None
     exists = gc_log.exists()
+    object_database_pressure = _git_object_database_pressure_advisory(repo_root)
+    pressure_status = str(object_database_pressure.get("status") or "")
+    pressure_attention = pressure_status in {"attention", "critical"}
     return {
         "schema": "git_gc_maintenance_advisory_v0",
-        "status": "attention" if exists else "ok",
+        "status": "attention" if exists or pressure_attention else "ok",
         "gc_log_exists": exists,
         "gc_log_path": _normalize_path(repo_root, str(gc_log)),
         "gc_log_preview": preview,
+        "object_store_status": pressure_status or "unknown",
+        "object_database_pressure": object_database_pressure,
         "check_command": "./repo-python tools/meta/control/git_gc_maintenance.py --check",
         "repair_command": "./repo-python tools/meta/control/git_gc_maintenance.py --repair",
+        "prune_candidate_status_command": (
+            "./repo-python tools/meta/control/git_gc_maintenance.py --prune-candidate-status"
+        ),
         "owner": "tools/meta/control/git_gc_maintenance.py",
     }
 
@@ -3965,6 +4478,659 @@ def _git_metadata_unavailable_landing_decision(scoped_commit: Mapping[str, Any])
             }
         )
     return decision
+
+
+def _matches_any_pattern(path: str, patterns: Sequence[str]) -> bool:
+    token = str(path or "").strip("/")
+    return any(token == pattern or fnmatch(token, pattern) for pattern in patterns)
+
+
+def _microcosm_read_json_object(
+    repo_root: Path,
+    relpath: str,
+    issues: list[dict[str, Any]],
+) -> Mapping[str, Any]:
+    path = repo_root / relpath
+    if not path.exists():
+        issues.append(
+            {
+                "issue_id": "microcosm_companion_json_missing",
+                "path": relpath,
+                "message": "required Microcosm companion JSON is missing",
+            }
+        )
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        issues.append(
+            {
+                "issue_id": "microcosm_companion_json_invalid",
+                "path": relpath,
+                "message": f"required Microcosm companion JSON is not parseable: {exc}",
+            }
+        )
+        return {}
+    if not isinstance(payload, Mapping):
+        issues.append(
+            {
+                "issue_id": "microcosm_companion_json_not_object",
+                "path": relpath,
+                "message": "required Microcosm companion JSON must be a top-level object",
+            }
+        )
+        return {}
+    return payload
+
+
+def _microcosm_read_text_file(
+    repo_root: Path,
+    relpath: str,
+    issues: list[dict[str, Any]],
+) -> str:
+    path = repo_root / relpath
+    if not path.exists():
+        issues.append(
+            {
+                "issue_id": "microcosm_companion_text_missing",
+                "path": relpath,
+                "message": "required Microcosm companion text file is missing",
+            }
+        )
+        return ""
+    try:
+        return path.read_text(encoding="utf-8")
+    except Exception as exc:
+        issues.append(
+            {
+                "issue_id": "microcosm_companion_text_unreadable",
+                "path": relpath,
+                "message": f"required Microcosm companion text file is unreadable: {exc}",
+            }
+        )
+        return ""
+
+
+def _microcosm_rows(payload: Mapping[str, Any], key: str) -> list[Mapping[str, Any]]:
+    rows = payload.get(key)
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes, bytearray)):
+        return []
+    return [row for row in rows if isinstance(row, Mapping)]
+
+
+def _microcosm_row_ids(
+    payload: Mapping[str, Any],
+    key: str,
+    *,
+    accepted_only: bool = False,
+) -> set[str]:
+    ids: set[str] = set()
+    for row in _microcosm_rows(payload, key):
+        if accepted_only and row.get("status") != "accepted_current_authority":
+            continue
+        organ_id = str(row.get("organ_id") or "").strip()
+        if organ_id:
+            ids.add(organ_id)
+    return ids
+
+
+def _microcosm_id_delta(
+    *,
+    issue_id: str,
+    companion: str,
+    expected: set[str],
+    actual: set[str],
+) -> dict[str, Any] | None:
+    missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
+    if not missing and not extra:
+        return None
+    return {
+        "issue_id": issue_id,
+        "companion": companion,
+        "missing_organ_ids": missing[:25],
+        "extra_organ_ids": extra[:25],
+        "missing_count": len(missing),
+        "extra_count": len(extra),
+        "message": (
+            f"{companion} organ IDs must match accepted registry authority IDs"
+        ),
+    }
+
+
+def _microcosm_package_data_file_count(
+    package_data_files: Mapping[str, Any],
+    root_prefix: str,
+) -> int:
+    count = 0
+    for key, value in package_data_files.items():
+        if not str(key).startswith(root_prefix):
+            continue
+        if isinstance(value, (list, tuple)):
+            count += sum(1 for item in value if str(item or "").strip())
+    return count
+
+
+def _microcosm_package_data_value_type_issues(
+    package_data_files: Mapping[str, Any],
+    root_prefix: str,
+    issue_id: str,
+) -> list[dict[str, Any]]:
+    issues: list[dict[str, Any]] = []
+    for key, value in package_data_files.items():
+        if not str(key).startswith(root_prefix):
+            continue
+        if not isinstance(value, (list, tuple)):
+            issues.append(
+                {
+                    "issue_id": issue_id,
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "data_file_root": str(key),
+                    "message": "package-data entries must be TOML arrays of file paths",
+                }
+            )
+    return issues
+
+
+def _microcosm_package_data_required_source_prefix(
+    data_file_root: str,
+    root_prefix: str,
+    source_prefix: str,
+) -> str:
+    suffix = data_file_root[len(root_prefix):].strip("/")
+    if not suffix:
+        return source_prefix
+    return f"{source_prefix}{suffix}/"
+
+
+def _microcosm_package_data_path_issues(
+    package_data_files: Mapping[str, Any],
+    root_prefix: str,
+    issue_id: str,
+    source_prefix: str,
+) -> list[dict[str, Any]]:
+    issues: list[dict[str, Any]] = []
+    for key, value in package_data_files.items():
+        data_file_root = str(key)
+        if not data_file_root.startswith(root_prefix) or not isinstance(value, (list, tuple)):
+            continue
+        required_source_prefix = _microcosm_package_data_required_source_prefix(
+            data_file_root,
+            root_prefix,
+            source_prefix,
+        )
+        for item in value:
+            path = str(item or "").strip()
+            if not path:
+                continue
+            parts = Path(path).parts
+            if (
+                path.startswith("/")
+                or ".." in parts
+                or not path.startswith(required_source_prefix)
+            ):
+                issues.append(
+                    {
+                        "issue_id": issue_id,
+                        "companion": "microcosm-substrate/pyproject.toml",
+                        "data_file_root": data_file_root,
+                        "path": path,
+                        "required_source_prefix": required_source_prefix,
+                        "message": (
+                            "package-data file entries must be portable relative paths "
+                            "inside the matching public Microcosm source root"
+                        ),
+                    }
+                )
+    return issues
+
+
+def _microcosm_accepted_organ_companion_content_proof(repo_root: Path) -> dict[str, Any]:
+    issues: list[dict[str, Any]] = []
+    registry = _microcosm_read_json_object(
+        repo_root,
+        "microcosm-substrate/core/organ_registry.json",
+        issues,
+    )
+    substrate_ledger = _microcosm_read_json_object(
+        repo_root,
+        "microcosm-substrate/core/substrate_substitution_ledger.json",
+        issues,
+    )
+    organ_atlas = _microcosm_read_json_object(
+        repo_root,
+        "microcosm-substrate/core/organ_atlas.json",
+        issues,
+    )
+    evidence_classes = _microcosm_read_json_object(
+        repo_root,
+        "microcosm-substrate/core/organ_evidence_classes.json",
+        issues,
+    )
+    pyproject_text = _microcosm_read_text_file(
+        repo_root,
+        "microcosm-substrate/pyproject.toml",
+        issues,
+    )
+    package_data_files: Mapping[str, Any] = {}
+    if pyproject_text:
+        try:
+            pyproject = tomllib.loads(pyproject_text)
+        except tomllib.TOMLDecodeError as exc:
+            issues.append(
+                {
+                    "issue_id": "package_data_toml_invalid",
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "message": f"pyproject.toml must parse as TOML: {exc}",
+                }
+            )
+            pyproject = {}
+        if isinstance(pyproject, Mapping):
+            tool = pyproject.get("tool")
+            setuptools = tool.get("setuptools") if isinstance(tool, Mapping) else {}
+            data_files = (
+                setuptools.get("data-files")
+                if isinstance(setuptools, Mapping)
+                else None
+            )
+            if isinstance(data_files, Mapping):
+                package_data_files = data_files
+            else:
+                issues.append(
+                    {
+                        "issue_id": "package_data_files_missing",
+                        "companion": "microcosm-substrate/pyproject.toml",
+                        "message": (
+                            "pyproject.toml must declare tool.setuptools.data-files "
+                            "for Microcosm public package companions"
+                        ),
+                    }
+                )
+
+    example_data_file_count = 0
+    fixture_data_file_count = 0
+    if package_data_files:
+        data_file_keys = [str(key) for key in package_data_files]
+        example_data_file_count = _microcosm_package_data_file_count(
+            package_data_files,
+            MICROCOSM_PACKAGE_DATA_EXAMPLES_ROOT,
+        )
+        fixture_data_file_count = _microcosm_package_data_file_count(
+            package_data_files,
+            MICROCOSM_PACKAGE_DATA_FIXTURES_ROOT,
+        )
+        issues.extend(
+            _microcosm_package_data_value_type_issues(
+                package_data_files,
+                MICROCOSM_PACKAGE_DATA_EXAMPLES_ROOT,
+                "package_data_examples_value_type_invalid",
+            )
+        )
+        issues.extend(
+            _microcosm_package_data_value_type_issues(
+                package_data_files,
+                MICROCOSM_PACKAGE_DATA_FIXTURES_ROOT,
+                "package_data_fixtures_value_type_invalid",
+            )
+        )
+        issues.extend(
+            _microcosm_package_data_path_issues(
+                package_data_files,
+                MICROCOSM_PACKAGE_DATA_EXAMPLES_ROOT,
+                "package_data_examples_path_not_portable",
+                "examples/",
+            )
+        )
+        issues.extend(
+            _microcosm_package_data_path_issues(
+                package_data_files,
+                MICROCOSM_PACKAGE_DATA_FIXTURES_ROOT,
+                "package_data_fixtures_path_not_portable",
+                "fixtures/",
+            )
+        )
+        if not any(
+            key.startswith(MICROCOSM_PACKAGE_DATA_EXAMPLES_ROOT)
+            for key in data_file_keys
+        ):
+            issues.append(
+                {
+                    "issue_id": "package_data_examples_missing",
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "message": "package data must include accepted public example roots",
+                }
+            )
+        elif example_data_file_count == 0:
+            issues.append(
+                {
+                    "issue_id": "package_data_examples_files_missing",
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "message": "accepted public example package-data roots must include files",
+                }
+            )
+        if not any(
+            key.startswith(MICROCOSM_PACKAGE_DATA_FIXTURES_ROOT)
+            for key in data_file_keys
+        ):
+            issues.append(
+                {
+                    "issue_id": "package_data_fixtures_missing",
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "message": "package data must include accepted public fixture roots",
+                }
+            )
+        elif fixture_data_file_count == 0:
+            issues.append(
+                {
+                    "issue_id": "package_data_fixtures_files_missing",
+                    "companion": "microcosm-substrate/pyproject.toml",
+                    "message": "accepted public fixture package-data roots must include files",
+                }
+            )
+
+    scanned_public_docs: list[str] = []
+    for doc_ref in (
+        "microcosm-substrate/AGENTS.md",
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/ORGANS.md",
+        "microcosm-substrate/ARCHITECTURE.md",
+    ):
+        text = _microcosm_read_text_file(repo_root, doc_ref, issues)
+        if not text:
+            continue
+        scanned_public_docs.append(doc_ref)
+        normalized = " ".join(text.lower().split())
+        missing_terms = [
+            term
+            for term in MICROCOSM_PUBLIC_DOC_BOUNDARY_TERMS
+            if term not in normalized
+        ]
+        if "microcosm" not in normalized or missing_terms:
+            issues.append(
+                {
+                    "issue_id": "public_doc_boundary_language_missing",
+                    "companion": doc_ref,
+                    "missing_terms": missing_terms,
+                    "message": (
+                        "public entry companion docs must carry Microcosm boundary "
+                        "language for release/provider/source-mutation/private-root/"
+                        "proof-authority limits"
+                    ),
+                }
+            )
+
+    accepted_ids = _microcosm_row_ids(
+        registry,
+        "implemented_organs",
+        accepted_only=True,
+    )
+    ledger_ids = _microcosm_row_ids(
+        substrate_ledger,
+        "organ_substrate_dispositions",
+    )
+    atlas_ids = _microcosm_row_ids(organ_atlas, "organs")
+    evidence_ids = _microcosm_row_ids(
+        evidence_classes,
+        "organ_evidence_classes",
+    )
+
+    for issue in (
+        _microcosm_id_delta(
+            issue_id="substrate_ledger_ids_mismatch",
+            companion="microcosm-substrate/core/substrate_substitution_ledger.json",
+            expected=accepted_ids,
+            actual=ledger_ids,
+        ),
+        _microcosm_id_delta(
+            issue_id="organ_atlas_ids_mismatch",
+            companion="microcosm-substrate/core/organ_atlas.json",
+            expected=accepted_ids,
+            actual=atlas_ids,
+        ),
+        _microcosm_id_delta(
+            issue_id="organ_evidence_class_ids_mismatch",
+            companion="microcosm-substrate/core/organ_evidence_classes.json",
+            expected=accepted_ids,
+            actual=evidence_ids,
+        ),
+    ):
+        if issue is not None:
+            issues.append(issue)
+
+    summary = substrate_ledger.get("summary")
+    if not isinstance(summary, Mapping):
+        summary = {}
+    validation = substrate_ledger.get("validation")
+    if not isinstance(validation, Mapping):
+        validation = {}
+    summary_count = summary.get("accepted_organ_count")
+    if summary_count != len(accepted_ids):
+        issues.append(
+            {
+                "issue_id": "substrate_ledger_summary_count_mismatch",
+                "companion": "microcosm-substrate/core/substrate_substitution_ledger.json",
+                "summary_accepted_organ_count": summary_count,
+                "registry_accepted_organ_count": len(accepted_ids),
+                "message": (
+                    "substrate ledger summary accepted_organ_count must match "
+                    "accepted registry authority count"
+                ),
+            }
+        )
+    if validation.get("status") != "pass":
+        issues.append(
+            {
+                "issue_id": "substrate_ledger_validation_not_pass",
+                "companion": "microcosm-substrate/core/substrate_substitution_ledger.json",
+                "validation_status": validation.get("status"),
+                "message": "substrate ledger validation status must be pass",
+            }
+        )
+    if validation.get("issue_count") not in (0, None):
+        issues.append(
+            {
+                "issue_id": "substrate_ledger_validation_issues_present",
+                "companion": "microcosm-substrate/core/substrate_substitution_ledger.json",
+                "validation_issue_count": validation.get("issue_count"),
+                "message": "substrate ledger validation issue_count must be zero",
+            }
+        )
+    if validation.get("fixture_only_authority_banned") is not True:
+        issues.append(
+            {
+                "issue_id": "substrate_ledger_fixture_authority_ban_not_asserted",
+                "companion": "microcosm-substrate/core/substrate_substitution_ledger.json",
+                "fixture_only_authority_banned": validation.get(
+                    "fixture_only_authority_banned"
+                ),
+                "message": (
+                    "substrate ledger validation must assert that fixture-only "
+                    "accepted authority is banned"
+                ),
+            }
+        )
+
+    status = "pass" if not issues else "blocked"
+    return {
+        "schema": "microcosm_accepted_organ_companion_content_proof_v0",
+        "status": status,
+        "accepted_organ_count": len(accepted_ids),
+        "substrate_ledger_organ_count": len(ledger_ids),
+        "organ_atlas_organ_count": len(atlas_ids),
+        "organ_evidence_class_count": len(evidence_ids),
+        "substrate_ledger_summary_accepted_organ_count": summary_count,
+        "substrate_ledger_validation_status": validation.get("status"),
+        "substrate_ledger_validation_issue_count": validation.get("issue_count"),
+        "fixture_only_authority_banned": validation.get("fixture_only_authority_banned"),
+        "package_data_file_count": len(package_data_files),
+        "package_data_examples_file_count": example_data_file_count,
+        "package_data_fixtures_file_count": fixture_data_file_count,
+        "scanned_public_docs": scanned_public_docs,
+        "issue_count": len(issues),
+        "issues": issues,
+    }
+
+
+def _microcosm_accepted_organ_admission(
+    *,
+    repo_root: Path,
+    declared_paths: Sequence[str],
+    staged_paths: Sequence[str],
+    proof_only_companion_paths: Sequence[str] = (),
+) -> dict[str, Any]:
+    write_set_paths = sorted(
+        {
+            str(path or "").strip("/")
+            for path in (*declared_paths, *staged_paths)
+            if str(path or "").strip("/")
+        }
+    )
+    required_refs = list(MICROCOSM_ACCEPTED_ORGAN_ADMISSION_REQUIRED_REFS)
+    required_set = set(required_refs)
+    proof_only_present = sorted(
+        {
+            str(path or "").strip("/")
+            for path in proof_only_companion_paths
+            if str(path or "").strip("/") in required_set
+        }
+    )
+    companion_scope_paths = sorted({*write_set_paths, *proof_only_present})
+    source_only_paths = [
+        path
+        for path in write_set_paths
+        if path not in required_set
+        and _matches_any_pattern(path, MICROCOSM_ACCEPTED_ORGAN_SOURCE_ONLY_PATTERNS)
+    ]
+    copy_artifact_paths = [
+        path
+        for path in write_set_paths
+        if path not in required_set
+        and path not in source_only_paths
+        and _matches_any_pattern(
+            path,
+            MICROCOSM_ACCEPTED_ORGAN_COPY_ARTIFACT_PATTERNS,
+        )
+    ]
+    trigger_paths = [
+        path
+        for path in write_set_paths
+        if path not in required_set
+        and path not in source_only_paths
+        and path not in copy_artifact_paths
+        and _matches_any_pattern(path, MICROCOSM_ACCEPTED_ORGAN_MUTATION_PATTERNS)
+    ]
+    present = [path for path in required_refs if path in companion_scope_paths]
+    missing = (
+        [path for path in required_refs if path not in companion_scope_paths]
+        if trigger_paths
+        else []
+    )
+    content_proof: dict[str, Any]
+    blocking_reason = ""
+    if trigger_paths and missing:
+        status = "blocked"
+        blocking_reason = "microcosm_accepted_organ_admission_missing_companions"
+        content_proof = {
+            "schema": "microcosm_accepted_organ_companion_content_proof_v0",
+            "status": "not_checked",
+            "reason": "missing_required_companion_paths",
+            "issue_count": 0,
+            "issues": [],
+        }
+    elif trigger_paths:
+        content_proof = _microcosm_accepted_organ_companion_content_proof(repo_root)
+        status = "blocked" if content_proof.get("status") != "pass" else "clear"
+        if status == "blocked":
+            blocking_reason = "microcosm_accepted_organ_admission_stale_companion_content"
+    else:
+        status = "clear"
+        content_proof = {
+            "schema": "microcosm_accepted_organ_companion_content_proof_v0",
+            "status": "not_checked",
+            "reason": "no_accepted_authority_mutation_detected",
+            "issue_count": 0,
+            "issues": [],
+        }
+    if status == "blocked" and not blocking_reason:
+        blocking_reason = "microcosm_accepted_organ_admission_blocked"
+    return {
+        "schema": MICROCOSM_ACCEPTED_ORGAN_ADMISSION_SCHEMA,
+        "status": status,
+        "blocking_reason": blocking_reason,
+        "rule": "accepted_microcosm_authority_mutations_require_substrate_package_docs_coherence",
+        "authority_boundary": (
+            "mission_transaction_preflight_declared_write_set_plus_proof_only_companions"
+        ),
+        "trigger_path_count": len(trigger_paths),
+        "trigger_paths": trigger_paths,
+        "source_only_path_count": len(source_only_paths),
+        "source_only_paths": source_only_paths,
+        "copy_artifact_path_count": len(copy_artifact_paths),
+        "copy_artifact_paths": copy_artifact_paths,
+        "source_only_demotion_policy": (
+            "Microcosm organ implementation source edits are source patches, not "
+            "accepted public authority metadata by themselves; accepted-organ "
+            "companion admission begins at registry, acceptance, fixture, example, "
+            "package-data, or public companion-document mutations."
+        ),
+        "copy_artifact_demotion_policy": (
+            "Exported bundle source-module copies and their manifests are proof "
+            "artifacts for exact-copy/package validation; they do not change "
+            "accepted organ authority metadata unless paired with registry, "
+            "acceptance, package-data, fixture, or public companion-document "
+            "mutations."
+        ),
+        "required_companion_paths": required_refs,
+        "present_companion_paths": present,
+        "proof_only_companion_paths": proof_only_present,
+        "proof_only_companion_path_count": len(proof_only_present),
+        "missing_companion_paths": missing,
+        "content_proof_status": content_proof.get("status"),
+        "content_proof_issue_count": content_proof.get("issue_count", 0),
+        "content_proof_issues": content_proof.get("issues", []),
+        "content_proof_summary": {
+            key: content_proof.get(key)
+            for key in (
+                "accepted_organ_count",
+                "substrate_ledger_organ_count",
+                "organ_atlas_organ_count",
+                "organ_evidence_class_count",
+                "substrate_ledger_summary_accepted_organ_count",
+                "substrate_ledger_validation_status",
+                "substrate_ledger_validation_issue_count",
+                "fixture_only_authority_banned",
+                "package_data_file_count",
+                "package_data_examples_file_count",
+                "package_data_fixtures_file_count",
+                "scanned_public_docs",
+                "reason",
+            )
+            if key in content_proof
+        },
+        "fixture_authority_policy": (
+            "fixtures may be regression or negative wrappers only; accepted organ authority "
+            "must carry the substrate-disposition ledger and public package/docs projections"
+        ),
+        "next_action": (
+            "add missing companion paths to this scoped landing, or demote/split the organ "
+            "mutation so it is not accepted authority"
+            if blocking_reason == "microcosm_accepted_organ_admission_missing_companions"
+            else (
+                "update the declared Microcosm companion content so registry, ledger, "
+                "atlas, evidence classes, and ledger validation agree"
+            )
+            if blocking_reason == "microcosm_accepted_organ_admission_stale_companion_content"
+            else (
+                "accepted-organ admission companions present or no accepted authority "
+                "mutation detected"
+            )
+        ),
+        "proof_commands": [
+            "cd microcosm-substrate && PYTHONPATH=src python3 -m microcosm_core.validators.substrate_substitution_ledger --check",
+            "cd microcosm-substrate && PYTHONPATH=src python3 scripts/build_organ_atlas.py --check",
+            "cd microcosm-substrate && PYTHONPATH=src python3 -m pytest tests/test_package_data_contract.py",
+        ],
+    }
 
 
 def _blocked_primary_primary_target(
@@ -4806,6 +5972,8 @@ def _landing_decision(
     work_ledger: Mapping[str, Any],
     shared_index_quarantine: Mapping[str, Any],
     scoped_commit: Mapping[str, Any],
+    microcosm_accepted_organ_admission: Mapping[str, Any],
+    host_resource_pressure: Mapping[str, Any],
 ) -> dict[str, Any]:
     staged_classified = [row for row in classified if row.get("path") in staged_paths]
     unowned_staged = [
@@ -4834,6 +6002,18 @@ def _landing_decision(
         and bool(shared_index_quarantine.get("private_index_scoped_commit_allowed"))
         and not _int_value(shared_index_quarantine.get("overlap_count"))
     )
+    if (
+        host_resource_pressure.get("status") == "critical"
+        and not resource_pressure.declared_paths_are_resource_repair(declared_paths)
+    ):
+        return {
+            "status": "blocked",
+            "reason": "host_resource_pressure_critical",
+            "recommended_lane": "enter_resource_pressure_repair_lane",
+            "host_resource_pressure": resource_pressure.compact_host_resource_pressure_packet(
+                host_resource_pressure
+            ),
+        }
 
     if (
         work_ledger.get("status") == "blocked" or mission_claim_collisions
@@ -4872,6 +6052,17 @@ def _landing_decision(
         if isinstance(hint, Mapping) and hint.get("status") == "candidate_session_id_available":
             decision["session_id_hint"] = dict(hint)
         return decision
+    if microcosm_accepted_organ_admission.get("status") == "blocked":
+        reason = str(
+            microcosm_accepted_organ_admission.get("blocking_reason")
+            or "microcosm_accepted_organ_admission_missing_companions"
+        )
+        return {
+            "status": "blocked",
+            "reason": reason,
+            "recommended_lane": "include_substrate_ledger_package_docs_or_demote_organ",
+            "microcosm_accepted_organ_admission": dict(microcosm_accepted_organ_admission),
+        }
     if unowned_staged:
         if (
             shared_index_quarantine.get("private_index_scoped_commit_allowed")
@@ -5175,6 +6366,216 @@ def _risk_band(status: Any) -> str:
     return token if token in RISK_BAND_SEVERITY else "watch"
 
 
+def _readiness_axis_status(value: Any, *, default: str = "not_evaluated") -> str:
+    token = str(value or "").strip()
+    allowed = {
+        "ready",
+        "clear",
+        "watch",
+        "review",
+        "blocked",
+        "hard_stop",
+        "pending",
+        "deferred",
+        "not_run_pre_edit",
+        "not_evaluated",
+        "not_triggered",
+        "bound",
+        "unbound",
+        "selected",
+        "not_selected",
+    }
+    return token if token in allowed else default
+
+
+def _readiness_overall_status(axes: Mapping[str, Mapping[str, Any]]) -> str:
+    statuses = {_readiness_axis_status(row.get("status")) for row in axes.values()}
+    if statuses & {"blocked", "hard_stop", "review"}:
+        return "blocked"
+    if statuses & {"watch", "deferred", "pending", "not_run_pre_edit", "not_evaluated"}:
+        return "watch"
+    return "ready"
+
+
+def _work_landing_readiness_control_summary(
+    *,
+    packet: Mapping[str, Any],
+    convergence: Mapping[str, Any],
+    reconcile: Mapping[str, Any],
+    shared_index: Mapping[str, Any],
+    next_action: str,
+) -> dict[str, Any]:
+    inputs = packet.get("inputs") if isinstance(packet.get("inputs"), Mapping) else {}
+    transaction_candidate = (
+        packet.get("transaction_candidate")
+        if isinstance(packet.get("transaction_candidate"), Mapping)
+        else {}
+    )
+    current_transaction = (
+        convergence.get("current_transaction")
+        if isinstance(convergence.get("current_transaction"), Mapping)
+        else {}
+    )
+    closeout_settlement = (
+        packet.get("transaction_closeout_settlement")
+        if isinstance(packet.get("transaction_closeout_settlement"), Mapping)
+        else {}
+    )
+    generated_settlement = (
+        packet.get("generated_projection_settlement")
+        if isinstance(packet.get("generated_projection_settlement"), Mapping)
+        else {}
+    )
+    microcosm_admission = (
+        packet.get("microcosm_accepted_organ_admission")
+        if isinstance(packet.get("microcosm_accepted_organ_admission"), Mapping)
+        else {}
+    )
+    landing_decision = (
+        packet.get("landing_decision")
+        if isinstance(packet.get("landing_decision"), Mapping)
+        else {}
+    )
+    autonomous_edit_gate = (
+        packet.get("autonomous_edit_gate")
+        if isinstance(packet.get("autonomous_edit_gate"), Mapping)
+        else {}
+    )
+    intake = (
+        packet.get("task_ledger_intake")
+        if isinstance(packet.get("task_ledger_intake"), Mapping)
+        else {}
+    )
+    finalizers = [
+        row
+        for row in current_transaction.get("finalizers") or []
+        if isinstance(row, Mapping)
+    ]
+    subject_ids = _string_list(inputs.get("target_ids"))
+    owned_paths = _string_list(inputs.get("owned_paths"))
+    session_id = (
+        str(inputs.get("session_id") or transaction_candidate.get("work_ledger_session_id") or "").strip()
+        or None
+    )
+    base_head = str(
+        _first_nonempty(
+            (
+                transaction_candidate.get("base_head"),
+                current_transaction.get("base_head"),
+            )
+        )
+        or ""
+    ).strip()
+    projection_status = _first_nonempty(
+        (
+            closeout_settlement.get("projection_settlement_status"),
+            generated_settlement.get("status"),
+        )
+    )
+    companion_status = _readiness_axis_status(
+        microcosm_admission.get("status"),
+        default="not_triggered",
+    )
+    axes: dict[str, dict[str, Any]] = {
+        "authority_state": {
+            "status": "selected" if subject_ids else "not_selected",
+            "subject_ids": subject_ids,
+            "authority_source": TASK_LEDGER_EVENTS,
+            "projection_source": "state/task_ledger/ledger.json",
+        },
+        "projection_state": {
+            "status": _readiness_axis_status(projection_status),
+            "required_next_command": _first_nonempty(
+                (
+                    generated_settlement.get("required_next_command"),
+                    closeout_settlement.get("required_next_command"),
+                )
+            ),
+            "settlement_deferred_reason": _first_nonempty(
+                (
+                    closeout_settlement.get("projection_settlement_deferred_reason"),
+                    generated_settlement.get("reason"),
+                )
+            ),
+        },
+        "claim_state": {
+            "status": "bound" if session_id else "unbound",
+            "session_id": session_id,
+            "attempt_binding_present": bool(packet.get("workitem_landing_attempt_state")),
+        },
+        "companion_gate_state": {
+            "status": companion_status,
+            "schema": microcosm_admission.get("schema"),
+            "blocking_reason": microcosm_admission.get("blocking_reason"),
+            "missing_companion_paths": list(microcosm_admission.get("missing_companion_paths") or []),
+            "content_proof_status": microcosm_admission.get("content_proof_status"),
+            "next_action": microcosm_admission.get("next_action"),
+        },
+        "validation_state": {
+            "status": "not_run_pre_edit",
+            "policy": "post_edit_validation_required; queued validation must carry queue id and must not be reported as passed",
+        },
+        "staged_index_state": {
+            "status": _readiness_axis_status(shared_index.get("status")),
+            "staged_path_count": shared_index.get("staged_path_count"),
+            "unowned_staged_path_count": shared_index.get("unowned_staged_path_count"),
+            "private_index_scoped_commit_allowed": shared_index.get("private_index_scoped_commit_allowed"),
+            "normal_git_commit_allowed": shared_index.get("normal_git_commit_allowed"),
+        },
+        "parent_cas_state": {
+            "status": "bound" if base_head else "unknown",
+            "base_head": base_head or None,
+            "read_set_hash": transaction_candidate.get("read_set_hash"),
+            "write_set_hash": transaction_candidate.get("write_set_hash"),
+        },
+        "landing_decision_state": {
+            "status": _readiness_axis_status(landing_decision.get("status"), default="not_evaluated"),
+            "reason": landing_decision.get("reason"),
+            "recommended_lane": landing_decision.get("recommended_lane"),
+        },
+        "allowed_next_action": {
+            "status": "available" if next_action else "missing",
+            "command_or_action": next_action,
+        },
+    }
+    return {
+        "schema": WORK_LANDING_TRANSACTION_READINESS_SCHEMA,
+        "projection_schema": WORK_LANDING_TRANSACTION_READINESS_CONTROL_SUMMARY_PROJECTION_SCHEMA,
+        "projection_role": "compact_control_summary_projection",
+        "source_contract_owner": "system/lib/work_landing_status.py::_transaction_readiness_contract",
+        "status": _readiness_overall_status(axes),
+        "transaction_id": transaction_candidate.get("transaction_id") or current_transaction.get("transaction_id"),
+        "owned_paths": owned_paths,
+        "axis_order": list(WORK_LANDING_READINESS_AXIS_ORDER),
+        "axes": axes,
+        "reconcile": {
+            "status": reconcile.get("status"),
+            "next_action": reconcile.get("next_action"),
+            "counts": reconcile.get("counts") or {},
+        },
+        "finalizer_count": len(finalizers),
+        "intake": {
+            "available": intake.get("available"),
+            "counts": intake.get("counts") or {},
+        },
+        "autonomous_edit_gate": {
+            "status": autonomous_edit_gate.get("status"),
+            "required_mode": autonomous_edit_gate.get("required_mode"),
+            "autonomous_feature_mutation_allowed": autonomous_edit_gate.get(
+                "autonomous_feature_mutation_allowed"
+            ),
+        },
+        "command_hints": {
+            "control_summary": _preflight_drilldown_command(
+                subject_ids[0] if subject_ids else DEFAULT_CONTROL_SUMMARY_SUBJECT_ID,
+                "--control-summary",
+            ),
+            "reconcile": "./repo-python tools/meta/control/work_landing.py reconcile --dry-run",
+            "status": "./repo-python tools/meta/control/work_landing.py status",
+        },
+    }
+
+
 def _path_preview(paths: Sequence[Any], *, limit: int = 25) -> dict[str, Any]:
     items = [str(path) for path in paths]
     return {
@@ -5201,6 +6602,8 @@ def _compact_monitor_cards(cards: Any, *, preview_limit: int = 12) -> list[dict[
                 "status": row.get("status"),
                 "severity": row.get("severity"),
                 "next_action": row.get("next_action"),
+                "drilldown": row.get("drilldown"),
+                "drilldown_contract": row.get("drilldown_contract"),
                 "detail_count": len(details),
                 "details": scalar_details,
             }
@@ -5316,6 +6719,9 @@ def _compact_transaction_candidate(row: Any, *, preview_limit: int = 8) -> dict[
         } if subphase_binding else {},
         "receipt_destination": row.get("receipt_destination"),
         "full_drilldown": "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>",
+        "full_drilldown_contract": command_artifact_contract(
+            "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>"
+        ),
     }
 
 
@@ -5663,6 +7069,9 @@ def _compact_derived_state_bloat_governor_status(row: Mapping[str, Any]) -> dict
             "observed_annex_dirty_count": artifact_policy.get("observed_annex_dirty_count"),
         },
         "full_drilldown": "./repo-python tools/meta/control/mission_transaction_preflight.py --bloat-governor <same args>",
+        "full_drilldown_contract": command_artifact_contract(
+            "./repo-python tools/meta/control/mission_transaction_preflight.py --bloat-governor <same args>"
+        ),
     }
 
 
@@ -5706,6 +7115,9 @@ def _compact_transaction_convergence_reconcile(
         ],
         "mutation_policy": row.get("mutation_policy"),
         "full_drilldown": "./repo-python tools/meta/control/mission_transaction_preflight.py --reconcile-plan <same args>",
+        "full_drilldown_contract": command_artifact_contract(
+            "./repo-python tools/meta/control/mission_transaction_preflight.py --reconcile-plan <same args>"
+        ),
     }
 
 
@@ -5964,6 +7376,11 @@ def compact_mission_transaction_landing_preflight(
         if isinstance(packet.get("autonomous_edit_gate"), Mapping)
         else {}
     )
+    microcosm_accepted_organ_admission = (
+        packet.get("microcosm_accepted_organ_admission")
+        if isinstance(packet.get("microcosm_accepted_organ_admission"), Mapping)
+        else {}
+    )
     shared_index_quarantine = (
         packet.get("shared_index_quarantine")
         if isinstance(packet.get("shared_index_quarantine"), Mapping)
@@ -6012,6 +7429,9 @@ def compact_mission_transaction_landing_preflight(
         "compact_contract": {
             "safe_decision_supported": "Decide whether scoped landing may proceed and which full drilldowns to inspect.",
             "full_profile_command": "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>",
+            "full_profile_command_contract": command_artifact_contract(
+                "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>"
+            ),
             "omits": [
                 "full dirty path list",
                 "full git status rows",
@@ -6031,6 +7451,9 @@ def compact_mission_transaction_landing_preflight(
             "full_count": len(packet.get("monitor_cards") or []),
             "rule": "compact profile returns card status handles and scalar detail counts only",
             "full_profile_command": "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>",
+            "full_profile_command_contract": command_artifact_contract(
+                "./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>"
+            ),
         },
         "transaction_candidate": _compact_transaction_candidate(
             packet.get("transaction_candidate"),
@@ -6102,6 +7525,35 @@ def compact_mission_transaction_landing_preflight(
             "reconciliation_mode": autonomous_edit_gate.get("reconciliation_mode", {}),
             "closeout_vocabulary": autonomous_edit_gate.get("closeout_vocabulary", {}),
         } if autonomous_edit_gate else {},
+        "microcosm_accepted_organ_admission": {
+            "schema": microcosm_accepted_organ_admission.get("schema"),
+            "status": microcosm_accepted_organ_admission.get("status"),
+            "blocking_reason": microcosm_accepted_organ_admission.get("blocking_reason"),
+            "trigger_path_count": microcosm_accepted_organ_admission.get(
+                "trigger_path_count",
+                0,
+            ),
+            "missing_companion_paths": microcosm_accepted_organ_admission.get(
+                "missing_companion_paths",
+                [],
+            ),
+            "content_proof_status": microcosm_accepted_organ_admission.get(
+                "content_proof_status"
+            ),
+            "content_proof_issue_count": microcosm_accepted_organ_admission.get(
+                "content_proof_issue_count",
+                0,
+            ),
+            "content_proof_issues": microcosm_accepted_organ_admission.get(
+                "content_proof_issues",
+                [],
+            ),
+            "content_proof_summary": microcosm_accepted_organ_admission.get(
+                "content_proof_summary",
+                {},
+            ),
+            "next_action": microcosm_accepted_organ_admission.get("next_action"),
+        } if microcosm_accepted_organ_admission else {},
         "recommended_landing_lane": packet.get("recommended_landing_lane"),
         "mutation_policy": packet.get("mutation_policy"),
         "inputs": dict(inputs),
@@ -6240,11 +7692,13 @@ def _workitem_child_transaction_rollup(
 
 def _first_reason(value: Any, fallback: str) -> str:
     if isinstance(value, str) and value.strip():
-        return value.strip()
+        text = value.strip()
+        if text.lower() != "none":
+            return text
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
         for item in value:
             text = str(item).strip()
-            if text:
+            if text and text.lower() != "none":
                 return text
     return fallback
 
@@ -6252,7 +7706,7 @@ def _first_reason(value: Any, fallback: str) -> str:
 def _action_text(*values: Any, fallback: str) -> str:
     for value in values:
         text = str(value or "").strip()
-        if text and text != "none":
+        if text and text.lower() != "none":
             return text
     return fallback
 
@@ -6297,7 +7751,9 @@ def _repair_packet_row(
         "status": _risk_band(source_status),
         "summary": summary,
         "safe_next_command": safe_next_command,
+        "safe_next_command_contract": command_artifact_contract(safe_next_command),
         "proof_route": proof_route,
+        "proof_route_contract": command_artifact_contract(proof_route),
         "details": dict(details or {}),
     }
 
@@ -6322,7 +7778,18 @@ def _runtime_artifact_watch_actionability(
     workspace_pressure: Mapping[str, Any],
     runtime_artifact_lifecycle: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if str(workspace_pressure.get("primary_class") or "").strip() != "runtime_run_artifact":
+    primary_class = str(workspace_pressure.get("primary_class") or "").strip()
+    if primary_class != "runtime_run_artifact":
+        if primary_class == "ambient_dirty":
+            return {
+                "schema": "watch_actionability_contract_v0",
+                "status": "scope_required",
+                "raw_presence_count": _int_value(workspace_pressure.get("primary_count")),
+                "owner_routed": False,
+                "blocks_transaction": False,
+                "blocks_closeout": False,
+                "next_safe_action": "bind_owned_path_then_resume",
+            }
         return {
             "schema": "watch_actionability_contract_v0",
             "status": "not_runtime_artifact_primary",
@@ -6420,14 +7887,21 @@ def _agent_repair_packet(
         runtime_artifact_lifecycle=runtime_artifact_lifecycle,
     )
     workspace_repair_status = str(workspace_pressure.get("status") or "clear")
-    workspace_summary = str(
-        workspace_pressure.get("next_action")
-        or workspace_pressure.get("primary_class")
-        or "workspace bloat pressure clear"
+    workspace_summary = _action_text(
+        workspace_pressure.get("next_action"),
+        workspace_pressure.get("primary_class"),
+        fallback="workspace bloat pressure clear",
     )
     if workspace_actionability.get("status") == "nonblocking_preserve":
         workspace_repair_status = "clear"
         workspace_summary = "runtime artifacts preserved; no cleanup eligible"
+    elif workspace_actionability.get("status") == "scope_required":
+        workspace_repair_status = "watch"
+        workspace_summary = _action_text(
+            workspace_pressure.get("next_action"),
+            workspace_pressure.get("drain_or_manifest_command"),
+            fallback="bind owned path before mutation",
+        )
     rows = [
         _repair_packet_row(
             row_id="transaction_convergence",
@@ -6462,7 +7936,10 @@ def _agent_repair_packet(
             owner="git_index_owner",
             failure_class="shared_index_quarantine",
             source_status=str(shared_index.get("status") or "clear"),
-            summary=str(shared_index.get("next_action") or "shared index clear"),
+            summary=_action_text(
+                shared_index.get("next_action"),
+                fallback="shared index clear",
+            ),
             safe_next_command=_preflight_drilldown_command(subject_id, "--staged-index-quarantine"),
             proof_route="git diff --cached --name-only",
             details={
@@ -6519,10 +7996,10 @@ def _agent_repair_packet(
                 owner="mission_transaction_control",
                 failure_class="autonomous_edit_gate",
                 source_status=str(autonomous_edit_gate.get("status") or "clear"),
-                summary=str(
-                    autonomous_edit_gate.get("next_action")
-                    or autonomous_edit_gate.get("required_mode")
-                    or "autonomous edit gate clear"
+                summary=_action_text(
+                    autonomous_edit_gate.get("next_action"),
+                    autonomous_edit_gate.get("required_mode"),
+                    fallback="autonomous edit gate clear",
                 ),
                 safe_next_command=_preflight_drilldown_command(subject_id, "--autonomous-edit-gate"),
                 proof_route=_preflight_drilldown_command(subject_id, "--autonomous-edit-gate"),
@@ -6691,12 +8168,28 @@ def mission_transaction_control_summary(
         reconcile=reconcile,
         agent_repair_packet=agent_repair_packet,
     )
+    work_landing_readiness = _work_landing_readiness_control_summary(
+        packet=packet,
+        convergence=convergence,
+        reconcile=reconcile,
+        shared_index=shared_index,
+        next_action=next_action,
+    )
+    drilldown_commands = [
+        _preflight_drilldown_command(subject_id, "--control-summary"),
+        _preflight_drilldown_command(subject_id, "--reconcile-plan"),
+        _preflight_drilldown_command(subject_id, "--autonomous-edit-gate"),
+        _preflight_drilldown_command(subject_id, "--staged-index-quarantine"),
+        _preflight_drilldown_command(subject_id, "--runtime-artifact-lifecycle"),
+        _preflight_drilldown_command(subject_id, "--github-push-bloat-gate"),
+    ]
     return {
         "schema": "transaction_control_plane_summary_v0",
         "consumer_surface": consumer_surface,
         "status": _repair_packet_status(convergence, reconcile, agent_repair_packet),
         "next_action": next_action,
         "agent_repair_packet": agent_repair_packet,
+        "work_landing_readiness": work_landing_readiness,
         "transaction_convergence": {
             "schema": convergence.get("schema"),
             "status": convergence.get("status"),
@@ -6784,13 +8277,9 @@ def mission_transaction_control_summary(
         "git_command_diagnostics": git_command_diagnostics,
         "workitem_child_transaction_rollup": workitem_rollup,
         "subphase_child_transaction_rollup": rollup_row,
-        "drilldown_commands": [
-            _preflight_drilldown_command(subject_id, "--control-summary"),
-            _preflight_drilldown_command(subject_id, "--reconcile-plan"),
-            _preflight_drilldown_command(subject_id, "--autonomous-edit-gate"),
-            _preflight_drilldown_command(subject_id, "--staged-index-quarantine"),
-            _preflight_drilldown_command(subject_id, "--runtime-artifact-lifecycle"),
-            _preflight_drilldown_command(subject_id, "--github-push-bloat-gate"),
+        "drilldown_commands": drilldown_commands,
+        "drilldown_command_contracts": [
+            command_artifact_contract(command) for command in drilldown_commands
         ],
     }
 
@@ -6816,6 +8305,7 @@ def _monitor_card(
         "summary": summary,
         "authority": authority,
         "drilldown": drilldown,
+        "drilldown_contract": command_artifact_contract(drilldown),
         "details": dict(details or {}),
     }
 
@@ -6829,6 +8319,8 @@ def _build_monitor_cards(
     coverage_gaps: Sequence[Mapping[str, Any]],
     work_ledger: Mapping[str, Any],
     scoped_commit: Mapping[str, Any],
+    microcosm_accepted_organ_admission: Mapping[str, Any],
+    host_resource_pressure: Mapping[str, Any],
     landing_decision: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     work_counts = work_ledger.get("counts") if isinstance(work_ledger.get("counts"), Mapping) else {}
@@ -6913,6 +8405,32 @@ def _build_monitor_cards(
         if coverage_gap_count
         else "no generated ownership gaps among classified paths"
     )
+    microcosm_admission_status = _risk_band(
+        microcosm_accepted_organ_admission.get("status") or "clear"
+    )
+    microcosm_missing = [
+        str(path)
+        for path in microcosm_accepted_organ_admission.get("missing_companion_paths") or []
+        if str(path or "").strip()
+    ]
+    microcosm_trigger_count = _int_value(
+        microcosm_accepted_organ_admission.get("trigger_path_count")
+    )
+    microcosm_content_issue_count = _int_value(
+        microcosm_accepted_organ_admission.get("content_proof_issue_count")
+    )
+    microcosm_blocking_reason = str(
+        microcosm_accepted_organ_admission.get("blocking_reason") or ""
+    )
+    microcosm_summary = (
+        f"{microcosm_trigger_count} accepted-organ authority paths require "
+        f"{len(microcosm_missing)} missing substrate/package/docs companions"
+        if microcosm_blocking_reason == "microcosm_accepted_organ_admission_missing_companions"
+        else f"{microcosm_trigger_count} accepted-organ authority paths have "
+        f"{microcosm_content_issue_count} stale companion content proof issues"
+        if microcosm_blocking_reason == "microcosm_accepted_organ_admission_stale_companion_content"
+        else "no accepted-organ admission companion gaps"
+    )
 
     git_metadata_write = _git_metadata_write_payload(scoped_commit)
     git_metadata_status = str(git_metadata_write.get("status") or "unknown")
@@ -6932,6 +8450,22 @@ def _build_monitor_cards(
         landing_status = "review"
     lane = str(landing_decision.get("recommended_lane") or "unknown")
     landing_summary = f"{lane}: {landing_decision.get('reason') or 'no_reason'}"
+    resource_compact = resource_pressure.compact_host_resource_pressure_packet(
+        host_resource_pressure
+    )
+    resource_raw_status = str(host_resource_pressure.get("status") or "unknown")
+    if resource_raw_status == "critical":
+        resource_status = "blocked"
+    elif resource_raw_status == "ok":
+        resource_status = "clear"
+    else:
+        resource_status = "watch"
+    resource_summary = (
+        f"{host_resource_pressure.get('admission') or 'unknown'}: "
+        f"git={resource_compact.get('git_object_status')}, "
+        f"task_ledger={resource_compact.get('task_ledger_status')}, "
+        f"disk={resource_compact.get('disk_status')}"
+    )
 
     return [
         _monitor_card(
@@ -7016,6 +8550,38 @@ def _build_monitor_cards(
             details=_path_preview([row.get("path") for row in coverage_gaps]),
         ),
         _monitor_card(
+            card_id="microcosm_accepted_organ_admission",
+            label="Microcosm Accepted-Organ Admission",
+            status=microcosm_admission_status,
+            count=max(len(microcosm_missing), microcosm_content_issue_count),
+            summary=microcosm_summary,
+            authority=MICROCOSM_ACCEPTED_ORGAN_ADMISSION_SCHEMA,
+            drilldown="./repo-python tools/meta/control/mission_transaction_preflight.py --full <same args>",
+            details={
+                "trigger_path_count": microcosm_trigger_count,
+                "trigger_paths": microcosm_accepted_organ_admission.get("trigger_paths", []),
+                "missing_companion_paths": microcosm_missing,
+                "blocking_reason": microcosm_blocking_reason,
+                "content_proof_status": microcosm_accepted_organ_admission.get(
+                    "content_proof_status"
+                ),
+                "content_proof_issue_count": microcosm_content_issue_count,
+                "content_proof_issues": microcosm_accepted_organ_admission.get(
+                    "content_proof_issues",
+                    [],
+                ),
+                "content_proof_summary": microcosm_accepted_organ_admission.get(
+                    "content_proof_summary",
+                    {},
+                ),
+                "present_companion_paths": microcosm_accepted_organ_admission.get(
+                    "present_companion_paths",
+                    [],
+                ),
+                "next_action": microcosm_accepted_organ_admission.get("next_action"),
+            },
+        ),
+        _monitor_card(
             card_id="git_metadata_write",
             label="Git Metadata Write",
             status=git_metadata_card_status,
@@ -7034,6 +8600,16 @@ def _build_monitor_cards(
                     else None
                 ),
             },
+        ),
+        _monitor_card(
+            card_id="host_resource_pressure",
+            label="Host Resource Pressure",
+            status=resource_status,
+            count=0 if resource_status == "clear" else 1,
+            summary=resource_summary,
+            authority=resource_pressure.SCHEMA,
+            drilldown="./repo-python -m system.lib.resource_pressure --compact",
+            details=resource_compact,
         ),
         _monitor_card(
             card_id="landing_lane",
@@ -7279,13 +8855,29 @@ def _transaction_finalizers(
 ) -> dict[str, Any]:
     session_id = str(work_ledger.get("session_id") or "").strip()
     claim_status = str(claim_requirements.get("status") or "")
+    session = _mapping_value(work_ledger.get("session"))
+    session_closed_clean = _session_closed_clean(session)
+    session_append_exempt = bool(session.get("append_exempt"))
     work_ledger_status = "not_required"
-    if claim_requirements.get("claim_required") and not session_id:
+    if session_closed_clean:
+        work_ledger_status = "append_exempt" if session_append_exempt else "closed_clean"
+    elif claim_requirements.get("claim_required") and not session_id:
         work_ledger_status = "blocked_missing_session"
     elif claim_requirements.get("claim_required") and claim_status != "satisfied":
         work_ledger_status = "pending_claim_satisfaction"
     elif session_id:
         work_ledger_status = "pending_closeout_or_append_exempt"
+    claims_released_status = (
+        "satisfied" if session_closed_clean else ("pending" if session_id else "not_started")
+    )
+    if session_closed_clean and session_append_exempt:
+        session_finalizer_status = "append_exempt"
+    elif session_closed_clean:
+        session_finalizer_status = "closed_clean"
+    elif session_id:
+        session_finalizer_status = "pending_finalizer"
+    else:
+        session_finalizer_status = "not_started"
     receipt_command = (
         "./repo-python tools/meta/factory/task_ledger_apply.py record-execution-receipt "
         "--subject-id <subject_id> "
@@ -7316,7 +8908,7 @@ def _transaction_finalizers(
             "command": receipt_command,
         },
         "claims_released": {
-            "status": "pending" if session_id else "not_started",
+            "status": claims_released_status,
             "session_id": session_id or None,
         },
         "staged_index_empty": {
@@ -7333,7 +8925,7 @@ def _transaction_finalizers(
             "hard_gate_count": freshness_gates.get("hard_gate_count", 0),
         },
         "session_not_stale_or_exempt": {
-            "status": "pending_finalizer" if session_id else "not_started",
+            "status": session_finalizer_status,
             "policy": "commit_only_sessions_must_record_append_exempt_or_closeout_receipt",
         },
     }
@@ -7444,9 +9036,10 @@ def _transaction_candidate(
     landing_decision: Mapping[str, Any],
     generated_registry: Mapping[str, Any],
     require_exclusive: bool,
+    subject_rows: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     base_head = _current_head(repo_root)
-    subject_rows = _task_ledger_subject_rows(repo_root, target_ids)
+    subject_rows = list(subject_rows) if subject_rows is not None else _task_ledger_subject_rows(repo_root, target_ids)
     generated_fingerprints = _generated_projection_fingerprints(
         [
             row
@@ -7506,6 +9099,12 @@ def _transaction_candidate(
             {
                 "profile": profile,
                 "output_paths": list(WRITE_PROFILE_PATHS.get(profile, ())),
+                "source_input_paths": list(WRITE_PROFILE_SOURCE_INPUT_PATHS.get(profile, ())),
+                "source_input_claim_policy": (
+                    "must_be_clean_committed_or_owned_before_landing_outputs"
+                    if WRITE_PROFILE_SOURCE_INPUT_PATHS.get(profile)
+                    else "not_declared_for_profile"
+                ),
             }
             for profile in write_profiles
         ],
@@ -7639,6 +9238,8 @@ def _transaction_convergence(
     staged_paths: Sequence[str],
     freshness_gates: Mapping[str, Any],
     work_ledger: Mapping[str, Any],
+    runtime_status: Mapping[str, Any] | None = None,
+    subject_rows: Sequence[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     binding = (
         transaction_candidate.get("subphase_binding")
@@ -7651,14 +9252,15 @@ def _transaction_convergence(
         else {}
     )
     phase_id = str(transaction_candidate.get("phase_id") or binding.get("parent_phase") or "").strip() or None
-    runtime_status = work_ledger_runtime.load_runtime_status(repo_root)
-    subject_rows = _task_ledger_subject_rows(repo_root, target_ids)
-    task_receipts = _task_ledger_receipt_refs(subject_rows)
-    latest_execution_receipt = (
-        subject_rows[0].get("latest_execution_receipt")
-        if subject_rows and isinstance(subject_rows[0], Mapping)
-        else None
+    runtime_status = runtime_status or work_ledger_runtime.load_runtime_status(repo_root)
+    subject_rows = list(subject_rows) if subject_rows is not None else _task_ledger_subject_rows(repo_root, target_ids)
+    projected_task_receipts = _task_ledger_receipt_refs(subject_rows)
+    authority_task_receipts = _task_ledger_authority_receipt_refs(repo_root, target_ids)
+    task_receipts = _merge_task_ledger_receipt_refs(
+        projected_task_receipts,
+        authority_task_receipts,
     )
+    latest_execution_receipt = task_receipts.get("latest_execution_receipt")
     latest_receipt_session_state = _work_ledger_session_state_for_receipt(
         runtime_status,
         _mapping_value(latest_execution_receipt),
@@ -7930,6 +9532,9 @@ def _transaction_convergence(
             "execution_receipts": task_receipts.get("execution_receipts", []),
             "latest_execution_receipt": latest_execution_receipt,
             "latest_execution_receipt_work_ledger_session_state": latest_receipt_session_state,
+            "authority_execution_receipt_overlay": task_receipts.get(
+                "authority_execution_receipt_overlay"
+            ),
         },
         "work_ledger_stale_sessions": target_stale_sessions,
         "work_ledger_append_exempt_sessions": append_exempt_sessions,
@@ -7984,6 +9589,49 @@ def _first_nonempty(values: Iterable[Any]) -> str | None:
     return None
 
 
+def _string_list(values: Iterable[Any] | Any) -> list[str]:
+    if values in (None, "", [], {}):
+        return []
+    if isinstance(values, str):
+        raw_values = [values]
+    elif isinstance(values, Iterable):
+        raw_values = list(values)
+    else:
+        raw_values = [values]
+    out: list[str] = []
+    for value in raw_values:
+        token = str(value or "").strip()
+        if token and token not in out:
+            out.append(token)
+    return out
+
+
+def _validated_uncommitted_receipt_context(transaction: Mapping[str, Any]) -> dict[str, Any]:
+    if not transaction.get("work_ledger_closed"):
+        return {}
+    work_ledger_event_ids = _string_list(transaction.get("work_ledger_event_ids") or [])
+    validation_refs = _string_list(
+        [
+            "transaction_convergence_reconcile_v0",
+            "work_ledger_closed",
+            *[f"work_ledger_event:{event_id}" for event_id in work_ledger_event_ids],
+        ]
+    )
+    return {
+        "closeout_state": task_ledger_events.DEFAULT_VALIDATED_UNCOMMITTED_CLOSEOUT_STATE,
+        "validation_refs": validation_refs,
+        "projection_refs": [
+            "transaction_convergence_v0",
+            "work_ledger_project_check_all",
+        ],
+        "no_commit_reason": "closed_work_ledger_transaction_missing_commit_hash",
+        "commit_blocker_refs": [
+            "missing_commit_hash",
+            "validated_uncommitted_git_metadata_blocked",
+        ],
+    }
+
+
 def _receipt_command_argv(
     *,
     subject_id: str,
@@ -7999,8 +9647,28 @@ def _receipt_command_argv(
         "--transaction-id",
         str(transaction.get("transaction_id") or ""),
     ]
+    commit_hash = _first_nonempty(transaction.get("commit_refs") or [])
+    closeout_state = str(
+        transaction.get("receipt_closeout_state")
+        or transaction.get("closeout_state")
+        or ("landed" if commit_hash else "")
+        or ""
+    ).strip()
+    validation_refs = _string_list(
+        [
+            "transaction_convergence_reconcile_v0",
+            *_string_list(transaction.get("validation_refs") or []),
+        ]
+    )
+    projection_refs = _string_list(
+        [
+            "transaction_convergence_v0",
+            "work_ledger_project_check_all",
+            *_string_list(transaction.get("projection_refs") or []),
+        ]
+    )
     optional_fields = (
-        ("--commit-hash", _first_nonempty(transaction.get("commit_refs") or [])),
+        ("--commit-hash", commit_hash),
         ("--work-ledger-session-id", _first_nonempty(transaction.get("actor_session_ids") or [])),
         ("--read-receipt-id", _first_nonempty(transaction.get("read_receipt_ids") or [])),
         ("--read-set-hash", transaction.get("read_set_hash")),
@@ -8011,18 +9679,23 @@ def _receipt_command_argv(
         if token:
             argv.extend([flag, token])
     argv.extend(
-        [
-            "--validation-ref",
-            "transaction_convergence_reconcile_v0",
-            "--projection-ref",
-            "transaction_convergence_v0",
-            "--projection-ref",
-            "work_ledger_project_check_all",
-            "--closeout-state",
-            "landed",
-            "--rebuild",
-        ]
+        flag_value
+        for ref in validation_refs
+        for flag_value in ("--validation-ref", ref)
     )
+    argv.extend(
+        flag_value
+        for ref in projection_refs
+        for flag_value in ("--projection-ref", ref)
+    )
+    if closeout_state:
+        argv.extend(["--closeout-state", closeout_state])
+    no_commit_reason = str(transaction.get("no_commit_reason") or "").strip()
+    if no_commit_reason:
+        argv.extend(["--no-commit-reason", no_commit_reason])
+    for ref in _string_list(transaction.get("commit_blocker_refs") or []):
+        argv.extend(["--commit-blocker-ref", ref])
+    argv.append("--rebuild")
     return argv
 
 
@@ -8033,6 +9706,8 @@ def _transaction_reconcile_plan(
     transaction_convergence: Mapping[str, Any],
     session_id: str | None,
     status_rows: Sequence[GitStatusRow],
+    runtime_status: Mapping[str, Any] | None = None,
+    claim_overview: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     receipt_write_set = list(TASK_LEDGER_RECEIPT_WRITE_SET)
     receipt_preflight = _work_ledger_packet(
@@ -8041,6 +9716,8 @@ def _transaction_reconcile_plan(
         target_ids=(),
         session_id=session_id,
         require_exclusive=True,
+        runtime_status=runtime_status,
+        claim_overview=claim_overview,
     )
     receipt_blockers = list(receipt_preflight.get("collisions") or [])
     receipt_dirty_paths = sorted(
@@ -8102,6 +9779,7 @@ def _transaction_reconcile_plan(
         recovered_commit_refs: list[str] = []
         receipt_command_transaction = transaction
         commit_hash_source = "work_ledger"
+        validated_uncommitted_context: dict[str, Any] = {}
         if not commit_hash and not is_superseded:
             recovered_commit_refs = _receipt_context_commit_refs(transaction, task_receipt_state)
             commit_hash = _first_nonempty(recovered_commit_refs) or ""
@@ -8111,12 +9789,20 @@ def _transaction_reconcile_plan(
                     "commit_refs": recovered_commit_refs,
                 }
                 commit_hash_source = "task_ledger_receipt_context"
+        if not commit_hash and not is_superseded:
+            validated_uncommitted_context = _validated_uncommitted_receipt_context(transaction)
+            if validated_uncommitted_context:
+                receipt_command_transaction = {
+                    **dict(receipt_command_transaction),
+                    **validated_uncommitted_context,
+                    "commit_refs": [],
+                }
         missing_fields = [
             field
             for field, value in (
                 ("subject_id", subject_id),
                 ("transaction_id", transaction_id),
-                ("commit_hash", commit_hash),
+                ("commit_hash", commit_hash or validated_uncommitted_context.get("closeout_state")),
             )
             if not value
         ]
@@ -8126,6 +9812,7 @@ def _transaction_reconcile_plan(
                 subject_id=str(subject_id),
                 transaction_id=transaction_id,
                 commit_hash=str(commit_hash),
+                closeout_state=str(validated_uncommitted_context.get("closeout_state") or ""),
             )
             intake_request = task_ledger_events.task_ledger_intake_request_for_key(repo_root, key)
         if receipt_status.get("status") == "recorded":
@@ -8156,6 +9843,9 @@ def _transaction_reconcile_plan(
             "work_ledger_event_ids": list(transaction.get("work_ledger_event_ids") or []),
             "missing_fields": missing_fields,
         }
+        if validated_uncommitted_context:
+            action.update(validated_uncommitted_context)
+            action["receipt_landing_mode"] = "validated_uncommitted"
         if commit_hash:
             action["commit_hash_source"] = commit_hash_source
         if recovered_commit_refs:
@@ -8254,6 +9944,7 @@ def build_mission_transaction_landing_preflight(
     repo_root: Path,
     *,
     owned_paths: Sequence[str] = (),
+    accepted_organ_companion_paths: Sequence[str] = (),
     write_profiles: Sequence[str] = (),
     target_ids: Sequence[str] = (),
     session_id: str | None = None,
@@ -8275,6 +9966,9 @@ def build_mission_transaction_landing_preflight(
         [_normalize_path(repo_root, path) for path in owned_paths],
         write_profiles,
     )
+    normalized_accepted_organ_companion_paths = [
+        _normalize_path(repo_root, path) for path in accepted_organ_companion_paths
+    ]
     requested_paths = sorted({*declared_paths, *staged_paths})
     classification_targets = sorted({*dirty_paths, *staged_paths, *requested_paths})
     classifications = [
@@ -8282,12 +9976,17 @@ def build_mission_transaction_landing_preflight(
         for path in classification_targets
     ]
     coverage_gaps = [row for row in classifications if row.get("coverage_gap")]
+    runtime_status = _load_work_ledger_runtime_for_preflight(repo_root)
+    claim_overview = _work_ledger_claim_overview(runtime_status)
+    subject_rows = _task_ledger_subject_rows(repo_root, target_ids)
     work_ledger = _work_ledger_packet(
         repo_root,
         requested_paths,
         target_ids=target_ids,
         session_id=session_id,
         require_exclusive=require_exclusive,
+        runtime_status=runtime_status,
+        claim_overview=claim_overview,
     )
     scoped_commit = _scoped_commit_capability(repo_root)
     dirty_tree = _dirty_tree_classification(
@@ -8320,6 +10019,13 @@ def build_mission_transaction_landing_preflight(
         repo_root,
         status_rows=status_rows,
     )
+    microcosm_accepted_organ_admission = _microcosm_accepted_organ_admission(
+        repo_root=repo_root,
+        declared_paths=declared_paths,
+        staged_paths=staged_paths,
+        proof_only_companion_paths=normalized_accepted_organ_companion_paths,
+    )
+    host_resource_pressure = resource_pressure.build_host_resource_pressure_packet(repo_root)
     landing_decision = _landing_decision(
         staged_paths=staged_paths,
         dirty_paths=dirty_paths,
@@ -8329,6 +10035,8 @@ def build_mission_transaction_landing_preflight(
         work_ledger=work_ledger,
         shared_index_quarantine=shared_index_quarantine,
         scoped_commit=scoped_commit,
+        microcosm_accepted_organ_admission=microcosm_accepted_organ_admission,
+        host_resource_pressure=host_resource_pressure,
     )
     autonomous_edit_gate = _autonomous_edit_gate(
         status_rows=status_rows,
@@ -8355,6 +10063,8 @@ def build_mission_transaction_landing_preflight(
         coverage_gaps=coverage_gaps,
         work_ledger=work_ledger,
         scoped_commit=scoped_commit,
+        microcosm_accepted_organ_admission=microcosm_accepted_organ_admission,
+        host_resource_pressure=host_resource_pressure,
         landing_decision=landing_decision,
     )
     monitor_summary = _monitor_summary(monitor_cards, landing_decision)
@@ -8373,6 +10083,7 @@ def build_mission_transaction_landing_preflight(
         landing_decision=landing_decision,
         generated_registry=generated_registry,
         require_exclusive=require_exclusive,
+        subject_rows=subject_rows,
     )
     transaction_convergence = _transaction_convergence(
         repo_root,
@@ -8384,6 +10095,8 @@ def build_mission_transaction_landing_preflight(
         staged_paths=staged_paths,
         freshness_gates=transaction_candidate.get("freshness_gates", {}),
         work_ledger=work_ledger,
+        runtime_status=runtime_status,
+        subject_rows=subject_rows,
     )
     transaction_closeout_settlement = _transaction_closeout_settlement(
         transaction_candidate=transaction_candidate,
@@ -8396,6 +10109,8 @@ def build_mission_transaction_landing_preflight(
         transaction_convergence=transaction_convergence,
         session_id=session_id,
         status_rows=status_rows,
+        runtime_status=runtime_status,
+        claim_overview=claim_overview,
     )
     return {
         "schema": SCHEMA,
@@ -8408,6 +10123,8 @@ def build_mission_transaction_landing_preflight(
         "transaction_closeout_settlement": transaction_closeout_settlement,
         "transaction_convergence_reconcile": transaction_convergence_reconcile,
         "autonomous_edit_gate": autonomous_edit_gate,
+        "microcosm_accepted_organ_admission": microcosm_accepted_organ_admission,
+        "host_resource_pressure": host_resource_pressure,
         "shared_index_quarantine": shared_index_quarantine,
         "derived_state_bloat_governor": derived_state_bloat_governor,
         "runtime_artifact_lifecycle": runtime_artifact_lifecycle,
@@ -8424,6 +10141,7 @@ def build_mission_transaction_landing_preflight(
         },
         "inputs": {
             "owned_paths": list(owned_paths),
+            "accepted_organ_companion_paths": list(accepted_organ_companion_paths),
             "write_profiles": list(write_profiles),
             "target_ids": list(target_ids),
             "session_id": str(session_id or "").strip() or None,
@@ -8653,10 +10371,15 @@ def _receipt_bound_work_ledger_session_state(convergence: Mapping[str, Any]) -> 
 
 def _session_closed_clean(session: Mapping[str, Any] | None) -> bool:
     session = _mapping_value(session)
+    active_claim_count = _session_active_claim_count(session)
     return bool(
         session.get("ended_at")
-        and bool(session.get("session_had_ledger_append"))
+        and (
+            bool(session.get("session_had_ledger_append"))
+            or bool(session.get("append_exempt"))
+        )
         and not bool(session.get("stale"))
+        and active_claim_count in (None, 0)
     )
 
 
@@ -8695,6 +10418,8 @@ def _work_ledger_append_present(
     return bool(
         session.get("session_had_ledger_append")
         or receipt_session.get("session_had_ledger_append")
+        or session.get("append_exempt")
+        or receipt_session.get("append_exempt")
         or _latest_commit_ref(convergence)
     )
 
@@ -9035,6 +10760,11 @@ def build_explore_execute_review_runtime_closeout(
                 "read_receipt_id": session.get("read_receipt_id"),
                 "ended_at": session.get("ended_at"),
                 "session_had_ledger_append": session.get("session_had_ledger_append"),
+                "append_exempt": session.get("append_exempt"),
+                "append_exempt_reason": session.get("append_exempt_reason"),
+                "append_exempt_refs": session.get("append_exempt_refs"),
+                "append_exempted_at": session.get("append_exempted_at"),
+                "active_claim_count": session.get("active_claim_count"),
                 "stale": session.get("stale"),
                 "stale_reason": session.get("stale_reason"),
             },

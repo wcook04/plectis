@@ -136,14 +136,14 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-30T21:37:01+00:00",
+  "created_at": "2026-06-01T04:19:41+00:00",
   "error_codes": [],
   "executed_action_count": 2,
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.agent_sandbox_policy_escape_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:0b8b03fbcb8faef2b1e118983bfb2b7b02f073393fd6afdd3c9a00e324e1c439",
+    "basis_digest": "sha256:c54b132600c6cd3989378e4a354a6ed5ec3ad3ee9870278b110969071c4d45aa",
     "card_schema_version": "agent_sandbox_policy_escape_replay_command_card_v1",
     "include_negative": false,
     "input_count": 18,
@@ -190,7 +190,7 @@
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
-        "sha256": "sha256:82ad3312aa5da428a329fbe35bfa01b8bca2ac0f9271275c1bc7c260a397cd85",
+        "sha256": "sha256:58e8c7423704fc9ddcb8eae36309a4074ddde00d4e98ab541c192baab2b2197c",
         "size_bytes": 17864
       },
       {
@@ -210,8 +210,8 @@
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",

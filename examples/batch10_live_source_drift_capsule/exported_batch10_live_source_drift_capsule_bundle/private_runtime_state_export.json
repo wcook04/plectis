@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "private_runtime_state_export",
+  "error_codes": [
+    "BATCH10_LIVE_SOURCE_DRIFT_PRIVATE_RUNTIME_EXPORT_REFUSED"
+  ],
+  "refused_claim": "Live runtime state, credentials, raw operator material, and account-bound payloads stay outside this capsule."
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "clean_projection",
+  "expected_status": "green",
+  "files": [
+    {
+      "path": "README.md",
+      "text": "Public projection with no private host handles.\n"
+    },
+    {
+      "path": "docs/public.md",
+      "text": "Release notes stay on public source refs and local fixture evidence.\n"
+    }
+  ]
+}

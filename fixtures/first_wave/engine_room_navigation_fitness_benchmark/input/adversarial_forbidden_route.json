@@ -1,0 +1,49 @@
+{
+  "case_id": "adversarial_forbidden_route",
+  "expected_status": "pass",
+  "expected_summary": {
+    "task_count": 1,
+    "sufficiency_pass_count": 0,
+    "sufficiency_fail_count": 1,
+    "debt_candidate_count": 1
+  },
+  "expected_task_statuses": {
+    "adversarial_paper_module_query": {
+      "sufficiency_status": "fail",
+      "sufficiency_failure_kind": "forbidden_route",
+      "latency_status": "pass"
+    }
+  },
+  "benchmark": {
+    "suite": "adversarial_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "adversarial_paper_module_query",
+          "family": "adversarial_forbidden_route",
+          "task_prompt": "Use --paper-module to find the navigation theory document.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "paper_modules:navigation_hologram_theory"
+          ],
+          "forbidden_first_routes": [
+            "--paper-module"
+          ],
+          "latency_budget_ms": 1200,
+          "scent_terms": [
+            "navigation",
+            "theory"
+          ]
+        },
+        "packet": {
+          "first_contact_command": "./repo-python kernel.py --paper-module navigation theory",
+          "wall_ms": 160,
+          "selected_artifacts": [
+            "paper_modules:navigation_hologram_theory"
+          ],
+          "summary": "navigation theory row exists but the first route bypassed context-pack"
+        }
+      }
+    ]
+  }
+}

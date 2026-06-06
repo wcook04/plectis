@@ -6,7 +6,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from system.lib.navigation_context_rosetta import build_navigation_context_rosetta
+from system.lib.navigation_context_rosetta import (
+    build_navigation_context_rosetta,
+    build_navigation_context_rosetta_compact,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -166,11 +169,25 @@ def test_navigation_context_rosetta_kernel_command_emits_json() -> None:
     assert result.returncode == 0
     packet = json.loads(result.stdout)
     assert packet["kind"] == "navigation_context_rosetta_packet"
+    assert packet["measurement_mode"] == "fixture_grammar_catalog"
     # Coverage-first invariant (robust to atlas growth): every kind atlas row
     # is represented; coverage_count == total_kinds.
     assert packet["budget"]["coverage_count"] == packet["budget"]["total_kinds"]
     assert packet["budget"]["coverage_count"] >= 13
     assert packet["budget"]["estimated_cost"] <= packet["budget"]["context_budget"]
+    assert packet["semantic_grammar"]["rosetta_rule"].startswith("The smallest packet")
+    assert packet["full_packet_command"].startswith("./repo-python kernel.py --full")
+
+
+def test_navigation_context_rosetta_compact_preserves_fixture_drilldown() -> None:
+    packet = build_navigation_context_rosetta_compact(REPO_ROOT, context_budget=ROSETTA_SCANNER_BUDGET)
+
+    assert packet["kind"] == "navigation_context_rosetta_packet"
+    assert packet["measurement_mode"] == "fixture_grammar_catalog"
+    assert packet["budget"]["coverage_count"] >= 13
+    assert packet["representative_context_rows"]
+    assert packet["representative_context_rows_omitted"] >= 0
+    assert "--full --navigation-context-rosetta" in packet["full_packet_command"]
     assert packet["semantic_grammar"]["rosetta_rule"].startswith("The smallest packet")
 
 

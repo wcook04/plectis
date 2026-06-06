@@ -1,0 +1,15 @@
+{
+  "schema_version": "tool_server_pressure_policy_v1",
+  "min_age_seconds": 300,
+  "process_signal_authorized": false,
+  "policy_note": "Public injected policy replaces the macro's hardcoded private path regexes. Kinds match synthetic command tokens, never real toolchain paths.",
+  "kinds": [
+    {"kind": "mcp_tool_helper", "match_substrings": ["tool-helper-mcp"], "budget": 2, "allowlisted": true},
+    {"kind": "browser_tool_helper", "match_substrings": ["browser-tool-mcp"], "budget": 2, "allowlisted": true},
+    {"kind": "dev_server", "match_substrings": ["dev-server-runtime"], "budget": 1, "allowlisted": true},
+    {"kind": "keepalive", "match_substrings": ["keepalive-daemon"], "budget": 1, "allowlisted": true},
+    {"kind": "backend_runtime", "match_substrings": ["backend-service-main"], "keep_owner_status": "operator_backend"},
+    {"kind": "session_runtime", "match_substrings": ["session-runtime-shell"], "keep_owner_status": "active_session_runtime"}
+  ],
+  "keep_kinds": ["backend_runtime", "session_runtime"]
+}

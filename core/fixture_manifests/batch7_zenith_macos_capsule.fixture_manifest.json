@@ -1,0 +1,26 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "first_wave.batch7_zenith_macos_capsule",
+  "organ_id": "batch7_zenith_macos_capsule",
+  "title": "Batch 7 Zenith macOS Capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "fixture_root": "fixtures/first_wave/batch7_zenith_macos_capsule/input",
+  "example_bundle": "examples/batch7_zenith_macos_capsule/exported_batch7_zenith_macos_capsule_bundle",
+  "source_manifest_ref": "examples/batch7_zenith_macos_capsule/exported_batch7_zenith_macos_capsule_bundle/source_module_manifest.json",
+  "required_inputs": [
+    "batch7_zenith_exercise_manifest.json"
+  ],
+  "negative_cases": [
+    "missing_web_latch.json",
+    "missing_shutdown_command_gate.json",
+    "missing_recording_snake_case.json",
+    "missing_swiftpm_witness.json"
+  ],
+  "original_witness": {
+    "command": "swift test",
+    "cwd": "apps/zenith-macos",
+    "observed_result": "17 tests passed"
+  },
+  "public_safe_carveout_ref": "cap_quick_batch_7_zenith_macos_capsule_needs_narro_c099bd13f9ca",
+  "body_in_receipt": false
+}

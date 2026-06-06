@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "assert_clear_returns_exit_2",
+  "error_codes": [
+    "BATCH12_RELEASE_CLAIM_ASSERT_CLEAR_EXIT_2"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_release_claim_language_gate_negative_case_v1"
+}

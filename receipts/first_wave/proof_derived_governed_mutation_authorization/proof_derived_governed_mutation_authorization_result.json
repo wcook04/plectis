@@ -1,5 +1,6 @@
 {
   "accepted_proof_cell_count": 3,
+  "accepted_real_record_count": 3,
   "action_classes": [
     "read_only_inspection",
     "rollback",
@@ -10,15 +11,16 @@
     "rollback",
     "scoped_config_write"
   ],
-  "anti_claim": "Proof-derived governed mutation authorization validates a synthetic mutation-authorization contract: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "anti_claim": "Proof-derived governed mutation authorization validates public-safe real governed-mutation records bound to redacted mutation-authorization metadata: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_proof_derived_governed_mutation_authorization_receipts_only",
+    "authority_ceiling": "public_safe_real_governed_mutation_records_plus_redacted_fixture_metadata_only",
     "benchmark_score_claim_authorized": false,
     "hidden_policy_votes_authorized": false,
     "irreversible_mutation_authorized": false,
     "live_cloud_account_authorized": false,
     "policy_after_execution_authorized": false,
     "provider_calls_authorized": false,
+    "real_public_safe_record_required": true,
     "release_authorized": false,
     "source_mutation_authorized": false,
     "standing_credentials_authorized": false,
@@ -67,7 +69,7 @@
     }
   ],
   "command": "proof_derived_governed_mutation_authorization run",
-  "created_at": "2026-05-27T02:53:57+00:00",
+  "created_at": "2026-06-05T07:23:40+00:00",
   "error_codes": [
     "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
     "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS",
@@ -99,10 +101,26 @@
     },
     {
       "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "final_answer_only_success",
+      "subject_id": "negative.final_answer_only_success",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
       "error_code": "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS",
       "message": "Mutation authorization cannot be graded by final-answer success without proof, verdict, side-effect, rollback, and replay evidence.",
       "negative_case_id": "final_answer_only_success",
       "subject_id": "negative.final_answer_only_success",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "hidden_policy_vote",
+      "subject_id": "negative.hidden_policy_vote",
       "subject_kind": "negative_case"
     },
     {
@@ -115,10 +133,26 @@
     },
     {
       "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "irreversible_mutation",
+      "subject_id": "negative.irreversible_mutation",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
       "error_code": "GOV_MUT_IRREVERSIBLE_MUTATION",
       "message": "Write or rollback proposals require rollback/verifiability refs and cannot claim irreversible mutation authority.",
       "negative_case_id": "irreversible_mutation",
       "subject_id": "negative.irreversible_mutation",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "live_cloud_credential",
+      "subject_id": "negative.live_cloud_credential",
       "subject_kind": "negative_case"
     },
     {
@@ -131,6 +165,14 @@
     },
     {
       "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "policy_after_execution",
+      "subject_id": "negative.policy_after_execution",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
       "error_code": "GOV_MUT_POLICY_AFTER_EXECUTION",
       "message": "Policy evaluation must occur before any execution identity or side-effect metadata is admitted.",
       "negative_case_id": "policy_after_execution",
@@ -139,10 +181,26 @@
     },
     {
       "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "standing_credential_authority",
+      "subject_id": "negative.standing_credential_authority",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
       "error_code": "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY",
       "message": "Standing credentials are not mutation authority; authorization must derive from replayable proof and visible verdicts.",
       "negative_case_id": "standing_credential_authority",
       "subject_id": "negative.standing_credential_authority",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+      "message": "Consensus must cite proof evidence cells, validator receipts, an evidence-chain hash, and two visible verdicts.",
+      "negative_case_id": "unlogged_side_effect",
+      "subject_id": "negative.unlogged_side_effect",
       "subject_kind": "negative_case"
     },
     {
@@ -156,10 +214,10 @@
   ],
   "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
   "freshness_basis": {
-    "basis_digest": "sha256:c345f2ad118fc32a5e232ab2cf44c1e8c8d38aca0d43d1d5775244a4c3380228",
+    "basis_digest": "sha256:1b48c76e7c0f255e5f0ab8321484aea80cef4212401415a78fe980da46860712",
     "card_schema_version": "governed_mutation_authorization_command_card_v1",
     "include_negative": true,
-    "input_count": 18,
+    "input_count": 19,
     "inputs": [
       {
         "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
@@ -200,6 +258,11 @@
         "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/cold_replay.json",
         "sha256": "sha256:7474535f6bf2839c70fea68636c0db8cda876df5a7d98da0f552665f1a385408",
         "size_bytes": 1009
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/governed_mutation_records.json",
+        "sha256": "sha256:48f35cbd535a40bf74c0d9cf5f7c15632af44f69d7c63aa5cebd5d9e5b4ec25f",
+        "size_bytes": 4234
       },
       {
         "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/standing_credential_authority.json",
@@ -243,13 +306,13 @@
       },
       {
         "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
-        "sha256": "sha256:8faa18b754e088d74b5b5cc465caab0576e3dd2e967bba2336c4a170963659cc",
-        "size_bytes": 72460
+        "sha256": "sha256:1107e698f321b3e3a19ffd9ef0f5567646136ba2bbea4255c16175257d350deb",
+        "size_bytes": 97339
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],
@@ -257,33 +320,145 @@
     "schema_version": "governed_mutation_authorization_freshness_basis_v1",
     "validator_schema_version": "proof_derived_governed_mutation_authorization_result_v1"
   },
+  "governed_mutation_record_rows": [
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "derived_rollback_receipt_ref": "",
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "proposal.inspect_repo_state",
+      "real_evidence_ref_digest": "sha256:cb3f71b79912f4765900d9b20f356d97508c8db2671b10b4d8b6dce9fe1a18db",
+      "reason_codes": [],
+      "record_id": "real_record.inspect_repo_state.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "",
+      "side_effect_diff_ref": "",
+      "source_record_class": "real_repo_mission_transaction_record",
+      "source_ref_count": 5,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "policy_verdict_refs": [
+        "verdict.rollback.policy.v1",
+        "verdict.rollback.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.rollback_config_change",
+      "real_evidence_ref_digest": "sha256:26c61e03e382a204a7afff4903d47e8348e985fac5f3c4641c14811b2f76154e",
+      "reason_codes": [],
+      "record_id": "real_record.rollback_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_diff_ref": "diff.synthetic_rollback.v1",
+      "source_record_class": "real_repo_work_landing_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    },
+    {
+      "body_redacted": true,
+      "commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "commit_scope_verified": true,
+      "computed_verdict": "accepted_real_governed_mutation_record",
+      "derived_policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "derived_proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "derived_rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "proposal.scoped_config_change",
+      "real_evidence_ref_digest": "sha256:06ee65100cffc4ffae9dbe3bb26f4b1a3fbf38cdfafe2cdcf97d0ebefc33853b",
+      "reason_codes": [],
+      "record_id": "real_record.scoped_config_change.67ac353d96",
+      "resolved_commit_ref": "67ac353d969750050ac4b46157dc4ba93a900ade",
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1",
+      "source_record_class": "real_repo_scoped_commit_record",
+      "source_ref_count": 6,
+      "verified_commit_touched_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py"
+      ]
+    }
+  ],
   "input_mode": "fixture",
   "logged_side_effect_count": 2,
   "minimum_independent_verdicts": 2,
   "missing_negative_cases": [],
+  "missing_real_record_proposal_ids": [],
   "observed_negative_cases": {
     "consensus_without_evidence": [
       "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE"
     ],
     "final_answer_only_success": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS"
     ],
     "hidden_policy_vote": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_HIDDEN_POLICY_VOTE"
     ],
     "irreversible_mutation": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_IRREVERSIBLE_MUTATION"
     ],
     "live_cloud_credential": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_LIVE_CLOUD_CREDENTIAL"
     ],
     "policy_after_execution": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_POLICY_AFTER_EXECUTION"
     ],
     "standing_credential_authority": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY"
     ],
     "unlogged_side_effect": [
+      "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
       "GOV_MUT_UNLOGGED_SIDE_EFFECT"
     ]
   },
@@ -367,7 +542,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 16,
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "projection_receipt_refs": [
@@ -497,11 +672,13 @@
     "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
     "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle"
   ],
+  "real_record_count": 3,
+  "real_record_status": "real_public_safe_governed_mutation_record_bound",
   "receipt_paths": [
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
   "receipt_reused": false,
   "rollback_pass_count": 2,

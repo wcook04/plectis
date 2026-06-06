@@ -851,7 +851,7 @@
       "band:flag": {"populated_by": "compiled_with_fallback", "emitter": "system/lib/standard_option_surface.py::_flag_row", "source": "codex/doctrine/paper_modules/_index.json plus authored compression fields", "freshness": "paper-module index source_fingerprint plus per-row compression_status"},
       "band:tldr": {"populated_by": "authored", "source": "paper module TLDR section/frontmatter", "freshness": "authored markdown mtime plus builder source fingerprint"},
       "band:card": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_card_row", "source": "codex/doctrine/paper_modules/_index.json plus authored markdown sections", "freshness": "paper-module index source_fingerprint"},
-      "band:context": {"populated_by": "unpopulated", "reason": "No generic paper-module context-band telescope adapter exists yet."},
+      "band:context": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_paper_module_context_row", "source": "codex/doctrine/paper_modules/_index.json plus bounded authored markdown section summaries", "freshness": "paper-module index source_fingerprint plus authored markdown read at projection time"},
       "band:evidence": {"populated_by": "live_computed", "emitter": "./repo-python kernel.py --paper-module <slug>", "source": "authored paper-module markdown and generated validation report"},
       "view:dynamic_paper_lattice": {
         "populated_by": "live_computed",

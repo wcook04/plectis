@@ -1,0 +1,124 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "receipt_id": "agent_benchmark_integrity_anti_gaming_replay_rerank_binding_20260605T1000Z",
+  "component_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "issued_at": "2026-06-05T10:00:07Z",
+  "issued_by": "codex_20260605T1000Z_agent_benchmark_integrity_current_head_binding",
+  "intent": "Bind current-head no-edit proof so rerank consumers use live source/test evidence instead of stale R1 queue rows.",
+  "current_head": "bef183cc81c2ccc5bb70ef42f80b3789eb1bad96",
+  "current_code_status": "proven_current_no_code_change_needed",
+  "no_code_change_reason": "Current HEAD still passes the focused proof surface. The organ/test lane already contains real-trace, anti-bake, digest-matched fake-trace, semantic-trace-mutation, and stale-trace-binding rejection tests, and the exported bundle card passes with live counts on the current tree.",
+  "target_paths_checked": [
+    "microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+    "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py"
+  ],
+  "target_path_git_status": {
+    "status": "clean",
+    "observed_output": "no local diff on target source/test paths"
+  },
+  "prior_binding_receipts_checked": [
+    "docs/dissemination/agent_benchmark_integrity_anti_gaming_replay_rerank_binding_receipt_20260605T0555Z.json",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_rerank_binding_20260605T0650Z.json"
+  ],
+  "stale_projection_rows_observed": [
+    {
+      "surface": "docs/dissemination/microcosm_fleet_realness_triage_v0.json",
+      "locator": "ceiling_coverage_gap[1]",
+      "stale_claim": "rung=R1, rung_target=R3, live_verification_status=null",
+      "why_stale_now": "Current-head focused proof already includes a sanitized real benchmark trace artifact plus anti-bake verdict movement."
+    },
+    {
+      "surface": "tools/meta/dissemination/realness_audit_worklist.json",
+      "locator": "worklist[15]",
+      "stale_claim": "realness_rung=R1, current_rank=1",
+      "why_stale_now": "The row still describes synthetic-only artifact provenance, but current source/tests and the exported bundle validate a real sanitized trace artifact and reject digest-matched fake or stale trace substitutions."
+    }
+  ],
+  "source_commits_checked": [
+    {
+      "commit": "d8b43ce6bf",
+      "subject": "Harden benchmark integrity realness proof",
+      "relevance": "Latest component-local hardening pass on the organ/test lane; kept as the most recent source/test evidence pivot in git history."
+    },
+    {
+      "commit": "4485c1ff95",
+      "subject": "Gate benchmark trace shape",
+      "relevance": "Added public_sanitized_real_benchmark_trace shape validation and the digest-matched fake-trace rejection test that closes the stale \"just import a real trace\" hypothesis."
+    }
+  ],
+  "proof_commands": [
+    {
+      "command": "./repo-git rev-parse HEAD",
+      "status": "pass",
+      "observed_output": "bef183cc81c2ccc5bb70ef42f80b3789eb1bad96"
+    },
+    {
+      "command": "./repo-git status --short -- microcosm-substrate/src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py",
+      "status": "pass",
+      "observed_output": "no output"
+    },
+    {
+      "command": "rg -n \"def test_\" microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py | wc -l",
+      "status": "pass",
+      "observed_output": "20"
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py -q --basetemp /tmp/agent-benchmark-integrity-proof",
+      "status": "pass",
+      "observed_output": "20 test functions exercised; command exited 0 with no failures."
+    },
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run-benchmark-integrity-bundle --input microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out /tmp/agent-benchmark-bundle-cfCMgj --card",
+      "status": "pass",
+      "observed_output": "status=pass, source_module_import_count=4, source_artifact_evidence_verified_count=3, real_benchmark_trace_verified_count=3, integrity_pass_count=2, quarantine_count=1, public_trace_status=pass"
+    }
+  ],
+  "proof_contract_matrix": [
+    {
+      "requirement": "real-good artifact passes",
+      "evidence": "Current bundle card passes with four source-module imports, three verified source-artifact evidence refs, three verified real benchmark traces, two integrity_pass rows, and one quarantine row."
+    },
+    {
+      "requirement": "real-bad or contaminated artifact rejects",
+      "evidence": "Focused tests cover train-test leakage, missing real-trace refs, missing source-artifact evidence, evaluator-config hash swap, digest-matched fake real trace, digest-matched semantic trace mutation, and digest-matched stale trace binding."
+    },
+    {
+      "requirement": "input perturbation moves quarantine or verdict",
+      "evidence": "Current tests assert computed_integrity_verdict moves to quarantine when clean-row contamination or trace-evidence mutations are introduced, even if the declared verdict remains integrity_pass."
+    },
+    {
+      "requirement": "declared labels cannot preserve an old verdict",
+      "evidence": "Current tests reject declared-verdict mismatch and invalid declared verdict values, and public trace validation emits mismatch codes instead of trusting labels."
+    },
+    {
+      "requirement": "direct CLI/card proof passes on current HEAD",
+      "evidence": "The exported bundle card passed on current HEAD with zero findings and a body-free authority boundary."
+    }
+  ],
+  "current_live_proof_summary": {
+    "real_trace_material_class": "public_sanitized_real_benchmark_trace",
+    "source_module_import_count": 4,
+    "source_artifact_evidence_verified_count": 3,
+    "real_benchmark_trace_verified_count": 3,
+    "integrity_pass_count": 2,
+    "quarantine_count": 1,
+    "public_trace_status": "pass",
+    "authority_boundary_release_authorized": false
+  },
+  "next_rerank_consumer": {
+    "consumer_id": "microcosm_rerank_or_triage_worker",
+    "consume_when": "Next full rerank or registry/atlas owner pass touches benchmark-integrity rank/rung surfaces.",
+    "consumer_action": "Treat the current stale R1 queue rows as superseded by current source/test evidence and this receipt; do not request additional code work unless the organ/test lane drifts or focused validation fails."
+  },
+  "refinement_result": {
+    "status": "nothing_to_refine",
+    "stewardship_checked": true,
+    "next_best_lane_checked": "full_rerank_or_registry_atlas_owner_consumption",
+    "reentry_condition": "Reopen this component only if the focused pytest or bundle card fails on a newer HEAD, or when the rerank owner is ready to consume this receipt into canonical rank/rung surfaces."
+  },
+  "source_open_boundary": {
+    "body_in_receipt": false,
+    "private_payloads_in_receipt": false,
+    "claim_ceiling": "proof_evidence_binding_only_not_benchmark_score_or_release_authorization"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "body_in_receipt": false,
+  "case_id": "finance_invalid_horizon_rejected",
+  "computed_evidence_ref": "exercise.integrity_matrix",
+  "computed_path": "invalid_horizon_rejected",
+  "error_codes": [
+    "BATCH10_FINANCE_INVALID_HORIZON_REJECTED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "finance_no_lookahead_temporal_contract",
+  "probe_input": {
+    "horizon_policy": "not-a-date"
+  },
+  "verdict_authority": "computed_by_batch10_governance_compilers_capsule_integrity_matrix"
+}

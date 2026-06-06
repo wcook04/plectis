@@ -1,0 +1,177 @@
+{
+  "anti_claim": "Batch10 cold eval honesty verifies one exact copied non-secret cold_eval.py body and its public fixture exercise only. It does not authorize live benchmarks, navigation truth, provider dispatch, live-agent results, private-root equivalence, publication, or release.",
+  "authority_boundary": "public_batch10_cold_eval_honesty_source_open_capsule_not_benchmark_truth",
+  "authority_ceiling": {
+    "benchmark_win_claim": false,
+    "browser_or_hud_authority": false,
+    "live_agent_result_claim": false,
+    "model_dispatch": false,
+    "navigation_truth_authority": false,
+    "private_root_equivalence_claim": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "kind_id": "batch10_cold_eval_honesty_capsule",
+  "kind_name": "Batch 10 Cold Eval Honesty capsule",
+  "organ_id": "batch10_cold_eval_honesty_capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret cold_eval.py macro body",
+      "source refs, digests, line counts, and required anchors",
+      "public synthetic cold-eval workspace fixtures",
+      "stable negative-case ids and validator verdicts",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_cold_eval_fixture_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "raw operator transcripts",
+      "private artifact bodies",
+      "live benchmark result claims",
+      "live agent result claims"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch10_cold_eval_honesty_capsule",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch10_cold_eval_honesty_capsule_result.json",
+    "batch10_cold_eval_honesty_capsule_board.json",
+    "batch10_cold_eval_honesty_capsule_validation_receipt.json",
+    "batch10_cold_eval_honesty_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch10_cold_eval_honesty_capsule",
+    "used_by_organs": [
+      "batch10_cold_eval_honesty_capsule"
+    ]
+  },
+  "required_negative_cases": [
+    "missing_tasks",
+    "flat_route_can_win",
+    "expected_ref_injection",
+    "private_fixture_ref"
+  ],
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "self-indexing-cognitive-substrate/src/idea_microcosm/cold_eval.py"
+  ],
+  "standard_id": "std_microcosm_batch10_cold_eval_honesty_capsule",
+  "standard_payload": {
+    "anti_purpose": "A fixture scorecard inflated into benchmark truth, live navigation authority, live-agent result, provider dispatch, release approval, or a copied body without digest equality and negative cases.",
+    "failure_modes": [
+      "source module digest drifts from cold_eval.py without a refreshed exact copy and manifest",
+      "copied source module lacks required anchors for scoring policy, task scoring, run_cold_eval, or expected-ref guards",
+      "validator accepts missing task fixtures or a flat route that can win the declared asymmetric exercise",
+      "validator accepts expected-ref injection or private fixture refs",
+      "receipts include copied body text, raw operator transcripts, private refs, provider payload bodies, credentials, or live agent state",
+      "capsule is treated as benchmark truth, navigation truth, source authority, provider dispatch, publication, release, private-root equivalence, or whole-system correctness authority"
+    ],
+    "ontology": "A public-safe exact-copy cold-eval capsule for one non-secret route-quality simulator body and a synthetic public workspace that exposes scorecard shape while preserving claim ceilings.",
+    "teleology": "Let a cold reader inspect and rerun real cold-eval mechanics without granting benchmark, navigation, provider, live-agent, publication, release, source-mutation, or private-root authority.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch10_cold_eval_honesty_capsule",
+      "receipt_id": "receipt.microcosm.batch10_cold_eval_honesty_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require exactly one copied macro source module",
+    "verify source-to-target digest equality and required anchors for the copied cold_eval.py module",
+    "execute the public cold-eval exercise without invoking live agents, providers, browser/HUD state, or source mutation",
+    "require stable negative-case codes for missing tasks, flat-route winners, expected-ref injection, and private fixture refs",
+    "keep benchmark win claims, navigation truth, live-agent result claims, provider dispatch, model dispatch, publication, release, private-root equivalence, source mutation, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts may expose refs, digests, anchors, counts, verdicts, and omission receipts but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run --input fixtures/first_wave/batch10_cold_eval_honesty_capsule/input --out receipts/first_wave/batch10_cold_eval_honesty_capsule --acceptance-out receipts/acceptance/first_wave/batch10_cold_eval_honesty_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 4,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run-batch10-cold-eval-bundle --input examples/batch10_cold_eval_honesty_capsule/exported_batch10_cold_eval_honesty_capsule_bundle --out /tmp/batch10_cold_eval_honesty_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch10_cold_eval_honesty_capsule"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch10_cold_eval_honesty_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 10 Cold Eval Honesty capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch10_cold_eval_honesty_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 10 Cold Eval Honesty capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch10_cold_eval_honesty_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch10_cold_eval_honesty_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch10_cold_eval_honesty_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch10_cold_eval_honesty_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch10_cold_eval_honesty_capsule"
+  ],
+  "anti_claims": [
+    "Batch10 cold eval honesty verifies one exact copied non-secret cold_eval.py body and its public fixture exercise only. It does not authorize live benchmarks, navigation truth, provider dispatch, live-agent results, private-root equivalence, publication, or release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch10_cold_eval_honesty_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch10_cold_eval_honesty_capsule",
+    "receipt_id": "receipt.microcosm.batch10_cold_eval_honesty_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch10_cold_eval_honesty_capsule_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

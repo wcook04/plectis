@@ -332,6 +332,80 @@ def test_summary_counts_by_slot(tmp_path):
     assert "B2:   1 runs" in summary_text
 
 
+def test_summary_surfaces_missing_receipt_review_route(tmp_path):
+    run_with_receipt = "20260427T010000000000--B2--withrec1"
+    run_without_receipt = "20260427T010000000000--B2--norec01"
+    _seed_run(
+        tmp_path,
+        "B2_continue",
+        run_with_receipt,
+        _basic_raw_event("B2", run_with_receipt),
+    )
+    _seed_run(
+        tmp_path,
+        "B2_continue",
+        run_without_receipt,
+        _basic_raw_event("B2", run_without_receipt),
+    )
+    _seed_ledger_with_receipts(
+        tmp_path,
+        "B2 Continue Ledger.md",
+        [run_with_receipt],
+    )
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+    )
+
+    summary_text = idx_mod.render_summary(idx_mod.projection_payload(entries))
+
+    assert "missing receipts: 1" in summary_text
+    assert f"sample {run_without_receipt}" in summary_text
+    assert f"--review --run-id {run_without_receipt}" in summary_text
+
+
+def test_backfill_missing_receipts_appends_owner_ledger_anchor(tmp_path):
+    run_id = "20260427T010000000000--B2--norec02"
+    _seed_run(
+        tmp_path,
+        "B2_continue",
+        run_id,
+        _basic_raw_event("B2", run_id),
+    )
+    ledger = _seed_ledger_with_receipts(tmp_path, "B2 Continue Ledger.md", [])
+    runs_root = tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs"
+    raws_root = tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events"
+    ledgers_root = tmp_path / "obsidian" / "prompt_shelf"
+    entries = idx_mod.build_index(
+        runs_root=runs_root,
+        raw_events_root=raws_root,
+        ledgers_root=ledgers_root,
+        include_raw_details=False,
+    )
+
+    payload = idx_mod.backfill_missing_receipts(
+        entries,
+        ledgers_root=ledgers_root,
+        run_ids=[run_id],
+    )
+
+    assert payload["__meta"]["inserted_count"] == 1
+    assert payload["__meta"]["unresolved_count"] == 0
+    text = ledger.read_text()
+    assert f'aiw:receipt prompt_run_id="{run_id}"' in text
+    assert f"`{run_id}`" in text
+    assert "raw event:" in text
+
+    rebuilt = idx_mod.build_index(
+        runs_root=runs_root,
+        raw_events_root=raws_root,
+        ledgers_root=ledgers_root,
+        include_raw_details=False,
+    )
+    assert rebuilt[0].ledger_receipt_present is True
+
+
 def test_summary_exposes_private_root_metadata_boundary(tmp_path):
     _seed_run(tmp_path, "B2_continue",
                "20260427T010000000000--B2--boundary",
@@ -376,6 +450,56 @@ def test_summary_can_surface_capture_diagnostic_counts(tmp_path):
     assert "diagnostics:  1 capture diagnostics" in summary_text
     assert "included by default in --review" in summary_text
     assert "assistant_missing_complete_uppropagation_block=1" in summary_text
+    assert "visible_uppropagation_block_optional_for_prompt_slot=1" in summary_text
+    assert (
+        "slot policies: B2:visible_uppropagation_block_optional_for_prompt_slot=1"
+        in summary_text
+    )
+
+
+def test_summary_surfaces_capture_diagnostic_policy_counts_by_slot(tmp_path):
+    _seed_run(tmp_path, "B2_continue",
+               "20260427T010000000000--B2--mixeddiag",
+               _basic_raw_event("B2", "20260427T010000000000--B2--mixeddiag"))
+    _seed_capture_diagnostic(
+        tmp_path,
+        "20260528T021149646989--B2--thread7--assistant_missing_complete_uppropagation_block.json",
+        {
+            "created_at": "2026-05-28T02:11:49+00:00",
+            "skipped_reason": "assistant_missing_complete_uppropagation_block",
+            "slot": "B2",
+        },
+    )
+    _seed_capture_diagnostic(
+        tmp_path,
+        "20260528T021200000000--A0--thread3--assistant_missing_complete_uppropagation_block.json",
+        {
+            "created_at": "2026-05-28T02:12:00+00:00",
+            "skipped_reason": "assistant_missing_complete_uppropagation_block",
+            "slot": "A0",
+        },
+    )
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+    )
+
+    summary_text = idx_mod.render_summary(
+        idx_mod.projection_payload(entries),
+        diagnostics_root=tmp_path / "state" / "prompt_shelf" / "capture_diagnostics",
+    )
+
+    assert (
+        "policies: capture_skipped=1, "
+        "visible_uppropagation_block_optional_for_prompt_slot=1"
+        in summary_text
+    )
+    assert (
+        "slot policies: A0:capture_skipped=1, "
+        "B2:visible_uppropagation_block_optional_for_prompt_slot=1"
+        in summary_text
+    )
 
 
 def test_review_payload_extracts_prompt_addendum_closeout_and_signals(tmp_path):
@@ -505,6 +629,11 @@ def test_review_payload_includes_recent_capture_diagnostics(tmp_path):
     assert payload["__meta"]["diagnostic_selected_count"] == 1
     assert row["source"] == "capture_diagnostic"
     assert row["conversation_id"] == "conv-thread-7"
+    assert row["receipt"]["read_issues"] == []
+    assert row["capture_status"]["severity"] == "advisory"
+    assert row["capture_status"]["diagnostic_policy"] == (
+        "visible_uppropagation_block_optional_for_prompt_slot"
+    )
     assert row["capture_status"]["skipped_reason"] == (
         "assistant_missing_complete_uppropagation_block"
     )
@@ -516,8 +645,45 @@ def test_review_payload_includes_recent_capture_diagnostics(tmp_path):
 
     rendered = idx_mod.render_review(payload)
     assert "capture_status: diagnostic" in rendered
+    assert "severity=advisory" in rendered
+    assert "policy=visible_uppropagation_block_optional_for_prompt_slot" in rendered
+    assert "read_issues:" not in rendered
     assert "assistant_missing_complete_uppropagation_block" in rendered
     assert "7 · ChatGPT" in rendered
+
+
+def test_non_b2_missing_uppropagation_diagnostic_stays_read_issue(tmp_path):
+    diagnostic_payload = {
+        "kind": "prompt_shelf_capture_diagnostic",
+        "created_at": "2026-05-28T02:11:49+00:00",
+        "skipped_reason": "assistant_missing_complete_uppropagation_block",
+        "slot": "A0",
+        "user_shape": {
+            "head": "A0 prompt evidence",
+            "tail": "A0 operator addendum",
+        },
+        "assistant_shape": {
+            "head": "A0 answer",
+            "tail": "A0 closeout",
+        },
+    }
+    _seed_capture_diagnostic(
+        tmp_path,
+        "20260528T021149646989--A0--thread7--assistant_missing_complete_uppropagation_block.json",
+        diagnostic_payload,
+    )
+
+    rows = idx_mod.select_diagnostic_review_rows(
+        diagnostics_root=tmp_path / "state" / "prompt_shelf" / "capture_diagnostics",
+        slot="A0",
+        limit=1,
+    )
+
+    assert rows[0]["receipt"]["read_issues"] == [
+        "assistant_missing_complete_uppropagation_block"
+    ]
+    assert rows[0]["capture_status"]["severity"] == "warning"
+    assert rows[0]["capture_status"]["diagnostic_policy"] == "capture_skipped"
 
 
 def test_review_selection_can_target_old_run_by_id(tmp_path):
@@ -745,14 +911,17 @@ def test_coverage_render_surfaces_non_required_b2_2_variant():
         _build_entry("B2", "b2-1"),
         _build_entry("B2.2", "b22-1"),
         _build_entry("B6", "b6-1"),
+        _build_entry("B7", "b7-1"),
     ]
     report = idx_mod.coverage_report(entries)
     text = idx_mod.render_coverage(report)
 
     assert "B2.2:   1 runs" in text
     assert "B6:   1 runs" in text
+    assert "B7:   1 runs" in text
     assert "B2.2" not in report.required_slots
     assert "B6" not in report.required_slots
+    assert "B7" not in report.required_slots
     assert sorted(report.missing_slots) == ["B1", "B3"]
 
 
@@ -764,6 +933,7 @@ _SLOT_ANCHOR_PROBE = {
     "B2": "i am pasting an additional chunk",
     "B3": "compact this chat or pasted context",
     "B6": "you are high-class type b helping author an autonomous seed",
+    "B7": "b7 codex goal author",
 }
 
 

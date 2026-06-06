@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_world_model_projection_drift_control_room",
   "kind_id": "world_model_projection_drift_control_room",
   "kind_name": "World-model projection drift control room",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "authority_boundary": "public_projection_drift_control_runtime_receipt_not_source_or_repair_authority",
   "source_refs": [
@@ -16,6 +16,31 @@
       "field": "runtime_example",
       "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "paper_module_projection",
+      "path": "paper_modules/world_model_projection_drift_control_room.md",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "field": "paper_module_capsule",
+      "path": "core/paper_module_capsules.json#paper_module.world_model_projection_drift_control_room",
+      "role": "json_capsule_authority"
+    },
+    {
+      "field": "mechanism_source",
+      "path": "core/mechanism_sources.json#mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+      "role": "mechanism_source_authority"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+      "role": "copied_source_module_manifest"
+    },
+    {
+      "field": "runtime_bundle_receipt",
+      "path": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+      "role": "runtime_export_receipt"
     }
   ],
   "relationships": {
@@ -43,6 +68,13 @@
     "repair_route",
     "validation_ref",
     "target_ref",
+    "fact_authority",
+    "authority_ref",
+    "appearance_refs",
+    "derivation_path",
+    "guard_ref",
+    "treatment",
+    "residual_route",
     "body_import_status",
     "body_import_verification",
     "source_module_import_status",
@@ -54,6 +86,8 @@
   ],
   "validation_rules": [
     "require every drift row to cite source signal, source ref, repair route, validation ref, and public runtime target ref",
+    "require every drift row to carry a fact_authority entry with one authority_ref, public appearance_refs, derivation_path, guard_ref, treatment, and residual_route",
+    "require fact_authority authority_ref to equal source_ref, guard_ref to equal validation_ref, residual_route to equal repair_route, and appearance_refs to include the row target and validation refs",
     "reject source authority claims, live repair authority, source mutation, automatic doctrine promotion, private runtime data export, provider payload export, and release authority",
     "require public runtime receipt authority, body-free public fixture rows, body-import verification, and secret-exclusion scan",
     "require exported source-module bodies to be represented by source_open_body_imports with body_material_count, body_material_ids, material_classes, source_manifest_refs, aggregate_floor_ref, and body-text exclusion flags"
@@ -68,6 +102,7 @@
     "expected_negative_cases": [
       "drift_row_without_source_ref",
       "repair_route_without_validation_ref",
+      "drift_row_without_fact_authority",
       "projection_claiming_source_authority",
       "live_repair_action_authorized",
       "private_runtime_data_export",
@@ -92,6 +127,7 @@
       "source_open_body_imports",
       "body_copied_material_count",
       "target_refs",
+      "fact_authority_mesh",
       "authority_ceiling",
       "anti_claim"
     ]
@@ -122,11 +158,12 @@
     "copied source-module anchors fail to prove the drift_aggregate_v1, /api/drift, or view_quality_action_map_v1 mechanisms are present",
     "source-module bodies are duplicated into receipts instead of remaining bundle files with receipt-level paths, hashes, counts, and anchor evidence",
     "selected pattern ids drift from the validated drift row ids",
+    "drift rows appear in multiple public projections without a fact_authority entry naming the live authority, appearance refs, derivation path, guard, treatment, and residual route",
     "projection-drift rows authorize live repair, source mutation, automatic doctrine promotion, provider payload export, private runtime export, or release",
     "macro projection import accounting treats source refs or runtime receipts as body imports without exact target files and digest verification"
   ],
   "authority_ceiling": {
-    "status": "pass",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
     "standard_authority": "public_projection_drift_control_runtime_receipt_only",
     "source_authority_claim": false,
     "source_mutation_authorized": false,
@@ -135,7 +172,134 @@
     "private_runtime_data_exported": false,
     "provider_payload_exported": false,
     "automatic_doctrine_promotion_authorized": false,
-    "release_authorized": false
+    "release_authorized": false,
+    "accepted_organ_ref": "core/organ_registry.json#world_model_projection_drift_control_room",
+    "claim_ceiling_ref": "core/organ_registry.json#world_model_projection_drift_control_room.claim_ceiling",
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
-  "anti_claim": "This standard governs public body-free projection-drift runtime receipts and target refs. It does not authorize source authority, live repairs, source mutation, doctrine promotion, provider calls, private runtime export, or release."
+  "paper_module_contract": {
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.world_model_projection_drift_control_room",
+    "mechanism_ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+    "module_slug": "world_model_projection_drift_control_room",
+    "markdown_projection_ref": "paper_modules/world_model_projection_drift_control_room.md",
+    "source_authority": "json_capsule_plus_atlas_bound_mechanism_source"
+  },
+  "doctrine_population_status": {
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "populated",
+    "source_module_manifest_status": "populated",
+    "coverage_reentry_command": "PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core.doctrine_lattice --check",
+    "authority_boundary": "Structured doctrine population binds the source-backed capsule, mechanism, standard, authored Markdown projection, organ atlas edge, copied world-model/view-quality source-module manifest, first-wave receipts, runtime-shell bundle receipt, and focused tests while keeping private runtime bodies, provider payloads, source authority, source mutation, live repair, automatic doctrine promotion, release, publication, and whole-system claims outside this standard's authority."
+  },
+  "source_module_manifest_contract": {
+    "manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+    "runtime_receipt_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+    "schema_version": "world_model_projection_drift_source_module_manifest_v1",
+    "module_count": 4,
+    "body_material_count": 4,
+    "required_module_ids": [
+      "world_model_drift_aggregate_source_body_import",
+      "world_model_drift_endpoint_source_body_import",
+      "view_quality_action_map_source_body_import",
+      "view_quality_action_map_test_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "body_in_receipt": false,
+    "digest_match_required": true
+  },
+  "negative_cases": {
+    "expected_count": 9,
+    "result_receipt_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+    "expected_case_ids": [
+      "drift_row_without_source_ref",
+      "repair_route_without_validation_ref",
+      "drift_row_without_fact_authority",
+      "projection_claiming_source_authority",
+      "live_repair_action_authorized",
+      "private_runtime_data_export",
+      "provider_payload_export",
+      "automatic_doctrine_promotion",
+      "release_from_drift_projection"
+    ]
+  },
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "world_model_drift_aggregate_source_body_import",
+      "world_model_drift_endpoint_source_body_import",
+      "view_quality_action_map_source_body_import",
+      "view_quality_action_map_test_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "runtime_receipt_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
+  },
+  "anti_claim": "This standard governs public body-free projection-drift runtime receipts and target refs. It does not authorize source authority, live repairs, source mutation, doctrine promotion, provider calls, private runtime export, or release.",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.world_model_projection_drift_control_room.author",
+      "status": "planned",
+      "purpose": "create a valid World-model projection drift control room instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.world_model_projection_drift_control_room.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing World-model projection drift control room without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.world_model_projection_drift_control_room.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_world_model_projection_drift_control_room and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.world_model_projection_drift_control_room",
+    "python -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.world_model_projection_drift_control_room",
+    "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json"
+  ],
+  "standard_payload": {
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room",
+      "receipt_id": "receipt.microcosm.world_model_projection_drift_control_room",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
+      "organ_evidence_class": "semantic_validator",
+      "organ_evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
+  }
 }

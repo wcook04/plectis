@@ -1,0 +1,36 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "config_authority_mutation_allowed_rejected",
+  "error_codes": [
+    "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "config_authority": {
+      "registry": {
+        "row_count": 2,
+        "rows": [
+          {
+            "config_id": "public.runtime",
+            "authority_class": "source_config",
+            "mutability_class": "read_only_source",
+            "root": "config/public.json",
+            "effective_trace": {
+              "mutation_allowed": false
+            }
+          },
+          {
+            "config_id": "generated.cache",
+            "authority_class": "generated_projection_or_cache",
+            "mutability_class": "read_only_generated",
+            "root": "state/cache.json",
+            "effective_trace": {
+              "mutation_allowed": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

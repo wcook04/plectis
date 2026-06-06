@@ -1,0 +1,32 @@
+{
+  "anti_claim": "Batch 5 validates copied public macro source bodies and bounded synthetic negative exercises for post-execution authority checks, incremental replay scope, verifier-gated proof repair, process orphan classification, generated state fixpoint settlement, trace compaction, blast-radius static analysis, and doctrine graph compilation. It is not live provider dispatch, not proof success, not process management authority, not generated-state mutation authority, not private-root equivalence, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch5_public_capsule_not_live_runtime_authority",
+    "launch_authorized": false,
+    "live_generated_state_mutation_authorized": false,
+    "live_process_signal_authorized": false,
+    "live_provider_repair_authorized": false,
+    "model_dispatch": false,
+    "official_leaderboard_submission": false,
+    "proof_authority_delta": "none",
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "runtime_execution": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 8,
+    "source_module_count": 10
+  },
+  "organ_id": "batch5_authority_systems_capsule",
+  "schema_version": "batch5_authority_systems_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 5 Authority and Systems Capsule",
+  "verdict": "pass"
+}

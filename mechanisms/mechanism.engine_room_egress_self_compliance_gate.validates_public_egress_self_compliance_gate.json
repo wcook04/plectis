@@ -1,0 +1,382 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_feature_registry_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record the transformation/proof commitment that carried the pressure; a mechanism row cannot pass as feature prose or a frontend plan.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "mechanism_role",
+      "concept_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+    "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+    "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_mechanism_json_seeded_from_mechanism_registry_not_authority_flip_until_parity_receipt",
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for public egress self-compliance fixture evaluation, phrase-policy diagnostics, negative cases, and authority ceilings.",
+      "symbols": [
+        "DetectorResult",
+        "detect_permission_gate_without_blocker",
+        "detect_self_error_without_capture",
+        "detect_command_displacement_to_operator",
+        "evaluate_text",
+        "evaluate_fixture_dir",
+        "CLAIM_CEILING",
+        "ANTI_CLAIMS",
+        "main"
+      ]
+    }
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
+  "id": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+  "kind": "mechanism",
+  "mechanism_payload": {
+    "contract_version": "microcosm_mechanism_instance_payload_v1",
+    "guardrails": [
+      "egress_self_compliance_gate_scope_is_public_phrase_policy_fixture_only",
+      "permission_gate_self_error_capture_binding_and_command_execution_receipt_negative_cases_required",
+      "taint_analysis_prompt_injection_defense_sandbox_information_flow_release_and_private_root_claims_forbidden",
+      "generated_projection_output_not_source_authority"
+    ],
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/mechanism_sources.json"
+    },
+    "population_binding": {
+      "anti_claims": [
+        "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+        "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+        "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+        "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+      ],
+      "concept_pair_ref": "import_projection_and_drift_control_bundle.concept_binding",
+      "mechanism_role": "family validators that preserve copied source-module digests, projection drift checks, and public-safe import receipts",
+      "omission_receipt": {
+        "drilldown": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+        "omitted": [
+          "private macro source bodies",
+          "raw operator voice",
+          "provider payload bodies",
+          "runtime outputs beyond named public receipt refs"
+        ],
+        "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+        "residual_pressure": [
+          {
+            "gap_class": "mechanism_selective_edges_unpopulated",
+            "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+            "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+          }
+        ]
+      },
+      "source_refs": [
+        "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+        "fixtures/first_wave/engine_room_egress_self_compliance_gate/input",
+        "core/fixture_manifests/engine_room_egress_self_compliance_gate.fixture_manifest.json",
+        "standards/std_microcosm_engine_room_egress_self_compliance_gate.json",
+        "tests/test_engine_room_egress_self_compliance_gate.py",
+        "paper_modules/engine_room_egress_self_compliance_gate.md",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[8:import_projection_and_drift_control_bundle]"
+      ],
+      "state_or_proof_effect": "imported material remains tied to source anchors and drift receipts instead of becoming ambient doctrine authority",
+      "transformation_shape": "macro source or projection bundle -> import/drift validator -> digest-bound public receipt",
+      "validator_refs": [
+        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+      ]
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.md",
+      "markdown_status": "generated_projection",
+      "registry_status": "current_source_of_record_until_parity_flip",
+      "source_json_rel": "mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json"
+    },
+    "projection_hooks": [
+      "markdown_reference",
+      "mermaid_graph",
+      "atlas_card",
+      "coverage_health",
+      "source_language_inventory"
+    ],
+    "resolution_evidence": {
+      "authority_class": "semantic_validator",
+      "evidence_rank": 5,
+      "focused_regression": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_egress_self_compliance_gate.py -q --basetemp /tmp/microcosm-egress-self-compliance-gate",
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.engine_room.egress_self_compliance_gate evaluate-fixtures --input fixtures/first_wave/engine_room_egress_self_compliance_gate/input --json"
+    },
+    "source_registry_row": {
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for public egress self-compliance fixture evaluation, phrase-policy diagnostics, negative cases, and authority ceilings.",
+          "symbols": [
+            "DetectorResult",
+            "detect_permission_gate_without_blocker",
+            "detect_self_error_without_capture",
+            "detect_command_displacement_to_operator",
+            "evaluate_text",
+            "evaluate_fixture_dir",
+            "CLAIM_CEILING",
+            "ANTI_CLAIMS",
+            "main"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "guardrails": [
+        "egress_self_compliance_gate_scope_is_public_phrase_policy_fixture_only",
+        "permission_gate_self_error_capture_binding_and_command_execution_receipt_negative_cases_required",
+        "taint_analysis_prompt_injection_defense_sandbox_information_flow_release_and_private_root_claims_forbidden",
+        "generated_projection_output_not_source_authority"
+      ],
+      "id": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+      "input_refs": [
+        "fixtures/first_wave/engine_room_egress_self_compliance_gate/input",
+        "core/fixture_manifests/engine_room_egress_self_compliance_gate.fixture_manifest.json",
+        "standards/std_microcosm_engine_room_egress_self_compliance_gate.json",
+        "tests/test_engine_room_egress_self_compliance_gate.py",
+        "paper_modules/engine_room_egress_self_compliance_gate.md"
+      ],
+      "kind": "mechanism",
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "receipt_refs": [
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "resolution_evidence": {
+        "authority_class": "semantic_validator",
+        "evidence_rank": 5,
+        "focused_regression": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_engine_room_egress_self_compliance_gate.py -q --basetemp /tmp/microcosm-egress-self-compliance-gate",
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.engine_room.egress_self_compliance_gate evaluate-fixtures --input fixtures/first_wave/engine_room_egress_self_compliance_gate/input --json"
+      },
+      "runs_in": [
+        "engine_room_demo"
+      ],
+      "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+      "statement": "The Engine Room egress self-compliance gate mechanism validates phrase-membership policy over public agent-output fixtures by detecting permission ceremony without a real blocker, self-error language without durable capture, and command displacement without execution evidence while accepting explicitly bounded blocker or receipt language without claiming taint analysis, prompt-injection defense, sandboxing, information-flow proof, release, or private-root authority.",
+      "status": "active",
+      "upstream_of": [
+        "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
+      ]
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "code_locus_and_registry_grounding_computed_in_projection_not_asserted_as_correctness"
+    }
+  },
+  "omission_receipt": {
+    "drilldown": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipt refs"
+    ],
+    "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+    "residual_pressure": [
+      {
+        "gap_class": "mechanism_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+      }
+    ]
+  },
+  "organ_refs": [
+    "engine_room_demo"
+  ],
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for public egress self-compliance fixture evaluation, phrase-policy diagnostics, negative cases, and authority ceilings.",
+        "symbols": [
+          "DetectorResult",
+          "detect_permission_gate_without_blocker",
+          "detect_self_error_without_capture",
+          "detect_command_displacement_to_operator",
+          "evaluate_text",
+          "evaluate_fixture_dir",
+          "CLAIM_CEILING",
+          "ANTI_CLAIMS",
+          "main"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate].code_loci[0]",
+          "summary": "Mechanism registry row names this code locus as the runtime grounding path."
+        },
+        "relation_id": "mechanism.grounded_in.code_locus",
+        "relation_verb": "grounded_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate].runs_in",
+          "summary": "Mechanism registry row names this organ as the runtime host."
+        },
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operates_through",
+        "target_id": "engine_room_demo",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "runs_in": [
+      "engine_room_demo"
+    ],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.engine_room_demo.validates_public_engine_room_demo",
+      "mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule"
+    ]
+  },
+  "schema_version": "microcosm_mechanism_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/mechanism_sources.json::mechanisms[94:mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate]",
+      "role": "mechanism_registry_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "fixtures/first_wave/engine_room_egress_self_compliance_gate/input",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "core/fixture_manifests/engine_room_egress_self_compliance_gate.fixture_manifest.json",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "standards/std_microcosm_engine_room_egress_self_compliance_gate.json",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "tests/test_engine_room_egress_self_compliance_gate.py",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "paper_modules/engine_room_egress_self_compliance_gate.md",
+      "role": "mechanism_input_ref"
+    }
+  ],
+  "statement": "The Engine Room egress self-compliance gate mechanism validates phrase-membership policy over public agent-output fixtures by detecting permission ceremony without a real blocker, self-error language without durable capture, and command displacement without execution evidence while accepting explicitly bounded blocker or receipt language without claiming taint analysis, prompt-injection defense, sandboxing, information-flow proof, release, or private-root authority.",
+  "status": "active",
+  "title": "validates public egress self compliance gate",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

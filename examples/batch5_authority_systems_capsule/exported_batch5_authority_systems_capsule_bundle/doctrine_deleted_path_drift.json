@@ -1,0 +1,32 @@
+{
+  "body_in_receipt": false,
+  "case_id": "doctrine_deleted_path_drift",
+  "claim": "A doctrine node pointing at deleted code must surface as a drift or authority-gap finding.",
+  "computed_path": "deleted_code_path_and_tombstone_reported",
+  "error_codes": [
+    "BATCH5_DOCTRINE_DELETED_PATH_DRIFT_REPORTED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "doctrine_graph_compiler",
+  "probe_input": {
+    "nodes": [
+      {
+        "code_path_exists": true,
+        "code_ref": "system/lib/semantic_routing.py",
+        "id": "mech_live"
+      },
+      {
+        "code_path_exists": false,
+        "code_ref": "system/lib/deleted_surface.py",
+        "id": "mech_deleted"
+      },
+      {
+        "id": "legacy_route",
+        "replacement_id": "modern_route",
+        "status": "tombstone"
+      }
+    ]
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

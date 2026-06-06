@@ -25,6 +25,7 @@
     "status": "pass"
   },
   "bundle_id": null,
+  "card_schema_version": null,
   "check_id": [
     "regression_negative_missing_source_digest",
     "ring2_failure_taxonomy_receipt_anchor",
@@ -39,7 +40,7 @@
   "copied_macro_body_missing_files": null,
   "copied_macro_body_missing_target_refs": null,
   "copied_macro_body_unexpected_target_refs": null,
-  "created_at": "2026-05-26T22:59:07+00:00",
+  "created_at": "2026-06-02T02:56:06+00:00",
   "diagnostic_board_path": "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/diagnostic_board.json",
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
@@ -145,6 +146,9 @@
     }
   ],
   "fixture_id": "first_wave.proof_diagnostic_evidence_spine",
+  "freshness_basis": null,
+  "freshness_digest": null,
+  "freshness_status": null,
   "input_mode": null,
   "missing_negative_cases": [],
   "observed_negative_cases": {
@@ -299,6 +303,7 @@
     "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/proof_diagnostic_evidence_spine_fixture_acceptance.json"
   ],
+  "receipt_reused": null,
   "rejected_check_count": 1,
   "rejected_check_ids": [
     "regression_negative_missing_source_digest"

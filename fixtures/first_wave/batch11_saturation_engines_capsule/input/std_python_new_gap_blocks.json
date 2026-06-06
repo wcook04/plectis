@@ -1,0 +1,32 @@
+{
+  "binding_disposition": "under_bound_existing_std_python_assay_extended_by_capsule",
+  "body_in_receipt": false,
+  "case_id": "std_python_new_gap_blocks",
+  "computed_path": "new_violation_blocks",
+  "error_codes": [
+    "BATCH11_STD_PYTHON_NEW_GAP_BLOCKS"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "std_python_delta_enforcement_ratchet_gate",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "after": {
+      "is_compliant": false,
+      "missing_module_tags": [
+        "module_type",
+        "status"
+      ],
+      "path": "demo.py"
+    },
+    "before": {
+      "is_compliant": false,
+      "missing_module_tags": [
+        "module_type"
+      ],
+      "path": "demo.py"
+    }
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

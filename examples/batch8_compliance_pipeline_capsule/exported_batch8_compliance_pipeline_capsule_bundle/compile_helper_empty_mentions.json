@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "compile_helper_empty_mentions",
+  "error_codes": [
+    "BATCH8_PIPELINE_COMPILE_HELPERS_REQUIRED"
+  ],
+  "schema_version": "batch8_compliance_pipeline_negative_case_v1"
+}

@@ -1,0 +1,271 @@
+{
+  "anti_claim": "Batch 8 Validator Checker imports the real idea_microcosm validators.py body and exercises individual checker functions for status collapse, specimen gates, release gates, private-boundary scanning, and the validate entrypoint. It is not a public release, not a hosted-public claim, not a complete validator-suite proof, and not source mutation authority.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_validator_checker_capsule_not_release_or_full_validator_authority",
+    "full_validator_suite_freshness_claim": false,
+    "model_dispatch": false,
+    "provider_dispatch": false,
+    "public_clone_or_hosting_authority": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "command": "batch8_validator_checker_capsule run",
+  "created_at": "2026-06-01T01:27:16+00:00",
+  "error_codes": [
+    "BATCH8_VALIDATOR_ENTRYPOINT_REQUIRED",
+    "BATCH8_VALIDATOR_POLICY_POISONING_BLOCK_REQUIRED",
+    "BATCH8_VALIDATOR_PRIVATE_BOUNDARY_REQUIRED",
+    "BATCH8_VALIDATOR_RELEASE_GATES_REQUIRED",
+    "BATCH8_VALIDATOR_SOURCE_REQUIRED",
+    "BATCH8_VALIDATOR_SPECIMEN_CHECKERS_REQUIRED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 1,
+    "engine_count": 6,
+    "engine_ids": [
+      "validator_source_anchor_matrix",
+      "status_policy_judge_matrix",
+      "private_boundary_scanner_matrix",
+      "specimen_checker_matrix",
+      "release_gate_checker_matrix",
+      "validate_entrypoint_witness"
+    ],
+    "engines": [
+      {
+        "anchors_present": true,
+        "checker_failure_function_count": 34,
+        "claim_ceiling": "Copied validators.py source shape only; not full validator-suite coverage.",
+        "engine_id": "validator_source_anchor_matrix",
+        "release_gate_anchors_present": true,
+        "status": "pass"
+      },
+      {
+        "allowed_decision": "allow",
+        "claim_ceiling": "Status-judge and transition helper exercise only.",
+        "engine_id": "status_policy_judge_matrix",
+        "forbidden_decision": "block",
+        "missing_evidence_decision": "downgrade",
+        "poisoned_policy_decision": "block",
+        "status": "pass",
+        "transition_failure_count": 2
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Private-boundary detector exercise only; no private body text is included in receipts.",
+        "engine_id": "private_boundary_scanner_matrix",
+        "hit_count": 2,
+        "observed_patterns": [
+          "private_email",
+          "private_home_path"
+        ],
+        "status": "pass"
+      },
+      {
+        "checker_count": 6,
+        "checkers": [
+          {
+            "checker": "_status_collapse_suite_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_status_preserving_control_plane_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_correction_survival_loop_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_self_comprehension_navigator_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_task_ledger_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_atlas_navigation_bands_failures",
+            "failure_count": 0
+          }
+        ],
+        "claim_ceiling": "Existing macro fixture checker matrix only; not proof of hosted public release.",
+        "engine_id": "specimen_checker_matrix",
+        "status": "pass"
+      },
+      {
+        "checker_count": 6,
+        "checkers": [
+          {
+            "checker": "_release_standards_axiom_gate_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_source_capsule_provenance_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_source_shuttle_specimen_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_concurrency_mission_control_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_native_concurrency_guard_failures",
+            "failure_count": 0
+          },
+          {
+            "checker": "_release_root_compiler_failures",
+            "failure_count": 0
+          }
+        ],
+        "claim_ceiling": "Existing macro fixture checker matrix only; not proof of hosted public release.",
+        "engine_id": "release_gate_checker_matrix",
+        "status": "pass"
+      },
+      {
+        "check_count": 58,
+        "claim_ceiling": "No-write validate entrypoint witness only.",
+        "engine_id": "validate_entrypoint_witness",
+        "status": "pass",
+        "validator_status": "ok",
+        "write_receipt": false
+      }
+    ],
+    "error_codes": [],
+    "input_manifest_schema": "batch8_validator_checker_exercise_manifest.json",
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "missing_validator_source",
+    "policy_allows_poisoning",
+    "private_boundary_blind",
+    "release_gate_missing",
+    "specimen_checker_missing",
+    "validate_entrypoint_bypassed"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch8_validator_checker_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "fixtures/first_wave/batch8_validator_checker_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "missing_validator_source",
+    "policy_allows_poisoning",
+    "private_boundary_blind",
+    "release_gate_missing",
+    "specimen_checker_missing",
+    "validate_entrypoint_bypassed"
+  ],
+  "organ_id": "batch8_validator_checker_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_result.json",
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_board.json",
+    "receipts/first_wave/batch8_validator_checker_capsule/batch8_validator_checker_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_validator_checker_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch8_validator_checker_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
+    "module_count": 1,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 12747,
+        "expected_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+        "line_count": 12747,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+        "required_anchor_count": 6,
+        "sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+        "source_exists": true,
+        "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 2,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_module_manifest.json",
+      "examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_validator_checker_capsule"
+}

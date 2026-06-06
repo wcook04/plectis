@@ -1,0 +1,270 @@
+{
+  "anti_claims": [
+    "This active anti-principle JSON record does not flip source authority away from ANTI_PRINCIPLES.md.",
+    "Guarding an axiom is not proof that every relevant principle failure has been mapped.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.",
+    "Absent negates edges are residual pressure, not evidence that no principle failure target exists."
+  ],
+  "anti_principle_payload": {
+    "contract_version": "microcosm_anti_principle_instance_payload_v1",
+    "failure_statement": "Letting public docs imply hosted release, provider-call authority, source-mutation authority, financial advice, product readiness, affiliation, or whole private-system release.",
+    "guarded_axiom_ids": [
+      "AX-5",
+      "AX-8",
+      "AX-12"
+    ],
+    "guarded_principle_ids": [
+      "P-2",
+      "P-6",
+      "P-9",
+      "P-13",
+      "P-14",
+      "P-15",
+      "P-18",
+      "P-19",
+      "P-20"
+    ],
+    "legacy_heading": "AP-14 Release-authority inflation",
+    "legacy_violated_axiom_text": "AX-5, AX-8, AX-12",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "ANTI_PRINCIPLES.md"
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "anti_principles/AP-14.md",
+      "legacy_markdown_status": "legacy_markdown_source_of_record_with_receipt_bound_json_projection",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "anti_principles/AP-14.json"
+    }
+  },
+  "authority_boundary": "public_anti_principle_json_instance_synchronized_from_legacy_markdown_receipt_bound_not_source_authority_flip",
+  "created_at": "2026-06-02T00:00:00Z",
+  "failure_statement": "Letting public docs imply hosted release, provider-call authority, source-mutation authority, financial advice, product readiness, affiliation, or whole private-system release.",
+  "guards": [
+    "AX-5",
+    "AX-8",
+    "AX-12"
+  ],
+  "id": "AP-14",
+  "kind": "anti_principle",
+  "negates": [
+    "P-2",
+    "P-6",
+    "P-9",
+    "P-13",
+    "P-14",
+    "P-15",
+    "P-18",
+    "P-19",
+    "P-20"
+  ],
+  "omission_receipt": {
+    "drilldown": "ANTI_PRINCIPLES.md::AP-14",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "principle negation evidence beyond source-declared axiom routing"
+    ],
+    "reason": "Anti-principle instance preserves public-safe legacy markdown row plus source-derived axiom and principle guard edges only."
+  },
+  "receipt_refs": [
+    "receipts/doctrine_records/anti_principles/AP-14.receipt.json"
+  ],
+  "relationships": {
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "ANTI_PRINCIPLES.md::AP-14.violated_axioms",
+          "summary": "Legacy anti-principle row names this violated axiom; axiom JSON active-instance corpus resolves the guard target."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guards",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guarded_by",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "ANTI_PRINCIPLES.md::AP-14.violated_axioms",
+          "summary": "Legacy anti-principle row names this violated axiom; axiom JSON active-instance corpus resolves the guard target."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guards",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guarded_by",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "ANTI_PRINCIPLES.md::AP-14.violated_axioms",
+          "summary": "Legacy anti-principle row names this violated axiom; axiom JSON active-instance corpus resolves the guard target."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guards",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guarded_by",
+        "target_id": "AX-12",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[4:AX-5]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[4:AX-5]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[7:AX-8]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-13",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[7:AX-8]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-14",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[4:AX-5]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-18",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[4:AX-5]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-19",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12]",
+          "summary": "Axiom routing names this anti-principle as a violated-axiom guard and names the principle ids grounded by the same axiom; this binds the failure guard to the principle without converting anti-axiom rejection into positive principle support."
+        },
+        "relation_id": "anti_principle.negates_failure_of.principle",
+        "relation_verb": "negates_failure_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "failure_guarded_by",
+        "target_id": "P-20",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "guarded_axiom_refs": [
+      "AX-5",
+      "AX-8",
+      "AX-12"
+    ],
+    "negates_principle_ids": [
+      "P-2",
+      "P-6",
+      "P-9",
+      "P-13",
+      "P-14",
+      "P-15",
+      "P-18",
+      "P-19",
+      "P-20"
+    ],
+    "source_markdown_ref": "ANTI_PRINCIPLES.md::AP-14",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_anti_principle_instance_v1",
+  "source_refs": [
+    {
+      "path": "ANTI_PRINCIPLES.md::AP-14",
+      "role": "legacy_markdown_source_of_record_with_receipt_bound_json_projection"
+    },
+    {
+      "path": "anti_principles/AP-14.json",
+      "role": "governed_json_instance"
+    }
+  ],
+  "status": "active",
+  "title": "Release-authority inflation",
+  "validator_refs": [
+    "validator.microcosm.anti_principle",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

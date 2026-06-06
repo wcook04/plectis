@@ -1,0 +1,1 @@
+{"expected_negative_case": true, "case_id": "foundry_low_repair_quarantine", "error_codes": ["BATCH4_FOUNDRY_REPAIRED_COUNT_BELOW_THRESHOLD"], "runtime_probe": {"observer_id": "skill_foundry_anchor_presence", "source_module_id": "prover_graph_benchmark", "required_text": "def run_prover_skill_foundry("}, "body_in_receipt": false}

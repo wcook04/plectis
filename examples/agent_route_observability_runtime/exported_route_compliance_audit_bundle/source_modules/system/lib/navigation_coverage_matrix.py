@@ -247,6 +247,29 @@ def _query_prefers_throughput_debt(query: str) -> bool:
     return any(marker in query_text for marker in markers)
 
 
+def _query_prefers_doctrine_routing_weave(query: str) -> bool:
+    query_text = str(query or "").lower()
+    if not query_text:
+        return False
+    markers = {
+        "axiom",
+        "bidirectional",
+        "cognitive operator",
+        "concept",
+        "doctrine route",
+        "doctrine routing",
+        "doctrine weave",
+        "mechanism",
+        "paper module",
+        "principle",
+        "route graph",
+        "routing weave",
+        "substrate route",
+        "weave",
+    }
+    return any(marker in query_text for marker in markers)
+
+
 def _process_audit_source_freshness(metabolism: Mapping[str, Any]) -> dict[str, Any]:
     quality_signal = metabolism.get("quality_signal")
     if not isinstance(quality_signal, Mapping):
@@ -428,6 +451,38 @@ def _fast_path_row_omission_requested(
     ) or (bool(debt_id) and debt_id in query_text)
 
 
+def _compact_first_contact_row_omission_requested(
+    query: str,
+    fast_path: Mapping[str, Any],
+    *,
+    context_budget: int,
+) -> bool:
+    if fast_path.get("status") != "no_active_behavior_debt":
+        return False
+    if int(context_budget or 0) > 12000:
+        return False
+    query_text = str(query or "").lower()
+    if not query_text:
+        return False
+    control_plane_markers = {
+        "control plane",
+        "control-plane",
+        "microcosm",
+    }
+    economy_markers = {
+        "efficiency",
+        "latency",
+        "optimisation",
+        "optimization",
+        "route cost",
+        "speed",
+        "throughput",
+    }
+    return any(marker in query_text for marker in control_plane_markers) and any(
+        marker in query_text for marker in economy_markers
+    )
+
+
 def _omit_rows_for_fast_path(packet: dict[str, Any], *, query: str, budget: int) -> dict[str, Any]:
     rows = packet.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -475,6 +530,68 @@ def _omit_rows_for_fast_path(packet: dict[str, Any], *, query: str, budget: int)
             "command": full_matrix_command,
             "surface_role": DRILLDOWN,
             "reason": "Open full per-kind matrix rows only when the fast-path owner route is insufficient.",
+        }
+    )
+    packet["next_commands"] = _dedupe_next_commands(next_commands)
+    return packet
+
+
+def _omit_rows_for_compact_first_contact(packet: dict[str, Any], *, query: str, budget: int) -> dict[str, Any]:
+    rows = packet.get("rows")
+    if not isinstance(rows, list) or not rows:
+        return packet
+    packet = dict(packet)
+    omitted_count = len(rows)
+    kind_ids = [str(row.get("kind_id") or "") for row in rows if isinstance(row, Mapping) and row.get("kind_id")]
+    full_budget = max(40000, int(budget or 12000) * 3)
+    full_matrix_command = (
+        f"./repo-python kernel.py --coverage-enforcement-matrix "
+        f"{json.dumps(str(query or DEFAULT_QUERY))} --context-budget {full_budget}"
+    )
+    packet["rows"] = []
+    summary = dict(packet.get("summary") or {})
+    summary["rows_emitted_count"] = 0
+    summary["matrix_rows_omitted_count"] = omitted_count
+    summary["compact_first_contact_status"] = "rows_omitted_no_active_behavior_debt"
+    packet["summary"] = summary
+    budget_section = dict(packet.get("budget") or {})
+    budget_section["compact_first_contact_omission"] = True
+    budget_section["row_compaction_contract"] = (
+        "broad microcosm/control-plane speed packets with no active process debt omit full "
+        "matrix rows at routine budget; summary counts, source freshness, and "
+        "full_matrix_command preserve drilldown access"
+    )
+    packet["budget"] = budget_section
+    packet["compact_first_contact_omission_receipt"] = {
+        "status": "omitted_for_compact_first_contact_no_active_behavior_debt",
+        "omitted_row_count": omitted_count,
+        "reason": (
+            "The query asks for speed/context/control-plane optimization and the process "
+            "audit fast path reports no active behavior debt, so the first-contact packet "
+            "keeps the health summary and routes full per-kind rows behind an explicit drilldown."
+        ),
+        "trigger_policy": (
+            "Requires a context-management, control-plane, or microcosm marker plus a "
+            "speed, efficiency, throughput, latency, or route-cost marker."
+        ),
+        "kind_id_preview": kind_ids[:16],
+        "kind_id_omitted": max(0, len(kind_ids) - 16),
+        "preserved_fields": [
+            "summary.kind_count",
+            "summary.coverage_status_counts",
+            "process_audit_fast_path",
+            "process_audit_regression_pressure",
+            "type_plane_resolution",
+            "next_commands",
+        ],
+        "full_matrix_command": full_matrix_command,
+    }
+    next_commands = list(packet.get("next_commands") or [])
+    next_commands.append(
+        {
+            "command": full_matrix_command,
+            "surface_role": DRILLDOWN,
+            "reason": "Open full per-kind matrix rows only when the compact first-contact packet is insufficient.",
         }
     )
     packet["next_commands"] = _dedupe_next_commands(next_commands)
@@ -587,6 +704,172 @@ def _compact_trimmed_row(row: Mapping[str, Any]) -> dict[str, Any]:
                 if value not in (None, "", [], {}, 0)
             }
     return out
+
+
+def _compact_profile_preview_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Tiny per-kind row preview for command-profile packets."""
+    out: dict[str, Any] = {}
+    for key in (
+        "kind_id",
+        "row_count",
+        "coverage_status",
+        "coverage_surface_available",
+        "coverage_surface",
+        "cluster_flag_available",
+    ):
+        value = row.get(key)
+        if value not in (None, "", [], {}):
+            out[key] = value
+
+    process = row.get("process_audit_violations")
+    if isinstance(process, Mapping):
+        counts = {
+            "blocking_count": int(process.get("blocking_count") or 0),
+            "direct_count": int(process.get("direct_count") or 0),
+            "accepted_projected_count": int(process.get("accepted_projected_count") or 0),
+        }
+        nonzero_counts = {key: value for key, value in counts.items() if value}
+        if nonzero_counts:
+            out["process_audit_counts"] = nonzero_counts
+
+    debt = row.get("debt_pressure")
+    if isinstance(debt, Mapping):
+        total = int(debt.get("total") or 0)
+        if total:
+            out["debt_pressure_total"] = total
+    return out
+
+
+def _compact_profile_process_pressure(section: Any) -> Any:
+    if not isinstance(section, Mapping):
+        return section
+    freshness = section.get("source_freshness")
+    freshness = freshness if isinstance(freshness, Mapping) else {}
+    lifecycle = section.get("behavior_lifecycle_summary")
+    lifecycle = lifecycle if isinstance(lifecycle, Mapping) else {}
+    hook_shadow = section.get("hook_shadow_coverage")
+    hook_shadow = hook_shadow if isinstance(hook_shadow, Mapping) else {}
+    return {
+        key: value
+        for key, value in {
+            "status": section.get("status"),
+            "source_freshness": {
+                key: value
+                for key, value in {
+                    "status": freshness.get("status"),
+                    "cache_status": freshness.get("cache_status"),
+                    "patch_selection_policy": freshness.get("patch_selection_policy"),
+                    "authoritative_decision_command": freshness.get("authoritative_decision_command"),
+                }.items()
+                if value not in (None, "", [], {})
+            },
+            "observed_session_count": section.get("observed_session_count"),
+            "behavior_row_count": section.get("behavior_row_count"),
+            "pattern_class_count": len(section.get("pattern_classes") or []),
+            "pattern_classes_preview": list(section.get("pattern_classes") or [])[:4],
+            "behavior_lifecycle_summary": {
+                key: value
+                for key, value in {
+                    "active_behavior_debt_count": lifecycle.get("active_behavior_debt_count"),
+                    "advisory_behavior_debt_count": lifecycle.get("advisory_behavior_debt_count"),
+                    "retired_by_navigation_mechanism_count": lifecycle.get(
+                        "retired_by_navigation_mechanism_count"
+                    ),
+                    "active_behavior_debt_ids": lifecycle.get("active_behavior_debt_ids"),
+                }.items()
+                if value not in (None, "", [], {})
+            },
+            "hook_shadow_coverage": {
+                key: value
+                for key, value in {
+                    "status": hook_shadow.get("status"),
+                    "hook_shadow_coverage_top_patterns": hook_shadow.get(
+                        "hook_shadow_coverage_top_patterns"
+                    ),
+                    "would_intervene_on_recent_route_failures": hook_shadow.get(
+                        "would_intervene_on_recent_route_failures"
+                    ),
+                }.items()
+                if value not in (None, "", [], {})
+            },
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _compact_profile_type_plane_resolution(section: Any) -> Any:
+    if not isinstance(section, Mapping):
+        return section
+    routes = [row for row in section.get("extra_resolved_routes") or [] if isinstance(row, Mapping)]
+    return {
+        key: value
+        for key, value in {
+            "schema_version": section.get("schema_version"),
+            "status": section.get("status"),
+            "coverage_matrix_scope": section.get("coverage_matrix_scope"),
+            "authority_ref": section.get("authority_ref"),
+            "kind_atlas_kind_count": section.get("kind_atlas_kind_count"),
+            "extra_resolved_surface_count": section.get("extra_resolved_surface_count"),
+            "extra_resolved_type_ids": [str(row.get("type_id") or "") for row in routes if row.get("type_id")],
+            "first_extra_route_command": (
+                str(routes[0].get("option_surface_command") or "") if routes else None
+            ),
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _compact_profile_strategy(section: Any) -> Any:
+    if not isinstance(section, Mapping):
+        return section
+    latency = section.get("latency_profile")
+    latency = latency if isinstance(latency, Mapping) else {}
+    source_surfaces = section.get("source_surfaces_reused") or []
+    return {
+        key: value
+        for key, value in {
+            "read_only_composer": section.get("read_only_composer"),
+            "coverage_before_invocation": section.get("coverage_before_invocation"),
+            "coverage_is_not_permission": section.get("coverage_is_not_permission"),
+            "control_entry_required": section.get("control_entry_required"),
+            "kind_atlas_projection_profile": section.get("kind_atlas_projection_profile"),
+            "kind_atlas_fast_path": section.get("kind_atlas_fast_path"),
+            "source_surface_count": len(source_surfaces),
+            "stage_timings_ms": section.get("stage_timings_ms"),
+            "latency_profile": {
+                key: value
+                for key, value in {
+                    "status": latency.get("status"),
+                    "total_ms": latency.get("total_ms"),
+                    "slow_phase_count": latency.get("slow_phase_count"),
+                    "slow_phases": latency.get("slow_phases"),
+                }.items()
+                if value not in (None, "", [], {})
+            },
+        }.items()
+        if value not in (None, "", [], {})
+    }
+
+
+def _compact_profile_next_commands(commands: Any, *, full_matrix_command: str) -> list[dict[str, Any]]:
+    if not isinstance(commands, Sequence) or isinstance(commands, (str, bytes, bytearray)):
+        commands = []
+    selected: list[Mapping[str, Any]] = []
+    for command in commands:
+        if not isinstance(command, Mapping):
+            continue
+        text = str(command.get("command") or "")
+        if text == full_matrix_command or "--entry" in text:
+            selected.append(command)
+    if not any(str(command.get("command") or "") == full_matrix_command for command in selected):
+        selected.append(
+            {
+                "command": full_matrix_command,
+                "surface_role": DRILLDOWN,
+                "reason": "Open full per-kind matrix rows when command-profile shape is insufficient.",
+            }
+        )
+    return _dedupe_next_commands(selected)
 
 
 def _debt_matches_kind(row: Mapping[str, Any], kind_id: str) -> bool:
@@ -717,10 +1000,16 @@ def _hook_matches_kind(row: Mapping[str, Any], kind_id: str) -> bool:
 
 def _coverage_surface_command(kind_id: str, atlas_row: Mapping[str, Any], high_cardinality: bool) -> str:
     command = str(atlas_row.get("option_surface_command") or "").strip()
+    bands = {str(item) for item in atlas_row.get("bands") or []}
     if command:
+        if (
+            not high_cardinality
+            and "flag" in bands
+            and command.endswith("--band cluster_flag")
+        ):
+            return f"./repo-python kernel.py --option-surface {kind_id} --band flag"
         return command
     cluster_command = str(atlas_row.get("cluster_command") or "").strip()
-    bands = {str(item) for item in atlas_row.get("bands") or []}
     if cluster_command and (high_cardinality or "cluster_flag" in bands):
         return cluster_command
     band = "cluster_flag" if high_cardinality else "flag"
@@ -753,12 +1042,21 @@ def _standard_type_plane_resolution(
         command = str(row.get("option_surface_command") or "").strip()
         if not type_id or not command or type_id in kind_ids:
             continue
+        passport = row.get("compression_passport")
+        passport = passport if isinstance(passport, Mapping) else {}
+        type_plane_card_command = str(passport.get("safe_drilldown") or "").strip()
+        if not type_plane_card_command:
+            type_plane_card_command = (
+                "./repo-python kernel.py --option-surface navigation_type_plane "
+                f"--band card --ids {shlex.quote(type_id)}"
+            )
         extra_routes.append(
             {
                 "type_id": type_id,
                 "canonical_type_id": str(row.get("canonical_type_id") or "").strip() or None,
                 "title": str(row.get("title") or type_id),
                 "option_surface_command": command,
+                "type_plane_card_command": type_plane_card_command,
                 "coverage_relationship": "resolved_by_standard_type_plane_not_matrix_kind_row",
             }
         )
@@ -837,6 +1135,93 @@ def _trim_packet(packet: dict[str, Any], *, context_budget: int) -> dict[str, An
             packet["process_audit_regression_pressure"] = process_pressure
     packet["budget"]["estimated_tokens"] = max(1, (_json_bytes(packet) + 3) // 4)
     return packet
+
+
+def compact_coverage_enforcement_matrix_for_profile(
+    packet: Mapping[str, Any],
+    *,
+    query: str | None = None,
+    context_budget: int = 12000,
+    row_preview_limit: int = 3,
+) -> dict[str, Any]:
+    """Keep command-profile output bounded while preserving the full matrix drilldown."""
+    rows = [dict(row) for row in packet.get("rows", []) if isinstance(row, Mapping)]
+    if not rows:
+        return dict(packet)
+
+    def pressure_key(row: Mapping[str, Any]) -> tuple[int, int, int, int]:
+        process = row.get("process_audit_violations")
+        process = process if isinstance(process, Mapping) else {}
+        debt = row.get("debt_pressure")
+        debt = debt if isinstance(debt, Mapping) else {}
+        return (
+            int(debt.get("total") or 0),
+            int(process.get("blocking_count") or 0),
+            int(process.get("direct_count") or 0),
+            int(row.get("row_count") or 0),
+        )
+
+    task_query = str(query or packet.get("query") or DEFAULT_QUERY)
+    full_budget = max(40000, int(context_budget or 12000) * 3)
+    full_matrix_command = (
+        f"./repo-python kernel.py --coverage-enforcement-matrix "
+        f"{json.dumps(task_query)} --context-budget {full_budget}"
+    )
+    pressure_rows = sorted(rows, key=pressure_key, reverse=True)[: max(0, row_preview_limit)]
+
+    compact = dict(packet)
+    summary = dict(compact.get("summary") if isinstance(compact.get("summary"), Mapping) else {})
+    summary.update(
+        {
+            "rows_emitted_count": 0,
+            "matrix_rows_omitted_count": len(rows),
+            "row_pressure_preview_count": len(pressure_rows),
+            "compact_profile_status": "rows_omitted_for_command_profile",
+        }
+    )
+    budget = dict(compact.get("budget") if isinstance(compact.get("budget"), Mapping) else {})
+    budget["command_profile_compaction"] = True
+    budget["row_compaction_contract"] = (
+        "command-profile packets emit timing and bounded row-pressure preview only; "
+        "the full matrix route preserves per-kind evidence"
+    )
+
+    compact["output_profile"] = "coverage_enforcement_matrix_command_profile_compact_v0"
+    compact["summary"] = summary
+    compact["budget"] = budget
+    compact["rows"] = []
+    compact["row_pressure_preview"] = [_compact_profile_preview_row(row) for row in pressure_rows]
+    compact["process_audit_regression_pressure"] = _compact_profile_process_pressure(
+        compact.get("process_audit_regression_pressure")
+    )
+    compact["type_plane_resolution"] = _compact_profile_type_plane_resolution(
+        compact.get("type_plane_resolution")
+    )
+    compact["strategy"] = _compact_profile_strategy(compact.get("strategy"))
+    compact["command_profile_omission_receipt"] = {
+        "status": "matrix_rows_omitted_for_command_profile",
+        "omitted_row_count": len(rows),
+        "reason": (
+            "Command-profile output is a timing/shape packet; full per-kind coverage rows "
+            "belong behind the explicit coverage-enforcement matrix drilldown."
+        ),
+        "preserved_fields": [
+            "summary",
+            "row_pressure_preview",
+            "process_audit_fast_path",
+            "process_audit_regression_pressure",
+            "type_plane_resolution",
+            "next_commands",
+        ],
+        "full_matrix_command": full_matrix_command,
+        "context_budget_tokens": context_budget,
+    }
+    compact["next_commands"] = _compact_profile_next_commands(
+        compact.get("next_commands"),
+        full_matrix_command=full_matrix_command,
+    )
+    compact["budget"]["estimated_tokens"] = max(1, (_json_bytes(compact) + 3) // 4)
+    return compact
 
 
 def build_coverage_enforcement_matrix(
@@ -1169,6 +1554,20 @@ def build_coverage_enforcement_matrix(
         "rows": matrix_rows,
         "next_commands": _dedupe_next_commands(
             list(process_audit_fast_path.get("next_commands") or [])
+            + (
+                [
+                    {
+                        "command": (
+                            f"./repo-python kernel.py --doctrine-routing-weave "
+                            f"{json.dumps(task_query)} --context-budget {budget}"
+                        ),
+                        "surface_role": CONTROL_ENTRY,
+                        "reason": "Compose the bidirectional doctrine-to-substrate route read model for this coverage lane.",
+                    }
+                ]
+                if _query_prefers_doctrine_routing_weave(task_query)
+                else []
+            )
             + [
                 {
                     "command": (
@@ -1227,6 +1626,12 @@ def build_coverage_enforcement_matrix(
         context_budget=budget,
     ):
         packet = _omit_rows_for_fast_path(packet, query=task_query, budget=budget)
+    elif _compact_first_contact_row_omission_requested(
+        task_query,
+        process_audit_fast_path,
+        context_budget=budget,
+    ):
+        packet = _omit_rows_for_compact_first_contact(packet, query=task_query, budget=budget)
     stage_timings_ms["packet_assembly"] = _elapsed_ms(stage_started)
 
     stage_started = time.perf_counter()

@@ -1,0 +1,1444 @@
+{
+  "anti_claim": "Batch 11 validates source-open or source-faithful public ports for run affinity, calculator insight derivation, std_python ratchet gating, exogenous navigation grading, portability supersession, shard browse sectioning, research evidence selection, projection secret scanning, quant presentation mart normalization, macro-regime bucketing, frontend wayfinding, session diagnostics, and demo-take coverage scoring. It is not live Work Ledger truth, not navigation authority, not complete secret detection, not live market data, not investment advice, not raw transcript authority, not video capture, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch11_saturation_engines_capsule_not_live_runtime_release_or_market_authority",
+    "complete_secret_detection_claim": false,
+    "market_advice": false,
+    "model_dispatch": false,
+    "navigation_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "raw_session_truth": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "video_capture_authority": false,
+    "work_ledger_authority": false
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T19:42:31+00:00",
+  "error_codes": [
+    "BATCH11_CALCULATOR_ZERO_BUCKET_NO_FAKE_DOMINANCE",
+    "BATCH11_DEMO_TAKE_MISSING_ANCHOR_PENALIZED",
+    "BATCH11_EXOGENOUS_NAV_WRONG_ROUTE_GRADED_DOWN",
+    "BATCH11_FRONTEND_NAV_UNREACHABLE_TARGET",
+    "BATCH11_HOLOGRAPHIC_NO_OVERLAP_NO_FAKE_EDGE",
+    "BATCH11_MACRO_UNKNOWN_ROUTES_OTHER",
+    "BATCH11_PORTABILITY_UNRESOLVED_HARD_FAIL_BLOCKS",
+    "BATCH11_PROJECTION_SECRET_TOKEN_BLOCKS",
+    "BATCH11_RUN_AFFINITY_STALE_TERMINAL_REJECTED",
+    "BATCH11_SESSION_NO_NAV_VERBS_NO_LADDER_SKIP",
+    "BATCH11_SHARD_MULTIMATCH_CONTEXT_PRIORITY",
+    "BATCH11_STD_PYTHON_NEW_GAP_BLOCKS",
+    "BATCH11_STOCKGRID_UNITS_NORMALIZED_NOT_ZEROED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 12,
+    "error_codes": [],
+    "input_manifest_schema": "batch11_saturation_engines_capsule_probe_manifest.json",
+    "integrity_matrix": [
+      {
+        "binding_disposition": "tier_a_new_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "deterministic run-affinity scoring over public rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "run_affinity_session_scorer",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "run_affinity_stale_terminal_rejected",
+            "computed": true,
+            "computed_path": "stale_terminal_refused",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_RUN_AFFINITY_STALE_TERMINAL_REJECTED",
+            "fixture_probe_input_digest": "70a204009fa8af3c01e4362d1749745113f68dfb4a64f5e8caa5bef6a065f7cd",
+            "fixture_probe_observed": {
+              "selected_run_id": "RUN_CLOSE",
+              "stale_run_id": "RUN_STALE_TERMINAL",
+              "stale_score": -76
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "recommendation": {
+            "close_distance_min": 5,
+            "has_close_context": true,
+            "open_distance_min": 385,
+            "ranked": [
+              {
+                "run_id": "RUN_CLOSE",
+                "score": 338
+              },
+              {
+                "run_id": "RUN_STALE_TERMINAL",
+                "score": -76
+              }
+            ],
+            "run_id": "RUN_CLOSE",
+            "score": 338
+          },
+          "stale_terminal_refused": true
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "run_affinity_source",
+            "source_ref": "system/server/ui/src/utils/runAffinity.ts",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/server/ui/src/utils/runAffinity.ts"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "tier_a_new_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "cluster insight derivation over public calculator-shaped rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "calculator_cluster_insight_derivation",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "calculator_zero_bucket_no_fake_dominance",
+            "computed": true,
+            "computed_path": "zero_bucket_no_fake_share",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_CALCULATOR_ZERO_BUCKET_NO_FAKE_DOMINANCE",
+            "fixture_probe_input_digest": "75bbd73b7468dd30abc83b2c46c36eba319352ad011754c594e25720f2510925",
+            "fixture_probe_observed": {
+              "driver_count": 4,
+              "share_sum": 0.0
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "dominant_cluster": "inflation_cluster",
+          "driver_share_sum": 1.0,
+          "member_quality": 0.72,
+          "zero_bucket_no_fake_share": true
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "calculator_insight_source",
+            "source_ref": "system/server/ui/src/lib/calculatorInsight.ts",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/server/ui/src/lib/calculatorInsight.ts"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "under_bound_existing_std_python_assay_extended_by_capsule",
+        "body_in_receipt": false,
+        "claim_ceiling": "standards-delta ratchet over public inspector rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "std_python_delta_enforcement_ratchet_gate",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "std_python_new_gap_blocks",
+            "computed": true,
+            "computed_path": "new_violation_blocks",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_STD_PYTHON_NEW_GAP_BLOCKS",
+            "fixture_probe_input_digest": "007243d4259cd5414c1696675246e9d4f40b0c4cf5e440fcf98d5be9248d1e68",
+            "fixture_probe_observed": {
+              "post_gap_count": 2,
+              "status": "regressed"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "improved_status": "resolved",
+          "regressed_status": "regressed",
+          "resolved_gap_count": 0
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "std_python_apply_source",
+            "source_ref": "system/lib/kernel/commands/apply.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/lib/kernel/commands/apply.py"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "tier_a_new_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "exogenous route-plane grading over public filesystem facts only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "exogenous_nav_ladder_grader",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "exogenous_nav_wrong_route_graded_down",
+            "computed": true,
+            "computed_path": "wrong_route_graded_down",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_EXOGENOUS_NAV_WRONG_ROUTE_GRADED_DOWN",
+            "fixture_probe_input_digest": "7e96a5b1ddc6bf5410b044f36252b3851abe2c449ac19ca5826aac306258f71e",
+            "fixture_probe_observed": {
+              "oracle_target": "codex/doctrine/skills/kernel/navigation_seed.md",
+              "wrong_path": "docs/unrelated.md"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "oracle_target": "codex/doctrine/skills/kernel/navigation_seed.md",
+          "route_match": true,
+          "wrong_route_grade": 0
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "exogenous_nav_ladder_source",
+            "source_ref": "tools/meta/observability/exogenous_nav_ladder_grader.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/observability/exogenous_nav_ladder_grader.py"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "already_bound_engine_room_public_projection_leak_gate_capsule_verifies_rollup",
+        "body_in_receipt": false,
+        "claim_ceiling": "portability check reconciliation over public check rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "portability_gate_check_supersession_rollup",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "portability_unresolved_hard_fail_blocks",
+            "computed": true,
+            "computed_path": "unresolved_hard_fail_blocks",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_PORTABILITY_UNRESOLVED_HARD_FAIL_BLOCKS",
+            "fixture_probe_input_digest": "6d714b5d4674448e1017904675d9d8615b7e11ea60b9b287068468f53b4daba3",
+            "fixture_probe_observed": {
+              "failed_check_count": 1,
+              "final_status": "red",
+              "hard_blocker_count": 1
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "failed_check_count": 1,
+          "final_check_ids": [
+            "no_private_only_references",
+            "no_secret_scan_hits"
+          ],
+          "final_status": "red",
+          "superseded_private_reference_passed": true
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "portability_gate_source",
+            "source_ref": "tools/meta/dissemination/portability_gate.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/dissemination/portability_gate.py"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "tier_a_new_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "context-conditioned sectionization over public shard rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "shard_browse_context_priority_sectionizer",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "shard_multimatch_context_priority",
+            "computed": true,
+            "computed_path": "multi_match_uses_context_priority",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_SHARD_MULTIMATCH_CONTEXT_PRIORITY",
+            "fixture_probe_input_digest": "47f0b12f4d2567e5dcd816777988c1e90cbecc421054851ef1155dd8f460c26b",
+            "fixture_probe_observed": {
+              "paragraph_first_kind": "paragraph",
+              "route_first_kind": "routing"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "paragraph_first_kind": "paragraph",
+          "route_first_kind": "routing",
+          "unmatched_kind": "standalone"
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "shards_lens_source",
+            "source_ref": "system/server/ui/src/components/world/ShardsLens.tsx",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/server/ui/src/components/world/ShardsLens.tsx"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "tier_a_new_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "deterministic evidence selection over public rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "holographic_research_bundle_graph_and_evidence_select",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "holographic_no_overlap_no_fake_edge",
+            "computed": true,
+            "computed_path": "missing_provenance_not_invented",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_HOLOGRAPHIC_NO_OVERLAP_NO_FAKE_EDGE",
+            "fixture_probe_input_digest": "f2a25ea20d8fe8614dd7d8bd062b32a3fd781df728bf4b0872cd58247480f387",
+            "fixture_probe_observed": {
+              "missing_chunk_id": "missing",
+              "selected_count": 1
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "graph_edge_count": 1,
+          "top_chunk": "a"
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "holographic_research_bundle_source",
+            "source_ref": "tools/meta/dissemination/build_holographic_research_bundle.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/dissemination/build_holographic_research_bundle.py"
+        ],
+        "status": "pass",
+        "tier": "A_adversarially_verified_in_cap"
+      },
+      {
+        "binding_disposition": "already_bound_engine_room_public_projection_leak_gate_collision_recorded",
+        "body_in_receipt": false,
+        "claim_ceiling": "projection redaction gate over controlled public files only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "projection_secret_scan",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "projection_secret_token_blocks",
+            "computed": true,
+            "computed_path": "token_blocks",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_PROJECTION_SECRET_TOKEN_BLOCKS",
+            "fixture_probe_input_digest": "60501ff10316c8db5f7f7f0b25f138c6c1802398c8758a657dff147c783edfac",
+            "fixture_probe_observed": {
+              "blocking_hit_count": 2,
+              "status": "red"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "already_bound_collision_with_engine_room_public_projection_leak_gate",
+          "bad_status": "red",
+          "safe_status": "green"
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "projection_secret_scan_source",
+            "source_ref": "tools/meta/dissemination/projection_secret_scan.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/dissemination/projection_secret_scan.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      },
+      {
+        "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+        "body_in_receipt": false,
+        "claim_ceiling": "unit-normalizing data mart merge over public stockgrid-shaped rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "stockgrid_flow_multisource_merge_unit_normalizer",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "stockgrid_units_normalized_not_zeroed",
+            "computed": true,
+            "computed_path": "missing_flow_no_silent_zero",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_STOCKGRID_UNITS_NORMALIZED_NOT_ZEROED",
+            "fixture_probe_input_digest": "e5e039040c9943df648334a5c88dc1ae6ea408cfa434530e0ada1717b26d87bf",
+            "fixture_probe_observed": {
+              "candidate_count": 0
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "organ_plane_absent_for_quant_presentation_mart_at_import_time",
+          "normalized_flow_usd": 2400000.0,
+          "source_field_refs": [
+            "tkr",
+            "flow_usd",
+            "sector",
+            "company",
+            "conv",
+            "flow",
+            "sv"
+          ],
+          "source_table_paths": [
+            "datasets.rich",
+            "data"
+          ]
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "quant_presentation_mart_source",
+            "source_ref": "system/lib/quant_presentation_mart.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/lib/quant_presentation_mart.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      },
+      {
+        "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+        "body_in_receipt": false,
+        "claim_ceiling": "macro-regime bucketing over public fixture rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "macro_regime_board_bucketing_zscore_engine",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "macro_regime_unknown_routes_other",
+            "computed": true,
+            "computed_path": "unknown_routes_other",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_MACRO_UNKNOWN_ROUTES_OTHER",
+            "fixture_probe_input_digest": "518cc0a8f5f7f88ebbce1c1bcf12c04c57f07df5dc0c3c523db45ac43eb59df2",
+            "fixture_probe_observed": {
+              "bucket": "other",
+              "release_calendar_status": "missing_from_feed_artifact",
+              "source_body_invoked": true,
+              "source_functions_invoked": [
+                "system/lib/quant_presentation_mart.py::_macro_lifecycle_by_slug",
+                "system/lib/quant_presentation_mart.py::_macro_regime_board"
+              ],
+              "vintage_status": "missing_from_feed_artifact"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "organ_plane_absent_for_quant_presentation_mart_at_import_time",
+          "bucket_order": [
+            "inflation",
+            "labor",
+            "other"
+          ],
+          "inflation_average_z": 2.0,
+          "inflation_latest_observation_date": "2026-05-15",
+          "inflation_realtime_end": "2026-05-16",
+          "inflation_realtime_start": "2026-05-16",
+          "inflation_release_calendar_status": "available",
+          "inflation_vintage_status": "available",
+          "macro_artifact_lifecycle_row_count": 2,
+          "other_latest_observation_date": null,
+          "other_release_calendar_status": "missing_from_feed_artifact",
+          "other_vintage_status": "missing_from_feed_artifact",
+          "source_body_invoked": true,
+          "source_functions_invoked": [
+            "system/lib/quant_presentation_mart.py::_macro_lifecycle_by_slug",
+            "system/lib/quant_presentation_mart.py::_macro_regime_board"
+          ],
+          "source_import_error": null,
+          "source_module_path": "system/lib/quant_presentation_mart.py"
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "quant_presentation_mart_source",
+            "source_ref": "system/lib/quant_presentation_mart.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "system/lib/quant_presentation_mart.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      },
+      {
+        "binding_disposition": "copied_dormant_under_bound_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "frontend route graph wayfinding over public fixtures only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "frontend_nav_graph_wayfinding_engine",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "frontend_nav_unreachable_target",
+            "computed": true,
+            "computed_path": "unreachable_returns_blocker",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_FRONTEND_NAV_UNREACHABLE_TARGET",
+            "fixture_probe_input_digest": "6492fa994a6c8b65ede64f322bd9cb359d864bc0b3bb85a79063acdfbaefc7dd",
+            "fixture_probe_observed": {
+              "blocked": true,
+              "blocker": "no_route"
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "organ_plane_absent_for_frontend_nav_graph_at_import_time",
+          "path": [
+            "home",
+            "work",
+            "market"
+          ],
+          "path_cost": 2.0
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "frontend_nav_graph_source",
+            "source_ref": "tools/meta/observability/frontend_nav_graph.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/observability/frontend_nav_graph.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      },
+      {
+        "binding_disposition": "copied_dormant_under_bound_capsule_import",
+        "body_in_receipt": false,
+        "claim_ceiling": "session diagnostic lens over synthetic public rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "agent_session_diagnostic_lens_engine",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "session_no_nav_verbs_no_ladder_skip",
+            "computed": true,
+            "computed_path": "no_nav_verbs_no_false_ladder_skip",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_SESSION_NO_NAV_VERBS_NO_LADDER_SKIP",
+            "fixture_probe_input_digest": "990240d23a2909c558f938ef14ae8eb8155fa26b9ef5a29493318cea4e225004",
+            "fixture_probe_observed": {
+              "route_phrase_count": 8,
+              "verb_count": 1
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "skill_name_collision_cleared_skill_not_organ",
+          "bash_verb_histogram": {
+            "python3": 1,
+            "rg": 1
+          },
+          "route_miss_phrase_count": 8,
+          "tool_histogram": {
+            "Bash": 2,
+            "Read": 1
+          }
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "session_analyzer_source",
+            "source_ref": "tools/meta/observability/session_analyzer.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/observability/session_analyzer.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      },
+      {
+        "binding_disposition": "already_bound_batch7_demo_take_capsule_batch11_verifies_scoring_path",
+        "body_in_receipt": false,
+        "claim_ceiling": "story coverage scoring over synthetic timeline and script rows only",
+        "fixture_verdict_echo_risk": false,
+        "mechanism_id": "demo_take_story_coverage_audit",
+        "negative_cases": [
+          {
+            "body_in_receipt": false,
+            "case_id": "demo_take_missing_anchor_penalized",
+            "computed": true,
+            "computed_path": "missing_anchors_lowers_score",
+            "computed_value": true,
+            "fixture_computed_value": true,
+            "fixture_error_code": "BATCH11_DEMO_TAKE_MISSING_ANCHOR_PENALIZED",
+            "fixture_probe_input_digest": "9ce2d7ca3b3d02c9a0ce5de29cacc0dc819bc5804405435cce0b7791283e18b1",
+            "fixture_probe_observed": {
+              "full_score": 1.0,
+              "missing_score": 0.22
+            },
+            "fixture_probe_source": "negative_case_fixture_probe_input",
+            "fixture_probe_status": "pass",
+            "fixture_role": "negative_case_label_not_verdict_authority",
+            "mechanism_computed_value": true,
+            "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+          }
+        ],
+        "negative_result_computed": true,
+        "negative_verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix",
+        "positive_computed_output": {
+          "adversarial_probe_status": "already_bound_by_batch7_demo_take_capsule_batch11_records_scoring_path"
+        },
+        "secret_private_carve_out": "receipts carry refs/digests/counts only; copied bodies remain under source_modules",
+        "source_evidence": [
+          {
+            "body_copied": true,
+            "body_in_receipt": false,
+            "digest_status": "match",
+            "missing_required_anchor_count": 0,
+            "module_id": "demo_take_story_package_source",
+            "source_ref": "tools/meta/dissemination/demo_take_story_package.py",
+            "source_to_target_relation": "exact_copy"
+          }
+        ],
+        "source_refs": [
+          "tools/meta/dissemination/demo_take_story_package.py"
+        ],
+        "status": "pass",
+        "tier": "B_verified_by_controller"
+      }
+    ],
+    "integrity_summary": {
+      "body_in_receipt": false,
+      "computed_negative_case_count": 13,
+      "fixture_probe_computed_count": 13,
+      "fixture_verdict_echo_risk_count": 0,
+      "mechanism_count": 13,
+      "tier_b_controller_verification_count": 6
+    },
+    "mechanism_count": 13,
+    "mechanism_ids": [
+      "run_affinity_session_scorer",
+      "calculator_cluster_insight_derivation",
+      "std_python_delta_enforcement_ratchet_gate",
+      "exogenous_nav_ladder_grader",
+      "portability_gate_check_supersession_rollup",
+      "shard_browse_context_priority_sectionizer",
+      "holographic_research_bundle_graph_and_evidence_select",
+      "projection_secret_scan",
+      "stockgrid_flow_multisource_merge_unit_normalizer",
+      "macro_regime_board_bucketing_zscore_engine",
+      "frontend_nav_graph_wayfinding_engine",
+      "agent_session_diagnostic_lens_engine",
+      "demo_take_story_coverage_audit"
+    ],
+    "mechanisms": [
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "deterministic run-affinity scoring over public rows only",
+        "mechanism_id": "run_affinity_session_scorer",
+        "recommendation": {
+          "close_distance_min": 5,
+          "has_close_context": true,
+          "open_distance_min": 385,
+          "ranked": [
+            {
+              "run_id": "RUN_CLOSE",
+              "score": 338
+            },
+            {
+              "run_id": "RUN_STALE_TERMINAL",
+              "score": -76
+            }
+          ],
+          "run_id": "RUN_CLOSE",
+          "score": 338
+        },
+        "stale_terminal_refused": true,
+        "stale_terminal_score": -76,
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "cluster insight derivation over public calculator-shaped rows only",
+        "dominant_cluster": "inflation_cluster",
+        "driver_share_sum": 1.0,
+        "mechanism_id": "calculator_cluster_insight_derivation",
+        "member_quality": 0.72,
+        "status": "pass",
+        "zero_bucket_no_fake_share": true
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "standards-delta ratchet over public inspector rows only",
+        "improved_status": "resolved",
+        "mechanism_id": "std_python_delta_enforcement_ratchet_gate",
+        "new_violation_blocks": true,
+        "regressed_status": "regressed",
+        "resolved_gap_count": 0,
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "exogenous route-plane grading over public filesystem facts only",
+        "mechanism_id": "exogenous_nav_ladder_grader",
+        "oracle_target": "codex/doctrine/skills/kernel/navigation_seed.md",
+        "route_match": true,
+        "status": "pass",
+        "wrong_route_grade": 0,
+        "wrong_route_graded_down": true
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "portability check reconciliation over public check rows only",
+        "failed_check_count": 1,
+        "final_check_ids": [
+          "no_private_only_references",
+          "no_secret_scan_hits"
+        ],
+        "final_status": "red",
+        "mechanism_id": "portability_gate_check_supersession_rollup",
+        "status": "pass",
+        "superseded_private_reference_passed": true,
+        "unresolved_hard_fail_blocks": true
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "context-conditioned sectionization over public shard rows only",
+        "mechanism_id": "shard_browse_context_priority_sectionizer",
+        "multi_match_uses_context_priority": true,
+        "paragraph_first_kind": "paragraph",
+        "route_first_kind": "routing",
+        "status": "pass",
+        "unmatched_kind": "standalone"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "deterministic evidence selection over public rows only",
+        "graph_edge_count": 1,
+        "mechanism_id": "holographic_research_bundle_graph_and_evidence_select",
+        "missing_provenance_not_invented": true,
+        "status": "pass",
+        "top_chunk": "a",
+        "top_score": 116
+      },
+      {
+        "adversarial_probe_status": "already_bound_collision_with_engine_room_public_projection_leak_gate",
+        "bad_status": "red",
+        "body_in_receipt": false,
+        "claim_ceiling": "projection redaction gate over controlled public files only",
+        "mechanism_id": "projection_secret_scan",
+        "private_path_blocks": true,
+        "safe_status": "green",
+        "status": "pass",
+        "token_blocks": true
+      },
+      {
+        "adversarial_probe_status": "organ_plane_absent_for_quant_presentation_mart_at_import_time",
+        "body_in_receipt": false,
+        "claim_ceiling": "unit-normalizing data mart merge over public stockgrid-shaped rows only",
+        "mechanism_id": "stockgrid_flow_multisource_merge_unit_normalizer",
+        "missing_flow_no_silent_zero": true,
+        "normalized_flow_usd": 2400000.0,
+        "source_field_refs": [
+          "tkr",
+          "flow_usd",
+          "sector",
+          "company",
+          "conv",
+          "flow",
+          "sv"
+        ],
+        "source_table_paths": [
+          "datasets.rich",
+          "data"
+        ],
+        "status": "pass"
+      },
+      {
+        "adversarial_probe_status": "organ_plane_absent_for_quant_presentation_mart_at_import_time",
+        "body_in_receipt": false,
+        "bucket_order": [
+          "inflation",
+          "labor",
+          "other"
+        ],
+        "claim_ceiling": "macro-regime bucketing over public fixture rows only",
+        "inflation_average_z": 2.0,
+        "inflation_latest_observation_date": "2026-05-15",
+        "inflation_realtime_end": "2026-05-16",
+        "inflation_realtime_start": "2026-05-16",
+        "inflation_release_calendar_status": "available",
+        "inflation_vintage_status": "available",
+        "macro_artifact_lifecycle_row_count": 2,
+        "mechanism_id": "macro_regime_board_bucketing_zscore_engine",
+        "other_latest_observation_date": null,
+        "other_release_calendar_status": "missing_from_feed_artifact",
+        "other_vintage_status": "missing_from_feed_artifact",
+        "source_body_invoked": true,
+        "source_functions_invoked": [
+          "system/lib/quant_presentation_mart.py::_macro_lifecycle_by_slug",
+          "system/lib/quant_presentation_mart.py::_macro_regime_board"
+        ],
+        "source_import_error": null,
+        "source_module_path": "system/lib/quant_presentation_mart.py",
+        "status": "pass",
+        "unknown_routes_other": true
+      },
+      {
+        "adversarial_probe_status": "organ_plane_absent_for_frontend_nav_graph_at_import_time",
+        "body_in_receipt": false,
+        "claim_ceiling": "frontend route graph wayfinding over public fixtures only",
+        "mechanism_id": "frontend_nav_graph_wayfinding_engine",
+        "path": [
+          "home",
+          "work",
+          "market"
+        ],
+        "path_cost": 2.0,
+        "status": "pass",
+        "unreachable_blocker": "no_route",
+        "unreachable_returns_blocker": true
+      },
+      {
+        "adversarial_probe_status": "skill_name_collision_cleared_skill_not_organ",
+        "bash_verb_histogram": {
+          "python3": 1,
+          "rg": 1
+        },
+        "body_in_receipt": false,
+        "claim_ceiling": "session diagnostic lens over synthetic public rows only",
+        "mechanism_id": "agent_session_diagnostic_lens_engine",
+        "no_nav_verbs_no_false_ladder_skip": true,
+        "route_miss_phrase_count": 8,
+        "status": "pass",
+        "tool_histogram": {
+          "Bash": 2,
+          "Read": 1
+        }
+      },
+      {
+        "adversarial_probe_status": "already_bound_by_batch7_demo_take_capsule_batch11_records_scoring_path",
+        "body_in_receipt": false,
+        "claim_ceiling": "story coverage scoring over synthetic timeline and script rows only",
+        "full_score": 1.0,
+        "mechanism_id": "demo_take_story_coverage_audit",
+        "missing_anchor_score": 0.22,
+        "missing_anchors_lowers_score": true,
+        "status": "pass"
+      }
+    ],
+    "passed_mechanism_count": 13,
+    "status": "pass",
+    "tier_b_controller_verification": [
+      {
+        "binding_disposition": "already_bound_engine_room_public_projection_leak_gate_collision_recorded",
+        "body_in_receipt": false,
+        "capsule_action": "validate_existing_bound_gate",
+        "mechanism_id": "projection_secret_scan",
+        "negative_case_id": "projection_secret_token_blocks",
+        "source_refs": [
+          "tools/meta/dissemination/projection_secret_scan.py"
+        ]
+      },
+      {
+        "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+        "body_in_receipt": false,
+        "capsule_action": "import_under_bound_or_absent_macro_mechanism",
+        "mechanism_id": "stockgrid_flow_multisource_merge_unit_normalizer",
+        "negative_case_id": "stockgrid_units_normalized_not_zeroed",
+        "source_refs": [
+          "system/lib/quant_presentation_mart.py"
+        ]
+      },
+      {
+        "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+        "body_in_receipt": false,
+        "capsule_action": "import_under_bound_or_absent_macro_mechanism",
+        "mechanism_id": "macro_regime_board_bucketing_zscore_engine",
+        "negative_case_id": "macro_regime_unknown_routes_other",
+        "source_refs": [
+          "system/lib/quant_presentation_mart.py"
+        ]
+      },
+      {
+        "binding_disposition": "copied_dormant_under_bound_capsule_import",
+        "body_in_receipt": false,
+        "capsule_action": "import_under_bound_or_absent_macro_mechanism",
+        "mechanism_id": "frontend_nav_graph_wayfinding_engine",
+        "negative_case_id": "frontend_nav_unreachable_target",
+        "source_refs": [
+          "tools/meta/observability/frontend_nav_graph.py"
+        ]
+      },
+      {
+        "binding_disposition": "copied_dormant_under_bound_capsule_import",
+        "body_in_receipt": false,
+        "capsule_action": "import_under_bound_or_absent_macro_mechanism",
+        "mechanism_id": "agent_session_diagnostic_lens_engine",
+        "negative_case_id": "session_no_nav_verbs_no_ladder_skip",
+        "source_refs": [
+          "tools/meta/observability/session_analyzer.py"
+        ]
+      },
+      {
+        "binding_disposition": "already_bound_batch7_demo_take_capsule_batch11_verifies_scoring_path",
+        "body_in_receipt": false,
+        "capsule_action": "validate_existing_bound_gate",
+        "mechanism_id": "demo_take_story_coverage_audit",
+        "negative_case_id": "demo_take_missing_anchor_penalized",
+        "source_refs": [
+          "tools/meta/dissemination/demo_take_story_package.py"
+        ]
+      }
+    ],
+    "tier_b_controller_verification_count": 6
+  },
+  "expected_negative_cases": [
+    "calculator_zero_bucket_no_fake_dominance",
+    "demo_take_missing_anchor_penalized",
+    "exogenous_nav_wrong_route_graded_down",
+    "frontend_nav_unreachable_target",
+    "holographic_no_overlap_no_fake_edge",
+    "macro_regime_unknown_routes_other",
+    "portability_unresolved_hard_fail_blocks",
+    "projection_secret_token_blocks",
+    "run_affinity_stale_terminal_rejected",
+    "session_no_nav_verbs_no_ladder_skip",
+    "shard_multimatch_context_priority",
+    "std_python_new_gap_blocks",
+    "stockgrid_units_normalized_not_zeroed"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch11_saturation_engines_capsule",
+  "input_count": 1,
+  "input_mode": "exported_batch11_saturation_engines_capsule_bundle",
+  "input_ref": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "calculator_zero_bucket_no_fake_dominance",
+    "demo_take_missing_anchor_penalized",
+    "exogenous_nav_wrong_route_graded_down",
+    "frontend_nav_unreachable_target",
+    "holographic_no_overlap_no_fake_edge",
+    "macro_regime_unknown_routes_other",
+    "portability_unresolved_hard_fail_blocks",
+    "projection_secret_token_blocks",
+    "run_affinity_stale_terminal_rejected",
+    "session_no_nav_verbs_no_ladder_skip",
+    "shard_multimatch_context_priority",
+    "std_python_new_gap_blocks",
+    "stockgrid_units_normalized_not_zeroed"
+  ],
+  "organ_id": "batch11_saturation_engines_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_board.json",
+    "receipts/runtime_shell/demo_project/organs/batch11_saturation_engines_capsule/batch11_saturation_engines_capsule_validation_receipt.json"
+  ],
+  "schema_version": "batch11_saturation_engines_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 14,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+    "module_count": 12,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 141,
+        "expected_sha256": "7bc9233b942f2e6cd852a9ffe94e3ee9d753f1dba153e260662a73890fb127fb",
+        "line_count": 141,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/system/server/ui/src/utils/runAffinity.ts",
+        "required_anchor_count": 3,
+        "sha256": "7bc9233b942f2e6cd852a9ffe94e3ee9d753f1dba153e260662a73890fb127fb",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/utils/runAffinity.ts",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/utils/runAffinity.ts"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 342,
+        "expected_sha256": "f59676d30900325b324a2a07ec79f45cbca37698a2e9b4c60a9cfdb9ace1b5fb",
+        "line_count": 342,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/system/server/ui/src/lib/calculatorInsight.ts",
+        "required_anchor_count": 3,
+        "sha256": "f59676d30900325b324a2a07ec79f45cbca37698a2e9b4c60a9cfdb9ace1b5fb",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/lib/calculatorInsight.ts",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/lib/calculatorInsight.ts"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2767,
+        "expected_sha256": "79970a3e60e642c88460db8e31b96f008b5475770d69ebcdfb598fee7af510f4",
+        "line_count": 2767,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/system/lib/kernel/commands/apply.py",
+        "required_anchor_count": 3,
+        "sha256": "79970a3e60e642c88460db8e31b96f008b5475770d69ebcdfb598fee7af510f4",
+        "source_exists": true,
+        "source_ref": "system/lib/kernel/commands/apply.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/kernel/commands/apply.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 459,
+        "expected_sha256": "610d47a3c85689b5402fa73c9d7b80fa79007296b4d56434327e2681efada601",
+        "line_count": 459,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/observability/exogenous_nav_ladder_grader.py",
+        "required_anchor_count": 3,
+        "sha256": "610d47a3c85689b5402fa73c9d7b80fa79007296b4d56434327e2681efada601",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/exogenous_nav_ladder_grader.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/exogenous_nav_ladder_grader.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1285,
+        "expected_sha256": "dcb9b18f2d05d375819efa72fa467ee8ace37133d286780edf6124dfde54705a",
+        "line_count": 1285,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/dissemination/portability_gate.py",
+        "required_anchor_count": 3,
+        "sha256": "dcb9b18f2d05d375819efa72fa467ee8ace37133d286780edf6124dfde54705a",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/portability_gate.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/portability_gate.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2161,
+        "expected_sha256": "8bb2b1b8233f4c3bf420c73d06f9ca4988b0f82c10760dc7f10282683b3df9ef",
+        "line_count": 2161,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/system/server/ui/src/components/world/ShardsLens.tsx",
+        "required_anchor_count": 3,
+        "sha256": "8bb2b1b8233f4c3bf420c73d06f9ca4988b0f82c10760dc7f10282683b3df9ef",
+        "source_exists": true,
+        "source_ref": "system/server/ui/src/components/world/ShardsLens.tsx",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/components/world/ShardsLens.tsx"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 3859,
+        "expected_sha256": "ce39b4efe355d1e8181cf5825f829a2714ebccbf64aec1044e136d33175c91e8",
+        "line_count": 3859,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/dissemination/build_holographic_research_bundle.py",
+        "required_anchor_count": 3,
+        "sha256": "ce39b4efe355d1e8181cf5825f829a2714ebccbf64aec1044e136d33175c91e8",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/build_holographic_research_bundle.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/build_holographic_research_bundle.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 266,
+        "expected_sha256": "b7003419c2a85f3154ae8ac52a6575c12bef45ffb7fa198f156f53dfa4bb82d3",
+        "line_count": 266,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/dissemination/projection_secret_scan.py",
+        "required_anchor_count": 3,
+        "sha256": "b7003419c2a85f3154ae8ac52a6575c12bef45ffb7fa198f156f53dfa4bb82d3",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/projection_secret_scan.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/projection_secret_scan.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2043,
+        "expected_sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+        "line_count": 2043,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/system/lib/quant_presentation_mart.py",
+        "required_anchor_count": 3,
+        "sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+        "source_exists": true,
+        "source_ref": "system/lib/quant_presentation_mart.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/quant_presentation_mart.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 4463,
+        "expected_sha256": "09f5a783e7097c5b8b313d31872af7a6312e4c53a8b28dc16786a50bb65d527e",
+        "line_count": 4463,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/observability/frontend_nav_graph.py",
+        "required_anchor_count": 3,
+        "sha256": "09f5a783e7097c5b8b313d31872af7a6312e4c53a8b28dc16786a50bb65d527e",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/frontend_nav_graph.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/frontend_nav_graph.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 6196,
+        "expected_sha256": "500fe8244fb4576eddaca1697376c5285453252d95cccffa05a8ab630d0325b3",
+        "line_count": 6196,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
+        "required_anchor_count": 3,
+        "sha256": "500fe8244fb4576eddaca1697376c5285453252d95cccffa05a8ab630d0325b3",
+        "source_exists": true,
+        "source_ref": "tools/meta/observability/session_analyzer.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/session_analyzer.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 1940,
+        "expected_sha256": "1dfe86ef495ddfef58ba44fd99fdeb748181a85ae57a0b271f6758586cb4f85b",
+        "line_count": 1940,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/ai_workflow/tools/meta/dissemination/demo_take_story_package.py",
+        "required_anchor_count": 3,
+        "sha256": "1dfe86ef495ddfef58ba44fd99fdeb748181a85ae57a0b271f6758586cb4f85b",
+        "source_exists": true,
+        "source_ref": "tools/meta/dissemination/demo_take_story_package.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/demo_take_story_package.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 10,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/utils/runAffinity.ts",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/lib/calculatorInsight.ts",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/kernel/commands/apply.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/exogenous_nav_ladder_grader.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/portability_gate.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/server/ui/src/components/world/ShardsLens.tsx",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/build_holographic_research_bundle.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/projection_secret_scan.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/system/lib/quant_presentation_mart.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/frontend_nav_graph.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/demo_take_story_package.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch11_saturation_engines_capsule"
+}

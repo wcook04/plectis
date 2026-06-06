@@ -1,0 +1,441 @@
+{
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_feature_registry_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "reader_rule": "A real pressure activation must record the transformation/proof commitment that carried the pressure; a mechanism row cannot pass as feature prose or a frontend plan.",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "mechanism_role",
+      "concept_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ]
+  },
+  "anti_claims": [
+    "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+    "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+    "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_mechanism_json_seeded_from_mechanism_registry_not_authority_flip_until_parity_receipt",
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for premise retrieval fixture validation, exported-bundle validation, source/body-floor scanning, negative-case enforcement, card freshness, and body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_retrieval_bundle",
+        "_build_result",
+        "_scan_input_paths",
+        "_retrieval_bundle_freshness_basis",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING",
+        "BUNDLE_RESULT_NAME",
+        "CARD_SCHEMA_VERSION"
+      ]
+    }
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
+  "id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+  "kind": "mechanism",
+  "mechanism_payload": {
+    "contract_version": "microcosm_mechanism_instance_payload_v1",
+    "guardrails": [
+      "retrieval_scores_are_metadata_not_theorem_correctness_or_proof_authority",
+      "proof_bodies_forbidden_in_premise_rows_manifests_and_receipts",
+      "oracle_needed_premise_ids_forbidden_in_public_query_rows",
+      "test_split_tuning_attempts_must_be_rejected",
+      "context_recipe_byte_budgets_must_be_enforced",
+      "unknown_strategy_ids_must_be_rejected",
+      "source_module_and_body_floor_manifests_require_public_relative_digest_provenance",
+      "provider_release_publication_benchmark_Lean_Lake_Mathlib_and_source_mutation_claims_forbidden"
+    ],
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/mechanism_sources.json"
+    },
+    "population_binding": {
+      "anti_claims": [
+        "This mechanism JSON seed does not flip source authority away from core/mechanism_sources.json.",
+        "Resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness.",
+        "Absent concept or sibling mechanism edges are residual pressure, not evidence that no neighbours exist.",
+        "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+      ],
+      "concept_pair_ref": "formal_math_and_proof_witness_bundle.concept_binding",
+      "mechanism_role": "family validators that separate theorem-prover evidence, diagnostic evidence, provider suggestions, and proof-adjacent receipts",
+      "omission_receipt": {
+        "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+        "omitted": [
+          "private macro source bodies",
+          "raw operator voice",
+          "provider payload bodies",
+          "runtime outputs beyond named public receipt refs"
+        ],
+        "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+        "residual_pressure": [
+          {
+            "gap_class": "mechanism_selective_edges_unpopulated",
+            "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+            "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+          }
+        ]
+      },
+      "source_refs": [
+        "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+        "fixtures/first_wave/formal_math_premise_retrieval/input",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_body_floor/source_module_manifest.json",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens[7:formal_math_and_proof_witness_bundle]"
+      ],
+      "state_or_proof_effect": "proof-related artifacts expose bounded witness status without claiming theorem completeness or provider proof authority",
+      "transformation_shape": "formal-math fixture or copied public bundle -> verifier/evidence validator -> bounded receipt categories",
+      "validator_refs": [
+        "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+      ]
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.md",
+      "markdown_status": "generated_projection",
+      "registry_status": "current_source_of_record_until_parity_flip",
+      "source_json_rel": "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json"
+    },
+    "projection_hooks": [
+      "markdown_reference",
+      "mermaid_graph",
+      "atlas_card",
+      "coverage_health",
+      "source_language_inventory"
+    ],
+    "resolution_evidence": {
+      "authority_class": "source_assertion",
+      "evidence_rank": 3,
+      "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+      "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_math_premise_retrieval.py -q",
+      "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval --acceptance-out receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
+    },
+    "source_registry_row": {
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for premise retrieval fixture validation, exported-bundle validation, source/body-floor scanning, negative-case enforcement, card freshness, and body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_retrieval_bundle",
+            "_build_result",
+            "_scan_input_paths",
+            "_retrieval_bundle_freshness_basis",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "BUNDLE_RESULT_NAME",
+            "CARD_SCHEMA_VERSION"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "guardrails": [
+        "retrieval_scores_are_metadata_not_theorem_correctness_or_proof_authority",
+        "proof_bodies_forbidden_in_premise_rows_manifests_and_receipts",
+        "oracle_needed_premise_ids_forbidden_in_public_query_rows",
+        "test_split_tuning_attempts_must_be_rejected",
+        "context_recipe_byte_budgets_must_be_enforced",
+        "unknown_strategy_ids_must_be_rejected",
+        "source_module_and_body_floor_manifests_require_public_relative_digest_provenance",
+        "provider_release_publication_benchmark_Lean_Lake_Mathlib_and_source_mutation_claims_forbidden"
+      ],
+      "id": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+      "input_refs": [
+        "fixtures/first_wave/formal_math_premise_retrieval/input",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_body_floor/source_module_manifest.json"
+      ],
+      "kind": "mechanism",
+      "projection_hooks": [
+        "markdown_reference",
+        "mermaid_graph",
+        "atlas_card",
+        "coverage_health",
+        "source_language_inventory"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+        "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+        "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+      ],
+      "resolution_evidence": {
+        "authority_class": "source_assertion",
+        "evidence_rank": 3,
+        "exported_bundle_validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+        "focused_regression": "PYTHONPATH=src ../repo-pytest tests/test_formal_math_premise_retrieval.py -q",
+        "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval --acceptance-out receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
+      },
+      "runs_in": [
+        "formal_math_premise_retrieval"
+      ],
+      "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+      "statement": "The formal math premise retrieval organ validates a public-safe formal-math retrieval slice by checking copied Lean/Std premise descriptors, retrieval query scoring, context recipe byte budgets, strategy gates, source-module/body-floor provenance, card freshness, body-free receipt policy, and proof/oracle/test-split/strategy negative cases before writing bounded receipts.",
+      "status": "active",
+      "upstream_of": [
+        "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
+        "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
+        "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection",
+        "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
+        "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+      ]
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "code_locus_and_registry_grounding_computed_in_projection_not_asserted_as_correctness"
+    }
+  },
+  "omission_receipt": {
+    "drilldown": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipt refs"
+    ],
+    "reason": "Mechanism instance preserves public-safe mechanism registry fields and code-locus refs only.",
+    "residual_pressure": [
+      {
+        "gap_class": "mechanism_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind mechanism grounds/upstream edges from source evidence; required code-locus gaps must stay explicit when present."
+      }
+    ]
+  },
+  "organ_refs": [
+    "formal_math_premise_retrieval"
+  ],
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient.",
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ]
+  },
+  "receipt_refs": [
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+    "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "relationships": {
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for premise retrieval fixture validation, exported-bundle validation, source/body-floor scanning, negative-case enforcement, card freshness, and body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_retrieval_bundle",
+          "_build_result",
+          "_scan_input_paths",
+          "_retrieval_bundle_freshness_basis",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "BUNDLE_RESULT_NAME",
+          "CARD_SCHEMA_VERSION"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.formal_math_and_proof_witness_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].code_loci[0]",
+          "summary": "Mechanism registry row names this code locus as the runtime grounding path."
+        },
+        "relation_id": "mechanism.grounded_in.code_locus",
+        "relation_verb": "grounded_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].runs_in",
+          "summary": "Mechanism registry row names this organ as the runtime host."
+        },
+        "relation_id": "mechanism.runs_in.organ",
+        "relation_verb": "runs_in",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operates_through",
+        "target_id": "formal_math_premise_retrieval",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].concept_refs",
+          "summary": "Mechanism registry row names this concept grounding target."
+        },
+        "relation_id": "mechanism.grounds.concept",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "concept.formal_math_and_proof_witness_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice].upstream",
+          "summary": "Mechanism registry row names this upstream/downstream mechanism relation."
+        },
+        "relation_id": "mechanism.upstream_of.mechanism",
+        "relation_verb": "upstream_of",
+        "residual_pressure_ref": null,
+        "reverse_verb": "downstream_of",
+        "target_id": "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "runs_in": [
+      "formal_math_premise_retrieval"
+    ],
+    "source_registry_row_ref": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+    "unpopulated_selective_relations": [],
+    "upstream_mechanism_refs": [
+      "mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle",
+      "mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog",
+      "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection",
+      "mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution",
+      "mechanism.verifier_lab_kernel.composes_public_formal_math_receipts"
+    ]
+  },
+  "schema_version": "microcosm_mechanism_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/mechanism_sources.json::mechanisms[27:mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice]",
+      "role": "mechanism_registry_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "fixtures/first_wave/formal_math_premise_retrieval/input",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+      "role": "mechanism_input_ref"
+    },
+    {
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_body_floor/source_module_manifest.json",
+      "role": "mechanism_input_ref"
+    }
+  ],
+  "statement": "The formal math premise retrieval organ validates a public-safe formal-math retrieval slice by checking copied Lean/Std premise descriptors, retrieval query scoring, context recipe byte budgets, strategy gates, source-module/body-floor provenance, card freshness, body-free receipt policy, and proof/oracle/test-split/strategy negative cases before writing bounded receipts.",
+  "status": "active",
+  "title": "validates public premise retrieval slice",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ]
+}

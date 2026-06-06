@@ -1,0 +1,57 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_macro_prediction_market_board_body_copied_into_public_source_module_bundle",
+  "bundle_id": "public_batch12_prediction_market_board_capsule_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "batch12_prediction_market_board_capsule_source_open_body_import",
+  "module_count": 1,
+  "modules": [
+    {
+      "anchor_count": 10,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 88930,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 2043,
+      "material_class": "public_macro_tool_body",
+      "module_id": "batch12_quant_presentation_mart_macro_body_import",
+      "path": "source_modules/system/lib/quant_presentation_mart.py",
+      "required_anchors": [
+        "def _prediction_market_board",
+        "def _polymarket_identity_by_slug",
+        "event_identity_status",
+        "duplicate_index",
+        "def _provider_drift_monitor",
+        "def _missingness_board",
+        "def _delta_since_previous_green",
+        "def _macro_lifecycle_by_slug",
+        "def _macro_regime_board",
+        "vintage_metadata_present"
+      ],
+      "sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/quant_presentation_mart.py",
+      "source_role": "Macro quant presentation mart body containing the prediction-market event identity join, dedup, and aggregate engine.",
+      "source_sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle/source_modules/system/lib/quant_presentation_mart.py",
+      "target_sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch12_prediction_market_board_capsule.py::test_batch12_prediction_market_board_capsule_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_batch12_prediction_market_board_capsule.py::test_batch12_prediction_market_board_capsule_runs_macro_mechanisms"
+      ]
+    }
+  ],
+  "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",
+  "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "schema_version": "public_microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_batch12_prediction_market_board_capsule.py::test_batch12_prediction_market_board_capsule_source_modules_are_exact_macro_body_imports",
+    "microcosm-substrate/tests/test_batch12_prediction_market_board_capsule.py::test_batch12_prediction_market_board_capsule_bundle_validates_runtime_shape"
+  ]
+}

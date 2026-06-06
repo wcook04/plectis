@@ -1,0 +1,159 @@
+{
+  "schema_version": "microcosm_public_site_source_handoff_v1",
+  "receipt_id": "cold_reader_route_map_site_handoff_20260604T1956Z",
+  "created_at": "2026-06-04T19:56:00Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T195613Z_microcosm_cold_reader_site_handoff_20260604t1956z",
+  "subject_id": "paper_module.cold_reader_route_map",
+  "source_authority": {
+    "capsule_registry_ref": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[13:paper_module.cold_reader_route_map]",
+    "authored_markdown_projection": "microcosm-substrate/paper_modules/cold_reader_route_map.md",
+    "generated_json_sidecar": "microcosm-substrate/paper_modules/cold_reader_route_map.json",
+    "source_authority": "json_capsule",
+    "markdown_role": "reader_projection_over_json_capsule_not_source_authority"
+  },
+  "source_patch": {
+    "kind": "authored_markdown_public_site_boundary",
+    "changed_fields": [
+      "public_site_availability_boundary"
+    ],
+    "live_generated_row_readback": {
+      "edge_count": 22,
+      "unresolved_selective_relation_count": 0,
+      "mermaid_status": "available_from_capsule_edges",
+      "atlas_card_status": "linked_from_capsule_edges",
+      "depends_on": [
+        "paper_module.navigation_hologram_route_plane",
+        "paper_module.agent_route_observability_runtime",
+        "paper_module.pattern_binding_contract"
+      ]
+    }
+  },
+  "public_safety": {
+    "status": "public_safe_source_projection",
+    "allowed_material": [
+      "public route ids",
+      "command refs",
+      "docs refs",
+      "receipt refs",
+      "evidence classes",
+      "anti-claims",
+      "authority ceilings",
+      "manifest refs",
+      "digests",
+      "body_in_receipt false markers"
+    ],
+    "excluded_material": [
+      "private source bodies",
+      "provider payloads",
+      "account or session material",
+      "browser or HUD state",
+      "recipient state",
+      "secrets",
+      "credential-equivalent live-access data",
+      "route-registry mutation authority"
+    ],
+    "release_authority": false,
+    "hosted_product_authority": false,
+    "provider_authority": false,
+    "source_mutation_authority": false,
+    "whole_system_correctness_authority": false
+  },
+  "site_availability": {
+    "status": "source_ready_for_existing_builder",
+    "site_output_mode": "builder_projection_required",
+    "tracked_site_outputs_written_by_this_receipt": false,
+    "existing_builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "tracked_refresh_reentry_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate && ./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "builder_refresh_surfaces": [
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/llms.txt"
+    ],
+    "temp_site_root": "/tmp/microcosm-cold-reader-site-stable-20260604T2000Z",
+    "temp_routeability_status": "partially_verified_by_surface_role",
+    "verified_routeability": [
+      {
+        "surface": "content_graph",
+        "path": "/tmp/microcosm-cold-reader-site-stable-20260604T2000Z/content-graph.json",
+        "check": "rg -q \"paper_module.cold_reader_route_map\"",
+        "status": "pass",
+        "role": "paper_module_identity_and_relation_graph"
+      },
+      {
+        "surface": "object_map",
+        "path": "/tmp/microcosm-cold-reader-site-stable-20260604T2000Z/object-map.json",
+        "check": "rg -q \"paper_module:paper_module.cold_reader_route_map\"",
+        "status": "pass",
+        "role": "linkable_object_route"
+      },
+      {
+        "surface": "search_index",
+        "path": "/tmp/microcosm-cold-reader-site-stable-20260604T2000Z/assets/search-index.js",
+        "check": "rg -q \"Cold-Reader Route Map\"",
+        "status": "pass",
+        "role": "searchable_module_title_and_component_card"
+      },
+      {
+        "surface": "paper_modules_page",
+        "path": "/tmp/microcosm-cold-reader-site-stable-20260604T2000Z/docs/paper-modules.html",
+        "check": "rg -n -m 5 \"Cold-Reader Route Map|cold_reader_route_map\"",
+        "status": "pass",
+        "role": "paper_module_card_and_dependency_links"
+      }
+    ],
+    "non_equivalent_surfaces": [
+      {
+        "surface": "llms_txt",
+        "check": "rg -q \"cold_reader_route_map\"",
+        "status": "not_exact_module_handle_projection",
+        "meaning": "The generated llms.txt surface is not the proof surface for this paper-module handle."
+      },
+      {
+        "surface": "paper_modules_page_body",
+        "check": "rg -q \"public-site handoff receipt\"",
+        "status": "not_exact_body_projection",
+        "meaning": "The paper-module page exposes the card, rule-feed links, source link, and route-map body context; this exact Markdown sentence is not the availability proof."
+      }
+    ],
+    "handoff_boundary": "Do not hand-edit generated site outputs; refresh through the existing builder after source-input ownership is safe. Treat generated surfaces as role-specific projections, not equivalent full-body mirrors."
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/cold_reader_route_map_site_handoff_20260604T1956Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "summary": {
+          "actual_count": 98,
+          "expected_count": 98
+        }
+      },
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py microcosm-substrate/tests/test_batch12_release_claim_language_gate.py -q --basetemp /tmp/microcosm-cold-reader-site-coverage-20260604T1958Z",
+        "status": "pass",
+        "summary": "47 passed"
+      },
+      {
+        "command": "jq -r '[.id, (.relationships.edges | length), ((.relationships.unpopulated_selective_relations // []) | length), .paper_module_payload.generated_projections.mermaid.status, .paper_module_payload.generated_projections.atlas_card.status] | @tsv' microcosm-substrate/paper_modules/cold_reader_route_map.json",
+        "status": "pass",
+        "summary": "paper_module.cold_reader_route_map\t22\t0\tavailable_from_capsule_edges\tlinked_from_capsule_edges"
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-cold-reader-site-stable-20260604T2000Z --write --validate",
+        "status": "pass",
+        "summary": {
+          "validation_status": "pass",
+          "internal_links_missing": 0,
+          "public_safety_scan_hit_count": 0,
+          "written_count": 13
+        }
+      }
+    ]
+  }
+}

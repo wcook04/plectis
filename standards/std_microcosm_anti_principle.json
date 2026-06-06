@@ -68,7 +68,9 @@
     "receipt.microcosm.anti_principle",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipt.microcosm.anti_principle"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 151,
@@ -114,7 +116,7 @@
     "anti_claims",
     "anti_principle_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -166,7 +168,7 @@
     "rebuild_action": "draft",
     "teleology": "Make anti-goals executable and testable instead of leaving them as prose warnings."
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -183,6 +185,197 @@
     "required": true,
     "validator_id": "validator.microcosm.anti_principle"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "validator.microcosm.anti_principle"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/anti_principles/*.json",
+  "doctrine_kind_envelope": {
+    "governed_by": "std_microcosm_standard",
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown/mermaid/atlas are generated projections of this JSON source."
+  },
+  "instance_schema": {
+    "required_keys": [
+      "id",
+      "kind",
+      "failure_statement",
+      "status"
+    ],
+    "optional_keys": [
+      "negates",
+      "detection_signals",
+      "prevention",
+      "guards"
+    ],
+    "field_semantics": {
+      "failure_statement": "the failure shape the substrate rejects",
+      "negates": "principle(s) whose failure this names"
+    }
+  },
+  "anti_principle_payload_contract": {
+    "contract_version": "microcosm_anti_principle_payload_contract_v1",
+    "purpose": "Define how anti-principles route failure and rejection pressure without becoming positive support evidence or verified anti-axiom rejection.",
+    "rejection_mapping_boundary_contract": {
+      "instance_payload_field": "anti_principle_payload",
+      "anti_principle_to_substrate_fields": [
+        "guards",
+        "negates",
+        "anti_principle_payload.guarded_principle_ids",
+        "relationships.guarded_axiom_refs",
+        "relationships.negates_principle_ids",
+        "relationships.edges",
+        "relationships.unpopulated_selective_relations"
+      ],
+      "accepted_source_refs": [
+        "ANTI_PRINCIPLES.md legacy violated-axiom rows",
+        "core/axiom_organ_routing.json anti_principle_ids plus principle_ids on the same axiom row"
+      ],
+      "rejection_mapping_fields": [
+        "relationships.edges[].relation_id",
+        "relationships.edges[].justification.source_ref",
+        "relationships.unpopulated_selective_relations[].reason",
+        "anti_principle_payload.guarded_axiom_ids",
+        "anti_principle_payload.guarded_principle_ids"
+      ],
+      "non_laundering_rules": [
+        "anti-principle guards are failure and routing boundaries, not positive support for axioms",
+        "anti_principle_payload.guarded_principle_ids mirrors negates_failure_of routing and cannot certify principle support or falsity",
+        "anti_principle.negates_failure_of edges name principle-failure guards, not proof that the principle is false or unsupported",
+        "anti-axiom rejection mapping remains governed by std_microcosm_axiom.axiom_payload_contract.anti_axiom_rejection_contract; anti-principle edges cannot verify exact per-obligation rejection",
+        "negative-case receipts and endpoint coverage may raise routing pressure but cannot certify rejection without source-owned obligation mapping",
+        "generated markdown, graph, health, and atlas projections cannot be read back as source evidence"
+      ],
+      "residual_policy": {
+        "unpopulated_selective_relations": "typed residual pressure until source authority names a resolvable principle failure target",
+        "projection_gap_status": "trust_downgrade_not_source_evidence"
+      }
+    }
+  },
+  "lattice_edges": {
+    "required": [],
+    "selective": [
+      {
+        "to_kind": "principle",
+        "relation_verb": "negates_failure_of",
+        "reverse_verb": "failure_guarded_by",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      },
+      {
+        "to_kind": "axiom",
+        "relation_verb": "guards",
+        "reverse_verb": "guarded_by",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      }
+    ],
+    "edge_shape": [
+      "to_kind",
+      "relation_verb",
+      "reverse_verb",
+      "cardinality",
+      "requirement"
+    ],
+    "cardinality_enum": [
+      "one_to_one",
+      "one_to_many",
+      "zero_to_one",
+      "zero_to_many"
+    ],
+    "requirement_enum": [
+      "required",
+      "selective",
+      "forbidden"
+    ],
+    "bidirectional_gloss_required": true
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.anti_principle.author",
+      "status": "planned",
+      "purpose": "create a valid anti_principle instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.anti_principle.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing anti_principle without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.anti_principle.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_anti_principle and propagate through every governed artifact + projection"
+    }
+  },
+  "projections": {
+    "markdown": {
+      "generated": true,
+      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py (PLANNED)",
+      "path_pattern": "microcosm-substrate/anti_principles/<id>.md",
+      "note": "human-readable projection; never source"
+    },
+    "mermaid": {
+      "generated": true,
+      "compiled_from": "lattice_edges + instance edges",
+      "note": "diagram projection; never source"
+    },
+    "atlas_card": {
+      "generated": true,
+      "surface": "agent entry / option-surface band / atlas card",
+      "note": "agent-routing projection; must link back to JSON source"
+    }
+  },
+  "validation": {
+    "schema_check": {
+      "required": true,
+      "validator_id": "validator.microcosm.anti_principle",
+      "rule": "instance validates against instance_schema"
+    },
+    "link_resolution": {
+      "required": true,
+      "rule": "every required/selective lattice edge target must resolve to an existing instance id OR be marked planned"
+    },
+    "projection_freshness": {
+      "required": true,
+      "rule": "generated markdown/mermaid/atlas must be regenerable from JSON source; a stale projection is a trust downgrade, not source authority"
+    }
+  },
+  "compression": {
+    "rule": "Russian-rule fan-in-weighted compression (see macro std_paper_module.compression_formula)",
+    "required_on_instance": [
+      "one_line"
+    ],
+    "one_line_max_chars": 160,
+    "bands": [
+      "one_line",
+      "card",
+      "tldr"
+    ],
+    "purpose": "one_line drives the compressed per-instance row projection (e.g. the 77-organ atlas) for agent entry + routing"
+  },
+  "provisional_policy": {
+    "public_source_status": "active",
+    "proof_required_for_axiom": false,
+    "axiom_posture": "imposed constitutional commitment; provenance optional; never evidence-gated",
+    "principle_posture": "operative commitment authored substantively",
+    "forbidden_shipped_status": [
+      "candidate",
+      "provisional",
+      "seed",
+      "draft"
+    ],
+    "candidate_lane": "candidate/provisional doctrine may exist ONLY in an explicit import/drafting lane OUTSIDE public source, never as a shipped public-doctrine status",
+    "overrides": "macro candidate-axiom 'pressure only / not active law' posture does NOT apply to shipped microcosm public doctrine"
+  },
+  "refinement_provenance": {
+    "refined_by": "claude_code",
+    "wave": "microcosm_doctrine_kind_envelope_v2",
+    "workflow_run": "wf_7540e090-390",
+    "cap": "cap_quick_microcosm_doctrine_kind_standard_refinem_1a57b8a34ca3",
+    "base": "public_microcosm_standard_v1 @ git HEAD",
+    "method": "additive_envelope_merge; required_fields/authority_ceiling/anti_claims preserved verbatim; envelope landed as new keys (not via required_fields)"
+  }
 }

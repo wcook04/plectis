@@ -794,6 +794,13 @@ FAST_CLUSTER_FIRST_COMMAND_OVERRIDES: dict[str, str] = {
     "frontend_views": "./repo-python kernel.py --option-surface frontend_views --band cluster_flag",
     "type_a_autonomous_seeds": "./repo-python kernel.py --option-surface type_a_autonomous_seeds --band cluster_flag",
 }
+FAST_KIND_ATLAS_CACHE_NODE_ID = "kind_atlas.fast_rows.system_atlas"
+FAST_KIND_ATLAS_CACHE_INPUTS = (
+    Path("system/lib/kind_atlas.py"),
+    SYSTEM_ATLAS_GRAPH,
+    PAPER_MODULE_INDEX,
+    COGNITIVE_OPERATOR_REGISTRY,
+)
 
 
 def _fast_kind_command(kind_id: str, metrics: Mapping[str, Any]) -> tuple[str | None, str | None]:
@@ -863,6 +870,24 @@ def _fast_type_a_autonomous_seed_count(repo_root: Path) -> int:
     if not seeds_root.exists():
         return 0
     return sum(1 for _path in seeds_root.glob("*_autonomous_seed.json"))
+
+
+def _fast_type_a_autonomous_seed_cache_fingerprint(repo_root: Path) -> dict[str, Any]:
+    seeds_root = repo_root / TYPE_A_AUTONOMOUS_SEED_ROOT
+    if not seeds_root.exists():
+        return {"exists": False, "count": 0, "max_mtime_ns": 0}
+    count = 0
+    max_mtime_ns = 0
+    for path in seeds_root.glob("*_autonomous_seed.json"):
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        if not path.is_file():
+            continue
+        count += 1
+        max_mtime_ns = max(max_mtime_ns, stat.st_mtime_ns)
+    return {"exists": True, "count": count, "max_mtime_ns": max_mtime_ns}
 
 
 def _fast_type_a_autonomous_seed_row(repo_root: Path) -> dict[str, Any]:
@@ -1004,6 +1029,32 @@ def _fast_rows_from_system_atlas(root: Path) -> list[dict[str, Any]]:
         rows.append(_fast_type_a_autonomous_seed_row(root))
     rows.sort(key=lambda row: (FAST_KIND_ORDER_INDEX.get(str(row.get("kind_id") or ""), 10_000), str(row.get("kind_id") or "")))
     return rows
+
+
+def _cached_fast_rows_from_system_atlas(root: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    from system.lib.command_node_cache import cached_command_node
+
+    def build() -> list[dict[str, Any]]:
+        return _fast_rows_from_system_atlas(root)
+
+    payload, cache_status = cached_command_node(
+        root,
+        node_id=FAST_KIND_ATLAS_CACHE_NODE_ID,
+        key={
+            "kind": "fast_kind_atlas_rows",
+            "band": "flag",
+            "source": "system_atlas_fast_rows",
+            "schema": "kind_atlas_v0",
+            "type_a_autonomous_seed_fingerprint": _fast_type_a_autonomous_seed_cache_fingerprint(root),
+        },
+        input_paths=FAST_KIND_ATLAS_CACHE_INPUTS,
+        ttl_s=300.0,
+        builder=build,
+        freshness_policy="ttl_plus_fast_kind_atlas_manifest_and_seed_fingerprint",
+        dynamic_inputs_manifested=True,
+    )
+    rows = [dict(row) for row in list(payload or []) if isinstance(row, Mapping)]
+    return rows, cache_status
 
 
 def _build_rows(root: Path, *, band: str, include_generated: bool = True) -> list[dict[str, Any]]:
@@ -2269,9 +2320,14 @@ def build_kind_atlas(
         selected_ids = [str(item).strip() for item in ids if str(item).strip()]
 
     fast_path = bool(fast and normalized_band == "flag")
-    rows = _fast_rows_from_system_atlas(root) if fast_path else _build_rows(root, band=normalized_band)
+    fast_cache_status: dict[str, Any] | None = None
+    if fast_path:
+        rows, fast_cache_status = _cached_fast_rows_from_system_atlas(root)
+    else:
+        rows = _build_rows(root, band=normalized_band)
     if fast_path and not rows:
         fast_path = False
+        fast_cache_status = None
         rows = _build_rows(root, band=normalized_band)
     rows_by_id = {row["kind_id"]: row for row in rows}
     if selected_ids:
@@ -2316,6 +2372,11 @@ def build_kind_atlas(
         },
         "profile_status": "supported",
         "projection_profile": "system_atlas_fast_rows" if fast_path else "live_source_rows",
+        "cache": {
+            "fast_rows": fast_cache_status,
+        }
+        if fast_cache_status
+        else {},
         "authority_posture": "standard_owned_projection_not_source_authority",
         "governing_standard": {"ref": str(KIND_ATLAS_STANDARD), "owned_bands": ["flag", "card"]},
         "source_refs": [

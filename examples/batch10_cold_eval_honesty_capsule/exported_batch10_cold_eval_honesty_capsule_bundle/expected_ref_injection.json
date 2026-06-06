@@ -1,0 +1,11 @@
+{
+  "body_in_receipt": false,
+  "case_id": "expected_ref_injection",
+  "schema_version": "batch10_cold_eval_workspace_mutation_negative_case_v1",
+  "workspace_mutation": {
+    "field": "expected_ref_injection_allowed",
+    "kind": "set_manifest_field",
+    "path": "batch10_cold_eval_exercise_manifest.json",
+    "value": true
+  }
+}

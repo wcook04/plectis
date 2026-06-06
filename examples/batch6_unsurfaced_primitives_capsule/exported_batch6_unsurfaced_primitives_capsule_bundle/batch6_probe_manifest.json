@@ -1,0 +1,110 @@
+{
+  "schema_version": "batch6_unsurfaced_primitives_capsule_probe_manifest_v1",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "body_in_receipt": false,
+  "mechanisms": [
+    {
+      "mechanism_id": "raw_seed_keyphrase_engine",
+      "source_module_ids": [
+        "raw_seed_keyphrase",
+        "raw_seed_spelling",
+        "raw_seed_smart_stoplist"
+      ],
+      "public_exercise": "Execute copied RAKE/topic-hint helpers over public text and prove stopword-only text emits no phrase candidates.",
+      "negative_case": "stopword_only_keyphrase_empty",
+      "claim_ceiling": "Navigation hint scoring only; not raw-seed semantic truth or operator voice export."
+    },
+    {
+      "mechanism_id": "schema_loose_distillation_index",
+      "source_module_ids": [
+        "schema_loose_distillation_index"
+      ],
+      "public_exercise": "Execute copied diagnostic distiller on public assistant/user-tail payloads and prove source roles remain distinct.",
+      "negative_case": "schema_loose_voice_conflation",
+      "claim_ceiling": "Distillation projection only; not capture authority or body persistence."
+    },
+    {
+      "mechanism_id": "operator_handoff_linkage",
+      "source_module_ids": [
+        "operator_handoff_linkage",
+        "prompt_shelf_fingerprints"
+      ],
+      "public_exercise": "Execute copied Type-B to Type-A scorer over public handoff text and require containment/anchor confidence.",
+      "negative_case": "handoff_unrelated_below_floor",
+      "claim_ceiling": "Advisory linkage score only; not operator attribution truth or transcript export."
+    },
+    {
+      "mechanism_id": "observed_turn_window_merge",
+      "source_module_ids": [
+        "operator_thread_memory"
+      ],
+      "public_exercise": "Execute copied observed-window merge over hashed public turn metadata and prove rerender windows do not duplicate turns.",
+      "negative_case": "observed_turn_duplicate_rerender",
+      "claim_ceiling": "Private thread-memory algorithm specimen only; no raw user or assistant text is exported."
+    },
+    {
+      "mechanism_id": "market_situation_graph",
+      "source_module_ids": [
+        "market_situation_graph"
+      ],
+      "public_exercise": "Execute copied market situation graph builder on a public synthetic mart and require counterevidence and not-investment-advice guards.",
+      "negative_case": "market_situation_missing_counterevidence",
+      "claim_ceiling": "Backend graph contract only; not live market data or trading advice."
+    },
+    {
+      "mechanism_id": "finance_numeric_assurance",
+      "source_module_ids": [
+        "finance_numeric_assurance"
+      ],
+      "public_exercise": "Execute copied numeric assurance over public bad-scale rows and require blocking findings.",
+      "negative_case": "finance_unit_scale_mismatch",
+      "claim_ceiling": "Numeric display contract only; not feed fetching or economic validation."
+    },
+    {
+      "mechanism_id": "fail_closed_status_judge",
+      "source_module_ids": [
+        "idea_microcosm_validators"
+      ],
+      "public_exercise": "Execute the macro status policy judge after exact-copy validation and prove malformed policy blocks judgment.",
+      "negative_case": "status_policy_poisoned",
+      "claim_ceiling": "Status-transition judgment only; not publication or truth authority."
+    },
+    {
+      "mechanism_id": "idea_microcosm_concurrency_guard",
+      "source_module_ids": [
+        "idea_microcosm_concurrency_guard"
+      ],
+      "public_exercise": "Execute copied path normalization and overlap guards over public paths.",
+      "negative_case": "concurrency_parent_child_conflict",
+      "claim_ceiling": "Clone-local coordination guard only; not private Work Ledger or distributed scheduler."
+    },
+    {
+      "mechanism_id": "metabolism_market_clock",
+      "source_module_ids": [
+        "metabolism_market_clock"
+      ],
+      "public_exercise": "Execute copied market-clock due-point calculation and prove already-fired points are suppressed.",
+      "negative_case": "market_clock_duplicate_fire_suppressed",
+      "claim_ceiling": "Clock planning only; not live market sampling or daemon launch."
+    },
+    {
+      "mechanism_id": "population_lane_provider_recovery",
+      "source_module_ids": [
+        "population_lane_provider_recovery"
+      ],
+      "public_exercise": "Execute copied provider-recovery scope classifier and prove timeout is model-scoped while duplicate rows do not suppress provider capacity.",
+      "negative_case": "provider_timeout_scope_narrow",
+      "claim_ceiling": "Provider admission classification only; not live provider retry authority."
+    },
+    {
+      "mechanism_id": "demo_take_temporal_join",
+      "source_module_ids": [
+        "demo_take_capture"
+      ],
+      "public_exercise": "Execute copied demo-take time remap helper and prove paused wall-clock time is subtracted from video time.",
+      "negative_case": "demo_take_pause_remap",
+      "claim_ceiling": "Temporal join helper only; not release of footage, transcript, audio, or video."
+    }
+  ]
+}

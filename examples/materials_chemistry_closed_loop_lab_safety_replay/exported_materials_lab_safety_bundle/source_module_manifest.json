@@ -1,5 +1,6 @@
 {
   "body_in_receipt": false,
+  "body_text_in_receipt": false,
   "body_storage_policy": "exact_macro_body_copies_live_under_source_modules_ai_workflow",
   "bundle_id": "materials_chemistry_closed_loop_lab_safety_replay_runtime_example",
   "classification": "copied_non_secret_macro_body_imports",

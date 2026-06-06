@@ -15,6 +15,7 @@
     "source_mutation_authorized": false,
     "stdout_stderr_bodies_exported": false
   },
+  "body_copied_material_count": 5,
   "bundle_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
   "claim_separation_counts": {
     "contract_rejected": 0,
@@ -50,7 +51,7 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-05-26T23:34:44+00:00",
+  "created_at": "2026-06-04T14:41:15+00:00",
   "endpoint": "/verifier-lab-execution-spine",
   "evolve_rows": [
     {
@@ -79,6 +80,7 @@
   "execution_spine_id": "std_public_lean_transition_lab_v1",
   "execution_summary": {
     "accepted_transition_count": 4,
+    "body_copied_material_count": 5,
     "cp2_downstream_effect_count": 1,
     "cp2_row_count": 1,
     "cp2_translation_count": 1,
@@ -91,6 +93,7 @@
     "provider_results_counted": 0,
     "residual_transition_count": 2,
     "source_mutation_count": 0,
+    "source_open_body_material_count": 5,
     "transition_count": 6,
     "transition_row_count": 6
   },
@@ -204,6 +207,42 @@
     "status": "pass"
   },
   "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": "bounded_public_transition_rows_only",
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": true,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "verifier_lab_execution_spine_source_body_import",
+      "execution_spine_packet_body_import",
+      "execution_spine_lakefile_body_import",
+      "execution_spine_root_lean_body_import",
+      "execution_spine_basic_lean_body_import"
+    ],
+    "body_material_status": "copied_non_secret_verifier_lab_execution_spine_runtime_source_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ and lake_project/ inside the exported execution-spine bundle for copied public runtime source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "verifier_lab_execution_spine_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "source_open_body_material_count": 5,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_pattern_ids": [],
   "source_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json",
@@ -212,6 +251,7 @@
     "lake_project_build_return_code": 0,
     "lean_available": true,
     "secret_exclusion": "pass",
+    "source_open_body_imports": "pass",
     "source_receipt": "pass"
   },
   "status": "pass",

@@ -9,6 +9,18 @@ from microcosm_core.validators.standards_registry import validate_standards_regi
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+ENGINE_ROOM_STAGED_STANDARD_IDS = {
+    "std_microcosm_engine_room_annex_knowledge_router",
+    "std_microcosm_engine_room_bridge_campaign_dag",
+    "std_microcosm_engine_room_command_run_singleflight",
+    "std_microcosm_engine_room_derived_fact_provider_engine",
+    "std_microcosm_engine_room_egress_self_compliance_gate",
+    "std_microcosm_engine_room_generated_projection_drift_gate",
+    "std_microcosm_engine_room_lean_proof_search_lab",
+    "std_microcosm_engine_room_metabolism_runtime",
+    "std_microcosm_engine_room_navigation_fitness_benchmark",
+    "std_microcosm_engine_room_public_projection_leak_gate",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -110,6 +122,148 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert receipt["duplicate_standard_ids"] == []
     assert receipt["missing_standard_files"] == []
     assert receipt["missing_required_fields_by_standard"] == {}
+    alignment = receipt["accepted_organ_standard_contract_alignment"]
+    assert alignment["status"] == "pass"
+    assert alignment["error_count"] == 0
+    assert alignment["checked_standard_count"] >= 32
+    assert "std_microcosm_agent_monitor_redteam_falsification_replay" in alignment[
+        "checked_standard_ids"
+    ]
+    assert "std_microcosm_agent_sabotage_scheming_monitor_replay" in alignment[
+        "checked_standard_ids"
+    ]
+    assert (
+        "std_microcosm_spatial_world_model_counterfactual_simulation_replay"
+        in alignment["checked_standard_ids"]
+    )
+    activation_gaps = receipt["activation_witness_gap_summary"]
+    assert activation_gaps["schema_version"] == (
+        "standard_activation_witness_gap_summary_v1"
+    )
+    assert activation_gaps["status"] == "computed"
+    assert activation_gaps["detail_count"] == 11
+    assert activation_gaps["counts_by_gap_id"] == {
+        "source_schema_not_public_microcosm_standard_v2": 11,
+        "source_status_not_active": 11,
+    }
+    assert activation_gaps["counts_by_registry_status"] == {
+        "draft": 1,
+        "staged_capsule_pending_shared_registry_integration": 10,
+    }
+    assert activation_gaps["counts_by_source_status"] == {
+        "draft": 1,
+        "staged_capsule_pending_shared_registry_integration": 10,
+    }
+    assert "public_microcosm_standard_v1" not in (
+        activation_gaps["counts_by_source_schema_version"]
+    )
+    assert (
+        "does_not_activate_standards_or_promote_draft_contracts"
+        in activation_gaps["authority_boundary"]
+    )
+    assert any(
+        "does not flip source status" in claim
+        for claim in activation_gaps["anti_claims"]
+    )
+    gaps_by_id = {
+        row["standard_id"]: row for row in activation_gaps["details"]
+    }
+    assert "std_microcosm_axiom" not in gaps_by_id
+    assert "std_microcosm_anti_claim" not in gaps_by_id
+    assert "std_microcosm_private_fixture" not in gaps_by_id
+    assert "std_microcosm_batch5_authority_systems_capsule" not in gaps_by_id
+    assert "std_microcosm_batch7_demo_take_console_capsule" not in gaps_by_id
+    assert "std_microcosm_batch7_oracle_sibling_capsule" not in gaps_by_id
+    assert "std_microcosm_batch7_secondary_runtime_capsule" not in gaps_by_id
+    assert "std_microcosm_agent_trace" not in gaps_by_id
+    assert gaps_by_id["std_microcosm_batch7_zenith_macos_capsule"]["gap_ids"] == [
+        "source_schema_not_public_microcosm_standard_v2",
+        "source_status_not_active",
+    ]
+    assert gaps_by_id["std_microcosm_batch7_zenith_macos_capsule"]["claim_ceiling"] == (
+        "activation_gap_summary_only_not_activation_or_release_authority"
+    )
+    used_by_summary = receipt["used_by_organ_admission_summary"]
+    assert used_by_summary["schema_version"] == (
+        "standard_used_by_organ_admission_summary_v1"
+    )
+    assert used_by_summary["status"] == "computed"
+    assert used_by_summary["edge_count"] == 247
+    assert used_by_summary["resolved_edge_count"] == 219
+    assert used_by_summary["unresolved_edge_count"] == 28
+    assert used_by_summary["detail_count"] == 28
+    assert used_by_summary["unresolved_target_organ_count"] == 14
+    assert used_by_summary["counts_by_admission_status"] == {
+        "accepted_current_authority": 219,
+        "target_organ_not_accepted_current_authority": 28,
+    }
+    assert used_by_summary["counts_by_target_status"] == {
+        "accepted_current_authority": 219,
+        "unresolved_json_instance": 28,
+    }
+    assert used_by_summary["unresolved_counts_by_contract_projection_status"] == {
+        "active_v2_governed_json": 27,
+        "legacy_or_draft_standard_contract": 1,
+    }
+    assert used_by_summary["unresolved_counts_by_registry_status"] == {
+        "draft": 28,
+    }
+    assert used_by_summary["unresolved_counts_by_source_status"] == {
+        "active": 27,
+        "draft": 1,
+    }
+    assert "std_microcosm_agent_trace" in used_by_summary["unresolved_standard_ids"]
+    assert "std_microcosm_batch7_zenith_macos_capsule" in used_by_summary[
+        "unresolved_standard_ids"
+    ]
+    assert "batch7_zenith_macos_capsule" in used_by_summary[
+        "unresolved_target_organ_ids"
+    ]
+    assert (
+        "does_not_accept_organs_or_prove_runtime_use"
+        in used_by_summary["authority_boundary"]
+    )
+    assert any(
+        "does not accept organs" in claim
+        for claim in used_by_summary["anti_claims"]
+    )
+    used_by_by_pair = {
+        (row["standard_id"], row["target_organ_id"]): row
+        for row in used_by_summary["unresolved_details"]
+    }
+    agent_trace_gap = used_by_by_pair[
+        (
+            "std_microcosm_agent_trace",
+            "entry_agent_behavior_governance_suborgan",
+        )
+    ]
+    assert agent_trace_gap["admission_status"] == (
+        "target_organ_not_accepted_current_authority"
+    )
+    assert agent_trace_gap["target_status"] == "unresolved_json_instance"
+    assert agent_trace_gap["contract_projection_status"] == (
+        "active_v2_governed_json"
+    )
+    assert agent_trace_gap["claim_ceiling"] == (
+        "standard_used_by_organ_admission_summary_is_reentry_metadata_"
+        "not_usage_or_acceptance_proof"
+    )
+    zenith_gap = used_by_by_pair[
+        (
+            "std_microcosm_batch7_zenith_macos_capsule",
+            "batch7_zenith_macos_capsule",
+        )
+    ]
+    assert zenith_gap["contract_projection_status"] == (
+        "legacy_or_draft_standard_contract"
+    )
+    assert zenith_gap["source_standard_status"] == "draft"
+    first_screen_gap = used_by_by_pair[
+        ("std_microcosm_first_screen_composition_root", "runtime_shell")
+    ]
+    assert first_screen_gap["contract_projection_status"] == "active_v2_governed_json"
+    assert first_screen_gap["source_standard_status"] == "active"
+    assert first_screen_gap["registry_status"] == "draft"
     assert receipt["acceptance_status"]["lean_lake_authorized"] == "bounded_public_witness_only"
     assert receipt["acceptance_status"]["release_authorized"] is False
     assert (
@@ -139,6 +293,328 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert '"body":' not in text
     assert "matched_excerpt" not in _walk_keys(receipt)
     assert "body" not in _walk_keys(receipt)
+
+
+def test_doctrine_roof_validator_ref_has_executable_route() -> None:
+    standard = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_doctrine_roof.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    routes = standard["validator_contract"]["executable_routes"]
+    doctrine_roof_routes = [
+        route
+        for route in routes
+        if route["validator_id"] == "validator.microcosm.doctrine_roof"
+    ]
+
+    assert len(doctrine_roof_routes) == 1
+    route = doctrine_roof_routes[0]
+    assert route["route_kind"] == "focused_pytest"
+    assert route["command"] == (
+        "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
+        "microcosm-substrate/tests/test_standards_registry.py -q"
+    )
+    assert "microcosm-substrate/src/microcosm_core/validators/standards_registry.py" in (
+        route["evidence_refs"]
+    )
+    assert route["result_contract"] == (
+        "pytest_exit_zero_and_standards_registry_receipt_status_pass"
+    )
+    assert route["authority_ceiling"]["release_authority"] is False
+    assert route["authority_ceiling"]["source_body_authority"] is False
+
+
+def test_engine_room_staged_standard_activation_boundaries_are_source_explicit() -> None:
+    for standard_id in ENGINE_ROOM_STAGED_STANDARD_IDS:
+        source = json.loads(
+            (MICROCOSM_ROOT / "standards" / f"{standard_id}.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        boundary = source["activation_boundary"]
+        validator_contract = source["validator_contract"]
+        receipt_contract = source["receipt_contract"]
+
+        assert source["status"] == "staged_capsule_pending_shared_registry_integration"
+        assert source["schema_version"] != "public_microcosm_standard_v2"
+        assert source["relationships"]["used_by_organs"] == []
+        assert source["relationships"]["registry_integration_status"] == (
+            "inventory_only_registered_not_active_v2_promoted"
+        )
+        assert validator_contract["required"] is True
+        assert validator_contract["validator_id"] in source["validator_refs"]
+        assert "fixtures/first_wave/" in validator_contract["fixture_command"]
+        assert "--json" in validator_contract["fixture_command"]
+        assert receipt_contract["required"] is False
+        assert receipt_contract["receipt_id"] is None
+        assert boundary["status"] == "blocked_until_active_v2_admission"
+        assert boundary["residual_pressure_ref"] == (
+            "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+        )
+        assert "fixture pass is not active v2 standard support" in (
+            boundary["non_laundering_rules"]
+        )
+        assert (
+            "empty used_by_organs is intentional until an organ or mechanism "
+            "subject is admitted"
+        ) in boundary["non_laundering_rules"]
+        assert any(
+            "aggregate doctrine-lattice projections" in step
+            for step in boundary["required_reentry"]
+        )
+        assert "not active public runtime standard" in boundary["claim_ceiling"]
+
+
+def test_batch7_zenith_draft_standard_activation_boundary_is_source_explicit() -> None:
+    source = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "standards/std_microcosm_batch7_zenith_macos_capsule.json"
+        ).read_text(encoding="utf-8")
+    )
+    boundary = source["activation_boundary"]
+    validator_contract = source["validator_contract"]
+    receipt_contract = source["receipt_contract"]
+
+    assert source["status"] == "draft"
+    assert source["schema_version"] != "public_microcosm_standard_v2"
+    assert source["relationships"]["used_by_organs"] == [
+        "batch7_zenith_macos_capsule"
+    ]
+    assert source["relationships"]["registry_integration_status"] == (
+        "inventory_only_registered_not_active_v2_promoted"
+    )
+    assert validator_contract["required"] is True
+    assert validator_contract["validator_id"] in source["validator_refs"]
+    assert receipt_contract["required"] is False
+    assert receipt_contract["receipt_id"] is None
+    assert boundary["status"] == "blocked_until_active_v2_admission"
+    assert boundary["residual_pressure_ref"] == (
+        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+    )
+    assert "registered validator id is not active v2 standard support" in (
+        boundary["non_laundering_rules"]
+    )
+    assert (
+        "draft used_by_organs entry is residual pressure until the target organ "
+        "is accepted current authority"
+    ) in boundary["non_laundering_rules"]
+    assert any(
+        "land an accepted organ or mechanism subject" in step
+        for step in boundary["required_reentry"]
+    )
+    assert any(
+        "aggregate doctrine-lattice projections" in step
+        for step in boundary["required_reentry"]
+    )
+    assert "not active public runtime standard" in boundary["claim_ceiling"]
+    assert "not active v2 acceptance" in source["doctrine_kind_envelope"][
+        "claim_ceiling"
+    ]
+
+
+def test_agent_trace_used_by_organ_residual_boundary_is_source_explicit() -> None:
+    source = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_agent_trace.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    organ_registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    accepted_organs = {
+        row["organ_id"]
+        for row in organ_registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    }
+    boundary = source["used_by_organ_boundary"]
+
+    assert source["status"] == "active"
+    assert source["schema_version"] == "public_microcosm_standard_v2"
+    assert source["relationships"]["used_by_organs"] == [
+        "agent_route_observability_runtime",
+        "entry_agent_behavior_governance_suborgan",
+    ]
+    assert boundary["status"] == "typed_residual_until_target_organ_admitted"
+    assert boundary["resolved_target_organs"] == [
+        "agent_route_observability_runtime"
+    ]
+    assert boundary["unresolved_target_organs"] == [
+        "entry_agent_behavior_governance_suborgan"
+    ]
+    assert "agent_route_observability_runtime" in accepted_organs
+    assert "entry_agent_behavior_governance_suborgan" not in accepted_organs
+    assert "active v2 standard status does not accept unresolved used_by_organs targets" in (
+        boundary["non_laundering_rules"]
+    )
+    assert any(
+        "accepted_current_authority" in step
+        for step in boundary["required_reentry"]
+    )
+    assert any(
+        "--check-standard-corpus" in step
+        for step in boundary["required_reentry"]
+    )
+    assert "not usage, acceptance, runtime, release" in boundary["claim_ceiling"]
+    assert boundary["residual_pressure_ref"] == (
+        "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+    )
+
+
+def test_active_v2_unresolved_used_by_organs_have_source_boundaries() -> None:
+    organ_registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    accepted_organs = {
+        row["organ_id"]
+        for row in organ_registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    }
+    standards_with_unresolved: dict[str, list[str]] = {}
+
+    for standard_path in sorted((MICROCOSM_ROOT / "standards").glob("*.json")):
+        source = json.loads(standard_path.read_text(encoding="utf-8"))
+        if (
+            source.get("schema_version") != "public_microcosm_standard_v2"
+            or source.get("status") != "active"
+        ):
+            continue
+
+        used_by_organs = source.get("relationships", {}).get("used_by_organs") or []
+        resolved_targets = [
+            organ_id for organ_id in used_by_organs if organ_id in accepted_organs
+        ]
+        unresolved_targets = [
+            organ_id for organ_id in used_by_organs if organ_id not in accepted_organs
+        ]
+        if not unresolved_targets:
+            continue
+
+        standard_id = source["standard_id"]
+        boundary = source.get("used_by_organ_boundary")
+        assert boundary, standard_id
+        standards_with_unresolved[standard_id] = unresolved_targets
+
+        assert boundary["status"] in {
+            "typed_residual_until_target_organ_admitted",
+            "typed_residual_until_target_organs_admitted",
+        }
+        assert boundary["resolved_target_organs"] == resolved_targets
+        assert boundary["unresolved_target_organs"] == unresolved_targets
+        assert any(
+            "accepted_current_authority" in step
+            for step in boundary["required_reentry"]
+        )
+        assert any(
+            "--check-standard-corpus" in step
+            for step in boundary["required_reentry"]
+        )
+        assert any(
+            "does not accept unresolved used_by_organs targets" in rule
+            for rule in boundary["non_laundering_rules"]
+        )
+        assert any(
+            "runtime invocation or organ admission proof" in rule
+            for rule in boundary["non_laundering_rules"]
+        )
+        assert "not usage, acceptance, runtime, release" in boundary["claim_ceiling"]
+        assert boundary["residual_pressure_ref"] == (
+            "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
+        )
+
+    assert len(standards_with_unresolved) == 20
+    assert sum(len(targets) for targets in standards_with_unresolved.values()) == 27
+    assert standards_with_unresolved["std_microcosm_agent_trace"] == [
+        "entry_agent_behavior_governance_suborgan"
+    ]
+    assert standards_with_unresolved["std_microcosm_authority_boundary"] == [
+        "external_boundary_anti_corruption_runtime"
+    ]
+
+
+def test_standard_contract_basis_matches_accepted_organ_evidence_classes() -> None:
+    organ_registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    accepted_organs = {
+        row["organ_id"]: row
+        for row in organ_registry["implemented_organs"]
+        if row["status"] == "accepted_current_authority"
+    }
+    required_basis_keys = {
+        "organ_evidence_class": "evidence_class",
+        "organ_evidence_strength_rank": "evidence_strength_rank",
+        "truth_accounting_bucket": "truth_accounting_bucket",
+    }
+    checked_standard_ids: set[str] = set()
+
+    for standard_path in sorted((MICROCOSM_ROOT / "standards").glob("*.json")):
+        source = json.loads(standard_path.read_text(encoding="utf-8"))
+        basis = source.get("standard_payload", {}).get("contract_projection_basis", {})
+        if not any(key in basis for key in required_basis_keys):
+            continue
+        standard_id = source["standard_id"]
+        organ = accepted_organs[source["kind_id"]]
+        checked_standard_ids.add(standard_id)
+        for basis_key, organ_key in required_basis_keys.items():
+            assert basis[basis_key] == organ[organ_key], (standard_id, basis_key)
+
+    assert "std_microcosm_agent_monitor_redteam_falsification_replay" in checked_standard_ids
+    assert "std_microcosm_agent_sabotage_scheming_monitor_replay" in checked_standard_ids
+    assert "std_microcosm_spatial_world_model_counterfactual_simulation_replay" in checked_standard_ids
+
+
+def test_standards_registry_rejects_accepted_organ_label_drift(tmp_path: Path) -> None:
+    public_root = _copy_public_standards_tree(tmp_path)
+    registry_path = public_root / "core/standards_registry.json"
+    standard_path = (
+        public_root
+        / "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
+    )
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    standard = json.loads(standard_path.read_text(encoding="utf-8"))
+
+    for row in registry["standards"]:
+        if row["standard_id"] == "std_microcosm_spatial_world_model_counterfactual_simulation_replay":
+            row["status"] = "draft"
+            break
+    standard["source_authority"] = "json_is_contract_markdown_is_projection"
+    standard["standard_payload"]["contract_projection_basis"][
+        "runtime_acceptance_status"
+    ] = "active_source_body_import"
+    standard["runtime_acceptance_refs"]["registry_status"] = "draft"
+    registry_path.write_text(
+        json.dumps(registry, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    standard_path.write_text(
+        json.dumps(standard, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    receipt = validate_standards_registry(
+        registry_path,
+        public_root / "standards",
+        public_root / "core/acceptance/first_wave_acceptance.json",
+        public_root / "receipts/first_wave/standards_registry_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    alignment = receipt["accepted_organ_standard_contract_alignment"]
+    assert alignment["status"] == "blocked"
+    error_codes = {
+        row["code"]
+        for row in alignment["errors"]
+        if row["standard_id"] == "std_microcosm_spatial_world_model_counterfactual_simulation_replay"
+    }
+    assert {
+        "registry_status_not_accepted_for_organ_backed_standard",
+        "source_authority_not_organ_registry_backed",
+        "basis_runtime_acceptance_status_not_organ_registry_backed",
+        "runtime_acceptance_refs_registry_status_not_accepted",
+    } <= error_codes
 
 
 def test_authority_boundary_manifest_demotes_overread_claims() -> None:
@@ -200,6 +676,16 @@ def test_first_screen_composition_root_demotes_evidence_counts_to_accounting() -
     assert standard["authority_ceiling"]["score_based_progress_authority"] is False
     assert standard["authority_ceiling"]["release_authority"] is False
     assert standard["authority_ceiling"]["reader_success_authority"] is False
+    allowed_public_inputs = standard["public_private_boundary"][
+        "allowed_public_inputs"
+    ]
+    source_ref_paths = {row["path"] for row in standard["source_refs"]}
+    assert "public organ atlas upstream rows" in allowed_public_inputs
+    assert "public agent-task-route organ-glance one-line projection" in (
+        allowed_public_inputs
+    )
+    assert "core/organ_atlas.json" in source_ref_paths
+    assert "atlas/agent_task_routes.json" in source_ref_paths
     assert "microcosm tour --card <project>" in standard["validation_rules"][0]
     assert any("accounting" in claim for claim in standard["anti_claims"])
     assert "first_screen_composition_root" in standard["paper_module_contract"]["module_slug"]

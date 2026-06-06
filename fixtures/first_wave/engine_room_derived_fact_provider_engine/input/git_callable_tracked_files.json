@@ -1,0 +1,44 @@
+{
+  "case_id": "git_callable_tracked_files",
+  "expected_status": "ok",
+  "expected_values": {
+    "demo.tracked_files": 2,
+    "demo.tracked_python": 1
+  },
+  "files": {
+    "README.md": "tracked readme\n",
+    "src/tool.py": "print('tracked')\n",
+    "scratch/untracked.py": "print('not counted')\n"
+  },
+  "git_tracked": [
+    "README.md",
+    "src/tool.py"
+  ],
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.tracked_files",
+        "title": "Git tracked files",
+        "provider_type": "callable",
+        "callable": "git_tracked_file_count",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "callable"
+        ]
+      },
+      {
+        "id": "demo.tracked_python",
+        "title": "Git tracked Python files",
+        "provider_type": "callable",
+        "callable": "git_tracked_python_count",
+        "value_type": "integer",
+        "tags": [
+          "demo",
+          "callable",
+          "python"
+        ]
+      }
+    ]
+  }
+}

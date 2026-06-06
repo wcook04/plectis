@@ -138,7 +138,7 @@
     }
   ],
   "copied_material_count": 6,
-  "created_at": "2026-05-26T22:59:07+00:00",
+  "created_at": "2026-06-02T02:56:06+00:00",
   "error_codes": [
     "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
     "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
@@ -237,6 +237,7 @@
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_premise_retrieval_fixture_acceptance.json"
   ],
   "recipe_count": 3,
+  "retrieval_candidates_considered": 44,
   "retrievals": [
     {
       "body_material_status": "retrieval_result_over_imported_index",
@@ -244,13 +245,74 @@
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_bool_not_not",
       "recipe_id": "minimal_4kb",
+      "retrieval_candidates_considered": 11,
       "retrieved_premise_ids": [
         "premise_bool_not_not",
         "premise_iff_intro"
       ],
+      "source_index_size": 11,
       "split": "train",
       "strategy_id": "boolean_normalization",
-      "top_k": 2
+      "top_k": 2,
+      "top_retrieval_rows": [
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "bool"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "bool"
+              ]
+            },
+            {
+              "field": "statement_excerpt",
+              "hit_terms": [
+                "double",
+                "negation"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "bool",
+                "double",
+                "negation"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "statement_excerpt",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "bool",
+            "double",
+            "negation"
+          ],
+          "premise_id": "premise_bool_not_not",
+          "score": 3,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Bool.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [],
+          "matched_fields": [],
+          "overlap_terms": [],
+          "premise_id": "premise_iff_intro",
+          "score": 0,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Prelude.lean",
+          "strategy_bonus": 0
+        }
+      ]
     },
     {
       "body_material_status": "retrieval_result_over_imported_index",
@@ -258,13 +320,74 @@
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_iff_intro",
       "recipe_id": "minimal_4kb",
+      "retrieval_candidates_considered": 11,
       "retrieved_premise_ids": [
         "premise_iff_intro",
         "premise_bool_not_not"
       ],
+      "source_index_size": 11,
       "split": "dev",
       "strategy_id": "iff_split",
-      "top_k": 2
+      "top_k": 2,
+      "top_retrieval_rows": [
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "iff"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "iff",
+                "intro"
+              ]
+            },
+            {
+              "field": "statement_excerpt",
+              "hit_terms": [
+                "iff"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "iff",
+                "implication",
+                "intro"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "statement_excerpt",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "iff",
+            "implication",
+            "intro"
+          ],
+          "premise_id": "premise_iff_intro",
+          "score": 3,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Prelude.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [],
+          "matched_fields": [],
+          "overlap_terms": [],
+          "premise_id": "premise_bool_not_not",
+          "score": 0,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Bool.lean",
+          "strategy_bonus": 0
+        }
+      ]
     },
     {
       "body_material_status": "retrieval_result_over_imported_index",
@@ -272,14 +395,152 @@
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_list_length_append",
       "recipe_id": "skill_32kb",
+      "retrieval_candidates_considered": 11,
       "retrieved_premise_ids": [
         "premise_list_length_append",
         "premise_list_length_cons",
         "premise_list_mem_append"
       ],
+      "source_index_size": 11,
       "split": "dev",
       "strategy_id": "structural_list",
-      "top_k": 3
+      "top_k": 3,
+      "top_retrieval_rows": [
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "statement_excerpt",
+              "hit_terms": [
+                "length"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "append",
+                "length",
+                "list"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "statement_excerpt",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "append",
+            "length",
+            "list"
+          ],
+          "premise_id": "premise_list_length_append",
+          "score": 3,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "statement_excerpt",
+              "hit_terms": [
+                "length"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "length",
+                "list"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "statement_excerpt",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "length",
+            "list"
+          ],
+          "premise_id": "premise_list_length_cons",
+          "score": 2,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "statement_excerpt",
+              "hit_terms": [
+                "list"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "append",
+                "list"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "statement_excerpt",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "append",
+            "list"
+          ],
+          "premise_id": "premise_list_mem_append",
+          "score": 2,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+          "strategy_bonus": 0
+        }
+      ]
     },
     {
       "body_material_status": "retrieval_result_over_imported_index",
@@ -287,14 +548,131 @@
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_nat_add_comm",
       "recipe_id": "strategy_classification_4kb",
+      "retrieval_candidates_considered": 11,
       "retrieved_premise_ids": [
         "premise_nat_add_comm",
         "premise_nat_add_assoc",
         "premise_nat_add_zero"
       ],
+      "source_index_size": 11,
       "split": "train",
       "strategy_id": "commutativity_rewrite",
-      "top_k": 3
+      "top_k": 3,
+      "top_retrieval_rows": [
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "addition",
+                "commutative",
+                "nat"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "addition",
+            "commutative",
+            "nat"
+          ],
+          "premise_id": "premise_nat_add_comm",
+          "score": 3,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "addition",
+                "nat"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "addition",
+            "nat"
+          ],
+          "premise_id": "premise_nat_add_assoc",
+          "score": 2,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+          "strategy_bonus": 0
+        },
+        {
+          "body_material_status": "retrieval_score_over_imported_index",
+          "field_hits": [
+            {
+              "field": "namespace",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "theorem_or_def_name",
+              "hit_terms": [
+                "nat"
+              ]
+            },
+            {
+              "field": "retrieval_terms",
+              "hit_terms": [
+                "addition",
+                "nat"
+              ]
+            }
+          ],
+          "matched_fields": [
+            "namespace",
+            "theorem_or_def_name",
+            "retrieval_terms"
+          ],
+          "overlap_terms": [
+            "addition",
+            "nat"
+          ],
+          "premise_id": "premise_nat_add_zero",
+          "score": 2,
+          "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+          "strategy_bonus": 0
+        }
+      ]
     }
   ],
   "schema_version": "formal_math_premise_retrieval_result_receipt_v1",
@@ -321,6 +699,7 @@
     "scanned_path_count": 10,
     "status": "pass"
   },
+  "source_index_size": 11,
   "source_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "prover_premise_retrieval_term_scoring",

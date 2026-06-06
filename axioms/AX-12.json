@@ -1,0 +1,405 @@
+{
+  "anti_claims": [
+    "This active axiom JSON record does not flip source authority away from core/axiom_organ_routing.json.",
+    "Legacy witness_strength is not a computed support verdict.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence.",
+    "Axiom admission as law does not prove that the axiom is witnessed, enforced, strong, or complete."
+  ],
+  "authority_boundary": "public_axiom_json_instance_synchronized_from_routing_registry_receipt_bound_not_source_authority_flip",
+  "axiom_payload": {
+    "admission_contract": {
+      "mode": "imposed_constitutional_root",
+      "proof_required_for_admission": false,
+      "status": "admitted_as_public_axiom"
+    },
+    "contract_version": "microcosm_axiom_instance_payload_v1",
+    "formal_model": {
+      "formal_clause": "For every Microcosm artifact a, any claim phi carried by a must satisfy the same admissibility relation as external claims.",
+      "obligation_source_status": "pilot_obligations_present",
+      "obligations": [
+        {
+          "binding": {
+            "witness_organs": [
+              "batch12_release_claim_language_gate",
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-12.O1.microcosm_claims_use_same_gate",
+          "predicate": "Microcosm artifacts carrying claims are checked through the same admissibility gate as external claims, without a privileged meta-layer",
+          "required": true
+        },
+        {
+          "binding": {
+            "negative_case_codes": [
+              "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED"
+            ],
+            "witness_organs": [
+              "batch12_release_claim_language_gate"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/release_export.py",
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_release_export.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-12.O2.release_claim_language_blocked",
+          "predicate": "release, assurance, or product-readiness claims are blocked unless their evidence boundary is explicit",
+          "required": true
+        },
+        {
+          "binding": {
+            "negative_case_codes": [
+              "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+              "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+            ],
+            "witness_organs": [
+              "batch12_release_claim_language_gate",
+              "executable_doctrine_grammar"
+            ],
+            "witness_surfaces": [
+              "src/microcosm_core/organs/_crown_jewel_common.py",
+              "src/microcosm_core/organs/executable_doctrine_grammar.py",
+              "tests/test_batch12_release_claim_language_gate.py",
+              "tests/test_executable_doctrine_grammar.py"
+            ]
+          },
+          "coverage_status": "pending_cover_evaluator",
+          "obligation_id": "AX-12.O3.receipt_body_and_doctrine_overclaim_blocked",
+          "predicate": "receipt body leakage and grammar-completeness overclaims are rejected for Microcosm artifacts themselves",
+          "required": true
+        },
+        {
+          "binding": {
+            "witness_surfaces": [
+              "src/microcosm_core/validators/evidence_truth_floor.py",
+              "tests/test_evidence_truth_floor.py"
+            ]
+          },
+          "coverage_status": "layer_debt",
+          "layer_debt_ref": "AX12-evidence-truth-floor-blocking-release",
+          "obligation_id": "AX-12.O4.evidence_truth_floor_blocks_release",
+          "predicate": "evidence truth-floor mismatch must become a release-blocking source gate before AX-12 can claim full reflexive accountability",
+          "required": true
+        }
+      ]
+    },
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/axiom_organ_routing.json"
+    },
+    "projection_contract": {
+      "generated_markdown_rel": "axioms/AX-12.md",
+      "markdown_status": "generated_projection",
+      "routing_json_status": "routing_registry_source_of_record_with_receipt_bound_json_projection",
+      "source_json_rel": "axioms/AX-12.json"
+    },
+    "substrate_reciprocity_contract": {
+      "claim_ceiling": {
+        "boundary": "Witness organs and negative cases are inputs to support calculation, not support claims. Projection output is never source evidence.",
+        "computed_by": "validator.microcosm.axiom_support_cover"
+      },
+      "contract_version": "microcosm_axiom_substrate_reciprocity_v1",
+      "law_to_substrate": {
+        "grounded_principle_ids": [
+          "P-13",
+          "P-18",
+          "P-20"
+        ],
+        "guarded_by_anti_principle_ids": [
+          "AP-1",
+          "AP-3",
+          "AP-11",
+          "AP-14",
+          "AP-15",
+          "AP-16"
+        ],
+        "projection_edge_relation_ids": [
+          "principle.grounded_by.axiom",
+          "anti_principle.guards.axiom",
+          "axiom.witnessed_by.organ"
+        ],
+        "rule": "The axiom governs downstream substrate by constraining organ rows, grounding principle commitments, and naming anti-principle guards; those governance edges do not by themselves compute support.",
+        "substrate_constraint_relation": "organ.constrained_by.axiom"
+      },
+      "source_authority_ref": "core/axiom_organ_routing.json::rows[11:AX-12]",
+      "substrate_to_law": {
+        "layer_debt_ids": [
+          "AX12-evidence-truth-floor-blocking-release"
+        ],
+        "negative_case_codes": [
+          "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED",
+          "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+          "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+        ],
+        "refinement_rule": "Substrate evidence may refine obligation bindings, claim ceilings, negative-case mappings, and layer-debt status in the routing registry or evaluator grammar; it does not de-admit the axiom or certify strong support without the support-cover validator.",
+        "witness_organs": [
+          "batch12_release_claim_language_gate",
+          "executable_doctrine_grammar"
+        ],
+        "witness_surfaces": [
+          "src/microcosm_core/release_export.py",
+          "src/microcosm_core/organs/_crown_jewel_common.py",
+          "src/microcosm_core/organs/executable_doctrine_grammar.py",
+          "src/microcosm_core/validators/evidence_truth_floor.py",
+          "tests/test_batch12_release_claim_language_gate.py",
+          "tests/test_executable_doctrine_grammar.py",
+          "tests/test_release_export.py",
+          "tests/test_evidence_truth_floor.py"
+        ]
+      }
+    },
+    "support_contract": {
+      "computed_by": "validator.microcosm.axiom_support_cover",
+      "legacy_routing_witness_strength": {
+        "status": "legacy_label_not_computed_support_claim",
+        "value": "strong"
+      },
+      "support_status": "computed_in_generated_projection_not_asserted_in_source_instance"
+    }
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "AX-12",
+  "kind": "axiom",
+  "omission_receipt": {
+    "drilldown": "core/axiom_organ_routing.json::rows[11:AX-12]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "support-cover generated output as source evidence"
+    ],
+    "reason": "Axiom instance preserves public-safe routing fields only; support is computed by validator output."
+  },
+  "receipt_refs": [
+    "receipts/doctrine_records/axioms/AX-12.receipt.json"
+  ],
+  "relationships": {
+    "anti_axiom": "meta_artifact_exemption",
+    "anti_principle_ids": [
+      "AP-1",
+      "AP-3",
+      "AP-11",
+      "AP-14",
+      "AP-15",
+      "AP-16"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].principle_ids",
+          "summary": "Axiom routing row grounds this principle id; principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "P-13",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].principle_ids",
+          "summary": "Axiom routing row grounds this principle id; principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "P-18",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].principle_ids",
+          "summary": "Axiom routing row grounds this principle id; principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "principle.grounded_by.axiom",
+        "relation_verb": "grounds",
+        "residual_pressure_ref": null,
+        "reverse_verb": "grounded_by",
+        "target_id": "P-20",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-1",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-3",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-11",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-14",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-15",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].anti_principle_ids",
+          "summary": "Axiom routing row names this anti-principle guard; anti-principle JSON corpus now resolves the target as a receipt-bound active instance."
+        },
+        "relation_id": "anti_principle.guards.axiom",
+        "relation_verb": "guarded_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "guards",
+        "target_id": "AP-16",
+        "target_kind": "anti_principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].witness_organs",
+          "summary": "Axiom routing row names this organ as a witness candidate; support strength is computed separately."
+        },
+        "relation_id": "axiom.witnessed_by.organ",
+        "relation_verb": "witnessed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "witnesses",
+        "target_id": "batch12_release_claim_language_gate",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/axiom_organ_routing.json::rows[11:AX-12].witness_organs",
+          "summary": "Axiom routing row names this organ as a witness candidate; support strength is computed separately."
+        },
+        "relation_id": "axiom.witnessed_by.organ",
+        "relation_verb": "witnessed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "witnesses",
+        "target_id": "executable_doctrine_grammar",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "layer_debt": [
+      {
+        "acceptance_hint": "Wire evidence_truth_floor into a named release-substance selector or record why the advisory lane remains the correct boundary.",
+        "authority_ceiling": {
+          "private_data_equivalence_authority": false,
+          "release_authority": false,
+          "source_body_authority": false,
+          "status": "layer_debt_open_not_support_closure",
+          "whole_system_correctness": false
+        },
+        "claim_ceiling": "partial_capped_by_layer_debt",
+        "debt_id": "AX12-evidence-truth-floor-blocking-release",
+        "reason": "evidence_truth_floor is tested but not yet a hard blocking release floor.",
+        "receipt_ref": "receipts/doctrine_records/layer_debt/AX12-evidence-truth-floor-blocking-release.receipt.json",
+        "status": "open_layer_debt"
+      }
+    ],
+    "lineage": [
+      "reflective systems",
+      "self-hosting checks",
+      "no-special-pleading evaluation"
+    ],
+    "negative_case_codes": [
+      "RELEASE_ASSURANCE_CLAIM_LANGUAGE_BLOCKED",
+      "CROWN_JEWEL_RECEIPT_BODY_SCAN_BLOCKED",
+      "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+    ],
+    "principle_ids": [
+      "P-13",
+      "P-18",
+      "P-20"
+    ],
+    "source_routing_row_ref": "core/axiom_organ_routing.json::rows[11:AX-12]",
+    "witness_organs": [
+      "batch12_release_claim_language_gate",
+      "executable_doctrine_grammar"
+    ],
+    "witness_surfaces": [
+      "src/microcosm_core/release_export.py",
+      "src/microcosm_core/organs/_crown_jewel_common.py",
+      "src/microcosm_core/organs/executable_doctrine_grammar.py",
+      "src/microcosm_core/validators/evidence_truth_floor.py",
+      "tests/test_batch12_release_claim_language_gate.py",
+      "tests/test_executable_doctrine_grammar.py",
+      "tests/test_release_export.py",
+      "tests/test_evidence_truth_floor.py"
+    ]
+  },
+  "schema_version": "microcosm_axiom_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/axiom_organ_routing.json::rows[11:AX-12]",
+      "role": "current_source_of_record_for_axiom_witness_routes"
+    },
+    {
+      "path": "AXIOMS.md#AX-12",
+      "role": "legacy_markdown_projection"
+    }
+  ],
+  "statement": "For every Microcosm artifact a, any claim phi carried by a must satisfy the same admissibility relation as external claims.",
+  "status": "active",
+  "title": "Reflexive accountability / no privileged meta-layer",
+  "validator_refs": [
+    "validator.microcosm.axiom",
+    "validator.microcosm.axiom_support_cover"
+  ]
+}

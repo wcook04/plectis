@@ -65,14 +65,24 @@ from system.lib.kernel.helpers import (
     safe_load_json_with_error,
 )
 from system.lib.kernel.pulse_cache import (
+    PULSE_ANNEX_LANDING_FRESHNESS_POLICY,
+    PULSE_ANNEX_LANDING_INPUT_PATHS,
+    PULSE_ANNEX_LANDING_KEY,
+    PULSE_ANNEX_LANDING_NODE_ID,
     PULSE_CLOSEOUT_AUDIT_FRESHNESS_POLICY,
     PULSE_CLOSEOUT_AUDIT_INPUT_PATHS,
     PULSE_CLOSEOUT_AUDIT_KEY,
     PULSE_CLOSEOUT_AUDIT_NODE_ID,
+    PULSE_DOCTRINE_SUMMARY_FRESHNESS_POLICY,
+    PULSE_DOCTRINE_SUMMARY_INPUT_PATHS,
+    PULSE_DOCTRINE_SUMMARY_KEY,
+    PULSE_DOCTRINE_SUMMARY_NODE_ID,
+    closeout_git_state_cache_or_refresh,
     PULSE_PROVIDER_PLANE_LIVENESS_FRESHNESS_POLICY,
     PULSE_PROVIDER_PLANE_LIVENESS_INPUT_PATHS,
     PULSE_PROVIDER_PLANE_LIVENESS_KEY,
     PULSE_PROVIDER_PLANE_LIVENESS_NODE_ID,
+    refresh_closeout_git_state_cache,
     refresh_provider_plane_liveness_cache,
 )
 from system.lib.kernel_navigation import KernelNavigation, NavigationResult, normalize_repo_kernel_command
@@ -87,6 +97,8 @@ from system.lib.derived_fact_hologram import (
     build_fact_hologram,
     fact_by_id,
     filter_facts,
+    load_fact_ledger,
+    load_fact_navigation_cache,
     search_facts,
 )
 from system.lib.agent_entrypoint_audit import (
@@ -115,6 +127,7 @@ from system.lib.agent_execution_trace import (
     build_agent_execution_trace,
     build_process_trace_route_packet,
     compare_agents,
+    load_execution_trace_audit,
     select_session,
 )
 from system.lib.raw_seed_projection_coverage import (
@@ -206,7 +219,10 @@ from system.lib.navigation_surface_contracts import (
     surface_contract,
 )
 
-from system.lib.navigation_context_rosetta import build_navigation_context_rosetta
+from system.lib.navigation_context_rosetta import (
+    build_navigation_context_rosetta,
+    build_navigation_context_rosetta_compact,
+)
 from system.lib.standard_option_surface import build_option_surface
 from system.lib.campaign_router import (
     CAMPAIGN_ONLY_LANE_IDS,
@@ -240,6 +256,7 @@ from system.lib.command_output_projection import (
 from system.lib.command_output_audit import (
     build_command_output_duplication_audit,
     build_command_output_projection_audit,
+    build_command_output_projection_audit_catalog,
 )
 from system.lib.observe_runtime import (
     grouped_runtime_status_payload as _lib_grouped_runtime_status_payload,
@@ -678,11 +695,16 @@ def _pulse_effective_active_plan(
 ) -> dict[str, object] | None:
     if not isinstance(active_plan, Mapping) or not active_plan:
         return None
-    if isinstance(runtime, Mapping) and str(runtime.get("kind") or "").strip() == "orchestration_state":
-        active_driver = str(runtime.get("state") or "").strip()
-        if active_driver and active_driver != "observe_session":
-            return None
+    if _pulse_runtime_hides_active_plan(runtime):
+        return None
     return dict(active_plan)
+
+
+def _pulse_runtime_hides_active_plan(runtime: Mapping[str, Any] | None) -> bool:
+    if not isinstance(runtime, Mapping) or str(runtime.get("kind") or "").strip() != "orchestration_state":
+        return False
+    active_driver = str(runtime.get("state") or "").strip()
+    return bool(active_driver and active_driver != "observe_session")
 
 
 def _skill_payload() -> list[dict[str, object]]:
@@ -1010,17 +1032,77 @@ def _pulse_frontier_anchor(
     return candidate if isinstance(candidate, dict) else None
 
 
-def _pulse_latest_saved_plan(prefix: str | None = None) -> dict[str, Any] | None:
-    if not state.OBSERVE_PLANS_DIR.exists():
+def _pulse_observe_plans_dir() -> Path:
+    return Path(
+        getattr(
+            state,
+            "OBSERVE_PLANS_DIR",
+            state.REPO_ROOT / "tools/meta/apply/observe_plans",
+        )
+    )
+
+
+def _pulse_latest_saved_plan_path(prefix: str | None = None) -> Path | None:
+    plans_dir = _pulse_observe_plans_dir()
+    if not plans_dir.exists():
         return None
     plans = []
-    for path in state.OBSERVE_PLANS_DIR.glob("*.json"):
+    for path in plans_dir.glob("*.json"):
         if prefix and not path.name.startswith(prefix):
             continue
         plans.append(path)
     if not plans:
         return None
-    latest = max(plans, key=lambda item: item.stat().st_mtime)
+    return max(plans, key=lambda item: item.stat().st_mtime)
+
+
+def _pulse_observe_plan_metadata(payload: Mapping[str, Any], *, path: Path) -> dict[str, Any]:
+    groups = [item for item in list(payload.get("groups") or []) if isinstance(item, Mapping)]
+    compact_groups: list[dict[str, Any]] = []
+    total_files = 0
+    for group in groups:
+        targets = [item for item in list(group.get("targets") or []) if isinstance(item, Mapping)]
+        target_count = int(group.get("target_count") or len(targets) or 0)
+        total_files += target_count
+        compact_groups.append(
+            {
+                "label": group.get("label"),
+                "situation": group.get("situation"),
+                "target_count": target_count,
+            }
+        )
+    try:
+        mtime = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
+    except OSError:
+        mtime = None
+    return {
+        "path": state.rel(path),
+        "mode": payload.get("mode") or ("grouped" if groups else None),
+        "runtime": payload.get("runtime") or ("grouped_observe" if groups else None),
+        "prompt": payload.get("prompt"),
+        "group_count": len(groups),
+        "total_files": int(payload.get("total_files") or total_files or 0),
+        "dump_dir": payload.get("dump_dir"),
+        "groups": compact_groups[:5],
+        "mtime": mtime,
+        "summary_source": "lightweight_plan_metadata",
+    }
+
+
+def _pulse_latest_saved_plan_metadata(prefix: str | None = None) -> dict[str, Any] | None:
+    latest = _pulse_latest_saved_plan_path(prefix=prefix)
+    if latest is None:
+        return None
+    payload = safe_load_json(latest)
+    if not isinstance(payload, Mapping) or not payload:
+        return {"path": state.rel(latest), "error": "unreadable"}
+    return _pulse_observe_plan_metadata(payload, path=latest)
+
+
+def _pulse_latest_saved_plan(prefix: str | None = None) -> dict[str, Any] | None:
+    latest = _pulse_latest_saved_plan_path(prefix=prefix)
+    if latest is None:
+        return None
     payload = safe_load_json(latest)
     if not payload:
         return {"path": state.rel(latest), "error": "unreadable"}
@@ -1183,6 +1265,54 @@ def _pulse_doctrine_summary(navigator: KernelNavigation, *, exact: bool = False)
     }
 
 
+def _refresh_pulse_doctrine_summary_cache(
+    navigator: KernelNavigation,
+    *,
+    force_refresh: bool = False,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    from system.lib.command_node_cache import cached_command_node
+
+    def _build() -> dict[str, Any]:
+        payload = _pulse_doctrine_summary(navigator, exact=False)
+        return json.loads(json.dumps(payload, default=str))
+
+    payload, cache_status = cached_command_node(
+        state.REPO_ROOT,
+        node_id=PULSE_DOCTRINE_SUMMARY_NODE_ID,
+        key=PULSE_DOCTRINE_SUMMARY_KEY,
+        input_paths=PULSE_DOCTRINE_SUMMARY_INPUT_PATHS,
+        ttl_s=0.0,
+        builder=_build,
+        freshness_policy=PULSE_DOCTRINE_SUMMARY_FRESHNESS_POLICY,
+        dynamic_inputs_manifested=True,
+        force_refresh=force_refresh,
+    )
+    return dict(payload), cache_status
+
+
+def _pulse_doctrine_summary_cached(
+    navigator: KernelNavigation,
+    *,
+    exact: bool = False,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    if exact:
+        return _pulse_doctrine_summary(navigator, exact=True), {
+            "status": "bypassed",
+            "reason": "exact_pulse_uses_live_doctrine_scan",
+        }
+    try:
+        return _refresh_pulse_doctrine_summary_cache(navigator, force_refresh=False)
+    except Exception as exc:  # pragma: no cover - pulse must survive projection skew
+        payload = _pulse_doctrine_summary(navigator, exact=False)
+        payload["cache_error"] = f"{type(exc).__name__}: {exc}"
+        return payload, {
+            "status": "error",
+            "reason": "doctrine_summary_cache_failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:240],
+        }
+
+
 def _load_annex_landing_index_summary(index_path: Path) -> dict[str, Any]:
     text = index_path.read_text(encoding="utf-8")
     try:
@@ -1270,6 +1400,50 @@ def _pulse_annex_landing_summary() -> dict[str, Any]:
     return summary
 
 
+def _refresh_pulse_annex_landing_cache(*, force_refresh: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    from system.lib.command_node_cache import cached_command_node
+
+    def _build() -> dict[str, Any]:
+        payload = _pulse_annex_landing_summary()
+        return json.loads(json.dumps(payload, default=str))
+
+    payload, cache_status = cached_command_node(
+        state.REPO_ROOT,
+        node_id=PULSE_ANNEX_LANDING_NODE_ID,
+        key=PULSE_ANNEX_LANDING_KEY,
+        input_paths=PULSE_ANNEX_LANDING_INPUT_PATHS,
+        ttl_s=0.0,
+        builder=_build,
+        freshness_policy=PULSE_ANNEX_LANDING_FRESHNESS_POLICY,
+        dynamic_inputs_manifested=True,
+        force_refresh=force_refresh,
+    )
+    return dict(payload), cache_status
+
+
+def _pulse_annex_landing_summary_cached(*, exact: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    try:
+        return _refresh_pulse_annex_landing_cache(force_refresh=exact)
+    except Exception as exc:  # pragma: no cover - pulse must survive annex index skew
+        return {
+            "available": False,
+            "total_patterns": 0,
+            "adopted_count": 0,
+            "evaluated_count": 0,
+            "proposed_count": 0,
+            "rejected_count": 0,
+            "deferred_count": 0,
+            "landing_rate_pct": 0.0,
+            "under_fire": False,
+            "error": f"{type(exc).__name__}: {exc}",
+        }, {
+            "status": "error",
+            "reason": "annex_landing_cache_failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:240],
+        }
+
+
 def _pulse_workspace_summary() -> dict[str, Any]:
     observe_plan_count = len(list(state.OBSERVE_PLANS_DIR.glob("*.json"))) if state.OBSERVE_PLANS_DIR.exists() else 0
     snapshot_count = len(list(state.APPLY_SNAPSHOTS.iterdir())) if state.APPLY_SNAPSHOTS.exists() else 0
@@ -1283,26 +1457,12 @@ def _pulse_workspace_summary() -> dict[str, Any]:
     }
 
 
-def _pulse_closeout_git_state() -> dict[str, Any]:
-    try:
-        from system.lib.git_state_snapshot import (
-            build_closeout_git_state_conditions,
-            compact_closeout_git_state_conditions,
-        )
+def _refresh_pulse_closeout_git_state_cache(*, force_refresh: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    return refresh_closeout_git_state_cache(state.REPO_ROOT, force_refresh=force_refresh)
 
-        return compact_closeout_git_state_conditions(
-            build_closeout_git_state_conditions(state.REPO_ROOT, path_limit=5, recent_limit=1)
-        )
-    except Exception as exc:
-        return {
-            "schema": "closeout_git_state_summary_v0",
-            "status": "unknown",
-            "reason": "pulse_closeout_git_state_failed",
-            "error": str(exc)[:240],
-            "drilldowns": {
-                "closeout_conditions": "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions"
-            },
-        }
+
+def _pulse_closeout_git_state(*, exact: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    return closeout_git_state_cache_or_refresh(state.REPO_ROOT, exact=exact)
 
 
 _CLOSEOUT_CLOSED_WAVE_STATUSES = {"completed", "assimilated", "closed", "done", "archived"}
@@ -1681,6 +1841,7 @@ def _build_closeout_audit_payload(
     actionable_items = [
         item for item in items
         if str(item.get("closeout_state") or "").strip() in _CLOSEOUT_ACTIONABLE_STATES
+        and str(item.get("closeout_state") or "").strip() != "orphaned_session"
         and not item.get("disposition")
     ]
     dispositioned_items = [item for item in items if item.get("disposition")]
@@ -2582,6 +2743,16 @@ def _pulse_ready_deferred_reactions(*, limit: int = 5) -> list[dict[str, Any]]:
     try:
         from tools.meta.control import reactions_engine as _engine
 
+        compact_builder = getattr(_engine, "build_ready_deferred_reactions_projection", None)
+        if callable(compact_builder):
+            return list(
+                compact_builder(
+                    state.REPO_ROOT,
+                    signal_mode="cached",
+                    limit=limit,
+                )
+                or []
+            )
         try:
             snapshot = _engine.build_reactions_snapshot(state.REPO_ROOT, signal_mode="cached")
         except TypeError:
@@ -3095,9 +3266,9 @@ def _pulse_task_ledger_priority() -> dict[str, Any]:
     Surfaces the top ready/rank-1 WorkItem so cold agents see the P0 instead
     of routing past it into the active phase's runtime lane.
     """
-    from system.lib.task_ledger_priority import priority_constellation
+    from system.lib.kernel.pulse_cache import refresh_task_ledger_priority_cache
 
-    constellation = priority_constellation(state.REPO_ROOT)
+    constellation, _cache_status = refresh_task_ledger_priority_cache(state.REPO_ROOT)
     top_schedulable = constellation.get("top_schedulable_workitem")
     top = constellation.get("top_ready_workitem")
     return {
@@ -3110,6 +3281,40 @@ def _pulse_task_ledger_priority() -> dict[str, Any]:
             else None
         ),
     }
+
+
+def _pulse_task_ledger_priority_cached(*, exact: bool = False) -> tuple[dict[str, Any], dict[str, Any]]:
+    from system.lib.kernel.pulse_cache import refresh_task_ledger_priority_cache
+
+    try:
+        constellation, cache_status = refresh_task_ledger_priority_cache(
+            state.REPO_ROOT,
+            force_refresh=exact,
+        )
+    except Exception as exc:  # pragma: no cover - pulse must survive projection skew
+        return {
+            "schema_version": "task_ledger_priority_constellation_v1",
+            "status": "error",
+            "error": f"{type(exc).__name__}: {exc}",
+            "drilldown_command": "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2",
+        }, {
+            "status": "error",
+            "reason": "task_ledger_priority_cache_failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:240],
+        }
+    top_schedulable = constellation.get("top_schedulable_workitem")
+    top = constellation.get("top_ready_workitem")
+    return {
+        **constellation,
+        "drilldown_command": (
+            top_schedulable.get("drilldown_command")
+            if isinstance(top_schedulable, Mapping)
+            else top.get("drilldown_command")
+            if isinstance(top, Mapping)
+            else None
+        ),
+    }, cache_status
 
 
 _PULSE_CLOSEOUT_AUDIT_CACHE_TTL_S = 60.0
@@ -3478,6 +3683,28 @@ def _pulse_seed_first_action_line(session_rows: list[Mapping[str, Any]]) -> str 
     return line
 
 
+def _pulse_live_seed_first_action_line(live_sessions: Mapping[str, Any]) -> str | None:
+    kind = str(live_sessions.get("first_action_kind") or "").strip()
+    if not kind or kind in {"none", "no_active_claims"}:
+        return None
+
+    # These action classes already have dedicated HOT NOW rows with richer owner actions.
+    if kind in {"claim_collision", "heartbeat_gap", "projected_unknown_heartbeat"}:
+        return None
+
+    action = _pulse_short_text(live_sessions.get("first_action"), limit=132)
+    action_ref = _pulse_short_text(live_sessions.get("first_action_ref"), limit=96)
+    command = str(live_sessions.get("first_action_command") or "").strip()
+    line = f"  seed first action: {kind}"
+    if action:
+        line += f" | {action}"
+    if action_ref:
+        line += f" | ref={action_ref}"
+    if command:
+        line += f" | open: {command}"
+    return line
+
+
 def _pulse_hot_now_lines(active_execution: Mapping[str, Any]) -> list[str]:
     """Render the action-backed liveness packet for the compact pulse view."""
     if not active_execution:
@@ -3579,6 +3806,9 @@ def _pulse_hot_now_lines(active_execution: Mapping[str, Any]) -> list[str]:
         if no_heartbeat_command and no_heartbeat_command != cards_command:
             work_ledger_line += f" | no-heartbeat: {no_heartbeat_command}"
         lines.append(work_ledger_line)
+        seed_speed_action = _pulse_live_seed_first_action_line(live_sessions)
+        if seed_speed_action:
+            lines.append(seed_speed_action)
         if claim_collision_count:
             collision_word = "collision" if claim_collision_count == 1 else "collisions"
             collision_verb = "blocks" if claim_collision_count == 1 else "block"
@@ -3618,7 +3848,11 @@ def _pulse_hot_now_lines(active_execution: Mapping[str, Any]) -> list[str]:
                     line += f" | owner action: {heartbeat_command}"
                 lines.append(line)
         elif heartbeat_gap_status == "deferred_by_fast_path" and active_claims:
-            seed_action = None if awareness_cards else _pulse_seed_first_action_line(session_rows)
+            seed_action = (
+                None
+                if awareness_cards or seed_speed_action
+                else _pulse_seed_first_action_line(session_rows)
+            )
             if seed_action:
                 lines.append(seed_action)
             elif claim_collision_count or not awareness_cards:
@@ -3628,7 +3862,7 @@ def _pulse_hot_now_lines(active_execution: Mapping[str, Any]) -> list[str]:
                     gap_line += f" | open: {seed_speed_command}"
                 lines.append(gap_line)
         elif not claim_collision_count and session_rows and not awareness_cards:
-            seed_action = _pulse_seed_first_action_line(session_rows)
+            seed_action = None if seed_speed_action else _pulse_seed_first_action_line(session_rows)
             if seed_action:
                 lines.append(seed_action)
         awareness_rows = [item for item in awareness_cards if isinstance(item, Mapping)]
@@ -3695,7 +3929,11 @@ def _pulse_snapshot(exact: bool = False, profile_sink: list[dict[str, Any]] | No
     _profile_phase(profile_sink, "frontier_anchor", phase_started)
 
     phase_started = perf_counter()
-    docfix_plan = _pulse_latest_saved_plan(prefix="docfix_")
+    docfix_plan = (
+        _pulse_latest_saved_plan(prefix="docfix_")
+        if exact
+        else _pulse_latest_saved_plan_metadata(prefix="docfix_")
+    )
     _profile_phase(profile_sink, "latest_docfix_plan", phase_started)
 
     phase_started = perf_counter()
@@ -3703,11 +3941,18 @@ def _pulse_snapshot(exact: bool = False, profile_sink: list[dict[str, Any]] | No
     _profile_phase(profile_sink, "latest_runtime", phase_started)
 
     phase_started = perf_counter()
-    active_plan = _pulse_effective_active_plan(runtime, _active_plan_summary())
+    active_plan = (
+        None
+        if _pulse_runtime_hides_active_plan(runtime)
+        else _pulse_effective_active_plan(runtime, _active_plan_summary())
+    )
     _profile_phase(profile_sink, "active_plan", phase_started)
 
     phase_started = perf_counter()
-    doctrine = _pulse_doctrine_summary(navigator, exact=exact)
+    doctrine, doctrine_cache_status = _pulse_doctrine_summary_cached(
+        navigator,
+        exact=exact,
+    )
     _profile_phase(profile_sink, "doctrine_summary", phase_started)
 
     phase_started = perf_counter()
@@ -3715,11 +3960,30 @@ def _pulse_snapshot(exact: bool = False, profile_sink: list[dict[str, Any]] | No
     _profile_phase(profile_sink, "workspace_summary", phase_started)
 
     phase_started = perf_counter()
-    closeout_git_state = _pulse_closeout_git_state()
+    try:
+        closeout_git_result = _pulse_closeout_git_state(exact=exact)
+    except TypeError:
+        closeout_git_result = _pulse_closeout_git_state()
+    if (
+        isinstance(closeout_git_result, tuple)
+        and len(closeout_git_result) == 2
+        and isinstance(closeout_git_result[0], Mapping)
+        and isinstance(closeout_git_result[1], Mapping)
+    ):
+        closeout_git_state = dict(closeout_git_result[0])
+        closeout_git_cache_status = dict(closeout_git_result[1])
+    else:
+        closeout_git_state = closeout_git_result if isinstance(closeout_git_result, Mapping) else {}
+        closeout_git_cache_status = {
+            "status": "not_reported",
+            "reason": "pulse_closeout_git_state_helper_returned_legacy_payload",
+        }
     _profile_phase(profile_sink, "closeout_git_state", phase_started)
 
     phase_started = perf_counter()
-    annex_landing = _pulse_annex_landing_summary()
+    annex_landing, annex_landing_cache_status = _pulse_annex_landing_summary_cached(
+        exact=exact
+    )
     _profile_phase(profile_sink, "annex_landing", phase_started)
 
     phase_started = perf_counter()
@@ -3785,8 +4049,12 @@ def _pulse_snapshot(exact: bool = False, profile_sink: list[dict[str, Any]] | No
         "routing_projection": _pulse_routing_projection_status(exact=exact),
         "pulse_mode": "exact" if exact else "quick",
         "pulse_cache": {
+            "closeout_git_state": closeout_git_cache_status,
             "closeout_audit": closeout_cache_status,
             "provider_plane_liveness": provider_plane_cache_status,
+            "task_ledger_priority": None,
+            "annex_landing": annex_landing_cache_status,
+            "doctrine_summary": doctrine_cache_status,
         },
         "task_ledger_priority": None,
         "residual_lanes": [navigation_enforcement_residual_lane()],
@@ -3826,7 +4094,11 @@ def _pulse_snapshot(exact: bool = False, profile_sink: list[dict[str, Any]] | No
         ],
     }
     phase_started = perf_counter()
-    snapshot["task_ledger_priority"] = _pulse_task_ledger_priority()
+    task_ledger_priority, task_ledger_priority_cache_status = _pulse_task_ledger_priority_cached(
+        exact=exact
+    )
+    snapshot["task_ledger_priority"] = task_ledger_priority
+    snapshot["pulse_cache"]["task_ledger_priority"] = task_ledger_priority_cache_status
     _profile_phase(profile_sink, "task_ledger_priority", phase_started)
 
     phase_started = perf_counter()
@@ -7291,6 +7563,18 @@ def cmd_pulse() -> int:
 
 
 def _preflight_active_phase() -> dict[str, Any]:
+    projected = _pulse_active_phase_from_bootstrap_live()
+    if isinstance(projected, Mapping) and projected.get("phase_dir"):
+        return {
+            "active": True,
+            "phase_id": projected.get("phase_id"),
+            "phase_number": projected.get("phase_number"),
+            "phase_title": projected.get("phase_title"),
+            "phase_dir": projected.get("phase_dir"),
+            "family_dir": projected.get("family_dir"),
+            "source": "agent_bootstrap_live",
+            "source_path": projected.get("source_path"),
+        }
     try:
         phase = load_explicit_active_phase(state.REPO_ROOT)
     except Exception as exc:
@@ -7304,6 +7588,7 @@ def _preflight_active_phase() -> dict[str, Any]:
         "phase_title": phase.get("phase_title"),
         "phase_dir": phase.get("phase_dir"),
         "family_dir": phase.get("family_dir"),
+        "source": "explicit_active_phase",
     }
 
 
@@ -10696,6 +10981,7 @@ def cmd_session_diagnostics(
     write_path: str | None = None,
     write_route_miss_candidates_path: str | None = None,
     diagnostics_summary: bool = False,
+    implicit_default_window: bool = False,
 ) -> int:
     """
     [ACTION]
@@ -10714,15 +11000,48 @@ def cmd_session_diagnostics(
             write_route_miss_candidates,
         )
 
-        if diagnostics_summary and lens == "all" and not write_route_miss_candidates_path:
+        default_summary_requested = (
+            not state.NAVIGATION_FULL_OUTPUT
+            and not diagnostics_summary
+            and lens == "all"
+            and not write_path
+            and not write_route_miss_candidates_path
+        )
+        effective_diagnostics_summary = diagnostics_summary or default_summary_requested
+        summary_last = last
+        summary_limit = limit
+        implicit_window_receipt: dict[str, Any] | None = None
+        if default_summary_requested and implicit_default_window:
+            summary_last = min(last, 5)
+            summary_limit = min(limit, 8)
+            implicit_window_receipt = {
+                "schema": "session_diagnostics_implicit_default_window_v0",
+                "status": "compacted",
+                "requested_last": last,
+                "effective_last": summary_last,
+                "requested_limit": limit,
+                "effective_limit": summary_limit,
+                "reason": (
+                    "Bare --session-diagnostics is a first-contact route; explicit --last/"
+                    "--limit keeps the requested diagnostic window."
+                ),
+                "deep_summary_command": (
+                    f"./repo-python kernel.py --session-diagnostics --last {last} "
+                    f"--limit {limit} --store {store} --json --diagnostics-summary"
+                ),
+            }
+
+        if effective_diagnostics_summary and lens == "all" and not write_route_miss_candidates_path:
             report = build_summary_report(
                 store=store,
-                last=last,
+                last=summary_last,
                 after=after,
                 before=before,
                 project=project,
-                limit=limit,
+                limit=summary_limit,
             )
+            if implicit_window_receipt is not None:
+                report["implicit_default_window"] = implicit_window_receipt
             full_report = None
         else:
             full_report = build_report(
@@ -10734,7 +11053,7 @@ def cmd_session_diagnostics(
                 project=project,
                 limit=limit,
             )
-            report = summarize_report(full_report) if diagnostics_summary else full_report
+            report = summarize_report(full_report) if effective_diagnostics_summary else full_report
         if write_path:
             written = write_report(report, write_path)
             try:
@@ -11734,7 +12053,27 @@ def _agent_wake_fast_workitem_entrypoint(
             [f"workitem fast projection import failed: {exc}"],
         )
 
-    task_ledger, task_blockers = _task_ledger_materialized_projection_packet(state.REPO_ROOT)
+    task_ledger, task_blockers = _task_ledger_materialized_projection_packet(
+        state.REPO_ROOT,
+        view_names=(
+            "capture_inbox",
+            "capture_triage",
+            "execution_menu",
+            "execution_menu_schedulable",
+            "ready_by_rank",
+            "schedulable_by_rank",
+            "dependency_blocked",
+            "dependency_anomalies",
+            "blocked",
+            "merge_or_retire_candidates",
+            "missing_contracts_ranked",
+            "missing_satisfaction_contract",
+            "missing_integration_contract",
+            "stale_review",
+            "prompt_trace_unlinked",
+            "work_ledger_unlinked",
+        ),
+    )
     backlog_health = _workitem_backlog_health_packet(task_ledger, prompt_trace={})
     backlog_attention = _workitem_backlog_attention_packet(task_ledger, backlog_health=backlog_health)
     strict_json_attention = _strict_json_artifact_attention_packet(task_ledger, repo_root=state.REPO_ROOT, target_paths=[])
@@ -12179,7 +12518,10 @@ def cmd_host_pressure(
             compact_progress_pressure_packet,
         )
 
-        store = AgentTraceStore(state.REPO_ROOT)
+        store = AgentTraceStore(
+            state.REPO_ROOT,
+            max_history=max(1, min(int(event_limit or 1), 2000)),
+        )
         packet = build_progress_pressure_packet_from_store(
             store,
             state.REPO_ROOT,
@@ -12250,6 +12592,7 @@ def cmd_workitem_entrypoint(
     session_id: str | None = None,
     require_exclusive: bool = False,
     limit: int = 6,
+    full: bool = False,
 ) -> int:
     """
     [ACTION]
@@ -12259,6 +12602,65 @@ def cmd_workitem_entrypoint(
     - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
+    if not full and not target_paths and not write_profiles and not session_id and not require_exclusive:
+        warnings: list[str] = []
+        try:
+            phase_packet, _phase_sources, phase_warnings = _agent_wake_phase_packet(phase_token)
+            warnings.extend(phase_warnings)
+        except Exception as exc:  # noqa: BLE001 - compact default should degrade instead of failing hard
+            phase_packet = {"error": str(exc), "phase_id": None}
+            warnings.append(f"phase packet failed: {exc}")
+        work_ledger, work_warnings = _agent_wake_work_ledger(limit)
+        warnings.extend(work_warnings)
+        payload, fast_warnings = _agent_wake_fast_workitem_entrypoint(
+            phase_packet=phase_packet,
+            work_ledger=work_ledger,
+        )
+        warnings.extend(fast_warnings)
+        compact = _agent_wake_compact_workitem_entrypoint(
+            payload,
+            backlog_health=payload.get("workitem_backlog_health")
+            if isinstance(payload.get("workitem_backlog_health"), Mapping)
+            else {},
+        )
+        task_ledger = payload.get("task_ledger") if isinstance(payload.get("task_ledger"), Mapping) else {}
+        task_views = task_ledger.get("views") if isinstance(task_ledger.get("views"), Mapping) else {}
+        compact.update(
+            {
+                "kind": payload.get("kind"),
+                "output_profile": "fast_compact_default",
+                "full_profile_command": "./repo-python kernel.py --full --workitem-entrypoint <same args>",
+                "query": {
+                    "phase": phase_token or "__active__",
+                    "target_paths": [],
+                    "write_profiles": [],
+                    "session_id": None,
+                    "require_exclusive": False,
+                    "task_ledger_source": "materialized_projection",
+                    "target_aware_validation": False,
+                },
+                "summary": {
+                    "safe_to_continue": payload.get("safe_to_continue"),
+                    "blocked_only_by": payload.get("blocked_only_by") or [],
+                    "task_ledger_source": "materialized_projection",
+                    "task_ledger_event_count": (task_ledger.get("counts") or {}).get("event_count")
+                    if isinstance(task_ledger.get("counts"), Mapping)
+                    else None,
+                    "task_ledger_view_count": len(task_views),
+                    "projection_affordance_count": len(payload.get("projection_affordances") or []),
+                    "omitted_sections": [
+                        "target-aware forward integration validation",
+                        "full task_ledger views",
+                        "full projection_affordances",
+                        "full workitem_backlog_attention row lists",
+                        "full work_ledger active claims",
+                    ],
+                    "warnings": warnings,
+                },
+            }
+        )
+        return emit_json(compact)
+
     from system.lib.workitem_runtime_entrypoint import build_workitem_runtime_entrypoint
 
     payload = build_workitem_runtime_entrypoint(
@@ -12270,6 +12672,45 @@ def cmd_workitem_entrypoint(
         require_exclusive=require_exclusive,
         limit=limit,
     )
+    if not full:
+        backlog_health = payload.get("workitem_backlog_health")
+        compact = _agent_wake_compact_workitem_entrypoint(
+            payload,
+            backlog_health=backlog_health if isinstance(backlog_health, Mapping) else {},
+        )
+        task_ledger = payload.get("task_ledger") if isinstance(payload.get("task_ledger"), Mapping) else {}
+        task_views = task_ledger.get("views") if isinstance(task_ledger.get("views"), Mapping) else {}
+        compact.update(
+            {
+                "kind": payload.get("kind"),
+                "output_profile": "compact_default",
+                "full_profile_command": "./repo-python kernel.py --full --workitem-entrypoint <same args>",
+                "query": payload.get("query") if isinstance(payload.get("query"), Mapping) else {},
+                "summary": {
+                    "safe_to_continue": payload.get("safe_to_continue"),
+                    "blocked_only_by": payload.get("blocked_only_by") or [],
+                    "task_ledger_source": (
+                        payload.get("query", {}).get("task_ledger_source")
+                        if isinstance(payload.get("query"), Mapping)
+                        else None
+                    ),
+                    "task_ledger_event_count": (task_ledger.get("counts") or {}).get("event_count")
+                    if isinstance(task_ledger.get("counts"), Mapping)
+                    else None,
+                    "task_ledger_view_count": len(task_views),
+                    "projection_affordance_count": len(payload.get("projection_affordances") or []),
+                    "omitted_sections": [
+                        "full task_ledger views",
+                        "full projection_affordances",
+                        "full workitem_backlog_attention row lists",
+                        "full forward_integration policy details",
+                        "full work_ledger active claims",
+                    ],
+                },
+                "sources": payload.get("sources") if isinstance(payload.get("sources"), Mapping) else {},
+            }
+        )
+        return emit_json(compact)
     return emit_json(payload)
 
 
@@ -12379,7 +12820,121 @@ def _paper_module_surface_result(result: NavigationResult, *, request: str, debu
     )
 
 
-def cmd_paper_module(request: str, *, debug: bool = False) -> int:
+def _paper_module_compact_result(*, request: str) -> dict[str, Any]:
+    envelope = build_paper_module_projection_envelope(band="card", slug=request)
+    row = ((envelope.get("payload") or {}).get("row") or {}) if isinstance(envelope, Mapping) else {}
+    currentness = row.get("currentness") if isinstance(row.get("currentness"), Mapping) else {}
+    source_ref = str(row.get("source_ref") or f"codex/doctrine/paper_modules/{request}.md")
+    debug_command = f"./repo-python kernel.py --paper-module {shlex.quote(str(request or '').strip())} --debug"
+    full_command = f"./repo-python kernel.py --full --paper-module {shlex.quote(str(request or '').strip())}"
+    payload = {
+        "output_profile": "compact_card_default",
+        "request": request,
+        "resolution": {
+            "match_status": "resolved" if row else "missing",
+            "slug": row.get("slug") or request,
+            "title": row.get("title"),
+            "source_ref": source_ref,
+        },
+        "trust_posture": {
+            "recommended_action": currentness.get("recommended_action"),
+            "trust_boundary": currentness.get("trust_boundary"),
+            "trust_level": "guarded"
+            if currentness.get("code_loci_freshness") == "source_changed"
+            else "high",
+        },
+        "freshness": {
+            "sync_status": currentness.get("index_freshness"),
+            "code_loci_freshness": currentness.get("code_loci_freshness"),
+            "index_generated_at": currentness.get("index_generated_at"),
+        },
+        "module": {
+            "slug": row.get("slug"),
+            "title": row.get("title"),
+            "status": row.get("status"),
+            "claim": row.get("claim"),
+            "tldr_excerpt": row.get("tldr_excerpt"),
+            "purpose_or_intent": row.get("purpose_or_intent"),
+            "dependency_counts": row.get("dependency_counts"),
+            "top_dependencies": row.get("top_dependencies"),
+            "top_dependents": row.get("top_dependents"),
+            "governing_refs": row.get("governing_refs"),
+        },
+        "dependency_context": {
+            "dependency_counts": row.get("dependency_counts"),
+            "top_dependencies": row.get("top_dependencies"),
+            "top_dependents": row.get("top_dependents"),
+        },
+        "next_reads": [
+            source_ref,
+            "codex/doctrine/paper_modules/_index.json",
+        ],
+        "validation_findings": [],
+        "full_payload_hint": full_command,
+        "surface_role": DRILLDOWN,
+        "first_contact_allowed": False,
+        "control_replacement": ENTRY_REPLACEMENT,
+        "debug_trace_command": debug_command,
+        "debug_fields_visible": False,
+        "surface_contract": surface_contract(
+            surface_id="paper_module",
+            command="./repo-python kernel.py --paper-module",
+            surface_role=DRILLDOWN,
+            authority_plane="drilldown",
+            first_contact_allowed=False,
+            replacement=ENTRY_REPLACEMENT,
+            debug_command=debug_command,
+            safe_drilldown_replacement="./repo-python kernel.py --paper-module <stable_slug>",
+            allowed_callers=[
+                "entry_packet.selected_lane",
+                "selected_stable_slug_drilldown",
+                "explicit_operator_browse",
+            ],
+            banned_callers=[
+                "agent_first_contact",
+                "broad_query_route_selection_without_entry_packet",
+            ],
+            default_output_policy={
+                "selected_slug": "visible",
+                "debug_fields": "hidden",
+                "ranked_matches": "hidden",
+                "full_payload": "hidden_behind_--full",
+            },
+            debug_output_policy={
+                "requires_flag": "--debug",
+                "field_names": "visible",
+            },
+        ),
+    }
+    return {
+        "kind": "kernel.navigate.paper_module",
+        "query": request,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "kernel_version": state.KERNEL_VERSION,
+        "mode": "compact",
+        "summary": {
+            "match_status": payload["resolution"]["match_status"],
+            "slug": payload["resolution"]["slug"],
+            "title": payload["resolution"]["title"],
+            "output_profile": payload["output_profile"],
+        },
+        "payload": payload,
+        "sources": {
+            "derived": ["codex/doctrine/paper_modules/_index.json"],
+            "live": [source_ref],
+        },
+        "next": [
+            {"command": full_command, "reason": "Open the full paper-module lookup and evidence packet."},
+            {
+                "command": f"./repo-python kernel.py --paper-module {shlex.quote(str(request or '').strip())} --output-band card",
+                "reason": "Open the canonical command-output projection envelope for this card.",
+            },
+        ],
+        "warnings": [],
+    }
+
+
+def cmd_paper_module(request: str, *, debug: bool = False, full: bool = False) -> int:
     """[ACTION]
     - Teleology: Resolve a subsystem query to the best matching paper module or typed missing-module candidate.
     - Mechanism: Delegate to `KernelNavigation.build_paper_module_lookup` and emit the resulting lookup packet.
@@ -12389,11 +12944,13 @@ def cmd_paper_module(request: str, *, debug: bool = False) -> int:
     - Escalates-to: system/lib/kernel_navigation.py; codex/doctrine/paper_modules/_index.json
     - Navigation-group: kernel_lib
     """
-    navigator = KernelNavigation(state.REPO_ROOT)
     raw = str(request or "").strip()
-    stable_slugs = set(navigator._paper_module_entry_by_slug().keys())
-    if not debug and raw not in stable_slugs:
-        return emit_json(_paper_module_broad_query_block(request=raw))
+    if not (debug or full):
+        compact = _paper_module_compact_result(request=raw)
+        if ((compact.get("summary") or {}).get("match_status")) != "resolved":
+            return emit_json(_paper_module_broad_query_block(request=raw))
+        return emit_json(compact)
+    navigator = KernelNavigation(state.REPO_ROOT)
     try:
         result = navigator.build_paper_module_lookup(request)
     except ValueError as exc:
@@ -12982,7 +13539,59 @@ def cmd_kind_band_contract_audit() -> int:
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     payload = build_kind_band_contract_audit(state.REPO_ROOT)
+    if not state.NAVIGATION_FULL_OUTPUT:
+        payload = _compact_kind_band_contract_audit_payload(payload)
     return emit_json(payload)
+
+
+def _compact_kind_band_contract_audit_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
+    rows = payload.get("rows") if isinstance(payload.get("rows"), list) else []
+    source_refs = payload.get("source_refs") if isinstance(payload.get("source_refs"), list) else []
+    preview_rows = []
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        status = str(row.get("contract_status") or "")
+        missing_fields = row.get("missing_contract_fields") if isinstance(row.get("missing_contract_fields"), list) else []
+        unpopulated = row.get("unpopulated_units") if isinstance(row.get("unpopulated_units"), list) else []
+        if status in {"declared", "profile_declared"} and not missing_fields and not unpopulated:
+            continue
+        preview_rows.append(
+            {
+                "kind_id": row.get("kind_id"),
+                "kind_title": row.get("kind_title"),
+                "kind_support_status": row.get("kind_support_status"),
+                "contract_status": status,
+                "contract_ref": row.get("contract_ref"),
+                "navigable_bands": row.get("navigable_bands"),
+                "missing_contract_fields": missing_fields,
+                "unpopulated_units": unpopulated,
+                "evidence_refs": row.get("evidence_refs"),
+            }
+        )
+    preview_limit = 8
+    return {
+        "kind": payload.get("kind"),
+        "schema_version": payload.get("schema_version"),
+        "generated_at": payload.get("generated_at"),
+        "authority_posture": payload.get("authority_posture"),
+        "governing_standard": payload.get("governing_standard"),
+        "summary": payload.get("summary"),
+        "navigation_boundary": payload.get("navigation_boundary"),
+        "output_profile": {
+            "profile": "compact_default",
+            "reason": "Default audit output is bounded for routine currentness checks; use --full for all per-kind contract rows.",
+            "row_count": len(rows),
+            "source_ref_count": len(source_refs),
+            "rows_preview_limit": preview_limit,
+            "rows_preview_count": min(len(preview_rows), preview_limit),
+            "rows_omitted": max(len(rows) - min(len(preview_rows), preview_limit), 0),
+            "source_refs_preview": source_refs[:8],
+            "source_refs_omitted": max(len(source_refs) - 8, 0),
+            "full_command": "./repo-python kernel.py --full --kind-band-contract-audit",
+        },
+        "rows_preview": preview_rows[:preview_limit],
+    }
 
 
 # =========================================================================
@@ -13450,7 +14059,7 @@ def build_paper_module_projection_envelope(
             ],
         )
     row = rows[0] if isinstance(rows[0], dict) else {}
-    drilldown = f"./repo-python kernel.py --paper-module {slug}"
+    drilldown = f"./repo-python kernel.py --full --paper-module {slug}"
     return command_projection(
         command="--paper-module",
         band="card",
@@ -14652,6 +15261,17 @@ def _build_session_diagnostics_latency_projection_envelope(
     )
 
 
+_STATIC_ROW_KIND_BAND_SUMMARY: dict[str, dict[str, Any]] = {
+    alias: {
+        "normalized_kind_id": "paper_modules",
+        "legal_bands": ["cluster_flag", "atom", "flag", "card", "context", "evidence"],
+        "populated_bands": ["cluster_flag", "atom", "flag", "card"],
+        "support_status": "option_surface_supported",
+    }
+    for alias in ("paper_modules", "paper_module", "paper-modules", "paper-module")
+}
+
+
 def _row_kind_band_summary(kind_id: str) -> dict[str, Any]:
     """Resolve kind-native legal bands + adapter-populated bands for `cmd_row` refusal.
 
@@ -14665,6 +15285,16 @@ def _row_kind_band_summary(kind_id: str) -> dict[str, Any]:
     Used by ``cmd_row`` so structured row_band_unavailable refusals carry
     accurate kind-native metadata, not just the option-surface adapter's flag/card/tape set.
     """
+    raw_kind = str(kind_id or "").strip()
+    static_kind = _STATIC_ROW_KIND_BAND_SUMMARY.get(raw_kind)
+    if static_kind:
+        return {
+            "normalized_kind_id": str(static_kind["normalized_kind_id"]),
+            "legal_bands": list(static_kind["legal_bands"]),
+            "populated_bands": list(static_kind["populated_bands"]),
+            "support_status": str(static_kind["support_status"]),
+            "kind_known": True,
+        }
     info: dict[str, Any] = {
         "normalized_kind_id": kind_id,
         "legal_bands": [],
@@ -14891,7 +15521,7 @@ def cmd_row(spec: str, *, band: str = "flag") -> int:
     return emit_json(envelope)
 
 
-def cmd_command_output_projection_audit() -> int:
+def cmd_command_output_projection_audit(*, full: bool = False) -> int:
     """
     [ACTION]
     - Teleology: Emit the command-output projection audit per std_command_output_projection.json.
@@ -14900,7 +15530,11 @@ def cmd_command_output_projection_audit() -> int:
     - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
-    payload = build_command_output_projection_audit()
+    payload = (
+        build_command_output_projection_audit()
+        if full
+        else build_command_output_projection_audit_catalog()
+    )
     return emit_json(payload)
 
 
@@ -15029,7 +15663,7 @@ def cmd_session_diagnostics_projection(*, band: str, lens: str = "all", last: in
     return emit_json(build_session_diagnostics_projection_envelope(band=band, lens=lens, last=last))
 
 
-def cmd_navigation_context_rosetta(*, context_budget: int = 1400) -> int:
+def cmd_navigation_context_rosetta(*, context_budget: int = 1400, full: bool = False) -> int:
     """
     [ACTION]
     - Teleology: Emit a read-only Rosetta packet for budgeted context compression.
@@ -15038,7 +15672,11 @@ def cmd_navigation_context_rosetta(*, context_budget: int = 1400) -> int:
     - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
-    payload = build_navigation_context_rosetta(state.REPO_ROOT, context_budget=context_budget)
+    payload = (
+        build_navigation_context_rosetta(state.REPO_ROOT, context_budget=context_budget)
+        if full
+        else build_navigation_context_rosetta_compact(state.REPO_ROOT, context_budget=context_budget)
+    )
     return emit_json(payload)
 
 
@@ -15163,7 +15801,12 @@ def cmd_navigation_context_pack(
     return emit_json(payload)
 
 
-def cmd_navigation_surface_audit(query: str | None = None, *, context_budget: int = 12000) -> int:
+def cmd_navigation_surface_audit(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+    live_measurements: bool = False,
+) -> int:
     """
     [ACTION]
     - Teleology: Emit read-only diagnostics for navigation route size and contract fit.
@@ -15172,13 +15815,22 @@ def cmd_navigation_surface_audit(query: str | None = None, *, context_budget: in
     - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
-    from system.lib.navigation_surface_audit import build_navigation_surface_audit
+    if live_measurements:
+        from system.lib.navigation_surface_audit import build_navigation_surface_audit
 
-    payload = build_navigation_surface_audit(
-        state.REPO_ROOT,
-        query=query,
-        context_budget=context_budget,
-    )
+        payload = build_navigation_surface_audit(
+            state.REPO_ROOT,
+            query=query,
+            context_budget=context_budget,
+        )
+    else:
+        from system.lib.navigation_surface_audit import build_navigation_surface_audit_catalog
+
+        payload = build_navigation_surface_audit_catalog(
+            state.REPO_ROOT,
+            query=query,
+            context_budget=context_budget,
+        )
     return emit_json(payload)
 
 
@@ -15193,17 +15845,19 @@ def cmd_clusterability_audit(*, context_budget: int = 12000) -> int:
     """
     from system.lib.navigation_clusterability import (
         DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET,
-        build_navigation_clusterability_audit,
+        cached_navigation_clusterability_audit,
         compact_navigation_clusterability_audit_for_cli,
     )
 
-    payload = build_navigation_clusterability_audit(
+    payload, cache_status = cached_navigation_clusterability_audit(
         state.REPO_ROOT,
         context_budget=context_budget,
         measure_all_rows=context_budget > DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET,
     )
     if context_budget <= DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET and not payload.get("debt_rows"):
         payload = compact_navigation_clusterability_audit_for_cli(payload, context_budget=context_budget)
+    if isinstance(payload, dict):
+        payload["command_node_cache"] = {"clusterability_audit": cache_status}
     return emit_json(payload)
 
 
@@ -15262,7 +15916,12 @@ def cmd_annex_movement_pressure_map(query: str | None = None, *, context_budget:
     return emit_json(payload)
 
 
-def cmd_annex_navigation_dogfood(query: str | None = None, *, context_budget: int = 12000) -> int:
+def cmd_annex_navigation_dogfood(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+    full: bool = False,
+) -> int:
     """
     [ACTION]
     - Teleology: Emit annex navigation self-use diagnostics over compressed annex surfaces.
@@ -15277,6 +15936,7 @@ def cmd_annex_navigation_dogfood(query: str | None = None, *, context_budget: in
         state.REPO_ROOT,
         query=query,
         context_budget=context_budget,
+        include_priority_cohort=full,
     )
     return emit_json(payload)
 
@@ -15418,10 +16078,16 @@ def _command_profile_compact_pulse_payload(snapshot: Mapping[str, Any]) -> dict[
             "live_session_counts": dict(live_session_counts),
         },
         "pulse_cache": {
+            "closeout_git_state": mapping(pulse_cache.get("closeout_git_state")).get("status"),
             "provider_plane_liveness": mapping(
                 pulse_cache.get("provider_plane_liveness")
             ).get("status"),
             "closeout_audit": mapping(pulse_cache.get("closeout_audit")).get("status"),
+            "task_ledger_priority": mapping(
+                pulse_cache.get("task_ledger_priority")
+            ).get("status"),
+            "annex_landing": mapping(pulse_cache.get("annex_landing")).get("status"),
+            "doctrine_summary": mapping(pulse_cache.get("doctrine_summary")).get("status"),
         },
         "top_schedulable_workitem": {
             "id": top_workitem.get("id"),
@@ -15437,6 +16103,264 @@ def _command_profile_compact_pulse_payload(snapshot: Mapping[str, Any]) -> dict[
             "full_snapshot_command": "./repo-python kernel.py --pulse --full",
         },
     }
+
+
+def _command_profile_phase_metadata_payload(repo_root: Path) -> dict[str, Any]:
+    active = _pulse_active_phase_from_bootstrap_live()
+    active_lanes_path = repo_root / "state/phase_lanes/active_lanes.json"
+    phase_index_path = repo_root / "codex/derived/phase_index.json"
+    active_lanes = safe_load_json(active_lanes_path) if active_lanes_path.is_file() else {}
+    phase_index = safe_load_json(phase_index_path) if phase_index_path.is_file() else {}
+    active_lanes = active_lanes if isinstance(active_lanes, Mapping) else {}
+    phase_index = phase_index if isinstance(phase_index, Mapping) else {}
+    if active is None:
+        active = {
+            "phase_id": active_lanes.get("active_phase_anchor") or phase_index.get("active_phase_id"),
+            "phase_number": phase_index.get("active_phase_number"),
+            "phase_title": active_lanes.get("active_phase_title") or phase_index.get("active_phase_title"),
+            "phase_dir": phase_index.get("active_phase_dir"),
+            "family_dir": phase_index.get("active_family_dir") or phase_index.get("family_dir"),
+            "source_path": (
+                "state/phase_lanes/active_lanes.json"
+                if active_lanes.get("active_phase_anchor")
+                else "codex/derived/phase_index.json"
+                if phase_index.get("active_phase_id")
+                else None
+            ),
+        }
+
+    phase_id = str(active.get("phase_id") or "").strip() if isinstance(active, Mapping) else ""
+    phase_number = str(active.get("phase_number") or "").strip() if isinstance(active, Mapping) else ""
+    phase_title = str(active.get("phase_title") or "").strip() if isinstance(active, Mapping) else ""
+    phase_dir = canonicalize_write_path(str(active.get("phase_dir") or "").strip()) if isinstance(active, Mapping) else ""
+    phase_ref = phase_id or phase_number or "<phase>"
+    return {
+        "schema": "phase_command_profile_payload_v0",
+        "output_profile": "projected_active_phase_metadata",
+        "surface_command": "./repo-python kernel.py --phase",
+        "full_phase_command": f"./repo-python kernel.py --phase {phase_ref} --full",
+        "summary_phase_command": f"./repo-python kernel.py --phase {phase_ref}",
+        "profile_compacted": True,
+        "phase": {
+            "phase_id": phase_id or None,
+            "phase_number": phase_number or None,
+            "phase_title": phase_title or None,
+            "phase_dir": phase_dir or None,
+            "family_dir": active.get("family_dir") if isinstance(active, Mapping) else None,
+        },
+        "resolution": {
+            "status": "available" if phase_id or phase_number or phase_dir else "missing",
+            "source_path": active.get("source_path") if isinstance(active, Mapping) else None,
+            "source_order": [
+                "codex/doctrine/agent_bootstrap_live.json::live_bindings",
+                "state/phase_lanes/active_lanes.json::active_phase_anchor",
+                "codex/derived/phase_index.json",
+            ],
+        },
+        "omission_receipt": {
+            "status": "command_profile_metadata_only",
+            "reason": (
+                "Default command-profile phase measures first-contact routing health "
+                "without building the full phase card."
+            ),
+            "omitted_fields": [
+                "phase_card",
+                "active_synth",
+                "phase_lifecycle_enforcement",
+                "active_execution_overlay",
+                "suggested_next",
+                "family members",
+            ],
+            "full_profile_with_token": "./repo-python kernel.py --command-profile phase --phase <phase>",
+        },
+    }
+
+
+_DEFAULT_PHASE_SUMMARY_CACHE_TTL_S = 120.0
+
+
+def _default_phase_summary_cache_manifest(repo_root: Path) -> tuple[dict[str, Any], list[str]]:
+    active = _pulse_active_phase_from_bootstrap_live()
+    phase_dir = canonicalize_write_path(str((active or {}).get("phase_dir") or "").strip()) if isinstance(active, Mapping) else ""
+    family_dir = canonicalize_write_path(str((active or {}).get("family_dir") or "").strip()) if isinstance(active, Mapping) else ""
+    input_paths = [
+        "codex/doctrine/agent_bootstrap_live.json",
+        "state/phase_lanes/active_lanes.json",
+        "codex/derived/phase_index.json",
+        "tools/meta/control/orchestration_state.json",
+        "state/task_ledger/views/execution_menu_schedulable.json",
+        "state/work_ledger/active_claims_snapshot.json",
+    ]
+    if phase_dir:
+        input_paths.append(phase_dir)
+    if family_dir:
+        input_paths.append(f"{family_dir.rstrip('/')}/phase_family.json")
+        input_paths.append(default_phase_memory_path(family_dir))
+    key = {
+        "version": 1,
+        "phase_id": str((active or {}).get("phase_id") or "").strip() if isinstance(active, Mapping) else "",
+        "phase_number": str((active or {}).get("phase_number") or "").strip() if isinstance(active, Mapping) else "",
+        "phase_dir": phase_dir,
+    }
+    return key, input_paths
+
+
+def _cached_default_phase_output_packet(
+    *,
+    output_mode: str,
+    task_query: str | None = None,
+) -> dict[str, Any]:
+    from system.lib.command_node_cache import cached_command_node
+
+    manifest_key, input_paths = _default_phase_summary_cache_manifest(state.REPO_ROOT)
+    cache_key = {
+        **manifest_key,
+        "output_mode": output_mode,
+        "task_query": str(task_query or ""),
+    }
+
+    def _build() -> dict[str, Any]:
+        navigator = KernelNavigation(state.REPO_ROOT)
+        result = navigator.build_phase(
+            None,
+            include_transaction_control_plane=False,
+        )
+        return _phase_output_mode_packet(result, output_mode=output_mode, task_query=task_query)
+
+    payload, cache_status = cached_command_node(
+        state.REPO_ROOT,
+        node_id="kernel.phase.default_summary",
+        key=cache_key,
+        input_paths=input_paths,
+        ttl_s=_DEFAULT_PHASE_SUMMARY_CACHE_TTL_S,
+        builder=_build,
+        freshness_policy="ttl_plus_active_phase_directory_and_live_sidecar_manifest",
+        dynamic_inputs_manifested=True,
+    )
+    packet = dict(payload)
+    packet["command_node_cache"] = {"default_phase_summary": cache_status}
+    return packet
+
+
+def _command_profile_compact_entry_payload(payload: Any) -> Any:
+    if not isinstance(payload, Mapping):
+        return payload
+    compact = dict(payload)
+    navigation_index_spine = compact.get("navigation_index_spine")
+    if isinstance(navigation_index_spine, Mapping):
+        compact["navigation_index_spine"] = _command_profile_compact_navigation_index_spine(
+            navigation_index_spine
+        )
+    closeout_git_state = compact.get("closeout_git_state")
+    if isinstance(closeout_git_state, Mapping):
+        gate = (
+            closeout_git_state.get("scoped_work_gate")
+            if isinstance(closeout_git_state.get("scoped_work_gate"), Mapping)
+            else {}
+        )
+        recommended_lane = (
+            closeout_git_state.get("recommended_lane")
+            if isinstance(closeout_git_state.get("recommended_lane"), Mapping)
+            else {}
+        )
+        compact_closeout = {
+            "schema": closeout_git_state.get("schema"),
+            "profile_compacted": True,
+            "status": closeout_git_state.get("status"),
+            "reason": closeout_git_state.get("reason"),
+            "dirty_total": closeout_git_state.get("dirty_total"),
+            "staged_total": closeout_git_state.get("staged_total"),
+            "ahead": closeout_git_state.get("ahead"),
+            "behind": closeout_git_state.get("behind"),
+            "scoped_work_allowed": closeout_git_state.get("scoped_work_allowed"),
+            "closeout_ready": closeout_git_state.get("closeout_ready"),
+            "scoped_work_gate": {
+                key: gate.get(key)
+                for key in ("status", "reason", "required_lane", "scoped_work_allowed")
+                if gate.get(key) not in (None, "", [], {})
+            },
+            "recommended_lane": {
+                key: recommended_lane.get(key)
+                for key in ("lane", "actuator")
+                if recommended_lane.get(key) not in (None, "", [], {})
+            },
+            "drilldown": (
+                closeout_git_state.get("drilldown")
+                or closeout_git_state.get("full_drilldown")
+                or "./repo-python tools/meta/control/git_state_snapshot.py --closeout-conditions"
+            ),
+        }
+        compact["closeout_git_state"] = {
+            key: value
+            for key, value in compact_closeout.items()
+            if value not in (None, "", [], {})
+        }
+    return compact
+
+
+def _command_profile_compact_navigation_index_spine(spine: Mapping[str, Any]) -> dict[str, Any]:
+    def mapping(value: Any) -> Mapping[str, Any]:
+        return value if isinstance(value, Mapping) else {}
+
+    summary = mapping(spine.get("summary"))
+    openings = mapping(spine.get("task_conditioned_openings"))
+    currentness = mapping(spine.get("currentness"))
+    source_coupling = mapping(spine.get("source_coupling"))
+    omission = mapping(spine.get("omission_receipt"))
+    projection_gaps = spine.get("top_projection_gaps")
+    first_gap = (
+        projection_gaps[0]
+        if isinstance(projection_gaps, Sequence)
+        and not isinstance(projection_gaps, (str, bytes, bytearray))
+        and projection_gaps
+        and isinstance(projection_gaps[0], Mapping)
+        else {}
+    )
+    first_opening = mapping(openings.get("first_opening"))
+    compact_spine = {
+        "schema_version": spine.get("schema_version"),
+        "profile_compacted": True,
+        "status": "available" if spine.get("available") else "unavailable",
+        "summary": {
+            key: summary.get(key)
+            for key in (
+                "artifact_kind_count",
+                "row_level_projection_gap_count",
+                "coverage_surface_available_count",
+                "coverage_surface_gap_count",
+                "high_cardinality_kind_count",
+                "task_conditioned_opening_count",
+            )
+            if summary.get(key) is not None
+        },
+        "task_conditioned_openings": {
+            "matched_intent_count": len(openings.get("matched_intent_ids") or []),
+            "selected_opening_count": openings.get("selected_opening_count"),
+            "first_kind_id": first_opening.get("kind_id"),
+            "first_command": first_opening.get("command"),
+        },
+        "first_projection_gap": {
+            "kind_id": first_gap.get("kind_id"),
+            "gap_count": first_gap.get("gap_count"),
+            "command": first_gap.get("source_drilldown_command"),
+        },
+        "currentness": {
+            key: currentness.get(key)
+            for key in (
+                "status",
+                "source_coupling_status",
+                "safe_to_commit_generated_outputs_without_sources",
+            )
+            if currentness.get(key) not in (None, "", [], {})
+        },
+        "source_coupling_status": source_coupling.get("status"),
+        "changed_source_count": source_coupling.get("changed_source_count"),
+        "drilldown": (
+            omission.get("drilldown")
+            or './repo-python kernel.py --context-pack "<task>" --context-budget 12000'
+        ),
+    }
+    return {key: value for key, value in compact_spine.items() if value not in (None, "", [], {})}
 
 
 def _compact_generated_state_fast_plan_for_profile(plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -15711,6 +16635,7 @@ _COMMAND_PROFILE_ACTION_QUOTE_PROFILE_ACTIONS = (
     "latency_seed_preflight",
     "process_bottleneck_triage",
     "command_surface_inventory",
+    "artifact_discovery_inventory",
     "git_diff_review_context",
 )
 
@@ -15729,6 +16654,7 @@ _COMMAND_PROFILE_SUPPORTED_SURFACES = [
     "pulse",
     "preflight",
     "phase",
+    "docs-route",
     "context-pack",
     "host-pressure",
     "process-summary",
@@ -16013,6 +16939,7 @@ def _infer_command_profile_surface(
     pulse: bool,
     phase_token: str | None,
     context_pack_query: str | None,
+    docs_route_query: str | None,
     coverage_matrix_query: str | None,
 ) -> str:
     surface = str(requested_surface or "auto").strip().lower().replace("_", "-")
@@ -16028,6 +16955,8 @@ def _infer_command_profile_surface(
         return "pulse"
     if phase_token is not None:
         return "phase"
+    if docs_route_query is not None:
+        return "docs-route"
     if context_pack_query is not None:
         return "context-pack"
     if coverage_matrix_query is not None:
@@ -16046,6 +16975,7 @@ def cmd_command_profile(
     pulse: bool = False,
     phase_token: str | None = None,
     context_pack_query: str | None = None,
+    docs_route_query: str | None = None,
     coverage_matrix_query: str | None = None,
     latency_seed_include_git: bool = True,
     host_pressure_event_limit: int | None = None,
@@ -16066,6 +16996,7 @@ def cmd_command_profile(
         pulse=pulse,
         phase_token=phase_token,
         context_pack_query=context_pack_query,
+        docs_route_query=docs_route_query,
         coverage_matrix_query=coverage_matrix_query,
     )
     phases: list[dict[str, Any]] = []
@@ -16103,6 +17034,27 @@ def cmd_command_profile(
                 "admission_saved_bytes": admission.get("saved_bytes")
                 if isinstance(admission, Mapping)
                 else None,
+            }
+        )
+        compact_started = perf_counter()
+        full_output_bytes = _command_profile_payload_bytes(payload)
+        payload = _command_profile_compact_entry_payload(payload)
+        phases.append(
+            {
+                "phase": "entry_packet_profile_compaction",
+                "ms": round((perf_counter() - compact_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(payload),
+                "full_output_bytes": full_output_bytes,
+                "closeout_git_state_compacted": (
+                    isinstance(payload, Mapping)
+                    and isinstance(payload.get("closeout_git_state"), Mapping)
+                    and bool(payload["closeout_git_state"].get("profile_compacted"))
+                ),
+                "navigation_index_spine_compacted": (
+                    isinstance(payload, Mapping)
+                    and isinstance(payload.get("navigation_index_spine"), Mapping)
+                    and bool(payload["navigation_index_spine"].get("profile_compacted"))
+                ),
             }
         )
         phases.append(
@@ -16213,6 +17165,105 @@ def cmd_command_profile(
                 **_command_profile_output_shape(payload),
             }
         )
+    elif surface in {"docs-route", "docs_route"}:
+        query = str(docs_route_query or "documentation").strip() or "documentation"
+        docs_route_started = perf_counter()
+        try:
+            docs_route_result = KernelNavigation(state.REPO_ROOT).build_docs_route(query)
+        except ValueError as exc:
+            return emit_json_with_code(
+                {
+                    "kind": "command_profile",
+                    "schema_version": "command_profile_docs_route_error_v0",
+                    "status": "profile_target_failed",
+                    "surface": "docs-route",
+                    "query": query,
+                    "error": str(exc),
+                    "suggested_command": "./repo-python kernel.py --docs-route <query>",
+                },
+                1,
+            )
+        phases.append(
+            {
+                "phase": "docs_route_build",
+                "ms": round((perf_counter() - docs_route_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(docs_route_result.payload),
+            }
+        )
+        surface_started = perf_counter()
+        surface_result = _docs_route_surface_result(
+            docs_route_result,
+            request=query,
+            debug=False,
+        )
+        surface_payload = surface_result.payload
+        phases.append(
+            {
+                "phase": "docs_route_surface_contract",
+                "ms": round((perf_counter() - surface_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(surface_payload),
+            }
+        )
+        phases.append(
+            {
+                "phase": "docs_route_output_shape",
+                "ms": 0.0,
+                **_command_profile_output_shape(surface_payload),
+            }
+        )
+        resolution = (
+            surface_payload.get("resolution")
+            if isinstance(surface_payload.get("resolution"), Mapping)
+            else {}
+        )
+        minimum_read_set = (
+            surface_payload.get("minimum_read_set")
+            if isinstance(surface_payload.get("minimum_read_set"), Mapping)
+            else {}
+        )
+        minimum_paths = [
+            str(path) for path in list(minimum_read_set.get("paths") or []) if path
+        ]
+        local_artifacts = [
+            str(path) for path in list(surface_payload.get("local_artifacts") or []) if path
+        ]
+        authority = (
+            surface_payload.get("authority")
+            if isinstance(surface_payload.get("authority"), Mapping)
+            else {}
+        )
+        authority_surfaces = [
+            str(path) for path in list(authority.get("surfaces") or []) if path
+        ]
+        payload = {
+            "schema": "docs_route_command_profile_payload_v0",
+            "surface": "docs-route",
+            "query": query,
+            "profiled_commands": [
+                f"./repo-python kernel.py --docs-route {shlex.quote(query)}",
+            ],
+            "route_summary": {
+                "kind": surface_result.kind,
+                "route_id": resolution.get("route_id"),
+                "score": resolution.get("score"),
+                "minimum_read_path_count": len(minimum_paths),
+                "minimum_read_paths_preview": minimum_paths[:8],
+                "local_artifact_count": len(local_artifacts),
+                "local_artifacts_preview": local_artifacts[:8],
+                "authority_surface_count": len(authority_surfaces),
+                "authority_surfaces_preview": authority_surfaces[:8],
+                "debug_fields_visible": surface_payload.get("debug_fields_visible"),
+                "surface_role": surface_payload.get("surface_role"),
+                "first_contact_allowed": surface_payload.get("first_contact_allowed"),
+            },
+            "output_profile": _command_profile_output_shape(surface_payload),
+            "debug_drilldown_command": surface_payload.get("debug_trace_command"),
+            "privacy_boundary": (
+                "Profiles docs-route resolution, surface contract wrapping, and output "
+                "shape only; raw debug fields remain behind --debug."
+            ),
+        }
+        surface = "docs-route"
     elif surface == "pulse":
         pulse_snapshot = _pulse_snapshot(profile_sink=phases)
         payload = _command_profile_compact_pulse_payload(pulse_snapshot)
@@ -16226,12 +17277,68 @@ def cmd_command_profile(
     elif surface == "preflight":
         payload = _preflight_card(profile_sink=phases)
     elif surface == "phase":
-        navigator = KernelNavigation(state.REPO_ROOT)
-        result = navigator.build_phase(
-            phase_token,
-            include_transaction_control_plane=False,
-        )
-        payload = _phase_output_mode_packet(result, output_mode="summary")
+        if phase_token is None:
+            phases.append(
+                {
+                    "phase": "phase_navigation_init",
+                    "ms": 0.0,
+                    "skipped": True,
+                    "reason": "default_phase_profile_uses_projected_active_phase_metadata",
+                }
+            )
+            phase_started = perf_counter()
+            payload = _command_profile_phase_metadata_payload(state.REPO_ROOT)
+            phases.append(
+                {
+                    "phase": "phase_build",
+                    "ms": round((perf_counter() - phase_started) * 1000, 3),
+                    "build_mode": "projected_active_phase_metadata",
+                    "source_path": (
+                        (payload.get("resolution") or {}).get("source_path")
+                        if isinstance(payload, Mapping)
+                        else None
+                    ),
+                    "output_bytes": _command_profile_payload_bytes(payload),
+                }
+            )
+            phases.append(
+                {
+                    "phase": "phase_summary_compaction",
+                    "ms": 0.0,
+                    "skipped": True,
+                    "reason": "metadata_payload_already_compact",
+                    "output_bytes": _command_profile_payload_bytes(payload),
+                }
+            )
+        else:
+            phase_started = perf_counter()
+            navigator = KernelNavigation(state.REPO_ROOT)
+            phases.append(
+                {
+                    "phase": "phase_navigation_init",
+                    "ms": round((perf_counter() - phase_started) * 1000, 3),
+                }
+            )
+            phase_started = perf_counter()
+            result = navigator.build_phase(
+                phase_token,
+                include_transaction_control_plane=False,
+            )
+            phases.append(
+                {
+                    "phase": "phase_build",
+                    "ms": round((perf_counter() - phase_started) * 1000, 3),
+                }
+            )
+            phase_started = perf_counter()
+            payload = _phase_output_mode_packet(result, output_mode="summary")
+            phases.append(
+                {
+                    "phase": "phase_summary_compaction",
+                    "ms": round((perf_counter() - phase_started) * 1000, 3),
+                    "output_bytes": _command_profile_payload_bytes(payload),
+                }
+            )
     elif surface == "context-pack":
         from system.lib.navigation_context_pack import build_navigation_context_pack
 
@@ -16410,98 +17517,86 @@ def cmd_command_profile(
             phases=phases,
         )
     elif surface in {"session-diagnostics", "session_diagnostics"}:
-        from tools.meta.observability.session_analyzer import build_summary_report
-
         session_diagnostics_started = perf_counter()
-        summary_report = build_summary_report(
-            store="both",
-            last=20,
-            limit=20,
+        repo_root = _repo_root_for_static_registry()
+        profiled_command = (
+            "./repo-python kernel.py --session-diagnostics --lens all --last 20 "
+            "--store both --json --diagnostics-summary"
         )
-        summary_ms = round((perf_counter() - session_diagnostics_started) * 1000, 3)
-        metrics = (
-            summary_report.get("metrics")
-            if isinstance(summary_report, Mapping)
-            and isinstance(summary_report.get("metrics"), Mapping)
-            else {}
-        )
-        host_pressure = (
-            metrics.get("host_pressure")
-            if isinstance(metrics.get("host_pressure"), Mapping)
-            else {}
-        )
-        sufficiency = (
-            summary_report.get("summary_first_sufficiency")
-            if isinstance(summary_report, Mapping)
-            and isinstance(summary_report.get("summary_first_sufficiency"), Mapping)
-            else {}
-        )
-        diagnostic_profile = (
-            summary_report.get("diagnostic_profile")
-            if isinstance(summary_report, Mapping)
-            and isinstance(summary_report.get("diagnostic_profile"), Mapping)
-            else {}
-        )
-        phase_wall_ms = (
-            diagnostic_profile.get("phase_wall_ms")
-            if isinstance(diagnostic_profile.get("phase_wall_ms"), Mapping)
-            else {}
-        )
-        phases.append(
-            {
-                "phase": "session_diagnostics_summary_build",
-                "ms": summary_ms,
-                "output_bytes": _command_profile_payload_bytes(summary_report),
-                "store": "both",
-                "last": 20,
-                "source_kind": summary_report.get("source_kind")
-                if isinstance(summary_report, Mapping)
-                else None,
-                "selected_lens": sufficiency.get("selected_lens")
-                if isinstance(sufficiency, Mapping)
-                else None,
-                "host_bottleneck_class": host_pressure.get("bottleneck_class")
-                if isinstance(host_pressure, Mapping)
-                else None,
-                "host_governor_decision": host_pressure.get("governor_decision")
-                if isinstance(host_pressure, Mapping)
-                else None,
-                "host_pressure_index": host_pressure.get("pressure_index")
-                if isinstance(host_pressure, Mapping)
-                else None,
-            }
-        )
-        for phase_name, phase_ms in phase_wall_ms.items():
-            if phase_name == "total":
+        source_paths = [
+            ("trace_observatory_projection", Path("state/session_diagnostics/trace_observatory_projection.json")),
+            ("process_summary", Path("codex/hologram/process/summary.json")),
+            ("route_miss_candidates", Path("state/session_diagnostics/route_miss_candidates.json")),
+        ]
+        source_rows: list[dict[str, Any]] = []
+        for source_id, rel_path in source_paths:
+            abs_path = repo_root / rel_path
+            try:
+                stat = abs_path.stat()
+            except OSError:
+                source_rows.append(
+                    {
+                        "source_id": source_id,
+                        "path": str(rel_path),
+                        "exists": False,
+                        "bytes": 0,
+                        "modified_at": None,
+                    }
+                )
                 continue
-            phases.append(
+            source_rows.append(
                 {
-                    "phase": f"session_diagnostics.{phase_name}",
-                    "ms": round(float(phase_ms or 0), 3),
+                    "source_id": source_id,
+                    "path": str(rel_path),
+                    "exists": True,
+                    "bytes": stat.st_size,
+                    "modified_at": datetime.fromtimestamp(stat.st_mtime, timezone.utc).isoformat(),
                 }
             )
+        summary_ms = round((perf_counter() - session_diagnostics_started) * 1000, 3)
+        phases.append(
+            {
+                "phase": "session_diagnostics_metadata_snapshot",
+                "ms": summary_ms,
+                "output_bytes": _command_profile_payload_bytes(source_rows),
+                "output_profile": "metadata_only",
+                "store": "both",
+                "last": 20,
+                "exact_summary_deferred": True,
+            }
+        )
         payload = {
             "schema": "session_diagnostics_command_profile_payload_v0",
             "surface": "session-diagnostics",
-            "profiled_command": (
-                "./repo-python kernel.py --session-diagnostics --lens all --last 20 "
-                "--store both --json --diagnostics-summary"
-            ),
-            "source_kind": summary_report.get("source_kind")
-            if isinstance(summary_report, Mapping)
-            else None,
-            "counts": summary_report.get("counts") if isinstance(summary_report, Mapping) else None,
-            "summary_first_sufficiency": dict(sufficiency) if isinstance(sufficiency, Mapping) else {},
-            "host_pressure": dict(host_pressure) if isinstance(host_pressure, Mapping) else {},
-            "diagnostic_profile": dict(diagnostic_profile)
-            if isinstance(diagnostic_profile, Mapping)
-            else {},
-            "next": list(summary_report.get("next") or [])[:3]
-            if isinstance(summary_report, Mapping)
-            else [],
+            "profiled_command": profiled_command,
+            "source_kind": "metadata_snapshot",
+            "source_status": {
+                "available_count": sum(1 for row in source_rows if row.get("exists")),
+                "missing_count": sum(1 for row in source_rows if not row.get("exists")),
+                "sources": source_rows,
+            },
+            "summary_first_sufficiency": {
+                "status": "exact_summary_deferred",
+                "selected_lens": "latency",
+                "reason": (
+                    "Command-profile is a first-contact surface; full summary scans are "
+                    "available via profiled_command or exact_profile_command."
+                ),
+            },
+            "diagnostic_profile": {
+                "profile_scope": "metadata_only_command_profile",
+                "exact_summary_deferred": True,
+                "deferred_command": profiled_command,
+            },
+            "next": [
+                {
+                    "command": profiled_command,
+                    "reason": "Run only when full recent session diagnostics are required.",
+                },
+            ],
             "privacy_boundary": (
-                "summary profile emits counts, timings, selected lens, and host-pressure "
-                "class; raw session transcript text remains behind session-diagnostics drilldowns"
+                "metadata profile emits file existence, byte counts, and drilldown commands only; "
+                "raw session transcript text remains behind session-diagnostics drilldowns"
             ),
         }
         surface = "session-diagnostics"
@@ -16602,6 +17697,10 @@ def cmd_command_profile(
                 if host_pressure_event_limit is None
                 else max(1, int(host_pressure_event_limit))
             )
+            host_pressure_check_command = (
+                "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+                f"--host-pressure-compact --host-pressure-event-limit {profile_event_limit}"
+            )
             live_summary = {
                 "remaining_bottlenecks": [],
                 "remaining_bottlenecks_source": {
@@ -16621,18 +17720,17 @@ def cmd_command_profile(
                     "process_bottleneck_command": (
                         "./repo-python kernel.py --process-bottlenecks"
                     ),
-                    "host_pressure_status": "deferred_by_command_profile",
-                    "host_pressure_decision": None,
+                    "host_pressure_status": "not_checked",
+                    "host_pressure_decision": "deferred_to_explicit_check",
                     "host_pressure_reason": (
-                        "profile_metadata_only_avoids_nested_host_pressure_probe"
+                        "command_profile_read_model_only_avoids_host_pressure_probe"
                     ),
                     "host_pressure_should_block": None,
                     "host_pressure_requested_workload_class": "repo_wide_search",
                     "host_pressure_event_limit": profile_event_limit,
-                    "host_pressure_check_command": (
-                        "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
-                        f"--host-pressure-compact --host-pressure-event-limit {profile_event_limit}"
-                    ),
+                    "host_pressure_probe_profile": "explicit_check_command_only",
+                    "host_pressure_probe_output_bytes": None,
+                    "host_pressure_check_command": host_pressure_check_command,
                 },
             }
             live_source = live_summary["remaining_bottlenecks_source"]
@@ -16858,7 +17956,7 @@ def cmd_command_profile(
         import_started = perf_counter()
         from system.lib.navigation_clusterability import (
             DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET,
-            build_navigation_clusterability_audit,
+            cached_navigation_clusterability_audit,
             compact_navigation_clusterability_audit_for_cli,
         )
 
@@ -16870,7 +17968,7 @@ def cmd_command_profile(
         )
 
         build_started = perf_counter()
-        full_payload = build_navigation_clusterability_audit(
+        full_payload, clusterability_cache_status = cached_navigation_clusterability_audit(
             state.REPO_ROOT,
             context_budget=context_budget,
             measure_all_rows=context_budget > DEFAULT_CLUSTERABILITY_CONTEXT_BUDGET,
@@ -16885,6 +17983,12 @@ def cmd_command_profile(
                 "phase": "clusterability_audit_build",
                 "ms": round((perf_counter() - build_started) * 1000, 3),
                 "output_bytes": full_output_bytes,
+                "cache_status": clusterability_cache_status.get("status")
+                if isinstance(clusterability_cache_status, Mapping)
+                else None,
+                "cache_node_id": clusterability_cache_status.get("node_id")
+                if isinstance(clusterability_cache_status, Mapping)
+                else None,
                 "high_cardinality_kind_count": (
                     len(high_cardinality_kinds)
                     if isinstance(high_cardinality_kinds, Sequence)
@@ -16923,6 +18027,10 @@ def cmd_command_profile(
                 "compacted": compacted,
             }
         )
+        if isinstance(payload, dict):
+            payload["command_node_cache"] = {
+                "clusterability_audit": clusterability_cache_status,
+            }
         phases.append(
             {
                 "phase": "clusterability_audit_output_shape",
@@ -16932,22 +18040,45 @@ def cmd_command_profile(
         )
         surface = "clusterability-audit"
     elif surface == "frontend-vitest":
-        from system.lib.action_quote import build_action_quote
         from tools.meta.testing import frontend_vitest as frontend_vitest_launcher
 
         default_args = ["--reporter=basic", "src/pages/__tests__/RootNavigator.test.tsx"]
         repo_root = _repo_root_for_static_registry()
         quote_started = perf_counter()
-        quote = build_action_quote(
-            repo_root,
-            action_id="frontend_vitest_validation",
-            extra_args=default_args,
+        package_path = repo_root / "system/server/ui/package.json"
+        config_path = repo_root / "system/server/ui/vitest.config.ts"
+        test_args = list(default_args)
+        suggested_command = (
+            "./repo-python tools/meta/testing/frontend_vitest.py -- "
+            "--reporter=basic src/pages/__tests__/RootNavigator.test.tsx"
         )
+        direct_vitest_command = (
+            "cd system/server/ui && npm test -- "
+            "--reporter=basic src/pages/__tests__/RootNavigator.test.tsx"
+        )
+        status = (
+            "ready"
+            if package_path.is_file() and config_path.is_file()
+            else "missing_frontend_test_surface"
+        )
+        quote = {
+            "current_status": status,
+            "recommendation": "run_frontend_vitest_guarded_launcher",
+            "suggested_command": suggested_command,
+            "deferred_suggested_command": None,
+            "direct_vitest_command": direct_vitest_command,
+            "host_pressure_admission": {
+                "status": "deferred",
+                "decision": None,
+                "reason": "command_profile_metadata_only",
+            },
+        }
         phases.append(
             {
                 "phase": "frontend_vitest_action_quote",
                 "ms": round((perf_counter() - quote_started) * 1000, 3),
                 "output_bytes": _command_profile_payload_bytes(quote),
+                "profile_mode": "compact_metadata_without_full_action_quote",
                 "current_status": quote.get("current_status")
                 if isinstance(quote, Mapping)
                 else None,
@@ -16976,9 +18107,9 @@ def cmd_command_profile(
             "schema": "frontend_vitest_command_profile_payload_v0",
             "surface": "frontend-vitest",
             "profiled_commands": [
-                "./repo-python tools/meta/testing/frontend_vitest.py -- --reporter=basic src/pages/__tests__/RootNavigator.test.tsx",
+                suggested_command,
             ],
-            "default_args": default_args,
+            "default_args": test_args,
             "safe_wrapper": {
                 "owner_surface": "./repo-python tools/meta/testing/frontend_vitest.py",
                 "resource_class": "vitest",
@@ -17133,16 +18264,76 @@ def cmd_command_profile(
         }
         surface = "task-ledger-exact"
     elif surface in {"actor-receipt", "actor_delivery_receipt"}:
-        from tools.meta.factory import check_agent_bootstrap_projection as checker
+        from system.lib.navigation_metabolism_ledger import _cached_actor_delivery_receipt
 
-        previous_root = checker.REPO_ROOT
-        checker.REPO_ROOT = state.REPO_ROOT
-        try:
-            cfg = checker.load_agent_bootstrap_config(state.REPO_ROOT)
-            context = checker.build_actor_receipt_context(state.REPO_ROOT, cfg)
-            payload = checker.build_actor_receipt(context, run_smokes=False)
-        finally:
-            checker.REPO_ROOT = previous_root
+        receipt_started = perf_counter()
+        receipt, receipt_cache_status = _cached_actor_delivery_receipt(
+            state.REPO_ROOT,
+            allow_build=True,
+        )
+        receipt_bytes = _command_profile_payload_bytes(receipt)
+        blockers = list(receipt.get("blockers") or []) if isinstance(receipt, Mapping) else []
+        warnings = list(receipt.get("warnings") or []) if isinstance(receipt, Mapping) else []
+        phases.append(
+            {
+                "phase": "actor_delivery_receipt",
+                "ms": round((perf_counter() - receipt_started) * 1000, 3),
+                "output_bytes": receipt_bytes,
+                "output_profile": "full_receipt_compacted_for_command_profile",
+                "cache_status": receipt_cache_status.get("status")
+                if isinstance(receipt_cache_status, Mapping)
+                else None,
+                "cache_node_id": receipt_cache_status.get("node_id")
+                if isinstance(receipt_cache_status, Mapping)
+                else None,
+                "ok": receipt.get("ok") if isinstance(receipt, Mapping) else None,
+                "blocker_count": len(blockers),
+                "warning_count": len(warnings),
+            }
+        )
+        payload = {
+            "schema": "actor_receipt_command_profile_payload_v0",
+            "surface": "actor-receipt",
+            "profiled_commands": [
+                "./repo-python tools/meta/factory/check_agent_bootstrap_projection.py --actor-receipt",
+            ],
+            "summary": {
+                "kind": receipt.get("kind") if isinstance(receipt, Mapping) else None,
+                "ok": receipt.get("ok") if isinstance(receipt, Mapping) else None,
+                "total_situation_route_count": receipt.get("total_situation_route_count")
+                if isinstance(receipt, Mapping)
+                else None,
+                "required_delivery_route_count": receipt.get("required_delivery_route_count")
+                if isinstance(receipt, Mapping)
+                else None,
+                "actor_delivery_decision_count": receipt.get("actor_delivery_decision_count")
+                if isinstance(receipt, Mapping)
+                else None,
+                "unknown_delivery_decision_count": receipt.get("unknown_delivery_decision_count")
+                if isinstance(receipt, Mapping)
+                else None,
+                "blocker_count": len(blockers),
+                "warning_count": len(warnings),
+            },
+            "blockers_preview": [str(item)[:240] for item in blockers[:5]],
+            "warnings_preview": [str(item)[:240] for item in warnings[:5]],
+            "output_profile": {
+                "profile": "compact_actor_receipt_profile",
+                "full_output_bytes": receipt_bytes,
+                "full_receipt_command": (
+                    "./repo-python tools/meta/factory/check_agent_bootstrap_projection.py --actor-receipt"
+                ),
+                "omitted_fields": [
+                    "full route rows",
+                    "full blockers beyond five",
+                    "full warnings beyond five",
+                    "smoke command details",
+                ],
+            },
+            "command_node_cache": {
+                "actor_delivery_receipt": receipt_cache_status,
+            },
+        }
         surface = "actor-receipt"
     else:
         action_kind_redirect = _COMMAND_PROFILE_ACTION_KIND_REDIRECTS.get(surface)
@@ -17230,12 +18421,24 @@ def cmd_command_profile(
             profile["fast_plan_output_profile"] = payload.get("fast_plan_output_profile")
     if surface == "pulse" and isinstance(payload, Mapping):
         profile["pulse_profile"] = payload
+    if (
+        surface == "phase"
+        and isinstance(payload, Mapping)
+        and payload.get("schema") == "phase_command_profile_payload_v0"
+    ):
+        profile["phase_profile"] = payload
+    if surface == "docs-route" and isinstance(payload, Mapping):
+        profile["profiled_commands"] = list(payload.get("profiled_commands") or [])
+        profile["docs_route_profile"] = payload
     if surface in {"task-ledger", "task-ledger-exact"} and isinstance(payload, Mapping):
         profile["profiled_commands"] = list(payload.get("profiled_commands") or [])
         if isinstance(payload.get("task_ledger_metadata_profile"), Mapping):
             profile["task_ledger_metadata_profile"] = payload.get("task_ledger_metadata_profile")
         if isinstance(payload.get("authority_health_profile"), Mapping):
             profile["authority_health_profile"] = payload.get("authority_health_profile")
+    if surface == "actor-receipt" and isinstance(payload, Mapping):
+        profile["profiled_commands"] = list(payload.get("profiled_commands") or [])
+        profile["actor_receipt_profile"] = payload
     return emit_json(profile)
 
 
@@ -17455,10 +18658,10 @@ def cmd_command_output_read(rel_path: str, *, band: str = "summary") -> int:
             },
             2,
         )
-    text = target.read_text(encoding="utf-8")
-    payload_bytes = len(text.encode("utf-8"))
     try:
-        payload = json.loads(text)
+        payload_bytes = target.stat().st_size
+        with target.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
     except json.JSONDecodeError as exc:
         return emit_json_with_code(
             {
@@ -17671,9 +18874,189 @@ def cmd_coverage_enforcement_matrix(
     - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
     - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
-    from system.lib.navigation_coverage_matrix import build_coverage_enforcement_matrix
+    from system.lib.navigation_coverage_matrix import (
+        build_coverage_enforcement_matrix,
+        compact_coverage_enforcement_matrix_for_profile,
+    )
 
     payload = build_coverage_enforcement_matrix(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    if int(context_budget or 0) <= 20000:
+        payload = compact_coverage_enforcement_matrix_for_profile(
+            payload,
+            query=query,
+            context_budget=context_budget,
+        )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit a bidirectional doctrine-to-substrate route read model.
+    - Reads: Existing standards, option surfaces, and coverage matrix state.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import build_doctrine_routing_weave
+
+    payload = build_doctrine_routing_weave(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_authority_passports(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the full doctrine-weave authority-passport profile drilldown.
+    - Reads: Existing standards, option surfaces, coverage matrix state, and declared weave nodes.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import (
+        build_doctrine_routing_weave_authority_passports,
+    )
+
+    payload = build_doctrine_routing_weave_authority_passports(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_start_surfaces(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit every doctrine-weave start-surface route passport in a compact drilldown.
+    - Reads: Existing standards, option surfaces, coverage matrix state, and declared weave nodes.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import (
+        build_doctrine_routing_weave_start_surfaces,
+    )
+
+    payload = build_doctrine_routing_weave_start_surfaces(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_edge_routes(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit every declared doctrine-weave edge with endpoint route/source handles.
+    - Reads: Existing standards, option surfaces, coverage matrix state, and declared weave edges.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import (
+        build_doctrine_routing_weave_edge_routes,
+    )
+
+    payload = build_doctrine_routing_weave_edge_routes(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_requirements(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the Doctrine Routing Weave requirement-to-proof map in a compact drilldown.
+    - Reads: Existing standards, option surfaces, coverage matrix state, and declared weave audits.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import (
+        build_doctrine_routing_weave_requirements,
+    )
+
+    payload = build_doctrine_routing_weave_requirements(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_completion(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the Doctrine Routing Weave completion-readiness audit in a compact drilldown.
+    - Reads: Existing standards, option surfaces, coverage matrix state, row-gap routes, and declared weave audits.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import (
+        build_doctrine_routing_weave_completion_audit,
+    )
+
+    payload = build_doctrine_routing_weave_completion_audit(
+        state.REPO_ROOT,
+        query=query,
+        context_budget=context_budget,
+    )
+    return emit_json(payload)
+
+
+def cmd_doctrine_routing_weave_row_gaps(
+    query: str | None = None,
+    *,
+    context_budget: int = 12000,
+) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the full row-level doctrine-weave gap authority drilldown.
+    - Reads: Existing standards, option surfaces, coverage matrix state, and the navigation index spine.
+    - Writes: JSON or text to stdout only.
+    - Guarantee: Returns a process-style status code after emitting the command payload.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
+    from system.lib.doctrine_routing_weave import build_doctrine_routing_weave_row_gap_routes
+
+    payload = build_doctrine_routing_weave_row_gap_routes(
         state.REPO_ROOT,
         query=query,
         context_budget=context_budget,
@@ -17817,8 +19200,56 @@ def _fact_cluster_rows(navigation_cache: Mapping[str, Any]) -> list[dict[str, An
     return rows
 
 
-def _fact_navigation_boundary(*, band: str) -> dict[str, Any]:
-    command = f"./repo-python kernel.py --facts --band {band or 'flag'}"
+def _counted_preview(row: Mapping[str, Any], key: str, *, limit: int = 8) -> dict[str, Any]:
+    values = row.get(key)
+    if not isinstance(values, list):
+        return {}
+    return {
+        f"{key}_count": len(values),
+        key: [item for item in values[:limit]],
+        f"{key}_omitted_count": max(0, len(values) - limit),
+    }
+
+
+def _compact_fact_cluster_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    compact: dict[str, Any] = {
+        "index": row.get("index"),
+        "fact_count": row.get("fact_count"),
+        "drilldown_command": row.get("drilldown_command"),
+    }
+    for key in ("tag", "facet", "value", "subject_kind", "fact_family", "mechanism_ref"):
+        if row.get(key) is not None:
+            compact[key] = row.get(key)
+    for key in ("coverage_posture", "coverage_note", "enforcement_status"):
+        if row.get(key) is not None:
+            compact[key] = row.get(key)
+    for key in ("facets", "subject_kinds", "fact_families", "source_paths", "sample_fact_ids"):
+        compact.update(_counted_preview(row, key))
+    if row.get("omission_receipt") is not None:
+        compact["omission_receipt"] = row.get("omission_receipt")
+    return {key: value for key, value in compact.items() if value is not None}
+
+
+def _compact_fact_cluster_rows(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [_compact_fact_cluster_row(row) for row in rows]
+
+
+def _fact_index_counts(navigation_cache: Mapping[str, Any]) -> dict[str, int]:
+    return {
+        key: len(navigation_cache.get(key) or [])
+        for key in (
+            "tag_index",
+            "facet_index",
+            "value_index",
+            "subject_kind_index",
+            "fact_family_index",
+            "mechanism_ref_index",
+        )
+    }
+
+
+def _fact_navigation_boundary(*, band: str, full: bool = False) -> dict[str, Any]:
+    command = f"./repo-python kernel.py {'--full ' if full else ''}--facts --band {band or 'flag'}"
     return {
         "surface_role": ATLAS_PROJECTION,
         "first_contact_allowed": False,
@@ -17850,6 +19281,7 @@ def cmd_facts(
     filters: Sequence[str] | None = None,
     band: str = "flag",
     ambiguous_tag: str | None = None,
+    full: bool = False,
 ) -> int:
     """
     [ACTION]
@@ -17875,9 +19307,15 @@ def cmd_facts(
             },
             2,
         )
-    payload = build_fact_hologram(repo_root=state.REPO_ROOT)
-    ledger = payload["ledger"]
-    navigation_cache = payload["navigation_cache"]
+    if full:
+        payload = build_fact_hologram(repo_root=state.REPO_ROOT)
+        ledger = payload["ledger"]
+        navigation_cache = payload["navigation_cache"]
+        projection_source = "fresh_build_full"
+    else:
+        ledger = load_fact_ledger(repo_root=state.REPO_ROOT)
+        navigation_cache = load_fact_navigation_cache(repo_root=state.REPO_ROOT)
+        projection_source = "generated_projection_default"
     band_choice = str(band or "flag").strip().lower()
     matched_rows = filter_facts(
         ledger=ledger,
@@ -17890,7 +19328,13 @@ def cmd_facts(
     )
     rows = matched_rows[:40]
     cluster_rows = _fact_cluster_rows(navigation_cache)
-    emit_rows = cluster_rows if band_choice == "cluster_flag" else rows
+    emit_rows = (
+        cluster_rows
+        if band_choice == "cluster_flag" and full
+        else _compact_fact_cluster_rows(cluster_rows)
+        if band_choice == "cluster_flag"
+        else rows
+    )
     omitted_fact_count = max(0, len(matched_rows) - len(rows))
     omission_receipt = (
         {
@@ -17909,7 +19353,7 @@ def cmd_facts(
         {
             "kind": "kernel.navigate.facts",
             "schema_version": "kernel_facts_navigation_v0",
-            **_fact_navigation_boundary(band=band_choice),
+            **_fact_navigation_boundary(band=band_choice, full=full),
             "query": {
                 "command": "facts",
                 "request": query,
@@ -17929,11 +19373,14 @@ def cmd_facts(
                 "error_count": int((ledger.get("summary") or {}).get("error_count") or 0),
                 "artifact_role": navigation_cache.get("artifact_role"),
                 "cluster_row_count": len(cluster_rows),
+                "output_profile": "full_live_cluster_flag" if full else "compact_generated_default",
+                "projection_source": projection_source,
             },
             "sources": sources,
             "payload": {
                 "ledger_summary": dict(ledger.get("summary") or {}),
                 "navigation_summary": dict(navigation_cache.get("summary") or {}),
+                "state_axis_index_counts": _fact_index_counts(navigation_cache),
                 "state_axis_indexes": {
                     "tag_index": navigation_cache.get("tag_index") or [],
                     "facet_index": navigation_cache.get("facet_index") or [],
@@ -17942,7 +19389,7 @@ def cmd_facts(
                     "fact_family_index": navigation_cache.get("fact_family_index") or [],
                     "mechanism_ref_index": navigation_cache.get("mechanism_ref_index") or [],
                 }
-                if band_choice == "cluster_flag"
+                if band_choice == "cluster_flag" and full
                 else {},
                 "facts": emit_rows,
                 "omission_receipt": omission_receipt,
@@ -18370,13 +19817,110 @@ def _process_build(*, since_ts: str | None = None, session_limit: int | None = N
         repo_root=state.REPO_ROOT,
         since_ts=since_ts,
         session_limit=session_limit,
+        include_output_previews=False,
     )
+
+
+def _load_process_audit_cache() -> tuple[dict[str, Any], dict[str, Any]]:
+    cache_path = state.REPO_ROOT / PROCESS_AUDIT_PATH.relative_to(state.REPO_ROOT)
+    if cache_path.exists():
+        audit = load_execution_trace_audit(repo_root=state.REPO_ROOT, build_if_missing=False)
+        return audit, {
+            "mode": "cached_audit",
+            "status": "hit",
+            "cache_path": str(PROCESS_AUDIT_PATH.relative_to(state.REPO_ROOT)),
+            "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
+            "full_live_command": "./repo-python kernel.py --process-audit --full",
+        }
+    return {
+        "kind": "agent_execution_trace_audit",
+        "summary": {
+            "session_count": 0,
+            "window": {"since": None, "session_limit": None},
+            "source": "missing_process_audit_read_model",
+        },
+        "findings": [],
+        "bottlenecks": {},
+        "patterns": [],
+        "context_yield_attribution": {},
+        "mode_control": {},
+        "parse_failures": [],
+    }, {
+        "mode": "cached_audit",
+        "status": "missing",
+        "cache_path": str(PROCESS_AUDIT_PATH.relative_to(state.REPO_ROOT)),
+        "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+        "refresh_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
+        "full_refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
+        "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+        "pressure_safe_digest_command": PROCESS_BOTTLENECK_PRESSURE_SAFE_DIGEST_COMMAND,
+        "full_live_command": "./repo-python kernel.py --process-audit --full",
+        "reason": (
+            "default process-audit avoids live trace parsing when the generated audit "
+            "read model is absent"
+        ),
+    }
+
+
+def _load_process_patterns_cache() -> tuple[dict[str, Any], dict[str, Any]]:
+    cache_rel = PROCESS_PATTERNS_PATH.relative_to(state.REPO_ROOT)
+    cache_path = state.REPO_ROOT / cache_rel
+    if cache_path.exists():
+        payload = safe_load_json(cache_path)
+        if isinstance(payload, dict):
+            return payload, {
+                "mode": "cached_patterns",
+                "status": "hit",
+                "cache_path": str(cache_rel),
+                "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
+                "live_window_command": "./repo-python kernel.py --process-patterns --after <iso> --limit <n>",
+            }
+    return {
+        "kind": "agent_execution_trace_patterns",
+        "schema_version": "agent_execution_trace_patterns_v1",
+        "generated_at": None,
+        "patterns": [],
+    }, {
+        "mode": "cached_patterns",
+        "status": "missing",
+        "cache_path": str(cache_rel),
+        "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+        "refresh_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
+        "full_refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
+        "reason": (
+            "default process-patterns avoids live trace parsing when the generated "
+            "patterns read model is absent"
+        ),
+    }
 
 
 PROCESS_BOTTLENECK_STALE_AFTER_SECONDS = 600.0
 PROCESS_BOTTLENECK_PRESSURE_SAFE_DIGEST_COMMAND = (
     "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git"
 )
+
+
+def _process_bottleneck_speedboard_wait_tax_clear(cache_status: Mapping[str, Any]) -> dict[str, Any]:
+    cache_fallback = cache_status.get("cache_fallback")
+    if not isinstance(cache_fallback, Mapping):
+        return {}
+    speedboard_fallback = cache_fallback.get("speedboard_fallback")
+    if not isinstance(speedboard_fallback, Mapping):
+        return {}
+    if str(speedboard_fallback.get("status") or "") != "empty_unresolved_ranked_wait_tax_read_model":
+        return {}
+    ranked_count = _int_value(speedboard_fallback.get("ranked_wait_tax_row_count"))
+    fixed_count = _int_value(speedboard_fallback.get("fixed_wait_tax_rows_omitted"))
+    if ranked_count <= 0 or fixed_count < ranked_count:
+        return {}
+    return {
+        "ranked_wait_tax_row_count": ranked_count,
+        "fixed_wait_tax_rows_omitted": fixed_count,
+        "remaining_bottleneck_row_count": _int_value(speedboard_fallback.get("remaining_bottleneck_row_count")),
+        "speedboard_path": speedboard_fallback.get("speedboard_path"),
+        "cached_window": speedboard_fallback.get("cached_window"),
+        "requested_window": speedboard_fallback.get("requested_window"),
+    }
 
 
 def _process_bottleneck_decision_authority(cache_status: Mapping[str, Any]) -> dict[str, Any]:
@@ -18417,16 +19961,44 @@ def _process_bottleneck_decision_authority(cache_status: Mapping[str, Any]) -> d
             "materialize_read_model_command": PROCESS_TRACE_REFRESH_COMMAND,
             "reason": "cached process bottleneck rows can outlive command-lane repairs; force a live rebuild before patch selection",
         }
+    wait_tax_clear = _process_bottleneck_speedboard_wait_tax_clear(cache_status)
+    if wait_tax_clear:
+        return {
+            "status": "advisory_only_speedboard_wait_tax_clear",
+            "use_for": [
+                "cheap no-unresolved-wait-tax proof",
+                "safe next-action selection under host pressure",
+            ],
+            "not_for": [
+                "authoritative current process bottleneck ranking",
+                "source patch selection",
+            ],
+            "ranked_wait_tax_row_count": wait_tax_clear["ranked_wait_tax_row_count"],
+            "fixed_wait_tax_rows_omitted": wait_tax_clear["fixed_wait_tax_rows_omitted"],
+            "remaining_bottleneck_row_count": wait_tax_clear["remaining_bottleneck_row_count"],
+            "speedboard_path": wait_tax_clear.get("speedboard_path"),
+            "cached_window": wait_tax_clear.get("cached_window"),
+            "requested_window": wait_tax_clear.get("requested_window"),
+            "authoritative_decision_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "safe_first_command": PROCESS_BOTTLENECK_PRESSURE_SAFE_DIGEST_COMMAND,
+            "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+            "materialize_read_model_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
+            "reason": (
+                "standalone process summary is absent, but the cached speedboard wait-tax model "
+                "has no unresolved rows; avoid live rollout parsing unless current rankings are required"
+            ),
+        }
     if mode == "deferred_missing_read_model" or status == "missing_read_model":
         return {
             "status": "read_model_missing_live_required",
             "use_for": [
-                "confirming the cached process read model is absent",
-                "choosing the next refresh or force-live command",
+                "missing-cache proof",
+                "safe next-action selection",
             ],
             "not_for": [
-                "ranking current process bottlenecks",
-                "selecting a source patch target",
+                "bottleneck ranking",
+                "source patch selection",
             ],
             "authoritative_decision_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
             "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
@@ -18436,7 +20008,7 @@ def _process_bottleneck_decision_authority(cache_status: Mapping[str, Any]) -> d
             "materialize_read_model_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
             "status_after_materialize_command": PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
             "full_materialize_read_model_command": PROCESS_TRACE_REFRESH_COMMAND,
-            "reason": "non-force process-bottlenecks stays cheap when no cached read model exists; use --force for live ranking",
+            "reason": "cached read model is absent; keep non-force status cheap and reserve --force for live ranking",
         }
     if window_status == "compatible_superset_window":
         return {
@@ -18456,6 +20028,28 @@ def _process_bottleneck_decision_authority(cache_status: Mapping[str, Any]) -> d
             "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
             "materialize_read_model_command": PROCESS_TRACE_REFRESH_COMMAND,
             "reason": "requested window is narrower than the cached read model; force a live rebuild for exact rankings",
+        }
+    if window_status == "compatible_default_subset_window":
+        return {
+            "status": "advisory_only_default_subset_window",
+            "use_for": [
+                "cheap triage",
+                "candidate ranking seed",
+                "avoiding stale speedboard fallback when a cached process summary exists",
+            ],
+            "not_for": [
+                "exact default-window ranking",
+                "declaring a recently fixed command lane still hot",
+            ],
+            "authoritative_decision_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "safe_first_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+            "materialize_read_model_command": PROCESS_TRACE_REFRESH_COMMAND,
+            "reason": (
+                "default process-bottlenecks can use the available cached process summary for "
+                "advisory triage; force a live rebuild for exact current rankings"
+            ),
         }
     if mode == "live_in_memory" and status in {"fresh", "forced"}:
         return {
@@ -18488,6 +20082,18 @@ def _process_bottleneck_ranking_status(decision_authority: Mapping[str, Any]) ->
 
 
 def _compact_missing_process_bottleneck_cache_status(cache_status: Mapping[str, Any]) -> dict[str, Any]:
+    def compact_window(value: Any) -> dict[str, Any]:
+        if not isinstance(value, Mapping):
+            return {}
+        return {
+            key: field
+            for key, field in {
+                "since": value.get("since"),
+                "session_limit": value.get("session_limit"),
+            }.items()
+            if field not in (None, "", [], {})
+        }
+
     def compact_speedboard_source(source: Any) -> dict[str, Any]:
         if not isinstance(source, Mapping):
             return {}
@@ -18526,8 +20132,10 @@ def _compact_missing_process_bottleneck_cache_status(cache_status: Mapping[str, 
                     "status": speedboard_fallback.get("status"),
                     "speedboard_path": speedboard_fallback.get("speedboard_path"),
                     "remaining_bottleneck_row_count": speedboard_fallback.get("remaining_bottleneck_row_count"),
-                    "cached_window": speedboard_fallback.get("cached_window"),
-                    "requested_window": speedboard_fallback.get("requested_window"),
+                    "ranked_wait_tax_row_count": speedboard_fallback.get("ranked_wait_tax_row_count"),
+                    "fixed_wait_tax_rows_omitted": speedboard_fallback.get("fixed_wait_tax_rows_omitted"),
+                    "cached_window": compact_window(speedboard_fallback.get("cached_window")),
+                    "requested_window": compact_window(speedboard_fallback.get("requested_window")),
                 }.items()
                 if value not in (None, "", [], {})
             }
@@ -18610,6 +20218,7 @@ def _process_bottleneck_cached_window_status(
     cached_limit_raw: Any,
     since_ts: str | None,
     session_limit: int | None,
+    allow_default_subset: bool = False,
 ) -> dict[str, Any]:
     cached_limit = _int_value(cached_limit_raw)
     requested_limit = _int_value(session_limit)
@@ -18647,10 +20256,80 @@ def _process_bottleneck_cached_window_status(
                 "serving the wider cache avoids live trace rebuild for triage"
             ),
         }
+    if (
+        allow_default_subset
+        and cached_limit > 0
+        and requested_limit == PROCESS_BOTTLENECK_DEFAULT_SESSION_LIMIT
+        and cached_limit < requested_limit
+    ):
+        return {
+            **base,
+            "status": "compatible_default_subset_window",
+            "served_window": dict(cached_window),
+            "reason": (
+                "default non-force process-bottlenecks can serve the available cached read model "
+                "as advisory triage; use --force for exact current rankings"
+            ),
+        }
     return {
         **base,
         "status": "window_mismatch",
         "reason": "requested session window is wider or incompatible with cached read model",
+    }
+
+
+def _process_bottleneck_speedboard_window_status(
+    *,
+    cached_since: Any,
+    cached_limit_raw: Any,
+    since_ts: str | None,
+    session_limit: int | None,
+) -> dict[str, Any]:
+    default_limit = PROCESS_BOTTLENECK_DEFAULT_SESSION_LIMIT
+    cached_limit = (
+        default_limit
+        if cached_since is None and cached_limit_raw is None
+        else _int_value(cached_limit_raw)
+    )
+    requested_limit = _int_value(session_limit) if session_limit is not None else default_limit
+    cached_window = {
+        "since": cached_since,
+        "session_limit": cached_limit_raw if cached_limit_raw is not None else default_limit,
+    }
+    requested_window = {
+        "since": since_ts,
+        "session_limit": session_limit,
+    }
+    base = {
+        "cached_window": cached_window,
+        "requested_window": requested_window,
+    }
+    if cached_since != since_ts:
+        return {
+            **base,
+            "status": "window_mismatch",
+            "reason": "speedboard and requested --after windows differ",
+        }
+    if cached_limit == requested_limit:
+        return {
+            **base,
+            "status": "exact_window",
+            "served_window": dict(cached_window),
+        }
+    if cached_limit > requested_limit > 0:
+        return {
+            **base,
+            "status": "compatible_superset_window",
+            "served_window": dict(cached_window),
+            "reason": (
+                "requested bounded process-bottleneck probe is narrower than the speedboard "
+                "fallback window; serving the wider cached speedboard avoids live trace rebuild"
+            ),
+        }
+    return {
+        **base,
+        "status": "window_mismatch",
+        "reason": "requested session window is wider or incompatible with speedboard fallback",
     }
 
 
@@ -18673,6 +20352,14 @@ def _load_process_bottleneck_speedboard_fallback(
     source = board.get("remaining_bottlenecks_source")
     rows = board.get("remaining_bottlenecks")
     if not isinstance(source, Mapping) or not isinstance(rows, list):
+        wait_fallback = _load_process_bottleneck_speedboard_wait_tax_fallback(
+            board,
+            rel_speedboard=rel_speedboard,
+            since_ts=since_ts,
+            session_limit=session_limit,
+        )
+        if wait_fallback[0] is not None:
+            return wait_fallback
         return None, {
             "mode": "speedboard_embedded_summary",
             "status": "missing_remaining_bottleneck_read_model",
@@ -18680,31 +20367,22 @@ def _load_process_bottleneck_speedboard_fallback(
         }
     cached_since = source.get("live_process_since")
     cached_limit_raw = source.get("live_process_limit")
-    cached_limit = _int_value(source.get("live_process_limit"))
-    requested_limit = _int_value(session_limit)
-    default_window_match = (
-        since_ts is None
-        and cached_since is None
-        and cached_limit_raw is None
-        and requested_limit == PROCESS_BOTTLENECK_DEFAULT_SESSION_LIMIT
+    window_status = _process_bottleneck_speedboard_window_status(
+        cached_since=cached_since,
+        cached_limit_raw=cached_limit_raw,
+        since_ts=since_ts,
+        session_limit=session_limit,
     )
-    if not default_window_match and (cached_since != since_ts or cached_limit != requested_limit):
+    if str(window_status.get("status") or "") == "window_mismatch":
         return None, {
             "mode": "speedboard_embedded_summary",
             "status": "window_mismatch",
             "speedboard_path": rel_speedboard,
-            "cached_window": {
-                "since": cached_since,
-                "session_limit": cached_limit_raw,
-            },
-            "requested_window": {
-                "since": since_ts,
-                "session_limit": session_limit,
-            },
+            "cached_window": window_status["cached_window"],
+            "requested_window": window_status["requested_window"],
+            "reason": window_status.get("reason"),
         }
-    effective_session_limit = (
-        session_limit if default_window_match else cached_limit_raw
-    )
+    served_window = dict(window_status.get("served_window") or {})
     top_bottlenecks: list[dict[str, Any]] = []
     for row in rows:
         if not isinstance(row, Mapping):
@@ -18731,6 +20409,19 @@ def _load_process_bottleneck_speedboard_fallback(
             )
         )
     if not top_bottlenecks:
+        wait_fallback = _load_process_bottleneck_speedboard_wait_tax_fallback(
+            board,
+            rel_speedboard=rel_speedboard,
+            since_ts=since_ts,
+            session_limit=session_limit,
+        )
+        if wait_fallback[0] is not None:
+            return wait_fallback
+        if wait_fallback[1].get("fixed_wait_tax_rows_omitted"):
+            wait_status = dict(wait_fallback[1])
+            wait_status["remaining_bottleneck_row_count"] = 0
+            wait_status["remaining_bottlenecks_source"] = dict(source)
+            return None, wait_status
         return None, {
             "mode": "speedboard_embedded_summary",
             "status": "empty_remaining_bottleneck_read_model",
@@ -18746,11 +20437,12 @@ def _load_process_bottleneck_speedboard_fallback(
         "summary": {
             "session_count": _int_value(source.get("session_count")),
             "window": {
-                "since": cached_since,
-                "session_limit": effective_session_limit,
+                "since": served_window.get("since"),
+                "session_limit": served_window.get("session_limit"),
             },
             "source": "latency_speedboard.remaining_bottlenecks",
             "source_status": source_status,
+            "window_status": window_status.get("status"),
             "row_count": len(top_bottlenecks),
         },
         "top_bottlenecks": top_bottlenecks,
@@ -18761,6 +20453,11 @@ def _load_process_bottleneck_speedboard_fallback(
         "speedboard_path": rel_speedboard,
         "fallback_source": "latency_speedboard.remaining_bottlenecks",
         "summary_path": source.get("summary_path"),
+        "window_status": window_status.get("status"),
+        "cached_window": window_status["cached_window"],
+        "requested_window": window_status["requested_window"],
+        "served_window": window_status.get("served_window"),
+        "reason": window_status.get("reason"),
         "generated_at": generated_at,
         "age_seconds": _process_bottleneck_age_seconds(
             generated_at,
@@ -18778,10 +20475,150 @@ def _load_process_bottleneck_speedboard_fallback(
     }
 
 
+def _load_process_bottleneck_speedboard_wait_tax_fallback(
+    board: Mapping[str, Any],
+    *,
+    rel_speedboard: str,
+    since_ts: str | None = None,
+    session_limit: int | None = None,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    window_status = _process_bottleneck_speedboard_window_status(
+        cached_since=None,
+        cached_limit_raw=None,
+        since_ts=since_ts,
+        session_limit=session_limit,
+    )
+    if str(window_status.get("status") or "") == "window_mismatch":
+        return None, {
+            "mode": "speedboard_embedded_summary",
+            "status": "window_mismatch",
+            "speedboard_path": rel_speedboard,
+            "fallback_source": "latency_speedboard.ranked_wait_taxes",
+            "cached_window": window_status["cached_window"],
+            "requested_window": window_status["requested_window"],
+            "reason": window_status.get("reason"),
+        }
+    rows: list[dict[str, Any]] = []
+    fixed_row_count = 0
+    ranked_row_count = 0
+    for row in board.get("ranked_wait_taxes") or []:
+        if not isinstance(row, Mapping):
+            continue
+        ranked_row_count += 1
+        if str(row.get("status") or "").strip().lower() == "fixed":
+            fixed_row_count += 1
+            continue
+        p95_s = row.get("p95_seconds")
+        max_s = row.get("max_seconds") or p95_s
+        next_action = row.get("next_action")
+        rows.append(
+            _drop_none(
+                {
+                    "action_kind": row.get("resource_class")
+                    or row.get("owner_surface")
+                    or "wait_tax_command",
+                    "span_count": row.get("run_count_24h"),
+                    "count": row.get("run_count_24h"),
+                    "p95_ms": round(float(p95_s) * 1000, 3)
+                    if isinstance(p95_s, (int, float))
+                    else None,
+                    "max_ms": round(float(max_s) * 1000, 3)
+                    if isinstance(max_s, (int, float))
+                    else None,
+                    "slow_count": row.get("run_count_24h"),
+                    "total_duration_ms": (
+                        round(float(row.get("cumulative_seconds_24h")) * 1000, 3)
+                        if isinstance(row.get("cumulative_seconds_24h"), (int, float))
+                        else None
+                    ),
+                    "repair_hints": (
+                        [{"hint_id": next_action}]
+                        if isinstance(next_action, str) and next_action.strip()
+                        else []
+                    ),
+                    "example_spans": [
+                        _drop_none(
+                            {
+                                "normalized_command": " ".join(row.get("example_argv") or [])
+                                if isinstance(row.get("example_argv"), list)
+                                else None,
+                                "command_shape_tags": [row.get("owner_surface")]
+                                if row.get("owner_surface")
+                                else [],
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+    if not rows:
+        return None, {
+            "mode": "speedboard_embedded_summary",
+            "status": "empty_unresolved_ranked_wait_tax_read_model"
+            if fixed_row_count
+            else "empty_ranked_wait_tax_read_model",
+            "speedboard_path": rel_speedboard,
+            "fallback_source": "latency_speedboard.ranked_wait_taxes",
+            "ranked_wait_tax_row_count": ranked_row_count,
+            "fixed_wait_tax_rows_omitted": fixed_row_count,
+        }
+    generated_at = board.get("generated_at")
+    age_seconds = _process_bottleneck_age_seconds(generated_at)
+    source_status = (
+        "stale"
+        if isinstance(age_seconds, (int, float))
+        and age_seconds > PROCESS_BOTTLENECK_STALE_AFTER_SECONDS
+        else "fresh"
+    )
+    summary = {
+        "kind": "agent_execution_trace_summary",
+        "generated_at": generated_at,
+        "summary": {
+            "session_count": None,
+            "window": {
+                "since": (window_status.get("served_window") or {}).get("since"),
+                "session_limit": (window_status.get("served_window") or {}).get("session_limit"),
+            },
+            "source": "latency_speedboard.ranked_wait_taxes",
+            "source_status": source_status,
+            "window_status": window_status.get("status"),
+            "row_count": len(rows),
+            "ranked_wait_tax_row_count": ranked_row_count,
+            "fixed_wait_tax_rows_omitted": fixed_row_count,
+        },
+        "top_bottlenecks": rows,
+    }
+    return summary, {
+        "mode": "speedboard_embedded_summary",
+        "status": source_status,
+        "speedboard_path": rel_speedboard,
+        "fallback_source": "latency_speedboard.ranked_wait_taxes",
+        "summary_path": "codex/hologram/process/summary.json",
+        "window_status": window_status.get("status"),
+        "cached_window": window_status["cached_window"],
+        "requested_window": window_status["requested_window"],
+        "served_window": window_status.get("served_window"),
+        "reason": window_status.get("reason"),
+        "ranked_wait_tax_row_count": ranked_row_count,
+        "fixed_wait_tax_rows_omitted": fixed_row_count,
+        "generated_at": generated_at,
+        "age_seconds": age_seconds,
+        "stale_after_seconds": PROCESS_BOTTLENECK_STALE_AFTER_SECONDS,
+        "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+        "materialize_read_model_command": PROCESS_TRACE_REFRESH_COMMAND,
+        "refresh_command": "./repo-python tools/meta/observability/latency_speedboard.py show --live-process",
+        "force_live_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+        "authority_posture": "cached_speedboard_wait_tax_read_model_not_authoritative_process_trace",
+        "mutation_status": "read_only_no_speedboard_write",
+        "staleness_policy": "default route may use speedboard wait-tax ranking for cheap triage when process-summary bottlenecks are absent; use --force for authoritative live rebuild",
+    }
+
+
 def _load_process_bottleneck_summary_cache(
     *,
     since_ts: str | None = None,
     session_limit: int | None = None,
+    allow_default_subset: bool = False,
 ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     summary = safe_load_json(PROCESS_SUMMARY_PATH)
     if not isinstance(summary, Mapping):
@@ -18819,6 +20656,7 @@ def _load_process_bottleneck_summary_cache(
         cached_limit_raw=window.get("session_limit"),
         since_ts=since_ts,
         session_limit=session_limit,
+        allow_default_subset=allow_default_subset,
     )
     if window_status["status"] == "window_mismatch":
         return None, {
@@ -18833,14 +20671,22 @@ def _load_process_bottleneck_summary_cache(
             "force_live_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
         }
     cache_status = _process_summary_cache_status(summary)
-    if window_status["status"] == "compatible_superset_window":
+    if window_status["status"] in {
+        "compatible_superset_window",
+        "compatible_default_subset_window",
+    }:
+        authority_posture = (
+            "cached_superset_window_advisory_not_exact_requested_window"
+            if window_status["status"] == "compatible_superset_window"
+            else "cached_default_subset_window_advisory_not_exact_default_window"
+        )
         cache_status = {
             **cache_status,
             "window_status": window_status["status"],
             "cached_window": window_status["cached_window"],
             "requested_window": window_status["requested_window"],
             "served_window": window_status["served_window"],
-            "authority_posture": "cached_superset_window_advisory_not_exact_requested_window",
+            "authority_posture": authority_posture,
             "reason": window_status.get("reason"),
         }
     return dict(summary), cache_status
@@ -19271,6 +21117,33 @@ def _process_bottleneck_next_commands(
     next_commands: list[dict[str, Any]] = []
     authority = decision_authority if isinstance(decision_authority, Mapping) else {}
     freshness = cache_status if isinstance(cache_status, Mapping) else {}
+    if authority.get("status") == "advisory_only_speedboard_wait_tax_clear":
+        host_pressure = (
+            str(authority.get("host_pressure_check_command") or "").strip()
+            or PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND
+        )
+        pressure_safe_digest = (
+            str(authority.get("safe_first_command") or "").strip()
+            or PROCESS_BOTTLENECK_PRESSURE_SAFE_DIGEST_COMMAND
+        )
+        force_live = (
+            str(authority.get("authoritative_decision_command") or "").strip()
+            or PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND
+        )
+        return [
+            {
+                "command": pressure_safe_digest,
+                "reason": "Continue pressure-safe latency triage; cached wait-tax rows are all fixed.",
+            },
+            {
+                "command": host_pressure,
+                "reason": "Check pressure before any process-summary materialization.",
+            },
+            {
+                "command": force_live,
+                "reason": "Force live ranking only if current process bottlenecks are required.",
+            },
+        ]
     if authority.get("status") == "read_model_missing_live_required":
         cache_check = (
             str(authority.get("safe_first_command") or "").strip()
@@ -19305,36 +21178,37 @@ def _process_bottleneck_next_commands(
         return [
             {
                 "command": cache_check,
-                "reason": "Confirm the missing cached read model without parsing live rollouts.",
+                "reason": "Confirm the missing cache without live parsing.",
             },
             {
                 "command": host_pressure,
-                "reason": "Check host pressure before materializing the read model or forcing live rollout parsing.",
+                "reason": "Check pressure before rebuilding traces.",
             },
             {
                 "command": pressure_safe_digest,
-                "reason": "If host pressure queues trace parsing, stay on the no-git latency digest instead of widening work.",
+                "reason": "Use the no-git digest if pressure blocks rebuilds.",
             },
             {
                 "command": materialize,
-                "reason": "Materialize a bounded process summary read model when host pressure allows a trace rebuild.",
+                "reason": "Materialize the bounded summary when pressure allows.",
             },
             {
                 "command": status_after_materialize,
-                "reason": "Read the bounded process-bottleneck packet that matches the materialized window.",
+                "reason": "Read the matching bounded status packet.",
             },
             {
                 "command": force_live,
-                "reason": "Force live ranking only when the decision needs current authoritative bottlenecks.",
+                "reason": "Force live ranking only when current authority is required.",
             },
         ]
     for row in context_yield_attribution.get("rows") or []:
         if not isinstance(row, Mapping):
             continue
+        steering = row.get("steering") if isinstance(row.get("steering"), Mapping) else {}
         route = (
             str(row.get("owner_surface") or "").strip()
             or str(row.get("existing_route") or "").strip()
-            or str(_mapping(row.get("steering")).get("replacement_route") or "").strip()
+            or str(steering.get("replacement_route") or "").strip()
         )
         if not route:
             continue
@@ -19405,7 +21279,64 @@ def _compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
         "pattern_counts": dict(summary.get("pattern_counts") or {}),
         "top_patterns": _compact_pattern_rows(list(audit.get("patterns") or []), limit=8),
         "top_bottlenecks": _compact_process_bottlenecks(audit.get("bottlenecks"), limit=8),
+        "context_yield_attribution": _compact_context_yield_attribution(
+            audit.get("context_yield_attribution"),
+            row_limit=6,
+            example_limit=1,
+        ),
+        "mode_control": _compact_process_mode_control(audit.get("mode_control")),
         "parse_failure_count": len(audit.get("parse_failures") or []),
+    }
+
+
+def _compact_process_mode_control(value: Any) -> dict[str, Any]:
+    if not isinstance(value, Mapping):
+        return {}
+    signals = [row for row in list(value.get("signals") or []) if isinstance(row, Mapping)]
+    compact_signals: list[dict[str, Any]] = []
+    for row in signals[:6]:
+        examples = [example for example in list(row.get("examples") or []) if isinstance(example, Mapping)]
+        compact_examples = [
+            _drop_none(
+                {
+                    "signal_id": example.get("signal_id"),
+                    "severity": example.get("severity"),
+                    "reason": _agent_wake_truncate(example.get("reason"), 180)
+                    if example.get("reason")
+                    else None,
+                    "session_id": example.get("session_id"),
+                    "command_shape_tags": list(example.get("command_shape_tags") or [])[:6],
+                    "normalized_command_preview": _agent_wake_truncate(
+                        example.get("normalized_command"),
+                        180,
+                    )
+                    if example.get("normalized_command")
+                    else None,
+                }
+            )
+            for example in examples[:1]
+        ]
+        compact_signals.append(
+            _drop_none(
+                {
+                    "signal_id": row.get("signal_id"),
+                    "count": row.get("count"),
+                    "session_count": row.get("session_count"),
+                    "examples": compact_examples if compact_examples else None,
+                    "example_count": len(examples),
+                    "examples_omitted": max(0, len(examples) - len(compact_examples)),
+                }
+            )
+        )
+    return {
+        "schema_version": value.get("schema_version"),
+        "lease_session_count": value.get("lease_session_count"),
+        "warning_session_count": value.get("warning_session_count"),
+        "signal_counts": _top_mapping_items(value.get("signal_counts"), limit=10),
+        "signals": compact_signals,
+        "signals_returned": len(compact_signals),
+        "signals_available": len(signals),
+        "signals_omitted": max(0, len(signals) - len(compact_signals)),
     }
 
 
@@ -19561,7 +21492,12 @@ def cmd_process_trace(
     return emit_json_with_code(payload, code)
 
 
-def cmd_process_audit(*, since_ts: str | None = None, session_limit: int | None = None) -> int:
+def cmd_process_audit(
+    *,
+    since_ts: str | None = None,
+    session_limit: int | None = None,
+    full: bool = False,
+) -> int:
     """[ACTION]
     - Teleology: Emit the full execution-trace audit record (findings + aggregate bottlenecks + pattern counts).
     - Mechanism: Build the ledger + audit in memory and emit the full audit JSON. Use since_ts/session_limit for follow-up observation windows.
@@ -19570,28 +21506,92 @@ def cmd_process_audit(*, since_ts: str | None = None, session_limit: int | None 
     - Escalates-to: system/lib/agent_execution_trace.py; codex/standards/std_agent_execution_trace.json
     - Navigation-group: kernel_lib
     """
-    payload = _process_build(since_ts=since_ts, session_limit=session_limit)
-    audit = payload["audit"]
+    cache_status: dict[str, Any] = {"mode": "live_in_memory", "status": "forced"}
+    if full or since_ts is not None or session_limit is not None:
+        payload = _process_build(since_ts=since_ts, session_limit=session_limit)
+        audit = payload["audit"]
+        if not full:
+            cache_status = {
+                "mode": "live_in_memory",
+                "status": "explicit_window",
+                "reason": "--after/--limit requested an explicit observation window",
+            }
+    else:
+        audit, cache_status = _load_process_audit_cache()
     sources = _process_trace_sources()
+    if full:
+        emitted_payload = {
+            "findings": list(audit.get("findings") or []),
+            "bottlenecks": dict(audit.get("bottlenecks") or {}),
+            "patterns": list(audit.get("patterns") or []),
+            "context_yield_attribution": dict(audit.get("context_yield_attribution") or {}),
+            "mode_control": dict(audit.get("mode_control") or {}),
+            "parse_failures": list(audit.get("parse_failures") or []),
+            "next_reads": sources["derived"],
+        }
+        output_profile = "full_process_audit"
+        output_economy = {
+            "profile": output_profile,
+            "reason": "--full requested full audit evidence rows.",
+        }
+    else:
+        compact = _compact_process_audit(audit)
+        emitted_payload = {
+            "findings": compact["slow_action_shapes"],
+            "bottlenecks": compact["top_bottlenecks"],
+            "patterns": compact["top_patterns"],
+            "context_yield_attribution": compact["context_yield_attribution"],
+            "mode_control": compact["mode_control"],
+            "parse_failures": list(audit.get("parse_failures") or [])[:5],
+            "parse_failure_count": compact["parse_failure_count"],
+            "pattern_counts": compact["pattern_counts"],
+            "next_reads": sources["derived"],
+            "output_economy": {
+                "profile": "compact_process_audit_default",
+                "reason": (
+                    "Default process-audit is a first-contact owner-status packet; "
+                    "full findings, bottlenecks, patterns, context-yield examples, and mode-control rows "
+                    "remain behind --full."
+                ),
+                "finding_rows_emitted": len(compact["slow_action_shapes"]),
+                "finding_rows_available": len(audit.get("findings") or []),
+                "pattern_rows_emitted": len(compact["top_patterns"]),
+                "pattern_rows_available": len(audit.get("patterns") or []),
+                "full_payload_command": "./repo-python kernel.py --process-audit --full",
+            },
+        }
+        output_profile = "compact_process_audit_default"
+        output_economy = emitted_payload["output_economy"]
+        if cache_status.get("status") == "missing":
+            output_profile = "compact_process_audit_missing_read_model"
+            emitted_payload["output_economy"] = {
+                **emitted_payload["output_economy"],
+                "profile": output_profile,
+                "reason": cache_status.get("reason"),
+                "cache_check_command": cache_status.get("cache_check_command"),
+                "host_pressure_check_command": cache_status.get("host_pressure_check_command"),
+                "refresh_command": cache_status.get("refresh_command"),
+                "full_refresh_command": cache_status.get("full_refresh_command"),
+                "pressure_safe_digest_command": cache_status.get("pressure_safe_digest_command"),
+                "full_live_command": cache_status.get("full_live_command"),
+            }
+            output_economy = emitted_payload["output_economy"]
     return emit_json(
         {
             "kind": "kernel.navigate.process_audit",
+            "schema_version": "process_audit_v1",
+            "output_profile": output_profile,
             "query": {
                 "command": "process-audit",
                 "after": since_ts,
                 "limit": session_limit,
+                "full": full,
             },
             "summary": dict(audit.get("summary") or {}),
+            "source_freshness": cache_status,
             "sources": sources,
-            "payload": {
-                "findings": list(audit.get("findings") or []),
-                "bottlenecks": dict(audit.get("bottlenecks") or {}),
-                "patterns": list(audit.get("patterns") or []),
-                "context_yield_attribution": dict(audit.get("context_yield_attribution") or {}),
-                "mode_control": dict(audit.get("mode_control") or {}),
-                "parse_failures": list(audit.get("parse_failures") or []),
-                "next_reads": sources["derived"],
-            },
+            "payload": emitted_payload,
+            "output_economy": output_economy,
             "next": [
                 {
                     "command": "./repo-python kernel.py --process-bottlenecks",
@@ -19600,6 +21600,10 @@ def cmd_process_audit(*, since_ts: str | None = None, session_limit: int | None 
                 {
                     "command": "./repo-python kernel.py --process-patterns",
                     "reason": "Browse recurring process patterns and session hit lists.",
+                },
+                {
+                    "command": "./repo-python kernel.py --process-audit --full",
+                    "reason": "Open full audit rows only after the compact packet identifies the needed evidence.",
                 },
             ],
             "warnings": [],
@@ -19625,6 +21629,7 @@ def _build_process_bottlenecks_packet(
         summary, cache_status = _load_process_bottleneck_summary_cache(
             since_ts=since_ts,
             session_limit=effective_session_limit,
+            allow_default_subset=session_limit is None,
         )
         if summary is None:
             canonical_cache_status = dict(cache_status)
@@ -19810,6 +21815,16 @@ def _build_process_bottlenecks_packet(
         example_limit=0,
     )
     ranking_status = _process_bottleneck_ranking_status(decision_authority)
+    missing_read_model = decision_authority.get("status") == "read_model_missing_live_required"
+    emitted_sources = sources
+    next_reads = sources["derived"]
+    if missing_read_model:
+        process_summary_ref = "codex/hologram/process/summary.json"
+        emitted_sources = {
+            "live": sources["live"],
+            "derived": [process_summary_ref],
+        }
+        next_reads = [process_summary_ref]
     return {
         "kind": "kernel.navigate.process_bottlenecks",
         "schema_version": "process_bottlenecks_v1",
@@ -19829,13 +21844,13 @@ def _build_process_bottlenecks_packet(
         },
         "source_freshness": cache_status,
         "decision_authority": decision_authority,
-        "sources": sources,
+        "sources": emitted_sources,
         "payload": {
             "top_bottlenecks": top_bottlenecks,
             "top_output_producers": top_output_producers,
             "context_yield_attribution": context_yield_attribution,
             "summary": dict(summary.get("summary") or {}),
-            "next_reads": sources["derived"],
+            "next_reads": next_reads,
             "output_economy": output_economy,
         },
         "next": _process_bottleneck_next_commands(
@@ -19868,6 +21883,83 @@ def cmd_process_bottlenecks(
             force_live=force_live,
         )
     )
+
+
+def _build_latency_speedboard_route_packet(
+    *,
+    preview_limit: int = 8,
+    repo_root: Path | None = None,
+) -> dict[str, Any]:
+    from system.lib import latency_speedboard
+
+    root = repo_root or state.REPO_ROOT
+    written_speedboard = latency_speedboard.load_written_speedboard(root)
+    source_mode = "written_read_model" if written_speedboard else "in_memory_measurement_summary"
+    board = written_speedboard or latency_speedboard.build_speedboard(root)
+    summary = latency_speedboard.summarize_speedboard(
+        board,
+        preview_limit=preview_limit,
+    )
+    remaining_source = summary.get("remaining_bottlenecks_source")
+    if not isinstance(remaining_source, Mapping):
+        remaining_source = {}
+    return {
+        "kind": "kernel.navigate.latency_speedboard",
+        "schema_version": "latency_speedboard_route_v1",
+        "query": {
+            "command": "latency-speedboard",
+            "limit": max(1, int(preview_limit)),
+            "live_process": False,
+        },
+        "summary": {
+            "measurement_count": (summary.get("summary") or {}).get("measurement_count"),
+            "total_cumulative_saved_s": (summary.get("summary") or {}).get("total_cumulative_saved_s"),
+            "ranked_savings_emitted": len(summary.get("ranked_savings_preview") or []),
+            "ranked_wait_taxes_emitted": len(summary.get("ranked_wait_taxes_preview") or []),
+            "remaining_bottlenecks_emitted": len(summary.get("remaining_bottlenecks") or []),
+            "pending_measurement_count": (summary.get("pending_measurements") or {}).get("pending_count"),
+        },
+        "source_freshness": {
+            "mode": source_mode,
+            "status": "available",
+            "generated_at": summary.get("generated_at"),
+            "read_model_path": "state/performance/latency_speedboard.json",
+            "remaining_bottlenecks_source": dict(remaining_source),
+            "live_process_status": "not_requested",
+            "pressure_policy": (
+                "Direct latency-speedboard route is a pressure-safe read-model surface; "
+                "use the explicit live-process refresh only after host pressure allows it."
+            ),
+        },
+        "payload": summary,
+        "next": [
+            {
+                "command": "./repo-python kernel.py --process-bottlenecks",
+                "reason": "Use cached process bottleneck fallback when choosing the next optimization target.",
+            },
+            {
+                "command": "./repo-python tools/meta/observability/latency_speedboard.py show --full",
+                "reason": "Open full speedboard rows only when compact previews are insufficient.",
+            },
+            {
+                "command": "./repo-python tools/meta/observability/latency_speedboard.py show --live-process",
+                "reason": "Refresh live process bottlenecks only after host pressure admission allows heavy diagnostics.",
+            },
+        ],
+        "warnings": [],
+    }
+
+
+def cmd_latency_speedboard(*, preview_limit: int = 8) -> int:
+    """[ACTION]
+    - Teleology: Emit the compact latency speedboard without launching live process diagnostics.
+    - Mechanism: Prefer the written latency speedboard read model, falling back to an in-memory summary from measurement state.
+    - Guarantee: Returns 0 after emitting a bounded JSON packet and does not mutate speedboard state.
+    - When-needed: Open when selecting high-impact runtime/test/build speed work from recorded measurements.
+    - Escalates-to: tools/meta/observability/latency_speedboard.py show --full; --process-bottlenecks
+    - Navigation-group: kernel_lib
+    """
+    return emit_json(_build_latency_speedboard_route_packet(preview_limit=preview_limit))
 
 
 def cmd_artifact_discovery_inventory(scope_paths: Sequence[str] | None = None) -> int:
@@ -19913,12 +22005,22 @@ def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | No
     - Escalates-to: codex/doctrine/process/trace_rules.json; codex/doctrine/skills/kernel/navigation_seed.md
     - Navigation-group: kernel_lib
     """
-    payload = _process_build(since_ts=since_ts, session_limit=session_limit)
-    patterns = payload["patterns"]
+    cache_status: dict[str, Any]
+    if since_ts is None and session_limit is None:
+        patterns, cache_status = _load_process_patterns_cache()
+    else:
+        payload = _process_build(since_ts=since_ts, session_limit=session_limit)
+        patterns = payload["patterns"]
+        cache_status = {
+            "mode": "live_in_memory",
+            "status": "explicit_window",
+            "reason": "--after/--limit requested an exact process-patterns observation window",
+        }
     sources = _process_trace_sources()
     return emit_json(
         {
             "kind": "kernel.navigate.process_patterns",
+            "schema_version": "process_patterns_v1",
             "query": {
                 "command": "process-patterns",
                 "after": since_ts,
@@ -19927,6 +22029,7 @@ def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | No
             "summary": {
                 "pattern_count": len(patterns.get("patterns") or []),
             },
+            "source_freshness": cache_status,
             "sources": sources,
             "payload": {
                 "patterns": list(patterns.get("patterns") or []),
@@ -19938,7 +22041,17 @@ def cmd_process_patterns(*, since_ts: str | None = None, session_limit: int | No
                     "reason": "Drill into one session where the pattern fired.",
                 }
             ],
-            "warnings": [],
+            "warnings": (
+                [
+                    {
+                        "warning_id": "missing_process_patterns_read_model",
+                        "reason": cache_status.get("reason"),
+                        "safe_action": cache_status.get("refresh_command"),
+                    }
+                ]
+                if cache_status.get("status") == "missing"
+                else []
+            ),
         }
     )
 
@@ -20723,6 +22836,7 @@ def _phase_active_execution_overlay(phase: Mapping[str, Any]) -> tuple[dict[str,
                 "active_phase_title": phase.get("phase_title"),
                 "active_phase_dir": phase.get("phase_dir"),
             },
+            include_runtime_status=False,
             campaign_limit=3,
             claim_limit=0,
             session_limit=3,
@@ -21210,6 +23324,18 @@ def cmd_phase(
     - When-needed: Open when the task is phase-scoped and you need the current phase packet rather than reading phase artifacts individually.
     - Escalates-to: system/lib/kernel_nav_phase.py; kernel.py
     """
+    if phase_token is None and not state.NAVIGATION_FULL_OUTPUT:
+        output_mode = "warnings_only" if warnings_only else "summary"
+        try:
+            return emit_json(
+                _cached_default_phase_output_packet(
+                    output_mode=output_mode,
+                    task_query=task_query,
+                )
+            )
+        except Exception:
+            pass
+
     navigator = KernelNavigation(state.REPO_ROOT)
     try:
         result = navigator.build_phase(

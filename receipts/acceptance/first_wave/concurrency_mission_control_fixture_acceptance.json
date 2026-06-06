@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Concurrency Mission Control imports the real public macro specimen builder and its provider/task-ledger bridge fixtures, then runs the copied builder against public synthetic lanes and a public Work Ledger seed-speed topology fixture to prove fail-closed transaction gating. It is not the private mission-control runtime, not a live scheduler, not provider dispatch, not public release approval, not private session export, and not production concurrency-safety evidence.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.concurrency_mission_control",
+  "organ_id": "concurrency_mission_control",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/concurrency_mission_control/concurrency_mission_control_validation_receipt.json"
+}

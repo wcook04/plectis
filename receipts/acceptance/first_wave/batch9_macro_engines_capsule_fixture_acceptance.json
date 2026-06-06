@@ -1,0 +1,12 @@
+{
+  "accepted": true,
+  "anti_claim": "Batch 9 validates copied non-secret macro source bodies plus public source-faithful exercises for provenance lineage, approval adjudication, Python AST indexing, finance headline clustering, mission graph waves, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker pre-dispatch gating, and milestone-relative quality accounting. It is not live authority, not real market or doctrine truth, not provider dispatch, not Work Ledger truth, not source mutation permission, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch9_macro_engines_capsule",
+  "organ_id": "batch9_macro_engines_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "result_ref": "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_result.json",
+  "schema_version": "microcosm_first_wave_fixture_acceptance_v1",
+  "status": "pass",
+  "validation_ref": "receipts/first_wave/batch9_macro_engines_capsule/batch9_macro_engines_capsule_validation_receipt.json"
+}

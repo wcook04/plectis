@@ -1,0 +1,104 @@
+{
+  "schema": "microcosm_public_site_availability_handoff_v1",
+  "receipt_id": "cold_clone_probe_site_availability_handoff_20260604T1758Z",
+  "created_at": "2026-06-04T17:58:00Z",
+  "created_by": "codex",
+  "phase_id": "09_54_1",
+  "module_id": "paper_module.cold_clone_probe",
+  "mechanism_id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap",
+  "status": "site_ready_source_coupling_blocked_for_generated_output_landing",
+  "source_authority_landed_in_this_cycle": {
+    "paper_module_capsule_row": "microcosm-substrate/core/paper_module_capsules.json::paper_modules[paper_module.cold_clone_probe]",
+    "mechanism_source_row": "microcosm-substrate/core/mechanism_sources.json::mechanisms[mechanism.cold_clone_probe.validates_public_source_root_bootstrap]",
+    "reader_projection": "microcosm-substrate/paper_modules/cold_clone_probe.md",
+    "generated_paper_module_row": "microcosm-substrate/paper_modules/cold_clone_probe.json",
+    "coverage_projection": "microcosm-substrate/core/doctrine_lattice_coverage.json"
+  },
+  "working_tree_site_availability": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "content_graph": "sites/microcosm/content-graph.json",
+    "object_map": "sites/microcosm/object-map.json",
+    "docs_route": "sites/microcosm/docs/paper-modules.html#paper-module-cold-clone-probe",
+    "source_fingerprint": "552fa6f9f314227b90d84167ae7a2257",
+    "paper_module_count": 88,
+    "paper_module_availability_gap_count": 10,
+    "cold_clone_gap_count": 0,
+    "object_map_route": "paper-modules.html#paper-module-cold-clone-probe",
+    "object_map_searchable": true,
+    "object_map_source_linked": true,
+    "doctrine_feed_counts": {
+      "principle": 9,
+      "axiom": 6,
+      "concept": 1,
+      "mechanism": 1,
+      "paper_module": 1
+    }
+  },
+  "validation": {
+    "write_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+    "write_status": "pass",
+    "check_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "check_status": "pass",
+    "drift_count": 0,
+    "public_safety": {
+      "private_scan_hit_count": 0,
+      "public_safety_scan_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "unsafe_url_hit_count": 0,
+      "external_asset_hit_count": 0,
+      "missing_security_headers": []
+    },
+    "validator_contract_repair": {
+      "path": "tools/meta/dissemination/build_microcosm_public_site.py",
+      "summary": "Non-runtime application/ld+json structured data blocks are parsed and classified separately while executable inline scripts remain blocked."
+    }
+  },
+  "source_coupling_blocker": {
+    "status": "blocked_dirty_source_inputs",
+    "safe_to_commit_generated_outputs_without_sources": false,
+    "dirty_source_paths_reported_by_builder_check": [
+      "microcosm-substrate/axioms/AX-11.json",
+      "microcosm-substrate/axioms/AX-12.json",
+      "microcosm-substrate/axioms/AX-3.json",
+      "microcosm-substrate/axioms/AX-9.json",
+      "microcosm-substrate/paper_modules/first_screen_composition_root.md",
+      "microcosm-substrate/principles/P-18.json"
+    ],
+    "owned_source_paths_landed_in_this_cycle": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/paper_module_capsules.json"
+    ],
+    "unowned_dirty_source_inputs": [
+      "microcosm-substrate/axioms/AX-11.json",
+      "microcosm-substrate/axioms/AX-12.json",
+      "microcosm-substrate/axioms/AX-3.json",
+      "microcosm-substrate/axioms/AX-9.json",
+      "microcosm-substrate/paper_modules/first_screen_composition_root.md",
+      "microcosm-substrate/principles/P-18.json"
+    ],
+    "reason_generated_outputs_are_not_scoped_staged": "The generated public-site packets include source hashes for unrelated dirty doctrine/source inputs owned by other active lanes. Landing those generated outputs without their source changes would create a projection/source mismatch; staging those sources would capture other lanes' work.",
+    "reentry_condition": "After the unrelated dirty source inputs are landed, reverted by their owners, or otherwise cleared, rerun the site builder write/check pair and commit the generated Microcosm site outputs with their source inputs."
+  },
+  "generated_outputs_ready_for_handoff": [
+    "sites/microcosm/assets/object-map.js",
+    "sites/microcosm/assets/search-index.js",
+    "sites/microcosm/assets/site-packet.js",
+    "sites/microcosm/content-graph.json",
+    "sites/microcosm/content-manifest.json",
+    "sites/microcosm/docs/paper-modules.html",
+    "sites/microcosm/docs/rules-and-ideas.html",
+    "sites/microcosm/docs/source.html",
+    "sites/microcosm/llms.txt",
+    "sites/microcosm/object-map.json",
+    "sites/microcosm/projection-status.json"
+  ],
+  "not_a_claim": [
+    "This receipt is not source authority for the paper module.",
+    "This receipt is not release approval.",
+    "This receipt is not permission to stage unrelated source dirt.",
+    "The working-tree generated site route is public-site readiness evidence until the source-coupling blocker clears."
+  ]
+}

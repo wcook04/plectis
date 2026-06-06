@@ -1,0 +1,28 @@
+{
+  "anti_claim": "Batch 8 structural_theses capsule validates exact copied non-secret macro source and public synthetic winner/loser/control exercises through the real CP1/CP2 finance spine. It is not financial advice, not investment recommendation, not live market data, not provider dispatch, not portfolio action, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_structural_theses_public_fixture_not_financial_advice_or_release_authority",
+    "financial_advice_authorized": false,
+    "investment_recommendation_authorized": false,
+    "live_market_data_authorized": false,
+    "portfolio_action_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "python_import": true,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 3,
+    "source_module_count": 1
+  },
+  "organ_id": "batch8_structural_theses_capsule",
+  "schema_version": "batch8_structural_theses_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 8 Structural Theses Capsule",
+  "verdict": "pass"
+}

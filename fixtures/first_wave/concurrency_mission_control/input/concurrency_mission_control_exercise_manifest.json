@@ -1,0 +1,435 @@
+{
+  "schema_version": "concurrency_mission_control_exercise_manifest_v1",
+  "organ_id": "concurrency_mission_control",
+  "builder_timestamp": "2026-05-13T00:50:00Z",
+  "expected_counts": {
+    "case_count": 9,
+    "accept_count": 1,
+    "minimum_block_count": 8,
+    "minimum_repair_row_count": 8,
+    "minimum_source_capsule_count": 9,
+    "provider_repair_bridge_case_count": 4,
+    "task_ledger_residual_replay_case_count": 4,
+    "work_metabolism_transaction_step_count": 11
+  },
+  "required_failure_classes": [
+    "dependency_not_complete",
+    "duplicate_command_run",
+    "misanchored_claim",
+    "missing_parent_finalizer",
+    "missing_receipt",
+    "stale_lease",
+    "supervised_scope_missing_contract",
+    "write_scope_conflict"
+  ],
+  "required_bridge_statuses": {
+    "provider_repair_bridge_status": "ok",
+    "task_ledger_residual_replay_bridge_status": "ok",
+    "work_metabolism_bridge_status": "ok"
+  },
+  "forbidden_claims": [
+    "private_mission_control_runtime",
+    "private_task_ledger_body_export",
+    "private_work_ledger_session_export",
+    "provider_payload_body_export",
+    "hosted_orchestration_proof",
+    "public_release_readiness",
+    "production_concurrency_safety"
+  ],
+  "work_ledger_seed_speed_surface": {
+    "schema_version": "work_ledger_seed_speed_public_surface_v1",
+    "snapshot_schema_version": "work_ledger_seed_speed_status_v1",
+    "source_refs": [
+      "tools/meta/factory/work_ledger.py",
+      "system/lib/work_ledger_runtime.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json"
+    ],
+    "command_refs": {
+      "session_heartbeat": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id <id> --state inspecting --current-pass-line '<public current pass>' --last-pass-result-line '<public previous result>' --scope-ref <path-or-claim>",
+      "seed_speed_status": "./repo-python tools/meta/factory/work_ledger.py session-status --seed-speed --limit 12",
+      "mutation_check": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive"
+    },
+    "counts": {
+      "effective_active_sessions": 3,
+      "active_claims": 5,
+      "claim_collisions": 0,
+      "claim_session_heartbeat_gap_count": 0
+    },
+    "minimum_counts": {
+      "effective_active_sessions": 2,
+      "active_claims": 1
+    },
+    "expected_claim_collision_count": 0,
+    "heartbeat_participation": {
+      "status": "complete",
+      "explicit_current_pass_count": 3,
+      "projected_unknown_count": 0
+    },
+    "session_cards": [
+      {
+        "session_id": "public_concurrency_controller",
+        "pass_state": "inspecting",
+        "current_pass_line": "Inspect public Work Ledger seed-speed topology before mutating Microcosm shared surfaces.",
+        "scope_refs": [
+          "microcosm-substrate/src/microcosm_core/organs/concurrency_mission_control.py"
+        ],
+        "body_in_receipt": false
+      },
+      {
+        "session_id": "public_microcosm_sibling",
+        "pass_state": "editing",
+        "current_pass_line": "Bind a disjoint Microcosm owner path through focused tests.",
+        "scope_refs": [
+          "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py"
+        ],
+        "body_in_receipt": false
+      }
+    ],
+    "claim_rows": [
+      {
+        "claim_id": "claim_public_concurrency_controller",
+        "session_id": "public_concurrency_controller",
+        "scope_kind": "path",
+        "scope_id": "microcosm-substrate/src/microcosm_core/organs/concurrency_mission_control.py",
+        "collision_count": 0,
+        "body_in_receipt": false
+      },
+      {
+        "claim_id": "claim_public_microcosm_sibling",
+        "session_id": "public_microcosm_sibling",
+        "scope_kind": "path",
+        "scope_id": "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py",
+        "collision_count": 0,
+        "body_in_receipt": false
+      }
+    ],
+    "claim_collisions": [],
+    "public_boundary": {
+      "allowed_public_inputs": [
+        "summary counts",
+        "public command refs",
+        "synthetic session cards",
+        "synthetic claim rows",
+        "source refs to existing Work Ledger body-floor imports"
+      ],
+      "forbidden_public_inputs": [
+        "account/session state",
+        "private Work Ledger session bodies",
+        "provider payload bodies",
+        "raw operator transcripts"
+      ]
+    },
+    "private_session_body_exported": false,
+    "body_in_receipt": false
+  },
+  "generated_surface_claim_lens": {
+    "schema_version": "generated_surface_claim_lens_public_fixture_v1",
+    "required_classifications": [
+      "owned_live",
+      "owned_stale",
+      "unowned_generated_drift",
+      "unrelated_dirty_state"
+    ],
+    "cases": [
+      {
+        "case_id": "route_projection_drift_owned_live",
+        "drift_paths": [
+          "microcosm-substrate/AGENT_ROUTES.md",
+          "microcosm-substrate/atlas/agent_task_routes.json"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_projection_owner",
+            "freshness_state": "live",
+            "pass_state": "editing",
+            "current_pass_line": "Regenerating Microcosm public-entry projections from organ_atlas.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_projection_owner_routes",
+            "session_id": "public_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/AGENT_ROUTES.md",
+            "claim_state": "live",
+            "body_in_receipt": false
+          },
+          {
+            "claim_id": "claim_public_projection_owner_route_json",
+            "session_id": "public_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/atlas/agent_task_routes.json",
+            "claim_state": "live",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_live",
+        "expected_allowed_action": "do_not_patch_from_sibling_lane",
+        "closeout_receipt_ref": "cap_quick_microcosm_route_projection_check_drift_while_concurrency_binding_active_20260601"
+      },
+      {
+        "case_id": "mixed_generated_drift_live_owner_and_unowned",
+        "drift_paths": [
+          "microcosm-substrate/AGENT_ROUTES.md",
+          "microcosm-substrate/ARCHITECTURE.md"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_projection_owner",
+            "freshness_state": "live",
+            "pass_state": "editing",
+            "current_pass_line": "Regenerating Microcosm route projection through the atlas builder.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_projection_owner_routes",
+            "session_id": "public_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/AGENT_ROUTES.md",
+            "claim_state": "live",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_live",
+        "expected_allowed_action": "do_not_patch_from_sibling_lane"
+      },
+      {
+        "case_id": "organ_projection_drift_owned_stale",
+        "drift_paths": [
+          "microcosm-substrate/ORGANS.md"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_stale_projection_owner",
+            "freshness_state": "stale",
+            "pass_state": "editing",
+            "current_pass_line": "Old projection refresh claim with no fresh heartbeat.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_stale_organs",
+            "session_id": "public_stale_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/ORGANS.md",
+            "claim_state": "stale",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_stale",
+        "expected_allowed_action": "release_or_supersede_owner_claim_then_regenerate"
+      },
+      {
+        "case_id": "architecture_projection_drift_unowned",
+        "drift_paths": [
+          "microcosm-substrate/ARCHITECTURE.md"
+        ],
+        "session_cards": [],
+        "claim_rows": [],
+        "expected_classification": "unowned_generated_drift",
+        "expected_allowed_action": "claim_builder_lane_then_regenerate_and_validate"
+      },
+      {
+        "case_id": "non_projection_dirty_state",
+        "drift_paths": [
+          "microcosm-substrate/examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json"
+        ],
+        "session_cards": [],
+        "claim_rows": [],
+        "expected_classification": "unrelated_dirty_state",
+        "expected_allowed_action": "route_to_owning_lane_or_capture"
+      }
+    ],
+    "private_session_body_exported": false,
+    "body_in_receipt": false
+  },
+  "closure_state_lens": {
+    "schema_version": "concurrency_closure_state_lens_public_fixture_v1",
+    "required_classifications": [
+      "closed_and_committed",
+      "closed_uncommitted_authority",
+      "closed_validation_deferred",
+      "false_residual_stale",
+      "owned_live_handoff",
+      "owned_stale_reentry",
+      "unowned_generated_drift"
+    ],
+    "cases": [
+      {
+        "case_id": "route_projection_closed_and_committed",
+        "product_closed": true,
+        "validation_state": "complete",
+        "scoped_commit_status": "committed",
+        "work_ledger_receipt_finalized": true,
+        "expected_classification": "closed_and_committed",
+        "expected_allowed_action": "no_action_required",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "route_cap_closed_uncommitted",
+        "product_closed": true,
+        "work_ledger_receipt_finalized": true,
+        "task_ledger_cap_state": "closed",
+        "commitability_decision": "unsafe_to_stage_shared_append_logs_due_interleaved_writes",
+        "shared_append_interleaved": true,
+        "expected_classification": "closed_uncommitted_authority",
+        "expected_allowed_action": "do_not_stage_shared_append_logs; rely_on_event_authority_and_reenter_scoped_commit",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "heavy_pytest_deferred_by_host_pressure",
+        "product_closed": true,
+        "generator_check_status": "pass",
+        "heavy_validation_state": "deferred_by_host_pressure",
+        "validation_quote": {
+          "action": "repo_pytest_validation",
+          "status": "blocked",
+          "reason": "swap_churn_blocks_new_heavy_work"
+        },
+        "expected_classification": "closed_validation_deferred",
+        "expected_allowed_action": "record_validation_debt_or_queue_when_pressure_clears",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "generated_route_drift_live_owner",
+        "drift_paths": [
+          "microcosm-substrate/AGENT_ROUTES.md"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_projection_owner",
+            "freshness_state": "live",
+            "pass_state": "editing",
+            "current_pass_line": "Regenerating Microcosm route projection through the atlas builder.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_projection_owner_routes",
+            "session_id": "public_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/AGENT_ROUTES.md",
+            "claim_state": "live",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_live_handoff",
+        "expected_allowed_action": "handoff_to_live_owner_or_wait_for_release",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "mixed_generated_drift_live_owner_and_unowned",
+        "drift_paths": [
+          "microcosm-substrate/AGENT_ROUTES.md",
+          "microcosm-substrate/ARCHITECTURE.md"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_projection_owner",
+            "freshness_state": "live",
+            "pass_state": "editing",
+            "current_pass_line": "Regenerating Microcosm route projection through the atlas builder.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_projection_owner_routes",
+            "session_id": "public_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/AGENT_ROUTES.md",
+            "claim_state": "live",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_live_handoff",
+        "expected_allowed_action": "handoff_to_live_owner_or_wait_for_release",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "generated_organs_drift_stale_owner",
+        "drift_paths": [
+          "microcosm-substrate/ORGANS.md"
+        ],
+        "session_cards": [
+          {
+            "session_id": "public_stale_projection_owner",
+            "freshness_state": "stale",
+            "pass_state": "editing",
+            "current_pass_line": "Old organ projection owner claim with no current heartbeat.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_stale_organs",
+            "session_id": "public_stale_projection_owner",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/ORGANS.md",
+            "claim_state": "stale",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_stale_reentry",
+        "expected_allowed_action": "release_or_supersede_owner_claim_then_reenter",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "generated_architecture_drift_unowned",
+        "drift_paths": [
+          "microcosm-substrate/ARCHITECTURE.md"
+        ],
+        "session_cards": [],
+        "claim_rows": [],
+        "expected_classification": "unowned_generated_drift",
+        "expected_allowed_action": "claim_builder_lane_then_regenerate_and_validate",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "old_drift_residual_after_clean_atlas_check",
+        "generator_check_status": "pass",
+        "residual_state": "open",
+        "residual_ref": "cap_quick_microcosm_route_projection_check_drift_while_concurrency_binding_active_20260601",
+        "expected_classification": "false_residual_stale",
+        "expected_allowed_action": "close_or_retype_residual",
+        "body_in_receipt": false
+      },
+      {
+        "case_id": "overbroad_microcosm_path_preflight",
+        "requested_path": "microcosm-substrate",
+        "path_scope_status": "overbroad",
+        "session_cards": [
+          {
+            "session_id": "public_microcosm_sibling",
+            "freshness_state": "live",
+            "pass_state": "editing",
+            "current_pass_line": "Holding a narrower Microcosm test path.",
+            "body_in_receipt": false
+          }
+        ],
+        "claim_rows": [
+          {
+            "claim_id": "claim_public_microcosm_sibling",
+            "session_id": "public_microcosm_sibling",
+            "scope_kind": "path",
+            "path": "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py",
+            "claim_state": "live",
+            "body_in_receipt": false
+          }
+        ],
+        "expected_classification": "owned_live_handoff",
+        "expected_allowed_action": "narrow_path_scope_or_coordinate_owner",
+        "body_in_receipt": false
+      }
+    ],
+    "private_session_body_exported": false,
+    "body_in_receipt": false
+  },
+  "body_in_receipt": false
+}

@@ -1,0 +1,118 @@
+{
+  "source_import_class": "copied_non_secret_macro_body",
+  "module_count": 4,
+  "body_copied_material_count": 4,
+  "blocked_source_refs": [],
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "modules": [
+    {
+      "module_id": "observer_diff_kernel",
+      "path": "source_modules/system/lib/observer_diff.py",
+      "source_ref": "system/lib/observer_diff.py",
+      "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/system/lib/observer_diff.py",
+      "sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "source_sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "target_sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+      "sha256_match": true,
+      "line_count": 193,
+      "byte_count": 7897,
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "class EvidenceDiffResult",
+        "def diff_evidence(",
+        "def diff_predictions("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch8_tools_tail_primitives_capsule.py::test_batch8_tools_tail_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "version_committer_json_patch_vm",
+      "path": "source_modules/tools/refinement/version_committer.py",
+      "source_ref": "tools/refinement/version_committer.py",
+      "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/refinement/version_committer.py",
+      "sha256": "9029d7f28bd8c05df6313438be320449899b35dfaa969216fe55fcb9a66d991d",
+      "source_sha256": "9029d7f28bd8c05df6313438be320449899b35dfaa969216fe55fcb9a66d991d",
+      "target_sha256": "9029d7f28bd8c05df6313438be320449899b35dfaa969216fe55fcb9a66d991d",
+      "sha256_match": true,
+      "line_count": 311,
+      "byte_count": 12668,
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "def _apply_op(",
+        "def _atomic_write(",
+        "class VersionCommitter"
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch8_tools_tail_primitives_capsule.py::test_batch8_tools_tail_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "ledger_id_identity_hash_engine",
+      "path": "source_modules/tools/diff/id_ledger.py",
+      "source_ref": "tools/diff/id_ledger.py",
+      "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/diff/id_ledger.py",
+      "sha256": "13e817a84e78740fd9295b398b5e66e68b1e00b93c73ff65cadf2ba4acca8fc5",
+      "source_sha256": "13e817a84e78740fd9295b398b5e66e68b1e00b93c73ff65cadf2ba4acca8fc5",
+      "target_sha256": "13e817a84e78740fd9295b398b5e66e68b1e00b93c73ff65cadf2ba4acca8fc5",
+      "sha256_match": true,
+      "line_count": 189,
+      "byte_count": 9011,
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "_LANE_ALIASES",
+        "def normalize_lane(",
+        "def generate_ledger_id("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch8_tools_tail_primitives_capsule.py::test_batch8_tools_tail_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "shadow_envelope_dsl_parser_coverage",
+      "path": "source_modules/tools/shadow/shadow.py",
+      "source_ref": "tools/shadow/shadow.py",
+      "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/shadow/shadow.py",
+      "sha256": "ba5e71b9650c834824fb2395d72ae04c7d83e4ef77ed976fe39f8548a74f0a79",
+      "source_sha256": "ba5e71b9650c834824fb2395d72ae04c7d83e4ef77ed976fe39f8548a74f0a79",
+      "target_sha256": "ba5e71b9650c834824fb2395d72ae04c7d83e4ef77ed976fe39f8548a74f0a79",
+      "sha256_match": true,
+      "line_count": 907,
+      "byte_count": 32683,
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "OPERATOR_TOKENS",
+        "def _parse_miner_text(",
+        "def run("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch8_tools_tail_primitives_capsule.py::test_batch8_tools_tail_source_modules_are_exact_macro_body_imports"
+      ]
+    }
+  ]
+}

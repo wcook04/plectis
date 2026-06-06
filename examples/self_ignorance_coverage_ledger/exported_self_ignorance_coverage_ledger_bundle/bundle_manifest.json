@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "coverage_scope": "live_kind_atlas_vs_generated_system_atlas_materialization_snapshot",
+  "bundle_id": "self_ignorance_coverage_ledger_runtime_example",
+  "input_mode": "exported_self_ignorance_coverage_ledger_bundle",
+  "organ_id": "self_ignorance_coverage_ledger",
+  "schema_version": "microcosm_crown_jewel_bundle_manifest_v1",
+  "source_module_manifest_ref": "examples/self_ignorance_coverage_ledger/exported_self_ignorance_coverage_ledger_bundle/source_module_manifest.json"
+}

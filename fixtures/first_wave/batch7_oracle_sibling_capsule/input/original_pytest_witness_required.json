@@ -1,0 +1,7 @@
+{
+  "body_in_receipt": false,
+  "case_id": "original_pytest_witness_required",
+  "error_codes": [
+    "BATCH7_ORACLE_ORIGINAL_PYTEST_WITNESS_REQUIRED"
+  ]
+}

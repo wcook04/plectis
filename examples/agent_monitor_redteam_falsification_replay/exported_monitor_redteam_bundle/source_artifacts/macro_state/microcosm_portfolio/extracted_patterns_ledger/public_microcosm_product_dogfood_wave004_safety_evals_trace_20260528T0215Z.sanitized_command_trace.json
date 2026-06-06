@@ -1,0 +1,106 @@
+{
+  "body_in_receipt": false,
+  "event_count": 8,
+  "monitor_probe_summary": {
+    "authority_denial_ids": [
+      "provider_calls_authorized:false",
+      "release_authorized:false",
+      "source_mutation_authorized:false",
+      "live_git_mutation_authorized:false",
+      "live_task_ledger_mutation_authorized:false",
+      "whole_system_correctness_claim:false"
+    ],
+    "command_exit_zero_count": 3,
+    "command_parse_ok_count": 3,
+    "monitor_scope": "public safety-evals CLI authority and workingness cards",
+    "persona_id": "safety_evals_engineer",
+    "real_public_trace_kind": "public_cli_dogfood_trace",
+    "selected_command_ids": [
+      "authority_card",
+      "workingness_card",
+      "proof_lab_card"
+    ]
+  },
+  "public_safe_boundary": {
+    "argv_exported": false,
+    "credential_material_exported": false,
+    "private_chain_of_thought_exported": false,
+    "provider_payload_exported": false,
+    "raw_stdout_or_stderr_preview_exported": false,
+    "temp_or_home_paths_exported": false
+  },
+  "public_surface_boundary": "release_visible_cli_and_docs_only",
+  "public_tokens": [
+    "AGENTS.md",
+    "microcosm hello",
+    "microcosm tour --card",
+    "status --card",
+    "microcosm authority --card",
+    "microcosm workingness --card"
+  ],
+  "sanitization_policy": {
+    "dropped_fields": [
+      "argv",
+      "stdout_preview",
+      "stderr_preview"
+    ],
+    "kept_fields": [
+      "event_id",
+      "command_id",
+      "persona_id",
+      "evidence_origin",
+      "public_observable",
+      "exit_code",
+      "parsed_json_ok",
+      "duration_ms",
+      "stdout_char_count",
+      "stderr_char_count"
+    ],
+    "source_body_boundary": "public CLI output summary only; no raw command body, no transient path, no provider payload, no private session traffic"
+  },
+  "schema_version": "microcosm_public_dogfood_safety_evals_trace_slice_v1",
+  "selected_event_count": 3,
+  "selected_events": [
+    {
+      "command_id": "authority_card",
+      "duration_ms": 660,
+      "event_id": "wave004_safety_evals:5:authority_card",
+      "evidence_origin": "public_cli_output",
+      "exit_code": 0,
+      "parsed_json_ok": true,
+      "persona_id": "safety_evals_engineer",
+      "public_observable": true,
+      "stderr_char_count": 0,
+      "stdout_char_count": 7707
+    },
+    {
+      "command_id": "workingness_card",
+      "duration_ms": 335,
+      "event_id": "wave004_safety_evals:6:workingness_card",
+      "evidence_origin": "public_cli_output",
+      "exit_code": 0,
+      "parsed_json_ok": true,
+      "persona_id": "safety_evals_engineer",
+      "public_observable": true,
+      "stderr_char_count": 0,
+      "stdout_char_count": 1782
+    },
+    {
+      "command_id": "proof_lab_card",
+      "duration_ms": 172,
+      "event_id": "wave004_safety_evals:7:proof_lab_card",
+      "evidence_origin": "public_cli_output",
+      "exit_code": 0,
+      "parsed_json_ok": true,
+      "persona_id": "safety_evals_engineer",
+      "public_observable": true,
+      "stderr_char_count": 0,
+      "stdout_char_count": 4901
+    }
+  ],
+  "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/receipts/public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json",
+  "source_sha256": "sha256:24487cf8edb0779cfdd460b04a4ea7701805686545069f9e1c5767250c223cd3",
+  "source_trace_generated_at": "2026-05-28T02:15:00Z",
+  "source_trace_id": "wave004_safety_evals_public_trace_after_fix",
+  "trace_slice_id": "public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z_sanitized_command_trace"
+}

@@ -9,6 +9,7 @@ from typing import Any
 import microcosm_core.organs.formal_math_verifier_trace_repair_loop as trace_module
 from microcosm_core.organs.formal_math_verifier_trace_repair_loop import (
     EXPECTED_NEGATIVE_CASES,
+    _line_count,
     main,
     run,
     run_loop_bundle,
@@ -47,6 +48,55 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _manifest_module(
+    bundle: Path,
+    source_ref: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for module in manifest["modules"]:
+        if module["source_ref"] == source_ref:
+            return manifest, module
+    raise AssertionError(f"missing source module for {source_ref}")
+
+
+def _refresh_manifest_module_digest(bundle: Path, source_ref: str) -> None:
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest, module = _manifest_module(bundle, source_ref)
+    target = bundle / module["path"]
+    digest = _sha256(target)
+    byte_count = target.stat().st_size
+    line_count = _line_count(target)
+    module["target_sha256"] = digest
+    module["sha256"] = digest
+    module["target_byte_count"] = byte_count
+    module["byte_count"] = byte_count
+    module["target_line_count"] = line_count
+    module["line_count"] = line_count
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+
+def test_formal_math_verifier_trace_line_count_streams_without_full_text_read(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "verifier_trace_source.py"
+    empty_source = tmp_path / "empty_verifier_trace_source.py"
+    source.write_text("one\n\ntwo\n", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in {source, empty_source}:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert _line_count(source) == 3
+    assert _line_count(empty_source) == 1
+
+
 def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -65,6 +115,11 @@ def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
     assert result["trace_event_count"] == 15
     assert result["repair_action_count"] == 5
     assert result["cold_rerun_promotion_count"] == 3
+    assert result["toy_theorem_repair_rerun"]["status"] == "pass"
+    assert result["toy_theorem_failure_count"] == 3
+    assert result["toy_theorem_repaired_pass_count"] == 4
+    assert result["toy_theorem_repair_rerun"]["repair"]["repair_applied"] is True
+    assert result["toy_theorem_repair_rerun"]["rerun"]["passed_input_count"] == 4
     assert result["failure_mode_count"] == 3
     assert result["curriculum_edge_count"] == 3
     assert (
@@ -166,6 +221,9 @@ def test_formal_math_verifier_trace_repair_exported_bundle_validates_runtime_sha
     assert result["trace_event_count"] == 15
     assert result["repair_action_count"] == 5
     assert result["cold_rerun_promotion_count"] == 3
+    assert result["toy_theorem_repair_rerun"]["status"] == "pass"
+    assert result["toy_theorem_failure_count"] == 3
+    assert result["toy_theorem_repaired_pass_count"] == 4
     assert (
         result["body_material_status"]
         == "copied_non_secret_macro_body_with_provenance"
@@ -176,7 +234,171 @@ def test_formal_math_verifier_trace_repair_exported_bundle_validates_runtime_sha
     assert result["source_open_body_imports"]["body_material_count"] == 7
     assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert result["source_module_manifest"]["verified_module_count"] == 7
+    assert result["source_replay_check_count"] == 37
+    assert result["source_replay_mismatch_count"] == 0
+    assert result["realness_evidence"]["realness_rank"] == 4
+    assert result["realness_evidence"]["realness_rung"] == "R4"
+    assert (
+        result["realness_evidence"]["rung_state"]
+        == "runtime_source_trace_repair_evidence_bound"
+    )
+    assert result["realness_evidence"]["positive_trace_bound"] is True
+    assert result["realness_evidence"]["baked_fixture_label_sufficient"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
+
+
+def test_formal_math_verifier_trace_repair_source_evidence_perturbation_changes_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/formal_math_verifier_trace_repair_loop",
+        public_root / "examples/formal_math_verifier_trace_repair_loop",
+    )
+    bundle = (
+        public_root
+        / "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle"
+    )
+    manifest, module = _manifest_module(
+        bundle,
+        trace_module.ORACLE_REPAIR_RUN_SUMMARY_REF,
+    )
+    oracle_source = bundle / module["path"]
+    oracle_payload = json.loads(oracle_source.read_text(encoding="utf-8"))
+    for row in oracle_payload["problem_results"]:
+        if row["problem_id"] == "ring2_list_length_append":
+            row["lean_compile_status"] = "FAIL"
+            row["error_class"] = "PROOF_CORE_GAP"
+            row["repair_success"] = False
+            break
+    else:
+        raise AssertionError("missing oracle repair row to perturb")
+    oracle_source.write_text(
+        json.dumps(oracle_payload, sort_keys=True),
+        encoding="utf-8",
+    )
+    assert manifest["body_in_receipt"] is False
+    _refresh_manifest_module_digest(bundle, trace_module.ORACLE_REPAIR_RUN_SUMMARY_REF)
+
+    result = run_loop_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        command="pytest",
+    )
+
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_modules_pass"] is True
+    assert result["status"] == "blocked"
+    assert result["source_replay_mismatch_count"] >= 1
+    assert result["realness_evidence"]["realness_rank"] == 3
+    assert (
+        result["realness_evidence"]["rung_state"]
+        == "mutated_runtime_source_trace_rejected"
+    )
+    assert result["realness_evidence"]["positive_trace_bound"] is False
+    assert result["realness_evidence"]["mutated_or_stale_trace_rejected"] is True
+    assert "VERIFIER_TRACE_ORACLE_REPLAY_MISMATCH" in result["error_codes"]
+    assert "VERIFIER_TRACE_COLD_RERUN_SOURCE_MISMATCH" in result["error_codes"]
+
+
+def test_formal_math_verifier_trace_repair_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/formal_math_verifier_trace_repair_loop",
+        public_root / "examples/formal_math_verifier_trace_repair_loop",
+    )
+    bundle = (
+        public_root
+        / "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_loop_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert result["source_modules_pass"] is False
+    assert "VERIFIER_TRACE_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_formal_math_verifier_trace_repair_rejects_attempt_source_replay_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/formal_math_verifier_trace_repair_loop",
+        public_root / "examples/formal_math_verifier_trace_repair_loop",
+    )
+    bundle = (
+        public_root
+        / "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle"
+    )
+    attempts_path = bundle / "verifier_attempts.json"
+    attempts = json.loads(attempts_path.read_text(encoding="utf-8"))
+    attempts["attempts"][0]["verifier_class"] = "TACTIC_SEARCH_FAIL"
+    attempts_path.write_text(json.dumps(attempts, sort_keys=True), encoding="utf-8")
+
+    result = run_loop_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_replay_mismatch_count"] >= 1
+    assert "VERIFIER_TRACE_SOURCE_REPLAY_MISMATCH" in result["error_codes"]
+
+
+def test_formal_math_verifier_trace_repair_rejects_curriculum_source_replay_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/formal_math_verifier_trace_repair_loop",
+        public_root / "examples/formal_math_verifier_trace_repair_loop",
+    )
+    bundle = (
+        public_root
+        / "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle"
+    )
+    curriculum_path = bundle / "repair_curriculum.json"
+    curriculum = json.loads(curriculum_path.read_text(encoding="utf-8"))
+    curriculum["failure_mode_ledger"][0]["source_failure_count"] = 99
+    curriculum_path.write_text(
+        json.dumps(curriculum, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_loop_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_replay_mismatch_count"] >= 1
+    assert "VERIFIER_CURRICULUM_SOURCE_REPLAY_MISMATCH" in result["error_codes"]
 
 
 def test_formal_math_verifier_trace_repair_cli_card_compacts_exported_bundle(
@@ -220,8 +442,19 @@ def test_formal_math_verifier_trace_repair_cli_card_compacts_exported_bundle(
     assert payload["trace_event_count"] == 15
     assert payload["repair_action_count"] == 5
     assert payload["cold_rerun_promotion_count"] == 3
+    assert payload["toy_theorem_repair_rerun"]["status"] == "pass"
+    assert payload["toy_theorem_repair_rerun"]["failure_count"] == 3
+    assert payload["toy_theorem_repair_rerun"]["repaired_pass_count"] == 4
     assert payload["source_module_count"] == 7
     assert payload["source_modules_pass"] is True
+    assert payload["source_replay_check_count"] == 37
+    assert payload["source_replay_mismatch_count"] == 0
+    assert payload["realness_evidence_summary"]["realness_rung"] == "R4"
+    assert payload["realness_evidence_summary"]["positive_trace_bound"] is True
+    assert (
+        payload["realness_evidence_summary"]["baked_fixture_label_sufficient"]
+        is False
+    )
     assert payload["trace_rows_omitted"] is True
     assert payload["source_module_bodies_omitted"] is True
     assert payload["proof_bodies_exported"] is False
@@ -280,6 +513,36 @@ def test_formal_math_verifier_trace_repair_bundle_card_reuses_fresh_receipt(
     assert cached["freshness_digest"] == result["freshness_digest"]
     assert cached_card["receipt_reused"] is True
     assert cached_card["attempt_count"] == 5
+
+
+def test_formal_math_verifier_trace_repair_fresh_receipt_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    out_dir = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop"
+    )
+    out_dir.mkdir(parents=True)
+    freshness_digest = "sha256:duplicate-key-cache"
+    (out_dir / trace_module.BUNDLE_RESULT_NAME).write_text(
+        (
+            '{"card_schema_version":"poisoned",'
+            f'"card_schema_version":"{trace_module.CARD_SCHEMA_VERSION}",'
+            f'"organ_id":"{trace_module.ORGAN_ID}",'
+            '"input_mode":"exported_verifier_trace_repair_bundle",'
+            f'"freshness_digest":"{freshness_digest}"'
+            "}"
+        ),
+        encoding="utf-8",
+    )
+
+    assert (
+        trace_module._fresh_loop_bundle_receipt(
+            out_dir,
+            freshness_digest=freshness_digest,
+        )
+        is None
+    )
 
 
 def test_formal_math_verifier_trace_repair_exported_source_modules_are_exact_copies() -> None:

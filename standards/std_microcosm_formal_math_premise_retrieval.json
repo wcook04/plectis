@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_formal_math_premise_retrieval",
   "kind_id": "formal_math_premise_retrieval",
   "kind_name": "Formal math premise retrieval",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_formal_math_retrieval",
   "authority_boundary": "public_macro_premise_retrieval_metadata_not_proof_authority",
@@ -22,11 +22,28 @@
       "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
       "field": "source_open_body_imports",
       "role": "source_open_body_floor"
+    },
+    {
+      "path": "paper_modules/formal_math_premise_retrieval.md",
+      "field": "paper_module_contract.module_slug",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "path": "core/paper_module_capsules.json#paper_module.formal_math_premise_retrieval",
+      "field": "paper_module_contract.capsule_ref",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "path": "core/mechanism_sources.json#mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+      "field": "paper_module_contract.mechanism_ref",
+      "role": "mechanism_source"
     }
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#formal_math_premise_retrieval",
-    "used_by_organs": ["formal_math_premise_retrieval"],
+    "used_by_organs": [
+      "formal_math_premise_retrieval"
+    ],
     "source_pattern_id_sample": [
       "lean_std_toolchain_premise_index",
       "prover_premise_retrieval_term_scoring",
@@ -50,7 +67,7 @@
   ],
   "validation_rules": [
     "require macro projection protocol refs, public runtime refs, and at least one copied non-secret macro body with provenance",
-    "score premise retrieval by public terms and split eligibility only",
+    "score premise retrieval by public premise ids, namespaces, theorem or definition names, statement excerpts, retrieval terms, and split eligibility only",
     "reject proof bodies and provider payload bodies in premise rows",
     "reject oracle-needed premise ids in public query rows",
     "reject test split tuning attempts",
@@ -60,7 +77,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_math_premise_retrieval",
-    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, copied-material provenance, copied body-material contract, public retrieval metrics, negative-case coverage, secret-exclusion scan, and anti-claim"
+    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, copied-material provenance, copied body-material contract, public retrieval metrics, source index size, candidates considered, field-hit reasons, negative-case coverage, secret-exclusion scan, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -91,6 +108,8 @@
       "body_material_status",
       "premise_count",
       "query_count",
+      "source_index_size",
+      "retrieval_candidates_considered",
       "mean_public_retrieval_recall",
       "authority_ceiling",
       "anti_claim",
@@ -129,6 +148,8 @@
     "allowed_public_inputs": [
       "premise ids",
       "namespaces",
+      "theorem or definition names",
+      "statement excerpts",
       "retrieval terms",
       "split eligibility",
       "public expected premise ids",
@@ -158,7 +179,13 @@
     "ontology": "A public-safe Lean/Std premise retrieval slice copied from the macro premise index: premise descriptors, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm capable of demonstrating a real formal-math retrieval mechanism while preserving the proof-witness boundary.",
     "anti_purpose": "Turning public retrieval scores into theorem-proof authority.",
-    "compression_bands": ["protocol", "index", "query", "board", "receipt"],
+    "compression_bands": [
+      "protocol",
+      "index",
+      "query",
+      "board",
+      "receipt"
+    ],
     "failure_modes": [
       "premise row leaks proof body",
       "query leaks oracle premise ids",
@@ -166,17 +193,91 @@
       "context recipe exceeds budget",
       "unknown strategy bypasses gate"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "accepted_current_authority",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "accepted",
+      "validator_refs": [
+        "microcosm_core.organs.formal_math_premise_retrieval",
+        "validator.microcosm.formal_math_premise_retrieval"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+        "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+        "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+        "receipt.microcosm.formal_math_premise_retrieval"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
   "receipt_refs": [
-    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json"
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+    "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+    "receipt.microcosm.formal_math_premise_retrieval"
   ],
   "validator_refs": [
-    "microcosm_core.organs.formal_math_premise_retrieval"
+    "microcosm_core.organs.formal_math_premise_retrieval",
+    "validator.microcosm.formal_math_premise_retrieval"
   ],
   "paper_module_contract": {
     "required": true,
-    "module_slug": "formal_math_premise_retrieval"
+    "module_slug": "formal_math_premise_retrieval",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.formal_math_premise_retrieval",
+    "mechanism_ref": "mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice",
+    "source_authority": "json_capsule_with_authored_markdown_projection_and_receipts"
+  },
+  "source_module_manifest_contract": {
+    "required": true,
+    "bundle_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+    "runtime_manifest_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+    "body_floor_manifest_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_body_floor/source_module_manifest.json",
+    "fixture_manifest_ref": "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json",
+    "body_material_status": "copied_and_source_faithful_public_safe_formal_math_premise_retrieval_bodies_with_digest_provenance",
+    "body_material_count": 6,
+    "runtime_exact_macro_module_count": 4,
+    "runtime_source_faithful_module_count": 2,
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_for_sibling_organ_atlas_lane",
+    "atlas_reentry_refs": [
+      "cap_quick_prestage_formal_math_premise_retrieval_per_organ_capsule",
+      "core/organ_atlas.json::organs[organ_id=formal_math_premise_retrieval].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=formal_math_premise_retrieval].mechanism_ref",
+      "core/organ_atlas.json::organs[organ_id=formal_math_premise_retrieval].code_loci"
+    ],
+    "coverage_projection_status": "json_corpus_populated_atlas_edges_pending",
+    "source_module_manifest_status": "populated",
+    "authority_boundary": "Copied public macro premise retrieval metadata, exact macro body imports, source-faithful Lean/Std/query slices, and runtime validation receipts only; no Lean/Lake execution, Mathlib authority, proof-body import, oracle-needed premise authority, provider payload, release authority, publication authority, benchmark authority, source mutation, or theorem-correctness claim.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_formal_math_premise_retrieval_population_has_capsule_and_mechanism_prestaged_until_atlas_binding",
+      "tests/test_formal_math_premise_retrieval.py",
+      "microcosm_core.organs.formal_math_premise_retrieval run",
+      "microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle"
+    ]
+  },
+  "negative_cases": {
+    "coverage_status": "all_observed",
+    "expected": [
+      "context_recipe_budget_overflow",
+      "premise_index_proof_body_forbidden",
+      "query_oracle_ids_forbidden",
+      "test_split_tuning_attempt",
+      "unknown_strategy_id"
+    ],
+    "receipt_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json"
   },
   "omission_receipt": {
     "omitted": [
@@ -196,5 +297,57 @@
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level, imported target refs stay public-root relative, and receipts must name copied body-material provenance"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.formal_math_premise_retrieval.author",
+      "status": "planned",
+      "purpose": "create a valid Formal math premise retrieval instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.formal_math_premise_retrieval.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Formal math premise retrieval without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.formal_math_premise_retrieval.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_formal_math_premise_retrieval and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_formal_math_premise_retrieval.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "anti_claims": [
+    "This standard governs a copied public macro formal-math retrieval slice; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_formal_math_premise_retrieval",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "accepted",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.formal_math_premise_retrieval",
+    "receipt_id": "receipt.microcosm.formal_math_premise_retrieval",
+    "validator_refs": [
+      "microcosm_core.organs.formal_math_premise_retrieval",
+      "validator.microcosm.formal_math_premise_retrieval"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+      "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+      "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+      "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+      "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+      "receipt.microcosm.formal_math_premise_retrieval"
+    ]
   }
 }

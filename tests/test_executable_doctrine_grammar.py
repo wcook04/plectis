@@ -3,8 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 from microcosm_core.organs import executable_doctrine_grammar as executable_grammar
 from microcosm_core.organs.executable_doctrine_grammar import (
@@ -38,6 +38,99 @@ METABOLISM_BODY_MATERIAL_IDS = {
     "standard_option_surface_tool_body_import",
     "kind_atlas_tool_body_import",
 }
+METABOLISM_BUNDLE_RECEIPT = (
+    "receipts/first_wave/executable_doctrine_grammar/"
+    "exported_executable_grammar_metabolism_bundle_validation_result.json"
+)
+
+
+def _private_source_ref_for_readback(source_ref: str) -> str:
+    display_root = executable_grammar.PUBLIC_MACRO_SOURCE_DISPLAY_ROOT
+    private_root = executable_grammar.PRIVATE_MACRO_SOURCE_ROOT
+    display_prefix = f"{display_root}/"
+    if source_ref == display_root:
+        return private_root
+    if source_ref.startswith(display_prefix):
+        return f"{private_root}/{source_ref[len(display_prefix):]}"
+    return source_ref
+
+
+def _executable_grammar_mechanism_source() -> dict[str, Any]:
+    source = json.loads(
+        (MICROCOSM_ROOT / "core/mechanism_sources.json").read_text(encoding="utf-8")
+    )
+    mechanisms = source["mechanisms"]
+    return next(
+        mechanism
+        for mechanism in mechanisms
+        if mechanism["id"]
+        == "mechanism.executable_doctrine_grammar.validates_public_doctrine_grammar_bundle"
+    )
+
+
+def _executable_grammar_atlas_card() -> dict[str, Any]:
+    atlas = json.loads(
+        (MICROCOSM_ROOT / "core/organ_atlas.json").read_text(encoding="utf-8")
+    )
+    organs = atlas["organs"]
+    return next(
+        organ for organ in organs if organ["organ_id"] == "executable_doctrine_grammar"
+    )
+
+
+def _executable_grammar_registry_row() -> dict[str, Any]:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    organs = registry["implemented_organs"]
+    return next(
+        organ for organ in organs if organ["organ_id"] == "executable_doctrine_grammar"
+    )
+
+
+def _executable_grammar_acceptance_row() -> dict[str, Any]:
+    acceptance = json.loads(
+        (MICROCOSM_ROOT / "core/acceptance/first_wave_acceptance.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    organs = acceptance["accepted_current_authority_organs"]
+    return next(organ for organ in organs if organ["organ_id"] == "executable_doctrine_grammar")
+
+
+def test_executable_doctrine_grammar_primary_validator_uses_real_metabolism_bundle() -> None:
+    evidence = _executable_grammar_mechanism_source()["resolution_evidence"]
+    atlas = _executable_grammar_atlas_card()
+    registry = _executable_grammar_registry_row()
+    acceptance = _executable_grammar_acceptance_row()
+
+    assert evidence["validator_command"] == evidence[
+        "exported_metabolism_bundle_validator_command"
+    ]
+    assert "validate-executable-grammar-metabolism-bundle" in evidence["validator_command"]
+    assert "exported_executable_grammar_metabolism_bundle" in evidence["validator_command"]
+    assert "fixtures/first_wave/executable_doctrine_grammar/input" not in evidence[
+        "validator_command"
+    ]
+    assert "fixtures/first_wave/executable_doctrine_grammar/input" in evidence[
+        "fixture_regression_validator_command"
+    ]
+    assert atlas["first_command"] == evidence["validator_command"]
+    assert "validate-executable-grammar-metabolism-bundle" in atlas["first_command"]
+    assert "fixtures/first_wave/executable_doctrine_grammar/input" not in atlas[
+        "first_command"
+    ]
+    assert "exact copied-body digests" in atlas["claim_ceiling_restated"]
+    assert registry["validator_command"] == evidence["validator_command"]
+    assert acceptance["validator_command"] == evidence["validator_command"]
+    assert "validate-executable-grammar-metabolism-bundle" in registry[
+        "validator_command"
+    ]
+    assert "fixtures/first_wave/executable_doctrine_grammar/input" not in registry[
+        "validator_command"
+    ]
+    assert METABOLISM_BUNDLE_RECEIPT in registry["generated_receipts"]
+    assert acceptance["generated_receipts"] == registry["generated_receipts"]
 
 
 def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: Path) -> None:
@@ -147,9 +240,10 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert len(receipt["source_refs"]) == 12
     assert "codex/standards/standards_registry.json" in receipt["source_refs"]
     assert "system/lib/standard_option_surface.py" in receipt["source_refs"]
-    assert receipt["source_root"] == (
-        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism"
-    )
+    private_macro_root = "self-indexing-" + "cognitive-substrate"
+    assert receipt["source_root"] == "private-macro-source/microcosms/executable_grammar_metabolism"
+    assert all(private_macro_root not in ref for ref in receipt["source_refs"])
+    assert private_macro_root not in json.dumps(receipt["source_module_imports"], sort_keys=True)
     assert sorted(receipt["artifact_refs"]) == [
         "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/README.md",
         "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/grammar_board.json",
@@ -220,7 +314,8 @@ def test_executable_doctrine_grammar_source_modules_are_exact_macro_imports() ->
     assert {module["module_id"] for module in manifest["modules"]} == METABOLISM_BODY_MATERIAL_IDS
     repo_root = MICROCOSM_ROOT.parent
     for module in manifest["modules"]:
-        source_path = repo_root / module["source_ref"]
+        source_ref = _private_source_ref_for_readback(str(module["source_ref"]))
+        source_path = repo_root / source_ref
         target_path = MICROCOSM_ROOT / module["target_ref"].removeprefix("microcosm-substrate/")
         source_bytes = source_path.read_bytes()
         target_bytes = target_path.read_bytes()
@@ -275,6 +370,55 @@ def test_executable_doctrine_grammar_source_module_digest_tamper_blocks_bundle(
     assert result["body_copied_material_count"] == 12
     assert "EXECUTABLE_GRAMMAR_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
     assert result["body_text_in_receipt"] is False
+
+
+def test_executable_doctrine_grammar_real_card_rejects_mutated_macro_body(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle_dir = (
+        public_root
+        / "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle"
+    )
+    shutil.copytree(METABOLISM_BUNDLE_INPUT, bundle_dir)
+    out_dir = public_root / "receipts/first_wave/executable_doctrine_grammar"
+
+    clean = validate_executable_grammar_metabolism_bundle(
+        bundle_dir,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    clean_card = result_card(clean)
+    assert clean_card["status"] == "pass"
+    assert clean_card["input_mode"] == "exported_executable_grammar_metabolism_bundle"
+    assert clean_card["source_module_count"] == 12
+    assert clean_card["body_copied_material_count"] == 12
+    assert clean_card["source_open_body_import_summary"]["body_material_count"] == 12
+
+    source_body = bundle_dir / "grammar_board.json"
+    source_body.write_text(source_body.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+
+    blocked = validate_executable_grammar_metabolism_bundle(
+        bundle_dir,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    blocked_card = result_card(blocked)
+
+    assert blocked["receipt_reused"] is False
+    assert blocked_card["status"] == "blocked"
+    assert blocked_card["error_code_count"] > 0
+    assert "EXECUTABLE_GRAMMAR_SOURCE_MODULE_DIGEST_MISMATCH" in blocked_card[
+        "error_codes"
+    ]
+    assert blocked_card["source_module_count"] == 12
+    assert blocked_card["body_copied_material_count"] == 12
+    assert blocked_card["source_open_body_import_summary"]["body_material_count"] == 12
+    assert blocked_card["body_text_in_receipt"] is False
+    assert str(tmp_path) not in json.dumps(blocked_card, sort_keys=True)
 
 
 def test_executable_doctrine_grammar_receipts_are_public_relative_and_redacted(

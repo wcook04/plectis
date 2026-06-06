@@ -345,10 +345,11 @@
     },
     "TraceTapeLevels": {
       "required_fields": ["schema_version", "boundary", "selected_level", "available_levels", "levels"],
-      "level_ids": ["outline", "tape", "tape+diff", "audit", "raw"],
-      "role": "Chronological observed-action tape for one session. Default browsing renders from spans only: actual tool calls, commands, reads, edits, validations, commits, bounded outputs, and bounded +/- edit previews.",
+      "level_ids": ["outline", "closeout", "tape", "tape+diff", "audit", "raw"],
+      "role": "Chronological observed-action tape for one session. Default browsing renders from spans only: actual tool calls, commands, reads, edits, validations, commits, bounded outputs, and bounded +/- edit previews. The closeout level is a terminal work summary plus exact-closeout-prose drilldown, still inside the observable-action boundary.",
       "level_contracts": {
         "outline": "Final state, edits, validations, and commit summary only. No per-command output.",
+        "closeout": "Terminal work summary: what paths the agent worked on, changed-file totals, validation rows, commit rows, recent terminal actions, and a local-private cli_prompt_trace thread-closeouts command for exact final prose.",
         "tape": "Default route: every observed command/read/edit in sequence with one bounded output line.",
         "tape+diff": "Tape plus bounded +/- edit hunks.",
         "audit": "Adds row ids, span ids, tags, targets, and sidecar pointers behind audit-json.",
@@ -607,7 +608,7 @@
   },
   "kernel_routes": {
     "--process-trace": "Open one session's trace as a low-scaffold chronological tape by default. Accepts 'latest' / 'claude:latest' / 'codex:latest' / a session_id.",
-    "--process-trace-level": "With --process-trace, select outline|tape|tape+diff|audit|raw. Default tape prints observed actions only.",
+    "--process-trace-level": "With --process-trace, select outline|closeout|tape|tape+diff|audit|raw. Default tape prints observed actions only; closeout summarizes terminal work and points to exact final prose via cli_prompt_trace.",
     "--process-trace-format": "With --process-trace, select tape|audit-json|raw-json. Tape is the browsing default; audit-json/raw-json expose sidecars.",
     "--process-trace-max-chars": "With --process-trace-format tape, cap rendered trace characters for context economy; default cap is 10000 chars.",
     "--process-summary": "Emit the compact selected-session summary, including summary_thought_trace, before drilling into verbose process payloads.",

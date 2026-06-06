@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 8 structural_theses capsule validates exact copied non-secret macro source and public synthetic winner/loser/control exercises through the real CP1/CP2 finance spine. It is not financial advice, not investment recommendation, not live market data, not provider dispatch, not portfolio action, not publication authority, and not release approval.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch8_structural_theses_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch8_structural_theses_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_structural_theses_capsule"
+}

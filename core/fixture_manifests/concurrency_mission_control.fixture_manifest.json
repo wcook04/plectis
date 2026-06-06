@@ -1,0 +1,47 @@
+{
+  "fixture_id": "first_wave.concurrency_mission_control",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/concurrency_mission_control/input",
+  "organ_id": "concurrency_mission_control",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "browser_or_wallet_access": false,
+      "credential_or_account_bound_payload_exported": false,
+      "hosted_orchestration_claim": false,
+      "live_scheduler_claim": false,
+      "model_dispatch": false,
+      "private_runtime_state_exported": false,
+      "private_task_ledger_exported": false,
+      "private_work_ledger_exported": false,
+      "production_concurrency_safety_claim": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 7,
+    "body_material_ids": [
+      "concurrency_mission_control_builder_source",
+      "provider_harness_canary_board",
+      "provider_harness_canary_receipt",
+      "task_ledger_cap_economy_events",
+      "task_ledger_cap_economy_projection",
+      "task_ledger_provider_repair_residual_bridge",
+      "task_ledger_cap_economy_receipt"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ and seed_root/ inside the exported concurrency mission-control bundle for the copied builder and public bridge artifacts; receipts carry refs, hashes, counts, and verdicts only.",
+    "source_manifest_refs": [
+      "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

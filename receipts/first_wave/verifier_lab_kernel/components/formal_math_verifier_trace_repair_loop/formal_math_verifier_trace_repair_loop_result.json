@@ -150,7 +150,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-06-02T02:55:31+00:00",
   "curriculum_edge_count": 3,
   "curriculum_edges": [
     {
@@ -341,10 +341,10 @@
   },
   "protocol_id": "formal_math_verifier_trace_repair_loop_ring2_real_import_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
   ],
   "repair_action_count": 5,
   "schema_version": "formal_math_verifier_trace_repair_loop_result_receipt_v1",
@@ -398,6 +398,8 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
   ],
+  "source_replay_check_count": 0,
+  "source_replay_mismatch_count": 0,
   "status": "pass",
   "target_refs": [
     "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",

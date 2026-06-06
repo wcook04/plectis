@@ -20,18 +20,27 @@
   ],
   "valid_prediction_targets": [
     "SYNTH_TARGET_ALPHA",
-    "SYNTH_TARGET_BETA"
+    "SYNTH_TARGET_BETA",
+    "SYNTH_TARGET_GAMMA"
   ],
   "target_universe": [
     {
       "target_id": "SYNTH_TARGET_ALPHA",
+      "asset_class": "STOCK",
       "target_class": "synthetic_public_outcome",
       "validity_receipt_ref": "T-3:target_universe:alpha"
     },
     {
       "target_id": "SYNTH_TARGET_BETA",
+      "asset_class": "ETF",
       "target_class": "synthetic_public_outcome",
       "validity_receipt_ref": "T-3:target_universe:beta"
+    },
+    {
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "asset_class": "STOCK",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:gamma"
     }
   ],
   "cp1_branches": [
@@ -57,6 +66,18 @@
         "T-1:beta_grounding_crosscheck"
       ],
       "opposite_side_invalidation_ref": "T-1:beta_up_branch_rejected",
+      "equity_lane_confirmation": true
+    },
+    {
+      "branch_id": "cp1_gamma_flat_over_up",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "lane": "synthetic_science",
+      "selected_side": "flat",
+      "rationale_refs": [
+        "T-2:gamma_prior_signal",
+        "T-1:gamma_grounding_crosscheck"
+      ],
+      "opposite_side_invalidation_ref": "T-1:gamma_up_branch_rejected",
       "equity_lane_confirmation": true
     }
   ],
@@ -88,22 +109,61 @@
         "ground_beta_signal",
         "ground_beta_fixture"
       ]
+    },
+    {
+      "prediction_id": "pred_gamma_direction",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "direction": "flat",
+      "confidence_band": "low",
+      "evidence_refs": [
+        "T-2:gamma_prior_signal",
+        "T-1:gamma_grounding_crosscheck"
+      ],
+      "grounding_ids": [
+        "ground_gamma_signal",
+        "ground_gamma_fixture"
+      ]
     }
   ],
   "oracle_diff": [
     {
       "row_id": "oracle_alpha",
       "prediction_id": "pred_alpha_direction",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "asset_class": "STOCK",
       "predicted_direction": "up",
       "realized_direction": "up",
-      "feed_health": "ok"
+      "feed_health": "ok",
+      "snapshot_price": 100.0,
+      "predicted_price": 104.0,
+      "realized_price": 105.0,
+      "abs_error": 1.0,
+      "pred_error_pct": 1.0
     },
     {
       "row_id": "oracle_beta",
       "prediction_id": "pred_beta_direction",
+      "target_id": "SYNTH_TARGET_BETA",
+      "asset_class": "ETF",
       "predicted_direction": "down",
-      "realized_direction": "flat",
-      "feed_health": "ok"
+      "realized_direction": "down",
+      "feed_health": "ok",
+      "snapshot_price": 200.0,
+      "predicted_price": 190.0,
+      "realized_price": 170.0,
+      "abs_error": 20.0,
+      "pred_error_pct": 10.0
+    },
+    {
+      "row_id": "oracle_gamma",
+      "prediction_id": "pred_gamma_direction",
+      "target_id": "SYNTH_TARGET_GAMMA",
+      "asset_class": "STOCK",
+      "predicted_direction": "flat",
+      "realized_direction": "degraded",
+      "feed_health": "degraded",
+      "snapshot_price": 50.0,
+      "predicted_price": 50.0
     }
   ],
   "dossier_mutations": [

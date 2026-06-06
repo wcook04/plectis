@@ -106,11 +106,18 @@
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
     "body_import_classification": "extension_of_existing_public_refactor",
+    "body_in_receipt": false,
+    "digest_relation": "source_target_refactor_digests_recorded",
     "public_trace_span_count": 6,
     "public_trace_status": "pass",
+    "source_body_digest": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
     "source_ref": "system/lib/agent_execution_trace.py",
+    "source_to_target_relation": "source_faithful_public_refactor",
+    "target_body_digest": "sha256:87f1c371b0956c4c2ae31c28680a66a989719ac76d9caa59dbbee5e3b9e31c96",
+    "target_file_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::build_public_belief_state_process_reward_trace",
     "trace_digest": "sha256:b0eaa88a75d1f6e1110091999457709151ea9737f7546122eee871e719238573",
+    "verification_mode": "source_faithful_public_refactor_with_live_digest_relation",
     "verification_status": "verified"
   },
   "body_in_receipt": false,
@@ -151,7 +158,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-30T21:37:01+00:00",
+  "created_at": "2026-06-01T09:10:13+00:00",
   "episode_count": 3,
   "episode_rows": [
     {
@@ -256,7 +263,7 @@
   "findings": [],
   "fixture_id": "first_wave.belief_state_process_reward_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:0ab12a94229855a6b21c5df2ab718a0040f9afec224266785d1f6da39286ccd0",
+    "basis_digest": "sha256:ec402103b4987568d53f0620f0bc3b10cc0b6590203ddf8ea52ce29ff9171978",
     "card_schema_version": "belief_state_process_reward_replay_command_card_v1",
     "include_negative": false,
     "input_count": 19,
@@ -308,7 +315,7 @@
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
-        "sha256": "sha256:78de36fb045c145d202155ab6e377128d829dac94522ecc37c6b074b299270ba",
+        "sha256": "sha256:c63f5a3815158d32ab39d49a96255abd41c92fc04808a3bc50532106049e806e",
         "size_bytes": 17299
       },
       {
@@ -328,8 +335,8 @@
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
@@ -348,8 +355,8 @@
       },
       {
         "path": "src/microcosm_core/organs/belief_state_process_reward_replay.py",
-        "sha256": "sha256:323d90dcebe38aaefc0c01764f8ba4010e85f23d2759b0c3ce209dcd79d88732",
-        "size_bytes": 73347
+        "sha256": "sha256:709afa6aa21d02709eaefc41ba32ca47fe9de1b0b629f787cef8fe17cf42931c",
+        "size_bytes": 75237
       },
       {
         "path": "core/private_state_forbidden_classes.json",

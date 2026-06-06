@@ -33,6 +33,7 @@ CARD_SCHEMA_VERSION = "routing_anti_patterns_registry_command_card_v1"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "covered_anti_pattern_ids",
     "findings",
+    "route_repair_state_validation",
     "secret_exclusion_scan",
     "expected_negative_cases",
     "observed_negative_cases",
@@ -135,6 +136,34 @@ FORBIDDEN_AUTHORITY_ROLES = frozenset(
         "control_plane_authority",
         "canonical_authority",
     }
+)
+ROUTE_REPAIR_STATE_REQUIREMENTS = {
+    "kernel_before_grep": {
+        "route_repair_state": "kernel_first_navigation",
+        "required_text_anchors": ("grep", "kernel", "route"),
+    },
+    "bridge_before_scope": {
+        "route_repair_state": "scope_before_bridge",
+        "required_text_anchors": ("bridge", "selected", "refs"),
+    },
+    "zero_write_disk": {
+        "route_repair_state": "typed_bundle_return_only",
+        "required_text_anchors": ("zero-write", "persist", "typed bundles"),
+    },
+    "ad_hoc_subphase_dirs": {
+        "route_repair_state": "governed_phase_scaffold_only",
+        "required_text_anchors": ("top-level", "subphase", "directories"),
+    },
+    "mode_in_chat_only": {
+        "route_repair_state": "disk_bound_mode_contract",
+        "required_text_anchors": ("execution mode", "synth", "wave contract"),
+    },
+}
+BAKED_ROUTE_REPAIR_LABEL_KEYS = (
+    "expected_route_repair_state",
+    "route_repair_state",
+    "expected_repair_state",
+    "baked_expected_label",
 )
 
 AUTHORITY_CEILING = {
@@ -480,6 +509,92 @@ def _payload_findings(
     }
 
 
+def _merge_observed(
+    left: dict[str, list[str]], right: dict[str, set[str]]
+) -> dict[str, list[str]]:
+    merged: dict[str, set[str]] = defaultdict(set)
+    for key, codes in left.items():
+        merged[key].update(codes)
+    for key, codes in right.items():
+        merged[key].update(codes)
+    return {key: sorted(value) for key, value in merged.items()}
+
+
+def _route_repair_state_for_row(row: dict[str, Any]) -> str:
+    row_id = str(row.get("id") or "")
+    text = str(row.get("text") or "").lower()
+    requirement = ROUTE_REPAIR_STATE_REQUIREMENTS.get(row_id)
+    if not requirement:
+        return ""
+    anchors = requirement["required_text_anchors"]
+    if all(anchor in text for anchor in anchors):
+        return str(requirement["route_repair_state"])
+    return ""
+
+
+def validate_copied_macro_registry_rows(
+    payload: object,
+    *,
+    case_id: str = "copied_macro_routing_anti_patterns_registry",
+    require_named_ids: bool = True,
+) -> dict[str, Any]:
+    """Validate copied macro registry rows from source text, not expected labels."""
+
+    base = _payload_findings(
+        payload,
+        case_id=case_id,
+        require_named_ids=require_named_ids,
+    )
+    findings = list(base["findings"])
+    observed: dict[str, set[str]] = defaultdict(set)
+    rows = _anti_pattern_rows(payload)
+    route_repair_states: dict[str, str] = {}
+    missing_route_repair_state_ids: list[str] = []
+    baked_label_ids: list[str] = []
+
+    for index, row in enumerate(rows):
+        row_id = str(row.get("id") or f"anti_patterns[{index}]")
+        if any(row.get(key) for key in BAKED_ROUTE_REPAIR_LABEL_KEYS):
+            baked_label_ids.append(row_id)
+        state = _route_repair_state_for_row(row)
+        if state:
+            route_repair_states[row_id] = state
+            continue
+        _record(
+            findings,
+            observed,
+            "ROUTING_ANTI_PATTERN_ROUTE_REPAIR_STATE_REQUIRED",
+            "Copied macro routing anti-pattern rows must carry source-backed route repair state derived from their id and text.",
+            case_id=case_id,
+            subject_id=row_id,
+            subject_kind="route_repair_state",
+        )
+        missing_route_repair_state_ids.append(row_id)
+
+    source_backed = bool(rows) and not findings and len(route_repair_states) == len(rows)
+    return {
+        "schema_version": "routing_anti_patterns_registry_row_validation_v1",
+        "validator_id": f"{VALIDATOR_ID}.row_validator",
+        "status": PASS if not findings else "blocked",
+        "row_count": len(rows),
+        "validated_row_count": len(route_repair_states),
+        "route_repair_state_count": len(route_repair_states),
+        "route_repair_states": route_repair_states,
+        "missing_route_repair_state_count": len(missing_route_repair_state_ids),
+        "missing_route_repair_state_ids": missing_route_repair_state_ids,
+        "baked_route_repair_label_count": len(baked_label_ids),
+        "baked_route_repair_label_ids": baked_label_ids,
+        "baked_expected_labels_sufficient": False,
+        "source_backed": source_backed,
+        "finding_count": len(findings),
+        "findings": findings,
+        "observed_negative_cases": _merge_observed(
+            base["observed_negative_cases"],
+            observed,
+        ),
+    }
+
+
 def _source_module_manifest_result(
     input_dir: Path,
     *,
@@ -511,6 +626,7 @@ def _source_module_manifest_result(
             "body_material_classes": {},
             "body_in_receipt": False,
             "source_refs": [],
+            "copied_macro_registry_body_validations": [],
             "findings": findings,
         }
 
@@ -520,6 +636,7 @@ def _source_module_manifest_result(
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
     source_refs = [_display(manifest_path, public_root=public_root)]
+    copied_body_validations: list[dict[str, Any]] = []
 
     if not isinstance(manifest, dict):
         modules = []
@@ -657,6 +774,60 @@ def _source_module_manifest_result(
                     "missing_anchors": missing_anchors,
                 }
             )
+        try:
+            copied_registry_payload = json.loads(text)
+        except json.JSONDecodeError:
+            findings.append(
+                _finding(
+                    "ROUTING_ANTI_PATTERN_SOURCE_MODULE_ROW_VALIDATOR_REJECTED",
+                    "Copied source module body must be valid JSON for row validation.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module_row_validator",
+                )
+            )
+        else:
+            row_validation = validate_copied_macro_registry_rows(
+                copied_registry_payload,
+                case_id="source_module_manifest",
+                require_named_ids=True,
+            )
+            if row_validation["status"] != PASS:
+                findings.extend(row_validation["findings"])
+            copied_body_validations.append(
+                {
+                    "schema_version": row_validation["schema_version"],
+                    "module_id": module_id,
+                    "target_ref": _display(target, public_root=public_root),
+                    "validator_id": row_validation["validator_id"],
+                    "status": row_validation["status"],
+                    "source_backed": row_validation["source_backed"],
+                    "row_count": row_validation["row_count"],
+                    "validated_row_count": row_validation["validated_row_count"],
+                    "route_repair_state_count": row_validation[
+                        "route_repair_state_count"
+                    ],
+                    "missing_route_repair_state_count": row_validation[
+                        "missing_route_repair_state_count"
+                    ],
+                    "baked_expected_labels_sufficient": row_validation[
+                        "baked_expected_labels_sufficient"
+                    ],
+                    "finding_count": row_validation["finding_count"],
+                    "error_codes": sorted(
+                        {
+                            str(finding.get("error_code") or "")
+                            for finding in row_validation["findings"]
+                            if finding.get("error_code")
+                        }
+                    ),
+                    "body_in_receipt": False,
+                }
+            )
+            row["row_validator_status"] = row_validation["status"]
+            row["row_validator_id"] = row_validation["validator_id"]
+            row["row_validator_source_backed"] = row_validation["source_backed"]
+            row["row_validator_finding_count"] = row_validation["finding_count"]
         source_refs.append(_display(target, public_root=public_root))
         if len(findings) == module_findings_start:
             verified_count += 1
@@ -675,6 +846,7 @@ def _source_module_manifest_result(
         "body_material_classes": material_class_counts,
         "body_in_receipt": False,
         "source_refs": source_refs,
+        "copied_macro_registry_body_validations": copied_body_validations,
         "findings": findings,
     }
 
@@ -903,6 +1075,9 @@ def _common_receipt(
         "source_module_import_status",
         "source_module_summary",
         "source_open_body_imports",
+        "copied_macro_registry_body_validation",
+        "row_validator_id",
+        "route_repair_state_validation",
         "body_material_status",
         "body_copied_material_count",
         "body_in_receipt",
@@ -949,7 +1124,7 @@ def _build_result(
     )
 
     registry_payload = payloads["routing_anti_patterns"]
-    positive = _payload_findings(
+    positive = validate_copied_macro_registry_rows(
         registry_payload,
         case_id="positive_routing_anti_patterns",
         require_named_ids=True,
@@ -985,6 +1160,13 @@ def _build_result(
         str(ref)
         for ref in source_module_result.get("source_refs", [])
         if isinstance(ref, str)
+    ]
+    copied_body_validations = [
+        row
+        for row in source_module_result.get(
+            "copied_macro_registry_body_validations", []
+        )
+        if isinstance(row, dict)
     ]
     status = (
         PASS
@@ -1023,6 +1205,45 @@ def _build_result(
         "source_module_import_status": source_module_result["source_module_import_status"],
         "source_module_summary": source_module_result,
         "source_open_body_imports": source_open_body_imports,
+        "copied_macro_registry_body_validation": {
+            "schema_version": "routing_anti_patterns_registry_copied_macro_body_validation_v1",
+            "status": (
+                PASS
+                if copied_body_validations
+                and all(row.get("status") == PASS for row in copied_body_validations)
+                else source_module_result["status"]
+            ),
+            "body_validation_count": len(copied_body_validations),
+            "source_backed_validation_count": sum(
+                1 for row in copied_body_validations if row.get("source_backed") is True
+            ),
+            "validations": copied_body_validations,
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+        },
+        "row_validator_id": positive["validator_id"],
+        "route_repair_state_validation": {
+            "schema_version": positive["schema_version"],
+            "validator_id": positive["validator_id"],
+            "status": positive["status"],
+            "row_count": positive["row_count"],
+            "validated_row_count": positive["validated_row_count"],
+            "route_repair_state_count": positive["route_repair_state_count"],
+            "missing_route_repair_state_count": positive[
+                "missing_route_repair_state_count"
+            ],
+            "missing_route_repair_state_ids": positive[
+                "missing_route_repair_state_ids"
+            ],
+            "baked_route_repair_label_count": positive[
+                "baked_route_repair_label_count"
+            ],
+            "baked_expected_labels_sufficient": positive[
+                "baked_expected_labels_sufficient"
+            ],
+            "source_backed": positive["source_backed"],
+            "finding_count": positive["finding_count"],
+        },
         "body_material_status": source_open_body_imports["body_material_status"],
         "body_copied_material_count": source_open_body_imports["body_material_count"],
         "body_in_receipt": False,
@@ -1166,6 +1387,13 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "anti_pattern_count": result.get("anti_pattern_count"),
             "required_anti_pattern_count": len(REQUIRED_ANTI_PATTERN_IDS),
             "source_open_body_material_count": result.get("body_copied_material_count"),
+            "route_repair_state_count": (
+                (result.get("route_repair_state_validation") or {}).get(
+                    "route_repair_state_count"
+                )
+                if isinstance(result.get("route_repair_state_validation"), dict)
+                else None
+            ),
         },
         "source_open_body_imports": {
             "status": (result.get("source_open_body_imports") or {}).get("status")
@@ -1184,6 +1412,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "missing_negative_case_count": len(result.get("missing_negative_cases") or []),
             "error_code_count": len(result.get("error_codes") or []),
             "finding_count": len(result.get("findings") or []),
+            "row_validator_source_backed": (
+                (result.get("route_repair_state_validation") or {}).get(
+                    "source_backed"
+                )
+                is True
+            )
+            if isinstance(result.get("route_repair_state_validation"), dict)
+            else False,
             "real_runtime_receipt": result.get("real_runtime_receipt") is True,
             "synthetic_receipt_standin_allowed": (
                 result.get("synthetic_receipt_standin_allowed") is True

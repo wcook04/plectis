@@ -42,6 +42,30 @@ ORDERED_CONTROLLER_ACTION_IDS = [
     "release_claims",
     "recompute_convergence",
 ]
+CONTROLLER_ACTION_PREREQUISITES = {
+    "ensure_work_ledger_progress_event": ["verify_scoped_commit_landed"],
+    "record_scoped_commit_landing": [
+        "verify_scoped_commit_landed",
+        "ensure_work_ledger_progress_event",
+    ],
+    "ensure_task_ledger_receipt_intake_or_event": [
+        "record_scoped_commit_landing",
+    ],
+    "drain_task_ledger_intake_if_exclusive": [
+        "ensure_task_ledger_receipt_intake_or_event",
+    ],
+    "closeout_landing_attempt": ["drain_task_ledger_intake_if_exclusive"],
+    "rebuild_task_ledger_projection": ["closeout_landing_attempt"],
+    "check_work_ledger_projection": ["rebuild_task_ledger_projection"],
+    "close_work_ledger_transaction_thread": ["check_work_ledger_projection"],
+    "finalize_work_ledger_session": ["close_work_ledger_transaction_thread"],
+    "release_claims": ["finalize_work_ledger_session"],
+    "recompute_convergence": ["release_claims"],
+}
+CONTROLLER_ACTION_ORDER_GUARDS = {
+    "release_claims": "claim_release_after_work_ledger_session_finalize_only",
+    "recompute_convergence": "convergence_after_claim_release_only",
+}
 AUTHORITY_CEILING = {
     "live_task_ledger_mutation_authorized": False,
     "live_work_ledger_mutation_authorized": False,
@@ -64,6 +88,25 @@ def _strings(values: list[str] | None) -> list[str]:
 def _stable_digest(payload: object) -> str:
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()[:16]
+
+
+def _controller_action_rows() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for sequence, action_id in enumerate(ORDERED_CONTROLLER_ACTION_IDS, start=1):
+        row = {
+            "sequence": sequence,
+            "action_id": action_id,
+            "prerequisite_action_ids": CONTROLLER_ACTION_PREREQUISITES.get(
+                action_id, []
+            ),
+            "mutation_authorized": False,
+            "live_state_mutation_authorized": False,
+        }
+        order_guard = CONTROLLER_ACTION_ORDER_GUARDS.get(action_id)
+        if order_guard:
+            row["order_guard"] = order_guard
+        rows.append(row)
+    return rows
 
 
 def _base_payload(
@@ -151,10 +194,7 @@ def build_public_work_landing_reconcile_plan(
         session_id=session_id,
         require_exclusive=require_exclusive,
     )
-    actions = [
-        {"action_id": action_id, "mutation_authorized": False}
-        for action_id in ORDERED_CONTROLLER_ACTION_IDS
-    ]
+    actions = _controller_action_rows()
     payload.update(
         {
             "mode": "apply_requested_but_public_tool_is_dry_run" if apply else "dry_run",

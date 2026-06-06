@@ -1,0 +1,220 @@
+{
+  "anti_claim": "Bounded autonomy campaign packet emits a draft self-proposal from public synthetic coverage gaps and refuses source-write or repeated-failure packets. It does not self-repair, mutate source unsupervised, call providers, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "self_proposal_campaign_packet_only",
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "self_repair_authorized": false,
+    "source_write_packet_authorized": false,
+    "status": "pass",
+    "unsupervised_source_mutation_authorized": false
+  },
+  "body_in_receipt": false,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-06-01T09:10:36+00:00",
+  "error_codes": [
+    "BOUNDED_AUTONOMY_REPEATED_FAILED_DIGEST",
+    "BOUNDED_AUTONOMY_SOURCE_WRITE_FORBIDDEN"
+  ],
+  "exercise": {
+    "candidate_count": 2,
+    "candidate_packet": {
+      "body_in_receipt": false,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "action": "draft_candidate_packet",
+          "candidate_id": "proposal::gap.fixture_manifest_missing_demo_row",
+          "gap_id": "gap.fixture_manifest_missing_demo_row",
+          "requires_human_review": true,
+          "source_mutation_authorized": false,
+          "write_surface": "none"
+        },
+        {
+          "action": "draft_candidate_packet",
+          "candidate_id": "proposal::gap.standard_missing_negative_case",
+          "gap_id": "gap.standard_missing_negative_case",
+          "requires_human_review": true,
+          "source_mutation_authorized": false,
+          "write_surface": "none"
+        }
+      ],
+      "schema_version": "bounded_autonomy_candidate_packet_v1",
+      "self_repair_authorized": false,
+      "source_mutation_authorized": false,
+      "status": "drafted"
+    },
+    "external_witness": {
+      "body_in_receipt": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "8e709dae25c8c9d143c7327affd2b23251c4c499a1537679e1579d6f65899d99",
+      "subprocess_returncode": 0
+    },
+    "failed_digest_count": 2,
+    "gap_count": 2,
+    "repeated_failed_digest_count": 0,
+    "self_proposal_only": true,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "repeated_failed_campaign_digest",
+    "source_write_campaign_packet"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.bounded_autonomy_campaign_packet",
+  "input_count": 4,
+  "input_mode": "exported_bounded_autonomy_campaign_packet_bundle",
+  "input_ref": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "repeated_failed_campaign_digest",
+    "source_write_campaign_packet"
+  ],
+  "organ_id": "bounded_autonomy_campaign_packet",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_board.json",
+    "receipts/runtime_shell/demo_project/organs/bounded_autonomy_campaign_packet/bounded_autonomy_campaign_packet_validation_receipt.json"
+  ],
+  "schema_version": "bounded_autonomy_campaign_packet_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
+    "module_count": 3,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 2364,
+        "expected_sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
+        "line_count": 2364,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/control/reactions_engine.py",
+        "required_anchor_count": 2,
+        "sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
+        "source_exists": true,
+        "source_ref": "tools/meta/control/reactions_engine.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/control/reactions_engine.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 177,
+        "expected_sha256": "65c26e2e2b1588c35a5c227f9f381cb44c727f7cc17e47b155e71c3839aff795",
+        "line_count": 177,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/factory/build_compliance_autocure_campaign.py",
+        "required_anchor_count": 2,
+        "sha256": "65c26e2e2b1588c35a5c227f9f381cb44c727f7cc17e47b155e71c3839aff795",
+        "source_exists": true,
+        "source_ref": "tools/meta/factory/build_compliance_autocure_campaign.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_compliance_autocure_campaign.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 163,
+        "expected_sha256": "71e053b031b63f6e777759ea9e9aef259950c7674b897ff3cbd066268ad51685",
+        "line_count": 163,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/meta/factory/build_standard_skill_pairing_campaign.py",
+        "required_anchor_count": 2,
+        "sha256": "71e053b031b63f6e777759ea9e9aef259950c7674b897ff3cbd066268ad51685",
+        "source_exists": true,
+        "source_ref": "tools/meta/factory/build_standard_skill_pairing_campaign.py",
+        "source_ref_required": true,
+        "source_ref_verification": "live_source_exact_copy",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_standard_skill_pairing_campaign.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 4,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_module_manifest.json",
+      "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/control/reactions_engine.py",
+      "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_compliance_autocure_campaign.py",
+      "examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_standard_skill_pairing_campaign.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.bounded_autonomy_campaign_packet"
+}

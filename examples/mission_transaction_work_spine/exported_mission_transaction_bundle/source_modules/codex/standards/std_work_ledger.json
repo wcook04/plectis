@@ -17,7 +17,7 @@
     "git_guard": "repo-git",
     "core_runtime": "system/lib/work_ledger.py",
     "hook_runtime": "system/lib/work_ledger_runtime.py",
-    "host_runtime_cli": "tools/meta/factory/work_ledger.py session-bootstrap|session-activity|session-activity --full|session-heartbeat|session-heartbeat --full|session-finalize|session-finalize --full|session-finalize --allow-missing-append|session-status|session-status --overview|session-status --seed-speed|session-status --full|session-import-codex|session-import-host-surfaces|session-preflight|mutation-check|agent-seed-handoffs|session-claim|session-claim-path|session-release-claim|session-sweep"
+    "host_runtime_cli": "tools/meta/factory/work_ledger.py session-bootstrap|session-activity|session-activity --full|session-heartbeat|heartbeat|session-heartbeat --full|session-finalize|session-finalize --full|session-finalize --allow-missing-append|session-status|session-status --overview|session-status --seed-speed|session-status --full|session-import-codex|session-import-host-surfaces|session-preflight|mutation-check|agent-seed-handoffs|session-yield-request|session-yield-request --coordination-brief|session-yield-result|session-yield-control|session-claim|session-claim-path|session-release-claim|session-sweep"
   },
   "forward_integration_contract": {
     "standard": "codex/standards/std_forward_integration_policy.json",
@@ -182,7 +182,53 @@
   "pass_heartbeat_contract": {
     "schema": "runtime_pass_heartbeat_v0",
     "purpose": "Runtime-only pass-level workspace awareness: a bounded public now/done strip for live Type A coordination without raw transcript reading or hidden-reasoning extraction.",
-    "command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id <id> --state <state> --now '<public current pass>' [--done '<public previous result>'] [--scope-ref <ref>]",
+    "command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id <id> --state <state> --now '<public current pass>' [--done '<public previous result>'] [--scope-ref <ref>] [--clip-lines]",
+    "compatibility_aliases": {
+      "rule": "Canonical recipes should keep session-heartbeat, --state, and --now/--done. The host CLI still accepts common closeout aliases at the parse boundary and writes only canonical runtime pass_state values.",
+      "subcommand_aliases": {
+        "heartbeat": "session-heartbeat"
+      },
+      "flag_aliases": {
+        "--status": "--state",
+        "--note": "--current-pass-line / --now"
+      },
+      "state_alias_groups": {
+        "closing": [
+          "closeout",
+          "close-out",
+          "landing"
+        ],
+        "done": [
+          "closed",
+          "complete",
+          "completed",
+          "finish",
+          "finished",
+          "success",
+          "succeeded"
+        ],
+        "editing": [
+          "edit",
+          "mutating"
+        ],
+        "blocked": [
+          "fail",
+          "failed",
+          "failure"
+        ],
+        "idle": [
+          "pause",
+          "paused"
+        ],
+        "inspecting": [
+          "inspect"
+        ],
+        "validating": [
+          "validate",
+          "validation"
+        ]
+      }
+    },
     "states": [
       "orienting",
       "inspecting",
@@ -195,7 +241,9 @@
     ],
     "line_limits": {
       "current_pass_line_chars": 180,
-      "last_pass_result_line_chars": 220
+      "last_pass_result_line_chars": 220,
+      "clip_lines_flag": "--clip-lines keeps strict rejection as the default but lets session-heartbeat callers trim explicit public now/done text to the heartbeat limits before runtime validation.",
+      "preflight_clip_lines_flag": "--heartbeat-clip-lines applies the same opt-in trim at session-preflight and Work Landing begin ingress."
     },
     "projection_rules": [
       "session-status --overview --cards-only must include awareness_cards with session id, actor, phase, freshness, current_pass_line, last_pass_result_line, pass state, source, scope refs, and claim refs; full per-card repair rows must collapse to repair_summary plus drilldown, while aggregate repair_rows keep the actionable commands.",
@@ -218,6 +266,260 @@
       ],
       "rule": "Participating sessions that can write should publish explicit public now/done pass lines at meaningful pass boundaries. Effective active means claim-bearing, touched-work, write-observed, or explicitly heartbeating coordination participants, not every imported host observation. Imported or read-only sessions may truthfully remain source=projected_unknown; the failure mode is participating writable sessions staying unknown or explicit heartbeats being hidden behind unknown imports."
     }
+  },
+  "session_yield_coordination_request_contract": {
+    "schema": "session_yield_coordination_request_v1",
+    "purpose": "Turn a non-destructive session-yield request into a paste-ready sibling-thread coordination brief with request id, requester, target session, blocked condition, held paths, do-not-touch boundaries, and owner acknowledgement template.",
+    "command": "./repo-python tools/meta/factory/work_ledger.py session-yield-request --target-session-id <session> --requested-action release_after_landing --coordination-brief --requester-label '<requesting thread>' --blocked-on '<blocking condition>' --held-path <path>",
+    "rules": [
+      "The coordination request is generated from the yield request receipt; chat prose must not be the only authority that a sibling lane was asked to land, release, cede, or respond.",
+      "The brief is owner-visible, non-destructive, and append-only when the parent session-yield-request is written.",
+      "The generated message must include the yield request id so the owner can close it with session-yield-result.",
+      "The generated message must preserve sibling do-not-touch paths or sessions separately from the target owner's held paths.",
+      "session-status --seed-speed coordination packets should advertise a placeholder coordination-brief command so agents discover the brief lane before improvising prose."
+    ]
+  },
+  "shared_substrate_contention_envelope_contract": {
+    "schema": "shared_substrate_contention_envelope_v1",
+    "purpose": "When a mutation or exclusive claim is blocked by a live owner claim, emit the existing owner surface and legal coordination lanes instead of letting agents stop at prose like 'I did not edit because it is claimed.'",
+    "producer_commands": [
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive",
+      "./repo-python tools/meta/factory/work_ledger.py session-claim-path --session-id <session> --path <path> --require-exclusive",
+      "./repo-python tools/meta/factory/work_ledger.py session-preflight --session-id <session> --path <path> --require-exclusive"
+    ],
+    "required_fields": [
+      "requested_surfaces",
+      "owner_sessions",
+      "owner_sessions[].read_full_session_command",
+      "owner_sessions[].coordination_brief_command",
+      "surface_discovery_commands",
+      "safe_continuation_lanes",
+      "failure_response_floor"
+    ],
+    "rules": [
+      "A live claim blocks unsafe mutation; it must not block read-only owner-session inspection or append-only coordination requests.",
+      "The envelope must group collisions by owner session, preserve held surfaces, claim ids, lease maxima, and the requested surface that collided.",
+      "The first response must route through existing surfaces: read the owner session, send a coordination brief, claim a disjoint sibling surface, or capture a blocked residual only when coordination cannot proceed.",
+      "The failure-response floor is explicit: user-facing closeout must name the owner session, held surface, lease or freshness evidence, blocking condition, coordination command, and re-entry condition.",
+      "The envelope is generic over local examples such as package-data or pyproject companion surfaces; do not encode batch-specific names in the contract."
+    ]
+  },
+  "observed_path_overlap_boundary_contract": {
+    "schema": "observed_path_overlap_boundary_v0",
+    "purpose": "Distinguish session-preflight observed_path_overlaps telemetry from live owner-claim blockers so agents do not downshift or stop when exact mutation claims are clear.",
+    "applies_when": [
+      "session-preflight reports observed_path_overlaps for a requested path.",
+      "mutation-check or claim cards report no live same-path owner collision for the requested mutation.",
+      "Observed rows are imported host/session evidence, referenced-path evidence, or mutation_path_count=0 evidence rather than a claimed write owner."
+    ],
+    "classify_as": [
+      "telemetry_only",
+      "watch_overlap",
+      "blocking_owner_claim",
+      "mutation_entanglement"
+    ],
+    "rules": [
+      "observed_path_overlaps are coordination telemetry and rediscovery evidence by default; they are not blockers without a live claim collision, active owner lease on the exact surface, or observed mutation evidence that changes the same path.",
+      "When observed rows have mutation_path_count=0 or only referenced_paths, and exact mutation-check/session-claims are clear, proceed through the claimed scoped mutation lane and record the overlap classification receipt.",
+      "Treat an observed overlap as blocking only when it resolves to an active owner claim, an unresolved same-path mutation session, or a mission/scoped preflight gate that explicitly refuses the current session.",
+      "If the overlap is watch-only but suggests high concurrency, keep the claim narrow, validate through owner surfaces, and avoid broad staging or projection refreshes outside the claimed path set."
+    ],
+    "required_receipt_fields": [
+      "observed_path_overlap_count",
+      "active_claim_collision_count",
+      "observed_mutation_path_count_or_evidence",
+      "classification",
+      "selected_continuation",
+      "validation_or_readback_command"
+    ]
+  },
+  "blocked_primary_ambition_preservation_contract": {
+    "schema": "blocked_primary_ambition_preservation_v0",
+    "purpose": "Preserve the user's or trace-selected primary capability target when an active claim blocks the exact mutation lane, so agents do not satisfy a high-value continuation request with an unrelated safe hygiene edit.",
+    "applies_when": [
+      "A trace-summary, CAP, WorkItem, phase wave, or latest user intent selects a primary mutation lane.",
+      "mutation-check, session-preflight, session-claim-path, mission_transaction_preflight, or scoped_commit reports a live owner claim or claim-pressure blocker for the exact primary surface.",
+      "A smaller unclaimed edit is available but does not carry the same capability target, unblock value, or owner-surface lesson."
+    ],
+    "first_evidence_commands": [
+      "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 30 --cards-only",
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <primary_path> --require-exclusive",
+      "./repo-python tools/meta/factory/work_ledger.py session-preflight --session-id <current_session> --path <primary_path> --require-exclusive"
+    ],
+    "legal_continuations": [
+      "read_or_coordinate_incumbent_owner_surface",
+      "record_claim_settlement_continuation_for_the_blocked_candidate",
+      "advance_the_same_capability_through_an_uncontended_sibling_owner_surface",
+      "record_blocked_residual_with_owner_claim_and_reentry_condition",
+      "switch_to_a_ranked_independent_WorkItem_only_after_the_primary_ambition_is_preserved"
+    ],
+    "rules": [
+      "The blocking claim is a flow-control signal, not a scope-reduction license.",
+      "A disjoint sibling edit is valid only when it advances the same capability target, route rule, validation/readback surface, or owner lesson selected by the blocked primary lane.",
+      "If the agent has a coherent candidate patch or plan for the blocked surface, preserve it through the claim-settlement continuation lane rather than keeping it only in chat.",
+      "If coordination is possible, use the contention envelope's owner session and coordination brief before declaring the lane blocked.",
+      "If switching to an independent WorkItem, record why the primary ambition has been preserved and why the independent item outranks waiting, coordination, or claim-settlement continuation.",
+      "Never close a trace/CAP refinement pass as successful with only a claim classification, CAP capture, ledger settlement, or prose summary when a safe owner-surface mutation is still available."
+    ],
+    "required_receipt_fields": [
+      "primary_ambition_id_or_statement",
+      "blocked_primary_surface",
+      "claim_cards_command",
+      "exact_blocker_command",
+      "owner_sessions_or_collision_rows",
+      "chosen_legal_continuation",
+      "same_capability_or_independent_work_rationale",
+      "coordination_or_claim_settlement_ref",
+      "reentry_condition",
+      "validation_or_readback_command"
+    ],
+    "failure_response_floor": "Closeout must name the blocked primary surface, owner session or collision evidence, chosen legal continuation, re-entry condition, and validation/readback receipt. 'I chose a smaller safe edit because the main path was claimed' is invalid unless the receipt proves same-capability value or an independent WorkItem rank."
+  },
+  "generated_projection_scope_receipt_contract": {
+    "schema": "generated_projection_scope_receipt_v0",
+    "purpose": "Separate a scoped agent-owned mutation from wider generated/source drift exposed by the owner builder, so agents do not stage foreign generated output or dismiss legitimate generated refreshes as noise.",
+    "applies_when": [
+      "A builder, projector, scaffold, public mirror refresh, corpus generator, or --write command changes paths outside the declared owned slice.",
+      "A focused validation lane passes while the full generated write set includes unrelated source registries, manifests, projections, or untracked generated files.",
+      "The source authority inputs for generated output are dirty, claimed, stale, or owned by another live session."
+    ],
+    "classify_as": [
+      "generated_projection_scope_widening",
+      "source_coupled_generated_drift",
+      "foreign_generated_write_set",
+      "intentional_generated_refresh"
+    ],
+    "required_receipt_fields": [
+      "declared_owned_paths",
+      "builder_command",
+      "expected_write_profile_or_owner_route",
+      "actual_write_set_by_class",
+      "source_authority_inputs",
+      "source_authority_dirty_or_claimed_status",
+      "focused_owned_slice_validation",
+      "full_builder_check_status",
+      "selected_landing_decision",
+      "residual_or_continuation_reentry_condition"
+    ],
+    "rules": [
+      "The command that produced a generated diff is not itself ownership proof for every generated path.",
+      "If generated outputs depend on dirty or claimed source authority, do not stage those outputs as the current mission unless the current mission also owns and validates the source authority inputs.",
+      "If source authority inputs are committed or owned, the write profile is declared, and full validation passes, the generated set may be landed as an intentional generated refresh with the source/input proof attached.",
+      "When the owned slice is valid but the wide generated set is foreign, land only the owned source/projection slice when separable and capture or record a claim-settlement continuation for the wide drift.",
+      "When the builder lacks a narrow dry-run/write route and the wide diff is not landable, record the missing write-profile or owner-route gap instead of hand-editing generated files.",
+      "Product, phase, organ, or corpus names are evidence labels, not the general rule; the receipt is generic over generated projection owners."
+    ],
+    "legal_continuations": [
+      "scoped_owned_slice_landing",
+      "intentional_generated_refresh_landing",
+      "claim_settlement_continuation",
+      "task_ledger_blocked_residual",
+      "owner_coordination_request",
+      "blocked_not_run_due_to_source_authority"
+    ]
+  },
+  "claim_settlement_continuation_contract": {
+    "schema": "claim_settlement_continuation_contract_v0",
+    "purpose": "When a Type A lane is blocked by a live owner claim after preparing a coherent candidate delta, preserve that candidate as a durable, drainable continuation instead of ending at yield prose.",
+    "owner_surface": "system/lib/claim_settlement_continuation.py",
+    "queue_path": "state/work_ledger/claim_settlement_continuations.jsonl",
+    "cli": "./repo-python tools/meta/factory/claim_settlement_continuation.py record|context|assess|signoff|list|drain --fake-executor",
+    "adjacent_existing_surfaces": [
+      "tools/meta/factory/work_ledger.py session-yield-request",
+      "tools/meta/factory/work_ledger.py session-message",
+      "tools/meta/factory/work_ledger.py session-claims --refresh",
+      "tools/meta/factory/task_ledger_apply.py record-execution-receipt --mission-closeout-report-file",
+      "system/lib/continuation_packet.py"
+    ],
+    "candidate_required_fields": [
+      "continuation_id",
+      "created_by_session",
+      "blocked_on.claim_session_ids",
+      "blocked_on.held_paths",
+      "blocked_on.release_predicate",
+      "base_state.base_commit",
+      "base_state.source_hashes",
+      "candidate.intent_summary",
+      "candidate.allowed_paths",
+      "candidate.forbidden_paths",
+      "candidate.validation_receipts_before_block",
+      "pending_diff.pending_diff_id",
+      "pending_diff.status",
+      "pending_diff.base_rev",
+      "pending_diff.path_hashes",
+      "pending_diff.pathspec",
+      "pending_diff.touchpoints",
+      "pending_diff.unified_diff",
+      "pending_diff.patch_sha256",
+      "pending_diff.validation_plan",
+      "pending_diff.validation_receipts",
+      "pending_diff.interference_assessment",
+      "pending_diff.signoffs",
+      "signoff_context.required_review_fields",
+      "signoff_context.current_worktree_diff",
+      "signoff_context.patch_applicability",
+      "signoff_context.recent_commits_since_base",
+      "signoff_context.recent_commits_since_base_query",
+      "signoff_context.recent_diff_window",
+      "signoff_context.path_timestamps",
+      "signoff_context.thread_provenance",
+      "signoff_context.active_claims_reviewed",
+      "signoff_context.other_pending_diffs",
+      "signoff_context.generated_source_relationships",
+      "risk.reasoning_effort",
+      "fresh_adjudication.must_recheck",
+      "fresh_adjudication.success_policy",
+      "fresh_adjudication.failure_policy"
+    ],
+    "lifecycle": [
+      "record_candidate when the blocked lane has a coherent patch, generated-output refresh, command plan, or review-only continuation",
+      "a live owner claim blocks direct mutation, not proposal authoring; record pending_diff when the patch can be named with base/path/touchpoint evidence",
+      "build_signoff_context or the context command refreshes active-claim evidence and attaches current worktree diffs, mechanical patch applicability checks, path commits since the pending diff base revision with a query/fallback receipt, path timestamps, active-claim review rows, and other pending diffs from the continuation queue before signoff",
+      "assess_candidate_payload or the assess command is the non-mutating signoff surface for pending-diff touchpoint interference before queue drain or approval",
+      "record_signoff or the signoff command appends an approve, reject, or needs_refresh decision into pending_diff.signoffs with reviewer provenance, context digest, evidence refs, and proof",
+      "watch active claims through state/work_ledger/active_claims_snapshot.json rather than keeping a reasoning thread alive to poll",
+      "drain only after rechecking claim state; executor/adjudicator apply paths require latest recorded signoff decision approve, while reject or needs_refresh signoffs append terminal proof without invoking the executor",
+      "fresh adjudicator must inspect signoff_context current worktree diffs, base-relative recent diffs plus query/fallback receipt, timestamps/thread provenance, active claims, other pending diffs, generated/source relationships, and validation receipts before approving",
+      "fresh adjudicator must classify clean_apply, adapt, supersede, reblock, or unsafe before mutation",
+      "when the current tree already contains the effective pending diff, mark already_satisfied with no-op proof instead of reopening a residual",
+      "all attempts append proof and a terminal class; no-effect closeouts are classified as no_effect_bug"
+    ],
+    "terminal_failure_classes": [
+      "applied_clean",
+      "applied_after_rebase",
+      "superseded_by_owner",
+      "superseded_by_unrelated_head",
+      "already_satisfied",
+      "reblocked_same_claim",
+      "reblocked_new_claim",
+      "pending_diff_touchpoint_conflict",
+      "candidate_patch_conflict",
+      "candidate_source_drift",
+      "candidate_source_drift_needs_refresh",
+      "validation_failed_owned",
+      "validation_failed_ambient",
+      "cas_parent_moved",
+      "host_pressure_deferred",
+      "publication_blocked",
+      "launcher_failed",
+      "missing_launch_affordance",
+      "unsafe_blast_radius",
+      "no_effect_bug",
+      "signoff_rejected",
+      "signoff_requested_refresh"
+    ],
+    "guardrails": [
+      "A continuation is not authority to apply blindly; the fresh adjudicator must re-read live claims, HEAD/CAS, current file content, source refs, and validations.",
+      "Drain must refresh active claims from Work Ledger runtime status before adjudication unless the caller explicitly supplies a snapshot file or opts into stale-snapshot mode.",
+      "Signoff decisions are append-only queue events; a later signer can approve, reject, or request refresh without rewriting the candidate body or prior signer proof.",
+      "A released pending diff with no recorded signoff waits in waiting_signoff and must not invoke an executor that could apply or adapt the candidate.",
+      "The default signer bias is to approve clean non-interference, but only after reviewing the pending diff's current worktree diff, mechanical patch applicability, base-relative recent-diff window, path/touchpoint overlap, thread provenance, active claims, generated-source relationships, and validation receipts.",
+      "signoff_context.other_pending_diffs must be hydrated from the continuation queue for open path-overlapping candidates; static placeholders, self-candidates, closed candidates, and non-overlapping candidates do not satisfy the signer context.",
+      "The touchpoint-interference evaluator must classify comparable disjoint same-file edits as signable, overlapping hunk/symbol/selector/generated-source touchpoints as conflict_pending_resolution, and stale-base/no-anchor cases as needs_refresh.",
+      "Do not use claim-settlement continuation for publication/push divergence unless the predicate is explicitly changed to publication reconciliation.",
+      "Do not apply generated outputs while their source refs are still actively claimed.",
+      "Do not use Microcosm-specific paths as fixture authority; tests must use synthetic paths."
+    ]
   },
   "external_session_observation_contract": {
     "purpose": "Runtime-only parity lane for agents whose host surface is visible but whose process cannot yet call the hook-backed SessionStart bootstrap path. Initial use: local Codex threads from ~/.codex/state_5.sqlite.",
@@ -250,6 +552,7 @@
     "write_profiles": {
       "agent_bootstrap_projection": [
         "AGENTS.md",
+        "AGENTS.override.md",
         "CLAUDE.md",
         "CODEX.md",
         "codex/doctrine/agent_bootstrap_live.json",
@@ -318,22 +621,116 @@
       "autonomous_seed": [
         "state/meta_missions/type_a_autonomous_seed_loop/README.md",
         "state/meta_missions/type_a_autonomous_seed_loop/seeds"
+      ],
+      "microcosm_doctrine_lattice_projection": [
+        "microcosm-substrate/anti_principles",
+        "microcosm-substrate/atlas/doctrine_lattice_entry_card.json",
+        "microcosm-substrate/atlas/doctrine_lattice_graph.mmd",
+        "microcosm-substrate/atlas/doctrine_lattice_health.json",
+        "microcosm-substrate/atlas/doctrine_lattice_projection.json",
+        "microcosm-substrate/axioms",
+        "microcosm-substrate/concepts",
+        "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "microcosm-substrate/mechanisms",
+        "microcosm-substrate/organs",
+        "microcosm-substrate/paper_modules",
+        "microcosm-substrate/principles",
+        "microcosm-substrate/skills"
+      ],
+      "microcosm_public_site_projection": [
+        "sites/microcosm/content-graph.json",
+        "sites/microcosm/content-manifest.json",
+        "sites/microcosm/projection-status.json",
+        "sites/microcosm/object-map.json",
+        "sites/microcosm/llms.txt",
+        "sites/microcosm/assets/search-index.js",
+        "sites/microcosm/assets/site-packet.js",
+        "sites/microcosm/assets/object-map.js",
+        "sites/microcosm/docs",
+        "sites/microcosm/_headers",
+        "sites/microcosm/_redirects",
+        "sites/microcosm/robots.txt",
+        "sites/microcosm/security.txt",
+        "sites/microcosm/.well-known/security.txt",
+        "sites/microcosm/404.html",
+        "sites/microcosm/sitemap.xml"
       ]
+    },
+    "write_profile_source_inputs": {
+      "microcosm_doctrine_lattice_projection": [
+        "microcosm-substrate/ANTI_PRINCIPLES.md",
+        "microcosm-substrate/PRINCIPLES.md",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "microcosm-substrate/core/axiom_organ_routing.json",
+        "microcosm-substrate/core/doctrine_lattice_relations.json",
+        "microcosm-substrate/core/mechanism_sources.json",
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_registry.json",
+        "microcosm-substrate/core/paper_module_capsules.json",
+        "microcosm-substrate/core/public_surface_manifest.json",
+        "microcosm-substrate/core/standards_registry.json",
+        "microcosm-substrate/paper_modules",
+        "microcosm-substrate/skills",
+        "microcosm-substrate/standards"
+      ],
+      "microcosm_public_site_projection": [
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/QUICKSTART.md",
+        "microcosm-substrate/ARCHITECTURE.md",
+        "microcosm-substrate/ORGANS.md",
+        "microcosm-substrate/SECURITY.md",
+        "microcosm-substrate/LICENSE",
+        "microcosm-substrate/NOTICE",
+        "microcosm-substrate/PROVENANCE.md",
+        "microcosm-substrate/atlas/agent_task_routes.json",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "microcosm-substrate/core/architecture_kernel.json",
+        "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "microcosm-substrate/core/doctrine_lattice_relations.json",
+        "microcosm-substrate/core/mechanism_sources.json",
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json",
+        "microcosm-substrate/core/paper_module_capsules.json",
+        "microcosm-substrate/axioms",
+        "microcosm-substrate/concepts",
+        "microcosm-substrate/mechanisms",
+        "microcosm-substrate/paper_modules",
+        "microcosm-substrate/principles",
+        "sites/microcosm/index.html",
+        "sites/microcosm/assets/style.css",
+        "sites/microcosm/assets/docs.js",
+        "system/lib/graph_scene_core.py",
+        "tools/meta/dissemination/build_microcosm_public_site.py",
+        "tools/meta/dissemination/microcosm_public_narratives.json"
+      ]
+    },
+    "source_input_claim_policy": {
+      "schema": "work_ledger_write_profile_source_input_policy_v0",
+      "purpose": "Expose source-coupled builder input fences separately from generated output claims, so agents do not land generated projections that read another session's dirty or claimed source inputs.",
+      "default": "output_claim_only_when_no_source_inputs_declared",
+      "source_coupled_profile_rule": "If a selected write profile declares source_input_paths, mutation-check and session-preflight must surface active source-input claim collisions; with --require-exclusive they block before claims are written.",
+      "landing_rule": "Generated outputs from a source-coupled profile may be staged only when source inputs are committed, owned by the same session, or rebuilt from a documented clean snapshot; otherwise record a claim-settlement continuation or blocked residual."
     },
     "rules": [
       "Preflight never bypasses read_receipt validation; it only returns the receipt minted by bootstrap_session.",
+      "Preflight admission status is claim-authority gating. Agents must read the top-level `status`, `work_admission.allow`, and `read_receipt_id` before treating `claim_summary` or `claims` as live proof. If `status` is `blocked_by_work_admission`, `work_admission.allow` is false, or `read_receipt_id` is null, no session bootstrap or claims were written; `claim_summary.requested` / `claim_summary.refused` is a refusal report, not evidence that claims were retained and then disappeared. Use `--host-pressure-policy=warn` / `off` only as an intentional override, wait or relieve host pressure, or switch to exact lightweight `--path` claims when the work is genuinely a small source edit rather than a heavy write-profile rebuild.",
       "Preflight claims are normal claims and therefore can be soft collisions or --require-exclusive refusals.",
-      "Write profiles are only claim expansion macros for known generated outputs; they do not run the generator and they do not bypass normal path-claim collision policy.",
+      "Write profiles are claim expansion macros for known generated outputs plus optional source-input fences for source-coupled builders; they do not run the generator and they do not bypass normal path-claim collision policy.",
+      "For source-coupled write profiles, output claims alone are not enough to land generated artifacts. The source_input_paths must be clean/committed, owned by the same session, or explicitly excluded through a clean-snapshot receipt before generated outputs can be treated as mission-owned.",
       "task_ledger and autonomous_seed are broad coordination macros for shared event/projection/seed-loop surfaces; agents touching one specific seed or one exact non-generated path may still use explicit --path claims to avoid unnecessary sibling collisions.",
-      "observed_path_overlaps are advisory signals from imported host telemetry; they never create or imply a claim lease and must be resolved by explicit coordination or an explicit claim.",
+      "observed_path_overlaps are advisory signals from imported host telemetry; they never create or imply a claim lease. Resolve them through observed_path_overlap_boundary_contract: referenced-only or mutation_path_count=0 rows with no active same-path claim are watch telemetry, while active owner claims or same-path mutation evidence require coordination, blocking, or lane switching.",
       "observed_path_overlaps identity fields must not carry unbounded prompt, packet, or title bodies. Long session titles must be projected as bounded handles with title_preview, title_bytes, title_hash, title_kind, title_full_omitted, title_ref or drilldown, and an omission_receipt; the full source remains recoverable by rerunning the same session-preflight with --full instead of repeating per overlap row.",
       "shared_worktree_git_risks are advisory signals for commands such as git stash, git reset --hard, git checkout --, git restore, and git clean -fd*. In a dirty multi-agent worktree, broad stash/apply/pop or restore/reset operations are unsafe unless every affected path is intentionally claimed and restored path-specifically.",
       "mutation-check performs the read-only subset of write-profile/path collision detection and returns non-zero when --require-exclusive would block mutation; when --session-id is provided, that session's own active claims are ignored so a holder can re-check its claimed scope.",
       "Scoped commit and mission landing must bind claim proof to the current owner session. Broad write-profile or directory claims are startup coordination evidence for overlapping child paths, but a landing gate may require exact owned paths or a session-bound overlap proof; if duplicate-claim dedupe collapses exact child claims into a broad parent and exact coverage is questioned, rerun the landing preflight with --session-id auto or release/narrow to exact child path claims before committing.",
+      "In dirty or concurrent trees, scoped landing should prefer scoped_commit.py private-index modes with --work-ledger-session-id over manual shared-index staging. Manual shared-index staging is permitted only as one contiguous stage, inspect cached names, commit critical section for exact owner paths; if a sibling commit consumes the staged owner paths, bind closeout to that landed commit, capture the coordination failure, and repair the owner rule rather than manufacturing an empty duplicate commit.",
+      "scoped_commit.py closeout hints must not present Work Landing reconcile as unconditional after-commit closeout. Reconcile is for sessions that established a Work Landing begin/attempt binding before mutation; direct scoped commits with no attempt binding must surface the append-exempt session-finalize template, read-receipt placeholder, commit ref, and do-not-follow-with-bare-finalize rule.",
       "When multiple known td/path scopes belong to the same session, pass them through one session-preflight call with repeated --td-id/--path arguments instead of launching parallel lower-level claim commands.",
       "./repo-git is the guarded git lane for agent worktree/index mutations. It must pass read-only git commands through and block destructive worktree/index commands when the tree is dirty unless a human deliberately uses the explicit unsafe override.",
       "The default compact payload must stay small enough for every autonomous seed to read at turn start without flooding context.",
       "Preflight closeout commands are advisory but should be copied into host instructions and final-turn discipline until real Codex hooks replace the manual lifecycle.",
+      "Agent-facing help and diagnostic surfaces for session-finalize must include a copyable append-exempt finalizer template for commit-only or projection-only closeouts, including --read-receipt-id, --append-exempt-reason, --append-exempt-ref, and the rule that this finalizes the session and must not be followed by bare session-finalize.",
       "session-finalize is the normal one-command closeout path after a touched session has written its Work Ledger append. If touched work has no append, session-finalize blocks before ending the session and returns the append-before-finalize repair route. --allow-missing-append is a diagnostic escape hatch that preserves the old stale-finalize path; --no-release-claims is diagnostic only and a finalized session with active claims is not considered cleanly closed unless that flag was intentionally used for runtime inspection."
     ]
   },
@@ -360,6 +757,24 @@
       "cap_quick_do_not_parallelize_work_ledger_claim_mut_0a44dd9f5819"
     ]
   },
+  "shell_command_hygiene_contract": {
+    "schema": "work_ledger_shell_command_hygiene_v0",
+    "purpose": "Keep agent-authored shell wrappers around Work Ledger lifecycle and claim commands from corrupting the shell environment or hiding coordination failures.",
+    "applies_to": [
+      "manual or generated examples that wrap session-preflight, session-claim, session-claim-path, session-release-claim, or session-finalize in a shell loop",
+      "retry snippets used while setting up Work Ledger claims before source mutation",
+      "safe_next_command or owner_repair_command text when it includes shell variables or multi-command examples"
+    ],
+    "rules": [
+      "Do not use path as a shell variable name in Work Ledger command snippets. In zsh, path is tied to PATH, so assigning path can clobber command lookup for dirname, basename, python, repo-python, and owner CLIs.",
+      "Use neutral variable names such as claim_path, owned_path, scope_path, or claim_file in examples and ad hoc loops, and quote every expansion.",
+      "Prefer a single session-preflight call with repeated --path / --td-id arguments when the owner CLI can express the startup scope, instead of piping Work Ledger output through a shell loop or extra interpreter.",
+      "If a loop is unavoidable, keep it small, serialize each Work Ledger mutation for the session, check each command exit status before continuing, and never mask a failed claim command behind a later loop iteration."
+    ],
+    "source_pressure_refs": [
+      "cap_quick_avoid_zsh_path_variable_in_work_ledger_c_5d9900b848d0"
+    ]
+  },
   "workitem_write_admission_contract": {
     "schema": "workitem_write_admission_v0",
     "purpose": "Host-neutral pre-edit gate for write-capable agents. It verifies the WorkItem-first entry result has been bound to a live Work Ledger execution attempt before source mutation.",
@@ -382,6 +797,41 @@
       "admission-check does not grant durable proof status to external/signoff work without an explicit subject override plus valid claims"
     ]
   },
+  "work_landing_subject_authority_contract": {
+    "schema": "work_landing_subject_authority_v0",
+    "purpose": "Separate Task Ledger event authority from deterministic projection/card visibility when Work Landing binds a subject before source mutation.",
+    "applies_to": [
+      "work_landing.py begin subject lookup",
+      "work_landing.py admission-check authority-state reporting",
+      "Task Ledger quick-capture rows used as Work Landing subjects",
+      "closeout traces where an authority-visible capture is not yet projection-visible"
+    ],
+    "rules": [
+      "A WorkItem exists for Work Landing subject binding when either the deterministic Task Ledger projection contains the row or state/task_ledger/events.jsonl contains a work_item.* event for the subject id.",
+      "Projection/card visibility is a discoverability and settlement state, not the same question as event authority existence.",
+      "Do not require a projection rebuild merely to bind a landing attempt for a freshly authority-visible capture when the source edit can stay scoped to exact owned paths.",
+      "Use --explicit-subject-override only for intentionally non-Task-Ledger subjects or operator/external subjects; do not use it to compensate for an authority-visible WorkItem whose projection is stale.",
+      "After landing, settle Task Ledger projections through the owner rebuild or generated-state drainer lane before relying on card visibility, execution-menu status, or selected WorkItem card output.",
+      "A stale projection is still a closeout fact: record projection_visible=false or projection_status=stale_until_rebuild when it matters, rather than claiming the WorkItem card is visible."
+    ],
+    "receipt_fields": [
+      "subject_id",
+      "subject_authority_source",
+      "authority_event_visible",
+      "projection_visible",
+      "projection_status",
+      "explicit_subject_override_used",
+      "projection_settlement_command_or_reentry"
+    ],
+    "owner_surfaces": [
+      "system/lib/work_landing_status.py::_subject_exists",
+      "state/task_ledger/events.jsonl",
+      "state/task_ledger/ledger.json",
+      "tools/meta/factory/task_ledger_apply.py rebuild",
+      "tools/meta/control/generated_state_drainer.py settle --owner-id task_ledger_projection"
+    ],
+    "overfit_guard": "The rule is generic over fresh captures, shaped WorkItems, and external trace closeouts; product, phase, and cap names in one transcript are examples only."
+  },
   "claim_card_first_contract": {
     "schema": "work_ledger_claim_card_first_contract_v0",
     "purpose": "Make compact active claim cards the first evidence surface for trace-summary, experience-friction, and landing-preflight claim contention so agents do not mine raw transcripts or improvise around active owners.",
@@ -395,8 +845,11 @@
       "Read the cards-only claim surface before opening full session rows, rollout traces, or raw transcripts.",
       "Use active claim cards as the first evidence for session_id, actor, phase, scope_kind, scope_id/path/td_id, lease freshness, release/expiry state, and collision status.",
       "session-claims --refresh and --session-summary must derive effective_active_sessions from the same predicate as cohort_overview, including passive external-observed demotion, so claim cards and overview cards do not report conflicting concurrency pressure.",
+      "Any generated session_workflow_messages.query_commands.query_claim_owner command must include session-claims --refresh so an owner-discovery handoff reads the current active-claims snapshot before a peer decides that a path is blocked, released, or claimable.",
+      "Unclaimed touched work must be surfaced with a session_coordination_packet that includes read-only query commands, a refreshed claim-owner query, and an owner_repair_command gated to the touched-session owner or an explicit coordinator.",
       "Claim summary grouping must recognize canonical scope_kind values path, td_id, and work_item_id; legacy aliases may remain supported but must not turn work-item or td claims into other_claim_count.",
       "If a landing or mutation preflight returns a sessionless_claim_identity_hint or candidate --session-id, rerun the check bound to that session id before treating the claim as an external blocker or switching to broad/full-path review.",
+      "When a same-session touched WorkItem id is a bridge alias and the session holds an active canonical child claim with the touched id plus an underscore-delimited suffix, unclaimed-touched detection treats that alias as owner-covered. This is not arbitrary prefix equivalence and never covers cross-session WorkItems.",
       "Treat heartbeat gaps on other live sessions as read-only authority boundaries: use the session-status drilldown or read_only_alternative_command to classify the owner, and do not heartbeat, finalize, release, or bypass another session's claims.",
       "Open --full claim rows, session-status --full, rollout activity, or host transcripts only when cards and the session-bound preflight cannot decide ownership, scope overlap, or lease freshness.",
       "When claim contention blocks the primary mutation lane, route through blocked_primary_ambition_preservation rather than making a smaller unrelated hygiene edit."
@@ -417,10 +870,11 @@
     "location": "Per-session `claims` array inside state/work_ledger/runtime_status.json. Also surfaced in cohort_overview.active_claims and cohort_overview.contention.claim_collisions.",
     "claim_row_shape": {
       "claim_id": "wlc_<16hex> — minted once per claim",
-      "scope_kind": "td_id | path",
-      "scope_id": "target td_* or normalized repo-relative path",
+      "scope_kind": "td_id | path | work_item_id",
+      "scope_id": "target td_*, normalized repo-relative path, or Task Ledger WorkItem id",
       "td_id": "target thread id when scope_kind=td_id; retained for backwards compatibility",
       "path": "normalized repo-relative path when scope_kind=path",
+      "work_item_id": "target WorkItem id when scope_kind=work_item_id",
       "claimed_at": "iso 8601 utc",
       "leased_until": "iso 8601 utc; set at claim time as now + lease_minutes, clamped to ACTIVE_CLAIM_LEASE_MAX (12h)",
       "released_at": "iso 8601 utc when released explicitly; null while active",
@@ -435,7 +889,7 @@
       "released": "released_at != null (operator or session_auto_swept)"
     },
     "collision_policy": "Soft by default: `session-claim` and `session-claim-path` record the claim even when a collision exists and return a `claim_collisions` list so the calling agent can decide. With --require-exclusive the claim is refused when a collision exists and the runtime is not mutated. td_* collisions are exact-match; path collisions treat a directory claim and any child path claim as overlapping. Expired or released claims never count as collisions. Mission landing decisions must evaluate same-mission td/path claim collisions before shared-index or private-index review lanes, so an active collision cannot be downgraded to a staged-index review.",
-    "unclaimed_touch_policy": "If an effective-active session marks session-activity with a td_id but has no live claim for that td_id, cohort_overview must surface the session under contention.unclaimed_touched_sessions, increment counts.unclaimed_touched_sessions, emit the unclaimed_touched_work signal, and recommend claiming or finalizing before mutation proceeds.",
+    "unclaimed_touch_policy": "If an effective-active session marks session-activity with a td_id or WorkItem id but has no live claim covering that subject, cohort_overview must surface the session under contention.unclaimed_touched_sessions, increment counts.unclaimed_touched_sessions, emit the unclaimed_touched_work signal, and recommend claiming or finalizing before mutation proceeds. Same-session canonical WorkItem child claims cover bridge aliases only when the claimed WorkItem id starts with the touched alias plus an underscore delimiter; plain string-prefix matches do not count. Seed-speed unclaimed-touched rows must include an owner-visible coordination packet with read-only drilldown, refreshed claim-owner query, and an owner_repair_command; non-owner consumers inspect or coordinate rather than mutating through the command directly.",
     "bi_temporal_invariants": [
       "Claims are never deleted — released_at / expired_at are always stamped rather than removing the row.",
       "A crashed holder leaves a visible `was-claimed-but-never-released` trail rather than silently disappearing.",
@@ -480,7 +934,7 @@
   ],
   "runtime_enforcement": {
     "hook_owner": ".claude/hooks/runtime_hook.py",
-    "host_runtime_cli": "Non-Claude hosts may explicitly call `session-preflight` for the normal autonomous-seed entry path, or the lower-level `session-bootstrap`, `session-activity`, `session-heartbeat`, `session-finalize`, `session-status --seed-speed`, `session-status --overview`, `session-import-codex`, `session-claim`, `session-claim-path`, `session-release-claim`, and `session-sweep` commands when they need individual lifecycle steps. Participating writable sessions should call `session-heartbeat` at long pass start, plan pivot, before validation, and closeout; this publishes bounded public now/done coordination text only, not transcript summaries or durable progress. `session-activity`, `session-heartbeat`, `session-finalize`, and `session-status` are compact by default; use `--full` only when debugging `state/work_ledger/runtime_status.json` itself. `session-finalize` blocks before ending a touched session that has no Work Ledger append, and releases active claims by default after the append exists; use `--allow-missing-append` only for intentional stale-finalize diagnostics and `--no-release-claims` only for diagnostic cases that intentionally preserve unreleased claim state.",
+    "host_runtime_cli": "Non-Claude hosts may explicitly call `session-preflight` for the normal autonomous-seed entry path, or the lower-level `session-bootstrap`, `session-activity`, `session-heartbeat`, `session-finalize`, `session-status --seed-speed`, `session-status --overview`, `session-import-codex`, `session-yield-request`, `session-yield-result`, `session-yield-control`, `session-claim`, `session-claim-path`, `session-release-claim`, and `session-sweep` commands when they need individual lifecycle steps. Participating writable sessions should call `session-heartbeat` at long pass start, plan pivot, before validation, and closeout; this publishes bounded public now/done coordination text only, not transcript summaries or durable progress. `session-yield-request --coordination-brief` emits a paste-ready sibling-thread request bound to the same `syr_*` receipt. `session-activity`, `session-heartbeat`, `session-finalize`, and `session-status` are compact by default; use `--full` only when debugging `state/work_ledger/runtime_status.json` itself. `session-finalize` blocks before ending a touched session that has no Work Ledger append, and releases active claims by default after the append exists; use `--allow-missing-append` only for intentional stale-finalize diagnostics and `--no-release-claims` only for diagnostic cases that intentionally preserve unreleased claim state.",
     "session_start": "Emit a bounded open slice and mint a read_receipt_id.",
     "activity_events": [
       "UserPromptSubmit",

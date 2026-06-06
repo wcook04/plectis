@@ -139,8 +139,11 @@ def _file_sha256(path: Path) -> str | None:
 def _line_count(path: Path) -> int | None:
     if not path.is_file():
         return None
-    text = path.read_text(encoding="utf-8")
-    return text.count("\n") + (0 if text.endswith("\n") else 1)
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _as_list(value: Any) -> list[Any]:
@@ -452,6 +455,16 @@ def validate_work_landing_control_bundle(
                 "Copied source body line counts must match the source module manifest.",
                 source=SOURCE_MANIFEST_NAME,
                 observed=source_summary["line_count_mismatch_paths"],
+            )
+        )
+    if source_summary["material_class_violations"]:
+        findings.append(
+            _finding(
+                "MATERIAL_CLASS_NOT_ALLOWED",
+                "Copied source inputs must stay inside the public-safe material-class floor.",
+                source=SOURCE_MANIFEST_NAME,
+                expected=sorted(ALLOWED_MATERIAL_CLASSES),
+                observed=source_summary["material_class_violations"],
             )
         )
     if source_summary["source_import_class_violations"]:

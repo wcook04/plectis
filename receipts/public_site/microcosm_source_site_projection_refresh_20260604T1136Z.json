@@ -1,0 +1,125 @@
+{
+  "schema_version": "microcosm_public_site_availability_receipt_v1",
+  "receipt_id": "microcosm_source_site_projection_refresh_20260604T1136Z",
+  "created_at": "2026-06-04T11:36:44Z",
+  "authority_boundary": "receipt_binds_source_lattice_and_existing_site_builder_outputs_only_not_release_approval",
+  "source_population_delta": {
+    "mechanism_dependency_parity": {
+      "status": "improved",
+      "source_surface": "core/mechanism_sources.json",
+      "generated_surfaces": [
+        "core/doctrine_lattice_coverage.json",
+        "atlas/doctrine_lattice_projection.json",
+        "atlas/doctrine_lattice_health.json",
+        "atlas/doctrine_lattice_entry_card.json",
+        "atlas/doctrine_lattice_graph.mmd",
+        "mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.json",
+        "mechanisms/mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate.md"
+      ],
+      "covered_edge_count_after": 170,
+      "missing_edge_count_after": 0,
+      "claim_ceiling": "Mechanism upstream parity records a source-declared dependency edge. It does not prove runtime correctness, release readiness, or broader source completeness."
+    },
+    "paper_module_population": {
+      "paper_module_json_instance_count": 98,
+      "json_capsule_backed_count": 85,
+      "legacy_only_count": 13,
+      "required_subject_gap_count": 13,
+      "next_source_candidate": "engine_room_command_run_singleflight",
+      "candidate_ceiling": "Candidate evidence is handoff-ready for a bounded mechanism admission, but the paper-module capsule remains legacy-only until source authority admits a mechanism row and then a capsule subject."
+    }
+  },
+  "site_availability_delta": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "write_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+    "written_count": 8,
+    "written_paths": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "reachability_probe": {
+      "object_count": 771,
+      "source_ref_routeable": 162,
+      "paper_module_gap_routes": 13,
+      "coverage_gap_routes": 5,
+      "llms_paper_module_gap_links": 13,
+      "llms_coverage_gap_links": 5,
+      "forbidden_llms_token_hits": {
+        "paper_module_dot_ids": false,
+        "source_id_field": false,
+        "source_refs_field": false,
+        "private_home_path": false,
+        "raw_seed_phrase": false
+      }
+    }
+  },
+  "validation": {
+    "passed": [
+      {
+        "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+        "status": "pass"
+      },
+      {
+        "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+        "status": "pass",
+        "actual_count": 98,
+        "expected_count": 98
+      },
+      {
+        "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+        "status": "pass"
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+        "status": "pass",
+        "drift_count": 0,
+        "builder_validation_status": "pass"
+      }
+    ],
+    "failing_or_ceiling_proof": [
+      {
+        "command": "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_doctrine_lattice_runtime.py -q",
+        "status": "fail",
+        "failure_count": 7,
+        "ceiling": "Official projection and corpus checks pass, but the broader pytest suite still has stale or stricter expectations against current live source population. Do not treat this receipt as full runtime-test closure."
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/projection_secret_scan.py --root sites/microcosm --policy-exception-path SOURCE_CONTRACT.md --fail-on-blocking",
+        "status": "red",
+        "blocking_category_counts": {
+          "operator_identity": 24
+        },
+        "ceiling": "Builder validation passes, but stricter release scanning still blocks public release until the public-safety lane resolves identity policy or site contact surfaces."
+      },
+      {
+        "command": "./repo-python tools/meta/dissemination/release_claim_language_gate.py --check --assert-clear",
+        "status": "fail",
+        "ceiling": "Release-claim gate mismatch remains outside this generated-site availability refresh."
+      }
+    ]
+  },
+  "public_safety": {
+    "builder_validation_private_scan_hit_count": 0,
+    "builder_validation_forbidden_source_link_hit_count": 0,
+    "builder_validation_external_asset_hit_count": 0,
+    "builder_validation_internal_links_missing": 0,
+    "release_authorized": false,
+    "public_claim_ceiling": "Availability through existing generated site feeds is refreshed. This is not release approval, production readiness, proof correctness, provider authorization, or publication authorization."
+  },
+  "residuals": {
+    "source_population": [
+      "13 legacy-only paper modules still require source-backed mechanism or organ subjects before capsule promotion."
+    ],
+    "site_release": [
+      "Strict projection secret scan still blocks on operator_identity category hits.",
+      "Release claim language gate remains mismatched."
+    ],
+    "next_lane": "Admit engine_room_command_run_singleflight as a bounded mechanism row from source evidence, then populate its paper-module capsule and rebuild the site after the release/public-safety residual is resolved or explicitly handed off."
+  }
+}

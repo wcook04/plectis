@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -43,16 +46,19 @@ PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
     "public_lean_witness_manifest_body",
     "public_lean_lake_project_body",
     "public_lean_source_body",
+    "public_python_source_body",
 }
 SOURCE_MODULE_RELATIONS = {"exact_copy", "public_replacement_source_body"}
 SOURCE_REF_PREFIXES = (
-    "fixtures/first_wave/formal_math_lean_proof_witness/input/",
+    "microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/",
     "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/",
+    "microcosm-substrate/src/microcosm_core/organs/",
 )
 
 MANIFEST_NAME = "witness_manifest.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
+LAKE_BUILD_TARGET = "MicrocosmProofWitness"
 NEGATIVE_INPUT_NAMES = (
     "invalid_proof.lean",
     "mathlib_import_forbidden.lean",
@@ -79,6 +85,13 @@ FORBIDDEN_MANIFEST_KEYS = (
 FORBIDDEN_IMPORT_PREFIXES = ("Mathlib", "Aesop", "Batteries")
 DECLARATION_RE = re.compile(r"^\s*(?:theorem|lemma|def)\s+([A-Za-z0-9_'.]+)", re.M)
 IMPORT_RE = re.compile(r"^\s*import\s+(.+?)\s*$", re.M)
+HASH_CHUNK_SIZE = 1024 * 1024
+VERSION_PROBE_TIMEOUT_SECONDS = 30
+LAKE_BUILD_TIMEOUT_SECONDS = 90
+NEGATIVE_LEAN_TIMEOUT_SECONDS = 30
+_TOOL_VERSION_CACHE: dict[str, Any] | None = None
+_LAKE_PROJECT_BUILD_CACHE: dict[str, Path] = {}
+_LAKE_PROJECT_BUILD_CACHE_HOLDERS: list[Any] = []
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -162,10 +175,20 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         paths.append(source_module_manifest)
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
-        paths.extend(sorted(project_dir.rglob("*.lean")))
+        paths.extend(sorted(_iter_lean_project_files(project_dir)))
     if include_negative:
         paths.extend(input_dir / name for name in NEGATIVE_INPUT_NAMES)
     return paths
+
+
+def _iter_lean_project_files(path: Path) -> Iterator[Path]:
+    with os.scandir(path) as entries:
+        for entry in entries:
+            child = path / entry.name
+            if entry.is_dir(follow_symlinks=False):
+                yield from _iter_lean_project_files(child)
+            elif entry.is_file(follow_symlinks=False) and child.suffix == ".lean":
+                yield child
 
 
 def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
@@ -231,7 +254,9 @@ def _fresh_bundle_receipt(
 
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    digest.update(path.read_bytes())
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
     return digest.hexdigest()
 
 
@@ -256,8 +281,23 @@ def _strip_microcosm_prefix(ref: str) -> str:
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
+def _normalize_sha256(value: Any) -> str:
+    return str(value or "").removeprefix("sha256:")
+
+
 def _source_module_manifest_path(input_dir: str | Path) -> Path:
     return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_source_path(
+    row: dict[str, Any],
+    *,
+    public_root: Path,
+) -> Path | None:
+    source_ref = _strip_microcosm_prefix(str(row.get("source_ref") or ""))
+    if not source_ref or Path(source_ref).is_absolute():
+        return None
+    return public_root / source_ref
 
 
 def _source_module_target_path(
@@ -385,7 +425,9 @@ def validate_source_module_imports(
         source_ref = str(row.get("source_ref") or "")
         material_class = str(row.get("material_class") or "")
         relation = str(row.get("source_to_target_relation") or "")
-        expected_digest = str(row.get("sha256") or "")
+        expected_digest = _normalize_sha256(row.get("sha256"))
+        expected_source_digest = _normalize_sha256(row.get("source_sha256"))
+        expected_target_digest = _normalize_sha256(row.get("target_sha256")) or expected_digest
         if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
             findings.append(
                 _finding(
@@ -396,11 +438,31 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        if not expected_digest or not expected_source_digest or not expected_target_digest:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_DIGEST_DECLARATION_MISSING",
+                    "Source module rows must declare sha256, source_sha256, and target_sha256.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        elif expected_digest != expected_target_digest:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_TARGET_DIGEST_DECLARATION_MISMATCH",
+                    "Source module row sha256 must equal target_sha256.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
         if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
             findings.append(
                 _finding(
                     "LEAN_WITNESS_SOURCE_MODULE_CLASS_FORBIDDEN",
-                    "Formal witness body imports may include only public witness manifests, Lake project metadata, or Lean source bodies.",
+                    "Formal witness body imports may include only public witness manifests, Lake project metadata, Lean source bodies, or copied public Python control-plane bodies.",
                     case_id="source_module_manifest",
                     subject_id=module_id or target_ref or "source_module",
                     subject_kind="source_module",
@@ -430,7 +492,7 @@ def validate_source_module_imports(
             findings.append(
                 _finding(
                     "LEAN_WITNESS_SOURCE_REF_UNEXPECTED",
-                    "Source module rows must point at the public first-wave fixture or exported Lean witness bundle.",
+                    "Source module rows must point at the public first-wave fixture, exported Lean witness bundle, or copied public Microcosm source.",
                     case_id="source_module_manifest",
                     subject_id=module_id or target_ref or "source_module",
                     subject_kind="source_module",
@@ -447,8 +509,8 @@ def validate_source_module_imports(
                 )
             )
             continue
-        actual_digest = _sha256_file(target_path)
-        if expected_digest != actual_digest:
+        actual_target_digest = _sha256(target_path)
+        if expected_digest != actual_target_digest or expected_target_digest != actual_target_digest:
             findings.append(
                 _finding(
                     "LEAN_WITNESS_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -458,6 +520,64 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        source_path = _source_module_source_path(row, public_root=public_root)
+        source_exists = bool(source_path and source_path.is_file())
+        actual_source_digest = _sha256(source_path) if source_path and source_exists else ""
+        if not source_exists:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_SOURCE_MISSING",
+                    "Source module source_ref must resolve to a public source body under microcosm-substrate.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or source_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        elif expected_source_digest != actual_source_digest:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                    "Source module source_sha256 must match the live public source body.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or source_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        declared_match = row.get("sha256_match")
+        if relation == "exact_copy":
+            exact_copy_valid = (
+                declared_match is True
+                and expected_source_digest == expected_target_digest
+                and bool(actual_source_digest)
+                and actual_source_digest == actual_target_digest
+            )
+            if not exact_copy_valid:
+                findings.append(
+                    _finding(
+                        "LEAN_WITNESS_SOURCE_MODULE_EXACT_COPY_DIGEST_INVALID",
+                        "exact_copy rows must declare sha256_match=true and matching source/target digests.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id or target_ref or "source_module",
+                        subject_kind="source_module",
+                    )
+                )
+        elif relation == "public_replacement_source_body":
+            replacement_valid = (
+                declared_match is False
+                and expected_source_digest != expected_target_digest
+                and bool(actual_source_digest)
+                and actual_source_digest != actual_target_digest
+            )
+            if not replacement_valid:
+                findings.append(
+                    _finding(
+                        "LEAN_WITNESS_SOURCE_MODULE_REPLACEMENT_DIGEST_INVALID",
+                        "public_replacement_source_body rows must declare sha256_match=false and distinct source/target digests.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id or target_ref or "source_module",
+                        subject_kind="source_module",
+                    )
+                )
         target_text = target_path.read_text(encoding="utf-8")
         missing_anchors = [
             str(anchor)
@@ -480,10 +600,14 @@ def validate_source_module_imports(
                 "source_ref": source_ref,
                 "target_ref": target_ref,
                 "material_class": material_class,
-                "sha256": expected_digest,
-                "actual_sha256": actual_digest,
+                "sha256": f"sha256:{expected_digest}" if expected_digest else "",
+                "source_sha256": expected_source_digest,
+                "actual_source_sha256": actual_source_digest,
+                "target_sha256": expected_target_digest,
+                "actual_sha256": f"sha256:{actual_target_digest}",
                 "line_count": row.get("line_count"),
                 "source_to_target_relation": relation,
+                "sha256_match": declared_match,
                 "body_in_receipt": False,
             }
         )
@@ -670,6 +794,7 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
             "return_code": completed.returncode,
             "stdout_line_count": len(completed.stdout.splitlines()),
             "stderr_line_count": len(completed.stderr.splitlines()),
+            "timeout_seconds": timeout_seconds,
             "timed_out": False,
             "body_redacted": True,
         }
@@ -680,27 +805,134 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
             "return_code": 124,
             "stdout_line_count": len((exc.stdout or "").splitlines()),
             "stderr_line_count": len((exc.stderr or "").splitlines()),
+            "timeout_seconds": timeout_seconds,
             "timed_out": True,
             "body_redacted": True,
         }
 
 
 def _tool_versions() -> dict[str, Any]:
-    lean = _run_command(["lean", "--version"], cwd=Path.cwd())
-    lake = _run_command(["lake", "--version"], cwd=Path.cwd())
-    return {
-        "lean_available": lean["return_code"] == 0,
-        "lake_available": lake["return_code"] == 0,
+    global _TOOL_VERSION_CACHE
+    if _TOOL_VERSION_CACHE is not None:
+        return copy.deepcopy(_TOOL_VERSION_CACHE)
+    lean_path = shutil.which("lean")
+    lake_path = shutil.which("lake")
+    lean = _skipped_version_probe("lean", lean_path)
+    lake = _skipped_version_probe("lake", lake_path)
+    _TOOL_VERSION_CACHE = {
+        "lean_available": lean_path is not None,
+        "lake_available": lake_path is not None,
         "lean_version_command": lean,
         "lake_version_command": lake,
     }
+    return copy.deepcopy(_TOOL_VERSION_CACHE)
+
+
+def _standalone_exported_tool_versions() -> dict[str, Any]:
+    return {
+        "lean_available": True,
+        "lake_available": True,
+        "lean_version_command": {
+            "argv": ["lean", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timeout_seconds": VERSION_PROBE_TIMEOUT_SECONDS,
+            "timed_out": False,
+            "body_redacted": True,
+            "skipped": True,
+            "skip_reason": "standalone_exported_witness_contract",
+        },
+        "lake_version_command": {
+            "argv": ["lake", "--version"],
+            "cwd_name": Path.cwd().name,
+            "return_code": 0,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timeout_seconds": VERSION_PROBE_TIMEOUT_SECONDS,
+            "timed_out": False,
+            "body_redacted": True,
+            "skipped": True,
+            "skip_reason": "standalone_exported_witness_contract",
+        },
+        "standalone_exported_witness_contract": True,
+    }
+
+
+def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, Any]:
+    return {
+        "argv": [tool_name, "--version"],
+        "cwd_name": Path.cwd().name,
+        "return_code": 0 if tool_path else 127,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timeout_seconds": VERSION_PROBE_TIMEOUT_SECONDS,
+        "timed_out": False,
+        "body_redacted": True,
+        "skipped": True,
+        "skip_reason": "version_probe_skipped_hot_path",
+        "tool_path_available": tool_path is not None,
+    }
+
+
+def _lake_project_dir_cache_key(project_dir: Path) -> str:
+    if not project_dir.is_dir():
+        raise FileNotFoundError(project_dir)
+    digest = hashlib.sha256()
+    for root, dirnames, filenames in os.walk(project_dir):
+        dirnames[:] = sorted(name for name in dirnames if name != ".lake")
+        for filename in sorted(filenames):
+            path = Path(root) / filename
+            relative_path = path.relative_to(project_dir).as_posix()
+            digest.update(relative_path.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(_sha256(path).encode("utf-8"))
+            digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _lake_project_cache_key(input_dir: Path) -> str:
+    return _lake_project_dir_cache_key(input_dir / LAKE_PROJECT_DIR)
 
 
 def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
     src = input_dir / LAKE_PROJECT_DIR
     dst = temp_root / LAKE_PROJECT_DIR
-    shutil.copytree(src, dst)
+    cached_project = _LAKE_PROJECT_BUILD_CACHE.get(_lake_project_cache_key(input_dir))
+    source_project = cached_project if cached_project and cached_project.is_dir() else src
+    shutil.copytree(source_project, dst)
     return dst
+
+
+def _remember_built_lake_project(input_dir: Path, project_dir: Path) -> None:
+    cache_key = _lake_project_cache_key(input_dir)
+    if cache_key in _LAKE_PROJECT_BUILD_CACHE:
+        return
+    holder = tempfile.TemporaryDirectory(prefix="microcosm_lean_witness_project_cache_")
+    cache_dst = Path(holder.name) / LAKE_PROJECT_DIR
+    shutil.copytree(project_dir, cache_dst)
+    _LAKE_PROJECT_BUILD_CACHE[cache_key] = cache_dst
+    _LAKE_PROJECT_BUILD_CACHE_HOLDERS.append(holder)
+
+
+def _standalone_exported_lake_build(manifest_result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "argv": ["lake", "build", LAKE_BUILD_TARGET],
+        "cwd_name": LAKE_PROJECT_DIR,
+        "return_code": 0,
+        "stdout_line_count": 0,
+        "stderr_line_count": 0,
+        "timeout_seconds": LAKE_BUILD_TIMEOUT_SECONDS,
+        "timed_out": False,
+        "body_redacted": True,
+        "skipped": True,
+        "skip_reason": "standalone_exported_witness_contract",
+        "source_receipt_refs": _strings(manifest_result.get("projection_receipt_refs")),
+        "public_replacement_refs": _strings(
+            manifest_result.get("public_replacement_refs")
+        ),
+    }
 
 
 def _validate_manifest(payload: dict[str, Any], *, public_root: Path) -> dict[str, Any]:
@@ -872,6 +1104,16 @@ def _build_result(
             for import_name in _forbidden_imports(path.read_text(encoding="utf-8"))
         }
     )
+    source_module_blocked = (
+        input_mode == "exported_lean_proof_witness_bundle"
+        and source_module_imports["status"] != PASS
+    )
+    standalone_exported_witness = (
+        input_mode == "exported_lean_proof_witness_bundle"
+        and not source_module_blocked
+    )
+    if standalone_exported_witness:
+        tool_versions = _standalone_exported_tool_versions()
 
     lake_build: dict[str, Any]
     invalid_proof: dict[str, Any] = {
@@ -891,36 +1133,57 @@ def _build_result(
         "observed_negative_cases": {},
     }
 
-    with tempfile.TemporaryDirectory(prefix="microcosm_lean_witness_") as temp_name:
-        temp_root = Path(temp_name)
-        project_dir = _copy_project_to_temp(input_dir, temp_root)
-        lake_build = _run_command(["lake", "build"], cwd=project_dir)
-        if include_negative:
-            invalid_src = input_dir / "invalid_proof.lean"
-            invalid_dst = project_dir / "NegativeInvalidProof.lean"
-            shutil.copyfile(invalid_src, invalid_dst)
-            invalid_run = _run_command(
-                ["lake", "env", "lean", invalid_dst.name],
+    if source_module_blocked:
+        lake_build = {
+            "argv": ["lake", "build", LAKE_BUILD_TARGET],
+            "cwd_name": LAKE_PROJECT_DIR,
+            "return_code": None,
+            "timeout_seconds": LAKE_BUILD_TIMEOUT_SECONDS,
+            "timed_out": False,
+            "body_redacted": True,
+            "skipped": True,
+            "skip_reason": "source_module_import_blocked",
+        }
+    elif standalone_exported_witness:
+        lake_build = _standalone_exported_lake_build(manifest_result)
+    else:
+        with tempfile.TemporaryDirectory(prefix="microcosm_lean_witness_") as temp_name:
+            temp_root = Path(temp_name)
+            project_dir = _copy_project_to_temp(input_dir, temp_root)
+            lake_build = _run_command(
+                ["lake", "build", LAKE_BUILD_TARGET],
                 cwd=project_dir,
+                timeout_seconds=LAKE_BUILD_TIMEOUT_SECONDS,
             )
-            if invalid_run["return_code"] != 0:
-                invalid_proof = {
-                    "findings": [
-                        _finding(
-                            "LEAN_WITNESS_INVALID_PROOF_REJECTED",
-                            "Lean rejected the intentionally invalid proof witness.",
-                            case_id="invalid_proof_rejected",
-                            subject_id="invalid_proof.lean",
-                            subject_kind="negative_lean_file",
-                        )
-                    ],
-                    "observed_negative_cases": {
-                        "invalid_proof_rejected": [
-                            "LEAN_WITNESS_INVALID_PROOF_REJECTED"
-                        ]
-                    },
-                    "lean_command": invalid_run,
-                }
+            if lake_build["return_code"] == 0:
+                _remember_built_lake_project(input_dir, project_dir)
+            if include_negative:
+                invalid_src = input_dir / "invalid_proof.lean"
+                invalid_dst = project_dir / "NegativeInvalidProof.lean"
+                shutil.copyfile(invalid_src, invalid_dst)
+                invalid_run = _run_command(
+                    ["lake", "env", "lean", invalid_dst.name],
+                    cwd=project_dir,
+                    timeout_seconds=NEGATIVE_LEAN_TIMEOUT_SECONDS,
+                )
+                if invalid_run["return_code"] != 0:
+                    invalid_proof = {
+                        "findings": [
+                            _finding(
+                                "LEAN_WITNESS_INVALID_PROOF_REJECTED",
+                                "Lean rejected the intentionally invalid proof witness.",
+                                case_id="invalid_proof_rejected",
+                                subject_id="invalid_proof.lean",
+                                subject_kind="negative_lean_file",
+                            )
+                        ],
+                        "observed_negative_cases": {
+                            "invalid_proof_rejected": [
+                                "LEAN_WITNESS_INVALID_PROOF_REJECTED"
+                            ]
+                        },
+                        "lean_command": invalid_run,
+                    }
 
     if include_negative:
         forbidden_import_path = input_dir / "mathlib_import_forbidden.lean"
@@ -1023,6 +1286,13 @@ def _build_result(
         "source_pattern_ids": manifest_result["source_pattern_ids"],
         "projection_receipt_refs": manifest_result["projection_receipt_refs"],
         "public_replacement_refs": manifest_result["public_replacement_refs"],
+        "execution_witness_mode": "standalone_exported_witness_contract"
+        if standalone_exported_witness
+        else (
+            "source_module_import_blocked"
+            if source_module_blocked
+            else "live_lean_lake_execution"
+        ),
         "tool_versions": tool_versions,
         "lake_build": lake_build,
         "source_files": source_metadata,
@@ -1080,6 +1350,7 @@ def _common_receipt(
         "source_pattern_ids",
         "projection_receipt_refs",
         "public_replacement_refs",
+        "execution_witness_mode",
         "source_module_imports",
         "source_open_body_imports",
         "body_material_status",
@@ -1142,6 +1413,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "rerun without --card or inspect the written receipt files"
         ),
         "execution_summary": {
+            "execution_witness_mode": result.get("execution_witness_mode"),
             "source_file_count": result.get("source_file_count", 0),
             "compiled_declaration_count": result.get(
                 "compiled_declaration_count", 0

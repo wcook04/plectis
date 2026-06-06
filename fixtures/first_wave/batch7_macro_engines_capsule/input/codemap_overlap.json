@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "codemap_overlap",
+  "error_codes": [
+    "BATCH7_CODEMAP_OVERLAP_REJECTED"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

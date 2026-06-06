@@ -49,6 +49,7 @@ GROUPED_OBSERVE_TERMINAL_GROUP_STATUSES = {
 }
 
 RETRYABLE_OBSERVE_ERROR_CATEGORIES = {
+    "bridge_group_timeout",
     "bridge_error",
     "browser_launch_failed",
     "cdp_unreachable",
@@ -1396,7 +1397,11 @@ def resolve_grouped_runtime_manifest_path(repo_root: Path, history_dir: Path, re
     token = str(ref or "latest").strip() or "latest"
     runtime_dir = grouped_runtime_dir(history_dir)
     current_path = grouped_runtime_current_path(history_dir)
-    if token in {"latest", "current"}:
+    if token == "current":
+        if current_path.exists():
+            return current_path
+        return None
+    if token == "latest":
         if current_path.exists():
             return current_path
         if not runtime_dir.exists():
@@ -1448,11 +1453,29 @@ def grouped_runtime_status_payload(repo_root: Path, history_dir: Path, ref: Opti
     - Escalates-to: system/lib/observe_surfaces.py::build_observe_resume_surface; tools/meta/apply/run_observe_plan.py
     - Navigation-group: kernel_lib
     """
-    runtime = load_grouped_runtime_manifest(repo_root, history_dir, ref)
+    token = str(ref or "latest").strip() or "latest"
+    runtime = load_grouped_runtime_manifest(repo_root, history_dir, token)
     if not runtime:
-        return grouped_runtime_idle_payload()
+        payload = grouped_runtime_idle_payload()
+        payload["requested_ref"] = token
+        payload["selection_scope"] = "no_current_runtime" if token == "current" else "no_runtime_manifest"
+        payload["current_runtime_selected"] = False
+        return payload
     artifacts = runtime.get("artifacts") if isinstance(runtime.get("artifacts"), dict) else {}
     status_manifest = str(runtime.get("_manifest_path") or runtime.get("runtime_manifest") or "").strip() or None
+    current_manifest = grouped_runtime_current_path(history_dir)
+    selected_current = bool(
+        status_manifest
+        and (repo_root / status_manifest).resolve(strict=False)
+        == current_manifest.resolve(strict=False)
+    )
+    selection_scope = (
+        "current_runtime"
+        if selected_current
+        else "latest_archived_runtime"
+        if token in {"latest", "current"}
+        else "explicit_runtime"
+    )
     history_entry = str(runtime.get("history_entry") or artifacts.get("history_entry") or "").strip() or None
     history_payload = _load_repo_json(repo_root, history_entry)
     continue_contract = grouped_runtime_continue_contract(
@@ -1497,6 +1520,9 @@ def grouped_runtime_status_payload(repo_root: Path, history_dir: Path, ref: Opti
         "provider_transport": runtime.get("provider_transport"),
         "latest_stable_artifact": artifacts.get("latest_stable_artifact"),
         "status_authority": "grouped_runtime",
+        "requested_ref": token,
+        "selection_scope": selection_scope,
+        "current_runtime_selected": selected_current,
         "status_manifest": status_manifest,
         "manifest": status_manifest,
         "history_entry": history_entry,

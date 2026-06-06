@@ -4,7 +4,9 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+from typing import Any
 
+import microcosm_core.macro_tools.work_landing_control_spine as work_landing_control_spine
 from microcosm_core import cli
 from microcosm_core.macro_tools.work_landing_control_spine import (
     BUNDLE_RESULT_NAME,
@@ -19,6 +21,7 @@ WORK_LANDING_CONTROL_BUNDLE = (
     MICROCOSM_ROOT
     / "examples/work_landing_control_spine/exported_work_landing_control_bundle"
 )
+MUTATED_SOURCE_PATH = "source_modules/tools/meta/control/work_landing.py"
 
 
 def _walk_keys(payload: object) -> list[str]:
@@ -33,6 +36,51 @@ def _walk_keys(payload: object) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def _copy_work_landing_control_bundle(tmp_path: Path, name: str) -> Path:
+    bundle = tmp_path / name / "bundle"
+    shutil.copytree(WORK_LANDING_CONTROL_BUNDLE, bundle)
+    return bundle
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _bundle_manifest_row(payload: dict[str, Any], path: str) -> dict[str, Any]:
+    return next(row for row in payload["files"] if row["path"] == path)
+
+
+def test_work_landing_line_count_streams_without_materializing_file(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    source = tmp_path / "source_module.py"
+    empty_source = tmp_path / "empty_source.py"
+    missing_source = tmp_path / "missing_source.py"
+    source.write_text("one\n\ntwo", encoding="utf-8")
+    empty_source.write_text("", encoding="utf-8")
+    guarded_paths = {source, empty_source}
+    original_read_text = Path.read_text
+
+    def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
+        if self in guarded_paths:
+            raise AssertionError("line count should stream source-module input")
+        return original_read_text(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", guarded_read_text)
+
+    assert work_landing_control_spine._line_count(source) == 3
+    assert work_landing_control_spine._line_count(empty_source) == 1
+    assert work_landing_control_spine._line_count(missing_source) is None
 
 
 def test_work_landing_control_spine_accepts_copied_macro_sources(
@@ -98,18 +146,91 @@ def test_work_landing_control_spine_accepts_copied_macro_sources(
     assert "metadata_only" not in encoded
 
 
+def test_work_landing_control_spine_rejects_manifest_and_contract_drift(
+    tmp_path: Path,
+) -> None:
+    def run_mutated(name: str, mutate: Any) -> dict[str, Any]:
+        bundle = _copy_work_landing_control_bundle(tmp_path, name)
+        mutate(bundle)
+        return validate_work_landing_control_bundle(
+            bundle,
+            tmp_path / name / "receipts",
+            command="pytest",
+        )
+
+    def mutate_digest(bundle: Path) -> None:
+        manifest_path = bundle / "bundle_manifest.json"
+        manifest = _read_json(manifest_path)
+        _bundle_manifest_row(manifest, MUTATED_SOURCE_PATH)["expected_sha256"] = "0" * 64
+        _write_json(manifest_path, manifest)
+
+    def mutate_material_class(bundle: Path) -> None:
+        manifest_path = bundle / "bundle_manifest.json"
+        manifest = _read_json(manifest_path)
+        _bundle_manifest_row(manifest, MUTATED_SOURCE_PATH)[
+            "material_class"
+        ] = "private_macro_tool_body"
+        _write_json(manifest_path, manifest)
+
+    def mutate_import_class(bundle: Path) -> None:
+        manifest_path = bundle / "bundle_manifest.json"
+        manifest = _read_json(manifest_path)
+        _bundle_manifest_row(manifest, MUTATED_SOURCE_PATH)[
+            "source_import_class"
+        ] = "metadata_only_not_source_open"
+        _write_json(manifest_path, manifest)
+
+    def mutate_contract_classification(bundle: Path) -> None:
+        contract_path = bundle / "work_landing_control_runtime_contract.json"
+        contract = _read_json(contract_path)
+        contract["required_classifications"] = [
+            value
+            for value in contract["required_classifications"]
+            if value != "secret_exclusion"
+        ]
+        _write_json(contract_path, contract)
+
+    digest_result = run_mutated("digest", mutate_digest)
+    material_result = run_mutated("material_class", mutate_material_class)
+    import_result = run_mutated("import_class", mutate_import_class)
+    classification_result = run_mutated(
+        "contract_classification",
+        mutate_contract_classification,
+    )
+
+    assert digest_result["status"] == "blocked"
+    assert "SOURCE_DIGEST_MISMATCH" in digest_result["error_codes"]
+    assert MUTATED_SOURCE_PATH in digest_result["source_manifest"]["digest_mismatch_paths"]
+
+    assert material_result["status"] == "blocked"
+    assert "MATERIAL_CLASS_NOT_ALLOWED" in material_result["error_codes"]
+    assert (
+        MUTATED_SOURCE_PATH
+        in material_result["source_manifest"]["material_class_violations"]
+    )
+
+    assert import_result["status"] == "blocked"
+    assert "SOURCE_IMPORT_CLASS_MISMATCH" in import_result["error_codes"]
+    assert (
+        MUTATED_SOURCE_PATH
+        in import_result["source_manifest"]["source_import_class_violations"]
+    )
+
+    assert classification_result["status"] == "blocked"
+    assert "CLASSIFICATION_FLOOR_MISSING" in classification_result["error_codes"]
+    assert "secret_exclusion" in classification_result["contract_summary"][
+        "missing_required_classifications"
+    ]
+
+
 def test_work_landing_control_spine_rejects_live_mutation_overclaim(
     tmp_path: Path,
 ) -> None:
-    bundle = tmp_path / "bundle"
-    shutil.copytree(WORK_LANDING_CONTROL_BUNDLE, bundle)
+    bundle = _copy_work_landing_control_bundle(tmp_path, "authority_overclaim")
     contract_path = bundle / "work_landing_control_runtime_contract.json"
-    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    contract = _read_json(contract_path)
     contract["authority_ceiling"]["live_git_mutation_authorized"] = True
-    contract_path.write_text(
-        json.dumps(contract, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    _write_json(contract_path, contract)
 
     result = validate_work_landing_control_bundle(
         bundle,

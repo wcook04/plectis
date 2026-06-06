@@ -5,8 +5,10 @@
     "rule": "fixture-backed proof must state what it does not prove"
   },
   "anti_claims": [
+    "This standard is a public-safe schema contract projection only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
     "This public standard plus bundle imports Work Ledger source bodies and schema contracts, but it does not authorize live Work Ledger mutation, session finalization, claim release, Git mutation, provider calls, release, hosted publication, recipient work, or private-data equivalence.",
-    "The copied source bodies are public substrate for inspection and validation; runtime receipts carry paths, hashes, counts, and anchors rather than duplicating full source text."
+    "The copied source bodies are public substrate for inspection and validation; runtime receipts carry paths, hashes, counts, and anchors rather than duplicating full source text.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
   ],
   "authority_boundary": "public_safe_schema_and_exact_work_ledger_control_body_import_contract_not_live_runtime_authority",
   "authority_ceiling": {
@@ -74,7 +76,8 @@
   ],
   "receipt_refs": [
     "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
-    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+    "receipt.microcosm.work_ledger"
   ],
   "relationships": {
     "canonical_organ_model_ref": null,
@@ -120,7 +123,7 @@
     "anti_claims",
     "work_ledger_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -194,9 +197,28 @@
     ],
     "ontology": "The claim/session/path ledger for live substrate mutation authority.",
     "rebuild_action": "project",
-    "teleology": "Coordinate claims, leases, path ownership, and concurrency."
+    "teleology": "Coordinate claims, leases, path ownership, and concurrency.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "body_floor_imported",
+      "previous_source_schema_version": "public_microcosm_standard_v1",
+      "previous_source_status": "body_floor_imported",
+      "validator_refs": [
+        "validator.microcosm.organs.mission_transaction_work_spine",
+        "validator.microcosm.organs.macro_projection_import_protocol",
+        "validator.microcosm.work_ledger"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "receipt.microcosm.work_ledger"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "status": "body_floor_imported",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -215,7 +237,8 @@
   },
   "validator_refs": [
     "validator.microcosm.organs.mission_transaction_work_spine",
-    "validator.microcosm.organs.macro_projection_import_protocol"
+    "validator.microcosm.organs.macro_projection_import_protocol",
+    "validator.microcosm.work_ledger"
   ],
   "wave": "w1_route_and_work_runtime",
   "work_ledger_payload": {
@@ -264,5 +287,51 @@
       "credentials or provider-private payload disclosure"
     ],
     "body_in_receipt": false
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.work_ledger.author",
+      "status": "planned",
+      "purpose": "create a valid Work ledger instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.work_ledger.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Work ledger without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.work_ledger.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_work_ledger and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "body_floor_imported",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_work_ledger.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_work_ledger",
+    "registry_status": "draft",
+    "source_status_before_v2_uplift": "body_floor_imported",
+    "source_schema_before_v2_uplift": "public_microcosm_standard_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.work_ledger",
+    "receipt_id": "receipt.microcosm.work_ledger",
+    "validator_refs": [
+      "validator.microcosm.organs.mission_transaction_work_spine",
+      "validator.microcosm.organs.macro_projection_import_protocol",
+      "validator.microcosm.work_ledger"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+      "receipt.microcosm.work_ledger"
+    ]
   }
 }

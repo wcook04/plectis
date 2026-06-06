@@ -1,0 +1,55 @@
+{
+  "schema_version": "microcosm_doctrine_lattice_reciprocity_contract_receipt_v1",
+  "receipt_id": "doctrine_lattice_reciprocity_contract_receipt_20260605T1735Z",
+  "created_at": "2026-06-05T17:35:00Z",
+  "validator_id": "validator.microcosm.concept_mechanism_population",
+  "result": "queued_shared_lattice_merge_contract",
+  "evidence_refs": [
+    "microcosm-substrate/core/doctrine_lattice_relations.json",
+    "microcosm-substrate/concepts/*.json::relationships.edges",
+    "microcosm-substrate/mechanisms/*.json::relationships.edges",
+    "receipts/concept_mechanism_population/concept_mechanism_records_population_receipt_20260605T1735Z.json"
+  ],
+  "forward_edge_contract": {
+    "source": "relationships.edges[] in concept/mechanism records",
+    "required_fields": [
+      "relation_id",
+      "relation_verb",
+      "reverse_verb",
+      "target_kind",
+      "target_id",
+      "target_status",
+      "justification.source_ref",
+      "justification.summary"
+    ],
+    "reverse_rule": "derive reverse edges from core/doctrine_lattice_relations.json reverse_verb; do not hand-write dual reverse source edges"
+  },
+  "queued_shared_lattice_change": {
+    "owner": "controller_serialized_lattice_builder_lane",
+    "shared_surfaces": [
+      "microcosm-substrate/core/doctrine_lattice_relations.json",
+      "microcosm-substrate/src/microcosm_core/doctrine_lattice.py",
+      "microcosm-substrate/atlas/doctrine_lattice_*.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json"
+    ],
+    "spec": [
+      "Treat concept/mechanism relationships.edges as source forward assertions only.",
+      "Use relation registry reverse_verb to derive reverse projections.",
+      "Count planned target_status values as explicit residual states until target resolution lands.",
+      "Derive mechanism.evidenced_by.receipt from receipt_refs rather than embedding duplicate source edges."
+    ],
+    "reentry_condition": "After controller releases doctrine_lattice.py and aggregate lattice surfaces, rerun doctrine-lattice read-only tests plus concept/mechanism validator and regenerate aggregate projections through the owner builder."
+  },
+  "omissions": [
+    "shared lattice builder edits",
+    "aggregate doctrine lattice atlas writes",
+    "public site build artifacts",
+    "reverse edge source records"
+  ],
+  "authority_ceiling": {
+    "status": "reciprocity_contract_receipt_not_shared_builder_merge",
+    "shared_lattice_merge_authority": false,
+    "release_authority": false,
+    "reverse_edge_source_authority": false
+  }
+}

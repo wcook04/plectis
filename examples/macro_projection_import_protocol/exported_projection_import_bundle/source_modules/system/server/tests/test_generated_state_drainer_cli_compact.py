@@ -5,6 +5,83 @@ import json
 import tools.meta.control.generated_state_drainer as generated_state_drainer_cli
 
 
+def test_status_defaults_to_fast_compact(monkeypatch, capsys) -> None:
+    def fail_full_status(*args, **kwargs):
+        raise AssertionError("bare status should use the compact fast path by default")
+
+    def fake_fast_plan(repo_root, owner_ids=None):
+        assert owner_ids is None
+        return {
+            "schema": "generated_projection_settlement_plan_v0",
+            "ok": True,
+            "status": "settled",
+            "planning_mode": "cached_git_status",
+            "authority_level": "cached_status_only",
+            "supported_owner_ids": [
+                "task_ledger_projection",
+                "work_ledger_index_projection",
+            ],
+            "dirty_owner_count": 0,
+            "refresh_required_owner_count": 0,
+            "blocked_owner_count": 0,
+            "owners": [],
+        }
+
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_state_drainer_status", fail_full_status)
+    monkeypatch.setattr(
+        generated_state_drainer_cli,
+        "build_generated_projection_settlement_fast_plan",
+        fake_fast_plan,
+    )
+
+    exit_code = generated_state_drainer_cli.main(["status"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["schema"] == "generated_state_drainer_status_compact_v0"
+    assert payload["planning_mode"] == "cached_git_status"
+    assert payload["fast_status_receipt"]["status"] == "cached_git_status_only"
+    assert payload["drilldown"]["full_status_command"] == (
+        "./repo-python tools/meta/control/generated_state_drainer.py "
+        "status --compact --full-authority"
+    )
+
+
+def test_status_full_authority_without_compact_preserves_full_payload(
+    monkeypatch,
+    capsys,
+) -> None:
+    def fail_fast_plan(*args, **kwargs):
+        raise AssertionError("--full-authority without --compact should not use fast compact status")
+
+    def fake_status(repo_root, owner_ids=None):
+        assert owner_ids == ["task_ledger_projection"]
+        return {
+            "schema": "generated_state_drainer_status_v0",
+            "ok": True,
+            "mode": "read_only",
+            "repo_root": str(repo_root),
+            "projection_targets": [{"generated_path": "state/task_ledger/ledger.json"}],
+            "owner_checks": {"task_ledger_projection": {"ok": True, "rows": ["full"]}},
+        }
+
+    monkeypatch.setattr(
+        generated_state_drainer_cli,
+        "build_generated_projection_settlement_fast_plan",
+        fail_fast_plan,
+    )
+    monkeypatch.setattr(generated_state_drainer_cli, "build_generated_state_drainer_status", fake_status)
+
+    exit_code = generated_state_drainer_cli.main(
+        ["status", "--owner-id", "task_ledger_projection", "--full-authority"]
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["schema"] == "generated_state_drainer_status_v0"
+    assert payload["owner_checks"]["task_ledger_projection"]["rows"] == ["full"]
+
+
 def test_status_compact_uses_fast_settlement_plan_by_default(monkeypatch, capsys) -> None:
     def fail_full_status(*args, **kwargs):
         raise AssertionError("compact status should not run owner freshness checks by default")

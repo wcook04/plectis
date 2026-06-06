@@ -118,10 +118,14 @@
     "projection_performance_contract": {
       "purpose": "Keep capture reflex and sign-off mutation lanes cheap enough that agents do not avoid them or launch duplicate commands while waiting.",
       "single_append_rebuild_rule": "A mutation command that preflights the post-append projection and then appends under the Task Ledger lock must reuse that validated projection for the write phase; it must not load, validate, and build the same projection a second time unless the append was idempotent or the preflight projection is unavailable.",
+      "candidate_projection_input_rule": "The reused preflight projection and standalone rebuild projection must use the same source inputs, including Task Ledger events, mission blackboard overlays, mission trace overlays, and repo-root-sensitive evidence. A cheap append lane must not omit overlays that the later rebuild --check will include.",
+      "projection_check_classification_rule": "rebuild --check must report projection_event_count and authority_event_count. If authority_event_count is newer than projection_event_count, classify the result as projection_behind_authority so concurrent same-authority appends route to serial rebuild settlement instead of being mistaken for deterministic projector drift.",
       "high_cardinality_duplicate_scan_rule": "Semantic duplicate detection over large capture buckets must use bounded indexed candidate selection, with high-frequency token skips recorded in the detection payload, rather than comparing every capture row pair.",
       "regression_surfaces": [
         "system/lib/task_ledger_events.py::append_event_and_rebuild",
         "system/lib/task_ledger_events.py::_semantic_duplicate_groups",
+        "system/server/tests/test_task_ledger_events.py::test_append_event_rebuild_reused_projection_includes_mission_blackboard",
+        "system/server/tests/test_task_ledger_events.py::test_projection_check_names_projection_behind_authority",
         "system/server/tests/test_task_ledger_events.py::test_semantic_duplicate_scan_uses_index_for_large_capture_bucket"
       ]
     },
@@ -132,7 +136,7 @@
       "fields": {
         "schedulable": "Boolean dependency eligibility after hard depends_on edges, dangling edges, and cycle anomalies are considered.",
         "hard_dep_count": "Count of hard internal prerequisite WorkItem ids from depends_on.",
-        "satisfied_dep_ids": "Hard dependency ids satisfied by signoff, closed state, propagation state, or explicit dependency_resolutions.",
+        "satisfied_dep_ids": "Hard dependency ids satisfied by done state, propagated state, signoff, non-retired terminal execution receipt, or explicit dependency_resolutions.",
         "unsatisfied_dep_ids": "Hard dependency ids still preventing schedulability.",
         "dangling_dep_ids": "Hard dependency ids that do not resolve to a WorkItem.",
         "dependency_states": "Backward-compatible upstream dependency edge rows with id, title, state, rank, relationship, sign_off_id, satisfied, and reason.",
@@ -390,7 +394,7 @@
         "agent_principle_candidate",
         "failure_mode"
       ],
-      "capture_command_template": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> --candidate-work-item-type agent_principle_failure_mode --tag agent_principle_candidate --tag failure_mode --payload-json '<json>' --rebuild",
+      "capture_command_template": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> --candidate-work-item-type agent_principle_failure_mode --tag agent_principle_candidate --tag failure_mode --payload-json '<json>'",
       "required_payload_fields": [
         "local_case",
         "failure_mode",
@@ -545,7 +549,8 @@
       "spawn_task_rule": "spawn_task/native chips may carry work only when they also create or point to a cap_*/WorkItem id; otherwise they are audit evidence for possible adapter leakage, not authority.",
       "self_detected_error_capture_rule": "Self-detected errors are a tripwire trigger class equivalent to flag-without-capture. Any self-noticed mistake, false claim, fabricated id/path/fact, broken edit, wrong-tool detour, hallucinated CLI flag, or bad routing decision must be quick-captured BEFORE the operator-facing acknowledgment or correction, and the cap_id cited inline. Tripwire phrases include 'I was wrong', 'my mistake', 'I made an error', 'I broke', 'I fabricated', 'I made up', 'false claim', 'bad edit path', 'I miscounted', 'I misread', 'wrong file', 'wrong command'. The capture title names the failure class; --note carries one or two sentences of failure mode plus minimal recoverable context (quick on-the-fly register, not a postmortem). Tag with self_error plus the affected subsystem. Mistake-without-capture is a hard protocol violation, not a soft preference. Operator anchor: 2026-05-04 'if you ever make a mistake just add it to the todo as a failure mode with a bit of context, just a quick on the fly one'.",
       "observed_failure_capture_invariant": "If an agent observes a failing test, command error, failed validation, substrate drift, contradiction, or self-error and does not fix it in the same turn, it must create or reference a durable WorkItem/capture before final response. Reporting the issue in prose is not a substitute for a WorkItem. The legal closeout states are: fixed and validated, captured as a new cap_*/WorkItem, or explicitly linked to an existing capture that names the original failure.",
-      "quick_capture_receipt_rule": "A quick-capture is a receipt only after the command exits zero and the returned subject_id/cap_id is visible through Task Ledger readback or projection rebuild. `quick-capture` takes `--title` and text fields such as `--statement`, `--note`, or `--problem`; a positional title or nonzero command is a failed capture attempt. Do not cite a cap_id, shape a WorkItem, or claim capture completed from an intended command, stderr, or remembered interface."
+      "quick_capture_receipt_rule": "A quick-capture is a receipt only after the command exits zero and the returned subject_id/cap_id is visible in Task Ledger authority through visibility_receipt.event_ids_visible_in_authority or projection_assimilation_state.authority_event_visible. Projection/card visibility is a separate assimilation state: without `--rebuild`, the receipt may be authority-visible while projection_status is stale_until_rebuild; with deferred rebuild, queued_for_drain and reentry_condition name the settlement lane. `quick-capture` takes `--title` and text fields such as `--statement`, `--summary` (compatibility alias for `--statement`), `--note`, or `--problem`; a positional title or nonzero command is a failed capture attempt. Prefer repeated `--tag` flags for tags; `--tags` is accepted as a quick-capture compatibility alias and normalizes comma-separated values into the same payload field. Do not cite a cap_id, shape a WorkItem, or claim capture completed from an intended command, stderr, remembered interface, or projection/card visibility that has not been rebuilt.",
+      "validation_warning_baseline_rule": "A Task Ledger validate result with validation_status=valid_with_warnings, error_count=0, and warning rows known to be historical/baseline or unrelated evidence-durability findings is warning-only closeout evidence, not a new side finding. It becomes a capture trigger only when a warning is task-owned, the warning class/count/source changed from the accepted baseline, or the operator explicitly asks to capture the warning. Do not quick-capture a baseline warning just to mention closeout. If a new warning must be captured under ledger concurrency, run exactly one serialized quick-capture without `--rebuild` or with projection-rebuild-policy off, wait for its authority-visible visibility_receipt, and do not start duplicate retry commands."
     },
     "receipt_truthfulness_contract": {
       "policy_id": "receipt_truthfulness_contract",
@@ -1245,13 +1250,16 @@
     ],
     "hash_rule": "event_hash is sha256 over canonical JSON excluding event_hash. previous_event_hash chains to the prior event or null for the first event.",
     "append_rule": "Writers append under file lock. expected_previous_event_hash may be supplied for optimistic concurrency; mismatch is a validation failure.",
+    "short_lock_append_rule": "The Task Ledger authority lock must cover only the authority tail check, hash/metadata finalization, and atomic append/replace of state/task_ledger/events.jsonl. Projection loading, duplicate scans, host-pressure checks, queue planning, and rebuild/check work must run before or after that lock and must retry from a fresh authority tail if a concurrent append lands first.",
     "authority_health_rule": "state/task_ledger/events_audit.jsonl is an ignored recovery journal, not WorkItem authority. If it contains event_ids missing from state/task_ledger/events.jsonl, normal append and projection rebuild commands must fail with authority_recovery_required until audit-recover --replay restores the canonical event log.",
-    "visibility_receipt_rule": "Append-style Task Ledger commands report whether the event is present in events.jsonl, whether the audit journal exists, and whether selected WorkItem cards are projection-visible after a rebuild. Without --rebuild, success means appended_to_authority but projection/card visibility is stale_until_rebuild.",
+    "visibility_receipt_rule": "Append-style Task Ledger commands report a visibility_receipt that distinguishes authority visibility from projection/card assimilation. The nested projection_assimilation_state uses schema task_ledger_projection_assimilation_state_v1 and records authority_event_visible, projection_rebuilt, projection_visible, projection_card_visibility, queued_for_drain, queue_id, queued_work_status, reentry_condition, receipt_condition, and next_safe_action. Without --rebuild, success means appended_to_authority while projection/card visibility is stale_until_rebuild. When --rebuild is deferred by host pressure, status is authority_appended_projection_rebuild_deferred, projection_card_visibility is deferred_until_rebuild, queue fields bind the drain item, and reentry_condition plus next_safe_action define the re-entry lane.",
     "bootstrap_rule": "Legacy v0 task rows are imported as work_item.legacy_bootstrapped events with full legacy_snapshot.",
-    "quick_capture_rule": "task_ledger_apply.py quick-capture is the low-friction noticed-work affordance for sidebar TODO pressure. It appends a normal work_item.captured event, may mint a cap_quick_* subject id, preserves source refs, and leaves shape/rank/merge/promote/retire decisions to capture_triage, promotion_candidates, and execution_menu. Policy-shaped, prompt-friction-shaped, mechanism-shaped, or actor-dynamics-shaped captures must carry enough tags/payload to route beyond generic TODO triage.",
+    "quick_capture_rule": "task_ledger_apply.py quick-capture is the low-friction noticed-work affordance for sidebar TODO pressure. It appends a normal work_item.captured event, may mint a cap_quick_* subject id, preserves source refs, and leaves shape/rank/merge/promote/retire decisions to capture_triage, promotion_candidates, and execution_menu. Quick-capture should not force a projection rebuild during scoped commit landing or active ledger concurrency; authority visibility plus a visibility_receipt is enough to cite the cap_id, and projection/card assimilation can be settled later by generated_state_drainer.py settle --owner-id task_ledger_projection. Policy-shaped, prompt-friction-shaped, mechanism-shaped, or actor-dynamics-shaped captures must carry enough tags/payload to route beyond generic TODO triage.",
     "quick_capture_surface_ref_rule": "The quick-capture --surface value names one concrete anchoring path, command, schema, option-surface id, or owner artifact. When several surfaces matter, preserve them in payload, notes, or shape events rather than concatenating paths into a fake filesystem path.",
     "projection_rebuild_retry_rule": "Append and projection rebuild are separate concerns. Run append/rebuild operations serially for the same ledger. If a rebuild collision or retry occurs after append, rerun projection and validate serially, then add bookkeeping evidence to the affected WorkItem instead of treating the retry as a second substantive TODO.",
+    "projection_check_event_count_rule": "Projection checks must distinguish same-event-count mismatches from newer-authority mismatches. Equal counts with mismatches indicate deterministic projection/input drift; projection_event_count behind authority_event_count indicates the projection is simply stale after later appends and should be settled with the owner rebuild route.",
     "same_authority_append_log_landing": "Valid Task Ledger events appended through the canonical apply lane remain attributable by event_id, created_by, previous_event_hash, and event_hash even when several agents' events land in one projection bundle. Same-authority event/projection interleaving is not a hard-stop and not broad-checkpoint by default: validate the event log, refresh stale projections if required, and land through generated_state_drainer.py settle --owner-id task_ledger_projection so the manifest records source and projection hashes without appending another Task Ledger event.",
+    "validation_warning_closeout_rule": "A closeout validate run that returns valid_with_warnings with error_count=0 must be classified before capture. Known historical evidence-durability warnings are baseline validation evidence and may be cited as such under --allow-warnings; they do not require a new quick-capture or projection rebuild. Capture only task-owned, new-class, new-source, or count-delta warnings, and if capture is required run one serialized append-only capture rather than duplicate retry commands.",
     "duplicate_event_id_rule": "A repeated event_id is idempotent only when the incoming event hashes to the exact existing event content. Same event_id with different content or event_hash is a validation failure."
   },
   "notice_classification_ladder": {
@@ -1307,6 +1315,30 @@
       "validation_refs"
     ],
     "validated_uncommitted_rule": "Validated-uncommitted receipts do not replace scoped commits. They make the blocked commit state auditable by carrying validation refs, a no-commit reason, and optional commit_blocker_refs until a later landed receipt can supersede the exceptional closeout.",
+    "parent_cas_churn_receipt_boundary": {
+      "failure_class": "parent_cas_churn_validated_uncommitted_boundary",
+      "rule": "When scoped landing loses the parent compare-and-swap because HEAD advances after a fresh preflight or validation pass, rerun overlap checks, preflight, and focused validation once on the new parent. If the refreshed retry also loses the parent race, stop the commit loop and record a validated-uncommitted execution receipt instead of inventing a new closeout state or repeating blind commits.",
+      "canonical_closeout_state": "validated_uncommitted_git_metadata_blocked",
+      "required_payload_fields": [
+        "expected_parent",
+        "observed_head_after_failure",
+        "owned_paths_or_write_set_hash",
+        "overlap_check_ref",
+        "preflight_ref",
+        "validation_refs",
+        "artifact_receipt_refs",
+        "no_commit_reason",
+        "commit_blocker_refs",
+        "reentry_condition"
+      ],
+      "artifact_receipt_rule": "If a generated or untracked proof file is cited as validation evidence, the validated-uncommitted payload must carry its path, role, and whether re-entry should commit it, regenerate it, or supersede it. Chat prose is not a substitute for this artifact ref.",
+      "non_goals": [
+        "Does not replace a scoped commit when the parent is stable.",
+        "Does not allow arbitrary commitless closeout states.",
+        "Does not treat disjoint parent churn as a same-path blocker.",
+        "Does not authorize broad checkpoint or generated projection landing without separate ownership."
+      ]
+    },
     "authority_mutation_checkpoint_rule": "A clean Task Ledger execution-receipt closeout must not append into pre-existing dirty Task Ledger authority/projection state without an anchor decision. The apply lane must either classify a clean pre-append authority baseline, checkpoint/isolate the authority delta through the governed state lane, refuse before mutation, or residualize the unanchored mutation with a re-entry condition.",
     "authority_mutation_checkpoint_schema": "task_ledger_authority_mutation_checkpoint_v1",
     "authority_mutation_clean_closeout_states": [
@@ -1319,7 +1351,8 @@
       "refined",
       "signed_off"
     ],
-    "authority_mutation_guard_surface": "tools/meta/factory/task_ledger_apply.py::record-execution-receipt"
+    "authority_mutation_guard_surface": "tools/meta/factory/task_ledger_apply.py::record-execution-receipt",
+    "terminal_execution_receipt_dependency_rule": "For dependency and action-queue projections, exact terminal receipt states and owner-namespaced states ending in _landed count as terminal execution receipts when the WorkItem is not retired. This does not expand validated-uncommitted receipt closeout states or remove commit_hash requirements for landed git closeouts."
   },
   "validation_hardening": {
     "strict_json_rule": "Task Ledger validation MUST parse WorkItem-owned JSON and JSONL with duplicate-key rejection. Standard json.loads success is insufficient because duplicate keys silently keep the last value.",
@@ -1457,7 +1490,7 @@
       "recent events"
     ],
     "determinism_rule": "Rebuilding projections twice from the same event log must produce the same payload when generated_at is fixed.",
-    "dependency_satisfied": "A hard dependency is satisfied when the upstream WorkItem has state done or propagated, has sign-off evidence, or the dependent WorkItem carries an explicit dependency_resolutions entry with status resolved, satisfied, waived, superseded, or folded. Retired is not satisfied by default; it requires explicit resolution, rewiring, or waiver."
+    "dependency_satisfied": "A hard dependency is satisfied when the upstream WorkItem has state done or propagated, has sign-off evidence, has a terminal execution receipt while not retired, or the dependent WorkItem carries an explicit dependency_resolutions entry with status resolved, satisfied, waived, superseded, or folded. Terminal execution receipts include exact terminal closeout states and owner-namespaced closeout states ending in _landed. Retired is not satisfied by default; it requires explicit resolution, rewiring, or waiver."
   },
   "compression_authoring_contract": {
     "purpose": "Every task ships its own compressed rungs so option-surface browse can enumerate the ledger before opening individual entries. Pattern inherited from std_skill.json.",
@@ -1596,7 +1629,7 @@
       "rule": "Task Ledger option-surface rows are read models over state/task_ledger/events.jsonl; rebuild/check projections before treating rank, dependency, capture, or signoff counts as current.",
       "check_commands": [
         "./repo-python tools/meta/factory/task_ledger_apply.py authority-health",
-        "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
         "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
       ]
     },

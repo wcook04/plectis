@@ -1,0 +1,167 @@
+{
+  "schema_version": "spatial_state_transitions_v1",
+  "state_transitions": [
+    {
+      "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
+      "body_in_receipt": false,
+      "counterfactual_event": "occluded_forklift_enters_aisle",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 5,
+        "public_state_ref": "fixtures/public_spatial_predictions/warehouse_occlusion_left_forklift_stop.json",
+        "state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop"
+      },
+      "replay_id": "warehouse_occlusion_left_forklift_stop",
+      "scene_state_ref": "scene_state::warehouse_occlusion_left_forklift_stop",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    },
+    {
+      "action_trace_ref": "action_trace::crosswalk_child_emergence_slowdown",
+      "body_in_receipt": false,
+      "counterfactual_event": "small_pedestrian_enters_crosswalk",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::crosswalk_child_emergence_slowdown",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 6,
+        "public_state_ref": "fixtures/public_spatial_predictions/crosswalk_child_emergence_slowdown.json",
+        "state_ref": "predicted_state::crosswalk_child_emergence_slowdown"
+      },
+      "replay_id": "crosswalk_child_emergence_slowdown",
+      "scene_state_ref": "scene_state::crosswalk_child_emergence_slowdown",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::crosswalk_child_emergence_slowdown",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    },
+    {
+      "action_trace_ref": "action_trace::drone_corridor_gust_recovery",
+      "body_in_receipt": false,
+      "counterfactual_event": "lateral_gust_pushes_vehicle",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::drone_corridor_gust_recovery",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 7,
+        "public_state_ref": "fixtures/public_spatial_predictions/drone_corridor_gust_recovery.json",
+        "state_ref": "predicted_state::drone_corridor_gust_recovery"
+      },
+      "replay_id": "drone_corridor_gust_recovery",
+      "scene_state_ref": "scene_state::drone_corridor_gust_recovery",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::drone_corridor_gust_recovery",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    },
+    {
+      "action_trace_ref": "action_trace::mobile_robot_reflective_floor_detour",
+      "body_in_receipt": false,
+      "counterfactual_event": "specular_floor_false_free_space",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::mobile_robot_reflective_floor_detour",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 8,
+        "public_state_ref": "fixtures/public_spatial_predictions/mobile_robot_reflective_floor_detour.json",
+        "state_ref": "predicted_state::mobile_robot_reflective_floor_detour"
+      },
+      "replay_id": "mobile_robot_reflective_floor_detour",
+      "scene_state_ref": "scene_state::mobile_robot_reflective_floor_detour",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::mobile_robot_reflective_floor_detour",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    },
+    {
+      "action_trace_ref": "action_trace::loading_dock_pallet_shift_replan",
+      "body_in_receipt": false,
+      "counterfactual_event": "pallet_stack_shifts_into_lane",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::loading_dock_pallet_shift_replan",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 9,
+        "public_state_ref": "fixtures/public_spatial_predictions/loading_dock_pallet_shift_replan.json",
+        "state_ref": "predicted_state::loading_dock_pallet_shift_replan"
+      },
+      "replay_id": "loading_dock_pallet_shift_replan",
+      "scene_state_ref": "scene_state::loading_dock_pallet_shift_replan",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::loading_dock_pallet_shift_replan",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    },
+    {
+      "action_trace_ref": "action_trace::intersection_unprotected_turn_yield",
+      "body_in_receipt": false,
+      "counterfactual_event": "oncoming_vehicle_accelerates_late",
+      "oracle_state_check": {
+        "body_in_receipt": false,
+        "check_ref": "oracle_check::intersection_unprotected_turn_yield",
+        "checks": [
+          "actor_count_delta_matches_event",
+          "transition_diff_within_consistency_budget"
+        ],
+        "status": "pass"
+      },
+      "predicted_state": {
+        "actor_count": 10,
+        "public_state_ref": "fixtures/public_spatial_predictions/intersection_unprotected_turn_yield.json",
+        "state_ref": "predicted_state::intersection_unprotected_turn_yield"
+      },
+      "replay_id": "intersection_unprotected_turn_yield",
+      "scene_state_ref": "scene_state::intersection_unprotected_turn_yield",
+      "transition_diff": {
+        "actor_count_delta": 1,
+        "diff_ref": "transition_diff::intersection_unprotected_turn_yield",
+        "event_delta_label": "new_dynamic_actor",
+        "within_consistency_budget": true
+      }
+    }
+  ]
+}

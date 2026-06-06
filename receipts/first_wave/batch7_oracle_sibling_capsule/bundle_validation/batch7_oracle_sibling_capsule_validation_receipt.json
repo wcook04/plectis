@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Batch 7 Oracle sibling imports public-safe source bodies for subject index, subject snapshot, macro truth-diff, and deterministic quartet repair planning. It is not an Oracle reasoning run, not provider or bridge authority, not GodModeEngine invocation, not source mutation authority, and not proof that all Oracle paths are covered.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "batch7_oracle_sibling_capsule_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch7_oracle_sibling_capsule"
+}

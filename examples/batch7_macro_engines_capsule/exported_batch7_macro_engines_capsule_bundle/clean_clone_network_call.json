@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "clean_clone_network_call",
+  "error_codes": [
+    "BATCH7_CLEAN_CLONE_NETWORK_DISABLED"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

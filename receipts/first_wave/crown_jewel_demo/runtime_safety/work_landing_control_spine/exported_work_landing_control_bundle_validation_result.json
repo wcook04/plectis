@@ -1,0 +1,373 @@
+{
+  "anchor_summary": {
+    "body_in_receipt": false,
+    "checked_module_count": 5,
+    "missing_anchor_count": 0,
+    "module_anchor_rows": [
+      {
+        "anchor_count": 4,
+        "body_in_receipt": false,
+        "missing_anchor_count": 0,
+        "missing_anchors": [],
+        "module": "tools/meta/control/work_landing.py"
+      },
+      {
+        "anchor_count": 5,
+        "body_in_receipt": false,
+        "missing_anchor_count": 0,
+        "missing_anchors": [],
+        "module": "system/lib/work_landing_status.py"
+      },
+      {
+        "anchor_count": 4,
+        "body_in_receipt": false,
+        "missing_anchor_count": 0,
+        "missing_anchors": [],
+        "module": "tools/meta/control/mission_transaction_preflight.py"
+      },
+      {
+        "anchor_count": 4,
+        "body_in_receipt": false,
+        "missing_anchor_count": 0,
+        "missing_anchors": [],
+        "module": "system/lib/mission_transaction_landing_preflight.py"
+      },
+      {
+        "anchor_count": 5,
+        "body_in_receipt": false,
+        "missing_anchor_count": 0,
+        "missing_anchors": [],
+        "module": "tools/meta/control/scoped_commit.py"
+      }
+    ]
+  },
+  "anti_claim": "The work-landing control spine validates copied non-secret macro control-plane source for local inspection. It does not run live Git mutations, mutate Task Ledger or Work Ledger state, release claims, stage broadly, call providers, export credentials, publish, or authorize release.",
+  "authority_ceiling": {
+    "broad_checkpoint_authorized": false,
+    "broad_stage_authorized": false,
+    "credential_export_authorized": false,
+    "live_claim_release_authorized": false,
+    "live_git_mutation_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_index_commit_execution_authorized": false,
+    "private_root_required": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "shared_index_mutation_authorized": false
+  },
+  "blocked_overclaim_workitem_ref": "cap_quick_microcosm_work_landing_body_import_overc_eba9812296f8",
+  "body_in_receipt": false,
+  "bundle_id": "public_work_landing_control_spine_bundle",
+  "classification": [
+    "copied_non_secret_macro_body",
+    "diagnostic_or_routing_refactor",
+    "real_runtime_receipt",
+    "secret_exclusion",
+    "source_faithful_refactor"
+  ],
+  "command": "microcosm crown-jewel-demo run",
+  "contract_summary": {
+    "authority_overclaim_count": 0,
+    "authority_overclaim_flags": [],
+    "body_in_receipt": false,
+    "contract_id": "work_landing_control_spine",
+    "false_authority_flag_count": 13,
+    "false_authority_rows": [
+      {
+        "body_in_receipt": false,
+        "flag": "live_git_mutation_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "live_task_ledger_mutation_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "live_work_ledger_mutation_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "live_claim_release_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "shared_index_mutation_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "private_index_commit_execution_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "broad_stage_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "broad_checkpoint_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "provider_calls_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "credential_export_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "private_root_required",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "publication_authorized",
+        "observed": false,
+        "required_false": true
+      },
+      {
+        "body_in_receipt": false,
+        "flag": "release_authorized",
+        "observed": false,
+        "required_false": true
+      }
+    ],
+    "missing_required_classifications": [],
+    "required_module_count": 5,
+    "source_open_body_policy": "source_bodies_copied_into_bundle_not_receipt"
+  },
+  "copied_macro_source_count": 5,
+  "counts_as_real_substrate_progress": true,
+  "created_at": "2026-05-31T18:18:47+00:00",
+  "error_codes": [
+    "SOURCE_DIGEST_MISMATCH",
+    "SOURCE_LINE_COUNT_MISMATCH"
+  ],
+  "finding_count": 2,
+  "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "SOURCE_DIGEST_MISMATCH",
+      "message": "Copied source body digests must match the source module manifest.",
+      "observed": [
+        "source_module_manifest.json",
+        "source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "source_modules/system/lib/work_landing_status.py",
+        "source_modules/tools/meta/control/work_landing.py"
+      ],
+      "source": "source_module_manifest.json"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "SOURCE_LINE_COUNT_MISMATCH",
+      "message": "Copied source body line counts must match the source module manifest.",
+      "observed": [
+        "source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "source_modules/system/lib/work_landing_status.py",
+        "source_modules/tools/meta/control/work_landing.py"
+      ],
+      "source": "source_module_manifest.json"
+    }
+  ],
+  "input_mode": "exported_work_landing_control_bundle",
+  "material_class_counts": {
+    "public_macro_tool_body": 5,
+    "public_microcosm_bundle_manifest": 1,
+    "public_microcosm_runtime_contract": 1
+  },
+  "public_runtime_refs": [
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_paths": [
+    "receipts/exported_work_landing_control_bundle_validation_result.json"
+  ],
+  "schema_version": "microcosm_work_landing_control_bundle_validation_report_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_manifest": {
+    "all_expected_digests_matched": false,
+    "all_expected_line_counts_matched": false,
+    "body_in_receipt": false,
+    "declared_file_count": 7,
+    "digest_mismatch_paths": [
+      "source_module_manifest.json",
+      "source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "source_modules/system/lib/work_landing_status.py",
+      "source_modules/tools/meta/control/work_landing.py"
+    ],
+    "inputs": [
+      {
+        "body_in_receipt": false,
+        "digest_status": "missing_or_mismatch",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "exists": true,
+        "expected_line_count": 190,
+        "expected_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+        "line_count": 193,
+        "line_count_status": "mismatch",
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/control/work_landing.py",
+        "sha256": "a88b24d4158efdd79f8a76719314f393571a26af8db633f661695da7854b18cc",
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_ref": "tools/meta/control/work_landing.py"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "missing_or_mismatch",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "exists": true,
+        "expected_line_count": 3770,
+        "expected_sha256": "efd6dab64115240f207ac4c7ce9d6c553e8d2f6ae493eae2a2629e4516d5be62",
+        "line_count": 3808,
+        "line_count_status": "mismatch",
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/work_landing_status.py",
+        "sha256": "fbd1bb10116b4c7161cb3ac73bd7b983090a18f1ce5f23d4bc49f41b2138f690",
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_ref": "system/lib/work_landing_status.py"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "exists": true,
+        "expected_line_count": 500,
+        "expected_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "line_count": 500,
+        "line_count_status": "match",
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "missing_or_mismatch",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "exists": true,
+        "expected_line_count": 8896,
+        "expected_sha256": "067878fed796f04d0cb5a0ff95414707826a9e2791f4b636165b1b3e2776775a",
+        "line_count": 9057,
+        "line_count_status": "mismatch",
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "sha256": "c9c5dec90cfd60cd9feb553a0ff1548dda69bca9f10afa97208d57704d248510",
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_ref": "system/lib/mission_transaction_landing_preflight.py"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "exists": true,
+        "expected_line_count": 1616,
+        "expected_sha256": "29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
+        "line_count": 1616,
+        "line_count_status": "match",
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/control/scoped_commit.py",
+        "sha256": "29cf8edabbcb64dbe905996b79f36b1a3643c19cdf8570d2adfaabb1993efc9c",
+        "source_import_class": "copied_non_secret_macro_body",
+        "source_ref": "tools/meta/control/scoped_commit.py"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "exists": true,
+        "expected_line_count": 33,
+        "expected_sha256": "9bd105f7eac0acff03430eefb45da17f4d55b31dbeaae1e5d0e1f7055b5cb88f",
+        "line_count": 33,
+        "line_count_status": "match",
+        "material_class": "public_microcosm_runtime_contract",
+        "path": "work_landing_control_runtime_contract.json",
+        "sha256": "9bd105f7eac0acff03430eefb45da17f4d55b31dbeaae1e5d0e1f7055b5cb88f",
+        "source_import_class": "source_faithful_refactor",
+        "source_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "missing_or_mismatch",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "exists": true,
+        "expected_line_count": 95,
+        "expected_sha256": "2b15a2a9aa44420094fd8156e331fe6967600a5f0e847496aad6326a63a4b30b",
+        "line_count": 95,
+        "line_count_status": "match",
+        "material_class": "public_microcosm_bundle_manifest",
+        "path": "source_module_manifest.json",
+        "sha256": "41c68d0f97e87a104b77919f51bf9fe41f6569c27be1f557b86c56cab8e5f39a",
+        "source_import_class": "source_faithful_refactor",
+        "source_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json"
+      }
+    ],
+    "line_count_mismatch_paths": [
+      "source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "source_modules/system/lib/work_landing_status.py",
+      "source_modules/tools/meta/control/work_landing.py"
+    ],
+    "material_class_violations": [],
+    "missing_required_inputs": [],
+    "required_input_count": 7,
+    "source_import_class_violations": []
+  },
+  "source_open_body_policy": "source_bodies_copied_into_bundle_not_receipt",
+  "status": "blocked",
+  "synthetic_receipt_standin_allowed": false,
+  "unsafe_payload_bodies_in_receipt": false
+}

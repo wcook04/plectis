@@ -1,0 +1,46 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "first_wave.engine_room_demo",
+  "organ_id": "engine_room_demo",
+  "input_dir": "fixtures/first_wave/engine_room_demo/input",
+  "positive_inputs": [
+    "positive_controller_audit.json"
+  ],
+  "negative_inputs": [
+    {
+      "path": "missing_expected_target_negative.json",
+      "expected_error_code": "ENGINE_ROOM_EXPECTED_TARGET_MISSING"
+    }
+  ],
+  "validator": "microcosm_core.organs.engine_room_demo",
+  "validator_command": "PYTHONPATH=src python3 -m microcosm_core.organs.engine_room_demo run --input fixtures/first_wave/engine_room_demo/input --out receipts/first_wave/engine_room_demo --acceptance-out receipts/acceptance/first_wave/engine_room_demo_fixture_acceptance.json",
+  "authority_boundary": "public_engine_room_demo_fixture_manifest_not_release_or_private_root_authority",
+  "anti_claim": "The Engine Room demo fixture manifest enumerates bounded public positive and negative cases only. It does not authorize release, publication, private-root equivalence, provider dispatch, or private macro state export.",
+  "body_material_status": "public_package_body_backed_composition_capsule",
+  "body_copied_material_count": 2,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "public_package_body_backed_composition_capsule",
+    "body_material_count": 2,
+    "body_material_ids": [
+      "engine_room_demo_organ_public_package_body",
+      "engine_room_demo_controller_public_package_body"
+    ],
+    "material_classes": [
+      "public_microcosm_runtime_body"
+    ],
+    "aggregate_floor_ref": "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json",
+    "source_manifest_refs": [
+      "examples/engine_room_demo/exported_engine_room_demo_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Inspect the Engine Room source_module_manifest and rerun the organ validator before treating the workingness row as source-body evidence.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "private_root_equivalence": false,
+      "production_ready": false,
+      "provider_dispatch": false,
+      "release_authorized": false
+    }
+  }
+}

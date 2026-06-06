@@ -214,6 +214,56 @@ def test_compile_card_marks_directory_changes_stale_without_recrawling(
     assert payload["cache_freshness"]["source_refs_exported"] is False
 
 
+def test_compile_card_treats_unreadable_cache_metadata_as_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_cached_compile_project(tmp_path)
+    state_index = project / ".microcosm/state_index.json"
+    original_stat = Path.stat
+
+    def guarded_stat(self: Path, *args: object, **kwargs: object) -> os.stat_result:
+        if self == state_index:
+            raise PermissionError("transient metadata failure")
+        return original_stat(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", guarded_stat)
+
+    payload = project_substrate.compile_project_card(project)
+
+    assert payload["status"] == "missing_cached_compile_state"
+    assert payload["cache_status"] == "missing_cached_state"
+    assert payload["cache_freshness"]["status"] == "missing_cache_marker"
+    assert payload["cache_freshness"]["source_status"] == "unknown"
+    assert ".microcosm/state_index.json" in payload["state_ref_status_summary"][
+        "missing_state_refs"
+    ]
+
+
+def test_compile_card_marks_unreadable_cached_source_metadata_stale(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_cached_compile_project(tmp_path)
+    unreadable_source = project / "README.md"
+    original_stat = Path.stat
+
+    def guarded_stat(self: Path, *args: object, **kwargs: object) -> os.stat_result:
+        if self == unreadable_source:
+            raise PermissionError("transient source metadata failure")
+        return original_stat(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", guarded_stat)
+
+    payload = project_substrate.compile_project_card(project)
+
+    assert payload["status"] == "stale_cached_state"
+    assert payload["cache_status"] == "stale_cached_state"
+    assert payload["cache_freshness"]["status"] == "stale"
+    assert payload["cache_freshness"]["missing_cached_source_count"] == 1
+    assert payload["cache_freshness"]["source_refs_exported"] is False
+
+
 def test_compile_project_batches_architecture_refresh_once(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

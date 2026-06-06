@@ -4,5 +4,13 @@
   "closeout_present": false,
   "forbidden_payload_class": "seed_origin_payload",
   "expected_negative_case": "assimilation_private_raw_seed_body",
+  "redacted_private_payload_evidence": {
+    "forbidden_keys_detected": [
+      "raw_seed_body"
+    ],
+    "body_redacted": true,
+    "body_in_receipt": false,
+    "redaction_boundary": "public_safe_marker_only_no_raw_seed_text"
+  },
   "body_redacted": true
 }

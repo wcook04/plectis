@@ -1,0 +1,23 @@
+{
+  "binding_disposition": "new_absent_from_microcosm_organ_plane_at_import_time",
+  "body_in_receipt": false,
+  "case_id": "stockgrid_units_normalized_not_zeroed",
+  "computed_path": "missing_flow_no_silent_zero",
+  "error_codes": [
+    "BATCH11_STOCKGRID_UNITS_NORMALIZED_NOT_ZEROED"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "stockgrid_flow_multisource_merge_unit_normalizer",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "rows": [
+      {
+        "_table_path": "data",
+        "tkr": "BROKEN"
+      }
+    ]
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "batch5_authority_systems_capsule",
+  "fixture_id": "first_wave.batch5_authority_systems_capsule",
+  "input_ref": "fixtures/first_wave/batch5_authority_systems_capsule/input",
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_module_manifest": "examples/batch5_authority_systems_capsule/exported_batch5_authority_systems_capsule_bundle/source_module_manifest.json",
+    "body_material_count": 10,
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_in_receipt": false
+  },
+  "positive_inputs": [
+    "batch5_exercise_manifest.json"
+  ],
+  "negative_cases": [
+    "receipt_provider_context_drift.json",
+    "irrelevant_context_no_replay.json",
+    "proof_contract_sorry.json",
+    "live_descendant_never_signal.json",
+    "nonconverging_residual_classified.json",
+    "trace_omission_receipt_required.json",
+    "blast_radius_leaf_empty.json",
+    "doctrine_deleted_path_drift.json"
+  ],
+  "authority_boundary": "Fixture exercises wrap exact copied macro bodies and do not authorize live provider dispatch, process signalling, generated-state mutation, or release."
+}

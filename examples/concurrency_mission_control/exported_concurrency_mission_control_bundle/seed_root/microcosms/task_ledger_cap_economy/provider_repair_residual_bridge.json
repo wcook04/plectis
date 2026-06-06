@@ -1,0 +1,391 @@
+{
+  "authority": {
+    "authority_class": "provider_evaluator_then_task_ledger_residual_validator",
+    "evaluator_authority_count": 4,
+    "fail_closed_gates": [
+      "provider_evaluator_gate",
+      "task_ledger_residual_gate",
+      "receipt_gate",
+      "publication_gate"
+    ],
+    "forbidden_promotions": [
+      "provider_self_attested_status_to_residual_closeout",
+      "provider_repair_fixture_to_live_task_ledger_mutation",
+      "local_fixture_pass_to_public_release_ready",
+      "bridge_projection_to_private_runtime_equivalence"
+    ],
+    "public_claims_blocked": [
+      "provider repair residual bridge mutates the private Task Ledger",
+      "provider repair residual bridge proves live provider quality",
+      "provider repair residual bridge proves live concurrency repair",
+      "provider repair residual bridge approves public release",
+      "provider repair residual bridge exports private provider or ledger state"
+    ],
+    "self_attestation_count": 0
+  },
+  "builder_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+  "cross_links": {
+    "next_refinement": "Route residual task-ledger events back into concurrency stale-lease replay cases.",
+    "pattern_transfer_ref": "microcosms/demo_receipt_storyboard/storyboard.json::pattern.work_metabolism_to_cap_economy",
+    "portfolio_ref": "state/release_candidate_portfolio.json",
+    "receipt_ref": "microcosms/task_ledger_cap_economy/receipt.json",
+    "related_microcosms": [
+      "provider_harness_evaluator_authority_split_microcosm",
+      "concurrency_transaction_mission_control_microcosm",
+      "task_ledger_cap_economy_microcosm"
+    ]
+  },
+  "generated_at": "2026-05-13T00:20:00Z",
+  "generated_by": {
+    "builder": "idea_microcosm.task_ledger_specimen._provider_repair_residual_bridge",
+    "projection_not_authority": true,
+    "source_refs": [
+      "microcosms/concurrency_mission_control/provider_repair_bridge.json"
+    ]
+  },
+  "kind": "task_ledger_provider_repair_residual_bridge",
+  "layman_summary": "Provider failures do not end at a repair transaction; they become visible residual work with a restart point and a next action.",
+  "mechanism": {
+    "cases": [
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.good_json_answer",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.bad_json_self_attested_pass",
+        "outcome": "receipt_only_residual_closed",
+        "repair_route": {
+          "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+          "owner_lane": "receipt_gate",
+          "repair_required": false,
+          "restart_point": "receipt_record",
+          "route_id": "provider_repair_residual_route.good_json_answer",
+          "status": "receipt_record_closed",
+          "transaction_repair": "record provider pass receipt without promoting it to public or hosted authority"
+        },
+        "restart_point": "receipt_record",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.good_json_answer",
+          "provider_evaluator_status": "pass",
+          "provider_failure_class": null,
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": false,
+          "residual_event_type": "receipt",
+          "residual_status": "receipt_only_residual_closed",
+          "restart_point": "receipt_record",
+          "source_bridge_case_id": "provider_concurrency.case.good_json_answer",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "complete",
+          "transaction_status": "provider_pass_recorded_as_receipt_only",
+          "upstream_source_clip_hash": "45602d40dc6192e5c5984b2c968ff6d7c834bbd3d51db64c493523e5e78761b0"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.good_json_answer\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_pass_recorded_as_receipt_only\",\"provider_case_id\":\"case.good_json_answer\",\"provider_evaluator_result\":{\"evaluator_status\":\"pass\",\"failure_class\":null,\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":null,\"next_action\":\"record_fixture_pass_without_public_or_hosted_claim\",\"owner_lane\":\"receipt_gate\",\"restart_from\":\"receipt_record\",\"transaction_repair\":\"record provider pass receipt without promoting it to public or hosted authority\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.good_json_answer\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/receipt.json\"],\"receipt_ref\":\"microcosms/provider_harness_canary/receipt.json\",\"requested_status\":\"complete\"},\"upstream_source_clip_hash\":\"45602d40dc6192e5c5984b2c968ff6d7c834bbd3d51db64c493523e5e78761b0\"}",
+        "source_clip_hash": "273b9c3cd763e589be8bce05bb090b68122de5188da8b4d91c2961534723dbdc",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.good_json_answer",
+          "event_id": "provider_repair_residual.good_json_answer",
+          "event_type": "receipt",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.good_json_answer",
+          "status": "receipt_only_residual_closed",
+          "subject_id": "cap_provider_repair_residual.good_json_answer"
+        },
+        "teaching_rule": "Provider passes become receipt-only residual records and still grant no public, hosted, or private-runtime authority.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.bad_json_self_attested_pass",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.wrong_answer_self_attested_pass",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "repair_output_schema_contract_before_answer_evaluation",
+          "owner_lane": "schema_adapter",
+          "repair_required": true,
+          "restart_point": "schema_validation",
+          "route_id": "provider_repair_residual_route.bad_json_self_attested_pass",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "schema_validation",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_evaluator_status": "fail",
+          "provider_failure_class": "schema_failure",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "schema_validation",
+          "source_bridge_case_id": "provider_concurrency.case.bad_json_self_attested_pass",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "e1ef4a1b0cc33eceae0fd1d6d0bdaee61ae7b710b1e48d88414fa2a38461229d"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.bad_json_self_attested_pass\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.bad_json_self_attested_pass\",\"provider_evaluator_result\":{\"evaluator_status\":\"fail\",\"failure_class\":\"schema_failure\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"schema_failure\",\"next_action\":\"repair_output_schema_contract_before_answer_evaluation\",\"owner_lane\":\"schema_adapter\",\"restart_from\":\"schema_validation\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.bad_json_self_attested_pass\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"src/idea_microcosm/provider_harness_canary_specimen.py\",\"microcosms/provider_harness_canary/canary_board.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"e1ef4a1b0cc33eceae0fd1d6d0bdaee61ae7b710b1e48d88414fa2a38461229d\"}",
+        "source_clip_hash": "9a83002806157e3fa7aa68a2fdc5ba239ec85637264524525294eb94930962b9",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.bad_json_self_attested_pass",
+          "event_id": "provider_repair_residual.bad_json_self_attested_pass",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "src/idea_microcosm/provider_harness_canary_specimen.py",
+            "microcosms/provider_harness_canary/canary_board.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.bad_json_self_attested_pass",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.bad_json_self_attested_pass"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.wrong_answer_self_attested_pass",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.case.timeout",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+          "owner_lane": "provider_prompt_or_model_output",
+          "repair_required": true,
+          "restart_point": "provider_call_with_same_schema_contract",
+          "route_id": "provider_repair_residual_route.wrong_answer_self_attested_pass",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "provider_call_with_same_schema_contract",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_evaluator_status": "fail",
+          "provider_failure_class": "answer_mismatch",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "provider_call_with_same_schema_contract",
+          "source_bridge_case_id": "provider_concurrency.case.wrong_answer_self_attested_pass",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "041eb100f58a122bb97d1c45b551edb2c15440116db513174f780c9b3ae6b1e7"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.wrong_answer_self_attested_pass\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.wrong_answer_self_attested_pass\",\"provider_evaluator_result\":{\"evaluator_status\":\"fail\",\"failure_class\":\"answer_mismatch\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"answer_mismatch\",\"next_action\":\"rerun_or_mutate_provider_output_then_reapply_evaluator\",\"owner_lane\":\"provider_prompt_or_model_output\",\"restart_from\":\"provider_call_with_same_schema_contract\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.wrong_answer_self_attested_pass\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"041eb100f58a122bb97d1c45b551edb2c15440116db513174f780c9b3ae6b1e7\"}",
+        "source_clip_hash": "ec7d668e08d3d2f7751d2291e91f14220472d65f77f6f6de1bef353d1750735b",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.wrong_answer_self_attested_pass",
+          "event_id": "provider_repair_residual.wrong_answer_self_attested_pass",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.wrong_answer_self_attested_pass",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.wrong_answer_self_attested_pass"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      },
+      {
+        "anti_claims": [
+          "provider repair loop approves public release",
+          "provider repair loop exports private provider harness",
+          "provider repair loop proves live concurrency repair",
+          "provider repair loop proves private-runtime equivalence",
+          "provider repair loop proves real provider quality",
+          "provider repair residual bridge approves public release",
+          "provider repair residual bridge exports private provider or ledger state",
+          "provider repair residual bridge mutates the private Task Ledger",
+          "provider repair residual bridge proves live concurrency repair",
+          "provider repair residual bridge proves live provider quality"
+        ],
+        "case_id": "task_ledger_provider_residual.timeout",
+        "evaluator_or_validator": "validator.task_ledger_cap_economy_specimen",
+        "evidence_refs": [
+          "microcosms/concurrency_mission_control/mission_board.json",
+          "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/receipt.json"
+        ],
+        "input_or_trigger": "provider_repair_transaction_claim",
+        "next_case": "provider_concurrency.closeout",
+        "outcome": "residual_work_item_open",
+        "repair_route": {
+          "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+          "owner_lane": "provider_transport",
+          "repair_required": true,
+          "restart_point": "provider_call",
+          "route_id": "provider_repair_residual_route.timeout",
+          "status": "residual_work_item_open",
+          "transaction_repair": "claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control"
+        },
+        "restart_point": "provider_call",
+        "semantic_carryforward": {
+          "projection_boundary": "residual bridge is generated from public-safe provider/concurrency microcosm output, not from the private Task Ledger",
+          "provider_case_id": "case.timeout",
+          "provider_evaluator_status": "block",
+          "provider_failure_class": "provider_route_unavailable",
+          "provider_self_attestation_used_as_authority": false,
+          "repair_required": true,
+          "residual_event_type": "work_item",
+          "residual_status": "residual_work_item_open",
+          "restart_point": "provider_call",
+          "source_bridge_case_id": "provider_concurrency.case.timeout",
+          "summary": "provider repair transaction claim became a task-ledger residual event",
+          "transaction_claim_status": "running",
+          "transaction_status": "provider_repair_routed_fail_closed",
+          "upstream_source_clip_hash": "87811715329dcfabc8fbff0ec17fb453daf0871563f71b50c994a6cf17529ef0"
+        },
+        "source_clip": "{\"bridge_case_id\":\"provider_concurrency.case.timeout\",\"evidence_refs\":[\"microcosms/provider_harness_canary/canary_board.json\",\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/mission_board.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"outcome\":\"provider_repair_routed_fail_closed\",\"provider_case_id\":\"case.timeout\",\"provider_evaluator_result\":{\"evaluator_status\":\"block\",\"failure_class\":\"provider_route_unavailable\",\"provider_self_attestation_used_as_authority\":false},\"repair_route\":{\"failure_class\":\"provider_route_unavailable\",\"next_action\":\"retry_or_replace_provider_route_before_schema_or_answer_evaluation\",\"owner_lane\":\"provider_transport\",\"restart_from\":\"provider_call\",\"transaction_repair\":\"claim scoped repair owner paths, rerun provider canary, then rebuild concurrency mission-control\"},\"transaction_claim\":{\"depends_on\":[\"lane.provider_harness_canary\"],\"lane_id\":\"lane.provider_repair.timeout\",\"lease_expires_at\":\"2030-05-13T04:00:00Z\",\"owner_paths\":[\"microcosms/provider_harness_canary/receipt.json\",\"microcosms/concurrency_mission_control/provider_repair_bridge.json\"],\"receipt_ref\":null,\"requested_status\":\"running\"},\"upstream_source_clip_hash\":\"87811715329dcfabc8fbff0ec17fb453daf0871563f71b50c994a6cf17529ef0\"}",
+        "source_clip_hash": "a41677fba7743ecbd90d850e943b6e998dc6528676629eb939993a4fd33ba77c",
+        "task_ledger_event": {
+          "claim_id": "lane.provider_repair.timeout",
+          "event_id": "provider_repair_residual.timeout",
+          "event_type": "work_item",
+          "evidence_refs": [
+            "microcosms/concurrency_mission_control/mission_board.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+            "microcosms/provider_harness_canary/canary_board.json",
+            "microcosms/provider_harness_canary/receipt.json"
+          ],
+          "owned_paths": [
+            "microcosms/provider_harness_canary/receipt.json",
+            "microcosms/concurrency_mission_control/provider_repair_bridge.json"
+          ],
+          "source_bridge_case_id": "provider_concurrency.case.timeout",
+          "status": "residual_work_item_open",
+          "subject_id": "cap_provider_repair_residual.timeout"
+        },
+        "teaching_rule": "Provider failures that enter concurrency as repair transactions must leave a Task Ledger residual with a restart point before closeout.",
+        "transformation": "provider_repair_transaction_claim -> task_ledger_residual_event"
+      }
+    ]
+  },
+  "microcosm_id": "task_ledger_cap_economy_microcosm",
+  "pattern_family": "provider_repair_to_task_ledger_residual_bridge",
+  "route": {
+    "cold_agent_instruction": "Inspect each residual case hash, then verify repair_required cases have restart points and residual_work_item_open status.",
+    "expected_output": "microcosms/task_ledger_cap_economy/provider_repair_residual_bridge.json",
+    "first_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-task-ledger-specimen --root . --write-receipt",
+    "first_evidence": "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+    "next_artifact": "microcosms/task_ledger_cap_economy/receipt.json",
+    "next_microcosm": "provider_harness_evaluator_authority_split_microcosm"
+  },
+  "schema_version": "task_ledger_provider_repair_residual_bridge_v0",
+  "selected_native_pattern": "provider repair transaction claims become Task Ledger residual work events",
+  "source_owner": "microcosms/concurrency_mission_control/provider_repair_bridge.json",
+  "status": {
+    "blocked_public_claim_count": 5,
+    "case_count": 4,
+    "closed_residual_count": 1,
+    "evaluator_authority_count": 4,
+    "evidence_ref_count": 4,
+    "missing_ref_count": 0,
+    "next_gap": "task_ledger_residuals_to_concurrency_stale_lease_replay",
+    "next_owner": "idea_microcosm.concurrency_mission_control_specimen",
+    "open_residual_count": 3,
+    "repair_route_count": 3,
+    "restart_point_count": 4,
+    "self_attestation_authority_count": 0,
+    "semantic_carryforward_count": 4,
+    "source_capsule_count": 4,
+    "teaching_rule_count": 4,
+    "validation_status": "ok"
+  },
+  "summary": {
+    "blocked_public_claim_count": 5,
+    "case_count": 4,
+    "closed_residual_count": 1,
+    "evaluator_authority_count": 4,
+    "evidence_ref_count": 4,
+    "missing_ref_count": 0,
+    "open_residual_count": 3,
+    "repair_route_count": 3,
+    "restart_point_count": 4,
+    "self_attestation_authority_count": 0,
+    "semantic_carryforward_count": 4,
+    "source_capsule_count": 4,
+    "teaching_rule_count": 4,
+    "validation_status": "ok"
+  },
+  "technical_summary": "Consumes the concurrency provider-repair bridge and emits hashed residual cases, task-ledger event projections, authority counters, and fail-closed anti-claims."
+}

@@ -1,0 +1,87 @@
+{
+  "claim_ref": "candidate.provider_harness_evaluator_authority_split_microcosm",
+  "claim_tier": "fixture_validated",
+  "command": "python -m idea_microcosm.cli build-provider-harness-canary-specimen --root . --write-receipt",
+  "evidence_refs": [
+    "microcosms/provider_harness_canary/canary_board.json",
+    "microcosms/provider_harness_canary/canary_board.json:source_capsule_provenance",
+    "microcosms/provider_harness_canary/canary_board.json:type_b_to_type_a_reduction_extension",
+    "microcosms/provider_harness_canary/README.md",
+    "registry/release_candidates.json",
+    "src/idea_microcosm/provider_harness_canary_specimen.py"
+  ],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "id": "receipt.provider_harness_canary",
+  "kind": "receipt",
+  "omissions": [
+    "This receipt validates synthetic provider outcomes only; it does not include real provider calls, private provider traces, private eval corpora, hosted CI, or production harness behavior.",
+    "The evaluator-authority pattern is fixture-level evidence. Provider reliability, public novelty, and private-root equivalence remain non-claims."
+  ],
+  "owner": "idea_microcosm.provider_harness_canary_specimen",
+  "result": "ok",
+  "schema_version": "receipt_v0",
+  "status": "ok",
+  "summary": {
+    "answer_failed_count": 1,
+    "case_count": 4,
+    "evaluator_block_count": 1,
+    "evaluator_fail_count": 2,
+    "evaluator_pass_count": 1,
+    "hashed_source_clip_count": 4,
+    "provider_route_unavailable_count": 1,
+    "provider_self_attestation_authority_count": 0,
+    "provider_self_attested_pass_count": 3,
+    "provider_self_attested_rejected_count": 2,
+    "repair_route_count": 4,
+    "schema_failed_count": 1,
+    "semantic_carryforward_count": 4,
+    "source_capsule_count": 4,
+    "source_capsule_self_attestation_authority_count": 0,
+    "status_channel_count": 7,
+    "status_channel_names": [
+      "provider_route_status",
+      "provider_output_status",
+      "provider_self_attested_status",
+      "schema_status",
+      "answer_status",
+      "evaluator_status",
+      "receipt_status"
+    ],
+    "type_b_to_type_a_accepted_count": 1,
+    "type_b_to_type_a_blocked_count": 1,
+    "type_b_to_type_a_direct_authority_count": 0,
+    "type_b_to_type_a_patch_without_reduction_count": 0,
+    "type_b_to_type_a_publication_permission_count": 0,
+    "type_b_to_type_a_reduction_case_count": 4,
+    "type_b_to_type_a_rejected_count": 2
+  },
+  "type_b_to_type_a_reduction_validator_summary": [
+    {
+      "id": "validator.type_b_advisory_never_direct_authority",
+      "observed": 0,
+      "status": "pass"
+    },
+    {
+      "id": "validator.patch_requires_type_a_reduction",
+      "observed": 0,
+      "status": "pass"
+    },
+    {
+      "expected": 4,
+      "id": "validator.type_a_reduction_covers_every_advisory_row",
+      "observed": 4,
+      "status": "pass"
+    },
+    {
+      "id": "validator.advisory_rejection_preserves_repair_route",
+      "minimum": 3,
+      "observed": 3,
+      "status": "pass"
+    },
+    {
+      "id": "validator.reduction_extension_grants_no_publication_permission",
+      "observed": 0,
+      "status": "pass"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "body_in_receipt": false,
+  "case_id": "dangling_graph_edge",
+  "error_codes": [
+    "BATCH12_MDRM_DANGLING_EDGE"
+  ],
+  "expected_error_fragment": "$.graph_slice.edges[edge1].target is dangling",
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_market_dashboard_negative_case_v1",
+  "set": {
+    "graph_slice.edges.0.target": "missing-node"
+  },
+  "strict": false
+}

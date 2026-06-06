@@ -1,0 +1,376 @@
+{
+  "baseline_variant_id": "baseline",
+  "body_in_receipt": false,
+  "candidate_variant_ids": [
+    "good",
+    "noise",
+    "weak"
+  ],
+  "dependence_diagnostics": {
+    "event_window_overlap_count": 3,
+    "recommended_block_length": 4
+  },
+  "rows": [
+    {
+      "comparison_event_key": "evt_000",
+      "losses": {
+        "baseline": 0.34,
+        "good": 0.295,
+        "noise": 0.35,
+        "weak": 0.365
+      }
+    },
+    {
+      "comparison_event_key": "evt_001",
+      "losses": {
+        "baseline": 0.349816,
+        "good": 0.305809,
+        "noise": 0.359505,
+        "weak": 0.376254
+      }
+    },
+    {
+      "comparison_event_key": "evt_002",
+      "losses": {
+        "baseline": 0.358551,
+        "good": 0.315498,
+        "noise": 0.367327,
+        "weak": 0.386076
+      }
+    },
+    {
+      "comparison_event_key": "evt_003",
+      "losses": {
+        "baseline": 0.365244,
+        "good": 0.323067,
+        "noise": 0.372561,
+        "weak": 0.393237
+      }
+    },
+    {
+      "comparison_event_key": "evt_004",
+      "losses": {
+        "baseline": 0.369158,
+        "good": 0.327745,
+        "noise": 0.374561,
+        "weak": 0.396886
+      }
+    },
+    {
+      "comparison_event_key": "evt_005",
+      "losses": {
+        "baseline": 0.369862,
+        "good": 0.32907,
+        "noise": 0.373015,
+        "weak": 0.396658
+      }
+    },
+    {
+      "comparison_event_key": "evt_006",
+      "losses": {
+        "baseline": 0.367279,
+        "good": 0.326939,
+        "noise": 0.367986,
+        "weak": 0.392702
+      }
+    },
+    {
+      "comparison_event_key": "evt_007",
+      "losses": {
+        "baseline": 0.361693,
+        "good": 0.32162,
+        "noise": 0.35991,
+        "weak": 0.38564
+      }
+    },
+    {
+      "comparison_event_key": "evt_008",
+      "losses": {
+        "baseline": 0.353718,
+        "good": 0.313716,
+        "noise": 0.349557,
+        "weak": 0.376448
+      }
+    },
+    {
+      "comparison_event_key": "evt_009",
+      "losses": {
+        "baseline": 0.344234,
+        "good": 0.304103,
+        "noise": 0.337952,
+        "weak": 0.366301
+      }
+    },
+    {
+      "comparison_event_key": "evt_010",
+      "losses": {
+        "baseline": 0.334283,
+        "good": 0.293829,
+        "noise": 0.326272,
+        "weak": 0.356406
+      }
+    },
+    {
+      "comparison_event_key": "evt_011",
+      "losses": {
+        "baseline": 0.324962,
+        "good": 0.284004,
+        "noise": 0.315719,
+        "weak": 0.347845
+      }
+    },
+    {
+      "comparison_event_key": "evt_012",
+      "losses": {
+        "baseline": 0.317296,
+        "good": 0.275673,
+        "noise": 0.307396,
+        "weak": 0.341458
+      }
+    },
+    {
+      "comparison_event_key": "evt_013",
+      "losses": {
+        "baseline": 0.31213,
+        "good": 0.269707,
+        "noise": 0.302188,
+        "weak": 0.337775
+      }
+    },
+    {
+      "comparison_event_key": "evt_014",
+      "losses": {
+        "baseline": 0.310031,
+        "good": 0.266706,
+        "noise": 0.300667,
+        "weak": 0.337002
+      }
+    },
+    {
+      "comparison_event_key": "evt_015",
+      "losses": {
+        "baseline": 0.311232,
+        "good": 0.266938,
+        "noise": 0.303027,
+        "weak": 0.339046
+      }
+    },
+    {
+      "comparison_event_key": "evt_016",
+      "losses": {
+        "baseline": 0.3156,
+        "good": 0.270308,
+        "noise": 0.309064,
+        "weak": 0.343568
+      }
+    },
+    {
+      "comparison_event_key": "evt_017",
+      "losses": {
+        "baseline": 0.322654,
+        "good": 0.276376,
+        "noise": 0.318193,
+        "weak": 0.35005
+      }
+    },
+    {
+      "comparison_event_key": "evt_018",
+      "losses": {
+        "baseline": 0.331618,
+        "good": 0.284405,
+        "noise": 0.32951,
+        "weak": 0.357854
+      }
+    },
+    {
+      "comparison_event_key": "evt_019",
+      "losses": {
+        "baseline": 0.341504,
+        "good": 0.293445,
+        "noise": 0.34188,
+        "weak": 0.366278
+      }
+    },
+    {
+      "comparison_event_key": "evt_020",
+      "losses": {
+        "baseline": 0.351225,
+        "good": 0.302441,
+        "noise": 0.354061,
+        "weak": 0.374592
+      }
+    },
+    {
+      "comparison_event_key": "evt_021",
+      "losses": {
+        "baseline": 0.35971,
+        "good": 0.310352,
+        "noise": 0.36483,
+        "weak": 0.382071
+      }
+    },
+    {
+      "comparison_event_key": "evt_022",
+      "losses": {
+        "baseline": 0.366025,
+        "good": 0.316267,
+        "noise": 0.373112,
+        "weak": 0.388025
+      }
+    },
+    {
+      "comparison_event_key": "evt_023",
+      "losses": {
+        "baseline": 0.369475,
+        "good": 0.319507,
+        "noise": 0.378087,
+        "weak": 0.391849
+      }
+    },
+    {
+      "comparison_event_key": "evt_024",
+      "losses": {
+        "baseline": 0.369681,
+        "good": 0.3197,
+        "noise": 0.379282,
+        "weak": 0.393071
+      }
+    },
+    {
+      "comparison_event_key": "evt_025",
+      "losses": {
+        "baseline": 0.366619,
+        "good": 0.316824,
+        "noise": 0.376613,
+        "weak": 0.39142
+      }
+    },
+    {
+      "comparison_event_key": "evt_026",
+      "losses": {
+        "baseline": 0.360627,
+        "good": 0.311209,
+        "noise": 0.370392,
+        "weak": 0.386887
+      }
+    },
+    {
+      "comparison_event_key": "evt_027",
+      "losses": {
+        "baseline": 0.352364,
+        "good": 0.3035,
+        "noise": 0.361294,
+        "weak": 0.379775
+      }
+    },
+    {
+      "comparison_event_key": "evt_028",
+      "losses": {
+        "baseline": 0.34274,
+        "good": 0.294583,
+        "noise": 0.350279,
+        "weak": 0.370711
+      }
+    },
+    {
+      "comparison_event_key": "evt_029",
+      "losses": {
+        "baseline": 0.332814,
+        "good": 0.285491,
+        "noise": 0.338493,
+        "weak": 0.360619
+      }
+    },
+    {
+      "comparison_event_key": "evt_030",
+      "losses": {
+        "baseline": 0.323679,
+        "good": 0.277282,
+        "noise": 0.327146,
+        "weak": 0.35063
+      }
+    },
+    {
+      "comparison_event_key": "evt_031",
+      "losses": {
+        "baseline": 0.316342,
+        "good": 0.270926,
+        "noise": 0.317379,
+        "weak": 0.341961
+      }
+    },
+    {
+      "comparison_event_key": "evt_032",
+      "losses": {
+        "baseline": 0.311608,
+        "good": 0.267191,
+        "noise": 0.310153,
+        "weak": 0.335744
+      }
+    },
+    {
+      "comparison_event_key": "evt_033",
+      "losses": {
+        "baseline": 0.31,
+        "good": 0.266558,
+        "noise": 0.306143,
+        "weak": 0.332865
+      }
+    },
+    {
+      "comparison_event_key": "evt_034",
+      "losses": {
+        "baseline": 0.311695,
+        "good": 0.269166,
+        "noise": 0.305675,
+        "weak": 0.333811
+      }
+    },
+    {
+      "comparison_event_key": "evt_035",
+      "losses": {
+        "baseline": 0.316506,
+        "good": 0.274791,
+        "noise": 0.308697,
+        "weak": 0.338579
+      }
+    },
+    {
+      "comparison_event_key": "evt_036",
+      "losses": {
+        "baseline": 0.323903,
+        "good": 0.282871,
+        "noise": 0.314792,
+        "weak": 0.34665
+      }
+    },
+    {
+      "comparison_event_key": "evt_037",
+      "losses": {
+        "baseline": 0.333072,
+        "good": 0.292566,
+        "noise": 0.323224,
+        "weak": 0.357045
+      }
+    },
+    {
+      "comparison_event_key": "evt_038",
+      "losses": {
+        "baseline": 0.343004,
+        "good": 0.302843,
+        "noise": 0.333032,
+        "weak": 0.368453
+      }
+    },
+    {
+      "comparison_event_key": "evt_039",
+      "losses": {
+        "baseline": 0.352605,
+        "good": 0.312598,
+        "noise": 0.343129,
+        "weak": 0.379422
+      }
+    }
+  ],
+  "schema_version": "finance_family_loss_matrix_v0"
+}

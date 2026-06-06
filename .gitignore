@@ -9,4 +9,6 @@ __pycache__/
 microcosm-substrate/
 dist/
 build/
+.build/
+**/.build/
 *.egg-info/

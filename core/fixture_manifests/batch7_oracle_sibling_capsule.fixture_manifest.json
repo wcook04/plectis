@@ -1,0 +1,30 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "first_wave.batch7_oracle_sibling_capsule",
+  "organ_id": "batch7_oracle_sibling_capsule",
+  "title": "Batch 7 Oracle Sibling Capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "fixture_root": "fixtures/first_wave/batch7_oracle_sibling_capsule/input",
+  "example_bundle": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle",
+  "source_manifest_ref": "examples/batch7_oracle_sibling_capsule/exported_batch7_oracle_sibling_capsule_bundle/source_module_manifest.json",
+  "required_inputs": [
+    "batch7_oracle_sibling_exercise_manifest.json"
+  ],
+  "negative_cases": [
+    "missing_subject_run_dir.json",
+    "missing_artifact_id.json",
+    "macro_truth_run_missing.json",
+    "quartet_run_missing_excluded.json",
+    "original_pytest_witness_required.json"
+  ],
+  "original_witness": {
+    "command": "./repo-python -m pytest -q system/server/tests/test_oracle_v1_tools.py system/server/tests/test_evolve_runner.py::test_oracle_quartet_repair_plan_materializes_existing_legacy_alias system/server/tests/test_evolve_runner.py::test_oracle_quartet_plan_stdout_publishes_compact_launcher_field",
+    "cwd": ".",
+    "expected_min_passed_count": 7
+  },
+  "explicit_exclusion": {
+    "source_ref": "tools/oracle/run_quartet.py::run_missing_quartet",
+    "reason": "run_missing_quartet can invoke GodModeEngine and remains outside this public-safe deterministic capsule."
+  },
+  "body_in_receipt": false
+}

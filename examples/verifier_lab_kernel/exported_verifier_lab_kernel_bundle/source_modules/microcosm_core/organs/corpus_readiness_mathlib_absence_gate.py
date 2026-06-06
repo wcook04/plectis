@@ -3,6 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
+import subprocess
+import tempfile
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -32,6 +36,8 @@ BUNDLE_RESULT_NAME = "exported_corpus_readiness_bundle_validation_result.json"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_MODULE_IMPORT_STATUS = "copied_corpus_readiness_source_modules_verified"
 CARD_SCHEMA_VERSION = "corpus_readiness_mathlib_absence_gate_command_card_v1"
+LEAN_IMPORT_PROBE_TIMEOUT_SECONDS = 20
+LEAN_IMPORT_PROBE_SCHEMA_VERSION = "corpus_readiness_runtime_lean_import_probe_v1"
 
 SOURCE_PATTERN_IDS = [
     "corpus_readiness_mathlib_absence_gate",
@@ -74,6 +80,7 @@ SOURCE_DIGESTS = {
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 CORPUS_READINESS_STATUS = "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
 TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
+RUNTIME_PROBE_STATUS = "real_runtime_lean_std_good_mathlib_absent_probe"
 BODY_IN_RECEIPT = False
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
@@ -81,6 +88,8 @@ PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_receipt_body",
     "public_macro_proof_body",
 }
+REPO_ROOT = Path(__file__).resolve().parents[4]
+NON_EXAMPLE_HOME_RE = re.compile(r"/Users/(?!example(?:/|$))[^/\s\"']+")
 
 FORBIDDEN_BODY_KEYS = (
     "proof_body",
@@ -88,13 +97,20 @@ FORBIDDEN_BODY_KEYS = (
     "lean_source_body",
     "provider_output_body",
 )
+MATHLIB_PRESENT_ALIAS_FIELDS = (
+    "available",
+    "mathlib_available",
+    "direct_mathlib_lane_available",
+    "mathlib_direct_import_available",
+)
 
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority"
+        "bounded_runtime_lean_import_probe_not_mathlib_proof_or_benchmark_authority"
     ),
-    "lean_lake_execution_authorized": False,
+    "lean_lake_execution_authorized": "bounded_runtime_import_probe_only",
+    "lean_lake_execution_scope": "temporary_lean_import_probe_no_lake_build",
     "mathlib_lake_project_import_authorized": False,
     "mathlib_dependent_proof_authority": False,
     "formal_proof_authority": False,
@@ -105,10 +121,12 @@ AUTHORITY_CEILING = {
 
 ANTI_CLAIM = (
     "Corpus readiness Mathlib absence gate validates copied non-secret corpus "
-    "readiness and Lean/Std toolchain-boundary rows from the 2026-05-11 "
-    "proof-state curriculum smoke run. It does not rerun Lean or Lake, prove "
-    "theorem correctness, claim Mathlib is available, expose proof/provider "
-    "bodies, benchmark formal-math corpora, call providers, or authorize release."
+    "readiness rows from the 2026-05-11 proof-state curriculum smoke run, "
+    "paired with a bounded runtime Lean import probe proving Std still imports "
+    "and Mathlib remains absent in the current host environment. It does not "
+    "run a Lake build, prove theorem correctness, claim Mathlib is available, "
+    "expose proof/provider bodies, benchmark formal-math corpora, call "
+    "providers, or authorize release."
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -194,12 +212,30 @@ def _source_module_target_path(input_dir: Path, row: dict[str, Any]) -> Path:
     return public_root / target_ref if target_ref else input_dir
 
 
+def _source_module_source_path(public_root: Path, row: dict[str, Any]) -> Path | None:
+    source_ref = str(row.get("source_ref") or "")
+    if not source_ref:
+        return None
+    if source_ref.startswith("microcosm-substrate/"):
+        return public_root / _strip_microcosm_prefix(source_ref)
+    return public_root.parent / source_ref
+
+
 def _source_artifact_paths(input_dir: Path) -> list[Path]:
     manifest = _read_source_module_manifest(input_dir)
     return [
         _source_module_target_path(input_dir, row)
         for row in _source_module_rows(manifest)
     ]
+
+
+def _source_module_rows_by_ref(input_dir: Path) -> dict[str, dict[str, Any]]:
+    rows_by_ref: dict[str, dict[str, Any]] = {}
+    for row in _source_module_rows(_read_source_module_manifest(input_dir)):
+        source_ref = str(row.get("source_ref") or "")
+        if source_ref:
+            rows_by_ref[source_ref] = row
+    return rows_by_ref
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
@@ -224,7 +260,11 @@ def _normalize_sha256(value: object) -> str:
 
 
 def _line_count(path: Path) -> int:
-    return len(path.read_text(encoding="utf-8").splitlines())
+    line_count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
 
 
 def _finding(
@@ -288,6 +328,20 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     return findings
 
 
+def _unexpected_findings(
+    findings: list[dict[str, Any]],
+    expected: dict[str, list[str]],
+) -> list[dict[str, Any]]:
+    expected_codes = {case_id: set(codes) for case_id, codes in expected.items()}
+    unexpected: list[dict[str, Any]] = []
+    for finding in findings:
+        case_id = str(finding.get("negative_case_id") or "")
+        code = str(finding.get("error_code") or "")
+        if code not in expected_codes.get(case_id, set()):
+            unexpected.append(finding)
+    return unexpected
+
+
 def _source_ref_is_private(ref: str) -> bool:
     lowered = ref.lower()
     return (
@@ -300,29 +354,409 @@ def _source_ref_is_private(ref: str) -> bool:
     )
 
 
+def _runtime_source_path(input_dir: Path, *, public_root: Path, source_ref: str) -> Path:
+    if source_ref.startswith("microcosm-substrate/"):
+        candidate = public_root / _strip_microcosm_prefix(source_ref)
+        if candidate.is_file():
+            return candidate
+        repo_candidate = REPO_ROOT / source_ref
+        if repo_candidate.is_file():
+            return repo_candidate
+    else:
+        for candidate in (
+            input_dir / "source_artifacts" / source_ref,
+            public_root.parent / source_ref,
+            REPO_ROOT / source_ref,
+        ):
+            if candidate.is_file():
+                return candidate
+    return public_root.parent / source_ref
+
+
+def _runtime_corpus_rows(payload: object) -> dict[str, dict[str, Any]]:
+    rows = _rows(payload, "rows") or _rows(payload, "corpora")
+    return {
+        str(row.get("corpus_id") or "corpus"): row
+        for row in rows
+        if isinstance(row, dict)
+    }
+
+
+def _runtime_mathlib_probe_status(payload: object) -> str:
+    if not isinstance(payload, dict):
+        return "unknown"
+    mathlib = payload.get("mathlib")
+    if isinstance(mathlib, dict):
+        if mathlib.get("lake_project_mathlib_lane_available") is True:
+            return PASS
+        for key in ("error_class", "lean_status"):
+            value = str(mathlib.get(key) or "")
+            if value:
+                return value
+    if payload.get("mathlib_lake_project_import_available") is True:
+        return PASS
+    return "unknown"
+
+
+def _normalize_private_absolute_path_rewrite(text: str) -> str:
+    return NON_EXAMPLE_HOME_RE.sub("/Users/example", text)
+
+
+def _true_fields(payload: dict[str, Any], fields: tuple[str, ...]) -> list[str]:
+    return [field for field in fields if payload.get(field) is True]
+
+
+def _command_result_card(
+    argv: list[str],
+    *,
+    cwd: Path,
+    timeout_seconds: int,
+) -> dict[str, Any]:
+    try:
+        completed = subprocess.run(
+            argv,
+            cwd=cwd,
+            text=True,
+            capture_output=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
+        stdout = completed.stdout or ""
+        stderr = completed.stderr or ""
+        return {
+            "argv": [Path(argv[0]).name, *argv[1:]],
+            "cwd_name": cwd.name,
+            "return_code": completed.returncode,
+            "stdout_line_count": len(stdout.splitlines()),
+            "stderr_line_count": len(stderr.splitlines()),
+            "stdout_has_unknown_mathlib": "unknown module prefix 'Mathlib'" in stdout,
+            "stderr_has_unknown_mathlib": "unknown module prefix 'Mathlib'" in stderr,
+            "timeout_seconds": timeout_seconds,
+            "timed_out": False,
+            "body_redacted": True,
+        }
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        stdout = getattr(exc, "stdout", "") or ""
+        stderr = getattr(exc, "stderr", "") or ""
+        return {
+            "argv": [Path(argv[0]).name, *argv[1:]],
+            "cwd_name": cwd.name,
+            "return_code": 124 if isinstance(exc, subprocess.TimeoutExpired) else None,
+            "stdout_line_count": len(str(stdout).splitlines()),
+            "stderr_line_count": len(str(stderr).splitlines()),
+            "stdout_has_unknown_mathlib": "unknown module prefix 'Mathlib'" in str(stdout),
+            "stderr_has_unknown_mathlib": "unknown module prefix 'Mathlib'" in str(stderr),
+            "timeout_seconds": timeout_seconds,
+            "timed_out": isinstance(exc, subprocess.TimeoutExpired),
+            "body_redacted": True,
+            "error_class": "TIMEOUT" if isinstance(exc, subprocess.TimeoutExpired) else "OS_ERROR",
+        }
+
+
+def runtime_lean_import_probe() -> dict[str, Any]:
+    lean_path = shutil.which("lean")
+    lake_path = shutil.which("lake")
+    if lean_path is None:
+        return {
+            "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
+            "status": "blocked",
+            "proof_class": "live_runtime_probe",
+            "lean_available": False,
+            "lake_available": lake_path is not None,
+            "std_import_passed": False,
+            "mathlib_import_rejected": False,
+            "mathlib_lake_project_import_available": False,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_redacted": True,
+            "blocked_by": "lean_unavailable",
+        }
+
+    with tempfile.TemporaryDirectory(
+        prefix="microcosm_corpus_readiness_probe_",
+        dir="/tmp",
+    ) as temp_name:
+        temp_root = Path(temp_name)
+        std_probe = temp_root / "StdGood.lean"
+        mathlib_probe = temp_root / "MathlibAbsent.lean"
+        std_probe.write_text(
+            "import Std\n\nexample : (2 : Nat) + 2 = 4 := by decide\n",
+            encoding="utf-8",
+        )
+        mathlib_probe.write_text(
+            "import Mathlib\n\nexample : (2 : Nat) + 2 = 4 := by norm_num\n",
+            encoding="utf-8",
+        )
+        std_run = _command_result_card(
+            [lean_path, std_probe.name],
+            cwd=temp_root,
+            timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+        )
+        mathlib_run = _command_result_card(
+            [lean_path, mathlib_probe.name],
+            cwd=temp_root,
+            timeout_seconds=LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+        )
+
+    std_passed = std_run.get("return_code") == 0
+    mathlib_rejected = (
+        mathlib_run.get("return_code") not in (0, None)
+        and (
+            mathlib_run.get("stdout_has_unknown_mathlib") is True
+            or mathlib_run.get("stderr_has_unknown_mathlib") is True
+        )
+    )
+    return {
+        "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
+        "status": PASS if std_passed and mathlib_rejected else "blocked",
+        "proof_class": "live_runtime_probe",
+        "lean_available": True,
+        "lake_available": lake_path is not None,
+        "std_import_passed": std_passed,
+        "mathlib_import_rejected": mathlib_rejected,
+        "mathlib_lake_project_import_available": False,
+        "std_probe": std_run,
+        "mathlib_probe": mathlib_run,
+        "timeout_seconds": LEAN_IMPORT_PROBE_TIMEOUT_SECONDS,
+        "temp_root_policy": "/tmp temporary directory cleaned before receipt write",
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_redacted": True,
+    }
+
+
+def validate_runtime_source_artifacts(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    artifacts: list[dict[str, Any]] = []
+    parsed_payloads: dict[str, Any] = {}
+    source_module_rows = _source_module_rows_by_ref(input_dir)
+
+    for source_ref in SOURCE_REFS:
+        path = _runtime_source_path(input_dir, public_root=public_root, source_ref=source_ref)
+        exists = path.is_file()
+        actual_digest = _sha256(path) if exists else None
+        expected_digest = SOURCE_DIGESTS.get(source_ref)
+        bundle_artifact_path = input_dir / "source_artifacts" / source_ref
+        if path == bundle_artifact_path:
+            row = source_module_rows.get(source_ref, {})
+            expected_digest = (
+                _normalize_sha256(row.get("public_safe_sha256"))
+                or _normalize_sha256(row.get("target_sha256"))
+                or _normalize_sha256(row.get("sha256"))
+                or expected_digest
+            )
+        target_ref = _display(path, public_root=public_root)
+        artifacts.append(
+            {
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "exists": exists,
+                "expected_sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "digest_match": actual_digest == expected_digest if exists else False,
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "body_material_status": BODY_MATERIAL_STATUS,
+            }
+        )
+        if not exists:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_ARTIFACT_MISSING",
+                    "Runtime-derived corpus readiness validation requires the anchored source artifact body.",
+                    case_id="positive_runtime_source_artifacts",
+                    subject_id=source_ref,
+                    subject_kind="source_ref",
+                )
+            )
+            continue
+        if expected_digest and actual_digest != expected_digest:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                    "Runtime-derived corpus readiness validation requires anchored source artifact digests to match the cited public-safe source body.",
+                    case_id="positive_runtime_source_artifacts",
+                    subject_id=source_ref,
+                    subject_kind="source_ref",
+                )
+            )
+        if path.suffix == ".json":
+            payload = read_json_strict(path)
+            parsed_payloads[source_ref] = payload if isinstance(payload, dict) else {}
+
+    import_probe = runtime_lean_import_probe()
+    if import_probe.get("status") != PASS:
+        findings.append(
+            _finding(
+                "CORPUS_READINESS_RUNTIME_LEAN_IMPORT_PROBE_BLOCKED",
+                "Runtime Lean import probe must show Std imports and Mathlib remains absent before the corpus readiness projection can pass.",
+                case_id="positive_runtime_probe",
+                subject_id="runtime_lean_import_probe",
+                subject_kind="runtime_probe",
+            )
+        )
+
+    corpus_payload = parsed_payloads.get(SOURCE_REFS[0], {})
+    tactic_probe_payload = parsed_payloads.get(SOURCE_REFS[1], {})
+    mathlib_available = False
+    if isinstance(tactic_probe_payload, dict):
+        mathlib = tactic_probe_payload.get("mathlib")
+        if isinstance(mathlib, dict):
+            mathlib_available = mathlib.get("lake_project_mathlib_lane_available") is True
+            present_alias_fields = _true_fields(mathlib, MATHLIB_PRESENT_ALIAS_FIELDS)
+            if present_alias_fields and not mathlib_available:
+                findings.append(
+                    _finding(
+                        "CORPUS_READINESS_MATHLIB_PRESENT_ALIAS_UNSUPPORTED",
+                        "Mathlib-present alias fields cannot substitute for a passing lake-project Mathlib lane probe.",
+                        case_id="positive_runtime_probe",
+                        subject_id=",".join(sorted(present_alias_fields)),
+                        subject_kind="runtime_mathlib_probe",
+                    )
+                )
+            if str(mathlib.get("lean_status") or "") == PASS and not mathlib_available:
+                findings.append(
+                    _finding(
+                        "CORPUS_READINESS_MATHLIB_STATUS_ALIAS_UNSUPPORTED",
+                        "A PASS lean_status is not Mathlib availability unless the lake-project Mathlib lane is available.",
+                        case_id="positive_runtime_probe",
+                        subject_id="lean_status",
+                        subject_kind="runtime_mathlib_probe",
+                    )
+                )
+    if isinstance(corpus_payload, dict):
+        corpus_lake_available = (
+            corpus_payload.get("mathlib_lake_project_import_available") is True
+        )
+        present_alias_fields = _true_fields(
+            corpus_payload,
+            MATHLIB_PRESENT_ALIAS_FIELDS,
+        )
+        if present_alias_fields and not corpus_lake_available:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_MATHLIB_PRESENT_ALIAS_UNSUPPORTED",
+                    "Corpus readiness Mathlib-present alias fields cannot substitute for mathlib_lake_project_import_available evidence.",
+                    case_id="positive_runtime_probe",
+                    subject_id=",".join(sorted(present_alias_fields)),
+                    subject_kind="runtime_corpus_readiness",
+                )
+            )
+        if not mathlib_available:
+            mathlib_available = corpus_lake_available
+
+    return {
+        "runtime_source_artifact_status": PASS if not findings else "blocked",
+        "runtime_source_artifacts": artifacts,
+        "runtime_source_artifact_count": len(artifacts),
+        "runtime_corpus_rows": _runtime_corpus_rows(corpus_payload),
+        "runtime_mathlib_probe_status": _runtime_mathlib_probe_status(
+            tactic_probe_payload or corpus_payload
+        ),
+        "mathlib_lake_project_import_available": mathlib_available,
+        "runtime_lean_import_probe": import_probe,
+        "findings": findings,
+    }
+
+
 def validate_corpus_readiness(
     payload: object,
     *,
     negative_payloads: dict[str, Any],
+    runtime_source_artifacts: dict[str, Any],
 ) -> dict[str, Any]:
     rows = _rows(payload, "corpora")
     corpus_rows: list[dict[str, Any]] = []
     blocked_capabilities: list[str] = []
-    mathlib_import_available = False
+    runtime_rows = runtime_source_artifacts.get("runtime_corpus_rows", {})
+    runtime_mathlib_import_available = (
+        runtime_source_artifacts.get("mathlib_lake_project_import_available") is True
+    )
+    runtime_mathlib_probe_status = str(
+        runtime_source_artifacts.get("runtime_mathlib_probe_status") or "unknown"
+    )
     translation_smoke_only_ids: list[str] = []
     absent_corpus_ids: list[str] = []
     source_refs: list[str] = []
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
 
     if isinstance(payload, dict):
         source_refs.extend(str(ref) for ref in payload.get("source_refs", []) if isinstance(ref, str))
+        claimed_top_level_availability = payload.get("mathlib_lake_project_import_available")
+        if (
+            isinstance(claimed_top_level_availability, bool)
+            and claimed_top_level_availability != runtime_mathlib_import_available
+        ):
+            _record(
+                findings,
+                observed,
+                "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+                "Corpus readiness claims must agree with the anchored runtime Mathlib probe evidence.",
+                case_id="positive_runtime_probe",
+                subject_id="mathlib_lake_project_import_available",
+                subject_kind="corpus_readiness",
+            )
+        present_alias_fields = _true_fields(payload, MATHLIB_PRESENT_ALIAS_FIELDS)
+        if present_alias_fields and not runtime_mathlib_import_available:
+            _record(
+                findings,
+                observed,
+                "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+                "Corpus readiness Mathlib-present aliases must agree with anchored runtime Mathlib probe evidence.",
+                case_id="positive_runtime_probe",
+                subject_id=",".join(sorted(present_alias_fields)),
+                subject_kind="corpus_readiness",
+            )
 
     for row in rows:
         corpus_id = str(row.get("corpus_id") or "corpus")
-        corpus_status = str(row.get("corpus_status") or "available")
-        mathlib_probe_status = str(row.get("mathlib_probe_status") or "unknown")
-        row_mathlib_available = row.get("mathlib_lake_project_import_available") is True
-        if row_mathlib_available and mathlib_probe_status == PASS:
-            mathlib_import_available = True
+        runtime_row_present = corpus_id in runtime_rows
+        runtime_row = runtime_rows.get(corpus_id, {})
+        exists = runtime_row.get("exists")
+        if not isinstance(exists, bool):
+            exists = row.get("exists")
+        has_lake_file = runtime_row.get("has_lake_file")
+        if not isinstance(has_lake_file, bool):
+            has_lake_file = row.get("has_lake_file")
+        readiness_status = str(
+            runtime_row.get("readiness_status") or row.get("readiness_status") or ""
+        )
+        corpus_status = (
+            "absent"
+            if readiness_status == "absent" or exists is False
+            else str(
+                runtime_row.get("corpus_status")
+                or ("available" if runtime_row_present else row.get("corpus_status"))
+                or "available"
+            )
+        )
+        row_mathlib_available = (
+            bool(exists)
+            and bool(has_lake_file)
+            and runtime_mathlib_import_available
+        )
+        mathlib_probe_status = (
+            "NOT_PROBED_ABSENT_CORPUS"
+            if corpus_status == "absent" and corpus_id != "mathlib"
+            else runtime_mathlib_probe_status
+        )
+        claimed_probe_status = str(row.get("mathlib_probe_status") or "unknown")
+        claimed_mathlib_available = row.get("mathlib_lake_project_import_available") is True
+        if (
+            claimed_mathlib_available != row_mathlib_available
+            or claimed_probe_status != mathlib_probe_status
+        ):
+            _record(
+                findings,
+                observed,
+                "CORPUS_READINESS_RUNTIME_PROBE_CONTRADICTION",
+                "Corpus readiness claims must agree with the anchored runtime Mathlib probe evidence.",
+                case_id="positive_runtime_probe",
+                subject_id=corpus_id,
+                subject_kind="corpus_readiness",
+            )
         if not row_mathlib_available:
             blocked_capabilities.append(f"{corpus_id}:mathlib_lake_project_import")
         if row.get("translation_smoke_only") is True:
@@ -338,11 +772,15 @@ def validate_corpus_readiness(
                 "corpus_id": corpus_id,
                 "corpus_status": corpus_status,
                 "lean_available": row.get("lean_available") is True,
-                "exists": row.get("exists"),
-                "has_lake_file": row.get("has_lake_file"),
-                "local_path": row.get("local_path"),
-                "readiness_status": row.get("readiness_status"),
-                "selected_for_this_run": row.get("selected_for_this_run") is True,
+                "exists": exists,
+                "has_lake_file": has_lake_file,
+                "local_path": runtime_row.get("local_path") or row.get("local_path"),
+                "readiness_status": readiness_status,
+                "selected_for_this_run": (
+                    runtime_row.get("selected_for_this_run") is True
+                    if "selected_for_this_run" in runtime_row
+                    else row.get("selected_for_this_run") is True
+                ),
                 "mathlib_lake_project_import_available": row_mathlib_available,
                 "mathlib_probe_status": mathlib_probe_status,
                 "translation_smoke_only": row.get("translation_smoke_only") is True,
@@ -352,9 +790,6 @@ def validate_corpus_readiness(
                 "corpus_readiness_status": CORPUS_READINESS_STATUS,
             }
         )
-
-    findings: list[dict[str, Any]] = []
-    observed: dict[str, set[str]] = defaultdict(set)
     mathlib_negative = negative_payloads.get("mathlib_available_without_probe")
     if isinstance(mathlib_negative, dict):
         case_id = str(
@@ -422,7 +857,8 @@ def validate_corpus_readiness(
         "corpora": sorted(corpus_rows, key=lambda item: item["corpus_id"]),
         "corpus_count": len(corpus_rows),
         "blocked_capabilities": sorted(set(blocked_capabilities)),
-        "mathlib_lake_project_import_available": mathlib_import_available,
+        "mathlib_lake_project_import_available": runtime_mathlib_import_available,
+        "runtime_mathlib_probe_status": runtime_mathlib_probe_status,
         "translation_smoke_only_ids": sorted(translation_smoke_only_ids),
         "absent_corpus_ids": sorted(absent_corpus_ids),
         "source_refs": sorted(set(source_refs)),
@@ -441,17 +877,30 @@ def validate_consumer_gate_cases(
     cases: list[dict[str, Any]] = []
     allowed: list[str] = []
     blocked: list[str] = []
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
     absent = set(absent_corpus_ids)
 
     for row in _rows(payload, "cases"):
         case_id = str(row.get("case_id") or "case")
         target_corpus = str(row.get("target_corpus_id") or "")
         requires_mathlib = row.get("requires_mathlib_lake_project_import") is True
+        readiness_gate_checked = row.get("readiness_gate_checked") is True
         blocked_reasons: list[str] = []
         if requires_mathlib and not mathlib_available:
             blocked_reasons.append("mathlib_lake_project_import_unavailable")
         if target_corpus in absent:
             blocked_reasons.append("corpus_absent")
+        if not readiness_gate_checked:
+            _record(
+                findings,
+                observed,
+                "CONSUMER_READINESS_GATE_UNCHECKED",
+                "A real consumer case must prove it checked corpus readiness before a verdict is accepted.",
+                case_id="positive_consumer_gate",
+                subject_id=case_id,
+                subject_kind="consumer_gate",
+            )
         decision = "blocked" if blocked_reasons else "allowed"
         if decision == "allowed":
             allowed.append(case_id)
@@ -463,7 +912,7 @@ def validate_consumer_gate_cases(
                 "target_corpus_id": target_corpus,
                 "requested_capability": row.get("requested_capability"),
                 "requires_mathlib_lake_project_import": requires_mathlib,
-                "readiness_gate_checked": row.get("readiness_gate_checked") is True,
+                "readiness_gate_checked": readiness_gate_checked,
                 "decision": decision,
                 "blocked_reasons": blocked_reasons,
                 "body_in_receipt": BODY_IN_RECEIPT,
@@ -472,8 +921,6 @@ def validate_consumer_gate_cases(
             }
         )
 
-    findings: list[dict[str, Any]] = []
-    observed: dict[str, set[str]] = defaultdict(set)
     skip_negative = negative_payloads.get("consumer_skips_readiness_gate")
     if isinstance(skip_negative, dict):
         case_id = str(
@@ -578,6 +1025,7 @@ def validate_source_module_imports(
     for row in rows:
         module_id = str(row.get("module_id") or "source_module")
         target = _source_module_target_path(input_dir, row)
+        source = _source_module_source_path(public_root, row)
         source_digest = _normalize_sha256(row.get("source_sha256")) or _normalize_sha256(
             row.get("sha256")
         )
@@ -586,29 +1034,44 @@ def validate_source_module_imports(
         )
         exists = target.is_file()
         actual_digest = _sha256(target) if exists else None
+        source_exists = bool(source and source.is_file())
+        actual_source_digest = _sha256(source) if source_exists and source else None
+        source_digest_match = (
+            actual_source_digest == source_digest
+            if source_exists and source_digest
+            else None
+        )
         material_class = str(row.get("material_class") or "")
         source_ref = str(row.get("source_ref") or "")
         target_ref = _display(target, public_root=public_root)
         digest_match = actual_digest == target_digest
+        source_to_target_relation = str(
+            row.get("source_to_target_relation") or "exact_copy"
+        )
+        verification_mode = str(
+            row.get("verification_mode") or "exact_source_digest_match"
+        )
+        public_safe_transform = str(row.get("public_safe_transform") or "")
+        relation_pass: bool | None = None
         import_row = {
             "module_id": module_id,
             "source_ref": source_ref,
             "target_ref": target_ref,
             "material_class": material_class,
             "source_sha256": source_digest,
+            "actual_source_sha256": actual_source_digest,
             "expected_target_sha256": target_digest,
             "target_sha256": actual_digest,
+            "source_exists": source_exists,
             "exists": exists,
             "digest_match": digest_match,
-            "source_to_target_relation": str(
-                row.get("source_to_target_relation") or "exact_copy"
-            ),
-            "verification_mode": str(
-                row.get("verification_mode") or "exact_source_digest_match"
-            ),
-            "public_safe_transform": row.get("public_safe_transform"),
+            "source_digest_match": source_digest_match,
+            "source_to_target_relation": source_to_target_relation,
+            "verification_mode": verification_mode,
+            "public_safe_transform": public_safe_transform or None,
             "source_line_count": _line_count(target) if exists else None,
             "target_line_count": _line_count(target) if exists else None,
+            "relation_pass": relation_pass,
             "body_in_receipt": BODY_IN_RECEIPT,
             "body_material_status": BODY_MATERIAL_STATUS,
             "corpus_readiness_status": CORPUS_READINESS_STATUS,
@@ -656,6 +1119,16 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        if source_digest_match is False:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
+                    "Declared source module digest must match the live source digest when source_ref is available.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
         elif not digest_match:
             findings.append(
                 _finding(
@@ -666,8 +1139,63 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        elif source_exists and exists:
+            if source_to_target_relation == "exact_copy":
+                relation_pass = actual_source_digest == actual_digest
+                if not relation_pass:
+                    findings.append(
+                        _finding(
+                            "CORPUS_READINESS_SOURCE_MODULE_EXACT_COPY_MISMATCH",
+                            "Exact-copy source module rows must preserve source and target body equality.",
+                            case_id="source_module_floor",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
+            elif source_to_target_relation == "verified_public_safe_private_path_rewrite":
+                relation_pass = (
+                    verification_mode == "verified_light_edit_recipe"
+                    and public_safe_transform == "private_absolute_path_rewrite_only"
+                )
+                if relation_pass:
+                    source_text = source.read_text(encoding="utf-8")
+                    target_text = target.read_text(encoding="utf-8")
+                    relation_pass = (
+                        _normalize_private_absolute_path_rewrite(source_text)
+                        == target_text
+                    )
+                if not relation_pass:
+                    findings.append(
+                        _finding(
+                            "CORPUS_READINESS_SOURCE_MODULE_PUBLIC_SAFE_REWRITE_MISMATCH",
+                            "Public-safe rewrite rows must match the declared private-absolute-path rewrite recipe exactly.",
+                            case_id="source_module_floor",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
+            else:
+                relation_pass = False
+                findings.append(
+                    _finding(
+                        "CORPUS_READINESS_SOURCE_MODULE_RELATION_UNSUPPORTED",
+                        "Source module rows must declare a supported source-to-target relation.",
+                        case_id="source_module_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
 
-    copied_count = sum(1 for row in imports if row["exists"] and row["digest_match"])
+        import_row["relation_pass"] = relation_pass
+
+    copied_count = sum(
+        1
+        for row in imports
+        if row["exists"]
+        and row["digest_match"]
+        and row.get("source_digest_match") is not False
+        and row.get("relation_pass") is not False
+    )
     source_modules_pass = not findings
     return {
         "source_module_manifest_ref": manifest_ref,
@@ -703,6 +1231,7 @@ def _build_board(
             "mathlib_lake_project_import_available": result[
                 "mathlib_lake_project_import_available"
             ],
+            "runtime_mathlib_probe_status": result["runtime_mathlib_probe_status"],
             "consumer_gate_required": True,
             "translation_smoke_only_is_not_proof_authority": True,
             "body_in_receipt": BODY_IN_RECEIPT,
@@ -741,6 +1270,10 @@ def _build_board(
         "copied_source_artifact_count": result.get("copied_source_artifact_count"),
         "source_modules_pass": result.get("source_modules_pass"),
         "source_module_imports": result.get("source_module_imports", []),
+        "runtime_source_artifact_status": result.get("runtime_source_artifact_status"),
+        "runtime_source_artifact_count": result.get("runtime_source_artifact_count"),
+        "runtime_source_artifacts": result.get("runtime_source_artifacts", []),
+        "runtime_lean_import_probe": result.get("runtime_lean_import_probe", {}),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": BODY_IN_RECEIPT,
@@ -764,10 +1297,15 @@ def _build_result(
         display_root=public_root,
     )
     secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
+    runtime_source_artifacts = validate_runtime_source_artifacts(
+        input_dir,
+        public_root=public_root,
+    )
 
     corpus = validate_corpus_readiness(
         payloads["corpus_readiness"],
         negative_payloads=negative_payloads,
+        runtime_source_artifacts=runtime_source_artifacts,
     )
     consumer = validate_consumer_gate_cases(
         payloads["consumer_gate_cases"],
@@ -783,13 +1321,20 @@ def _build_result(
     observed = _merge_observed(corpus, consumer)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(corpus, consumer, source_imports)
+    findings = _merge_findings(
+        runtime_source_artifacts,
+        corpus,
+        consumer,
+        source_imports,
+    )
     error_codes = sorted({finding["error_code"] for finding in findings})
+    unexpected_findings = _unexpected_findings(findings, expected)
     status = (
         PASS
         if not missing
         and not secret_scan["blocking_hit_count"]
         and source_imports["source_modules_pass"]
+        and not unexpected_findings
         else "blocked"
     )
     bundle_manifest = (
@@ -841,12 +1386,25 @@ def _build_result(
         "mathlib_lake_project_import_available": corpus[
             "mathlib_lake_project_import_available"
         ],
+        "runtime_mathlib_probe_status": corpus["runtime_mathlib_probe_status"],
         "translation_smoke_only_ids": corpus["translation_smoke_only_ids"],
         "absent_corpus_ids": corpus["absent_corpus_ids"],
         "consumer_gate_cases": consumer["cases"],
         "consumer_case_count": consumer["case_count"],
         "allowed_case_ids": consumer["allowed_case_ids"],
         "blocked_case_ids": consumer["blocked_case_ids"],
+        "runtime_source_artifact_status": runtime_source_artifacts[
+            "runtime_source_artifact_status"
+        ],
+        "runtime_source_artifact_count": runtime_source_artifacts[
+            "runtime_source_artifact_count"
+        ],
+        "runtime_source_artifacts": runtime_source_artifacts[
+            "runtime_source_artifacts"
+        ],
+        "runtime_lean_import_probe": runtime_source_artifacts[
+            "runtime_lean_import_probe"
+        ],
     }
     result["readiness_board"] = _build_board(result=result, secret_scan=secret_scan)
     return result
@@ -896,11 +1454,16 @@ def _common_receipt(
         "corpus_count",
         "blocked_capabilities",
         "mathlib_lake_project_import_available",
+        "runtime_mathlib_probe_status",
         "translation_smoke_only_ids",
         "absent_corpus_ids",
         "consumer_case_count",
         "allowed_case_ids",
         "blocked_case_ids",
+        "runtime_source_artifact_status",
+        "runtime_source_artifact_count",
+        "runtime_source_artifacts",
+        "runtime_lean_import_probe",
     )
     payload = {
         "schema_version": schema_version,
@@ -915,18 +1478,6 @@ def _common_receipt(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     return [_display(path, public_root=public_root) for path in paths.values()]
-
-
-def _exported_bundle_receipt_ref(
-    receipt_path: Path,
-    *,
-    target: Path,
-    public_root: Path,
-) -> str:
-    try:
-        return receipt_path.relative_to(public_root).as_posix()
-    except ValueError:
-        return receipt_path.relative_to(target.parent).as_posix()
 
 
 def write_receipts(
@@ -1069,11 +1620,12 @@ def run_projection_bundle(
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
-    receipt_ref = _exported_bundle_receipt_ref(
-        receipt_path,
-        target=target,
-        public_root=public_root,
-    )
+    receipt_ref = _display(receipt_path, public_root=public_root)
+    if "receipts" in receipt_path.parts:
+        receipts_index = len(receipt_path.parts) - 1 - list(
+            reversed(receipt_path.parts)
+        ).index("receipts")
+        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
     receipt = _common_receipt(
         result,
         schema_version="corpus_readiness_mathlib_absence_exported_bundle_receipt_v1",
@@ -1184,12 +1736,40 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "mathlib_lake_project_import_available"
             )
             is True,
+            "runtime_mathlib_probe_status": result.get("runtime_mathlib_probe_status"),
             "translation_smoke_only_ids": result.get("translation_smoke_only_ids", []),
             "absent_corpus_ids": result.get("absent_corpus_ids", []),
             "allowed_case_ids": result.get("allowed_case_ids", []),
             "blocked_case_ids": result.get("blocked_case_ids", []),
             "corpus_readiness_status": result.get("corpus_readiness_status"),
             "toolchain_boundary_status": result.get("toolchain_boundary_status"),
+        },
+        "runtime_source_artifacts": {
+            "status": result.get("runtime_source_artifact_status"),
+            "count": result.get("runtime_source_artifact_count"),
+        },
+        "runtime_lean_import_probe": {
+            "status": result.get("runtime_lean_import_probe", {}).get("status")
+            if isinstance(result.get("runtime_lean_import_probe"), dict)
+            else None,
+            "proof_class": result.get("runtime_lean_import_probe", {}).get("proof_class")
+            if isinstance(result.get("runtime_lean_import_probe"), dict)
+            else None,
+            "std_import_passed": result.get("runtime_lean_import_probe", {}).get(
+                "std_import_passed"
+            )
+            if isinstance(result.get("runtime_lean_import_probe"), dict)
+            else None,
+            "mathlib_import_rejected": result.get("runtime_lean_import_probe", {}).get(
+                "mathlib_import_rejected"
+            )
+            if isinstance(result.get("runtime_lean_import_probe"), dict)
+            else None,
+            "body_in_receipt": result.get("runtime_lean_import_probe", {}).get(
+                "body_in_receipt"
+            )
+            if isinstance(result.get("runtime_lean_import_probe"), dict)
+            else None,
         },
         "negative_case_coverage": {
             "expected_negative_cases": result.get("expected_negative_cases", []),

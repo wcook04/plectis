@@ -87,6 +87,52 @@ def test_receipt_writer_preserves_created_at_for_timestamp_only_rewrites(
     }
 
 
+def test_receipt_writer_normalizes_private_host_paths_with_hashed_evidence(
+    tmp_path: Path, monkeypatch
+) -> None:
+    receipt_path = tmp_path / "receipt.json"
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+
+    write_json_atomic(
+        receipt_path,
+        {
+            "command": (
+                "python -m microcosm_core.demo "
+                "--input /Users/operator/src/ai_workflow/microcosm-substrate/examples/demo "
+                "--out /private/tmp/microcosm-demo/result.json"
+            ),
+            "host_log": "/Users/operator/Library/Logs/microcosm.log",
+            "refs": ["src/ai_workflow/microcosm-substrate/receipts/demo.json"],
+        },
+    )
+
+    text = receipt_path.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert "/Users/" not in text
+    assert "/private/tmp" not in text
+    assert "src/ai_workflow" not in text
+    assert "<repo-root>/microcosm-substrate/examples/demo" in payload["command"]
+    assert "<host-temp>/microcosm-demo/result.json" in payload["command"]
+    assert payload["host_log"] == "<private-home-path>"
+    assert payload["refs"] == ["<repo-root>/microcosm-substrate/receipts/demo.json"]
+
+    sanitization = payload["public_path_sanitization"]
+    assert sanitization["policy_id"] == receipts.PUBLIC_PATH_POLICY_ID
+    assert sanitization["status"] == "transformed"
+    assert sanitization["replacement_count"] == 4
+    assert set(sanitization["transform_classes"]) == {
+        "host_temp_path_transform",
+        "private_home_path_transform",
+        "repo_root_fragment_transform",
+        "repo_root_private_home_path_transform",
+    }
+    assert all(
+        row["original_sha256"].startswith("sha256:")
+        for row in sanitization["replacements"]
+    )
+
+
 def test_receipt_writer_ignores_duplicate_key_previous_receipt(
     tmp_path, monkeypatch
 ) -> None:
@@ -246,6 +292,39 @@ def test_receipt_writer_allows_explicit_tracked_receipt_refresh(
     assert json.loads(receipt_path.read_text(encoding="utf-8")) == {
         "status": "refreshed"
     }
+
+
+def test_explicit_tracked_receipt_refresh_normalizes_private_paths(
+    tmp_path: Path, monkeypatch
+) -> None:
+    tracked_root = tmp_path / "receipts"
+    receipt_path = tracked_root / "acceptance/first_wave/example.json"
+    receipt_path.parent.mkdir(parents=True)
+
+    monkeypatch.setattr(
+        receipts, "TRACKED_RECEIPTS_ROOT", tracked_root.resolve(strict=False)
+    )
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.setenv("MICROCOSM_TRACKED_RECEIPT_WRITES", "1")
+
+    write_json_atomic(
+        receipt_path,
+        {
+            "command": (
+                "PYTHONPYCACHEPREFIX=/private/tmp/microcosm/pycache "
+                "python /Users/operator/src/ai_workflow/microcosm-substrate/tool.py"
+            ),
+        },
+    )
+
+    text = receipt_path.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert "/Users/" not in text
+    assert "/private/tmp" not in text
+    assert "src/ai_workflow" not in text
+    assert payload["public_path_sanitization"]["replacement_count"] == 2
 
 
 def test_receipt_writer_trims_explicit_tracked_receipt_refresh_flag(

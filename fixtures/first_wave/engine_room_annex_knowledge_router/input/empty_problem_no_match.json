@@ -1,0 +1,19 @@
+{
+  "case_id": "empty_problem_no_match",
+  "problem": "",
+  "expected_status": "no_match",
+  "catalog": {
+    "annexes": [
+      {
+        "slug": "provider-rate-limit-patterns",
+        "display_name": "Provider Rate Limit Patterns",
+        "routing_summary": {
+          "domains": ["agent-runtime"],
+          "clusters": ["provider-control"],
+          "problem_spaces": ["rate limit backoff across providers"],
+          "capabilities": ["retry scheduling"]
+        }
+      }
+    ]
+  }
+}

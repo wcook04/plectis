@@ -1,0 +1,481 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-1",
+    "AX-4",
+    "AX-5",
+    "AX-8"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py",
+      "resolution": "resolved",
+      "role": "Runtime and receipt-writing locus for observer-diff, JSON-patch VM, ledger-id, shadow-envelope, source-manifest, negative-case, and authority-ceiling checks.",
+      "symbols": [
+        "_exercise_observer_diff",
+        "_exercise_version_committer",
+        "_exercise_ledger_id",
+        "_exercise_shadow",
+        "evaluate",
+        "run",
+        "run_batch8_bundle",
+        "result_card",
+        "EXPECTED_NEGATIVE_CASES",
+        "AUTHORITY_CEILING"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.import_projection_and_drift_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Tools-Tail Primitives Capsule",
+  "entry_surface_contract": null,
+  "evidence_class": "verified_macro_body_import",
+  "family": "import_projection_and_drift",
+  "id": "batch8_tools_tail_primitives_capsule",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "verified_macro_body_import",
+      "edge_justification": "The copied public tools-tail source bodies, fixture exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bound this organ to a verified macro-body import without granting live oracle, provider, source-mutation, publication, or release authority.",
+      "ref": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "organ_payload": {
+    "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/batch8_tools_tail_primitives_capsule.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/batch8_tools_tail_primitives_capsule.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-8"
+      ],
+      "claim_ceiling_restated": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for observer-diff, JSON-patch VM, ledger-id, shadow-envelope, source-manifest, negative-case, and authority-ceiling checks.",
+          "symbols": [
+            "_exercise_observer_diff",
+            "_exercise_version_committer",
+            "_exercise_ledger_id",
+            "_exercise_shadow",
+            "evaluate",
+            "run",
+            "run_batch8_bundle",
+            "result_card",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "display_name": "Tools-Tail Primitives Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "first_command": "microcosm batch8-tools-tail-primitives-capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+      "human_gloss": "This capsule imports four Batch-8 tools-tail primitives as copied public source bodies with deterministic fixture exercises. It exposes observer set diffs, JSON patch interpretation, stable ledger-id hashing, and shadow envelope parsing without invoking live oracles, repository mutation, provider dispatch, publication, or release authority.",
+      "mechanism_refs": [
+        {
+          "authority_class": "verified_macro_body_import",
+          "edge_justification": "The copied public tools-tail source bodies, fixture exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bound this organ to a verified macro-body import without granting live oracle, provider, source-mutation, publication, or release authority.",
+          "ref": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "paper_module_ref": "paper_modules/batch8_tools_tail_primitives_capsule.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-5",
+        "P-6",
+        "P-9",
+        "P-15"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[60:batch8_tools_tail_primitives_capsule]",
+      "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "provider-ops"
+      ],
+      "standalone_or_wired": "standalone_specimen",
+      "wires_to": [
+        "batch7_station_runtime_capsule"
+      ],
+      "wiring_note": "Imports four copied non-secret tools-tail source modules into a public capsule and binds them to fixture, source-digest, receipt, CLI/runtime-shell, standards, and authority-ceiling checks; it does not invoke live oracle, provider, source-mutation, publication, or release lanes."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "classification_basis": "verified public macro-body import over four copied non-secret tools-tail source modules with bounded public exercises for observer set diffs, JSON patch interpretation, stable ledger-id hashing, and shadow envelope parse coverage",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[batch8_tools_tail_primitives_capsule]",
+      "evidence_strength_rank": 5,
+      "generated_receipts": [
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_result.json",
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_board.json",
+        "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
+        "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+      ],
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.batch8_tools_tail_primitives_capsule",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "validator_command": "python -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "paper_modules/batch8_tools_tail_primitives_capsule.md",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-1",
+    "P-2",
+    "P-5",
+    "P-6",
+    "P-9",
+    "P-15"
+  ],
+  "receipt_refs": [
+    "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_result.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_board.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-8"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for observer-diff, JSON-patch VM, ledger-id, shadow-envelope, source-manifest, negative-case, and authority-ceiling checks.",
+        "symbols": [
+          "_exercise_observer_diff",
+          "_exercise_version_committer",
+          "_exercise_ledger_id",
+          "_exercise_shadow",
+          "evaluate",
+          "run",
+          "run_batch8_bundle",
+          "result_card",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.batch8_tools_tail_primitives_capsule",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].mechanism_refs[0]",
+          "summary": "The copied public tools-tail source bodies, fixture exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bound this organ to a verified macro-body import without granting live oracle, provider, source-mutation, publication, or release authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for observer-diff, JSON-patch VM, ledger-id, shadow-envelope, source-manifest, negative-case, and authority-ceiling checks."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/batch8_tools_tail_primitives_capsule.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch7_station_runtime_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "verified_macro_body_import",
+        "edge_justification": "The copied public tools-tail source bodies, fixture exercises, source-module manifest, negative cases, body-free receipts, and runtime validation receipts bound this organ to a verified macro-body import without granting live oracle, provider, source-mutation, publication, or release authority.",
+        "ref": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "paper_modules/batch8_tools_tail_primitives_capsule.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-5",
+      "P-6",
+      "P-9",
+      "P-15"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[60:batch8_tools_tail_primitives_capsule]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "batch7_station_runtime_capsule"
+    ]
+  },
+  "role": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[60:batch8_tools_tail_primitives_capsule]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[60:batch8_tools_tail_primitives_capsule]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/batch8_tools_tail_primitives_capsule.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "source-import",
+    "provenance",
+    "drift-control",
+    "provider-ops"
+  ],
+  "statement": "An agent runs it to validate that the copied tools-tail source modules preserve required anchors and digests, their public exercises pass, planted negative cases are observed, and receipts omit copied body text and private state.",
+  "status": "accepted_current_authority",
+  "title": "Tools-Tail Primitives Capsule",
+  "validator_refs": [
+    "python -m microcosm_core.organs.batch8_tools_tail_primitives_capsule run --input fixtures/first_wave/batch8_tools_tail_primitives_capsule/input --out receipts/first_wave/batch8_tools_tail_primitives_capsule --acceptance-out receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "batch7_station_runtime_capsule"
+  ]
+}

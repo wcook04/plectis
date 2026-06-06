@@ -19,6 +19,11 @@ from system.lib.git_state_snapshot import (
     compact_closeout_git_state_conditions,
 )
 from tools.meta.control import mission_closeout_verdict
+from tools.meta.control.gate_spender import (
+    GateContext as _GateSpenderContext,
+    OwnerStatus as _GateSpenderOwnerStatus,
+    select_route as _select_gate_spender_route,
+)
 
 
 SCHEMA = "closeout_executor_plan_v0"
@@ -4340,6 +4345,73 @@ def _burst_plan_candidate_counts(plan: Mapping[str, Any] | None) -> dict[str, An
     }
 
 
+_PUBLICATION_GATE_STOP_HINTS = (
+    "PushAudit",
+    "GuardedPush",
+    "RemoteRefVerification",
+    "LocalHeadChangedAfterGuardedPush",
+    "ConcurrentPublication",
+)
+
+_PRESSURE_GATE_STOP_REASONS = {
+    "ValidationQueuedHostPressure",
+    "ValidationQueuedDiskPressure",
+}
+
+
+def _is_publication_gate_stop(stop_reason: str) -> bool:
+    return any(hint in stop_reason for hint in _PUBLICATION_GATE_STOP_HINTS)
+
+
+def _gate_spender_route_for_closeout_stop(
+    *,
+    stop_reason: str,
+    next_plan: Mapping[str, Any] | None,
+) -> dict[str, Any] | None:
+    claim_boundary = _burst_plan_candidate_counts(next_plan)
+    adjacent_lane_available = bool(
+        claim_boundary.get("actor_owned_candidates")
+        or claim_boundary.get("runnable_candidates")
+    )
+    context: _GateSpenderContext | None = None
+
+    if _is_publication_gate_stop(stop_reason):
+        context = _GateSpenderContext(
+            gate_kind=stop_reason,
+            is_publication_gate=True,
+            local_commit_possible=True,
+            adjacent_lane_available=adjacent_lane_available,
+        )
+    elif stop_reason == "WorkLedgerActiveClaimOverlap":
+        context = _GateSpenderContext(
+            gate_kind=stop_reason,
+            owner_status=_GateSpenderOwnerStatus.HEALTHY_OTHER,
+            owner_responsive_to_yield=True,
+            adjacent_lane_available=adjacent_lane_available,
+            watch_predicate="owner_session_lands_or_releases_claim_then_replan",
+        )
+    elif stop_reason in _PRESSURE_GATE_STOP_REASONS:
+        context = _GateSpenderContext(
+            gate_kind=stop_reason,
+            adjacent_lane_available=adjacent_lane_available,
+            watch_predicate="pressure_recheck_admits_test_build",
+        )
+    elif stop_reason == "MaxActionsReached":
+        context = _GateSpenderContext(
+            gate_kind=stop_reason,
+            adjacent_lane_available=adjacent_lane_available,
+            watch_predicate="rerun_burst_for_remaining_actions",
+        )
+
+    if context is None:
+        return None
+
+    route = _select_gate_spender_route(context).to_dict()
+    route["source"] = "tools.meta.control.gate_spender.select_route"
+    route["effect"] = "advisory_recovery_receipt_only"
+    return route
+
+
 def _latest_receipt_with_key(
     receipts: Sequence[Mapping[str, Any]],
     key: str,
@@ -4368,6 +4440,15 @@ def _burst_recovery_contract(
         "hygiene_repairs": hygiene_repairs,
         "claim_boundary": _burst_plan_candidate_counts(next_plan),
     }
+    gate_spender_route = _gate_spender_route_for_closeout_stop(
+        stop_reason=stop_reason,
+        next_plan=next_plan,
+    )
+    if gate_spender_route:
+        contract["gate_spender_route"] = gate_spender_route
+        contract["human_reentry_required_by_gate_spender"] = bool(
+            gate_spender_route.get("human_reentry_required")
+        )
 
     if stop_reason in {"ValidationQueuedHostPressure", "ValidationQueuedDiskPressure"}:
         queued_receipt = _latest_receipt_with_key(receipts, "queued_validation")
@@ -4491,6 +4572,20 @@ def _burst_recovery_contract(
     return contract
 
 
+def _attach_gate_spender_burst_projection(receipt: dict[str, Any]) -> dict[str, Any]:
+    recovery_contract = receipt.get("recovery_contract")
+    if not isinstance(recovery_contract, Mapping):
+        return receipt
+    gate_spender_route = recovery_contract.get("gate_spender_route")
+    if not isinstance(gate_spender_route, Mapping):
+        return receipt
+    receipt["gate_spender_route"] = dict(gate_spender_route)
+    receipt["human_reentry_required_by_gate_spender"] = bool(
+        recovery_contract.get("human_reentry_required_by_gate_spender")
+    )
+    return receipt
+
+
 def _latest_closeout_stop_integrity(receipts: Sequence[Mapping[str, Any]]) -> dict[str, Any] | None:
     for receipt in reversed(receipts):
         integrity = receipt.get("closeout_stop_integrity")
@@ -4548,6 +4643,7 @@ def run_closeout_executor_burst(
             next_plan=first_plan,
             receipts=[],
         )
+        _attach_gate_spender_burst_projection(receipt)
         return _attach_mission_trace_context(receipt, plan=first_plan, action=first_action)
 
     receipts: list[dict[str, Any]] = []
@@ -4709,6 +4805,7 @@ def run_closeout_executor_burst(
         ),
     }
     stop_integrity = _latest_closeout_stop_integrity(receipts)
+    _attach_gate_spender_burst_projection(receipt)
     if stop_integrity:
         receipt["closeout_stop_integrity"] = stop_integrity
     return _attach_mission_trace_context(receipt, plan=next_plan, action=next_action)

@@ -1,0 +1,46 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "work_atlas_routed_reason_excluded",
+  "error_codes": [
+    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "work_atlas": {
+      "marks": [
+        {
+          "id": "w1",
+          "work_item_type": "repair",
+          "overlays": {
+            "unrouted": true,
+            "blocked": true
+          },
+          "route_explanation": {
+            "route_reason": "no_owner",
+            "reason_kind": "structural"
+          }
+        },
+        {
+          "id": "w2",
+          "work_item_type": "repair",
+          "overlays": {
+            "unrouted": false
+          },
+          "route_explanation": {
+            "route_reason": "should_not_count",
+            "reason_kind": "noise"
+          }
+        },
+        {
+          "id": "w3",
+          "work_item_type": "feature",
+          "overlays": {
+            "stale": true,
+            "high_unlock": true
+          }
+        }
+      ]
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

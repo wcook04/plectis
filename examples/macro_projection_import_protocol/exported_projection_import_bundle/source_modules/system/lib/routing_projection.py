@@ -41,6 +41,7 @@ from tools.meta.agent_telemetry.common import (
 )
 
 DEFAULT_OUTPUT_REL = "codex/doctrine/routing_hologram.json"
+FAST_SOURCE_COUPLING_CACHE_NODE_ID = "routing_projection.fast_source_coupling"
 AGENTS_MD_REL = "AGENTS.md"
 SKILL_REGISTRY_REL = "codex/doctrine/skills/skill_registry.json"
 STD_SYNTH_SEED_REL = "codex/standards/observe_apply/std_synth_seed.json"
@@ -987,7 +988,11 @@ def routing_status(repo_root: Path, *, output_rel: str = DEFAULT_OUTPUT_REL) -> 
     }
 
 
-def routing_fast_source_coupling_status(repo_root: Path, *, output_rel: str = DEFAULT_OUTPUT_REL) -> dict[str, Any]:
+def _routing_fast_source_coupling_status_uncached(
+    repo_root: Path,
+    *,
+    output_rel: str = DEFAULT_OUTPUT_REL,
+) -> dict[str, Any]:
     """Return routing source-coupling without rebuilding the routing projection.
 
     Routine entry packets need to know whether source inputs are dirty, but
@@ -1039,6 +1044,43 @@ def routing_fast_source_coupling_status(repo_root: Path, *, output_rel: str = DE
         "source_coupling": source_coupling,
         "full_renderer_check_deferred": True,
     }
+
+
+def routing_fast_source_coupling_status(repo_root: Path, *, output_rel: str = DEFAULT_OUTPUT_REL) -> dict[str, Any]:
+    out_path = repo_root / output_rel
+    try:
+        payload = _safe_load_json(out_path)
+    except Exception:
+        payload = {}
+    artifact_payload = payload if isinstance(payload, dict) else {}
+    source_paths = [
+        str(path)
+        for path in list(artifact_payload.get("source_paths") or [])
+        if str(path or "").strip()
+    ]
+
+    from system.lib.command_node_cache import cached_command_node
+
+    def build() -> dict[str, Any]:
+        return _routing_fast_source_coupling_status_uncached(repo_root, output_rel=output_rel)
+
+    cached_payload, cache_status = cached_command_node(
+        repo_root,
+        node_id=FAST_SOURCE_COUPLING_CACHE_NODE_ID,
+        key={
+            "kind": "routing_fast_source_coupling_status",
+            "schema": "routing_source_coupling_receipt_v1",
+            "output_rel": output_rel,
+        },
+        input_paths=[output_rel, *source_paths],
+        ttl_s=300.0,
+        builder=build,
+        freshness_policy="short_ttl_plus_routing_source_manifest",
+        dynamic_inputs_manifested=True,
+    )
+    result = dict(cached_payload) if isinstance(cached_payload, dict) else {}
+    result["cache"] = cache_status
+    return result
 
 
 def run_projection(

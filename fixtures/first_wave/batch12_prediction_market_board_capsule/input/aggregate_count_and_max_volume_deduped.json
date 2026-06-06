@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "aggregate_count_and_max_volume_deduped",
+  "error_codes": [
+    "BATCH12_PREDICTION_AGGREGATE_DEDUPED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_prediction_negative_case_v1"
+}

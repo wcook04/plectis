@@ -1,0 +1,40 @@
+{
+  "anti_claims": [
+    "This layer-debt receipt preserves an open support cap; it is not evidence that the axiom is strongly witnessed.",
+    "The receipt does not authorize lowering the axiom bar to make support coverage green.",
+    "Generated support-cover output cannot be read back as source evidence for closing this debt."
+  ],
+  "authority_ceiling": {
+    "hosted_public_readiness_authority": false,
+    "private_data_equivalence_authority": false,
+    "provider_call_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "status": "layer_debt_open_not_support_closure",
+    "whole_system_correctness": false
+  },
+  "command_or_validator": "validator.microcosm.axiom_support_cover",
+  "created_at": "2026-06-05T17:05:00Z",
+  "debt_id": "AX12-evidence-truth-floor-blocking-release",
+  "evidence_refs": [
+    "standards/std_microcosm_axiom.json",
+    "core/axiom_organ_routing.json::rows[11:AX-12]",
+    "microcosm-substrate/src/microcosm_core/validators/axiom_support_cover.py"
+  ],
+  "id": "receipt.microcosm.layer_debt.AX12-evidence-truth-floor-blocking-release",
+  "kind": "layer_debt_receipt",
+  "omissions": [
+    "private macro source bodies",
+    "raw operator voice",
+    "provider payload bodies",
+    "support-cover generated output as source evidence"
+  ],
+  "record_id": "AX-12",
+  "record_kind": "axiom_layer_debt",
+  "record_ref": "core/axiom_organ_routing.json::rows[11:AX-12].layer_debt[AX12-evidence-truth-floor-blocking-release]",
+  "result": "residual_open",
+  "schema_version": "microcosm_layer_debt_receipt_v1",
+  "status": "active",
+  "validator_id": "validator.microcosm.axiom_support_cover"
+}

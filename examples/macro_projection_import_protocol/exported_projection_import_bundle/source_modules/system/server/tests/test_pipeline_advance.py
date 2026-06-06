@@ -331,6 +331,8 @@ def test_next_action_retries_unmaterialized_bridge_dispatch(monkeypatch, tmp_pat
 
     assert readiness["status"] == "dispatch_unmaterialized"
     assert readiness["retryable_dispatch"] is True
+    assert readiness["next_action"]["key"] == "retry_bridge_dispatch"
+    assert "--bridge" in readiness["next_action"]["command"]
     assert action["key"] == "retry_bridge_dispatch"
     assert "--bridge" in action["command"]
     assert "--launch-profile safe" in action["command"]
@@ -350,7 +352,99 @@ def test_check_responses_is_not_applicable_before_observe_dispatch() -> None:
     assert readiness["status"] == "not_applicable_no_observe_dispatch"
     assert readiness["not_applicable"] is True
     assert readiness["suggested_command"] == "python3 pipeline_advance.py --advance"
+    assert readiness["next_action"]["key"] == "advance_one_step"
+    assert readiness["next_action"]["command"] == "python3 pipeline_advance.py --advance"
     assert action["key"] == "advance_one_step"
+
+
+def test_check_responses_prefers_controller_gate_over_ready_manifest(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(pipeline_advance, "REPO_ROOT", tmp_path)
+    manifest_rel = "tools/meta/apply/observe_history/entries/OBS_gate.json"
+    _write_json(
+        tmp_path / manifest_rel,
+        {
+            "status": "done",
+            "groups": [
+                {"label": "a", "response_status": "success"},
+                {"label": "b", "response_status": "success"},
+            ],
+        },
+    )
+
+    state = {
+        "stage": "observe_dispatched",
+        "phase_dir": "obsidian/family/phase",
+        "gate_reason": "error_spike_block",
+        "observe_manifest_path": manifest_rel,
+        "observe_session_id": "OBS_gate",
+    }
+    readiness = pipeline_advance.check_responses_ready(state)
+    action = pipeline_advance.next_action(state)
+
+    assert readiness["status"] == "controller_gate_active"
+    assert readiness["ready"] is False
+    assert readiness["reason"] == "controller_gate_precedes_response_processing"
+    assert readiness["next_action"]["key"] == "retry_gate"
+    assert "--retry-gate" in readiness["next_action"]["command"]
+    assert action["key"] == "retry_gate"
+
+
+def test_check_responses_waiting_packet_carries_next_action(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(pipeline_advance, "REPO_ROOT", tmp_path)
+    plan_rel = "phase/cycle_1/observe_plan.json"
+    dump_dir_rel = "phase/cycle_1"
+    _write_json(
+        tmp_path / plan_rel,
+        {
+            "dump_dir": dump_dir_rel,
+            "groups": [{"label": "a"}, {"label": "b"}, {"label": "c"}],
+        },
+    )
+    response = tmp_path / dump_dir_rel / "a_response.md"
+    response.parent.mkdir(parents=True, exist_ok=True)
+    response.write_text("partial\n", encoding="utf-8")
+
+    readiness = pipeline_advance.check_responses_ready(
+        {
+            "stage": "observe_dispatched",
+            "observe_plan_path": plan_rel,
+            "observe_session_id": None,
+            "observe_manifest_path": None,
+        }
+    )
+
+    assert readiness["status"] == "checking"
+    assert readiness["ready"] is False
+    assert readiness["next_action"]["key"] == "wait_for_bridge"
+    assert readiness["next_action"]["command"] == "python3 pipeline_advance.py --check-responses"
+    assert readiness["next_action"]["poll_after_seconds"] == pipeline_advance.BRIDGE_WAIT_POLL_AFTER_SECONDS
+    assert pipeline_advance.check_responses_exit_code(readiness) == 0
+
+    action = pipeline_advance.next_action(
+        {
+            "stage": "observe_dispatched",
+            "observe_plan_path": plan_rel,
+            "observe_session_id": None,
+            "observe_manifest_path": None,
+        }
+    )
+    assert action["key"] == "wait_for_bridge"
+    assert action["poll_after_seconds"] == pipeline_advance.BRIDGE_WAIT_POLL_AFTER_SECONDS
+
+
+def test_check_responses_exit_code_keeps_broken_wait_nonzero() -> None:
+    readiness = pipeline_advance.check_responses_ready(
+        {
+            "stage": "observe_dispatched",
+            "observe_plan_path": None,
+            "observe_session_id": None,
+            "observe_manifest_path": None,
+        }
+    )
+
+    assert readiness["status"] == "no_manifest"
+    assert readiness["next_action"]["key"] == "wait_for_bridge"
+    assert pipeline_advance.check_responses_exit_code(readiness) == 1
 
 
 def test_prepare_state_for_retry_dispatch_restores_compiled_stage() -> None:

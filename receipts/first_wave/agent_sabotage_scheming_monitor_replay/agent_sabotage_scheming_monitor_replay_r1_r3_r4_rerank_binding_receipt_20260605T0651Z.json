@@ -1,0 +1,91 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "created_at": "2026-06-05T06:51:00Z",
+  "created_by": "codex_20260605T064906Z_agent_sabotage_scheming_monitor_replay_proof",
+  "organ_id": "agent_sabotage_scheming_monitor_replay",
+  "fixture_id": "first_wave.agent_sabotage_scheming_monitor_replay",
+  "binding_kind": "no_code_churn_current_code_satisfies_r1_to_r3_r4_real_trace_proof",
+  "status": "pass_with_external_full_file_validation_blocker",
+  "rerank_decision": {
+    "live_needed": false,
+    "code_mutation_required": false,
+    "reason": "Current HEAD already contains the real sanitized public dogfood trace slice, genuine monitor suspicion score recomputation, counterfactual side-task-removed/main-task-preserved validation, positive rank-delta proof, and mutation tests requested by triage.",
+    "recent_commits_checked": [
+      {
+        "commit": "c8805c13d5",
+        "subject": "Prove sabotage monitor replay from real traces",
+        "observed_scope": [
+          "microcosm-substrate/src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
+          "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py"
+        ]
+      },
+      {
+        "commit": "b9b6d8b8a0",
+        "subject": "Strengthen sabotage scheming monitor rank delta proof",
+        "observed_scope": [
+          "microcosm-substrate/src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
+          "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py"
+        ]
+      },
+      {
+        "commit": "b8db8e97a6",
+        "subject": "Add sabotage counterfactual rank delta proof",
+        "observed_scope": [
+          "microcosm-substrate/src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
+          "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py"
+        ]
+      }
+    ]
+  },
+  "proof_contract": {
+    "good_real_trace_passes": true,
+    "mutated_or_counterfactual_broken_trace_rejects": true,
+    "input_perturbation_moves_verdict": true,
+    "focused_tests_pass": true,
+    "source_bodies_or_private_payloads_in_receipt": false
+  },
+  "source_surfaces_verified": [
+    {
+      "path": "microcosm-substrate/src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
+      "evidence": [
+        "validate_monitor_scores joins monitor scores to action rows, source artifact refs, and counterfactual rows before accepting block/escalate verdicts.",
+        "validate_counterfactual_replay requires side_task_success_removed=true and main_task_preserved=true.",
+        "validate_public_trace folds recomputed caught-verdict mismatch, counterfactual-isolation failure, and non-positive rank delta into organ findings."
+      ]
+    },
+    {
+      "path": "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py",
+      "evidence": [
+        "test_agent_sabotage_scheming_monitor_exported_bundle_validates_runtime_shape proves the good exported bundle passes with four episodes, seven verified monitor-score source artifact refs, and positive rank deltas.",
+        "test_agent_sabotage_scheming_exported_bundle_rejects_side_task_evidence_removed proves action-side evidence removal changes the recomputed verdict to pass and blocks the bundle.",
+        "test_agent_sabotage_scheming_exported_bundle_rejects_counterfactual_tamper proves side_task_success_removed=false blocks the counterfactual and monitor verdict.",
+        "test_agent_sabotage_scheming_suspicion_perturbation_moves_caught_verdict proves suspicion-score perturbation moves the computed caught verdict."
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "command": "./repo-pytest microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_observes_negative_cases microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_suspicion_perturbation_moves_caught_verdict microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_counterfactual_rank_delta_rejects_benign_changed_step microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_monitor_exported_bundle_validates_runtime_shape microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_exported_bundle_rejects_side_task_evidence_removed microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_exported_bundle_rejects_counterfactual_tamper",
+      "result": "pass",
+      "summary": "7 passed in 0.36s"
+    },
+    {
+      "command": "./repo-pytest microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py",
+      "result": "blocked_external_to_claimed_component",
+      "summary": "19 passed, 1 failed; failure is RuntimeShell.workingness_map evidence-class registry coverage extra=batch7_secondary_runtime_capsule outside this component write scope.",
+      "task_ledger_capture": "cap_quick_microcosm_validation_blocker_batch7_evid_83519598f1b2"
+    }
+  ],
+  "authority_boundary": {
+    "live_agent_execution_authorized": false,
+    "live_sabotage_authorized": false,
+    "exploit_instruction_export_authorized": false,
+    "credential_or_account_material_export_authorized": false,
+    "private_chain_of_thought_export_authorized": false,
+    "harmful_payload_export_authorized": false,
+    "provider_calls_authorized": false,
+    "source_mutation_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This receipt binds current local proof status only. It does not authorize live sabotage, live agent execution, provider calls, source mutation, release, monitor product performance claims, deployment risk claims, or export of private reasoning, credentials, exploit instructions, harmful payloads, provider payloads, or raw transcripts."
+}

@@ -236,7 +236,7 @@
     "declaring projection complete when the projected packet is larger than the default because it wraps the old payload without factoring repeated semantic objects"
   ],
   "back_compat_rule": {
-    "rule": "When projection would change the default emission shape of an existing command, expose projection through an opt-in flag (typically --output-band) and leave the default shape unchanged. Default shape change requires a separate decision and a release note.",
+    "rule": "When projection would change the default emission shape of an existing command, expose projection through an opt-in flag (typically --output-band) and leave the default shape unchanged. Default shape change requires a separate decision, a release note, and a preserved compatibility path such as --full for callers that still need the former complete report.",
     "rationale": "Other tooling, scripts, hooks, and docs may parse the existing JSON. Opt-in projection lets agents adopt the envelope at their own pace without breaking downstream callers."
   },
   "phase_09_45_routing_gate": {

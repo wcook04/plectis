@@ -1,0 +1,21 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_secondary_runtime_capsule",
+  "input_dir": "fixtures/first_wave/batch7_secondary_runtime_capsule/input",
+  "negative_cases": [
+    "cap_cartography_mutation_action",
+    "graph_lens_hidden_descendant",
+    "graph_projection_self_edge",
+    "lane_progress_unknown_state",
+    "polymarket_resolved_market",
+    "polymarket_sorted_book_trap",
+    "stockgrid_extreme_momentum",
+    "trace_view_missing_raw_authority"
+  ],
+  "organ_id": "batch7_secondary_runtime_capsule",
+  "required_inputs": [
+    "batch7_secondary_exercise_manifest.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_manifest_ref": "examples/batch7_secondary_runtime_capsule/exported_batch7_secondary_runtime_capsule_bundle/source_module_manifest.json"
+}

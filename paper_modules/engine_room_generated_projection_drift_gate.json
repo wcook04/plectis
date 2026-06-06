@@ -1,0 +1,358 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
+    "card": "Engine Room Generated Projection Drift Gate is a public-safe generated-artifact freshness capsule. It validates projection owner selection from changed paths, declared source and artifact fingerprints, no-write check return codes, source-hash cache reuse, planted-byte detection, and missing-artifact failure over four public fixtures while keeping semantic drift proof, repair authority, full macro registry validation, release, and private-root claims out of scope.",
+    "one_line": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.engine_room_generated_projection_drift_gate",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.engine_room_generated_projection_drift_gate",
+        "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/engine_room_generated_projection_drift_gate.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.engine_room_generated_projection_drift_gate.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/engine_room_generated_projection_drift_gate.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/engine_room_generated_projection_drift_gate.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-4",
+        "AX-8",
+        "AX-10",
+        "AX-11"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for owner-routed generated projection drift checks, source/artifact fingerprint receipts, source-hash cache decisions, no-write check command receipts, fixture evaluation, and authority ceilings.",
+          "symbols": [
+            "ProjectionOwner",
+            "select_projection_owners",
+            "check_projection_drift",
+            "evaluate_fixture_dir",
+            "evaluate_case",
+            "main"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Public owner-routed generated projection drift fixture and focused regression receipts only; no semantic drift proof, full macro registry validation, repair authority, release approval, private-root equivalence, source mutation, provider dispatch, or whole-system correctness.",
+        "card": "Engine Room Generated Projection Drift Gate is a public-safe generated-artifact freshness capsule. It validates projection owner selection from changed paths, declared source and artifact fingerprints, no-write check return codes, source-hash cache reuse, planted-byte detection, and missing-artifact failure over four public fixtures while keeping semantic drift proof, repair authority, full macro registry validation, release, and private-root claims out of scope.",
+        "one_line": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.engine_room_generated_projection_drift_gate",
+          "status": "blocked_until_organ_atlas_owner_lane_binds_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/engine_room_generated_projection_drift_gate.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.engine_room_generated_projection_drift_gate.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.engine_room_generated_projection_drift_gate",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/engine_room_generated_projection_drift_gate.md",
+      "principle_refs": [
+        "P-2",
+        "P-5",
+        "P-9",
+        "P-15"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]",
+      "strangler_note": "Binds the authored Markdown projection, staged Engine Room generated-projection drift gate runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated JSON projections, source-hash cache hits, owner check return codes, or fixture status as semantic drift proof, repair authority, release authority, full registry validation, private-root equivalence, or whole-system correctness. No accepted organ subject is claimed.",
+      "subjects": [
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+        }
+      ],
+      "title": "Engine Room Generated Projection Drift Gate"
+    },
+    "strangler_note": "Binds the authored Markdown projection, staged Engine Room generated-projection drift gate runtime, fixture manifest, standard, focused tests, and admitted mechanism row to JSON capsule authority without treating Markdown, generated JSON projections, source-hash cache hits, owner check return codes, or fixture status as semantic drift proof, repair authority, release authority, full registry validation, private-root equivalence, or whole-system correctness. No accepted organ subject is claimed.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-4",
+      "AX-8",
+      "AX-10",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for owner-routed generated projection drift checks, source/artifact fingerprint receipts, source-hash cache decisions, no-write check command receipts, fixture evaluation, and authority ceilings.",
+        "symbols": [
+          "ProjectionOwner",
+          "select_projection_owners",
+          "check_projection_drift",
+          "evaluate_fixture_dir",
+          "evaluate_case",
+          "main"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-10",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for owner-routed generated projection drift checks, source/artifact fingerprint receipts, source-hash cache decisions, no-write check command receipts, fixture evaluation, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/engine_room_generated_projection_drift_gate.md",
+    "principle_refs": [
+      "P-2",
+      "P-5",
+      "P-9",
+      "P-15"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]",
+    "subjects": [
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[85:paper_module.engine_room_generated_projection_drift_gate]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/engine_room_generated_projection_drift_gate.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/engine_room_generated_projection_drift_gate.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Public generated-projection drift fixture: owner-routed checks fingerprint declared sources and artifacts, reuse clean receipts only under matching hashes, and fail planted-byte or missing-artifact cases.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+    }
+  ],
+  "title": "Engine Room Generated Projection Drift Gate",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

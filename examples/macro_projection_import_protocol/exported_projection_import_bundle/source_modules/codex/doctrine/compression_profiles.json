@@ -15,6 +15,23 @@
       "profile_id": "raw_seed_voice_context_v1",
       "artifact_kind": "raw_seed",
       "purpose": "Voice-preserving contextual compression over raw-seed paragraphs, paragraph-bin shards, and atomized child shards.",
+      "compression_passport": {
+        "cluster_keys": [
+          "raw_seed_voice_context",
+          "voice_authority",
+          "contextual_compression",
+          "source_ladder",
+          "omission_receipt",
+          "doctrine_routing_weave"
+        ],
+        "atom": "Raw-seed voice context",
+        "when_to_open": "Use when raw-seed paragraphs, shards, or contextual rows need profile-governed compression while preserving operator voice, source state, proof heads, and reversible drilldowns.",
+        "when_not_to_open": "Do not use as permission to rewrite raw_seed.md, promote candidate doctrine, freeze volatile facts, or bypass the raw-seed/source-ladder lanes.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface compression_profiles --band card --ids raw_seed_voice_context_v1",
+        "sufficiency_claims": [
+          "The profile names the voice-authority ladder, drilldown policy, dynamic fact policy, and validation probe needed to route raw-seed compression back to source."
+        ]
+      },
       "bands": [
         "flag",
         "card",
@@ -312,6 +329,23 @@
       "profile_id": "compression_profile_navigation_v0",
       "artifact_kind": "compression_profiles",
       "purpose": "Navigation contract for reading the compression profile registry itself through profile-native bands, scopes, facets, authority, currentness, and skill edges.",
+      "compression_passport": {
+        "cluster_keys": [
+          "compression_profile_navigation",
+          "profile_registry",
+          "profile_native_bands",
+          "authority_currentness",
+          "creator_navigator_edges",
+          "doctrine_routing_weave"
+        ],
+        "atom": "Compression profile navigation",
+        "when_to_open": "Use when the compression profile registry itself is the route target and agents need profile-native bands, source authority, currentness, creator/navigator skills, and validation probes.",
+        "when_not_to_open": "Do not use as a render profile, a generated packet authority, or a license to treat profile-declared bands as globally supported adapter bands.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface compression_profiles --band card --ids compression_profile_navigation_v0",
+        "sufficiency_claims": [
+          "The profile declares how compression profile rows route through bands, scopes, facets, source authority, and kind-band contract audit evidence."
+        ]
+      },
       "bands": [
         "profile_id",
         "bands",
@@ -533,6 +567,23 @@
       "artifact_kind": "raw_seed_compressed_external_packet",
       "audience": "cold_type_b_webapp",
       "purpose": "Upload-safe external Type B grounding packet rendered from the raw_seed_voice_context_v1 projection model without exposing private raw voice or assigning repository commands to the receiver.",
+      "compression_passport": {
+        "cluster_keys": [
+          "type_b_external_grounding",
+          "public_safe_projection",
+          "system_self_comprehension_packet",
+          "raw_seed_voice_context",
+          "ask_type_a",
+          "doctrine_routing_weave"
+        ],
+        "atom": "Type B grounding packet",
+        "when_to_open": "Use when a cold Type B web-app or external reasoning lane needs a public-safe grounding packet with ASK_TYPE_A handles and no private repo or raw-voice authority.",
+        "when_not_to_open": "Do not use as source authority, publication permission, recipient-send approval, repo-access grant, or a replacement for Type A verification of private/live facts.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface compression_profiles --band card --ids type_b_external_grounding_v1",
+        "sufficiency_claims": [
+          "The profile declares the canonical owner routes, projection boundary, status sidecar, and validation probe for the Type B grounding packet."
+        ]
+      },
       "output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.md",
       "last_green_output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.last_green.md",
       "candidate_output_path": "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.candidate.md",
@@ -632,6 +683,23 @@
       "artifact_kind": "external_safe_system_nucleus_packet",
       "audience": "cold_type_b_webapp_or_human_reviewer",
       "purpose": "Standalone public-safe system packet that describes the ai_workflow substrate at high density without exposing private raw voice or requiring repo access. The wide-coverage nucleus; the Type B grounding packet is its compact primer sibling.",
+      "compression_passport": {
+        "cluster_keys": [
+          "ai_workflow_system_packet",
+          "public_safe_projection",
+          "system_self_comprehension_packet",
+          "release_doctrine_profile",
+          "source_manifest",
+          "doctrine_routing_weave"
+        ],
+        "atom": "AI workflow system packet",
+        "when_to_open": "Use when a cold Type B model or human reviewer needs the high-density public-safe system packet and the owner routes that prove the projection is alive.",
+        "when_not_to_open": "Do not use as source authority, permission to publish/email/open-source, repo-access grant, or a substitute for the canonical system_self_comprehension_root owner.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface compression_profiles --band card --ids ai_workflow_system_packet_v1",
+        "sufficiency_claims": [
+          "The profile declares canonical owner routes, projection boundary, runtime consumers, validation probe, and status sidecar for the public-safe system packet."
+        ]
+      },
       "output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.md",
       "last_green_output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.last_green.md",
       "candidate_output_path": "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.candidate.md",

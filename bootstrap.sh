@@ -125,8 +125,9 @@ if [[ "$dry_run" == "1" ]]; then
   printf 'suite: %s\n' "$suite"
   printf 'receipt: %s\n' "$emit"
   printf 'python: %s\n' "$python_bin"
+  printf 'pythonpath: %s\n' "$PYTHONPATH"
   printf 'command:'
-  printf ' %q' "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
+  printf ' %q' "PYTHONPATH=$PYTHONPATH" "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
   printf '\n'
   printf 'next: README.md#public-repo-map and README.md#component-map\n'
   exit 0

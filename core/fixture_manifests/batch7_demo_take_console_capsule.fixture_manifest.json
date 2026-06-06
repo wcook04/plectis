@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch7_demo_take_console_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch7_demo_take_console_capsule/input",
+  "organ_id": "batch7_demo_take_console_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch7_demo_take_console_capsule/exported_batch7_demo_take_console_capsule_bundle/source_module_manifest.json"
+}

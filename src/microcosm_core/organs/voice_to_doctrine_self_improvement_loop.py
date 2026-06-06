@@ -95,6 +95,12 @@ FORBIDDEN_KEYS = (
     "secret_value",
     "raw_seed_body",
 )
+BAKED_EXPECTED_LABEL_KEYS = (
+    "expected_label",
+    "expected_outcome",
+    "expected_status",
+    "expected_verdict",
+)
 DOCTRINE_NODE_KINDS = {"principle", "concept", "mechanism", "axiom"}
 VALID_OUTCOMES = {
     "refined_existing_surface",
@@ -203,6 +209,159 @@ def _strings(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _repo_root_for_public_root(public_root: Path) -> Path:
+    search_roots = [public_root, *public_root.parents, Path.cwd().resolve(strict=False)]
+    search_roots.extend(Path.cwd().resolve(strict=False).parents)
+    for candidate in search_roots:
+        if (candidate / "AGENTS.override.md").is_file() and (
+            candidate / "microcosm-substrate"
+        ).is_dir():
+            return candidate
+    return public_root
+
+
+def _source_module_refs(source_manifest: object) -> dict[str, str]:
+    refs: dict[str, str] = {}
+    for row in _rows(source_manifest, "modules"):
+        source_ref = row.get("source_ref")
+        target_ref = row.get("target_ref")
+        if (
+            isinstance(source_ref, str)
+            and source_ref
+            and isinstance(target_ref, str)
+            and target_ref
+        ):
+            refs[source_ref] = target_ref
+    return refs
+
+
+def _split_ref(ref: str) -> tuple[str, str]:
+    path_ref, separator, anchor = ref.partition("::")
+    return path_ref.strip(), anchor.strip() if separator else ""
+
+
+def _path_ref_is_public_safe(path_ref: str) -> bool:
+    if not path_ref or path_ref.startswith(("~", "\\")):
+        return False
+    path = Path(path_ref)
+    return not path.is_absolute() and ".." not in path.parts
+
+
+def _claim_or_anchor_resolves(path: Path, locator: str) -> bool:
+    if not locator:
+        return True
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return False
+    return locator in text
+
+
+def _candidate_ref(path: Path, *, public_root: Path, repo_root: Path) -> str:
+    resolved = path.resolve(strict=False)
+    for root in (public_root, repo_root / "microcosm-substrate"):
+        try:
+            return resolved.relative_to(root.resolve(strict=False)).as_posix()
+        except ValueError:
+            continue
+    return path.name
+
+
+def _resolve_ref(
+    ref: str,
+    *,
+    public_root: Path,
+    repo_root: Path,
+    source_module_refs: dict[str, str],
+) -> dict[str, Any]:
+    path_ref, locator = _split_ref(ref)
+    resolution = {
+        "ref": ref,
+        "path_ref": path_ref,
+        "locator": locator,
+        "resolved": False,
+        "resolution_root": None,
+        "resolved_ref": None,
+        "path_exists": False,
+        "locator_present": False,
+        "body_in_receipt": False,
+    }
+    if not _path_ref_is_public_safe(path_ref):
+        resolution["failure_reason"] = "unsafe_or_empty_path_ref"
+        return resolution
+
+    candidates: list[tuple[str, Path]] = []
+    mapped_ref = source_module_refs.get(path_ref)
+    if mapped_ref and _path_ref_is_public_safe(mapped_ref):
+        candidates.append(("source_module_manifest_target", public_root / mapped_ref))
+    candidates.extend(
+        [
+            ("exported_bundle_public_root", public_root / path_ref),
+            (
+                "checked_in_public_microcosm_tree",
+                repo_root / "microcosm-substrate" / path_ref,
+            ),
+        ]
+    )
+
+    best = dict(resolution)
+    for root_kind, candidate in candidates:
+        exists = candidate.is_file()
+        locator_present = exists and _claim_or_anchor_resolves(candidate, locator)
+        candidate_row = {
+            **resolution,
+            "resolution_root": root_kind,
+            "resolved_ref": _candidate_ref(
+                candidate, public_root=public_root, repo_root=repo_root
+            ),
+            "path_exists": exists,
+            "locator_present": locator_present,
+            "resolved": exists and locator_present,
+        }
+        if candidate_row["resolved"]:
+            return candidate_row
+        if exists or not best["path_exists"]:
+            best = candidate_row
+    best["failure_reason"] = (
+        "locator_missing" if best["path_exists"] else "path_missing"
+    )
+    return best
+
+
+def _ref_resolves(
+    ref: str,
+    *,
+    public_root: Path,
+    repo_root: Path,
+    source_module_refs: dict[str, str],
+) -> bool:
+    return _resolve_ref(
+        ref,
+        public_root=public_root,
+        repo_root=repo_root,
+        source_module_refs=source_module_refs,
+    )["resolved"]
+
+
+def _lesson_ref_values(row: dict[str, Any]) -> list[tuple[str, str]]:
+    refs: list[tuple[str, str]] = []
+    changed_surface_ref = row.get("changed_surface_ref")
+    if isinstance(changed_surface_ref, str) and changed_surface_ref:
+        refs.append(("changed_surface_ref", changed_surface_ref))
+    evidence_ref = row.get("evidence_ref")
+    if isinstance(evidence_ref, str) and evidence_ref:
+        refs.append(("evidence_ref", evidence_ref))
+    for evidence in _strings(row.get("evidence_refs")):
+        refs.append(("evidence_refs", evidence))
+    validation_ref = row.get("validation_ref")
+    if isinstance(validation_ref, str) and validation_ref:
+        refs.append(("validation_ref", validation_ref))
+    closeout_ref = row.get("closeout_ref")
+    if isinstance(closeout_ref, str) and closeout_ref:
+        refs.append(("closeout_ref", closeout_ref))
+    return refs
 
 
 def _finding(
@@ -346,6 +505,7 @@ def _source_module_result(
     verified_count = 0
     byte_count = 0
     modules = _rows(manifest, "modules")
+    repo_root = _repo_root_for_public_root(public_root)
     if not modules:
         findings.append(
             _finding(
@@ -390,6 +550,35 @@ def _source_module_result(
         actual_byte_count = 0
         actual_line_count = 0
         anchors_present = False
+        source_path_exists = False
+        source_sha = None
+        source_hash_matches = False
+        source_target_exact_copy = False
+        source_anchors_present = False
+        source_path = None
+        if not _path_ref_is_public_safe(source_ref):
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_REF_UNSAFE",
+                    "Copied source body row must use a public-safe macro source_ref.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif source_ref:
+            source_path = repo_root / source_ref
+            source_path_exists = source_path.is_file()
+            if not source_path_exists:
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_MISSING",
+                        "Copied source body source_ref must exist in the macro source tree.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
         if target_path is None or not target_path.is_file():
             module_findings.append(
                 _finding(
@@ -451,6 +640,48 @@ def _source_module_result(
                         subject_kind="source_module",
                     )
                 )
+            if source_path is not None and source_path_exists:
+                source_body = source_path.read_bytes()
+                source_text = source_body.decode("utf-8")
+                source_sha = hashlib.sha256(source_body).hexdigest()
+                expected_source_sha = str(row.get("source_sha256") or "")
+                source_hash_matches = bool(expected_source_sha) and (
+                    source_sha == expected_source_sha
+                )
+                source_target_exact_copy = source_body == body
+                source_anchors_present = all(
+                    anchor in source_text for anchor in required_anchors
+                )
+                if not source_hash_matches:
+                    module_findings.append(
+                        _finding(
+                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_HASH_MISMATCH",
+                            "Copied source body source_sha256 must match the live macro source file.",
+                            case_id="source_module_manifest",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
+                if not source_target_exact_copy:
+                    module_findings.append(
+                        _finding(
+                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_TARGET_COPY_MISMATCH",
+                            "Copied source body target must be an exact copy of the live macro source file.",
+                            case_id="source_module_manifest",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
+                if not source_anchors_present:
+                    module_findings.append(
+                        _finding(
+                            "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_ANCHOR_MISSING",
+                            "Live macro source file must contain each manifest anchor.",
+                            case_id="source_module_manifest",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
         if not source_ref:
             module_findings.append(
                 _finding(
@@ -472,6 +703,11 @@ def _source_module_result(
                 "target_ref": target_ref,
                 "material_class": material_class,
                 "sha256": actual_sha,
+                "source_path_exists": source_path_exists,
+                "source_sha256": source_sha,
+                "source_hash_matches": source_hash_matches,
+                "source_target_exact_copy": source_target_exact_copy,
+                "source_anchors_present": source_anchors_present,
                 "byte_count": actual_byte_count,
                 "line_count": actual_line_count,
                 "required_anchor_count": len(required_anchors),
@@ -504,6 +740,14 @@ def _source_module_result(
                 str(row.get("target_ref") or "") for row in modules if row.get("target_ref")
             ),
             "manifest_ref": _display(manifest_path, public_root=public_root),
+            "source_refs_live_checked": True,
+            "source_target_exact_copy_count": len(
+                [
+                    row
+                    for row in module_imports
+                    if row.get("source_target_exact_copy") is True
+                ]
+            ),
             "body_text_exported_in_receipts": False,
             "body_in_receipt": False,
         },
@@ -623,15 +867,47 @@ def validate_owner_surfaces(payload: object) -> dict[str, Any]:
     }
 
 
-def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def validate_lessons(
+    payload: object,
+    *,
+    owner_map: dict[str, dict[str, Any]],
+    public_root: Path,
+    source_module_manifest: object,
+) -> dict[str, Any]:
     lessons = _rows(payload, "lessons")
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     status_counts: dict[str, int] = defaultdict(int)
     owner_counts: dict[str, int] = defaultdict(int)
+    lesson_ref_resolutions: list[dict[str, Any]] = []
+    ignored_expected_label_count = 0
+    repo_root = _repo_root_for_public_root(public_root)
+    source_refs = _source_module_refs(source_module_manifest)
     for row in lessons:
         lesson_id = str(row.get("lesson_id") or "missing_lesson_id")
         missing = [field for field in REQUIRED_LESSON_FIELDS if field not in row]
+        baked_expected_keys = [
+            key for key in BAKED_EXPECTED_LABEL_KEYS if key in row
+        ]
+        ignored_expected_label_count += len(baked_expected_keys)
+        has_forbidden_body = _has_forbidden_key(row) or row.get("body_exported") is True
+        owner_id = str(row.get("selected_owner_surface_id") or "")
+        owner_known = owner_id in owner_map
+        status = str(row.get("status") or "")
+        status_known = status in VALID_OUTCOMES
+        receipt_only_progress = row.get("owner_action") == "append_receipt_only" or (
+            status == "refined_existing_surface" and not row.get("changed_surface_ref")
+        )
+        capture_without_reentry = (
+            status == "workitem_captured" and not row.get("reentry_condition")
+        )
+        null_pass_without_stewardship = status == "nothing_to_refine" and (
+            row.get("stewardship_checked") is not True
+            or row.get("next_best_lane_checked") is not True
+        )
+        global_promotion_without_validation = row.get("global_promotion_requested") is True and (
+            row.get("owner_surface_validated") is not True or not row.get("validation_ref")
+        )
         if missing:
             _record(
                 findings,
@@ -642,7 +918,7 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=f"{lesson_id}:{','.join(missing)}",
                 subject_kind="lesson",
             )
-        if _has_forbidden_key(row) or row.get("body_exported") is True:
+        if has_forbidden_body:
             _record(
                 findings,
                 observed,
@@ -652,8 +928,7 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=lesson_id,
                 subject_kind="lesson",
             )
-        owner_id = str(row.get("selected_owner_surface_id") or "")
-        if owner_id not in owner_map:
+        if not owner_known:
             _record(
                 findings,
                 observed,
@@ -665,9 +940,8 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
             )
         else:
             owner_counts[owner_id] += 1
-        status = str(row.get("status") or "")
         status_counts[status] += 1
-        if status not in VALID_OUTCOMES:
+        if not status_known:
             _record(
                 findings,
                 observed,
@@ -677,9 +951,7 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=f"{lesson_id}:{status}",
                 subject_kind="lesson",
             )
-        if row.get("owner_action") == "append_receipt_only" or (
-            status == "refined_existing_surface" and not row.get("changed_surface_ref")
-        ):
+        if receipt_only_progress:
             _record(
                 findings,
                 observed,
@@ -689,7 +961,29 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=lesson_id,
                 subject_kind="lesson",
             )
-        if status == "workitem_captured" and not row.get("reentry_condition"):
+        unresolved_ref_for_row = False
+        for field_name, ref in _lesson_ref_values(row):
+            resolution = _resolve_ref(
+                ref,
+                public_root=public_root,
+                repo_root=repo_root,
+                source_module_refs=source_refs,
+            )
+            resolution["lesson_id"] = lesson_id
+            resolution["field_name"] = field_name
+            lesson_ref_resolutions.append(resolution)
+            if not resolution["resolved"]:
+                unresolved_ref_for_row = True
+                _record(
+                    findings,
+                    observed,
+                    "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED",
+                    "Lesson refs must resolve to exported bundle, source-module, or public Microcosm files.",
+                    case_id="local_lessons",
+                    subject_id=f"{lesson_id}:{field_name}:{ref}",
+                    subject_kind="lesson_ref",
+                )
+        if capture_without_reentry:
             _record(
                 findings,
                 observed,
@@ -699,10 +993,7 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=lesson_id,
                 subject_kind="lesson",
             )
-        if status == "nothing_to_refine" and (
-            row.get("stewardship_checked") is not True
-            or row.get("next_best_lane_checked") is not True
-        ):
+        if null_pass_without_stewardship:
             _record(
                 findings,
                 observed,
@@ -712,9 +1003,7 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=lesson_id,
                 subject_kind="lesson",
             )
-        if row.get("global_promotion_requested") is True and (
-            row.get("owner_surface_validated") is not True or not row.get("validation_ref")
-        ):
+        if global_promotion_without_validation:
             _record(
                 findings,
                 observed,
@@ -724,6 +1013,32 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
                 subject_id=lesson_id,
                 subject_kind="lesson",
             )
+        real_backed = not any(
+            [
+                missing,
+                has_forbidden_body,
+                not owner_known,
+                not status_known,
+                receipt_only_progress,
+                unresolved_ref_for_row,
+                capture_without_reentry,
+                null_pass_without_stewardship,
+                global_promotion_without_validation,
+            ]
+        )
+        if baked_expected_keys and not real_backed:
+            _record(
+                findings,
+                observed,
+                "VOICE_DOCTRINE_BAKED_EXPECTED_LABEL_IGNORED",
+                "Expected labels are ignored and cannot satisfy unbacked lesson evidence.",
+                case_id="local_lessons",
+                subject_id=f"{lesson_id}:{','.join(baked_expected_keys)}",
+                subject_kind="lesson",
+            )
+    unresolved_ref_count = len(
+        [row for row in lesson_ref_resolutions if not row["resolved"]]
+    )
     return {
         "status": PASS if not findings else "fail",
         "findings": findings,
@@ -733,6 +1048,10 @@ def validate_lessons(payload: object, *, owner_map: dict[str, dict[str, Any]]) -
         "lesson_count": len(lessons),
         "status_counts": dict(sorted(status_counts.items())),
         "owner_counts": dict(sorted(owner_counts.items())),
+        "lesson_ref_resolution_count": len(lesson_ref_resolutions),
+        "unresolved_lesson_ref_count": unresolved_ref_count,
+        "lesson_ref_resolutions": lesson_ref_resolutions,
+        "ignored_expected_label_count": ignored_expected_label_count,
         "lessons": lessons,
     }
 
@@ -889,6 +1208,8 @@ def run(
     lessons_result = validate_lessons(
         payloads.get("local_lessons"),
         owner_map=owner_result["owner_map"],
+        public_root=public_root,
+        source_module_manifest=payloads.get("source_module_manifest"),
     )
     source_module_result = _source_module_result(
         payloads.get("source_module_manifest"),
@@ -974,6 +1295,16 @@ def run(
         ),
         "status_counts": status_counts,
         "owner_counts": lessons_result["owner_counts"],
+        "lesson_ref_resolution_count": lessons_result[
+            "lesson_ref_resolution_count"
+        ],
+        "unresolved_lesson_ref_count": lessons_result[
+            "unresolved_lesson_ref_count"
+        ],
+        "lesson_ref_resolutions": lessons_result["lesson_ref_resolutions"],
+        "ignored_expected_label_count": lessons_result[
+            "ignored_expected_label_count"
+        ],
         "source_pattern_refs": protocol_result["source_pattern_refs"],
         "body_import_verification": protocol_result["body_import_verification"],
         "source_module_manifest_status": source_module_result["status"],
@@ -1029,6 +1360,10 @@ def run(
             ),
             "owner_surfaces_present": len(owner_result["owner_map"]) >= 4,
             "lesson_owner_deposits_present": result["lesson_count"] >= 4,
+            "lesson_refs_resolved": result["unresolved_lesson_ref_count"] == 0,
+            "lesson_ref_resolution_count": result["lesson_ref_resolution_count"],
+            "unresolved_lesson_ref_count": result["unresolved_lesson_ref_count"],
+            "ignored_expected_label_count": result["ignored_expected_label_count"],
             "negative_cases_observed": missing_negative_cases == [],
             "secret_exclusion_scan_passed": secret_scan.get("status") == PASS,
             "source_module_manifest_required": require_source_module_manifest,

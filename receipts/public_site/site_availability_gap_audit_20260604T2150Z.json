@@ -1,0 +1,238 @@
+{
+  "schema_version": "microcosm_public_site_availability_gap_audit_v1",
+  "receipt_id": "site_availability_gap_audit_20260604T2150Z",
+  "created_at": "2026-06-04T21:50:00Z",
+  "created_by": "codex_goal_microcosm_doctrine_site_availability_20260604T2150Z_site_gap_audit",
+  "repo_head_observed": "fec01bcb478ca2de00b7911713e307aca321f7aa",
+  "source_refs": [
+    "microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "microcosm-substrate/core/paper_module_capsules.json",
+    "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/content-graph.json"
+  ],
+  "authority_boundary": {
+    "status": "audit_receipt_not_source_population",
+    "source_authority": [
+      "doctrine_lattice_coverage.json for deficit counts",
+      "paper_module_capsules.json for source-record count",
+      "validated temp public-site content graph for website availability projection"
+    ],
+    "not_authority_for": [
+      "minting paper-module subjects",
+      "promoting legacy Markdown into capsule authority",
+      "editing generated public-site outputs",
+      "release approval",
+      "publication approval"
+    ]
+  },
+  "validated_site_projection": {
+    "temp_site_root": "/tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z",
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "validation_status": "pass",
+    "paper_module_count": 89,
+    "paper_module_availability_gap_count": 9,
+    "coverage_deficit_count": 5,
+    "coverage_deficit_total_count": 165,
+    "public_safety_scan_hit_count": 0,
+    "private_scan_hit_count": 0,
+    "internal_links_missing": 0
+  },
+  "source_coverage_projection": {
+    "population_status": "complete",
+    "paper_module_json_instance_count": 98,
+    "paper_module_legacy_only_count": 9,
+    "paper_module_without_json_capsule_count": 9,
+    "paper_module_required_subject_gap_count": 9,
+    "paper_module_unpopulated_selective_relation_count": 82,
+    "mechanism_unpopulated_selective_relation_count": 36,
+    "organ_unpopulated_selective_relation_count": 29
+  },
+  "availability_gaps": [
+    {
+      "paper_module_id": "paper_module.batch7_secondary_runtime_capsule",
+      "module_slug": "batch7_secondary_runtime_capsule",
+      "title": "Secondary Runtime Bundle",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.batch7_zenith_macos_capsule",
+      "module_slug": "batch7_zenith_macos_capsule",
+      "title": "Paper module availability gap 7651488f9835",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_annex_knowledge_router",
+      "module_slug": "engine_room_annex_knowledge_router",
+      "title": "Engine Room Reference Knowledge Router",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_derived_fact_provider_engine",
+      "module_slug": "engine_room_derived_fact_provider_engine",
+      "title": "Engine Room Derived Fact Provider Engine",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_egress_self_compliance_gate",
+      "module_slug": "engine_room_egress_self_compliance_gate",
+      "title": "Engine Room Egress Self Compliance Gate",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_lean_proof_search_lab",
+      "module_slug": "engine_room_lean_proof_search_lab",
+      "title": "Engine Room Lean Proof Search Lab",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.engine_room_navigation_fitness_benchmark",
+      "module_slug": "engine_room_navigation_fitness_benchmark",
+      "title": "Engine Room Navigation Fitness Benchmark",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.first_screen_composition_root",
+      "module_slug": "first_screen_composition_root",
+      "title": "First Screen Composition Root",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    },
+    {
+      "paper_module_id": "paper_module.microcosm_axiom_substrate",
+      "module_slug": "microcosm_axiom_substrate",
+      "title": "Microcosm Axiom System",
+      "availability_status": "blocked_required_subject_gap",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "reentry_condition": "Add a source-backed paper-module row only after a resolved component or mechanism subject exists, then rebuild doctrine coverage and the public site."
+    }
+  ],
+  "coverage_deficits": [
+    {
+      "deficit_id": "paper_module_source_record_gap",
+      "count": 9,
+      "status": "needs_source_backed_population",
+      "next_source_action": "Create source-backed paper-module rows with resolved component or mechanism subjects, rebuild coverage, then rebuild the public site."
+    },
+    {
+      "deficit_id": "paper_module_required_subject_gap",
+      "count": 9,
+      "status": "needs_source_backed_population",
+      "next_source_action": "Attach source-backed subject refs, rebuild coverage, then rebuild the public site."
+    },
+    {
+      "deficit_id": "paper_module_relation_fill_gap",
+      "count": 82,
+      "status": "needs_source_backed_population",
+      "next_source_action": "Populate only source-warranted relation refs; leave unwarranted links empty."
+    },
+    {
+      "deficit_id": "mechanism_relation_fill_gap",
+      "count": 36,
+      "status": "needs_source_backed_population",
+      "next_source_action": "Populate only source-warranted mechanism relation refs; leave unwarranted links empty."
+    },
+    {
+      "deficit_id": "component_relation_fill_gap",
+      "count": 29,
+      "status": "needs_source_backed_population",
+      "next_source_action": "Populate only source-warranted component relation refs; leave unwarranted links empty."
+    }
+  ],
+  "concurrent_owner_boundary": {
+    "status": "source_population_deferred_to_claimed_doctrine_lattice_lane",
+    "claimed_surface": "microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "owner_session_id": "codex_goal_microcosm_doctrine_lattice_saturation_20260604T2145Z_p18_landing",
+    "blocking_condition": "Next source-population slice needs coverage regeneration; coverage output is currently claimed by the doctrine-lattice saturation lane.",
+    "safe_current_action": "Commit this audit receipt only; do not edit generated coverage or public-site outputs while the owner claim is active.",
+    "reentry_condition": "When the doctrine-lattice coverage claim is released, inspect one availability gap, prove a resolved component or mechanism subject exists, add the source-backed capsule row, rebuild doctrine coverage, rebuild the public site, and validate public safety."
+  },
+  "public_safety": {
+    "status": "public_safe_audit_metadata_only",
+    "excluded_material": [
+      "raw operator voice",
+      "private macro-root bodies",
+      "provider or account material",
+      "browser or HUD state",
+      "credentials",
+      "live ledger mutation payload bodies",
+      "copied source bodies",
+      "release or publication authorization"
+    ]
+  },
+  "validation": {
+    "status": "pass",
+    "commands": [
+      {
+        "command": "jq empty microcosm-substrate/receipts/public_site/site_availability_gap_audit_20260604T2150Z.json",
+        "status": "pass"
+      },
+      {
+        "command": "jq '{paper_module_count, paper_module_availability_gap_count, coverage_deficit_count, coverage_deficit_total_count}' /tmp/microcosm-pattern-assimilation-fullsite-current-20260604T2140Z/content-graph.json",
+        "status": "pass",
+        "summary": {
+          "paper_module_count": 89,
+          "paper_module_availability_gap_count": 9,
+          "coverage_deficit_count": 5,
+          "coverage_deficit_total_count": 165
+        }
+      },
+      {
+        "command": "jq '{population_status, paper_module_legacy_only_count:.deficit_summary.paper_module_legacy_only_count, paper_module_required_subject_gap_count:.deficit_summary.paper_module_required_subject_gap_count, paper_module_unpopulated_selective_relation_count:.deficit_summary.paper_module_unpopulated_selective_relation_count, mechanism_unpopulated_selective_relation_count:.deficit_summary.mechanism_unpopulated_selective_relation_count, organ_unpopulated_selective_relation_count:.deficit_summary.organ_unpopulated_selective_relation_count}' microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "status": "pass",
+        "summary": {
+          "population_status": "complete",
+          "paper_module_legacy_only_count": 9,
+          "paper_module_required_subject_gap_count": 9,
+          "paper_module_unpopulated_selective_relation_count": 82,
+          "mechanism_unpopulated_selective_relation_count": 36,
+          "organ_unpopulated_selective_relation_count": 29
+        }
+      },
+      {
+        "command": "./repo-git diff --check -- microcosm-substrate/receipts/public_site/site_availability_gap_audit_20260604T2150Z.json",
+        "status": "pass"
+      }
+    ]
+  }
+}

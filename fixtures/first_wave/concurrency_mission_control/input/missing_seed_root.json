@@ -1,0 +1,7 @@
+{
+  "case_id": "missing_seed_root",
+  "error_codes": [
+    "CONCURRENCY_MISSION_CONTROL_SEED_ROOT_MISSING"
+  ],
+  "body_in_receipt": false
+}

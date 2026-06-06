@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "case_id": "truncates_sorted_self_excluded",
+      "expected": [
+        "related-1",
+        "related-2",
+        "related-3",
+        "related-4",
+        "related-5",
+        "related-6"
+      ],
+      "focus_id": "focus"
+    },
+    {
+      "case_id": "related_no_overlap_different_type",
+      "expected": [],
+      "focus_id": "lonely"
+    },
+    {
+      "case_id": "same_type_without_overlap_included",
+      "expected": [
+        "same-type"
+      ],
+      "focus_id": "type-focus"
+    }
+  ],
+  "situations": [
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 10,
+      "situation_id": "focus",
+      "situation_type": "focus_type"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 1,
+      "situation_id": "related-1",
+      "situation_type": "type-1"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 2,
+      "situation_id": "related-2",
+      "situation_type": "type-2"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 3,
+      "situation_id": "related-3",
+      "situation_type": "type-3"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 4,
+      "situation_id": "related-4",
+      "situation_type": "type-4"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 5,
+      "situation_id": "related-5",
+      "situation_type": "type-5"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 6,
+      "situation_id": "related-6",
+      "situation_type": "type-6"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 7,
+      "situation_id": "related-7",
+      "situation_type": "type-7"
+    },
+    {
+      "entities": [
+        "entity:a"
+      ],
+      "rank": 8,
+      "situation_id": "related-8",
+      "situation_type": "type-8"
+    },
+    {
+      "entities": [
+        "entity:z"
+      ],
+      "rank": 1,
+      "situation_id": "lonely",
+      "situation_type": "lonely_type"
+    },
+    {
+      "entities": [
+        "entity:y"
+      ],
+      "rank": 2,
+      "situation_id": "unrelated",
+      "situation_type": "other_type"
+    },
+    {
+      "entities": [
+        "entity:t"
+      ],
+      "rank": 1,
+      "situation_id": "type-focus",
+      "situation_type": "same_type"
+    },
+    {
+      "entities": [
+        "entity:other"
+      ],
+      "rank": 2,
+      "situation_id": "same-type",
+      "situation_type": "same_type"
+    }
+  ]
+}

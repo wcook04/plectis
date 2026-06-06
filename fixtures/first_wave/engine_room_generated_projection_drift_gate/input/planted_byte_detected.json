@@ -1,0 +1,44 @@
+{
+  "case_id": "planted_byte_detected",
+  "expected_status": "drift",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"expected\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "expected projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text_parts": [
+        "expected projection",
+        "\n",
+        "planted drift byte\n"
+      ]
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "The owner no-write check detects the planted artifact byte.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ]
+    }
+  ]
+}

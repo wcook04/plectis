@@ -1,0 +1,17 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "preferred_unavailable_fallback",
+  "route_cases": [
+    {
+      "route_case_id": "mathlib_preferred_unavailable_declared_stale",
+      "target_shape": "mathlib_search_goal",
+      "candidate_tactic_ids": ["aesop", "simp_all", "rfl"],
+      "allowed_tactic_ids": ["simp_all", "rfl"],
+      "selected_tactic_id": "aesop",
+      "expected_tactic_id": "simp_all",
+      "route_stage": "pre_execution",
+      "body_in_receipt": false
+    }
+  ],
+  "anti_claim": "A shape-preferred tactic that is unavailable in the public portfolio cannot be admitted or selected over the next available allowed tactic."
+}

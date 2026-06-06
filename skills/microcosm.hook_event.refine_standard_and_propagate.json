@@ -1,0 +1,191 @@
+{
+  "acts_on_kind": "hook_event",
+  "anti_claims": [
+    "This skill JSON seed does not flip source authority away from the current skill markdown projection.",
+    "Resolved operated-standard and acted-on-kind edges are structural route mappings, not proof the skill is complete or used correctly by agents.",
+    "Absent mechanism or concept neighbours are residual pressure, not evidence that no such neighbours exist.",
+    "Generated graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_skill_json_seeded_from_skill_markdown_projection_not_authority_flip_until_parity_receipt",
+  "concept_refs": [
+    "concept.agent_reliability_and_safety_validator_bundle",
+    "concept.work_landing_and_continuity_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "skill.microcosm.hook_event.refine_standard_and_propagate",
+  "kind": "skill",
+  "mechanism_refs": [
+    "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+    "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity"
+  ],
+  "omission_receipt": {
+    "drilldown": "skills/microcosm.hook_event.refine_standard_and_propagate.md",
+    "omitted": [
+      "private macro skill bodies",
+      "provider payload bodies",
+      "operator-thread examples",
+      "full source markdown body",
+      "mechanism or concept neighbours not named by typed source mapping"
+    ],
+    "reason": "Skill instance preserves public-safe markdown source identity, digest, and typed route mapping only. JSON parity does not prove full skill-body completeness or runtime correctness.",
+    "residual_pressure": [
+      {
+        "gap_class": "skill_selective_edges_unpopulated",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Bind skill.uses mechanism and skill.applies concept edges only when source evidence names ids."
+      }
+    ]
+  },
+  "operates_standard": "std_microcosm_hook_event",
+  "receipt_refs": [],
+  "relationships": {
+    "acts_on_kind": "hook_event",
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle",
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.operates_standard",
+          "summary": "The standard JSON at standards/std_microcosm_hook_event.json declares this skill route; relationships.used_by_organs=[\"agent_route_observability_runtime\", \"bridge_phase_continuity_runtime\"] names organ atlas rows whose mechanism_refs=[\"mechanism.agent_route_observability_runtime.validates_public_route_feedback\", \"mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity\"] and concept_refs=[\"concept.agent_reliability_and_safety_validator_bundle\", \"concept.work_landing_and_continuity_control_bundle\"] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness."
+        },
+        "relation_id": "skill.operates.standard",
+        "relation_verb": "operates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "operated_by",
+        "target_id": "std_microcosm_hook_event",
+        "target_kind": "standard",
+        "target_status": "resolved_standard_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.acts_on_kind",
+          "summary": "The standard JSON at standards/std_microcosm_hook_event.json declares this skill route; relationships.used_by_organs=[\"agent_route_observability_runtime\", \"bridge_phase_continuity_runtime\"] names organ atlas rows whose mechanism_refs=[\"mechanism.agent_route_observability_runtime.validates_public_route_feedback\", \"mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity\"] and concept_refs=[\"concept.agent_reliability_and_safety_validator_bundle\", \"concept.work_landing_and_continuity_control_bundle\"] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness."
+        },
+        "relation_id": "skill.acts_on.doctrine_kind",
+        "relation_verb": "acts_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "acted_on_by",
+        "target_id": "hook_event",
+        "target_kind": "doctrine_kind",
+        "target_status": "resolved_doctrine_kind_contract"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.concept_refs",
+          "summary": "Skill source mapping names this concept as an applied doctrine boundary."
+        },
+        "relation_id": "skill.applies.concept",
+        "relation_verb": "applies",
+        "residual_pressure_ref": null,
+        "reverse_verb": "applied_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md::typed_skill_mapping.mechanism_refs",
+          "summary": "Skill source mapping names this mechanism as an operational dependency."
+        },
+        "relation_id": "skill.uses.mechanism",
+        "relation_verb": "uses",
+        "residual_pressure_ref": null,
+        "reverse_verb": "used_by",
+        "target_id": "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      }
+    ],
+    "mechanism_refs": [
+      "mechanism.agent_route_observability_runtime.validates_public_route_feedback",
+      "mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity"
+    ],
+    "operates_standard": "std_microcosm_hook_event",
+    "source_markdown_digest": "732b6e3835ea972550a1f60a95932b35dd616d55bd7cf3777cfc82e42e3d20b6",
+    "source_markdown_line_count": 41,
+    "source_markdown_ref": "skills/microcosm.hook_event.refine_standard_and_propagate.md",
+    "triad_role": "refine_standard_and_propagate",
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_skill_instance_v1",
+  "skill_payload": {
+    "contract_version": "microcosm_skill_instance_payload_v1",
+    "mapping_basis": "The standard JSON at standards/std_microcosm_hook_event.json declares this skill route; relationships.used_by_organs=[\"agent_route_observability_runtime\", \"bridge_phase_continuity_runtime\"] names organ atlas rows whose mechanism_refs=[\"mechanism.agent_route_observability_runtime.validates_public_route_feedback\", \"mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity\"] and concept_refs=[\"concept.agent_reliability_and_safety_validator_bundle\", \"concept.work_landing_and_continuity_control_bundle\"] are the source basis for these selective skill edges. This binds only source-declared lattice neighbours and does not prove runtime correctness, release readiness, provider authority, private-body coverage, or whole-system completeness.",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "skills/*.md"
+    },
+    "projection_contract": {
+      "json_status": "generated_parity_seed",
+      "legacy_markdown_rel": "skills/microcosm.hook_event.refine_standard_and_propagate.md",
+      "markdown_status": "legacy_public_projection_source_until_parity_flip",
+      "source_json_rel": "skills/microcosm.hook_event.refine_standard_and_propagate.json"
+    },
+    "source_markdown_digest": "732b6e3835ea972550a1f60a95932b35dd616d55bd7cf3777cfc82e42e3d20b6",
+    "source_markdown_line_count": 41,
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_skill_edges_computed_not_runtime_correctness_claim"
+    }
+  },
+  "source_refs": [
+    {
+      "path": "skills/microcosm.hook_event.refine_standard_and_propagate.md",
+      "role": "skill_markdown_source_projection_until_json_parity_flip"
+    },
+    {
+      "path": "skills/microcosm.hook_event.refine_standard_and_propagate.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "statement": "Microcosm Hook Event Refine Standard And Propagate",
+  "status": "active",
+  "title": "Microcosm Hook Event Refine Standard And Propagate",
+  "triad_role": "refine_standard_and_propagate",
+  "triggers": [
+    "The Hook event standard declares this refine standard and propagate skill id with status planned.",
+    "A governed skill source row is needed before standard.owns_triad.skill can resolve without treating generated projections as authority."
+  ],
+  "validation": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-skill-corpus",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check"
+  ],
+  "validator_refs": [
+    "validator.microcosm.skill"
+  ],
+  "workflow": [
+    "Read std_microcosm_hook_event JSON, its authority ceiling, validator refs, receipt refs, and lattice health before editing hook_event artifacts.",
+    "Change the source standard only with reusable evidence, then propagate through governed instances, validators, receipts, generated skill corpus, and lattice projections.",
+    "Regenerate the skill corpus and preserve missing mechanism or concept neighbours as residual pressure unless a source mapping names them."
+  ]
+}

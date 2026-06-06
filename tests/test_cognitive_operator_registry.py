@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -89,6 +90,51 @@ def test_cognitive_operator_registry_observes_negative_cases(tmp_path: Path) -> 
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_cognitive_operator_registry_rejects_unresolvable_cognition_delta_evidence(
+    tmp_path: Path,
+) -> None:
+    result = run(
+        FIXTURE_INPUT,
+        tmp_path / "receipts/first_wave/cognitive_operator_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["observed_negative_cases"][
+        "unresolvable_cognition_delta_evidence"
+    ] == ["COGOP_COGNITION_DELTA_EVIDENCE_UNRESOLVABLE"]
+    assert "COGOP_COGNITION_DELTA_EVIDENCE_UNRESOLVABLE" in result["error_codes"]
+
+
+def test_cognitive_operator_registry_rejects_mutated_positive_delta_handle(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = public_root / "fixtures/first_wave/cognitive_operator_registry/input"
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+    dogfood_path = input_dir / "dogfood_index.json"
+    dogfood = json.loads(dogfood_path.read_text(encoding="utf-8"))
+    dogfood["dogfood_receipts"][0]["cognition_delta_evidence"] = [
+        "cognition_delta_evidence://fabricated/not-present"
+    ]
+    dogfood_path.write_text(json.dumps(dogfood, sort_keys=True), encoding="utf-8")
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/cognitive_operator_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "COGOP_COGNITION_DELTA_EVIDENCE_UNRESOLVABLE" in result["error_codes"]
+    assert any(
+        finding["negative_case_id"] == "positive_dogfood"
+        and finding["subject_kind"] == "cognition_delta_evidence"
+        for finding in result["findings"]
+    )
 
 
 def test_cognitive_operator_registry_bundle_validates_runtime_shape(
@@ -223,6 +269,95 @@ def test_cognitive_operator_registry_source_modules_are_exact_macro_body_imports
         text = target_bytes.decode("utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in text
+
+
+def test_cognitive_operator_registry_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/cognitive_operator_registry",
+        public_root / "examples/cognitive_operator_registry",
+    )
+    bundle = (
+        public_root
+        / "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "0" * 64
+    manifest["modules"][0]["source_sha256"] = "0" * 64
+    manifest["modules"][0]["target_sha256"] = "0" * 64
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_registry_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "COGOP_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_cognitive_operator_registry_rejects_partial_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/cognitive_operator_registry",
+        public_root / "examples/cognitive_operator_registry",
+    )
+    bundle = (
+        public_root
+        / "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_sha256"] = "0" * 64
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_registry_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "COGOP_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_cognitive_operator_registry_rejects_partial_target_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/cognitive_operator_registry",
+        public_root / "examples/cognitive_operator_registry",
+    )
+    bundle = (
+        public_root
+        / "examples/cognitive_operator_registry/exported_cognitive_operator_registry_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "0" * 64
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_registry_bundle(
+        bundle,
+        public_root / "receipts/runtime_shell/demo_project/organs/cognitive_operator_registry",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "COGOP_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_cognitive_operator_registry_receipts_use_secret_exclusion(tmp_path: Path) -> None:

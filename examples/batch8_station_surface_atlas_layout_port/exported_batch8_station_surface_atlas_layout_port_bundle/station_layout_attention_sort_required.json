@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "description": "Failed or readiness-timeout capture posture must sort before centrality.",
+  "error_codes": [
+    "BATCH8_STATION_LAYOUT_ATTENTION_SORT_REQUIRED"
+  ],
+  "expected_first_id": "failed_low_centrality",
+  "schema_version": "batch8_station_surface_atlas_layout_negative_case_v1"
+}

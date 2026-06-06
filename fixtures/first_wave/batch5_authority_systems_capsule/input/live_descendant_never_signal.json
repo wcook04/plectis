@@ -1,0 +1,23 @@
+{
+  "body_in_receipt": false,
+  "case_id": "live_descendant_never_signal",
+  "claim": "A live agent-session descendant remains owner-check only and is never signalled.",
+  "computed_path": "live_session_descendant_requires_owner_check_no_signal",
+  "error_codes": [
+    "BATCH5_ORPHAN_REAPER_LIVE_DESCENDANT_NEVER_SIGNAL"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "process_orphan_reaper",
+  "probe_input": {
+    "process": {
+      "age_seconds": 900,
+      "allowlisted": true,
+      "live_session_descendant": true,
+      "pid": 4242,
+      "ppid": 1,
+      "requested_signal": "SIGKILL"
+    }
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

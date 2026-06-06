@@ -18,6 +18,8 @@ from microcosm_core.organs.indirect_prompt_injection_information_flow_policy_rep
     main,
     run,
     run_prompt_injection_bundle,
+    validate_information_flow_graph,
+    validate_source_documents,
 )
 
 
@@ -87,6 +89,27 @@ def test_indirect_prompt_injection_flow_replay_observes_negative_cases(
     assert result["untrusted_source_count"] == 3
     assert result["trusted_source_count"] == 2
     assert result["information_flow_count"] == 5
+    assert result["taint_propagation"]["status"] == "pass"
+    assert result["taint_propagation_path_count"] == 5
+    assert result["taint_propagation"]["derived_taint_mismatch_count"] == 0
+    assert result["derived_policy_verdict_mismatch_count"] == 0
+    taint_rows = {
+        row["flow_id"]: row
+        for row in result["taint_propagation"]["flow_path_rows"]
+    }
+    assert taint_rows["flow_block_hidden_policy_promotion"][
+        "derived_taint_labels"
+    ] == ["hidden_policy_claim", "untrusted_tool_output"]
+    assert taint_rows["flow_block_web_to_email"]["source_to_sink_paths"] == [
+        ["src_web_page_injection", "sink_email_send"]
+    ]
+    assert {
+        row["flow_id"]: row["derived_policy_verdict"]
+        for row in result["flow_rows"]
+    } == {
+        row["flow_id"]: row["policy_verdict"]
+        for row in result["flow_rows"]
+    }
     assert result["policy_verdict_count"] == 5
     assert result["allow_count"] == 1
     assert result["warn_count"] == 1
@@ -119,6 +142,15 @@ def test_indirect_prompt_injection_flow_replay_observes_negative_cases(
         "review_required": 1,
         "sanitized_warning": 1,
     }
+    assert result["live_input_promotion"]["status"] == "pass"
+    assert result["live_input_promotion"]["promotion_kind"] == (
+        "public_tool_call_trace_to_taint_graph"
+    )
+    assert result["live_tool_call_trace_count"] == 1
+    assert result["live_tool_call_taint_path_count"] == 1
+    assert result["live_input_promotion"]["taint_propagation"][
+        "derived_policy_verdict_mismatch_count"
+    ] == 0
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -196,13 +228,38 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["live_tool_call_authorized"] is False
     assert "public_replacement_refs" not in result
     assert "omitted_private_material" not in result
-    assert result["body_import_verification"]["verification_mode"] == (
+    verification = result["body_import_verification"]
+    assert verification["verification_status"] == "verified"
+    assert verification["verification_mode"] == (
+        "extension_of_existing_public_refactor_with_live_digest_relation"
+    )
+    assert verification["classification"] == "extension_of_existing_public_refactor"
+    assert verification["body_import_classification"] == (
         "extension_of_existing_public_refactor"
     )
-    assert result["body_import_verification"]["classification"] == (
-        "extension_of_existing_public_refactor"
+    assert verification["status"] == "pass"
+    assert verification["source_to_target_relation"] == (
+        "source_faithful_public_refactor"
     )
-    assert result["body_import_verification"]["status"] == "pass"
+    assert verification["digest_relation"] == "source_target_refactor_digests_recorded"
+    assert verification["source_ref"] == "system/lib/agent_execution_trace.py"
+    assert verification["target_file_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+    )
+    assert verification["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/"
+        "agent_execution_trace.py::build_public_prompt_injection_trace"
+    )
+    assert verification["source_body_digest"] == _sha256(
+        SOURCE_ROOT / "system/lib/agent_execution_trace.py"
+    )
+    assert verification["target_body_digest"] == _sha256(
+        MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_execution_trace.py"
+    )
+    assert verification["source_module_digest_relation"] == (
+        "manifest_target_digests_verified"
+    )
+    assert verification["source_module_digest_count"] == 5
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
     assert (
         result["body_import_classification"]
@@ -214,16 +271,16 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert result["body_material_status"] == (
         "copied_non_secret_prompt_injection_macro_body_landed"
     )
-    assert result["body_copied_material_count"] == 4
-    assert result["source_module_imports"]["verified_module_count"] == 4
+    assert result["body_copied_material_count"] == 5
+    assert result["source_module_imports"]["verified_module_count"] == 5
     assert result["source_open_body_imports"]["status"] == "pass"
-    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["source_open_body_imports"]["body_material_count"] == 5
     assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert (
         result["source_open_body_imports"]["body_text_exported_in_receipts"]
         is False
     )
-    assert len(result["source_open_body_import_refs"]) == 4
+    assert len(result["source_open_body_import_refs"]) == 5
     assert (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
         in result["target_refs"]
@@ -232,9 +289,283 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert result["public_agent_execution_trace"]["source_faithful_refactor"][
         "verification_mode"
     ] == "extension_of_existing_public_refactor"
+    assert result["live_input_promotion"]["input_origin"] == (
+        "generated_public_trace_span"
+    )
+    assert result["live_input_promotion"]["source_tool_name"] == (
+        "prompt_injection_information_flow_policy"
+    )
     assert {
         span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
     } == {"prompt_injection_information_flow_policy"}
+
+
+def test_indirect_prompt_injection_rejects_hand_written_edge_taint() -> None:
+    sources = validate_source_documents(
+        json.loads((BUNDLE_INPUT / "source_documents.json").read_text())
+    )
+    graph = json.loads((BUNDLE_INPUT / "information_flow_graph.json").read_text())
+    graph["information_flows"][0]["taint_labels"] = ["trusted_instruction"]
+
+    result = validate_information_flow_graph(graph, sources["source_rows"])
+
+    assert result["status"] == "blocked"
+    assert result["taint_propagation"]["derived_taint_mismatch_count"] == 1
+    assert {
+        finding["error_code"] for finding in result["findings"]
+    } >= {"PROMPT_INJECTION_TAINT_PROPAGATION_MISMATCH"}
+
+
+def test_indirect_prompt_injection_rejects_hand_written_flow_verdict() -> None:
+    sources = validate_source_documents(
+        json.loads((BUNDLE_INPUT / "source_documents.json").read_text())
+    )
+    graph = json.loads((BUNDLE_INPUT / "information_flow_graph.json").read_text())
+    graph["information_flows"][0]["policy_verdict"] = "allow"
+
+    result = validate_information_flow_graph(graph, sources["source_rows"])
+
+    assert result["status"] == "blocked"
+    assert result["derived_policy_verdict_mismatch_count"] == 1
+    assert result["taint_propagation"][
+        "derived_policy_verdict_mismatch_count"
+    ] == 1
+    assert {
+        finding["error_code"] for finding in result["findings"]
+    } >= {"PROMPT_INJECTION_POLICY_VERDICT_DERIVATION_MISMATCH"}
+
+
+def test_indirect_prompt_injection_rejects_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/indirect_prompt_injection_information_flow_policy_replay",
+        public_root / "examples/indirect_prompt_injection_information_flow_policy_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/indirect_prompt_injection_information_flow_policy_replay/"
+        "exported_prompt_injection_flow_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    bad_digest = "sha256:" + ("0" * 64)
+    manifest["modules"][0]["sha256"] = bad_digest
+    manifest["modules"][0]["source_sha256"] = bad_digest
+    manifest["modules"][0]["target_sha256"] = bad_digest
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_prompt_injection_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_indirect_prompt_injection_rejects_source_module_target_ref_path_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/indirect_prompt_injection_information_flow_policy_replay",
+        public_root / "examples/indirect_prompt_injection_information_flow_policy_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/indirect_prompt_injection_information_flow_policy_replay/"
+        "exported_prompt_injection_flow_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["path"] = manifest["modules"][1]["path"]
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_prompt_injection_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay",
+        command="pytest",
+    )
+
+    first_module = result["source_module_imports"]["modules"][0]
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert first_module["digest_match"] is True
+    assert first_module["target_ref_matches_path"] is False
+    assert (
+        "PROMPT_INJECTION_SOURCE_MODULE_TARGET_REF_PATH_MISMATCH"
+        in result["error_codes"]
+    )
+    assert (
+        "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH"
+        not in result["error_codes"]
+    )
+
+
+def test_indirect_prompt_injection_rejects_partial_source_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/indirect_prompt_injection_information_flow_policy_replay",
+        public_root / "examples/indirect_prompt_injection_information_flow_policy_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/indirect_prompt_injection_information_flow_policy_replay/"
+        "exported_prompt_injection_flow_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["source_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_prompt_injection_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_indirect_prompt_injection_rejects_partial_target_module_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/indirect_prompt_injection_information_flow_policy_replay",
+        public_root / "examples/indirect_prompt_injection_information_flow_policy_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/indirect_prompt_injection_information_flow_policy_replay/"
+        "exported_prompt_injection_flow_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["target_sha256"] = "sha256:" + ("0" * 64)
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_prompt_injection_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+
+
+def test_indirect_prompt_injection_rejects_source_module_manifest_body_text_boundary(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/indirect_prompt_injection_information_flow_policy_replay",
+        public_root / "examples/indirect_prompt_injection_information_flow_policy_replay",
+    )
+    bundle = (
+        public_root
+        / "examples/indirect_prompt_injection_information_flow_policy_replay/"
+        "exported_prompt_injection_flow_bundle"
+    )
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["body_text_in_receipt"] = True
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True), encoding="utf-8")
+
+    result = run_prompt_injection_bundle(
+        bundle,
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay",
+        command="pytest",
+    )
+    source_modules = result["source_module_imports"]
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest_status"] == "blocked"
+    assert source_modules["body_in_receipt"] is False
+    assert source_modules["body_text_in_receipt"] is False
+    assert "PROMPT_INJECTION_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED" in result[
+        "error_codes"
+    ]
+    assert {
+        row["subject_kind"]
+        for row in source_modules["findings"]
+        if row["error_code"] == "PROMPT_INJECTION_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED"
+    } == {"body_text_in_receipt"}
+
+
+def test_indirect_prompt_injection_source_module_digests_stream_without_read_bytes(
+    monkeypatch,
+) -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    module_row = manifest["modules"][0]
+    module_path = MICROCOSM_ROOT / module_row["target_ref"].removeprefix(
+        "microcosm-substrate/"
+    )
+    module_key = module_path.resolve()
+    original_read_bytes = Path.read_bytes
+
+    def fail_for_copied_module(path: Path) -> bytes:
+        if path.resolve() == module_key:
+            raise AssertionError("source-module digest should stream without read_bytes")
+        return original_read_bytes(path)
+
+    monkeypatch.setattr(Path, "read_bytes", fail_for_copied_module)
+
+    manifest_result = (
+        indirect_prompt_injection_information_flow_policy_replay
+        ._source_module_manifest_result(
+            BUNDLE_INPUT,
+            public_root=MICROCOSM_ROOT,
+            require_manifest=True,
+        )
+    )
+    freshness = (
+        indirect_prompt_injection_information_flow_policy_replay
+        ._freshness_basis(BUNDLE_INPUT, include_negative=False)
+    )
+
+    assert manifest_result["status"] == "pass"
+    assert manifest_result["verified_module_count"] == 5
+    assert (
+        indirect_prompt_injection_information_flow_policy_replay._sha256(module_path)
+        == module_row["sha256"]
+    )
+    expected_path = module_row["target_ref"].removeprefix("microcosm-substrate/")
+    assert any(
+        row["path"] == expected_path
+        and row["sha256"] == module_row["sha256"]
+        for row in freshness["inputs"]
+    )
 
 
 def test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports() -> None:
@@ -242,7 +573,8 @@ def test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports()
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] == 4
+    assert manifest["body_text_in_receipt"] is False
+    assert manifest["module_count"] == 5
     for row in manifest["modules"]:
         source = SOURCE_ROOT / row["source_ref"]
         target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
@@ -290,20 +622,23 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 15
+    assert first_card["command_speed"]["freshness_input_count"] == 16
     assert first_card["prompt_injection_flow"]["source_document_count"] == 5
     assert first_card["prompt_injection_flow"]["information_flow_count"] == 5
     assert first_card["prompt_injection_flow"]["block_count"] == 2
     assert first_card["prompt_injection_flow"]["review_count"] == 1
     assert first_card["prompt_injection_flow"]["cold_replay_pass_count"] == 5
     assert first_card["public_trace"]["span_count"] == 5
+    assert first_card["live_input_promotion"]["status"] == "pass"
+    assert first_card["live_input_promotion"]["live_tool_call_trace_count"] == 1
+    assert first_card["live_input_promotion"]["taint_propagation_path_count"] == 1
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
     assert first_card["validation"]["source_module_manifest_status"] == "pass"
     assert first_card["body_floor"]["body_material_status"] == (
         "copied_non_secret_prompt_injection_macro_body_landed"
     )
-    assert first_card["body_floor"]["body_copied_material_count"] == 4
+    assert first_card["body_floor"]["body_copied_material_count"] == 5
     assert first_card["body_floor"]["source_open_body_import_status"] == "pass"
     assert "source_rows" not in _walk_keys(first_card)
     assert "flow_rows" not in _walk_keys(first_card)
@@ -384,7 +719,7 @@ def test_indirect_prompt_injection_fixture_manifests_bind_public_trace_refactor(
                 "examples/indirect_prompt_injection_information_flow_policy_replay/"
                 "exported_prompt_injection_flow_bundle/source_module_manifest.json"
             ),
-            "source_open_body_import_count": 4,
+            "source_open_body_import_count": 5,
             "target_ref": (
                 "microcosm-substrate/src/microcosm_core/macro_tools/"
                 "agent_execution_trace.py"
@@ -404,9 +739,9 @@ def test_indirect_prompt_injection_fixture_manifests_bind_public_trace_refactor(
         assert manifest["body_material_status"] == (
             "copied_non_secret_prompt_injection_macro_body_landed"
         )
-        assert manifest["body_copied_material_count"] == 4
+        assert manifest["body_copied_material_count"] == 5
         assert manifest["source_open_body_imports"]["status"] == "pass"
-        assert manifest["source_open_body_imports"]["body_material_count"] == 4
+        assert manifest["source_open_body_imports"]["body_material_count"] == 5
         assert manifest["source_open_body_imports"]["body_in_receipt"] is False
         assert (
             "microcosm_core.macro_tools.agent_execution_trace::"

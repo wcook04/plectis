@@ -176,6 +176,32 @@
         ],
         "failure_mode": "A receipt that records only the winning rationale does not prove the operator changed cognition."
       },
+      "compression_passport": {
+        "cluster_keys": [
+          "disconfirming evidence",
+          "counterevidence",
+          "counterexample",
+          "falsifier",
+          "negative evidence",
+          "route disagreement",
+          "entry context-pack disagreement",
+          "surviving claim"
+        ],
+        "atom": "Make the selected claim survive its strongest counterevidence",
+        "when_to_open": "Open when routes, standards, ledgers, traces, or prior doctrine disagree with the tempting next move, or when a new reusable substrate claim needs a visible falsifier before mutation.",
+        "when_not_to_open": "Do not open for exact named-file edits with no competing evidence, missing information that the next cheap command can resolve, or high-blast candidates that cannot yet state a falsifier.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_disconfirmation_harness",
+        "landmines": [
+          "Do not record only the winning rationale.",
+          "Do not treat route disagreement as noise when it can falsify the selected lane.",
+          "Do not install new substrate before checking whether an existing skill, standard, mechanism, or ledger row already explains the gap."
+        ],
+        "sufficiency_claims": [
+          "The operator requires counterevidence_checked, disconfirmation_result, and surviving_claim receipt fields.",
+          "The validator consumes the counterevidence_contract for active disconfirmation operators.",
+          "The card route exposes the falsifier boundary before agents defend a route, operator, or task choice."
+        ]
+      },
       "integration": {
         "navigation": {
           "kind_id": "cognitive_operators",
@@ -283,6 +309,32 @@
         ],
         "failure_mode": "A receipt that records only retrospective cognition_delta_evidence does not prove the change caused a reusable new mode of thought."
       },
+      "compression_passport": {
+        "cluster_keys": [
+          "causal trial",
+          "pre/post prediction",
+          "pre action prediction",
+          "post action observation",
+          "causal evidence",
+          "prove cognition changed",
+          "dogfood proof",
+          "prediction result"
+        ],
+        "atom": "Prove a substrate change caused the claimed cognition delta",
+        "when_to_open": "Open when a reusable operator, route, standard, validation hook, or prompt assimilation claims to change agent cognition and needs a pre-registered prediction plus live post-check.",
+        "when_not_to_open": "Do not open for one-off local fixes, purely retrospective summaries, or interventions whose acceptance metric cannot be stated before mutation.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_causal_trial_harness",
+        "landmines": [
+          "Do not treat a plausible rationale as causal evidence.",
+          "Do not write the receipt only after the result is known.",
+          "Do not preserve a failed or partial prediction as proven cognition change."
+        ],
+        "sufficiency_claims": [
+          "The operator requires pre_action_prediction, no_effect_falsifier, intervention, post_action_observation, and prediction_result fields.",
+          "The validator consumes the causal_trial_contract for active causal-trial operators.",
+          "The card route exposes the operator before agents install new cognitive substrate based on retrospective evidence alone."
+        ]
+      },
       "integration": {
         "navigation": {
           "kind_id": "cognitive_operators",
@@ -336,7 +388,7 @@
         "codex/doctrine/cognitive_operators.json::operators[cogop_capability_gap_ladder]",
         "codex/doctrine/cognitive_operators.json::operators[cogop_disconfirmation_harness]",
         "codex/doctrine/mechanisms/mech_002_typed_receipt_validation.json",
-        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json::axiom_candidate_evolution_proves_in_microcosm"
+        "codex/doctrine/agent_operating_packet.json::candidate_axiom_pressure.rows[axiom_candidate_evolution_proves_in_microcosm]"
       ],
       "dogfood_receipt_refs": [
         "state/cognitive_operators/dogfood/cogop_causal_trial_harness_20260511.json"
@@ -379,6 +431,30 @@
         "If a later route, validator, or post-check disagrees with the selected chain, revise the sequence or cap the operator.",
         "Make future seed behavior inherit the sequence rather than rediscovering the same operator ordering."
       ],
+      "compression_passport": {
+        "cluster_keys": [
+          "operator composition",
+          "operator sequence",
+          "operator chain",
+          "multiple cognitive operators",
+          "handoff contracts",
+          "sequenced operators"
+        ],
+        "atom": "Ordered operator stack",
+        "when_to_open": "Open when context-pack, entry, or a selected operator row triggers more than one cognitive operator and the pass needs an ordered chain with handoff outputs, stop conditions, and a retained sequence result.",
+        "when_not_to_open": "Do not open for an exact single-operator task, a named local file fix with no cognition-change claim, or a composition candidate that cannot be validated or converted into a dogfood receipt in the current lane.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_operator_composition_sequencer",
+        "landmines": [
+          "Listing several applicable operators is not composition unless order, handoff outputs, and stop conditions are explicit.",
+          "Running all triggered operators in parallel can erase the sequence result that future agents need to inherit.",
+          "A final prose explanation of the chosen chain is weaker than a row-owned receipt with operator_sequence, composition_decision, handoff_contracts, and sequence_result."
+        ],
+        "sufficiency_claims": [
+          "Operator-composition prompts select this row through context-pack.",
+          "The card projection exposes composition_contract and this compression_passport.",
+          "The validator consumes the dogfood receipt fields that prove ordered composition."
+        ]
+      },
       "composition_contract": {
         "required": true,
         "required_receipt_fields": [
@@ -953,10 +1029,19 @@
           "duplicate routes",
           "dead surfaces",
           "private phrase lists",
-          "wrong-plane handoffs"
+          "wrong-plane handoffs",
+          "claim frontier",
+          "mutation carrier",
+          "blocked non-success receipt",
+          "owner-tool mutation",
+          "provider coordination signal",
+          "saved Trace Capsule",
+          "latest response bundle",
+          "read other traces or caps",
+          "trace/CAP refinement"
         ],
         "atom": "Trace phrase to route memory",
-        "when_to_open": "Open when session diagnostics reports unresolved prompt-derived route phrases, wake prompts repeat an operator phrase, docs-route suggests the training loop, or future seeds need a phrase retained as navigation memory.",
+        "when_to_open": "Open when session diagnostics reports unresolved prompt-derived route phrases, wake prompts repeat an operator phrase, docs-route suggests the training loop, or future seeds need a phrase retained as navigation memory. Also open when autonomous-continuation traces repeat claim-frontier, mutation-carrier, owner-tool, provider-coordination, or blocked non-success receipt language.",
         "when_not_to_open": "Do not open for one-off wording with no trace recurrence, for an already selected exact stable row, or when the phrase maps to an existing operator passport without any routing mutation.",
         "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
         "landmines": [
@@ -988,14 +1073,25 @@
           "duplicate routes",
           "dead surfaces",
           "private phrase lists",
-          "wrong-plane handoffs"
+          "wrong-plane handoffs",
+          "claim frontier",
+          "mutation carrier",
+          "blocked non-success receipt",
+          "owner-tool mutation",
+          "provider coordination signal",
+          "saved Trace Capsule",
+          "latest response bundle",
+          "read other traces or caps",
+          "trace/CAP refinement"
         ],
         "opens_when": [
           "Session diagnostics route-misses include recurring phrases from prompts or wake prompts.",
           "Docs-route returns a suggested training-loop alias but no retained operator affordance yet exists.",
           "A future seed prompt uses a phrase that should route to a stable operator, skill, standard, or paper module.",
           "A trace-continuation packet repeats a task phrase that agents keep rediscovering manually.",
-          "An autonomous routing seed names typed semantic relation graphs, authority planes, route proof obligations, private phrase lists, unresolved targets, duplicate routes, dead surfaces, or wrong-plane handoffs."
+          "An autonomous routing seed names typed semantic relation graphs, authority planes, route proof obligations, private phrase lists, unresolved targets, duplicate routes, dead surfaces, or wrong-plane handoffs.",
+          "An autonomous-continuation trace repeats claim-frontier, mutation-carrier, owner-tool mutation, provider coordination signal, or blocked non-success receipt language.",
+          "A manually queued continuation asks the agent to read other traces or caps and find useful refinements without replaying old prompt text."
         ],
         "skip_when": [
           "The phrase is private text that cannot be safely abstracted into a public route trigger.",
@@ -1063,7 +1159,7 @@
           "kind_id": "cognitive_operators",
           "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
           "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
-          "context_pack_anchor": "prompt-derived route miss, wake prompts, docs-route miss, trace continuation, autonomous seed for routing, autonomous routing seed, typed semantic relation graph, authority planes, route proof obligation, unresolved targets, duplicate routes, dead surfaces, private phrase lists, wrong-plane handoffs, and unresolved route phrase prompts select this operator directly"
+          "context_pack_anchor": "prompt-derived route miss, wake prompts, docs-route miss, trace continuation, autonomous seed for routing, autonomous routing seed, typed semantic relation graph, authority planes, route proof obligation, unresolved targets, duplicate routes, dead surfaces, private phrase lists, wrong-plane handoffs, claim frontier, mutation carrier, blocked non-success receipt, owner-tool mutation, provider coordination signal, saved Trace Capsule, latest response bundle, read other traces or caps, trace/CAP refinement, and unresolved route phrase prompts select this operator directly"
         },
         "memory": {
           "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_prompt_route_assimilator]",
@@ -1085,12 +1181,14 @@
         "task_selection_hooks": [
           "When session diagnostics reports prompt-derived docs-route misses, run this operator before adding broad documentation aliases.",
           "When wake prompts repeat a phrase that does not route to a stable surface, prefer assimilating the abstract phrase over re-reading session text.",
-          "When a seed prompt uses a phrase that should select an existing operator, add a tested task-selection trigger instead of creating a new paper module."
+          "When a seed prompt uses a phrase that should select an existing operator, add a tested task-selection trigger instead of creating a new paper module.",
+          "When a continuation asks for other traces or caps to produce useful refinements, treat the trace/CAP phrase family as route-memory evidence before choosing a disjoint owner surface."
         ],
         "future_seed_behavior": [
           "Future autonomous seeds should treat route-miss phrases as training signal for entry/task-selection memory.",
           "Future seeds should disconfirm against existing passports before retaining a new phrase.",
           "Prompt-derived route assimilation should land in the owning route/operator surface with a testable validation prompt.",
+          "Trace/CAP continuation seeds should preserve evidence/instruction separation and route the abstract phrase family, not copy old capsule wording into broad aliases.",
           "Closeout should name the phrase, target surface, and retention proof, not just the diagnostic count."
         ]
       },
@@ -1105,6 +1203,8 @@
           "./repo-python kernel.py --context-pack \"prompt-derived route miss trace continuation wake prompts unresolved route phrase docs-route miss\" --context-budget 12000",
           "./repo-python kernel.py --context-pack \"autonomous seed for routing typed semantic relation graph private phrase lists wrong-plane handoffs\" --context-budget 12000",
           "./repo-python kernel.py --context-pack \"autonomous routing seed authority planes unresolved targets duplicate routes dead surfaces route proof obligation\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"autonomous continuation claim frontier mutation carrier owner-tool mutation provider coordination signal blocked non-success receipt\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"read other traces or caps latest response bundle saved Trace Capsule useful refinements\" --context-budget 12000",
           "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_prompt_route_assimilator",
           "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
         ]
@@ -1118,7 +1218,8 @@
       ],
       "dogfood_receipt_refs": [
         "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_20260511.json",
-        "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_routing_seed_20260511.json"
+        "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_routing_seed_20260511.json",
+        "state/cognitive_operators/dogfood/cogop_prompt_route_assimilator_trace_cap_refinement_20260603.json"
       ]
     },
     {
@@ -1490,10 +1591,14 @@
           "reread same files",
           "rediscovery cost",
           "mutation boundary",
-          "selected handles"
+          "selected handles",
+          "heartbeat gap",
+          "projected_unknown session",
+          "sibling claim session",
+          "owner heartbeat authority boundary"
         ],
         "atom": "Rehydrate task-local attention before reread or edit",
-        "when_to_open": "Open when a task mentions attention frames, reread clusters, rediscovery cost, stale read/write errors, file modified since read, selected/focused handles, resume from frame ids, or mutation-boundary checks.",
+        "when_to_open": "Open when a task mentions attention frames, reread clusters, rediscovery cost, stale read/write errors, file modified since read, selected/focused handles, resume from frame ids, mutation-boundary checks, Work Ledger heartbeat gaps, projected_unknown sessions, sibling claim sessions, or owner heartbeat authority boundaries.",
         "when_not_to_open": "Do not open for ordinary first-contact navigation, an exact source read that is already selected by a current route lease, or a task whose attention frame was already rehydrated and validated in the current receipt.",
         "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
         "landmines": [
@@ -1523,13 +1628,19 @@
           "focused handles",
           "mutation boundary",
           "resume from frame ids",
-          "rehydrate working context"
+          "rehydrate working context",
+          "heartbeat gap",
+          "claim session heartbeat gap",
+          "projected unknown session",
+          "owner heartbeat authority boundary",
+          "sibling claim session"
         ],
         "opens_when": [
           "Session diagnostics show rereads, rediscovery, stale-read/write errors, or edit-after-stale-context pressure.",
           "A task asks how to preserve selected evidence, handles, freshness constraints, or mutation boundaries across navigation and validation.",
           "An agent is about to reopen broad source surfaces even though an AttentionFrame or task frame can carry the relevant attention state.",
-          "A resume or handoff needs task-local selected handles rather than global latest chat memory."
+          "A resume or handoff needs task-local selected handles rather than global latest chat memory.",
+          "Work Ledger seed-speed shows heartbeat gaps, projected_unknown claim sessions, or sibling claim sessions where the current agent must preserve selected owner handles and read owner status instead of publishing another session's heartbeat."
         ],
         "skip_when": [
           "The active task is only first-contact route selection and no prior attention state exists.",
@@ -1540,6 +1651,7 @@
       "process": [
         "Name the live attention-loss symptom: reread cluster, stale read/write, resume ambiguity, selected-handle loss, or mutation-boundary uncertainty.",
         "Resolve the narrowest existing AttentionFrame or binding route before broad rereads.",
+        "If the frame is a Work Ledger heartbeat-gap packet, preserve owner session ids, held scopes, read-only alternatives, and authority boundaries before choosing local mutation or coordination.",
         "Extract retained handles, trusted authorities, freshness constraints, and mutation boundary from the attention-state packet.",
         "Compare the frame against the intended next action and reject stale or unrelated frames.",
         "Run the smallest validation or route check that proves the frame changes the next decision.",
@@ -1596,7 +1708,7 @@
           "kind_id": "cognitive_operators",
           "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
           "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
-          "context_pack_anchor": "attention-frame, stale-read, reread, rediscovery, selected-handle, focused-handle, resume, and mutation-boundary prompts select this operator before broad source rereads"
+          "context_pack_anchor": "attention-frame, stale-read, reread, rediscovery, selected-handle, focused-handle, resume, mutation-boundary, heartbeat-gap, projected_unknown session, sibling claim session, and owner heartbeat authority boundary prompts select this operator before broad source rereads or sibling heartbeat writes"
         },
         "memory": {
           "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_attention_frame_rehydrator]",
@@ -1620,12 +1732,14 @@
         "task_selection_hooks": [
           "When session diagnostics or tool errors show repeated rereads, stale-read/write failures, or selected-handle loss, run this operator before more broad source reads.",
           "When a task needs mutation safety after navigation, rehydrate the AttentionFrame and check mutation_boundary before editing.",
+          "When seed-speed reports heartbeat gaps for sibling claim sessions, treat the row as an attention-frame boundary: read owner status or claim a disjoint lane instead of writing heartbeat state for another session.",
           "When context-pack misses this operator for attention-frame prompts, treat the prompt as route-training evidence for this row rather than adding a parallel memory surface."
         ],
         "future_seed_behavior": [
           "Future autonomous seeds should treat AttentionFrame runtime as existing substrate and install only task-selection, validation, or receipt wiring around it.",
           "Future seeds should preserve the frame binding and validation return condition when claiming a reread or stale-write problem changed behavior.",
           "Future seeds should reject broad rereads when the attention frame already carries selected handles and freshness constraints.",
+          "Future continuation seeds should treat projected_unknown heartbeat-gap sessions as owner-attention handles, not permission to publish sibling heartbeats unless they own that session or have a handoff.",
           "Closeout should name whether an attention frame was rehydrated, ignored as stale, or unavailable, and cite the dogfood receipt or cap."
         ]
       },
@@ -1638,6 +1752,7 @@
         ],
         "proof_commands": [
           "./repo-python kernel.py --context-pack \"agents reread same files lose working attention frame stale read errors file modified since read rediscovery cost\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"Work Ledger heartbeat gap projected unknown session sibling claim session owner heartbeat authority boundary\" --context-budget 12000",
           "./repo-python kernel.py --attention-state latest --band flag",
           "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_attention_frame_rehydrator",
           "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
@@ -1663,19 +1778,22 @@
       "slug": "landing-handoff-compiler",
       "title": "Landing Handoff Compiler",
       "status": "active",
-      "claim": "When validated work cannot be landed because commit authority, protected Git metadata, concurrency, or another finalizer blocker stops scoped landing, the agent must compile a machine-readable handoff packet with blocker, owned paths, validation evidence, authority requirement, status binding, and reentry rule before yielding.",
+      "claim": "When validated work cannot be landed because commit authority, protected Git metadata, parent-CAS/HEAD churn, concurrency, or another finalizer blocker stops scoped landing, the agent must compile a machine-readable handoff packet with blocker, owned paths, validation evidence, authority requirement, status binding, and reentry rule before yielding.",
       "compression_passport": {
         "cluster_keys": [
           "landing handoff",
           "validated slice",
           "commit blocked",
+          "parent CAS",
+          "HEAD advanced",
+          "retry budget exhausted",
           "git metadata",
           "owned path set",
           "handoff packet",
           "reentry rule"
         ],
         "atom": "Compile validated-but-unlanded work into a reentry packet",
-        "when_to_open": "Open when a task mentions validated but uncommitted work, scoped commit blocked, protected Git metadata, commit authority, exact owned paths, landing blockers, handoff packets, or reentry rules.",
+        "when_to_open": "Open when a task mentions validated but uncommitted work, scoped commit blocked, private-index CAS failure, HEAD advanced during landing, retry budget exhausted, protected Git metadata, commit authority, exact owned paths, landing blockers, handoff packets, or reentry rules.",
         "when_not_to_open": "Do not open for ordinary dirty-tree inspection, pre-validation implementation work, or a slice already landed through scoped commit with no residual handoff need.",
         "safe_drilldown": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
         "landmines": [
@@ -1684,7 +1802,7 @@
           "Do not call a slice closed if the next agent lacks exact owned paths, validation evidence, and the authority requirement."
         ],
         "sufficiency_claims": [
-          "Context-pack selects this row for validated-slice, commit-blocked, Git-metadata, owned-path, landing-handoff, and reentry-rule prompts.",
+          "Context-pack selects this row for validated-slice, commit-blocked, private-index-CAS, HEAD-advanced, Git-metadata, owned-path, landing-handoff, and reentry-rule prompts.",
           "The validator rejects landing-handoff operators whose receipt lacks blocker, owned path set, validation evidence, commit authority requirement, handoff packet, status binding, or reentry rule.",
           "The dogfood receipt proves a live commit-blocked validated slice changed from no selected operator to this landing handoff route."
         ]
@@ -1699,6 +1817,11 @@
           "uncommitted slice",
           "commit blocked",
           "scoped commit blocked",
+          "private-index CAS",
+          "parent CAS",
+          "HEAD advanced",
+          "retry budget exhausted",
+          "CAS retry budget",
           "git metadata",
           "metadata write denied",
           "protected git metadata",
@@ -1713,7 +1836,8 @@
         ],
         "opens_when": [
           "A validated change cannot be committed or otherwise landed in the current authority context.",
-          "Mission transaction preflight or scoped commit reports Git metadata, concurrency, index, or finalizer authority blocked.",
+          "Mission transaction preflight or scoped commit reports Git metadata, parent-CAS/HEAD churn, concurrency, index, or finalizer authority blocked.",
+          "A scoped commit already used the allowed refreshed retry and the expected parent changed again before landing.",
           "A future agent needs exact owned paths and validation evidence rather than a broad dirty-tree summary.",
           "A closeout would otherwise mention uncommitted validated work only in chat."
         ],
@@ -1729,6 +1853,7 @@
         "Resolve the exact owned path set from mission preflight, tests, and recent mutations; exclude unrelated dirty tree state.",
         "Attach validation evidence with command, result, and covered behavior.",
         "State the authority requirement for safe landing, including what must not be done in the current context.",
+        "For parent-CAS blockers, record the observed HEAD movement, retry attempt count, validation freshness, and the no-third-ref-mutation boundary.",
         "Bind status into Task Ledger or the owning status surface before user-facing closeout.",
         "Emit a handoff packet with reentry commands and a rule for the next seed or agent.",
         "Run a route check proving future landing-blocked prompts select this operator."
@@ -1784,7 +1909,7 @@
           "kind_id": "cognitive_operators",
           "option_surface": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
           "card": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
-          "context_pack_anchor": "validated-slice, commit-blocked, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select this operator before generic dirty-tree or transaction summaries"
+          "context_pack_anchor": "validated-slice, commit-blocked, private-index-CAS, HEAD-advanced, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select this operator before generic dirty-tree or transaction summaries"
         },
         "memory": {
           "registry_ref": "codex/doctrine/cognitive_operators.json::operators[cogop_landing_handoff_compiler]",
@@ -1805,30 +1930,33 @@
         },
         "validation": {
           "command": "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json",
-          "route_smoke": "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
+          "route_smoke": "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked after HEAD advanced and CAS retry budget exhausted exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
           "acceptance": "active landing-handoff operators require complete passport fields, causal evidence, counterevidence, and landing-handoff receipt fields"
         },
         "task_selection_hooks": [
-          "When a validated slice cannot be committed because scoped commit, Git metadata, index, or finalizer authority is blocked, compile the landing handoff before more implementation.",
+          "When a validated slice cannot be committed because scoped commit, parent-CAS/HEAD churn, Git metadata, index, or finalizer authority is blocked, compile the landing handoff before more implementation.",
+          "When the single refreshed private-index CAS retry also loses the parent race, stop ref mutation attempts and preserve the validated handoff packet with exact reentry conditions.",
           "When context-pack for a commit-blocked prompt selects only generic transaction surfaces or no row, treat it as route-training evidence for this operator.",
           "Before closeout that mentions uncommitted validated work, bind a Task Ledger status item and preserve exact owned paths plus validation evidence."
         ],
         "future_seed_behavior": [
           "Future autonomous seeds should check for stranded validated work before selecting new operator or backlog implementation.",
           "Future seeds should land an existing validated handoff before expanding the change if the authority requirement is now available.",
+          "Future seeds should refresh HEAD, rerun the named validation or freshness checks, and retry landing from the handoff packet rather than replaying unbounded commit attempts.",
           "Future seeds must not summarize a stranded slice only in chat; they should cite the handoff packet, blocker, and reentry rule.",
           "Closeout should name whether the validated slice was landed, remained blocked with a handoff packet, or was invalidated by a fresh preflight."
         ]
       },
       "validation": {
         "acceptance_criteria": [
-          "Validated-slice, commit-blocked, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select cogop_landing_handoff_compiler through context-pack.",
+          "Validated-slice, commit-blocked, private-index-CAS, HEAD-advanced, Git-metadata, exact-owned-path, landing-handoff, and reentry-rule prompts select cogop_landing_handoff_compiler through context-pack.",
           "The card row exposes landing_handoff_contract.required=true and operator_validation.landing_handoff_required=true.",
           "The validator rejects landing-handoff-required operators whose dogfood receipt lacks landing blocker, owned path set, validation evidence, commit authority requirement, handoff packet, status binding, or reentry rule.",
           "At least one dogfood receipt proves a live commit-blocked validated slice changed from no selected landing operator to this operator."
         ],
         "proof_commands": [
           "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked by protected git metadata exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
+          "./repo-python kernel.py --context-pack \"validated slice passed tests but scoped commit blocked after HEAD advanced and CAS retry budget exhausted exact owned paths uncommitted handoff landing continuity\" --context-budget 12000",
           "./repo-python kernel.py --option-surface cognitive_operators --band card --ids cogop_landing_handoff_compiler",
           "./repo-python tools/meta/factory/validate_cognitive_operator_registry.py --json"
         ]

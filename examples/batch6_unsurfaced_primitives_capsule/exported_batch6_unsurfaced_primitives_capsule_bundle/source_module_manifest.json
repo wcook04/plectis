@@ -1,0 +1,657 @@
+{
+  "blocked_source_refs": [],
+  "body_copied_material_count": 26,
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "module_count": 26,
+  "modules": [
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 160642,
+      "line_count": 4187,
+      "material_class": "public_macro_tool_body",
+      "module_id": "demo_take_capture",
+      "path": "source_modules/apps/demo-take-console/support/demo_take_capture.py",
+      "required_anchors": [
+        "def video_t_seconds(",
+        "pause_events",
+        "def build_speech_blocks("
+      ],
+      "sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "apps/demo-take-console/support/demo_take_capture.py",
+      "source_sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/apps/demo-take-console/support/demo_take_capture.py",
+      "target_sha256": "bbccd18f5a7bf34d47fdef674960e6818d495f584cf535a5282c1f8d2a30df0e",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 0,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 536,
+      "line_count": 19,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "idea_microcosm_package_init_dependency",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/__init__.py",
+      "required_anchors": [],
+      "sha256": "542218da09ead6b6dd31bc88b563dfb4c00fa802c5b29ffc48987c96def95a76",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/__init__.py",
+      "source_sha256": "542218da09ead6b6dd31bc88b563dfb4c00fa802c5b29ffc48987c96def95a76",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/__init__.py",
+      "target_sha256": "542218da09ead6b6dd31bc88b563dfb4c00fa802c5b29ffc48987c96def95a76"
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 27390,
+      "line_count": 553,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "idea_microcosm_atlas_navigation_specimen_dependency",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/atlas_navigation_specimen.py",
+      "required_anchors": [
+        "EXPECTED_BANDS",
+        "def build_atlas_navigation_specimen"
+      ],
+      "sha256": "c94ece9ebbbde5f4c434c258439eb37bf90cd43b4e75d6b79a08c51b8882f747",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/atlas_navigation_specimen.py",
+      "source_sha256": "c94ece9ebbbde5f4c434c258439eb37bf90cd43b4e75d6b79a08c51b8882f747",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/atlas_navigation_specimen.py",
+      "target_sha256": "c94ece9ebbbde5f4c434c258439eb37bf90cd43b4e75d6b79a08c51b8882f747"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 66270,
+      "line_count": 1582,
+      "material_class": "public_macro_tool_body",
+      "module_id": "idea_microcosm_concurrency_guard",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+      "required_anchors": [
+        "def _paths_overlap(",
+        "def git_landing_plan(",
+        "SCHEMA_VERSION"
+      ],
+      "sha256": "1b44f090c94298469c103b173af01f797b4d71d7011193b399f7f71c7b9d3eab",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+      "source_sha256": "1b44f090c94298469c103b173af01f797b4d71d7011193b399f7f71c7b9d3eab",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/concurrency_guard.py",
+      "target_sha256": "1b44f090c94298469c103b173af01f797b4d71d7011193b399f7f71c7b9d3eab",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 147321,
+      "line_count": 2854,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "idea_microcosm_navigation_dependency",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/navigation.py",
+      "required_anchors": [
+        "ROOT_ENTRY_CONTRACT",
+        "def build_microcosm_implementation_atlas"
+      ],
+      "sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/navigation.py",
+      "source_sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/navigation.py",
+      "target_sha256": "34d4995404fbbe2a3f7fa28c191c754738821a9e09616f02e6dce89888cef969"
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 125982,
+      "line_count": 2322,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "idea_microcosm_release_candidates_dependency",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_candidates.py",
+      "required_anchors": [
+        "ALLOWED_SPECIMEN_STATUSES",
+        "def candidate_shape_failures"
+      ],
+      "sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/release_candidates.py",
+      "source_sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_candidates.py",
+      "target_sha256": "b58af676b2c938cd9828c5d8d5815d9fea78989707d5c52e4d9115b8a33cfb5c"
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 216361,
+      "line_count": 4072,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "idea_microcosm_release_root_compiler_dependency",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
+      "required_anchors": [
+        "ROOT_CONTRACT_PATH",
+        "def compile_release_root"
+      ],
+      "sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
+      "source_sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/release_root_compiler.py",
+      "target_sha256": "5ea059a48de5d07becfd7c153823f3c483e3394a4bc6ea9df37f1c9f3d63ed4a"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 930196,
+      "line_count": 12747,
+      "material_class": "public_macro_tool_body",
+      "module_id": "idea_microcosm_validators",
+      "path": "source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+      "required_anchors": [
+        "def judge_status_request(",
+        "def policy_wellformedness_failures(",
+        "malformed_policy_blocks_judgment"
+      ],
+      "sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+      "source_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/validators.py",
+      "target_sha256": "4b2d44810cb9db2c5f62fd39da55deb7f20f6bd44ed1a8b0ae4324d38012a1d4",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 1,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 768,
+      "line_count": 22,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "system_package_init_dependency",
+      "path": "source_modules/system/__init__.py",
+      "required_anchors": [
+        "system"
+      ],
+      "sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/__init__.py",
+      "source_sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/__init__.py",
+      "target_sha256": "d6d97d789ebc83dbcb0513d0351f4818143d3948eb9f6003db419067887d6834"
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 4609,
+      "line_count": 138,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "feed_quality_dependency",
+      "path": "source_modules/system/lib/feed_quality.py",
+      "required_anchors": [
+        "def artifact_quality_from_mapping",
+        "def normalize_quality_tone"
+      ],
+      "sha256": "7da44ec812a841be81709325b0429e368bf423d53f9d80e8ac26518f3b7a1e9f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/feed_quality.py",
+      "source_sha256": "7da44ec812a841be81709325b0429e368bf423d53f9d80e8ac26518f3b7a1e9f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/feed_quality.py",
+      "target_sha256": "7da44ec812a841be81709325b0429e368bf423d53f9d80e8ac26518f3b7a1e9f"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 25338,
+      "line_count": 627,
+      "material_class": "public_macro_tool_body",
+      "module_id": "finance_numeric_assurance",
+      "path": "source_modules/system/lib/finance_numeric_assurance.py",
+      "required_anchors": [
+        "def build_finance_numeric_assurance(",
+        "stockgrid_flow_unit_scale_mismatch",
+        "probability_representation"
+      ],
+      "sha256": "6c337d45b8d653dce983d90797ec28e2337a0df79dd06a5c46c24e79f53db5a4",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/finance_numeric_assurance.py",
+      "source_sha256": "6c337d45b8d653dce983d90797ec28e2337a0df79dd06a5c46c24e79f53db5a4",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/finance_numeric_assurance.py",
+      "target_sha256": "6c337d45b8d653dce983d90797ec28e2337a0df79dd06a5c46c24e79f53db5a4",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 24798,
+      "line_count": 637,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "market_feed_run_evidence_dependency",
+      "path": "source_modules/system/lib/market_feed_run_evidence.py",
+      "required_anchors": [
+        "SCHEMA_VERSION",
+        "DEFAULT_LATEST_FILENAME"
+      ],
+      "sha256": "789a3bcc98ddf9d852fb3adaf85ad4c7a2e7346a10cb6b58df9002addfe6a54a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/market_feed_run_evidence.py",
+      "source_sha256": "789a3bcc98ddf9d852fb3adaf85ad4c7a2e7346a10cb6b58df9002addfe6a54a",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/market_feed_run_evidence.py",
+      "target_sha256": "789a3bcc98ddf9d852fb3adaf85ad4c7a2e7346a10cb6b58df9002addfe6a54a"
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 23484,
+      "line_count": 597,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "market_fusion_readiness_dependency",
+      "path": "source_modules/system/lib/market_fusion_readiness.py",
+      "required_anchors": [
+        "SCHEMA_VERSION",
+        "def build_readiness_gate"
+      ],
+      "sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/market_fusion_readiness.py",
+      "source_sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/market_fusion_readiness.py",
+      "target_sha256": "0126d0d05d744b084ac066dffa3f52c5584ae6caff5326fa657a3b88595c43c9"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 59814,
+      "line_count": 1433,
+      "material_class": "public_macro_tool_body",
+      "module_id": "market_situation_graph",
+      "path": "source_modules/system/lib/market_situation_graph.py",
+      "required_anchors": [
+        "def build_market_situation_graph(",
+        "def validate_market_situation_graph(",
+        "counterevidence_edges"
+      ],
+      "sha256": "4e7f4f605988819b8255938d244a1af676c3cb6e1d3e8d43490200d298db9db1",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/market_situation_graph.py",
+      "source_sha256": "4e7f4f605988819b8255938d244a1af676c3cb6e1d3e8d43490200d298db9db1",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/market_situation_graph.py",
+      "target_sha256": "4e7f4f605988819b8255938d244a1af676c3cb6e1d3e8d43490200d298db9db1",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 17599,
+      "line_count": 477,
+      "material_class": "public_macro_tool_body",
+      "module_id": "metabolism_market_clock",
+      "path": "source_modules/system/lib/metabolism_market_clock.py",
+      "required_anchors": [
+        "def due_fire_points(",
+        "MARKET_HOURS_HOURLY_FIRE_POINTS",
+        "def fire_key("
+      ],
+      "sha256": "e59203e7f5f32dfff994854779e8accee4322c8288ea576c72aa4ea5e55bc6b4",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/metabolism_market_clock.py",
+      "source_sha256": "e59203e7f5f32dfff994854779e8accee4322c8288ea576c72aa4ea5e55bc6b4",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/metabolism_market_clock.py",
+      "target_sha256": "e59203e7f5f32dfff994854779e8accee4322c8288ea576c72aa4ea5e55bc6b4",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 57675,
+      "line_count": 1664,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "metabolism_store_dependency",
+      "path": "source_modules/system/lib/metabolism_store.py",
+      "required_anchors": [
+        "SCHEMA_VERSION",
+        "def get_setting"
+      ],
+      "sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/metabolism_store.py",
+      "source_sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/metabolism_store.py",
+      "target_sha256": "4d4a5b474fedc49c1479e6fc65c944f059bd44bb22ab9e0f42167b9e78b58192"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 30098,
+      "line_count": 669,
+      "material_class": "public_macro_tool_body",
+      "module_id": "population_lane_provider_recovery",
+      "path": "source_modules/system/lib/population_lane_provider_recovery.py",
+      "required_anchors": [
+        "def transport_suppression_scope(",
+        "provider_model",
+        "blocked_duplicate"
+      ],
+      "sha256": "3c1c062454f37df97db66448fdc795c76c11e86bf518e7ce90eeaeccea944f43",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/population_lane_provider_recovery.py",
+      "source_sha256": "3c1c062454f37df97db66448fdc795c76c11e86bf518e7ce90eeaeccea944f43",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/population_lane_provider_recovery.py",
+      "target_sha256": "3c1c062454f37df97db66448fdc795c76c11e86bf518e7ce90eeaeccea944f43",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 88930,
+      "line_count": 2043,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "quant_presentation_mart_dependency",
+      "path": "source_modules/system/lib/quant_presentation_mart.py",
+      "required_anchors": [
+        "SCHEMA_VERSION",
+        "DEFAULT_LATEST_FILENAME"
+      ],
+      "sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/quant_presentation_mart.py",
+      "source_sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/quant_presentation_mart.py",
+      "target_sha256": "f06835ee36ac08ef7d34beffa47dec77b822a6d2026c77ba0df3928f4491ba90"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 25365,
+      "line_count": 613,
+      "material_class": "public_macro_tool_body",
+      "module_id": "raw_seed_keyphrase",
+      "path": "source_modules/system/lib/raw_seed_keyphrase.py",
+      "required_anchors": [
+        "def merged_stopwords(",
+        "def rake_ranked_phrases(",
+        "def salvage_tokens("
+      ],
+      "sha256": "16a40881ef6d0a14886298d454d668649d1fe85e75c98c92484f452a08f83e0f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/raw_seed_keyphrase.py",
+      "source_sha256": "16a40881ef6d0a14886298d454d668649d1fe85e75c98c92484f452a08f83e0f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_keyphrase.py",
+      "target_sha256": "16a40881ef6d0a14886298d454d668649d1fe85e75c98c92484f452a08f83e0f",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 3807,
+      "line_count": 573,
+      "material_class": "public_macro_support_body",
+      "module_id": "raw_seed_smart_stoplist",
+      "path": "source_modules/system/lib/raw_seed_smart_stoplist.txt",
+      "required_anchors": [
+        "about",
+        "through"
+      ],
+      "sha256": "e91f3b7dd121722a1b87034f671d61870b8441e147fa3589832dce330fe16f7c",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/raw_seed_smart_stoplist.txt",
+      "source_sha256": "e91f3b7dd121722a1b87034f671d61870b8441e147fa3589832dce330fe16f7c",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_smart_stoplist.txt",
+      "target_sha256": "e91f3b7dd121722a1b87034f671d61870b8441e147fa3589832dce330fe16f7c",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 2,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 6719,
+      "line_count": 147,
+      "material_class": "public_macro_tool_body",
+      "module_id": "raw_seed_spelling",
+      "path": "source_modules/system/lib/raw_seed_spelling.py",
+      "required_anchors": [
+        "SPELLING_NORMALIZATION_VERSION",
+        "def build_corpus_hint_normalizer("
+      ],
+      "sha256": "e45c163dd7f00f44ab4046ff119c8f3a347863c3ce96ad376254f3466de5f9b0",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/raw_seed_spelling.py",
+      "source_sha256": "e45c163dd7f00f44ab4046ff119c8f3a347863c3ce96ad376254f3466de5f9b0",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/raw_seed_spelling.py",
+      "target_sha256": "e45c163dd7f00f44ab4046ff119c8f3a347863c3ce96ad376254f3466de5f9b0",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 1,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 9045,
+      "line_count": 187,
+      "material_class": "public_macro_dependency_body",
+      "module_id": "system_utils_dependency",
+      "path": "source_modules/system/lib/utils.py",
+      "required_anchors": [
+        "def resolve_runs_dir"
+      ],
+      "sha256": "521314342a75df2ad73a9206bed8db7c6e4b11841f457874fa59bbe344f83f1c",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/utils.py",
+      "source_sha256": "521314342a75df2ad73a9206bed8db7c6e4b11841f457874fa59bbe344f83f1c",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/system/lib/utils.py",
+      "target_sha256": "521314342a75df2ad73a9206bed8db7c6e4b11841f457874fa59bbe344f83f1c"
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 70459,
+      "line_count": 1648,
+      "material_class": "public_macro_tool_body",
+      "module_id": "operator_handoff_linkage",
+      "path": "source_modules/tools/meta/observability/operator_handoff_linkage.py",
+      "required_anchors": [
+        "class TypeBCapture",
+        "class TypeAUserInput",
+        "def score_pair("
+      ],
+      "sha256": "13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/observability/operator_handoff_linkage.py",
+      "source_sha256": "13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
+      "target_sha256": "13e1dc3b2b178f972ffffe2374d8b82d1c57c5d1be35112cea2daf0d1e0dbf0a",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 118590,
+      "line_count": 2767,
+      "material_class": "public_macro_tool_body",
+      "module_id": "operator_thread_memory",
+      "path": "source_modules/tools/meta/observability/operator_thread_memory.py",
+      "required_anchors": [
+        "def merge_observed_turn_window(",
+        "def _suffix_prefix_overlap(",
+        "def _observed_updates_streaming_tail("
+      ],
+      "sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/observability/operator_thread_memory.py",
+      "source_sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/operator_thread_memory.py",
+      "target_sha256": "f4644a8c274a157b3738d86f7c1926ec26dfac62ed3ebae4eebaadebf57509b5",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 12603,
+      "line_count": 331,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prompt_shelf_fingerprints",
+      "path": "source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+      "required_anchors": [
+        "def _normalize(",
+        "def _tokenize(",
+        "def _anchor_position("
+      ],
+      "sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
+      "source_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+      "target_sha256": "b4d47808cea3c83831203f2ba847f49c22b6dc605edd1d99dfe0a9561d908857",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "anchor_count": 3,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 26000,
+      "line_count": 592,
+      "material_class": "public_macro_tool_body",
+      "module_id": "schema_loose_distillation_index",
+      "path": "source_modules/tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+      "required_anchors": [
+        "def distill_diagnostic(",
+        "source_role",
+        "pair_combined"
+      ],
+      "sha256": "2d44fbf3d36a53dc2cd4d9752baa5bfc8b4272641c28f494fa1ae99b2c3a266b",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+      "source_sha256": "2d44fbf3d36a53dc2cd4d9752baa5bfc8b4272641c28f494fa1ae99b2c3a266b",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/batch6_unsurfaced_primitives_capsule/exported_batch6_unsurfaced_primitives_capsule_bundle/source_modules/tools/meta/observability/prompt_shelf_schema_loose_distillation_index.py",
+      "target_sha256": "2d44fbf3d36a53dc2cd4d9752baa5bfc8b4272641c28f494fa1ae99b2c3a266b",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch6_unsurfaced_primitives_capsule.py::test_batch6_unsurfaced_primitives_capsule_source_modules_are_exact_macro_body_imports"
+      ]
+    }
+  ],
+  "source_import_class": "copied_non_secret_macro_body"
+}

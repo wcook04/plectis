@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This fixture validates public synthetic benchmark integrity boundaries and copied macro pattern provenance bodies only; it does not claim a benchmark score, expose private issue/oracle bodies, run providers, mutate live repos, or authorize release.",
-  "authority_ceiling": "source-open pattern provenance bodies plus synthetic benchmark-integrity replay receipts only; no private bodies, hidden gold, provider calls, benchmark scores, live repo mutation, or release",
+  "anti_claim": "This fixture validates public synthetic benchmark integrity boundaries, source-backed replay evidence refs, and copied macro pattern provenance bodies only; it does not claim a benchmark score, expose private issue/oracle bodies, run providers, mutate live repos, or authorize release.",
+  "authority_ceiling": "source-open pattern provenance bodies plus source-backed synthetic benchmark-integrity replay receipts only; no private bodies, hidden gold, provider calls, benchmark scores, live repo mutation, or release",
   "body_copied_material_count": 3,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "expected_negative_cases": [
@@ -125,6 +125,7 @@
     "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json"
   ],
   "stable_error_codes": [
+    "BENCHMARK_INTEGRITY_DECLARED_VERDICT_INVALID",
     "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
     "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
     "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
@@ -134,6 +135,8 @@
     "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
     "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
     "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
+    "BENCHMARK_INTEGRITY_SOURCE_ARTIFACT_EVIDENCE_MISSING",
+    "BENCHMARK_INTEGRITY_SOURCE_ARTIFACT_EVIDENCE_UNVERIFIED",
     "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE",
     "BENCHMARK_INTEGRITY_UNREGISTERED_CASE_REPLAY"
   ],

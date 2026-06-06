@@ -1,0 +1,155 @@
+{
+  "schema_version": "microcosm_public_site_availability_audit_v1",
+  "audit_id": "site_availability.legacy_paper_module_gaps.20260604T1700Z",
+  "generated_at": "2026-06-04T17:00:00Z",
+  "scope": {
+    "source_coverage_ref": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus.legacy_only_ids",
+    "public_site_refs": [
+      "sites/microcosm/content-graph.json::paper_module_availability_gaps",
+      "sites/microcosm/object-map.json::objects[kind=paper_module_gap]",
+      "sites/microcosm/docs/paper-modules.html#availability-gaps"
+    ],
+    "authority_ceiling": "Dated availability audit only; no source-record promotion, no generated-site write, no public release approval, no publication approval, and no claim that legacy Markdown gaps are JSON-capsule authority."
+  },
+  "source_population_decision": {
+    "status": "not_promoted_source_gap_retained",
+    "reason": "The current legacy-only paper-module rows still lack resolved capsule subject rows. This audit keeps the required-subject gaps visible instead of minting paper-module subjects, mechanisms, principles, axioms, dependencies, or code-locus relations.",
+    "coverage_snapshot": {
+      "paper_module_legacy_only_count": 11,
+      "paper_module_required_subject_gap_count": 11,
+      "paper_module_without_json_capsule_count": 11,
+      "paper_module_unpopulated_selective_relation_count": 95
+    },
+    "current_coverage_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "safe_reentry_condition": "After an accepted organ or mechanism subject is admitted for a listed paper module, update core/paper_module_capsules.json through the serialized capsule lane, run scripts/build_doctrine_projection.py --write-paper-module-corpus, and verify generated Mermaid and Atlas statuses leave blocked_required_subject_gap."
+  },
+  "coverage_to_site_result": {
+    "status": "current_legacy_gaps_visible_exact_match",
+    "coverage_legacy_gap_count": 11,
+    "site_availability_gap_count": 11,
+    "coverage_not_in_site": [],
+    "site_not_in_current_coverage": [],
+    "route_contract": {
+      "current_gap_route_count": 11,
+      "all_current_gap_routes_searchable": true,
+      "all_current_gap_routes_source_linked": true,
+      "route_template": "paper-modules.html#paper-module-gap-<stable-public-gap-key>"
+    }
+  },
+  "object_map_receipt": {
+    "kind": "paper_module_gap",
+    "current_coverage_objects_present": true,
+    "current_coverage_objects_searchable": true,
+    "current_coverage_objects_source_linked": true,
+    "routes": [
+      {
+        "paper_module_id": "paper_module.batch7_secondary_runtime_capsule",
+        "route": "paper-modules.html#paper-module-gap-dd566d009745",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.batch7_zenith_macos_capsule",
+        "route": "paper-modules.html#paper-module-gap-7651488f9835",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.cold_clone_probe",
+        "route": "paper-modules.html#paper-module-gap-99d1c6e0f18e",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_annex_knowledge_router",
+        "route": "paper-modules.html#paper-module-gap-096993edb993",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_bridge_campaign_dag",
+        "route": "paper-modules.html#paper-module-gap-bf4b0140254f",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_derived_fact_provider_engine",
+        "route": "paper-modules.html#paper-module-gap-18e2ee8e32c6",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_egress_self_compliance_gate",
+        "route": "paper-modules.html#paper-module-gap-9c2e0565f5f6",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_lean_proof_search_lab",
+        "route": "paper-modules.html#paper-module-gap-0a6386ba8996",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.engine_room_navigation_fitness_benchmark",
+        "route": "paper-modules.html#paper-module-gap-0a8be3d4b749",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.first_screen_composition_root",
+        "route": "paper-modules.html#paper-module-gap-feb79e923063",
+        "searchable": true,
+        "source_linked": true
+      },
+      {
+        "paper_module_id": "paper_module.microcosm_axiom_substrate",
+        "route": "paper-modules.html#paper-module-gap-9fb3a85eba6e",
+        "searchable": true,
+        "source_linked": true
+      }
+    ]
+  },
+  "site_write_decision": {
+    "status": "not_written_current_generated_graph_already_matches_coverage",
+    "reason": "This lane needed a public availability proof, not a site rebuild. The current generated content graph and object map already expose every current legacy paper-module gap, while shared source and generated-site outputs remain in concurrent motion.",
+    "safe_reentry_condition": "After the live doctrine coverage and site-output owners land or release their paths, run the existing public-site builder with --write --validate and then --check --validate before committing generated site outputs."
+  },
+  "proof_commands": [
+    "jq -r '.paper_module_instance_corpus.legacy_only_ids[]' microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "jq -r '.paper_module_availability_gaps[]?.paper_module_id' sites/microcosm/content-graph.json",
+    "jq '.paper_module_availability_gaps | length' sites/microcosm/content-graph.json",
+    "jq '[.objects[]? | select(.kind == \"paper_module_gap\") | {source_id, route, searchable, source_linked}]' sites/microcosm/object-map.json",
+    "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/receipts/public_site/legacy_gap_site_availability_audit_20260604T1700Z.json --require-exclusive"
+  ],
+  "handoff_commands": [
+    "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/doctrine_lattice_coverage.json --require-exclusive",
+    "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+    "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "jq -r '.paper_module_instance_corpus.legacy_only_ids[]' microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "jq -r '.paper_module_availability_gaps[]?.paper_module_id' sites/microcosm/content-graph.json"
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false,
+    "source_gap_inflated_into_capsule": false
+  }
+}

@@ -1,0 +1,1546 @@
+{
+  "body_in_receipt": false,
+  "entities": [
+    {
+      "id": "concept_con_001",
+      "kind": "Concept",
+      "title": "con_001"
+    },
+    {
+      "id": "concept_con_002",
+      "kind": "Concept",
+      "title": "con_002"
+    },
+    {
+      "id": "concept_con_004",
+      "kind": "Concept",
+      "title": "con_004"
+    },
+    {
+      "id": "concept_con_005",
+      "kind": "Concept",
+      "title": "con_005"
+    },
+    {
+      "id": "concept_con_006",
+      "kind": "Concept",
+      "title": "con_006"
+    },
+    {
+      "id": "concept_con_007",
+      "kind": "Concept",
+      "title": "con_007"
+    },
+    {
+      "id": "concept_con_008",
+      "kind": "Concept",
+      "title": "con_008"
+    },
+    {
+      "id": "concept_con_009",
+      "kind": "Concept",
+      "title": "con_009"
+    },
+    {
+      "id": "concept_con_010",
+      "kind": "Concept",
+      "title": "con_010"
+    },
+    {
+      "id": "concept_con_011",
+      "kind": "Concept",
+      "title": "con_011"
+    },
+    {
+      "id": "concept_con_013",
+      "kind": "Concept",
+      "title": "con_013"
+    },
+    {
+      "id": "concept_con_014",
+      "kind": "Concept",
+      "title": "con_014"
+    },
+    {
+      "id": "concept_con_015",
+      "kind": "Concept",
+      "title": "con_015"
+    },
+    {
+      "id": "concept_con_016",
+      "kind": "Concept",
+      "title": "con_016"
+    },
+    {
+      "id": "concept_con_017",
+      "kind": "Concept",
+      "title": "con_017"
+    },
+    {
+      "id": "concept_con_018",
+      "kind": "Concept",
+      "title": "con_018"
+    },
+    {
+      "id": "concept_con_021",
+      "kind": "Concept",
+      "title": "con_021"
+    },
+    {
+      "id": "concept_con_022",
+      "kind": "Concept",
+      "title": "con_022"
+    },
+    {
+      "id": "concept_con_023",
+      "kind": "Concept",
+      "title": "con_023"
+    },
+    {
+      "id": "concept_con_024",
+      "kind": "Concept",
+      "title": "con_024"
+    },
+    {
+      "id": "concept_con_026",
+      "kind": "Concept",
+      "title": "con_026"
+    },
+    {
+      "id": "concept_con_027",
+      "kind": "Concept",
+      "title": "con_027"
+    },
+    {
+      "id": "concept_con_028",
+      "kind": "Concept",
+      "title": "con_028"
+    },
+    {
+      "id": "concept_con_029",
+      "kind": "Concept",
+      "title": "con_029"
+    },
+    {
+      "id": "concept_con_030",
+      "kind": "Concept",
+      "title": "con_030"
+    },
+    {
+      "id": "concept_con_031",
+      "kind": "Concept",
+      "title": "con_031"
+    },
+    {
+      "id": "concept_con_038",
+      "kind": "Concept",
+      "title": "con_038"
+    },
+    {
+      "id": "concept_con_039",
+      "kind": "Concept",
+      "title": "con_039"
+    },
+    {
+      "id": "concept_con_040",
+      "kind": "Concept",
+      "title": "con_040"
+    },
+    {
+      "id": "concept_con_041",
+      "kind": "Concept",
+      "title": "con_041"
+    },
+    {
+      "id": "mechanism_mech_001",
+      "kind": "Mechanism",
+      "title": "mech_001"
+    },
+    {
+      "id": "mechanism_mech_002",
+      "kind": "Mechanism",
+      "title": "mech_002"
+    },
+    {
+      "id": "mechanism_mech_003",
+      "kind": "Mechanism",
+      "title": "mech_003"
+    },
+    {
+      "id": "mechanism_mech_004",
+      "kind": "Mechanism",
+      "title": "mech_004"
+    },
+    {
+      "id": "mechanism_mech_005",
+      "kind": "Mechanism",
+      "title": "mech_005"
+    },
+    {
+      "id": "mechanism_mech_007",
+      "kind": "Mechanism",
+      "title": "mech_007"
+    },
+    {
+      "id": "mechanism_mech_010",
+      "kind": "Mechanism",
+      "title": "mech_010"
+    },
+    {
+      "id": "mechanism_mech_011",
+      "kind": "Mechanism",
+      "title": "mech_011"
+    },
+    {
+      "id": "mechanism_mech_012",
+      "kind": "Mechanism",
+      "title": "mech_012"
+    },
+    {
+      "id": "mechanism_mech_014",
+      "kind": "Mechanism",
+      "title": "mech_014"
+    },
+    {
+      "id": "mechanism_mech_015",
+      "kind": "Mechanism",
+      "title": "mech_015"
+    },
+    {
+      "id": "mechanism_mech_016",
+      "kind": "Mechanism",
+      "title": "mech_016"
+    },
+    {
+      "id": "mechanism_mech_017",
+      "kind": "Mechanism",
+      "title": "mech_017"
+    },
+    {
+      "id": "mechanism_mech_019",
+      "kind": "Mechanism",
+      "title": "mech_019"
+    },
+    {
+      "id": "mechanism_mech_020",
+      "kind": "Mechanism",
+      "title": "mech_020"
+    },
+    {
+      "id": "mechanism_mech_021",
+      "kind": "Mechanism",
+      "title": "mech_021"
+    },
+    {
+      "id": "mechanism_mech_022",
+      "kind": "Mechanism",
+      "title": "mech_022"
+    },
+    {
+      "id": "mechanism_mech_023",
+      "kind": "Mechanism",
+      "title": "mech_023"
+    },
+    {
+      "id": "mechanism_mech_025",
+      "kind": "Mechanism",
+      "title": "mech_025"
+    },
+    {
+      "id": "mechanism_mech_026",
+      "kind": "Mechanism",
+      "title": "mech_026"
+    },
+    {
+      "id": "mechanism_mech_027",
+      "kind": "Mechanism",
+      "title": "mech_027"
+    },
+    {
+      "id": "mechanism_mech_028",
+      "kind": "Mechanism",
+      "title": "mech_028"
+    },
+    {
+      "id": "mechanism_mech_029",
+      "kind": "Mechanism",
+      "title": "mech_029"
+    },
+    {
+      "id": "mechanism_mech_030",
+      "kind": "Mechanism",
+      "title": "mech_030"
+    },
+    {
+      "id": "mechanism_mech_031",
+      "kind": "Mechanism",
+      "title": "mech_031"
+    },
+    {
+      "id": "mechanism_mech_033",
+      "kind": "Mechanism",
+      "title": "mech_033"
+    },
+    {
+      "id": "mechanism_mech_034",
+      "kind": "Mechanism",
+      "title": "mech_034"
+    },
+    {
+      "id": "mechanism_mech_035",
+      "kind": "Mechanism",
+      "title": "mech_035"
+    },
+    {
+      "id": "pm_actionability_alerting_discipline",
+      "kind": "PaperModule",
+      "title": "Actionability Alerting Discipline"
+    },
+    {
+      "id": "pm_agent_bootstrap_builder",
+      "kind": "PaperModule",
+      "title": "Agent Bootstrap Builder"
+    },
+    {
+      "id": "pm_agent_bottleneck_audit",
+      "kind": "PaperModule",
+      "title": "Agent Bottleneck Audit"
+    },
+    {
+      "id": "pm_agent_entry_surfaces",
+      "kind": "PaperModule",
+      "title": "Agent Entry Surfaces"
+    },
+    {
+      "id": "pm_agent_execution_trace",
+      "kind": "PaperModule",
+      "title": "Agent Execution Trace"
+    },
+    {
+      "id": "pm_agent_execution_trace_core",
+      "kind": "PaperModule",
+      "title": "Agent Execution Trace Core"
+    },
+    {
+      "id": "pm_agent_harness_configuration_audit",
+      "kind": "PaperModule",
+      "title": "Agent Harness Configuration Audit"
+    },
+    {
+      "id": "pm_agent_observability",
+      "kind": "PaperModule",
+      "title": "Agent Observability"
+    },
+    {
+      "id": "pm_agent_route_compliance",
+      "kind": "PaperModule",
+      "title": "Agent Route Compliance"
+    },
+    {
+      "id": "pm_agent_seed_substrate",
+      "kind": "PaperModule",
+      "title": "Agent-Seed Substrate"
+    },
+    {
+      "id": "pm_agent_self_observability_plane",
+      "kind": "PaperModule",
+      "title": "Agent Self-Observability Plane"
+    },
+    {
+      "id": "pm_agent_session_attribution",
+      "kind": "PaperModule",
+      "title": "Agent Session Attribution"
+    },
+    {
+      "id": "pm_agent_trace_ontology",
+      "kind": "PaperModule",
+      "title": "Agent Trace Ontology"
+    },
+    {
+      "id": "pm_agent_trace_structurer_surface",
+      "kind": "PaperModule",
+      "title": "Agent Trace Structurer Surface"
+    },
+    {
+      "id": "pm_annex_crystal_navigation_spine",
+      "kind": "PaperModule",
+      "title": "Annex Crystal Navigation Spine"
+    },
+    {
+      "id": "pm_annex_distillation_layer",
+      "kind": "PaperModule",
+      "title": "Annex Distillation Layer"
+    },
+    {
+      "id": "pm_annex_plane",
+      "kind": "PaperModule",
+      "title": "Annex Plane"
+    },
+    {
+      "id": "pm_annex_principle_scope",
+      "kind": "PaperModule",
+      "title": "Annex Principle Scope"
+    },
+    {
+      "id": "pm_annex_theory",
+      "kind": "PaperModule",
+      "title": "Annex Theory"
+    },
+    {
+      "id": "pm_apply_observe_session_runtime",
+      "kind": "PaperModule",
+      "title": "Apply Observe Session Runtime"
+    },
+    {
+      "id": "pm_approval_inbox",
+      "kind": "PaperModule",
+      "title": "Unified Approval Inbox"
+    },
+    {
+      "id": "pm_apps_zenith_macos",
+      "kind": "PaperModule",
+      "title": "Zenith macOS Host Shell"
+    },
+    {
+      "id": "pm_architectural_projection_plane",
+      "kind": "PaperModule",
+      "title": "Architectural Projection Plane \u2014 Emergent System Diagram From Compliance"
+    },
+    {
+      "id": "pm_autonomous_proof_gate_default",
+      "kind": "PaperModule",
+      "title": "Autonomous Proof Gate Default"
+    },
+    {
+      "id": "pm_autonomous_seed_anatomy",
+      "kind": "PaperModule",
+      "title": "Autonomous Seed Anatomy"
+    },
+    {
+      "id": "pm_autonomy_always_on_daemon_contract",
+      "kind": "PaperModule",
+      "title": "Autonomy Always-On Daemon Contract"
+    },
+    {
+      "id": "pm_autonomy_plan_bridge_snapshot",
+      "kind": "PaperModule",
+      "title": "Autonomy Plan Bridge Snapshot"
+    },
+    {
+      "id": "pm_autonomy_plan_seat_lifecycle",
+      "kind": "PaperModule",
+      "title": "Autonomy Plan Seat Lifecycle"
+    },
+    {
+      "id": "pm_autonomy_plan_substrate",
+      "kind": "PaperModule",
+      "title": "Autonomy Plan Substrate"
+    },
+    {
+      "id": "pm_autonomy_plan_surface",
+      "kind": "PaperModule",
+      "title": "Autonomy Plan Surface"
+    },
+    {
+      "id": "pm_autonomy_runtime_layer",
+      "kind": "PaperModule",
+      "title": "Autonomy Runtime Layer"
+    },
+    {
+      "id": "pm_autonomy_runtime_metabolism_loop",
+      "kind": "PaperModule",
+      "title": "Autonomy Runtime Metabolism Loop"
+    },
+    {
+      "id": "pm_autonomy_runtime_principle_scope",
+      "kind": "PaperModule",
+      "title": "Autonomy Runtime Principle Scope"
+    },
+    {
+      "id": "pm_autonomy_runtime_state_substrate",
+      "kind": "PaperModule",
+      "title": "Autonomy Runtime State Substrate"
+    },
+    {
+      "id": "pm_backend_principle_scope",
+      "kind": "PaperModule",
+      "title": "Backend Principle Scope"
+    },
+    {
+      "id": "pm_bridge_campaign_orchestration",
+      "kind": "PaperModule",
+      "title": "Bridge Campaign Orchestration"
+    },
+    {
+      "id": "pm_bridge_legacy_host_adapter",
+      "kind": "PaperModule",
+      "title": "Bridge Legacy Host Adapter"
+    },
+    {
+      "id": "pm_bridge_operating_system",
+      "kind": "PaperModule",
+      "title": "Bridge Operating System"
+    },
+    {
+      "id": "pm_bridge_operator_proxy",
+      "kind": "PaperModule",
+      "title": "Bridge Operator Proxy"
+    },
+    {
+      "id": "pm_bridge_principle_scope",
+      "kind": "PaperModule",
+      "title": "Bridge Principle Scope"
+    },
+    {
+      "id": "pm_bridge_provider_transport",
+      "kind": "PaperModule",
+      "title": "Bridge Provider Transport"
+    },
+    {
+      "id": "pm_bridge_research_probe",
+      "kind": "PaperModule",
+      "title": "Bridge Research Probe"
+    },
+    {
+      "id": "pm_bridge_runtime",
+      "kind": "PaperModule",
+      "title": "Bridge Runtime"
+    },
+    {
+      "id": "pm_bridge_runtime_control_plane",
+      "kind": "PaperModule",
+      "title": "Bridge Runtime Control Plane"
+    },
+    {
+      "id": "pm_bridge_session_heartbeat",
+      "kind": "PaperModule",
+      "title": "Bridge Session Heartbeat"
+    },
+    {
+      "id": "pm_builder_factory",
+      "kind": "PaperModule",
+      "title": "Builder / Factory Projection Lane"
+    },
+    {
+      "id": "pm_claude_agents_materialization",
+      "kind": "PaperModule",
+      "title": "Claude Agents Materialization"
+    },
+    {
+      "id": "pm_claude_assimilation_trigger_protocol",
+      "kind": "PaperModule",
+      "title": "Claude Assimilation Trigger Protocol"
+    },
+    {
+      "id": "pm_claude_code_adapter_projection",
+      "kind": "PaperModule",
+      "title": "Claude Code Adapter Projection"
+    },
+    {
+      "id": "pm_claude_memory_discipline",
+      "kind": "PaperModule",
+      "title": "Claude Memory Discipline"
+    },
+    {
+      "id": "pm_claude_memory_plane_contract",
+      "kind": "PaperModule",
+      "title": "Claude Memory Plane Contract"
+    },
+    {
+      "id": "pm_claude_memory_routing_tables",
+      "kind": "PaperModule",
+      "title": "Claude Memory Routing Tables"
+    },
+    {
+      "id": "pm_claude_subagent_delegation",
+      "kind": "PaperModule",
+      "title": "Claude Subagent Delegation"
+    },
+    {
+      "id": "pm_codeflow_assimilation",
+      "kind": "PaperModule",
+      "title": "CodeFlow Assimilation"
+    },
+    {
+      "id": "pm_codex_adapter_projection",
+      "kind": "PaperModule",
+      "title": "Codex Adapter Projection"
+    },
+    {
+      "id": "pm_codex_agent_bootstrap_surface_schema",
+      "kind": "PaperModule",
+      "title": "Codex Agent Bootstrap Surface Schema"
+    },
+    {
+      "id": "pm_codex_annex_substrate",
+      "kind": "PaperModule",
+      "title": "Codex Annex Substrate"
+    },
+    {
+      "id": "pm_codex_doctrine_directory_index",
+      "kind": "PaperModule",
+      "title": "Codex Doctrine Directory Index"
+    },
+    {
+      "id": "pm_codex_markdown_doctrine",
+      "kind": "PaperModule",
+      "title": "Codex Markdown Doctrine"
+    },
+    {
+      "id": "pm_codex_resume_transport",
+      "kind": "PaperModule",
+      "title": "Codex Resume Transport"
+    },
+    {
+      "id": "pm_codex_runtime_control_plane",
+      "kind": "PaperModule",
+      "title": "Codex Runtime Control Plane"
+    },
+    {
+      "id": "pm_codex_standards_registry",
+      "kind": "PaperModule",
+      "title": "Codex Standards Registry"
+    },
+    {
+      "id": "pm_cognitive_operator_registry",
+      "kind": "PaperModule",
+      "title": "Cognitive Operator Registry"
+    },
+    {
+      "id": "pm_compute_worker_receipts",
+      "kind": "PaperModule",
+      "title": "Compute Worker Receipts"
+    },
+    {
+      "id": "pm_continuous_runtime_layer",
+      "kind": "PaperModule",
+      "title": "Continuous Runtime Layer"
+    },
+    {
+      "id": "pm_controller_continuity_protocol",
+      "kind": "PaperModule",
+      "title": "Controller Continuity Protocol"
+    },
+    {
+      "id": "pm_controller_heartbeat",
+      "kind": "PaperModule",
+      "title": "Controller Heartbeat"
+    },
+    {
+      "id": "pm_coordination_helper_runtime",
+      "kind": "PaperModule",
+      "title": "Coordination Helper Runtime"
+    },
+    {
+      "id": "pm_cross_actor_notice_capture_and_refinement_dynamics",
+      "kind": "PaperModule",
+      "title": "Cross-Actor Notice Capture and Refinement Dynamics"
+    },
+    {
+      "id": "pm_data_feed_lanes",
+      "kind": "PaperModule",
+      "title": "Data Feed Lanes"
+    },
+    {
+      "id": "pm_data_runtime_principle_scope",
+      "kind": "PaperModule",
+      "title": "Data Runtime Principle Scope"
+    },
+    {
+      "id": "pm_demo_take_recording_app",
+      "kind": "PaperModule",
+      "title": "Demo Take Recording App"
+    },
+    {
+      "id": "pm_derived_fact_hologram",
+      "kind": "PaperModule",
+      "title": "Derived Fact Hologram"
+    },
+    {
+      "id": "pm_diffusion_thesis_method",
+      "kind": "PaperModule",
+      "title": "Diffusion Thesis Method"
+    },
+    {
+      "id": "pm_dissemination_strategy",
+      "kind": "PaperModule",
+      "title": "Dissemination Strategy"
+    },
+    {
+      "id": "pm_doctrine_activity_state_2026_04_17",
+      "kind": "PaperModule",
+      "title": "Doctrine Activity State \u2014 2026-04-17"
+    },
+    {
+      "id": "pm_doctrine_apply_lanes",
+      "kind": "PaperModule",
+      "title": "Doctrine Apply Lanes"
+    },
+    {
+      "id": "pm_doctrine_population_loop",
+      "kind": "PaperModule",
+      "title": "Doctrine Population Loop"
+    },
+    {
+      "id": "pm_doctrine_registry_runtime",
+      "kind": "PaperModule",
+      "title": "Doctrine Registry Runtime"
+    },
+    {
+      "id": "pm_documentation_plane_ontology",
+      "kind": "PaperModule",
+      "title": "Documentation Plane Ontology"
+    },
+    {
+      "id": "pm_embedding_substrate",
+      "kind": "PaperModule",
+      "title": "Embedding Substrate"
+    },
+    {
+      "id": "pm_external_oss_scan_2026_04_17",
+      "kind": "PaperModule",
+      "title": "External OSS Scan \u2014 2026-04-17"
+    },
+    {
+      "id": "pm_external_oss_scan_2026_04_20",
+      "kind": "PaperModule",
+      "title": "External OSS Scan \u2014 2026-04-20"
+    },
+    {
+      "id": "pm_federated_config_plane",
+      "kind": "PaperModule",
+      "title": "Federated Config Plane"
+    },
+    {
+      "id": "pm_formal_maths_direction_atlas",
+      "kind": "PaperModule",
+      "title": "Formal Maths Direction Atlas v0"
+    },
+    {
+      "id": "pm_frontend_capture_runtime_contract",
+      "kind": "PaperModule",
+      "title": "Frontend Capture Runtime Contract"
+    },
+    {
+      "id": "pm_frontend_navigation_plane",
+      "kind": "PaperModule",
+      "title": "Frontend Navigation Plane \u2014 AI-navigable, drift-proof view graph"
+    },
+    {
+      "id": "pm_frontend_page_meta_contract",
+      "kind": "PaperModule",
+      "title": "Frontend Page-Meta Contract"
+    },
+    {
+      "id": "pm_frontend_station_cockpit",
+      "kind": "PaperModule",
+      "title": "Frontend \u2014 Zenith Station Cockpit"
+    },
+    {
+      "id": "pm_frontend_subdomain_map",
+      "kind": "PaperModule",
+      "title": "Frontend Subdomain Map"
+    },
+    {
+      "id": "pm_frontend_substrate_projection_theory",
+      "kind": "PaperModule",
+      "title": "Frontend Substrate Projection Theory"
+    },
+    {
+      "id": "pm_frontend_workspace_control_plane",
+      "kind": "PaperModule",
+      "title": "Frontend Workspace Control Plane"
+    },
+    {
+      "id": "pm_generalized_problem_solving_testbed",
+      "kind": "PaperModule",
+      "title": "Generalized Problem-Solving Testbed"
+    },
+    {
+      "id": "pm_generated_projection_freshness",
+      "kind": "PaperModule",
+      "title": "Generated Projection Freshness"
+    },
+    {
+      "id": "pm_go_no_go_control_packet",
+      "kind": "PaperModule",
+      "title": "Go/No-Go Control Packet"
+    },
+    {
+      "id": "pm_hologram_substrate_navigation",
+      "kind": "PaperModule",
+      "title": "Hologram Substrate Navigation"
+    },
+    {
+      "id": "pm_holographic_navigation_compression",
+      "kind": "PaperModule",
+      "title": "Holographic Navigation Compression"
+    },
+    {
+      "id": "pm_host_agent_dotfile_surfaces",
+      "kind": "PaperModule",
+      "title": "Host-Agent Dotfile Surfaces"
+    },
+    {
+      "id": "pm_host_agent_external_surfaces",
+      "kind": "PaperModule",
+      "title": "Host-Agent External Surfaces"
+    },
+    {
+      "id": "pm_idea_microcosm_metabolism",
+      "kind": "PaperModule",
+      "title": "Laboratory Metabolism (Legacy Idea Microcosm Metabolism)"
+    },
+    {
+      "id": "pm_inference_tier_ladder",
+      "kind": "PaperModule",
+      "title": "Inference Tier Ladder"
+    },
+    {
+      "id": "pm_infra_oss_scan_2026_04_17",
+      "kind": "PaperModule",
+      "title": "Infra OSS Scan \u2014 2026-04-17"
+    },
+    {
+      "id": "pm_kernel_entry_paths",
+      "kind": "PaperModule",
+      "title": "Kernel Entry Paths"
+    },
+    {
+      "id": "pm_kernel_navigation",
+      "kind": "PaperModule",
+      "title": "Kernel Navigation"
+    },
+    {
+      "id": "pm_lab_oracle_evolve_pipeline",
+      "kind": "PaperModule",
+      "title": "Market Intelligence Backbone \u2014 Feeds \u2192 Lab \u2192 Oracle \u2192 Evolve"
+    },
+    {
+      "id": "pm_lean_mathematics_microcosm",
+      "kind": "PaperModule",
+      "title": "Lean Mathematics Microcosm"
+    },
+    {
+      "id": "pm_legacy_lifecycle_shedding",
+      "kind": "PaperModule",
+      "title": "Legacy Lifecycle Shedding"
+    },
+    {
+      "id": "pm_live_control_layer_projections",
+      "kind": "PaperModule",
+      "title": "Live Control-Layer Projections"
+    },
+    {
+      "id": "pm_local_to_general_propagation",
+      "kind": "PaperModule",
+      "title": "Local-to-General Propagation"
+    },
+    {
+      "id": "pm_market_evidence_fusion_spine",
+      "kind": "PaperModule",
+      "title": "Market Evidence Fusion Spine"
+    },
+    {
+      "id": "pm_mathematics_mission_pipeline",
+      "kind": "PaperModule",
+      "title": "Mathematics Mission Pipeline \u2014 Erd\u0151s/Lean as Cheap-Oracle Spine"
+    },
+    {
+      "id": "pm_memory_injection_tiers",
+      "kind": "PaperModule",
+      "title": "Memory Injection Tiers"
+    },
+    {
+      "id": "pm_meta_mission_queue_runtime",
+      "kind": "PaperModule",
+      "title": "Meta-Mission Queue Runtime"
+    },
+    {
+      "id": "pm_meta_mission_runtime",
+      "kind": "PaperModule",
+      "title": "Meta-Mission Runtime"
+    },
+    {
+      "id": "pm_microcosm_entry_lattice",
+      "kind": "PaperModule",
+      "title": "Microcosm Entry Lattice"
+    },
+    {
+      "id": "pm_microcosm_public_export_type_plane",
+      "kind": "PaperModule",
+      "title": "Microcosm Public Export Type Plane"
+    },
+    {
+      "id": "pm_microcosm_runtime_organ_atlas",
+      "kind": "PaperModule",
+      "title": "Microcosm Runtime Organ Atlas"
+    },
+    {
+      "id": "pm_microcosm_substrate",
+      "kind": "PaperModule",
+      "title": "Microcosm Substrate"
+    },
+    {
+      "id": "pm_mission_transaction_landing",
+      "kind": "PaperModule",
+      "title": "Mission Transaction Landing"
+    },
+    {
+      "id": "pm_navigation_hologram_principle_scope",
+      "kind": "PaperModule",
+      "title": "Navigation Hologram Principle Scope"
+    },
+    {
+      "id": "pm_navigation_hologram_theory",
+      "kind": "PaperModule",
+      "title": "Navigation Hologram Theory"
+    },
+    {
+      "id": "pm_navigation_rosetta_math",
+      "kind": "PaperModule",
+      "title": "Navigation Rosetta Math"
+    },
+    {
+      "id": "pm_navigation_trace_binding",
+      "kind": "PaperModule",
+      "title": "Navigation Trace Binding"
+    },
+    {
+      "id": "pm_observability_principle_scope",
+      "kind": "PaperModule",
+      "title": "Observability Principle Scope"
+    },
+    {
+      "id": "pm_observe_runtime_library",
+      "kind": "PaperModule",
+      "title": "Observe Runtime Library"
+    },
+    {
+      "id": "pm_observer_diff_lanes",
+      "kind": "PaperModule",
+      "title": "Observer Diff Lanes \u2014 Diff/Validation Authority for Observer Artifacts"
+    },
+    {
+      "id": "pm_obsidian_projection_layer",
+      "kind": "PaperModule",
+      "title": "Obsidian Projection Layer"
+    },
+    {
+      "id": "pm_obsidian_vault_projector",
+      "kind": "PaperModule",
+      "title": "Obsidian Vault Projector"
+    },
+    {
+      "id": "pm_openrouter_metadata_probe",
+      "kind": "PaperModule",
+      "title": "OpenRouter Metadata Probe"
+    },
+    {
+      "id": "pm_operational_work_item_spine",
+      "kind": "PaperModule",
+      "title": "Operational WorkItem Spine"
+    },
+    {
+      "id": "pm_overnight_autonomous_operation",
+      "kind": "PaperModule",
+      "title": "Overnight Autonomous Operation"
+    },
+    {
+      "id": "pm_paper_module_authoring_runtime",
+      "kind": "PaperModule",
+      "title": "Paper Module Authoring Runtime"
+    },
+    {
+      "id": "pm_paper_module_coverage_metabolism",
+      "kind": "PaperModule",
+      "title": "Paper Module Coverage Metabolism"
+    },
+    {
+      "id": "pm_paper_module_entry_projection_integrity",
+      "kind": "PaperModule",
+      "title": "Paper Module Entry Projection Integrity"
+    },
+    {
+      "id": "pm_paper_module_principle_scope",
+      "kind": "PaperModule",
+      "title": "Paper Module Principle Scope"
+    },
+    {
+      "id": "pm_pattern_deliverables",
+      "kind": "PaperModule",
+      "title": "Pattern Deliverables"
+    },
+    {
+      "id": "pm_phase_runtime_library",
+      "kind": "PaperModule",
+      "title": "Phase Runtime Library"
+    },
+    {
+      "id": "pm_pipeline_runtime_library",
+      "kind": "PaperModule",
+      "title": "Pipeline Runtime Library"
+    },
+    {
+      "id": "pm_polymarket_market_intelligence",
+      "kind": "PaperModule",
+      "title": "Polymarket Market Intelligence"
+    },
+    {
+      "id": "pm_polymarket_measurement_substrate",
+      "kind": "PaperModule",
+      "title": "Polymarket Measurement Substrate"
+    },
+    {
+      "id": "pm_portability_gate",
+      "kind": "PaperModule",
+      "title": "Portability Gate"
+    },
+    {
+      "id": "pm_prime_directives",
+      "kind": "PaperModule",
+      "title": "Prime Directives \u2014 Agent Governance Compact v2"
+    },
+    {
+      "id": "pm_principle_population_metabolism",
+      "kind": "PaperModule",
+      "title": "Principle Population Metabolism"
+    },
+    {
+      "id": "pm_principle_scope_ontology",
+      "kind": "PaperModule",
+      "title": "Principle Scope Ontology"
+    },
+    {
+      "id": "pm_private_system_crystal",
+      "kind": "PaperModule",
+      "title": "Private System Crystal"
+    },
+    {
+      "id": "pm_prompt_shelf",
+      "kind": "PaperModule",
+      "title": "Prompt Shelf"
+    },
+    {
+      "id": "pm_prompt_shelf_uppropagation_ledger",
+      "kind": "PaperModule",
+      "title": "Prompt Shelf Uppropagation Ledger"
+    },
+    {
+      "id": "pm_proof_bundle_surface",
+      "kind": "PaperModule",
+      "title": "Proof Bundle Surface"
+    },
+    {
+      "id": "pm_propagation_family_typology",
+      "kind": "PaperModule",
+      "title": "Propagation Family Typology"
+    },
+    {
+      "id": "pm_provider_metabolism_ledger",
+      "kind": "PaperModule",
+      "title": "Provider Metabolism Ledger"
+    },
+    {
+      "id": "pm_public_constellation_strategy",
+      "kind": "PaperModule",
+      "title": "Public Constellation Strategy"
+    },
+    {
+      "id": "pm_public_toggle_gate",
+      "kind": "PaperModule",
+      "title": "Public Toggle Gate"
+    },
+    {
+      "id": "pm_python_compliance_audit_harness",
+      "kind": "PaperModule",
+      "title": "Python Compliance Audit Harness"
+    },
+    {
+      "id": "pm_python_std_compliance_factory",
+      "kind": "PaperModule",
+      "title": "Python Std Compliance Factory"
+    },
+    {
+      "id": "pm_raw_seed_atomization",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Atomization"
+    },
+    {
+      "id": "pm_raw_seed_distillation_lanes",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Distillation Lanes"
+    },
+    {
+      "id": "pm_raw_seed_enrichment_tooling",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Enrichment Tooling"
+    },
+    {
+      "id": "pm_raw_seed_maintenance_campaign_runtime",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Maintenance Campaign Runtime"
+    },
+    {
+      "id": "pm_raw_seed_metabolism",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Metabolism"
+    },
+    {
+      "id": "pm_raw_seed_paper",
+      "kind": "PaperModule",
+      "title": "Raw Seed Paper"
+    },
+    {
+      "id": "pm_raw_seed_paper_companion_ledger",
+      "kind": "PaperModule",
+      "title": "Raw Seed Paper Companion Ledger"
+    },
+    {
+      "id": "pm_raw_seed_principle_scope",
+      "kind": "PaperModule",
+      "title": "Raw Seed Principle Scope"
+    },
+    {
+      "id": "pm_raw_seed_shard_assimilation",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Shard Assimilation"
+    },
+    {
+      "id": "pm_raw_seed_shard_neighborhood_routing",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Shard Neighborhood Routing"
+    },
+    {
+      "id": "pm_raw_seed_substrate",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Substrate"
+    },
+    {
+      "id": "pm_raw_seed_theory",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Theory"
+    },
+    {
+      "id": "pm_raw_seed_type_discovery_campaign",
+      "kind": "PaperModule",
+      "title": "Raw-Seed Type-Discovery Campaign"
+    },
+    {
+      "id": "pm_reactions_engine",
+      "kind": "PaperModule",
+      "title": "Reactions Engine \u2014 Phase 09.35 Journal-Gated Automation Lane"
+    },
+    {
+      "id": "pm_reasoning_node_contracts",
+      "kind": "PaperModule",
+      "title": "Reasoning Node Contracts - Injection, Oracle, Topology, and Learning Spine"
+    },
+    {
+      "id": "pm_recipient_packet_theory",
+      "kind": "PaperModule",
+      "title": "Recipient Packet Theory"
+    },
+    {
+      "id": "pm_recursive_self_improvement_operating_loop",
+      "kind": "PaperModule",
+      "title": "Recursive Self-Improvement Operating Loop"
+    },
+    {
+      "id": "pm_research_factory_runtime",
+      "kind": "PaperModule",
+      "title": "Research Factory Runtime"
+    },
+    {
+      "id": "pm_route_worker_benchmark_discovery_loop",
+      "kind": "PaperModule",
+      "title": "Route Worker Benchmark Discovery Loop"
+    },
+    {
+      "id": "pm_routing_topology",
+      "kind": "PaperModule",
+      "title": "Routing Topology"
+    },
+    {
+      "id": "pm_runtime_hook_ladder",
+      "kind": "PaperModule",
+      "title": "Runtime Hook Ladder"
+    },
+    {
+      "id": "pm_scope_resolution_ledger",
+      "kind": "PaperModule",
+      "title": "Scope Resolution Ledger"
+    },
+    {
+      "id": "pm_semantic_naming_grammar",
+      "kind": "PaperModule",
+      "title": "Semantic Naming Grammar"
+    },
+    {
+      "id": "pm_semantic_routing_plane",
+      "kind": "PaperModule",
+      "title": "Semantic Routing Plane"
+    },
+    {
+      "id": "pm_standards_as_executable_wiki",
+      "kind": "PaperModule",
+      "title": "Standards As Executable Wiki"
+    },
+    {
+      "id": "pm_station_backend_world_model",
+      "kind": "PaperModule",
+      "title": "Station Backend \u2014 World Model"
+    },
+    {
+      "id": "pm_station_primitive_view_contract_substrate",
+      "kind": "PaperModule",
+      "title": "Station Primitive View Contract Substrate"
+    },
+    {
+      "id": "pm_station_render_engine",
+      "kind": "PaperModule",
+      "title": "Station Render Engine"
+    },
+    {
+      "id": "pm_station_visual_observability",
+      "kind": "PaperModule",
+      "title": "Station Visual Observability"
+    },
+    {
+      "id": "pm_subagentstart_actor_context_injection",
+      "kind": "PaperModule",
+      "title": "SubagentStart Actor Context Injection"
+    },
+    {
+      "id": "pm_system_constitution_seed",
+      "kind": "PaperModule",
+      "title": "System Constitution Seed"
+    },
+    {
+      "id": "pm_system_control_runtime_orchestration",
+      "kind": "PaperModule",
+      "title": "System Control Runtime Orchestration"
+    },
+    {
+      "id": "pm_system_core_execution_kernel",
+      "kind": "PaperModule",
+      "title": "System Core Execution Kernel"
+    },
+    {
+      "id": "pm_system_lib_compliance_adapters",
+      "kind": "PaperModule",
+      "title": "System Lib Compliance Adapters"
+    },
+    {
+      "id": "pm_system_lib_directory_index",
+      "kind": "PaperModule",
+      "title": "System Lib Directory Index"
+    },
+    {
+      "id": "pm_system_lib_pipeline_stages",
+      "kind": "PaperModule",
+      "title": "System Lib Pipeline Stages"
+    },
+    {
+      "id": "pm_system_self_comprehension_root",
+      "kind": "PaperModule",
+      "title": "System Self-Comprehension Root"
+    },
+    {
+      "id": "pm_system_self_comprehension_spine",
+      "kind": "PaperModule",
+      "title": "System Self-Comprehension Spine"
+    },
+    {
+      "id": "pm_system_server_index",
+      "kind": "PaperModule",
+      "title": "System Server Directory Index"
+    },
+    {
+      "id": "pm_system_server_tests_index",
+      "kind": "PaperModule",
+      "title": "System Server Tests Index"
+    },
+    {
+      "id": "pm_system_tui_control_surface",
+      "kind": "PaperModule",
+      "title": "System TUI Control Surface"
+    },
+    {
+      "id": "pm_system_vocabulary_ontology",
+      "kind": "PaperModule",
+      "title": "System Vocabulary Ontology"
+    },
+    {
+      "id": "pm_task_ledger",
+      "kind": "PaperModule",
+      "title": "Task Ledger"
+    },
+    {
+      "id": "pm_tools_brand_icon_generator",
+      "kind": "PaperModule",
+      "title": "Tools Brand Icon Generator"
+    },
+    {
+      "id": "pm_tools_dev_directory_index",
+      "kind": "PaperModule",
+      "title": "Tools Dev Directory Index"
+    },
+    {
+      "id": "pm_tools_market_intelligence_index",
+      "kind": "PaperModule",
+      "title": "Tools Market-Intelligence Index"
+    },
+    {
+      "id": "pm_tools_meta_annex_index",
+      "kind": "PaperModule",
+      "title": "Tools Meta Annex Index"
+    },
+    {
+      "id": "pm_tools_meta_bridge_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Bridge Tooling Index"
+    },
+    {
+      "id": "pm_tools_meta_control_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Control Tooling Index"
+    },
+    {
+      "id": "pm_tools_meta_directory_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Directory Index"
+    },
+    {
+      "id": "pm_tools_meta_dissemination_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Dissemination Tooling Index"
+    },
+    {
+      "id": "pm_tools_meta_factory_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Factory Directory Index"
+    },
+    {
+      "id": "pm_tools_meta_observability_index",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Observability Directory Index"
+    },
+    {
+      "id": "pm_tools_meta_testing_runtime",
+      "kind": "PaperModule",
+      "title": "Tools/Meta Testing Runtime"
+    },
+    {
+      "id": "pm_tools_shadow_lab_parser",
+      "kind": "PaperModule",
+      "title": "Tools Shadow Lab Parser"
+    },
+    {
+      "id": "pm_type_a_worker_harness",
+      "kind": "PaperModule",
+      "title": "Type A Worker Harness"
+    },
+    {
+      "id": "pm_unified_context_anchor",
+      "kind": "PaperModule",
+      "title": "Unified Context Anchor"
+    },
+    {
+      "id": "pm_unified_navigation_layer",
+      "kind": "PaperModule",
+      "title": "Unified Navigation Layer"
+    },
+    {
+      "id": "pm_up_propagation_theory",
+      "kind": "PaperModule",
+      "title": "Up-Propagation Theory"
+    },
+    {
+      "id": "pm_vab_grimoire_primitive_moves",
+      "kind": "PaperModule",
+      "title": "VAB / Grimoire Primitive Moves"
+    },
+    {
+      "id": "pm_voice_archaeology",
+      "kind": "PaperModule",
+      "title": "Voice Archaeology"
+    },
+    {
+      "id": "pm_voice_archaeology_mining",
+      "kind": "PaperModule",
+      "title": "Voice Archaeology Mining"
+    },
+    {
+      "id": "pm_work_ledger",
+      "kind": "PaperModule",
+      "title": "Work Ledger \u2014 Event-Sourced Work Memory for Type A Agents"
+    },
+    {
+      "id": "pm_workingness_facet_state_builder",
+      "kind": "PaperModule",
+      "title": "Workingness Facet State Builder"
+    },
+    {
+      "id": "pm_workingness_instrument",
+      "kind": "PaperModule",
+      "title": "Workingness Instrument"
+    },
+    {
+      "id": "pm_workitem_spine_operating_practice",
+      "kind": "PaperModule",
+      "title": "WorkItem Spine Operating Practice"
+    },
+    {
+      "id": "std_annex_distillation",
+      "kind": "Standard",
+      "title": "std_annex_distillation"
+    },
+    {
+      "id": "std_command_output_projection",
+      "kind": "Standard",
+      "title": "Command Output Projection Standard"
+    },
+    {
+      "id": "std_compliance_coverage",
+      "kind": "Standard",
+      "title": "std_compliance_coverage"
+    },
+    {
+      "id": "std_compliance_finding",
+      "kind": "Standard",
+      "title": "std_compliance_finding"
+    },
+    {
+      "id": "std_concept",
+      "kind": "Standard",
+      "title": "std_concept"
+    },
+    {
+      "id": "std_derived_fact",
+      "kind": "Standard",
+      "title": "Derived Fact Hologram Standard"
+    },
+    {
+      "id": "std_host_skill_surface",
+      "kind": "Standard",
+      "title": "Host Skill Surface Probe Contract"
+    },
+    {
+      "id": "std_imagination",
+      "kind": "Standard",
+      "title": "Imagination Definition Standard"
+    },
+    {
+      "id": "std_kind_atlas",
+      "kind": "Standard",
+      "title": "Kind Atlas Standard"
+    },
+    {
+      "id": "std_lifecycle_surface_budget",
+      "kind": "Standard",
+      "title": "Lifecycle surface budget standard"
+    },
+    {
+      "id": "std_mechanism",
+      "kind": "Standard",
+      "title": "std_mechanism"
+    },
+    {
+      "id": "std_metabolism_status",
+      "kind": "Standard",
+      "title": "Metabolism status standard"
+    },
+    {
+      "id": "std_microcosm",
+      "kind": "Standard",
+      "title": "Microcosm Definition Standard"
+    },
+    {
+      "id": "std_navigation_contract",
+      "kind": "Standard",
+      "title": "Navigation Contract Standard"
+    },
+    {
+      "id": "std_operator_action_receipt",
+      "kind": "Standard",
+      "title": "Operator Action Receipt Standard"
+    },
+    {
+      "id": "std_paper_module",
+      "kind": "Standard",
+      "title": "Paper Module standard"
+    },
+    {
+      "id": "std_raw_seed_principles",
+      "kind": "Standard",
+      "title": "std_raw_seed_principles"
+    },
+    {
+      "id": "std_skill",
+      "kind": "Standard",
+      "title": "Skill Definition Standard"
+    },
+    {
+      "id": "std_skill_types",
+      "kind": "Standard",
+      "title": "Skill Type Taxonomy Standard"
+    },
+    {
+      "id": "std_standard_type_plane",
+      "kind": "Standard",
+      "title": "Standard Type Plane Standard"
+    },
+    {
+      "id": "std_standards_group_index",
+      "kind": "Standard",
+      "title": "std_standards_group_index"
+    },
+    {
+      "id": "std_standards_registry",
+      "kind": "Standard",
+      "title": "std_standards_registry"
+    },
+    {
+      "id": "std_system_atlas",
+      "kind": "Standard",
+      "title": "System Atlas standard"
+    },
+    {
+      "id": "std_system_axiom_candidate",
+      "kind": "Standard",
+      "title": "System Axiom Candidate"
+    },
+    {
+      "id": "std_task_ledger",
+      "kind": "Standard",
+      "title": "Task Ledger Standard"
+    },
+    {
+      "id": "std_task_sign_off",
+      "kind": "Standard",
+      "title": "Task Sign-Off Standard"
+    },
+    {
+      "id": "std_teleology_node",
+      "kind": "Standard",
+      "title": "Shared Desire / Teleology Node"
+    },
+    {
+      "id": "std_ui_receipt",
+      "kind": "Standard",
+      "title": "UI Receipt Standard"
+    },
+    {
+      "id": "std_view_contract",
+      "kind": "Standard",
+      "title": "View Contract Standard"
+    }
+  ],
+  "generated_at": "2026-05-31T13:44:52Z",
+  "generated_by": "tools/meta/factory/build_system_atlas.py",
+  "schema_version": "microcosm_system_atlas_graph_excerpt_v1",
+  "selection_basis": "build_system_atlas row-level entity ids for self_ignorance target kinds",
+  "source_ref": "state/system_atlas/system_atlas.graph.json",
+  "source_schema_version": "system_atlas_graph_v1"
+}

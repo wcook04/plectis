@@ -1,0 +1,203 @@
+{
+  "anti_claim": "Batch 12 market-dashboard read-model validation executes copied non-secret macro source over bounded public fixtures only. It is not live market truth, investment advice, provider capability, release authority, publication authority, source-mutation authority, or whole-system correctness.",
+  "authority_boundary": "public_batch12_market_dashboard_read_model_capsule_not_live_market_truth_or_advice",
+  "authority_ceiling": {
+    "status": "pass",
+    "live_market_truth": false,
+    "investment_advice": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false
+  },
+  "body_import_policy": {
+    "body_in_receipt": false,
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_refs": [
+      "system/lib/market_dashboard_read_model.py"
+    ],
+    "source_to_target_relation": "exact_copy"
+  },
+  "body_in_receipt": false,
+  "evidence_class": "verified_macro_body_import",
+  "first_wave_required": true,
+  "kind_id": "batch12_market_dashboard_read_model_capsule",
+  "kind_name": "Batch 12 market dashboard read-model capsule",
+  "mechanisms": [
+    "market_dashboard_read_model_overclaim_ceiling_validator",
+    "market_feed_freshness_state_classifier",
+    "market_situation_entity_overlap_cohort_scorer"
+  ],
+  "negative_case_codes": [
+    "BATCH12_MDRM_DANGLING_EDGE",
+    "BATCH12_MDRM_FRESHNESS_BLOCKER_LIST",
+    "BATCH12_MDRM_FRESHNESS_MISSING_ARTIFACT",
+    "BATCH12_MDRM_FRESHNESS_STALE_NOT_FRESH",
+    "BATCH12_MDRM_FRESHNESS_SUCCESS_SHORTFALL",
+    "BATCH12_MDRM_ORACLE_AUTO_APPLY_OVERCLAIM",
+    "BATCH12_MDRM_RELATED_NO_OVERLAP",
+    "BATCH12_MDRM_SILENT_OMISSION",
+    "BATCH12_MDRM_STRICT_TRADING_CLAIM",
+    "BATCH12_MDRM_TRAVERSAL_ROUTE_REF"
+  ],
+  "organ_id": "batch12_market_dashboard_read_model_capsule",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "exact copied non-secret macro source modules",
+      "source refs, digests, line counts, and required anchors",
+      "bounded public fixture inputs and stable negative-case ids",
+      "authority ceilings and anti-claims"
+    ],
+    "default_posture": "public_safe_exact_copy_batch12_capsule",
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "raw operator transcripts",
+      "private root paths",
+      "live market or release state",
+      "source body text in receipts"
+    ]
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 1,
+    "body_in_receipt": false,
+    "must_record": [
+      "source_module_manifest",
+      "observed_negative_cases",
+      "secret_exclusion_scan",
+      "receipt_body_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.batch12_market_dashboard_read_model_capsule",
+    "required": true,
+    "source_module_manifest_required_for_exported_bundle": true
+  },
+  "receipt_expectations": [
+    "batch12_market_dashboard_read_model_capsule_result.json",
+    "batch12_market_dashboard_read_model_capsule_board.json",
+    "batch12_market_dashboard_read_model_capsule_validation_receipt.json",
+    "batch12_market_dashboard_read_model_capsule_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#batch12_market_dashboard_read_model_capsule",
+    "used_by_organs": [
+      "batch12_market_dashboard_read_model_capsule"
+    ]
+  },
+  "required_fields": [
+    "source_module_manifest",
+    "source_module_digests",
+    "required_anchors",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim",
+    "body_in_receipt"
+  ],
+  "required_negative_cases": [
+    "dangling_graph_edge",
+    "freshness_blocker_list",
+    "freshness_missing_readiness_artifact",
+    "freshness_stale_not_fresh",
+    "freshness_success_shortfall",
+    "oracle_auto_apply_overclaim",
+    "related_no_overlap_different_type",
+    "silent_omission_count",
+    "strict_trading_claim_language",
+    "traversal_route_ref"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "system/lib/market_dashboard_read_model.py"
+  ],
+  "standard_id": "std_microcosm_batch12_market_dashboard_read_model_capsule",
+  "standard_payload": {
+    "anti_purpose": "A copied macro body, fixture validator, or green receipt inflated into live authority, release approval, provider dispatch, private-root equivalence, or whole-system correctness.",
+    "failure_modes": [
+      "source module digest drifts without refreshing the exact copy and manifest",
+      "validator accepts missing or malformed required fixture inputs",
+      "validator accepts stable negative-case regressions",
+      "receipts include copied body text, private refs, provider payload bodies, credentials, or live state",
+      "capsule is treated as release, source-mutation, private-root, provider, or whole-system authority"
+    ],
+    "ontology": "A public-safe exact-copy Batch-12 capsule for a bounded non-secret macro mechanism.",
+    "teleology": "Let a cold reader rerun the copied mechanism over public fixtures while preserving strict claim ceilings.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "validator_id": "validator.microcosm.organs.batch12_market_dashboard_read_model_capsule",
+      "receipt_id": "receipt.microcosm.batch12_market_dashboard_read_model_capsule",
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "require copied macro source modules and source_module_manifest provenance",
+    "verify source-to-target digest equality and required anchors",
+    "execute the public fixture exercise without invoking providers, live accounts, or source mutation",
+    "require stable negative-case ids and error codes",
+    "keep release, publication, provider dispatch, private-root equivalence, source mutation, and whole-system correctness authority false",
+    "keep copied source bodies under source_modules only; receipts expose refs, hashes, counts, verdicts, and omissions but not body text"
+  ],
+  "validator_contract": {
+    "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run --input fixtures/first_wave/batch12_market_dashboard_read_model_capsule/input --out receipts/first_wave/batch12_market_dashboard_read_model_capsule --acceptance-out receipts/acceptance/first_wave/batch12_market_dashboard_read_model_capsule_fixture_acceptance.json",
+    "expected_negative_case_count": 10,
+    "expected_source_module_count": 1,
+    "required": true,
+    "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_market_dashboard_read_model_capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out /tmp/batch12_market_dashboard_read_model_capsule_bundle_receipts",
+    "validator_id": "validator.microcosm.organs.batch12_market_dashboard_read_model_capsule"
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.batch12_market_dashboard_read_model_capsule.author",
+      "status": "planned",
+      "purpose": "create a valid Batch 12 market dashboard read-model capsule instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.batch12_market_dashboard_read_model_capsule.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Batch 12 market dashboard read-model capsule without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.batch12_market_dashboard_read_model_capsule.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_batch12_market_dashboard_read_model_capsule and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_batch12_market_dashboard_read_model_capsule.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.batch12_market_dashboard_read_model_capsule"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.batch12_market_dashboard_read_model_capsule"
+  ],
+  "anti_claims": [
+    "Batch 12 market-dashboard read-model validation executes copied non-secret macro source over bounded public fixtures only. It is not live market truth, investment advice, provider capability, release authority, publication authority, source-mutation authority, or whole-system correctness.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_batch12_market_dashboard_read_model_capsule",
+    "registry_status": "accepted_public_runtime_standard",
+    "validator_id": "validator.microcosm.organs.batch12_market_dashboard_read_model_capsule",
+    "receipt_id": "receipt.microcosm.batch12_market_dashboard_read_model_capsule",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_batch12_market_dashboard_read_model_capsule_v1",
+    "uplift_basis": "registry accepted_public_runtime_standard plus standard-local validator_contract, receipt_contract, source_refs, authority_ceiling, public_private_boundary, and anti-claim floor."
+  }
+}

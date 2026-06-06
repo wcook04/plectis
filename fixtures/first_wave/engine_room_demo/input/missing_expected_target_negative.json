@@ -1,0 +1,8 @@
+{
+  "case_id": "missing_expected_target_negative",
+  "case_type": "negative",
+  "expected_jewel_targets": [
+    "lean_and_or_proof_search",
+    "engine_room_target_that_should_not_exist"
+  ]
+}

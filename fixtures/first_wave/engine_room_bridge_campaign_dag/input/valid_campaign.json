@@ -1,0 +1,49 @@
+{
+  "barrier": {
+    "description": "fan-in after all public Engine Room probes finish",
+    "group_label": "engine_room_synthesis"
+  },
+  "campaign_id": "engine-room-valid",
+  "case_id": "valid_three_probe_campaign",
+  "continuation": {
+    "next_action": "summarize receipts and hand one bounded integration packet to the controller",
+    "packet_schema": "v1_receipts_navigational"
+  },
+  "expected_ok": true,
+  "intent": "validate a public three-probe Engine Room bridge campaign",
+  "kind": "bridge_campaign",
+  "nodes": [
+    {
+      "label": "prover_probe",
+      "role": "probe"
+    },
+    {
+      "label": "metabolism_probe",
+      "role": "probe"
+    },
+    {
+      "label": "security_probe",
+      "role": "probe"
+    },
+    {
+      "depends_on": [
+        "prover_probe",
+        "metabolism_probe",
+        "security_probe"
+      ],
+      "label": "engine_room_reducer",
+      "role": "reducer"
+    },
+    {
+      "depends_on": [
+        "engine_room_reducer"
+      ],
+      "label": "engine_room_synthesis",
+      "role": "synthesis"
+    }
+  ],
+  "plan_path": "tools/meta/apply/observe_plans/engine_room_public_probe.json",
+  "provider": "chatgpt",
+  "schema_version": "1.0",
+  "workers": 3
+}

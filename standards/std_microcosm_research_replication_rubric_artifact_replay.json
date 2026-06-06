@@ -1,11 +1,11 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
   "kind_id": "research_replication_rubric_artifact_replay",
   "kind_name": "Research replication rubric-artifact replay",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
-    "authority_boundary": "public_trace_refactor_research_replication_replay_not_benchmark_or_publication_authority",
+  "authority_boundary": "public_trace_refactor_research_replication_replay_not_benchmark_or_publication_authority",
   "source_refs": [
     {
       "field": "projection_protocol",
@@ -16,6 +16,26 @@
       "field": "runtime_example",
       "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_pattern_and_control_plane_body_manifest"
+    },
+    {
+      "field": "paper_module_contract.module_slug",
+      "path": "paper_modules/research_replication_rubric_artifact_replay.md",
+      "role": "authored_doctrine_projection"
+    },
+    {
+      "field": "paper_module_contract.capsule_ref",
+      "path": "core/paper_module_capsules.json#paper_module.research_replication_rubric_artifact_replay",
+      "role": "json_paper_module_capsule"
+    },
+    {
+      "field": "paper_module_contract.mechanism_ref",
+      "path": "core/mechanism_sources.json#mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay",
+      "role": "mechanism_source"
     }
   ],
   "relationships": {
@@ -33,14 +53,14 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-        "target_refs",
-        "target_symbols",
-        "body_import_status",
-        "body_import_verification",
-        "source_open_body_imports",
-        "source_module_imports",
-        "public_agent_execution_trace",
-        "required_replay_fields",
+    "target_refs",
+    "target_symbols",
+    "body_import_status",
+    "body_import_verification",
+    "source_open_body_imports",
+    "source_module_imports",
+    "public_agent_execution_trace",
+    "required_replay_fields",
     "rubric_axes",
     "declared_artifact_hash_refs",
     "research_replays",
@@ -54,7 +74,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.research_replication_rubric_artifact_replay",
-        "receipt must cite policy, replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, authority ceiling, and anti-claim"
+    "receipt must cite policy, replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay",
@@ -84,18 +104,18 @@
       "declared_artifact_hash_ref_count",
       "cold_rerun_count",
       "negative_case_coverage",
-            "secret_exclusion_scan",
-            "public_agent_execution_trace",
-            "source_open_body_imports",
-            "source_module_import_status",
-            "source_module_manifest_ref",
-            "body_import_verification",
-            "authority_ceiling",
-            "anti_claim"
-        ]
-    },
-    "public_private_boundary": {
-        "default_posture": "public_safe_trace_refactor_with_synthetic_rows_as_fixture_inputs",
+      "secret_exclusion_scan",
+      "public_agent_execution_trace",
+      "source_open_body_imports",
+      "source_module_import_status",
+      "source_module_manifest_ref",
+      "body_import_verification",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_trace_refactor_with_synthetic_rows_as_fixture_inputs",
     "allowed_public_inputs": [
       "paper capsule ids",
       "rubric refs",
@@ -116,55 +136,142 @@
       "publication claims"
     ]
   },
-        "authority_ceiling": {
-            "status": "pass",
-            "standard_authority": "public_research_replication_trace_refactor_and_fixture_contract",
-            "benchmark_performance_authority": false,
+  "authority_ceiling": {
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "standard_authority": "public_research_replication_trace_refactor_and_fixture_contract",
+    "benchmark_performance_authority": false,
     "provider_authority": false,
     "publication_authority": false,
     "private_body_authority": false,
-    "undeclared_artifact_hash_ref_authority": false
-    },
-    "anti_claim": "This standard governs public research-replication replay receipts backed by public trace spans, artifact-hash rosters, metric refs, grader refs, budget refs, failure-taxonomy refs, and cold-rerun refs. Synthetic rows remain fixture inputs and negative cases; the standard does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
+    "undeclared_artifact_hash_ref_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#research_replication_rubric_artifact_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#research_replication_rubric_artifact_replay.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
+  },
+  "anti_claim": "This standard governs public research-replication replay receipts backed by public trace spans, artifact-hash rosters, metric refs, grader refs, budget refs, failure-taxonomy refs, and cold-rerun refs. Synthetic rows remain fixture inputs and negative cases; the standard does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
   "receipt_refs": [
+    "receipt.microcosm.research_replication_rubric_artifact_replay",
+    "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_result.json",
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_board.json",
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json"
   ],
   "paper_module_contract": {
     "required": true,
-    "module_slug": "research_replication_rubric_artifact_replay"
+    "module_slug": "research_replication_rubric_artifact_replay",
+    "capsule_ref": "core/paper_module_capsules.json#paper_module.research_replication_rubric_artifact_replay",
+    "mechanism_ref": "mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay",
+    "source_authority": "json_capsule_with_authored_markdown_projection_and_receipts"
   },
   "anti_claim_contract": {
     "required": true,
     "rule": "research replication material must state that replay receipts are not benchmark or publication authority"
   },
-    "body_import_contract": {
-        "required": true,
-        "status": "extension_of_existing_public_refactor_landed",
-        "source_ref": "system/lib/agent_execution_trace.py",
-        "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
-        "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace"
-    },
-    "source_open_body_import_contract": {
-        "required": true,
-        "status": "copied_non_secret_macro_body_with_provenance",
-        "source_import_class": "copied_non_secret_macro_body",
-        "body_material_count": 3,
-        "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
-        "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json::modules",
-        "body_in_receipt": false,
-        "rule": "real macro pattern provenance bodies must live under source_artifacts with digest-verified manifest rows; receipts carry refs, digests, and status only"
-    },
-    "source_coupling_contract": {
-        "required": true,
-        "rule": "macro source refs stay path-level metadata while target refs and runtime refs bind the public trace refactor"
-    },
-    "omitted_secret_or_live_access_material": [
-            "private paper bodies",
-            "private data bodies",
-            "hidden rubric bodies",
-            "provider payload bodies",
-            "original-author code bodies"
+  "body_import_contract": {
+    "required": true,
+    "status": "extension_of_existing_public_refactor_landed",
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace"
+  },
+  "source_open_body_import_contract": {
+    "required": true,
+    "status": "copied_non_secret_macro_body_with_provenance",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_count": 4,
+    "pattern_body_material_count": 3,
+    "control_plane_body_material_count": 1,
+    "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+    "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "rule": "real macro pattern provenance bodies and the public Python control-plane copy must live under source_artifacts/source_modules with digest-verified manifest rows; receipts carry refs, digests, and status only"
+  },
+  "source_module_manifest_contract": {
+    "required": true,
+    "bundle_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
+    "manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_material_count": 4,
+    "verified_source_module_count": 4,
+    "body_text_exported_in_receipts": false,
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json"
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+    "body_in_receipt": false,
+    "body_material_count": 4,
+    "body_material_ids": [
+      "research_replication_deterministic_pattern_order_body_import",
+      "research_replication_extracted_pattern_ledger_row_body_import",
+      "research_replication_high_novelty_growth_receipt_body_import",
+      "research_replication_replay_control_plane_source_body_import"
     ],
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_python_source_body"
+    ],
+    "reader_action": "Open source_module_manifest.json, source_artifacts/, and source_modules/ for copied public macro and control-plane bodies; receipts carry digests and status only.",
+    "source_manifest_refs": [
+      "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+      "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/bundle_manifest.json",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json"
+    ],
+    "status": "pass"
+  },
+  "negative_cases": {
+    "coverage_status": "all_observed",
+    "expected": [
+      "benchmark_performance_claim",
+      "final_answer_only_grading",
+      "hidden_rubric_leakage",
+      "original_author_code_reuse_forbidden",
+      "private_paper_body_leakage",
+      "report_only_success",
+      "unbounded_compute_search",
+      "undeclared_artifact_hash_ref"
+    ],
+    "receipt_ref": "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_result.json"
+  },
+  "doctrine_population_status": {
+    "paper_module": "source_backed_authored",
+    "json_capsule": "populated",
+    "mechanism_source": "populated",
+    "atlas_binding_status": "deferred_for_sibling_organ_atlas_lane",
+    "atlas_reentry_refs": [
+      "cap_quick_next_research_replication_rubric_doctrine_capsule",
+      "core/organ_atlas.json::organs[organ_id=research_replication_rubric_artifact_replay].paper_module_ref",
+      "core/organ_atlas.json::organs[organ_id=research_replication_rubric_artifact_replay].mechanism_ref",
+      "core/organ_atlas.json::organs[organ_id=research_replication_rubric_artifact_replay].code_loci"
+    ],
+    "coverage_projection_status": "json_corpus_populated_atlas_edges_pending",
+    "source_module_manifest_status": "populated",
+    "runtime_receipt_status": "refreshed_from_current_validator",
+    "authority_boundary": "Copied public macro pattern provenance bodies, exact-copy public Python control-plane body, body-free synthetic research-replication rows, public trace spans, declared artifact-hash rosters, rubric/budget/failure/cold-rerun refs, and runtime validation receipts only; no actual paper-replication success, benchmark performance claim, private paper/data body export, hidden-rubric export, provider payload, original-author code reuse, unbounded compute, final-answer-only grading, product-progress evidence, release authority, publication authority, or source mutation.",
+    "validation_refs": [
+      "tests/test_doctrine_lattice_runtime.py::test_research_replication_rubric_artifact_replay_population_has_capsule_and_mechanism_prestaged_until_atlas_binding",
+      "tests/test_research_replication_rubric_artifact_replay.py",
+      "microcosm_core.organs.research_replication_rubric_artifact_replay run",
+      "microcosm_core.organs.research_replication_rubric_artifact_replay run-replication-bundle"
+    ]
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata while target refs and runtime refs bind the public trace refactor"
+  },
+  "omitted_secret_or_live_access_material": [
+    "private paper bodies",
+    "private data bodies",
+    "hidden rubric bodies",
+    "provider payload bodies",
+    "original-author code bodies"
+  ],
   "standard_payload": {
     "teleology": "Make Microcosm show how research replication claims become credible only after rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts exist.",
     "anti_purpose": "Treating paper understanding, undeclared artifact hashes, final answers, or benchmark context as replication evidence.",
@@ -190,6 +297,47 @@
       "unbounded_compute_search",
       "undeclared_artifact_hash_ref"
     ],
-    "rebuild_action": "draft"
-  }
+    "rebuild_action": "draft",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay",
+      "receipt_id": "receipt.microcosm.research_replication_rubric_artifact_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.research_replication_rubric_artifact_replay.author",
+      "status": "planned",
+      "purpose": "create a valid Research replication rubric-artifact replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.research_replication_rubric_artifact_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Research replication rubric-artifact replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.research_replication_rubric_artifact_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_research_replication_rubric_artifact_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt",
+  "validator_refs": [
+    "validator.microcosm.organs.research_replication_rubric_artifact_replay",
+    "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay"
+  ]
 }

@@ -1,0 +1,10 @@
+{
+  "schema_version": "batch6_unsurfaced_primitives_capsule_negative_case_v1",
+  "organ_id": "batch6_unsurfaced_primitives_capsule",
+  "case_id": "stopword_only_keyphrase_empty",
+  "error_codes": [
+    "BATCH6_KEYPHRASE_STOPWORD_ONLY_EMPTY"
+  ],
+  "body_in_receipt": false,
+  "public_private_boundary": "public synthetic negative case only; no private source body or runtime state"
+}

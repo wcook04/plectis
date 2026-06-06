@@ -1,0 +1,13 @@
+{
+  "anti_claim": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+  "body_in_receipt": false,
+  "exercise_status": "pass",
+  "negative_case_status": "pass",
+  "organ_id": "finance_forecast_evaluation_spine",
+  "receipt_body_scan_status": "pass",
+  "schema_version": "finance_forecast_evaluation_spine_validation_receipt_v1",
+  "secret_exclusion_status": "pass",
+  "source_module_manifest_status": "pass",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.finance_forecast_evaluation_spine"
+}

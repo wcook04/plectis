@@ -1,0 +1,39 @@
+# Microcosm Agent Memory Temporal Conflict Replay Refine Standard And Propagate
+
+Use this public-safe skill only when a reusable memory temporal-conflict replay invariant must change at the standard level and propagate through governed instances, validators, receipts, mechanisms, and lattice projections.
+
+## Typed Skill Mapping
+
+```json
+{
+  "triad_role": "refine_standard_and_propagate",
+  "operates_standard": "std_microcosm_agent_memory_temporal_conflict_replay",
+  "acts_on_kind": "agent_memory_temporal_conflict_replay",
+  "trigger_summary": [
+    "A recurring memory-conflict replay rule about copied source modules, public conflict fixtures, body-free receipts, or authority ceilings belongs at the standard level.",
+    "The change must propagate through instances, validators, receipts, generated lattice projections, and anti-claims without asserting live memory behavior."
+  ],
+  "workflow_summary": [
+    "Prove the invariant from the accepted standard, organ atlas row, runtime source locus, mechanism evidence, fixture bundle, source-module manifest, and receipt evidence.",
+    "Update source standards, validators, receipts, generated projections, and focused checks together so the rule is computed and not asserted.",
+    "Leave unsupported live memory, private context, provider execution, release, and whole-system correctness claims as explicit residual pressure."
+  ],
+  "concept_refs": [
+    "concept.voice_to_doctrine_self_improvement_loop_bundle"
+  ],
+  "mechanism_refs": [
+    "mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay"
+  ],
+  "mapping_basis": "The accepted standard declares this exact propagate skill id, and the resolved mechanism proves the public memory-conflict replay boundary through copied source evidence, source-module manifests, negative cases, and receipts without making live-memory claims."
+}
+```
+
+## Authority Boundary
+
+This skill governs class-level memory-conflict replay propagation only. It does not certify live memory behavior, private agent memory, provider execution, release readiness, or whole-system correctness.
+
+Anti-claims:
+
+- Standard propagation cannot lower per-instance evidence requirements.
+- Generated health improvement is not proof of replay correctness.
+- Source-module and receipt evidence must keep its stated claim ceiling.

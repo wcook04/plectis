@@ -1,0 +1,103 @@
+{
+  "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+  "authority_ceiling": "fact assertion, code-loci, DAG, and numeric claim fixture truth gate only",
+  "body_copied_material_count": 2,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::doctrine_fact_claim_audit::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json",
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json",
+    "receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/dead_code_locus.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/dead_dag_ref.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/fact_assertions.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/fact_dag.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/missing_code_locus.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/numeric_claims.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/projection_protocol.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/unbound_numeric_claim.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/doctrine_fact_claim_audit/input/wrong_fact_count.json",
+      "role": "negative case fixture"
+    }
+  ],
+  "organ_id": "doctrine_fact_claim_audit",
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/fixture_manifests/doctrine_fact_claim_audit.fixture_manifest.json",
+      "fixtures/first_wave/doctrine_fact_claim_audit/input",
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle",
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+      "paper_modules/doctrine_fact_claim_audit.md",
+      "fixtures/first_wave/doctrine_fact_claim_audit/input/numeric_claims.json",
+      "fixtures/first_wave/doctrine_fact_claim_audit/input/unbound_numeric_claim.json"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json::modules",
+    "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+    "authority_ceiling": {
+      "authority_ceiling": "fact_assertion_code_loci_dag_and_numeric_claim_fixture_truth_gate_only",
+      "comprehension_engine_claim_authorized": false,
+      "minimum_read_graph_claim_authorized": false,
+      "private_doctrine_export_authorized": false,
+      "release_authorized": false,
+      "status": "pass"
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_source_body": 1
+    },
+    "body_material_count": 2,
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "reader_action": "Open the source module manifest and source_modules directory for copied bodies; receipts carry refs, hashes, counts, verdicts, and anti-claims only.",
+    "schema_version": "doctrine_fact_claim_audit_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Doctrine fact claim audit fixture",
+  "validator": "microcosm_core.organs.doctrine_fact_claim_audit",
+  "validator_command": "python -m microcosm_core.organs.doctrine_fact_claim_audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit --acceptance-out receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json"
+}

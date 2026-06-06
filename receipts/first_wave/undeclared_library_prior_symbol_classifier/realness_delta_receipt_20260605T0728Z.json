@@ -1,0 +1,65 @@
+{
+  "schema_version": "microcosm_realness_delta_receipt_v1",
+  "created_at": "2026-06-05T07:28:00Z",
+  "organ_id": "undeclared_library_prior_symbol_classifier",
+  "conductor_thread": "019e9585-3688-7582-8885-299f94152a20",
+  "worker_session_id": "codex_20260605T072538Z_undeclared_library_prior_symbol_classifier",
+  "target_proof": "primary_fixture_path_recomputes_source_backed_symbol_classification",
+  "changed_paths": [
+    "microcosm-substrate/tests/test_undeclared_library_prior_symbol_classifier.py",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/realness_delta_receipt_20260605T0728Z.json"
+  ],
+  "source_path_unchanged": "microcosm-substrate/src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
+  "proof_rows": [
+    {
+      "case_id": "real_good",
+      "input": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input",
+      "real_symbol": "Nat.add_comm",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "allowed_premise_ids": [
+        "premise_nat_add_assoc"
+      ],
+      "expected_status": "pass",
+      "expected_undeclared_library_prior_count": 1,
+      "expected_bridge_escalation_count": 1
+    },
+    {
+      "case_id": "mutated_real_observation",
+      "mutation": "proof_symbol_refs Nat.add_comm -> Nat.add_comm_mutated while asserted_failure_class remains UNDECLARED_LIBRARY_PRIOR",
+      "expected_status": "blocked",
+      "expected_undeclared_library_prior_count": 0,
+      "expected_bridge_escalation_count": 0,
+      "baked_label_not_authority": true,
+      "source_backed_symbol_set_authority": true
+    }
+  ],
+  "validation": [
+    {
+      "command": "PYTHONPATH=microcosm-substrate/src ./repo-python -m py_compile microcosm-substrate/src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py microcosm-substrate/tests/test_undeclared_library_prior_symbol_classifier.py",
+      "status": "pass"
+    },
+    {
+      "command": "./repo-pytest microcosm-substrate/tests/test_undeclared_library_prior_symbol_classifier.py",
+      "status": "pass",
+      "summary": "7 passed in 1.64s"
+    }
+  ],
+  "work_ledger": {
+    "mutation_check_status": "clear",
+    "claim_collision_count": 0,
+    "claimed_paths": [
+      "microcosm-substrate/src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
+      "microcosm-substrate/tests/test_undeclared_library_prior_symbol_classifier.py",
+      "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier"
+    ]
+  },
+  "task_ledger_capture_refs": [
+    "cap_quick_self_error_wrong_relative_pytest_path_du_2eb164fd3264"
+  ],
+  "projection_mutation": false,
+  "release_boundary": {
+    "public_site_mutated": false,
+    "generated_projection_mutated": false,
+    "shared_projection_mutated": false
+  }
+}

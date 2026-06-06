@@ -118,7 +118,9 @@
     "receipt.microcosm.mechanism",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipt.microcosm.mechanism"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 258,
@@ -168,7 +170,7 @@
     "anti_claims",
     "mechanism_payload"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": false,
     "rule": "if generated or projected, record source input digest and stale-source behavior"
@@ -226,7 +228,7 @@
   "standard_payload": {
     "anti_purpose": "A narrative description of a feature.",
     "compression_bands": [],
-      "failure_modes": [
+    "failure_modes": [
       "untyped artifact admitted into rebuilt substrate",
       "mechanism standard exists but is not reachable from the agent entry or first-screen doctrine frame",
       "current public microcosm surface treated as sufficient without coverage check",
@@ -237,7 +239,7 @@
     "rebuild_action": "project",
     "teleology": "Explain how organs actually work and where validators attach."
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -257,6 +259,179 @@
     "required": true,
     "validator_id": "validator.microcosm.mechanism"
   },
-  "validator_refs": [],
-  "wave": "w1_core_contract_and_grammar"
+  "validator_refs": [
+    "validator.microcosm.mechanism"
+  ],
+  "wave": "w1_core_contract_and_grammar",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/mechanisms/*.json",
+  "doctrine_kind_envelope": {
+    "governed_by": "std_microcosm_standard",
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown/mermaid/atlas are generated projections of this JSON source."
+  },
+  "instance_schema": {
+    "required_keys": [
+      "id",
+      "kind",
+      "statement",
+      "status",
+      "code_loci"
+    ],
+    "optional_keys": [
+      "concept_edges",
+      "organ_refs",
+      "upstream",
+      "downstream",
+      "flow",
+      "drift_sensitivity",
+      "anti_mechanism"
+    ],
+    "field_semantics": {
+      "id": "mech_NNN",
+      "statement": "the code-grounded how that instantiates a concept",
+      "code_loci": "list of {path, functions?, role, resolution: resolved|planned} \u2014 REQUIRED, must resolve or be marked planned"
+    }
+  },
+  "lattice_edges": {
+    "required": [
+      {
+        "to_kind": "code_locus",
+        "relation_verb": "grounded_in",
+        "reverse_verb": "implements",
+        "cardinality": "one_to_many",
+        "requirement": "required",
+        "rule": "resolve_or_marked_planned"
+      }
+    ],
+    "selective": [
+      {
+        "to_kind": "concept",
+        "relation_verb": "grounds",
+        "reverse_verb": "grounded_by",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      },
+      {
+        "to_kind": "organ",
+        "relation_verb": "runs_in",
+        "reverse_verb": "operates_through",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      },
+      {
+        "to_kind": "mechanism",
+        "relation_verb": "upstream_of",
+        "reverse_verb": "downstream_of",
+        "cardinality": "zero_to_many",
+        "requirement": "selective"
+      }
+    ],
+    "edge_shape": [
+      "to_kind",
+      "relation_verb",
+      "reverse_verb",
+      "cardinality",
+      "requirement"
+    ],
+    "cardinality_enum": [
+      "one_to_one",
+      "one_to_many",
+      "zero_to_one",
+      "zero_to_many"
+    ],
+    "requirement_enum": [
+      "required",
+      "selective",
+      "forbidden"
+    ],
+    "bidirectional_gloss_required": true
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.mechanism.author",
+      "status": "planned",
+      "purpose": "create a valid mechanism instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.mechanism.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing mechanism without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.mechanism.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_mechanism and propagate through every governed artifact + projection"
+    }
+  },
+  "projections": {
+    "markdown": {
+      "generated": true,
+      "builder": "microcosm-substrate/scripts/build_doctrine_projection.py (PLANNED)",
+      "path_pattern": "microcosm-substrate/mechanisms/<id>.md",
+      "note": "human-readable projection; never source"
+    },
+    "mermaid": {
+      "generated": true,
+      "compiled_from": "lattice_edges + instance edges",
+      "note": "diagram projection; never source"
+    },
+    "atlas_card": {
+      "generated": true,
+      "surface": "agent entry / option-surface band / atlas card",
+      "note": "agent-routing projection; must link back to JSON source"
+    }
+  },
+  "validation": {
+    "schema_check": {
+      "required": true,
+      "validator_id": "validator.microcosm.mechanism",
+      "rule": "instance validates against instance_schema"
+    },
+    "link_resolution": {
+      "required": true,
+      "rule": "every required/selective lattice edge target must resolve to an existing instance id OR be marked planned"
+    },
+    "projection_freshness": {
+      "required": true,
+      "rule": "generated markdown/mermaid/atlas must be regenerable from JSON source; a stale projection is a trust downgrade, not source authority"
+    }
+  },
+  "compression": {
+    "rule": "Russian-rule fan-in-weighted compression (see macro std_paper_module.compression_formula)",
+    "required_on_instance": [
+      "one_line"
+    ],
+    "one_line_max_chars": 160,
+    "bands": [
+      "one_line",
+      "card",
+      "tldr"
+    ],
+    "purpose": "one_line drives the compressed per-instance row projection (e.g. the 77-organ atlas) for agent entry + routing"
+  },
+  "provisional_policy": {
+    "public_source_status": "active",
+    "proof_required_for_axiom": false,
+    "axiom_posture": "imposed constitutional commitment; provenance optional; never evidence-gated",
+    "principle_posture": "operative commitment authored substantively",
+    "forbidden_shipped_status": [
+      "candidate",
+      "provisional",
+      "seed",
+      "draft"
+    ],
+    "candidate_lane": "candidate/provisional doctrine may exist ONLY in an explicit import/drafting lane OUTSIDE public source, never as a shipped public-doctrine status",
+    "overrides": "macro candidate-axiom 'pressure only / not active law' posture does NOT apply to shipped microcosm public doctrine"
+  },
+  "refinement_provenance": {
+    "refined_by": "claude_code",
+    "wave": "microcosm_doctrine_kind_envelope_v2",
+    "workflow_run": "wf_7540e090-390",
+    "cap": "cap_quick_microcosm_doctrine_kind_standard_refinem_1a57b8a34ca3",
+    "base": "public_microcosm_standard_v1 @ git HEAD",
+    "method": "additive_envelope_merge; required_fields/authority_ceiling/anti_claims preserved verbatim; envelope landed as new keys (not via required_fields)"
+  }
 }

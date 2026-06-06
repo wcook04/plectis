@@ -4,22 +4,18 @@
       "contribution_decomposition_ref": "capsules/contribution_decomposition_public.json",
       "rubric_tree_ref": "rubrics/replication_rubric_tree_public.json",
       "allowed_public_input_refs": [
-        "inputs/public_problem_statement.md",
-        "inputs/public_synthetic_table.csv"
+        "execution_artifacts/inputs/public_synthetic_table.json"
       ],
       "scratch_repo_scaffold_ref": "scratch/scaffold_manifest_public.json",
       "experiment_dag_ref": "experiments/experiment_dag_public.json",
       "metric_script_refs": [
-        "metrics/auc_delta.py",
-        "metrics/seed_variance.py"
+        "execution_artifacts/metrics/public_sum_metric.json"
       ],
       "artifact_hash_refs": [
-        "artifacts/model_trace.sha256",
-        "artifacts/result_table.sha256"
+        "execution_artifacts/artifacts/result_table.sha256.json"
       ],
       "declared_artifact_hash_refs": [
-        "artifacts/model_trace.sha256",
-        "artifacts/result_table.sha256"
+        "execution_artifacts/artifacts/result_table.sha256.json"
       ],
       "grader_report_ref": "grader/grader_report_public.json",
       "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
@@ -43,22 +39,18 @@
       "contribution_decomposition_ref": "capsules/contribution_decomposition_public.json",
       "rubric_tree_ref": "rubrics/replication_rubric_tree_public.json",
       "allowed_public_input_refs": [
-        "inputs/public_problem_statement.md",
-        "inputs/public_synthetic_table.csv"
+        "execution_artifacts/inputs/public_synthetic_table.json"
       ],
       "scratch_repo_scaffold_ref": "scratch/scaffold_manifest_public.json",
       "experiment_dag_ref": "experiments/experiment_dag_public.json",
       "metric_script_refs": [
-        "metrics/error_norm.py",
-        "metrics/ablation_sensitivity.py"
+        "execution_artifacts/metrics/public_sum_metric.json"
       ],
       "artifact_hash_refs": [
-        "artifacts/model_trace.sha256",
-        "artifacts/result_table.sha256"
+        "execution_artifacts/artifacts/result_table.sha256.json"
       ],
       "declared_artifact_hash_refs": [
-        "artifacts/model_trace.sha256",
-        "artifacts/result_table.sha256"
+        "execution_artifacts/artifacts/result_table.sha256.json"
       ],
       "grader_report_ref": "grader/grader_report_public.json",
       "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",

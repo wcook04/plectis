@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "public_batch4_proof_authority_runtime_runtime_example",
+  "input_mode": "exported_batch4_proof_authority_runtime_bundle",
+  "organ_id": "batch4_proof_authority_runtime",
+  "schema_version": "batch4_proof_authority_runtime_bundle_manifest_v1",
+  "source_module_count": 19,
+  "source_module_manifest": "source_module_manifest.json"
+}

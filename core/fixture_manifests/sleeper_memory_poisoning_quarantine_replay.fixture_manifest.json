@@ -1,7 +1,7 @@
 {
   "anti_claim": "This fixture validates public synthetic sleeper-memory poisoning quarantine boundaries and copied non-secret macro memory-plane body imports only; it does not claim live memory product quality, expose private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
   "authority_ceiling": "synthetic sleeper-memory poisoning quarantine replay receipts plus copied non-secret memory-plane macro bodies only; no private memory body, raw transcript, live user memory, untrusted trusted-promotion, provider, source-mutation, benchmark-security, or release authority",
-  "body_copied_material_count": 6,
+  "body_copied_material_count": 7,
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
   "body_text_in_receipt": false,
@@ -110,16 +110,17 @@
       "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 1
+      "public_macro_tool_body": 2
     },
-    "body_material_count": 6,
+    "body_material_count": 7,
     "body_material_ids": [
       "sleeper_memory_high_novelty_growth_receipt_body_import",
       "claude_memory_plane_contract_body_import",
       "memory_injection_tiers_body_import",
       "operator_thread_memory_test_body_import",
       "agent_execution_trace_runtime_body_import",
-      "agent_execution_trace_standard_body_import"
+      "agent_execution_trace_standard_body_import",
+      "strict_json_source_body_import"
     ],
     "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
     "body_text_exported_in_receipts": false,

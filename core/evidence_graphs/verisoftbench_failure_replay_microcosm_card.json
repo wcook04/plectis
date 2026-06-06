@@ -1,0 +1,230 @@
+{
+  "id": "verisoftbench_failure_replay_microcosm_card",
+  "kind": "evidence_graph",
+  "schema_version": "microcosm_evidence_graph_card_v0",
+  "authority_boundary": "diagnostic_failure_replay_card_over_macro_receipts_not_benchmark_proof_release_or_provider_authority",
+  "status": "active_diagnostic_specimen",
+  "created_at": "2026-06-02T12:09:24Z",
+  "relationships": {
+    "work_item_id": "cap_verisoftbench_failure_replay_microcosm_card_v0",
+    "upstream_work_items": [
+      "cap_external_benchmark_calibration_spine_verisoftbench_micro_10",
+      "cap_provider_reliability_canary_c_arm_v0",
+      "cap_lab_evolve_failure_replay_graph_paper_module_v0"
+    ],
+    "downstream_unlock_ids": [
+      "cap_microcosm_portfolio_index_v0",
+      "cap_thiel_microcosm_portfolio_lab_evolve_seed"
+    ],
+    "owner_pattern": "verisoftbench_diagnostic_specimen",
+    "related_microcosm_organs": [
+      "proof_diagnostic_evidence_spine",
+      "formal_math_verifier_trace_repair_loop"
+    ],
+    "paper_module_refs": [
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "microcosm-substrate/paper_modules/formal_math_verifier_trace_repair_loop.md",
+      "microcosm-substrate/paper_modules/batch4_proof_authority_runtime.md"
+    ]
+  },
+  "source_refs": [
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/result_board.json",
+      "role": "macro_result_board",
+      "authority": "generated_result_projection_not_source_authority"
+    },
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/slice_manifest.json",
+      "role": "micro_slice_manifest",
+      "authority": "slice_scope_boundary"
+    },
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/row_execution/row_execution_manifest.json",
+      "role": "row_execution_receipt_index",
+      "authority": "local_evaluator_receipt_index"
+    },
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/harness_differential/harness_differential_manifest.json",
+      "role": "harness_differential_receipt_index",
+      "authority": "truth_side_control_not_scored_not_provider_context"
+    },
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/c_arm_provider_repair_manifest.json",
+      "role": "c_arm_provider_repair_receipt_index",
+      "authority": "provider_repair_attempt_index_not_score"
+    },
+    {
+      "path": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/provider_reliability_canary_receipt.json",
+      "role": "provider_route_canary",
+      "authority": "provider_route_contract_diagnostic_not_benchmark_result"
+    },
+    {
+      "path": "docs/benchmarks/generated_verisoftbench_micro_10_scorecard.md",
+      "role": "human_projection",
+      "authority": "generated_scorecard_not_source_authority"
+    }
+  ],
+  "validator_refs": [
+    {
+      "command": "./repo-python tools/meta/factory/build_external_benchmark_calibration_spine.py --check",
+      "expected_status": "PASS"
+    },
+    {
+      "command": "./repo-python tools/meta/factory/run_verisoftbench_micro10_c_arm_provider_repair.py --check --json",
+      "expected_status": "PASS"
+    },
+    {
+      "command": "./repo-python -m json.tool microcosm-substrate/core/evidence_graphs/verisoftbench_failure_replay_microcosm_card.json",
+      "expected_status": "valid_json"
+    }
+  ],
+  "receipt_refs": [
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/result_board.json",
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/slice_manifest.json",
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/row_execution/row_execution_manifest.json",
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/harness_differential/harness_differential_manifest.json",
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/c_arm_provider_repair_manifest.json",
+    "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/provider_reliability_canary_receipt.json"
+  ],
+  "omission_receipt": {
+    "omitted": [
+      "provider output bodies",
+      "Lean proof bodies",
+      "truth-side ground-truth proof bodies",
+      "official leaderboard submission material",
+      "operator thread content",
+      "private runtime state"
+    ],
+    "reason": "The public-safe card carries receipt paths, counts, failure classes, and authority ceilings only. It does not copy proof or provider payload bodies.",
+    "drilldown": "Use source_refs and receipt_refs for governed macro-side evidence; do not inline omitted bodies into Microcosm public surfaces."
+  },
+  "anti_claims": [
+    "not a VeriSoftBench benchmark win",
+    "not evidence of theorem-proof correctness",
+    "not an official leaderboard or submission result",
+    "not provider output authority",
+    "not public-release, hosted-product, production-ready, or recipient-send authority",
+    "not a claim that the provider route is generally unavailable",
+    "not private-root equivalence or source mutation authority",
+    "not whole-system correctness"
+  ],
+  "claim_payload": {
+    "positive_claim": "Microcosm has an evidence-backed diagnostic specimen that preserves a VeriSoftBench micro-10 failure-replay trace with exact macro receipts, failure localization, and public anti-claims.",
+    "claim_ceiling": "diagnostic failure localization and receipt accounting only",
+    "public_card_claim_allowed": true,
+    "provider_canary_public_claim_allowed": false,
+    "release_authority": false,
+    "proof_correctness_authority": false,
+    "benchmark_score_authority": false,
+    "provider_authority": false
+  },
+  "evidence_graph_payload": {
+    "card_title": "VeriSoftBench Failure-Replay Diagnostic Specimen",
+    "slice_id": "verisoftbench_micro_10_v0",
+    "benchmark": "VeriSoftBench",
+    "claim_boundary": "micro_slice_calibration_and_failure_replay_not_full_benchmark_score",
+    "counts": {
+      "planned_task_count": 10,
+      "evaluated_task_count": 8,
+      "row_execution_receipt_count": 10,
+      "harness_differential_receipt_count": 10,
+      "c_arm_provider_repair_receipt_count": 8,
+      "provider_dispatch_success_count": 8,
+      "solved_count": 0,
+      "lean_accepted_count": 0
+    },
+    "failure_replay_graph": {
+      "nodes": [
+        "normalize",
+        "formalize",
+        "retrieve",
+        "choose_graph",
+        "invoke",
+        "evaluate",
+        "classify_failure",
+        "restart",
+        "mutate_variant",
+        "replay",
+        "record_teaching",
+        "update_global_pattern"
+      ],
+      "localization_rule": "Classify the first bad node before replay. Provider contract failures stop before Lean authority; Lean timeouts remain evaluator evidence; statement-scope timeouts remain formalization/evaluator boundary evidence.",
+      "restart_rule": "Restart from the nearest safe node, not from a whole-run rerun, and record local teachings before promoting any global graph-design change."
+    },
+    "first_bad_node_by_failure_class": {
+      "statement_scope_timeout": {
+        "node": "formalize_or_evaluate",
+        "meaning": "statement-scope support or harness control timed out before a proof candidate could become accepted evidence"
+      },
+      "provider_contract_empty_response": {
+        "node": "invoke",
+        "meaning": "provider route failed the structured proof-body contract before Lean evaluation"
+      },
+      "provider_schema_failed_plan_or_nonproof": {
+        "node": "invoke",
+        "meaning": "provider returned schema-shaped material that did not satisfy proof-candidate requirements before Lean evaluation"
+      },
+      "lean_timeout": {
+        "node": "evaluate",
+        "meaning": "candidate reached evaluator-timeout evidence, but no Lean-accepted proof authority was produced"
+      }
+    },
+    "c_arm_rows": [
+      {
+        "task_id": "verisoftbench:2",
+        "failure_class": "provider_contract_empty_response",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_2/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:4",
+        "failure_class": "provider_contract_empty_response",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_4/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:5",
+        "failure_class": "lean_timeout",
+        "first_bad_node": "evaluate",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_5/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:6",
+        "failure_class": "provider_schema_failed_plan_or_nonproof",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_6/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:7",
+        "failure_class": "lean_timeout",
+        "first_bad_node": "evaluate",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_7/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:8",
+        "failure_class": "provider_schema_failed_plan_or_nonproof",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_8/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:9",
+        "failure_class": "provider_contract_empty_response",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_9/c_arm_provider_repair_receipt.json"
+      },
+      {
+        "task_id": "verisoftbench:10",
+        "failure_class": "provider_contract_empty_response",
+        "first_bad_node": "invoke",
+        "receipt_ref": "state/benchmarks/external_calibration/verisoftbench_micro_10_v0/c_arm_provider_repair/verisoftbench_10/c_arm_provider_repair_receipt.json"
+      }
+    ],
+    "provider_canary": {
+      "provider_route": "openrouter",
+      "dominant_provider_failure": "provider_contract_empty_response",
+      "claim_boundary": "provider_route_canary_not_benchmark_result",
+      "fallback_policy": "If no OpenRouter model passes the proof-body contract canary, keep this lane as provider_route_unavailable_for_structured_proof_generation and treat VeriSoftBench as a failure-replay specimen rather than a solving claim."
+    },
+    "reader_action": "Use this card as the public-safe failure-replay specimen for Microcosm portfolio indexing. Do not treat it as a solved benchmark row, proof-correctness claim, provider-quality conclusion, or release gate."
+  }
+}

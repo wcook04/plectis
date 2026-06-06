@@ -1,0 +1,23 @@
+{
+  "fixture_id": "engine_room_metabolism_runtime_fixture_v1",
+  "organ_id": "engine_room_metabolism_runtime",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "positive_inputs": [
+    "fixtures/first_wave/engine_room_metabolism_runtime/input/queue_recovery.json",
+    "fixtures/first_wave/engine_room_metabolism_runtime/input/blackboard_projection.json"
+  ],
+  "negative_inputs": [
+    "fixtures/first_wave/engine_room_metabolism_runtime/input/running_job_no_run_row.json",
+    "fixtures/first_wave/engine_room_metabolism_runtime/input/finalized_run_running_job.json",
+    "fixtures/first_wave/engine_room_metabolism_runtime/input/stale_log.json"
+  ],
+  "public_exercise": "PYTHONPATH=src python3 -m microcosm_core.engine_room.metabolism_runtime evaluate-fixtures --input fixtures/first_wave/engine_room_metabolism_runtime/input --json",
+  "source_refs": [
+    "system/lib/metabolism_store.py",
+    "system/lib/metabolism_scheduler.py",
+    "system/lib/metabolism_blackboard.py",
+    "system/lib/metabolism_reconciliation.py"
+  ],
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "claim_ceiling": "Synthetic SQLite capsule for durable queue, lease recovery, blackboard claim-event projection, and cold-start reconciliation taxonomy; not live private runtime export, not an agent dispatcher, not provider execution, not ambiguous auto-repair, and not a distributed database."
+}

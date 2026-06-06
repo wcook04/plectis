@@ -6,7 +6,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from system.lib.navigation_surface_audit import build_navigation_surface_audit
+from system.lib.navigation_surface_audit import (
+    build_navigation_surface_audit,
+    build_navigation_surface_audit_catalog,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -204,4 +207,24 @@ def test_navigation_surface_audit_cli_emits_json() -> None:
     assert result.returncode == 0
     payload = json.loads(result.stdout)
     assert payload["kind"] == "navigation_surface_audit"
+    assert payload["measurement_mode"] == "contract_catalog"
     assert payload["summary"]["contract_violation_count"] >= 2
+    assert payload["full_measurement_command"].startswith("./repo-python kernel.py --full")
+
+
+def test_navigation_surface_audit_catalog_names_full_drilldown() -> None:
+    payload = build_navigation_surface_audit_catalog(
+        REPO_ROOT,
+        query="navigation context compression",
+        context_budget=12000,
+    )
+
+    assert payload["measurement_mode"] == "contract_catalog"
+    assert payload["summary"]["omitted_live_measurement_count"] >= 1
+    skills = {
+        row["route_id"]: row
+        for row in payload["route_map"]
+    }["skills.row_flag_all.library"]
+    assert skills["contract_status"] == "violates_entry_contract"
+    assert skills["safe_alternative"].endswith("--option-surface skills --band cluster_flag")
+    assert "--full --navigation-surface-audit" in skills["full_audit_drilldown"]

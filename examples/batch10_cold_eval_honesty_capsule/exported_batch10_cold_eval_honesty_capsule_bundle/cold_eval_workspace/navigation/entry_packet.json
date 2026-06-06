@@ -1,0 +1,10 @@
+{
+  "cards": [
+    "cards/idea.navigation_before_search.md"
+  ],
+  "schema_version": "cold_eval_entry_packet_fixture_v1",
+  "standards": [
+    "standards/idea.json",
+    "registry/standards.json"
+  ]
+}

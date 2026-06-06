@@ -12,12 +12,12 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "body_copied_material_count": 4,
+  "body_copied_material_count": 5,
   "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
   "bundle_id": "formal_math_lean_proof_witness_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project :: component formal_math_lean_proof_witness",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component formal_math_lean_proof_witness",
   "compiled_declaration_count": 8,
-  "created_at": "2026-05-30T21:36:47+00:00",
+  "created_at": "2026-06-02T02:56:37+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -33,7 +33,8 @@
     "return_code": 0,
     "stderr_line_count": 0,
     "stdout_line_count": 1,
-    "timed_out": false
+    "timed_out": false,
+    "timeout_seconds": 90
   },
   "lean_witness_board": {
     "compiled_declaration_count": 8,
@@ -73,7 +74,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 6,
+    "scanned_path_count": 7,
     "status": "pass"
   },
   "source_file_count": 1,
@@ -97,7 +98,7 @@
   ],
   "source_module_imports": {
     "findings": [],
-    "module_count": 4,
+    "module_count": 5,
     "modules": [
       {
         "actual_sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
@@ -142,6 +143,17 @@
         "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+      },
+      {
+        "actual_sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
+        "body_in_receipt": false,
+        "line_count": 1475,
+        "material_class": "public_python_source_body",
+        "module_id": "formal_math_lean_witness_control_plane_source_body_import",
+        "sha256": "sha256:fa3c6ed62890ba1b685c9df00f9b69795b8d4fe57e0242f11a2c02a313d3d8c4",
+        "source_ref": "microcosm-substrate/src/microcosm_core/organs/formal_math_lean_proof_witness.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_modules/microcosm_core/organs/formal_math_lean_proof_witness.py"
       }
     ],
     "observed_negative_cases": {},
@@ -160,12 +172,13 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 4,
+    "body_material_count": 5,
     "body_material_ids": [
       "formal_math_lean_witness_manifest_body_import",
       "formal_math_lean_lakefile_body_import",
       "formal_math_lean_root_module_body_import",
-      "formal_math_lean_basic_witness_body_import"
+      "formal_math_lean_basic_witness_body_import",
+      "formal_math_lean_witness_control_plane_source_body_import"
     ],
     "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
     "body_text_exported_in_receipts": false,
@@ -173,7 +186,8 @@
     "material_classes": [
       "public_lean_lake_project_body",
       "public_lean_source_body",
-      "public_lean_witness_manifest_body"
+      "public_lean_witness_manifest_body",
+      "public_python_source_body"
     ],
     "reader_action": "Open source_module_manifest.json plus the exported witness manifest, lakefile, root module, and Basic.lean for copied public Lean/Lake witness bodies; receipts carry refs, digests, counts, and verdicts only.",
     "schema_version": "formal_math_lean_proof_witness_source_open_body_imports_v1",
@@ -206,7 +220,8 @@
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
-      "timed_out": false
+      "timed_out": false,
+      "timeout_seconds": 30
     },
     "lean_available": true,
     "lean_version_command": {
@@ -218,7 +233,8 @@
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
-      "timed_out": false
+      "timed_out": false,
+      "timeout_seconds": 30
     }
   },
   "validator_cache_version": "formal_math_lean_proof_witness_validator_cache_v2_source_module_scan",

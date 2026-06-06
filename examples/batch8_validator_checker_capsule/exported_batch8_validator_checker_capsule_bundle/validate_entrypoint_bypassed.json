@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "validate_entrypoint_bypassed",
+  "error_codes": [
+    "BATCH8_VALIDATOR_ENTRYPOINT_REQUIRED"
+  ],
+  "schema_version": "batch8_validator_checker_negative_case_v1"
+}

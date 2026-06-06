@@ -1,0 +1,15 @@
+{
+  "body_in_receipt": false,
+  "case_id": "repo_issue_public_003",
+  "evaluator_config_hash": "sha256:evaluator003",
+  "evaluator_id": "locked_repo_repair_scorer_v1",
+  "evidence_kind": "contamination_check",
+  "hidden_gold_accessed": false,
+  "misleading_test_admitted": false,
+  "oracle_patch_body_present": true,
+  "private_issue_body_present": false,
+  "provider_payload_present": false,
+  "replay_id": "replay_repo_issue_public_003_quarantined",
+  "schema_version": "benchmark_integrity_evidence_artifact_v1",
+  "training_material_contains_test_case": false
+}

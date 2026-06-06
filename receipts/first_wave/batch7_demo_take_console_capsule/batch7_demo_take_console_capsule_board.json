@@ -1,0 +1,31 @@
+{
+  "anti_claim": "Batch 7 Demo Take Console imports public-safe Swift source bodies for the local capture console, helper bridge, hotkey/audio monitor, host environment, and transcribe payload builder, plus a SwiftPM build witness. It is not an app launch, not screen or microphone capture authority, not operator recording-session export, not model dispatch, not release approval, and not proof that every UI path is covered.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch7_demo_take_console_capsule_not_app_launch_or_recording_authority",
+    "microphone_capture_authorized": false,
+    "model_dispatch": false,
+    "native_app_launch_authorized": false,
+    "operator_thread_authority": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "recording_session_export_authorized": false,
+    "release_authorized": false,
+    "screen_capture_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "test_completeness_proof": false
+  },
+  "body_in_receipt": false,
+  "counts": {
+    "finding_count": 0,
+    "input_count": 1,
+    "observed_negative_case_count": 6,
+    "source_module_count": 8
+  },
+  "organ_id": "batch7_demo_take_console_capsule",
+  "schema_version": "batch7_demo_take_console_capsule_board_v1",
+  "status": "pass",
+  "title": "Batch 7 Demo Take Console Capsule",
+  "verdict": "pass"
+}

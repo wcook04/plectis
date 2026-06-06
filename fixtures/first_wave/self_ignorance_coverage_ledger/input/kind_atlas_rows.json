@@ -1,0 +1,94 @@
+{
+  "absence_policy": {
+    "claims_unknown_unknowns_exhaustive": false
+  },
+  "body_in_receipt": false,
+  "expected_known_debt": [
+    {
+      "debt_basis": "live_kind_atlas_row_count_minus_system_atlas_materialized_entity_count",
+      "expected_debt_count": 11,
+      "kind_id": "concepts",
+      "reason": "Live Kind Atlas exposes 41 concept rows while the generated System Atlas snapshot materializes 30 concept entities."
+    },
+    {
+      "debt_basis": "live_kind_atlas_row_count_minus_system_atlas_materialized_entity_count",
+      "expected_debt_count": 8,
+      "kind_id": "mechanisms",
+      "reason": "Live Kind Atlas exposes 36 mechanism rows while the generated System Atlas snapshot materializes 28 mechanism entities."
+    },
+    {
+      "debt_basis": "live_kind_atlas_row_count_minus_system_atlas_materialized_entity_count",
+      "expected_debt_count": 3,
+      "kind_id": "paper_modules",
+      "reason": "Live Kind Atlas exposes 223 paper-module rows while the generated System Atlas snapshot materializes 220 paper-module entities."
+    },
+    {
+      "debt_basis": "live_kind_atlas_row_count_minus_system_atlas_materialized_entity_count",
+      "expected_debt_count": 172,
+      "kind_id": "standards",
+      "reason": "Live Kind Atlas exposes 201 standard rows while the generated System Atlas snapshot materializes 29 standard entities."
+    }
+  ],
+  "live_kind_atlas_command": "./repo-python kernel.py --kind-atlas --band flag --ids concepts mechanisms paper_modules standards",
+  "live_kind_atlas_generated_at": "2026-06-04T11:46:25Z",
+  "projection_profile": "live_source_rows",
+  "rows": [
+    {
+      "currentness_status": "concept_json_option_surface_available",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_concept.json"
+      ],
+      "kind_id": "concepts",
+      "live_kind_atlas_row_count": 41,
+      "source_refs_checked": [
+        "codex/doctrine/concepts",
+        "codex/standards/principles/std_concept.json"
+      ],
+      "support_status": "option_surface_supported",
+      "title": "Concepts"
+    },
+    {
+      "currentness_status": "mechanism_json_option_surface_available",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_mechanism.json"
+      ],
+      "kind_id": "mechanisms",
+      "live_kind_atlas_row_count": 36,
+      "source_refs_checked": [
+        "codex/doctrine/mechanisms",
+        "codex/standards/principles/std_mechanism.json"
+      ],
+      "support_status": "option_surface_supported",
+      "title": "Mechanisms"
+    },
+    {
+      "currentness_status": "projection_available",
+      "governing_standard_refs": [
+        "codex/standards/std_paper_module.json"
+      ],
+      "kind_id": "paper_modules",
+      "live_kind_atlas_row_count": 223,
+      "source_refs_checked": [
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/standards/std_paper_module.json"
+      ],
+      "support_status": "option_surface_supported",
+      "title": "Paper Modules"
+    },
+    {
+      "currentness_status": "source_walk_live",
+      "governing_standard_refs": [
+        "codex/standards/std_standards_registry.json"
+      ],
+      "kind_id": "standards",
+      "live_kind_atlas_row_count": 201,
+      "source_refs_checked": [
+        "codex/standards/standards_registry.json",
+        "codex/standards/core_authority_index.json"
+      ],
+      "support_status": "option_surface_supported",
+      "title": "Standards"
+    }
+  ],
+  "schema_version": "microcosm_live_kind_atlas_rows_v1"
+}

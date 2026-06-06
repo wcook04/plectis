@@ -1,0 +1,20 @@
+{
+  "schema_version": "tool_server_pressure_inventory_negative_case_v1",
+  "expected_negative_case_id": "unknown_owner_kill",
+  "claimed_inventory": {
+    "schema": "tool_server_pressure_inventory_v1",
+    "rows": [
+      {
+        "pid": 8810,
+        "ppid": 500,
+        "process_kind": "mcp_tool_helper",
+        "owner_status": "unknown_parent_process",
+        "decision": "candidate_safe_close",
+        "age_s": 1800,
+        "allowlist_matched": true,
+        "command_hash": "b2c3d4e5f6071829"
+      }
+    ],
+    "summary": {"active_owner_pressure_groups": []}
+  }
+}

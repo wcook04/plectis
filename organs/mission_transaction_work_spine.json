@@ -1,0 +1,534 @@
+{
+  "activation_receipt_contract": null,
+  "anti_claims": [
+    "This organ JSON seed does not flip source authority away from core/organ_atlas.json and core/organ_registry.json.",
+    "Required paper/mechanism/code links prove declared structural references only, not runtime correctness or release readiness.",
+    "Selective concept, principle, axiom, and sibling-organ edges are not inferred from prose, specialty, family, or evidence class.",
+    "Absent selective organ edges are residual pressure, not evidence that no neighbours exist.",
+    "Generated markdown, graph, health, and atlas projections cannot be read back as source evidence."
+  ],
+  "authority_boundary": "public_organ_json_seeded_from_organ_atlas_and_registry_not_authority_flip_until_parity_receipt",
+  "axiom_refs": [
+    "AX-9"
+  ],
+  "code_loci": [
+    {
+      "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "resolution": "resolved",
+      "role": "Runtime authority for public mission-transaction fixture and exported-bundle validation plus body-free receipt writing.",
+      "symbols": [
+        "run",
+        "run_mission_transaction_bundle",
+        "validate_task_ledger_source_import",
+        "validate_work_ledger_source_import",
+        "validate_checkpoint_source_import",
+        "validate_mission_control_source_import",
+        "validate_claim_preflight",
+        "validate_checkpoint_lane_policy",
+        "write_receipts"
+      ]
+    }
+  ],
+  "concept_refs": [
+    "concept.work_landing_and_continuity_control_bundle"
+  ],
+  "created_at": "2026-06-02T00:00:00Z",
+  "display_name": "Mission Transaction Work Spine",
+  "entry_surface_contract": null,
+  "evidence_class": "algorithmic_projection",
+  "family": "work_landing_and_continuity",
+  "id": "mission_transaction_work_spine",
+  "kind": "organ",
+  "mechanism_refs": [
+    {
+      "authority_class": "source_assertion",
+      "edge_justification": "The organ's source module, public fixture receipts, exported mission-transaction bundle, copied Task Ledger/Work Ledger/checkpoint/mission-control source manifests, and focused tests validate work-landing and closeout projection mechanics without upgrading projected rows into live ledger or Git authority.",
+      "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+      "resolution_status": "resolved"
+    }
+  ],
+  "omission_receipt": {
+    "drilldown": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "runtime outputs beyond named public receipts",
+      "selective doctrine neighbours not named by atlas source rows"
+    ],
+    "reason": "Organ instance preserves public-safe atlas/registry fields. Required links resolve only when source ids or paths resolve; selective law/concept/principle edges remain residual unless source evidence names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "organ_required_and_selective_edges",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Populate missing paper/mechanism/code links from source evidence, then bind concept/principle/axiom/wires_to edges only when ids are named."
+      }
+    ]
+  },
+  "organ_id": "mission_transaction_work_spine",
+  "organ_payload": {
+    "claim_ceiling": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+    "contract_version": "microcosm_organ_instance_payload_v1",
+    "migration_contract": {
+      "authority_flip_status": "not_flipped",
+      "parity_validator": "microcosm-substrate/scripts/build_doctrine_projection.py --check",
+      "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+      "source_of_record": "core/organ_atlas.json + core/organ_registry.json"
+    },
+    "projection_contract": {
+      "atlas_registry_status": "current_source_of_record_until_parity_flip",
+      "generated_markdown_rel": "organs/mission_transaction_work_spine.md",
+      "markdown_status": "generated_projection",
+      "source_json_rel": "organs/mission_transaction_work_spine.json"
+    },
+    "source_atlas_row": {
+      "agent_gloss": "An agent runs it to confirm that the projected work-landing, claim, checkpoint-lane, and Work Ledger seed-speed source-import metadata obeys the expected rules and emits the expected blocking error codes (e.g. SAME_PATH_CLAIM_CONFLICT, EXPECTED_PARENT_MISMATCH, PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED) before treating any change as landed.",
+      "axiom_refs": [
+        "AX-9"
+      ],
+      "claim_ceiling_restated": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+          "resolution": "resolved",
+          "role": "Runtime authority for public mission-transaction fixture and exported-bundle validation plus body-free receipt writing.",
+          "symbols": [
+            "run",
+            "run_mission_transaction_bundle",
+            "validate_task_ledger_source_import",
+            "validate_work_ledger_source_import",
+            "validate_checkpoint_source_import",
+            "validate_mission_control_source_import",
+            "validate_claim_preflight",
+            "validate_checkpoint_lane_policy",
+            "write_receipts"
+          ]
+        }
+      ],
+      "concept_refs": [
+        "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "display_name": "Mission Transaction Work Spine",
+      "evidence_class": "algorithmic_projection",
+      "family": "work_landing_and_continuity",
+      "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "human_gloss": "Replays a fixed set of pre-recorded work-landing situations against a toy repository and shows when a change would be allowed to \"land\" versus blocked: two claims competing on the same file, a claim built on a stale parent commit, a claim missing its owned path, a clean preflight check that wrongly says the work is already finished, and which commit lane (a narrow scoped commit vs a broad checkpoint) a dirty working tree is permitted to use. Its exported bundle also anchors the public Work Ledger seed-speed source imports for session heartbeat, mutation-check, active-claim snapshot, and path-collision handling. The resulting receipts show exactly why each situation was permitted or refused, instead of an opaque \"it's done\" message.",
+      "mechanism_refs": [
+        {
+          "authority_class": "source_assertion",
+          "edge_justification": "The organ's source module, public fixture receipts, exported mission-transaction bundle, copied Task Ledger/Work Ledger/checkpoint/mission-control source manifests, and focused tests validate work-landing and closeout projection mechanics without upgrading projected rows into live ledger or Git authority.",
+          "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+          "resolution_status": "resolved"
+        }
+      ],
+      "organ_id": "mission_transaction_work_spine",
+      "paper_module_ref": "core/paper_module_capsules.json#paper_module.mission_transaction_work_spine",
+      "principle_refs": [
+        "P-10",
+        "P-16",
+        "P-17",
+        "P-18"
+      ],
+      "registry_ref": "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine]",
+      "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+      "specialty": [
+        "agent-concurrency",
+        "workflow-engineering",
+        "continuity",
+        "work-ledger"
+      ],
+      "standalone_or_wired": "wired",
+      "wires_to": [
+        "bounded_autonomy_campaign_packet",
+        "concurrency_mission_control",
+        "macro_projection_import_protocol",
+        "tool_server_pressure_inventory",
+        "batch10_live_source_drift_capsule",
+        "batch4_proof_authority_runtime",
+        "batch8_tools_tail_primitives_capsule",
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "agentic_vulnerability_discovery_patch_proof_replay"
+      ],
+      "wiring_note": "consumes the shared work_landing, mission_transaction_preflight, and Work Ledger macro-tool source imports plus the shared secret-exclusion/receipts/schemas spine; it supplies the source-import anchor surface that concurrency_mission_control uses for Work Ledger seed-speed topology instead of duplicating Work Ledger bodies. Doctrine-lattice wires_to additions in this row are source-derived from core/mechanism_sources.json upstream_of rows for the organ's hosted mechanism(s); they name structural sibling navigation only, not live invocation, release authority, or proof of runtime integration."
+    },
+    "source_registry_row": {
+      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+      "evidence_class": "algorithmic_projection",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::organ_evidence_classes[mission_transaction_work_spine]",
+      "evidence_strength_rank": 3,
+      "generated_receipts": [
+        "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+        "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+        "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+      ],
+      "organ_id": "mission_transaction_work_spine",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.mission_transaction_work_spine",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine"
+    },
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "required_edge_resolution_computed_in_projection_not_runtime_correctness_claim"
+    }
+  },
+  "paper_module_ref": "core/paper_module_capsules.json#paper_module.mission_transaction_work_spine",
+  "population_specimen_contract": null,
+  "principle_refs": [
+    "P-10",
+    "P-16",
+    "P-17",
+    "P-18"
+  ],
+  "receipt_refs": [
+    "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+    "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+    "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+  ],
+  "relationships": {
+    "axiom_refs": [
+      "AX-9"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "resolution": "resolved",
+        "role": "Runtime authority for public mission-transaction fixture and exported-bundle validation plus body-free receipt writing.",
+        "symbols": [
+          "run",
+          "run_mission_transaction_bundle",
+          "validate_task_ledger_source_import",
+          "validate_work_ledger_source_import",
+          "validate_checkpoint_source_import",
+          "validate_mission_control_source_import",
+          "validate_claim_preflight",
+          "validate_checkpoint_lane_policy",
+          "write_receipts"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.work_landing_and_continuity_control_bundle"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].paper_module_ref",
+          "summary": "Organ atlas row names this paper-module ref as the public explanatory surface."
+        },
+        "relation_id": "organ.explained_by.paper_module",
+        "relation_verb": "explained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explains",
+        "target_id": "paper_module.mission_transaction_work_spine",
+        "target_kind": "paper_module",
+        "target_status": "resolved_paper_module_ref"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].mechanism_refs[0]",
+          "summary": "The organ's source module, public fixture receipts, exported mission-transaction bundle, copied Task Ledger/Work Ledger/checkpoint/mission-control source manifests, and focused tests validate work-landing and closeout projection mechanics without upgrading projected rows into live ledger or Git authority."
+        },
+        "relation_id": "organ.operates_through.mechanism",
+        "relation_verb": "operates_through",
+        "residual_pressure_ref": null,
+        "reverse_verb": "runs_in",
+        "target_id": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].code_loci[0]",
+          "summary": "Runtime authority for public mission-transaction fixture and exported-bundle validation plus body-free receipt writing."
+        },
+        "relation_id": "organ.implemented_by.code_locus",
+        "relation_verb": "implemented_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "implements",
+        "target_id": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].concept_refs",
+          "summary": "Organ atlas row names this recurring concept boundary for the organ."
+        },
+        "relation_id": "organ.instantiates.concept",
+        "relation_verb": "instantiates",
+        "residual_pressure_ref": null,
+        "reverse_verb": "instantiated_by",
+        "target_id": "concept.work_landing_and_continuity_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-10",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-16",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-17",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].principle_refs",
+          "summary": "Organ atlas row names this principle as governing the organ."
+        },
+        "relation_id": "organ.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-18",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].axiom_refs",
+          "summary": "Organ atlas row names this axiom as a selective constraint for the organ."
+        },
+        "relation_id": "organ.constrained_by.axiom",
+        "relation_verb": "constrained_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-9",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "bounded_autonomy_campaign_packet",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "concurrency_mission_control",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "macro_projection_import_protocol",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "tool_server_pressure_inventory",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch10_live_source_drift_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch4_proof_authority_runtime",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "batch8_tools_tail_primitives_capsule",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      },
+      {
+        "justification": {
+          "source_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine].wires_to",
+          "summary": "Organ atlas row names this sibling organ wiring relation."
+        },
+        "relation_id": "organ.wires_to.organ",
+        "relation_verb": "wires_to",
+        "residual_pressure_ref": null,
+        "reverse_verb": "wired_from",
+        "target_id": "agentic_vulnerability_discovery_patch_proof_replay",
+        "target_kind": "organ",
+        "target_status": "resolved_registry_or_atlas_target"
+      }
+    ],
+    "mechanism_refs": [
+      {
+        "authority_class": "source_assertion",
+        "edge_justification": "The organ's source module, public fixture receipts, exported mission-transaction bundle, copied Task Ledger/Work Ledger/checkpoint/mission-control source manifests, and focused tests validate work-landing and closeout projection mechanics without upgrading projected rows into live ledger or Git authority.",
+        "ref": "mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle",
+        "resolution_status": "resolved"
+      }
+    ],
+    "paper_module_ref": "core/paper_module_capsules.json#paper_module.mission_transaction_work_spine",
+    "principle_refs": [
+      "P-10",
+      "P-16",
+      "P-17",
+      "P-18"
+    ],
+    "source_atlas_row_ref": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+    "source_registry_row_ref": "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine]",
+    "unpopulated_selective_relations": [],
+    "wires_to": [
+      "bounded_autonomy_campaign_packet",
+      "concurrency_mission_control",
+      "macro_projection_import_protocol",
+      "tool_server_pressure_inventory",
+      "batch10_live_source_drift_capsule",
+      "batch4_proof_authority_runtime",
+      "batch8_tools_tail_primitives_capsule",
+      "agent_benchmark_integrity_anti_gaming_replay",
+      "agentic_vulnerability_discovery_patch_proof_replay"
+    ]
+  },
+  "role": "An agent runs it to confirm that the projected work-landing, claim, checkpoint-lane, and Work Ledger seed-speed source-import metadata obeys the expected rules and emits the expected blocking error codes (e.g. SAME_PATH_CLAIM_CONFLICT, EXPECTED_PARENT_MISMATCH, PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED) before treating any change as landed.",
+  "schema_version": "microcosm_organ_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/organ_atlas.json::organs[20:mission_transaction_work_spine]",
+      "role": "organ_atlas_source_of_record_until_json_parity_flip"
+    },
+    {
+      "path": "core/organ_registry.json::implemented_organs[20:mission_transaction_work_spine]",
+      "role": "accepted_current_authority_registry_row"
+    },
+    {
+      "path": "organs/mission_transaction_work_spine.json",
+      "role": "governed_json_parity_seed"
+    }
+  ],
+  "specialty": [
+    "agent-concurrency",
+    "workflow-engineering",
+    "continuity",
+    "work-ledger"
+  ],
+  "statement": "An agent runs it to confirm that the projected work-landing, claim, checkpoint-lane, and Work Ledger seed-speed source-import metadata obeys the expected rules and emits the expected blocking error codes (e.g. SAME_PATH_CLAIM_CONFLICT, EXPECTED_PARENT_MISMATCH, PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED) before treating any change as landed.",
+  "status": "accepted_current_authority",
+  "title": "Mission Transaction Work Spine",
+  "validator_refs": [
+    "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-organ-corpus"
+  ],
+  "wires_to": [
+    "bounded_autonomy_campaign_packet",
+    "concurrency_mission_control",
+    "macro_projection_import_protocol",
+    "tool_server_pressure_inventory",
+    "batch10_live_source_drift_capsule",
+    "batch4_proof_authority_runtime",
+    "batch8_tools_tail_primitives_capsule",
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
+  ]
+}

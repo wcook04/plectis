@@ -1,0 +1,28 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch10_governance_compilers_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch10_governance_compilers_capsule/input",
+  "organ_id": "batch10_governance_compilers_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_bundle_ref": "microcosm-substrate/examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json",
+  "source_module_count": 13,
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 13,
+    "body_material_status": "copied_non_secret_batch10_macro_bodies_landed_runtime_exercised",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_finance_body",
+      "public_macro_governance_python_body",
+      "public_macro_refactor_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_modules/ inside the exported bundle for copied source evidence; receipts carry refs, hashes, anchors, counts, and verdicts only.",
+    "schema_version": "batch10_governance_compilers_capsule_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch10_governance_compilers_capsule/exported_batch10_governance_compilers_capsule_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
+}

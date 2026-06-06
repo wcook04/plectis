@@ -71,6 +71,22 @@ CACHED_BOTTLENECK_SUMMARY_SCHEMA_VERSION = "process_bottleneck_summary_cache_v0"
 PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION = "process_summary_v1"
 PROCESS_SUMMARY_IDENTITY_SCOPE_SCHEMA_VERSION = "process_summary_identity_scope_v1"
 PROCESS_SUMMARY_OWNER_SURFACE = "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>"
+PROCESS_SUMMARY_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action process_summary_status "
+    "--scope <session_id|claude:latest|codex:latest>"
+)
+PROCESS_SUMMARY_TASK_TOOL_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action task_tool "
+    "--scope <session_id|claude:latest|codex:latest>"
+)
+PROCESS_SUMMARY_UNKNOWN_TOOL_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action unknown_tool "
+    "--scope <session_id|claude:latest|codex:latest>"
+)
+PROCESS_SUMMARY_EXEC_SESSION_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action exec_session_io "
+    "--scope <session_id|claude:latest|codex:latest>"
+)
 PROCESS_TRACE_OWNER_SURFACE = "./repo-python kernel.py --process-trace <session_id>"
 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND = "./repo-python kernel.py --process-bottlenecks --force"
 PROCESS_TRACE_REFRESH_COMMAND = "./repo-python tools/meta/factory/build_agent_execution_trace.py"
@@ -81,21 +97,53 @@ PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND = (
     "./repo-python tools/meta/factory/build_agent_execution_trace.py --limit 6"
 )
 PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND = "./repo-python kernel.py --process-bottlenecks --limit 6"
+PROCESS_TRACE_PRESSURE_SAFE_DIGEST_COMMAND = "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git"
 PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND = (
     "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-compact --host-pressure-event-limit 500"
 )
 PROCESS_TRACE_MATERIALIZE_COMMAND = PROCESS_TRACE_REFRESH_COMMAND
 PROCESS_METADATA_PRIVACY_BOUNDARY = "process packets expose command/status/timing/output-size metadata, not raw task-output bodies"
+MICROCOSM_CIRCUIT_ATTRIBUTION_CARD_COMMAND = (
+    "PYTHONPATH=microcosm-substrate/src ./repo-python -m microcosm_core circuit-attribution --card"
+)
 CONTEXT_YIELD_ATTRIBUTION_SCHEMA_VERSION = "context_yield_attribution_packet_v0"
 CONTEXT_YIELD_LARGE_OUTPUT_BYTES = 32000
 CONTEXT_YIELD_ENTRY_PACKET_ALERT_BYTES = 20000
 DOCUMENT_READ_OWNER_SURFACE = "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+DOCUMENT_READ_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action read_file --scope <path-or-topic>"
+)
 DOCUMENT_READ_PRIVACY_BOUNDARY = (
     "process packets expose document path/type/timing/output-size metadata; open full prose only after "
     "an owner route selects the document, row, or section"
 )
+KERNEL_OUTPUT_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action kernel_command --scope <task-or-route>"
+)
+COMMAND_SURFACE_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action command_surface_inventory --scope <surface>"
+)
+BASH_OTHER_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action bash_other --scope <path-or-owner>"
+)
+BASH_OTHER_PROCESS_TRIAGE_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage "
+    "--action-kind bash_other"
+)
+GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action git_state_shell_chain"
+)
 ARTIFACT_DISCOVERY_OWNER_SURFACE = (
     "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>"
+)
+ARTIFACT_DISCOVERY_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action artifact_discovery_inventory --scope <term-or-root>"
+)
+BASH_GREP_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action bash_grep --scope <term-or-root>"
+)
+BASH_FIND_QUOTE_COMMAND = (
+    "./repo-python tools/meta/control/action_quote.py --action bash_find --scope <term-or-root>"
 )
 ARTIFACT_DISCOVERY_EXAMPLE_COMMAND = (
     "./repo-python kernel.py --artifact-discovery-inventory market type_census"
@@ -118,6 +166,16 @@ TRACE_COMPACTNESS_PROFILES: dict[str, dict[str, int | bool | str]] = {
         "output_preview_chars": 96,
         "include_tags": False,
         "profile": "final_state_edits_validations_commit",
+    },
+    "closeout": {
+        "row_limit": 24,
+        "command_chars": 180,
+        "target_limit": 5,
+        "edit_preview_lines": 3,
+        "output_preview_lines": 1,
+        "output_preview_chars": 180,
+        "include_tags": False,
+        "profile": "terminal_closeout_work_summary",
     },
     "tape": {
         "row_limit": 2000,
@@ -165,6 +223,9 @@ TRACE_LEVEL_ALIASES = {
     "standard": "tape+diff",
     "expanded": "audit",
     "all": "audit",
+    "final": "closeout",
+    "terminal": "closeout",
+    "summary": "closeout",
 }
 
 
@@ -375,6 +436,29 @@ def _safe_read_json(path: Path) -> Any:
         return read_json_strict(path)
     except (OSError, StrictJsonError):
         return None
+
+
+def _safe_read_json_with_receipt(path: Path, *, repo_root: Path) -> tuple[Any, dict[str, Any]]:
+    rel = _relpath(path, repo_root=repo_root)
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        return None, {
+            "path": rel,
+            "exists": False,
+            "sha256": None,
+            "mtime": _file_mtime_iso(path),
+        }
+    receipt = {
+        "path": rel,
+        "exists": True,
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "mtime": _file_mtime_iso(path),
+    }
+    try:
+        return loads_json_strict(raw.decode("utf-8"), source=str(path)), receipt
+    except (UnicodeDecodeError, StrictJsonError):
+        return None, receipt
 
 
 def _file_sha256(path: Path) -> str | None:
@@ -865,10 +949,27 @@ def _codex_tool_summary(fn_name: str, args: Mapping[str, Any]) -> str:
 
 
 def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[str]) -> list[str]:
-    lower = (command or "").lower()
-    targets = [str(path) for path in target_paths if str(path)]
+    targets = tuple(str(path) for path in target_paths if str(path))
+    return list(_command_shape_tags_cached(str(kind or ""), command or "", targets))
+
+
+def _process_bottleneck_triage_quote_command(kind: str) -> str:
+    action_kind = str(kind or "bash_other")
+    return (
+        "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage "
+        f"--action-kind {action_kind}"
+    )
+
+
+@lru_cache(maxsize=8192)
+def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]) -> tuple[str, ...]:
+    lower = command.lower()
     tags: list[str] = []
     git_diff_command = re.search(r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+diff\b", lower)
+    git_metadata_probe_command = re.search(
+        r"(?:^|[;&|]\s*)(?:\./repo-git|git)\s+rev-parse\b",
+        lower,
+    )
     git_diff_summary_mode = any(
         flag in lower
         for flag in ("--name-status", "--name-only", "--stat", "--numstat", "--shortstat")
@@ -882,6 +983,35 @@ def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[s
         or re.search(r">\s*/tmp/", lower)
     ):
         tags.append("output_limited")
+    python_module_cli = bool(
+        re.search(
+            r"(?:^|[;&|]\s*)(?:[a-z_][a-z0-9_]*=\S+\s+)*(?:(?:\./)?repo-python|python3?)\s+-m\s+[\w.]+",
+            lower,
+        )
+    )
+    if python_module_cli:
+        tags.append("python_module_cli")
+        if "output_limited" in tags:
+            tags.append("python_module_cli_output_limited")
+    python_inline = bool(
+        re.search(
+            r"(?:^|[;&|]\s*)(?:cd\s+\S+\s*&&\s*)?(?:(?:\./)?repo-python|python3?)\s+(?:-c\s+|-\s*<<)",
+            lower,
+        )
+    )
+    if python_inline:
+        tags.append("python_inline")
+        if (
+            "import json" in lower
+            or "json.load" in lower
+            or "json.loads" in lower
+            or "open(" in lower
+            or ".read(" in lower
+            or "pathlib" in lower
+            or "from pathlib import path" in lower
+            or any(path.endswith((".json", ".jsonl", ".csv", ".tsv")) for path in targets)
+        ):
+            tags.append("inline_python_data_probe")
     if lower.lstrip().startswith("until ") or ("tasks/" in lower and (".output" in lower or ".exit" in lower)):
         tags.append("background_poll")
     if any(("/tasks/" in path or "tasks/" in path) and path.endswith((".output", ".exit")) for path in targets):
@@ -916,8 +1046,14 @@ def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[s
             tags.append("navigation_metabolism_packet")
         if "--process-bottlenecks" in lower or "--process-audit" in lower or "--session-diagnostics" in lower:
             tags.append("process_diagnostic_packet")
+        if "--host-pressure" in lower:
+            tags.append("host_pressure_packet")
         if "--paper-module" in lower:
             tags.append("paper_module")
+        if "--kind-atlas" in lower:
+            tags.append("kind_atlas_packet")
+        if "--option-surface" in lower or "--row" in lower:
+            tags.append("option_surface_packet")
         if "--info" in lower:
             tags.append("info_packet")
         if "--preflight" in lower:
@@ -929,9 +1065,12 @@ def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[s
         if re.search(r"(?:^|[;&|]\s*)(?:grep|git\s+grep|rg)\s+", lower):
             tags.append("raw_search_scan")
     if kind in {"bash_cat", "bash_other"} and (
-        "git status" in lower or "git diff --cached" in lower or "git log" in lower
+        git_metadata_probe_command
+        or "git status" in lower
+        or "git diff --cached" in lower
+        or "git log" in lower
     ):
-        if ";" in lower or "&&" in lower or "|" in lower:
+        if git_metadata_probe_command or ";" in lower or "&&" in lower or "|" in lower:
             tags.append("git_state_shell_chain")
     if "git_state_snapshot.py" in lower and "--diff-review" in lower:
         tags.append("diff_review_context_packet")
@@ -954,7 +1093,7 @@ def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[s
     for tag in tags:
         if tag not in seen:
             seen.append(tag)
-    return seen
+    return tuple(seen)
 
 
 _DIRECT_DATA_PLANE_ACTION_KINDS = {
@@ -1295,6 +1434,28 @@ def _example_matches_paper_module_output_limiter(example: Mapping[str, Any]) -> 
     return "paper_module" in tags and "output_limited" in tags and "--paper-module" in command
 
 
+def _example_matches_task_ledger_rebuild(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    return "tools/meta/factory/task_ledger_apply.py" in command and bool(re.search(r"\brebuild\b", command))
+
+
+def _example_matches_task_ledger_quick_capture(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    if "tools/meta/factory/task_ledger_apply.py" not in command:
+        return False
+    return bool(re.search(r"\b(?:quick-capture|capture)\b", command))
+
+
+def _example_matches_microcosm_circuit_attribution(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    if "circuit-attribution" not in command:
+        return False
+    return bool(
+        re.search(r"\b(?:python3?|repo-python)\s+-m\s+microcosm_core\b", command)
+        or re.search(r"\bmicrocosm\s+circuit-attribution\b", command)
+    )
+
+
 def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
     tag_counts: Counter[str] = Counter()
     example_rows: list[Mapping[str, Any]] = []
@@ -1311,6 +1472,13 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "reason": "Slow examples include frontend Vitest or RootNavigator validation commands.",
                 "preferred_next": "./repo-python tools/meta/control/action_quote.py --action frontend_vitest_validation --scope system/server/ui/src/pages/RootNavigator.tsx",
             })
+        if tag_counts.get("focused_test_target"):
+            hints.append({
+                "hint_id": "route_focused_validation_through_action_quote",
+                "reason": "Slow examples already name focused test/build targets, so the next step is a concise owner quote or narrower validation plan rather than another broad run.",
+                "preferred_next": "./repo-python tools/meta/control/action_quote.py --action test_or_build_command --scope <path-or-node> --session-id <work-ledger-session>",
+                "quote_surface": "./repo-python tools/meta/control/action_quote.py --action test_or_build_command --scope <path-or-node>",
+            })
         if tag_counts.get("suite_wide_pytest") or tag_counts.get("suite_wide_vitest"):
             hints.append({
                 "hint_id": "scope_tests_before_full_suite",
@@ -1323,12 +1491,6 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "reason": "Slow test/build examples are hidden behind tail/head/grep/python filters or /tmp redirection.",
                 "preferred_next": "Use a focused command plus concise pytest/vitest flags instead of piping broad runs through output limiters.",
             })
-        if tag_counts.get("focused_test_target"):
-            hints.append({
-                "hint_id": "route_focused_validation_through_action_quote",
-                "reason": "Slow examples already name focused test/build targets, so the next step is a concise owner quote or narrower validation plan rather than another broad run.",
-                "preferred_next": "./repo-python tools/meta/control/action_quote.py --action repo_pytest_validation --scope <path-or-node> --session-id <work-ledger-session>",
-            })
         if tag_counts.get("stash_wrapped_test"):
             hints.append({
                 "hint_id": "avoid_stash_wrapped_validation",
@@ -1336,17 +1498,55 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "preferred_next": "Use scoped validation against owned paths; do not wrap validation in stash unless explicitly claimed and safe.",
             })
     elif kind == "repo_tool_command":
+        if any(_example_matches_task_ledger_rebuild(example) for example in example_rows):
+            hints.append({
+                "hint_id": "use_task_ledger_rebuild_check_before_full_rebuild",
+                "reason": "Slow repo-tool examples include full Task Ledger projection rebuilds.",
+                "preferred_next": "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress",
+                "replacement_commands": [
+                    "./repo-python tools/meta/factory/task_ledger_apply.py rebuild --status-only --quiet-progress",
+                    "./repo-python tools/meta/factory/task_ledger_apply.py authority-health --projection-check --quiet-progress",
+                    "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1 --quiet-progress",
+                ],
+            })
+        if any(_example_matches_task_ledger_quick_capture(example) for example in example_rows):
+            hints.append({
+                "hint_id": "append_task_ledger_capture_before_projection_rebuild",
+                "reason": "Slow repo-tool examples include Task Ledger capture commands that can wait on projection rebuild work.",
+                "preferred_next": (
+                    "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+                    "--projection-rebuild-policy off ..."
+                ),
+                "replacement_commands": [
+                    (
+                        "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+                        "--projection-rebuild-policy off ..."
+                    ),
+                    "./repo-python tools/meta/factory/task_ledger_apply.py intake-status",
+                    "./repo-python tools/meta/factory/task_ledger_apply.py drain-deferred-rebuilds --limit 1 --quiet-progress",
+                ],
+            })
         if tag_counts.get("factory_builder"):
             hints.append({
                 "hint_id": "prefer_check_or_targeted_builder_mode",
                 "reason": "Slow examples invoke repo factory builders.",
                 "preferred_next": "Prefer builder --check, target/domain flags, or the owner route's compact status before full regeneration.",
+                "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
+                "replacement_commands": [
+                    COMMAND_SURFACE_QUOTE_COMMAND,
+                    "./repo-python kernel.py --command-profile <owner-surface>",
+                ],
             })
         if tag_counts.get("output_limited"):
             hints.append({
                 "hint_id": "use_owner_compact_status_instead_of_tail",
                 "reason": "Slow repo-tool examples pipe builder output through tail/grep.",
                 "preferred_next": "Add or use a compact owner status/check packet rather than truncating a full builder run.",
+                "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
+                "replacement_commands": [
+                    COMMAND_SURFACE_QUOTE_COMMAND,
+                    "./repo-python kernel.py --command-profile <owner-surface>",
+                ],
             })
     elif kind == "kernel_command":
         if any(_example_matches_paper_module_output_limiter(example) for example in example_rows):
@@ -1355,11 +1555,75 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "reason": "Slow kernel examples read full paper modules through shell output limiters.",
                 "preferred_next": "./repo-python tools/meta/control/action_quote.py --action paper_module_index",
             })
+        if tag_counts.get("process_diagnostic_packet") and tag_counts.get("output_limited"):
+            hints.append({
+                "hint_id": "replace_process_diagnostic_limiter_with_status_packet",
+                "reason": "Slow kernel process-diagnostic examples pipe or redirect broad output instead of using bounded status routes.",
+                "preferred_next": "./repo-python kernel.py --process-bottlenecks",
+                "replacement_commands": [
+                    "./repo-python kernel.py --process-bottlenecks",
+                    "./repo-python kernel.py --process-audit",
+                    "./repo-python kernel.py --command-profile process-audit",
+                ],
+            })
+        if tag_counts.get("entry_packet") and tag_counts.get("output_limited"):
+            hints.append({
+                "hint_id": "replace_entry_limiter_with_bounded_entry_or_context_pack",
+                "reason": "Slow entry examples add shell output limiters around an already bounded routing packet.",
+                "preferred_next": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+                "quote_surface": KERNEL_OUTPUT_QUOTE_COMMAND,
+                "replacement_commands": [
+                    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+                    "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+                    KERNEL_OUTPUT_QUOTE_COMMAND,
+                    "./repo-python kernel.py --row <kind_id>:<row_id> --band card",
+                ],
+            })
+        if tag_counts.get("host_pressure_packet"):
+            hints.append({
+                "hint_id": "replace_host_pressure_full_packet_with_compact_recheck",
+                "reason": "Slow host-pressure examples emit broad pressure packets when only admission or recovery status is needed.",
+                "preferred_next": "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-compact --host-pressure-event-limit 100",
+                "replacement_commands": [
+                    "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-compact --host-pressure-event-limit 100",
+                    "./repo-python kernel.py --host-pressure --host-pressure-no-processes --host-pressure-event-limit 500 --json",
+                    "./repo-python kernel.py --command-profile host-pressure",
+                ],
+            })
+        if tag_counts.get("context_pack") and tag_counts.get("output_limited"):
+            hints.append({
+                "hint_id": "replace_context_pack_limiter_with_selected_lens",
+                "reason": "Slow context-pack examples hide large packets behind shell output limiters.",
+                "preferred_next": "Use the routine context-pack row handles, then drill into a selected row/card instead of truncating the full packet.",
+                "replacement_commands": [
+                    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+                    "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+                    "./repo-python kernel.py --row <kind_id>:<row_id> --band card",
+                ],
+            })
+        if tag_counts.get("kind_atlas_packet") or tag_counts.get("option_surface_packet"):
+            hints.append({
+                "hint_id": "replace_inventory_limiter_with_cluster_or_card_band",
+                "reason": "Slow option-surface or kind-atlas examples truncate broad inventory output.",
+                "preferred_next": "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+                "replacement_commands": [
+                    "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+                    "./repo-python kernel.py --option-surface <kind_id> --band card --ids <row_id>",
+                    "./repo-python kernel.py --row <kind_id>:<row_id> --band card",
+                ],
+            })
         if tag_counts.get("output_limited"):
             hints.append({
                 "hint_id": "replace_kernel_output_limiter_with_compact_mode",
                 "reason": "Slow kernel examples pipe or redirect output instead of using a bounded route mode.",
                 "preferred_next": "Use a compact kernel mode, command card, selected lens, or row/card drilldown rather than truncating full output.",
+                "quote_surface": KERNEL_OUTPUT_QUOTE_COMMAND,
+                "replacement_commands": [
+                    KERNEL_OUTPUT_QUOTE_COMMAND,
+                    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+                    "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+                    "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git",
+                ],
             })
         if tag_counts.get("context_pack"):
             hints.append({
@@ -1374,6 +1638,63 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "preferred_next": "Use --pulse, --entry, or a command card before reopening --info.",
             })
     elif kind in {"bash_cat", "bash_grep", "bash_other"}:
+        shell_limiter_hint = {
+            "hint_id": "replace_shell_limiter_with_compact_packet",
+            "reason": "Slow examples rely on shell output limiters.",
+            "preferred_next": "Prefer a compact kernel/tool packet that emits only the needed fields.",
+            "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
+            "replacement_commands": [
+                COMMAND_SURFACE_QUOTE_COMMAND,
+                "./repo-python kernel.py --command-profile <owner-surface>",
+            ],
+        }
+        shell_limiter_emitted = False
+        git_state_count = int(tag_counts.get("git_state_shell_chain") or 0)
+        global_diff_count = int(tag_counts.get("global_raw_diff") or 0)
+        output_limited_count = int(tag_counts.get("output_limited") or 0)
+        raw_search_count = int(tag_counts.get("raw_search_scan") or 0)
+        tmp_artifact_count = int(tag_counts.get("tmp_artifact_file") or 0)
+        background_poll_count = int(tag_counts.get("background_poll") or 0)
+        inline_python_data_probe_count = int(tag_counts.get("inline_python_data_probe") or 0)
+        python_module_cli_output_limited_count = int(
+            tag_counts.get("python_module_cli_output_limited") or 0
+        )
+        specific_scan_count = max(
+            git_state_count,
+            global_diff_count,
+            raw_search_count,
+            tmp_artifact_count,
+            background_poll_count,
+            inline_python_data_probe_count,
+            python_module_cli_output_limited_count,
+        )
+        if output_limited_count > specific_scan_count:
+            hints.append(shell_limiter_hint)
+            shell_limiter_emitted = True
+        exact_python_module_replacements: list[str] = []
+        if any(_example_matches_microcosm_circuit_attribution(example) for example in example_rows):
+            exact_python_module_replacements.append(MICROCOSM_CIRCUIT_ATTRIBUTION_CARD_COMMAND)
+        python_module_cli_hint = {
+            "hint_id": "replace_python_module_tail_with_compact_cli_mode",
+            "reason": "Slow examples run Python module CLIs and hide broad output behind shell limiters.",
+            "preferred_next": (
+                exact_python_module_replacements[0]
+                if exact_python_module_replacements
+                else "Use or add a compact/json/status flag on the module CLI instead of piping full output through tail/head/grep."
+            ),
+            "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
+            "replacement_commands": exact_python_module_replacements + [
+                "./repo-python tools/meta/control/action_quote.py --action command_surface --scope <module-or-command>",
+                "python -m <module> --help",
+                "Add a checked compact/json/status mode to the owning module CLI when repeated probes need the same summary.",
+            ],
+        }
+        if exact_python_module_replacements:
+            python_module_cli_hint["specific_replacement_reason"] = (
+                "The observed microcosm_core circuit-attribution command already exposes a compact --card route."
+            )
+        if tag_counts.get("python_module_cli_output_limited"):
+            hints.append(python_module_cli_hint)
         if tag_counts.get("global_raw_diff"):
             hints.append({
                 "hint_id": "replace_global_raw_diff_with_diff_review_context",
@@ -1384,7 +1705,13 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
             hints.append({
                 "hint_id": "replace_git_shell_chain_with_state_snapshot",
                 "reason": "Slow examples combine git status, staged diff, branch, or log checks through shell output limiters.",
-                "preferred_next": "./repo-python tools/meta/control/git_state_snapshot.py --path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact",
+                "preferred_next": GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND,
+                "owner_surface": "./repo-python tools/meta/control/git_state_snapshot.py --scope <path> --path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact",
+                "replacement_commands": [
+                    GIT_STATE_SHELL_CHAIN_QUOTE_COMMAND,
+                    "./repo-python tools/meta/control/git_state_snapshot.py --scope <path> --path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact",
+                    "./repo-python tools/meta/control/git_state_snapshot.py --path-limit 40 --recent-limit 3 --skip-git-metadata-write-probe --compact",
+                ],
             })
         if tag_counts.get("background_poll"):
             hints.append({
@@ -1392,54 +1719,98 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "reason": "Slow examples poll background task output files.",
                 "preferred_next": "./repo-python kernel.py --process-summary claude:latest",
                 "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "quote_surface": PROCESS_SUMMARY_QUOTE_COMMAND,
                 "replacement_commands": [
                     "./repo-python kernel.py --process-summary claude:latest",
+                    PROCESS_SUMMARY_QUOTE_COMMAND,
                     PROCESS_TRACE_OWNER_SURFACE,
                     PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
                 ],
                 "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
-        if tag_counts.get("output_limited"):
+        tmp_artifact_hint = {
+            "hint_id": "replace_tmp_artifact_scan_with_owner_summary",
+            "reason": "Slow examples scan temporary artifact files through shell commands.",
+            "preferred_next": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
+            "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+            "quote_surface": PROCESS_SUMMARY_QUOTE_COMMAND,
+            "replacement_commands": [
+                PROCESS_SUMMARY_OWNER_SURFACE,
+                PROCESS_SUMMARY_QUOTE_COMMAND,
+                PROCESS_TRACE_OWNER_SURFACE,
+                PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+            ],
+            "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
+        }
+        raw_search_hint = {
+            "hint_id": "replace_raw_search_scan_with_owner_route",
+            "reason": "Slow examples use recursive grep/rg discovery scans.",
+            "preferred_next": BASH_GREP_QUOTE_COMMAND,
+            "owner_surface": ARTIFACT_DISCOVERY_OWNER_SURFACE,
+            "scope_narrowing": (
+                "Use stable object names, slugs, path fragments, or rare domain terms; drop common glue words "
+                "before running the inventory route."
+            ),
+            "quote_surface": BASH_GREP_QUOTE_COMMAND,
+            "replacement_commands": [
+                BASH_GREP_QUOTE_COMMAND,
+                ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                ARTIFACT_DISCOVERY_QUOTE_COMMAND,
+                "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+                "rg --files <known-roots> | rg '<name-or-term>'",
+            ],
+            "privacy_boundary": ARTIFACT_DISCOVERY_PRIVACY_BOUNDARY,
+        }
+        if raw_search_count and tmp_artifact_count:
+            if kind == "bash_grep" or raw_search_count >= tmp_artifact_count:
+                hints.extend([raw_search_hint, tmp_artifact_hint])
+            else:
+                hints.extend([tmp_artifact_hint, raw_search_hint])
+        elif tmp_artifact_count:
+            hints.append(tmp_artifact_hint)
+        elif raw_search_count:
+            hints.append(raw_search_hint)
+        if tag_counts.get("inline_python_data_probe"):
+            process_triage_quote_command = _process_bottleneck_triage_quote_command(kind)
             hints.append({
-                "hint_id": "replace_shell_limiter_with_compact_packet",
-                "reason": "Slow examples rely on shell output limiters.",
-                "preferred_next": "Prefer a compact kernel/tool packet that emits only the needed fields.",
-            })
-        if tag_counts.get("tmp_artifact_file"):
-            hints.append({
-                "hint_id": "replace_tmp_artifact_scan_with_owner_summary",
-                "reason": "Slow examples scan temporary artifact files through shell commands.",
-                "preferred_next": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
-                "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "hint_id": "replace_inline_python_data_probe_with_owner_tool",
+                "reason": "Slow examples use inline Python to read or shape local data files.",
+                "preferred_next": process_triage_quote_command,
+                "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
                 "replacement_commands": [
-                    PROCESS_SUMMARY_OWNER_SURFACE,
-                    PROCESS_TRACE_OWNER_SURFACE,
-                    PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+                    process_triage_quote_command,
+                    BASH_OTHER_QUOTE_COMMAND,
+                    COMMAND_SURFACE_QUOTE_COMMAND,
+                    "./repo-python kernel.py --command-profile <owner-surface>",
+                    "Create or reuse a checked ./repo-python tools/... owner command with compact JSON output.",
                 ],
-                "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
-        if tag_counts.get("raw_search_scan"):
+        if tag_counts.get("output_limited") and not shell_limiter_emitted:
+            hints.append(shell_limiter_hint)
+        if kind == "bash_other" and not hints:
             hints.append({
-                "hint_id": "replace_raw_search_scan_with_owner_route",
-                "reason": "Slow examples use recursive grep/rg discovery scans.",
-                "preferred_next": ARTIFACT_DISCOVERY_EXAMPLE_COMMAND,
-                "owner_surface": ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                "hint_id": "route_unclassified_bash_output_through_action_quote",
+                "reason": "Output-heavy shell examples did not match a narrower command-shape owner.",
+                "preferred_next": BASH_OTHER_QUOTE_COMMAND,
+                "quote_surface": COMMAND_SURFACE_QUOTE_COMMAND,
                 "replacement_commands": [
-                    ARTIFACT_DISCOVERY_OWNER_SURFACE,
-                    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
-                    "rg --files <known-roots> | rg '<name-or-term>'",
+                    BASH_OTHER_QUOTE_COMMAND,
+                    COMMAND_SURFACE_QUOTE_COMMAND,
+                    "./repo-python kernel.py --command-profile <owner-surface>",
                 ],
-                "privacy_boundary": ARTIFACT_DISCOVERY_PRIVACY_BOUNDARY,
             })
     elif kind == "bash_find":
         if tag_counts.get("raw_find_scan"):
             hints.append({
                 "hint_id": "replace_find_scan_with_rg_files_or_option_surface",
                 "reason": "Slow examples use raw find scans for discovery.",
-                "preferred_next": ARTIFACT_DISCOVERY_EXAMPLE_COMMAND,
+                "preferred_next": BASH_FIND_QUOTE_COMMAND,
                 "owner_surface": ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                "quote_surface": BASH_FIND_QUOTE_COMMAND,
                 "replacement_commands": [
+                    BASH_FIND_QUOTE_COMMAND,
                     ARTIFACT_DISCOVERY_OWNER_SURFACE,
+                    ARTIFACT_DISCOVERY_QUOTE_COMMAND,
                     "rg --files <known-roots> | rg '<name-or-term>'",
                     "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
                 ],
@@ -1458,12 +1829,30 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "hint_id": "replace_output_file_read_with_status_surface",
                 "reason": "Slow reads target provider task output or tool-result files.",
                 "preferred_next": "Use the owning process/session/status packet or rerun the command with a compact output mode instead of opening large output files.",
+                "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "quote_surface": PROCESS_SUMMARY_QUOTE_COMMAND,
+                "replacement_commands": [
+                    PROCESS_SUMMARY_OWNER_SURFACE,
+                    PROCESS_SUMMARY_QUOTE_COMMAND,
+                    PROCESS_TRACE_OWNER_SURFACE,
+                    PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+                ],
+                "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
         if tag_counts.get("tmp_artifact_file"):
             hints.append({
                 "hint_id": "replace_tmp_file_read_with_structured_summary",
                 "reason": "Slow reads target temporary artifacts.",
                 "preferred_next": "Parse the artifact into a compact JSON/status summary, or rerun the owner command in a bounded mode.",
+                "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "quote_surface": PROCESS_SUMMARY_QUOTE_COMMAND,
+                "replacement_commands": [
+                    PROCESS_SUMMARY_OWNER_SURFACE,
+                    PROCESS_SUMMARY_QUOTE_COMMAND,
+                    PROCESS_TRACE_OWNER_SURFACE,
+                    PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+                ],
+                "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
         if tag_counts.get("document_read"):
             hints.append({
@@ -1471,8 +1860,10 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "reason": "Slow reads target prose documents.",
                 "preferred_next": "Use a card/row/section route or a bounded line range before reopening the whole document.",
                 "owner_surface": DOCUMENT_READ_OWNER_SURFACE,
+                "quote_surface": DOCUMENT_READ_QUOTE_COMMAND,
                 "replacement_commands": [
                     DOCUMENT_READ_OWNER_SURFACE,
+                    DOCUMENT_READ_QUOTE_COMMAND,
                     "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
                     "./repo-python kernel.py --docs-route <query-or-path>",
                     "./repo-python kernel.py --option-surface <kind_id> --band card --ids <row_id>",
@@ -1484,9 +1875,11 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
             hints.append({
                 "hint_id": "prefer_bounded_read_or_identifier_search",
                 "reason": "Slow reads target source or otherwise unclassified files without a more specific owner hint.",
-                "preferred_next": "Search exact identifiers or open a bounded line range before reading the whole file body.",
+                "preferred_next": DOCUMENT_READ_QUOTE_COMMAND,
                 "owner_surface": "known_path_bounded_read",
+                "quote_surface": DOCUMENT_READ_QUOTE_COMMAND,
                 "replacement_commands": [
+                    DOCUMENT_READ_QUOTE_COMMAND,
                     "rg -n '<symbol-or-error>' <known-path-or-root>",
                     "sed -n '<start>,<end>p' <known-path>",
                     "./repo-python kernel.py --artifact-discovery-inventory <term-or-root>",
@@ -1502,9 +1895,12 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
             hints.append({
                 "hint_id": "inspect_preceding_exec_or_add_status_surface",
                 "reason": "Slow spans wait on an existing Codex exec session rather than starting a new shell command.",
-                "preferred_next": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
+                "preferred_next": PROCESS_SUMMARY_EXEC_SESSION_QUOTE_COMMAND,
                 "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+                "quote_surface": PROCESS_SUMMARY_EXEC_SESSION_QUOTE_COMMAND,
                 "replacement_commands": [
+                    PROCESS_SUMMARY_EXEC_SESSION_QUOTE_COMMAND,
+                    PROCESS_SUMMARY_QUOTE_COMMAND,
                     PROCESS_SUMMARY_OWNER_SURFACE,
                     PROCESS_TRACE_OWNER_SURFACE,
                     PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
@@ -1512,19 +1908,69 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
                 "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
             })
     elif kind in {"task_tool", "unknown_tool"}:
+        exact_quote_command = (
+            PROCESS_SUMMARY_UNKNOWN_TOOL_QUOTE_COMMAND
+            if kind == "unknown_tool"
+            else PROCESS_SUMMARY_TASK_TOOL_QUOTE_COMMAND
+        )
         hints.append({
             "hint_id": "replace_long_tool_wait_with_process_summary",
             "reason": "Slow spans come from tool/runtime waits without a stable shell command to optimize directly.",
-            "preferred_next": "./repo-python kernel.py --process-summary <session_id|claude:latest|codex:latest>",
+            "preferred_next": exact_quote_command,
             "owner_surface": PROCESS_SUMMARY_OWNER_SURFACE,
+            "quote_surface": PROCESS_SUMMARY_QUOTE_COMMAND,
             "replacement_commands": [
+                exact_quote_command,
                 PROCESS_SUMMARY_OWNER_SURFACE,
+                PROCESS_SUMMARY_QUOTE_COMMAND,
                 PROCESS_TRACE_OWNER_SURFACE,
                 PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
             ],
             "privacy_boundary": PROCESS_METADATA_PRIVACY_BOUNDARY,
         })
     return hints
+
+
+def _bottleneck_actionability(kind: str, examples: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    example_rows = [example for example in examples if isinstance(example, Mapping)]
+    tag_counts: Counter[str] = Counter()
+    for example in example_rows:
+        tag_counts.update(str(tag) for tag in example.get("command_shape_tags") or [])
+    if kind == "exec_session_io" and example_rows:
+        wait_like = tag_counts.get("exec_session_poll", 0) or tag_counts.get("configured_wait", 0)
+        if wait_like >= max(1, len(example_rows) // 2):
+            return {
+                "actionability_class": "wait_state_polling",
+                "optimization_priority_score": 35,
+                "ranking_note": (
+                    "Configured exec-session waits measure an already-running operation; inspect the "
+                    "owning process/session before treating the wait itself as optimization work."
+                ),
+                "preferred_next": PROCESS_SUMMARY_EXEC_SESSION_QUOTE_COMMAND,
+            }
+    if kind == "task_tool":
+        return {
+            "actionability_class": "external_tool_wait",
+            "optimization_priority_score": 55,
+            "ranking_note": (
+                "Tool/runtime waits are real latency but usually need a process/session summary before "
+                "a stable source patch target exists."
+            ),
+            "preferred_next": PROCESS_SUMMARY_OWNER_SURFACE,
+        }
+    return {
+        "actionability_class": "directly_actionable",
+        "optimization_priority_score": 100,
+    }
+
+
+def _bottleneck_summary_sort_key(row: Mapping[str, Any]) -> tuple[int, int, int, int]:
+    return (
+        int(row.get("optimization_priority_score") or 0),
+        int(row.get("p95_ms") or 0),
+        int(row.get("slow_count") or 0),
+        int(row.get("total_duration_ms") or 0),
+    )
 
 
 _CONTEXT_YIELD_MOTIF_META: dict[str, dict[str, Any]] = {
@@ -1608,6 +2054,8 @@ _CONTEXT_YIELD_ACTIONABLE_STATUSES = (
 )
 _CONTEXT_YIELD_TINY_OUTPUT_BYTES = 1024
 _CONTEXT_YIELD_SCOPED_ACCEPTED_BYTES = 4096
+_CONTEXT_YIELD_BOUNDED_DIAGNOSTIC_ACCEPTED_BYTES = 48_000
+_CONTEXT_YIELD_BOUNDED_PREFLIGHT_ACCEPTED_BYTES = _CONTEXT_YIELD_BOUNDED_DIAGNOSTIC_ACCEPTED_BYTES
 
 
 def _context_yield_motif_score(active_bytes: int, span_count: int) -> str:
@@ -1706,8 +2154,61 @@ def _context_yield_route_used(motif: str, example: Mapping[str, Any]) -> bool:
         )
     if motif == "tool_result_carryover":
         return "--process-summary" in command or "--process-trace" in command
+    if motif == "diagnostic_packet_over_budget":
+        return _context_yield_bounded_diagnostic_packet(example)
+    if motif == "context_pack_selected_rows":
+        return _context_yield_bounded_context_pack_packet(example)
+    if motif == "metadata_cargo":
+        return _context_yield_bounded_preflight_packet(example)
     if motif in {"entry_over_admission", "context_pack_selected_rows", "diagnostic_packet_over_budget"}:
         return False
+    return False
+
+
+def _context_yield_bounded_context_pack_packet(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    output_bytes = _summary_int(example.get("output_byte_count"))
+    tags = {str(tag) for tag in example.get("command_shape_tags") or []}
+    return (
+        "context_pack" in tags
+        and "--context-pack" in command
+        and output_bytes <= _CONTEXT_YIELD_BOUNDED_DIAGNOSTIC_ACCEPTED_BYTES
+    )
+
+
+def _context_yield_bounded_preflight_packet(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    output_bytes = _summary_int(example.get("output_byte_count"))
+    tags = {str(tag) for tag in example.get("command_shape_tags") or []}
+    preflight_command = bool(
+        {"preflight_compact_owner_status"}.intersection(tags)
+        or _is_work_ledger_session_preflight_command(command)
+        or _is_mission_transaction_preflight_command(command)
+    )
+    return (
+        preflight_command
+        and "--full" not in command
+        and "preflight_full_drilldown" not in tags
+        and output_bytes <= _CONTEXT_YIELD_BOUNDED_PREFLIGHT_ACCEPTED_BYTES
+    )
+
+
+def _context_yield_bounded_diagnostic_packet(example: Mapping[str, Any]) -> bool:
+    command = str(example.get("normalized_command") or "").lower()
+    output_bytes = _summary_int(example.get("output_byte_count"))
+    tags = {str(tag) for tag in example.get("command_shape_tags") or []}
+    if output_bytes > _CONTEXT_YIELD_BOUNDED_DIAGNOSTIC_ACCEPTED_BYTES:
+        return False
+    if "navigation_metabolism_packet" in tags and "--navigation-metabolism" in command:
+        return True
+    if "process_diagnostic_packet" not in tags:
+        return False
+    if "--process-bottlenecks" in command:
+        return True
+    if "--process-audit" in command and "--full" not in command:
+        return True
+    if "--session-diagnostics" in command and "--full" not in command:
+        return True
     return False
 
 
@@ -1862,17 +2363,24 @@ def _context_yield_steering(
             "Scoped low-output rg/find on selected files remains accepted; tiny-output discovery "
             "with no raw body remains a false positive, not a route-use failure."
         )
+        scope_narrowing = (
+            "Inventory with object-specific terms or path fragments instead of full prose clauses."
+        )
     elif motif == "raw_global_diff":
         accepted_guard = "Scoped path diff after path/risk/owner selection remains accepted."
+        scope_narrowing = None
     elif motif == "tool_result_carryover":
         accepted_guard = (
             "Direct task/tool-result file reads remain accepted only when the raw body is the "
             "non-recomputable evidence needed for the next action; otherwise use process-summary first."
         )
+        scope_narrowing = None
     else:
         accepted_guard = "Owner-route steering applies only to classified high-cost route-not-used examples."
+        scope_narrowing = None
     actionable_count = int(status_counts.get(applies_to_status) or 0)
-    return {
+    command_shape_clusters = _context_yield_cluster_payload(raw_row, applies_to_status)
+    payload = {
         "point_of_use_surface": "./repo-python kernel.py --process-bottlenecks --force",
         "replacement_route": meta.get("existing_route"),
         "applies_to_status": applies_to_status,
@@ -1880,8 +2388,32 @@ def _context_yield_steering(
         "does_not_apply_to": does_not_apply_to,
         "accepted_case_guard": accepted_guard,
         "post_repair_check": "./repo-python kernel.py --process-bottlenecks --force --after <repair_time>",
-        "command_shape_clusters": _context_yield_cluster_payload(raw_row, applies_to_status),
+        "command_shape_clusters": command_shape_clusters,
     }
+    if motif == "raw_body_before_selection":
+        quote_routes: list[str] = []
+        action_kind_counts = command_shape_clusters.get("action_kind_counts") or {}
+        if action_kind_counts.get("bash_grep"):
+            quote_routes.append(BASH_GREP_QUOTE_COMMAND)
+        if action_kind_counts.get("bash_find"):
+            quote_routes.append(BASH_FIND_QUOTE_COMMAND)
+        if quote_routes:
+            payload["preferred_quote_route"] = quote_routes[0]
+            payload["quote_routes"] = quote_routes
+        payload["pre_action_card"] = {
+            "status": "route_first_for_broad_discovery",
+            "before": "raw recursive rg/find over multiple roots or raw artifact trees",
+            "first_route": quote_routes[0] if quote_routes else meta.get("existing_route"),
+            "fallback_route": meta.get("existing_route"),
+            "scope_rule": (
+                "Use a stable object name, slug, path fragment, or rare code term; "
+                "drop glue words and prose clauses."
+            ),
+            "accepted_exception": "Known-file scoped rg/find with low output remains acceptable.",
+        }
+    if scope_narrowing:
+        payload["scope_narrowing"] = scope_narrowing
+    return payload
 
 
 def _compute_context_yield_attribution(
@@ -2869,6 +3401,7 @@ def build_trace_compactness_levels(
     *,
     session_id: str,
     selected_level: str = "tape",
+    session: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     levels = list(TRACE_COMPACTNESS_PROFILES)
     selected_level = _normalize_trace_level(selected_level)
@@ -2876,7 +3409,41 @@ def build_trace_compactness_levels(
         raise ValueError(f"unknown trace compactness level: {selected_level}")
     span_rows = [_span_mapping_value(span) for span in spans]
     selected = [selected_level]
-    return {
+    if selected_level == "closeout":
+        closeout_summary = _trace_closeout_summary(
+            span_rows,
+            session=session or {"session_id": session_id},
+        )
+        levels_payload = {
+            "closeout": {
+                "level": "closeout",
+                "profile": TRACE_COMPACTNESS_PROFILES["closeout"].get("profile"),
+                "session_id": session_id,
+                "row_count": len(closeout_summary.get("recent_terminal_rows") or []),
+                "span_count": len(span_rows),
+                "omitted_span_count": max(len(span_rows) - len(closeout_summary.get("recent_terminal_rows") or []), 0),
+                "rows": list(closeout_summary.get("recent_terminal_rows") or []),
+                "summary": closeout_summary,
+                "omission_receipt": {
+                    "omitted": [
+                        "raw stdout/stderr bodies",
+                        "raw tool-result bodies",
+                        "prompt bodies",
+                        "assistant prose and thinking",
+                        "full chronological tape rows",
+                    ],
+                    "reason": TRACE_OUTPUT_PRIVACY_BOUNDARY,
+                    "drilldown": f"./repo-python kernel.py --process-trace {session_id} --process-trace-level tape",
+                },
+            }
+        }
+    else:
+        closeout_summary = None
+        levels_payload = {
+            level: _compact_trace_level(span_rows, session_id=session_id, level=level)
+            for level in selected
+        }
+    payload = {
         "schema_version": TRACE_COMPACTNESS_SCHEMA_VERSION,
         "boundary": TRACE_OUTPUT_PRIVACY_BOUNDARY,
         "selected_level": selected_level,
@@ -2890,11 +3457,11 @@ def build_trace_compactness_levels(
             }
             for level, spec in TRACE_COMPACTNESS_PROFILES.items()
         ],
-        "levels": {
-            level: _compact_trace_level(span_rows, session_id=session_id, level=level)
-            for level in selected
-        },
+        "levels": levels_payload,
     }
+    if closeout_summary is not None:
+        payload["closeout_summary"] = closeout_summary
+    return payload
 
 
 def _short_int(value: Any) -> str:
@@ -3069,6 +3636,164 @@ def _trace_final_state_line(span_rows: list[Mapping[str, Any]], *, session: Mapp
     ).strip()
 
 
+def _trace_provider_arg(session: Mapping[str, Any]) -> str:
+    agent = str(session.get("agent") or "").lower()
+    if "claude" in agent:
+        return "claude"
+    if "codex" in agent:
+        return "codex"
+    return "auto"
+
+
+def _trace_session_token(session: Mapping[str, Any]) -> str:
+    return str(session.get("session_id") or "latest")
+
+
+def _trace_exact_closeout_command(session: Mapping[str, Any]) -> str:
+    provider = _trace_provider_arg(session)
+    session_token = _trace_session_token(session)
+    return (
+        "./repo-python tools/meta/observability/cli_prompt_trace.py "
+        f"--provider {provider} --session {session_token} --format thread-closeouts --allow-ambiguous"
+    )
+
+
+def _closeout_row(
+    span: Mapping[str, Any],
+    *,
+    command_chars: int = 180,
+    output_preview_lines: int = 1,
+    edit_preview_lines: int = 2,
+) -> dict[str, Any]:
+    command = _span_display_command(span, char_limit=command_chars).replace("\n", " ").strip()
+    output = _trace_output_summary(span, preview_lines=output_preview_lines, preview_chars=160)
+    edit = _compact_edit_summary(span.get("edit_summary"), preview_limit=edit_preview_lines)
+    return _summary_drop_none(
+        {
+            "sequence_index": span.get("sequence_index"),
+            "turn": span.get("turn_index"),
+            "action": _tape_action_label(span.get("action_kind"), command),
+            "command": command,
+            "duration_ms": span.get("duration_ms"),
+            "outcome": output.get("outcome"),
+            "output": output or None,
+            "diff": edit,
+            "targets": list(span.get("target_paths") or [])[:5],
+        }
+    )
+
+
+def _trace_closeout_summary(span_rows: list[Mapping[str, Any]], *, session: Mapping[str, Any]) -> dict[str, Any]:
+    target_counts: Counter[str] = Counter()
+    changed_counts: Counter[str] = Counter()
+    action_counts: Counter[str] = Counter()
+    edit_plus = 0
+    edit_minus = 0
+    validation_spans: list[Mapping[str, Any]] = []
+    commit_spans: list[Mapping[str, Any]] = []
+
+    for span in span_rows:
+        command = str(span.get("normalized_command") or span.get("command") or "")
+        label = _tape_action_label(span.get("action_kind"), command)
+        action_counts[label] += 1
+        if _is_validation_command(command):
+            validation_spans.append(span)
+        if _is_commit_command(command):
+            commit_spans.append(span)
+        for path in [str(path) for path in list(span.get("target_paths") or []) if str(path)]:
+            target_counts[path] += 1
+        edit = span.get("edit_summary")
+        if isinstance(edit, Mapping):
+            edit_plus += int(edit.get("added_line_count") or 0)
+            edit_minus += int(edit.get("removed_line_count") or 0)
+            edit_paths = list(edit.get("target_paths") or edit.get("paths") or span.get("target_paths") or [])
+            for path in [str(path) for path in edit_paths if str(path)]:
+                changed_counts[path] += 1
+
+    recent_spans = [span for span in span_rows if _span_display_command(span, char_limit=120).strip()][-6:]
+    session_token = _trace_session_token(session)
+    detail_levels = ["outline", "closeout", "tape", "tape+diff", "audit", "raw"]
+    return {
+        "schema_version": "process_trace_closeout_summary_v1",
+        "boundary": TRACE_OUTPUT_PRIVACY_BOUNDARY,
+        "session_id": session_token,
+        "agent": session.get("agent"),
+        "action_counts": dict(action_counts),
+        "worked_on_paths": [
+            {"path": path, "span_count": count}
+            for path, count in target_counts.most_common(8)
+        ],
+        "changed_files": [
+            {"path": path, "edit_span_count": count}
+            for path, count in changed_counts.most_common(8)
+        ],
+        "edit_summary": {"plus": edit_plus, "minus": edit_minus},
+        "validation_rows": [_closeout_row(span) for span in validation_spans[-4:]],
+        "commit_rows": [_closeout_row(span) for span in commit_spans[-3:]],
+        "recent_terminal_rows": [_closeout_row(span, command_chars=140, output_preview_lines=0, edit_preview_lines=0) for span in recent_spans],
+        "exact_closeout_message": {
+            "source_boundary": "local_private_provider_trace",
+            "prose_omitted_from_process_trace": True,
+            "command": _trace_exact_closeout_command(session),
+        },
+        "detail_drilldowns": [
+            {
+                "level": level,
+                "command": f"./repo-python kernel.py --process-trace {session_token} --process-trace-level {level}",
+            }
+            for level in detail_levels
+        ],
+    }
+
+
+def _render_closeout_trace_tape(
+    span_rows: list[Mapping[str, Any]],
+    *,
+    session: Mapping[str, Any],
+) -> str:
+    closeout = _trace_closeout_summary(span_rows, session=session)
+    lines = [_trace_final_state_line(span_rows, session=session, level="closeout")]
+    lines.append(
+        "closeout scope=observable-actions assistant_prose=omitted "
+        f"exact_closeout={closeout['exact_closeout_message']['command']}"
+    )
+    worked_on = [row["path"] for row in closeout["worked_on_paths"][:5]]
+    changed = [row["path"] for row in closeout["changed_files"][:5]]
+    if worked_on:
+        lines.append(f"worked_on {' | '.join(worked_on)}")
+    if changed:
+        edit = closeout["edit_summary"]
+        lines.append(f"changed +{_short_int(edit.get('plus'))}/-{_short_int(edit.get('minus'))} {' | '.join(changed)}")
+    validation_rows = closeout["validation_rows"]
+    if validation_rows:
+        lines.append("validation")
+        for row in validation_rows:
+            lines.append(
+                f"  {row.get('sequence_index', '---')} {row.get('command')} "
+                f"| {row.get('outcome') or 'observed'} {_short_ms(row.get('duration_ms'))}"
+            )
+    else:
+        lines.append("validation none-captured")
+    commit_rows = closeout["commit_rows"]
+    if commit_rows:
+        lines.append("commits")
+        for row in commit_rows:
+            lines.append(f"  {row.get('sequence_index', '---')} {row.get('command')}")
+    recent_rows = closeout["recent_terminal_rows"]
+    if recent_rows:
+        lines.append("recent")
+        for row in recent_rows:
+            lines.append(
+                f"  {row.get('sequence_index', '---')} {row.get('action')} {row.get('command')} "
+                f"| {row.get('outcome') or 'observed'}"
+            )
+    lines.append(
+        "drilldown outline|tape|tape+diff|audit|raw via "
+        f"./repo-python kernel.py --process-trace {_trace_session_token(session)} --process-trace-level <level>"
+    )
+    return "\n".join(lines)
+
+
 def _tape_marker(label: str) -> str:
     return "$" if label == "cmd" else label
 
@@ -3197,6 +3922,8 @@ def render_trace_tape(
             f"spans={len(span_rows)} out={_short_int(session.get('total_output_bytes'))}b"
         )
         return "\n".join(lines)
+    if level == "closeout":
+        return _render_closeout_trace_tape(span_rows, session=session)
     spec = TRACE_COMPACTNESS_PROFILES[level]
     row_limit = int(spec["row_limit"])
     visible_raw_rows = span_rows[:row_limit]
@@ -3736,11 +4463,47 @@ def _summary_compact_repair_hints(rows: list[Any], *, limit: int = 2) -> list[di
                     "hint_id": row.get("hint_id"),
                     "preferred_next": row.get("preferred_next"),
                     "owner_surface": row.get("owner_surface"),
-                    "replacement_commands": list(row.get("replacement_commands") or [])[:2],
                 }
             )
         )
     return compact
+
+
+def _kernel_flag_repair_hints(by_flag: Iterable[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    hints: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for row in by_flag:
+        if not isinstance(row, Mapping):
+            continue
+        flag = str(row.get("kernel_flag") or "")
+        if flag == "--session-diagnostics":
+            hint = {
+                "hint_id": "route_session_diagnostics_through_command_surface",
+                "preferred_next": (
+                    "./repo-python tools/meta/control/action_quote.py "
+                    "--action command_surface_inventory --scope session-diagnostics"
+                ),
+                "owner_surface": (
+                    "./repo-python kernel.py --session-diagnostics "
+                    "--lens all --last 10 --store both --json --diagnostics-summary"
+                ),
+            }
+        elif flag == "--process-bottlenecks":
+            hint = {
+                "hint_id": "use_cached_or_filtered_process_bottleneck_status",
+                "preferred_next": "./repo-python kernel.py --process-bottlenecks --process-action-kind <action-kind>",
+                "owner_surface": "./repo-python tools/meta/factory/build_agent_execution_trace.py --cached-summary --limit 6",
+            }
+        else:
+            continue
+        hint_id = str(hint.get("hint_id") or "")
+        if hint_id in seen:
+            continue
+        seen.add(hint_id)
+        hints.append(hint)
+        if len(hints) >= limit:
+            break
+    return hints
 
 
 def _summary_compact_pattern_rows(rows: list[Any], *, limit: int = 8) -> list[dict[str, Any]]:
@@ -3790,7 +4553,10 @@ def _summary_compact_process_bottlenecks(
     items = sorted(
         value.items(),
         key=lambda item: (
-            -_summary_int((item[1] or {}).get("p95_ms") if isinstance(item[1], Mapping) else 0),
+            -_bottleneck_summary_sort_key(item[1] if isinstance(item[1], Mapping) else {})[0],
+            -_bottleneck_summary_sort_key(item[1] if isinstance(item[1], Mapping) else {})[1],
+            -_bottleneck_summary_sort_key(item[1] if isinstance(item[1], Mapping) else {})[2],
+            -_bottleneck_summary_sort_key(item[1] if isinstance(item[1], Mapping) else {})[3],
             str(item[0]),
         ),
     )
@@ -3798,6 +4564,10 @@ def _summary_compact_process_bottlenecks(
     for key, row in items[:limit]:
         if not isinstance(row, Mapping):
             continue
+        repair_hints = _summary_compact_repair_hints(list(row.get("repair_hints") or []), limit=2)
+        by_flag = list(row.get("by_kernel_flag") or [])
+        if not repair_hints and str(key) == "kernel_command":
+            repair_hints = _kernel_flag_repair_hints(by_flag, limit=2)
         compact_row: dict[str, Any] = {
             "span_count": row.get("span_count"),
             "count": row.get("count"),
@@ -3810,7 +4580,10 @@ def _summary_compact_process_bottlenecks(
             "total_output_bytes": row.get("total_output_bytes"),
             "max_output_bytes": row.get("max_output_bytes"),
             "p95_output_bytes": row.get("p95_output_bytes"),
-            "repair_hints": _summary_compact_repair_hints(list(row.get("repair_hints") or []), limit=2),
+            "actionability_class": row.get("actionability_class"),
+            "optimization_priority_score": row.get("optimization_priority_score"),
+            "ranking_note": row.get("ranking_note"),
+            "repair_hints": repair_hints,
         }
         examples = list(row.get("example_spans") or [])
         if example_limit > 0:
@@ -3820,7 +4593,6 @@ def _summary_compact_process_bottlenecks(
             )
         elif examples:
             compact_row["example_count"] = len(examples)
-        by_flag = list(row.get("by_kernel_flag") or [])
         if by_flag:
             compact_row["by_kernel_flag"] = by_flag[:5]
         compact[str(key)] = compact_row
@@ -3949,7 +4721,11 @@ def _summary_compact_process_session(session: Mapping[str, Any]) -> dict[str, An
         ),
         "target_path_hot_list": list(session.get("target_path_hot_list") or [])[:3],
         "task_result_reads": _summary_compact_task_result_reads(session.get("task_result_reads")),
-        "chronological_trace_outline": session.get("chronological_trace_outline"),
+        "chronological_trace_outline": {
+            "omitted": True,
+            "reason": "process_summary_default_uses_trace_drilldown_for_ordered_outline",
+            "drilldown": f"./repo-python kernel.py --process-trace {session.get('session_id')}",
+        },
         "route_compliance": {
             "score": compliance.get("score"),
             "ladder_position": compliance.get("ladder_position"),
@@ -3975,12 +4751,12 @@ def _summary_compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
                 for row in list(audit.get("findings") or [])
                 if isinstance(row, Mapping) and row.get("rule") == "slow_action_shape"
             ],
-            limit=3,
+            limit=2,
         ),
-        "top_patterns": _summary_compact_pattern_rows(list(audit.get("patterns") or []), limit=3),
+        "top_patterns": _summary_compact_pattern_rows(list(audit.get("patterns") or []), limit=2),
         "top_bottlenecks": _summary_compact_process_bottlenecks(
             audit.get("bottlenecks"),
-            limit=3,
+            limit=2,
             example_limit=0,
         ),
         "context_yield_top_motifs": [
@@ -3991,7 +4767,7 @@ def _summary_compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
                 "owner_surface": row.get("owner_surface"),
                 "next_wave_score": row.get("next_wave_score"),
             }
-            for row in list((audit.get("context_yield_attribution") or {}).get("rows") or [])[:3]
+            for row in list((audit.get("context_yield_attribution") or {}).get("rows") or [])[:2]
             if isinstance(row, Mapping)
         ],
         "parse_failure_count": len(audit.get("parse_failures") or []),
@@ -4224,6 +5000,20 @@ def _process_summary_cached_read_models(
     return dict(ledger), dict(audit), dict(summary), freshness
 
 
+def _process_summary_force_command(
+    request: str,
+    *,
+    since_ts: str | None = None,
+    session_limit: int | None = None,
+) -> str:
+    command = f"./repo-python kernel.py --process-summary {request} --force"
+    if since_ts:
+        command += f" --after {since_ts}"
+    if session_limit is not None:
+        command += f" --limit {session_limit}"
+    return command
+
+
 def _build_process_summary_packet_from_models(
     *,
     ledger: Mapping[str, Any],
@@ -4231,6 +5021,8 @@ def _build_process_summary_packet_from_models(
     request: str,
     sources: Mapping[str, Any],
     source_freshness: Mapping[str, Any],
+    since_ts: str | None = None,
+    command_session_limit: int | None = None,
 ) -> tuple[int, dict[str, Any]]:
     session = select_session(ledger, request)
     if session is None:
@@ -4254,7 +5046,11 @@ def _build_process_summary_packet_from_models(
     audit_summary = dict((audit.get("summary") or {}))
     identity_scope = _process_summary_identity_scope(request, session)
     full_trace_command = f"./repo-python kernel.py --process-trace {session.get('session_id')}"
-    live_summary_command = f"./repo-python kernel.py --process-summary {request} --force"
+    live_summary_command = _process_summary_force_command(
+        request,
+        since_ts=since_ts,
+        session_limit=command_session_limit,
+    )
     return 0, {
         "kind": "kernel.navigate.process_summary",
         "schema_version": PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION,
@@ -4283,12 +5079,13 @@ def _build_process_summary_packet_from_models(
             "next_reads": list((sources.get("derived") if isinstance(sources, Mapping) else []) or []),
             "output_economy": {
                 "profile": "compact_owner_route",
-                "default_target_bytes": 20000,
+                "default_target_bytes": 16000,
                 "raw_bodies_omitted": True,
                 "default_authority": "metadata_counts_and_bounded_examples_only",
                 "omitted_fields": [
                     "session.spans",
                     "session.turns",
+                    "session.chronological_trace_outline.rows",
                     "audit.findings",
                     "audit.full_bottleneck_examples",
                     "summary_thought_trace.full_candidate_signals",
@@ -4323,6 +5120,73 @@ def _build_process_summary_packet_from_models(
     }
 
 
+def _missing_process_summary_status_packet(
+    *,
+    request: str,
+    sources: Mapping[str, Any],
+    source_freshness: Mapping[str, Any],
+    force_live_command: str,
+) -> dict[str, Any]:
+    return {
+        "kind": "kernel.navigate.process_summary",
+        "schema_version": PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION,
+        "query": {
+            "command": "process-summary",
+            "request": request,
+            "force_live": False,
+        },
+        "summary": {
+            "status": "missing_cached_summary",
+            "selected_session_id": None,
+            "selected_agent": None,
+            "session_available": False,
+            "authority": "status_only_no_live_rollout_parse",
+        },
+        "source_freshness": source_freshness,
+        "sources": dict(sources),
+        "payload": {
+            "status": "missing_cached_summary",
+            "reason": "Cached process summary read models are unavailable for this window.",
+            "output_economy": {
+                "profile": "compact_missing_read_model_status",
+                "default_authority": "freshness_receipt_and_pressure_safe_followups_only",
+                "raw_bodies_omitted": True,
+                "live_rollout_parse_started": False,
+                "omitted_fields": [
+                    "session.spans",
+                    "session.turns",
+                    "audit.findings",
+                    "audit.full_bottleneck_examples",
+                    "raw rollout bodies",
+                ],
+            },
+            "pressure_safe_fallbacks": [
+                "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git",
+                "./repo-python kernel.py --process-bottlenecks",
+            ],
+        },
+        "next": [
+            {
+                "command": "./repo-python kernel.py --latency-seed-digest --latency-seed-no-git",
+                "reason": "Use the pressure-safe latency digest when process read models are absent.",
+            },
+            {
+                "command": "./repo-python kernel.py --process-bottlenecks",
+                "reason": "Use the cached speedboard-backed bottleneck triage packet without live rollout parsing.",
+            },
+            {
+                "command": force_live_command,
+                "reason": "Force authoritative live rollout parsing only when the decision needs session-scoped detail.",
+            },
+            {
+                "command": PROCESS_TRACE_REFRESH_COMMAND,
+                "reason": "Refresh the cached process summary read model when host pressure allows.",
+            },
+        ],
+        "warnings": list(source_freshness.get("warnings") or []),
+    }
+
+
 def build_process_summary_route_packet(
     *,
     repo_root: Path = REPO_ROOT,
@@ -4337,6 +5201,13 @@ def build_process_summary_route_packet(
     sources = _process_trace_sources(repo_root)
     started = time.perf_counter()
     effective_session_limit = _effective_process_session_limit(repo_root, session_limit)
+    default_session_limit = _default_process_session_limit(repo_root)
+    command_session_limit = session_limit if session_limit is not None and session_limit != default_session_limit else None
+    force_live_command = _process_summary_force_command(
+        raw,
+        since_ts=since_ts,
+        session_limit=command_session_limit,
+    )
     if force_live:
         payload = build_agent_execution_trace(repo_root=repo_root, since_ts=since_ts, session_limit=effective_session_limit)
         source_freshness = {
@@ -4350,7 +5221,7 @@ def build_process_summary_route_packet(
             "dynamic_rollout_status": "revalidated_live_in_memory",
             "requested_window": {"since": since_ts, "session_limit": effective_session_limit},
             "refresh_command": PROCESS_TRACE_REFRESH_COMMAND,
-            "force_live_command": f"./repo-python kernel.py --process-summary {raw} --force",
+            "force_live_command": force_live_command,
             "warnings": [],
         }
         return _build_process_summary_packet_from_models(
@@ -4359,6 +5230,8 @@ def build_process_summary_route_packet(
             request=raw,
             sources=sources,
             source_freshness=source_freshness,
+            since_ts=since_ts,
+            command_session_limit=command_session_limit,
         )
 
     ledger, audit, _summary, source_freshness = _process_summary_cached_read_models(
@@ -4367,8 +5240,16 @@ def build_process_summary_route_packet(
         session_limit=effective_session_limit,
     )
     source_freshness["wall_ms"] = round((time.perf_counter() - started) * 1000.0, 3)
-    source_freshness["force_live_command"] = f"./repo-python kernel.py --process-summary {raw} --force"
+    source_freshness["force_live_command"] = force_live_command
     if ledger is None or audit is None:
+        status = str(source_freshness.get("status") or "")
+        if status.startswith("missing_or_malformed_"):
+            return 0, _missing_process_summary_status_packet(
+                request=raw,
+                sources=sources,
+                source_freshness=source_freshness,
+                force_live_command=force_live_command,
+            )
         return 1, {
             "kind": "kernel.navigate.process_summary",
             "schema_version": PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION,
@@ -4381,7 +5262,7 @@ def build_process_summary_route_packet(
             "error": "Cached process summary read model is unavailable for this window; rerun with --force for live rebuild or refresh the projection.",
             "next": [
                 {
-                    "command": f"./repo-python kernel.py --process-summary {raw} --force",
+                    "command": force_live_command,
                     "reason": "Force authoritative live rollout parsing for this request.",
                 },
                 {
@@ -4397,6 +5278,8 @@ def build_process_summary_route_packet(
         request=raw,
         sources=sources,
         source_freshness=source_freshness,
+        since_ts=since_ts,
+        command_session_limit=command_session_limit,
     )
 
 
@@ -4454,6 +5337,7 @@ def build_process_trace_route_packet(
         span_rows,
         session_id=session_id,
         selected_level=selected_level,
+        session=session,
     )
     compliance = session.get("route_compliance") if isinstance(session.get("route_compliance"), Mapping) else {}
     session_header = _summary_drop_none(
@@ -4484,10 +5368,12 @@ def build_process_trace_route_packet(
         include_raw_sidecar=include_raw_sidecar,
     )
     trace_tape = artifacts["trace.tape.txt"]["content"] if include_tape else None
+    closeout_summary = _trace_closeout_summary(span_rows, session=session_header)
     payload = _summary_drop_none(
         {
             "session": session_header,
             "trace_compactness": compactness,
+            "closeout": closeout_summary,
             "trace_tape": trace_tape,
             "artifacts": artifacts if include_tape or include_raw_sidecar or selected_level in {"audit", "raw"} else None,
             "output_economy": {
@@ -4526,8 +5412,12 @@ def build_process_trace_route_packet(
         },
         "next": [
             {
+                "command": f"./repo-python kernel.py --process-trace {session_id} --process-trace-level closeout",
+                "reason": "Show what this agent worked on, changed, validated, committed, and where exact closeout prose can be reopened.",
+            },
+            {
                 "command": f"./repo-python kernel.py --process-trace {session_id} --process-trace-level outline",
-                "reason": "Show final state, edits, validations, and commit only.",
+                "reason": "Show only final action counts and edit totals.",
             },
             {
                 "command": f"./repo-python kernel.py --process-trace {session_id} --process-trace-level tape+diff",
@@ -4549,6 +5439,7 @@ def load_process_bottleneck_summary_cache(
     *,
     repo_root: Path = REPO_ROOT,
     limit: int | None = None,
+    action_kinds: Iterable[str] | None = None,
 ) -> dict[str, Any]:
     """Read the materialized process bottleneck summary without parsing rollouts."""
     started = time.perf_counter()
@@ -4571,14 +5462,10 @@ def load_process_bottleneck_summary_cache(
         }
         for path in source_paths
     ]
-    projection_receipt = {
-        "path": rel(summary_path),
-        "exists": summary_path.exists(),
-        "sha256": _file_sha256(summary_path),
-        "mtime": _file_mtime_iso(summary_path),
-    }
-
-    summary = _safe_read_json(summary_path)
+    summary, projection_receipt = _safe_read_json_with_receipt(
+        summary_path,
+        repo_root=repo_root,
+    )
     status = "available"
     ok = True
     session_count = 0
@@ -4586,8 +5473,8 @@ def load_process_bottleneck_summary_cache(
         status = "missing_or_malformed_projection"
         ok = False
         warnings.append(
-            "Process summary projection is missing or malformed; use the cache-check command for cheap proof, "
-            "then materialize the read model when host pressure allows."
+            "Process summary projection is missing or malformed; this cached-summary probe is the cheap proof, "
+            "and materialization should wait until host pressure allows it."
         )
         summary = {}
     else:
@@ -4612,8 +5499,8 @@ def load_process_bottleneck_summary_cache(
             ok = False
             session_count = 0
             warnings.append(
-                "Process summary projection has an invalid shape; use the cache-check command for cheap proof, "
-                "then materialize the read model when host pressure allows."
+                "Process summary projection has an invalid shape; this cached-summary probe is the cheap proof, "
+                "and materialization should wait until host pressure allows it."
             )
             summary = {}
 
@@ -4637,14 +5524,70 @@ def load_process_bottleneck_summary_cache(
                 status = "stale_static_sources"
             warnings.append("Static trace rules or standard changed after the process summary projection.")
 
+    requested_action_kinds = []
+    seen_action_kinds: set[str] = set()
+    for raw_action_kind in action_kinds or []:
+        action_kind = str(raw_action_kind).strip()
+        if not action_kind or action_kind in seen_action_kinds:
+            continue
+        seen_action_kinds.add(action_kind)
+        requested_action_kinds.append(action_kind)
+
     row_limit = None
     if limit is not None and limit > 0:
         row_limit = int(limit)
-    rows = list(summary.get("top_bottlenecks") or [])
-    output_rows = list(summary.get("top_output_producers") or [])
+    source_rows = list(summary.get("top_bottlenecks") or [])
+    source_output_rows = list(summary.get("top_output_producers") or [])
+    rows = source_rows
+    output_rows = source_output_rows
+    if requested_action_kinds:
+        requested_set = set(requested_action_kinds)
+        rows = [
+            row
+            for row in source_rows
+            if isinstance(row, Mapping) and row.get("action_kind") in requested_set
+        ]
+        output_rows = [
+            row
+            for row in source_output_rows
+            if isinstance(row, Mapping) and row.get("action_kind") in requested_set
+        ]
     if row_limit is not None:
         rows = rows[:row_limit]
         output_rows = output_rows[:row_limit]
+    matched_action_kinds = sorted(
+        {
+            str(row.get("action_kind"))
+            for row in rows + output_rows
+            if isinstance(row, Mapping) and row.get("action_kind")
+        }
+    )
+    action_kind_filter = None
+    if requested_action_kinds:
+        action_kind_filter = {
+            "requested": requested_action_kinds,
+            "matched": matched_action_kinds,
+            "missing": [
+                action_kind
+                for action_kind in requested_action_kinds
+                if action_kind not in matched_action_kinds
+            ],
+            "source_top_bottleneck_count": len(source_rows),
+            "source_top_output_producer_count": len(source_output_rows),
+            "filtered_top_bottleneck_count": len(rows),
+            "filtered_top_output_producer_count": len(output_rows),
+        }
+
+    cache_check_command_parts = [
+        "./repo-python",
+        "tools/meta/factory/build_agent_execution_trace.py",
+        "--cached-summary",
+    ]
+    if row_limit is not None:
+        cache_check_command_parts.extend(["--limit", str(row_limit)])
+    for action_kind in requested_action_kinds:
+        cache_check_command_parts.extend(["--action-kind", action_kind])
+    cache_check_command = " ".join(cache_check_command_parts)
 
     static_source_hash = hashlib.sha256(
         json.dumps(source_receipts, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -4664,6 +5607,26 @@ def load_process_bottleneck_summary_cache(
             "state whether the cached read model can support bottleneck ranking."
         ),
     }
+    decision_authority = {
+        "schema_version": "process_bottleneck_summary_cache_decision_v0",
+        "status": "cached_summary_available" if ok else "read_model_missing_or_invalid",
+        "read_model_available": ok,
+        "read_model_status": status,
+        "safe_now": "cached_summary_read" if ok else "cache_probe_only",
+        "quote_loop_required": False,
+        "safe_first_command": cache_check_command,
+        "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+        "pressure_safe_fallback_command": PROCESS_TRACE_PRESSURE_SAFE_DIGEST_COMMAND,
+        "materialize_when_pressure_allows_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
+        "status_after_materialize_command": PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
+        "authoritative_decision_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
+        "reentry_condition": (
+            "Use this cached-summary probe as the terminal cheap read. If the read model is missing under "
+            "host pressure, stay on the no-git latency digest; after pressure clears, materialize the bounded "
+            "process summary, read bounded process bottlenecks, and force live only when current rankings are required."
+        ),
+        "privacy": PROCESS_METADATA_PRIVACY_BOUNDARY,
+    }
     return {
         "kind": "agent_execution_trace_cached_bottleneck_summary",
         "schema_version": CACHED_BOTTLENECK_SUMMARY_SCHEMA_VERSION,
@@ -4672,18 +5635,28 @@ def load_process_bottleneck_summary_cache(
         "probe_ok": True,
         "probe": probe,
         "status": status,
-        "query": {"limit": row_limit},
+        "decision_authority": decision_authority,
+        "query": {
+            "limit": row_limit,
+            **({"action_kinds": requested_action_kinds} if requested_action_kinds else {}),
+        },
         "summary": {
             "row_count": len(rows),
-            "source_row_count": len(summary.get("top_bottlenecks") or []),
+            "source_row_count": len(source_rows),
             "session_count": session_count,
             "wall_ms": elapsed_ms,
             "static_source_status": static_source_status,
             "dynamic_rollout_status": "not_revalidated_cached_projection_read",
+            **(
+                {"filtered_action_kind_count": len(matched_action_kinds)}
+                if requested_action_kinds
+                else {}
+            ),
         },
         "payload": {
             "top_bottlenecks": rows,
             "top_output_producers": output_rows,
+            **({"action_kind_filter": action_kind_filter} if action_kind_filter else {}),
             "source_summary": dict(summary.get("summary") or {}),
         },
         "source_hash_receipt": {
@@ -4699,9 +5672,10 @@ def load_process_bottleneck_summary_cache(
             "materialize_read_model_command": PROCESS_TRACE_MATERIALIZE_COMMAND,
             "bounded_materialize_read_model_command": PROCESS_TRACE_BOUNDED_MATERIALIZE_COMMAND,
             "bounded_status_command": PROCESS_BOTTLENECK_BOUNDED_STATUS_COMMAND,
-            "cache_check_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
-            "pressure_safe_first_command": PROCESS_TRACE_CACHE_CHECK_COMMAND,
+            "cache_check_command": cache_check_command,
+            "pressure_safe_first_command": cache_check_command,
             "host_pressure_check_command": PROCESS_TRACE_HOST_PRESSURE_CHECK_COMMAND,
+            "pressure_safe_fallback_command": PROCESS_TRACE_PRESSURE_SAFE_DIGEST_COMMAND,
             "status_kernel_command": "./repo-python kernel.py --process-bottlenecks",
             "live_kernel_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
             "force_live_kernel_command": PROCESS_BOTTLENECK_FORCE_LIVE_COMMAND,
@@ -4842,9 +5816,15 @@ def build_agent_execution_trace(
     thresholds = rules.get("slow_action_thresholds_ms") or {}
     for kind, durs in aggregate_durations.items():
         threshold = int(thresholds.get(kind) or thresholds.get("default") or 20000)
+        repair_hint_spans = list(aggregate_examples.get(kind) or [])
         example_spans = sorted(
-            aggregate_examples.get(kind) or [],
+            repair_hint_spans,
             key=lambda row: int(row.get("duration_ms") or 0),
+            reverse=True,
+        )[:3]
+        output_example_spans = sorted(
+            aggregate_examples.get(kind) or [],
+            key=lambda row: int(row.get("output_byte_count") or 0),
             reverse=True,
         )[:3]
         aggregate_bottlenecks[kind] = {
@@ -4859,7 +5839,10 @@ def build_agent_execution_trace(
             "max_output_bytes": max(aggregate_output_bytes.get(kind) or [0]),
             "p95_output_bytes": _percentile(aggregate_output_bytes.get(kind) or [0], 0.95),
             "example_spans": example_spans,
-            "repair_hints": _bottleneck_repair_hints(kind, example_spans),
+            "repair_hints": _bottleneck_repair_hints(kind, repair_hint_spans or example_spans),
+            "output_example_spans": output_example_spans,
+            "output_repair_hints": _bottleneck_repair_hints(kind, output_example_spans),
+            **_bottleneck_actionability(kind, example_spans),
         }
         if aggregate_bottlenecks[kind]["p95_ms"] > threshold:
             findings.append({
@@ -5053,7 +6036,7 @@ def build_agent_execution_trace(
                 {"action_kind": k, **v}
                 for k, v in aggregate_bottlenecks.items()
             ),
-            key=lambda row: row.get("p95_ms") or 0,
+            key=_bottleneck_summary_sort_key,
             reverse=True,
         )[: int(rules.get("bottleneck_top_n") or 10)],
         "top_output_producers": sorted(

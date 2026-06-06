@@ -109,6 +109,7 @@ NAV_METABOLISM_ROUTE = (
     "--metabolism-profile quick --context-budget 12000"
 )
 PHASE_TASK_ALIGNMENT_ROUTE = './repo-python kernel.py --phase <phase> --task "<task>"'
+HASH_CHUNK_SIZE = 1024 * 1024
 
 
 @dataclass(frozen=True)
@@ -486,6 +487,59 @@ def _stable_digest(payload: object) -> str:
     return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _repo_root_from_target() -> Path | None:
+    for candidate in Path(__file__).resolve(strict=False).parents:
+        if (candidate / SOURCE_REFS[0]).is_file():
+            return candidate
+    return None
+
+
+def _body_import_verification() -> dict[str, Any]:
+    target_path = Path(__file__).resolve(strict=False)
+    repo_root = _repo_root_from_target()
+    source_path = repo_root / SOURCE_REFS[0] if repo_root else None
+    source_digest = (
+        _file_sha256(source_path)
+        if source_path is not None and source_path.is_file()
+        else ""
+    )
+    target_digest = _file_sha256(target_path) if target_path.is_file() else ""
+    return {
+        "verification_status": (
+            "verified" if source_digest and target_digest else "target_available"
+        ),
+        "verification_mode": "verified_light_edit_recipe",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "source_ref": SOURCE_REFS[0],
+        "target_ref": TARGET_REF,
+        "source_body_digest": source_digest or None,
+        "target_body_digest": target_digest or None,
+        "rewrite_recipe_ref": (
+            "copy RouteRepairSuggestion, route_repair_for, build_hook_shadow_coverage, "
+            "and suggestion_message; add public bundle loader and metadata-only view builder"
+        ),
+        "source_symbol_refs": SOURCE_SYMBOL_REFS,
+        "target_symbol_refs": TARGET_SYMBOL_REFS,
+        "runtime_consumed_by": [
+            "microcosm agent-route-observability-runtime "
+            "validate-agent-trace-route-repair-bundle --input "
+            "examples/agent_route_observability_runtime/"
+            "exported_agent_trace_route_repair_bundle",
+            "microcosm-substrate/tests/test_agent_route_observability_runtime.py::"
+            "test_agent_trace_route_repair_body_verification_reports_source_and_target_digests",
+        ],
+        "body_in_receipt": False,
+    }
+
+
 def _bundle_finding(
     error_code: str,
     message: str,
@@ -662,22 +716,7 @@ def build_public_agent_trace_route_repair_view(
         "target_refs": _strings(manifest.get("target_refs")) or TARGET_REFS,
         "source_symbols": SOURCE_SYMBOL_REFS,
         "target_symbols": TARGET_SYMBOL_REFS,
-        "body_import_verification": {
-            "verification_mode": "verified_light_edit_recipe",
-            "verification_status": "verified",
-            "source_ref": "system/lib/navigation_route_intervention.py",
-            "target_ref": TARGET_REF,
-            "rewrite_recipe_ref": (
-                "copy RouteRepairSuggestion, route_repair_for, build_hook_shadow_coverage, "
-                "and suggestion_message; add public bundle loader and metadata-only view builder"
-            ),
-            "source_symbol_refs": SOURCE_SYMBOL_REFS,
-            "target_symbol_refs": TARGET_SYMBOL_REFS,
-            "runtime_consumed_by": [
-                "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle",
-                "microcosm-substrate/tests/test_agent_route_observability_runtime.py",
-            ],
-        },
+        "body_import_verification": _body_import_verification(),
         "hook_shadow_coverage": hook_shadow,
         "route_repair_rows": route_rows,
         "route_repair_summary": actual_summary,

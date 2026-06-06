@@ -1,0 +1,407 @@
+{
+  "account_session_state_exported": false,
+  "anti_claim": "Harness-configuration replay validates copied public macro source bodies and synthetic settings/hooks/skill-registry drift snapshots. It does not read live local settings, export hook or skill bodies, install hooks, mutate source, prove hidden agent behavior quality, claim private-root equivalence, or authorize release.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_harness_configuration_metadata_not_live_settings_authority",
+    "browser_hud_cockpit_state_read": false,
+    "credential_or_cookie_exported": false,
+    "live_hook_install_authorized": false,
+    "live_local_settings_read": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_hook_body_exported": false,
+    "raw_settings_body_exported": false,
+    "raw_skill_body_exported": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "source_body_digests": [
+      "sha256:ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+      "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28"
+    ],
+    "source_refs": [
+      "codex/standards/std_agent_entrypoint_audit.json",
+      "tools/meta/audit/harness_audit.py"
+    ],
+    "source_to_target_relation": "exact_copy",
+    "target_body_digests": [
+      "sha256:ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+      "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py"
+    ],
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "pass"
+  },
+  "bundle_fingerprint": "366408217f6ca149bb7db3d92e9f4e1c9d75e8991c1531fe372be9ea3bace6aa",
+  "bundle_id": "public_agent_harness_configuration_audit_runtime_example",
+  "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_harness_configuration_audit_bundle_v1",
+  "clean_snapshot_count": 1,
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-harness-configuration-bundle --input examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle --out receipts/first_wave/agent_route_observability_runtime",
+  "copied_macro_source_count": 2,
+  "created_at": "2026-05-30T20:48:20+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "exact_source_body_import": {
+    "body_in_receipt": false,
+    "source_body_digests": [
+      "sha256:ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+      "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28"
+    ],
+    "source_refs": [
+      "codex/standards/std_agent_entrypoint_audit.json",
+      "tools/meta/audit/harness_audit.py"
+    ],
+    "source_to_target_relation": "exact_copy",
+    "target_body_digests": [
+      "sha256:ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+      "sha256:f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py"
+    ],
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "pass"
+  },
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "actual_summary": {
+      "clean_snapshot_count": 1,
+      "code_counts": {
+        "INVALID_SKILL_TYPE": 1,
+        "MISSING_STOP_HOOK_TIMEOUT": 1
+      },
+      "finding_count": 2,
+      "quarantined_snapshot_count": 1,
+      "severity_counts": {
+        "error": 1,
+        "warning": 1
+      },
+      "snapshot_count": 3
+    },
+    "body_in_receipt": false,
+    "expected_summary": {
+      "clean_snapshot_count": 1,
+      "code_counts": {
+        "INVALID_SKILL_TYPE": 1,
+        "MISSING_STOP_HOOK_TIMEOUT": 1
+      },
+      "finding_count": 2,
+      "quarantined_snapshot_count": 1,
+      "severity_counts": {
+        "error": 1,
+        "warning": 1
+      },
+      "snapshot_count": 3
+    },
+    "finding_codes": [
+      "INVALID_SKILL_TYPE",
+      "MISSING_STOP_HOOK_TIMEOUT"
+    ],
+    "findings": [],
+    "status": "pass"
+  },
+  "finding_count": 2,
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "harness_input_validation": {
+    "body_in_receipt": false,
+    "clean_snapshot_ids": [
+      "clean_public_harness"
+    ],
+    "finding_codes": [
+      "INVALID_SKILL_TYPE",
+      "MISSING_STOP_HOOK_TIMEOUT"
+    ],
+    "findings": [],
+    "forbidden_payload_keys": [],
+    "metadata_envelope_only": true,
+    "public_snapshot_rows": [
+      {
+        "body_in_receipt": false,
+        "expected_status": "pass",
+        "finding_codes": [],
+        "finding_count": 0,
+        "live_local_settings_read": false,
+        "metadata_only": true,
+        "quarantined": false,
+        "raw_hook_body_exported": false,
+        "raw_settings_body_exported": false,
+        "raw_skill_body_exported": false,
+        "snapshot_id": "clean_public_harness",
+        "surface_count": 3
+      },
+      {
+        "body_in_receipt": false,
+        "expected_status": "warning",
+        "finding_codes": [
+          "MISSING_STOP_HOOK_TIMEOUT"
+        ],
+        "finding_count": 1,
+        "live_local_settings_read": false,
+        "metadata_only": true,
+        "quarantined": false,
+        "raw_hook_body_exported": false,
+        "raw_settings_body_exported": false,
+        "raw_skill_body_exported": false,
+        "snapshot_id": "missing_stop_hook_timeout",
+        "surface_count": 3
+      },
+      {
+        "body_in_receipt": false,
+        "expected_status": "quarantine",
+        "finding_codes": [
+          "INVALID_SKILL_TYPE"
+        ],
+        "finding_count": 1,
+        "live_local_settings_read": false,
+        "metadata_only": true,
+        "quarantined": true,
+        "raw_hook_body_exported": false,
+        "raw_settings_body_exported": false,
+        "raw_skill_body_exported": false,
+        "snapshot_id": "skill_registry_type_drift",
+        "surface_count": 3
+      }
+    ],
+    "quarantined_snapshot_ids": [
+      "skill_registry_type_drift"
+    ],
+    "snapshot_count": 3,
+    "status": "pass",
+    "summary": {
+      "clean_snapshot_count": 1,
+      "code_counts": {
+        "INVALID_SKILL_TYPE": 1,
+        "MISSING_STOP_HOOK_TIMEOUT": 1
+      },
+      "finding_count": 2,
+      "quarantined_snapshot_count": 1,
+      "severity_counts": {
+        "error": 1,
+        "warning": 1
+      },
+      "snapshot_count": 3
+    }
+  },
+  "harness_policy": {
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "inspected_surfaces": [
+      "hooks",
+      "paper_modules",
+      "settings",
+      "skill_registry",
+      "standards"
+    ],
+    "metadata_envelope_only": true,
+    "policy_id": "public_harness_configuration_metadata_policy",
+    "status": "pass"
+  },
+  "input_mode": "exported_harness_configuration_audit_bundle",
+  "live_hook_install_authorized": false,
+  "live_local_settings_read": false,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 7,
+    "status": "pass"
+  },
+  "provider_payload_exported": false,
+  "quarantined_snapshot_count": 1,
+  "raw_hook_body_exported": false,
+  "raw_settings_body_exported": false,
+  "raw_skill_body_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_harness_configuration_audit_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/first_wave/agent_route_observability_runtime/exported_harness_configuration_audit_bundle_validation_result.json"
+  ],
+  "schema_version": "agent_route_observability_runtime_exported_harness_configuration_audit_bundle_validation_v1",
+  "snapshot_count": 3,
+  "snapshot_rows": [
+    {
+      "body_in_receipt": false,
+      "expected_status": "pass",
+      "finding_codes": [],
+      "finding_count": 0,
+      "live_local_settings_read": false,
+      "metadata_only": true,
+      "quarantined": false,
+      "raw_hook_body_exported": false,
+      "raw_settings_body_exported": false,
+      "raw_skill_body_exported": false,
+      "snapshot_id": "clean_public_harness",
+      "surface_count": 3
+    },
+    {
+      "body_in_receipt": false,
+      "expected_status": "warning",
+      "finding_codes": [
+        "MISSING_STOP_HOOK_TIMEOUT"
+      ],
+      "finding_count": 1,
+      "live_local_settings_read": false,
+      "metadata_only": true,
+      "quarantined": false,
+      "raw_hook_body_exported": false,
+      "raw_settings_body_exported": false,
+      "raw_skill_body_exported": false,
+      "snapshot_id": "missing_stop_hook_timeout",
+      "surface_count": 3
+    },
+    {
+      "body_in_receipt": false,
+      "expected_status": "quarantine",
+      "finding_codes": [
+        "INVALID_SKILL_TYPE"
+      ],
+      "finding_count": 1,
+      "live_local_settings_read": false,
+      "metadata_only": true,
+      "quarantined": true,
+      "raw_hook_body_exported": false,
+      "raw_settings_body_exported": false,
+      "raw_skill_body_exported": false,
+      "snapshot_id": "skill_registry_type_drift",
+      "surface_count": 3
+    }
+  ],
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "body_in_receipt": false,
+    "copied_macro_source_count": 2,
+    "findings": [],
+    "module_count": 2,
+    "observed_modules": [
+      {
+        "body_in_receipt": false,
+        "line_count": 179,
+        "material_class": "public_standard_body",
+        "path": "source_modules/codex/standards/std_agent_entrypoint_audit.json",
+        "sha256": "ca47a2948e219eeeedb616c118269555f9784c7f5b6fb490ca01eb68c25ec7c4",
+        "source_ref": "codex/standards/std_agent_entrypoint_audit.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json"
+      },
+      {
+        "body_in_receipt": false,
+        "line_count": 779,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/audit/harness_audit.py",
+        "sha256": "f59977964ee60530abb41e821738fe545ee19d3d2c4d660a9ea011eb7edd5f28",
+        "source_ref": "tools/meta/audit/harness_audit.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py"
+      }
+    ],
+    "required_module_count": 2,
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "source_mutation_authorized": false,
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_harness_configuration_audit",
+    "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "tools/meta/audit/harness_audit.py",
+    "codex/standards/std_agent_entrypoint_audit.json",
+    "codex/doctrine/paper_modules/agent_harness_configuration_audit.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_harness_configuration_audit"
+  ],
+  "status": "pass",
+  "summary": {
+    "clean_snapshot_count": 1,
+    "code_counts": {
+      "INVALID_SKILL_TYPE": 1,
+      "MISSING_STOP_HOOK_TIMEOUT": 1
+    },
+    "finding_count": 2,
+    "quarantined_snapshot_count": 1,
+    "severity_counts": {
+      "error": 1,
+      "warning": 1
+    },
+    "snapshot_count": 3
+  },
+  "target_refs": [
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/tools/meta/audit/harness_audit.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle/source_modules/codex/standards/std_agent_entrypoint_audit.json",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::run_harness_configuration_audit_bundle",
+    "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_harness_configuration_audit_bundle_validation_result.json"
+  ],
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+      "source_pattern_id": "agent_principle_lens",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+      "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+      "source_pattern_id": "egress_compliance_stop_hook_mirror",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}

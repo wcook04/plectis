@@ -1,0 +1,27 @@
+{
+  "body_in_receipt": false,
+  "case_id": "trace_omission_receipt_required",
+  "claim": "Dropped trace bytes must appear in a machine-readable omission receipt.",
+  "computed_path": "trace_budget_omission_receipt_emitted",
+  "error_codes": [
+    "BATCH5_TRACE_OMISSION_RECEIPT_REQUIRED"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "agent_trace_tape_compactor",
+  "probe_input": {
+    "max_chars": 120,
+    "spans": [
+      {
+        "text": "span 1: command, status, and timing metadata for a long public-safe agent trace"
+      },
+      {
+        "text": "span 2: repeated trace row that should be compacted behind a pointer when budget is tight"
+      },
+      {
+        "text": "span 3: final status must remain represented through an omission receipt"
+      }
+    ]
+  },
+  "schema_version": "batch5_authority_systems_capsule_negative_probe_v1",
+  "verdict_authority": "computed_by_batch5_authority_systems_capsule_exercise_probe"
+}

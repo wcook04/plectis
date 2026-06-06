@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "digest_loses_directive",
+  "error_codes": [
+    "BATCH8_PIPELINE_DIGEST_DIRECTIVE_REQUIRED"
+  ],
+  "schema_version": "batch8_compliance_pipeline_negative_case_v1"
+}

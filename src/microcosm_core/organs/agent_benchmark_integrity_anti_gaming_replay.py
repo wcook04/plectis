@@ -46,6 +46,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "source_refs",
     "projection_receipt_refs",
     "public_regression_fixture_refs",
+    "locked_evaluator_config_hashes",
     "benchmark_cases",
     "replay_rows",
 )
@@ -59,7 +60,16 @@ SOURCE_MODULE_MANIFEST_REF = (
 )
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_BODY_STATUS = "copied_non_secret_macro_body_with_provenance"
-PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {"public_macro_pattern_body"}
+REAL_BENCHMARK_TRACE_MATERIAL_CLASS = "public_sanitized_real_benchmark_trace"
+REAL_TRACE_REQUIRED_TRACE_ROLE = "real_benchmark_integrity_fixture_gate"
+REAL_TRACE_REQUIRED_SCOPE_PATH = (
+    "microcosm-substrate/tests/"
+    "test_agent_benchmark_integrity_anti_gaming_replay.py"
+)
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_pattern_body",
+    REAL_BENCHMARK_TRACE_MATERIAL_CLASS,
+}
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -70,6 +80,7 @@ INPUT_NAMES = (
 NEGATIVE_INPUT_NAMES = (
     "evaluator_edit_attempt.json",
     "train_test_leakage.json",
+    "real_trace_train_test_leakage.json",
     "oracle_patch_body_leakage.json",
     "hidden_gold_access.json",
     "final_answer_only_grading.json",
@@ -84,6 +95,7 @@ NEGATIVE_INPUT_NAMES = (
 EXPECTED_NEGATIVE_CASES = {
     "evaluator_edit_attempt": ["BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN"],
     "train_test_leakage": ["BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"],
+    "real_trace_train_test_leakage": ["BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"],
     "oracle_patch_body_leakage": ["BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN"],
     "hidden_gold_access": ["BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS"],
     "final_answer_only_grading": ["BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING"],
@@ -103,8 +115,16 @@ REQUIRED_REPLAY_FIELDS = (
     "contamination_check_ref",
     "trusted_reference_score_ref",
     "output_replay_ref",
+    "real_benchmark_trace_ref",
     "integrity_verdict",
 )
+ALLOWED_INTEGRITY_VERDICTS = ("integrity_pass", "quarantine")
+EVIDENCE_REF_FIELDS = {
+    "file_access_log_ref": "file_access_log",
+    "contamination_check_ref": "contamination_check",
+    "trusted_reference_score_ref": "trusted_reference_score",
+    "output_replay_ref": "output_replay",
+}
 FORBIDDEN_BODY_KEYS = (
     "private_issue_body",
     "oracle_patch_body",
@@ -169,6 +189,21 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
+    rows = policy if isinstance(policy, dict) else {}
+    raw = rows.get("locked_evaluator_config_hashes", {})
+    if not isinstance(raw, dict):
+        return {}
+
+    config_hashes: dict[str, list[str]] = {}
+    for evaluator_id, value in raw.items():
+        hashes = [value] if isinstance(value, str) else _strings(value)
+        cleaned = sorted({item for item in hashes if item})
+        if cleaned:
+            config_hashes[str(evaluator_id)] = cleaned
+    return dict(sorted(config_hashes.items()))
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -185,6 +220,20 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _validator_source_digests() -> dict[str, str]:
+    organ_path = Path(__file__).resolve(strict=False)
+    trace_path = organ_path.parents[1] / "macro_tools" / "agent_execution_trace.py"
+    paths = {
+        "organ_validator": organ_path,
+        "public_trace_builder": trace_path,
+    }
+    return {
+        key: _sha256(path)
+        for key, path in paths.items()
+        if path.is_file()
+    }
 
 
 def _source_module_manifest_path(input_dir: Path, *, public_root: Path) -> Path:
@@ -225,12 +274,64 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     return paths
 
 
+def _fallback_bundle_root(public_root: Path) -> Path:
+    return (
+        public_root
+        / "examples/agent_benchmark_integrity_anti_gaming_replay/"
+        "exported_benchmark_integrity_bundle"
+    )
+
+
+def _resolve_public_ref(
+    ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path | None:
+    if not ref or ref.startswith("/") or ".." in Path(ref).parts:
+        return None
+    stripped = _strip_microcosm_prefix(ref)
+    for root in (input_dir, _fallback_bundle_root(public_root), public_root):
+        candidate = root / stripped
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    replay_path = input_dir / "replay_observations.json"
+    if not replay_path.is_file():
+        return []
+    try:
+        observations = read_json_strict(replay_path)
+    except (OSError, TypeError, ValueError):
+        return []
+
+    paths: list[Path] = []
+    seen: set[Path] = set()
+    for row in _rows(observations, "replay_observations"):
+        for ref_field in EVIDENCE_REF_FIELDS:
+            path = _resolve_public_ref(
+                str(row.get(ref_field) or ""),
+                input_dir=input_dir,
+                public_root=public_root,
+            )
+            if path is None:
+                continue
+            key = path.resolve(strict=False)
+            if key not in seen:
+                seen.add(key)
+                paths.append(path)
+    return paths
+
+
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
         *_input_paths(source, include_negative=include_negative),
         *_source_artifact_paths(source, public_root=public_root),
+        *_evidence_artifact_paths(source, public_root=public_root),
     ]
 
 
@@ -272,6 +373,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
                 "include_negative": include_negative,
                 "inputs": rows,
                 "missing_inputs": missing,
+                "validator_source_digests": _validator_source_digests(),
                 "validator_schema_version": validator_schema_version,
             },
             sort_keys=True,
@@ -286,6 +388,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
         "include_negative": include_negative,
         "input_count": len(rows),
         "missing_path_count": len(missing),
+        "validator_source_digests": _validator_source_digests(),
         "validator_schema_version": validator_schema_version,
         "inputs": rows,
         "missing_inputs": missing,
@@ -348,6 +451,7 @@ def validate_source_module_imports(
             "source_module_manifest_ref": manifest_ref,
             "module_count": 0,
             "copied_source_artifact_count": 0,
+            "body_text_in_receipt": False,
             "modules": [],
             "findings": findings,
             "observed_negative_cases": {},
@@ -369,6 +473,16 @@ def validate_source_module_imports(
             _finding(
                 "BENCHMARK_INTEGRITY_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
                 "Copied macro pattern bodies may live in source_artifacts, not in receipts.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_text_in_receipt") is True:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_SOURCE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                "Source module manifests must not export copied body text in receipts.",
                 case_id="source_module_manifest_floor",
                 subject_id=manifest_ref,
                 subject_kind="source_module_manifest",
@@ -413,6 +527,16 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        if row.get("body_text_in_receipt") is True:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_SOURCE_MODULE_BODY_TEXT_IN_RECEIPT_FORBIDDEN",
+                    "Source module rows must not export copied body text in receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
         if relation not in {"exact_copy", "source_faithful_json_slice"}:
             findings.append(
                 _finding(
@@ -445,6 +569,31 @@ def validate_source_module_imports(
                     subject_kind="source_module",
                 )
             )
+        content_findings: list[dict[str, Any]] = []
+        real_trace_evidence: dict[str, Any] | None = None
+        if material_class == REAL_BENCHMARK_TRACE_MATERIAL_CLASS:
+            try:
+                real_trace_payload = read_json_strict(target_path)
+            except (OSError, TypeError, ValueError):
+                content_findings.append(
+                    _finding(
+                        "BENCHMARK_INTEGRITY_REAL_TRACE_ARTIFACT_UNREADABLE",
+                        "Copied real benchmark trace artifacts must be readable JSON.",
+                        case_id="source_module_real_trace_floor",
+                        subject_id=target_ref or module_id or "real_benchmark_trace_artifact",
+                        subject_kind="real_benchmark_trace_artifact",
+                    )
+                )
+            else:
+                real_trace_evidence = _real_trace_evidence_summary(real_trace_payload)
+                content_findings.extend(
+                    _real_trace_artifact_findings(
+                        real_trace_payload,
+                        module_id=module_id,
+                        target_ref=target_ref,
+                    )
+                )
+            findings.extend(content_findings)
         modules.append(
             {
                 "module_id": module_id,
@@ -455,7 +604,14 @@ def validate_source_module_imports(
                 "actual_sha256": actual_digest,
                 "line_count": row.get("line_count"),
                 "source_to_target_relation": relation,
+                "real_trace_artifact_status": (
+                    "blocked" if content_findings else PASS
+                )
+                if material_class == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
+                else None,
+                "real_session_evidence": real_trace_evidence,
                 "body_in_receipt": False,
+                "body_text_in_receipt": False,
             }
         )
 
@@ -464,6 +620,7 @@ def validate_source_module_imports(
         "source_module_manifest_ref": manifest_ref,
         "module_count": len(modules),
         "copied_source_artifact_count": len(modules),
+        "body_text_in_receipt": False,
         "modules": sorted(modules, key=lambda row: row["module_id"]),
         "findings": findings,
         "observed_negative_cases": {},
@@ -493,6 +650,493 @@ def _finding(
         "subject_kind": subject_kind,
         "body_in_receipt": False,
     }
+
+
+def _real_trace_artifact_findings(
+    payload: object,
+    *,
+    module_id: str,
+    target_ref: str,
+) -> list[dict[str, Any]]:
+    trace = payload if isinstance(payload, dict) else {}
+    subject_id = target_ref or module_id or "real_benchmark_trace_artifact"
+    findings: list[dict[str, Any]] = []
+
+    if trace.get("schema_version") != "public_sanitized_real_benchmark_trace_v1":
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_SCHEMA_MISMATCH",
+                "Copied real benchmark trace artifacts must use the public sanitized command-run trace schema.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    if trace.get("material_class") != REAL_BENCHMARK_TRACE_MATERIAL_CLASS:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_MATERIAL_CLASS_MISMATCH",
+                "Copied real benchmark trace artifacts must self-declare public_sanitized_real_benchmark_trace material.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    if trace.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_BODY_RECEIPT_OVERCLAIM",
+                "Copied real benchmark traces must keep body_in_receipt=false.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    if trace.get("status") != "completed" or trace.get("exit_code") != 0:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_COMMAND_RUN_NOT_PASSING",
+                "Copied real benchmark traces must come from a completed passing command run.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    if trace.get("trace_role") != REAL_TRACE_REQUIRED_TRACE_ROLE:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_ROLE_MISMATCH",
+                "Copied real benchmark traces must carry the benchmark-integrity fixture-gate trace role.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+
+    argv_shape = _strings(trace.get("argv_shape"))
+    if (
+        "pytest" not in argv_shape
+        or "-p" not in argv_shape
+        or "no:cacheprovider" not in argv_shape
+        or REAL_TRACE_REQUIRED_SCOPE_PATH not in argv_shape
+    ):
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_ARGV_SHAPE_INVALID",
+                "Copied real benchmark traces must bind to the focused pytest command for this organ test without cacheprovider state.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    if REAL_TRACE_REQUIRED_SCOPE_PATH not in _strings(trace.get("scope_paths")):
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_SCOPE_MISMATCH",
+                "Copied real benchmark traces must include the focused organ test path in scope_paths.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+
+    pytest_summary = trace.get("pytest_summary")
+    pytest_rows = pytest_summary if isinstance(pytest_summary, dict) else {}
+    if int(pytest_rows.get("passed") or 0) <= 0 or int(pytest_rows.get("failed") or 0) != 0:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_PYTEST_SUMMARY_INVALID",
+                "Copied real benchmark traces must carry a passing focused pytest summary.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+
+    required_text_fields = (
+        "real_episode_id",
+        "run_id",
+        "command_run_metadata_sha256",
+        "stdout_sha256",
+        "stderr_sha256",
+    )
+    if any(not str(trace.get(field) or "") for field in required_text_fields):
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_REQUIRED_FIELD_MISSING",
+                "Copied real benchmark traces must bind run ids and command-output digests.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+
+    for digest_field in (
+        "command_run_metadata_sha256",
+        "stdout_sha256",
+        "stderr_sha256",
+    ):
+        digest = str(trace.get(digest_field) or "")
+        if digest and not digest.startswith("sha256:"):
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_REAL_TRACE_DIGEST_INVALID",
+                    "Copied real benchmark trace digest fields must be sha256 refs.",
+                    case_id="source_module_real_trace_floor",
+                    subject_id=f"{subject_id}:{digest_field}",
+                    subject_kind="real_benchmark_trace_artifact",
+                )
+            )
+
+    source_refs = _strings(trace.get("source_material_refs"))
+    if not source_refs or any(
+        not ref.startswith("state/command_runs/") for ref in source_refs
+    ):
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_SOURCE_MATERIAL_REFS_INVALID",
+                "Copied real benchmark traces must cite public-safe command-run source material refs.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    run_id = str(trace.get("run_id") or "")
+    if run_id:
+        expected_source_refs = {
+            f"state/command_runs/runs/{run_id}.json",
+            f"state/command_runs/outputs/{run_id}.stdout",
+            f"state/command_runs/outputs/{run_id}.stderr",
+        }
+        if not expected_source_refs.issubset(set(source_refs)):
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_REAL_TRACE_RUN_ID_SOURCE_REF_MISMATCH",
+                    "Copied real benchmark traces must bind source_material_refs to the declared command run id.",
+                    case_id="source_module_real_trace_floor",
+                    subject_id=subject_id,
+                    subject_kind="real_benchmark_trace_artifact",
+                )
+            )
+    real_episode_id = str(trace.get("real_episode_id") or "")
+    if run_id and real_episode_id and run_id not in real_episode_id:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_EPISODE_RUN_ID_MISMATCH",
+                "Copied real benchmark traces must bind real_episode_id to the declared command run id.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+
+    omitted = set(_strings(trace.get("omitted_live_material")))
+    required_omissions = {
+        "raw provider payloads",
+        "credentials and cookies",
+        "private issue bodies",
+        "oracle patch bodies",
+    }
+    if not required_omissions.issubset(omitted):
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_REAL_TRACE_PUBLIC_BOUNDARY_INCOMPLETE",
+                "Copied real benchmark traces must declare public-safe omissions for private/live material.",
+                case_id="source_module_real_trace_floor",
+                subject_id=subject_id,
+                subject_kind="real_benchmark_trace_artifact",
+            )
+        )
+    return findings
+
+
+def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
+    trace = payload if isinstance(payload, dict) else {}
+    pytest_summary = trace.get("pytest_summary")
+    pytest_rows = pytest_summary if isinstance(pytest_summary, dict) else {}
+    source_refs = _strings(trace.get("source_material_refs"))
+    run_id = str(trace.get("run_id") or "")
+    expected_source_refs = {
+        f"state/command_runs/runs/{run_id}.json",
+        f"state/command_runs/outputs/{run_id}.stdout",
+        f"state/command_runs/outputs/{run_id}.stderr",
+    } if run_id else set()
+    digest_fields = (
+        "command_run_metadata_sha256",
+        "stdout_sha256",
+        "stderr_sha256",
+    )
+    return {
+        "schema_version": "agent_benchmark_integrity_real_session_evidence_v1",
+        "material_class": str(trace.get("material_class") or ""),
+        "trace_role": str(trace.get("trace_role") or ""),
+        "run_id": run_id,
+        "real_episode_id": str(trace.get("real_episode_id") or ""),
+        "status": str(trace.get("status") or ""),
+        "exit_code": trace.get("exit_code"),
+        "command_passed": trace.get("status") == "completed"
+        and trace.get("exit_code") == 0,
+        "pytest_passed": int(pytest_rows.get("passed") or 0) > 0
+        and int(pytest_rows.get("failed") or 0) == 0,
+        "focused_scope_bound": REAL_TRACE_REQUIRED_SCOPE_PATH
+        in _strings(trace.get("scope_paths")),
+        "source_material_refs_bound_to_run_id": bool(expected_source_refs)
+        and expected_source_refs.issubset(set(source_refs)),
+        "real_episode_bound_to_run_id": bool(run_id)
+        and run_id in str(trace.get("real_episode_id") or ""),
+        "required_digest_fields_present": all(
+            str(trace.get(field) or "") for field in digest_fields
+        ),
+        "digest_fields_are_sha256": all(
+            str(trace.get(field) or "").startswith("sha256:")
+            for field in digest_fields
+        ),
+        "public_boundary_declared": {
+            "raw provider payloads",
+            "credentials and cookies",
+            "private issue bodies",
+            "oracle patch bodies",
+        }.issubset(set(_strings(trace.get("omitted_live_material")))),
+        "body_in_receipt": False,
+    }
+
+
+def _real_trace_evidence_passes(evidence: dict[str, Any]) -> bool:
+    return (
+        evidence.get("material_class") == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
+        and evidence.get("trace_role") == REAL_TRACE_REQUIRED_TRACE_ROLE
+        and evidence.get("command_passed") is True
+        and evidence.get("pytest_passed") is True
+        and evidence.get("focused_scope_bound") is True
+        and evidence.get("source_material_refs_bound_to_run_id") is True
+        and evidence.get("real_episode_bound_to_run_id") is True
+        and evidence.get("required_digest_fields_present") is True
+        and evidence.get("digest_fields_are_sha256") is True
+        and evidence.get("public_boundary_declared") is True
+        and evidence.get("body_in_receipt") is False
+    )
+
+
+def _replay_real_session_evidence(
+    row: dict[str, Any],
+    *,
+    real_trace_ref: str,
+    real_trace_verified: bool,
+    real_trace_artifact_status: str,
+    real_trace_evidence_by_ref: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    evidence = real_trace_evidence_by_ref.get(real_trace_ref, {})
+    evidence_passes = _real_trace_evidence_passes(evidence)
+    packet = {
+        "schema_version": "agent_benchmark_integrity_replay_real_session_evidence_v1",
+        "evidence_source": "manifest_verified_public_sanitized_real_benchmark_trace",
+        "real_benchmark_trace_ref": real_trace_ref,
+        "real_benchmark_trace_verified": real_trace_verified,
+        "real_benchmark_trace_artifact_status": real_trace_artifact_status,
+        "trace_run_id": evidence.get("run_id"),
+        "trace_role": evidence.get("trace_role"),
+        "command_passed": evidence.get("command_passed") is True,
+        "pytest_passed": evidence.get("pytest_passed") is True,
+        "focused_scope_bound": evidence.get("focused_scope_bound") is True,
+        "source_material_refs_bound_to_run_id": evidence.get(
+            "source_material_refs_bound_to_run_id"
+        )
+        is True,
+        "real_episode_bound_to_run_id": evidence.get("real_episode_bound_to_run_id")
+        is True,
+        "public_boundary_declared": evidence.get("public_boundary_declared") is True,
+        "file_access_log_ref": row.get("file_access_log_ref"),
+        "contamination_check_ref": row.get("contamination_check_ref"),
+        "trusted_reference_score_ref": row.get("trusted_reference_score_ref"),
+        "file_access_backed_by_real_session": bool(row.get("file_access_log_ref"))
+        and evidence_passes,
+        "contamination_backed_by_real_session": bool(row.get("contamination_check_ref"))
+        and evidence_passes,
+        "trusted_reference_backed_by_real_session": bool(
+            row.get("trusted_reference_score_ref")
+        )
+        and evidence_passes,
+        "body_in_receipt": False,
+    }
+    packet["session_evidence_passes"] = (
+        packet["real_benchmark_trace_verified"] is True
+        and packet["file_access_backed_by_real_session"] is True
+        and packet["contamination_backed_by_real_session"] is True
+        and packet["trusted_reference_backed_by_real_session"] is True
+    )
+    return packet
+
+
+def _evidence_finding(
+    findings: list[dict[str, Any]],
+    code: str,
+    message: str,
+    *,
+    replay_id: str,
+    ref: str,
+) -> None:
+    findings.append(
+        _finding(
+            code,
+            message,
+            case_id="parsed_evidence_artifact_floor",
+            subject_id=ref or replay_id,
+            subject_kind="benchmark_integrity_evidence_artifact",
+        )
+    )
+
+
+def _load_evidence_artifact(
+    row: dict[str, Any],
+    *,
+    ref_field: str,
+    replay_id: str,
+    case_id: str,
+    evaluator_id: str,
+    evaluator_config_hash: str,
+    input_dir: Path,
+    public_root: Path,
+    findings: list[dict[str, Any]],
+) -> tuple[dict[str, Any], bool]:
+    ref = str(row.get(ref_field) or "")
+    expected_kind = EVIDENCE_REF_FIELDS[ref_field]
+    path = _resolve_public_ref(ref, input_dir=input_dir, public_root=public_root)
+    if path is None:
+        _evidence_finding(
+            findings,
+            "BENCHMARK_INTEGRITY_EVIDENCE_ARTIFACT_MISSING",
+            "Replay evidence refs must resolve to public-safe parsed evidence artifacts.",
+            replay_id=replay_id,
+            ref=ref,
+        )
+        return {}, False
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        _evidence_finding(
+            findings,
+            "BENCHMARK_INTEGRITY_EVIDENCE_ARTIFACT_UNREADABLE",
+            "Replay evidence artifacts must be readable JSON.",
+            replay_id=replay_id,
+            ref=ref,
+        )
+        return {}, False
+    evidence = payload if isinstance(payload, dict) else {}
+    ok = True
+    if evidence.get("schema_version") != "benchmark_integrity_evidence_artifact_v1":
+        ok = False
+        _evidence_finding(
+            findings,
+            "BENCHMARK_INTEGRITY_EVIDENCE_SCHEMA_MISMATCH",
+            "Replay evidence artifacts must use benchmark_integrity_evidence_artifact_v1.",
+            replay_id=replay_id,
+            ref=ref,
+        )
+    if evidence.get("evidence_kind") != expected_kind:
+        ok = False
+        _evidence_finding(
+            findings,
+            "BENCHMARK_INTEGRITY_EVIDENCE_KIND_MISMATCH",
+            "Replay evidence artifact kind must match the replay ref field.",
+            replay_id=replay_id,
+            ref=ref,
+        )
+    if evidence.get("body_in_receipt") is not False:
+        ok = False
+        _evidence_finding(
+            findings,
+            "BENCHMARK_INTEGRITY_EVIDENCE_BODY_IN_RECEIPT_FORBIDDEN",
+            "Replay evidence artifacts must remain body-free public receipts.",
+            replay_id=replay_id,
+            ref=ref,
+        )
+    expected_bindings = {
+        "replay_id": replay_id,
+        "case_id": case_id,
+        "evaluator_id": evaluator_id,
+        "evaluator_config_hash": evaluator_config_hash,
+    }
+    for key, expected in expected_bindings.items():
+        if str(evidence.get(key) or "") != expected:
+            ok = False
+            _evidence_finding(
+                findings,
+                "BENCHMARK_INTEGRITY_EVIDENCE_BINDING_MISMATCH",
+                "Replay evidence artifacts must bind to the same replay, case, evaluator, and config hash.",
+                replay_id=replay_id,
+                ref=f"{ref}:{key}",
+            )
+    return evidence, ok
+
+
+def _parsed_evidence_packet(
+    row: dict[str, Any],
+    *,
+    replay_id: str,
+    case_id: str,
+    evaluator_id: str,
+    evaluator_config_hash: str,
+    input_dir: Path,
+    public_root: Path,
+    findings: list[dict[str, Any]],
+) -> dict[str, Any]:
+    artifacts: dict[str, dict[str, Any]] = {}
+    valid: dict[str, bool] = {}
+    for ref_field, evidence_kind in EVIDENCE_REF_FIELDS.items():
+        artifacts[evidence_kind], valid[evidence_kind] = _load_evidence_artifact(
+            row,
+            ref_field=ref_field,
+            replay_id=replay_id,
+            case_id=case_id,
+            evaluator_id=evaluator_id,
+            evaluator_config_hash=evaluator_config_hash,
+            input_dir=input_dir,
+            public_root=public_root,
+            findings=findings,
+        )
+
+    file_access = artifacts.get("file_access_log", {})
+    contamination = artifacts.get("contamination_check", {})
+    trusted = artifacts.get("trusted_reference_score", {})
+    output = artifacts.get("output_replay", {})
+    contamination_flags = {
+        key: contamination.get(key) is True
+        for key in (
+            "training_material_contains_test_case",
+            "hidden_gold_accessed",
+            "oracle_patch_body_present",
+            "private_issue_body_present",
+            "provider_payload_present",
+            "misleading_test_admitted",
+        )
+    }
+    packet = {
+        "schema_version": "agent_benchmark_integrity_parsed_evidence_packet_v1",
+        "artifact_validity": dict(sorted(valid.items())),
+        "all_artifacts_valid": all(valid.values()),
+        "file_access_passes": valid.get("file_access_log") is True
+        and file_access.get("file_access_log_passed") is True
+        and file_access.get("forbidden_file_access") is not True,
+        "contamination_check_passes": valid.get("contamination_check") is True
+        and not any(contamination_flags.values()),
+        "trusted_reference_passes": valid.get("trusted_reference_score") is True
+        and trusted.get("trusted_reference_available") is True
+        and trusted.get("benchmark_score_claimed") is not True
+        and trusted.get("metric_claim_authorized") is not True,
+        "output_replay_passes": valid.get("output_replay") is True
+        and output.get("output_replay_present") is True
+        and output.get("grading_mode") != "final_answer_only",
+        "contamination_flags": contamination_flags,
+        "body_in_receipt": False,
+    }
+    packet["evidence_passes"] = (
+        packet["all_artifacts_valid"] is True
+        and packet["file_access_passes"] is True
+        and packet["contamination_check_passes"] is True
+        and packet["trusted_reference_passes"] is True
+        and packet["output_replay_passes"] is True
+    )
+    return packet
 
 
 def _record(
@@ -541,6 +1185,34 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
+    if row.get("evaluator_mutated") is True:
+        return "evaluator_edit_attempt"
+    if row.get("training_material_contains_test_case") is True:
+        return (
+            "real_trace_train_test_leakage"
+            if row.get("real_benchmark_trace_ref")
+            else "train_test_leakage"
+        )
+    if "oracle_patch_body" in row or row.get("oracle_patch_body_present") is True:
+        return "oracle_patch_body_leakage"
+    if row.get("hidden_gold_accessed") is True or "hidden_gold_body" in row:
+        return "hidden_gold_access"
+    if row.get("grading_mode") == "final_answer_only":
+        return "final_answer_only_grading"
+    if "provider_payload" in row or row.get("provider_payload_ref") == "raw_provider_payload":
+        return "provider_payload_leakage"
+    if row.get("benchmark_score_claimed") is True or row.get("metric_claim_authorized") is True:
+        return "score_overclaim"
+    if int(row.get("attempt_count") or 1) > 1 and row.get("selected_attempt_policy") == "best_only":
+        return "pass_k_cherry_picking"
+    if row.get("misleading_test_admitted") is True:
+        return "misleading_test_admitted"
+    if "private_issue_body" in row or row.get("private_issue_body_present") is True:
+        return "private_issue_body_leakage"
+    return None
+
+
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -579,6 +1251,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
     policy = payload if isinstance(payload, dict) else {}
     locked = set(_strings(policy.get("locked_evaluator_ids")))
+    config_hashes = _locked_evaluator_config_hashes(policy)
     required = set(_strings(policy.get("required_replay_fields")))
     findings: list[dict[str, Any]] = []
     if not locked or not set(REQUIRED_REPLAY_FIELDS).issubset(required):
@@ -591,6 +1264,39 @@ def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
                 subject_kind="locked_evaluator_policy",
             )
         )
+    for evaluator_id in sorted(locked):
+        if not config_hashes.get(evaluator_id):
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_LOCKED_EVALUATOR_CONFIG_HASH_MISSING",
+                    "Locked evaluator policy must bind each evaluator id to allowed config hashes.",
+                    case_id="locked_evaluator_policy_floor",
+                    subject_id=evaluator_id,
+                    subject_kind="locked_evaluator_policy",
+                )
+            )
+    for evaluator_id, hashes in config_hashes.items():
+        if evaluator_id not in locked:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_LOCKED_EVALUATOR_CONFIG_HASH_UNREGISTERED",
+                    "Evaluator config hashes may be declared only for locked evaluator ids.",
+                    case_id="locked_evaluator_policy_floor",
+                    subject_id=evaluator_id,
+                    subject_kind="locked_evaluator_policy",
+                )
+            )
+        for digest in hashes:
+            if not digest.startswith("sha256:"):
+                findings.append(
+                    _finding(
+                        "BENCHMARK_INTEGRITY_LOCKED_EVALUATOR_CONFIG_HASH_INVALID",
+                        "Locked evaluator config hashes must be sha256 digest refs.",
+                        case_id="locked_evaluator_policy_floor",
+                        subject_id=evaluator_id,
+                        subject_kind="locked_evaluator_policy",
+                    )
+                )
     for field in (
         "provider_calls_authorized",
         "benchmark_score_claim_authorized",
@@ -610,6 +1316,10 @@ def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
         "status": PASS if not findings else "blocked",
         "policy_id": policy.get("policy_id"),
         "locked_evaluator_ids": sorted(locked),
+        "locked_evaluator_config_hashes": config_hashes,
+        "locked_evaluator_config_hash_count": sum(
+            len(hashes) for hashes in config_hashes.values()
+        ),
         "required_replay_fields": sorted(required),
         "findings": findings,
         "observed_negative_cases": {},
@@ -676,7 +1386,13 @@ def _validate_replay_row(
     row: dict[str, Any],
     *,
     locked_evaluators: set[str],
+    locked_evaluator_config_hashes: dict[str, list[str]],
     known_case_ids: set[str],
+    source_artifact_classes: dict[str, str],
+    source_artifact_statuses: dict[str, str],
+    real_trace_evidence_by_ref: dict[str, dict[str, Any]],
+    input_dir: Path,
+    public_root: Path,
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
@@ -688,9 +1404,66 @@ def _validate_replay_row(
 
     missing_fields = [field for field in REQUIRED_REPLAY_FIELDS if not row.get(field)]
     evaluator_id = str(row.get("evaluator_id") or "")
+    evaluator_config_hash = str(row.get("evaluator_config_hash") or "")
+    allowed_config_hashes = locked_evaluator_config_hashes.get(evaluator_id, [])
+    config_hash_matches_policy = (
+        bool(evaluator_config_hash) and evaluator_config_hash in allowed_config_hashes
+    )
     verdict = str(row.get("integrity_verdict") or "")
+    declared_verdict_valid = verdict in ALLOWED_INTEGRITY_VERDICTS
+    source_evidence_refs = _strings(row.get("source_artifact_evidence_refs"))
+    source_artifact_refs = set(source_artifact_classes)
+    unknown_source_evidence_refs = sorted(
+        ref for ref in source_evidence_refs if ref not in source_artifact_refs
+    )
+    real_trace_ref = str(row.get("real_benchmark_trace_ref") or "")
+    real_trace_class = source_artifact_classes.get(real_trace_ref, "")
+    real_trace_artifact_status = source_artifact_statuses.get(real_trace_ref, "")
+    real_trace_verified = (
+        bool(real_trace_ref)
+        and real_trace_class == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
+        and real_trace_artifact_status == PASS
+        and real_trace_ref in source_evidence_refs
+    )
+    real_session_evidence = _replay_real_session_evidence(
+        row,
+        real_trace_ref=real_trace_ref,
+        real_trace_verified=real_trace_verified,
+        real_trace_artifact_status=real_trace_artifact_status,
+        real_trace_evidence_by_ref=real_trace_evidence_by_ref,
+    )
+    parsed_evidence = (
+        {
+            "schema_version": "agent_benchmark_integrity_parsed_evidence_packet_v1",
+            "evidence_passes": True,
+            "not_required_for_negative_fixture": True,
+            "body_in_receipt": False,
+        }
+        if negative
+        else _parsed_evidence_packet(
+            row,
+            replay_id=replay_id,
+            case_id=replay_case_id,
+            evaluator_id=evaluator_id,
+            evaluator_config_hash=evaluator_config_hash,
+            input_dir=input_dir,
+            public_root=public_root,
+            findings=findings,
+        )
+    )
     reasons: list[str] = []
 
+    if verdict and not declared_verdict_valid:
+        reasons.append("declared_integrity_verdict_invalid")
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_DECLARED_VERDICT_INVALID",
+                "Replay observations may declare only integrity_pass or quarantine integrity verdicts.",
+                case_id=case_id,
+                subject_id=replay_id,
+                subject_kind=subject_kind,
+            )
+        )
     if evaluator_id not in locked_evaluators or row.get("evaluator_mutated") is True:
         reasons.append("evaluator_not_locked")
         _record(
@@ -698,6 +1471,17 @@ def _validate_replay_row(
             observed,
             "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
             "Evaluator ids and configs must be locked before replay.",
+            case_id=case_id,
+            subject_id=replay_id,
+            subject_kind=subject_kind,
+        )
+    if evaluator_id in locked_evaluators and not config_hash_matches_policy:
+        reasons.append("evaluator_config_hash_mismatch")
+        _record(
+            findings,
+            observed,
+            "BENCHMARK_INTEGRITY_EVALUATOR_CONFIG_HASH_MISMATCH",
+            "Replay observations must use a policy-declared config hash for the locked evaluator id.",
             case_id=case_id,
             subject_id=replay_id,
             subject_kind=subject_kind,
@@ -814,6 +1598,67 @@ def _validate_replay_row(
         )
     if missing_fields:
         reasons.append("replay_field_missing")
+    if not negative and parsed_evidence.get("evidence_passes") is not True:
+        reasons.append("parsed_evidence_unverified")
+        if parsed_evidence.get("file_access_passes") is not True:
+            reasons.append("file_access_evidence_failed")
+        if parsed_evidence.get("contamination_check_passes") is not True:
+            reasons.append("contamination_evidence_failed")
+        if parsed_evidence.get("trusted_reference_passes") is not True:
+            reasons.append("trusted_reference_evidence_failed")
+        if parsed_evidence.get("output_replay_passes") is not True:
+            reasons.append("output_replay_evidence_failed")
+    if not negative:
+        contamination_flags = parsed_evidence.get("contamination_flags")
+        if isinstance(contamination_flags, dict):
+            if contamination_flags.get("training_material_contains_test_case") is True:
+                reasons.append("train_test_leakage")
+            if contamination_flags.get("hidden_gold_accessed") is True:
+                reasons.append("hidden_gold_access")
+            if contamination_flags.get("oracle_patch_body_present") is True:
+                reasons.append("oracle_patch_body")
+            if contamination_flags.get("private_issue_body_present") is True:
+                reasons.append("private_issue_body")
+            if contamination_flags.get("provider_payload_present") is True:
+                reasons.append("provider_payload")
+            if contamination_flags.get("misleading_test_admitted") is True:
+                reasons.append("misleading_test")
+    if not real_trace_ref:
+        reasons.append("real_benchmark_trace_missing")
+        if not negative:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_REAL_TRACE_EVIDENCE_MISSING",
+                    "Replay observations must cite a sanitized real benchmark command-run trace before an integrity pass can stand.",
+                    case_id="real_benchmark_trace_floor",
+                    subject_id=replay_id,
+                    subject_kind=subject_kind,
+                )
+            )
+    elif not real_trace_verified:
+        reasons.append("real_benchmark_trace_unverified")
+        if not negative:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_REAL_TRACE_EVIDENCE_UNVERIFIED",
+                    "Replay real_benchmark_trace_ref must point to a manifest-verified public_sanitized_real_benchmark_trace source artifact and be included in source_artifact_evidence_refs.",
+                    case_id="real_benchmark_trace_floor",
+                    subject_id=real_trace_ref,
+                    subject_kind=subject_kind,
+                )
+            )
+    elif real_session_evidence["session_evidence_passes"] is not True:
+        reasons.append("real_session_evidence_unverified")
+        if not negative:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_REAL_SESSION_EVIDENCE_UNVERIFIED",
+                    "Replay integrity must be backed by manifest-verified sanitized command-run evidence, not only by hand-authored replay refs.",
+                    case_id="real_session_evidence_floor",
+                    subject_id=real_trace_ref,
+                    subject_kind=subject_kind,
+                )
+            )
     if row.get("body_in_receipt") is not False:
         reasons.append("body_in_receipt")
         _record(
@@ -825,6 +1670,29 @@ def _validate_replay_row(
             subject_id=replay_id,
             subject_kind=subject_kind,
         )
+    if not negative:
+        if not source_evidence_refs:
+            reasons.append("source_artifact_evidence_missing")
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_SOURCE_ARTIFACT_EVIDENCE_MISSING",
+                    "Replay observations must cite copied public source-artifact evidence from the source module manifest.",
+                    case_id="source_artifact_evidence_floor",
+                    subject_id=replay_id,
+                    subject_kind=subject_kind,
+                )
+            )
+        for ref in unknown_source_evidence_refs:
+            reasons.append("source_artifact_evidence_unverified")
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_SOURCE_ARTIFACT_EVIDENCE_UNVERIFIED",
+                    "Replay source-artifact evidence refs must match copied source-module targets.",
+                    case_id="source_artifact_evidence_floor",
+                    subject_id=ref,
+                    subject_kind=subject_kind,
+                )
+            )
     if row.get("quarantine_reason_ref"):
         reasons.append("quarantine_reason_ref")
 
@@ -836,7 +1704,13 @@ def _validate_replay_row(
         "case_id": replay_case_id,
         "expected_negative_case_id": case_id if negative else None,
         "evaluator_id": evaluator_id,
+        "evaluator_config_hash": evaluator_config_hash,
+        "allowed_evaluator_config_hashes": allowed_config_hashes,
+        "evaluator_config_hash_matches_policy": config_hash_matches_policy,
         "integrity_verdict": verdict or computed_verdict,
+        "declared_integrity_verdict": verdict,
+        "declared_integrity_verdict_valid": declared_verdict_valid,
+        "allowed_integrity_verdicts": list(ALLOWED_INTEGRITY_VERDICTS),
         "computed_integrity_verdict": computed_verdict,
         "reason_codes": sorted(set(reasons)),
         "required_field_count": len(REQUIRED_REPLAY_FIELDS),
@@ -844,6 +1718,17 @@ def _validate_replay_row(
         "file_access_log_ref": row.get("file_access_log_ref"),
         "contamination_check_ref": row.get("contamination_check_ref"),
         "trusted_reference_score_ref": row.get("trusted_reference_score_ref"),
+        "source_artifact_evidence_refs": source_evidence_refs,
+        "source_artifact_evidence_ref_count": len(source_evidence_refs),
+        "source_artifact_evidence_verified": bool(source_evidence_refs)
+        and not unknown_source_evidence_refs,
+        "unknown_source_artifact_evidence_refs": unknown_source_evidence_refs,
+        "real_benchmark_trace_ref": real_trace_ref,
+        "real_benchmark_trace_material_class": real_trace_class,
+        "real_benchmark_trace_artifact_status": real_trace_artifact_status,
+        "real_benchmark_trace_verified": real_trace_verified,
+        "real_session_integrity_evidence": real_session_evidence,
+        "parsed_evidence_integrity": parsed_evidence,
         "body_in_receipt": False,
     }
 
@@ -853,9 +1738,16 @@ def validate_replay_observations(
     policy: object,
     benchmark_case_payload: object,
     negative_payloads: dict[str, object],
+    *,
+    source_artifact_classes: dict[str, str],
+    source_artifact_statuses: dict[str, str],
+    real_trace_evidence_by_ref: dict[str, dict[str, Any]],
+    input_dir: Path,
+    public_root: Path,
 ) -> dict[str, Any]:
     policy_rows = policy if isinstance(policy, dict) else {}
     locked = set(_strings(policy_rows.get("locked_evaluator_ids")))
+    locked_config_hashes = _locked_evaluator_config_hashes(policy_rows)
     known_case_ids = {
         str(row.get("case_id"))
         for row in _rows(benchmark_case_payload, "benchmark_cases")
@@ -869,7 +1761,13 @@ def validate_replay_observations(
             _validate_replay_row(
                 row,
                 locked_evaluators=locked,
+                locked_evaluator_config_hashes=locked_config_hashes,
                 known_case_ids=known_case_ids,
+                source_artifact_classes=source_artifact_classes,
+                source_artifact_statuses=source_artifact_statuses,
+                real_trace_evidence_by_ref=real_trace_evidence_by_ref,
+                input_dir=input_dir,
+                public_root=public_root,
                 findings=findings,
                 observed=observed,
                 negative=False,
@@ -883,11 +1781,52 @@ def validate_replay_observations(
             _validate_replay_row(
                 row,
                 locked_evaluators=locked,
+                locked_evaluator_config_hashes=locked_config_hashes,
                 known_case_ids=known_case_ids,
+                source_artifact_classes=source_artifact_classes,
+                source_artifact_statuses=source_artifact_statuses,
+                real_trace_evidence_by_ref=real_trace_evidence_by_ref,
+                input_dir=input_dir,
+                public_root=public_root,
                 findings=findings,
                 observed=observed,
                 negative=True,
             )
+            expected_case_id = str(row.get("expected_negative_case_id") or "")
+            semantic_case_id = _semantic_negative_case_id(row)
+            if expected_case_id and semantic_case_id and expected_case_id != semantic_case_id:
+                findings.append(
+                    _finding(
+                        "BENCHMARK_INTEGRITY_NEGATIVE_CASE_SEMANTIC_MISMATCH",
+                        "Negative-case labels must match the row's semantic trigger; labels are not coverage authority.",
+                        case_id=expected_case_id,
+                        subject_id=str(row.get("replay_id") or row.get("case_id") or "negative_case"),
+                        subject_kind="negative_case",
+                    )
+                )
+            elif expected_case_id and not semantic_case_id and row.get("case_id") in known_case_ids:
+                findings.append(
+                    _finding(
+                        "BENCHMARK_INTEGRITY_NEGATIVE_CASE_TRIGGER_MISSING",
+                        "Negative-case fixtures must carry a semantic trigger, not only an expected_negative_case_id label.",
+                        case_id=expected_case_id,
+                        subject_id=str(row.get("replay_id") or row.get("case_id") or "negative_case"),
+                        subject_kind="negative_case",
+                    )
+                )
+
+    observed_case_ids = {row["case_id"] for row in rows if row["case_id"]}
+    missing_replay_case_ids = sorted(known_case_ids - observed_case_ids)
+    for missing_case_id in missing_replay_case_ids:
+        findings.append(
+            _finding(
+                "BENCHMARK_INTEGRITY_CASE_REPLAY_MISSING",
+                "Every benchmark case declared in benchmark_cases.json must have a replay observation row.",
+                case_id="benchmark_case_replay_floor",
+                subject_id=missing_case_id,
+                subject_kind="benchmark_case",
+            )
+        )
 
     positive_floor_findings = [
         row
@@ -895,8 +1834,29 @@ def validate_replay_observations(
         if row["computed_integrity_verdict"] == "quarantine"
         and row["integrity_verdict"] == "integrity_pass"
     ]
+    invalid_positive_declared_verdicts = [
+        row
+        for row in rows
+        if row["declared_integrity_verdict"]
+        and row["declared_integrity_verdict_valid"] is False
+    ]
+    source_evidence_floor_findings = [
+        row for row in rows if row["source_artifact_evidence_verified"] is not True
+    ]
+    real_trace_floor_findings = [
+        row for row in rows if row["real_benchmark_trace_verified"] is not True
+    ]
     return {
-        "status": PASS if rows and not positive_floor_findings else "blocked",
+        "status": (
+            PASS
+            if rows
+            and not missing_replay_case_ids
+            and not positive_floor_findings
+            and not invalid_positive_declared_verdicts
+            and not source_evidence_floor_findings
+            and not real_trace_floor_findings
+            else "blocked"
+        ),
         "replay_count": len(rows),
         "integrity_pass_count": sum(
             1 for row in rows if row["computed_integrity_verdict"] == "integrity_pass"
@@ -905,13 +1865,27 @@ def validate_replay_observations(
             1 for row in rows if row["computed_integrity_verdict"] == "quarantine"
         ),
         "known_benchmark_case_ids": sorted(known_case_ids),
+        "missing_replay_case_ids": missing_replay_case_ids,
+        "source_artifact_evidence_ref_count": sum(
+            len(row["source_artifact_evidence_refs"]) for row in rows
+        ),
+        "source_artifact_evidence_verified_count": sum(
+            1 for row in rows if row["source_artifact_evidence_verified"] is True
+        ),
+        "real_benchmark_trace_verified_count": sum(
+            1 for row in rows if row["real_benchmark_trace_verified"] is True
+        ),
         "replay_rows": sorted(rows, key=lambda row: row["replay_id"]),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
     }
 
 
-def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
+def validate_public_trace(
+    public_trace: dict[str, Any],
+    *,
+    locked_evaluator_config_hashes: dict[str, list[str]] | None = None,
+) -> dict[str, Any]:
     """Fold the recomputed public trace into organ-level findings.
 
     The macro builder recomputes each replay's integrity verdict from
@@ -926,6 +1900,13 @@ def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
         replay_id = str(
             span.get("span_id", "").replace("span:", "") or "replay_observation"
         )
+        target_refs = span.get("target_refs")
+        evaluator_id = (
+            str(target_refs[0])
+            if isinstance(target_refs, list) and target_refs
+            else str(span.get("target_ref") or "")
+        )
+        evaluator_config_hash = str(span.get("authority_verdict_id") or "")
         if span.get("integrity_verdict_matches_declared") is not True:
             findings.append(
                 _finding(
@@ -937,6 +1918,18 @@ def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
                     subject_kind="public_agent_execution_trace",
                 )
             )
+        if locked_evaluator_config_hashes is not None:
+            allowed_hashes = locked_evaluator_config_hashes.get(evaluator_id, [])
+            if not evaluator_config_hash or evaluator_config_hash not in allowed_hashes:
+                findings.append(
+                    _finding(
+                        "PUBLIC_TRACE_BENCHMARK_INTEGRITY_EVALUATOR_CONFIG_HASH_MISMATCH",
+                        "Public trace span authority_verdict_id must match a policy-declared config hash for its locked evaluator.",
+                        case_id="public_trace_floor",
+                        subject_id=replay_id,
+                        subject_kind="public_agent_execution_trace",
+                    )
+                )
         if span.get("evaluator_locked") is not True:
             findings.append(
                 _finding(
@@ -1008,6 +2001,27 @@ def _build_result(
     projection = validate_projection_protocol(payloads["projection_protocol"])
     evaluator_policy = validate_locked_evaluator_policy(payloads["locked_evaluator_policy"])
     benchmark_cases = validate_benchmark_cases(payloads["benchmark_cases"])
+    source_artifact_classes = {
+        row["target_ref"]: row["material_class"]
+        for row in source_imports["modules"]
+        if row["target_ref"]
+    }
+    source_artifact_statuses = {
+        row["target_ref"]: (
+            row["real_trace_artifact_status"]
+            if row["material_class"] == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
+            else PASS
+        )
+        for row in source_imports["modules"]
+        if row["target_ref"]
+    }
+    real_trace_evidence_by_ref = {
+        row["target_ref"]: row["real_session_evidence"]
+        for row in source_imports["modules"]
+        if row["target_ref"]
+        and row["material_class"] == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
+        and isinstance(row.get("real_session_evidence"), dict)
+    }
     observations = validate_replay_observations(
         payloads["replay_observations"],
         payloads["locked_evaluator_policy"],
@@ -1017,9 +2031,19 @@ def _build_result(
             for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
             if name in payloads
         },
+        source_artifact_classes=source_artifact_classes,
+        source_artifact_statuses=source_artifact_statuses,
+        real_trace_evidence_by_ref=real_trace_evidence_by_ref,
+        input_dir=input_dir,
+        public_root=public_root,
     )
     public_trace = build_public_benchmark_integrity_anti_gaming_trace(input_dir)
-    public_trace_validation = validate_public_trace(public_trace)
+    public_trace_validation = validate_public_trace(
+        public_trace,
+        locked_evaluator_config_hashes=evaluator_policy[
+            "locked_evaluator_config_hashes"
+        ],
+    )
     public_trace_open_body = _public_trace_open_body_summary(public_trace)
     observed = _merge_observed(
         projection,
@@ -1030,7 +2054,11 @@ def _build_result(
         public_trace_validation,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
-    missing = sorted(case_id for case_id in expected if case_id not in observed)
+    missing = sorted(
+        case_id
+        for case_id, expected_codes in expected.items()
+        if not set(expected_codes).issubset(set(observed.get(case_id, [])))
+    )
     findings = _merge_findings(
         projection,
         evaluator_policy,
@@ -1121,8 +2149,24 @@ def _build_result(
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_regression_fixture_refs": projection["public_regression_fixture_refs"],
         "locked_evaluator_ids": evaluator_policy["locked_evaluator_ids"],
+        "locked_evaluator_config_hashes": evaluator_policy[
+            "locked_evaluator_config_hashes"
+        ],
+        "locked_evaluator_config_hash_count": evaluator_policy[
+            "locked_evaluator_config_hash_count"
+        ],
         "benchmark_case_count": benchmark_cases["benchmark_case_count"],
         "known_benchmark_case_ids": observations["known_benchmark_case_ids"],
+        "missing_replay_case_ids": observations["missing_replay_case_ids"],
+        "source_artifact_evidence_ref_count": observations[
+            "source_artifact_evidence_ref_count"
+        ],
+        "source_artifact_evidence_verified_count": observations[
+            "source_artifact_evidence_verified_count"
+        ],
+        "real_benchmark_trace_verified_count": observations[
+            "real_benchmark_trace_verified_count"
+        ],
         "held_out_guard_count": benchmark_cases["held_out_guard_count"],
         "replay_count": observations["replay_count"],
         "integrity_pass_count": observations["integrity_pass_count"],
@@ -1147,6 +2191,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "evaluator_identity_config_and_file_access_log_required",
             },
             {
+                "mechanic_id": "locked_evaluator_config_hash_binding",
+                "count": result["locked_evaluator_config_hash_count"],
+                "authority": "replay_evaluator_config_hash_must_match_locked_policy_before_integrity_pass",
+            },
+            {
                 "mechanic_id": "contamination_quarantine",
                 "count": result["quarantine_count"],
                 "authority": "hidden_gold_oracle_patch_and_train_test_leakage_reject_score_claim",
@@ -1167,12 +2216,23 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "copied_macro_pattern_bodies_are_verified_by_manifest_digest_without_exporting_benchmark_bodies",
             },
             {
+                "mechanic_id": "replay_rows_bind_to_source_artifact_evidence",
+                "count": result["source_artifact_evidence_verified_count"],
+                "authority": "each replay row cites digest_verified_public_source_artifact_refs_from_the_manifest",
+            },
+            {
+                "mechanic_id": "real_benchmark_trace_gate",
+                "count": result["real_benchmark_trace_verified_count"],
+                "authority": "each positive replay row must cite a manifest_verified_sanitized_real_command_run_trace_before_integrity_pass",
+            },
+            {
                 "mechanic_id": "recomputed_integrity_verdict_matches_declared",
                 "count": result["public_trace_span_count"],
                 "authority": "integrity_verdict_is_recomputed_from_contamination_file_access_and_locked_evaluator_spans_not_echoed",
             },
         ],
         "known_benchmark_case_ids": result["known_benchmark_case_ids"],
+        "missing_replay_case_ids": result["missing_replay_case_ids"],
         "benchmark_cases": result["benchmark_cases"],
         "replay_rows": result["replay_rows"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
@@ -1230,9 +2290,22 @@ def _write_receipts(
         },
         "benchmark_case_count": result["benchmark_case_count"],
         "replay_count": result["replay_count"],
+        "locked_evaluator_config_hash_count": result[
+            "locked_evaluator_config_hash_count"
+        ],
         "integrity_pass_count": result["integrity_pass_count"],
         "quarantine_count": result["quarantine_count"],
         "known_benchmark_case_ids": result["known_benchmark_case_ids"],
+        "missing_replay_case_ids": result["missing_replay_case_ids"],
+        "source_artifact_evidence_ref_count": result[
+            "source_artifact_evidence_ref_count"
+        ],
+        "source_artifact_evidence_verified_count": result[
+            "source_artifact_evidence_verified_count"
+        ],
+        "real_benchmark_trace_verified_count": result[
+            "real_benchmark_trace_verified_count"
+        ],
         "body_material_status": result["body_material_status"],
         "source_module_import_status": result["source_module_import_status"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
@@ -1260,6 +2333,16 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "known_benchmark_case_ids": result["known_benchmark_case_ids"],
+        "missing_replay_case_ids": result["missing_replay_case_ids"],
+        "source_artifact_evidence_ref_count": result[
+            "source_artifact_evidence_ref_count"
+        ],
+        "source_artifact_evidence_verified_count": result[
+            "source_artifact_evidence_verified_count"
+        ],
+        "real_benchmark_trace_verified_count": result[
+            "real_benchmark_trace_verified_count"
+        ],
         "error_codes": result["error_codes"],
         "body_material_status": result["body_material_status"],
         "source_module_import_status": result["source_module_import_status"],
@@ -1361,9 +2444,24 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "known_benchmark_case_count": len(
                 result.get("known_benchmark_case_ids") or []
             ),
+            "missing_replay_case_count": len(
+                result.get("missing_replay_case_ids") or []
+            ),
             "replay_count": result.get("replay_count"),
+            "locked_evaluator_config_hash_count": result.get(
+                "locked_evaluator_config_hash_count"
+            ),
             "integrity_pass_count": result.get("integrity_pass_count"),
             "quarantine_count": result.get("quarantine_count"),
+            "source_artifact_evidence_ref_count": result.get(
+                "source_artifact_evidence_ref_count"
+            ),
+            "source_artifact_evidence_verified_count": result.get(
+                "source_artifact_evidence_verified_count"
+            ),
+            "real_benchmark_trace_verified_count": result.get(
+                "real_benchmark_trace_verified_count"
+            ),
             "source_module_import_status": result.get(
                 "source_module_import_status"
             ),

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +22,7 @@ from microcosm_core.macro_tools.continuation_packet import (
     SOURCE_REFS as CONTINUATION_PACKET_SOURCE_REFS,
     TARGET_REFS as CONTINUATION_PACKET_TARGET_REFS,
     WAIT_KINDS as CONTINUATION_PACKET_WAIT_KINDS,
+    body_import_verification as continuation_packet_body_import_verification,
     build_public_continuation_packet,
 )
 from microcosm_core.macro_tools.agent_execution_trace import (
@@ -73,12 +76,13 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import base_receipt, write_json_atomic
-from microcosm_core.schemas import read_json_strict
+from microcosm_core.schemas import StrictJsonError, read_json_strict, read_jsonl_strict
 
 
 ORGAN_ID = "agent_route_observability_runtime"
 FIXTURE_ID = "first_wave.agent_route_observability_runtime"
 VALIDATOR_ID = "validator.microcosm.organs.agent_route_observability_runtime"
+AI_WORKFLOW_ROOT = Path(__file__).resolve().parents[4]
 
 ROUTE_COMPLIANCE_NAME = "route_compliance_audit.json"
 HOOK_SHADOW_NAME = "hook_shadow_coverage.json"
@@ -93,6 +97,9 @@ COMPUTER_USE_BUNDLE_RESULT_NAME = (
 )
 SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME = (
     "exported_session_attribution_bundle_validation_result.json"
+)
+HARNESS_CONFIGURATION_AUDIT_BUNDLE_RESULT_NAME = (
+    "exported_harness_configuration_audit_bundle_validation_result.json"
 )
 MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME = (
     "exported_multi_agent_fanin_replay_bundle_validation_result.json"
@@ -115,6 +122,7 @@ ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME = (
 OBSERVABILITY_CARD_SCHEMA_VERSION = (
     "agent_route_observability_runtime_observability_bundle_card_v1"
 )
+HASH_CHUNK_SIZE = 1024 * 1024
 OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS = [
     "findings",
     "private_state_scan",
@@ -150,6 +158,10 @@ EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH = (
 EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_session_attribution_bundle_validation_result.json"
+)
+EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_harness_configuration_audit_bundle_validation_result.json"
 )
 EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
@@ -257,6 +269,22 @@ SESSION_ATTRIBUTION_AUTHORITY_CEILING = {
     "release_authorized": False,
     "private_data_equivalence_claim": False,
 }
+HARNESS_CONFIGURATION_AUDIT_AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "public_harness_configuration_metadata_not_live_settings_authority",
+    "live_local_settings_read": False,
+    "raw_settings_body_exported": False,
+    "raw_hook_body_exported": False,
+    "raw_skill_body_exported": False,
+    "provider_payload_read": False,
+    "browser_hud_cockpit_state_read": False,
+    "account_session_state_exported": False,
+    "credential_or_cookie_exported": False,
+    "live_hook_install_authorized": False,
+    "source_mutation_authorized": False,
+    "release_authorized": False,
+    "private_data_equivalence_claim": False,
+}
 MULTI_AGENT_FANIN_AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": "public_multi_agent_fanin_metadata_not_live_bridge_authority",
@@ -292,6 +320,13 @@ SESSION_ATTRIBUTION_ANTI_CLAIM = (
     "account/session control state, credentials, or cookies, mutate Work Ledger "
     "or source, claim private-root equivalence, or authorize release."
 )
+HARNESS_CONFIGURATION_AUDIT_ANTI_CLAIM = (
+    "Harness-configuration replay validates copied public macro source bodies "
+    "and synthetic settings/hooks/skill-registry drift snapshots. It does not "
+    "read live local settings, export hook or skill bodies, install hooks, "
+    "mutate source, prove hidden agent behavior quality, claim private-root "
+    "equivalence, or authorize release."
+)
 MULTI_AGENT_FANIN_ANTI_CLAIM = (
     "Multi-agent fan-in replay validates public continuation-packet, worker-trace, "
     "route-decision, and fan-in accounting metadata over a source-faithful "
@@ -321,6 +356,7 @@ SOURCE_PATTERN_IDS = [
     "agent_route_observability_runtime",
     "agent_route_compliance_audit",
     "agent_session_attribution",
+    "agent_harness_configuration_audit",
     "agent_trace_to_route_repair_observability_compound",
     "agent_principle_lens",
     "entry_payload_admission_nonnegotiable_floor",
@@ -463,6 +499,7 @@ ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES = (
     "bundle_manifest.json",
     "source_module_manifest.json",
     "route_events.json",
+    "trace_analytics_spans.json",
     "expected_route_compliance_summary.json",
     "route_compliance_policy.json",
 )
@@ -470,11 +507,67 @@ ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS = (
     "source_modules/codex/doctrine/process/trace_rules.json",
     "source_modules/codex/standards/std_agent_execution_trace.json",
     "source_modules/system/lib/agent_execution_trace.py",
+    "source_modules/system/lib/strict_json.py",
     "source_modules/system/lib/navigation_coverage_matrix.py",
     "source_modules/tools/meta/factory/build_agent_execution_trace.py",
     "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
     "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
 )
+ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH = (
+    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+)
+ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS = tuple(
+    path
+    for path in ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS
+    if path != ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH
+)
+ROUTE_COMPLIANCE_AUDIT_MIXED_SOURCE_IMPORT_CLASS = (
+    "mixed_copied_non_secret_macro_body_and_public_reference_sanitized_macro_body"
+)
+ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_IMPORT_CLASS = (
+    "public_reference_sanitized_macro_body"
+)
+ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION = (
+    "public_reference_sanitized_projection"
+)
+AGENT_TRACE_STRUCTURER_TRACE_SCHEMA_VERSION = (
+    "agent_route_observability_runtime_agent_trace_structurer_trace_v1"
+)
+REAL_TRACE_RECEIPT_SCHEMA_VERSION = (
+    "agent_route_observability_runtime_real_trace_receipt_v1"
+)
+AGENT_TRACE_STRUCTURER_ALLOWED_SCHEMA_VERSIONS = {
+    "agent_trace_structured_v2",
+    "agent_trace_lossless_clip_v2",
+}
+AGENT_TRACE_STRUCTURER_FORBIDDEN_NONEMPTY_KEYS = {
+    "source_text",
+    "source_lines",
+    "source_segments",
+    "raw_sidecar",
+    "source_excerpt",
+    "raw_source",
+    "raw_transcript_body",
+    "transcript_body",
+    "provider_payload",
+    "browser_hud_state",
+    "browser_hud_cockpit_state",
+    "account_session_state",
+    "credential_value",
+    "cookie",
+    "password",
+    "secret_value",
+    "api_key",
+    "access_token",
+    "refresh_token",
+    "recipient_send_payload",
+}
+OBSERVABILITY_BUNDLE_FORBIDDEN_KEYS = AGENT_TRACE_STRUCTURER_FORBIDDEN_NONEMPTY_KEYS | {
+    "raw_payload_available",
+    "live_session_state",
+    "live_operator_state",
+    "hidden_reasoning",
+}
 ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS = {
     "source_modules/codex/doctrine/process/trace_rules.json": {
         "source_ref": "codex/doctrine/process/trace_rules.json",
@@ -500,6 +593,15 @@ ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS = {
             "microcosm-substrate/examples/agent_route_observability_runtime/"
             "exported_route_compliance_audit_bundle/source_modules/system/lib/"
             "agent_execution_trace.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/system/lib/strict_json.py": {
+        "source_ref": "system/lib/strict_json.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/system/lib/"
+            "strict_json.py"
         ),
         "material_class": "public_macro_tool_body",
     },
@@ -557,6 +659,37 @@ SESSION_ATTRIBUTION_TARGET_REF = (
     "microcosm-substrate/src/microcosm_core/macro_tools/"
     "agent_session_attribution.py"
 )
+HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES = (
+    "bundle_manifest.json",
+    "source_module_manifest.json",
+    "harness_snapshots.json",
+    "harness_policy.json",
+    "expected_harness_summary.json",
+)
+HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS = (
+    "source_modules/tools/meta/audit/harness_audit.py",
+    "source_modules/codex/standards/std_agent_entrypoint_audit.json",
+)
+HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_SPECS = {
+    "source_modules/tools/meta/audit/harness_audit.py": {
+        "source_ref": "tools/meta/audit/harness_audit.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_harness_configuration_audit_bundle/source_modules/tools/"
+            "meta/audit/harness_audit.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/codex/standards/std_agent_entrypoint_audit.json": {
+        "source_ref": "codex/standards/std_agent_entrypoint_audit.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_harness_configuration_audit_bundle/source_modules/codex/"
+            "standards/std_agent_entrypoint_audit.json"
+        ),
+        "material_class": "public_standard_body",
+    },
+}
 MULTI_AGENT_FANIN_INPUT_NAMES = (
     "bundle_manifest.json",
     "source_module_manifest.json",
@@ -699,6 +832,25 @@ SESSION_ATTRIBUTION_FORBIDDEN_KEYS = {
     "access_token",
     "refresh_token",
 }
+HARNESS_CONFIGURATION_AUDIT_FORBIDDEN_KEYS = {
+    "raw_settings_body",
+    "settings_body",
+    "raw_hook_body",
+    "hook_body",
+    "raw_skill_body",
+    "skill_body",
+    "provider_payload",
+    "browser_hud_state",
+    "browser_hud_cockpit_state",
+    "account_session_state",
+    "credential_value",
+    "cookie",
+    "password",
+    "secret_value",
+    "api_key",
+    "access_token",
+    "refresh_token",
+}
 MULTI_AGENT_FANIN_FORBIDDEN_KEYS = {
     "raw_worker_transcript_body",
     "worker_transcript_body",
@@ -812,8 +964,16 @@ def _display_path(path: Path, *, public_root: Path) -> str:
     return public_relative_path(path, display_root=public_root)
 
 
+def _sha256_hex(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def _sha256_ref(path: Path) -> str:
-    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+    return f"sha256:{_sha256_hex(path)}"
 
 
 def _local_display_ref(path_ref: object) -> object:
@@ -827,13 +987,21 @@ def _local_display_ref(path_ref: object) -> object:
 
 
 def _input_paths(input_dir: Path) -> list[Path]:
-    return [
+    paths = [
         input_dir / "agent_trace.jsonl",
         input_dir / "hook_shadow_cases.json",
         input_dir / "anti_pattern_debt.json",
         input_dir / "agent_principle_lens_receipt.json",
         input_dir / "egress_mirror_cases.json",
     ]
+    for name in (
+        "trace_analytics_spans.json",
+        *ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS,
+    ):
+        path = input_dir / name
+        if path.is_file():
+            paths.append(path)
+    return paths
 
 
 def _observability_bundle_paths(input_dir: Path) -> list[Path]:
@@ -955,7 +1123,8 @@ def _fresh_observability_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_observability_bundle":
         return None
-    if payload.get("command") != command:
+    display_command = command.replace(str(AI_WORKFLOW_ROOT), "<repo-root>")
+    if payload.get("command") not in {command, display_command}:
         return None
     basis = _observability_freshness_basis(source)
     existing_basis = payload.get("freshness_basis")
@@ -980,6 +1149,14 @@ def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
         *_route_compliance_audit_bundle_paths(input_dir),
         *(input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS),
     ]
+
+
+def _default_route_compliance_audit_bundle_input() -> Path:
+    return (
+        AI_WORKFLOW_ROOT
+        / "microcosm-substrate/examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
 
 
 def _computer_use_action_trace_paths(
@@ -1023,6 +1200,17 @@ def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
     return [
         *_session_attribution_bundle_paths(input_dir),
         *(input_dir / name for name in SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS),
+    ]
+
+
+def _harness_configuration_audit_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES]
+
+
+def _harness_configuration_audit_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_harness_configuration_audit_bundle_paths(input_dir),
+        *(input_dir / name for name in HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS),
     ]
 
 
@@ -1110,20 +1298,11 @@ def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
 
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            stripped = line.strip()
-            if not stripped:
-                continue
-            payload = json.loads(stripped)
-            if isinstance(payload, dict):
-                rows.append(payload)
-    return rows
+    return [row for row in read_jsonl_strict(path) if isinstance(row, dict)]
 
 
 def _load_inputs(input_dir: Path) -> dict[str, Any]:
-    return {
+    payloads = {
         "trace_rows": _load_jsonl(input_dir / "agent_trace.jsonl"),
         "hook_shadow": read_json_strict(input_dir / "hook_shadow_cases.json"),
         "debt": read_json_strict(input_dir / "anti_pattern_debt.json"),
@@ -1132,6 +1311,10 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
         ),
         "egress_mirror": read_json_strict(input_dir / "egress_mirror_cases.json"),
     }
+    trace_analytics_path = input_dir / "trace_analytics_spans.json"
+    if trace_analytics_path.is_file():
+        payloads["trace_analytics"] = read_json_strict(trace_analytics_path)
+    return payloads
 
 
 def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
@@ -1146,6 +1329,39 @@ def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
         path.stem: read_json_strict(path)
         for path in _route_compliance_audit_bundle_paths(input_dir)
     }
+
+
+def _load_route_compliance_copied_trace_module(input_dir: Path) -> Any:
+    strict_json_path = input_dir / "source_modules/system/lib/strict_json.py"
+    trace_module_path = input_dir / "source_modules/system/lib/agent_execution_trace.py"
+    strict_name = "system.lib.strict_json"
+    trace_name = "_microcosm_route_compliance_copied_agent_execution_trace"
+    previous_strict = sys.modules.get(strict_name)
+    previous_trace = sys.modules.get(trace_name)
+    try:
+        strict_spec = importlib.util.spec_from_file_location(strict_name, strict_json_path)
+        if strict_spec is None or strict_spec.loader is None:
+            raise ImportError(f"cannot load copied strict_json module from {strict_json_path}")
+        strict_module = importlib.util.module_from_spec(strict_spec)
+        sys.modules[strict_name] = strict_module
+        strict_spec.loader.exec_module(strict_module)
+
+        trace_spec = importlib.util.spec_from_file_location(trace_name, trace_module_path)
+        if trace_spec is None or trace_spec.loader is None:
+            raise ImportError(f"cannot load copied agent_execution_trace module from {trace_module_path}")
+        trace_module = importlib.util.module_from_spec(trace_spec)
+        sys.modules[trace_name] = trace_module
+        trace_spec.loader.exec_module(trace_module)
+        return trace_module
+    finally:
+        if previous_strict is None:
+            sys.modules.pop(strict_name, None)
+        else:
+            sys.modules[strict_name] = previous_strict
+        if previous_trace is None:
+            sys.modules.pop(trace_name, None)
+        else:
+            sys.modules[trace_name] = previous_trace
 
 
 def _load_computer_use_action_trace_bundle(
@@ -1166,6 +1382,13 @@ def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
         for path in _session_attribution_bundle_paths(input_dir)
+    }
+
+
+def _load_harness_configuration_audit_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _harness_configuration_audit_bundle_paths(input_dir)
     }
 
 
@@ -1256,6 +1479,18 @@ def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict
     )
 
 
+def _scan_harness_configuration_audit_inputs(
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _harness_configuration_audit_scan_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
 def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1336,12 +1571,19 @@ def _strings(value: object) -> list[str]:
 
 
 def _file_sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return _sha256_hex(path)
 
 
 def _source_line_count(path: Path) -> int:
+    line_count = 0
     with path.open("r", encoding="utf-8") as handle:
-        return sum(1 for _ in handle)
+        for line_count, _line in enumerate(handle, start=1):
+            pass
+    return line_count or 1
+
+
+def _file_size_bytes(path: Path) -> int:
+    return path.stat().st_size
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
@@ -1979,6 +2221,23 @@ def _walk_payload_keys(payload: object) -> set[str]:
     return set()
 
 
+def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> set[str]:
+    if isinstance(payload, dict):
+        keys: set[str] = set()
+        for key, value in payload.items():
+            key_text = str(key)
+            if key_text in forbidden_keys and value not in (None, "", [], {}, False):
+                keys.add(key_text)
+            keys.update(_walk_nonempty_payload_keys(value, forbidden_keys))
+        return keys
+    if isinstance(payload, list):
+        keys: set[str] = set()
+        for item in payload:
+            keys.update(_walk_nonempty_payload_keys(item, forbidden_keys))
+        return keys
+    return set()
+
+
 def validate_exported_session_attribution_policy(payload: object) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -2310,6 +2569,324 @@ def validate_exported_session_attribution_expected_summary(
         "actual_summary": actual_summary,
         "self_session_id": actual_self_id or None,
         "matched_session_ids": sorted(actual_matched),
+        "body_in_receipt": False,
+    }
+
+
+def validate_exported_harness_configuration_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    policy = payload if isinstance(payload, dict) else {}
+    for field in (
+        "live_local_settings_read",
+        "raw_settings_body_exported",
+        "raw_hook_body_exported",
+        "raw_skill_body_exported",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "account_session_state_exported",
+        "credential_or_cookie_exported",
+        "live_hook_install_authorized",
+        "source_mutation_authorized",
+        "release_authorized",
+        "private_data_equivalence_claim",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_POLICY_FORBIDDEN_AUTHORITY",
+                    "Harness configuration policy must deny live settings reads, raw bodies, provider/browser/account state, credentials, hook install, mutation, release, and private equivalence.",
+                    subject_id=field,
+                    subject_kind="harness_configuration_policy",
+                )
+            )
+    inspected = set(_strings(policy.get("inspected_surfaces")))
+    if not {"settings", "hooks", "skill_registry"}.issubset(inspected):
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_POLICY_SURFACE_COVERAGE_MISSING",
+                "Harness configuration policy must cover synthetic settings, hooks, and skill registry surfaces.",
+                subject_id=str(policy.get("policy_id") or "harness_policy"),
+                subject_kind="harness_configuration_policy",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "inspected_surfaces": sorted(inspected),
+        "forbidden_authority_rejected": True,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def validate_exported_harness_configuration_inputs(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    snapshots = _rows(payload, "snapshots")
+    if not snapshots:
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_SNAPSHOTS_MISSING",
+                "Harness configuration bundle must include synthetic metadata-only harness snapshots.",
+                subject_id="harness_snapshots",
+                subject_kind="harness_configuration_input",
+            )
+        )
+
+    forbidden_keys = _walk_payload_keys(payload)
+    leaked_keys = sorted(HARNESS_CONFIGURATION_AUDIT_FORBIDDEN_KEYS & forbidden_keys)
+    for key in leaked_keys:
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_FORBIDDEN_PAYLOAD_KEY",
+                "Harness configuration replay inputs cannot include raw settings, hook or skill bodies, provider payloads, browser/HUD state, credentials, cookies, or account/session control state.",
+                subject_id=key,
+                subject_kind="harness_configuration_input",
+            )
+        )
+
+    public_rows: list[dict[str, Any]] = []
+    severity_counts: Counter[str] = Counter()
+    code_counts: Counter[str] = Counter()
+    clean_snapshot_ids: list[str] = []
+    quarantined_snapshot_ids: list[str] = []
+
+    for row in snapshots:
+        snapshot_id = str(row.get("snapshot_id") or "unknown_snapshot")
+        for field in (
+            "live_local_settings_read",
+            "raw_settings_body_exported",
+            "raw_hook_body_exported",
+            "raw_skill_body_exported",
+            "source_mutation_authorized",
+        ):
+            if row.get(field) is not False:
+                findings.append(
+                    _bundle_finding(
+                        "HARNESS_CONFIGURATION_RAW_BOUNDARY_MISSING",
+                        "Each synthetic harness snapshot must explicitly deny live reads, raw body export, and source mutation.",
+                        subject_id=f"{snapshot_id}:{field}",
+                        subject_kind="harness_configuration_input",
+                    )
+                )
+        snapshot_findings = _rows(row, "findings")
+        for item in snapshot_findings:
+            severity = str(item.get("severity") or "info")
+            code = str(item.get("code") or item.get("kind") or "unknown")
+            severity_counts[severity] += 1
+            code_counts[code] += 1
+        if not snapshot_findings:
+            clean_snapshot_ids.append(snapshot_id)
+        if row.get("quarantined") is True:
+            quarantined_snapshot_ids.append(snapshot_id)
+        public_rows.append(
+            {
+                "snapshot_id": snapshot_id,
+                "expected_status": row.get("expected_status"),
+                "surface_count": len(_rows(row, "surfaces")),
+                "finding_count": len(snapshot_findings),
+                "finding_codes": sorted(
+                    {
+                        str(item.get("code") or item.get("kind") or "unknown")
+                        for item in snapshot_findings
+                    }
+                ),
+                "quarantined": row.get("quarantined") is True,
+                "metadata_only": row.get("metadata_only") is True,
+                "live_local_settings_read": False,
+                "raw_settings_body_exported": False,
+                "raw_hook_body_exported": False,
+                "raw_skill_body_exported": False,
+                "body_in_receipt": False,
+            }
+        )
+
+    summary = {
+        "snapshot_count": len(snapshots),
+        "clean_snapshot_count": len(clean_snapshot_ids),
+        "finding_count": sum(code_counts.values()),
+        "quarantined_snapshot_count": len(quarantined_snapshot_ids),
+        "severity_counts": dict(sorted(severity_counts.items())),
+        "code_counts": dict(sorted(code_counts.items())),
+    }
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "snapshot_count": len(snapshots),
+        "public_snapshot_rows": public_rows,
+        "summary": summary,
+        "clean_snapshot_ids": clean_snapshot_ids,
+        "quarantined_snapshot_ids": quarantined_snapshot_ids,
+        "finding_codes": sorted(code_counts),
+        "forbidden_payload_keys": leaked_keys,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def validate_harness_configuration_audit_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Harness configuration source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="harness_configuration_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Harness configuration source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="harness_configuration_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        row = by_path.get(expected_path)
+        spec = HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_SPECS[expected_path]
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Harness configuration source manifest must name every copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != spec["source_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_SOURCE_REF_MISMATCH",
+                    "Harness configuration copied source body must point back to the macro source file.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_manifest",
+                )
+            )
+        if row.get("target_ref") != spec["target_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_TARGET_REF_MISMATCH",
+                    "Harness configuration copied source body must name the public Microcosm target ref.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_SOURCE_MODULE_FILE_MISSING",
+                    "Harness configuration copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Harness configuration copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "HARNESS_CONFIGURATION_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Harness configuration copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="harness_configuration_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "material_class": row.get("material_class"),
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
+    }
+
+
+def validate_exported_harness_configuration_expected_summary(
+    payload: object,
+    *,
+    input_result: dict[str, Any],
+) -> dict[str, Any]:
+    expected = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    expected_summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
+    actual_summary = input_result.get("summary") if isinstance(input_result.get("summary"), dict) else {}
+    if expected_summary and expected_summary != actual_summary:
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_SUMMARY_MISMATCH",
+                "Expected harness summary must match the computed public harness snapshot view.",
+                subject_id="expected_harness_summary",
+                subject_kind="harness_configuration_expected_summary",
+            )
+        )
+    expected_codes = set(_strings(expected.get("finding_codes")))
+    actual_codes = set(_strings(input_result.get("finding_codes")))
+    if expected_codes and expected_codes != actual_codes:
+        findings.append(
+            _bundle_finding(
+                "HARNESS_CONFIGURATION_FINDING_CODE_SET_MISMATCH",
+                "Expected harness finding code set must match the computed public harness snapshot view.",
+                subject_id="finding_codes",
+                subject_kind="harness_configuration_expected_summary",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "expected_summary": expected_summary,
+        "actual_summary": actual_summary,
+        "finding_codes": sorted(actual_codes),
         "body_in_receipt": False,
     }
 
@@ -2756,7 +3333,7 @@ def validate_controller_heartbeat_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
+        observed_byte_count = _file_size_bytes(source_module_path)
         expected_digest = str(row.get("sha256") or "")
         expected_line_count = row.get("line_count")
         expected_byte_count = row.get("byte_count")
@@ -2848,15 +3425,24 @@ def validate_route_compliance_audit_source_manifest(
     by_path = {str(row.get("path") or ""): row for row in modules}
     expected_paths = set(ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS)
     observed_modules: list[dict[str, Any]] = []
+    exact_source_modules: list[dict[str, Any]] = []
+    sanitized_source_modules: list[dict[str, Any]] = []
     digest_match_count = 0
     line_count_match_count = 0
     byte_count_match_count = 0
+    exact_source_target_digest_match_count = 0
+    exact_live_source_digest_match_count = 0
+    exact_live_source_line_count_match_count = 0
+    exact_live_source_byte_count_match_count = 0
 
-    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+    if (
+        manifest.get("source_import_class")
+        != ROUTE_COMPLIANCE_AUDIT_MIXED_SOURCE_IMPORT_CLASS
+    ):
         findings.append(
             _bundle_finding(
                 "ROUTE_COMPLIANCE_AUDIT_SOURCE_IMPORT_CLASS_MISMATCH",
-                "Route compliance audit source manifest must classify copied source modules as non-secret macro bodies.",
+                "Route compliance audit source manifest must classify exact copies separately from public-reference-sanitized macro bodies.",
                 subject_id="source_import_class",
                 subject_kind="route_compliance_audit_source_manifest",
             )
@@ -2870,11 +3456,31 @@ def validate_route_compliance_audit_source_manifest(
                 subject_kind="route_compliance_audit_source_manifest",
             )
         )
+    if manifest.get("body_copied_material_count") != len(
+        ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS
+    ):
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_AUDIT_BODY_COPIED_COUNT_MISMATCH",
+                "Route compliance audit source manifest must count only exact copied macro bodies as body_copied material.",
+                subject_id="body_copied_material_count",
+                subject_kind="route_compliance_audit_source_manifest",
+            )
+        )
+    if manifest.get("public_reference_sanitized_material_count") != 1:
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_AUDIT_SANITIZED_COUNT_MISMATCH",
+                "Route compliance audit source manifest must count the public-reference-sanitized macro sidecar.",
+                subject_id="public_reference_sanitized_material_count",
+                subject_kind="route_compliance_audit_source_manifest",
+            )
+        )
     if manifest.get("module_count") != len(modules):
         findings.append(
             _bundle_finding(
                 "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_COUNT_MISMATCH",
-                "Route compliance audit source manifest module_count must equal the listed copied modules.",
+                "Route compliance audit source manifest module_count must equal the listed source modules.",
                 subject_id="module_count",
                 subject_kind="route_compliance_audit_source_manifest",
             )
@@ -2882,12 +3488,25 @@ def validate_route_compliance_audit_source_manifest(
 
     for expected_path in sorted(expected_paths):
         spec = ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS[expected_path]
+        is_sanitized = (
+            expected_path == ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH
+        )
+        expected_source_import_class = (
+            ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_IMPORT_CLASS
+            if is_sanitized
+            else "copied_non_secret_macro_body"
+        )
+        expected_relation = (
+            ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION
+            if is_sanitized
+            else "exact_copy"
+        )
         row = by_path.get(expected_path)
         if not row:
             findings.append(
                 _bundle_finding(
                     "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_MISSING_FROM_MANIFEST",
-                    "Route compliance audit source manifest must name each copied macro source module.",
+                    "Route compliance audit source manifest must name each macro source module.",
                     subject_id=expected_path,
                     subject_kind="route_compliance_audit_source_manifest",
                 )
@@ -2917,18 +3536,74 @@ def validate_route_compliance_audit_source_manifest(
                     "ROUTE_COMPLIANCE_AUDIT_MATERIAL_CLASS_MISMATCH",
                     "Route compliance audit copied source body must preserve its expected public material class.",
                     subject_id=expected_path,
-                    subject_kind="route_compliance_audit_source_manifest",
-                )
+                subject_kind="route_compliance_audit_source_manifest",
             )
-        if row.get("source_import_class") != "copied_non_secret_macro_body":
+        )
+        if row.get("source_import_class") != expected_source_import_class:
             findings.append(
                 _bundle_finding(
                     "ROUTE_COMPLIANCE_AUDIT_ROW_SOURCE_IMPORT_CLASS_MISMATCH",
-                    "Route compliance audit source rows must classify copied source modules as non-secret macro bodies.",
+                    "Route compliance audit source rows must distinguish exact copied macro bodies from sanitized public projections.",
                     subject_id=expected_path,
                     subject_kind="route_compliance_audit_source_manifest",
                 )
             )
+        if row.get("source_to_target_relation") != expected_relation:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_ROW_SOURCE_RELATION_MISMATCH",
+                    "Route compliance audit source rows must state whether the target is an exact copy or a sanitized projection.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        if is_sanitized:
+            if row.get("public_reference_sanitized") is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_ROW_SANITIZED_FLAG_MISSING",
+                        "Sanitized route compliance sidecar row must carry a public_reference_sanitized=true flag.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if row.get("body_copied") is not False:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_ROW_SANITIZED_BODY_COPIED_OVERCLAIM",
+                        "Sanitized route compliance sidecar row must not claim exact body copy.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if row.get("sha256_match") is not False:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_ROW_SANITIZED_SHA_MATCH_OVERCLAIM",
+                        "Sanitized route compliance sidecar row must not claim source-target digest equality.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+        else:
+            if row.get("body_copied") is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_ROW_BODY_COPY_UNDERCLAIM",
+                        "Exact route compliance source rows must declare body_copied=true.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if row.get("sha256_match") is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_ROW_EXACT_SHA_MATCH_MISSING",
+                        "Exact route compliance source rows must declare source-target digest equality.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
         if row.get("body_in_receipt") is not False:
             findings.append(
                 _bundle_finding(
@@ -2938,12 +3613,21 @@ def validate_route_compliance_audit_source_manifest(
                     subject_kind="route_compliance_audit_source_manifest",
                 )
             )
+        if row.get("body_text_in_receipt") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_ROW_BODY_TEXT_RECEIPT_OVERCLAIM",
+                    "Route compliance audit source rows must keep source text out of runtime receipts.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
         source_module_path = input_dir / expected_path
         if not source_module_path.is_file():
             findings.append(
                 _bundle_finding(
                     "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_FILE_MISSING",
-                    "Route compliance audit copied macro source body is absent from the public bundle.",
+                    "Route compliance audit macro source body is absent from the public bundle.",
                     subject_id=expected_path,
                     subject_kind="route_compliance_audit_source_module",
                 )
@@ -2951,8 +3635,11 @@ def validate_route_compliance_audit_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
-        expected_digest = str(row.get("sha256") or "")
+        observed_byte_count = _file_size_bytes(source_module_path)
+        live_source_path = AI_WORKFLOW_ROOT / str(spec["source_ref"])
+        expected_digest = str(row.get("sha256") or "").removeprefix("sha256:")
+        expected_sha256_ref = f"sha256:{expected_digest}"
+        observed_sha256_ref = f"sha256:{observed_digest}"
         expected_line_count = row.get("line_count")
         expected_byte_count = row.get("byte_count")
         digest_matches = observed_digest == expected_digest
@@ -2969,6 +3656,93 @@ def validate_route_compliance_audit_source_manifest(
                     subject_kind="route_compliance_audit_source_module",
                 )
             )
+        if row.get("target_sha256") != observed_sha256_ref:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_TARGET_SHA_MISMATCH",
+                    "Route compliance audit target_sha256 must match the public bundle source-module body.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        if is_sanitized:
+            if row.get("source_sha256") == observed_sha256_ref:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_TARGET_SHA_OVERCLAIM",
+                        "Sanitized route compliance sidecar source_sha256 must remain distinct from target_sha256.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_module",
+                    )
+                )
+        elif row.get("source_sha256") != observed_sha256_ref:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_TARGET_SHA_MISMATCH",
+                    "Exact route compliance source rows must have matching source_sha256 and target_sha256.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        elif row.get("source_sha256") == expected_sha256_ref:
+            exact_source_target_digest_match_count += 1
+        if not is_sanitized:
+            if not live_source_path.is_file():
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_MODULE_MISSING",
+                        "Exact route compliance source rows must point at an existing live source_ref.",
+                        subject_id=str(spec["source_ref"]),
+                        subject_kind="route_compliance_audit_source_module",
+                    )
+                )
+            else:
+                live_source_digest = _file_sha256(live_source_path)
+                live_source_line_count = _source_line_count(live_source_path)
+                live_source_byte_count = _file_size_bytes(live_source_path)
+                live_source_sha256_ref = f"sha256:{live_source_digest}"
+                if row.get("source_sha256") == live_source_sha256_ref:
+                    exact_live_source_digest_match_count += 1
+                else:
+                    findings.append(
+                        _bundle_finding(
+                            "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_DIGEST_MISMATCH",
+                            "Exact route compliance source rows must match the current live source_ref digest, not only the bundle manifest.",
+                            subject_id=str(spec["source_ref"]),
+                            subject_kind="route_compliance_audit_source_module",
+                        )
+                    )
+                if observed_digest != live_source_digest:
+                    findings.append(
+                        _bundle_finding(
+                            "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_TARGET_DIGEST_MISMATCH",
+                            "Exact route compliance copied target body must match the current live source_ref digest.",
+                            subject_id=expected_path,
+                            subject_kind="route_compliance_audit_source_module",
+                        )
+                    )
+                if live_source_line_count == expected_line_count:
+                    exact_live_source_line_count_match_count += 1
+                else:
+                    findings.append(
+                        _bundle_finding(
+                            "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_LINE_COUNT_MISMATCH",
+                            "Exact route compliance source rows must match the current live source_ref line count.",
+                            subject_id=str(spec["source_ref"]),
+                            subject_kind="route_compliance_audit_source_module",
+                        )
+                    )
+                if live_source_byte_count == expected_byte_count:
+                    exact_live_source_byte_count_match_count += 1
+                else:
+                    findings.append(
+                        _bundle_finding(
+                            "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_BYTE_COUNT_MISMATCH",
+                            "Exact route compliance source rows must match the current live source_ref byte count.",
+                            subject_id=str(spec["source_ref"]),
+                            subject_kind="route_compliance_audit_source_module",
+                        )
+                    )
         if line_count_matches:
             line_count_match_count += 1
         else:
@@ -2992,6 +3766,17 @@ def validate_route_compliance_audit_source_manifest(
                 )
             )
         target_text = source_module_path.read_text(encoding="utf-8")
+        if is_sanitized:
+            forbidden_raw_seed_root = "obsidian/okay lets do this"
+            if forbidden_raw_seed_root in target_text:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZED_PRIVATE_TOKEN_REMAINING",
+                        "Sanitized route compliance sidecar must not retain private raw-seed root tokens.",
+                        subject_id=forbidden_raw_seed_root,
+                        subject_kind="route_compliance_audit_source_module",
+                    )
+                )
         required_anchors = [
             str(anchor)
             for anchor in row.get("required_anchors", [])
@@ -3020,18 +3805,94 @@ def validate_route_compliance_audit_source_manifest(
                     subject_kind="route_compliance_audit_source_module",
                 )
             )
-        observed_modules.append(
-            {
-                "path": expected_path,
-                "source_ref": row.get("source_ref"),
-                "target_ref": row.get("target_ref"),
-                "material_class": row.get("material_class"),
-                "sha256": observed_digest,
-                "line_count": observed_line_count,
-                "byte_count": observed_byte_count,
-                "body_in_receipt": False,
-            }
+        sanitization_receipt = (
+            row.get("sanitization_receipt")
+            if isinstance(row.get("sanitization_receipt"), dict)
+            else {}
         )
+        if is_sanitized:
+            replacement_class_counts = (
+                sanitization_receipt.get("replacement_class_counts")
+                if isinstance(sanitization_receipt.get("replacement_class_counts"), dict)
+                else {}
+            )
+            if sanitization_receipt.get("status") != "transformed":
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_STATUS_MISMATCH",
+                        "Sanitized route compliance sidecar must carry a transformed sanitizer receipt.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if sanitization_receipt.get("public_safe") is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_PUBLIC_SAFE_MISSING",
+                        "Sanitized route compliance sidecar receipt must declare public_safe=true.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if sanitization_receipt.get("blocker_count") != 0:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_BLOCKER_COUNT_MISMATCH",
+                        "Sanitized route compliance sidecar receipt must have zero sanitizer blockers.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if sanitization_receipt.get("target_sha256") != observed_sha256_ref:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_TARGET_SHA_MISMATCH",
+                        "Sanitized route compliance sidecar receipt target_sha256 must match the public bundle target.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if sanitization_receipt.get("source_sha256") != row.get("source_sha256"):
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_SOURCE_SHA_MISMATCH",
+                        "Sanitized route compliance sidecar receipt source_sha256 must match the manifest row.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+            if not replacement_class_counts:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_COMPLIANCE_AUDIT_SANITIZER_REPLACEMENT_COUNTS_MISSING",
+                        "Sanitized route compliance sidecar receipt must summarize replacement classes.",
+                        subject_id=expected_path,
+                        subject_kind="route_compliance_audit_source_manifest",
+                    )
+                )
+
+        observed_module = {
+            "path": expected_path,
+            "source_ref": row.get("source_ref"),
+            "target_ref": row.get("target_ref"),
+            "material_class": row.get("material_class"),
+            "source_import_class": row.get("source_import_class"),
+            "source_to_target_relation": row.get("source_to_target_relation"),
+            "source_sha256": row.get("source_sha256"),
+            "target_sha256": observed_sha256_ref,
+            "sha256": observed_digest,
+            "line_count": observed_line_count,
+            "byte_count": observed_byte_count,
+            "body_in_receipt": False,
+            "source_target_sha256_match": row.get("source_sha256") == observed_sha256_ref,
+            "public_reference_sanitized": is_sanitized,
+        }
+        if is_sanitized:
+            observed_module["sanitization_receipt"] = sanitization_receipt
+            sanitized_source_modules.append(observed_module)
+        else:
+            exact_source_modules.append(observed_module)
+        observed_modules.append(observed_module)
 
     return {
         "status": PASS if not findings else "blocked",
@@ -3040,10 +3901,29 @@ def validate_route_compliance_audit_source_manifest(
         "body_in_receipt": manifest.get("body_in_receipt") is True,
         "module_count": len(modules),
         "required_module_count": len(expected_paths),
-        "copied_macro_source_count": len(observed_modules),
+        "copied_macro_source_count": len(exact_source_modules),
+        "public_reference_sanitized_source_count": len(sanitized_source_modules),
         "all_expected_digests_matched": digest_match_count == len(expected_paths),
         "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
         "all_expected_byte_counts_matched": byte_count_match_count == len(expected_paths),
+        "all_exact_source_target_digests_matched": (
+            exact_source_target_digest_match_count
+            == len(ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS)
+        ),
+        "all_exact_live_source_digests_matched": (
+            exact_live_source_digest_match_count
+            == len(ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS)
+        ),
+        "all_exact_live_source_line_counts_matched": (
+            exact_live_source_line_count_match_count
+            == len(ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS)
+        ),
+        "all_exact_live_source_byte_counts_matched": (
+            exact_live_source_byte_count_match_count
+            == len(ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS)
+        ),
+        "exact_source_modules": exact_source_modules,
+        "public_reference_sanitized_source_modules": sanitized_source_modules,
         "observed_modules": observed_modules,
     }
 
@@ -3161,7 +4041,7 @@ def validate_observability_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
+        observed_byte_count = _file_size_bytes(source_module_path)
         expected_digest = str(row.get("sha256") or "")
         expected_line_count = row.get("line_count")
         expected_byte_count = row.get("byte_count")
@@ -3368,7 +4248,7 @@ def validate_agent_trace_route_repair_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
+        observed_byte_count = _file_size_bytes(source_module_path)
         expected_digest = str(row.get("sha256") or "")
         expected_line_count = row.get("line_count")
         expected_byte_count = row.get("byte_count")
@@ -3551,7 +4431,7 @@ def validate_agent_observability_store_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
+        observed_byte_count = _file_size_bytes(source_module_path)
         expected_digest = str(row.get("sha256") or "")
         expected_line_count = row.get("line_count")
         expected_byte_count = row.get("byte_count")
@@ -3877,6 +4757,7 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     event_ids = [str(row.get("event_id") or "event") for row in rows]
+    event_id_set = {event_id for event_id in event_ids if event_id}
     duplicate_ids = sorted(event_id for event_id, count in Counter(event_ids).items() if count > 1)
     route_compliance_decisions: list[dict[str, Any]] = []
     actor_axis_decisions: list[dict[str, Any]] = []
@@ -3968,16 +4849,29 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
                     subject_kind="agent_trace_event",
                 )
 
-        if row.get("route_compliance_status") == PASS and row.get("claims_behavior_change"):
-            if not behavior_refs:
-                event_codes.append("ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE")
+        if row.get("claims_behavior_change") and not behavior_refs:
+            event_codes.append("ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE")
+            _record(
+                findings,
+                observed,
+                "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE",
+                "Route compliance cannot claim behavior change without evidence ids.",
+                case_id="route_compliance_overclaims_behavior_change",
+                subject_id=event_id,
+                subject_kind="agent_trace_event",
+            )
+        if row.get("require_behavior_change_evidence_ref_resolution") is True:
+            for ref in behavior_refs:
+                if ref in event_id_set:
+                    continue
+                event_codes.append("BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING")
                 _record(
                     findings,
                     observed,
-                    "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE",
-                    "Route compliance pass cannot claim behavior change without evidence ids.",
-                    case_id="route_compliance_overclaims_behavior_change",
-                    subject_id=event_id,
+                    "BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING",
+                    "Behavior-change evidence ids must resolve to public trace event rows.",
+                    case_id="behavior_change_evidence_trace_ref_missing",
+                    subject_id=f"{event_id}:{ref}",
                     subject_kind="agent_trace_event",
                 )
 
@@ -3990,7 +4884,9 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 "expected_route": expected_route or None,
                 "observed_route": observed_route or None,
                 "replacement_route": replacement_route or None,
+                "declared_route_compliance_status": row.get("route_compliance_status"),
                 "decision": "rejected" if event_codes else "accepted",
+                "derived_from": "trace_event_evidence",
                 "error_codes": sorted(set(event_codes)),
                 "body_redacted": True,
             }
@@ -4007,8 +4903,12 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
         )
 
     return {
+        "status": PASS
+        if set(observed).issubset(EXPECTED_NEGATIVE_CASES)
+        else "blocked",
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        "unexpected_negative_cases": sorted(set(observed) - set(EXPECTED_NEGATIVE_CASES)),
         "trace_count": len(rows),
         "route_compliance_decisions": route_compliance_decisions,
         "actor_axis_decisions": actor_axis_decisions,
@@ -4142,6 +5042,682 @@ def validate_route_compliance_expected_summary(
         "actual_summary": actual,
         "expected_negative_cases": expected_cases,
         "observed_negative_cases": observed_cases,
+    }
+
+
+def _span_from_trace_analytics_row(module: Any, row: dict[str, Any], *, session_id: str, index: int) -> Any:
+    field_names = set(getattr(module.Span, "__dataclass_fields__", {}))
+    payload = {field: row[field] for field in field_names if field in row}
+    payload.setdefault("span_id", f"{session_id}_span_{index}")
+    payload.setdefault("agent", "codex")
+    payload.setdefault("session_id", session_id)
+    payload.setdefault("action_kind", "bash_other")
+    payload.setdefault("start_ts", f"2026-05-25T20:29:{index:02d}Z")
+    payload.setdefault("end_ts", f"2026-05-25T20:29:{index + 1:02d}Z")
+    payload.setdefault("duration_ms", 1000)
+    payload.setdefault("sequence_index", index)
+    payload.setdefault("target_paths", [])
+    payload.setdefault("kernel_flags", [])
+    return module.Span(**payload)
+
+
+def _has_nonempty_forbidden_key(payload: object, forbidden_keys: set[str]) -> bool:
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if key in forbidden_keys and value not in (None, "", [], {}):
+                return True
+            if _has_nonempty_forbidden_key(value, forbidden_keys):
+                return True
+    if isinstance(payload, list):
+        return any(_has_nonempty_forbidden_key(item, forbidden_keys) for item in payload)
+    return False
+
+
+def _kernel_flags_from_command(command: str) -> list[str]:
+    flags: list[str] = []
+    for token in command.replace('"', " ").replace("'", " ").split():
+        if token.startswith("--"):
+            flags.append(token.split("=", 1)[0])
+    return sorted(set(flags))
+
+
+def _target_paths_from_command(command: str) -> list[str]:
+    paths: list[str] = []
+    for token in command.replace('"', " ").replace("'", " ").split():
+        candidate = token.rstrip("),.;:")
+        if (
+            "/" in candidate
+            and not candidate.startswith(("-", "http://", "https://"))
+            and not candidate.startswith("/Users/")
+        ):
+            paths.append(candidate)
+    return sorted(set(paths))
+
+
+def _span_payload_from_structurer_command(
+    row: dict[str, Any],
+    *,
+    session_id: str,
+    index: int,
+) -> dict[str, Any]:
+    command = str(row.get("normalized_command") or row.get("command") or "")
+    is_kernel_shape = command.startswith("./repo-python kernel.py") or command.startswith(
+        "python3 kernel.py"
+    )
+    is_grep_shape = command.startswith("rg ") or command.startswith("grep ")
+    source_line_range = (
+        row.get("command_line_range")
+        if isinstance(row.get("command_line_range"), dict)
+        else row.get("source_line_range")
+    )
+    line_start = (
+        int(source_line_range.get("start"))
+        if isinstance(source_line_range, dict) and source_line_range.get("start")
+        else index
+    )
+    output_line_count = int(row.get("output_line_count") or 0)
+    output_char_count = int(row.get("output_char_count") or 0)
+    return {
+        "span_id": str(row.get("id") or f"{session_id}_structurer_cmd_{index}"),
+        "agent": "codex",
+        "session_id": session_id,
+        "action_kind": "kernel_command" if is_kernel_shape else "bash_other",
+        "start_ts": f"2026-06-05T05:{line_start % 60:02d}:00Z",
+        "end_ts": f"2026-06-05T05:{(line_start + 1) % 60:02d}:00Z",
+        "duration_ms": 1000,
+        "sequence_index": index,
+        "tool_name": "shell",
+        "command": command,
+        "normalized_command": command,
+        "target_paths": _target_paths_from_command(command),
+        "kernel_flags": _kernel_flags_from_command(command),
+        "is_kernel_shape": is_kernel_shape,
+        "is_grep_shape": is_grep_shape,
+        "output_byte_count": output_char_count,
+        "output_line_count": output_line_count,
+    }
+
+
+def _spans_from_agent_trace_structurer_payload(
+    module: Any,
+    session: dict[str, Any],
+    *,
+    session_id: str,
+    findings: list[dict[str, Any]],
+) -> list[Any]:
+    payload = (
+        session.get("agent_trace_structurer_clip")
+        if isinstance(session.get("agent_trace_structurer_clip"), dict)
+        else session.get("agent_trace_structurer_packet")
+    )
+    if not isinstance(payload, dict):
+        return []
+    schema_version = str(payload.get("schema_version") or "")
+    if schema_version not in AGENT_TRACE_STRUCTURER_ALLOWED_SCHEMA_VERSIONS:
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_STRUCTURER_SCHEMA_UNSUPPORTED",
+                "Sanitized agent trace structurer payload must use an allowed schema.",
+                subject_id=session_id,
+                subject_kind="agent_trace_structurer_trace",
+            )
+        )
+        return []
+    if _has_nonempty_forbidden_key(payload, AGENT_TRACE_STRUCTURER_FORBIDDEN_NONEMPTY_KEYS):
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_STRUCTURER_RAW_BODY_FIELD",
+                "Sanitized agent trace structurer payload must not carry raw source/body fields.",
+                subject_id=session_id,
+                subject_kind="agent_trace_structurer_trace",
+            )
+        )
+        return []
+    command_ledger = payload.get("command_ledger")
+    records = _rows(command_ledger, "records")
+    if not records:
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_STRUCTURER_COMMAND_LEDGER_MISSING",
+                "Sanitized agent trace structurer payload must include command_ledger.records.",
+                subject_id=session_id,
+                subject_kind="agent_trace_structurer_trace",
+            )
+        )
+        return []
+    return [
+        _span_from_trace_analytics_row(
+            module,
+            _span_payload_from_structurer_command(row, session_id=session_id, index=index),
+            session_id=session_id,
+            index=index,
+        )
+        for index, row in enumerate(records)
+    ]
+
+
+def _real_trace_route_state_claim(session_row: dict[str, Any]) -> dict[str, Any]:
+    route_compliance = (
+        session_row.get("route_compliance")
+        if isinstance(session_row.get("route_compliance"), dict)
+        else {}
+    )
+    mode_control = (
+        session_row.get("route_lease_mode_control")
+        if isinstance(session_row.get("route_lease_mode_control"), dict)
+        else {}
+    )
+    signal_counts = (
+        mode_control.get("signal_counts")
+        if isinstance(mode_control.get("signal_counts"), dict)
+        else {}
+    )
+    anti_pattern_ids = sorted(
+        str(row.get("pattern_id"))
+        for row in _rows(session_row, "anti_patterns")
+        if row.get("pattern_id")
+    )
+    return {
+        "agent": str(session_row.get("agent") or ""),
+        "route_compliance_score": float(route_compliance.get("score") or 0.0),
+        "ladder_rungs_hit": list(route_compliance.get("ladder_rungs_hit") or []),
+        "anti_pattern_ids": anti_pattern_ids,
+        "route_lease_mode_signals": sorted(
+            str(signal_id)
+            for signal_id, count in signal_counts.items()
+            if int(count or 0) > 0
+        ),
+    }
+
+
+def _spans_from_real_trace_receipt(
+    module: Any,
+    receipt: dict[str, Any],
+    *,
+    session_id: str,
+    findings: list[dict[str, Any]],
+) -> tuple[list[Any], dict[str, Any] | None]:
+    if str(receipt.get("schema_version") or "") != REAL_TRACE_RECEIPT_SCHEMA_VERSION:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_RECEIPT_SCHEMA_UNSUPPORTED",
+                "Real trace replay receipts must use the supported schema.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+        return [], None
+
+    refs = {
+        "ledger_ref": str(receipt.get("ledger_ref") or ""),
+        "sessions_ref": str(receipt.get("sessions_ref") or ""),
+        "spans_ref": str(receipt.get("spans_ref") or ""),
+    }
+    resolved: dict[str, Path] = {}
+    for key, ref in refs.items():
+        if not ref:
+            findings.append(
+                _bundle_finding(
+                    "REAL_TRACE_RECEIPT_REF_MISSING",
+                    "Real trace replay receipts must declare ledger, session, and span refs.",
+                    subject_id=f"{session_id}:{key}",
+                    subject_kind="real_trace_receipt",
+                )
+            )
+            return [], None
+        if Path(ref).is_absolute():
+            findings.append(
+                _bundle_finding(
+                    "REAL_TRACE_RECEIPT_ABSOLUTE_REF",
+                    "Real trace replay receipts must use repo-relative refs.",
+                    subject_id=f"{session_id}:{key}",
+                    subject_kind="real_trace_receipt",
+                )
+            )
+            return [], None
+        path = AI_WORKFLOW_ROOT / ref
+        if not path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "REAL_TRACE_RECEIPT_SOURCE_MISSING",
+                    "Real trace replay receipts must point at existing repo trace artifacts.",
+                    subject_id=ref,
+                    subject_kind="real_trace_receipt",
+                )
+            )
+            return [], None
+        resolved[key] = path
+
+    try:
+        ledger_payload = read_json_strict(resolved["ledger_ref"])
+        session_rows = _load_jsonl(resolved["sessions_ref"])
+        span_rows = _load_jsonl(resolved["spans_ref"])
+    except (OSError, StrictJsonError, TypeError, ValueError) as exc:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_RECEIPT_SOURCE_LOAD_FAILED",
+                f"Real trace replay receipts must load cleanly from repo trace artifacts: {exc}",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+        return [], None
+
+    ledger_session = next(
+        (
+            row
+            for row in _rows(ledger_payload, "sessions")
+            if str(row.get("session_id") or "") == session_id
+        ),
+        None,
+    )
+    if ledger_session is None:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_RECEIPT_LEDGER_SESSION_MISSING",
+                "Real trace replay receipts must bind a session present in the live trace ledger.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+        return [], None
+
+    live_session = next(
+        (
+            row
+            for row in session_rows
+            if str(row.get("session_id") or "") == session_id
+        ),
+        None,
+    )
+    if live_session is None:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_RECEIPT_SESSION_ROW_MISSING",
+                "Real trace replay receipts must bind a session row present in the live trace sessions artifact.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+        return [], None
+
+    live_spans = [
+        row for row in span_rows if str(row.get("session_id") or "") == session_id
+    ]
+    if not live_spans:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_RECEIPT_SPANS_MISSING",
+                "Real trace replay receipts must bind live spans for the selected session.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+        return [], None
+
+    live_claim = _real_trace_route_state_claim(live_session)
+    receipt_claim = (
+        receipt.get("route_state_claim")
+        if isinstance(receipt.get("route_state_claim"), dict)
+        else {}
+    )
+    if not isinstance(receipt.get("route_state_claim"), dict):
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_ROUTE_STATE_CLAIM_MISSING",
+                "Real trace replay receipts must carry a route-state claim bound to the referenced live session.",
+                subject_id=session_id,
+                subject_kind="real_trace_route_state_claim",
+            )
+        )
+    else:
+        missing_claim_keys = sorted(set(live_claim) - set(receipt_claim))
+        if missing_claim_keys:
+            findings.append(
+                _bundle_finding(
+                    "REAL_TRACE_ROUTE_STATE_CLAIM_INCOMPLETE",
+                    "Real trace route-state claims must carry every live route-state field before replay is accepted.",
+                    subject_id=f"{session_id}:{','.join(missing_claim_keys)}",
+                    subject_kind="real_trace_route_state_claim",
+                )
+            )
+    for key, expected in receipt_claim.items():
+        if live_claim.get(key) != expected:
+            findings.append(
+                _bundle_finding(
+                    "REAL_TRACE_ROUTE_STATE_CLAIM_MISMATCH",
+                    "Real trace route-state claims must match the live session summary they reference.",
+                    subject_id=f"{session_id}:{key}",
+                    subject_kind="real_trace_route_state_claim",
+                )
+            )
+
+    live_fingerprint = _stable_hash(live_claim)
+    receipt_fingerprint = str(receipt.get("route_state_fingerprint") or "")
+    if not receipt_fingerprint:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_ROUTE_STATE_FINGERPRINT_MISSING",
+                "Real trace replay receipts must carry the live route-state fingerprint.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+    elif receipt_fingerprint != live_fingerprint:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_ROUTE_STATE_FINGERPRINT_MISMATCH",
+                "Real trace route-state fingerprints must match the live session summary.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+
+    ledger_score = float(
+        (
+            (ledger_session.get("route_compliance") if isinstance(ledger_session, dict) else {})
+            or {}
+        ).get("score")
+        or 0.0
+    )
+    if ledger_score != live_claim["route_compliance_score"]:
+        findings.append(
+            _bundle_finding(
+                "REAL_TRACE_LEDGER_ROUTE_STATE_MISMATCH",
+                "The live trace ledger and session artifact must agree on route-compliance score.",
+                subject_id=session_id,
+                subject_kind="real_trace_receipt",
+            )
+        )
+
+    spans = [
+        _span_from_trace_analytics_row(
+            module,
+            row,
+            session_id=session_id,
+            index=index,
+        )
+        for index, row in enumerate(live_spans)
+    ]
+    return spans, {
+        "schema_version": REAL_TRACE_RECEIPT_SCHEMA_VERSION,
+        "ledger_ref": refs["ledger_ref"],
+        "sessions_ref": refs["sessions_ref"],
+        "spans_ref": refs["spans_ref"],
+        "route_state_claim": live_claim,
+        "route_state_fingerprint": live_fingerprint,
+        "started_at": str(live_session.get("started_at") or ""),
+        "ended_at": str(live_session.get("ended_at") or ""),
+    }
+
+
+def validate_route_trace_analytics(
+    input_dir: Path,
+    payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    fixture = payload if isinstance(payload, dict) else {}
+    sessions = _rows(fixture, "sessions")
+    session_rows: list[dict[str, Any]] = []
+    pattern_counts: Counter[str] = Counter()
+    mode_signal_counts: Counter[str] = Counter()
+    route_scores: list[float] = []
+    source_module_path = "source_modules/system/lib/agent_execution_trace.py"
+    rules_path = input_dir / "source_modules/codex/doctrine/process/trace_rules.json"
+
+    if not sessions:
+        findings.append(
+            _bundle_finding(
+                "ROUTE_TRACE_ANALYTICS_SESSIONS_MISSING",
+                "Trace analytics fixture must include synthetic sessions.",
+                subject_id="trace_analytics_spans",
+                subject_kind="trace_analytics_fixture",
+            )
+        )
+
+    try:
+        trace_module = _load_route_compliance_copied_trace_module(input_dir)
+        rules = trace_module.load_trace_rules(rules_path)
+    except Exception as exc:  # noqa: BLE001 - copied source import boundary
+        findings.append(
+            _bundle_finding(
+                "ROUTE_TRACE_ANALYTICS_COPIED_SOURCE_IMPORT_FAILED",
+                f"Copied agent_execution_trace.py must import and load public trace rules: {exc}",
+                subject_id=source_module_path,
+                subject_kind="route_trace_analytics_source_module",
+            )
+        )
+        return {
+            "status": "blocked",
+            "findings": findings,
+            "source_module_path": source_module_path,
+            "source_functions_invoked": [],
+            "session_count": 0,
+            "sessions": [],
+            "body_in_receipt": False,
+        }
+
+    source_functions_invoked = [
+        "system/lib/agent_execution_trace.py::_compute_route_compliance",
+        "system/lib/agent_execution_trace.py::_detect_anti_patterns",
+        "system/lib/agent_execution_trace.py::_compute_bottlenecks",
+        "system/lib/agent_execution_trace.py::_route_lease_mode_control",
+    ]
+
+    for session in sessions:
+        session_id = str(session.get("session_id") or f"synthetic_session_{len(session_rows) + 1}")
+        span_rows = _rows(session, "spans")
+        spans = [
+            _span_from_trace_analytics_row(trace_module, row, session_id=session_id, index=index)
+            for index, row in enumerate(span_rows)
+        ]
+        trace_source = "trace_analytics_spans"
+        real_trace_info: dict[str, Any] | None = None
+        if not spans:
+            real_trace_receipt = (
+                session.get("real_trace_receipt")
+                if isinstance(session.get("real_trace_receipt"), dict)
+                else None
+            )
+            if real_trace_receipt is not None:
+                spans, real_trace_info = _spans_from_real_trace_receipt(
+                    trace_module,
+                    real_trace_receipt,
+                    session_id=session_id,
+                    findings=findings,
+                )
+                if spans:
+                    trace_source = "real_agent_execution_trace_receipt"
+        if not spans:
+            spans = _spans_from_agent_trace_structurer_payload(
+                trace_module,
+                session,
+                session_id=session_id,
+                findings=findings,
+            )
+            if spans:
+                trace_source = "agent_trace_structurer_command_ledger"
+        if not spans:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_TRACE_ANALYTICS_SPANS_MISSING",
+                    "Each analytics session must include spans or a sanitized agent_trace_structurer command ledger.",
+                    subject_id=session_id,
+                    subject_kind="trace_analytics_session",
+                )
+            )
+            continue
+        route_compliance = trace_module._compute_route_compliance(spans, rules)
+        session_started_at = session.get("started_at")
+        session_ended_at = session.get("ended_at")
+        if real_trace_info is not None:
+            session_started_at = session_started_at or real_trace_info.get("started_at")
+            session_ended_at = session_ended_at or real_trace_info.get("ended_at")
+        anti_patterns = trace_module._detect_anti_patterns(
+            spans,
+            session_started_at=session_started_at,
+            session_ended_at=session_ended_at,
+            rules=rules,
+        )
+        bottlenecks = trace_module._compute_bottlenecks(spans, rules)
+        mode_control = trace_module._route_lease_mode_control(spans)
+        route_score = float(route_compliance.get("score") or 0.0)
+        route_scores.append(route_score)
+        anti_pattern_ids = [
+            str(row.get("pattern_id"))
+            for row in anti_patterns
+            if isinstance(row, dict) and row.get("pattern_id")
+        ]
+        observed_signal_ids = sorted(
+            str(signal_id)
+            for signal_id, count in (mode_control.get("signal_counts") or {}).items()
+            if int(count or 0) > 0
+        )
+        if real_trace_info is not None:
+            live_claim = real_trace_info["route_state_claim"]
+            if route_score != live_claim["route_compliance_score"]:
+                findings.append(
+                    _bundle_finding(
+                        "REAL_TRACE_REPLAY_ROUTE_SCORE_MISMATCH",
+                        "Real trace replay must reproduce the live session route-compliance score.",
+                        subject_id=session_id,
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+            if list(route_compliance.get("ladder_rungs_hit") or []) != live_claim["ladder_rungs_hit"]:
+                findings.append(
+                    _bundle_finding(
+                        "REAL_TRACE_REPLAY_LADDER_RUNG_MISMATCH",
+                        "Real trace replay must reproduce the live session ladder rungs hit.",
+                        subject_id=session_id,
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+            if sorted(anti_pattern_ids) != live_claim["anti_pattern_ids"]:
+                findings.append(
+                    _bundle_finding(
+                        "REAL_TRACE_REPLAY_PATTERN_SET_MISMATCH",
+                        "Real trace replay must reproduce the live session anti-pattern set.",
+                        subject_id=session_id,
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+            if observed_signal_ids != live_claim["route_lease_mode_signals"]:
+                findings.append(
+                    _bundle_finding(
+                        "REAL_TRACE_REPLAY_MODE_SIGNAL_MISMATCH",
+                        "Real trace replay must reproduce the live session route-lease mode signals.",
+                        subject_id=session_id,
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+        pattern_counts.update(anti_pattern_ids)
+        mode_signal_counts.update(
+            {
+                str(signal_id): int(count)
+                for signal_id, count in (mode_control.get("signal_counts") or {}).items()
+            }
+        )
+        expected = session.get("expected") if isinstance(session.get("expected"), dict) else {}
+        expected_score = expected.get("route_compliance_score")
+        if expected_score is not None and route_score != float(expected_score):
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_TRACE_ANALYTICS_SCORE_MISMATCH",
+                    "Copied route-compliance scorer must produce the fixture expected score.",
+                    subject_id=session_id,
+                    subject_kind="trace_analytics_session",
+                )
+            )
+        for pattern_id in _strings(expected.get("required_anti_patterns")):
+            if pattern_id not in anti_pattern_ids:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_TRACE_ANALYTICS_ANTI_PATTERN_MISSING",
+                        "Copied anti-pattern detector must fire the expected public pattern.",
+                        subject_id=f"{session_id}:{pattern_id}",
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+        signal_counts = mode_control.get("signal_counts") if isinstance(mode_control, dict) else {}
+        for signal_id in _strings(expected.get("required_mode_signals")):
+            if int((signal_counts or {}).get(signal_id) or 0) < 1:
+                findings.append(
+                    _bundle_finding(
+                        "ROUTE_TRACE_ANALYTICS_MODE_SIGNAL_MISSING",
+                        "Copied route-lease mode-control reducer must emit the expected public signal.",
+                        subject_id=f"{session_id}:{signal_id}",
+                        subject_kind="trace_analytics_session",
+                    )
+                )
+        session_rows.append(
+            {
+                "session_id": session_id,
+                "span_count": len(spans),
+                "route_compliance": {
+                    "score": route_compliance.get("score"),
+                    "first_kernel_span_index": route_compliance.get("first_kernel_span_index"),
+                    "first_grep_span_index": route_compliance.get("first_grep_span_index"),
+                    "ladder_position": route_compliance.get("ladder_position"),
+                    "deviation_count": route_compliance.get("deviation_count"),
+                    "ladder_rungs_hit": list(route_compliance.get("ladder_rungs_hit") or []),
+                    "violations": list(route_compliance.get("violations") or []),
+                },
+                "anti_pattern_ids": sorted(anti_pattern_ids),
+                "route_lease_mode_control": {
+                    "status": mode_control.get("status"),
+                    "warning_count": mode_control.get("warning_count"),
+                    "signal_counts": dict(mode_control.get("signal_counts") or {}),
+                },
+                "trace_source": trace_source,
+                **(
+                    {
+                        "real_trace_replay": {
+                            "schema_version": real_trace_info["schema_version"],
+                            "ledger_ref": real_trace_info["ledger_ref"],
+                            "sessions_ref": real_trace_info["sessions_ref"],
+                            "spans_ref": real_trace_info["spans_ref"],
+                            "route_state_fingerprint": real_trace_info[
+                                "route_state_fingerprint"
+                            ],
+                            "body_in_receipt": False,
+                        }
+                    }
+                    if real_trace_info is not None
+                    else {}
+                ),
+                "bottlenecks": {
+                    kind: {
+                        "count": row.get("count"),
+                        "p50_ms": row.get("p50_ms"),
+                        "p95_ms": row.get("p95_ms"),
+                        "slow_count": row.get("slow_count"),
+                    }
+                    for kind, row in sorted(bottlenecks.items())
+                },
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and sessions else "blocked",
+        "findings": findings,
+        "schema_version": "agent_route_observability_runtime_trace_analytics_v1",
+        "fixture_schema_version": fixture.get("schema_version"),
+        "agent_trace_structurer_trace_schema_version": (
+            AGENT_TRACE_STRUCTURER_TRACE_SCHEMA_VERSION
+        ),
+        "real_trace_receipt_schema_version": REAL_TRACE_RECEIPT_SCHEMA_VERSION,
+        "source_module_path": source_module_path,
+        "source_functions_invoked": source_functions_invoked,
+        "session_count": len(session_rows),
+        "average_route_compliance": (
+            round(sum(route_scores) / len(route_scores), 3) if route_scores else 0.0
+        ),
+        "pattern_counts": dict(sorted(pattern_counts.items())),
+        "route_lease_mode_control_counts": dict(sorted(mode_signal_counts.items())),
+        "sessions": session_rows,
+        "body_in_receipt": False,
     }
 
 
@@ -4499,8 +6075,12 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
     missing_required_ids = sorted(set(required_ids) - set(selected_ids))
     compact_receipts = _rows(lens, "compact_admission_receipts")
     compact_decisions: list[dict[str, Any]] = []
+    runtime_type_ok = lens.get("runtime_doctrine_type") == "agent_principle"
+    artifact_role_ok = (
+        lens.get("artifact_role") == "task_conditioned_agent_principle_lens"
+    )
 
-    if lens.get("runtime_doctrine_type") != "agent_principle":
+    if not runtime_type_ok:
         findings.append(
             _finding(
                 "AGENT_PRINCIPLE_LENS_RUNTIME_DOCTRINE_TYPE_MISSING",
@@ -4510,7 +6090,7 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
                 subject_kind="agent_principle_lens",
             )
         )
-    if lens.get("artifact_role") != "task_conditioned_agent_principle_lens":
+    if not artifact_role_ok:
         findings.append(
             _finding(
                 "AGENT_PRINCIPLE_LENS_ARTIFACT_ROLE_MISSING",
@@ -4551,7 +6131,8 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
         "selected_principle_cards_route",
         "agent_operating_packet_route",
     )
-    if _missing(lens, required_route_fields):
+    route_handles_ok = not _missing(lens, required_route_fields)
+    if not route_handles_ok:
         findings.append(
             _finding(
                 "AGENT_PRINCIPLE_LENS_ROUTE_HANDLE_MISSING",
@@ -4562,32 +6143,47 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
             )
         )
 
-    compact_required_true = (
-        "selected_ids_preserved",
-        "runtime_doctrine_type_preserved",
-        "all_agent_principles_route_preserved",
-        "selected_principle_cards_route_preserved",
-        "agent_operating_packet_route_preserved",
-    )
-    compact_required_false = (
-        "row_bodies_exported",
-        "candidate_axiom_promoted",
-        "principles_minted",
+    lens_authority_overclaim = any(
+        lens.get(field) is not False
+        for field in (
+            "principles_minted",
+            "candidate_axiom_promoted",
+            "full_principle_bodies_exported",
+        )
     )
     for row in compact_receipts:
         surface_id = str(row.get("surface_id") or "compact_admission")
         row_codes: list[str] = []
-        for field in compact_required_true:
-            if row.get(field) is not True:
-                row_codes.append("AGENT_PRINCIPLE_COMPACT_HANDLE_MISSING")
-        for field in compact_required_false:
-            if row.get(field) is not False:
-                row_codes.append("AGENT_PRINCIPLE_COMPACT_AUTHORITY_OVERCLAIM")
+        body_export_fields = (
+            "row_bodies_exported",
+            "candidate_axiom_promoted",
+            "principles_minted",
+            "full_principle_bodies_exported",
+        )
+        body_export_payload_fields = (
+            "row_bodies",
+            "principle_bodies",
+            "full_principle_bodies",
+            "candidate_axiom_body",
+        )
+        row_exports_body = any(row.get(field) is True for field in body_export_fields)
+        row_exports_body = row_exports_body or any(
+            bool(row.get(field)) for field in body_export_payload_fields
+        )
+        if (
+            missing_required_ids
+            or not runtime_type_ok
+            or not artifact_role_ok
+            or not route_handles_ok
+        ):
+            row_codes.append("AGENT_PRINCIPLE_COMPACT_HANDLE_MISSING")
+        if lens_authority_overclaim or row_exports_body:
+            row_codes.append("AGENT_PRINCIPLE_COMPACT_AUTHORITY_OVERCLAIM")
         if row_codes:
             findings.append(
                 _finding(
                     sorted(set(row_codes))[0],
-                    "Compact admission must preserve route handles while excluding bodies, minted principles, and candidate-axiom promotion.",
+                    "Compact admission is recomputed from lens route handles, selected ids, and public-safe authority evidence.",
                     case_id="agent_principle_lens_compact_admission_invalid",
                     subject_id=surface_id,
                     subject_kind="agent_principle_compact_admission",
@@ -4598,6 +6194,11 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
                 "surface_id": surface_id,
                 "decision": "accepted" if not row_codes else "blocked",
                 "error_codes": sorted(set(row_codes)),
+                "derived_from": "agent_principle_lens_route_and_authority_fields",
+                "declared_selected_ids_preserved": row.get("selected_ids_preserved"),
+                "declared_runtime_doctrine_type_preserved": row.get(
+                    "runtime_doctrine_type_preserved"
+                ),
                 "body_redacted": True,
             }
         )
@@ -4631,6 +6232,37 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
     }
 
 
+def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
+    detector_id = str(row.get("detector_id") or "")
+    labels = set(_strings(row.get("matched_phrase_labels")))
+    durable_binding = row.get("durable_binding_present") is True
+    fresh_authority = row.get("fresh_authority_present") is True
+
+    if detector_id == "permission_gate_without_blocker":
+        violation = not (durable_binding or fresh_authority)
+        return violation, "block" if violation else "allow_with_fresh_authority"
+    if detector_id == "residual_deliverable_without_workitem":
+        violation = not durable_binding
+        return violation, "block" if violation else "allow_bound_capture"
+    if detector_id == "capture_reflex_tripwire_without_capture":
+        bound_capture = durable_binding and fresh_authority and (
+            "task_ledger_cap_id_present" in labels
+        )
+        violation = not bound_capture
+        return violation, "block" if violation else "allow_bound_capture"
+    if detector_id == "self_error_without_capture":
+        bound_self_error = durable_binding and fresh_authority and (
+            "self_error_capture_present" in labels
+        )
+        violation = not bound_self_error
+        return violation, "block" if violation else "allow_bound_self_error"
+    if detector_id == "stale_dirty_snapshot_commit_blocker":
+        violation = not fresh_authority
+        return violation, "block" if violation else "allow_with_fresh_authority"
+
+    return True, "block"
+
+
 def validate_egress_mirror(payload: object) -> dict[str, Any]:
     mirror = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -4657,14 +6289,15 @@ def validate_egress_mirror(payload: object) -> dict[str, Any]:
         for field in required_false_fields:
             if row.get(field) is not False:
                 row_codes.append("EGRESS_MIRROR_PRIVATE_STATE_BOUNDARY_BREACH")
-        if row.get("expected_violation") is True:
+        derived_violation, derived_decision = _derive_egress_decision(row)
+        if derived_violation:
             violation_count += 1
-            if row.get("expected_decision") != "block":
-                row_codes.append("EGRESS_MIRROR_EXPECTED_BLOCK_MISSING")
         else:
             allowed_count += 1
-            if row.get("expected_decision") == "block":
-                row_codes.append("EGRESS_MIRROR_FALSE_POSITIVE_BLOCK")
+        if row.get("expected_violation") is not derived_violation:
+            row_codes.append("EGRESS_MIRROR_DECLARED_VIOLATION_MISMATCH")
+        if str(row.get("expected_decision") or "") != derived_decision:
+            row_codes.append("EGRESS_MIRROR_DECLARED_DECISION_MISMATCH")
         if row_codes:
             findings.append(
                 _finding(
@@ -4679,8 +6312,11 @@ def validate_egress_mirror(payload: object) -> dict[str, Any]:
             {
                 "case_id": case_id,
                 "detector_id": detector_id,
-                "decision": row.get("expected_decision"),
-                "expected_violation": row.get("expected_violation") is True,
+                "decision": derived_decision,
+                "declared_decision": row.get("expected_decision"),
+                "expected_violation": derived_violation,
+                "declared_expected_violation": row.get("expected_violation") is True,
+                "derived_from": "egress_detector_evidence",
                 "error_codes": sorted(set(row_codes)),
                 "body_redacted": True,
             }
@@ -4787,6 +6423,10 @@ def write_receipts(
         receipt_paths=receipt_paths,
     )
     route_compliance.update(_without_common_keys(validation_result["route_compliance"]))
+    if "primary_route_trace_analytics" in validation_result:
+        route_compliance["primary_route_trace_analytics"] = validation_result[
+            "primary_route_trace_analytics"
+        ]
 
     hook_shadow = _common_receipt(
         validation_result,
@@ -4942,6 +6582,7 @@ def _write_route_compliance_audit_bundle_receipt(
             "route_compliance_decisions": validation_result[
                 "route_compliance_decisions"
             ],
+            "trace_analytics": validation_result["trace_analytics"],
             "actor_axis_decisions": validation_result["actor_axis_decisions"],
             "actor_axis_mismatch_count": validation_result[
                 "actor_axis_mismatch_count"
@@ -4959,6 +6600,9 @@ def _write_route_compliance_audit_bundle_receipt(
             "copied_macro_source_count": validation_result[
                 "copied_macro_source_count"
             ],
+            "public_reference_sanitized_source_count": validation_result[
+                "public_reference_sanitized_source_count"
+            ],
             "route_compliance_policy": validation_result[
                 "route_compliance_policy"
             ],
@@ -4968,6 +6612,9 @@ def _write_route_compliance_audit_bundle_receipt(
                 "body_import_verification"
             ],
             "exact_source_body_import": validation_result["exact_source_body_import"],
+            "public_reference_sanitized_body_import": validation_result[
+                "public_reference_sanitized_body_import"
+            ],
             "metadata_envelope_only": True,
             "body_in_receipt": False,
             "live_process_audit_authority": False,
@@ -5043,6 +6690,76 @@ def _write_session_attribution_bundle_receipt(
             "provider_payload_exported": False,
             "account_session_state_exported": False,
             "credential_or_cookie_exported": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def _write_harness_configuration_audit_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / HARNESS_CONFIGURATION_AUDIT_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_harness_configuration_"
+            "audit_bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "snapshot_count": validation_result["snapshot_count"],
+            "clean_snapshot_count": validation_result["clean_snapshot_count"],
+            "finding_count": validation_result["finding_count"],
+            "quarantined_snapshot_count": validation_result[
+                "quarantined_snapshot_count"
+            ],
+            "summary": validation_result["summary"],
+            "snapshot_rows": validation_result["snapshot_rows"],
+            "harness_input_validation": validation_result["harness_input_validation"],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
+            "harness_policy": validation_result["harness_policy"],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "exact_source_body_import": validation_result["exact_source_body_import"],
+            "metadata_envelope_only": True,
+            "live_local_settings_read": False,
+            "raw_settings_body_exported": False,
+            "raw_hook_body_exported": False,
+            "raw_skill_body_exported": False,
+            "provider_payload_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "live_hook_install_authorized": False,
+            "source_mutation_authorized": False,
             "fixture_regression_required_elsewhere": False,
         }
     )
@@ -5483,6 +7200,18 @@ def run_observability_bundle(
         input_path,
         payloads["source_module_manifest"],
     )
+    leaked_keys = sorted(
+        _walk_nonempty_payload_keys(payloads, OBSERVABILITY_BUNDLE_FORBIDDEN_KEYS)
+    )
+    forbidden_key_findings = [
+        _bundle_finding(
+            "OBSERVABILITY_BUNDLE_FORBIDDEN_PAYLOAD_KEY",
+            "Exported observability bundle inputs cannot include transcript bodies, provider payloads, browser/HUD state, account/session state, credentials, cookies, recipient-send payloads, raw payloads, or hidden reasoning.",
+            subject_id=key,
+            subject_kind="observability_bundle_input",
+        )
+        for key in leaked_keys
+    ]
 
     all_findings = sorted(
         [
@@ -5495,6 +7224,7 @@ def run_observability_bundle(
             *process_result["findings"],
             *policy_result["findings"],
             *source_manifest_result["findings"],
+            *forbidden_key_findings,
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -5624,6 +7354,7 @@ def run_observability_bundle(
             "copied_macro_source_count": source_manifest_result[
                 "copied_macro_source_count"
             ],
+            "forbidden_payload_keys": leaked_keys,
             "source_refs": source_refs,
             "target_refs": target_refs,
             "body_import_verification": body_import_verification,
@@ -5673,6 +7404,10 @@ def run_route_compliance_audit_bundle(
     manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
     route_rows = _rows(payloads["route_events"], "route_events")
     route_result = validate_route_compliance(route_rows)
+    trace_analytics_result = validate_route_trace_analytics(
+        input_path,
+        payloads["trace_analytics_spans"],
+    )
     expected_result = validate_route_compliance_expected_summary(
         payloads["expected_route_compliance_summary"],
         route_result,
@@ -5686,6 +7421,7 @@ def run_route_compliance_audit_bundle(
     )
     structural_findings = sorted(
         [
+            *trace_analytics_result["findings"],
             *expected_result["findings"],
             *source_manifest_result["findings"],
             *policy_result["findings"],
@@ -5719,6 +7455,7 @@ def run_route_compliance_audit_bundle(
         and not structural_findings
         and route_rows
         and not missing_cases
+        and trace_analytics_result["status"] == PASS
         and expected_result["status"] == PASS
         and source_manifest_result["status"] == PASS
         and policy_result["status"] == PASS
@@ -5728,6 +7465,7 @@ def run_route_compliance_audit_bundle(
         {
             "bundle_id": bundle_id,
             "route_events": payloads["route_events"],
+            "trace_analytics_spans": payloads["trace_analytics_spans"],
             "expected_route_compliance_summary": payloads[
                 "expected_route_compliance_summary"
             ],
@@ -5748,21 +7486,50 @@ def run_route_compliance_audit_bundle(
         if isinstance(manifest.get("body_import_verification"), dict)
         else {}
     )
-    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    exact_source_modules = _rows(source_manifest_result, "exact_source_modules")
+    sanitized_source_modules = _rows(
+        source_manifest_result,
+        "public_reference_sanitized_source_modules",
+    )
     source_body_digests = [
         f"sha256:{row['sha256']}"
-        for row in observed_source_modules
+        for row in exact_source_modules
         if row.get("sha256")
     ]
     source_module_refs = [
         str(row.get("source_ref"))
-        for row in observed_source_modules
+        for row in exact_source_modules
         if row.get("source_ref")
     ]
     target_module_refs = [
         str(row.get("target_ref"))
-        for row in observed_source_modules
+        for row in exact_source_modules
         if row.get("target_ref")
+    ]
+    sanitized_source_body_digests = [
+        str(row.get("source_sha256"))
+        for row in sanitized_source_modules
+        if row.get("source_sha256")
+    ]
+    sanitized_target_body_digests = [
+        str(row.get("target_sha256"))
+        for row in sanitized_source_modules
+        if row.get("target_sha256")
+    ]
+    sanitized_source_module_refs = [
+        str(row.get("source_ref"))
+        for row in sanitized_source_modules
+        if row.get("source_ref")
+    ]
+    sanitized_target_module_refs = [
+        str(row.get("target_ref"))
+        for row in sanitized_source_modules
+        if row.get("target_ref")
+    ]
+    sanitization_receipts = [
+        dict(row["sanitization_receipt"])
+        for row in sanitized_source_modules
+        if isinstance(row.get("sanitization_receipt"), dict)
     ]
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
@@ -5817,6 +7584,7 @@ def run_route_compliance_audit_bundle(
                 1 for row in decisions if row.get("decision") == "rejected"
             ),
             "route_compliance_decisions": decisions,
+            "trace_analytics": trace_analytics_result,
             "actor_axis_decisions": route_result["actor_axis_decisions"],
             "actor_axis_mismatch_count": route_result[
                 "actor_axis_mismatch_count"
@@ -5829,6 +7597,9 @@ def run_route_compliance_audit_bundle(
             "source_module_manifest": source_manifest_result,
             "copied_macro_source_count": source_manifest_result[
                 "copied_macro_source_count"
+            ],
+            "public_reference_sanitized_source_count": source_manifest_result[
+                "public_reference_sanitized_source_count"
             ],
             "route_compliance_policy": policy_result,
             "source_refs": source_refs,
@@ -5844,6 +7615,21 @@ def run_route_compliance_audit_bundle(
                 "target_body_digests": source_body_digests
                 if source_manifest_result["status"] == PASS
                 else [],
+                "body_in_receipt": False,
+            },
+            "public_reference_sanitized_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "public_reference_sanitizer_receipt_and_target_digest_match",
+                "source_to_target_relation": (
+                    ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION
+                ),
+                "source_refs": sanitized_source_module_refs,
+                "target_refs": sanitized_target_module_refs,
+                "source_body_digests": sanitized_source_body_digests,
+                "target_body_digests": sanitized_target_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
+                "sanitization_receipts": sanitization_receipts,
                 "body_in_receipt": False,
             },
             "metadata_envelope_only": True,
@@ -6060,6 +7846,178 @@ def run_session_attribution_bundle(
     return result
 
 
+def run_harness_configuration_audit_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_harness_configuration_audit_bundle(input_path)
+    scan_result = _scan_harness_configuration_audit_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    input_result = validate_exported_harness_configuration_inputs(
+        payloads["harness_snapshots"]
+    )
+    source_manifest_result = validate_harness_configuration_audit_source_manifest(
+        input_path,
+        payloads["source_module_manifest"],
+    )
+    policy_result = validate_exported_harness_configuration_policy(
+        payloads["harness_policy"]
+    )
+    expected_result = validate_exported_harness_configuration_expected_summary(
+        payloads["expected_harness_summary"],
+        input_result=input_result,
+    )
+    all_findings = sorted(
+        [
+            *input_result["findings"],
+            *source_manifest_result["findings"],
+            *policy_result["findings"],
+            *expected_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_harness_configuration_audit_bundle"
+    )
+    snapshot_rows = _rows(input_result, "public_snapshot_rows")
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and source_manifest_result["status"] == PASS
+        and policy_result["status"] == PASS
+        and input_result["snapshot_count"] >= 3
+        and snapshot_rows
+        and input_result["summary"]["finding_count"] >= 2
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "snapshot_rows": snapshot_rows,
+            "summary": input_result.get("summary", {}),
+            "policy_id": policy_result.get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or [
+        "tools/meta/audit/harness_audit.py",
+        "codex/standards/std_agent_entrypoint_audit.json",
+    ]
+    target_refs = _strings(manifest.get("target_refs")) or [
+        EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH
+    ]
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digests = [
+        f"sha256:{row['sha256']}"
+        for row in observed_source_modules
+        if row.get("sha256")
+    ]
+    source_module_refs = [
+        str(row.get("source_ref"))
+        for row in observed_source_modules
+        if row.get("source_ref")
+    ]
+    target_module_refs = [
+        str(row.get("target_ref"))
+        for row in observed_source_modules
+        if row.get("target_ref")
+    ]
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_harness_configuration_audit_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": HARNESS_CONFIGURATION_AUDIT_ANTI_CLAIM,
+            "authority_ceiling": HARNESS_CONFIGURATION_AUDIT_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings}
+            ),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "source_pattern_ids": SOURCE_PATTERN_IDS,
+            "snapshot_count": input_result["snapshot_count"],
+            "clean_snapshot_count": input_result["summary"]["clean_snapshot_count"],
+            "finding_count": input_result["summary"]["finding_count"],
+            "quarantined_snapshot_count": input_result["summary"][
+                "quarantined_snapshot_count"
+            ],
+            "summary": input_result["summary"],
+            "snapshot_rows": snapshot_rows,
+            "clean_snapshot_ids": input_result["clean_snapshot_ids"],
+            "quarantined_snapshot_ids": input_result["quarantined_snapshot_ids"],
+            "harness_input_validation": input_result,
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
+            "harness_policy": policy_result,
+            "expected_summary_validation": expected_result,
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "body_import_verification": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_refs": source_module_refs,
+                "target_refs": target_module_refs,
+                "source_body_digests": source_body_digests,
+                "target_body_digests": source_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
+                "body_in_receipt": False,
+            },
+            "exact_source_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_refs": source_module_refs,
+                "target_refs": target_module_refs,
+                "source_body_digests": source_body_digests,
+                "target_body_digests": source_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
+                "body_in_receipt": False,
+            },
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "bundle_fingerprint": bundle_fingerprint,
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _harness_configuration_audit_scan_paths(input_path)
+            ],
+            "receipt_paths": [EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_harness_configuration_audit_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def run_multi_agent_fanin_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -6258,17 +8216,7 @@ def run_multi_agent_fanin_bundle(
             "expected_summary_validation": expected_result,
             "source_refs": source_refs,
             "target_refs": target_refs,
-            "body_import_verification": {
-                "verification_status": "verified",
-                "verification_mode": "source_faithful_public_refactor",
-                "source_to_target_relation": "source_faithful_public_light_edit",
-                "source_ref": "system/lib/continuation_packet.py",
-                "target_ref": (
-                    "microcosm-substrate/src/microcosm_core/macro_tools/"
-                    "continuation_packet.py"
-                ),
-                "body_in_receipt": False,
-            },
+            "body_import_verification": continuation_packet_body_import_verification(),
             "exact_source_body_import": {
                 "verification_status": source_manifest_result["status"],
                 "verification_mode": "exact_source_digest_match",
@@ -7219,7 +9167,7 @@ def validate_computer_use_source_manifest(
             continue
         observed_digest = _file_sha256(source_module_path)
         observed_line_count = _source_line_count(source_module_path)
-        observed_byte_count = len(source_module_path.read_bytes())
+        observed_byte_count = _file_size_bytes(source_module_path)
         if observed_digest == str(row.get("sha256") or ""):
             digest_match_count += 1
         else:
@@ -8321,6 +10269,31 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     scan_result = _scan_fixture_inputs(input_path, public_root)
 
     route_compliance = validate_route_compliance(payloads["trace_rows"])
+    route_trace_analytics_source = "primary_fixture"
+    source_manifest_result: dict[str, Any] | None = None
+    if "trace_analytics" in payloads:
+        route_trace_analytics = validate_route_trace_analytics(
+            input_path,
+            payloads["trace_analytics"],
+        )
+        source_manifest_path = input_path / "source_module_manifest.json"
+        if source_manifest_path.is_file():
+            source_manifest_result = validate_route_compliance_audit_source_manifest(
+                input_path,
+                read_json_strict(source_manifest_path),
+            )
+    else:
+        route_trace_analytics_source = "exported_route_compliance_audit_bundle"
+        route_bundle_input = _default_route_compliance_audit_bundle_input()
+        route_bundle_payloads = _load_route_compliance_audit_bundle(route_bundle_input)
+        route_trace_analytics = validate_route_trace_analytics(
+            route_bundle_input,
+            route_bundle_payloads["trace_analytics_spans"],
+        )
+        source_manifest_result = validate_route_compliance_audit_source_manifest(
+            route_bundle_input,
+            route_bundle_payloads["source_module_manifest"],
+        )
     hook_shadow = validate_hook_shadow(payloads["hook_shadow"])
     debt_retirement = validate_debt_retirement(payloads["debt"])
     route_lease = validate_route_lease_mode_control(payloads["trace_rows"])
@@ -8337,10 +10310,26 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         egress_mirror,
     )
     missing_cases = sorted(set(EXPECTED_NEGATIVE_CASES) - set(observed))
-    error_codes = sorted({code for codes in observed.values() for code in codes})
+    error_codes = sorted(
+        {
+            *{code for codes in observed.values() for code in codes},
+            *(
+                str(row.get("error_code"))
+                for row in (route_trace_analytics or {}).get("findings", [])
+                if row.get("error_code")
+            ),
+            *(
+                str(row.get("error_code"))
+                for row in (source_manifest_result or {}).get("findings", [])
+                if row.get("error_code")
+            ),
+        }
+    )
     findings = sorted(
         [
             *route_compliance["findings"],
+            *((route_trace_analytics or {}).get("findings") or []),
+            *((source_manifest_result or {}).get("findings") or []),
             *hook_shadow["findings"],
             *route_lease["findings"],
             *agent_principle_lens["findings"],
@@ -8367,7 +10356,13 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
                 PASS
                 if not missing_cases
                 and scan_result["status"] == PASS
+                and route_compliance["status"] == PASS
                 and hook_shadow["status"] == PASS
+                and route_trace_analytics["status"] == PASS
+                and (
+                    source_manifest_result is None
+                    or source_manifest_result["status"] == PASS
+                )
                 and agent_principle_lens["status"] == PASS
                 and egress_mirror["status"] == PASS
                 else "blocked"
@@ -8382,6 +10377,17 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "findings": findings,
             "private_state_scan": private_scan,
             "route_compliance": route_compliance,
+            "primary_route_trace_analytics": {
+                **route_trace_analytics,
+                "source_bound_primary_run": route_trace_analytics["status"] == PASS,
+                "source_binding": route_trace_analytics_source,
+            },
+            "primary_route_source_manifest": source_manifest_result
+            or {
+                "status": "not_present",
+                "source_bound_primary_run": False,
+                "body_in_receipt": False,
+            },
             "hook_shadow_coverage": hook_shadow,
             "debt_retirement": debt_retirement,
             "route_lease_mode_control": route_lease,
@@ -8517,6 +10523,9 @@ def main(argv: list[str] | None = None) -> int:
     session_attribution_parser = subparsers.add_parser("validate-session-attribution-bundle")
     session_attribution_parser.add_argument("--input", required=True)
     session_attribution_parser.add_argument("--out", required=True)
+    harness_parser = subparsers.add_parser("validate-harness-configuration-bundle")
+    harness_parser.add_argument("--input", required=True)
+    harness_parser.add_argument("--out", required=True)
     fanin_parser = subparsers.add_parser("validate-multi-agent-fanin-bundle")
     fanin_parser.add_argument("--input", required=True)
     fanin_parser.add_argument("--out", required=True)
@@ -8574,6 +10583,16 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-session-attribution-bundle --input {args.input} --out {args.out}"
         )
         result = run_session_attribution_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-harness-configuration-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-harness-configuration-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_harness_configuration_audit_bundle(
+            args.input,
+            args.out,
+            command=command,
+        )
     elif args.action == "validate-multi-agent-fanin-bundle":
         command = (
             "python -m microcosm_core.organs.agent_route_observability_runtime "
@@ -8613,6 +10632,7 @@ def main(argv: list[str] | None = None) -> int:
             "expected subcommand: run, validate-observability-bundle, or "
             "validate-route-compliance-bundle, validate-computer-use-bundle, "
             "validate-session-attribution-bundle, "
+            "validate-harness-configuration-bundle, "
             "validate-multi-agent-fanin-bundle, or "
             "validate-bridge-dispatch-yield-resume-bundle, or "
             "validate-controller-heartbeat-bundle, or "

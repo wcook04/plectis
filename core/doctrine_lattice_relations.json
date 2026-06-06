@@ -1,0 +1,818 @@
+{
+  "schema_version": "microcosm_doctrine_lattice_relation_registry_v1",
+  "registry_id": "public_microcosm_doctrine_lattice_relation_registry",
+  "authority_boundary": "source_relation_grammar_for_public_microcosm_lattice_edges",
+  "anti_claim": "This registry governs typed doctrine lattice edge grammar only. It does not prove target quality, authorize release, or promote generated coverage rows into source doctrine.",
+  "authority_classes": [
+    "source_assertion",
+    "derived_from_source",
+    "generated_projection",
+    "planned_unresolved",
+    "blocked",
+    "deprecated",
+    "candidate_intake_only"
+  ],
+  "projection_classes": [
+    "agent_entry",
+    "atlas_card",
+    "markdown_reference",
+    "mermaid_graph",
+    "website_doc",
+    "coverage_health",
+    "workitem_deficit"
+  ],
+  "target_resolution_classes": [
+    "resolve_when_present",
+    "must_resolve_or_marked_planned"
+  ],
+  "kind_unions": [
+    {
+      "kind_union_id": "organ_or_mechanism",
+      "members": [
+        "organ",
+        "mechanism"
+      ]
+    },
+    {
+      "kind_union_id": "doctrine_kind",
+      "members": [
+        "axiom",
+        "principle",
+        "anti_principle",
+        "concept",
+        "mechanism",
+        "paper_module",
+        "organ",
+        "skill",
+        "standard",
+        "code_locus"
+      ]
+    }
+  ],
+  "edge_justification_classes": [
+    "constitutional_constraint",
+    "operative_governance",
+    "conceptual_instantiation",
+    "failure_guard",
+    "projection_support",
+    "historical_provenance"
+  ],
+  "relations": [
+    {
+      "relation_id": "axiom.witnessed_by.organ",
+      "source_kind": "axiom",
+      "target_kind": "organ",
+      "forward_verb": "witnessed_by",
+      "reverse_verb": "witnesses",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "principle.grounded_by.axiom",
+      "source_kind": "principle",
+      "target_kind": "axiom",
+      "forward_verb": "grounded_by",
+      "reverse_verb": "grounds",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "principle_grounding_routes_support_to_axiom_cover_only",
+        "claim_role": "grounding_route_not_support_witness",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "grounded_by edges expose source-owned axiom grounding but do not certify principle support strength",
+          "support is inherited only through principle_payload.support_contract.grounding_obligation_refs",
+          "generated relation projections cannot raise a principle support ceiling"
+        ]
+      }
+    },
+    {
+      "relation_id": "principle.governs.concept",
+      "source_kind": "principle",
+      "target_kind": "concept",
+      "forward_verb": "governs",
+      "reverse_verb": "governed_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "principle_governance_relation_is_routing_not_support",
+        "claim_role": "governance_route_not_support_witness",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "governs concept edges are navigation and substrate-routing evidence only",
+          "concept neighbours cannot assert or upgrade principle support strength",
+          "missing concept governance remains typed residual pressure, not a support downgrade"
+        ]
+      }
+    },
+    {
+      "relation_id": "principle.governs.mechanism",
+      "source_kind": "principle",
+      "target_kind": "mechanism",
+      "forward_verb": "governs",
+      "reverse_verb": "governed_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "principle_governance_relation_is_routing_not_support",
+        "claim_role": "governance_route_not_support_witness",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "governs mechanism edges are navigation and substrate-routing evidence only",
+          "mechanism neighbours cannot assert or upgrade principle support strength",
+          "missing mechanism governance remains typed residual pressure, not a support downgrade"
+        ]
+      }
+    },
+    {
+      "relation_id": "anti_principle.negates_failure_of.principle",
+      "source_kind": "anti_principle",
+      "target_kind": "principle",
+      "forward_verb": "negates_failure_of",
+      "reverse_verb": "failure_guarded_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "anti_principle_failure_guard_not_truth_negation",
+        "claim_role": "failure_guard_route_not_principle_truth_verdict",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "negates_failure_of edges name principle-failure guards, not proof that the principle is false or unsupported",
+          "anti-principle guards cannot become positive principle support",
+          "exact anti-axiom rejection remains governed by std_microcosm_axiom anti-axiom rejection mapping"
+        ]
+      }
+    },
+    {
+      "relation_id": "anti_principle.guards.axiom",
+      "source_kind": "anti_principle",
+      "target_kind": "axiom",
+      "forward_verb": "guards",
+      "reverse_verb": "guarded_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "anti_principle_axiom_guard_not_rejection_proof",
+        "claim_role": "failure_guard_route_not_obligation_rejection_proof",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "guards edges expose violated-axiom routing but do not verify exact obligation rejection",
+          "negative-case coverage cannot certify rejection without source-owned obligation mapping",
+          "generated relation projections cannot become source evidence for anti-axiom rejection"
+        ]
+      }
+    },
+    {
+      "relation_id": "concept.implements_or_refines.principle",
+      "source_kind": "concept",
+      "target_kind": "principle",
+      "forward_verb": "implements_or_refines",
+      "reverse_verb": "refined_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "concept.instantiated_by.mechanism",
+      "source_kind": "concept",
+      "target_kind": "mechanism",
+      "forward_verb": "instantiated_by",
+      "reverse_verb": "instantiates",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "concept.abides_by.axiom",
+      "source_kind": "concept",
+      "target_kind": "axiom",
+      "forward_verb": "abides_by",
+      "reverse_verb": "constrains",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "mechanism.grounded_in.code_locus",
+      "source_kind": "mechanism",
+      "target_kind": "code_locus",
+      "forward_verb": "grounded_in",
+      "reverse_verb": "implements",
+      "cardinality": "one_to_many",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "mechanism.evidenced_by.receipt",
+      "source_kind": "mechanism",
+      "target_kind": "receipt",
+      "forward_verb": "evidenced_by",
+      "reverse_verb": "evidences",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "mechanism.grounds.concept",
+      "source_kind": "mechanism",
+      "target_kind": "concept",
+      "forward_verb": "grounds",
+      "reverse_verb": "grounded_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "mechanism.runs_in.organ",
+      "source_kind": "mechanism",
+      "target_kind": "organ",
+      "forward_verb": "runs_in",
+      "reverse_verb": "operates_through",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "mechanism.upstream_of.mechanism",
+      "source_kind": "mechanism",
+      "target_kind": "mechanism",
+      "forward_verb": "upstream_of",
+      "reverse_verb": "downstream_of",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "paper_module.explains.organ_or_mechanism",
+      "source_kind": "paper_module",
+      "target_kind": "organ_or_mechanism",
+      "forward_verb": "explains",
+      "reverse_verb": "explained_by",
+      "cardinality": "one_to_many",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "paper_module.governed_by.concept",
+      "source_kind": "paper_module",
+      "target_kind": "concept",
+      "forward_verb": "governed_by",
+      "reverse_verb": "governs",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "paper_module.governed_by.principle",
+      "source_kind": "paper_module",
+      "target_kind": "principle",
+      "forward_verb": "governed_by",
+      "reverse_verb": "governs",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "paper_module.abides_by.axiom",
+      "source_kind": "paper_module",
+      "target_kind": "axiom",
+      "forward_verb": "abides_by",
+      "reverse_verb": "constrains",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "paper_module.depends_on.paper_module",
+      "source_kind": "paper_module",
+      "target_kind": "paper_module",
+      "forward_verb": "depends_on",
+      "reverse_verb": "depended_on_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "paper_module.cites.code_locus",
+      "source_kind": "paper_module",
+      "target_kind": "code_locus",
+      "forward_verb": "cites",
+      "reverse_verb": "cited_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "paper_module.evidenced_by.receipt",
+      "source_kind": "paper_module",
+      "target_kind": "receipt",
+      "forward_verb": "evidenced_by",
+      "reverse_verb": "evidences",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "organ.explained_by.paper_module",
+      "source_kind": "organ",
+      "target_kind": "paper_module",
+      "forward_verb": "explained_by",
+      "reverse_verb": "explains",
+      "cardinality": "one_to_one",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "organ.operates_through.mechanism",
+      "source_kind": "organ",
+      "target_kind": "mechanism",
+      "forward_verb": "operates_through",
+      "reverse_verb": "runs_in",
+      "cardinality": "one_to_many",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "organ.implemented_by.code_locus",
+      "source_kind": "organ",
+      "target_kind": "code_locus",
+      "forward_verb": "implemented_by",
+      "reverse_verb": "implements",
+      "cardinality": "one_to_many",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph",
+        "website_doc",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "organ.evidenced_by.receipt",
+      "source_kind": "organ",
+      "target_kind": "receipt",
+      "forward_verb": "evidenced_by",
+      "reverse_verb": "evidences",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "website_doc"
+      ]
+    },
+    {
+      "relation_id": "organ.instantiates.concept",
+      "source_kind": "organ",
+      "target_kind": "concept",
+      "forward_verb": "instantiates",
+      "reverse_verb": "instantiated_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "organ.governed_by.principle",
+      "source_kind": "organ",
+      "target_kind": "principle",
+      "forward_verb": "governed_by",
+      "reverse_verb": "governs",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "organ_principle_binding_routes_governance_not_support",
+        "claim_role": "organ_governance_route_not_principle_support_witness",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "organ governed_by principle edges expose source-owned substrate governance, not proof that the principle is supported",
+          "organ neighbours cannot assert or upgrade principle support strength",
+          "blanket organ-to-principle wiring is forbidden; unresolved governance remains typed residual pressure"
+        ]
+      }
+    },
+    {
+      "relation_id": "organ.constrained_by.axiom",
+      "source_kind": "organ",
+      "target_kind": "axiom",
+      "forward_verb": "constrained_by",
+      "reverse_verb": "constrains",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ],
+      "truth_boundary": {
+        "boundary_id": "organ_axiom_binding_routes_constraint_not_support",
+        "claim_role": "organ_constraint_route_not_axiom_support_witness",
+        "computed_by": "validator.microcosm.axiom_support_cover",
+        "non_laundering_rules": [
+          "organ constrained_by axiom edges expose source-owned substrate constraint routing, not proof of axiom support strength",
+          "axiom support remains computed from obligations, witnesses, and evidence cases by validator.microcosm.axiom_support_cover",
+          "blanket organ-to-axiom wiring is forbidden; missing constraints remain typed residual pressure"
+        ]
+      }
+    },
+    {
+      "relation_id": "organ.wires_to.organ",
+      "source_kind": "organ",
+      "target_kind": "organ",
+      "forward_verb": "wires_to",
+      "reverse_verb": "wired_from",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference",
+        "mermaid_graph"
+      ]
+    },
+    {
+      "relation_id": "skill.operates.standard",
+      "source_kind": "skill",
+      "target_kind": "standard",
+      "forward_verb": "operates",
+      "reverse_verb": "operated_by",
+      "cardinality": "one_to_one",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference"
+      ]
+    },
+    {
+      "relation_id": "skill.acts_on.doctrine_kind",
+      "source_kind": "skill",
+      "target_kind": "doctrine_kind",
+      "forward_verb": "acts_on",
+      "reverse_verb": "acted_on_by",
+      "cardinality": "one_to_one",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference"
+      ]
+    },
+    {
+      "relation_id": "skill.uses.mechanism",
+      "source_kind": "skill",
+      "target_kind": "mechanism",
+      "forward_verb": "uses",
+      "reverse_verb": "used_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference"
+      ]
+    },
+    {
+      "relation_id": "skill.applies.concept",
+      "source_kind": "skill",
+      "target_kind": "concept",
+      "forward_verb": "applies",
+      "reverse_verb": "applied_by",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "atlas_card",
+        "markdown_reference"
+      ]
+    },
+    {
+      "relation_id": "standard.governs.doctrine_kind",
+      "source_kind": "standard",
+      "target_kind": "doctrine_kind",
+      "forward_verb": "governs",
+      "reverse_verb": "governed_by",
+      "cardinality": "one_to_one",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference"
+      ]
+    },
+    {
+      "relation_id": "standard.owns_triad.skill",
+      "source_kind": "standard",
+      "target_kind": "skill",
+      "forward_verb": "owns_triad",
+      "reverse_verb": "operates",
+      "cardinality": "one_to_many",
+      "requirement": "required",
+      "authority_class": "source_assertion",
+      "target_resolution": "must_resolve_or_marked_planned",
+      "edge_justification_required": false,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "standard.used_by.organ",
+      "source_kind": "standard",
+      "target_kind": "organ",
+      "forward_verb": "used_by",
+      "reverse_verb": "uses_standard",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "workitem_deficit"
+      ]
+    },
+    {
+      "relation_id": "standard.evidenced_by.receipt",
+      "source_kind": "standard",
+      "target_kind": "receipt",
+      "forward_verb": "evidenced_by",
+      "reverse_verb": "evidences",
+      "cardinality": "zero_to_many",
+      "requirement": "selective",
+      "authority_class": "source_assertion",
+      "target_resolution": "resolve_when_present",
+      "edge_justification_required": true,
+      "projection_surfaces": [
+        "coverage_health",
+        "agent_entry",
+        "atlas_card",
+        "markdown_reference",
+        "website_doc"
+      ]
+    }
+  ]
+}

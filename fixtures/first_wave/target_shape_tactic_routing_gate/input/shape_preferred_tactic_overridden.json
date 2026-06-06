@@ -1,0 +1,23 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "shape_preferred_tactic_overridden",
+  "route_cases": [
+    {
+      "route_case_id": "bool_shape_declared_selection_stale",
+      "target_shape": "bool_decision_goal",
+      "candidate_tactic_ids": [
+        "simp_all",
+        "decide"
+      ],
+      "allowed_tactic_ids": [
+        "simp_all",
+        "decide"
+      ],
+      "selected_tactic_id": "simp_all",
+      "expected_tactic_id": "decide",
+      "route_stage": "pre_execution",
+      "body_in_receipt": false
+    }
+  ],
+  "anti_claim": "Declared selection fields cannot override the computed target-shape preference among probed and admissible tactics."
+}

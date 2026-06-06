@@ -1,8 +1,8 @@
 {
-  "schema_version": "std_microcosm_tactic_portfolio_availability_probe_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
   "kind_id": "microcosm_public_runtime_organ_standard",
-  "status": "accepted_public_runtime_standard",
+  "status": "active",
   "authority_boundary": "public_tactic_availability_probe_real_lean_std_affordance_refs_not_proof_authority",
   "source_refs": [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
@@ -369,7 +369,74 @@
       "copied tactic-affordance macro JSON run body digest differs from macro source",
       "source module manifest omits a copied tactic-affordance body import"
     ],
-    "rebuild_action": "validate tactic portfolio fixture, exported bundle, source module manifest, and workingness map"
+    "rebuild_action": "validate tactic portfolio fixture, exported bundle, source module manifest, and workingness map",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_tactic_portfolio_availability_probe_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "validator.microcosm.organs.tactic_portfolio_availability_probe"
+      ],
+      "receipt_refs": [
+        "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
   },
-  "anti_claim": "Tactic portfolio availability is an environment-scoped probe artifact; it does not prove theorem correctness, authorize provider output, claim benchmark performance, or authorize release."
+  "anti_claim": "Tactic portfolio availability is an environment-scoped probe artifact; it does not prove theorem correctness, authorize provider output, claim benchmark performance, or authorize release.",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Tactic portfolio availability probe instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Tactic portfolio availability probe without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_tactic_portfolio_availability_probe and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_tactic_portfolio_availability_probe.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.tactic_portfolio_availability_probe"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json"
+  ],
+  "anti_claims": [
+    "Tactic portfolio availability is an environment-scoped probe artifact; it does not prove theorem correctness, authorize provider output, claim benchmark performance, or authorize release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_tactic_portfolio_availability_probe",
+    "registry_status": "accepted",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_tactic_portfolio_availability_probe_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.tactic_portfolio_availability_probe",
+    "receipt_id": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    "validator_refs": [
+      "validator.microcosm.organs.tactic_portfolio_availability_probe"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json"
+    ]
+  }
 }

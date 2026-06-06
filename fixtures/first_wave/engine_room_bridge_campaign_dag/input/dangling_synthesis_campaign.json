@@ -1,0 +1,32 @@
+{
+  "barrier": {
+    "description": "synthesis without probe reachability is dangling",
+    "group_label": "engine_room_synthesis"
+  },
+  "campaign_id": "engine-room-dangling",
+  "case_id": "dangling_synthesis_rejected",
+  "continuation": {
+    "next_action": "this must not dispatch",
+    "packet_schema": "v1_receipts_navigational"
+  },
+  "expected_ok": false,
+  "intent": "reject synthesis that has no probe reachability",
+  "kind": "bridge_campaign",
+  "nodes": [
+    {
+      "label": "empty_reducer",
+      "role": "reducer"
+    },
+    {
+      "depends_on": [
+        "empty_reducer"
+      ],
+      "label": "engine_room_synthesis",
+      "role": "synthesis"
+    }
+  ],
+  "plan_path": "tools/meta/apply/observe_plans/engine_room_public_probe.json",
+  "provider": "local",
+  "schema_version": "1.0",
+  "workers": 1
+}

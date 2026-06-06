@@ -13,8 +13,17 @@
     "publication_authority": false,
     "release_authority": false,
     "standard_authority": "synthetic_prediction_reconciliation_fixture_receipt_schema_only",
-    "status": "pass",
-    "trading_authority": false
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "trading_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#prediction_oracle_reconciliation",
+    "claim_ceiling_ref": "core/organ_registry.json#prediction_oracle_reconciliation.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "prediction_oracle_reconciliation",
@@ -89,6 +98,10 @@
     "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, target-universe status, CP1/CP2 counts, oracle diff grade counts, dossier mutation counts, negative-case coverage, secret-exclusion scan, authority ceiling, anti-claim, real_runtime_receipt, and synthetic_receipt_standin_allowed false"
   ],
   "receipt_refs": [
+    "receipt.microcosm.prediction_oracle_reconciliation",
+    "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
     "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json"
   ],
   "relationships": {
@@ -120,7 +133,7 @@
     "body_material_status",
     "body_copied_material_count"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs must be backed by copied source_artifacts rows for this organ; each copied body names source_ref, target_ref, digest, source_to_target_relation, validation_refs, and body_in_receipt=false"
@@ -169,9 +182,27 @@
     ],
     "ontology": "A public-safe prediction reconciliation slice: CP1 branch resolution, CP2 target-universe gating, oracle diff grading, and bounded public dossier mutation.",
     "rebuild_action": "draft",
-    "teleology": "Let Microcosm show prediction-engine structure without importing live markets, private data, action authority, or performance claims."
+    "teleology": "Let Microcosm show prediction-engine structure without importing live markets, private data, action authority, or performance claims.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.prediction_oracle_reconciliation",
+      "receipt_id": "receipt.microcosm.prediction_oracle_reconciliation",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require CP2 target ids to be inside the declared valid prediction target universe",
     "require CP1 branches to select a side and preserve opposite-side invalidation refs",
@@ -200,7 +231,28 @@
     "validator_id": "validator.microcosm.prediction_oracle_reconciliation"
   },
   "validator_refs": [
-    "microcosm_core.organs.prediction_oracle_reconciliation"
+    "validator.microcosm.organs.prediction_oracle_reconciliation",
+    "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
+    "validator.microcosm.prediction_oracle_reconciliation"
   ],
-  "wave": "w1_prediction_oracle_reconciliation"
+  "wave": "w1_prediction_oracle_reconciliation",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.prediction_oracle_reconciliation.author",
+      "status": "planned",
+      "purpose": "create a valid Prediction oracle reconciliation instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.prediction_oracle_reconciliation.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Prediction oracle reconciliation without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.prediction_oracle_reconciliation.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_prediction_oracle_reconciliation and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

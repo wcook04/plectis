@@ -18,22 +18,34 @@
   },
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
+    "body_import_classification": "extension_of_existing_public_refactor",
+    "body_in_receipt": false,
     "copied_macro_pattern_body_count": 3,
+    "digest_relation": "source_target_refactor_digests_recorded",
+    "public_trace_span_count": 2,
+    "public_trace_status": "pass",
+    "source_body_digest": "sha256:2c3492d77fc1c96e274cf621fc3280a85bbf7a75a79a20f27aea925808569671",
+    "source_module_digest_count": 4,
+    "source_module_digest_relation": "manifest_target_digests_verified",
     "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
     "source_ref": "system/lib/agent_execution_trace.py",
-    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "source_to_target_relation": "source_faithful_public_refactor",
+    "target_body_digest": "sha256:87f1c371b0956c4c2ae31c28680a66a989719ac76d9caa59dbbee5e3b9e31c96",
+    "target_file_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::build_public_research_replication_trace",
+    "trace_digest": "sha256:c0270839d57396d4a5f7cb7f59f6d113e1499ac5a22e993dfd1247b33f6400f6",
     "validation_refs": [
       "microcosm-substrate/tests/test_research_replication_rubric_artifact_replay.py"
     ],
-    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_mode": "extension_of_existing_public_refactor_with_live_digest_relation",
     "verification_status": "verified"
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
   "cold_rerun_count": 2,
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "copied_source_artifact_count": 3,
-  "created_at": "2026-05-30T21:37:00+00:00",
+  "command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay",
+  "copied_source_artifact_count": 4,
+  "created_at": "2026-06-02T15:22:16+00:00",
   "declared_artifact_hash_ref_count": 2,
   "declared_artifact_hash_refs": [
     "artifacts/model_trace.sha256",
@@ -45,10 +57,10 @@
   "findings": [],
   "fixture_id": "first_wave.research_replication_rubric_artifact_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:d5f3204efefd9c9842f97a463cf12ffcd34fea03b47b3ce04170997b0ee20060",
+    "basis_digest": "sha256:4c286d3e4011feee84d7dc10dc03f37085c22fe5a421838e17f91d74269fa525",
     "card_schema_version": "research_replication_command_card_v1",
     "include_negative": false,
-    "input_count": 9,
+    "input_count": 10,
     "inputs": [
       {
         "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/projection_protocol.json",
@@ -72,8 +84,8 @@
       },
       {
         "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
-        "sha256": "sha256:1bc05f6a45b01d3565de902efe5b3e43d41ce74be0341ed02574c378586bf22b",
-        "size_bytes": 6476
+        "sha256": "sha256:f4255d81551f5a36a9fc1ba605f7f7e7dd5efb87955ba8beeaf6edae2f590ddb",
+        "size_bytes": 7899
       },
       {
         "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json",
@@ -89,6 +101,11 @@
         "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
         "sha256": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
         "size_bytes": 2745
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_modules/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+        "sha256": "sha256:f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
+        "size_bytes": 57026
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -426,11 +443,11 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 8,
+    "scanned_path_count": 9,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_module_import_count": 3,
+  "source_module_import_count": 4,
   "source_module_import_status": "pass",
   "source_module_imports": [
     {
@@ -465,6 +482,17 @@
       "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
       "source_to_target_relation": "source_faithful_json_slice",
       "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json"
+    },
+    {
+      "actual_sha256": "sha256:f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
+      "body_in_receipt": false,
+      "line_count": 1433,
+      "material_class": "public_python_source_body",
+      "module_id": "research_replication_replay_control_plane_source_body_import",
+      "sha256": "sha256:f6eb2cfa93c352dd1e602251bf5cebd7a5a429bd9abe78797bf297d6ebeebee4",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_modules/microcosm_core/organs/research_replication_rubric_artifact_replay.py"
     }
   ],
   "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
@@ -472,15 +500,17 @@
   "source_open_body_imports": {
     "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
     "body_in_receipt": false,
-    "body_material_count": 3,
+    "body_material_count": 4,
     "body_material_ids": [
       "research_replication_deterministic_pattern_order_body_import",
       "research_replication_extracted_pattern_ledger_row_body_import",
-      "research_replication_high_novelty_growth_receipt_body_import"
+      "research_replication_high_novelty_growth_receipt_body_import",
+      "research_replication_replay_control_plane_source_body_import"
     ],
     "body_material_status": "copied_non_secret_macro_body_with_provenance",
     "material_classes": [
-      "public_macro_pattern_body"
+      "public_macro_pattern_body",
+      "public_python_source_body"
     ],
     "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and status only.",
     "schema_version": "research_replication_source_open_body_imports_v1",

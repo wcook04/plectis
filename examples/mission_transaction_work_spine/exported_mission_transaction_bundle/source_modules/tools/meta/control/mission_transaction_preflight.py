@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import multiprocessing as mp
 import shlex
 import sys
+import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +26,7 @@ from system.lib.mission_transaction_landing_preflight import (  # noqa: E402
     build_mission_transaction_landing_preflight,
     build_shared_index_quarantine_fast,
     compact_mission_transaction_landing_preflight,
+    command_artifact_contract,
     load_autonomous_seed_payload,
     mission_transaction_control_summary,
 )
@@ -40,6 +44,9 @@ STATUS_SEVERITY = {
     "blocked": 3,
     "hard_stop": 4,
 }
+
+
+DEFAULT_COMPACT_PREFLIGHT_TIMEOUT_SECONDS = 20
 
 
 ZSH_PATH_SHADOWING_NOTE = (
@@ -67,6 +74,15 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Repo-relative path owned by this mission. Repeatable.",
+    )
+    parser.add_argument(
+        "--accepted-organ-companion-path",
+        action="append",
+        default=[],
+        help=(
+            "Repo-relative Microcosm accepted-organ companion path checked as "
+            "proof-only; repeatable and not part of the write set."
+        ),
     )
     parser.add_argument(
         "--write-profile",
@@ -126,6 +142,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--full",
         action="store_true",
         help="Emit the complete preflight packet, including full dirty-path, classification, Work Ledger, registry, and guard detail.",
+    )
+    parser.add_argument(
+        "--preflight-timeout-seconds",
+        type=float,
+        default=None,
+        help=(
+            "Bound the core preflight builder. Compact/local preflight defaults to "
+            f"{DEFAULT_COMPACT_PREFLIGHT_TIMEOUT_SECONDS}s; use 0 to disable. "
+            "Explicit full/heavy drilldowns default to no timeout unless this is set."
+        ),
     )
     parser.add_argument(
         "--convergence",
@@ -249,6 +275,273 @@ def _load_blocked_primary_receipt(args: argparse.Namespace) -> dict[str, Any] | 
     return None
 
 
+def _resolve_preflight_timeout_seconds(
+    args: argparse.Namespace,
+    *,
+    compact_timeout_default: bool,
+) -> float:
+    if args.preflight_timeout_seconds is not None:
+        return max(0.0, float(args.preflight_timeout_seconds))
+    if compact_timeout_default:
+        return float(DEFAULT_COMPACT_PREFLIGHT_TIMEOUT_SECONDS)
+    return 0.0
+
+
+def _command_string(parts: list[str]) -> str:
+    return " ".join(shlex.quote(part) for part in parts)
+
+
+def _reentry_lane(
+    *,
+    lane_id: str,
+    purpose: str,
+    argv: list[str],
+    mutation_class: str,
+) -> dict[str, Any]:
+    command = _command_string(argv)
+    return {
+        "lane_id": lane_id,
+        "purpose": purpose,
+        "argv": argv,
+        "command": command,
+        "command_contract": command_artifact_contract(command, argv=argv),
+        "mutation_class": mutation_class,
+    }
+
+
+def _preflight_timeout_reentry_lanes(
+    args: argparse.Namespace,
+    *,
+    target_ids: list[str],
+) -> list[dict[str, Any]]:
+    base_args: list[str] = [
+        "./repo-python",
+        "tools/meta/control/mission_transaction_preflight.py",
+    ]
+    for owned_path in args.owned_path or []:
+        base_args.extend(["--owned-path", str(owned_path)])
+    for companion_path in args.accepted_organ_companion_path or []:
+        base_args.extend(["--accepted-organ-companion-path", str(companion_path)])
+    for write_profile in args.write_profile or []:
+        base_args.extend(["--write-profile", str(write_profile)])
+    for target_id in target_ids:
+        base_args.extend(["--target-id", str(target_id)])
+    if args.session_id:
+        base_args.extend(["--session-id", str(args.session_id)])
+    if args.require_exclusive:
+        base_args.append("--require-exclusive")
+
+    lanes: list[dict[str, Any]] = [
+        _reentry_lane(
+            lane_id="rerun_unbounded_preflight",
+            purpose="Debug the slow core preflight builder intentionally.",
+            argv=[*base_args, "--preflight-timeout-seconds", "0"],
+            mutation_class="read_only_drilldown",
+        ),
+        _reentry_lane(
+            lane_id="staged_index_quarantine_fast_path",
+            purpose="Check only staged-index safety without invoking the slow core builder.",
+            argv=[*base_args, "--staged-index-quarantine"],
+            mutation_class="read_only_fast_path",
+        ),
+    ]
+    if args.owned_path:
+        mutation_check_argv = [
+            "./repo-python",
+            "tools/meta/factory/work_ledger.py",
+            "mutation-check",
+        ]
+        for owned_path in args.owned_path or []:
+            mutation_check_argv.extend(["--path", str(owned_path)])
+        mutation_check_argv.append("--require-exclusive")
+        lanes.append(
+            _reentry_lane(
+                lane_id="work_ledger_claim_recheck",
+                purpose="Recheck same-path ownership before pivoting or landing.",
+                argv=mutation_check_argv,
+                mutation_class="read_only_claim_check",
+            )
+        )
+    if args.owned_path and args.session_id:
+        scoped_commit_argv = [
+            "./repo-python",
+            "tools/meta/control/scoped_commit.py",
+            "full-paths",
+            "--dry-run",
+            "--allow-multi-hunk-full-paths",
+            "--work-ledger-session-id",
+            str(args.session_id),
+            "--message",
+            "preflight-timeout follow-up",
+        ]
+        for owned_path in args.owned_path or []:
+            scoped_commit_argv.extend(["--path", str(owned_path)])
+        lanes.append(
+            _reentry_lane(
+                lane_id="scoped_commit_guard_dry_run",
+                purpose="If focused owner validation is already green, prove the claimed owned paths can land without broad staging.",
+                argv=scoped_commit_argv,
+                mutation_class="private_index_dry_run",
+            )
+        )
+    return lanes
+
+
+def _build_preflight_timeout_payload(
+    args: argparse.Namespace,
+    *,
+    target_ids: list[str],
+    timeout_seconds: float,
+    elapsed_seconds: float,
+    child_process: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "schema": "mission_transaction_landing_preflight_timeout_v0",
+        "repo_root": str(Path(args.repo_root).resolve()),
+        "mode": "read_only",
+        "output_profile": "compact",
+        "inputs": {
+            "owned_paths": list(args.owned_path or []),
+            "accepted_organ_companion_paths": list(
+                args.accepted_organ_companion_path or []
+            ),
+            "write_profiles": list(args.write_profile or []),
+            "target_ids": list(target_ids or []),
+            "session_id": args.session_id,
+            "require_exclusive": bool(args.require_exclusive),
+        },
+        "timeout": {
+            "status": "timed_out",
+            "surface": "build_mission_transaction_landing_preflight",
+            "timeout_seconds": timeout_seconds,
+            "elapsed_seconds": round(elapsed_seconds, 3),
+            "child_process": child_process,
+        },
+        "landing_decision": {
+            "status": "blocked",
+            "reason": "mission_transaction_preflight_timeout",
+            "recommended_lane": "inspect_preflight_child_process_or_rerun_explicit_full_drilldown",
+            "reentry_condition": (
+                "Rerun after resolving the slow preflight child process, or use "
+                "--preflight-timeout-seconds 0 for an intentional unbounded drilldown."
+            ),
+        },
+        "reentry_lanes": _preflight_timeout_reentry_lanes(args, target_ids=target_ids),
+        "work_ledger": {
+            "status": "unknown",
+            "reason": "core_preflight_builder_timed_out_before_work_ledger_packet",
+        },
+        "git": {
+            "status": "unknown",
+            "reason": "core_preflight_builder_timed_out_before_git_packet",
+        },
+        "dirty_tree_classification": {
+            "status": "unknown",
+            "reason": "core_preflight_builder_timed_out_before_dirty_tree_classification",
+        },
+    }
+
+
+def _call_preflight_builder(
+    args: argparse.Namespace,
+    *,
+    target_ids: list[str],
+    include_push_bloat_gate: bool,
+    include_generated_projection_settlement: bool,
+    generated_projection_settlement_deferred_reason: str,
+) -> dict[str, Any]:
+    return build_mission_transaction_landing_preflight(
+        Path(args.repo_root),
+        owned_paths=list(args.owned_path or []),
+        accepted_organ_companion_paths=list(args.accepted_organ_companion_path or []),
+        write_profiles=list(args.write_profile or []),
+        target_ids=target_ids,
+        session_id=args.session_id,
+        require_exclusive=bool(args.require_exclusive),
+        include_push_bloat_gate=include_push_bloat_gate,
+        include_generated_projection_settlement=include_generated_projection_settlement,
+        generated_projection_settlement_deferred_reason=generated_projection_settlement_deferred_reason,
+    )
+
+
+def _preflight_builder_worker(result_path: str, kwargs: dict[str, Any]) -> None:
+    try:
+        result = {"status": "ok", "payload": _call_preflight_builder(**kwargs)}
+    except BaseException as exc:  # pragma: no cover - defensive process boundary
+        result = {"status": "error", "error": f"{type(exc).__name__}: {exc}"}
+    Path(result_path).write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
+
+
+def _build_preflight_with_timeout(
+    args: argparse.Namespace,
+    *,
+    target_ids: list[str],
+    include_push_bloat_gate: bool,
+    include_generated_projection_settlement: bool,
+    generated_projection_settlement_deferred_reason: str,
+    timeout_seconds: float,
+) -> dict[str, Any]:
+    builder_kwargs = {
+        "args": args,
+        "target_ids": target_ids,
+        "include_push_bloat_gate": include_push_bloat_gate,
+        "include_generated_projection_settlement": include_generated_projection_settlement,
+        "generated_projection_settlement_deferred_reason": generated_projection_settlement_deferred_reason,
+    }
+    if timeout_seconds <= 0:
+        return _call_preflight_builder(**builder_kwargs)
+
+    started = time.monotonic()
+    context = mp.get_context("fork") if "fork" in mp.get_all_start_methods() else mp.get_context()
+    result_file = tempfile.NamedTemporaryFile(
+        prefix="mission_preflight_builder_",
+        suffix=".json",
+        delete=False,
+    )
+    result_path = Path(result_file.name)
+    result_file.close()
+    process = context.Process(target=_preflight_builder_worker, args=(str(result_path), builder_kwargs))
+    process.start()
+    try:
+        process.join(timeout_seconds)
+        if process.is_alive():
+            child_process = {
+                "pid": process.pid,
+                "exitcode_before_stop": process.exitcode,
+                "terminate_sent": True,
+                "kill_sent": False,
+                "stopped": False,
+                "exitcode_after_stop": None,
+            }
+            process.terminate()
+            process.join(2)
+            if process.is_alive():  # pragma: no cover - best-effort hard stop
+                child_process["kill_sent"] = True
+                process.kill()
+                process.join(2)
+            child_process["stopped"] = not process.is_alive()
+            child_process["exitcode_after_stop"] = process.exitcode
+            return _build_preflight_timeout_payload(
+                args,
+                target_ids=target_ids,
+                timeout_seconds=timeout_seconds,
+                elapsed_seconds=time.monotonic() - started,
+                child_process=child_process,
+            )
+
+        if not result_path.exists() or result_path.stat().st_size == 0:
+            raise RuntimeError("preflight builder exited without returning a packet")
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+        if result.get("status") == "error":
+            raise RuntimeError(str(result.get("error") or "preflight builder failed"))
+        payload = result.get("payload")
+        if not isinstance(payload, dict):
+            raise RuntimeError("preflight builder returned a non-object packet")
+        return payload
+    finally:
+        result_path.unlink(missing_ok=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     raw_argv = list(sys.argv[1:] if argv is None else argv)
     parser = build_parser()
@@ -364,14 +657,28 @@ def main(argv: list[str] | None = None) -> int:
     if args.control_summary and not target_ids:
         target_ids = [DEFAULT_CONTROL_SUMMARY_SUBJECT_ID]
     if payload is None:
-        payload = build_mission_transaction_landing_preflight(
-            Path(args.repo_root),
-            owned_paths=list(args.owned_path or []),
-            write_profiles=list(args.write_profile or []),
-            target_ids=target_ids,
-            session_id=args.session_id,
-            require_exclusive=bool(args.require_exclusive),
-            include_push_bloat_gate=not (
+        include_push_bloat_gate = not (
+            local_owned_path_preflight
+            or control_summary_fast_path
+            or workspace_bloat_pressure_fast_path
+            or autonomous_edit_gate_fast_path
+            or args.runtime_artifact_lifecycle
+            or default_compact_fast_path
+        )
+        include_generated_projection_settlement = not defer_generated_projection_settlement
+        generated_projection_settlement_deferred_reason = (
+            CONTROL_SUMMARY_SETTLEMENT_DEFERRED_REASON
+            if control_summary_fast_path
+            else WORKSPACE_BLOAT_PRESSURE_SETTLEMENT_DEFERRED_REASON
+            if workspace_bloat_pressure_fast_path
+            or args.runtime_artifact_lifecycle
+            else LOCAL_OWNED_PATH_SETTLEMENT_DEFERRED_REASON
+            if local_owned_path_preflight
+            else DEFAULT_COMPACT_SETTLEMENT_DEFERRED_REASON
+        )
+        timeout_seconds = _resolve_preflight_timeout_seconds(
+            args,
+            compact_timeout_default=(
                 local_owned_path_preflight
                 or control_summary_fast_path
                 or workspace_bloat_pressure_fast_path
@@ -379,17 +686,16 @@ def main(argv: list[str] | None = None) -> int:
                 or args.runtime_artifact_lifecycle
                 or default_compact_fast_path
             ),
-            include_generated_projection_settlement=not defer_generated_projection_settlement,
-            generated_projection_settlement_deferred_reason=(
-                CONTROL_SUMMARY_SETTLEMENT_DEFERRED_REASON
-                if control_summary_fast_path
-                else WORKSPACE_BLOAT_PRESSURE_SETTLEMENT_DEFERRED_REASON
-                if workspace_bloat_pressure_fast_path
-                or args.runtime_artifact_lifecycle
-                else LOCAL_OWNED_PATH_SETTLEMENT_DEFERRED_REASON
-                if local_owned_path_preflight
-                else DEFAULT_COMPACT_SETTLEMENT_DEFERRED_REASON
-            ),
+        )
+        if argv is not None and args.preflight_timeout_seconds is None:
+            timeout_seconds = 0.0
+        payload = _build_preflight_with_timeout(
+            args,
+            target_ids=target_ids,
+            include_push_bloat_gate=include_push_bloat_gate,
+            include_generated_projection_settlement=include_generated_projection_settlement,
+            generated_projection_settlement_deferred_reason=generated_projection_settlement_deferred_reason,
+            timeout_seconds=timeout_seconds,
         )
     if output is not None:
         pass
@@ -425,6 +731,8 @@ def main(argv: list[str] | None = None) -> int:
         )
     elif args.bloat_governor:
         output = payload.get("derived_state_bloat_governor") or {}
+    elif payload.get("schema") == "mission_transaction_landing_preflight_timeout_v0":
+        output = payload
     else:
         output = payload if args.full else compact_mission_transaction_landing_preflight(payload)
     if args.attention_frame:

@@ -1,0 +1,372 @@
+{
+  "anti_claim": "Batch 8 tools-tail capsule validates exact copied non-secret macro source bodies and public synthetic exercises for deterministic set diffs, JSON patch interpretation, stable ledger-id hashing, shadow envelope parse coverage. It is not oracle truth, not live bridge or GodMode execution, not repository mutation authority, not provider dispatch, not publication authority, and not release approval.",
+  "authority_ceiling": {
+    "authority_ceiling": "batch8_tools_tail_public_substrate_capsule_not_live_runtime_authority",
+    "godmode_run_missing_authorized": false,
+    "live_oracle_execution": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "batch8_tools_tail_primitives_capsule run",
+  "created_at": "2026-05-31T22:05:48+00:00",
+  "error_codes": [
+    "BATCH8_LEDGER_ID_MISSING_IDENTITY_REFUSED",
+    "BATCH8_OBSERVER_DIFF_MALFORMED_ROW_SKIPPED",
+    "BATCH8_SHADOW_DSL_MALFORMED_TUPLE_COVERAGE_GAP",
+    "BATCH8_VERSION_COMMITTER_SCALAR_TRAVERSAL_REFUSED"
+  ],
+  "exercise": {
+    "body_in_receipt": false,
+    "copied_macro_source_module_count": 4,
+    "error_codes": [
+      "BATCH8_LEDGER_ID_MISSING_IDENTITY_REFUSED",
+      "BATCH8_OBSERVER_DIFF_MALFORMED_ROW_SKIPPED",
+      "BATCH8_SHADOW_DSL_MALFORMED_TUPLE_COVERAGE_GAP",
+      "BATCH8_VERSION_COMMITTER_SCALAR_TRAVERSAL_REFUSED"
+    ],
+    "expected_module_ids": [
+      "observer_diff_kernel",
+      "version_committer_json_patch_vm",
+      "ledger_id_identity_hash_engine",
+      "shadow_envelope_dsl_parser_coverage"
+    ],
+    "mechanism_count": 4,
+    "mechanisms": [
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Set-diff primitive over public fixture arrays only; not oracle truth or prediction correctness.",
+        "mechanism_id": "observer_set_diff_kernel",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "Malformed or mismatched keys are kept out of matched sets and recorded as a bounded parser/diff finding.",
+        "public_exercise": "Compare two synthetic evidence/prediction arrays and report missed, extra, overlap, matching, and divergent rows.",
+        "source_module_ids": [
+          "observer_diff_kernel"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Deterministic JSON patch interpreter only; not semantic edit correctness or repo mutation authority.",
+        "mechanism_id": "version_committer_json_patch_vm",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "Traversal through a scalar raises the source VM refusal.",
+        "public_exercise": "Apply set, merge, append, and null-delete slash-selector operations to a synthetic JSON dossier.",
+        "source_module_ids": [
+          "version_committer_json_patch_vm"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Identity/hash normalization primitive only; not proof of record truth or provenance by itself.",
+        "mechanism_id": "ledger_id_identity_hash_engine",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "Missing required lane identity raises source contract refusal; unknown lanes are explicitly X-prefixed.",
+        "public_exercise": "Normalize lane aliases and reproduce deterministic ledger ids across repeated calls.",
+        "source_module_ids": [
+          "ledger_id_identity_hash_engine"
+        ],
+        "status": "pass"
+      },
+      {
+        "body_in_receipt": false,
+        "claim_ceiling": "Grammar/parser coverage engine over synthetic public envelopes only; not Lab truth or execution authority.",
+        "mechanism_id": "shadow_envelope_dsl_parser_coverage",
+        "missing_anchors": [],
+        "missing_modules": [],
+        "negative_case": "Malformed tuple/envelope lines produce parse coverage findings without executing private lab nodes.",
+        "public_exercise": "Run the shadow parser over synthetic miner, spine, and prediction artifacts with full pass coverage.",
+        "source_module_ids": [
+          "shadow_envelope_dsl_parser_coverage"
+        ],
+        "status": "pass"
+      }
+    ],
+    "runtime_exercises": {
+      "ledger_id_identity_hash_engine": {
+        "exercise_id": "ledger_id_identity_hash_engine",
+        "missing_identity_refused": true,
+        "poly_id": "P_849C2C05",
+        "repeat_id": "P_849C2C05",
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass",
+        "unknown_lane_id": "X_6D084638"
+      },
+      "observer_set_diff_kernel": {
+        "evidence_diff": {
+          "extra_entries": [
+            {
+              "ledger_id": "E3",
+              "source": "lab"
+            }
+          ],
+          "extra_ledger_ids": [
+            "E3"
+          ],
+          "missed_entries": [
+            {
+              "ledger_id": "E2",
+              "source": "oracle"
+            }
+          ],
+          "missed_ledger_ids": [
+            "E2"
+          ],
+          "overlap_ledger_ids": [
+            "E1"
+          ]
+        },
+        "exercise_id": "observer_set_diff_kernel",
+        "malformed_rows_skipped": true,
+        "prediction_diff": {
+          "divergent": [
+            {
+              "lab_direction": "down",
+              "oracle_direction": "up",
+              "target_id": "B"
+            }
+          ],
+          "extra_targets": [],
+          "matching": [
+            {
+              "lab_direction": "up",
+              "oracle_direction": "up",
+              "target_id": "A"
+            }
+          ],
+          "missing_targets": [
+            {
+              "direction": "down",
+              "target_id": "C"
+            }
+          ]
+        },
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      },
+      "shadow_envelope_dsl_parser_coverage": {
+        "exercise_id": "shadow_envelope_dsl_parser_coverage",
+        "hard_failure": false,
+        "malformed_tuple_coverage_gap_count": 6,
+        "miner_parsed_ok": 6,
+        "prediction_parsed_ok": 1,
+        "source_execution_relation": "copied_source_body_executed",
+        "spine_parsed_ok": 2,
+        "status": "pass"
+      },
+      "version_committer_json_patch_vm": {
+        "applied_reasons": [
+          "set 'name'",
+          "merged into 'meta'",
+          "appended to 'events'",
+          "deleted key 'old'"
+        ],
+        "exercise_id": "version_committer_json_patch_vm",
+        "patched_document": {
+          "events": [
+            {
+              "id": "E1"
+            }
+          ],
+          "profile": {
+            "meta": {
+              "kind": "fixture"
+            },
+            "name": "Microcosm"
+          }
+        },
+        "scalar_traversal_refused": true,
+        "source_execution_relation": "copied_source_body_executed",
+        "status": "pass"
+      }
+    },
+    "status": "pass"
+  },
+  "expected_negative_cases": [
+    "ledger_id_missing_identity_refused",
+    "observer_diff_malformed_key_skipped",
+    "shadow_dsl_malformed_tuple_coverage_gap",
+    "version_committer_scalar_traversal_refused"
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.batch8_tools_tail_primitives_capsule",
+  "input_count": 1,
+  "input_mode": "fixture_input",
+  "input_ref": "fixtures/first_wave/batch8_tools_tail_primitives_capsule/input",
+  "missing_negative_cases": [],
+  "observed_negative_cases": [
+    "ledger_id_missing_identity_refused",
+    "observer_diff_malformed_key_skipped",
+    "shadow_dsl_malformed_tuple_coverage_gap",
+    "version_committer_scalar_traversal_refused"
+  ],
+  "organ_id": "batch8_tools_tail_primitives_capsule",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "receipt_body_scan": {
+    "body_in_receipt": false,
+    "forbidden_body_keys": [],
+    "private_path_markers": [],
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_result.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_board.json",
+    "receipts/first_wave/batch8_tools_tail_primitives_capsule/batch8_tools_tail_primitives_capsule_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_tools_tail_primitives_capsule_fixture_acceptance.json"
+  ],
+  "schema_version": "batch8_tools_tail_primitives_capsule_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 5,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_manifest": {
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "all_required_anchors_present": true,
+    "body_in_receipt": false,
+    "manifest_ref": "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
+    "module_count": 4,
+    "modules": [
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 193,
+        "expected_sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+        "line_count": 193,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/system/lib/observer_diff.py",
+        "required_anchor_count": 3,
+        "sha256": "38bcfeca4ad321133ff09b4aba8fe8452d655af66f0b817fa1ab1ba476ac75ca",
+        "source_exists": true,
+        "source_ref": "system/lib/observer_diff.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/system/lib/observer_diff.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 311,
+        "expected_sha256": "9029d7f28bd8c05df6313438be320449899b35dfaa969216fe55fcb9a66d991d",
+        "line_count": 311,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/refinement/version_committer.py",
+        "required_anchor_count": 3,
+        "sha256": "9029d7f28bd8c05df6313438be320449899b35dfaa969216fe55fcb9a66d991d",
+        "source_exists": true,
+        "source_ref": "tools/refinement/version_committer.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/refinement/version_committer.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 189,
+        "expected_sha256": "13e817a84e78740fd9295b398b5e66e68b1e00b93c73ff65cadf2ba4acca8fc5",
+        "line_count": 189,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/diff/id_ledger.py",
+        "required_anchor_count": 3,
+        "sha256": "13e817a84e78740fd9295b398b5e66e68b1e00b93c73ff65cadf2ba4acca8fc5",
+        "source_exists": true,
+        "source_ref": "tools/diff/id_ledger.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/diff/id_ledger.py"
+      },
+      {
+        "body_copied": true,
+        "body_in_receipt": false,
+        "digest_status": "match",
+        "expected_line_count": 907,
+        "expected_sha256": "ba5e71b9650c834824fb2395d72ae04c7d83e4ef77ed976fe39f8548a74f0a79",
+        "line_count": 907,
+        "line_count_status": "match",
+        "missing_required_anchors": [],
+        "path": "source_modules/tools/shadow/shadow.py",
+        "required_anchor_count": 3,
+        "sha256": "ba5e71b9650c834824fb2395d72ae04c7d83e4ef77ed976fe39f8548a74f0a79",
+        "source_exists": true,
+        "source_ref": "tools/shadow/shadow.py",
+        "source_to_target_relation": "exact_copy",
+        "target_exists": true,
+        "target_ref": "microcosm-substrate/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/shadow/shadow.py"
+      }
+    ],
+    "secret_exclusion_scan": {
+      "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scan_scope": {
+        "body_text_exported_in_findings": false,
+        "does_not_authorize_source_mutation": true,
+        "does_not_certify_absence_of_secrets": true,
+        "does_not_read_binary_or_live_account_state": true,
+        "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+        "not_a_complete_secret_scan": true,
+        "scope_id": "synthetic_sentinel_and_declared_import_policy"
+      },
+      "scanned_path_count": 5,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
+    "source_artifact_paths": [
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_module_manifest.json",
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/system/lib/observer_diff.py",
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/refinement/version_committer.py",
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/diff/id_ledger.py",
+      "examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/shadow/shadow.py"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.batch8_tools_tail_primitives_capsule"
+}

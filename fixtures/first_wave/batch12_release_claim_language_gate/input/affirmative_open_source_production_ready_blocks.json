@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "affirmative_open_source_production_ready_blocks",
+  "error_codes": [
+    "BATCH12_RELEASE_CLAIM_ACTIVE_BLOCKER"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_release_claim_language_gate_negative_case_v1"
+}

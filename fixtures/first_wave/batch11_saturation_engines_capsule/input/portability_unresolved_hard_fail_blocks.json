@@ -1,0 +1,35 @@
+{
+  "binding_disposition": "already_bound_engine_room_public_projection_leak_gate_capsule_verifies_rollup",
+  "body_in_receipt": false,
+  "case_id": "portability_unresolved_hard_fail_blocks",
+  "computed_path": "unresolved_hard_fail_blocks",
+  "error_codes": [
+    "BATCH11_PORTABILITY_UNRESOLVED_HARD_FAIL_BLOCKS"
+  ],
+  "expected_computed_value": true,
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "mechanism_id": "portability_gate_check_supersession_rollup",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "probe_input": {
+    "results": [
+      {
+        "hard_blocker": true,
+        "id": "no_private_only_references",
+        "status": "fail"
+      },
+      {
+        "hard_blocker": false,
+        "id": "no_private_only_references",
+        "status": "pass",
+        "supersedes_manifest_grep": true
+      },
+      {
+        "hard_blocker": true,
+        "id": "no_secret_scan_hits",
+        "status": "fail"
+      }
+    ]
+  },
+  "schema_version": "batch11_negative_case_computed_probe_v1",
+  "verdict_authority": "computed_by_batch11_saturation_engines_capsule_integrity_matrix"
+}

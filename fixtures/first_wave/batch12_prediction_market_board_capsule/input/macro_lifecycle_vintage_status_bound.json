@@ -1,0 +1,10 @@
+{
+  "body_in_receipt": false,
+  "case_id": "macro_lifecycle_vintage_status_bound",
+  "error_codes": [
+    "BATCH12_QUANT_MACRO_LIFECYCLE_VINTAGE_STATUS_BOUND"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "microcosm_crown_jewel_negative_case_v1",
+  "status": "blocked"
+}

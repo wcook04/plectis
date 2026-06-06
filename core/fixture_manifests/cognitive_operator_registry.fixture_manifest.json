@@ -50,6 +50,10 @@
     {
       "path": "fixtures/first_wave/cognitive_operator_registry/input/private_source_leakage.json",
       "role": "negative case: private operator source body leakage"
+    },
+    {
+      "path": "fixtures/first_wave/cognitive_operator_registry/input/dogfood_unresolved_delta_evidence.json",
+      "role": "negative case: dogfood receipt cognition_delta_evidence references an unresolvable public handle"
     }
   ],
   "organ_id": "cognitive_operator_registry",

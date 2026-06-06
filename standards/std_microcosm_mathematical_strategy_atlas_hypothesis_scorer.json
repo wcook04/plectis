@@ -16,7 +16,16 @@
     "provider_authority": false,
     "release_authority": false,
     "standard_authority": "public_strategy_hypothesis_fixture_receipt_schema_only",
-    "status": "pass"
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "accepted_organ_ref": "core/organ_registry.json#mathematical_strategy_atlas_hypothesis_scorer",
+    "claim_ceiling_ref": "core/organ_registry.json#mathematical_strategy_atlas_hypothesis_scorer.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "first_wave_required": true,
   "kind_id": "mathematical_strategy_atlas_hypothesis_scorer",
@@ -42,7 +51,10 @@
     "allowed_public_inputs": [
       "strategy ids",
       "feature tags",
+      "trigger feature labels",
+      "negative trigger labels",
       "retrieval term labels",
+      "bounded retrieval bonus metadata",
       "synthetic problem shapes",
       "fixture negative cases",
       "public-safe source refs",
@@ -91,9 +103,13 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
-    "receipt must cite source pattern ids, source refs, strategy ids, scored cases, selected strategy ids, miss classifiers, copied source module counts, source module manifest ref, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source pattern ids, source refs, strategy ids, weighted scored cases, selected strategy ids, miss classifiers, copied source module counts, source module manifest ref, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
+    "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
+    "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_result.json",
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_board.json",
     "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json"
   ],
   "relationships": {
@@ -123,7 +139,7 @@
     "copied_source_artifact_count",
     "source_modules_pass"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs for non-secret tool, test, standard, and runtime artifact bodies must be copied into source_artifacts with exact digest, count, and anchor checks; forbidden bodies remain omitted with receipt-only refs"
@@ -192,6 +208,9 @@
     ],
     "failure_modes": [
       "unknown strategy id is accepted",
+      "legacy overlap-only scoring outranks trigger and negative-trigger evidence",
+      "retrieval keyword volume is uncapped and overpowers trigger evidence",
+      "strategy cards omit rich trigger, negative-trigger, retrieval, or proof-plan fields",
       "proof body rides alongside a strategy label",
       "oracle strategy label is visible before scoring",
       "strategy is selected after oracle feedback",
@@ -202,12 +221,33 @@
     ],
     "ontology": "A public-safe formal-math strategy atlas that maps problem feature tags to a known strategy enum before retrieval or proof execution, backed by copied non-secret prover strategy harness, reducer, regression-test, provider-standard, and runtime strategy-artifact bodies.",
     "rebuild_action": "draft",
-    "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses grounded in real macro control-plane code, tests, standards, and public runtime artifacts, not by hidden oracle labels, receipt-only pointers, or undifferentiated tactic search."
+    "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses grounded in real macro control-plane code, tests, standards, and public runtime artifacts, not by hidden oracle labels, receipt-only pointers, or undifferentiated tactic search.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer",
+      "receipt_id": "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "select strategy before oracle labels or proof outcomes are visible",
     "choose only from the public known_strategy_ids enum",
+    "rank strategies with weighted trigger hits, negative-trigger penalties, and a bounded retrieval-term bonus",
+    "treat legacy feature overlap as diagnostic-only scoring evidence",
+    "require rich strategy-card fields for trigger features, negative triggers, retrieval expansions, and proof-plan templates",
     "classify no-match cases as STRATEGY_SELECTION_MISS",
     "attach retrieval-term additions as strategy hints only",
     "reject proof, provider, or source body fields",
@@ -221,7 +261,10 @@
   "validator_contract": {
     "minimum_checks": [
       "known_strategy_id_enum",
-      "feature_overlap_scoring",
+      "weighted_trigger_negative_retrieval_scoring",
+      "retrieval_bonus_ceiling",
+      "feature_overlap_diagnostic_only",
+      "rich_strategy_card_fields",
       "strategy_selection_miss_classifier",
       "pre_oracle_selection_boundary",
       "proof_body_rejection",
@@ -237,7 +280,27 @@
     "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer"
   },
   "validator_refs": [
-    "microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer"
+    "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer",
+    "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer"
   ],
-  "wave": "w1_formal_math_strategy_atlas"
+  "wave": "w1_formal_math_strategy_atlas",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.mathematical_strategy_atlas_hypothesis_scorer.author",
+      "status": "planned",
+      "purpose": "create a valid Mathematical strategy atlas hypothesis scorer instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.mathematical_strategy_atlas_hypothesis_scorer.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Mathematical strategy atlas hypothesis scorer without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.mathematical_strategy_atlas_hypothesis_scorer.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_mathematical_strategy_atlas_hypothesis_scorer and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

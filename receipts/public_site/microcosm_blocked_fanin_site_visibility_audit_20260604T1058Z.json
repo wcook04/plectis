@@ -1,0 +1,205 @@
+{
+  "schema_version": "microcosm_blocked_fanin_site_visibility_audit_v1",
+  "receipt_id": "microcosm_blocked_fanin_site_visibility_audit_20260604T1058Z",
+  "generated_at": "2026-06-04T10:58:00Z",
+  "phase_id": "09_54_1",
+  "family_id": "09",
+  "agent_session_id": "codex_20260604T1058Z_microcosm_blocked_fanin_site_visibility",
+  "agent_read_receipt_id": "wlr_187a849af880468c",
+  "head_at_receipt_creation": "713ad5e961c025a3a1647fa3d3999982e82748fb",
+  "status": "blocked_fanin_with_site_visibility_receipt",
+  "authority_boundary": "This receipt records a live blocked fan-in boundary plus read-only public-site availability evidence. It does not mutate doctrine source authority, admit a mechanism, append a capsule, regenerate lattice projections, refresh generated site files, or approve release.",
+  "anti_claim": "Do not count this receipt as a closed paper-module population deficit, fresh public-site build, capsule-authority flip, release approval, private-root equivalence, or whole-system correctness proof.",
+  "live_doctrine_state": {
+    "projection_check": {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+      "status": "pass",
+      "paper_module_actual_count": 98,
+      "paper_module_expected_count": 98,
+      "mechanism_json_instance_count": 89,
+      "organ_json_instance_count": 78,
+      "principle_json_instance_count": 16,
+      "axiom_json_instance_count": 12,
+      "concept_json_instance_count": 11,
+      "standard_json_instance_count": 145,
+      "skill_json_instance_count": 401
+    },
+    "paper_module_corpus": {
+      "json_capsule_backed_count": 85,
+      "legacy_only_count": 13,
+      "required_subject_gap_count": 13,
+      "legacy_only_ids": [
+        "paper_module.batch7_secondary_runtime_capsule",
+        "paper_module.batch7_zenith_macos_capsule",
+        "paper_module.cold_clone_probe",
+        "paper_module.engine_room_annex_knowledge_router",
+        "paper_module.engine_room_bridge_campaign_dag",
+        "paper_module.engine_room_command_run_singleflight",
+        "paper_module.engine_room_derived_fact_provider_engine",
+        "paper_module.engine_room_egress_self_compliance_gate",
+        "paper_module.engine_room_lean_proof_search_lab",
+        "paper_module.engine_room_metabolism_runtime",
+        "paper_module.engine_room_navigation_fitness_benchmark",
+        "paper_module.first_screen_composition_root",
+        "paper_module.microcosm_axiom_substrate"
+      ],
+      "classification": "All live legacy-only paper modules are still required-subject gaps; no capsule-only conversion is source-honest until a resolving organ or mechanism subject exists."
+    }
+  },
+  "blocked_shared_surface": {
+    "status": "blocked_by_live_owner_claims",
+    "owner_session_id": "codex_goal_microcosm_doctrine_lattice_saturation_20260604T103920Z_microcosm_mechanism_parity_edge_repair",
+    "owner_actor": "codex_goal_microcosm_doctrine_lattice_saturation",
+    "owner_current_pass": "Repairing the single live mechanism capsule dependency parity deficit from source authority, then regenerating doctrine lattice projections.",
+    "held_surfaces": [
+      {
+        "path": "microcosm-substrate/core/mechanism_sources.json",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      },
+      {
+        "path": "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_projection.json",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_graph.mmd",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_health.json",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      },
+      {
+        "path": "microcosm-substrate/atlas/doctrine_lattice_entry_card.json",
+        "leased_until": "2026-06-04T11:24:24.406791+00:00"
+      }
+    ],
+    "blocking_condition": "The next source-backed paper-module population slice requires mechanism admission in core/mechanism_sources.json plus doctrine lattice projection regeneration. Editing core/paper_module_capsules.json alone would either name an unresolved subject or make the full doctrine projection stale.",
+    "mutation_check": {
+      "command": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/mechanism_sources.json --path microcosm-substrate/core/paper_module_capsules.json --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/atlas/doctrine_lattice_projection.json --path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --path microcosm-substrate/atlas/doctrine_lattice_health.json --path microcosm-substrate/atlas/doctrine_lattice_entry_card.json --require-exclusive",
+      "status": "blocked",
+      "collision_count": 6
+    },
+    "coordination_request": {
+      "request_id": "syr_20260604T105217Z_88ce48b7",
+      "command": "./repo-python tools/meta/factory/work_ledger.py session-yield-request --target-session-id codex_goal_microcosm_doctrine_lattice_saturation_20260604T103920Z_microcosm_mechanism_parity_edge_repair --target-class settlement_obligation_owner --requested-action release_after_landing --result requested --coordination-brief --requester-label codex_type_a_microcosm_doctrine_population_site_availability --blocked-on \"next paper-module population slice requires mechanism_sources.json plus doctrine lattice projection regeneration for source-backed capsule exposure\" --validation-status \"build_doctrine_projection.py --check passes; mutation-check blocks six shared lattice/mechanism paths\" --held-path microcosm-substrate/core/mechanism_sources.json --held-path microcosm-substrate/core/doctrine_lattice_coverage.json --held-path microcosm-substrate/atlas/doctrine_lattice_projection.json --held-path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --held-path microcosm-substrate/atlas/doctrine_lattice_health.json --held-path microcosm-substrate/atlas/doctrine_lattice_entry_card.json",
+      "result": "requested"
+    },
+    "reentry_condition": "After the owner lands or releases the shared mechanism/lattice paths, re-run mutation-check, admit the resolving mechanism or equivalent subject, append only source-warranted capsule rows, regenerate doctrine projections from source, then refresh the public site through the existing builder."
+  },
+  "public_site_check": {
+    "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "status": "fail",
+    "drift_count": 10,
+    "drift_reason": "generated_content_drift",
+    "drift_paths": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "public_safety_validation": {
+      "status": "pass",
+      "html_file_count": 18,
+      "internal_links_checked": 2572,
+      "internal_links_missing": [],
+      "banned_visible_term_hits": [],
+      "private_scan_hits": [],
+      "forbidden_source_link_hits": [],
+      "external_asset_hits": [],
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "unsafe_url_hits": [],
+      "security_txt_ok": true
+    },
+    "direct_site_write_boundary": {
+      "status": "deferred",
+      "reason": "Generated site assets already carry unrelated dirty UI/search changes and the builder check reports generated content drift. This pass records a site-ready handoff rather than hand-editing or overwriting generated HTML/JS/CSS."
+    }
+  },
+  "read_only_availability_audit": {
+    "command": "Read sites/microcosm/assets/object-map.js, sites/microcosm/object-map.json, sites/microcosm/content-graph.json, sites/microcosm/assets/search-index.js, sites/microcosm/assets/site-packet.js, sites/microcosm/docs/paper-modules.html, and sites/microcosm/llms.txt for the 13 legacy-only paper-module ids.",
+    "surface_exists": {
+      "object_map_json": true,
+      "object_map_js": true,
+      "content_graph_json": true,
+      "search_index_js": true,
+      "site_packet_js": true,
+      "paper_modules_doc": true,
+      "llms": true
+    },
+    "surface_positive_counts": {
+      "object_map_json": 13,
+      "object_map_js": 13,
+      "content_graph_json": 13,
+      "search_index_js": 13,
+      "site_packet_js": 13,
+      "paper_modules_doc": 7,
+      "llms": 0
+    },
+    "fully_missing_ids": [],
+    "availability_delta": "No generated site files changed in this pass. Current generated data surfaces still expose all 13 residual legacy-only module ids through object-map, content-graph, search-index, and site-packet data; the HTML paper-module doc exposes seven of the thirteen; llms.txt does not enumerate these ids."
+  },
+  "site_ready_handoff": {
+    "status": "ready_after_source_and_generated_surface_ownership_settles",
+    "commands": [
+      "./repo-python tools/meta/factory/work_ledger.py mutation-check --path microcosm-substrate/core/mechanism_sources.json --path microcosm-substrate/core/paper_module_capsules.json --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/atlas/doctrine_lattice_projection.json --path microcosm-substrate/atlas/doctrine_lattice_graph.mmd --path microcosm-substrate/atlas/doctrine_lattice_health.json --path microcosm-substrate/atlas/doctrine_lattice_entry_card.json --require-exclusive",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --write",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check",
+      "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ],
+    "expected_next_availability_slice": "Once source authority lands, refresh public generated data so capsule-backed status, object-map/content-graph/search entries, paper-module doc rows, and projection-status hashes all reflect current doctrine source without frontend redesign."
+  },
+  "task_ledger_bindings": [
+    {
+      "subject_id": "cap_quick_microcosm_public_site_generated_content_drift_blocks_safe_refresh_20260604",
+      "event_id": "wie_20260604T105623Z_ef618418",
+      "purpose": "Captured current public-site generated content drift as an availability residual before closeout."
+    },
+    {
+      "subject_id": "cap_quick_self_error_microcosm_site_reachability_probe_noncanonical_paths_20260604",
+      "event_id": "wie_20260604T105648Z_83be44cb",
+      "purpose": "Captured the initial non-canonical reachability probe path selection and its correction before receipt creation."
+    }
+  ],
+  "public_safety_receipt": {
+    "status": "pass",
+    "allowed_public_material": [
+      "public path names",
+      "paper-module ids",
+      "Work Ledger request id",
+      "Task Ledger event ids",
+      "validation command names",
+      "drift counts",
+      "surface reachability booleans",
+      "authority ceilings",
+      "anti-claims"
+    ],
+    "forbidden_material_not_included": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "raw_operator_voice",
+      "private account state",
+      "browser_or_hud_state",
+      "private macro source bodies",
+      "live command output bodies beyond validation summaries"
+    ]
+  },
+  "closeout": {
+    "commit_expected": true,
+    "next_lane": "Re-enter the source population lane after the mechanism/lattice owner releases. If site assets remain dirty, claim the builder outputs or emit a builder-ready payload; do not hand-edit generated site files."
+  }
+}

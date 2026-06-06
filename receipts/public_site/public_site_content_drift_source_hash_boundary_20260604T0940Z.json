@@ -1,0 +1,177 @@
+{
+  "schema_version": "microcosm_public_site_availability_handoff_v1",
+  "receipt_id": "public_site_content_drift_source_hash_boundary_20260604T0940Z",
+  "generated_at": "2026-06-04T09:40:32Z",
+  "generated_by": "codex",
+  "work_ledger_session": "codex_20260604T0940Z_public_site_content_drift_handoff",
+  "repo_head": "0641ff42e1e5992e6bba6b975e44f68fb63cc7e3",
+  "authority_posture": {
+    "source_authority": "microcosm-substrate source and generated doctrine-lattice projections remain authority",
+    "public_site_role": "generated public availability projection, not source authority",
+    "site_write_status": "not_written_from_this_receipt",
+    "claim_ceiling": "This receipt proves a public-site availability drift and exact re-entry lane. It does not prove publication freshness, release readiness, hosted-product authority, whole-system correctness, provider authority, financial advice, or private-root equivalence."
+  },
+  "source_population_state": {
+    "paper_module_corpus_check": {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "actual_count": 98,
+      "expected_count": 98,
+      "errors": []
+    },
+    "doctrine_lattice_check": {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+      "status": "pass",
+      "errors": []
+    },
+    "coverage_snapshot": {
+      "source": "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus",
+      "legacy_only_count": 14,
+      "required_subject_gap_count": 14,
+      "json_capsule_backed_count": 84,
+      "legacy_only_ids": [
+        "paper_module.batch7_secondary_runtime_capsule",
+        "paper_module.batch7_zenith_macos_capsule",
+        "paper_module.cold_clone_probe",
+        "paper_module.engine_room_annex_knowledge_router",
+        "paper_module.engine_room_bridge_campaign_dag",
+        "paper_module.engine_room_command_run_singleflight",
+        "paper_module.engine_room_derived_fact_provider_engine",
+        "paper_module.engine_room_egress_self_compliance_gate",
+        "paper_module.engine_room_generated_projection_drift_gate",
+        "paper_module.engine_room_lean_proof_search_lab",
+        "paper_module.engine_room_metabolism_runtime",
+        "paper_module.engine_room_navigation_fitness_benchmark",
+        "paper_module.first_screen_composition_root",
+        "paper_module.microcosm_axiom_substrate"
+      ]
+    }
+  },
+  "public_site_check": {
+    "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "status": "fail",
+    "drift_count": 11,
+    "validation_status": "pass",
+    "public_safety_receipt": {
+      "banned_visible_term_hits": [],
+      "external_asset_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "internal_links_missing": [],
+      "missing_security_headers": [],
+      "private_scan_hit_count": 0,
+      "runtime_backend": "none",
+      "unsafe_url_hit_count": 0
+    },
+    "drift_paths": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/llms.txt",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ]
+  },
+  "availability_delta": {
+    "current_site_gap_count": 17,
+    "current_coverage_gap_count": 14,
+    "coverage_gap_ids_all_present_on_current_site": true,
+    "coverage_not_in_site": [],
+    "stale_site_gap_ids_no_longer_in_current_coverage": [
+      "paper_module.batch5_authority_systems_capsule",
+      "paper_module.batch7_demo_take_console_capsule",
+      "paper_module.batch7_oracle_sibling_capsule"
+    ],
+    "site_gap_ids": [
+      "paper_module.batch5_authority_systems_capsule",
+      "paper_module.batch7_demo_take_console_capsule",
+      "paper_module.batch7_oracle_sibling_capsule",
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.cold_clone_probe",
+      "paper_module.engine_room_annex_knowledge_router",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_command_run_singleflight",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_generated_projection_drift_gate",
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ]
+  },
+  "source_hash_boundary": {
+    "status": "producer_wait",
+    "reason": "sites/microcosm/content-manifest.json stores source_hashes for Microcosm source files. Several source-hashed files are dirty under sibling lanes, so landing generated site hashes now would bind the public site to uncommitted source contents.",
+    "dirty_source_hashed_inputs_observed": [
+      "microcosm-substrate/paper_modules/batch10_governance_compilers_capsule.md",
+      "microcosm-substrate/paper_modules/formal_evidence_cell_anchor_resolver.md",
+      "microcosm-substrate/paper_modules/formal_math_lean_proof_witness.md",
+      "microcosm-substrate/paper_modules/formal_math_premise_retrieval.md",
+      "microcosm-substrate/paper_modules/formal_math_readiness_gate.md",
+      "microcosm-substrate/paper_modules/formal_math_verifier_trace_repair_loop.md",
+      "microcosm-substrate/paper_modules/lean_std_premise_index.md",
+      "microcosm-substrate/paper_modules/mathematical_strategy_atlas.md",
+      "microcosm-substrate/paper_modules/ring2_premise_precision_recall.md"
+    ],
+    "active_related_owner_sessions": [
+      {
+        "session_id": "codex_20260604T0923Z_formal_math_claim_ceiling_patch",
+        "lease_until": "2026-06-04T09:53:17.541478+00:00",
+        "held_surface_summary": "formal-math paper module claim ceiling patch paths"
+      },
+      {
+        "session_id": "codex_20260604T0749Z_batch10_governance_semantic_negative",
+        "lease_until": "2026-06-04T10:50:05.832109+00:00",
+        "held_surface_summary": "batch10 governance compiler source, fixtures, examples, and tests"
+      }
+    ],
+    "generated_output_claim_check": {
+      "command": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path sites/microcosm/content-graph.json --path sites/microcosm/content-manifest.json --path sites/microcosm/object-map.json --path sites/microcosm/assets/object-map.js --path sites/microcosm/assets/search-index.js --path sites/microcosm/assets/site-packet.js --path sites/microcosm/docs/paper-modules.html --path sites/microcosm/docs/rules-and-ideas.html --path sites/microcosm/docs/source.html --path sites/microcosm/llms.txt --path sites/microcosm/projection-status.json --require-exclusive",
+      "status": "clear",
+      "collision_count": 0,
+      "interpretation": "Output paths are unclaimed, but source-hash boundary still blocks a clean generated-only landing."
+    }
+  },
+  "captured_residuals": [
+    {
+      "subject_id": "cap_quick_microcosm_public_site_generated_shell_manual_diff_20260604",
+      "event_id": "wie_20260604T093814Z_f6d2b5d1",
+      "role": "Generated shell is dirty with manual accessibility/search edits; avoid broad shell overwrite."
+    },
+    {
+      "subject_id": "cap_quick_microcosm_public_site_content_drift_source_hash_boundary_20260604",
+      "event_id": "wie_20260604T094014Z_efd27583",
+      "role": "Generated public-site content/data drift is blocked by source-hash boundary."
+    },
+    {
+      "subject_id": "cap_quick_self_error_site_generated_diff_finding_uncaptured_20260604",
+      "event_id": "wie_20260604T093800Z_8f9b968e",
+      "role": "Self-error receipt for surfacing one generated-site dirty-diff finding before capture."
+    }
+  ],
+  "reentry": {
+    "condition": "Formal-math and batch10 source owners land/release, or a builder/data-only lane proves every source-hashed input is clean or co-owned in the same scoped commit.",
+    "commands": [
+      "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --session-summary --limit 12 --cards-only",
+      "./repo-git status --short -- microcosm-substrate/paper_modules sites/microcosm",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ],
+    "acceptance": [
+      "public-site builder exits pass with drift_count 0",
+      "site validation remains pass with no private, forbidden-source-link, inline-script, inline-style, unsafe-url, or missing-link hits",
+      "site paper-module gap ids equal doctrine_lattice_coverage.json legacy_only_ids exactly",
+      "generated content-manifest hashes only clean-at-base or co-owned source paths"
+    ]
+  }
+}

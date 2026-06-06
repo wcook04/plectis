@@ -1,0 +1,26 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "worker_forbidden_surface_blocked",
+  "error_codes": [
+    "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "worker_gate": {
+      "blocked_job": {
+        "provider_id": "openrouter_api",
+        "model_id": "gpt-paid",
+        "provider_budget": {
+          "max_usd": 1.0
+        },
+        "forbidden_surfaces": [
+          "raw_seed.md"
+        ],
+        "input_packet": {
+          "path": "raw_seed.md"
+        }
+      }
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

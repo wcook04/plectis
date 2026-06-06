@@ -57,7 +57,7 @@
     "verification_mode": "exact_source_digest_line_byte_and_anchor_match"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "5073eea644699845e2ee85351236ccb30255f1037133d62fecaff3b0f8e8b005",
+  "bundle_fingerprint": "ca9f0227cde58cb037e100b3ba9baeea69efebc7ae4e209cb699a5d05568d653",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
   "command": "microcosm run examples/runtime_shell/demo_project",
@@ -66,7 +66,7 @@
     "lease_public_observability_runtime"
   ],
   "copied_macro_source_count": 7,
-  "created_at": "2026-05-30T21:37:00+00:00",
+  "created_at": "2026-06-01T04:19:39+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {
@@ -96,8 +96,8 @@
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
-      "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-      "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+      "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+      "sha256:2046749694cc090a9dbfdec26a63570fbc6078e91c17209c7c50c67cb4ed9485",
       "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc"
     ],
     "source_refs": [
@@ -115,8 +115,8 @@
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
       "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
-      "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-      "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+      "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+      "sha256:2046749694cc090a9dbfdec26a63570fbc6078e91c17209c7c50c67cb4ed9485",
       "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc"
     ],
     "target_refs": [
@@ -136,7 +136,7 @@
   "fixture_id": "first_wave.agent_route_observability_runtime.exported_observability_bundle",
   "fixture_regression_required_elsewhere": true,
   "freshness_basis": {
-    "basis_digest": "sha256:6eea07f0b4e0efbf52d02f7ec5cb54e8b6818aad3b3ac408bee8780fb46b27d8",
+    "basis_digest": "sha256:d7c287d2a3a41210e7c40aeef3b3c01546f5e1a454f47375c61c413118ad7460",
     "card_schema_version": "agent_route_observability_runtime_observability_bundle_card_v1",
     "input_count": 18,
     "inputs": [
@@ -147,7 +147,7 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
-        "sha256": "sha256:41b329c01a78425e80282f87b65a3d11fa7e92e9401b90e21e381354b15bbb26",
+        "sha256": "sha256:8d9aa6cf80e3cf968c3c2f93ad8fe6fb3e2669830cd742c1271a58e762b1b458",
         "size_bytes": 16076
       },
       {
@@ -212,8 +212,8 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "sha256:6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
-        "size_bytes": 229460
+        "sha256": "sha256:659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
+        "size_bytes": 231602
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
@@ -222,8 +222,8 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
-        "sha256": "sha256:2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
-        "size_bytes": 252787
+        "sha256": "sha256:2046749694cc090a9dbfdec26a63570fbc6078e91c17209c7c50c67cb4ed9485",
+        "size_bytes": 253492
       },
       {
         "path": "core/private_state_forbidden_classes.json",
@@ -445,21 +445,21 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 229460,
-        "line_count": 5256,
+        "byte_count": 231602,
+        "line_count": 5298,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/agent_execution_trace.py",
-        "sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+        "sha256": "659a781e2a4e6dd72794631d9f09fd771ac086fa593166f3d04409d3639c1d04",
         "source_ref": "system/lib/agent_execution_trace.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py"
       },
       {
         "body_in_receipt": false,
-        "byte_count": 252787,
-        "line_count": 5465,
+        "byte_count": 253492,
+        "line_count": 5479,
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
-        "sha256": "2513a9c19e86410adf336b234c58b2635d7d3537b3a0bf79779ce2c187a8dd96",
+        "sha256": "2046749694cc090a9dbfdec26a63570fbc6078e91c17209c7c50c67cb4ed9485",
         "source_ref": "system/lib/navigation_metabolism_ledger.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py"
       },

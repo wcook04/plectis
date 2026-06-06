@@ -1,0 +1,14 @@
+{
+  "schema_version": "microcosm_negative_case_v1",
+  "case_id": "mission_graph_missing_target",
+  "error_codes": [
+    "BATCH9_MISSION_GRAPH_MISSING_TARGET"
+  ],
+  "body_in_receipt": false,
+  "fixture_patch": {
+    "mission_graph": {
+      "negative_target_id": "missing"
+    }
+  },
+  "case_contract": "semantic_evaluator_executes_fixture_patch_declared_error_codes_are_not_proof"
+}

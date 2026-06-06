@@ -1,0 +1,142 @@
+{
+  "schema": "microcosm_public_site_source_coupling_handoff_receipt_v1",
+  "generated_at": "2026-06-04T23:45:30Z",
+  "authority_posture": "blocked_handoff_only_not_generated_site_source_truth_or_release_approval",
+  "lane": "microcosm_public_site_availability",
+  "reason": "The public-site builder has source-coupling protection enabled and current Microcosm source inputs are dirty while the core lattice/source paths remain actively claimed by another Work Ledger owner. Regenerating or committing generated site outputs now would mix public-site projection output with unsettled source-authority inputs.",
+  "latest_observed_builder_check": {
+    "command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+    "exit_code": 1,
+    "status": "fail",
+    "drift_count": 11,
+    "source_coupling": {
+      "status": "blocked_dirty_source_inputs",
+      "dirty_source_count": 8,
+      "safe_to_commit_generated_outputs_without_sources": false,
+      "dirty_source_paths": [
+        "microcosm-substrate/core/doctrine_lattice_coverage.json",
+        "microcosm-substrate/core/mechanism_sources.json",
+        "microcosm-substrate/mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json",
+        "microcosm-substrate/mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json",
+        "microcosm-substrate/mechanisms/mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate.json",
+        "microcosm-substrate/mechanisms/mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate.json",
+        "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json",
+        "microcosm-substrate/paper_modules/first_screen_composition_root.md"
+      ]
+    },
+    "validation": {
+      "status": "fail",
+      "banned_visible_term_hits": [
+        "receipt"
+      ],
+      "public_safety_scan_hit_count": 0,
+      "private_scan_hit_count": 0,
+      "external_asset_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "internal_links_missing": [],
+      "security_txt_ok": true
+    },
+    "drift_paths": [
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/evidence.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ]
+  },
+  "active_source_owner": {
+    "work_ledger_session_id": "codex_20260604T2324Z_microcosm_mechanism_upstream_parity",
+    "actor": "codex",
+    "phase_id": "09_54_1",
+    "claimed_until": "2026-06-04T23:54:50.617400Z",
+    "current_pass_line": "Correcting mechanism upstream parity from capsule dependency evidence; source-only mechanism_sources then builder refresh.",
+    "currently_claimed_source_paths": [
+      "microcosm-substrate/core/mechanism_sources.json",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json"
+    ],
+    "claim_filter_command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --path microcosm-substrate/core/doctrine_lattice_coverage.json --path microcosm-substrate/core/mechanism_sources.json --path microcosm-substrate/paper_modules/first_screen_composition_root.md --full"
+  },
+  "coverage_snapshot": {
+    "command": "jq '{paper_module_json_instance_count:.paper_module_corpus.json_instance_count, paper_module_legacy_only_count:.paper_module_corpus.legacy_only_json_instance_count, paper_module_required_subject_gap_count:.paper_module_corpus.required_subject_gap_count, paper_module_without_json_capsule_count:.paper_module_corpus.markdown_without_json_capsule_count, paper_module_unpopulated_selective_relation_count:.paper_module_corpus.unpopulated_selective_relation_count, mechanism_unpopulated_selective_relation_count:.mechanism_instance_corpus.unpopulated_selective_relation_count, organ_unpopulated_selective_relation_count:.organ_instance_corpus.unpopulated_selective_relation_count, legacy_only_ids:.paper_module_corpus.legacy_only_json_instance_ids, required_subject_gap_ids:.paper_module_corpus.required_subject_gap_ids}' microcosm-substrate/core/doctrine_lattice_coverage.json",
+    "paper_module_json_instance_count": 98,
+    "paper_module_legacy_only_count": 4,
+    "paper_module_required_subject_gap_count": 4,
+    "paper_module_without_json_capsule_count": 4,
+    "paper_module_unpopulated_selective_relation_count": 52,
+    "mechanism_unpopulated_selective_relation_count": 39,
+    "organ_unpopulated_selective_relation_count": 29,
+    "legacy_only_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ],
+    "required_subject_gap_ids": [
+      "paper_module.batch7_secondary_runtime_capsule",
+      "paper_module.batch7_zenith_macos_capsule",
+      "paper_module.first_screen_composition_root",
+      "paper_module.microcosm_axiom_substrate"
+    ]
+  },
+  "site_projection_snapshot": {
+    "command": "jq '{paper_module_count, paper_module_availability_gap_count, coverage_deficit_count, coverage_deficit_total_count, source_fingerprint}' sites/microcosm/content-graph.json",
+    "paper_module_count": 94,
+    "paper_module_availability_gap_count": 4,
+    "coverage_deficit_count": 5,
+    "coverage_deficit_total_count": 124,
+    "source_fingerprint": "2acaa92d0d64bc29451351cdf93fec91"
+  },
+  "task_ledger_captures": [
+    {
+      "event_id": "wie_20260604T233044Z_898f761a",
+      "subject_id": "microcosm_public_site_source_coupling_blocked_by_active_mechanism_owner_20260604T2329Z",
+      "visibility": "authority_visible_projection_not_rebuilt"
+    },
+    {
+      "event_id": "wie_20260604T233419Z_8b497fda",
+      "subject_id": "microcosm_public_site_source_coupling_blocked_by_active_mechanism_owner_expanded_20260604T2334Z",
+      "visibility": "authority_visible_projection_not_rebuilt"
+    }
+  ],
+  "reentry_condition": {
+    "precondition": "The active mechanism-upstream parity owner lands or finalizes, and the public-site builder reports source_coupling.status=clear with dirty_source_count=0.",
+    "commands": [
+      "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --session-summary --limit 30 --cards-only",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ],
+    "commit_scope_when_clear": [
+      "tools/meta/dissemination/build_microcosm_public_site.py if it is still dirty and owned by the site lane",
+      "sites/microcosm/assets/object-map.js",
+      "sites/microcosm/assets/search-index.js",
+      "sites/microcosm/assets/site-packet.js",
+      "sites/microcosm/content-graph.json",
+      "sites/microcosm/content-manifest.json",
+      "sites/microcosm/docs/evidence.html",
+      "sites/microcosm/docs/paper-modules.html",
+      "sites/microcosm/docs/rules-and-ideas.html",
+      "sites/microcosm/docs/source.html",
+      "sites/microcosm/object-map.json",
+      "sites/microcosm/projection-status.json"
+    ],
+    "do_not_do": [
+      "Do not weaken the public visible-vocabulary gate.",
+      "Do not commit generated site outputs while source_coupling.safe_to_commit_generated_outputs_without_sources is false.",
+      "Do not edit generated site HTML by hand."
+    ]
+  },
+  "public_safety_receipt": {
+    "public_safe": true,
+    "private_scan_hit_count": 0,
+    "public_safety_scan_hit_count": 0,
+    "security_txt_ok": true,
+    "release_status": "not_releasable_until_source_coupling_and_visible_vocabulary_gate_clear"
+  }
+}

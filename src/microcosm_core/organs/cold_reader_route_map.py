@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -13,7 +14,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalize_public_receipt_paths,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -32,6 +37,7 @@ SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 CARD_SCHEMA_VERSION = "cold_reader_route_map_command_card_v1"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "source_module_results",
+    "route_source_replay",
     "secret_exclusion_scan",
     "findings",
     "source_module_refs",
@@ -63,6 +69,11 @@ SOURCE_REFS = [
     "microcosm-substrate/README.md",
     "microcosm-substrate/AGENTS.md",
 ]
+ROUTE_SOURCE_REPLAY_PUBLIC_REFS = (
+    *SOURCE_REFS,
+    "microcosm-substrate/src/microcosm_core/cli.py",
+    "microcosm-substrate/src/microcosm_core/project_substrate.py",
+)
 PUBLIC_RUNTIME_REFS = [
     "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
     "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
@@ -122,6 +133,20 @@ AUTHORITY_CEILING = {
     "whole_system_correctness_claim": False,
 }
 
+SOURCE_REPLAY_STOPWORDS = {
+    "and",
+    "are",
+    "for",
+    "from",
+    "into",
+    "not",
+    "only",
+    "refs",
+    "ref",
+    "the",
+    "with",
+}
+
 ANTI_CLAIM = (
     "The cold-reader route map validates a public ten-minute route projection only. "
     "It does not become route registry authority, expose private macro sources, "
@@ -145,6 +170,12 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     return public_relative_path(path, display_root=public_root)
+
+
+def _stored_receipt_command(command: str) -> str:
+    normalized = normalize_public_receipt_paths({"command": command})
+    value = normalized.get("command") if isinstance(normalized, dict) else command
+    return value if isinstance(value, str) else command
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
@@ -215,6 +246,366 @@ def _source_module_paths(input_dir: Path, manifest_payload: object | None = None
         _source_module_target_path(input_dir, row, public_root=public_root)
         for row in _rows(manifest, "modules")
     ]
+
+
+def _normalized_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value.lower()).strip()
+
+
+def _material_terms(value: str) -> list[str]:
+    terms = re.findall(r"[a-z0-9][a-z0-9_-]*", value.lower())
+    return [
+        term
+        for term in terms
+        if len(term) >= 3 and term not in SOURCE_REPLAY_STOPWORDS
+    ]
+
+
+def _slugify_heading(value: str) -> str:
+    text = re.sub(r"[`*_~]", "", value.strip())
+    text = re.sub(r"[^a-zA-Z0-9\s-]", "", text).lower()
+    text = re.sub(r"\s+", "-", text.strip())
+    return re.sub(r"-+", "-", text)
+
+
+def _public_ref_path(public_root: Path, ref: str) -> tuple[Path | None, str]:
+    path_ref, _separator, anchor = ref.partition("#")
+    path_ref = path_ref.removeprefix("microcosm-substrate/")
+    path = Path(path_ref)
+    if not path_ref or path.is_absolute() or ".." in path.parts:
+        return None, anchor
+    return public_root / path, anchor
+
+
+def _heading_anchors(text: str) -> set[str]:
+    anchors: set[str] = set()
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            anchors.add(_slugify_heading(stripped.lstrip("#").strip()))
+    return anchors
+
+
+def _document_ref_result(ref: str, *, public_root: Path) -> dict[str, Any]:
+    path, anchor = _public_ref_path(public_root, ref)
+    if path is None:
+        return {
+            "ref": ref,
+            "status": "blocked",
+            "error_code": "COLD_ROUTE_DOC_REF_UNRESOLVED",
+            "reason": "invalid_public_ref",
+        }
+    exists = path.is_file()
+    if not exists:
+        return {
+            "ref": ref,
+            "status": "blocked",
+            "error_code": "COLD_ROUTE_DOC_REF_UNRESOLVED",
+            "reason": "missing_public_doc",
+        }
+    text = path.read_text(encoding="utf-8")
+    anchor_status = PASS
+    if anchor and anchor not in _heading_anchors(text):
+        anchor_status = "blocked"
+    return {
+        "ref": ref,
+        "path": _display(path, public_root=public_root),
+        "anchor": anchor,
+        "status": PASS if anchor_status == PASS else "blocked",
+        "error_code": None
+        if anchor_status == PASS
+        else "COLD_ROUTE_DOC_REF_ANCHOR_MISSING",
+        "reason": "resolved" if anchor_status == PASS else "missing_heading_anchor",
+    }
+
+
+def _receipt_ref_result(ref: str, *, public_root: Path) -> dict[str, Any]:
+    path, _anchor = _public_ref_path(public_root, ref)
+    if path is None:
+        return {
+            "ref": ref,
+            "status": "blocked",
+            "error_code": "COLD_ROUTE_RECEIPT_REF_UNRESOLVED",
+            "reason": "invalid_public_ref",
+        }
+    if not path.is_file():
+        return {
+            "ref": ref,
+            "status": "blocked",
+            "error_code": "COLD_ROUTE_RECEIPT_REF_UNRESOLVED",
+            "reason": "missing_receipt",
+        }
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {
+            "ref": ref,
+            "path": _display(path, public_root=public_root),
+            "status": "blocked",
+            "error_code": "COLD_ROUTE_RECEIPT_REF_UNRESOLVED",
+            "reason": "receipt_not_json_object",
+        }
+    receipt_status = payload.get("status") if isinstance(payload, dict) else None
+    if receipt_status != PASS:
+        return {
+            "ref": ref,
+            "path": _display(path, public_root=public_root),
+            "status": "blocked",
+            "receipt_status": receipt_status,
+            "error_code": "COLD_ROUTE_RECEIPT_STATUS_UNSUPPORTED",
+            "reason": "receipt_status_not_pass",
+        }
+    return {
+        "ref": ref,
+        "path": _display(path, public_root=public_root),
+        "status": PASS,
+        "receipt_status": receipt_status,
+        "error_code": None,
+        "reason": "resolved_pass_receipt",
+    }
+
+
+def _text_record(
+    records: list[dict[str, str]],
+    path: Path,
+    *,
+    public_root: Path,
+    source_kind: str,
+    seen: set[Path],
+) -> None:
+    resolved = path.resolve(strict=False)
+    if resolved in seen or not path.is_file():
+        return
+    seen.add(resolved)
+    records.append(
+        {
+            "ref": _display(path, public_root=public_root),
+            "source_kind": source_kind,
+            "text": path.read_text(encoding="utf-8"),
+        }
+    )
+
+
+def _source_replay_text_records(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    source_manifest_payload: object,
+    route_rows: list[dict[str, Any]],
+    receipt_rows: list[dict[str, Any]],
+) -> list[dict[str, str]]:
+    records: list[dict[str, str]] = []
+    seen: set[Path] = set()
+    for path in _source_module_paths(input_dir, source_manifest_payload):
+        _text_record(records, path, public_root=public_root, source_kind="copied_source_module", seen=seen)
+    for ref in ROUTE_SOURCE_REPLAY_PUBLIC_REFS:
+        path, _anchor = _public_ref_path(public_root, ref)
+        if path is not None:
+            _text_record(records, path, public_root=public_root, source_kind="public_source_ref", seen=seen)
+    for row in route_rows:
+        for ref in row.get("docs_refs", []):
+            if not isinstance(ref, str):
+                continue
+            path, _anchor = _public_ref_path(public_root, ref)
+            if path is not None:
+                _text_record(records, path, public_root=public_root, source_kind="docs_ref", seen=seen)
+    for row in receipt_rows:
+        for ref in row.get("receipt_refs", []):
+            if not isinstance(ref, str):
+                continue
+            path, _anchor = _public_ref_path(public_root, ref)
+            if path is not None:
+                _text_record(records, path, public_root=public_root, source_kind="receipt_ref", seen=seen)
+    return records
+
+
+def _command_support(command: str, *, corpus_text: str, corpus_normalized: str) -> dict[str, Any]:
+    command = command.strip()
+    variants = {
+        command,
+        command.replace("<project>", "."),
+        command.replace("<project>", "/tmp/microcosm-scratch"),
+        command.replace("<selected_route_id>", "<route_id>"),
+        command.replace("<selected_route_id>", "$MICROCOSM_ROUTE_ID"),
+    }
+    exact_supported = any(
+        _normalized_text(variant) in corpus_normalized for variant in variants if variant
+    )
+    material_tokens = [
+        token.strip("'\"")
+        for token in re.split(r"\s+", command)
+        if token
+        and token != "microcosm"
+        and not (token.startswith("<") and token.endswith(">"))
+    ]
+    missing_tokens = [
+        token
+        for token in material_tokens
+        if _normalized_text(token) not in corpus_text
+        and _normalized_text(token) not in corpus_normalized
+    ]
+    return {
+        "status": PASS if exact_supported or not missing_tokens else "blocked",
+        "exact_command_supported": exact_supported,
+        "material_tokens": material_tokens,
+        "missing_material_tokens": missing_tokens,
+    }
+
+
+def _mechanism_signal_support(
+    row: dict[str, Any],
+    *,
+    corpus_normalized: str,
+) -> dict[str, Any]:
+    signals = [signal for signal in row.get("shows", []) if isinstance(signal, str)]
+    signal_rows = []
+    for signal in signals:
+        terms = _material_terms(signal)
+        missing_terms = [term for term in terms if term not in corpus_normalized]
+        signal_rows.append(
+            {
+                "signal": signal,
+                "status": PASS if not missing_terms else "blocked",
+                "material_terms": terms,
+                "missing_terms": missing_terms,
+            }
+        )
+    blocked = [signal for signal in signal_rows if signal["status"] != PASS]
+    return {
+        "status": PASS if signals and not blocked else "blocked",
+        "signal_count": len(signal_rows),
+        "supported_signal_count": len(signal_rows) - len(blocked),
+        "signals": signal_rows,
+    }
+
+
+def _route_source_replay_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    route_rows: list[dict[str, Any]],
+    receipt_rows: list[dict[str, Any]],
+    source_manifest_payload: object,
+) -> dict[str, Any]:
+    text_records = _source_replay_text_records(
+        input_dir,
+        public_root=public_root,
+        source_manifest_payload=source_manifest_payload,
+        route_rows=route_rows,
+        receipt_rows=receipt_rows,
+    )
+    corpus_text = _normalized_text("\n".join(row["text"] for row in text_records))
+    receipt_refs_by_id = {
+        str(row.get("route_id") or ""): [
+            str(ref)
+            for ref in row.get("receipt_refs", [])
+            if isinstance(ref, str) and ref
+        ]
+        for row in receipt_rows
+        if row.get("route_id")
+    }
+    findings: list[dict[str, Any]] = []
+    replay_rows = []
+    for row in route_rows:
+        route_id = _route_id(row)
+        command = str(row.get("command") or "")
+        docs_refs = [
+            str(ref) for ref in row.get("docs_refs", []) if isinstance(ref, str) and ref
+        ]
+        receipt_refs = receipt_refs_by_id.get(route_id, [])
+        doc_results = [_document_ref_result(ref, public_root=public_root) for ref in docs_refs]
+        receipt_results = [
+            _receipt_ref_result(ref, public_root=public_root) for ref in receipt_refs
+        ]
+        command_result = _command_support(
+            command,
+            corpus_text=corpus_text,
+            corpus_normalized=corpus_text,
+        )
+        signal_result = _mechanism_signal_support(row, corpus_normalized=corpus_text)
+        route_findings: list[dict[str, Any]] = []
+        if command_result["status"] != PASS:
+            route_findings.append(
+                _finding(
+                    "COLD_ROUTE_COMMAND_SOURCE_UNSUPPORTED",
+                    "Route command must be supported by copied or public source text.",
+                    case_id="source_replay",
+                    subject_id=route_id,
+                    subject_kind="command",
+                )
+            )
+        for result in doc_results:
+            if result["status"] != PASS:
+                route_findings.append(
+                    _finding(
+                        str(result["error_code"]),
+                        "Route docs refs must resolve to public files and heading anchors.",
+                        case_id="source_replay",
+                        subject_id=route_id,
+                        subject_kind="docs_refs",
+                    )
+                )
+        for result in receipt_results:
+            if result["status"] != PASS:
+                route_findings.append(
+                    _finding(
+                        str(result["error_code"]),
+                        "Route receipt refs must open public pass-status receipts.",
+                        case_id="source_replay",
+                        subject_id=route_id,
+                        subject_kind="receipt_refs",
+                    )
+                )
+        if signal_result["status"] != PASS:
+            route_findings.append(
+                _finding(
+                    "COLD_ROUTE_MECHANISM_SIGNAL_UNSUPPORTED",
+                    "Route mechanism signals must be supported by copied source, public docs, or receipts.",
+                    case_id="source_replay",
+                    subject_id=route_id,
+                    subject_kind="shows",
+                )
+            )
+        findings.extend(route_findings)
+        replay_rows.append(
+            {
+                "route_id": route_id,
+                "status": PASS if not route_findings else "blocked",
+                "command_support": command_result,
+                "docs_ref_results": doc_results,
+                "receipt_ref_results": receipt_results,
+                "mechanism_signal_support": signal_result,
+                "finding_count": len(route_findings),
+            }
+        )
+    supported_routes = [row for row in replay_rows if row["status"] == PASS]
+    docs_ref_results = [
+        result for row in replay_rows for result in row["docs_ref_results"]
+    ]
+    receipt_ref_results = [
+        result for row in replay_rows for result in row["receipt_ref_results"]
+    ]
+    return {
+        "status": PASS if not findings else "blocked",
+        "verification_mode": (
+            "route_commands_docs_receipts_and_mechanism_signals_replayed_against_"
+            "copied_public_source_docs_and_pass_receipts"
+        ),
+        "source_record_count": len(text_records),
+        "source_refs": [row["ref"] for row in text_records],
+        "route_count": len(replay_rows),
+        "supported_route_count": len(supported_routes),
+        "docs_ref_count": len(docs_ref_results),
+        "resolved_docs_ref_count": sum(
+            1 for result in docs_ref_results if result["status"] == PASS
+        ),
+        "receipt_ref_count": len(receipt_ref_results),
+        "resolved_pass_receipt_ref_count": sum(
+            1 for result in receipt_ref_results if result["status"] == PASS
+        ),
+        "rows": replay_rows,
+        "findings": findings,
+    }
 
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
@@ -756,7 +1147,7 @@ def _fresh_exported_bundle_receipt(
         return None
     if receipt.get("input_mode") != "exported_cold_reader_route_map_bundle":
         return None
-    if receipt.get("command") != command:
+    if receipt.get("command") not in {command, _stored_receipt_command(command)}:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     if basis["missing_path_count"]:
@@ -801,6 +1192,7 @@ def _common_receipt(
         "copied_source_module_count": result["copied_source_module_count"],
         "source_module_refs": result["source_module_refs"],
         "source_module_results": result["source_module_results"],
+        "route_source_replay": result["route_source_replay"],
         "error_codes": result["error_codes"],
         "expected_negative_cases": result["expected_negative_cases"],
         "observed_negative_cases": result["observed_negative_cases"],
@@ -853,6 +1245,20 @@ def _build_board(
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_module_count": result["source_module_count"],
         "copied_source_module_count": result["copied_source_module_count"],
+        "route_source_replay": {
+            "status": result["route_source_replay"]["status"],
+            "verification_mode": result["route_source_replay"]["verification_mode"],
+            "route_count": result["route_source_replay"]["route_count"],
+            "supported_route_count": result["route_source_replay"][
+                "supported_route_count"
+            ],
+            "resolved_docs_ref_count": result["route_source_replay"][
+                "resolved_docs_ref_count"
+            ],
+            "resolved_pass_receipt_ref_count": result["route_source_replay"][
+                "resolved_pass_receipt_ref_count"
+            ],
+        },
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": secret_scan,
@@ -921,7 +1327,19 @@ def _build_result(
         public_root=public_root,
         required=input_mode == "exported_cold_reader_route_map_bundle",
     )
-    findings = [*positive_findings, *negative["findings"], *source_modules["findings"]]
+    route_source_replay = _route_source_replay_result(
+        input_dir,
+        public_root=public_root,
+        route_rows=route_rows,
+        receipt_rows=receipt_rows,
+        source_manifest_payload=source_manifest_payload,
+    )
+    findings = [
+        *positive_findings,
+        *negative["findings"],
+        *source_modules["findings"],
+        *route_source_replay["findings"],
+    ]
     error_codes = sorted({finding["error_code"] for finding in findings})
     receipt_ref_count = sum(
         len(row.get("receipt_refs", []))
@@ -940,12 +1358,14 @@ def _build_result(
         if route_by_id.get(route_id, {}).get("command") == expected_command
     )
     source_modules_pass = source_modules["status"] in (PASS, "not_required")
+    route_source_replay_pass = route_source_replay["status"] == PASS
     status = (
         PASS
         if not positive_findings
         and not missing
         and not secret_scan["blocking_hit_count"]
         and source_modules_pass
+        and route_source_replay_pass
         else "blocked"
     )
     real_substrate_refs = [
@@ -953,6 +1373,17 @@ def _build_result(
         *source_modules["source_refs"],
         *source_modules["source_module_refs"],
     ]
+    source_module_results = source_modules["source_module_results"]
+    source_body_digests = sorted(
+        f"sha256:{row['source_sha256']}"
+        for row in source_module_results
+        if row.get("source_sha256")
+    )
+    target_body_digests = sorted(
+        f"sha256:{row['target_sha256']}"
+        for row in source_module_results
+        if row.get("target_sha256")
+    )
     return {
         "schema_version": "cold_reader_route_map_result_v1",
         "created_at": utc_now(),
@@ -975,6 +1406,17 @@ def _build_result(
                 "source_module_manifest_ref"
             ],
             "source_to_target_relation": "exact_copy",
+            "digest_relation": "source_target_digest_sets_match"
+            if source_body_digests == target_body_digests
+            else "source_target_digest_sets_drift",
+            "source_module_count": source_modules["source_module_count"],
+            "copied_source_module_count": source_modules[
+                "copied_source_module_count"
+            ],
+            "source_body_digests": source_body_digests,
+            "target_body_digests": target_body_digests,
+            "source_refs": source_modules["source_refs"],
+            "target_refs": source_modules["source_module_refs"],
             "body_in_receipt": False,
         },
         "source_module_manifest_status": source_modules["status"],
@@ -983,6 +1425,7 @@ def _build_result(
         "copied_source_module_count": source_modules["copied_source_module_count"],
         "source_module_refs": source_modules["source_module_refs"],
         "source_module_results": source_modules["source_module_results"],
+        "route_source_replay": route_source_replay,
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
@@ -1133,6 +1576,19 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "verification_status"
             ],
             "body_in_receipt": result["body_import_verification"]["body_in_receipt"],
+        },
+        "route_source_replay": {
+            "status": result["route_source_replay"]["status"],
+            "route_count": result["route_source_replay"]["route_count"],
+            "supported_route_count": result["route_source_replay"][
+                "supported_route_count"
+            ],
+            "resolved_docs_ref_count": result["route_source_replay"][
+                "resolved_docs_ref_count"
+            ],
+            "resolved_pass_receipt_ref_count": result["route_source_replay"][
+                "resolved_pass_receipt_ref_count"
+            ],
         },
         "negative_case_summary": {
             "expected_negative_case_count": len(result["expected_negative_cases"]),

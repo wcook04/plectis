@@ -445,6 +445,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
+        "domain_specialist",
+        "type_a_agent",
     }
     assert set(first_screen_landing["evidence_class_ids"]) >= {
         "verified_macro_body_import",

@@ -108,6 +108,42 @@
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
       ],
       "reason": "The real Ring2 premise-retrieval miss keeps the routing gate honest by linking a list-rewrite target shape to the retrieval-query update candidate."
+    },
+    {
+      "route_case_id": "synthetic_unknown_shape_default_fallback_route",
+      "source_problem_id": "synthetic_unmapped_goal_shape",
+      "source_problem_ids": ["synthetic_unmapped_goal_shape"],
+      "split": "synthetic_public_regression",
+      "domain": "unknown",
+      "baseline_error_class": "UNMAPPED_TARGET_SHAPE",
+      "target_shape": "unmapped_public_goal_shape",
+      "candidate_tactic_ids": ["simp_all", "rfl"],
+      "allowed_tactic_ids": ["simp_all", "rfl"],
+      "selected_tactic_id": "rfl",
+      "expected_tactic_id": "rfl",
+      "route_stage": "pre_execution",
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "reason": "An unmapped target shape must not trust declaration order; it uses the default safe tactic preference order and records the fallback."
+    },
+    {
+      "route_case_id": "synthetic_mathlib_preferred_unavailable_fallback_route",
+      "source_problem_id": "synthetic_mathlib_absent_search_goal",
+      "source_problem_ids": ["synthetic_mathlib_absent_search_goal"],
+      "split": "synthetic_public_regression",
+      "domain": "search",
+      "baseline_error_class": "MATHLIB_TACTIC_UNAVAILABLE",
+      "target_shape": "mathlib_search_goal",
+      "candidate_tactic_ids": ["aesop", "simp_all", "rfl"],
+      "allowed_tactic_ids": ["simp_all", "rfl"],
+      "selected_tactic_id": "simp_all",
+      "expected_tactic_id": "simp_all",
+      "route_stage": "pre_execution",
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      ],
+      "reason": "When the first shape-preferred tactic is unavailable in the public portfolio, routing falls back to the next available allowed tactic without admitting the unavailable tactic."
     }
   ],
   "anti_claim": "Routing constrains real Ring2 tactic selection before execution; it is not a proof of success, a Lean run, or a release signal."

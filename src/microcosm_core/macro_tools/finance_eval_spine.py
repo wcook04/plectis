@@ -40,6 +40,10 @@ REQUIRED_MODULES = (
     "variant_registry.py",
     "compare_variants.py",
     "build_eval_operating_picture.py",
+    "family_loss_matrix.py",
+    "loss_differentials.py",
+    "model_selection_stats.py",
+    "spa_statistics.py",
 )
 TOOLS_FINANCE_MODULES = (
     "__init__.py",
@@ -575,6 +579,7 @@ def _source_manifest(input_dir: Path, manifest: Mapping[str, Any], *, public_roo
     for rel in REQUIRED_INPUTS:
         path = input_dir / rel
         declared_row = declared.get(rel.as_posix(), {})
+        expected_target_ref = _expected_public_target_ref(rel.as_posix())
         sha256 = _file_sha256(path)
         expected_sha256 = declared_row.get("sha256")
         actual_line_count = _line_count(path)
@@ -585,6 +590,9 @@ def _source_manifest(input_dir: Path, manifest: Mapping[str, Any], *, public_roo
                 "display_ref": _display(path, public_root=public_root),
                 "source_ref": declared_row.get("source_ref"),
                 "target_ref": declared_row.get("target_ref"),
+                "expected_target_ref": expected_target_ref,
+                "target_ref_matches_path": declared_row.get("target_ref")
+                == expected_target_ref,
                 "source_to_target_relation": declared_row.get("source_to_target_relation"),
                 "sha256_match": declared_row.get("sha256_match"),
                 "source_sha256": declared_row.get("source_sha256"),
@@ -681,6 +689,57 @@ def _validate_copied_body_import_row(
                     "source_sha256": row.get("source_sha256"),
                     "target_sha256": row.get("target_sha256"),
                 },
+            )
+        )
+
+
+def _validate_required_source_manifest_paths(
+    rows: Iterable[Mapping[str, Any]],
+    findings: list[dict[str, Any]],
+) -> None:
+    required_paths = {
+        (SOURCE_MODULE_ROOT / module_name).as_posix()
+        for module_name in REQUIRED_MODULES
+    }
+    observed_paths = [
+        str(row.get("path") or "")
+        for row in rows
+        if row.get("source_import_class") == SOURCE_IMPORT_CLASS
+    ]
+    observed_nonempty = [path for path in observed_paths if path]
+    observed_counts = Counter(observed_nonempty)
+    missing_paths = sorted(required_paths - set(observed_nonempty))
+    unexpected_paths = sorted(set(observed_nonempty) - required_paths)
+    duplicate_paths = sorted(
+        path for path, count in observed_counts.items() if count > 1
+    )
+    if missing_paths:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_REQUIRED_PATH_MISSING",
+                "Source module manifest must cover each required copied finance evaluator body exactly once.",
+                source=SOURCE_MANIFEST_NAME,
+                expected=sorted(required_paths),
+                observed=sorted(set(observed_nonempty)),
+            )
+        )
+    if unexpected_paths:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_UNEXPECTED_PATH",
+                "Source module manifest copied body rows must stay within the required finance evaluator body set.",
+                source=SOURCE_MANIFEST_NAME,
+                expected=sorted(required_paths),
+                observed=unexpected_paths,
+            )
+        )
+    if duplicate_paths:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_REQUIRED_PATH_DUPLICATE",
+                "Source module manifest copied body rows must not duplicate a required finance evaluator body path.",
+                source=SOURCE_MANIFEST_NAME,
+                observed=duplicate_paths,
             )
         )
 
@@ -803,7 +862,8 @@ def _validate_manifest(
                 observed=source_manifest_payload.get("module_count"),
             )
         )
-    for row in _as_list(source_manifest_payload.get("modules")):
+    source_module_rows = _as_list(source_manifest_payload.get("modules"))
+    for row in source_module_rows:
         if not isinstance(row, Mapping):
             findings.append(
                 _finding(
@@ -819,6 +879,10 @@ def _validate_manifest(
                 findings,
                 source=f"{SOURCE_MANIFEST_NAME}::{row.get('path') or '<missing_path>'}",
             )
+    _validate_required_source_manifest_paths(
+        [row for row in source_module_rows if isinstance(row, Mapping)],
+        findings,
+    )
 
 
 def _validate_digests(

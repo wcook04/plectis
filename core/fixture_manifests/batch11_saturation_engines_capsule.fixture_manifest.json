@@ -1,0 +1,18 @@
+{
+  "body_in_receipt": false,
+  "fixture_id": "first_wave.batch11_saturation_engines_capsule",
+  "input_ref": "microcosm-substrate/fixtures/first_wave/batch11_saturation_engines_capsule/input",
+  "negative_case_probe_schema": "batch11_negative_case_computed_probe_v1",
+  "organ_id": "batch11_saturation_engines_capsule",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_count": 12,
+    "source_manifest_refs": [
+      "examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false
+  },
+  "source_bundle_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_module_manifest.json"
+}

@@ -94,7 +94,12 @@ def test_clusterability_audit_cli_emits_json() -> None:
     assert result.returncode == 0
     payload = json.loads(result.stdout)
     assert payload["kind"] == "navigation_clusterability_audit"
+    assert payload["output_profile"] == "clusterability_no_debt_cli_compact_v0"
     assert payload["summary"]["missing_cluster_adapter_count"] == 0
+    assert payload["summary"]["rows_omitted_count"] >= 1
+    assert payload["rows"] == []
+    assert payload["row_budget_pressure_preview"]
+    assert payload["omission_receipt"]["full_evidence_command"].endswith("--context-budget 40000")
     debt_ids = {row["debt_id"] for row in payload["debt_rows"]}
     assert "clusterability:standard_skill_map" not in debt_ids
     assert "clusterability:transform_job_receipts" not in debt_ids

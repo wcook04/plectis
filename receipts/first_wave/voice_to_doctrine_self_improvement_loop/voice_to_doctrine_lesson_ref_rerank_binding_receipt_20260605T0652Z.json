@@ -1,0 +1,90 @@
+{
+  "schema_version": "microcosm_component_rerank_binding_receipt_v1",
+  "receipt_id": "voice_to_doctrine_lesson_ref_rerank_binding_receipt_20260605T0652Z",
+  "generated_at": "2026-06-05T06:52:00Z",
+  "component_id": "voice_to_doctrine_self_improvement_loop",
+  "goal": "voice_to_doctrine_self_improvement_loop R1->R3/R4 path and anchor proof",
+  "verdict": "already_satisfied_receipt_only",
+  "rerank_binding": {
+    "previous_rank": "R1",
+    "bound_rank": "R3/R4",
+    "reason": "The live organ now validates lesson references by resolving public-bundle paths and anchors instead of counting ref slots.",
+    "no_code_mutation_required": true
+  },
+  "claim_receipt": {
+    "work_ledger_session_id": "codex_20260605T065001Z_voice_to_doctrine_rerank_binding",
+    "claim_id": "wlc_5c6b7b3dddb84821",
+    "claimed_path": "microcosm-substrate/receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_lesson_ref_rerank_binding_receipt_20260605T0652Z.json",
+    "collision_count": 0
+  },
+  "recent_commits_checked": [
+    {
+      "commit": "06aae0a54bfa4e5bb0ce8215fad0214907c6d8ab",
+      "subject": "Resolve voice doctrine validation refs",
+      "relevant_change": "Added validation_ref to the lesson reference validation set."
+    },
+    {
+      "commit": "6c7972b9e534bf0e244bd61c35f89fef04c6c9c9",
+      "subject": "Prove voice doctrine lesson refs",
+      "relevant_change": "Constrained lesson refs to exported bundle, source-module, or public Microcosm files and added exported-bundle mutation rejection tests."
+    }
+  ],
+  "live_code_evidence": [
+    {
+      "path": "microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+      "anchors": [
+        "def _ref_resolves(",
+        "def _lesson_ref_values(",
+        "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+      ],
+      "claim": "changed_surface_ref, evidence_ref/evidence_refs, validation_ref, and closeout_ref are resolved through public-root/source-module paths with optional text anchors."
+    },
+    {
+      "path": "microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "anchors": [
+        "test_voice_to_doctrine_resolves_lesson_ref_paths_and_anchors",
+        "test_voice_to_doctrine_rejects_mutated_lesson_ref_anchors",
+        "test_voice_to_doctrine_exported_bundle_rejects_lesson_ref_mutations"
+      ],
+      "claim": "Real-good refs pass, missing paths reject, missing anchors reject, and perturbing lesson refs moves the verdict to fail."
+    }
+  ],
+  "lesson_ref_slot_scan": {
+    "fixture_local_lessons": {
+      "path": "microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json",
+      "lesson_count": 4,
+      "missing_required_ref_slots": []
+    },
+    "exported_bundle_local_lessons": {
+      "path": "microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/local_lessons.json",
+      "lesson_count": 4,
+      "missing_required_ref_slots": []
+    }
+  },
+  "validation": {
+    "command": "./repo-pytest microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py",
+    "status": "pass",
+    "tests_passed": 11,
+    "tests_failed": 0
+  },
+  "negative_case_contract": {
+    "missing_path_rejects": true,
+    "missing_anchor_rejects": true,
+    "forged_or_perturbed_ref_moves_verdict": true,
+    "blocking_error_code": "VOICE_DOCTRINE_SURFACE_REF_UNRESOLVED"
+  },
+  "scope_hygiene": {
+    "code_paths_changed_by_this_receipt_pass": [],
+    "excluded_surfaces": [
+      "generated projections/site",
+      "verifier scoreboard",
+      "triage/worklist",
+      "Batch7/lattice/capsules",
+      "public-safety policy",
+      "axiom validator",
+      "tactic portfolio",
+      "Batch11",
+      "coverage contract"
+    ]
+  }
+}

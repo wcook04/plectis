@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -56,6 +57,15 @@ SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_mcp_tool_authority_macro_body_landed"
 SOURCE_OPEN_BODY_SCHEMA = "mcp_tool_authority_source_open_body_imports_v1"
+AGENT_EXECUTION_TRACE_SOURCE_REF = "system/lib/agent_execution_trace.py"
+AGENT_EXECUTION_TRACE_TARGET_FILE_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+)
+VALIDATOR_SOURCE_REF = "microcosm-substrate/src/microcosm_core/organs/mcp_tool_authority_replay.py"
+AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "agent_execution_trace.py::build_public_mcp_tool_authority_trace"
+)
 PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
     {
         "public_macro_pattern_body",
@@ -66,6 +76,7 @@ PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
     }
 )
 HASH_CHUNK_SIZE = 1024 * 1024
+MODULE_REPO_ROOT = Path(__file__).resolve().parents[4]
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -132,6 +143,7 @@ FORBIDDEN_KEYS = (
     "raw_tool_result",
     "private_account_id",
 )
+PRIVATE_REF_MARKERS = ("/Users/", "src/ai_workflow", "\\Users\\")
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -202,6 +214,92 @@ def _sha256(path: Path) -> str:
     return "sha256:" + digest.hexdigest()
 
 
+def _candidate_source_roots(public_root: Path) -> tuple[Path, ...]:
+    roots: list[Path] = []
+    for candidate in (public_root.parent, *public_root.parents, MODULE_REPO_ROOT):
+        resolved = candidate.resolve(strict=False)
+        if resolved not in roots:
+            roots.append(resolved)
+    return tuple(roots)
+
+
+def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
+    for candidate in _candidate_source_roots(public_root):
+        if (
+            (candidate / AGENT_EXECUTION_TRACE_SOURCE_REF).is_file()
+            and (candidate / AGENT_EXECUTION_TRACE_TARGET_FILE_REF).is_file()
+        ):
+            return candidate
+    return None
+
+
+def _source_ref_bytes(public_root: Path, source_ref: str) -> bytes | None:
+    for root in _candidate_source_roots(public_root):
+        source_path = root / source_ref
+        if not source_path.is_file():
+            continue
+        result = subprocess.run(
+            ["git", "-C", str(root), "show", f"HEAD:{source_ref}"],
+            check=False,
+            capture_output=True,
+        )
+        if result.returncode == 0:
+            return result.stdout
+        return source_path.read_bytes()
+    return None
+
+
+def _body_import_verification(
+    base_verification: dict[str, Any],
+    *,
+    public_root: Path,
+    public_trace: dict[str, Any],
+    source_modules: dict[str, Any],
+) -> dict[str, Any]:
+    repo_root = _repo_root_for_public_refactor(public_root)
+    source_path = (
+        repo_root / AGENT_EXECUTION_TRACE_SOURCE_REF if repo_root is not None else None
+    )
+    target_path = (
+        repo_root / AGENT_EXECUTION_TRACE_TARGET_FILE_REF
+        if repo_root is not None
+        else None
+    )
+    source_digest = (
+        _sha256(source_path) if source_path is not None and source_path.is_file() else None
+    )
+    target_digest = (
+        _sha256(target_path) if target_path is not None and target_path.is_file() else None
+    )
+    return {
+        **base_verification,
+        "verification_status": "verified",
+        "verification_mode": (
+            "extension_of_existing_public_refactor_with_live_digest_relation"
+        ),
+        "classification": "extension_of_existing_public_refactor",
+        "body_import_classification": "extension_of_existing_public_refactor",
+        "source_to_target_relation": "source_faithful_public_refactor",
+        "digest_relation": "source_target_refactor_digests_recorded"
+        if source_digest and target_digest
+        else "source_target_refactor_digests_unavailable_in_public_copy",
+        "source_ref": AGENT_EXECUTION_TRACE_SOURCE_REF,
+        "target_ref": AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF,
+        "target_file_ref": AGENT_EXECUTION_TRACE_TARGET_FILE_REF,
+        "source_body_digest": source_digest,
+        "target_body_digest": target_digest,
+        "public_trace_status": public_trace["status"],
+        "public_trace_span_count": public_trace["span_count"],
+        "trace_digest": public_trace["summary"]["trace_digest"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_digest_relation": "manifest_target_digests_verified"
+        if source_modules["status"] == PASS
+        else str(source_modules["status"]),
+        "source_module_digest_count": int(source_modules.get("verified_module_count") or 0),
+        "body_in_receipt": False,
+    }
+
+
 def _source_module_manifest_path(input_dir: Path) -> Path:
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -254,6 +352,7 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         *_input_paths(input_dir, include_negative=include_negative),
         *_source_module_paths(input_dir, public_root=public_root),
         public_root / "core/private_state_forbidden_classes.json",
+        public_root / VALIDATOR_SOURCE_REF.removeprefix("microcosm-substrate/"),
     ]
 
 
@@ -448,7 +547,6 @@ def _source_module_manifest_result(
     module_ids: list[str] = []
     material_class_counts: dict[str, int] = {}
     source_refs = [manifest_ref]
-
     if not isinstance(manifest, dict):
         modules = []
         findings.append(
@@ -554,12 +652,12 @@ def _source_module_manifest_result(
             )
             continue
         actual = _sha256(target)
-        expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+        expected_digests = {
+            "sha256": str(row.get("sha256") or ""),
+            "source_sha256": str(row.get("source_sha256") or ""),
+            "target_sha256": str(row.get("target_sha256") or ""),
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in expected_digests.values()):
             findings.append(
                 _finding(
                     "MCP_TOOL_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -569,6 +667,32 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
+        source_ref = str(row.get("source_ref") or "")
+        source_bytes = (
+            _source_ref_bytes(public_root, source_ref) if source_ref else None
+        )
+        if source_bytes is None:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISSING",
+                    "Source module rows must resolve a live source_ref authority body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref or module_id,
+                    subject_kind="source_ref",
+                )
+            )
+        else:
+            live_source_digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+            if actual != live_source_digest or expected_digests["source_sha256"] != live_source_digest:
+                findings.append(
+                    _finding(
+                        "MCP_TOOL_SOURCE_MODULE_SOURCE_REF_MISMATCH",
+                        "Copied source module bodies must still match the live source_ref body; rehashing a modified bundle-local copy is not sufficient authority.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
@@ -673,7 +797,13 @@ def _negative_rows(payloads: dict[str, object], key: str) -> list[dict[str, Any]
     return rows
 
 
-def validate_projection_protocol(payload: object) -> dict[str, Any]:
+def validate_projection_protocol(
+    payload: object,
+    *,
+    public_root: Path,
+    public_trace: dict[str, Any],
+    source_modules: dict[str, Any],
+) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
@@ -682,10 +812,40 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     target_symbols = _strings(protocol.get("target_symbols"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     verification = protocol.get("body_import_verification", {})
+    if not isinstance(verification, dict):
+        verification = {}
     verification_mode = (
         verification.get("verification_mode") if isinstance(verification, dict) else None
     )
     findings: list[dict[str, Any]] = []
+    ref_groups = {
+        "source_refs": source_refs,
+        "projection_receipt_refs": projection_receipts,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+    }
+    private_ref_shapes = sorted(
+        {
+            f"{group}:{ref}"
+            for group, refs in ref_groups.items()
+            for ref in refs
+            if ref.startswith("/") or any(marker in ref for marker in PRIVATE_REF_MARKERS)
+        }
+    )
+    if private_ref_shapes:
+        findings.append(
+            {
+                **_finding(
+                    "MCP_TOOL_PROJECTION_PROTOCOL_PRIVATE_REF_SHAPE",
+                    "Projection protocol refs must stay public-relative and cannot carry absolute host or repo-private path shapes.",
+                    case_id="projection_protocol_floor",
+                    subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                    subject_kind="projection_protocol",
+                ),
+                "private_ref_shapes": private_ref_shapes,
+            }
+        )
     if (
         len(source_refs) < 5
         or "mcp_tool_authority_replay_compound" not in source_pattern_ids
@@ -726,7 +886,12 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "target_symbols": target_symbols,
         "public_runtime_refs": public_runtime_refs,
         "body_import_status": protocol.get("body_import_status"),
-        "body_import_verification": verification if isinstance(verification, dict) else {},
+        "body_import_verification": _body_import_verification(
+            verification,
+            public_root=public_root,
+            public_trace=public_trace,
+            source_modules=source_modules,
+        ),
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -838,6 +1003,7 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
 def _validate_call_row(
     row: dict[str, Any],
     *,
+    declared_tool_ids: set[str] | None = None,
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
@@ -855,6 +1021,19 @@ def _validate_call_row(
     rollback = str(row.get("rollback_receipt_ref") or "")
     ledger = str(row.get("ledger_diff_ref") or "")
     tool_class = str(row.get("tool_class") or "")
+    tool_id = str(row.get("tool_id") or "")
+
+    if declared_tool_ids is not None and tool_id not in declared_tool_ids:
+        reasons.append("undeclared_tool_id")
+        _record(
+            findings,
+            observed,
+            "MCP_TOOL_UNDECLARED_TOOL_ID",
+            "Tool calls must reference a tool_id declared in the public tool manifest.",
+            case_id=case_id,
+            subject_id=call_id,
+            subject_kind=subject_kind,
+        )
 
     if (
         row.get("scope_overbroad") is True
@@ -950,9 +1129,18 @@ def _validate_call_row(
         )
     if missing:
         reasons.append("call_field_missing")
+        _record(
+            findings,
+            observed,
+            "MCP_TOOL_CALL_REQUIRED_FIELD_MISSING",
+            "Tool call rows must carry all policy-required public metadata refs before downstream evidence can bind to them.",
+            case_id=case_id,
+            subject_id=call_id,
+            subject_kind=subject_kind,
+        )
     return {
         "call_id": call_id,
-        "tool_id": str(row.get("tool_id") or ""),
+        "tool_id": tool_id,
         "tool_class": tool_class,
         "capability_scope_ref": scope,
         "call_arguments_hash": row.get("call_arguments_hash"),
@@ -973,12 +1161,15 @@ def _validate_call_row(
 def validate_tool_calls(
     payload: object,
     negative_payloads: dict[str, object],
+    *,
+    declared_tool_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     rows = [
         _validate_call_row(
             row,
+            declared_tool_ids=declared_tool_ids,
             findings=findings,
             observed=observed,
             negative=False,
@@ -986,7 +1177,13 @@ def validate_tool_calls(
         for row in _rows(payload, "tool_calls")
     ]
     for row in _negative_rows(negative_payloads, "tool_calls"):
-        _validate_call_row(row, findings=findings, observed=observed, negative=True)
+        _validate_call_row(
+            row,
+            declared_tool_ids=declared_tool_ids,
+            findings=findings,
+            observed=observed,
+            negative=True,
+        )
 
     write_side_effects = [
         row
@@ -1019,6 +1216,7 @@ def validate_tool_calls(
     return {
         "status": PASS if not floor_blocked else "blocked",
         "call_count": len(rows),
+        "declared_tool_id_count": len(declared_tool_ids or set()),
         "write_side_effect_count": len(write_side_effects),
         "untrusted_result_count": len(untrusted_results),
         "call_rows": sorted(rows, key=lambda row: row["call_id"]),
@@ -1027,16 +1225,81 @@ def validate_tool_calls(
     }
 
 
-def validate_tool_results(payload: object) -> dict[str, Any]:
+def validate_tool_results(
+    payload: object,
+    *,
+    declared_calls: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     rows = _rows(payload, "tool_results")
     findings: list[dict[str, Any]] = []
+    result_rows: list[dict[str, Any]] = []
+    for row in rows:
+        result_id = str(row.get("result_id") or "")
+        call_id = str(row.get("call_id") or "")
+        call_row = declared_calls.get(call_id) if declared_calls is not None else None
+        reasons: list[str] = []
+        if declared_calls is not None and call_row is None:
+            reasons.append("undeclared_call_id")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_RESULT_UNDECLARED_CALL_ID",
+                    "Tool result rows must reference a call_id recomputed from the public call ledger.",
+                    case_id="tool_result_floor",
+                    subject_id=result_id or call_id or "tool_result",
+                    subject_kind="tool_result",
+                )
+            )
+        if call_row is not None and row.get("source_capsule_ref") != call_row.get(
+            "result_source_capsule_ref"
+        ):
+            reasons.append("source_capsule_ref_mismatch")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_RESULT_SOURCE_CAPSULE_REF_MISMATCH",
+                    "Tool result source capsule refs must match the accepted public call row.",
+                    case_id="tool_result_floor",
+                    subject_id=result_id or call_id or "tool_result",
+                    subject_kind="tool_result",
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            reasons.append("body_in_receipt_not_false")
+        if row.get("private_ref_metadata_only") is not True:
+            reasons.append("private_ref_metadata_only_not_true")
+        if _has_forbidden_key(row):
+            reasons.append("forbidden_private_payload_key")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT",
+                    "Tool result rows cannot carry private payload keys or provider bodies.",
+                    case_id="tool_result_floor",
+                    subject_id=result_id or call_id or "tool_result",
+                    subject_kind="tool_result",
+                )
+            )
+        result_rows.append(
+            {
+                "result_id": result_id,
+                "call_id": call_id,
+                "source_capsule_ref": row.get("source_capsule_ref"),
+                "untrusted_output": row.get("untrusted_output") is True,
+                "output_instruction_ignored": row.get("output_instruction_ignored") is True,
+                "body_in_receipt": row.get("body_in_receipt") is False,
+                "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
+                "computed_verdict": "accepted_tool_result_metadata"
+                if not reasons
+                else "blocked",
+                "reason_codes": sorted(set(reasons)),
+            }
+        )
     output_ignored = [
         row
-        for row in rows
+        for row in result_rows
         if row.get("untrusted_output") is True
         and row.get("output_instruction_ignored") is True
-        and row.get("body_in_receipt") is False
+        and row.get("body_in_receipt") is True
         and row.get("private_ref_metadata_only") is True
+        and not row["reason_codes"]
     ]
     if not output_ignored:
         findings.append(
@@ -1052,34 +1315,127 @@ def validate_tool_results(payload: object) -> dict[str, Any]:
         "status": PASS if not findings else "blocked",
         "tool_result_count": len(rows),
         "output_instruction_ignored_count": len(output_ignored),
-        "tool_result_rows": [
-            {
-                "result_id": str(row.get("result_id") or ""),
-                "call_id": str(row.get("call_id") or ""),
-                "source_capsule_ref": row.get("source_capsule_ref"),
-                "untrusted_output": row.get("untrusted_output") is True,
-                "output_instruction_ignored": row.get("output_instruction_ignored") is True,
-                "body_in_receipt": row.get("body_in_receipt") is False,
-                "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
-            }
-            for row in rows
-        ],
+        "tool_result_rows": sorted(result_rows, key=lambda row: row["result_id"]),
         "findings": findings,
         "observed_negative_cases": {},
     }
 
 
-def validate_side_effect_ledger(payload: object) -> dict[str, Any]:
+def validate_side_effect_ledger(
+    payload: object,
+    *,
+    declared_calls: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     rows = _rows(payload, "side_effects")
     findings: list[dict[str, Any]] = []
+    side_effect_rows: list[dict[str, Any]] = []
+    for row in rows:
+        side_effect_id = str(row.get("side_effect_id") or "")
+        call_id = str(row.get("call_id") or "")
+        side_effect_class = str(row.get("side_effect_class") or "")
+        approval = str(row.get("approval_token_ref") or "")
+        ledger = str(row.get("ledger_diff_ref") or "")
+        rollback = str(row.get("rollback_receipt_ref") or "")
+        call_row = declared_calls.get(call_id) if declared_calls is not None else None
+        reasons: list[str] = []
+        if declared_calls is not None and call_row is None:
+            reasons.append("undeclared_call_id")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SIDE_EFFECT_UNDECLARED_CALL_ID",
+                    "Side-effect rows must reference a call_id recomputed from the public call ledger.",
+                    case_id="side_effect_floor",
+                    subject_id=side_effect_id or call_id or "side_effect",
+                    subject_kind="side_effect",
+                )
+            )
+        if call_row is not None:
+            ref_checks = (
+                ("approval_token_ref", approval, call_row.get("approval_token_ref")),
+                ("ledger_diff_ref", ledger, call_row.get("ledger_diff_ref")),
+                ("rollback_receipt_ref", rollback, call_row.get("rollback_receipt_ref")),
+            )
+            mismatched_refs = [
+                key for key, actual, expected in ref_checks if actual != str(expected or "")
+            ]
+            if mismatched_refs:
+                reasons.extend(f"{key}_mismatch" for key in mismatched_refs)
+                findings.append(
+                    {
+                        **_finding(
+                            "MCP_TOOL_SIDE_EFFECT_RECEIPT_REF_MISMATCH",
+                            "Side-effect authority refs must match the accepted public call row.",
+                            case_id="side_effect_floor",
+                            subject_id=side_effect_id or call_id or "side_effect",
+                            subject_kind="side_effect",
+                        ),
+                        "mismatched_refs": sorted(mismatched_refs),
+                    }
+                )
+        if row.get("body_in_receipt") is not False:
+            reasons.append("body_in_receipt_not_false")
+        if row.get("private_ref_metadata_only") is not True:
+            reasons.append("private_ref_metadata_only_not_true")
+        if _has_forbidden_key(row):
+            reasons.append("forbidden_private_payload_key")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT",
+                    "Side-effect rows cannot carry private payload keys or provider bodies.",
+                    case_id="side_effect_floor",
+                    subject_id=side_effect_id or call_id or "side_effect",
+                    subject_kind="side_effect",
+                )
+            )
+        if side_effect_class == "write":
+            if approval in {"", "not_required", "missing"} or not ledger:
+                reasons.append("unapproved_side_effect")
+                findings.append(
+                    _finding(
+                        "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+                        "Write side-effect rows require approval token refs and ledger diff refs.",
+                        case_id="side_effect_floor",
+                        subject_id=side_effect_id or call_id or "side_effect",
+                        subject_kind="side_effect",
+                    )
+                )
+            if not rollback:
+                reasons.append("missing_rollback_receipt")
+                findings.append(
+                    _finding(
+                        "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+                        "Write side-effect rows require rollback receipt refs before admission.",
+                        case_id="side_effect_floor",
+                        subject_id=side_effect_id or call_id or "side_effect",
+                        subject_kind="side_effect",
+                    )
+                )
+        side_effect_rows.append(
+            {
+                "side_effect_id": side_effect_id,
+                "call_id": call_id,
+                "side_effect_class": side_effect_class,
+                "approval_token_ref": approval,
+                "ledger_diff_ref": ledger,
+                "rollback_receipt_ref": rollback,
+                "body_in_receipt": row.get("body_in_receipt") is False,
+                "private_ref_metadata_only": row.get("private_ref_metadata_only")
+                is True,
+                "computed_verdict": "accepted_side_effect_metadata"
+                if not reasons
+                else "blocked",
+                "reason_codes": sorted(set(reasons)),
+            }
+        )
     approved = [
         row
-        for row in rows
+        for row in side_effect_rows
         if row.get("side_effect_class") == "write"
         and row.get("approval_token_ref")
         and row.get("ledger_diff_ref")
         and row.get("rollback_receipt_ref")
-        and row.get("body_in_receipt") is False
+        and row.get("body_in_receipt") is True
+        and not row["reason_codes"]
     ]
     if len(approved) != 1:
         findings.append(
@@ -1096,32 +1452,137 @@ def validate_side_effect_ledger(payload: object) -> dict[str, Any]:
         "side_effect_count": len(rows),
         "approved_side_effect_count": len(approved),
         "rollback_receipt_count": sum(1 for row in rows if row.get("rollback_receipt_ref")),
-        "side_effect_rows": [
-            {
-                "side_effect_id": str(row.get("side_effect_id") or ""),
-                "call_id": str(row.get("call_id") or ""),
-                "side_effect_class": row.get("side_effect_class"),
-                "approval_token_ref": row.get("approval_token_ref"),
-                "ledger_diff_ref": row.get("ledger_diff_ref"),
-                "rollback_receipt_ref": row.get("rollback_receipt_ref"),
-                "body_in_receipt": row.get("body_in_receipt") is False,
-            }
-            for row in rows
-        ],
+        "side_effect_rows": sorted(side_effect_rows, key=lambda row: row["side_effect_id"]),
         "findings": findings,
         "observed_negative_cases": {},
     }
 
 
-def validate_cold_replay(payload: object) -> dict[str, Any]:
+def validate_cold_replay(
+    payload: object,
+    *,
+    declared_calls: dict[str, dict[str, Any]] | None = None,
+    runtime_refs_by_call_id: dict[str, set[str]] | None = None,
+) -> dict[str, Any]:
     rows = _rows(payload, "cold_replays")
     findings: list[dict[str, Any]] = []
+    replay_rows: list[dict[str, Any]] = []
+    for row in rows:
+        replay_id = str(row.get("replay_id") or "")
+        call_id = str(row.get("call_id") or "")
+        evidence_refs = _strings(row.get("evidence_refs"))
+        call_row = declared_calls.get(call_id) if declared_calls is not None else None
+        reasons: list[str] = []
+        if declared_calls is not None and call_row is None:
+            reasons.append("undeclared_call_id")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_COLD_REPLAY_UNDECLARED_CALL_ID",
+                    "Cold replay rows must reference a call_id recomputed from the public call ledger.",
+                    case_id="cold_replay_floor",
+                    subject_id=replay_id or call_id or "cold_replay",
+                    subject_kind="cold_replay",
+                )
+            )
+        if call_row is not None:
+            expected_tool_ref = f"tool_manifest:{call_row.get('tool_id')}"
+            expected_call_ref = f"tool_calls:{call_id}"
+            accepted_runtime_refs = (
+                runtime_refs_by_call_id.get(call_id, set())
+                if runtime_refs_by_call_id is not None
+                else set()
+            )
+            side_effect_class = str(call_row.get("side_effect_class") or "")
+            if expected_tool_ref not in evidence_refs:
+                reasons.append("tool_manifest_ref_mismatch")
+            if side_effect_class == "write":
+                if not accepted_runtime_refs.intersection(evidence_refs):
+                    reasons.append("missing_runtime_evidence_ref")
+                if expected_call_ref in evidence_refs:
+                    reasons.append("write_replay_bound_to_call_without_side_effect_ref")
+            elif not ({expected_call_ref} | accepted_runtime_refs).intersection(evidence_refs):
+                reasons.append("runtime_ref_mismatch")
+            if any(
+                reason
+                in {
+                    "tool_manifest_ref_mismatch",
+                    "runtime_ref_mismatch",
+                    "write_replay_bound_to_call_without_side_effect_ref",
+                }
+                for reason in reasons
+            ):
+                findings.append(
+                    _finding(
+                        "MCP_TOOL_COLD_REPLAY_RECEIPT_REF_MISMATCH",
+                        "Cold replay evidence refs must bind to the accepted public call row and its runtime authority surface.",
+                        case_id="cold_replay_floor",
+                        subject_id=replay_id or call_id or "cold_replay",
+                        subject_kind="cold_replay",
+                    )
+                )
+        if not any(ref.startswith("tool_manifest:") for ref in evidence_refs):
+            reasons.append("missing_tool_manifest_evidence_ref")
+        if not any(
+            ref.startswith(("tool_calls:", "tool_results:", "side_effect_ledger:"))
+            for ref in evidence_refs
+        ):
+            reasons.append("missing_runtime_evidence_ref")
+        if row.get("body_in_receipt") is not False:
+            reasons.append("body_in_receipt_not_false")
+        if row.get("private_ref_metadata_only") is not True:
+            reasons.append("private_ref_metadata_only_not_true")
+        if _has_forbidden_key(row):
+            reasons.append("forbidden_private_payload_key")
+            findings.append(
+                _finding(
+                    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT",
+                    "Cold replay rows cannot carry private payload keys or provider bodies.",
+                    case_id="cold_replay_floor",
+                    subject_id=replay_id or call_id or "cold_replay",
+                    subject_kind="cold_replay",
+                )
+            )
+        if any(
+            reason
+            in {
+                "missing_tool_manifest_evidence_ref",
+                "missing_runtime_evidence_ref",
+                "body_in_receipt_not_false",
+                "private_ref_metadata_only_not_true",
+            }
+            for reason in reasons
+        ):
+            findings.append(
+                _finding(
+                    "MCP_TOOL_COLD_REPLAY_EVIDENCE_INCOMPLETE",
+                    "Cold replay rows must bind the replayed call to tool manifest and runtime evidence refs without bodies.",
+                    case_id="cold_replay_floor",
+                    subject_id=replay_id or call_id or "cold_replay",
+                    subject_kind="cold_replay",
+                )
+            )
+        replay_rows.append(
+            {
+                "replay_id": replay_id,
+                "call_id": call_id,
+                "status": row.get("status"),
+                "evidence_refs": evidence_refs,
+                "body_in_receipt": row.get("body_in_receipt") is False,
+                "private_ref_metadata_only": row.get("private_ref_metadata_only")
+                is True,
+                "computed_verdict": "accepted_cold_replay_metadata"
+                if not reasons and row.get("status") == PASS
+                else "blocked",
+                "reason_codes": sorted(set(reasons)),
+            }
+        )
     passing = [
         row
-        for row in rows
+        for row in replay_rows
         if row.get("status") == PASS
-        and row.get("body_in_receipt") is False
+        and row.get("body_in_receipt") is True
         and row.get("private_ref_metadata_only") is True
+        and not row["reason_codes"]
     ]
     if len(passing) < 3:
         findings.append(
@@ -1137,19 +1598,121 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
         "status": PASS if not findings else "blocked",
         "cold_replay_count": len(rows),
         "cold_replay_pass_count": len(passing),
-        "cold_replay_rows": [
-            {
-                "replay_id": str(row.get("replay_id") or ""),
-                "call_id": str(row.get("call_id") or ""),
-                "status": row.get("status"),
-                "evidence_refs": _strings(row.get("evidence_refs")),
-                "body_in_receipt": row.get("body_in_receipt") is False,
-                "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
-            }
-            for row in rows
-        ],
+        "cold_replay_rows": sorted(replay_rows, key=lambda row: row["replay_id"]),
         "findings": findings,
         "observed_negative_cases": {},
+    }
+
+
+def _blocked_metadata_row_count(rows: list[dict[str, Any]]) -> int:
+    return sum(1 for row in rows if row.get("reason_codes"))
+
+
+def _runtime_authority_evidence(
+    *,
+    status: str,
+    input_mode: str,
+    manifest: dict[str, Any],
+    calls: dict[str, Any],
+    results: dict[str, Any],
+    side_effects: dict[str, Any],
+    cold_replay: dict[str, Any],
+    public_trace: dict[str, Any],
+    source_modules: dict[str, Any],
+    secret_scan: dict[str, Any],
+    missing_negative_cases: list[str],
+    error_codes: list[str],
+) -> dict[str, Any]:
+    statuses = {
+        "manifest": manifest["status"],
+        "calls": calls["status"],
+        "results": results["status"],
+        "side_effects": side_effects["status"],
+        "cold_replay": cold_replay["status"],
+        "public_agent_execution_trace": public_trace["status"],
+        "source_modules": source_modules["status"],
+        "secret_exclusion_scan": PASS
+        if secret_scan["blocking_hit_count"] == 0
+        else "blocked",
+    }
+    cross_reference_blocker_count = (
+        _blocked_metadata_row_count(calls["call_rows"])
+        + _blocked_metadata_row_count(results["tool_result_rows"])
+        + _blocked_metadata_row_count(side_effects["side_effect_rows"])
+        + _blocked_metadata_row_count(cold_replay["cold_replay_rows"])
+    )
+    counts = {
+        "tool_count": manifest["tool_count"],
+        "call_count": calls["call_count"],
+        "tool_result_count": results["tool_result_count"],
+        "approved_side_effect_count": side_effects["approved_side_effect_count"],
+        "cold_replay_pass_count": cold_replay["cold_replay_pass_count"],
+        "public_trace_span_count": public_trace["span_count"],
+        "source_module_verified_count": int(
+            source_modules.get("verified_module_count") or 0
+        ),
+        "missing_negative_case_count": len(missing_negative_cases),
+        "error_code_count": len(error_codes),
+        "cross_reference_blocker_count": cross_reference_blocker_count,
+    }
+    evidence_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "counts": counts,
+                "input_mode": input_mode,
+                "statuses": statuses,
+                "tool_ids": [row["tool_id"] for row in manifest["tool_rows"]],
+                "call_ids": [row["call_id"] for row in calls["call_rows"]],
+                "tool_result_call_ids": [
+                    row["call_id"] for row in results["tool_result_rows"]
+                ],
+                "side_effect_call_ids": [
+                    row["call_id"] for row in side_effects["side_effect_rows"]
+                ],
+                "cold_replay_call_ids": [
+                    row["call_id"] for row in cold_replay["cold_replay_rows"]
+                ],
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    source_body_backed = source_modules["status"] == PASS
+    evidence_bound = (
+        status == PASS
+        and manifest["tool_count"] == 3
+        and calls["call_count"] == 3
+        and results["output_instruction_ignored_count"] == 1
+        and side_effects["approved_side_effect_count"] == 1
+        and cold_replay["cold_replay_pass_count"] == 3
+        and public_trace["span_count"] == 3
+        and cross_reference_blocker_count == 0
+    )
+    rank = 4 if evidence_bound and source_body_backed else 3 if evidence_bound else 0
+    return {
+        "schema_version": "mcp_tool_authority_replay_realness_evidence_v1",
+        "status": PASS if evidence_bound else "blocked",
+        "runtime_verdict": status,
+        "input_mode": input_mode,
+        "evidence_source": "runtime_recomputed_public_provider_tool_rows",
+        "verdict_rederived_from_runtime_evidence": True,
+        "expected_labels_used_for_verdict": False,
+        "baked_transcript_ids_used_for_verdict": False,
+        "provider_tool_evidence_digest": f"sha256:{evidence_digest}",
+        "realness_rank": rank,
+        "realness_rung": f"R{rank}" if rank else "blocked",
+        "realness_state": (
+            "source_body_backed_runtime_authority_replay"
+            if rank == 4
+            else "fixture_runtime_authority_replay"
+            if rank == 3
+            else "blocked_runtime_authority_replay"
+        ),
+        "source_body_backed": source_body_backed,
+        "statuses": statuses,
+        "counts": counts,
+        "authority_ceiling_bound": True,
+        "release_authorized": False,
+        "body_in_receipt": False,
     }
 
 
@@ -1174,13 +1737,53 @@ def _build_result(
         for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
         if name in payloads
     }
-    projection = validate_projection_protocol(payloads["projection_protocol"])
     tool_policy = validate_tool_policy(payloads["tool_policy"])
     manifest = validate_tool_manifest(payloads["tool_manifest"])
-    calls = validate_tool_calls(payloads["tool_calls"], negative_payloads)
-    results = validate_tool_results(payloads["tool_results"])
-    side_effects = validate_side_effect_ledger(payloads["side_effect_ledger"])
-    cold_replay = validate_cold_replay(payloads["cold_replay"])
+    declared_tool_ids = {
+        str(row.get("tool_id") or "")
+        for row in manifest["tool_rows"]
+        if str(row.get("tool_id") or "")
+        and not row.get("reason_codes")
+    }
+    calls = validate_tool_calls(
+        payloads["tool_calls"],
+        negative_payloads,
+        declared_tool_ids=declared_tool_ids,
+    )
+    declared_calls = {
+        str(row.get("call_id") or ""): row
+        for row in calls["call_rows"]
+        if str(row.get("call_id") or "")
+        and not row.get("reason_codes")
+    }
+    results = validate_tool_results(
+        payloads["tool_results"],
+        declared_calls=declared_calls,
+    )
+    side_effects = validate_side_effect_ledger(
+        payloads["side_effect_ledger"],
+        declared_calls=declared_calls,
+    )
+    runtime_refs_by_call_id: dict[str, set[str]] = defaultdict(set)
+    for row in results["tool_result_rows"]:
+        if row.get("reason_codes"):
+            continue
+        call_id = str(row.get("call_id") or "")
+        result_id = str(row.get("result_id") or "")
+        if call_id and result_id:
+            runtime_refs_by_call_id[call_id].add(f"tool_results:{result_id}")
+    for row in side_effects["side_effect_rows"]:
+        if row.get("reason_codes"):
+            continue
+        call_id = str(row.get("call_id") or "")
+        side_effect_id = str(row.get("side_effect_id") or "")
+        if call_id and side_effect_id:
+            runtime_refs_by_call_id[call_id].add(f"side_effect_ledger:{side_effect_id}")
+    cold_replay = validate_cold_replay(
+        payloads["cold_replay"],
+        declared_calls=declared_calls,
+        runtime_refs_by_call_id=runtime_refs_by_call_id,
+    )
     public_trace = build_public_mcp_tool_authority_trace(input_dir)
     source_modules = _source_module_manifest_result(
         input_dir,
@@ -1188,6 +1791,12 @@ def _build_result(
         require_manifest=input_mode == "exported_mcp_tool_authority_bundle",
     )
     source_open_body_imports = _source_open_body_import_summary(source_modules)
+    projection = validate_projection_protocol(
+        payloads["projection_protocol"],
+        public_root=public_root,
+        public_trace=public_trace,
+        source_modules=source_modules,
+    )
 
     observed = _merge_observed(
         projection,
@@ -1234,6 +1843,20 @@ def _build_result(
         else "blocked"
     )
     copied_body_landed = source_open_body_imports["status"] == PASS
+    realness_evidence = _runtime_authority_evidence(
+        status=status,
+        input_mode=input_mode,
+        manifest=manifest,
+        calls=calls,
+        results=results,
+        side_effects=side_effects,
+        cold_replay=cold_replay,
+        public_trace=public_trace,
+        source_modules=source_modules,
+        secret_scan=secret_scan,
+        missing_negative_cases=missing,
+        error_codes=error_codes,
+    )
     return {
         "schema_version": "mcp_tool_authority_replay_result_v1",
         "created_at": utc_now(),
@@ -1253,6 +1876,10 @@ def _build_result(
         "public_agent_execution_trace": public_trace,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "realness_evidence": realness_evidence,
+        "realness_rank": realness_evidence["realness_rank"],
+        "realness_rung": realness_evidence["realness_rung"],
+        "realness_state": realness_evidence["realness_state"],
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
@@ -1349,6 +1976,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
         "body_in_receipt": False,
         "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1411,6 +2042,10 @@ def _write_receipts(
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
         "body_in_receipt": False,
         "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1434,6 +2069,10 @@ def _write_receipts(
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
         "body_in_receipt": False,
         "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1545,6 +2184,17 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "error_code_count": len(result.get("error_codes") or []),
             "finding_count": len(result.get("findings") or []),
             "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+        },
+        "realness": {
+            "rank": result.get("realness_rank"),
+            "rung": result.get("realness_rung"),
+            "state": result.get("realness_state"),
+            "evidence_digest": (
+                result.get("realness_evidence", {}) or {}
+            ).get("provider_tool_evidence_digest"),
+            "verdict_rederived_from_runtime_evidence": (
+                result.get("realness_evidence", {}) or {}
+            ).get("verdict_rederived_from_runtime_evidence"),
         },
         "body_floor": {
             "body_in_receipt": False,

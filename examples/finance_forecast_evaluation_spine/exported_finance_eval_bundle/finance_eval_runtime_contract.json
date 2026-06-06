@@ -27,13 +27,14 @@
     "secret_exclusion"
   ],
   "contract_id": "finance_forecast_evaluation_spine",
+  "expected_source_module_count": 13,
   "finance_research_assurance": {
     "contract_id": "finance_research_assurance_spine_v0",
     "coverage_policy": "no_silent_omissions",
     "coverage_summary": {
       "deferred_public_safe_core_count": 1,
-      "deferred_public_safe_statistical_count": 6,
-      "imported_public_body_count": 9,
+      "deferred_public_safe_statistical_count": 2,
+      "imported_public_body_count": 13,
       "operational_only_count": 1,
       "operational_receipt_only_count": 2,
       "total_macro_finance_module_count": 19
@@ -131,11 +132,11 @@
       },
       {
         "authority_classification": "public_safe_statistical_discipline",
-        "coverage_status": "deferred_public_safe_statistical",
-        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
         "line_count": 258,
         "public_safe": true,
-        "reason": "Family-level loss matrix prevents cherry-picking but belongs with the full statistical comparison body floor.",
+        "reason": "Imported by the Crown Jewel finance statistical assurance fixture with synthetic DM/HAC, Reality Check, SPA, MCS, stationary bootstrap, and typed HLN refusal receipts.",
         "source_ref": "tools/finance/family_loss_matrix.py"
       },
       {
@@ -149,11 +150,11 @@
       },
       {
         "authority_classification": "public_safe_statistical_discipline",
-        "coverage_status": "deferred_public_safe_statistical",
-        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
         "line_count": 472,
         "public_safe": true,
-        "reason": "Loss differentials are the shared pairwise equal-loss kernel and should enter with statistical tests.",
+        "reason": "Imported by the Crown Jewel finance statistical assurance fixture with synthetic DM/HAC, Reality Check, SPA, MCS, stationary bootstrap, and typed HLN refusal receipts.",
         "source_ref": "tools/finance/loss_differentials.py"
       },
       {
@@ -167,11 +168,11 @@
       },
       {
         "authority_classification": "public_safe_statistical_discipline",
-        "coverage_status": "deferred_public_safe_statistical",
-        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
         "line_count": 677,
         "public_safe": true,
-        "reason": "Stationary-bootstrap, reality-check, and model-confidence-set helpers should enter as statistical discipline rather than product claims.",
+        "reason": "Imported by the Crown Jewel finance statistical assurance fixture with synthetic DM/HAC, Reality Check, SPA, MCS, stationary bootstrap, and typed HLN refusal receipts.",
         "source_ref": "tools/finance/model_selection_stats.py"
       },
       {
@@ -194,11 +195,11 @@
       },
       {
         "authority_classification": "public_safe_statistical_discipline",
-        "coverage_status": "deferred_public_safe_statistical",
-        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
         "line_count": 390,
         "public_safe": true,
-        "reason": "Hansen-SPA-style statistic kernel is public-safe but should enter only as evidence discipline, not model-performance theater.",
+        "reason": "Imported by the Crown Jewel finance statistical assurance fixture with synthetic DM/HAC, Reality Check, SPA, MCS, stationary bootstrap, and typed HLN refusal receipts.",
         "source_ref": "tools/finance/spa_statistics.py"
       },
       {
@@ -224,7 +225,10 @@
     "source_modules/tools/finance/variant_registry.py",
     "source_modules/tools/finance/compare_variants.py",
     "source_modules/tools/finance/build_eval_operating_picture.py",
-    "finance_eval_operating_picture.json"
+    "source_modules/tools/finance/family_loss_matrix.py",
+    "source_modules/tools/finance/loss_differentials.py",
+    "source_modules/tools/finance/model_selection_stats.py",
+    "source_modules/tools/finance/spa_statistics.py"
   ],
   "required_modules": [
     "tools/finance/event_keys.py",
@@ -235,7 +239,11 @@
     "tools/finance/calibrate_forecast_probabilities.py",
     "tools/finance/variant_registry.py",
     "tools/finance/compare_variants.py",
-    "tools/finance/build_eval_operating_picture.py"
+    "tools/finance/build_eval_operating_picture.py",
+    "tools/finance/family_loss_matrix.py",
+    "tools/finance/loss_differentials.py",
+    "tools/finance/model_selection_stats.py",
+    "tools/finance/spa_statistics.py"
   ],
   "runtime_gate_refs": {
     "calibration_gate": "finance_eval_operating_picture.json::calibration_gate.live_probability_mutation_allowed",

@@ -1,0 +1,8 @@
+{
+  "body_in_receipt": false,
+  "case_id": "release_root_bad_ref",
+  "error_codes": [
+    "BATCH7_RELEASE_ROOT_BAD_REF_REPORTED"
+  ],
+  "schema_version": "batch7_negative_case_v1"
+}

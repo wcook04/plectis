@@ -3,7 +3,6 @@
   "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, secret export, source mutation, score-based progress, maturity, readiness, proof correctness, private-data equivalence, product completeness, or whole-system correctness.",
   "authority_ceiling": {
     "classification_authority": "evidence_strength_and_truth_accounting_read_model_only",
-    "reader_action": "Use class_profiles and organ_evidence_classes to understand bounded evidence strength and truth-accounting buckets; do not treat counts, ranks, accepted status, or class names as score, maturity, readiness, release, product-completeness, private-equivalence, or whole-system authority.",
     "denied_authority": {
       "accepted_status_is_product_progress": false,
       "class_rank_is_score": false,
@@ -21,7 +20,8 @@
       "counts_as_real_substrate_progress separates evidence buckets inside this public prototype; it is not a product-progress score",
       "evidence_strength_rank is an ordinal disclosure aid, not a benchmark, maturity level, or release gate",
       "accepted_current_authority names current public receipts only; it is not source authority above macro contracts"
-    ]
+    ],
+    "reader_action": "Use class_profiles and organ_evidence_classes to understand bounded evidence strength and truth-accounting buckets; do not treat counts, ranks, accepted status, or class names as score, maturity, readiness, release, product-completeness, private-equivalence, or whole-system authority."
   },
   "class_profiles": {
     "algorithmic_projection": {
@@ -33,6 +33,15 @@
       "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
+    "bounded_runtime_computation": {
+      "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "deterministic in-process runtime computation over public inputs with predicted-versus-actual checks and negative cases",
+      "evidence_strength_rank": 4,
+      "negative_case_independence": "bounded_to_declared_toy_runtime_scope",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "verdict_source": "in_process_runtime_computation"
+    },
     "external_subprocess_witness": {
       "claim_ceiling": "tool witness only, not general proof authority",
       "counts_as_real_substrate_progress": true,
@@ -41,15 +50,6 @@
       "negative_case_independence": "bounded_to_declared_toy_witness_scope",
       "truth_accounting_bucket": "real_runtime_receipt",
       "verdict_source": "subprocess_or_tool_witness"
-    },
-    "verified_macro_body_import": {
-      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
-      "counts_as_real_substrate_progress": true,
-      "evaluator_basis": "target-file existence, digest verification, body-import provenance, validation refs, and secret-only authority ceilings over public macro body material",
-      "evidence_strength_rank": 5,
-      "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
-      "truth_accounting_bucket": "copied_non_secret_macro_body",
-      "verdict_source": "verified_public_body_import_contract"
     },
     "fixture_echo_smoke": {
       "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
@@ -77,6 +77,15 @@
       "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
+    },
+    "verified_macro_body_import": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "target-file existence, digest verification, body-import provenance, validation refs, and secret-only authority ceilings over public macro body material",
+      "evidence_strength_rank": 5,
+      "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "verdict_source": "verified_public_body_import_contract"
     }
   },
   "fail_closed_no_default": true,
@@ -132,7 +141,8 @@
       "organ_id": "formal_math_premise_retrieval"
     },
     {
-      "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces",
+      "claim_ceiling": "repair-loop evidence and deterministic public toy rerun only, not theorem correctness, Lean/Lake execution, release, benchmark, or provider authority",
+      "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces plus one deterministic public toy-theorem failure capture, repair action, and rerun receipt; no Lean/Lake or theorem proof authority is claimed here",
       "evidence_class": "algorithmic_projection",
       "organ_id": "formal_math_verifier_trace_repair_loop"
     },
@@ -152,8 +162,8 @@
       "organ_id": "ring2_premise_retrieval_precision_recall_harness"
     },
     {
-      "classification_basis": "regression-negative synthetic benchmark integrity rows are checked for body-free fixture refs, locked evaluator refs, anti-gaming denials, and explicit no-benchmark-score/no-product-progress authority",
-      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "bounded public runtime validation over three digest-verified copied macro pattern provenance bodies plus body-free replay rows; the runner recomputes public trace pass/quarantine verdicts and rejects source-module digest, manifest-boundary, source-evidence, and declared-verdict negatives without claiming benchmark performance",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
     },
     {
@@ -202,18 +212,20 @@
       "organ_id": "world_model_projection_drift_control_room"
     },
     {
-      "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
-      "evidence_class": "semantic_validator",
+      "classification_basis": "bounded deterministic gridworld step computation over public spatial replay rows with predicted-versus-actual next-state checks, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "spatial_world_model_counterfactual_simulation_replay"
     },
     {
-      "classification_basis": "body-free simulator rows are consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, and teaching carryforward; no wetlab or discovery authority is claimed",
+      "claim_ceiling": "artifact safety/refusal validation only, not wetlab execution, materials discovery, robot command, live assay, release, benchmark, or provider authority",
+      "classification_basis": "materials chemistry artifact safety/refusal validator over body-free simulator rows consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, refusal checks, and teaching carryforward; no wetlab loop or discovery authority is claimed",
       "evidence_class": "algorithmic_projection",
-      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay"
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "public_surface_name": "materials_chemistry_artifact_safety_refusal_validator"
     },
     {
-      "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials",
-      "evidence_class": "semantic_validator",
+      "classification_basis": "bounded deterministic NumPy two-layer toy transformer forward pass, gradient-score computation, ablation attribution check, fabrication guard, public circuit-attribution runtime receipts, and copied non-secret macro source bodies; scoped to public toy model only",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "mechanistic_interpretability_circuit_attribution_replay"
     },
     {
@@ -232,8 +244,8 @@
       "organ_id": "pattern_assimilation_step"
     },
     {
-      "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases",
-      "evidence_class": "semantic_validator",
+      "classification_basis": "fixture card requires exported-bundle witness; bundle validation digest-verifies copied public macro bodies and rejects tampered source-module digests while focused tests exercise the advertised compile/explain path",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "public_reveal_walkthrough"
     },
     {
@@ -257,13 +269,13 @@
       "organ_id": "cold_reader_route_map"
     },
     {
-      "classification_basis": "regression-negative synthetic monitor verdict rows are checked for body-free fixture refs, adversarial probes, escalation/mitigation refs, and explicit no-product-performance authority",
-      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "bounded runtime computation verifies copied public monitor-redteam macro pattern bodies and sanitized dogfood trace slices, recomputes monitor verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },
     {
-      "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
-      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "bounded runtime computation verifies copied public sabotage/scheming monitor macro pattern bodies and sanitized dogfood trace slices, recomputes caught-verdict spans, checks source-artifact evidence refs, rejects digest/body-in-receipt/source-evidence/verdict negatives, and keeps receipts body-free",
+      "evidence_class": "bounded_runtime_computation",
       "organ_id": "agent_sabotage_scheming_monitor_replay"
     },
     {
@@ -297,7 +309,8 @@
       "organ_id": "agent_sandbox_policy_escape_replay"
     },
     {
-      "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
+      "claim_ceiling": "algorithmic projection and one public generated trace-input taint propagation only, not live external tool use, domain robustness, benchmark, release, or source mutation authority",
+      "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, and now promotes one generated public tool-call trace through the same taint-propagation mechanic; all rows remain body-free with authority ceilings and negative-case denials",
       "evidence_class": "algorithmic_projection",
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
     },
@@ -325,6 +338,255 @@
       "classification_basis": "derived routing anti-pattern registry contract and copied non-secret macro body diagnostics",
       "evidence_class": "semantic_validator",
       "organ_id": "routing_anti_patterns_registry"
+    },
+    {
+      "classification_basis": "external git and pytest subprocess witness over a public fixture repo plus fixture ledger and copied non-secret diagnostic body provenance",
+      "evidence_class": "external_subprocess_witness",
+      "organ_id": "agent_closeout_faithfulness_audit"
+    },
+    {
+      "classification_basis": "semantic validator over public fact assertion tables, code_loci anchors, DAG refs, and copied non-secret hologram/paper-module source provenance",
+      "evidence_class": "semantic_validator",
+      "organ_id": "doctrine_fact_claim_audit"
+    },
+    {
+      "classification_basis": "algorithmic projection over public fixture Kind Atlas rows versus materialized Atlas entities, with forbidden absence-inference negative coverage",
+      "evidence_class": "algorithmic_projection",
+      "organ_id": "self_ignorance_coverage_ledger"
+    },
+    {
+      "classification_basis": "external subprocess witness drafting candidate packets from synthetic coverage gaps while rejecting source-write and repeated failed campaign digests",
+      "evidence_class": "external_subprocess_witness",
+      "organ_id": "bounded_autonomy_campaign_packet"
+    },
+    {
+      "classification_basis": "external subprocess witness running DM/HAC, SPA, Reality Check, MCS, stationary bootstrap, and typed HLN refusal on synthetic market-shaped fixtures with copied non-secret finance modules",
+      "evidence_class": "external_subprocess_witness",
+      "organ_id": "finance_forecast_evaluation_spine"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 19 copied non-secret source modules and 14 bounded negative cases spanning proof-control, Lean/VeriSoftBench harnesses, reasoning-authority leases, forward integration, closeout, Codex driver/idle heartbeat, bitemporal coordination, taskpolicy wrapping, and context-yield attribution",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch4_proof_authority_runtime"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 14 copied non-secret source/support modules and 11 bounded public source exercises spanning text structuring, operator handoff/provenance reconciliation, observed-turn merging, market situation graphs, finance numeric assurance, fail-closed status judgment, clone-local concurrency, market-clock scheduling, provider recovery scoping, and demo-take temporal remapping",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch6_unsurfaced_primitives_capsule"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 10 copied non-secret Batch 5 authority-system source modules and 8 bounded public exercises spanning post-execution receipt validation, reasoning replay scope and lineage, proof-contract gating, process orphan classification, generated-state fixpoint settlement, trace-tape compaction, code blast radius, and doctrine graph compilation",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch5_authority_systems_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 15 copied non-secret source modules and 9 bounded public source-faithful exercises spanning trace IR parsing, code-map layout, constitutional DAG scheduling, source indexing, source-surgeon patch validation, hermetic clean-clone execution, robust numeric scoring, personalized PageRank routing, and never-empty regression-test selection",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch7_macro_engines_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over four copied non-secret tools-tail source modules with bounded public exercises for observer set diffs, JSON patch interpretation, stable ledger-id hashing, and shadow envelope parse coverage",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_tools_tail_primitives_capsule"
+    },
+    {
+      "classification_basis": "verified public macro-body import over three copied non-secret system/lib policy-engine modules with bounded public exercises for lab contract audit, market fusion readiness, and campaign transition adjudication",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_policy_engines_capsule"
+    },
+    {
+      "classification_basis": "source-faithful public Python port of the pure AudioLevelMonitor.normalizedLevel RMS computation over synthetic float and int16 sample arrays, with bounded negative cases and no device capture",
+      "evidence_class": "algorithmic_projection",
+      "organ_id": "batch8_audio_level_rms_port"
+    },
+    {
+      "classification_basis": "source-faithful public Python port of the StationSurfaceAtlas deterministic band/lane layout solver over synthetic node rows, with bounded negative cases and no browser runtime",
+      "evidence_class": "algorithmic_projection",
+      "organ_id": "batch8_station_surface_atlas_layout_port"
+    },
+    {
+      "classification_basis": "verified public macro-body import of tools/finance/structural_theses.py with bounded synthetic winner, loser, and control exercises through the public CP1/CP2 finance spine",
+      "evidence_class": "verified_macro_body_import",
+      "organ_id": "batch8_structural_theses_capsule"
+    },
+    {
+      "classification_basis": "validates the staged Engine Room composition demo, owned capsule surfaces, 14 target inventory, executable fixture chain, and missing-target negative case over public-safe fixtures",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
+      "evidence_strength_rank": 5,
+      "organ_id": "engine_room_demo",
+      "truth_accounting_bucket": "real_import_validation"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 13 copied non-secret source modules and 13 bounded public source-faithful exercises spanning lineage provenance, approval claim adjudication, Python AST indexing, finance headline clustering, mission graph compilation, dependency pin drift, config authority audit, heterogeneous edge extraction, WorkAtlas aggregation, host-pressure admission, doctrine enrichment, worker job gating, and milestone-relative quality accounting",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch9_macro_engines_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 13 copied non-secret source modules, one source-faithful public refactor, and 13 bounded public source-faithful exercises spanning mutation-governance intent gating, observe/apply plan compilation, reviewer persona gauntlet adjudication, release toggle blocker triage, publication selector contract checks, receipt reuse decisions, no-lookahead finance horizons, session dependency waves, claim conflict wait-tax, role-aware DAG propagation, generic table shaping, annex source-kind grouping, and recent-change fingerprint coalescing, with one explicit Batch-9 lane-width binding-repair witness",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch10_governance_compilers_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over 12 copied non-secret source modules and 13 computed public negative probes spanning run-affinity terminal staleness, calculator zero-bucket dominance, std-python gap handling, exogenous navigation grading, portability unresolved failures, shard context priority, holographic overlap checks, projection secret detection, stock grid unit normalization, frontend navigation reachability, session navigation verb coverage, macro regime unknown-route bucketing, and demo-take anchor requirements",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch11_saturation_engines_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "source-faithful public refactor of orphan_reaper helper-process pressure inventory with provenance-backed public body, synthetic process-table execution, lease-aware active-owner pressure groups, no-actuator authority membrane, command-hash rows, and seven negative cases covering unsafe safe-close, unknown-owner, process-signal, command-body, absolute-path, and release-overclaim leakage",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
+      "evidence_strength_rank": 5,
+      "organ_id": "tool_server_pressure_inventory",
+      "truth_accounting_bucket": "real_import_validation"
+    },
+    {
+      "classification_basis": "source-faithful public exercise of WorkstreamBoard.tsx groupByDriver with exact copied non-secret frontend body, synthetic AttentionRecentChange rows, newest-wins recency coalescing, unclassified-last sorting, source-module digest anchors, and five negative cases covering key normalization, stale newest field, sort order, sentinel ordering, and authority overclaim leakage",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
+      "evidence_strength_rank": 5,
+      "organ_id": "workstream_driver_recency_coalescer",
+      "truth_accounting_bucket": "real_import_validation"
+    },
+    {
+      "classification_basis": "copied non-secret macro compliance pipeline capsule with 11 exact source bodies covering the compliance adapter registry, compliance coverage and baseline scanners, Microcosm adapter, bounded compliance ledger builder, and observe pipeline extract/select/emit/compile/execute/process stages; the runnable exercise checks adapter registry shape, bounded no-write compliance checks, baseline truth accounting, pipeline helper behavior, source-module digest anchors, and six negative cases for registry, bounded-check, baseline, digest, compile-helper, and dispatch-boundary regressions",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "semantic_validator",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.semantic_validator",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch8_compliance_pipeline_capsule",
+      "truth_accounting_bucket": "real_import_validation"
+    },
+    {
+      "classification_basis": "exact copied non-secret macro control-plane bodies for standard option-surface routing, mission-transaction landing preflight, work landing, and Work Ledger control; the runnable exercise proves current digest equality after stale recorded drift, required anchor presence, Python compileability without import execution, body-free receipts, and four negative cases for stale digest replay, compile bypass, private runtime export, and live mutation-authority overclaim",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch10_live_source_drift_capsule",
+      "truth_accounting_bucket": "real_import_validation"
+    },
+    {
+      "classification_basis": "exact copied non-secret cold-eval macro body for deterministic route-quality simulation; the runnable exercise invokes cold_eval.py over public tasks, audits scorecard asymmetry and claim ceilings, verifies exact source-module digests and anchors, rejects expected-ref and private-ref leakage, and keeps benchmark, navigation-truth, release, provider, live-agent, and publication authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch10_cold_eval_honesty_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret macro validators.py body from idea_microcosm; the runnable exercise invokes policy/status judging, private-boundary scanning, specimen checkers, release-gate checkers, and validate(root, write_receipt=False), verifies source-module digests and anchors, observes six negative cases, and keeps release, publication, provider, model, source-mutation, full validator freshness, and private-root equivalence authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch8_validator_checker_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret concurrency mission-control macro builder plus public provider and Task Ledger bridge artifacts; the runnable exercise invokes the copied builder over synthetic transaction lanes, verifies digest equality and anchors, observes missing seed-root, blocked provider-bridge, authority-collapse, and private-runtime negatives, and keeps live scheduler, provider dispatch, hosted orchestration, production concurrency-safety, release, publication, source-mutation, and private-ledger authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "concurrency_mission_control",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret station runtime and frontend source bodies for the agent trace workbench host boot probe, live agent instrument view model, station store resilience FSM, original source tests, digest anchors, vitest witness metadata, and five negative cases fencing off UI runtime and release authority",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch7_station_runtime_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret runtime view-model, lane-progress, graph-lens, graph-projection, cartography, stockgrid, and Polymarket source bodies; the runnable exercise invokes eight public fixture engines, verifies source digest anchors and required anchors, observes eight negative cases, and keeps browser/session export, wallet authority, live market data, investment advice, release, publication, source-mutation, semantic-truth, and completeness authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret market dashboard read-model source body; the runnable exercise invokes validate_market_dashboard_read_model, _runtime_feed_freshness_overlay, and _related_situations over public fixtures, verifies source digest anchors, observes ten negative cases for graph/ref, trading-language, freshness, omission, and related-situation regressions, and keeps live market truth, investment advice, provider dispatch, release, publication, source-mutation, and whole-system authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret quant presentation mart source body; the runnable exercise invokes _prediction_market_board and _polymarket_identity_by_slug over synthetic market rows, verifies source digest anchors, observes three negative cases for duplicate selection, orphan identity non-fabrication, and deduped aggregates, and keeps live prediction-market truth, forecast correctness, calibration, investment advice, provider dispatch, release, publication, and whole-system authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch12_prediction_market_board_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret release claim-language gate source body; the runnable exercise invokes _classify_hit, build_gate, and main --assert-clear over public markdown fixtures, verifies source digest anchors, observes two negative cases for affirmative release-language blockers and assert-clear exit code 2, and keeps release, publication, semantic NLP truth, portability, complete secret-scan, and whole-system authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch12_release_claim_language_gate",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "exact copied non-secret frontend TS/TSX macro source bodies for WorkLens, WorkLens tests, MarketCockpit, MarketIntelligenceLens, and MarketCockpit tests; the runnable exercise verifies source digest equality, required anchors, read-only work-state behavior, honest market-signal presentation, route-readiness and finance-assurance indicators, source-test witness coverage, private-ref guards, and four negative cases for work-lens mutation creep, fake market time-series, recommendation leakage, and private source refs while keeping live UI correctness, browser/provider access, Task Ledger or Work Ledger mutation, market advice, source mutation, release, and publication authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over copied public-safe Oracle sibling source modules with bounded public exercises for subject indexing, subject snapshots, macro truth-diff deltas, quartet repair planning, original pytest witnesses, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch7_oracle_sibling_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "verified public macro-body import over copied public-safe Demo Take Console Swift source modules with bounded public exercises for SwiftPM build witness posture, recording-state control, capture-helper bridge contracts, recorder-store capture FSM boundaries, hotkey/audio-meter behavior, transcribe-payload construction, exact-copy digest anchors, negative cases, body-free receipts, and authority ceilings",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "verified_macro_body_import",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.verified_macro_body_import",
+      "evidence_strength_rank": 5,
+      "organ_id": "batch7_demo_take_console_capsule",
+      "truth_accounting_bucket": "copied_non_secret_macro_body"
     }
   ],
   "registry_id": "microcosm_organ_evidence_classes",

@@ -1,0 +1,190 @@
+{
+  "schema_version": "microcosm_public_site_ready_payload_v1",
+  "payload_id": "site_ready.first_screen_composition_root_availability_gap.20260604T0922Z",
+  "generated_at": "2026-06-04T09:22:07Z",
+  "subject": {
+    "paper_module_id": "paper_module.first_screen_composition_root",
+    "availability_gap_id": "availability_gap.feb79e923063",
+    "authority_source_refs": [
+      "microcosm-substrate/paper_modules/first_screen_composition_root.md::JSON Capsule Binding",
+      "microcosm-substrate/paper_modules/first_screen_composition_root.json::paper_module_payload.source_authority",
+      "microcosm-substrate/core/doctrine_lattice_coverage.json::paper_module_instance_corpus.required_subject_gap_ids"
+    ],
+    "authority_ceiling": "Legacy Markdown and generated-row availability proof only; no JSON capsule authority, source-record-backed paper-module count, typed subject coverage, accepted organ authority, mechanism authority, runtime correctness proof, publication approval, release approval, or aggregate lattice closure."
+  },
+  "source_population_decision": {
+    "status": "not_promoted_source_gap_retained",
+    "reason": "The live Markdown and generated row both state that first_screen_composition_root has no source-record-backed capsule row, no resolved component or mechanism subject, and blocked Mermaid/Atlas projections. This pass therefore keeps the deficit visible instead of minting a source row.",
+    "coverage_snapshot": {
+      "paper_module_legacy_only_count": 14,
+      "paper_module_required_subject_gap_count": 14,
+      "paper_module_without_json_capsule_count": 0,
+      "paper_module_id_present_in_legacy_only_ids": true,
+      "paper_module_id_present_in_required_subject_gap_ids": true
+    },
+    "generated_row_snapshot": {
+      "source_authority": "legacy_markdown_projection",
+      "mermaid_status": "blocked_required_subject_gap",
+      "atlas_card_status": "blocked_required_subject_gap",
+      "subjects": [],
+      "authority_flip_status": "not_flipped"
+    },
+    "safe_reentry_condition": "After a composition organ or mechanism subject is admitted and code loci resolve, add paper_module.first_screen_composition_root to core/paper_module_capsules.json, regenerate the paper-module corpus, and verify Mermaid and Atlas leave blocked_required_subject_gap."
+  },
+  "live_site_write_decision": {
+    "status": "deferred_site_ready_payload_emitted",
+    "reason": "Live site shell files already carried unrelated working-tree edits, so this lane did not overwrite generated site output.",
+    "dirty_live_site_paths_observed": [
+      "sites/microcosm/assets/docs.js",
+      "sites/microcosm/assets/style.css",
+      "sites/microcosm/index.html"
+    ],
+    "safe_reentry_condition": "After the live site shell edits land or reconcile, run the existing public-site builder from repo root and review only generated projection deltas."
+  },
+  "site_builder_contract": {
+    "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
+    "source_contract": "sites/microcosm/SOURCE_CONTRACT.md",
+    "source_refs_consumed": [
+      "microcosm-substrate/core/doctrine_lattice_coverage.json",
+      "microcosm-substrate/paper_modules/first_screen_composition_root.md",
+      "microcosm-substrate/paper_modules/first_screen_composition_root.json"
+    ],
+    "handoff_commands": [
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --write --validate",
+      "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --check --validate"
+    ]
+  },
+  "source_validation_receipts": {
+    "paper_module_corpus_check": {
+      "command": "cd microcosm-substrate && ../repo-python scripts/build_doctrine_projection.py --check-paper-module-corpus",
+      "status": "pass",
+      "schema_version": "microcosm_paper_module_instance_validation_v1",
+      "actual_count": 98,
+      "expected_count": 98,
+      "errors": []
+    },
+    "delegated_duplicate_key_blocker": {
+      "status": "not_reproduced_in_live_state",
+      "checked_row": "paper_module.macro_projection_import_protocol",
+      "result": "Strict corpus validation parsed core/paper_module_capsules.json successfully, and the inspected row carries a single depends_on field."
+    },
+    "doctrine_lattice_projection_check": {
+      "command": "cd microcosm-substrate && PYTHONPATH=src ../repo-python -m microcosm_core.doctrine_lattice --check",
+      "status": "pass",
+      "schema_version": "microcosm_doctrine_lattice_projection_validation_v1",
+      "errors": []
+    },
+    "paper_module_coverage_contract": {
+      "command": "./repo-python kernel.py --paper-module-coverage",
+      "freshness_status": "in_sync",
+      "route_coverage_in_sync": true,
+      "checked_in_projection_posture": "in_sync",
+      "projection_refresh_deferred": true,
+      "module_count": 223,
+      "routed_module_count": 223,
+      "unrouted_module_count": 0,
+      "route_population_score": 74,
+      "next_population_target_count": 12
+    },
+    "focused_regression": {
+      "command": "./repo-pytest microcosm-substrate/tests/test_microcosm_paper_module_coverage_contract.py",
+      "status": "pass",
+      "passed": 31
+    }
+  },
+  "temp_builder_receipt": {
+    "temp_site_root": "/tmp/microcosm-first-screen-site.bRheUN",
+    "site_root_preseed": "rsync -a sites/microcosm/ /tmp/microcosm-first-screen-site.bRheUN/",
+    "write_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-first-screen-site.bRheUN --write --validate",
+    "check_command": "./repo-python tools/meta/dissemination/build_microcosm_public_site.py --site-root /tmp/microcosm-first-screen-site.bRheUN --check --validate",
+    "write_status": "written",
+    "check_status": "pass",
+    "drift_count": 0,
+    "validation": {
+      "status": "pass",
+      "html_file_count": 18,
+      "internal_links_checked": 2542,
+      "internal_links_missing": [],
+      "private_scan_hit_count": 0,
+      "banned_visible_term_hits": [],
+      "external_asset_hit_count": 0,
+      "forbidden_source_link_hit_count": 0,
+      "inline_event_handler_hit_count": 0,
+      "inline_script_hit_count": 0,
+      "inline_style_hit_count": 0,
+      "missing_security_headers": [],
+      "unsafe_url_hit_count": 0,
+      "runtime_backend": "none"
+    },
+    "generated_outputs_written": [
+      "assets/object-map.js",
+      "assets/search-index.js",
+      "assets/site-packet.js",
+      "content-graph.json",
+      "content-manifest.json",
+      "docs/paper-modules.html",
+      "docs/rules-and-ideas.html",
+      "docs/source.html",
+      "llms.txt",
+      "object-map.json",
+      "projection-status.json"
+    ]
+  },
+  "content_graph_delta": {
+    "schema": "microcosm_public_content_graph_v1",
+    "source_fingerprint": "8254ed063cc077be72c6bc8085a7d8b5",
+    "paper_module_count": 84,
+    "paper_module_availability_gap_count": 14,
+    "coverage_deficit_count": 5,
+    "availability_gap_record": {
+      "availability_gap_id": "availability_gap.feb79e923063",
+      "paper_module_id": "paper_module.first_screen_composition_root",
+      "title": "First Screen Composition Root",
+      "anchor": "paper-module-gap-feb79e923063",
+      "route": "paper-modules.html#paper-module-gap-feb79e923063",
+      "availability_status": "blocked_required_subject_gap",
+      "source_authority": "legacy_markdown_projection",
+      "blockers": [
+        "missing_source_record",
+        "missing_resolved_component_or_mechanism_subject"
+      ],
+      "source_refs": [
+        "microcosm-substrate/paper_modules/first_screen_composition_root.md",
+        "microcosm-substrate/paper_modules/first_screen_composition_root.json",
+        "microcosm-substrate/core/doctrine_lattice_coverage.json"
+      ]
+    }
+  },
+  "object_map_delta": {
+    "object_count": 771,
+    "kind_counts": {
+      "mechanism": 88,
+      "paper_module": 84,
+      "paper_module_gap": 14,
+      "source_ref": 163
+    },
+    "paper_module_gap_object": {
+      "id": "paper_module_gap:availability_gap.feb79e923063",
+      "kind": "paper_module_gap",
+      "label": "First Screen Composition Root",
+      "route": "paper-modules.html#paper-module-gap-feb79e923063",
+      "searchable": true,
+      "source_linked": true,
+      "source_id": "paper_module.first_screen_composition_root",
+      "backrefs": [
+        "page:paper-modules"
+      ]
+    }
+  },
+  "public_safety_receipt": {
+    "status": "pass",
+    "raw_operator_voice_exposed": false,
+    "private_path_exposed": false,
+    "provider_payload_exposed": false,
+    "release_authority_claimed": false,
+    "publication_authority_claimed": false,
+    "frontend_redesign": false,
+    "hand_authored_generated_html": false,
+    "source_gap_inflated_into_capsule": false
+  }
+}

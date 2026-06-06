@@ -1,0 +1,69 @@
+{
+  "anti_claim": "This Batch-8 audio RMS port validates public Python parity for normalizedLevel math only. It does not start a macOS audio session, request microphone permission, capture a device, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "audio_session_started": false,
+    "authority_ceiling": "batch8_audio_level_rms_python_port_not_audio_session_or_capture_authority",
+    "device_capture_authorized": false,
+    "microphone_permission_required": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "python_port": true,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "repo_mutation_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch8_audio_level_rms_port run --input fixtures/first_wave/batch8_audio_level_rms_port/input --out receipts/first_wave/batch8_audio_level_rms_port --acceptance-out receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json",
+  "example_bundle": "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle",
+  "expected_error_codes": [
+    "BATCH8_AUDIO_LEVEL_CLAMP_REQUIRED",
+    "BATCH8_AUDIO_LEVEL_EMPTY_BUFFER_ZERO",
+    "BATCH8_AUDIO_LEVEL_UNKNOWN_FORMAT_REFUSED"
+  ],
+  "fixture_id": "first_wave.batch8_audio_level_rms_port",
+  "input_refs": [
+    "fixtures/first_wave/batch8_audio_level_rms_port/input/batch8_audio_level_rms_port_probe_manifest.json",
+    "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_clamps_over_one.json",
+    "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_empty_buffer_zero.json",
+    "fixtures/first_wave/batch8_audio_level_rms_port/input/audio_level_unknown_format_refused.json"
+  ],
+  "input_root": "fixtures/first_wave/batch8_audio_level_rms_port/input",
+  "kind_id": "batch8_audio_level_rms_port",
+  "mechanism_count": 1,
+  "negative_cases": [
+    "audio_level_clamps_over_one",
+    "audio_level_empty_buffer_zero",
+    "audio_level_unknown_format_refused"
+  ],
+  "organ_id": "batch8_audio_level_rms_port",
+  "purpose": "Validate AudioLevelMonitor.normalizedLevel as a Python parity port over public float32 and int16 sample arrays, including empty-buffer, unsupported-format, and clamp negatives.",
+  "receipt_refs": [
+    "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_result.json",
+    "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_board.json",
+    "receipts/first_wave/batch8_audio_level_rms_port/batch8_audio_level_rms_port_validation_receipt.json",
+    "receipts/acceptance/first_wave/batch8_audio_level_rms_port_fixture_acceptance.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_count": 1,
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 1,
+    "body_material_status": "copied_non_secret_swift_reference_landed_python_port_exercised",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_swift_audio_math_reference"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_modules/ inside examples/batch8_audio_level_rms_port/ for the Swift reference; receipts carry refs, hashes, anchors, counts, and parity verdicts only.",
+    "schema_version": "batch8_audio_level_rms_port_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/batch8_audio_level_rms_port/exported_batch8_audio_level_rms_port_bundle/source_module_manifest.json"
+    ],
+    "source_port_class": "python_port_from_swift_math",
+    "status": "pass"
+  },
+  "validator_id": "validator.microcosm.organs.batch8_audio_level_rms_port"
+}

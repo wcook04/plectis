@@ -1,0 +1,214 @@
+{
+  "anti_claim": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+  "authority_boundary": "public_microcosm_crown_jewel_organ_projection_with_copied_non_secret_macro_body_floor",
+  "authority_ceiling": {
+    "authority_ceiling": "fact_assertion_code_loci_dag_and_numeric_claim_fixture_truth_gate_only",
+    "comprehension_engine_claim_authorized": false,
+    "minimum_read_graph_claim_authorized": false,
+    "private_doctrine_export_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "research_bet_contract": {
+    "governing_mechanism": "mech_036",
+    "positive_claim": "Current-state numeric doctrine claims, fact assertions, DAG refs, code loci, and anchor text are audited as receipt-backed claims instead of untracked prose.",
+    "required_witnesses": [
+      "fact assertion table",
+      "volatile numeric claim binding",
+      "code-locus path resolution",
+      "required anchor presence",
+      "source-module manifest refs"
+    ],
+    "negative_floor": [
+      "dead_code_locus",
+      "dead_dag_ref",
+      "missing_code_locus",
+      "unbound_numeric_claim",
+      "wrong_fact_count"
+    ],
+    "denied_authority": [
+      "natural-language comprehension engine",
+      "minimum read graph proof",
+      "private doctrine export",
+      "release authority"
+    ]
+  },
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "private repo bodies outside copied public fixtures",
+      "provider payload bodies",
+      "credential or account-bound material",
+      "operator private notes or raw thread bodies"
+    ],
+    "public_inputs": "public synthetic fixtures, copied non-secret macro source bodies, hashes, anchors, validator refs, and generated receipts",
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 2,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "dead_code_locus",
+      "dead_dag_ref",
+      "missing_code_locus",
+      "unbound_numeric_claim",
+      "wrong_fact_count"
+    ],
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "doctrine_fact_claim_audit_result.json",
+    "doctrine_fact_claim_audit_board.json",
+    "doctrine_fact_claim_audit_validation_receipt.json",
+    "doctrine_fact_claim_audit_fixture_acceptance.json"
+  ],
+  "relationships": {
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_omission_receipt",
+      "std_microcosm_standards_registry"
+    ],
+    "used_by_organs": [
+      "doctrine_fact_claim_audit"
+    ]
+  },
+  "required_fields": [
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "status",
+    "source_module_manifest",
+    "observed_negative_cases",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v2",
+  "source_refs": [
+    "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
+    "tests/test_doctrine_fact_claim_audit.py",
+    "fixtures/first_wave/doctrine_fact_claim_audit/input",
+    "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle",
+    "examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_module_manifest.json",
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_result.json",
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_board.json",
+    "receipts/first_wave/doctrine_fact_claim_audit/doctrine_fact_claim_audit_validation_receipt.json",
+    "receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json",
+    "paper_modules/doctrine_fact_claim_audit.md",
+    "fixtures/first_wave/doctrine_fact_claim_audit/input/numeric_claims.json",
+    "fixtures/first_wave/doctrine_fact_claim_audit/input/unbound_numeric_claim.json"
+  ],
+  "standard_id": "std_microcosm_doctrine_fact_claim_audit",
+  "standard_payload": {
+    "anti_purpose": "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+    "compression_bands": [
+      "fixture",
+      "source_manifest",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling",
+      "receipt"
+    ],
+    "failure_modes": [
+      "dead_code_locus",
+      "dead_dag_ref",
+      "missing_code_locus",
+      "unbound_numeric_claim",
+      "wrong_fact_count"
+    ],
+    "ontology": "A public Microcosm organ for doctrine fact claim audit.",
+    "teleology": "Checks that public fact rows state the expected count, point at live copied code loci, preserve anchors, only reference facts that exist in the fixture DAG, and bind volatile numeric Current state or Refresh contract claims to fact assertions.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "runtime_acceptance_status": "accepted_public_runtime_standard",
+      "previous_source_schema_version": "std_microcosm_doctrine_fact_claim_audit_v1",
+      "previous_source_status": "accepted_public_runtime_standard",
+      "validator_refs": [
+        "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
+        "tests/test_doctrine_fact_claim_audit.py",
+        "validator.microcosm.organs.doctrine_fact_claim_audit"
+      ],
+      "receipt_refs": [
+        "receipt.microcosm.doctrine_fact_claim_audit"
+      ],
+      "authority_boundary": "computed standard-lattice contract only; existing authority_ceiling remains the operative claim ceiling."
+    }
+  },
+  "status": "active",
+  "validation_rules": [
+    "Positive fixture inputs must produce pass receipts with real_substrate_disposition=real_substrate_capsule.",
+    "Expected negative cases must emit their stable error codes without blocking positive execution.",
+    "source_module_manifest.json must match copied bodies by digest, line count, and required anchors.",
+    "Receipts must carry refs, hashes, counts, verdicts, and anti-claims without embedding copied macro body text.",
+    "The authority ceiling must reject the organ-specific overclaim classes declared in this standard."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.doctrine_fact_claim_audit run --input fixtures/first_wave/doctrine_fact_claim_audit/input --out receipts/first_wave/doctrine_fact_claim_audit --acceptance-out receipts/acceptance/first_wave/doctrine_fact_claim_audit_fixture_acceptance.json",
+    "runner": "microcosm_core.organs.doctrine_fact_claim_audit",
+    "runtime_bundle_command": "python -m microcosm_core.organs.doctrine_fact_claim_audit run-doctrine-fact-bundle --input examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle --out receipts/runtime_shell/demo_project/organs/doctrine_fact_claim_audit"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
+    "tests/test_doctrine_fact_claim_audit.py",
+    "validator.microcosm.organs.doctrine_fact_claim_audit"
+  ],
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.author",
+      "status": "planned",
+      "purpose": "create a valid Doctrine fact claim audit instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Doctrine fact claim audit without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.microcosm_public_runtime_organ_standard.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_doctrine_fact_claim_audit and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "runtime_acceptance_status": "accepted_public_runtime_standard",
+  "source_format": "json",
+  "source_authority": "json_is_contract_markdown_is_projection",
+  "source_authority_ref": "microcosm-substrate/AXIOMS.md#1 (JSON is contract; Markdown is projection)",
+  "source_location": "microcosm-substrate/standards/std_microcosm_doctrine_fact_claim_audit.json",
+  "doctrine_kind_envelope": {
+    "envelope_version": "doctrine_kind_envelope_v2",
+    "governed_by": "std_microcosm_standard",
+    "note": "This standard conforms to the universal doctrine-kind envelope; markdown, Mermaid, Atlas, coverage, health, and entry-card views are generated projections of this JSON source."
+  },
+  "receipt_refs": [
+    "receipt.microcosm.doctrine_fact_claim_audit"
+  ],
+  "anti_claims": [
+    "Doctrine fact claim audit checks only public fixture fact counts, code-loci existence, anchor presence, DAG references, and synthetic volatile numeric claim binding cases. It is not a comprehension engine, does not prove a minimum read graph, does not export private doctrine, and does not authorize release.",
+    "Active v2 standard status is a source JSON contract state only; it does not expand release, publication, provider dispatch, private-root equivalence, product-readiness, or whole-system correctness authority beyond the authority_ceiling."
+  ],
+  "runtime_acceptance_refs": {
+    "registry_row_ref": "core/standards_registry.json::standard_id=std_microcosm_doctrine_fact_claim_audit",
+    "registry_status": "accepted_public_runtime_standard",
+    "source_status_before_v2_uplift": "accepted_public_runtime_standard",
+    "source_schema_before_v2_uplift": "std_microcosm_doctrine_fact_claim_audit_v1",
+    "uplift_basis": "registry-backed source standard already carried accepted, active, source-body-import, or body-floor status; this update narrows it into the active v2 JSON contract shape without raising its authority ceiling.",
+    "validator_id": "validator.microcosm.organs.doctrine_fact_claim_audit",
+    "receipt_id": "receipt.microcosm.doctrine_fact_claim_audit",
+    "validator_refs": [
+      "src/microcosm_core/organs/doctrine_fact_claim_audit.py",
+      "tests/test_doctrine_fact_claim_audit.py",
+      "validator.microcosm.organs.doctrine_fact_claim_audit"
+    ],
+    "receipt_refs": [
+      "receipt.microcosm.doctrine_fact_claim_audit"
+    ]
+  }
+}

@@ -1,0 +1,494 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
+    "card": "World-Model Projection Drift Control Room is the public projection-drift boundary for Microcosm. It validates eight drift rows, source refs, repair routes, validation refs, target refs, source-module digest evidence, copied world-model and view-quality macro bodies, secret-exclusion policy, and eight negative cases while keeping private runtime bodies, provider payloads, live repair, source mutation, automatic doctrine promotion, release, publication, and source-authority claims out of scope.",
+    "one_line": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.world_model_projection_drift_control_room",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.world_model_projection_drift_control_room",
+        "status": "linked_from_capsule_edges_after_atlas_binding"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/world_model_projection_drift_control_room.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.world_model_projection_drift_control_room.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/world_model_projection_drift_control_room.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/world_model_projection_drift_control_room.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+          "resolution": "resolved",
+          "role": "Runtime and receipt-writing locus for projection-drift fixture validation, exported bundle validation, source-module digest checks, negative-case enforcement, body-free receipts, and authority ceilings.",
+          "symbols": [
+            "run",
+            "run_drift_control_bundle",
+            "_source_module_manifest_result",
+            "_source_open_body_import_summary",
+            "_build_result",
+            "_write_receipts",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING",
+            "SOURCE_MODULE_MANIFEST_NAME"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Public body-free runtime receipt and copied non-secret source-module evidence only; no private runtime body inspection, source authority, source mutation, live route repair, automatic doctrine promotion, provider payload export, release approval, publication approval, or whole-system correctness claim.",
+        "card": "World-Model Projection Drift Control Room is the public projection-drift boundary for Microcosm. It validates eight drift rows, source refs, repair routes, validation refs, target refs, source-module digest evidence, copied world-model and view-quality macro bodies, secret-exclusion policy, and eight negative cases while keeping private runtime bodies, provider payloads, live repair, source mutation, automatic doctrine promotion, release, publication, and source-authority claims out of scope.",
+        "one_line": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.world_model_projection_drift_control_room",
+          "status": "linked_from_capsule_edges_after_atlas_binding"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/world_model_projection_drift_control_room.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.world_model_projection_drift_control_room.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.world_model_projection_drift_control_room",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/world_model_projection_drift_control_room.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
+      "strangler_note": "This capsule binds the authored Markdown projection, organ atlas row, first-wave projection-drift fixture, exported runtime bundle, copied source-module manifest, mechanism row, Microcosm organ source locus, real runtime receipt rows, first-wave receipts, runtime-shell bundle receipt, and focused tests without treating Markdown, generated atlas docs, projection rows, copied body presence, repair route labels, or negative-case observation as source authority, live repair, source mutation, provider authority, release, publication, or whole-system correctness.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "world_model_projection_drift_control_room"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+        }
+      ],
+      "title": "World-Model Projection Drift Control Room"
+    },
+    "strangler_note": "This capsule binds the authored Markdown projection, organ atlas row, first-wave projection-drift fixture, exported runtime bundle, copied source-module manifest, mechanism row, Microcosm organ source locus, real runtime receipt rows, first-wave receipts, runtime-shell bundle receipt, and focused tests without treating Markdown, generated atlas docs, projection rows, copied body presence, repair route labels, or negative-case observation as source authority, live repair, source mutation, provider authority, release, publication, or whole-system correctness.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+        "resolution": "resolved",
+        "role": "Runtime and receipt-writing locus for projection-drift fixture validation, exported bundle validation, source-module digest checks, negative-case enforcement, body-free receipts, and authority ceilings.",
+        "symbols": [
+          "run",
+          "run_drift_control_bundle",
+          "_source_module_manifest_result",
+          "_source_open_body_import_summary",
+          "_build_result",
+          "_write_receipts",
+          "EXPECTED_NEGATIVE_CASES",
+          "AUTHORITY_CEILING",
+          "SOURCE_MODULE_MANIFEST_NAME"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "world_model_projection_drift_control_room",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room].code_loci[0]",
+          "summary": "Runtime and receipt-writing locus for projection-drift fixture validation, exported bundle validation, source-module digest checks, negative-case enforcement, body-free receipts, and authority ceilings."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/world_model_projection_drift_control_room.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "world_model_projection_drift_control_room"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[27:paper_module.world_model_projection_drift_control_room]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/world_model_projection_drift_control_room.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/world_model_projection_drift_control_room.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "The world-model projection drift control room validates public body-free projection-drift rows and copied source-module bodies without treating projections as source authority or repair authority.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "world_model_projection_drift_control_room"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary"
+    }
+  ],
+  "title": "World-Model Projection Drift Control Room",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

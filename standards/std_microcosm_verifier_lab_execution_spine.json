@@ -1,9 +1,9 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "standard_id": "std_microcosm_verifier_lab_execution_spine",
   "kind_id": "verifier_lab_execution_spine",
   "kind_name": "Verifier lab execution spine",
-  "status": "draft",
+  "status": "active",
   "first_wave_required": true,
   "wave": "w1_verifier_lab_execution_spine",
   "authority_boundary": "public_bounded_lean_transition_execution_receipt_not_general_proof_authority",
@@ -172,7 +172,7 @@
     ]
   },
   "authority_ceiling": {
-    "status": "pass",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
     "standard_authority": "bounded_public_lean_transition_execution_receipt_schema_only",
     "formal_proof_authority": "bounded public transition rows only",
     "oracle_forward_authority": false,
@@ -180,7 +180,16 @@
     "cp2_proof_body_authority": false,
     "evolve_source_mutation_authority": false,
     "benchmark_authority": false,
-    "release_authority": false
+    "release_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#verifier_lab_execution_spine",
+    "claim_ceiling_ref": "core/organ_registry.json#verifier_lab_execution_spine.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "anti_claim": "This standard governs bounded public verifier-lab transition execution receipts only; it does not authorize private proof-body import, provider calls, oracle success as forward proof, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
   "standard_payload": {
@@ -205,13 +214,36 @@
       "Evolve mutates source or unbounded artifacts",
       "positive metric lacks anti-claim and receipt ref"
     ],
-    "rebuild_action": "draft"
+    "rebuild_action": "draft",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "draft",
+      "validator_id": "validator.microcosm.organs.verifier_lab_execution_spine",
+      "receipt_id": "receipt.microcosm.verifier_lab_execution_spine",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "organ_evidence_class": "external_subprocess_witness",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
   "receipt_refs": [
+    "receipt.microcosm.verifier_lab_execution_spine",
+    "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
     "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json"
   ],
   "validator_refs": [
-    "microcosm_core.organs.verifier_lab_execution_spine"
+    "validator.microcosm.organs.verifier_lab_execution_spine",
+    "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine"
   ],
   "omission_receipt": {
     "omitted": [
@@ -247,5 +279,24 @@
   "macro_body_provenance_contract": {
     "required": true,
     "rule": "macro source refs stay public-root relative, copied execution-spine source bodies live in the exported bundle, and receipts expose refs, hashes, counts, and verdicts without duplicating proof/provider/oracle/stdout/stderr bodies"
-  }
+  },
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.verifier_lab_execution_spine.author",
+      "status": "planned",
+      "purpose": "create a valid Verifier lab execution spine instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.verifier_lab_execution_spine.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Verifier lab execution spine without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.verifier_lab_execution_spine.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_verifier_lab_execution_spine and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

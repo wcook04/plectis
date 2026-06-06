@@ -13,9 +13,18 @@
     "release_authority": false,
     "source_mutation_authority": false,
     "standard_authority": "public_trace_refactor_over_mcp_tool_authority_fixture_schema",
-    "status": "pass",
+    "status": "bounded_by_accepted_organ_claim_ceiling",
     "unapproved_side_effect_authority": false,
-    "untrusted_tool_output_instruction_authority": false
+    "untrusted_tool_output_instruction_authority": false,
+    "accepted_organ_ref": "core/organ_registry.json#mcp_tool_authority_replay",
+    "claim_ceiling_ref": "core/organ_registry.json#mcp_tool_authority_replay.claim_ceiling",
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false
   },
   "body_copied_material_count": 6,
   "body_import_classification": "copied_non_secret_public_mcp_tool_authority_macro_body_import",
@@ -106,8 +115,11 @@
     "receipt must cite source refs, source pattern ids, tool/call/side-effect/output-boundary/rollback/cold-replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
-    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
-    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
+    "receipt.microcosm.mcp_tool_authority_replay",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#mcp_tool_authority_replay",
@@ -140,7 +152,7 @@
     "tool_results",
     "tools"
   ],
-  "schema_version": "public_microcosm_standard_v1",
+  "schema_version": "public_microcosm_standard_v2",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata while public trace targets and runtime refs prove the source-faithful refactor path"
@@ -226,9 +238,27 @@
     ],
     "ontology": "A public-safe MCP-like tool-authority replay: synthetic tool manifests, scoped calls, approval refs, side-effect ledger refs, rollback refs, untrusted-output data boundaries, cold replay receipts, and falsification fixtures.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how tool-use authority claims are admitted only when scope, approval, side-effect, rollback, untrusted-output, cold replay, negative cases, and authority ceilings align."
+    "teleology": "Make Microcosm show how tool-use authority claims are admitted only when scope, approval, side-effect, rollback, untrusted-output, cold replay, negative cases, and authority ceilings align.",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": null,
+      "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay",
+      "receipt_id": "receipt.microcosm.mcp_tool_authority_replay",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+      "organ_evidence_class": "algorithmic_projection",
+      "organ_evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require three scoped synthetic tools: readonly lookup, write side effect, and untrusted result",
     "require every call to cite capability scope, call argument hash, source capsule, instruction/data split, and cold replay receipt refs",
@@ -255,7 +285,27 @@
     "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay"
   },
   "validator_refs": [
-    "microcosm_core.organs.mcp_tool_authority_replay"
+    "validator.microcosm.organs.mcp_tool_authority_replay",
+    "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay"
   ],
-  "wave": "w1_mcp_tool_authority_replay"
+  "wave": "w1_mcp_tool_authority_replay",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.mcp_tool_authority_replay.author",
+      "status": "planned",
+      "purpose": "create a valid MCP tool authority replay instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.mcp_tool_authority_replay.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing MCP tool authority replay without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.mcp_tool_authority_replay.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_mcp_tool_authority_replay and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
 }

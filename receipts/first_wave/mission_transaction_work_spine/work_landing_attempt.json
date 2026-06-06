@@ -1,6 +1,6 @@
 {
   "anti_claim": "This public work-landing tool is a source-faithful public refactor of the macro command and controller-action shape. It emits deterministic local receipts only; it does not mutate Task Ledger, Work Ledger, Git, or private macro state.",
-  "attempt_id": "cap_toy_route_fixture:public_work_landing_attempt:7ca81013c3125760",
+  "attempt_id": "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604:public_work_landing_attempt:9f4f0ccb45b82d58",
   "authority_ceiling": {
     "broad_checkpoint_authorized": false,
     "git_mutation_authorized": false,
@@ -21,6 +21,7 @@
       "fixtures/first_wave/mission_transaction_work_spine/input/live_task_ledger_body_in_fixture.json",
       "fixtures/first_wave/mission_transaction_work_spine/input/missing_selected_lane_for_state.json",
       "fixtures/first_wave/mission_transaction_work_spine/input/preflight_pass_claims_work_landed.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/real_work_ledger_active_claims_snapshot.json",
       "fixtures/first_wave/mission_transaction_work_spine/input/scoped_receipt_global_authority_claim.json",
       "fixtures/first_wave/mission_transaction_work_spine/input/suspected_secret_without_hard_stop.json",
       "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
@@ -142,16 +143,20 @@
   "bundle_id": null,
   "cannot_fake_predicate_status": "pass",
   "claim_ids": [
-    "public_claim:cca35d92e47cab65"
+    "public_claim:212205ac26f79170",
+    "public_claim:a92c53357b2281c1",
+    "public_claim:e4e800572ce672b6",
+    "public_claim:4a1d469ba5b278f8"
   ],
   "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-26T18:34:25+00:00",
+  "created_at": "2026-06-05T07:24:49+00:00",
   "created_by": "microcosm",
   "error_codes": [
     "CHECKPOINT_BROAD_AUTH_REQUIRED",
     "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
     "CHECKPOINT_LANE_DECISION_REQUIRED",
     "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
+    "CHECKPOINT_SELECTED_LANE_MISMATCH",
     "DANGLING_DEPENDENCY_REF",
     "EXPECTED_PARENT_MISMATCH",
     "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
@@ -190,6 +195,15 @@
     "ready_workitem_with_unsatisfied_hard_dep": [
       "READY_WITH_INCOMPLETE_HARD_DEP"
     ],
+    "real_work_ledger_expected_parent_mismatch": [
+      "EXPECTED_PARENT_MISMATCH"
+    ],
+    "real_work_ledger_mutated_landing_row": [
+      "CHECKPOINT_BROAD_AUTH_REQUIRED"
+    ],
+    "real_work_ledger_same_path_claim_conflict": [
+      "SAME_PATH_CLAIM_CONFLICT"
+    ],
     "scoped_commit_receipt_claims_global_authority": [
       "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
     ],
@@ -202,6 +216,14 @@
       "body_in_receipt": false,
       "error_code": "CHECKPOINT_BROAD_AUTH_REQUIRED",
       "message": "Broad checkpoint lane requires explicit operator authorization.",
+      "negative_case_id": "broad_checkpoint_without_operator_authorization",
+      "subject_id": "broad_checkpoint_without_operator_authorization",
+      "subject_kind": "checkpoint_lane_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "CHECKPOINT_SELECTED_LANE_MISMATCH",
+      "message": "Checkpoint lane selection must match the recommended lane for the declared case.",
       "negative_case_id": "broad_checkpoint_without_operator_authorization",
       "subject_id": "broad_checkpoint_without_operator_authorization",
       "subject_kind": "checkpoint_lane_case"
@@ -264,6 +286,14 @@
     },
     {
       "body_in_receipt": false,
+      "error_code": "CHECKPOINT_SELECTED_LANE_MISMATCH",
+      "message": "Checkpoint lane selection must match the recommended lane for the declared case.",
+      "negative_case_id": "dirty_tree_blocks_scoped_lane",
+      "subject_id": "dirty_tree_blocks_scoped_lane",
+      "subject_kind": "checkpoint_lane_case"
+    },
+    {
+      "body_in_receipt": false,
       "error_code": "CHECKPOINT_LANE_DECISION_REQUIRED",
       "message": "Checkpoint lane case must name scoped_commit, broad_checkpoint, or hard_stop.",
       "negative_case_id": "missing_selected_lane_for_state",
@@ -296,6 +326,30 @@
     },
     {
       "body_in_receipt": false,
+      "error_code": "EXPECTED_PARENT_MISMATCH",
+      "message": "Real Work Ledger path claim rejects a one-field expected-parent mutation.",
+      "negative_case_id": "real_work_ledger_expected_parent_mismatch",
+      "subject_id": "wlc_fb7e1f4568b3403f",
+      "subject_kind": "real_work_ledger_claim_mutation"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "CHECKPOINT_BROAD_AUTH_REQUIRED",
+      "message": "Real Work Ledger landing preflight rejects a one-row broad checkpoint mutation.",
+      "negative_case_id": "real_work_ledger_mutated_landing_row",
+      "subject_id": "real_snapshot_broad_checkpoint_without_operator_authorization",
+      "subject_kind": "mission_transaction_landing_row_mutation"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "SAME_PATH_CLAIM_CONFLICT",
+      "message": "Real Work Ledger path claim rejects a one-field same-path mutation.",
+      "negative_case_id": "real_work_ledger_same_path_claim_conflict",
+      "subject_id": "wlc_real_snapshot_same_path_conflict",
+      "subject_kind": "real_work_ledger_claim_mutation"
+    },
+    {
+      "body_in_receipt": false,
       "error_code": "SCOPED_RECEIPT_AUTHORITY_UPGRADE",
       "message": "Scoped commit receipt attempted to claim global authority.",
       "negative_case_id": "scoped_commit_receipt_claims_global_authority",
@@ -309,11 +363,19 @@
       "negative_case_id": "suspected_secret_without_hard_stop",
       "subject_id": "suspected_secret_without_hard_stop",
       "subject_kind": "checkpoint_lane_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "CHECKPOINT_SELECTED_LANE_MISMATCH",
+      "message": "Checkpoint lane selection must match the recommended lane for the declared case.",
+      "negative_case_id": "suspected_secret_without_hard_stop",
+      "subject_id": "suspected_secret_without_hard_stop",
+      "subject_kind": "checkpoint_lane_case"
     }
   ],
   "fixture_id": "first_wave.mission_transaction_work_spine",
   "fixture_payload_policy": "negative_regression_fixtures_only; positive runtime evidence consumes public work_landing substrate",
-  "idempotency_key": "cap_toy_route_fixture:public_work_landing_attempt:7ca81013c3125760",
+  "idempotency_key": "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604:public_work_landing_attempt:9f4f0ccb45b82d58",
   "input_mode": null,
   "lease_minutes": 120.0,
   "missing_fields": [],
@@ -321,7 +383,8 @@
   "negative_case_binding_status": "pass",
   "observed_negative_cases": {
     "broad_checkpoint_without_operator_authorization": [
-      "CHECKPOINT_BROAD_AUTH_REQUIRED"
+      "CHECKPOINT_BROAD_AUTH_REQUIRED",
+      "CHECKPOINT_SELECTED_LANE_MISMATCH"
     ],
     "clean_preflight_overclaims_landing_complete": [
       "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED"
@@ -334,7 +397,8 @@
       "DANGLING_DEPENDENCY_REF"
     ],
     "dirty_tree_blocks_scoped_lane": [
-      "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER"
+      "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
+      "CHECKPOINT_SELECTED_LANE_MISMATCH"
     ],
     "missing_selected_lane_for_state": [
       "CHECKPOINT_LANE_DECISION_REQUIRED"
@@ -348,16 +412,29 @@
     "ready_workitem_with_unsatisfied_hard_dep": [
       "READY_WITH_INCOMPLETE_HARD_DEP"
     ],
+    "real_work_ledger_expected_parent_mismatch": [
+      "EXPECTED_PARENT_MISMATCH"
+    ],
+    "real_work_ledger_mutated_landing_row": [
+      "CHECKPOINT_BROAD_AUTH_REQUIRED"
+    ],
+    "real_work_ledger_same_path_claim_conflict": [
+      "SAME_PATH_CLAIM_CONFLICT"
+    ],
     "scoped_commit_receipt_claims_global_authority": [
       "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
     ],
     "suspected_secret_without_hard_stop": [
-      "CHECKPOINT_SECRET_REQUIRES_HARD_STOP"
+      "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
+      "CHECKPOINT_SELECTED_LANE_MISMATCH"
     ]
   },
   "organ_id": "mission_transaction_work_spine",
   "owned_paths": [
-    "fixtures/toy_repo/core/route_plane.json"
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
   ],
   "public_mission_transaction_preflight": {
     "anti_claim": "Public mission transaction preflight classifies declared Work Ledger, Git-parent, and checkpoint-lane metadata. It does not inspect the live Git index, mutate ledgers, release claims, authorize broad staging, or prove that work landed.",
@@ -374,174 +451,64 @@
       "suspected_secret_requires_hard_stop": true
     },
     "body_in_receipt": false,
-    "broad_checkpoint_authorization_required_case_ids": [
-      "broad_checkpoint_without_operator_authorization"
-    ],
+    "broad_checkpoint_authorization_required_case_ids": [],
     "broad_checkpoint_requires_operator_authorization": true,
     "checkpoint_lane_decisions": [
       {
         "body_in_receipt": false,
-        "case_id": "clean_owned_paths",
-        "dirty_tree_present": false,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": true,
-        "recommended_lane": "scoped_commit",
-        "selected_lane": "scoped_commit",
-        "suspected_secret": false
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "mixed_owned_dirty_tree",
+        "case_id": "real_snapshot_scoped_commit",
         "dirty_tree_present": true,
         "operator_authorized_broad_checkpoint": false,
         "owned_paths_isolated": true,
         "recommended_lane": "scoped_commit",
         "selected_lane": "scoped_commit",
-        "suspected_secret": false
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "operator_requested_broad_checkpoint",
-        "dirty_tree_present": true,
-        "operator_authorized_broad_checkpoint": true,
-        "owned_paths_isolated": false,
-        "recommended_lane": "broad_checkpoint",
-        "selected_lane": "broad_checkpoint",
-        "suspected_secret": false
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "suspected_private_leakage",
-        "dirty_tree_present": true,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": false,
-        "recommended_lane": "hard_stop",
-        "selected_lane": "hard_stop",
-        "suspected_secret": true
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "broad_checkpoint_without_operator_authorization",
-        "dirty_tree_present": true,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": false,
-        "recommended_lane": "scoped_commit",
-        "selected_lane": "broad_checkpoint",
-        "suspected_secret": false
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "suspected_secret_without_hard_stop",
-        "dirty_tree_present": true,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": false,
-        "recommended_lane": "hard_stop",
-        "selected_lane": "scoped_commit",
-        "suspected_secret": true
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "dirty_tree_blocks_scoped_lane",
-        "dirty_tree_present": true,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": true,
-        "recommended_lane": "scoped_commit",
-        "selected_lane": "hard_stop",
-        "suspected_secret": false
-      },
-      {
-        "body_in_receipt": false,
-        "case_id": "missing_selected_lane_for_state",
-        "dirty_tree_present": false,
-        "operator_authorized_broad_checkpoint": false,
-        "owned_paths_isolated": true,
-        "recommended_lane": "scoped_commit",
-        "selected_lane": "missing",
         "suspected_secret": false
       }
     ],
-    "checkpoint_lane_violation_case_ids": [
-      "broad_checkpoint_without_operator_authorization",
-      "dirty_tree_blocks_scoped_lane",
-      "missing_selected_lane_for_state",
-      "suspected_secret_without_hard_stop"
-    ],
-    "claim_conflict_recheck_status": "live_conflict_detected",
-    "conflict_claim_ids": [
-      "claim_a",
-      "claim_b"
-    ],
+    "checkpoint_lane_status": "pass",
+    "checkpoint_lane_violation_case_ids": [],
+    "claim_conflict_recheck_status": "no_conflict_in_public_snapshot",
+    "conflict_claim_ids": [],
     "dirty_tree_blocks_scoped_commit": false,
-    "dirty_tree_not_scoped_blocker_case_ids": [
-      "dirty_tree_blocks_scoped_lane"
-    ],
-    "expected_parent_mismatches": [
-      {
-        "body_in_receipt": false,
-        "claim_id": "claim_b",
-        "current_parent_sha": "bbb222",
-        "expected_parent_sha": "aaa111"
-      }
-    ],
-    "expected_parent_status": "stale_parent_rejected",
+    "dirty_tree_not_scoped_blocker_case_ids": [],
+    "expected_parent_mismatches": [],
+    "expected_parent_status": "parent_ok_or_not_declared",
     "landing_decision": {
-      "blockers": [
-        "same_path_claim_conflict",
-        "expected_parent_mismatch",
-        "checkpoint_lane_violation"
-      ],
+      "blockers": [],
       "body_in_receipt": false,
       "claims_work_landed": false,
-      "decision": "blocked_replan_required",
+      "decision": "pass_metadata_preflight",
       "owned_paths": [
-        "fixtures/toy_repo/core/route_plane.json"
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+        "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
       ],
-      "reason": "preflight_blockers_require_replan",
-      "recommended_lane": "replan_before_landing",
-      "status": "blocked",
+      "reason": "public_snapshot_clear_for_scoped_owned_path_commit",
+      "recommended_lane": "scoped_commit",
+      "status": "pass",
       "subject_ids": [
-        "cap_toy_route_fixture"
+        "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
       ]
     },
     "missing_owned_path_claim_ids": [],
-    "missing_selected_lane_case_ids": [
-      "missing_selected_lane_for_state"
-    ],
+    "missing_selected_lane_case_ids": [],
     "owned_paths": [
-      "fixtures/toy_repo/core/route_plane.json"
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+      "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
     ],
     "parent_unchecked_claim_ids": [],
     "recommended_lane_by_case": {
-      "broad_checkpoint_without_operator_authorization": "scoped_commit",
-      "clean_owned_paths": "scoped_commit",
-      "dirty_tree_blocks_scoped_lane": "scoped_commit",
-      "missing_selected_lane_for_state": "scoped_commit",
-      "mixed_owned_dirty_tree": "scoped_commit",
-      "operator_requested_broad_checkpoint": "broad_checkpoint",
-      "suspected_private_leakage": "hard_stop",
-      "suspected_secret_without_hard_stop": "hard_stop"
+      "real_snapshot_scoped_commit": "scoped_commit"
     },
     "require_exclusive": true,
-    "same_path_conflict_claim_ids": [
-      "claim_a"
-    ],
-    "same_path_conflicts": [
-      {
-        "body_in_receipt": false,
-        "conflicting_claim_id": "claim_b",
-        "path": "fixtures/toy_repo/core/route_plane.json",
-        "prior_claim_id": "claim_a"
-      }
-    ],
+    "same_path_conflict_claim_ids": [],
+    "same_path_conflicts": [],
     "schema_version": "public_mission_transaction_preflight_v1",
-    "secret_requires_hard_stop_case_ids": [
-      "suspected_secret_without_hard_stop"
-    ],
-    "selected_lane_mismatch_case_ids": [
-      "broad_checkpoint_without_operator_authorization",
-      "dirty_tree_blocks_scoped_lane",
-      "suspected_secret_without_hard_stop"
-    ],
+    "secret_requires_hard_stop_case_ids": [],
+    "selected_lane_mismatch_case_ids": [],
     "selection_policy": "dirty_trees_block_broad_accidental_staging_not_scoped_owned_path_commits",
     "source_faithful_decision_rules": [
       "same_path_claim_conflict_blocks_landing",
@@ -565,12 +532,10 @@
       "system/lib/mission_transaction_landing_preflight.py::_landing_decision",
       "system/lib/mission_transaction_landing_preflight.py::build_mission_transaction_landing_preflight"
     ],
-    "stale_expected_parent_claim_ids": [
-      "claim_b"
-    ],
-    "status": "blocked",
+    "stale_expected_parent_claim_ids": [],
+    "status": "pass",
     "subject_ids": [
-      "cap_toy_route_fixture"
+      "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
     ],
     "suspected_secret_requires_hard_stop": true,
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/mission_transaction_preflight.py",
@@ -584,6 +549,7 @@
     "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
     "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json",
     "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/real_work_ledger_active_claims_snapshot.json",
     "fixtures/first_wave/mission_transaction_work_spine/input/dependency_graph.json",
     "fixtures/first_wave/mission_transaction_work_spine/input/claim_missing_owned_path.json",
     "fixtures/first_wave/mission_transaction_work_spine/input/scoped_receipt_global_authority_claim.json",
@@ -610,13 +576,16 @@
     "landing_lane": "scoped_commit",
     "missing_fields": [],
     "owned_paths": [
-      "fixtures/toy_repo/core/route_plane.json"
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+      "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
     ],
     "recommended_next_action": "run_reconcile_plan",
     "require_exclusive": true,
     "same_path_conflict_claim_ids": [],
     "schema": "public_work_landing_status_v0",
-    "session_id": "session_a",
+    "session_id": "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade",
     "source_faithful_controller_action_ids": [
       "verify_scoped_commit_landed",
       "ensure_work_ledger_progress_event",
@@ -644,7 +613,7 @@
     ],
     "status": "pass",
     "subject_ids": [
-      "cap_toy_route_fixture"
+      "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
     ],
     "target_order_ref": "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
     "target_symbols": [
@@ -658,20 +627,20 @@
     ]
   },
   "read_set": [
-    "fixtures/toy_repo/core/route_plane.json@toy-route-plane-before"
+    "fixtures/first_wave/mission_transaction_work_spine/input/real_work_ledger_active_claims_snapshot.json@889e2790d1d7badc57b53b3dda73690c38524c50982b276f264196c363f32e8a"
   ],
   "receipt_field_floor_status": "pass",
   "receipt_id": "mission_transaction_work_spine_work_landing_attempt_v1",
   "receipt_paths": [
     "receipts/preflight/mission_transaction_work_spine.json",
-    "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
-    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
-    "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
-    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
-    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
-    "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
-    "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
-    "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+    "canonical_fixture/dependency_blocked.json",
+    "canonical_fixture/work_landing_attempt.json",
+    "canonical_fixture/claim_preflight_result.json",
+    "canonical_fixture/scoped_mutation_receipt.json",
+    "canonical_fixture/checkpoint_lane_decision.json",
+    "canonical_fixture/closeout_status_projection.json",
+    "canonical_fixture/dependency_unlock_scheduler_receipt.json",
+    "canonical_fixture/work_landing_reconcile_plan.json"
   ],
   "require_exclusive": true,
   "schema": "public_work_landing_attempt_binding_v0",
@@ -701,11 +670,11 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 13,
+    "scanned_path_count": 14,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "session_id": "session_a",
+  "session_id": "codex_goal_microcosm_realness_20260604T102534Z_mission_transaction_real_claim_snapshot_upgrade",
   "source_faithful_controller_action_ids": [
     "verify_scoped_commit_landed",
     "ensure_work_ledger_progress_event",
@@ -749,7 +718,7 @@
   ],
   "status": "pass",
   "subject_ids": [
-    "cap_toy_route_fixture"
+    "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604"
   ],
   "target_order_ref": "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
   "target_refs": [
@@ -772,8 +741,11 @@
   ],
   "validator_contract_ratchet_status": "pass",
   "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
-  "work_item_id": "cap_toy_route_fixture",
+  "work_item_id": "cap_quick_mission_transaction_real_claim_snapshot_upgrade_20260604",
   "write_set": [
-    "fixtures/toy_repo/core/route_plane.json"
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    "microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
   ]
 }

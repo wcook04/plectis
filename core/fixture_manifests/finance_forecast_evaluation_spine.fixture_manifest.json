@@ -1,0 +1,95 @@
+{
+  "anti_claim": "Finance forecast evaluation spine runs statistical checks over synthetic market-shaped fixtures only. It is not investment or trading advice, uses no live market data, proves no track record or performance claim, mutates no optimizer, and treats SciPy absence as a typed HLN refusal.",
+  "authority_ceiling": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
+  "body_copied_material_count": 13,
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "fixture_id": "fixture::finance_forecast_evaluation_spine::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json",
+    "receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/family_loss_matrix.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_boundary_policy.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_hln_dependency_refusal.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_leakage_lookahead_split.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/finance_no_advice_overclaim.json",
+      "role": "negative case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/paired_loss_series.json",
+      "role": "positive public fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/finance_forecast_evaluation_spine/input/projection_protocol.json",
+      "role": "positive public fixture input"
+    }
+  ],
+  "organ_id": "finance_forecast_evaluation_spine",
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "public_runtime_refs": [
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/fixture_manifests/finance_forecast_evaluation_spine.fixture_manifest.json",
+      "fixtures/first_wave/finance_forecast_evaluation_spine/input",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+      "paper_modules/finance_forecast_evaluation_spine.md"
+    ],
+    "real_runtime_receipt": true,
+    "secret_exclusion_scan": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "synthetic_receipt_standin_allowed": false
+  },
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "authority_ceiling": "synthetic_fixture_forecast_evaluation_statistics_only",
+      "investment_advice_authorized": false,
+      "live_market_data_authorized": false,
+      "optimizer_mutation_authorized": false,
+      "performance_claim_authorized": false,
+      "release_authorized": false,
+      "status": "pass",
+      "track_record_claim_authorized": false,
+      "trading_advice_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 13,
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_in_receipt": false,
+    "reader_action": "Open the source module manifest and source_modules directory for copied bodies; receipts carry refs, hashes, counts, verdicts, and anti-claims only.",
+    "schema_version": "finance_forecast_evaluation_spine_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "title": "Finance forecast evaluation spine fixture",
+  "validator": "microcosm_core.organs.finance_forecast_evaluation_spine",
+  "validator_command": "python -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json"
+}

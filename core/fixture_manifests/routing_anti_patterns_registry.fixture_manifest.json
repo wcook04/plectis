@@ -32,6 +32,10 @@
       "role": "negative case: release/provider/source/route mutation or correctness overclaim"
     },
     {
+      "path": "fixtures/first_wave/routing_anti_patterns_registry/input/source_authority_masquerade.json",
+      "role": "negative case: projection row declares source or route authority"
+    },
+    {
       "path": "fixtures/first_wave/routing_anti_patterns_registry/input/private_source_leakage.json",
       "role": "negative case: private routing body leakage"
     }

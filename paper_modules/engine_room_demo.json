@@ -1,0 +1,825 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
+    "card": "Wraps the public-safe capsules under microcosm_core.engine_room, verifies the 14 controller-selected jewel targets, checks each owned staged capsule surface (module source, fixture input, fixture manifest, paper module, standard, tests), executes the staged demo through the public fixture chain, and observes a negative fixture where an expected target is intentionally absent.",
+    "one_line": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.engine_room_demo",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.engine_room_demo",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/engine_room_demo.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.engine_room_demo.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/engine_room_demo.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/engine_room_demo.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-1",
+        "AX-4",
+        "AX-5",
+        "AX-7",
+        "AX-8",
+        "AX-11"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/engine_room_demo.py",
+          "resolution": "resolved",
+          "role": "Runtime + receipt-writing locus for the staged Engine Room composition demo.",
+          "symbols": [
+            "run",
+            "run_engine_room_demo_bundle"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Validates the declared public composition contract only; not production readiness, not private-root equivalence, not a frontier theorem-proving claim, not a complete security proof, not benchmark validation, not release approval.",
+        "card": "Wraps the public-safe capsules under microcosm_core.engine_room, verifies the 14 controller-selected jewel targets, checks each owned staged capsule surface (module source, fixture input, fixture manifest, paper module, standard, tests), executes the staged demo through the public fixture chain, and observes a negative fixture where an expected target is intentionally absent.",
+        "one_line": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "depends_on": [
+        "paper_module.engine_room_lean_proof_search_lab",
+        "paper_module.engine_room_metabolism_runtime",
+        "paper_module.engine_room_command_run_singleflight",
+        "paper_module.engine_room_generated_projection_drift_gate",
+        "paper_module.engine_room_derived_fact_provider_engine",
+        "paper_module.engine_room_public_projection_leak_gate",
+        "paper_module.engine_room_egress_self_compliance_gate",
+        "paper_module.engine_room_navigation_fitness_benchmark",
+        "paper_module.engine_room_bridge_campaign_dag",
+        "paper_module.engine_room_annex_knowledge_router"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.engine_room_demo",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/engine_room_demo.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.engine_room_demo.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.engine_room_demo",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/engine_room_demo.md",
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-5",
+        "P-6",
+        "P-8",
+        "P-9",
+        "P-12",
+        "P-15"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo]",
+      "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; concept/principle/axiom refs and the composed-jewel dependency map remain honest residuals unless source evidence names resolving Microcosm doctrine ids.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "engine_room_demo"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
+        },
+        {
+          "kind": "mechanism",
+          "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
+        }
+      ],
+      "title": "Engine Room Demo"
+    },
+    "strangler_note": "Binds the Markdown projection, accepted organ subject, admitted mechanism subject, and runtime locus to JSON source authority; concept/principle/axiom refs and the composed-jewel dependency map remain honest residuals unless source evidence names resolving Microcosm doctrine ids.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-1",
+      "AX-4",
+      "AX-5",
+      "AX-7",
+      "AX-8",
+      "AX-11"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/engine_room_demo.py",
+        "resolution": "resolved",
+        "role": "Runtime + receipt-writing locus for the staged Engine Room composition demo.",
+        "symbols": [
+          "run",
+          "run_engine_room_demo_bundle"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [
+      "paper_module.engine_room_lean_proof_search_lab",
+      "paper_module.engine_room_metabolism_runtime",
+      "paper_module.engine_room_command_run_singleflight",
+      "paper_module.engine_room_generated_projection_drift_gate",
+      "paper_module.engine_room_derived_fact_provider_engine",
+      "paper_module.engine_room_public_projection_leak_gate",
+      "paper_module.engine_room_egress_self_compliance_gate",
+      "paper_module.engine_room_navigation_fitness_benchmark",
+      "paper_module.engine_room_bridge_campaign_dag",
+      "paper_module.engine_room_annex_knowledge_router"
+    ],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "engine_room_demo",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[1]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_demo.validates_public_engine_room_demo",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[2]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[3]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[4]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[5]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[6]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[7]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[8]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].subjects[9]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark",
+        "target_kind": "mechanism",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-1",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-2",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-5",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-6",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-8",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-9",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-12",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-15",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-1",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-4",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-5",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-7",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-8",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-11",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_lean_proof_search_lab",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_metabolism_runtime",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_command_run_singleflight",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_generated_projection_drift_gate",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_derived_fact_provider_engine",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_public_projection_leak_gate",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_egress_self_compliance_gate",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_navigation_fitness_benchmark",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_bridge_campaign_dag",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].depends_on",
+          "summary": "Paper-module source row names this sibling/dependency paper module."
+        },
+        "relation_id": "paper_module.depends_on.paper_module",
+        "relation_verb": "depends_on",
+        "residual_pressure_ref": null,
+        "reverse_verb": "depended_on_by",
+        "target_id": "paper_module.engine_room_annex_knowledge_router",
+        "target_kind": "paper_module",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo].code_loci[0]",
+          "summary": "Runtime + receipt-writing locus for the staged Engine Room composition demo."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/engine_room_demo.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/engine_room_demo.md",
+    "principle_refs": [
+      "P-1",
+      "P-2",
+      "P-3",
+      "P-5",
+      "P-6",
+      "P-8",
+      "P-9",
+      "P-12",
+      "P-15"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "engine_room_demo"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
+      },
+      {
+        "kind": "mechanism",
+        "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
+      }
+    ],
+    "unpopulated_selective_relations": []
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[31:paper_module.engine_room_demo]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/engine_room_demo.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/engine_room_demo.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Composition organ: verifies the 14 staged Engine Room jewel targets and their owned capsule surfaces through the public fixture chain; composition contract only.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "engine_room_demo"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_demo.validates_public_engine_room_demo"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_public_projection_leak_gate.validates_public_projection_leak_gate"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_generated_projection_drift_gate.validates_public_generated_projection_drift_gate"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_derived_fact_provider_engine.validates_public_derived_fact_provider_engine"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_egress_self_compliance_gate.validates_public_egress_self_compliance_gate"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_lean_proof_search_lab.validates_public_lean_proof_search_lab"
+    },
+    {
+      "kind": "mechanism",
+      "ref": "mechanism.engine_room_navigation_fitness_benchmark.validates_public_navigation_fitness_benchmark"
+    }
+  ],
+  "title": "Engine Room Demo",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

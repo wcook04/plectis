@@ -88,6 +88,12 @@ def test_cli_observe_preserves_initialized_project_ref(
     assert payload["status"] == "pass"
     assert payload["project_ref"] == project.as_posix()
     assert payload["state_ref"] == ".microcosm"
+    assert payload["state_write_proof"]["state_write_result_ref"] == (
+        f"microcosm tour --card {project.as_posix()}::state_write_result"
+    )
+    assert payload["state_write_proof"]["status_card_project_state_ref"] == (
+        f"microcosm status --card {project.as_posix()}::front_door.project_state"
+    )
     assert payload["safe_to_show"]["source_files_mutated"] is False
 
 

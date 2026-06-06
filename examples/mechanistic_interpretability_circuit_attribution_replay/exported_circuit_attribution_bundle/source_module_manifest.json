@@ -3,7 +3,7 @@
   "bundle_id": "exported_mechanistic_interpretability_circuit_attribution_bundle",
   "classification": "copied_non_secret_macro_body",
   "manifest_id": "exported_mechanistic_interpretability_macro_source_modules_import",
-  "module_count": 10,
+  "module_count": 11,
   "modules": [
     {
       "anchor_count": 5,
@@ -160,9 +160,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 19500,
+      "byte_count": 31199,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 500,
+      "line_count": 808,
       "material_class": "public_macro_tool_body",
       "module_id": "mission_transaction_preflight_tool_body_import",
       "required_anchors": [
@@ -176,18 +176,18 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "tools/meta/control/mission_transaction_preflight.py",
       "source_role": "Macro mission-transaction preflight CLI body that governs scoped landing, write-set accounting, dirty-tree classification, and claim-before-mutation decisions.",
-      "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "source_sha256": "17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
-      "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9"
+      "target_sha256": "17ec837f90cd47710b910e698de87b977648872719f4f51b9321899df25bc177"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 229460,
+      "byte_count": 300634,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 5256,
+      "line_count": 6828,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_execution_trace_tool_body_import",
       "required_anchors": [
@@ -201,18 +201,18 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro trace-capsule and agent execution trace body that turns observable agent work into span-ledger, audit, navigation-cache, and process-pattern artifacts without hidden reasoning bodies.",
-      "source_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534",
+      "source_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/agent_execution_trace.py",
-      "target_sha256": "6b3f0dda13d723637b563206b1a3381a3ae1a9c71937ed3070db052a5d480534"
+      "target_sha256": "9bdba01e40ec9f6088fc4244da95169d88b8d1cdf792d341433bedf32312fe8f"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 49875,
+      "byte_count": 50351,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 678,
+      "line_count": 679,
       "material_class": "public_macro_proof_body",
       "module_id": "std_agent_execution_trace_standard_body_import",
       "required_anchors": [
@@ -226,9 +226,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro standard body for agent execution traces, trace ontology, privacy boundaries, and process-observability projections.",
-      "source_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559",
+      "source_sha256": "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "beb6ee28ea53e74bdc63acbaa81670400e8f828cfb2653f124fca52c71ff2559"
+      "target_sha256": "9997ee8e79bc32a867b72e1c23fbdedd0f24e115135cfba7811fad8b682ca753"
     },
     {
       "anchor_count": 5,
@@ -254,6 +254,33 @@
       "source_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/standards/std_extracted_pattern_route_readiness.json",
       "target_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 10373,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 260,
+      "material_class": "public_macro_tool_body",
+      "module_id": "strict_json_source_body_import",
+      "path": "source_modules/system/lib/strict_json.py",
+      "required_anchors": [
+        "class StrictJsonError",
+        "class DuplicateJsonKeyError",
+        "def loads_json_strict(",
+        "def read_json_strict(",
+        "def strict_json_artifact_report("
+      ],
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
+      "source_ref": "system/lib/strict_json.py",
+      "source_role": "Strict JSON helper required by the refreshed agent_execution_trace source body for duplicate-key-safe JSON loading and artifact classification.",
+      "source_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/system/lib/strict_json.py",
+      "target_sha256": "2313d8651eb6fef586d9f81d0aea8e08abaff742020b0216ddbbbe448c39ecb7"
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",

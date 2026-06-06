@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -30,6 +31,7 @@ from microcosm_core.schemas import read_json_strict
 
 
 ORGAN_ID = "materials_chemistry_closed_loop_lab_safety_replay"
+PUBLIC_SURFACE_NAME = "materials_chemistry_artifact_safety_refusal_validator"
 FIXTURE_ID = "first_wave.materials_chemistry_closed_loop_lab_safety_replay"
 VALIDATOR_ID = "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay"
 
@@ -44,6 +46,7 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_materials_lab_safety_bundle_validation_result.json"
 CARD_SCHEMA_VERSION = "materials_lab_safety_command_card_v1"
+SAFETY_VERDICT_SCHEMA_VERSION = "materials_lab_safety_verdict_v1"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "candidate_materials",
     "experiments",
@@ -63,7 +66,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
 )
 BODY_IMPORT_STATUS = "source_faithful_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "source_faithful_refactor"
-PRODUCT_PATH_ROLE = "runtime_spine_product_substrate"
+PRODUCT_PATH_ROLE = "artifact_safety_refusal_validator"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_materials_lab_macro_body_landed"
@@ -71,6 +74,44 @@ SOURCE_OPEN_BODY_SCHEMA = (
     "materials_chemistry_closed_loop_lab_safety_replay_"
     "source_open_body_imports_v1"
 )
+HASH_CHUNK_SIZE = 1024 * 1024
+NUMERIC_REPLAY_SCORE_FIELD = "public_numeric_replay_score"
+NUMERIC_REPLAY_ASSAY_VALUE_FIELD = "public_assay_proxy_value"
+NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD = "public_active_learning_score"
+NUMERIC_REPLAY_SAFETY_GATE_FIELD = "public_safety_gate_score"
+NUMERIC_REPLAY_SELECTION_RULE = (
+    "max_weighted_public_assay_active_learning_and_safety_gate_score"
+)
+NUMERIC_REPLAY_VERDICT_BASIS = (
+    "recomputed_from_public_assay_active_learning_and_safety_gate_fixture_numbers"
+)
+NUMERIC_REPLAY_REALNESS_SCHEMA_VERSION = "materials_lab_numeric_replay_realness_v1"
+NUMERIC_REPLAY_MIN_SAFETY_GATE = 0.70
+NUMERIC_REPLAY_SCORE_WEIGHTS = {
+    "assay_proxy_value": 0.45,
+    "active_learning_score": 0.35,
+    "safety_gate_score": 0.20,
+}
+NUMERIC_REPLAY_TOLERANCE = 1e-9
+NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS = (
+    "expected_selected_candidate_material_id",
+    "expected_next_pick_candidate_material_id",
+    "baked_expected_selected_candidate_material_id",
+)
+EXPECTED_SOURCE_MODULE_DIGESTS = {
+    "materials_lab_evolve_failure_replay_specimen_body_import": (
+        "sha256:d615e3cc9491a58d4f094148378d5a155056e527afb57a0b6d2f823eb7143179"
+    ),
+    "materials_lab_evolve_replay_graph_body_import": (
+        "sha256:cedbcfcccd7bca3afb8b98745558d6fc1328c893c4d96a39a9f5e19c8edab7df"
+    ),
+    "materials_lab_evolve_receipt_body_import": (
+        "sha256:3eada5145a7b91d08b566bbb5f76f2ffab27eaf41ae680e9a987228252b699b5"
+    ),
+    "laboratory_standard_body_import": (
+        "sha256:f51a81b1004b6fd8b58b69b720c8670d4aced7f2605437494d26a3897582557d"
+    ),
+}
 PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
     {
         "public_macro_control_plane_body",
@@ -196,7 +237,7 @@ PRIVATE_NEEDLES = (
 )
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "simulator_only_materials_chemistry_lab_safety_metadata",
+    "authority_ceiling": "materials_chemistry_artifact_safety_refusal_validator",
     "metadata_projection_only": True,
     "simulator_only": True,
     "wetlab_protocol_authorized": False,
@@ -216,15 +257,31 @@ AUTHORITY_CEILING = {
     "provider_calls_authorized": False,
 }
 ANTI_CLAIM = (
-    "Materials chemistry closed-loop lab-safety replay exposes a source-faithful "
-    "public Lab/Evolve failure-replay graph over body-free simulator rows: "
-    "candidate materials, safety screens, simulated assays, active-learning "
-    "decisions, cold replay refs, failure classes, restart points, source "
-    "capsule hashes, and teachings. It does not export wetlab protocols, "
-    "hazardous synthesis steps, reagent amounts, controlled or bioactive "
-    "targets, live lab credentials, robot commands, private lab notebooks, live "
-    "assay data, discovery claims, benchmark scores, or release authority."
+    "Materials chemistry artifact safety/refusal validator exposes a "
+    "source-faithful public Lab/Evolve failure-replay graph over body-free "
+    "simulator rows: candidate materials, safety screens, simulated assays, "
+    "active-learning decisions, cold replay refs, failure classes, restart "
+    "points, source capsule hashes, and teachings. It is a safety/refusal "
+    "validator, not a wetlab loop or discovery lab: it does not export wetlab "
+    "protocols, hazardous synthesis steps, reagent amounts, controlled or "
+    "bioactive targets, live lab credentials, robot commands, private lab "
+    "notebooks, live assay data, discovery claims, benchmark scores, or "
+    "release authority."
 )
+
+SURFACE_REFRAME = {
+    "stable_organ_id": ORGAN_ID,
+    "public_surface_name": PUBLIC_SURFACE_NAME,
+    "renamed_from_public_promise": "materials_chemistry_closed_loop_lab_safety_replay",
+    "reframe_reason": "no_wetlab_loop_authorized_artifact_safety_refusal_validation_only",
+    "forbidden_name_promises": [
+        "closed_loop_wetlab_execution",
+        "materials_discovery_lab",
+        "robot_command_execution",
+    ],
+    "compatibility_note": "stable organ id remains for registry, fixture, CLI, and receipt compatibility",
+    "body_in_receipt": False,
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -275,7 +332,21 @@ def _code_freshness_paths() -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _stable_digest(payload: object) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
@@ -552,6 +623,7 @@ def _source_module_manifest_result(
             "omitted_material": [],
             "findings": findings,
             "body_in_receipt": False,
+            "body_text_in_receipt": False,
         }
 
     manifest = read_json_strict(manifest_path)
@@ -566,6 +638,8 @@ def _source_module_manifest_result(
     omitted_material = _strings(
         manifest.get("omitted_material") if isinstance(manifest, dict) else []
     )
+    live_source_checked_count = 0
+    live_source_missing: list[str] = []
 
     if not isinstance(manifest, dict):
         modules = []
@@ -597,6 +671,16 @@ def _source_module_manifest_result(
                     case_id="source_module_manifest_floor",
                     subject_id=manifest_ref,
                     subject_kind="body_in_receipt",
+                )
+            )
+        if manifest.get("body_text_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_text_in_receipt",
                 )
             )
         if int(manifest.get("module_count") or 0) != len(modules):
@@ -673,11 +757,11 @@ def _source_module_manifest_result(
             continue
         actual = _sha256(target)
         expected_values = {
-            str(row.get("sha256") or ""),
-            str(row.get("source_sha256") or ""),
-            str(row.get("target_sha256") or ""),
+            "sha256": str(row.get("sha256") or ""),
+            "source_sha256": str(row.get("source_sha256") or ""),
+            "target_sha256": str(row.get("target_sha256") or ""),
         }
-        if actual not in expected_values or "" in expected_values:
+        if any(value != actual for value in expected_values.values()):
             findings.append(
                 _finding(
                     "MATERIALS_SOURCE_MODULE_DIGEST_MISMATCH",
@@ -687,6 +771,51 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
+        expected_source_digest = EXPECTED_SOURCE_MODULE_DIGESTS.get(module_id)
+        if not expected_source_digest:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_AUTHORITY_UNKNOWN",
+                    "Source module row must resolve to a validator-owned source body digest authority.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module_authority_digest",
+                )
+            )
+        elif (
+            actual != expected_source_digest
+            or expected_values["sha256"] != expected_source_digest
+            or expected_values["source_sha256"] != expected_source_digest
+            or expected_values["target_sha256"] != expected_source_digest
+        ):
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_AUTHORITY_DIGEST_MISMATCH",
+                    "Source module digest declarations must bind the copied target body to the validator-owned source body digest authority.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module_authority_digest",
+                )
+            )
+        source_ref = str(row.get("source_ref") or "")
+        if source_ref:
+            source = public_root.parent / source_ref
+            source_display = _display(source, public_root=public_root)
+            if source.is_file():
+                live_source_checked_count += 1
+                source_actual = _sha256(source)
+                if row.get("source_sha256") != source_actual or source_actual != actual:
+                    findings.append(
+                        _finding(
+                            "MATERIALS_SOURCE_MODULE_LIVE_SOURCE_DIGEST_MISMATCH",
+                            "Source module digest declarations must bind the copied target body to the live source_ref body when that source is available.",
+                            case_id="source_module_manifest_floor",
+                            subject_id=module_id,
+                            subject_kind="source_module_live_source",
+                        )
+                    )
+            else:
+                live_source_missing.append(source_display)
         text = target.read_text(encoding="utf-8")
         missing_anchors = [
             anchor
@@ -723,11 +852,492 @@ def _source_module_manifest_result(
         "material_classes": sorted(material_class_counts),
         "body_material_classes": material_class_counts,
         "source_refs": source_refs,
+        "live_source_checked_count": live_source_checked_count,
+        "live_source_missing": live_source_missing,
         "blocked_source_refs": blocked_source_refs
         if isinstance(blocked_source_refs, list)
         else [],
         "omitted_material": omitted_material,
         "findings": findings,
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+    }
+
+
+def _numeric_value(row: dict[str, Any], field: str) -> float | None:
+    value = row.get(field)
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, int | float):
+        number = float(value)
+        if math.isfinite(number) and 0 <= number <= 1:
+            return number
+    return None
+
+
+def _numeric_score_error_code(row: dict[str, Any], field: str) -> str:
+    value = row.get(field)
+    if isinstance(value, bool) or value is None:
+        return "MATERIALS_NUMERIC_REPLAY_SCORE_REQUIRED"
+    if not isinstance(value, int | float):
+        return "MATERIALS_NUMERIC_REPLAY_SCORE_REQUIRED"
+    number = float(value)
+    if not math.isfinite(number) or number < 0 or number > 1:
+        return "MATERIALS_NUMERIC_REPLAY_SCORE_OUT_OF_RANGE"
+    return "MATERIALS_NUMERIC_REPLAY_SCORE_REQUIRED"
+
+
+def _numeric_replay_policy_settings(
+    replay_policy: dict[str, Any],
+) -> tuple[bool, str, float, list[dict[str, Any]]]:
+    findings: list[dict[str, Any]] = []
+    numeric_policy = replay_policy.get("numeric_replay")
+    policy_declared = isinstance(numeric_policy, dict) and bool(numeric_policy)
+    if not isinstance(numeric_policy, dict):
+        return (
+            False,
+            NUMERIC_REPLAY_SELECTION_RULE,
+            NUMERIC_REPLAY_MIN_SAFETY_GATE,
+            findings,
+        )
+
+    selection_rule = str(
+        numeric_policy.get("selection_rule") or NUMERIC_REPLAY_SELECTION_RULE
+    )
+    if selection_rule != NUMERIC_REPLAY_SELECTION_RULE:
+        findings.append(
+            _finding(
+                "MATERIALS_NUMERIC_REPLAY_SELECTION_RULE_UNSUPPORTED",
+                "Materials numeric replay only supports the weighted public assay, active-learning, and safety-gate selection rule.",
+                case_id="positive_fixture",
+                subject_id=selection_rule,
+                subject_kind="numeric_replay_policy",
+            )
+        )
+
+    minimum_safety_gate_value = numeric_policy.get("minimum_safety_gate_score")
+    minimum_safety_gate = NUMERIC_REPLAY_MIN_SAFETY_GATE
+    if minimum_safety_gate_value is not None:
+        if isinstance(minimum_safety_gate_value, bool):
+            findings.append(
+                _finding(
+                    "MATERIALS_NUMERIC_REPLAY_MINIMUM_SAFETY_GATE_INVALID",
+                    "Materials numeric replay minimum_safety_gate_score must be a finite number between 0 and 1.",
+                    case_id="positive_fixture",
+                    subject_id="minimum_safety_gate_score",
+                    subject_kind="numeric_replay_policy",
+                )
+            )
+        elif isinstance(minimum_safety_gate_value, int | float):
+            parsed_minimum = float(minimum_safety_gate_value)
+            if math.isfinite(parsed_minimum) and 0 <= parsed_minimum <= 1:
+                minimum_safety_gate = parsed_minimum
+            else:
+                findings.append(
+                    _finding(
+                        "MATERIALS_NUMERIC_REPLAY_MINIMUM_SAFETY_GATE_INVALID",
+                        "Materials numeric replay minimum_safety_gate_score must be a finite number between 0 and 1.",
+                        case_id="positive_fixture",
+                        subject_id="minimum_safety_gate_score",
+                        subject_kind="numeric_replay_policy",
+                    )
+                )
+        else:
+            findings.append(
+                _finding(
+                    "MATERIALS_NUMERIC_REPLAY_MINIMUM_SAFETY_GATE_INVALID",
+                    "Materials numeric replay minimum_safety_gate_score must be a finite number between 0 and 1.",
+                    case_id="positive_fixture",
+                    subject_id="minimum_safety_gate_score",
+                    subject_kind="numeric_replay_policy",
+                )
+            )
+
+    return policy_declared, selection_rule, minimum_safety_gate, findings
+
+
+def _numeric_replay_result(
+    candidates: list[dict[str, Any]],
+    assays: list[dict[str, Any]],
+    decisions: list[dict[str, Any]],
+    replay_policy: dict[str, Any],
+) -> dict[str, Any]:
+    (
+        policy_declared,
+        selection_rule,
+        minimum_safety_gate,
+        policy_findings,
+    ) = _numeric_replay_policy_settings(replay_policy)
+    declared_expected_selected = _expected_numeric_selected_candidate(replay_policy)
+    numeric_present = any(
+        NUMERIC_REPLAY_SCORE_FIELD in row
+        or NUMERIC_REPLAY_ASSAY_VALUE_FIELD in row
+        or NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD in row
+        or NUMERIC_REPLAY_SAFETY_GATE_FIELD in row
+        for row in [*candidates, *assays, *decisions]
+    )
+    if not numeric_present:
+        error_code = (
+            "MATERIALS_NUMERIC_REPLAY_POLICY_REQUIRES_SCORE_BACKED_ROWS"
+            if policy_declared
+            else "MATERIALS_NUMERIC_REPLAY_REQUIRED"
+        )
+        findings = [
+            *policy_findings,
+            _finding(
+                error_code,
+                "Materials lab safety replay requires public score-backed candidate, assay, and decision rows.",
+                case_id="positive_fixture",
+                subject_id=declared_expected_selected or "numeric_replay_policy",
+                subject_kind="numeric_replay_policy",
+            ),
+        ]
+        finding_codes = sorted(
+            {str(row.get("error_code")) for row in findings if row.get("error_code")}
+        )
+        evidence = {
+            "score_fields": {
+                "legacy_score": NUMERIC_REPLAY_SCORE_FIELD,
+                "assay_proxy_value": NUMERIC_REPLAY_ASSAY_VALUE_FIELD,
+                "active_learning_score": NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD,
+                "safety_gate_score": NUMERIC_REPLAY_SAFETY_GATE_FIELD,
+            },
+            "selection_rule": selection_rule,
+            "minimum_safety_gate_score": minimum_safety_gate,
+            "declared_expected_selected_candidate_material_id": declared_expected_selected,
+            "finding_codes": finding_codes,
+        }
+        return {
+            "status": "blocked",
+            "schema_version": "materials_lab_numeric_replay_v1",
+            "score_fields": evidence["score_fields"],
+            "selection_rule": selection_rule,
+            "minimum_safety_gate_score": minimum_safety_gate,
+            "candidate_score_count": 0,
+            "assay_score_count": 0,
+            "decision_score_count": 0,
+            "verified_numeric_row_count": 0,
+            "selected_candidate_material_id": "",
+            "selected_decision_id": "",
+            "selected_next_action_class": "",
+            "selected_computed_numeric_score": None,
+            "selected_score_components": {},
+            "verdict_basis": NUMERIC_REPLAY_VERDICT_BASIS,
+            "declared_expected_selected_candidate_material_id": declared_expected_selected,
+            "finding_codes": finding_codes,
+            "findings": findings,
+            "evidence_digest": _stable_digest(evidence),
+            "body_in_receipt": False,
+        }
+
+    findings: list[dict[str, Any]] = list(policy_findings)
+    safety_gate_scores: dict[str, float] = {}
+    assay_proxy_values: dict[str, float] = {}
+    active_learning_scores: dict[str, float] = {}
+    for row in candidates:
+        candidate_id = str(row.get("candidate_material_id") or "")
+        safety_gate_score = _numeric_value(row, NUMERIC_REPLAY_SAFETY_GATE_FIELD)
+        if not candidate_id or safety_gate_score is None:
+            error_code = _numeric_score_error_code(
+                row, NUMERIC_REPLAY_SAFETY_GATE_FIELD
+            )
+            findings.append(
+                _finding(
+                    error_code,
+                    (
+                        "Candidate rows must carry a public safety-gate score "
+                        "between 0 and 1 when numeric replay is active."
+                    ),
+                    case_id="positive_fixture",
+                    subject_id=candidate_id or "candidate_material",
+                    subject_kind="candidate_material",
+                )
+            )
+            continue
+        safety_gate_scores[candidate_id] = safety_gate_score
+    for row in assays:
+        candidate_id = str(row.get("candidate_material_ref") or "")
+        assay_proxy_value = _numeric_value(row, NUMERIC_REPLAY_ASSAY_VALUE_FIELD)
+        if not candidate_id or assay_proxy_value is None:
+            error_code = _numeric_score_error_code(
+                row, NUMERIC_REPLAY_ASSAY_VALUE_FIELD
+            )
+            findings.append(
+                _finding(
+                    error_code,
+                    (
+                        "Simulator assay rows must carry a public assay proxy value "
+                        "between 0 and 1 when numeric replay is active."
+                    ),
+                    case_id="positive_fixture",
+                    subject_id=str(row.get("assay_id") or "simulator_assay"),
+                    subject_kind="simulator_assay",
+                )
+            )
+            continue
+        assay_proxy_values[candidate_id] = assay_proxy_value
+    for row in decisions:
+        candidate_id = str(row.get("candidate_material_ref") or "")
+        active_learning_score = _numeric_value(row, NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD)
+        if not candidate_id or active_learning_score is None:
+            error_code = _numeric_score_error_code(
+                row, NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD
+            )
+            findings.append(
+                _finding(
+                    error_code,
+                    (
+                        "Active-learning decision rows must carry a public "
+                        "active-learning score between 0 and 1 when numeric "
+                        "replay is active."
+                    ),
+                    case_id="positive_fixture",
+                    subject_id=str(row.get("decision_id") or "active_learning_decision"),
+                    subject_kind="active_learning_decision",
+                )
+            )
+            continue
+        active_learning_scores[candidate_id] = active_learning_score
+
+    verified_rows: list[dict[str, Any]] = []
+    for candidate_id, safety_gate_score in sorted(safety_gate_scores.items()):
+        assay_proxy_value = assay_proxy_values.get(candidate_id)
+        active_learning_score = active_learning_scores.get(candidate_id)
+        if assay_proxy_value is None or active_learning_score is None:
+            findings.append(
+                _finding(
+                    "MATERIALS_NUMERIC_REPLAY_LINKAGE_REQUIRED",
+                    "Candidate safety gate, simulator assay, and active-learning scores must share one candidate id.",
+                    case_id="positive_fixture",
+                    subject_id=candidate_id,
+                    subject_kind="numeric_replay",
+                )
+            )
+            continue
+        if safety_gate_score < minimum_safety_gate:
+            findings.append(
+                _finding(
+                    "MATERIALS_NUMERIC_REPLAY_SAFETY_GATE_FAILED",
+                    "Public numeric replay safety gate score fell below the accepted simulator-only threshold.",
+                    case_id="positive_fixture",
+                    subject_id=candidate_id,
+                    subject_kind="numeric_replay",
+                )
+            )
+        computed_numeric_score = (
+            assay_proxy_value * NUMERIC_REPLAY_SCORE_WEIGHTS["assay_proxy_value"]
+            + active_learning_score
+            * NUMERIC_REPLAY_SCORE_WEIGHTS["active_learning_score"]
+            + safety_gate_score * NUMERIC_REPLAY_SCORE_WEIGHTS["safety_gate_score"]
+        )
+        verified_rows.append(
+            {
+                "candidate_material_id": candidate_id,
+                "assay_proxy_value": assay_proxy_value,
+                "active_learning_score": active_learning_score,
+                "safety_gate_score": safety_gate_score,
+                "computed_numeric_score": computed_numeric_score,
+            }
+        )
+    decision_by_candidate = {
+        str(row.get("candidate_material_ref") or ""): row
+        for row in decisions
+        if row.get("candidate_material_ref")
+    }
+    selected_candidate = ""
+    selected_decision_id = ""
+    selected_next_action_class = ""
+    selected_computed_numeric_score: float | None = None
+    selected_score_components: dict[str, float] = {}
+    if verified_rows:
+        selected_row = max(
+            verified_rows,
+            key=lambda row: (
+                row["computed_numeric_score"],
+                row["candidate_material_id"],
+            ),
+        )
+        selected_candidate = selected_row["candidate_material_id"]
+        selected_computed_numeric_score = selected_row["computed_numeric_score"]
+        selected_score_components = {
+            "assay_proxy_value": selected_row["assay_proxy_value"],
+            "active_learning_score": selected_row["active_learning_score"],
+            "safety_gate_score": selected_row["safety_gate_score"],
+        }
+        selected_decision = decision_by_candidate.get(selected_candidate, {})
+        selected_decision_id = str(selected_decision.get("decision_id") or "")
+        selected_next_action_class = str(selected_decision.get("next_action_class") or "")
+    if (
+        declared_expected_selected
+        and selected_candidate
+        and declared_expected_selected != selected_candidate
+    ):
+        findings.append(
+            _finding(
+                "MATERIALS_NUMERIC_REPLAY_EXPECTED_LABEL_STALE",
+                "Declared numeric replay expected label does not match the recomputed public score ranking.",
+                case_id="positive_fixture",
+                subject_id=declared_expected_selected,
+                subject_kind="numeric_replay_expected_label",
+            )
+        )
+    finding_codes = sorted(
+        str(row.get("error_code")) for row in findings if row.get("error_code")
+    )
+    evidence = {
+        "score_fields": {
+            "legacy_score": NUMERIC_REPLAY_SCORE_FIELD,
+            "assay_proxy_value": NUMERIC_REPLAY_ASSAY_VALUE_FIELD,
+            "active_learning_score": NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD,
+            "safety_gate_score": NUMERIC_REPLAY_SAFETY_GATE_FIELD,
+        },
+        "score_weights": NUMERIC_REPLAY_SCORE_WEIGHTS,
+        "selection_rule": selection_rule,
+        "minimum_safety_gate_score": minimum_safety_gate,
+        "tolerance": NUMERIC_REPLAY_TOLERANCE,
+        "verified_rows": verified_rows,
+        "selected_candidate_material_id": selected_candidate,
+        "selected_decision_id": selected_decision_id,
+        "selected_next_action_class": selected_next_action_class,
+        "selected_computed_numeric_score": selected_computed_numeric_score,
+        "selected_score_components": selected_score_components,
+        "verdict_basis": NUMERIC_REPLAY_VERDICT_BASIS,
+        "declared_expected_selected_candidate_material_id": declared_expected_selected,
+        "finding_codes": finding_codes,
+    }
+    return {
+        "status": PASS if not findings and verified_rows else "blocked",
+        "schema_version": "materials_lab_numeric_replay_v1",
+        "score_fields": evidence["score_fields"],
+        "score_weights": NUMERIC_REPLAY_SCORE_WEIGHTS,
+        "selection_rule": selection_rule,
+        "minimum_safety_gate_score": minimum_safety_gate,
+        "candidate_score_count": len(safety_gate_scores),
+        "assay_score_count": len(assay_proxy_values),
+        "decision_score_count": len(active_learning_scores),
+        "verified_numeric_row_count": len(verified_rows),
+        "selected_candidate_material_id": selected_candidate,
+        "selected_decision_id": selected_decision_id,
+        "selected_next_action_class": selected_next_action_class,
+        "selected_computed_numeric_score": selected_computed_numeric_score,
+        "selected_score_components": selected_score_components,
+        "verdict_basis": NUMERIC_REPLAY_VERDICT_BASIS,
+        "declared_expected_selected_candidate_material_id": declared_expected_selected,
+        "finding_codes": finding_codes,
+        "findings": findings,
+        "evidence_digest": _stable_digest(evidence),
+        "body_in_receipt": False,
+    }
+
+
+def _expected_numeric_selected_candidate(replay_policy: dict[str, Any]) -> str:
+    for field in NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS:
+        value = replay_policy.get(field)
+        if isinstance(value, str) and value:
+            return value
+    numeric_policy = replay_policy.get("numeric_replay")
+    if isinstance(numeric_policy, dict):
+        for field in NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS:
+            value = numeric_policy.get(field)
+            if isinstance(value, str) and value:
+                return value
+    return ""
+
+
+def _numeric_replay_graph_projection(numeric_replay: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "materials_lab_numeric_replay_graph_projection_v1",
+        "status": numeric_replay["status"],
+        "selection_rule": numeric_replay["selection_rule"],
+        "minimum_safety_gate_score": numeric_replay["minimum_safety_gate_score"],
+        "candidate_score_count": numeric_replay["candidate_score_count"],
+        "assay_score_count": numeric_replay["assay_score_count"],
+        "decision_score_count": numeric_replay["decision_score_count"],
+        "verified_numeric_row_count": numeric_replay["verified_numeric_row_count"],
+        "selected_candidate_material_id": numeric_replay[
+            "selected_candidate_material_id"
+        ],
+        "selected_decision_id": numeric_replay["selected_decision_id"],
+        "selected_next_action_class": numeric_replay[
+            "selected_next_action_class"
+        ],
+        "selected_computed_numeric_score": numeric_replay.get(
+            "selected_computed_numeric_score"
+        ),
+        "selected_score_components": numeric_replay.get("selected_score_components", {}),
+        "verdict_basis": numeric_replay.get("verdict_basis", ""),
+        "declared_expected_selected_candidate_material_id": numeric_replay[
+            "declared_expected_selected_candidate_material_id"
+        ],
+        "finding_codes": numeric_replay["finding_codes"],
+        "evidence_digest": numeric_replay["evidence_digest"],
+        "body_in_receipt": False,
+    }
+
+
+def _numeric_replay_realness_evidence(
+    *,
+    status: str,
+    numeric_replay: dict[str, Any],
+    candidate_count: int,
+    assay_count: int,
+    decision_count: int,
+) -> dict[str, Any]:
+    verified_count = int(numeric_replay.get("verified_numeric_row_count") or 0)
+    expected_row_count = min(candidate_count, assay_count, decision_count)
+    selected_candidate = str(numeric_replay.get("selected_candidate_material_id") or "")
+    selected_score = numeric_replay.get("selected_computed_numeric_score")
+    components = numeric_replay.get("selected_score_components")
+    score_components = components if isinstance(components, dict) else {}
+    score_backed_rows = (
+        verified_count > 0
+        and verified_count == expected_row_count
+        and selected_candidate
+        and isinstance(selected_score, int | float)
+        and len(score_components) == 3
+    )
+    numeric_verdict_bound = (
+        status == PASS
+        and numeric_replay.get("status") == PASS
+        and numeric_replay.get("verdict_basis") == NUMERIC_REPLAY_VERDICT_BASIS
+        and score_backed_rows
+        and not numeric_replay.get("finding_codes")
+    )
+    realness_rank = 3 if numeric_verdict_bound else 2 if score_backed_rows else 1
+    realness_rung = f"R{realness_rank}" if numeric_verdict_bound else "blocked"
+    return {
+        "schema_version": NUMERIC_REPLAY_REALNESS_SCHEMA_VERSION,
+        "status": PASS if numeric_verdict_bound else "blocked",
+        "realness_rank": realness_rank,
+        "realness_rung": realness_rung,
+        "realness_state": (
+            "public_safe_numeric_verdict_replay"
+            if numeric_verdict_bound
+            else "numeric_rows_present_but_verdict_blocked"
+            if score_backed_rows
+            else "metadata_or_missing_numeric_replay"
+        ),
+        "rank_derivation": (
+            "recomputed_weighted_public_assay_active_learning_and_safety_gate_scores"
+        ),
+        "verdict_rederived_from_numeric_fixture_content": (
+            numeric_replay.get("verdict_basis") == NUMERIC_REPLAY_VERDICT_BASIS
+        ),
+        "score_backed_rows_bound": score_backed_rows,
+        "expected_numeric_row_count": expected_row_count,
+        "verified_numeric_row_count": verified_count,
+        "selected_candidate_material_id": selected_candidate,
+        "selected_decision_id": numeric_replay.get("selected_decision_id"),
+        "selected_next_action_class": numeric_replay.get("selected_next_action_class"),
+        "selected_computed_numeric_score": selected_score,
+        "selected_score_components": score_components,
+        "numeric_replay_evidence_digest": numeric_replay.get("evidence_digest"),
+        "numeric_replay_finding_codes": numeric_replay.get("finding_codes", []),
+        "expected_labels_used_for_selection": False,
+        "declared_expected_label_checked_only": True,
+        "baked_fixture_label_sufficient": False,
+        "authority_ceiling_bound": True,
+        "release_authorized": False,
         "body_in_receipt": False,
     }
 
@@ -860,6 +1470,7 @@ def _experiment_findings(
     *,
     case_id: str,
     observed: dict[str, set[str]],
+    candidate_by_id: dict[str, dict[str, Any]],
     candidate_ids: set[str],
     assay_ids: set[str],
 ) -> list[dict[str, Any]]:
@@ -886,6 +1497,19 @@ def _experiment_findings(
             subject_id=subject_id,
             subject_kind="experiment",
         )
+    else:
+        candidate = candidate_by_id.get(str(row.get("candidate_material_ref")), {})
+        candidate_safety_ref = candidate.get("safety_screen_ref")
+        if candidate_safety_ref and row.get("safety_screen_ref") != candidate_safety_ref:
+            _record(
+                findings,
+                observed,
+                "MATERIALS_SAFETY_SCREEN_REF_MISMATCH",
+                "experiment safety-screen refs must match the candidate safety-screen gate",
+                case_id=case_id,
+                subject_id=subject_id,
+                subject_kind="experiment",
+            )
     if assay_ids and row.get("assay_ref") not in assay_ids:
         _record(
             findings,
@@ -1205,6 +1829,11 @@ def _build_result(
     experiments = _rows(payloads.get("experiment_dag", {}), "experiments")
     assays = _rows(payloads.get("simulator_assays", {}), "simulator_assays")
     decisions = _rows(payloads.get("active_learning_decisions", {}), "active_learning_decisions")
+    candidate_by_id = {
+        str(row["candidate_material_id"]): row
+        for row in candidates
+        if row.get("candidate_material_id")
+    }
     candidate_ids = {
         str(row.get("candidate_material_id"))
         for row in candidates
@@ -1262,6 +1891,7 @@ def _build_result(
                 row,
                 case_id="positive_fixture",
                 observed=observed_negative_codes,
+                candidate_by_id=candidate_by_id,
                 candidate_ids=candidate_ids,
                 assay_ids=assay_ids,
             )
@@ -1286,6 +1916,13 @@ def _build_result(
                 experiment_ids=experiment_ids,
             )
         )
+    numeric_replay = _numeric_replay_result(
+        candidates,
+        assays,
+        decisions,
+        replay_policy if isinstance(replay_policy, dict) else {},
+    )
+    positive_findings.extend(numeric_replay["findings"])
     selected_pattern_ids = _strings(
         lab_safety_protocol.get("selected_pattern_ids")
         if isinstance(lab_safety_protocol, dict)
@@ -1317,11 +1954,20 @@ def _build_result(
                     _candidate_findings(row, case_id=case_id, observed=observed_negative_codes)
                 )
             for row in neg_experiments:
+                neg_candidate_by_id = {
+                    **candidate_by_id,
+                    **{
+                        str(candidate["candidate_material_id"]): candidate
+                        for candidate in neg_candidates
+                        if candidate.get("candidate_material_id")
+                    },
+                }
                 negative_findings.extend(
                     _experiment_findings(
                         row,
                         case_id=case_id,
                         observed=observed_negative_codes,
+                        candidate_by_id=neg_candidate_by_id,
                         candidate_ids=candidate_ids | {
                             str(candidate.get("candidate_material_id"))
                             for candidate in neg_candidates
@@ -1403,6 +2049,7 @@ def _build_result(
         and all(row.get("discovery_claim") is False for row in assays)
         and all(row.get("live_robot_command_emitted") is False for row in decisions)
         and all(row.get("discovery_claim") is False for row in decisions)
+        and numeric_replay["status"] == PASS
     )
     source_modules = _source_module_manifest_result(
         input_dir,
@@ -1423,6 +2070,32 @@ def _build_result(
         payloads,
         [*positive_findings, *negative_findings],
     )
+    public_lab_evolve_replay["numeric_replay"] = _numeric_replay_graph_projection(
+        numeric_replay
+    )
+    public_lab_evolve_replay["summary"].update(
+        {
+            "numeric_replay_status": numeric_replay["status"],
+            "numeric_replay_verified_row_count": numeric_replay[
+                "verified_numeric_row_count"
+            ],
+            "numeric_replay_selected_candidate_material_id": numeric_replay[
+                "selected_candidate_material_id"
+            ],
+            "numeric_replay_selected_decision_id": numeric_replay[
+                "selected_decision_id"
+            ],
+            "numeric_replay_selected_next_action_class": numeric_replay[
+                "selected_next_action_class"
+            ],
+            "numeric_replay_selected_computed_numeric_score": numeric_replay.get(
+                "selected_computed_numeric_score"
+            ),
+            "numeric_replay_verdict_basis": numeric_replay.get("verdict_basis", ""),
+        }
+    )
+    if numeric_replay["status"] == "blocked":
+        public_lab_evolve_replay["status"] = "blocked"
     status = (
         PASS
         if policy_passed
@@ -1486,7 +2159,29 @@ def _build_result(
             for row in candidates + assays + decisions
             if row.get("discovery_claim") is True
         ),
+        "numeric_replay_status": numeric_replay["status"],
+        "numeric_replay_verified_row_count": numeric_replay[
+            "verified_numeric_row_count"
+        ],
+        "numeric_replay_selected_candidate_material_id": numeric_replay[
+            "selected_candidate_material_id"
+        ],
+        "numeric_replay_selected_decision_id": numeric_replay["selected_decision_id"],
+        "numeric_replay_selected_next_action_class": numeric_replay[
+            "selected_next_action_class"
+        ],
+        "numeric_replay_selected_computed_numeric_score": numeric_replay.get(
+            "selected_computed_numeric_score"
+        ),
+        "numeric_replay_verdict_basis": numeric_replay.get("verdict_basis", ""),
     }
+    realness_evidence = _numeric_replay_realness_evidence(
+        status=status,
+        numeric_replay=numeric_replay,
+        candidate_count=len(candidates),
+        assay_count=len(assays),
+        decision_count=len(decisions),
+    )
     body_import_verification = {
         "status": PASS,
         "body_import_status": BODY_IMPORT_STATUS,
@@ -1514,11 +2209,109 @@ def _build_result(
         ],
         "body_in_receipt": False,
     }
+    verdict_basis = {
+        "input_mode": input_mode,
+        "policy_passed": policy_passed,
+        "positive_finding_codes": sorted(
+            str(row.get("error_code"))
+            for row in positive_findings
+            if row.get("error_code")
+        ),
+        "source_module_finding_codes": sorted(
+            str(row.get("error_code"))
+            for row in source_modules["findings"]
+            if row.get("error_code")
+        ),
+        "negative_case_expected_missing": expected_missing,
+        "secret_exclusion_status": scan.get("status"),
+        "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+        "replay_status": public_lab_evolve_replay.get("status"),
+        "replay_case_count": public_lab_evolve_replay["summary"]["replay_case_count"],
+        "boundary_case_count": public_lab_evolve_replay["summary"]["boundary_case_count"],
+        "source_capsule_count": public_lab_evolve_replay["summary"]["source_capsule_count"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_open_body_import_count": source_open_body_imports[
+            "body_material_count"
+        ],
+        "numeric_replay_status": numeric_replay["status"],
+        "numeric_replay_finding_codes": numeric_replay["finding_codes"],
+        "numeric_replay_verified_row_count": numeric_replay[
+            "verified_numeric_row_count"
+        ],
+        "numeric_replay_evidence_digest": numeric_replay["evidence_digest"],
+        "numeric_replay_verdict_basis": numeric_replay.get("verdict_basis", ""),
+        "authority_ceiling_false_fields": sorted(
+            key
+            for key, value in AUTHORITY_CEILING.items()
+            if key.endswith("_authorized") and value is False
+        ),
+        "materials_lab_safety_summary": summary,
+        "numeric_replay": {
+            "status": numeric_replay["status"],
+            "verified_numeric_row_count": numeric_replay[
+                "verified_numeric_row_count"
+            ],
+            "selected_candidate_material_id": numeric_replay[
+                "selected_candidate_material_id"
+            ],
+            "selected_decision_id": numeric_replay["selected_decision_id"],
+            "selected_next_action_class": numeric_replay[
+                "selected_next_action_class"
+            ],
+            "selected_computed_numeric_score": numeric_replay.get(
+                "selected_computed_numeric_score"
+            ),
+            "selected_score_components": numeric_replay.get(
+                "selected_score_components", {}
+            ),
+            "verdict_basis": numeric_replay.get("verdict_basis", ""),
+            "declared_expected_selected_candidate_material_id": numeric_replay[
+                "declared_expected_selected_candidate_material_id"
+            ],
+            "finding_codes": numeric_replay["finding_codes"],
+            "evidence_digest": numeric_replay["evidence_digest"],
+        },
+        "realness_evidence": {
+            "status": realness_evidence["status"],
+            "realness_rank": realness_evidence["realness_rank"],
+            "realness_rung": realness_evidence["realness_rung"],
+            "realness_state": realness_evidence["realness_state"],
+            "rank_derivation": realness_evidence["rank_derivation"],
+            "verdict_rederived_from_numeric_fixture_content": realness_evidence[
+                "verdict_rederived_from_numeric_fixture_content"
+            ],
+            "score_backed_rows_bound": realness_evidence["score_backed_rows_bound"],
+            "baked_fixture_label_sufficient": realness_evidence[
+                "baked_fixture_label_sufficient"
+            ],
+            "authority_ceiling_bound": realness_evidence["authority_ceiling_bound"],
+        },
+    }
+    safety_verdict = {
+        "schema_version": SAFETY_VERDICT_SCHEMA_VERSION,
+        "status": status,
+        "verdict": (
+            "public_safe_simulator_replay_accepted"
+            if status == PASS
+            else "blocked_public_safety_boundary"
+        ),
+        "evidence_digest": _stable_digest(verdict_basis),
+        "derived_from": verdict_basis,
+        "body_in_receipt": False,
+        "authority_boundary": (
+            "Verdict is computed from public simulator rows, safety/refusal "
+            "fields, source-module manifest verdicts, replay graph status, "
+            "negative-case coverage, and sentinel scan results; it is not wetlab, "
+            "chemical-domain, discovery, release, or publication authority."
+        ),
+    }
     return {
         "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_result_v1",
         "created_at": utc_now(),
         "status": status,
         "organ_id": ORGAN_ID,
+        "public_surface_name": PUBLIC_SURFACE_NAME,
+        "surface_reframe": SURFACE_REFRAME,
         "fixture_id": FIXTURE_ID,
         "validator_id": VALIDATOR_ID,
         "command": command,
@@ -1531,6 +2324,12 @@ def _build_result(
         "simulator_assays": assays,
         "active_learning_decisions": decisions,
         "materials_lab_safety_summary": summary,
+        "numeric_replay": numeric_replay,
+        "realness_evidence": realness_evidence,
+        "realness_rank": realness_evidence["realness_rank"],
+        "realness_rung": realness_evidence["realness_rung"],
+        "realness_state": realness_evidence["realness_state"],
+        "safety_verdict": safety_verdict,
         "public_lab_evolve_replay": public_lab_evolve_replay,
         "negative_case_summary": {
             "expected_negative_case_count": len(expected_cases),
@@ -1587,8 +2386,10 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "created_at": utc_now(),
         "status": result["status"],
         "organ_id": ORGAN_ID,
+        "public_surface_name": result.get("public_surface_name"),
         "board_id": "materials_chemistry_lab_safety_public_board",
         "route": ORGAN_ID,
+        "surface_reframe": result.get("surface_reframe"),
         "candidate_material_count": summary.get("candidate_material_count", 0)
         if isinstance(summary, dict)
         else 0,
@@ -1614,6 +2415,12 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "source_module_manifest_status": result["source_module_manifest_status"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
+        "numeric_replay": result["numeric_replay"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
+        "safety_verdict": result["safety_verdict"],
         "public_lab_evolve_replay": result["public_lab_evolve_replay"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1648,6 +2455,7 @@ def _write_receipts(
         "created_at": utc_now(),
         "status": result["status"],
         "organ_id": ORGAN_ID,
+        "public_surface_name": result.get("public_surface_name"),
         "fixture_id": FIXTURE_ID,
         "validator_id": VALIDATOR_ID,
         "result_ref": receipt_paths[0],
@@ -1662,12 +2470,19 @@ def _write_receipts(
         "public_lab_evolve_replay_summary": result["public_lab_evolve_replay"][
             "summary"
         ],
+        "surface_reframe": result.get("surface_reframe"),
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
         "source_module_manifest_status": result["source_module_manifest_status"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
+        "numeric_replay": result["numeric_replay"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
+        "safety_verdict": result["safety_verdict"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
@@ -1689,6 +2504,7 @@ def _write_receipts(
         "created_at": utc_now(),
         "status": result["status"],
         "organ_id": ORGAN_ID,
+        "public_surface_name": result.get("public_surface_name"),
         "fixture_id": FIXTURE_ID,
         "validator_id": VALIDATOR_ID,
         "result_ref": receipt_paths[0],
@@ -1697,12 +2513,19 @@ def _write_receipts(
         "public_lab_evolve_replay_summary": result["public_lab_evolve_replay"][
             "summary"
         ],
+        "surface_reframe": result.get("surface_reframe"),
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
         "source_module_manifest_status": result["source_module_manifest_status"],
         "source_module_manifest_ref": result["source_module_manifest_ref"],
         "source_open_body_imports": result["source_open_body_imports"],
+        "numeric_replay": result["numeric_replay"],
+        "realness_evidence": result["realness_evidence"],
+        "realness_rank": result["realness_rank"],
+        "realness_rung": result["realness_rung"],
+        "realness_state": result["realness_state"],
+        "safety_verdict": result["safety_verdict"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
@@ -1789,11 +2612,26 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     secret_scan = scan if isinstance(scan, dict) else {}
     source_body = result.get("source_open_body_imports")
     source_body_imports = source_body if isinstance(source_body, dict) else {}
+    numeric = result.get("numeric_replay")
+    numeric_replay = numeric if isinstance(numeric, dict) else {}
+    realness = result.get("realness_evidence")
+    realness_evidence = realness if isinstance(realness, dict) else {}
+    verdict = result.get("safety_verdict")
+    safety_verdict = verdict if isinstance(verdict, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
         "organ_id": result.get("organ_id"),
+        "public_surface_name": result.get("public_surface_name"),
         "input_mode": result.get("input_mode"),
+        "surface_reframe": {
+            "public_surface_name": result.get("public_surface_name"),
+            "reframe_reason": (
+                result.get("surface_reframe", {}).get("reframe_reason")
+                if isinstance(result.get("surface_reframe"), dict)
+                else None
+            ),
+        },
         "command_speed": {
             "receipt_reused": result.get("receipt_reused") is True,
             "freshness_digest": freshness.get("basis_digest"),
@@ -1815,6 +2653,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             ),
             "robot_command_count": lab_summary.get("robot_command_count"),
             "discovery_claim_count": lab_summary.get("discovery_claim_count"),
+            "numeric_replay_status": lab_summary.get("numeric_replay_status"),
+            "numeric_replay_verified_row_count": lab_summary.get(
+                "numeric_replay_verified_row_count"
+            ),
         },
         "public_lab_evolve_replay": {
             "status": replay_payload.get("status"),
@@ -1833,9 +2675,52 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 negative_summary.get("expected_missing") or {}
             ),
             "finding_count": result.get("finding_count"),
+            "numeric_replay_status": numeric_replay.get("status"),
+            "numeric_replay_verified_row_count": numeric_replay.get(
+                "verified_numeric_row_count"
+            ),
             "secret_exclusion_blocking_hit_count": secret_scan.get(
                 "blocking_hit_count"
             ),
+        },
+        "safety_verdict": {
+            "status": safety_verdict.get("status"),
+            "verdict": safety_verdict.get("verdict"),
+            "evidence_digest": safety_verdict.get("evidence_digest"),
+            "derived_from_in_card": False,
+            "body_in_receipt": False,
+        },
+        "realness": {
+            "status": realness_evidence.get("status"),
+            "rank": result.get("realness_rank"),
+            "rung": result.get("realness_rung"),
+            "state": result.get("realness_state"),
+            "rank_derivation": realness_evidence.get("rank_derivation"),
+            "verdict_rederived_from_numeric_fixture_content": realness_evidence.get(
+                "verdict_rederived_from_numeric_fixture_content"
+            ),
+            "score_backed_rows_bound": realness_evidence.get(
+                "score_backed_rows_bound"
+            ),
+            "verified_numeric_row_count": realness_evidence.get(
+                "verified_numeric_row_count"
+            ),
+            "selected_candidate_material_id": realness_evidence.get(
+                "selected_candidate_material_id"
+            ),
+            "selected_computed_numeric_score": realness_evidence.get(
+                "selected_computed_numeric_score"
+            ),
+            "numeric_replay_evidence_digest": realness_evidence.get(
+                "numeric_replay_evidence_digest"
+            ),
+            "expected_labels_used_for_selection": realness_evidence.get(
+                "expected_labels_used_for_selection"
+            ),
+            "baked_fixture_label_sufficient": realness_evidence.get(
+                "baked_fixture_label_sufficient"
+            ),
+            "body_in_receipt": False,
         },
         "body_floor": {
             "body_in_receipt": False,

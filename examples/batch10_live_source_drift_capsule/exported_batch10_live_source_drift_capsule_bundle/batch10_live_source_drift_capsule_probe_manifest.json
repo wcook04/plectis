@@ -1,0 +1,56 @@
+{
+  "authority_ceiling_policy": {
+    "body_import_authority": "copied_source_body_only",
+    "body_in_receipt": false,
+    "git_staging_or_commit_authorized": false,
+    "macro_source_mutation_authorized": false,
+    "mission_transaction_execution_authorized": false,
+    "private_runtime_state_export_authorized": false,
+    "provider_dispatch": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "route_authority_authorized": false,
+    "source_mutation_authorized": false,
+    "task_ledger_mutation_authorized": false,
+    "work_ledger_mutation_authorized": false
+  },
+  "body_in_receipt": false,
+  "digest_drift_rows": [
+    {
+      "current_sha256": "cf32e3c5ee4cbffaa441a3c7f81303f37a795ecef86fc063bfe0e5dfa88a5b1b",
+      "material_id": "navigation_route_plane_option_surface_source_body_import",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "stale_recorded_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/standard_option_surface.py"
+    },
+    {
+      "current_sha256": "c2443122f38892d2a694e20e0e35a0b4d27b93bdacb61b05be1c0b72517bfecd",
+      "material_id": "mission_transaction_landing_preflight_body_import",
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+      "stale_recorded_sha256": "8eb0eadb66404e445ef704b613c8d36a1dfa519618a76c31622bfa6e5f6c4c08",
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py"
+    },
+    {
+      "current_sha256": "03c661cb123d128efac7641baee00b868205ced546bac88528cbfcbce2bf79da",
+      "material_id": "work_landing_control_tool_body_import",
+      "source_ref": "tools/meta/control/work_landing.py",
+      "stale_recorded_sha256": "b4a2b06be7e3f7f2ad2607940ff55b76039d2711461d5c8581a622e722d43e19",
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/control/work_landing.py"
+    },
+    {
+      "current_sha256": "380b0ebb853ebded5badf0cd3eec08ff9cdce55dbe03f678a4880b2ae36c77ef",
+      "material_id": "work_ledger_tool_body_import",
+      "source_ref": "tools/meta/factory/work_ledger.py",
+      "stale_recorded_sha256": "0267a2779faa5bde64434183e6ec458fb2f4a492ccbd411445c84e554241e594",
+      "target_ref": "microcosm-substrate/examples/batch10_live_source_drift_capsule/exported_batch10_live_source_drift_capsule_bundle/source_modules/tools/meta/factory/work_ledger.py"
+    }
+  ],
+  "fixture_id": "first_wave.batch10_live_source_drift_capsule",
+  "schema_version": "batch10_live_source_drift_capsule_probe_manifest_v1",
+  "source_refs": [
+    "system/lib/standard_option_surface.py",
+    "system/lib/mission_transaction_landing_preflight.py",
+    "tools/meta/control/work_landing.py",
+    "tools/meta/factory/work_ledger.py"
+  ]
+}

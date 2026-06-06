@@ -4,7 +4,7 @@ kind: "operation"
 skill_type: "authoring"
 family: "task_ledger"
 title: "Task Ledger Authoring + Reading"
-summary: "The named move for keeping the system's mental todo list current: append tasks with compression_passport rungs and evidence; re-rank with appended justification; sign off completions with lessons_propagated. Pairs std_task_ledger.json + std_task_sign_off.json. Browse-first via the ledger's option-surface bands before authoring; never hand-edit rank without rank_history append."
+summary: "Mental todo-list discipline: browse Task Ledger bands, append tasks/captures through events, justify rank changes, and sign off with propagated lessons."
 triggers:
   - "Operator says 'add a task / todo / note this for later'"
   - "Operator gestures at broader work, uncertainty, or repeated friction that should become durable follow-up even if the wording is informal"
@@ -31,7 +31,7 @@ doc_links:
   - codex/standards/std_skill.json
 composes_with: [annex_pattern_transfer, principles_curation, ship_implies_commit]
 name: "task-ledger"
-description: "Keep the system's mental todo list current: interpret operator intent and noticed residuals as durable closure signals, append tasks with compression_passport rungs (atom/flag/card + when_to_open/when_not_to_open/safe_drilldown), justify every rank change in rank_history, and sign off completions with lessons_propagated chained back to raw_seed/principles/papers/skills/prompt_shelf. Browse-first via the ledger's option-surface bands; direct hand-edit of rank fields without rank_history append is a discipline failure."
+description: "Keep the system's mental todo list current: turn operator intent and noticed residuals into durable WorkItem events, browse option-surface bands before authoring, justify rank changes in rank_history, and sign off completions with lessons_propagated."
 provenance: "derived"
 governing_principles:
   - "Browse the ledger before authoring a new task; if a task already names this work, append a note instead of duplicating."
@@ -55,7 +55,7 @@ compression_passport:
   atom: "Mental todo list discipline"
   flag: "Close named residuals by fixing, quick-capturing, linking, or no-oping; capture operator intent and noticed issues as durable WorkItems."
   card: |
-    The task ledger is the system's mental todo list. Two paired kinds (task_ledger + task_sign_offs) governed by std_task_ledger.json and std_task_sign_off.json. Append tasks at status 'proposed' with compression_passport rungs (atom <=6 words, flag <=180 chars, card <=1200 chars, when_to_open, when_not_to_open, safe_drilldown). Re-rank with rank_history append carrying justification. Sign off completions with outcome_summary and lessons_propagated (raw_seed_append / principle_mint / axiom_candidate_append / paper_module_update / skill_update / standard_update / prompt_shelf_edit / follow_up_filed). Browse-first via task_ledger option-surface bands (cluster_flag / flag / card) before raw JSON. Direct hand-edit of rank fields without rank_history append violates the audit-chain discipline.
+    The task ledger is the system's mental todo list: task_ledger plus task_sign_offs, governed by std_task_ledger.json and std_task_sign_off.json. Browse cluster_flag/flag/card bands before raw JSON. Append tasks with compression_passport rungs, rerank only by rank_history append with justification, and sign off with outcome_summary plus lessons_propagated. Direct rank edits break the audit chain.
   when_to_open: "A todo is being filed, ranked, worked, completed, or learned-from"
   when_not_to_open: "The work is within-turn transient or already lives in a more specific surface"
   safe_drilldown: "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
@@ -78,15 +78,15 @@ doctrine_edges:
 
 The operator's gesture (2026-04-30): *"can you create for me a ledger which agents can add to and update and its always being updated and each entry can be ranked and we're always adjusting the rankings and justifying why we adjust... so that our system can constantly have a mental todo list this is super powerful if done right."*
 
-That is unambiguous: a multi-writer, durable, rank-ordered, justification-bearing surface, paired with a sign-off lane. No existing kind covers it (see [task_ledger.md paper module §Intent](../../paper_modules/task_ledger.md) for the coverage-gap proof against meta_missions / mission_blackboard / work_ledger / agent_observations / artifact_projection_debt). This skill is the operational discipline; the paper module is the theory; the standards are the schema.
+That is unambiguous: a multi-writer, durable, rank-ordered, justification-bearing surface with a sign-off lane. No existing kind covers it; the paper module carries the coverage-gap proof, and the standards carry the schema.
 
-The skill governs **when** an agent reaches for the ledger and **how** mutations are disciplined to keep the audit chain intact. It is the inverse of the failure mode where todos live as ephemeral chat statements that drift away after a session: the ledger holds them durably, with rank, with justification, and with sign-off propagation when the work lands.
+This skill governs **when** to reach for the ledger and **how** to mutate it without breaking the audit chain, so todos do not evaporate into chat memory.
 
 ## Forward Integration Default
 
-Type A agents operate in `forward_integration` mode by default. A dirty tree is normal and is not a reason to stop using the Task Ledger. The ledger becomes relevant when the mess must be made recoverable: classify dirty state, continue if the target action does not risk information loss, and capture unresolved uncertainty as WorkItems instead of leaving it in final-report prose.
+Type A agents operate in `forward_integration` mode by default. A dirty tree is normal; classify risk, continue when the target action will not lose information, and capture unresolved uncertainty as WorkItems instead of final-report prose.
 
-Strictness is aimed at authority, not cleanliness. `state/task_ledger/events.jsonl` remains WorkItem mutation authority; `state/task_ledger/events_audit.jsonl` is only the ignored recovery journal; `ledger.json`, `sign_offs.json`, and `views/*.json` remain projections. An event that exists only in `events_audit.jsonl` is recovery evidence, not closeout authority: run `task_ledger_apply.py authority-health` / `audit-recover --replay` and rebuild before claiming a card is retired, visible, or navigable. Dirty unrelated prompt traces, raw-seed projections, Work Ledger indexes, frontend files, or generated sidecars are warnings unless the current target action would overwrite or regenerate over them. Dirty unknown targets require inspection; destructive restore/reset/clean/delete actions require `destructive_override_required`; touched Task Ledger authority requires strict validation and projection rebuild/check.
+Strictness is about authority, not cleanliness. `state/task_ledger/events.jsonl` is WorkItem mutation authority; `events_audit.jsonl` is ignored recovery journal; `ledger.json`, `sign_offs.json`, and `views/*.json` are projections. Audit-only events require `authority-health` / `audit-recover --replay` plus rebuild before closeout claims. Unrelated dirty traces/projections/indexes/sidecars are warnings unless this action would overwrite them. Unknown dirty targets need inspection; destructive restore/reset/clean/delete needs `destructive_override_required`; touched Task Ledger authority needs strict validation and projection rebuild/check.
 
 The runtime entrypoint for this law is:
 
@@ -104,17 +104,23 @@ When the question is "what should happen to captured work?", start with the orga
 ./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2
 ```
 
-The report is read-only. It explains backlog health, propagation-needed rows, promotion candidates, execution-menu commitments, missing contracts, merge/retire candidates, and possible adapter-leak captures. Its `actuation_recommendations` block turns those rows into safe command templates that name the existing mutation verb, required payload fields, review posture, and blast radius.
+The report is read-only. It explains backlog health, propagation-needed rows, promotion candidates, execution-menu commitments, missing contracts, merge/retire candidates, and possible adapter-leak captures. `actuation_recommendations` proposes safe command templates with mutation verb, payload fields, review posture, and blast radius.
 
 Treat those templates as proposals, not automation. Promotion/ranking, duplicate retirement, and possible adapter-leak quick-captures still require operator review. The report must never auto-mutate rows, install hooks, bulk-clear candidates, or treat view membership as priority authority.
 
 For complex payloads, prefer writing the JSON to a temporary file and passing it with the existing `--payload-file` option on Task Ledger event verbs. Inline `--payload-json` templates are examples for small payloads only.
 
-Priority means gated leverage, not salience. The organizer report projects `work_graph_priority_metabolism_v0` plus `priority_cluster_summary`; read hard gates first, then choose the smallest owner action that changes future behavior. The correct unit may be a WorkItem, cap family, self-error cluster, dependency blocker, duplicate chain, missing-contract cluster, propagation debt, seed drift, standard/skill gap, route gap, paper-module gap, generated-state blocker, or operator-review boundary. Execution-menu commitments and schedulable committed rows still matter, but they are not the whole graph; repeated caps and self-errors may point to an owner-surface patch that beats single-row sorting. Missing-contract rows are shaping work before they are execution work; raw capture inbox volume is memory pressure, not priority. A low-pass autonomous organizer seed may scan, cluster, patch an owner surface when safe, and propose event commands from these views, but it must not auto-promote, auto-rerank, auto-retire semantic duplicate groups, execute implementation work from `capture_inbox`, or treat classification as success when a patchable owner action exists.
+Priority means gated leverage, not salience. Read hard gates from `work_graph_priority_metabolism_v0` / `priority_cluster_summary`, then choose the smallest owner action that changes future behavior: WorkItem, cap family, dependency blocker, duplicate chain, missing contract, propagation debt, seed/standard/skill/route/paper gap, generated-state blocker, or operator-review boundary. Execution-menu rows still matter, but repeated caps/self-errors may point to an owner-surface patch. Raw inbox volume is memory pressure, not priority. Low-pass organizer work may scan, cluster, patch safe owner surfaces, and propose event commands; it must not auto-promote, auto-rerank, auto-retire semantic duplicate groups, execute from `capture_inbox`, or treat classification as success when a patchable owner action exists.
 
-The governing metacontrol contract lives in `codex/standards/std_task_ledger.json::metacontrol_contract`. Its named adapter boundary is `provider_native_task_affordance_boundary`: provider-native task tools (`TodoWrite`, TaskCreate/Update/List, `spawn_task` chips, schedule offers, or equivalent adapter task displays) are allowed as within-session scratch only. Durable side work must become a Task Ledger event, a propagation disposition, a retirement/blocker, or an explicit `nothing_to_refine`; native task affordances are never cross-session backlog authority.
+The metacontrol contract lives in `codex/standards/std_task_ledger.json::metacontrol_contract`, especially `provider_native_task_affordance_boundary`: provider-native todo/task displays are within-session scratch only. Durable side work becomes a Task Ledger event, propagation disposition, retirement/blocker, or explicit `nothing_to_refine`; native affordances are never cross-session backlog authority.
 
-The same contract now treats problem-shaped signals as first-class capture input. A complaint, problem, fear, aspiration, idea, unifying principle, refinement wish, integration pressure, or todo should be easy to preserve without deciding its final form. Capture is the cheap memory step; capture assimilation later normalizes, dedupes, routes, orders, promotes, blocks, retires, or propagates it.
+The same contract treats problem-shaped signals as first-class capture input. Preserve complaints, aspirations, principles, integration pressure, or todos cheaply; capture assimilation later normalizes, dedupes, routes, orders, promotes, blocks, retires, or propagates them.
+
+## Projection Handle Boundary
+
+Task Ledger cluster rows may expose diagnostic handles that are not WorkItem ids. For example, `dependency_anomalies` can surface `dep_anom_*` handles as view-local findings; if `--option-surface task_ledger --band card --ids <handle>` reports `missing_ids`, do not treat that handle as a mutation subject or CAP to close. Open the governing view or organizer report, identify the concrete WorkItem/event/source row behind the diagnostic, then append the owner event against that subject.
+
+When live concurrency makes a diagnostic handle disappear between cluster browse and card drilldown, treat that as recovered local truth, not as a failed proof. Re-check the view or `validate --allow-warnings`, record the pivot in Work Ledger if you held a claim, and choose a disjoint owner lane instead of creating a parallel capture just to satisfy no-null pressure.
 
 ## WorkItem Spine Operating Grammar
 
@@ -125,11 +131,14 @@ When Type A work touches more than a local implementation detail, operate throug
 ./repo-python kernel.py --phase
 ./repo-python kernel.py --workitem-entrypoint <phase>
 ./repo-python kernel.py --agent-wake-packet <phase> --agent-wake-limit 12
-./repo-python tools/meta/factory/task_ledger_apply.py validate
+./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings
 ./repo-python tools/meta/factory/task_ledger_project.py rebuild --check
 ```
 
-Add Prompt Ledger validation when prompt/provenance traces are part of the slice, and use Work Ledger `session-preflight` with exact path claims before mutation. The entrypoint answers four questions in one packet: dirty-surface policy, backlog selection, concurrency/subphase posture, and validation obligations.
+Add Prompt Ledger validation for prompt/provenance traces, and use Work Ledger `session-preflight` with exact path claims before mutation. The entrypoint covers dirty-surface policy, backlog selection, concurrency/subphase posture, and validation obligations.
+Use bare `validate` only when strict nonzero exit on warning-only evidence durability is the intended diagnostic.
+
+Warning-only validation baseline: when `validate --allow-warnings` returns `valid_with_warnings` with `error_count=0`, classify the warnings before capture. If they are known historical/baseline evidence-durability rows and there is no task-owned warning, new warning class/source, or warning-count delta, cite the validation as closeout evidence and do not quick-capture another WorkItem just to mention it. If a new warning must be captured during ledger concurrency, run one serialized append-only `quick-capture` without `--rebuild` and wait for the authority-visible `visibility_receipt`; do not start duplicate retry commands.
 
 Authority grammar:
 
@@ -145,7 +154,7 @@ Authority grammar:
 
 Work selection:
 
-1. Read `state/task_ledger/views/execution_menu.json` before choosing implementation work. It is the explicit commitment-event queue, not the shaped-capture candidate list or legacy ranked-task list. Do not select only the newest cap unless the menu or operator override explains why.
+1. Read `state/task_ledger/views/execution_menu.json` before implementation work. It is the commitment-event queue, not the shaped-capture list or legacy rank list. Do not pick only the newest cap unless the menu or operator override explains why.
 2. Treat `capture_inbox` as append-only raw material, not an execution queue. Large capture count is not failure; unshaped captures never being triaged is failure.
 3. Treat `promotion_candidates` as the shaped-capture review queue. Promote, finish-shape, block, or retire rows there before they become execution commitments.
 4. Closed/signoff caps are evidence, merge/retire candidates, or provenance anchors, not active WIP.
@@ -183,7 +192,7 @@ Local-to-general propagation:
 
 - At closeout, decide whether the local case refined a skill, paper module, standard, mechanism, capture, or principle candidate.
 - "Future work", "maybe", "needs verification", "v1", and "not yet wired" are not final-report payloads. They become Task Ledger captures, blockers, retirements, or explicit no-propagation receipts.
-- A sidecar capture bundle is only the inlet. If a Type B / operator-carried packet or follow-up correction says the real issue is handoff behavior, Type A/B actor dynamics, or propagation failure, route that class through local-to-general propagation instead of treating the local CAPs as sufficient absorption.
+- A sidecar capture bundle is only the inlet. If an operator-carried packet says the issue is handoff behavior, Type A/B dynamics, or propagation failure, route through local-to-general propagation instead of treating local CAPs as sufficient.
 
 ## When does this skill fire — consume time, not annotation time
 
@@ -205,8 +214,7 @@ When an agent is deep in another task and notices a real follow-up, preserve it 
   --title "Short noticed work title" \
   --statement "One sentence describing what should be handled later." \
   --source-ref "raw_seed:<paragraph_id or local evidence ref>" \
-  --surface "path/or/command/that/anchors/the/notice" \
-  --rebuild
+  --surface "path/or/command/that/anchors/the/notice"
 ```
 
 Capture discipline:
@@ -215,28 +223,42 @@ Capture discipline:
 - Keep exact paths, ordering, owner, and method provisional until current disk proves them. Use `candidate_surfaces`, `type_a_discovery_required`, and `unresolved_surface_questions` when needed.
 - Do not rank, shape, merge, claim, or plan from a quick capture unless the current slice already owns that work.
 - Prefer "investigate/close X surfaced by Y; candidate surfaces include Z; verify ownership/generated-vs-source/duplicates before acting; satisfied when proof P exists."
-- Treat the CLI interface as part of the receipt. `quick-capture` takes `--title` plus text fields such as `--statement`, `--note`, or `--problem`; it does not take a positional title. If uncertain, run `./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --help` before mutating.
-- Do not cite a `cap_id` until the command exits successfully and the returned id is visible through Task Ledger readback or a rebuilt projection. A failed append, blocked rebuild, shell error, or intended title is not a capture receipt.
+- Treat the CLI as receipt shape. `quick-capture` takes `--title` plus `--statement`, `--note`, or `--problem`, not a positional title. Prefer repeated `--tag` flags; `--tags` is accepted only as a compatibility alias and comma-separated values are normalized. If uncertain, run `quick-capture --help` before mutating.
+- Do not cite a `cap_id` until the command exits successfully and the returned `visibility_receipt` shows the event visible in Task Ledger authority. Projection/card visibility is separate: add `--rebuild` only when the current action needs card visibility and the projection lane is uncontended. A failed append, shell error, intended title, or stale projection card is not a capture receipt.
+- If `quick-capture` or Work Ledger `session-preflight` fails before append/claim with a disk-headroom or `errno 28` guard, treat it as no authority receipt and no Work Ledger claim. Stay off user-facing blocker prose, inspect free space, remove only explicit disposable scratch/cache paths with no active owner handles, then retry the capture or session-preflight. Capture the disk-headroom failure once authority append works; do not delete active temp clones or lower guard thresholds as a routine bypass.
 
-Residual Closure Protocol: a named residual cannot evaporate into prose. Before yielding, any unresolved issue, drift, bug-like finding, validation failure, missing affordance, suspicious invariant, or follow-up that the agent noticed or mentioned must close through exactly one receipt: fixed now, quick-captured, linked to an existing WorkItem, or explicitly no-op/not-actionable with reason. The `quick-capture` event enters `capture_inbox` / `capture_triage`; promotion, execution commitment, rank, and signoff happen later through explicit organizer events.
+Status/update/final micro-protocol:
 
-Partial-instruction residual rule: when the operator gives a broad packet and the current runtime executes only a slice, bind the slice to the active mission/WorkItem and route every remaining durable deliverable to an existing cap/WorkItem, a new quick-capture, a blocker/retirement disposition, or an explicit no-residual/no-op verdict before final prose. Native TODOs and "future work" paragraphs are scratch, not durable closure.
+1. Before any user-facing status, final answer, apology, correction, or operator-correction acknowledgement, scan the sentence for side findings, gaps, failing tests, residuals, blockers, or self-errors.
+2. If one is present and no authority-visible event id already exists, run exactly one serialized append-only `quick-capture` first, normally without `--rebuild` during scoped source or ledger concurrency.
+3. Do not publish "capturing now," "will capture," or "I'll record this" as the status update. Stay silent until the command returns an authority-visible `visibility_receipt`, then cite that event id or avoid the residual text.
+4. If another Task Ledger mutation is currently running, wait for it to finish before writing the status. The chat text is not the backlog and not a receipt.
 
-Keep `--surface` concrete: one path, command, schema, option-surface id, or owner artifact. Extra surfaces go in payload/notes/shape events; no fake concatenated paths. Run append/rebuild serially. After retry/collision, rerun projection + validation and add bookkeeping. For the full notice classification ladder, use `codex/standards/std_task_ledger.json::metacontrol_contract` plus `capture_assimilation` rather than expanding the ladder in this loaded skill.
+Residual Closure Protocol: a named residual cannot evaporate into prose. Before yielding, any noticed unresolved issue, drift, validation failure, missing affordance, suspicious invariant, or follow-up needs one receipt: fixed now, quick-captured, linked to a WorkItem, or explicit no-op/not-actionable. `quick-capture` enters `capture_inbox` / `capture_triage`; promotion, commitment, rank, and signoff happen later through organizer events.
+
+Warning-only baseline results are not residuals by themselves. `valid_with_warnings` plus `error_count=0` routes to the baseline rule above unless the warning is new, task-owned, or materially changed.
+
+Partial-instruction residual rule: when a broad packet yields only a slice, bind the slice to the active mission/WorkItem and route remaining durable deliverables to an existing WorkItem, new quick-capture, blocker/retirement, or explicit no-residual/no-op verdict. Native TODOs and "future work" prose are scratch.
+
+Keep `--surface` concrete: one path, command, schema, option-surface id, or owner artifact. Put extra surfaces in payload/notes/shape events; no fake concatenated paths. Run append/rebuild serially. Keep the Task Ledger authority lock short: expensive projection loads, duplicate scans, host-pressure checks, queue planning, and rebuild/check work happen outside the lock; the locked section only verifies the authority tail, finalizes hashes/metadata, and appends. During scoped source commits or active Task Ledger concurrency, prefer append-first quick-capture without `--rebuild`, cite the authority-visible receipt, and leave projection assimilation to the generated-state drainer lane. After retry/collision, rerun projection + validation and add bookkeeping. For notice classification, use `std_task_ledger.json::metacontrol_contract` plus `capture_assimilation`.
 
 ### Same-authority append-log landing
 
-When `state/task_ledger/events.jsonl` contains valid events from the canonical apply lane, attribution is by `event_id`, `created_by`, `previous_event_hash`, and `event_hash`. Multiple agents' valid events can land in one deterministic projection bundle; do not report that as "cannot commit" just because later captures share the same event log or projection files.
+When `state/task_ledger/events.jsonl` contains valid apply-lane events, attribution is by `event_id`, `created_by`, `previous_event_hash`, and `event_hash`. Multiple agents' valid events can land in one deterministic projection bundle; shared event/projection files alone are not a commit blocker. If a scoped source commit only needed a capture receipt, do not stage Task Ledger projections with that source commit just to satisfy the capture reflex; land source paths through scoped commit and settle Task Ledger authority/projection dirt through this lane.
 
 Landing lane:
 
 ```bash
-./repo-python tools/meta/factory/task_ledger_apply.py validate
+./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings
 ./repo-python tools/meta/control/generated_state_drainer.py settlement-plan --owner-id task_ledger_projection
 ./repo-python tools/meta/control/generated_state_drainer.py settle --owner-id task_ledger_projection --dry-run
+./repo-python tools/meta/factory/work_ledger.py session-preflight --session-slug <slug> --actor codex --phase-id <phase> --write-profile task_ledger --work-admission-class projection_settlement --require-exclusive
+./repo-python tools/meta/control/generated_state_drainer.py settle --owner-id task_ledger_projection --work-ledger-session-id <session_id>
 ```
 
-If the dry run is correct, run the same `settle` command without `--dry-run`. If authority health reports missing audit events, run `./repo-python tools/meta/factory/task_ledger_apply.py audit-recover --replay` before any landing. `task_ledger_apply.py drain-intake` remains only for pending execution-receipt intake; it is not a quick-capture intake, a hunk-only event-log commit lane, or the normal way to land deterministic projections after quick-capture.
+Dry-run planning may omit a Work Ledger session id, but mutating `settle` must use a live session id with the `task_ledger` write profile or exact owner paths claimed. If authority health reports missing audit events, run `audit-recover --replay` before landing. `drain-intake` is only for pending execution-receipt intake, not quick-capture intake, hunk-only event commits, or normal deterministic projection landing.
+
+If `generated_state_drainer.py settle` returns a terminal residual or nonzero failure for a ledger owner such as `task_ledger_projection` or `work_ledger_index_projection`, do not loop or broaden staging. Read the owner row: `source_moved_owner_ids`, `residual_actionability=wait_for_source_authority_quiescence_before_retry`, `owner_bundle_completeness`, `missing_expected_stage_paths`, and `next_safe_command` are the re-entry contract. When the pass revealed an owner-tool contract gap, append one authority-visible quick-capture without `--rebuild`, finalize/release the Work Ledger session with that capture or landed commit refs as append-exempt evidence, and leave projection settlement for a quiet owner window.
 
 ### Organizer metabolism: salience is not priority
 
@@ -250,7 +272,7 @@ quick-capture -> capture_inbox -> capture_triage -> promotion_candidates -> exec
                             prompt_trace / work_ledger linkage repair
 ```
 
-`quick-capture` has side-observation privilege only. It may preserve the noticed signal, source ref, surface, tag, and confidence, but it does not rank the item, select it for execution, or make it operator authority. The organizer pass owns that later planning work.
+`quick-capture` has side-observation privilege only. It preserves signal, source ref, surface, tag, and confidence; it does not rank, select execution, or make operator authority. The organizer pass owns later planning.
 
 Use the browse surface before raw JSON:
 
@@ -261,7 +283,7 @@ Use the browse surface before raw JSON:
 
 Use `search` for exact text/id lookup when a query is known but a WorkItem id is not. It reads the existing projection only, returns compact rows with card drilldowns, and must not append events, rebuild projections, or scan the repo. Use `cluster_flag` when selecting by backlog shape, view, or organizer lane.
 
-Each cluster row carries `organizer_routing`: role, cluster claim, allowed organizer actions, executable recommended next events, command hints, conceptual next events, missing affordance refs, common source surfaces, integration/file hints, and a salience boundary. Treat `common_file_hints` as routing scent, not authority. Verify exact surfaces before mutation and append only supported events through `task_ledger_apply.py`; aspirational moves such as bridge delegation or provider job creation stay under `conceptual_next_events` until the apply lane exposes them.
+Each cluster row carries `organizer_routing`: role, claim, allowed actions, recommended next events, hints, missing affordances, integration/file hints, and salience boundary. Treat `common_file_hints` as scent, not authority. Verify exact surfaces before mutation; aspirational bridge/provider moves stay conceptual until the apply lane exposes them.
 
 Organizer actions by view:
 
@@ -276,7 +298,7 @@ Organizer actions by view:
 | `merge_or_retire_candidates` / `stale_review` | trace evaporation | `work_item.retired`, `work_item.note_added`, or evidence linkage |
 | `prompt_trace_unlinked` / `work_ledger_unlinked` | provenance and execution linkage | `work_item.note_added`, `work_item.claimed`, or signoff evidence |
 
-Healthy organizer metabolism keeps capture cheap while preventing trace pollution: weak signals are easy to preserve, but stale, duplicate, already-closed, or ungrounded traces must be merged, retired, blocked, or explicitly left as evidence before they can distort promotion review or the execution menu.
+Healthy organizer metabolism keeps capture cheap while preventing trace pollution: stale, duplicate, closed, or ungrounded traces must be merged, retired, blocked, or left as evidence before distorting promotion review or the execution menu.
 
 ### Problem signals are feedback
 
@@ -287,9 +309,9 @@ signal_kind, source_ref, surface, complaint_or_desire, why_it_matters,
 suspected_owner, desired_change, evidence_or_absence, confidence, dedupe_keys
 ```
 
-Use `quick-capture` when the current slice should not stop to organize it. Use `capture_assimilation` when the request is to turn many signals into a logical correction path. Type A should output owner-routed assimilation: `subject_id -> signal_kind -> problem_frame -> owner surface -> disposition -> next move -> dependency -> uncertainty probe -> proof signal -> escalation level`.
+Use `quick-capture` when the current slice should not stop to organize. Use `capture_assimilation` when many signals need a correction path. Type A assimilation should route: `subject_id -> signal_kind -> problem_frame -> owner surface -> disposition -> next move -> dependency -> uncertainty probe -> proof signal -> escalation level`.
 
-During assimilation, keep the capture packet distinct from richer protocol output. The event row may only store source, signal, desired change, and evidence; the organizer path may add `problem_frame`, `severity`, `priority_basis`, `escalation_level`, `uncertainty_next_probe`, and `proof_signal` as review output before deciding whether any durable event should be appended.
+During assimilation, keep capture rows distinct from richer protocol output. Events store source, signal, desired change, and evidence; organizer review may add frame, severity, priority basis, escalation, uncertainty probe, and proof signal before deciding whether to append more events.
 
 ## Preconditions — the ledger must exist and be parseable
 
@@ -306,7 +328,7 @@ Use the apply lane whenever it supports the needed event:
 ./repo-python tools/meta/factory/task_ledger_apply.py search --query "<text-or-id>" --limit 20
 ./repo-python tools/meta/factory/task_ledger_apply.py authority-health --ids <cap_id>
 ./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2
-./repo-python tools/meta/factory/task_ledger_apply.py validate
+./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings
 ./repo-python tools/meta/factory/task_ledger_project.py rebuild --check
 ```
 
@@ -325,12 +347,12 @@ Full field-level requirements live in `codex/standards/std_task_ledger.json` and
 
 Before `cat`-ing the ledger or grepping it, climb the bands:
 
-1. **cluster_flag band.** Cheapest browse: Task Ledger views such as execution_menu, execution_menu_schedulable, dependency_blocked, dependency_graph, unlocks_by_rank, promotion_candidates, ready_by_rank, capture_triage, missing_contracts_ranked, needs_signoff, active_wip, blocked, merge_or_retire_candidates, prompt_trace_unlinked, and work_ledger_unlinked. Use this to select a WorkItem group before opening rows.
-2. **projection search.** `task_ledger_apply.py search --query "<text-or-id>"` reads `state/task_ledger/ledger.json` once and emits compact matches plus card drilldowns. Use it instead of `find`, raw `jq`, or grepping ledger JSON when the only question is "which WorkItem mentions X?"
+1. **cluster_flag band.** Cheapest browse: views such as execution_menu, dependency_blocked, unlocks_by_rank, promotion_candidates, capture_triage, needs_signoff, active_wip, blocked, merge_or_retire_candidates, prompt_trace_unlinked, and work_ledger_unlinked. Use this before opening rows.
+2. **projection search.** `task_ledger_apply.py search --query "<text-or-id>"` reads the ledger projection once and emits compact matches plus card drilldowns. Use it instead of `find`, raw `jq`, or grep when asking "which WorkItem mentions X?"
 3. **flag band.** WorkItem row: stable id, title, state, work_item_type, triage status, missing contracts, source refs, prompt/Work Ledger linkage, dependency_status, views, rank, and card drilldown.
-4. **card band.** Selected WorkItem: statement, satisfaction refs, raw_seed refs, integration paths, acceptance checks, dependency_status, authority/execution summary, projection completeness, source event ids, and omission receipt.
+4. **card band.** Selected WorkItem: statement, refs, paths, checks, dependency_status, authority/execution summary, projection completeness, source events, and omission receipt.
 
-Dependency reading rule: if the task asks what blocks a cap, what a cap depends on, what completing it unlocks, or which caps should be done first, open the card band before raw JSON. `dependency_status.upstream_dependency_edges` names titled hard prerequisites with state/satisfaction/reason; `dependency_status.downstream_unlock_edges` names titled downstream WorkItems and whether they are currently waiting on this cap. `downstream_unlock_ids` alone is only an index; use the edge rows for planning explanations. Station/Vantage `work_spine` may show compact samples, but Task Ledger cards and dependency views remain authority.
+Dependency reading rule: if the task asks what blocks a cap, what it depends on, what it unlocks, or priority order, open card band before raw JSON. Upstream/downstream edge rows carry titled prerequisites, states, reasons, and waiting status; id lists alone are indexes. Station/Vantage samples are not authority.
 
 The option surface is browse-only. Mutation still goes through `task_ledger_apply.py` events, then projection rebuild/validation.
 
@@ -347,7 +369,7 @@ The option surface is browse-only. Mutation still goes through `task_ledger_appl
 
 ## Lifecycle Drilldown
 
-Keep this loaded skill to the operational minimum: browse the ledger, choose the event lane, mutate through `task_ledger_apply.py`, rebuild/check projections, and close residuals before prose. Full composition, lifecycle, canonical-surface, and roadmap details live in [task_ledger_lifecycle_reference.md](task_ledger_lifecycle_reference.md) and [operational_work_item_spine.md](../../paper_modules/operational_work_item_spine.md).
+Keep this loaded skill operational: browse the ledger, choose the event lane, mutate through `task_ledger_apply.py`, rebuild/check projections, and close residuals before prose. Full lifecycle detail lives in [task_ledger_lifecycle_reference.md](task_ledger_lifecycle_reference.md) and [operational_work_item_spine.md](../../paper_modules/operational_work_item_spine.md).
 
 Compact lifecycle:
 

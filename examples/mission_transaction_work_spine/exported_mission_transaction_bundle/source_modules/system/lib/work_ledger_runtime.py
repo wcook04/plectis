@@ -14,21 +14,25 @@ import json
 import os
 import re
 import shlex
+import shutil
 import subprocess
 import uuid
 from bisect import bisect_left
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
+from urllib.parse import urlencode
 
 from system.lib import work_ledger
 
 
 WORK_LEDGER_RUNTIME_SCHEMA = "work_ledger_runtime_status_v1"
+SHARED_SUBSTRATE_CONTENTION_ENVELOPE_SCHEMA = "shared_substrate_contention_envelope_v1"
 RUNTIME_STATUS_REL = Path("state/work_ledger/runtime_status.json")
 RUNTIME_LOCK_REL = Path("state/work_ledger/.runtime_status.lock")
 ACTIVE_CLAIMS_SNAPSHOT_REL = Path("state/work_ledger/active_claims_snapshot.json")
+_REBUILD_RUNTIME_STATUS_REPO_ROOT: Path | None = None
 BOOTSTRAP_SLICE_LIMIT = 8
 SESSION_COHORT_OVERVIEW_SCHEMA = "work_ledger_session_cohort_overview_v1"
 HEARTBEAT_PARTICIPATION_SCHEMA = "work_ledger_heartbeat_participation_v0"
@@ -36,13 +40,18 @@ CONCURRENCY_REPAIR_ROW_SCHEMA = "work_ledger_concurrency_repair_row_v0"
 DIRTY_TREE_BANKRUPTCY_PRESSURE_SCHEMA = "dirty_tree_bankruptcy_pressure_v0"
 DIRTY_TREE_PRESSURE_ALIAS_SCHEMA = "dirty_tree_pressure_alias_v0"
 DUPLICATE_CLAIM_DEDUPE_SCHEMA = "work_ledger_duplicate_same_session_claim_dedupe_v1"
+RESIDENT_THREAD_GOVERNOR_SCHEMA = "work_ledger_resident_thread_governor_v0"
 DIRTY_TREE_RESCUE_REF_PREFIX = "refs/aiw/rescue/dirty-tree"
 DIRTY_TREE_RESCUE_MANIFEST_PREFIX = "rescue_manifests"
 SESSION_COHORT_OVERVIEW_LIMIT = 12
 SEED_SPEED_SNAPSHOT_OVERVIEW_LIMIT = 100
 ACTIVE_SESSION_ORPHAN_AFTER = timedelta(hours=4)
+RESIDENT_THREAD_WARM_AFTER = timedelta(minutes=10)
+RESIDENT_THREAD_TERMINATE_AFTER = timedelta(minutes=30)
 SESSION_TITLE_LIMIT = 180
 SESSION_METADATA_TEXT_LIMIT = 240
+ENDED_SESSION_CLAIM_COMPACTION_THRESHOLD = 2
+ENDED_SESSION_SCOPE_REF_PREVIEW_LIMIT = 3
 PASS_HEARTBEAT_SCHEMA = "runtime_pass_heartbeat_v0"
 PASS_HEARTBEAT_PREFIX = "wlp_"
 PASS_CURRENT_LINE_LIMIT = 180
@@ -133,6 +142,59 @@ CLAIM_SCOPE_THREAD = "td_id"
 CLAIM_SCOPE_PATH = "path"
 CLAIM_SCOPE_WORK_ITEM = "work_item_id"
 CLAIM_SCOPE_KINDS = {CLAIM_SCOPE_THREAD, CLAIM_SCOPE_PATH, CLAIM_SCOPE_WORK_ITEM}
+CLAIM_INTENT_HARD_MUTATION = "hard_mutation"
+CLAIM_INTENT_SOFT_SIBLING = "soft_sibling"
+CLAIM_INTENT_READ_ACCEPTANCE = "read_acceptance"
+CLAIM_INTENT_APPEND_ONLY_LEDGER = "append_only_ledger"
+CLAIM_INTENT_GENERATED_PROJECTION_REFRESH = "generated_projection_refresh"
+CLAIM_INTENT_CLOSEOUT_FINALIZER = "closeout_finalizer"
+CLAIM_INTENT_MERGE_COORDINATOR = "merge_coordinator"
+CLAIM_INTENT_RUNTIME_RESOURCE_LEASE = "runtime_resource_lease"
+CLAIM_INTENTS = {
+    CLAIM_INTENT_HARD_MUTATION,
+    CLAIM_INTENT_SOFT_SIBLING,
+    CLAIM_INTENT_READ_ACCEPTANCE,
+    CLAIM_INTENT_APPEND_ONLY_LEDGER,
+    CLAIM_INTENT_GENERATED_PROJECTION_REFRESH,
+    CLAIM_INTENT_CLOSEOUT_FINALIZER,
+    CLAIM_INTENT_MERGE_COORDINATOR,
+    CLAIM_INTENT_RUNTIME_RESOURCE_LEASE,
+}
+BLOCKING_CLAIM_INTENTS = {
+    CLAIM_INTENT_HARD_MUTATION,
+    CLAIM_INTENT_CLOSEOUT_FINALIZER,
+    CLAIM_INTENT_MERGE_COORDINATOR,
+}
+CLAIM_CONFLICT_SCOPE_KINDS = set(CLAIM_SCOPE_KINDS) | {
+    "hunk",
+    "semantic_surface",
+    "projection_owner",
+    "ledger_row_family",
+    "resource_fingerprint",
+    "validation_receipt",
+    "trace_hud_projection",
+}
+SESSION_WORKFLOW_MESSAGE_SCHEMA = "session_message_v1"
+SESSION_WORKFLOW_MESSAGE_BUS_SCHEMA = "session_workflow_message_bus_v1"
+SESSION_MESSAGE_INBOX_SURFACE_SCHEMA = "session_message_inbox_surface_v1"
+SESSION_WORKFLOW_MESSAGE_ID_PREFIX = "smsg_"
+SESSION_MESSAGE_SUBJECT_LIMIT = 160
+SESSION_MESSAGE_BODY_LIMIT = 1200
+SESSION_MESSAGE_REF_LIMIT = 12
+RUNTIME_DISK_PRESSURE_RECEIPT_SCHEMA = "work_ledger_runtime_disk_pressure_receipt_v1"
+RUNTIME_DISK_PRESSURE_ENV = "AIW_WORK_LEDGER_RUNTIME_MIN_FREE_BYTES"
+RUNTIME_DISK_PRESSURE_MIN_FREE_BYTES = 100 * 1024 * 1024
+SESSION_WORKFLOW_MESSAGE_TYPES = (
+    "query_state",
+    "query_claim_owner",
+    "signal_blocker",
+    "signal_release",
+    "signal_resource_lease",
+    "update_settlement_offer",
+    "update_projection_handoff",
+    "update_cap_claim",
+    "acknowledge_merge_group",
+)
 WORK_ITEM_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$")
 
 # Orphan cleanup policy. ORPHAN_HIDE_AFTER (=ACTIVE_SESSION_ORPHAN_AFTER, 4h)
@@ -148,6 +210,15 @@ ACTIVE_SESSION_ORPHAN_SWEEP_AFTER = timedelta(hours=24)
 # sessions map. Deterministic, rebuildable; capped.
 RECENT_SWEEP_EVENTS_LIMIT = 50
 RECENT_SWEEP_EVENT_PREFIX = "wls_"
+GENERATED_SURFACE_CLAIM_LENS_SCHEMA = "generated_surface_claim_lens_v1"
+CONCURRENCY_CLOSURE_STATE_LENS_SCHEMA = "concurrency_closure_state_lens_v1"
+CAS_RETRY_HANDOFF_LENS_SCHEMA = "work_ledger_seed_speed_cas_retry_handoff_lens_v0"
+MICROCOSM_GENERATED_ENTRY_SURFACES = (
+    "microcosm-substrate/ORGANS.md",
+    "microcosm-substrate/ARCHITECTURE.md",
+    "microcosm-substrate/AGENT_ROUTES.md",
+    "microcosm-substrate/atlas/agent_task_routes.json",
+)
 
 
 def mint_read_receipt_id() -> str:
@@ -170,8 +241,108 @@ def _active_claims_snapshot_path(repo_root: Path) -> Path:
     return repo_root / ACTIVE_CLAIMS_SNAPSHOT_REL
 
 
+class RuntimeDiskPressureError(RuntimeError):
+    """Raised before Work Ledger runtime writes when free disk space is below floor."""
+
+    def __init__(self, receipt: Mapping[str, Any]) -> None:
+        self.receipt = dict(receipt)
+        super().__init__(str(self.receipt.get("message") or "work ledger runtime disk pressure"))
+
+
+def _runtime_disk_pressure_min_free_bytes() -> int:
+    raw = os.environ.get(RUNTIME_DISK_PRESSURE_ENV)
+    if raw is None or not str(raw).strip():
+        return RUNTIME_DISK_PRESSURE_MIN_FREE_BYTES
+    try:
+        parsed = int(str(raw).strip())
+    except ValueError:
+        return RUNTIME_DISK_PRESSURE_MIN_FREE_BYTES
+    return max(parsed, 0)
+
+
+def _existing_disk_probe_path(path: Path) -> Path:
+    probe = path if path.exists() else path.parent
+    while not probe.exists() and probe != probe.parent:
+        probe = probe.parent
+    return probe
+
+
+def build_runtime_disk_pressure_receipt(
+    path: Path,
+    *,
+    min_free_bytes: int | None = None,
+) -> Dict[str, Any]:
+    """Return a typed disk-floor receipt for Work Ledger runtime writes."""
+
+    required = (
+        _runtime_disk_pressure_min_free_bytes()
+        if min_free_bytes is None
+        else max(int(min_free_bytes), 0)
+    )
+    target = Path(path)
+    probe_path = _existing_disk_probe_path(target)
+    base: Dict[str, Any] = {
+        "schema": RUNTIME_DISK_PRESSURE_RECEIPT_SCHEMA,
+        "target_path": str(target),
+        "probe_path": str(probe_path),
+        "required_free_bytes": required,
+        "floor_source": RUNTIME_DISK_PRESSURE_ENV
+        if os.environ.get(RUNTIME_DISK_PRESSURE_ENV) is not None
+        else "default",
+        "separate_from_host_pressure": True,
+    }
+    try:
+        usage = shutil.disk_usage(probe_path)
+    except OSError as exc:
+        base.update(
+            {
+                "status": "unavailable",
+                "decision": "allow",
+                "should_block_run": False,
+                "reason": "disk_usage_unavailable",
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+            }
+        )
+        return base
+
+    free = int(usage.free)
+    should_block = free < required
+    decision = "queue_until_disk_pressure_clears" if should_block else "allow"
+    base.update(
+        {
+            "status": "blocked" if should_block else "clear",
+            "decision": decision,
+            "should_block_run": should_block,
+            "reason": "free_space_below_work_ledger_runtime_floor"
+            if should_block
+            else "free_space_meets_work_ledger_runtime_floor",
+            "total_bytes": int(usage.total),
+            "used_bytes": int(usage.used),
+            "free_bytes": free,
+            "recommendation": "clear_disk_space_before_work_ledger_runtime_write"
+            if should_block
+            else "no_disk_pressure_action_required",
+            "message": (
+                "Work Ledger runtime write blocked: free disk space is below the runtime write floor."
+                if should_block
+                else "Work Ledger runtime write disk floor passed."
+            ),
+        }
+    )
+    return base
+
+
+def _assert_runtime_disk_headroom(path: Path) -> Dict[str, Any]:
+    receipt = build_runtime_disk_pressure_receipt(path)
+    if receipt.get("should_block_run"):
+        raise RuntimeDiskPressureError(receipt)
+    return receipt
+
+
 def _atomic_write_runtime_json(path: Path, payload: Mapping[str, Any]) -> None:
     """Write rebuildable Work Ledger runtime projections without ledger-grade fsync cost."""
+    _assert_runtime_disk_headroom(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
     try:
@@ -266,7 +437,20 @@ def load_runtime_status(repo_root: Path, *, rebuild: bool = True) -> Dict[str, A
         return _default_status()
     if not rebuild:
         return payload
-    return rebuild_runtime_status(payload)
+    return _rebuild_runtime_status_with_repo_root(payload, repo_root)
+
+
+def _rebuild_runtime_status_with_repo_root(
+    payload: Mapping[str, Any],
+    repo_root: Path,
+) -> Dict[str, Any]:
+    global _REBUILD_RUNTIME_STATUS_REPO_ROOT
+    previous = _REBUILD_RUNTIME_STATUS_REPO_ROOT
+    _REBUILD_RUNTIME_STATUS_REPO_ROOT = repo_root
+    try:
+        return rebuild_runtime_status(payload)
+    finally:
+        _REBUILD_RUNTIME_STATUS_REPO_ROOT = previous
 
 
 def _load_runtime_status_for_session_scan(repo_root: Path) -> Dict[str, Any]:
@@ -369,6 +553,99 @@ def _normalize_scope_refs(scope_refs: Sequence[object] | None) -> List[Dict[str,
         if len(rows) >= PASS_SCOPE_REF_LIMIT:
             break
     return rows
+
+
+def _apply_pass_heartbeat_to_session(
+    session: Dict[str, Any],
+    *,
+    session_id: str,
+    pass_state: str = "inspecting",
+    current_pass_line: str | None = None,
+    last_pass_result_line: str | None = None,
+    td_id: str | None = None,
+    scope_refs: Sequence[object] | None = None,
+    pass_id: str | None = None,
+    source: str = "manual_cli",
+) -> Dict[str, Any]:
+    current_line = _public_pass_line(
+        current_pass_line,
+        limit=PASS_CURRENT_LINE_LIMIT,
+        field_name="current_pass_line",
+    )
+    result_line = _public_pass_line(
+        last_pass_result_line,
+        limit=PASS_RESULT_LINE_LIMIT,
+        field_name="last_pass_result_line",
+    )
+    state = _normalize_pass_state(pass_state)
+    source_token = _normalize_pass_source(source)
+    incoming_scope_refs = _normalize_scope_refs(scope_refs)
+    now_dt = datetime.now(timezone.utc)
+    now = now_dt.isoformat()
+    existing = (
+        dict(session.get("pass_heartbeat") or {})
+        if isinstance(session.get("pass_heartbeat"), Mapping)
+        else {}
+    )
+    previous_line = str(existing.get("current_pass_line") or "").strip()
+    pass_seq = int(existing.get("pass_seq") or 0)
+    resolved_pass_id = str(pass_id or existing.get("pass_id") or "").strip()
+    if current_line and current_line != previous_line:
+        pass_seq += 1
+        resolved_pass_id = str(pass_id or "").strip() or mint_pass_id()
+    elif not resolved_pass_id:
+        pass_seq += 1
+        resolved_pass_id = mint_pass_id()
+
+    merged_scope_refs = _normalize_scope_refs(
+        list(existing.get("scope_refs") or []) + incoming_scope_refs
+    )
+    heartbeat: Dict[str, Any] = {
+        "schema": PASS_HEARTBEAT_SCHEMA,
+        "session_id": session_id,
+        "actor": session.get("actor"),
+        "phase_id": session.get("phase_id"),
+        "family_id": session.get("family_id"),
+        "pass_id": resolved_pass_id,
+        "pass_seq": pass_seq,
+        "pass_state": state,
+        "current_pass_line": (
+            current_line if current_line is not None else existing.get("current_pass_line")
+        ),
+        "last_pass_result_line": (
+            result_line if result_line is not None else existing.get("last_pass_result_line")
+        ),
+        "scope_refs": merged_scope_refs,
+        "updated_at": now,
+        "expires_at": (now_dt + ACTIVE_SESSION_ORPHAN_AFTER).isoformat(),
+        "current_pass_updated_at": (
+            now if current_line is not None else existing.get("current_pass_updated_at")
+        ),
+        "last_pass_completed_at": (
+            now if result_line is not None else existing.get("last_pass_completed_at")
+        ),
+        "source": source_token,
+    }
+    session["pass_heartbeat"] = heartbeat
+    session["has_activity"] = True
+    session["last_activity_at"] = now
+    session["last_activity_action"] = "session-heartbeat"
+    touched_ids = list(session.get("touched_td_ids") or [])
+    touched_work_item_ids = list(session.get("touched_work_item_ids") or [])
+    target_id = str(td_id or "").strip()
+    if target_id:
+        session["touched_work"] = True
+        if _looks_like_work_item_id(target_id):
+            if target_id not in touched_work_item_ids:
+                touched_work_item_ids.append(target_id)
+        elif target_id not in touched_ids:
+            touched_ids.append(target_id)
+    session["touched_td_ids"] = touched_ids
+    session["touched_work_item_ids"] = touched_work_item_ids
+    touched_count = len(touched_ids) + len(touched_work_item_ids)
+    if touched_count:
+        session["open_todos_touched_this_session"] = touched_count
+    return heartbeat
 
 
 def _compact_pass_heartbeat(
@@ -528,6 +805,15 @@ def _session_claim_scope_kinds(session: Mapping[str, Any]) -> set[str]:
         scope_kind, scope_id = _normalize_claim_scope(raw)
         if scope_kind and scope_id:
             kinds.add(scope_kind)
+    compacted_scope_counts = session.get("claims_compacted_scope_counts")
+    if isinstance(compacted_scope_counts, Mapping):
+        for scope_kind, count in compacted_scope_counts.items():
+            try:
+                count_int = int(count or 0)
+            except (TypeError, ValueError):
+                count_int = 0
+            if str(scope_kind or "").strip() and count_int > 0:
+                kinds.add(str(scope_kind))
     return kinds
 
 
@@ -556,6 +842,19 @@ def _session_requires_append_evidence(session: Mapping[str, Any]) -> bool:
     if not claim_kinds:
         return True
     return bool(claim_kinds - {CLAIM_SCOPE_PATH})
+
+
+def _session_has_completed_nonblocking_pass(session: Mapping[str, Any]) -> bool:
+    heartbeat = session.get("pass_heartbeat")
+    if not isinstance(heartbeat, Mapping):
+        return False
+    pass_state = str(heartbeat.get("pass_state") or "").strip()
+    if pass_state not in {"blocked", "done", "idle"}:
+        return False
+    return bool(
+        str(heartbeat.get("last_pass_completed_at") or "").strip()
+        or str(heartbeat.get("last_pass_result_line") or "").strip()
+    )
 
 
 def _is_passive_external_observed_session(
@@ -625,9 +924,116 @@ def _compact_external_metadata(metadata: Mapping[str, Any]) -> Dict[str, Any]:
     return compact
 
 
+def _compact_inactive_external_session_payload(session: Dict[str, Any]) -> None:
+    if not session.get("external_observed") or not session.get("ended_at"):
+        return
+    title = str(session.get("external_title") or "")
+    if not title:
+        return
+    compacted, truncated, full_chars = _compact_text(title, limit=SESSION_TITLE_LIMIT)
+    prior_full_chars = int(session.get("external_title_full_chars") or 0)
+    if truncated or session.get("external_title_truncated"):
+        session["external_title"] = compacted
+        session["external_title_truncated"] = True
+        session["external_title_full_chars"] = max(full_chars, prior_full_chars)
+
+
+def _compact_ended_released_claims(session: Dict[str, Any]) -> None:
+    if not session.get("ended_at"):
+        return
+    claims = [
+        dict(claim)
+        for claim in session.get("claims") or []
+        if isinstance(claim, Mapping)
+    ]
+    if len(claims) <= ENDED_SESSION_CLAIM_COMPACTION_THRESHOLD:
+        return
+    if any(not claim.get("released_at") and not claim.get("expired_at") for claim in claims):
+        return
+
+    scope_counts: dict[str, int] = {}
+    release_reason_counts: dict[str, int] = {}
+    released_count = 0
+    expired_count = 0
+    for claim in claims:
+        scope_kind, _scope_id = _normalize_claim_scope(claim)
+        if scope_kind:
+            scope_counts[scope_kind] = scope_counts.get(scope_kind, 0) + 1
+        if claim.get("expired_at"):
+            expired_count += 1
+        else:
+            released_count += 1
+            reason = str(claim.get("release_reason") or "released_without_reason").strip()
+            release_reason_counts[reason] = release_reason_counts.get(reason, 0) + 1
+
+    session["claims"] = []
+    session["claims_compacted"] = True
+    session["claims_compacted_profile"] = "ended_released_claims_v0"
+    session["claims_compacted_threshold"] = ENDED_SESSION_CLAIM_COMPACTION_THRESHOLD
+    session["claims_compacted_count"] = len(claims)
+    session["claims_compacted_released_count"] = released_count
+    session["claims_compacted_expired_count"] = expired_count
+    session["claims_compacted_scope_counts"] = dict(sorted(scope_counts.items()))
+    session["claims_compacted_release_reason_counts"] = dict(sorted(release_reason_counts.items()))
+
+
+def _compact_ended_external_metadata(session: Dict[str, Any]) -> None:
+    if not session.get("ended_at") or not session.get("external_observed"):
+        return
+    metadata = session.get("external_metadata")
+    if not isinstance(metadata, Mapping) or not metadata:
+        return
+    compacted = _compact_external_metadata(metadata)
+    if compacted == metadata:
+        return
+    session["external_metadata"] = compacted
+    session["external_metadata_compacted"] = True
+    session["external_metadata_compacted_profile"] = "ended_external_metadata_v0"
+
+
+def _compact_ended_pass_heartbeat(session: Dict[str, Any]) -> None:
+    if not session.get("ended_at"):
+        return
+    heartbeat = session.get("pass_heartbeat")
+    if not isinstance(heartbeat, Mapping):
+        return
+    scope_refs = _normalize_scope_refs(heartbeat.get("scope_refs") or [])
+    current_line = _compact_text(
+        heartbeat.get("current_pass_line"),
+        limit=PASS_CURRENT_LINE_LIMIT,
+    )[0]
+    result_line = _compact_text(
+        heartbeat.get("last_pass_result_line"),
+        limit=PASS_RESULT_LINE_LIMIT,
+    )[0]
+    session["pass_heartbeat"] = {
+        "schema": heartbeat.get("schema") or PASS_HEARTBEAT_SCHEMA,
+        "session_id": heartbeat.get("session_id") or session.get("session_id"),
+        "actor": heartbeat.get("actor") or session.get("actor"),
+        "phase_id": heartbeat.get("phase_id") or session.get("phase_id"),
+        "family_id": heartbeat.get("family_id") or session.get("family_id"),
+        "pass_id": heartbeat.get("pass_id"),
+        "pass_seq": int(heartbeat.get("pass_seq") or 0),
+        "pass_state": heartbeat.get("pass_state"),
+        "current_pass_line": current_line,
+        "last_pass_result_line": result_line,
+        "scope_ref_count": len(scope_refs),
+        "scope_refs_preview": scope_refs[:ENDED_SESSION_SCOPE_REF_PREVIEW_LIMIT],
+        "updated_at": heartbeat.get("updated_at"),
+        "expires_at": heartbeat.get("expires_at"),
+        "current_pass_updated_at": heartbeat.get("current_pass_updated_at"),
+        "last_pass_completed_at": heartbeat.get("last_pass_completed_at"),
+        "source": heartbeat.get("source") or "manual_cli",
+        "compacted_profile": "ended_pass_heartbeat_v0",
+    }
+    session["pass_heartbeat_compacted"] = True
+    session["pass_heartbeat_scope_ref_count"] = len(scope_refs)
+
+
 def _compact_session(
     session: Mapping[str, Any],
     *,
+    repo_root: Path | None = None,
     now: datetime | None = None,
     orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
 ) -> Dict[str, Any]:
@@ -666,15 +1072,35 @@ def _compact_session(
         for claim in active_claims
         if str(claim.get("work_item_id") or "").strip()
     }
-    unclaimed_touched_td_ids = [
-        td_id
-        for td_id in touched_td_ids
-        if td_id and td_id not in claimed_td_ids
-    ] if now is not None else []
+    claimed_paths = {
+        str(claim.get("path") or "").strip()
+        for claim in active_claims
+        if str(claim.get("path") or "").strip()
+    }
+    unclaimed_touched_td_ids: List[str] = []
+    unclaimed_touched_path_ids: List[str] = []
+    if now is not None:
+        for td_id in touched_td_ids:
+            if not td_id:
+                continue
+            if _looks_like_repo_path_token(td_id):
+                if not _path_token_claimed_by_path_claim(
+                    td_id,
+                    claimed_paths,
+                    repo_root=repo_root,
+                ):
+                    unclaimed_touched_path_ids.append(td_id)
+                continue
+            if td_id not in claimed_td_ids:
+                unclaimed_touched_td_ids.append(td_id)
     unclaimed_touched_work_item_ids = [
         work_item_id
         for work_item_id in touched_work_item_ids
-        if work_item_id and work_item_id not in claimed_work_item_ids
+        if work_item_id
+        and not _touched_work_item_claimed_by_alias(
+            work_item_id,
+            claimed_work_item_ids,
+        )
     ] if now is not None else []
     external_title, title_truncated, title_full_chars = _compact_text(
         session.get("external_title"),
@@ -727,11 +1153,37 @@ def _compact_session(
         "pass_heartbeat": pass_heartbeat,
         "active_claims": active_claims,
         "unclaimed_touched_td_ids": unclaimed_touched_td_ids,
+        "unclaimed_touched_path_ids": unclaimed_touched_path_ids,
         "unclaimed_touched_work_item_ids": unclaimed_touched_work_item_ids,
         "open_todos_touched_this_session": int(
             session.get("open_todos_touched_this_session") or 0
         ),
     }
+
+
+def _touched_work_item_claimed_by_alias(
+    touched_work_item_id: str,
+    claimed_work_item_ids: Iterable[str],
+) -> bool:
+    """Return whether this same session has claimed a canonical child of an alias.
+
+    This is deliberately narrower than arbitrary prefix matching: an active
+    claim for `foo_bar` can cover touched bridge alias `foo`, but `foobar` cannot.
+    The signal answers "does this session have a live owner lane?" and does not
+    create cross-session WorkItem equivalence.
+    """
+    touched = str(touched_work_item_id or "").strip()
+    if not touched:
+        return False
+    for claimed_item in claimed_work_item_ids:
+        claimed = str(claimed_item or "").strip()
+        if not claimed:
+            continue
+        if claimed == touched:
+            return True
+        if claimed.startswith(f"{touched}_"):
+            return True
+    return False
 
 
 def _increment_bucket(
@@ -800,6 +1252,630 @@ def _wl_command(command: str, *args: str) -> str:
     suffix = " ".join(arg for arg in args if arg)
     base = f"./repo-python tools/meta/factory/work_ledger.py {command}"
     return f"{base} {suffix}".strip()
+
+
+def coordination_count_semantics(
+    counts: Mapping[str, Any],
+    *,
+    heartbeat: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
+    heartbeat_counts = heartbeat if isinstance(heartbeat, Mapping) else {}
+
+    def _count(key: str, default: int = 0) -> int:
+        value = counts.get(key)
+        if value is None:
+            value = heartbeat_counts.get(key)
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    raw_active = _count("active_sessions")
+    effective_active = _count("effective_active_sessions")
+    passive_external = _count("passive_external_observed_sessions")
+    orphaned_active = _count("orphaned_active_sessions")
+    unclassified = max(
+        0,
+        raw_active - effective_active - passive_external - orphaned_active,
+    )
+    return {
+        "schema": "work_ledger_coordination_count_semantics_v0",
+        "live_coordination_count_field": "effective_active_sessions",
+        "raw_active_sessions_field": "active_sessions",
+        "active_sessions_role": "raw_open_runtime_rows_not_live_agent_count",
+        "effective_active_sessions_role": (
+            "claim_or_heartbeat_backed_live_coordination_sessions"
+        ),
+        "passive_external_observed_sessions_role": (
+            "host_imported_thread_rows_not_live_coordination_pressure"
+        ),
+        "orphaned_active_sessions_role": (
+            "unfinalized_runtime_rows_requiring_sweep_not_live_agent_count"
+        ),
+        "raw_active_sessions_counted_as_live_agents": False,
+        "live_coordination_count": effective_active,
+        "raw_active_session_count": raw_active,
+        "passive_external_observed_session_count": passive_external,
+        "orphaned_active_session_count": orphaned_active,
+        "unclassified_active_session_count": unclassified,
+    }
+
+
+def _resident_thread_pressure_active(pressure_mode: str) -> bool:
+    return str(pressure_mode or "").strip() in {
+        "degraded",
+        "relief_window",
+        "recovery_monitoring",
+    }
+
+
+def _resident_thread_claim_refs(
+    active_claims: Sequence[Mapping[str, Any]],
+    *,
+    limit: int = 4,
+) -> List[Dict[str, Any]]:
+    refs: List[Dict[str, Any]] = []
+    for claim in list(active_claims)[: max(0, int(limit or 0))]:
+        refs.append(
+            {
+                "claim_id": claim.get("claim_id"),
+                "scope_kind": claim.get("scope_kind"),
+                "scope_id": claim.get("scope_id"),
+                "path": claim.get("path"),
+                "td_id": claim.get("td_id"),
+                "work_item_id": claim.get("work_item_id"),
+                "leased_until": claim.get("leased_until"),
+            }
+        )
+    return refs
+
+
+def _resident_thread_action_command(
+    *,
+    session_id: str,
+    action: str,
+    pressure_mode: str,
+    idle_seconds: int | None,
+    active_claim_count: int,
+    warm_after: timedelta,
+    terminate_after: timedelta,
+) -> str:
+    quoted_session = _quote_cli(session_id)
+    idle_arg = str(float(idle_seconds or 0))
+    if action == "yield_request":
+        return _wl_command(
+            "session-yield-request",
+            f"--target-session-id {quoted_session}",
+            "--target-class low_progress_session",
+            "--requested-action yield",
+            "--owner-status quiet_active_claim",
+            f"--pressure-mode {_quote_cli(pressure_mode)}",
+            f"--idle-age-s {idle_arg}",
+            f"--last-heartbeat-age-s {idle_arg}",
+            f"--active-claim-count {active_claim_count}",
+            "--result-note 'resident-thread-governor: claim is quiet beyond warm threshold'",
+            "--dry-run",
+        )
+    if action == "nap":
+        return _wl_command(
+            "session-yield-request",
+            f"--target-session-id {quoted_session}",
+            "--target-class idle_session",
+            "--requested-action yield",
+            "--owner-status idle_unclaimed",
+            f"--pressure-mode {_quote_cli(pressure_mode)}",
+            f"--idle-age-s {idle_arg}",
+            "--result-note 'resident-thread-governor: unclaimed idle thread can downshift'",
+            "--dry-run",
+        )
+    if action == "stale_claim_sweep":
+        return _wl_command("session-status", f"--session-id {quoted_session} --full")
+    if action == "terminate_grace":
+        minutes = int(terminate_after.total_seconds() // 60)
+        return _wl_command(
+            "session-status",
+            f"--session-id {quoted_session} --full # verify still unclaimed before {minutes}m host-grace termination",
+        )
+    if action == "archive_only":
+        hours = max(0.01, terminate_after.total_seconds() / 3600.0)
+        return _wl_command("session-sweep", f"--dry-run --orphan-after-hours {hours:.3f}")
+    if action == "keep":
+        minutes = int(warm_after.total_seconds() // 60)
+        return _wl_command(
+            "session-status",
+            f"--session-id {quoted_session} --full # recheck after {minutes}m warm threshold",
+        )
+    return _wl_command("session-status", f"--session-id {quoted_session} --full")
+
+
+def _resident_thread_row(
+    session: Mapping[str, Any],
+    *,
+    repo_root: Path | None = None,
+    now: datetime,
+    warm_after: timedelta,
+    terminate_after: timedelta,
+    pressure_mode: str,
+) -> Dict[str, Any]:
+    compact = _compact_session(
+        session,
+        repo_root=repo_root,
+        now=now,
+        orphan_after=ACTIVE_SESSION_ORPHAN_AFTER,
+    )
+    session_id = str(compact.get("session_id") or "").strip()
+    active_claims = [
+        claim for claim in compact.get("active_claims") or [] if isinstance(claim, Mapping)
+    ]
+    active_claim_count = len(active_claims)
+    idle_seconds_raw = compact.get("idle_seconds")
+    try:
+        idle_seconds = int(idle_seconds_raw) if idle_seconds_raw is not None else None
+    except (TypeError, ValueError):
+        idle_seconds = None
+    comparable_idle = idle_seconds
+    if comparable_idle is None:
+        comparable_idle = int(terminate_after.total_seconds()) + 1
+    warm_seconds = int(warm_after.total_seconds())
+    terminate_seconds = int(terminate_after.total_seconds())
+    pressure_active = _resident_thread_pressure_active(pressure_mode)
+    heartbeat = (
+        dict(compact.get("pass_heartbeat") or {})
+        if isinstance(compact.get("pass_heartbeat"), Mapping)
+        else {}
+    )
+
+    if active_claim_count:
+        protected = True
+        safe_to_nap = False
+        safe_to_terminate = False
+        if comparable_idle >= terminate_seconds:
+            state = "idle_claim_stale"
+            action = "stale_claim_sweep"
+            reason = (
+                "active claim is quiet beyond terminate threshold; demote or release the "
+                "claim through Work Ledger before any host-level termination"
+            )
+        elif comparable_idle >= warm_seconds:
+            state = "warm_claim_quiet"
+            action = "yield_request"
+            reason = "active claim is quiet beyond warm threshold; ask owner to yield or refresh"
+        else:
+            state = "hot_active_claim"
+            action = "keep"
+            reason = "active claim still inside warm threshold"
+    else:
+        protected = False
+        if bool(compact.get("orphaned_active")) and comparable_idle >= terminate_seconds:
+            state = "archived_dead"
+            action = "archive_only"
+            reason = "runtime row is orphaned and unclaimed; sweep/archive before counting as live"
+        elif comparable_idle >= terminate_seconds:
+            state = "terminating_grace" if pressure_active else "suspended_resume_ready"
+            action = "terminate_grace" if pressure_active else "archive_only"
+            reason = (
+                "unclaimed session is quiet beyond terminate threshold"
+                if pressure_active
+                else "unclaimed session is quiet beyond terminate threshold but host pressure is not active"
+            )
+        elif comparable_idle >= warm_seconds:
+            state = "idle_unclaimed"
+            action = "nap" if pressure_active else "keep"
+            reason = (
+                "unclaimed session is quiet beyond warm threshold and host pressure is active"
+                if pressure_active
+                else "unclaimed session is quiet beyond warm threshold; keep warm without pressure"
+            )
+        else:
+            state = "idle_unclaimed"
+            action = "keep"
+            reason = "unclaimed session is still inside warm threshold"
+        safe_to_nap = action == "nap"
+        safe_to_terminate = action == "terminate_grace"
+
+    return {
+        "schema": "work_ledger_resident_thread_governor_row_v0",
+        "session_id": session_id,
+        "actor": compact.get("actor"),
+        "phase_id": compact.get("phase_id"),
+        "state": state,
+        "recommended_action": action,
+        "reason": reason,
+        "idle_seconds": idle_seconds,
+        "idle_minutes": round((idle_seconds or 0) / 60.0, 2) if idle_seconds is not None else None,
+        "last_signal_at": compact.get("last_signal_at"),
+        "last_activity_at": compact.get("last_activity_at"),
+        "external_observed": bool(compact.get("external_observed")),
+        "external_source": compact.get("external_source"),
+        "freshness_state": heartbeat.get("freshness_state"),
+        "pass_state": heartbeat.get("pass_state"),
+        "current_pass_line": heartbeat.get("current_pass_line"),
+        "active_claim_count": active_claim_count,
+        "active_claim_refs": _resident_thread_claim_refs(active_claims),
+        "protected_by_active_claim": protected,
+        "safe_to_nap": safe_to_nap,
+        "safe_to_terminate_after_grace": safe_to_terminate,
+        "blocked_by_dirty_claim": active_claim_count > 0 and comparable_idle >= terminate_seconds,
+        "drilldown_command": _wl_command("session-status", f"--session-id {_quote_cli(session_id)} --full"),
+        "safe_next_command": _resident_thread_action_command(
+            session_id=session_id,
+            action=action,
+            pressure_mode=pressure_mode,
+            idle_seconds=idle_seconds,
+            active_claim_count=active_claim_count,
+            warm_after=warm_after,
+            terminate_after=terminate_after,
+        ),
+    }
+
+
+def build_resident_thread_governor(
+    status: Mapping[str, Any],
+    *,
+    now: datetime | None = None,
+    warm_after: timedelta = RESIDENT_THREAD_WARM_AFTER,
+    terminate_after: timedelta = RESIDENT_THREAD_TERMINATE_AFTER,
+    pressure_mode: str = "degraded",
+    limit: int = SESSION_COHORT_OVERVIEW_LIMIT,
+) -> Dict[str, Any]:
+    """Build a read-only triage packet for resident thread pressure.
+
+    This surface intentionally stops at classification and owner-visible request
+    commands. It never treats an active claim as killable host pressure.
+    """
+    now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    if warm_after <= timedelta(seconds=0):
+        warm_after = RESIDENT_THREAD_WARM_AFTER
+    if terminate_after <= warm_after:
+        terminate_after = max(
+            warm_after + timedelta(minutes=1),
+            RESIDENT_THREAD_TERMINATE_AFTER,
+        )
+    sessions_payload = status.get("sessions") if isinstance(status.get("sessions"), Mapping) else {}
+    active_sessions = [
+        dict(session)
+        for session in sessions_payload.values()
+        if isinstance(session, Mapping) and not session.get("ended_at")
+    ]
+    rows = [
+        _resident_thread_row(
+            session,
+            now=now,
+            warm_after=warm_after,
+            terminate_after=terminate_after,
+            pressure_mode=pressure_mode,
+        )
+        for session in active_sessions
+    ]
+    action_rank = {
+        "stale_claim_sweep": 0,
+        "terminate_grace": 1,
+        "nap": 2,
+        "yield_request": 3,
+        "archive_only": 4,
+        "keep": 5,
+    }
+    rows.sort(
+        key=lambda row: (
+            action_rank.get(str(row.get("recommended_action") or ""), 99),
+            -(int(row.get("idle_seconds") or 0)),
+            str(row.get("session_id") or ""),
+        )
+    )
+    state_counts: Dict[str, int] = defaultdict(int)
+    action_counts: Dict[str, int] = defaultdict(int)
+    for row in rows:
+        state_counts[str(row.get("state") or "unknown")] += 1
+        action_counts[str(row.get("recommended_action") or "unknown")] += 1
+    safe_limit = max(0, int(limit or 0))
+    limited_rows = rows[:safe_limit] if safe_limit else []
+    return {
+        "schema": RESIDENT_THREAD_GOVERNOR_SCHEMA,
+        "generated_at": now.isoformat(),
+        "pressure_mode": pressure_mode,
+        "dry_run": True,
+        "thresholds": {
+            "warm_after_seconds": int(warm_after.total_seconds()),
+            "terminate_after_seconds": int(terminate_after.total_seconds()),
+            "warm_after_minutes": round(warm_after.total_seconds() / 60.0, 3),
+            "terminate_after_minutes": round(terminate_after.total_seconds() / 60.0, 3),
+        },
+        "counts": {
+            "resident_threads": len(rows),
+            "hot_active_claims": state_counts.get("hot_active_claim", 0),
+            "warm_claim_quiet": state_counts.get("warm_claim_quiet", 0),
+            "idle_unclaimed_over_10m": sum(
+                1
+                for row in rows
+                if not row.get("protected_by_active_claim")
+                and (row.get("idle_seconds") or 0) >= int(warm_after.total_seconds())
+            ),
+            "idle_unclaimed_over_30m": sum(
+                1
+                for row in rows
+                if not row.get("protected_by_active_claim")
+                and (row.get("idle_seconds") or 0) >= int(terminate_after.total_seconds())
+            ),
+            "safe_to_nap": sum(1 for row in rows if row.get("safe_to_nap")),
+            "safe_to_terminate_after_grace": sum(
+                1 for row in rows if row.get("safe_to_terminate_after_grace")
+            ),
+            "blocked_by_dirty_claim": sum(1 for row in rows if row.get("blocked_by_dirty_claim")),
+        },
+        "state_counts": dict(sorted(state_counts.items())),
+        "action_counts": dict(sorted(action_counts.items())),
+        "rows": limited_rows,
+        "rows_omitted": max(0, len(rows) - len(limited_rows)),
+        "policy": {
+            "active_claim_blocks_host_termination": True,
+            "claim_state_demoted_before_process_termination": True,
+            "terminate_grace_requires_unclaimed_session": True,
+            "yield_request_is_owner_visible_not_signal": True,
+        },
+        "safety": {
+            "no_process_signal_sent": True,
+            "no_unknown_owner_killed": True,
+            "no_active_claim_terminated": True,
+        },
+        "drilldown_commands": {
+            "session_status": _wl_command("session-status", "--overview --cards-only --limit 12"),
+            "session_claims": _wl_command(
+                "session-claims",
+                "--refresh --session-summary --limit 12 --cards-only",
+            ),
+            "resident_pressure_relief": _wl_command("resident-pressure-relief", "--help"),
+        },
+    }
+
+
+def mint_session_message_id() -> str:
+    return f"{SESSION_WORKFLOW_MESSAGE_ID_PREFIX}{uuid.uuid4().hex[:16]}"
+
+
+def _bounded_session_message_text(value: Any, *, limit: int) -> str:
+    text = str(value or "").strip()
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3].rstrip() + "..."
+
+
+def _bounded_session_message_refs(values: Sequence[Any] | str | None) -> list[str]:
+    if values is None:
+        return []
+    if isinstance(values, str):
+        raw_values: Sequence[Any] = [values]
+    else:
+        raw_values = values
+    refs: list[str] = []
+    for value in raw_values:
+        token = str(value or "").strip()
+        if token:
+            refs.append(token)
+        if len(refs) >= SESSION_MESSAGE_REF_LIMIT:
+            break
+    return refs
+
+
+def _session_message_receipt(row: Mapping[str, Any]) -> dict[str, Any]:
+    nested = row.get("session_message")
+    if isinstance(nested, Mapping):
+        return dict(nested)
+    if row.get("schema") == SESSION_WORKFLOW_MESSAGE_SCHEMA:
+        return dict(row)
+    return {}
+
+
+def build_session_message_receipt(
+    *,
+    from_session_id: str,
+    to_session_id: str,
+    message_type: str = "signal_blocker",
+    body: str,
+    subject: str | None = None,
+    message_id: str | None = None,
+    related_paths: Sequence[Any] | str | None = (),
+    related_request_id: str | None = None,
+    reply_to_message_id: str | None = None,
+    requires_ack: bool = False,
+    issued_at: str | None = None,
+) -> dict[str, Any]:
+    """Build a bounded append-only Work Ledger session message."""
+    from_id = str(from_session_id or "").strip() or "unknown"
+    to_id = str(to_session_id or "").strip() or "unknown"
+    msg_type = str(message_type or "signal_blocker").strip().lower()
+    if msg_type not in SESSION_WORKFLOW_MESSAGE_TYPES:
+        expected = ", ".join(SESSION_WORKFLOW_MESSAGE_TYPES)
+        raise ValueError(f"session message type must be one of: {expected}")
+    msg_id = str(message_id or "").strip() or mint_session_message_id()
+    body_text = _bounded_session_message_text(body, limit=SESSION_MESSAGE_BODY_LIMIT)
+    if not body_text:
+        raise ValueError("session message body is required")
+    subject_text = _bounded_session_message_text(
+        subject or msg_type.replace("_", " "),
+        limit=SESSION_MESSAGE_SUBJECT_LIMIT,
+    )
+    related = _bounded_session_message_refs(related_paths)
+    target_arg = _quote_cli(to_id)
+    from_arg = _quote_cli(from_id)
+    ack_command = None
+    if from_id != "unknown":
+        ack_command = _wl_command(
+            "session-message",
+            f"--from-session-id {target_arg}",
+            f"--to-session-id {from_arg}",
+            "--message-type acknowledge_merge_group",
+            f"--reply-to-message-id {_quote_cli(msg_id)}",
+            "--subject 'ack'",
+            "--body '<acknowledgement>'",
+        )
+    return {
+        "schema": SESSION_WORKFLOW_MESSAGE_SCHEMA,
+        "message_id": msg_id,
+        "issued_at": issued_at or datetime.now(timezone.utc).isoformat(),
+        "from_session_id": from_id,
+        "to_session_id": to_id,
+        "message_type": msg_type,
+        "subject": subject_text,
+        "body": body_text,
+        "related_paths": related,
+        "related_request_id": str(related_request_id or "").strip() or None,
+        "reply_to_message_id": str(reply_to_message_id or "").strip() or None,
+        "requires_ack": bool(requires_ack),
+        "ack_command": ack_command,
+        "reply_command": ack_command,
+        "inbox_command": _wl_command(
+            "session-message-inbox",
+            f"--session-id {target_arg}",
+            "--limit 12",
+        ),
+        "sender_inbox_command": _wl_command(
+            "session-message-inbox",
+            f"--session-id {from_arg}",
+            "--include-sent --limit 12",
+        ),
+        "transport_boundary": {
+            "authority": "state/work_ledger/session_messages.jsonl",
+            "codex_thread_interrupts": "optional_convenience_not_authority",
+            "claude_code_delivery": "poll_disk_backed_inbox_or_shell_command",
+            "no_process_signal_sent": True,
+        },
+        "safety": {
+            "no_process_signal_sent": True,
+            "no_unknown_owner_killed": True,
+            "no_active_session_terminated": True,
+        },
+    }
+
+
+def _session_message_inbox_api_url(
+    *,
+    session_id: str,
+    limit: int,
+    include_sent: bool = False,
+) -> str:
+    params: dict[str, Any] = {
+        "session_id": str(session_id or "").strip() or "unknown",
+        "limit": max(1, int(limit or 1)),
+    }
+    if include_sent:
+        params["include_sent"] = "true"
+    return f"/api/agent-observability/session-message-inbox?{urlencode(params)}"
+
+
+def build_session_message_inbox_surface(
+    *,
+    session_id: str,
+    message_events: Sequence[Mapping[str, Any]] = (),
+    limit: int = 12,
+    include_sent: bool = False,
+) -> dict[str, Any]:
+    """Return a session-filtered inbox over the append-only message bus."""
+    target_session_id = str(session_id or "").strip() or "unknown"
+    bounded_limit = max(1, int(limit or 1))
+    messages = [
+        receipt
+        for row in message_events or []
+        if (receipt := _session_message_receipt(row))
+    ]
+    replies_by_parent: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for message in messages:
+        parent_id = str(message.get("reply_to_message_id") or "").strip()
+        if parent_id:
+            replies_by_parent[parent_id].append(message)
+
+    inbox_rows: list[dict[str, Any]] = []
+    pending_rows: list[dict[str, Any]] = []
+    sent_rows: list[dict[str, Any]] = []
+    for message in messages:
+        to_id = str(message.get("to_session_id") or "").strip()
+        from_id = str(message.get("from_session_id") or "").strip()
+        inbound = to_id == target_session_id
+        outbound = from_id == target_session_id
+        if not inbound and not (include_sent and outbound):
+            continue
+        message_id = str(message.get("message_id") or "").strip()
+        replies = replies_by_parent.get(message_id, [])
+        row = dict(message)
+        row["schema"] = "session_message_inbox_row_v1"
+        row["direction"] = "inbound" if inbound else "sent"
+        row["reply_count"] = len(replies)
+        row["latest_reply"] = dict(replies[-1]) if replies else None
+        row["acknowledged"] = bool(replies)
+        row["pending"] = bool(inbound and message.get("requires_ack") and not replies)
+        row["message_inbox_command"] = _wl_command(
+            "session-message-inbox",
+            f"--session-id {_quote_cli(target_session_id)}",
+            f"--limit {bounded_limit}",
+        )
+        if row["direction"] == "sent":
+            sent_rows.append(row)
+        else:
+            inbox_rows.append(row)
+            if row["pending"]:
+                pending_rows.append(row)
+
+    latest_inbound = list(reversed(inbox_rows))
+    latest_pending = list(reversed(pending_rows))
+    latest_sent = list(reversed(sent_rows))
+    inbox_api_url = _session_message_inbox_api_url(
+        session_id=target_session_id,
+        limit=bounded_limit,
+    )
+    include_sent_api_url = _session_message_inbox_api_url(
+        session_id=target_session_id,
+        limit=bounded_limit,
+        include_sent=True,
+    )
+    for row in latest_inbound + latest_pending + latest_sent:
+        row["agent_observability_inbox_url"] = (
+            include_sent_api_url if row["direction"] == "sent" else inbox_api_url
+        )
+    return {
+        "schema": SESSION_MESSAGE_INBOX_SURFACE_SCHEMA,
+        "session_id": target_session_id,
+        "latest_messages": latest_inbound[:bounded_limit],
+        "pending_messages": latest_pending[:bounded_limit],
+        "sent_messages": latest_sent[:bounded_limit] if include_sent else [],
+        "counts": {
+            "message_event_count": len(messages),
+            "inbox_message_count": len(inbox_rows),
+            "pending_message_count": len(pending_rows),
+            "sent_message_count": len(sent_rows) if include_sent else 0,
+            "reply_event_count": sum(1 for message in messages if message.get("reply_to_message_id")),
+        },
+        "recommended_commands": {
+            "poll_inbox": _wl_command(
+                "session-message-inbox",
+                f"--session-id {_quote_cli(target_session_id)}",
+                f"--limit {bounded_limit}",
+            ),
+            "send_message_template": _wl_command(
+                "session-message",
+                "--from-session-id '<requesting session>'",
+                f"--to-session-id {_quote_cli(target_session_id)}",
+                "--message-type signal_blocker",
+                "--subject '<short subject>'",
+                "--body '<message>'",
+            ),
+            "ack_first_pending": latest_pending[0].get("ack_command") if latest_pending else None,
+        },
+        "recommended_surfaces": {
+            "agent_observability_inbox": inbox_api_url,
+            "agent_observability_with_sent": include_sent_api_url,
+        },
+        "transport_boundary": {
+            "authority": "state/work_ledger/session_messages.jsonl",
+            "codex_thread_interrupts": "optional_convenience_not_authority",
+            "claude_code_delivery": "poll_disk_backed_inbox_or_shell_command",
+            "agent_observability_endpoint": "/api/agent-observability/session-message-inbox",
+            "no_process_signal_sent": True,
+        },
+        "safety": {
+            "no_process_signal_sent": True,
+            "no_unknown_owner_killed": True,
+            "no_active_session_terminated": True,
+        },
+    }
 
 
 def _duration_hours_token(duration: timedelta) -> str:
@@ -1250,7 +2326,21 @@ def _build_monitor_cards(
             "status": orphaned_status,
             "risk_band": _monitor_risk_band(orphaned_status),
             "count": orphaned_active,
-            "summary": f"{orphaned_active} active sessions are older than the orphan visibility threshold",
+            "summary": (
+                f"{orphaned_active} active sessions are older than the orphan visibility threshold; "
+                "run the thresholded dry-run before any mutating sweep"
+            ),
+            "details": {
+                "visibility_threshold_hours": _duration_hours_token(orphan_after),
+                "auto_sweep_threshold_hours": _duration_hours_token(
+                    ACTIVE_SESSION_ORPHAN_SWEEP_AFTER
+                ),
+                "dry_run_command": _orphan_visibility_sweep_command(orphan_after),
+                "mutation_rule": (
+                    "Only run a mutating sweep when the thresholded dry-run names rows. "
+                    "The default session-sweep threshold is intentionally more conservative."
+                ),
+            },
             "drilldown": _orphan_visibility_sweep_command(orphan_after),
         },
         {
@@ -1284,8 +2374,10 @@ def _recommended_landing_lane(
 ) -> str:
     if claim_collision_count or td_collision_count:
         return "resolve_claim_or_td_collision_before_landing"
-    if unknown_scope_count > 1 or unclaimed_touched_count:
+    if unknown_scope_count > 1:
         return "claim_or_finalize_unknown_scope_before_landing"
+    if unclaimed_touched_count:
+        return "claim_touched_work_before_landing"
     if orphaned_active_count:
         return "sweep_or_refresh_orphans_then_scoped_landing"
     if active_claim_count:
@@ -1721,11 +2813,33 @@ def _unclaimed_touched_repair_rows(
         if not isinstance(session, Mapping):
             continue
         session_id = str(session.get("session_id") or "").strip()
-        td_ids = [str(item) for item in session.get("unclaimed_touched_td_ids") or [] if item]
+        raw_td_ids = [
+            str(item) for item in session.get("unclaimed_touched_td_ids") or [] if item
+        ]
+        path_ids = [
+            str(item) for item in session.get("unclaimed_touched_path_ids") or [] if item
+        ]
+        path_ids.extend(
+            item for item in raw_td_ids if _looks_like_repo_path_token(item)
+        )
+        path_ids = list(dict.fromkeys(path_ids))
+        td_ids = [
+            item for item in raw_td_ids if not _looks_like_repo_path_token(item)
+        ]
         work_item_ids = [
             str(item) for item in session.get("unclaimed_touched_work_item_ids") or [] if item
         ]
-        if td_ids:
+        if path_ids:
+            safe = _wl_command(
+                "session-claim-path",
+                f"--session-id {_quote_cli(session_id)}",
+                f"--path {_quote_cli(path_ids[0])}",
+                "--lease-minutes 30",
+                "--require-exclusive",
+            )
+            proof = safe
+            subject = path_ids[0]
+        elif td_ids:
             safe = _wl_command(
                 "session-claim",
                 f"--session-id {_quote_cli(session_id)}",
@@ -1736,9 +2850,13 @@ def _unclaimed_touched_repair_rows(
             proof = safe
             subject = td_ids[0]
         elif work_item_ids:
-            safe = (
-                "./repo-python tools/meta/control/work_landing.py begin "
-                f"--subject-id {_quote_cli(work_item_ids[0])} --session-id {_quote_cli(session_id)}"
+            safe = _wl_command(
+                "session-claim",
+                f"--session-id {_quote_cli(session_id)}",
+                f"--td-id {_quote_cli(work_item_ids[0])}",
+                "--conflict-scope-kind work_item_id",
+                "--lease-minutes 30",
+                "--require-exclusive",
             )
             proof = _mission_command(f"--subject-id {_quote_cli(work_item_ids[0])}", "--control-summary")
             subject = work_item_ids[0]
@@ -1762,6 +2880,7 @@ def _unclaimed_touched_repair_rows(
                 details={
                     "session_id": session_id,
                     "unclaimed_touched_td_ids": td_ids,
+                    "unclaimed_touched_path_ids": path_ids,
                     "unclaimed_touched_work_item_ids": work_item_ids,
                 },
             )
@@ -1845,6 +2964,7 @@ def _overview_repair_rows(
             )
         )
     if orphaned_active_sessions:
+        orphan_dry_run = _orphan_visibility_sweep_command(orphan_after)
         rows.append(
             _repair_row(
                 row_id="orphaned_session_sweep",
@@ -1852,13 +2972,22 @@ def _overview_repair_rows(
                 status="watch",
                 why_blocked=(
                     "One or more active sessions are older than the orphan visibility threshold; "
-                    "sweep or refresh them before treating the active count as live coordination pressure."
+                    "run the thresholded dry-run and only sweep when it names rows. "
+                    "The default sweep uses a more conservative auto-sweep threshold."
                 ),
                 owning_surface="work_ledger.session_sweep",
-                safe_next_command=_orphan_visibility_sweep_command(orphan_after),
+                safe_next_command=orphan_dry_run,
                 proof_route=_wl_command("session-status", "--overview --cards-only --limit 12"),
                 residual_capture_route=_residual_capture_command("orphaned_session"),
-                details={"session_count": len(orphaned_active_sessions)},
+                details={
+                    "session_count": len(orphaned_active_sessions),
+                    "visibility_threshold_hours": _duration_hours_token(orphan_after),
+                    "auto_sweep_threshold_hours": _duration_hours_token(
+                        ACTIVE_SESSION_ORPHAN_SWEEP_AFTER
+                    ),
+                    "dry_run_command": orphan_dry_run,
+                    "mutation_rule": "mutate only after dry-run reports sweepable rows",
+                },
             )
         )
     if stale_sessions:
@@ -1933,6 +3062,7 @@ def _attach_monitor_repair_rows(
 def build_session_cohort_overview(
     status: Mapping[str, Any],
     *,
+    repo_root: Path | None = None,
     limit: int = SESSION_COHORT_OVERVIEW_LIMIT,
     now: datetime | None = None,
     orphan_after: timedelta = ACTIVE_SESSION_ORPHAN_AFTER,
@@ -1998,7 +3128,12 @@ def build_session_cohort_overview(
         )
         compact: Dict[str, Any] | None = None
         if effective_active:
-            compact = _compact_session(session, now=now, orphan_after=orphan_after)
+            compact = _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             effective_active_compacts.append(compact)
             for claim in compact.get("active_claims") or []:
                 claim_row = dict(claim)
@@ -2012,6 +3147,7 @@ def build_session_cohort_overview(
             and not compact["touched_td_ids"]
             and not compact["touched_work_item_ids"]
             and not compact.get("active_claims")
+            and not _session_has_completed_nonblocking_pass(session)
         )
         _increment_bucket(
             actors,
@@ -2039,9 +3175,18 @@ def build_session_cohort_overview(
             continue
         if unknown_scope:
             unknown_scope_active.append(compact)
-        if compact.get("unclaimed_touched_td_ids") or compact.get("unclaimed_touched_work_item_ids"):
+        if (
+            not _session_has_completed_nonblocking_pass(session)
+            and (
+                compact.get("unclaimed_touched_td_ids")
+                or compact.get("unclaimed_touched_path_ids")
+                or compact.get("unclaimed_touched_work_item_ids")
+            )
+        ):
             unclaimed_touched_sessions.append(compact)
         for td_id in compact["touched_td_ids"]:
+            if _looks_like_repo_path_token(td_id):
+                continue
             td_active_sessions.setdefault(td_id, []).append(compact)
 
     td_id_collisions = [
@@ -2111,8 +3256,9 @@ def build_session_cohort_overview(
         )
     if unclaimed_touched_sessions:
         recommended_actions.append(
-            "One or more active sessions touched td_* work without a live claim. "
-            "Use `session-claim --td-id <td> --lease-minutes <N>` before mutation, or release/finalize the session if the touch is stale."
+            "One or more active sessions touched td/path/WorkItem work without a live claim. "
+            "Use `session-claim --td-id <td>`, `session-claim-path --path <path>`, "
+            "or session-preflight before mutation; release/finalize stale touches."
         )
     if td_id_collisions:
         recommended_actions.append(
@@ -2120,7 +3266,9 @@ def build_session_cohort_overview(
         )
     if orphaned_active_sessions:
         recommended_actions.append(
-            "Finalize or refresh orphaned active sessions (`session-sweep`) before treating the active count as live coordination pressure."
+            "Run the thresholded orphan dry-run "
+            f"(`{_orphan_visibility_sweep_command(orphan_after)}`) before treating old active "
+            "sessions as mutable cleanup; only run a mutating sweep when that dry-run names rows."
         )
     if stale_append_sessions:
         recommended_actions.append(
@@ -2152,7 +3300,12 @@ def build_session_cohort_overview(
     awareness_cards = _build_awareness_cards(
         effective_active_compacts=effective_active_compacts,
         orphaned_active_compacts=[
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in orphaned_active_sessions
         ],
         limit=safe_limit,
@@ -2216,31 +3369,66 @@ def build_session_cohort_overview(
         "repair_rows": repair_rows,
         "recommended_landing_lane": landing_lane,
         "active_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in active_sessions[:safe_limit]
         ],
         "effective_active_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in effective_active_sessions[:safe_limit]
         ],
         "passive_external_observed_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in passive_external_observed_sessions[:safe_limit]
         ],
         "orphaned_active_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in orphaned_active_sessions[:safe_limit]
         ],
         "stale_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in stale_sessions[:safe_limit]
         ],
         "stale_append_obligations": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in stale_append_sessions[:safe_limit]
         ],
         "stale_claim_only_sessions": [
-            _compact_session(session, now=now, orphan_after=orphan_after)
+            _compact_session(
+                session,
+                repo_root=repo_root,
+                now=now,
+                orphan_after=orphan_after,
+            )
             for session in stale_claim_only_sessions[:safe_limit]
         ],
         "actors": actors,
@@ -2255,7 +3443,12 @@ def build_session_cohort_overview(
             "unknown_scope_active_sessions": unknown_scope_active[:safe_limit],
             "unclaimed_touched_sessions": unclaimed_touched_sessions[:safe_limit],
             "orphaned_active_sessions": [
-                _compact_session(session, now=now, orphan_after=orphan_after)
+                _compact_session(
+                    session,
+                    repo_root=repo_root,
+                    now=now,
+                    orphan_after=orphan_after,
+                )
                 for session in orphaned_active_sessions[:safe_limit]
             ],
             "claim_collisions": claim_collisions[:safe_limit],
@@ -2276,6 +3469,93 @@ def _seed_speed_scope_ref(card: Mapping[str, Any]) -> str:
             if text:
                 return text
     return "<path-or-claim>"
+
+
+CAS_RETRY_HANDOFF_TERMS: tuple[str, ...] = (
+    "cas retry budget",
+    "retry budget exhausted",
+    "head-cas retry",
+    "parent-cas retry",
+    "private-index cas",
+    "head advanced",
+    "scoped_commit stopped",
+)
+
+
+def _seed_speed_cas_retry_handoff_row(card: Mapping[str, Any]) -> Dict[str, Any] | None:
+    current_line = str(card.get("current_pass_line") or "").strip()
+    last_result = str(card.get("last_pass_result_line") or "").strip()
+    haystack = f"{current_line}\n{last_result}".lower()
+    matched_terms = [term for term in CAS_RETRY_HANDOFF_TERMS if term in haystack]
+    if not matched_terms:
+        return None
+    session_id = str(card.get("session_id") or "").strip()
+    scope_ref = _seed_speed_scope_ref(card)
+    read_only_drilldown = _wl_command(
+        "session-status",
+        f"--session-id {_quote_cli(session_id)} --full",
+    )
+    return {
+        "schema": "work_ledger_seed_speed_cas_retry_handoff_row_v0",
+        "session_id": session_id,
+        "actor": card.get("actor"),
+        "phase_id": card.get("phase_id"),
+        "pass_state": card.get("pass_state"),
+        "freshness_state": card.get("freshness_state"),
+        "active_claim_count": card.get("active_claim_count"),
+        "scope_ref": scope_ref,
+        "current_pass_line": current_line,
+        "matched_terms": matched_terms,
+        "classification": "parent_cas_retry_budget_exhausted_landing_handoff",
+        "safe_next_action": "inspect_handoff_then_reenter_from_fresh_landing_evidence_root",
+        "blocked_action": "third_ref_mutation_from_the_same_scoped_commit_evidence_root",
+        "read_only_drilldown": read_only_drilldown,
+        "reentry_contract": {
+            "schema": "cas_retry_landing_reentry_contract_v0",
+            "required_checks": [
+                "refresh HEAD",
+                "inspect intervening commits for owned-path overlap",
+                "rerun or explicitly refresh validation assumptions",
+                "run mission_transaction_preflight for the exact owned paths",
+                "attempt a new scoped commit from a fresh evidence root",
+            ],
+            "forbidden_actions": [
+                "unbounded scoped_commit retries",
+                "third ref mutation after the same refreshed CAS retry loses",
+                "broad staging of unrelated dirty paths",
+            ],
+        },
+    }
+
+
+def _seed_speed_cas_retry_handoff_lens(
+    rows: Sequence[Mapping[str, Any]],
+    *,
+    limit: int,
+) -> Dict[str, Any]:
+    safe_limit = max(0, int(limit or 0))
+    typed_rows = [dict(row) for row in rows if isinstance(row, Mapping)]
+    first = typed_rows[0] if typed_rows else {}
+    first_command = str(first.get("read_only_drilldown") or "").strip() or None
+    return {
+        "schema": CAS_RETRY_HANDOFF_LENS_SCHEMA,
+        "surface_role": "seed_speed_cas_retry_handoff_lens",
+        "authority_boundary": (
+            "Heartbeat and Work Ledger prose classify a landing handoff candidate; "
+            "Git HEAD, owned paths, validation, Task Ledger receipts, and "
+            "scoped_commit remain the authority before mutation."
+        ),
+        "status": "present" if typed_rows else "clear",
+        "handoff_count": len(typed_rows),
+        "first_safe_command": first_command,
+        "rows": typed_rows[:safe_limit],
+        "rows_omitted": max(0, len(typed_rows) - safe_limit),
+        "policy": (
+            "Parent-CAS retry exhaustion is a serialized reentry problem, not a "
+            "reason to keep mutating refs. Reenter through the handoff row with "
+            "fresh HEAD, overlap, validation, preflight, and a new evidence root."
+        ),
+    }
 
 
 def _seed_speed_heartbeat_gap_row(card: Mapping[str, Any]) -> Dict[str, Any]:
@@ -2311,10 +3591,22 @@ def _seed_speed_unclaimed_touched_row(
     awareness_by_session: Mapping[str, Mapping[str, Any]],
 ) -> Dict[str, Any]:
     session_id = str(session.get("session_id") or "").strip()
-    td_ids = [
+    raw_td_ids = [
         str(item)
         for item in session.get("unclaimed_touched_td_ids") or []
         if item
+    ]
+    path_ids = [
+        str(item)
+        for item in session.get("unclaimed_touched_path_ids") or []
+        if item
+    ]
+    path_ids.extend(
+        item for item in raw_td_ids if _looks_like_repo_path_token(item)
+    )
+    path_ids = list(dict.fromkeys(path_ids))
+    td_ids = [
+        item for item in raw_td_ids if not _looks_like_repo_path_token(item)
     ]
     work_item_ids = [
         str(item) for item in session.get("unclaimed_touched_work_item_ids") or [] if item
@@ -2330,7 +3622,15 @@ def _seed_speed_unclaimed_touched_row(
         f"--session-id {_quote_cli(session_id)} --full",
     )
     owner_claim_command = None
-    if td_ids:
+    if path_ids:
+        owner_claim_command = _wl_command(
+            "session-claim-path",
+            f"--session-id {_quote_cli(session_id)}",
+            f"--path {_quote_cli(path_ids[0])}",
+            "--lease-minutes 30",
+            "--require-exclusive",
+        )
+    elif td_ids:
         owner_claim_command = _wl_command(
             "session-claim",
             f"--session-id {_quote_cli(session_id)}",
@@ -2339,10 +3639,24 @@ def _seed_speed_unclaimed_touched_row(
             "--require-exclusive",
         )
     elif work_item_ids:
-        owner_claim_command = (
-            "./repo-python tools/meta/control/work_landing.py begin "
-            f"--subject-id {_quote_cli(work_item_ids[0])} --session-id {_quote_cli(session_id)}"
+        owner_claim_command = _wl_command(
+            "session-claim",
+            f"--session-id {_quote_cli(session_id)}",
+            f"--td-id {_quote_cli(work_item_ids[0])}",
+            "--conflict-scope-kind work_item_id",
+            "--lease-minutes 30",
+            "--require-exclusive",
         )
+    coordination_pointer = {
+        "schema": "unclaimed_touched_session_coordination_packet_pointer_v1",
+        "output_profile": "compact_pointer",
+        "session_id": session_id,
+        "coordination_state": "unclaimed_touched_work",
+        "authority_boundary": "owner_or_explicit_coordinator_only",
+        "drilldown": read_only_drilldown,
+        "owner_repair_ref": "parent.owner_claim_command",
+        "omission_ref": "seed_speed.omission_receipt",
+    }
     return {
         "session_id": session_id,
         "actor": session.get("actor"),
@@ -2353,6 +3667,14 @@ def _seed_speed_unclaimed_touched_row(
         "current_pass_line": awareness.get("current_pass_line")
         or heartbeat.get("current_pass_line"),
         "heartbeat_source": awareness.get("source") or heartbeat.get("source"),
+        **(
+            {
+                "unclaimed_touched_path_ids": path_ids[:3],
+                "unclaimed_touched_path_ids_omitted": max(0, len(path_ids) - 3),
+            }
+            if path_ids
+            else {}
+        ),
         "unclaimed_touched_td_ids": td_ids[:3],
         "unclaimed_touched_td_ids_omitted": max(0, len(td_ids) - 3),
         "unclaimed_touched_work_item_ids": work_item_ids[:3],
@@ -2360,6 +3682,7 @@ def _seed_speed_unclaimed_touched_row(
         "read_only_drilldown": read_only_drilldown,
         "read_only_alternative_command": read_only_drilldown,
         "owner_claim_command": owner_claim_command,
+        "session_coordination_packet": coordination_pointer,
         "policy": (
             "Inspect the session first; only that owner or an explicit coordinator "
             "should claim the touched work before mutation."
@@ -2642,6 +3965,39 @@ def _seed_speed_no_active_claims_action() -> Dict[str, Any]:
         "command": './repo-python kernel.py --entry "<task>" --context-budget 12000',
         "ref": "entry.control_replacement.task_ledger",
     }
+
+
+def _seed_speed_session_coordination_packet(
+    card: Mapping[str, Any],
+    *,
+    heartbeat_gap: bool,
+) -> Dict[str, Any]:
+    session_id = str(card.get("session_id") or "").strip()
+    scope_ref = _seed_speed_scope_ref(card)
+    query_command = _wl_command(
+        "session-status",
+        f"--session-id {_quote_cli(session_id)} --full",
+    )
+    pointer = {
+        "schema": "session_coordination_packet_pointer_v1",
+        "output_profile": "compact_pointer",
+        "session_id": session_id,
+        "coordination_state": "heartbeat_gap" if heartbeat_gap else "queryable",
+        "drilldown": query_command,
+        "omission_ref": "seed_speed.omission_receipt",
+    }
+    if heartbeat_gap:
+        pointer["primary_signal_commands"] = {
+            "publish_heartbeat": _wl_command(
+                "session-heartbeat",
+                f"--session-id {_quote_cli(session_id)}",
+                "--state inspecting",
+                "--current-pass-line '<public current pass>'",
+                "--last-pass-result-line '<public previous result>'",
+                f"--scope-ref {_quote_cli(scope_ref)}",
+            ),
+        }
+    return pointer
 
 
 def _seed_speed_dirty_pressure_focus(
@@ -3822,6 +5178,534 @@ def _seed_speed_dirty_pressure_action(
     }
 
 
+def _seed_speed_generated_surface_claim_lens(
+    *,
+    active_claims: Sequence[Mapping[str, Any]],
+    seed_claim_sessions: Sequence[Mapping[str, Any]],
+    claim_collision_actions: Sequence[Mapping[str, Any]],
+) -> Dict[str, Any]:
+    """Project generated-entry surface ownership from the seed-speed claim packet."""
+
+    cards_by_session = {
+        str(card.get("session_id") or "").strip(): card
+        for card in seed_claim_sessions
+        if isinstance(card, Mapping) and str(card.get("session_id") or "").strip()
+    }
+    claims_by_path: Dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    for claim in active_claims:
+        if not isinstance(claim, Mapping):
+            continue
+        path = str(claim.get("path") or claim.get("scope_id") or "").strip()
+        if path:
+            claims_by_path[path].append(claim)
+    collision_paths = {
+        str(row.get("path") or "").strip()
+        for row in claim_collision_actions
+        if isinstance(row, Mapping) and str(row.get("path") or "").strip()
+    }
+
+    rows: list[dict[str, Any]] = []
+    for path in MICROCOSM_GENERATED_ENTRY_SURFACES:
+        claims = claims_by_path.get(path, [])
+        first_claim = claims[0] if claims else {}
+        session_id = str(first_claim.get("session_id") or "").strip()
+        card = cards_by_session.get(session_id) or {}
+        freshness = str(
+            card.get("freshness_state")
+            or first_claim.get("freshness_state")
+            or "unclaimed"
+        )
+        has_collision = path in collision_paths
+        if has_collision:
+            classification = "claim_collision"
+            allowed_action = "run_mutation_check_before_regeneration"
+            reentry_condition = "collision cleanup summary clears this path"
+        elif claims and freshness == "live":
+            classification = "owned_live"
+            allowed_action = "do_not_patch_from_sibling_lane"
+            reentry_condition = "owner session lands, releases, or records handoff"
+        elif claims:
+            classification = "owned_stale"
+            allowed_action = "release_or_supersede_owner_claim_then_regenerate"
+            reentry_condition = "claim is released or superseded through Work Ledger"
+        else:
+            classification = "unowned"
+            allowed_action = "claim_builder_lane_before_regenerating_if_drift_observed"
+            reentry_condition = "generator owner claim exists before rebuild"
+
+        rows.append(
+            {
+                "path": path,
+                "classification": classification,
+                "owner_session_id": session_id or None,
+                "claim_id": str(first_claim.get("claim_id") or "").strip() or None,
+                "claim_scope": str(first_claim.get("scope_kind") or "path"),
+                "freshness_state": freshness,
+                "claim_count": len(claims),
+                "allowed_action": allowed_action,
+                "reentry_condition": reentry_condition,
+            }
+        )
+
+    return {
+        "schema": GENERATED_SURFACE_CLAIM_LENS_SCHEMA,
+        "surface_role": "seed_speed_generated_surface_claim_lens",
+        "authority_boundary": (
+            "Work Ledger claim ownership projection only; generated-file drift "
+            "truth remains with the owning builder/check command."
+        ),
+        "drift_input_status": "not_run_by_seed_speed",
+        "tracked_surface_count": len(MICROCOSM_GENERATED_ENTRY_SURFACES),
+        "tracked_surfaces": list(MICROCOSM_GENERATED_ENTRY_SURFACES),
+        "surface_owner_rows": rows,
+        "classification_contract": {
+            "owned_live": "live owner owns the surface; hand off instead of patching",
+            "owned_stale": "owner claim exists but freshness is not live; release or supersede first",
+            "unowned": "claim a builder lane before regenerating when drift is observed",
+            "claim_collision": "resolve collision before regeneration or mutation",
+        },
+    }
+
+
+def _seed_speed_blocked_continuation_options(
+    *,
+    blocked_owner_rows: Sequence[Mapping[str, Any]],
+    first_action_command: str | None,
+) -> list[dict[str, Any]]:
+    owner_session_ids = sorted(
+        {
+            str(row.get("owner_session_id") or "").strip()
+            for row in blocked_owner_rows
+            if str(row.get("owner_session_id") or "").strip()
+        }
+    )
+    held_paths = [
+        str(row.get("path") or "").strip()
+        for row in blocked_owner_rows
+        if str(row.get("path") or "").strip()
+    ]
+    first_owner = owner_session_ids[0] if owner_session_ids else "<owner-session-id>"
+    first_path = held_paths[0] if held_paths else "<held-path>"
+    owner_fan_in_command = _wl_command(
+        "session-yield-request",
+        f"--target-session-id {_quote_cli(first_owner)}",
+        "--target-class settlement_obligation_owner",
+        "--requested-action release_after_landing",
+        "--result requested",
+        "--coordination-brief",
+        "--requester-label '<requesting thread>'",
+        "--blocked-on '<blocking condition>'",
+        "--validation-status '<current validation state>'",
+        f"--held-path {_quote_cli(first_path)}",
+        "--avoid-session-id '<sibling session id>'",
+    )
+    return [
+        {
+            "lane": "owner_fan_in",
+            "allowed": bool(owner_session_ids),
+            "command": owner_fan_in_command,
+            "requires": [
+                "held path",
+                "desired result",
+                "validation state",
+                "ack or release predicate",
+            ],
+        },
+        {
+            "lane": "companion_surface_lane",
+            "allowed": True,
+            "command": _wl_command(
+                "session-preflight",
+                "--session-id <your-session-id>",
+                "--path <disjoint-companion-surface>",
+                "--require-exclusive",
+                "--heartbeat-current-pass-line '<public current pass>'",
+            ),
+            "requires": [
+                "disjoint path",
+                "same rule or proof surface",
+                "fresh mutation-check before editing",
+            ],
+        },
+        {
+            "lane": "patch_handoff_artifact",
+            "artifact_class": "pending_diff_signoff",
+            "default_status": "pending_review",
+            "allowed": True,
+            "command": (
+                "./repo-python tools/meta/factory/claim_settlement_continuation.py "
+                "record --payload-file <candidate.json>"
+            ),
+            "requires": [
+                "base commit / base_rev",
+                "per-path hashes",
+                "allowed paths",
+                "forbidden paths",
+                "hunk, symbol, selector, or generated-source touchpoints",
+                "unified diff or equivalent patch payload",
+                "validation receipts before block",
+                "active claim context",
+                "fresh adjudication checks",
+            ],
+            "signoff_policy": (
+                "Any capable agent may approve when recent diffs, timestamps, "
+                "thread provenance, active claims, generated/source relationships, "
+                "and validation receipts show clean non-interference."
+            ),
+        },
+        {
+            "lane": "validation_substitution",
+            "allowed": True,
+            "evidence_floor": (
+                "Use the cheapest relevant proof ladder, then record full validation "
+                "as queued or substituted rather than failed."
+            ),
+        },
+        {
+            "lane": "cas_retry",
+            "allowed": True,
+            "condition": (
+                "Only after re-reading HEAD, scoped diff, path ownership, and "
+                "validation assumptions."
+            ),
+        },
+        {
+            "lane": "residual_capture",
+            "allowed": True,
+            "command": (
+                "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture "
+                "--created-by <agent_id> --rebuild --confidence 0.85 "
+                "--title '<blocked continuation>' --statement '<owner, blocker, proof, re-entry>'"
+            ),
+            "condition": "Only when fan-in, disjoint lane, and patch handoff are unavailable.",
+        },
+        {
+            "lane": "nothing_to_refine",
+            "allowed": True,
+            "condition": (
+                "Only when current cards/tests already prove active alternatives and "
+                "no owner surface needs mutation."
+            ),
+        },
+    ]
+
+
+def _seed_speed_concurrency_closure_state_lens(
+    *,
+    generated_surface_claim_lens: Mapping[str, Any],
+    dirty_tree_pressure_focus: Mapping[str, Any] | None,
+    counts: Mapping[str, Any],
+    first_action_kind: str,
+    first_action: str,
+    first_action_command: str | None,
+) -> Dict[str, Any]:
+    """Expose closure-state inputs without pretending seed-speed ran validation."""
+
+    surface_rows = [
+        row
+        for row in list(generated_surface_claim_lens.get("surface_owner_rows") or [])
+        if isinstance(row, Mapping)
+    ]
+    live_owner_rows = [
+        row for row in surface_rows if row.get("classification") == "owned_live"
+    ]
+    stale_owner_rows = [
+        row for row in surface_rows if row.get("classification") == "owned_stale"
+    ]
+    collision_rows = [
+        row for row in surface_rows if row.get("classification") == "claim_collision"
+    ]
+    blocked_owner_rows = [*collision_rows, *live_owner_rows, *stale_owner_rows]
+    active_claim_count = int(counts.get("active_claims") or 0)
+    dirty_focus_status = (
+        str(dirty_tree_pressure_focus.get("status") or "").strip()
+        if isinstance(dirty_tree_pressure_focus, Mapping)
+        else "not_present"
+    )
+
+    if collision_rows:
+        current_state = "owned_live_handoff"
+        current_reason = "generated-surface claim collision requires owner coordination"
+        next_safe_action = "select_blocked_continuation_option"
+    elif live_owner_rows:
+        current_state = "owned_live_handoff"
+        current_reason = "a live owner holds at least one generated public-entry surface"
+        next_safe_action = "select_blocked_continuation_option"
+    elif stale_owner_rows:
+        current_state = "owned_stale_reentry"
+        current_reason = "a stale owner claim remains on a generated public-entry surface"
+        next_safe_action = "select_blocked_continuation_option"
+    elif active_claim_count:
+        current_state = "active_not_closed"
+        current_reason = "seed-speed sees active claims; closure classification needs the lane receipt"
+        next_safe_action = first_action_kind or "choose_disjoint_write_lane"
+    else:
+        current_state = "no_active_closure_lane"
+        current_reason = "seed-speed does not see active claims in this snapshot"
+        next_safe_action = "reenter_when_a_lane_receipt_or_drift_check_exists"
+
+    include_blocked_options = current_state in {
+        "owned_live_handoff",
+        "owned_stale_reentry",
+    }
+    if include_blocked_options:
+        blocked_continuation_options = _seed_speed_blocked_continuation_options(
+            blocked_owner_rows=blocked_owner_rows,
+            first_action_command=first_action_command,
+        )
+        blocked_continuation_option_count = len(blocked_continuation_options)
+        blocked_continuation_options_omitted = 0
+        blocked_continuation_options_ref = None
+    else:
+        blocked_continuation_options = []
+        blocked_continuation_option_count = 7
+        blocked_continuation_options_omitted = blocked_continuation_option_count
+        blocked_continuation_options_ref = "concurrency_closure_state_lens.compact_omission"
+
+    return {
+        "schema": CONCURRENCY_CLOSURE_STATE_LENS_SCHEMA,
+        "surface_role": "seed_speed_concurrency_closure_state_lens",
+        "authority_boundary": (
+            "Work Ledger seed-speed closure projection only; generator drift truth, "
+            "validation sufficiency, scoped commit attribution, and Task Ledger "
+            "residual closure remain with their owning checks and receipts."
+        ),
+        "current_state": current_state,
+        "current_reason": current_reason,
+        "next_safe_action": next_safe_action,
+        "next_safe_action_command": first_action_command,
+        "blocked_continuation_options": blocked_continuation_options,
+        "blocked_continuation_option_count": blocked_continuation_option_count,
+        "blocked_continuation_options_omitted": blocked_continuation_options_omitted,
+        "blocked_continuation_options_ref": blocked_continuation_options_ref,
+        "first_action": first_action,
+        "input_status": {
+            "generated_surface_owner_lens": "available",
+            "generator_drift_check": str(
+                generated_surface_claim_lens.get("drift_input_status") or "not_run_by_seed_speed"
+            ),
+            "validation_quote": "not_run_by_seed_speed",
+            "scoped_commit_attribution": dirty_focus_status,
+            "task_ledger_residual_truth": "not_evaluated_by_seed_speed",
+        },
+        "tracked_generated_surface_owner_state_counts": {
+            "owned_live": len(live_owner_rows),
+            "owned_stale": len(stale_owner_rows),
+            "claim_collision": len(collision_rows),
+        },
+        "compact_omission": (
+            {
+                "omitted": [
+                    "owner_fan_in option command",
+                    "companion_surface_lane command",
+                    "patch_handoff_artifact command",
+                    "validation_substitution detail",
+                    "cas_retry detail",
+                    "residual_capture command",
+                    "nothing_to_refine condition",
+                ],
+                "reason": (
+                    "No generated-surface owner handoff or collision is active; "
+                    "seed-speed keeps the first action and omits generic "
+                    "continuation recipes."
+                ),
+                "restore_condition": (
+                    "Full blocked_continuation_options are emitted when the lens "
+                    "state is owned_live_handoff or owned_stale_reentry."
+                ),
+            }
+            if not include_blocked_options
+            else None
+        ),
+        "closure_state_contract": {
+            "closed_and_committed": (
+                "source/product landed, validation floor complete, and scoped commit attribution is clean"
+            ),
+            "closed_uncommitted_authority": (
+                "event authority is clean but shared append/generated files are unsafe to stage"
+            ),
+            "closed_validation_deferred": (
+                "product/generator smoke is clean while heavier validation is blocked or queued"
+            ),
+            "owned_live_handoff": (
+                "fresh owner claim controls the target surface; use blocked_continuation_options "
+                "to fan in, preserve a patch handoff, choose a disjoint lane, substitute "
+                "validation, retry CAS, capture a residual, or prove no refinement"
+            ),
+            "owned_stale_reentry": (
+                "stale owner claim must be released or superseded before re-entry"
+            ),
+            "unowned_generated_drift": (
+                "generated drift exists and no live owner holds the builder lane"
+            ),
+            "false_residual_stale": (
+                "an old residual remains open after current owner/generator evidence disconfirms it"
+            ),
+        },
+    }
+
+
+def _seed_speed_compact_dirty_pressure_focus(
+    dirty_tree_pressure_focus: Mapping[str, Any] | None,
+    *,
+    limit: int,
+) -> Dict[str, Any] | None:
+    if not isinstance(dirty_tree_pressure_focus, Mapping):
+        return None
+    safe_limit = max(0, int(limit or 0))
+
+    def _compact_blocking_session(row: Any) -> Dict[str, Any] | None:
+        if not isinstance(row, Mapping):
+            return None
+        keep_keys = (
+            "session_id",
+            "actor",
+            "phase_id",
+            "dirty_path_count",
+            "leased_until_max",
+            "lease_state",
+            "lease_seconds_remaining",
+            "lease_expired",
+            "paths_preview",
+            "paths_omitted",
+            "session_status_command",
+            "safe_next_command",
+            "freshness_state",
+            "pass_state",
+            "current_pass_line",
+            "heartbeat_source",
+            "heartbeat_gap",
+            "recommended_action",
+            "first_underlying_path",
+            "first_underlying_owner_surface",
+            "first_underlying_recommended_action",
+        )
+        stable_null_keys = {"lease_seconds_remaining", "lease_expired"}
+        return {
+            key: row.get(key)
+            for key in keep_keys
+            if key in stable_null_keys or row.get(key) not in (None, "", {}, [])
+        }
+
+    def _compact_clearance_summary(row: Any) -> Dict[str, Any] | None:
+        if not isinstance(row, Mapping):
+            return None
+        return {
+            "schema": "dirty_tree_checkpoint_clearance_summary_v0",
+            "status": row.get("status"),
+            "current_blocker": row.get("current_blocker"),
+            "no_heartbeat_mode_safe": row.get("no_heartbeat_mode_safe"),
+            "first_blocking_step": row.get("first_blocking_step"),
+            "first_blocking_command": row.get("first_blocking_command"),
+            "checkpoint_policy": row.get("checkpoint_policy"),
+        }
+
+    compact: Dict[str, Any] = {
+        "schema": dirty_tree_pressure_focus.get("schema"),
+        "projection_mode": "compact_first_contact",
+        "status": dirty_tree_pressure_focus.get("status"),
+        "checkpoint_status": dirty_tree_pressure_focus.get("checkpoint_status"),
+        "checkpoint_authorized": dirty_tree_pressure_focus.get(
+            "checkpoint_authorized"
+        ),
+        "checkpoint_guard": dirty_tree_pressure_focus.get("checkpoint_guard"),
+        "dirty_total": dirty_tree_pressure_focus.get("dirty_total"),
+        "dirty_path_class_counts": dict(
+            dirty_tree_pressure_focus.get("dirty_path_class_counts") or {}
+        ),
+        "active_claim_dirty_path_count": dirty_tree_pressure_focus.get(
+            "active_claim_dirty_path_count"
+        ),
+        "claim_collision_count": dirty_tree_pressure_focus.get(
+            "claim_collision_count"
+        ),
+        "blocking_session_group_count": dirty_tree_pressure_focus.get(
+            "blocking_session_group_count"
+        ),
+        "blocking_session_lease_summary": dirty_tree_pressure_focus.get(
+            "blocking_session_lease_summary"
+        ),
+        "no_heartbeat_blocking_claim_summary": dirty_tree_pressure_focus.get(
+            "no_heartbeat_blocking_claim_summary"
+        ),
+        "scoped_work_continuation_summary": dirty_tree_pressure_focus.get(
+            "scoped_work_continuation_summary"
+        ),
+        "checkpoint_clearance_summary": _compact_clearance_summary(
+            dirty_tree_pressure_focus.get("checkpoint_clearance_ladder")
+        ),
+        "first_action_kind": dirty_tree_pressure_focus.get("first_action_kind"),
+        "first_action": dirty_tree_pressure_focus.get("first_action"),
+        "first_action_command": dirty_tree_pressure_focus.get(
+            "first_action_command"
+        ),
+        "first_action_ref": dirty_tree_pressure_focus.get("first_action_ref"),
+        "promote_for_no_heartbeat": dirty_tree_pressure_focus.get(
+            "promote_for_no_heartbeat"
+        ),
+        "recheck_command": dirty_tree_pressure_focus.get("recheck_command"),
+    }
+
+    compact["blocking_session"] = _compact_blocking_session(
+        dirty_tree_pressure_focus.get("blocking_session")
+    )
+    raw_preview = [
+        row
+        for row in list(
+            dirty_tree_pressure_focus.get("blocking_sessions_preview") or []
+        )
+        if isinstance(row, Mapping)
+    ]
+    preview = [
+        row
+        for row in (
+            _compact_blocking_session(row) for row in raw_preview[:safe_limit]
+        )
+        if row
+    ]
+    compact["blocking_sessions_preview"] = preview
+    compact["blocking_sessions_omitted"] = (
+        int(dirty_tree_pressure_focus.get("blocking_sessions_omitted") or 0)
+        + max(0, len(raw_preview) - len(preview))
+    )
+
+    omitted = [
+        "agent_decision_summary",
+        "after_active_claims_clear",
+        "post_active_claim_settlement_summary",
+        "checkpoint_clearance_ladder",
+        "active_claim_underlying_dirty_summary",
+        "blocking_session_coordination_summary",
+    ]
+    compact["omission_receipt"] = {
+        "schema": "work_ledger_seed_speed_dirty_pressure_focus_omission_v0",
+        "omitted": omitted,
+        "reason": (
+            "dirty_tree_pressure_focus is a first-contact seed-speed surface; "
+            "bulky settlement diagnostics stay behind owner drilldowns."
+        ),
+        "preserved": [
+            "first action",
+            "checkpoint guard",
+            "blocker counts",
+            "first blocking session handle",
+            "blocking lease summary",
+            "scoped work continuation summary",
+        ],
+        "drilldowns": {
+            "dirty_tree_pressure": _wl_command(
+                "session-sweep", "--dry-run --dirty-tree-pressure"
+            ),
+            "runtime_full": _wl_command("session-status", "--full"),
+            "claim_sessions": _wl_command(
+                "session-claims",
+                "--refresh --session-summary --limit 12 --cards-only",
+            ),
+        },
+    }
+    return compact
+
+
 def build_seed_speed_status(
     overview: Mapping[str, Any],
     *,
@@ -3909,6 +5793,13 @@ def build_seed_speed_status(
         grouped.values(),
         key=lambda card: (-int(card.get("active_claim_count") or 0), str(card.get("session_id") or "")),
     )
+    cas_retry_handoff_rows = [
+        row
+        for row in (
+            _seed_speed_cas_retry_handoff_row(card) for card in seed_claim_sessions
+        )
+        if row is not None
+    ]
     heartbeat_gap_claim_sessions = [
         _seed_speed_heartbeat_gap_row(card)
         for card in seed_claim_sessions
@@ -3924,6 +5815,12 @@ def build_seed_speed_status(
         for card in heartbeat_gap_claim_sessions
         if str(card.get("session_id") or "").strip()
     }
+    for card in seed_claim_sessions:
+        session_id = str(card.get("session_id") or "").strip()
+        card["session_coordination_packet"] = _seed_speed_session_coordination_packet(
+            card,
+            heartbeat_gap=session_id in heartbeat_gap_session_ids,
+        )
     unclaimed_touched_source = [
         row
         for row in list(contention.get("unclaimed_touched_sessions") or [])
@@ -3950,14 +5847,18 @@ def build_seed_speed_status(
     )
     claim_collision_count = len(claim_collision_rows)
     projected_unknown_count = int(heartbeat.get("projected_unknown_count") or 0)
-    dirty_tree_pressure_focus = _seed_speed_dirty_pressure_focus(
+    dirty_tree_pressure_focus_full = _seed_speed_dirty_pressure_focus(
         dirty_tree_pressure,
         session_coordination=session_coordination,
         heartbeat_gap_session_ids=heartbeat_gap_session_ids,
         observed_at=str(overview.get("generated_at") or "").strip() or None,
     )
     dirty_tree_pressure_action = _seed_speed_dirty_pressure_action(
-        dirty_tree_pressure_focus
+        dirty_tree_pressure_focus_full
+    )
+    dirty_tree_pressure_focus = _seed_speed_compact_dirty_pressure_focus(
+        dirty_tree_pressure_focus_full,
+        limit=safe_limit,
     )
     first_action_kind: str
     first_action_command: str | None = None
@@ -3976,6 +5877,28 @@ def build_seed_speed_status(
             or ""
         ).strip() or None
         first_action_ref = "claim_collision_cleanup_summary.first_safe_command"
+    elif unclaimed_touched_sessions:
+        first_unclaimed = unclaimed_touched_sessions[0]
+        first_action_kind = "unclaimed_touched_owner_repair"
+        first_action = (
+            "Inspect the unclaimed touched session and have the owner or explicit "
+            "coordinator claim the touched work before mutation."
+        )
+        first_action_command = (
+            str(first_unclaimed.get("read_only_drilldown") or "").strip() or None
+        )
+        first_action_ref = "unclaimed_touched_sessions[0].read_only_drilldown"
+    elif cas_retry_handoff_rows:
+        first_action_kind = "cas_retry_landing_handoff"
+        first_action = (
+            "Inspect CAS retry exhausted handoff sessions before choosing new work; "
+            "do not perform a third ref mutation from the same evidence root."
+        )
+        first_action_command = (
+            str(cas_retry_handoff_rows[0].get("read_only_drilldown") or "").strip()
+            or None
+        )
+        first_action_ref = "cas_retry_handoff_lens.rows[0].read_only_drilldown"
     elif heartbeat_gap_claim_sessions:
         first_action_kind = "heartbeat_gap"
         first_action = "Publish heartbeat for claim-owning seed sessions listed in heartbeat_gap_claim_sessions."
@@ -4163,6 +6086,27 @@ def build_seed_speed_status(
         if prefer_non_heartbeat
         else None
     )
+    generated_surface_claim_lens = _seed_speed_generated_surface_claim_lens(
+        active_claims=[
+            row
+            for row in list(overview.get("active_claims") or [])
+            if isinstance(row, Mapping)
+        ],
+        seed_claim_sessions=seed_claim_sessions,
+        claim_collision_actions=claim_collision_actions,
+    )
+    cas_retry_handoff_lens = _seed_speed_cas_retry_handoff_lens(
+        cas_retry_handoff_rows,
+        limit=safe_limit,
+    )
+    concurrency_closure_state_lens = _seed_speed_concurrency_closure_state_lens(
+        generated_surface_claim_lens=generated_surface_claim_lens,
+        dirty_tree_pressure_focus=dirty_tree_pressure_focus,
+        counts=counts,
+        first_action_kind=first_action_kind,
+        first_action=first_action,
+        first_action_command=first_action_command,
+    )
 
     return {
         "schema": "work_ledger_seed_speed_status_v1",
@@ -4174,16 +6118,21 @@ def build_seed_speed_status(
             "active_claims": counts.get("active_claims"),
             "active_claim_session_count": len(seed_claim_sessions),
             "claim_session_heartbeat_gap_count": len(heartbeat_gap_claim_sessions),
+            "cas_retry_handoff_count": len(cas_retry_handoff_rows),
             "explicit_current_pass_sessions": heartbeat.get("explicit_current_pass_count", 0),
             "projected_unknown_sessions": projected_unknown_count,
             "orphaned_active_sessions": counts.get("orphaned_active_sessions"),
             "claim_collisions": claim_collision_count,
             "unclaimed_touched_sessions": counts.get("unclaimed_touched_sessions"),
         },
+        "count_semantics": coordination_count_semantics(counts, heartbeat=heartbeat),
         "risk": {
             "risk_level": contention.get("risk_level"),
             "signals": list(contention.get("signals") or []),
         },
+        "generated_surface_claim_lens": generated_surface_claim_lens,
+        "cas_retry_handoff_lens": cas_retry_handoff_lens,
+        "concurrency_closure_state_lens": concurrency_closure_state_lens,
         "first_action": first_action,
         "first_action_kind": first_action_kind,
         "first_action_command": first_action_command,
@@ -4259,12 +6208,192 @@ def build_seed_speed_status(
                 "recommended_actions",
                 "full active claim rows",
                 "full unclaimed touched session rows",
+                "full per-session coordination command maps",
+                "per-row coordination inbox/message/send commands",
+                "per-row coordination omission receipts",
+                "session workflow message bus detail",
                 "full session rows",
             ],
             "reason": "seed-speed status is the first-contact active-seed lane; it keeps only claim-session, heartbeat, and contention scalars.",
             "drilldown": _wl_command(
                 "session-status",
                 f"--overview --cards-only --limit {safe_limit}",
+            ),
+        },
+    }
+
+
+def _compact_awareness_card_for_cards_only(row: Mapping[str, Any]) -> Dict[str, Any]:
+    card = dict(row)
+    card.pop("claim_refs", None)
+    repair_rows = [
+        dict(item) for item in list(row.get("repair_rows") or []) if isinstance(item, Mapping)
+    ]
+    if repair_rows:
+        card.pop("repair_rows", None)
+        kinds = Counter(str(item.get("kind") or "unknown") for item in repair_rows)
+        card["repair_summary"] = {
+            "row_count": len(repair_rows),
+            "kinds": dict(sorted(kinds.items())),
+            "top_action": repair_rows[0].get("safe_next_command"),
+            "top_message": repair_rows[0].get("message"),
+        }
+        if row.get("drilldown"):
+            card["repair_summary"]["drilldown"] = row.get("drilldown")
+    return card
+
+
+def _compact_monitor_card_for_cards_only(row: Mapping[str, Any]) -> Dict[str, Any]:
+    card = dict(row)
+    repair_rows = [
+        dict(item) for item in list(row.get("repair_rows") or []) if isinstance(item, Mapping)
+    ]
+    if repair_rows:
+        card.pop("repair_rows", None)
+        kinds = Counter(str(item.get("kind") or "unknown") for item in repair_rows)
+        card["repair_summary"] = {
+            "row_count": len(repair_rows),
+            "kinds": dict(sorted(kinds.items())),
+            "top_action": repair_rows[0].get("safe_next_command"),
+            "top_message": repair_rows[0].get("message"),
+        }
+        if row.get("drilldown"):
+            card["repair_summary"]["drilldown"] = row.get("drilldown")
+    return card
+
+
+def _cohort_speed_summary_for_cards_only(
+    overview: Mapping[str, Any],
+    *,
+    awareness_cards: Sequence[Mapping[str, Any]],
+) -> Dict[str, Any]:
+    counts = overview.get("counts") if isinstance(overview.get("counts"), Mapping) else {}
+    heartbeat = (
+        overview.get("heartbeat_participation")
+        if isinstance(overview.get("heartbeat_participation"), Mapping)
+        else {}
+    )
+    active_claim_session_ids = sorted(
+        {
+            str(card.get("session_id"))
+            for card in awareness_cards
+            if card.get("session_id")
+            and (
+                card.get("claim_refs")
+                or (
+                    isinstance(card.get("claim_summary"), Mapping)
+                    and int(card["claim_summary"].get("claim_count") or 0) > 0
+                )
+            )
+        }
+    )
+    return {
+        "effective_active_sessions": counts.get(
+            "effective_active_sessions", heartbeat.get("effective_active_sessions")
+        ),
+        "active_claims": counts.get("active_claims"),
+        "active_claim_session_count": len(active_claim_session_ids),
+        "active_claim_session_ids": active_claim_session_ids[:8],
+        "explicit_current_pass_sessions": heartbeat.get("explicit_current_pass_count", 0),
+        "projected_unknown_sessions": heartbeat.get("projected_unknown_count", 0),
+        "orphaned_active_sessions": counts.get("orphaned_active_sessions"),
+        "first_action": (
+            "Use session-level claim summaries for write-active lanes, then publish "
+            "session-heartbeat for participating live seeds that can write."
+        ),
+        "claims_fast_path": _wl_command(
+            "session-claims",
+            "--refresh --session-summary --limit 12 --cards-only",
+        ),
+        "heartbeat_fast_path": _wl_command(
+            "session-heartbeat",
+            "--session-id <id>",
+            "--state inspecting",
+            "--current-pass-line '<public current pass>'",
+            "--last-pass-result-line '<public previous result>'",
+            "--scope-ref <path-or-claim>",
+        ),
+    }
+
+
+def build_session_cohort_cards_only_overview(
+    overview: Mapping[str, Any],
+    *,
+    limit: int,
+) -> Dict[str, Any]:
+    """Build the default cards-only cohort packet without session row arrays."""
+    safe_limit = max(0, int(limit or 0))
+    contention = overview.get("contention") if isinstance(overview.get("contention"), Mapping) else {}
+    awareness_cards = [
+        _compact_awareness_card_for_cards_only(row)
+        for row in list(overview.get("awareness_cards") or [])[:safe_limit]
+        if isinstance(row, Mapping)
+    ]
+    repair_rows = [
+        dict(row)
+        for row in list(overview.get("repair_rows") or [])[:safe_limit]
+        if isinstance(row, Mapping)
+    ]
+    return {
+        "schema": overview.get("schema"),
+        "generated_at": overview.get("generated_at"),
+        "mode": "cards_only_overview",
+        "orphan_after_seconds": overview.get("orphan_after_seconds"),
+        "counts": overview.get("counts") or {},
+        "count_semantics": coordination_count_semantics(
+            overview.get("counts") if isinstance(overview.get("counts"), Mapping) else {},
+            heartbeat=overview.get("heartbeat_participation")
+            if isinstance(overview.get("heartbeat_participation"), Mapping)
+            else {},
+        ),
+        "monitor_cards": [
+            _compact_monitor_card_for_cards_only(row)
+            for row in list(overview.get("monitor_cards") or [])
+            if isinstance(row, Mapping)
+        ],
+        "awareness_cards": awareness_cards,
+        "heartbeat_participation": dict(overview.get("heartbeat_participation") or {}),
+        "repair_rows": repair_rows,
+        "cohort_speed_summary": _cohort_speed_summary_for_cards_only(
+            overview,
+            awareness_cards=awareness_cards,
+        ),
+        "recommended_landing_lane": overview.get("recommended_landing_lane"),
+        "contention": {
+            "risk_level": contention.get("risk_level"),
+            "signals": list(contention.get("signals") or []),
+            "td_id_collision_count": len(contention.get("td_id_collisions") or []),
+            "claim_collision_count": len(contention.get("claim_collisions") or []),
+            "unknown_scope_active_session_count": len(contention.get("unknown_scope_active_sessions") or []),
+            "unclaimed_touched_session_count": len(contention.get("unclaimed_touched_sessions") or []),
+            "orphaned_active_session_count": len(contention.get("orphaned_active_sessions") or []),
+        },
+        "recommended_actions": list(overview.get("recommended_actions") or [])[:safe_limit],
+        "drilldown_commands": {
+            "seed_speed": _wl_command("session-status", "--seed-speed --limit 12"),
+            "overview_cards": _wl_command(
+                "session-status",
+                f"--overview --cards-only --limit {safe_limit}",
+            ),
+            "full_runtime": _wl_command("session-status", "--full"),
+        },
+        "omission_receipt": {
+            "omitted": [
+                "active_session_rows",
+                "effective_active_session_rows",
+                "orphaned_active_session_rows",
+                "monitor_card_repair_rows",
+                "per_awareness_card_repair_rows",
+                "per_awareness_card_claim_refs",
+            ],
+            "reason": (
+                "cards-only overview preserves monitor cards, awareness cards, "
+                "repair summaries, and counts for routine status checks; row "
+                "evidence remains behind drilldowns."
+            ),
+            "drilldown": _wl_command(
+                "session-status",
+                f"--overview --limit {safe_limit}",
             ),
         },
     }
@@ -4489,6 +6618,18 @@ def _dirty_path_owner_hint(path: str) -> Dict[str, str]:
             "class": "generated_owner_dirty",
             "owner_surface": "system_atlas_projection",
             "recommended_action": "./repo-python kernel.py --facts --band cluster_flag",
+        }
+    if path == "state/observability/render_load_index.json":
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "station_render_load_index_projection",
+            "recommended_action": "./repo-python -m tools.meta.observability.station_render timings --limit 20",
+        }
+    if path.startswith("state/observability/"):
+        return {
+            "class": "generated_owner_dirty",
+            "owner_surface": "observability_runtime_state",
+            "recommended_action": "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact",
         }
     if path.startswith(ROOT_AUTONOMOUS_SEED_PREFIX):
         return {
@@ -5174,7 +7315,25 @@ def _dirty_tree_containment_plan(
         rescue_repeat_policy.get("next_safe_action") or ""
     ).strip()
     first_action = steps[0] if steps else None
-    if active_claim_dirty_count and (
+    if mainline_checkpoint_available:
+        first_action = next(
+            (
+                step
+                for step in steps
+                if step.get("step_id") == "operator_authorized_mainline_checkpoint"
+            ),
+            first_action,
+        )
+    elif unclaimed_checkpoint_available:
+        first_action = next(
+            (
+                step
+                for step in steps
+                if step.get("step_id") == "operator_authorized_unclaimed_checkpoint"
+            ),
+            first_action,
+        )
+    elif active_claim_dirty_count and (
         not rescue_next_safe_action
         or rescue_next_safe_action == generic_closeout_plan_command
     ):
@@ -5799,6 +7958,7 @@ def build_dirty_tree_bankruptcy_pressure(
     loaded_status = status if status is not None else load_runtime_status(repo_root)
     overview = build_session_cohort_overview(
         loaded_status,
+        repo_root=repo_root,
         limit=limit,
         now=current,
         orphan_after=orphan_after,
@@ -6381,6 +8541,7 @@ def _compact_dirty_tree_containment_plan(
                     "next_safe_action",
                     "first_blocking_claim_command",
                     "commands",
+                    "command",
                     "quiet_window",
                 )
                 if row.get(key) not in (None, "", [], {})
@@ -6401,6 +8562,7 @@ def _compact_dirty_tree_containment_plan(
                     "dirty_path_count",
                     "next_safe_action",
                     "first_blocking_claim_command",
+                    "command",
                 )
                 if first_action.get(key) not in (None, "", [], {})
             },
@@ -6648,13 +8810,20 @@ def _claim_collision_rows(active_claims: List[Dict[str, Any]]) -> List[Dict[str,
     consumed_pairs: set[tuple[str, str]] = set()
     for index, left_key in enumerate(scope_keys):
         left_claims = scoped_claims[left_key]
-        same_scope_collisions = list(left_claims) if len(left_claims) > 1 else []
+        same_scope_collisions: List[Dict[str, Any]] = []
+        if len(left_claims) > 1:
+            anchor = left_claims[0]
+            same_scope_collisions = [
+                claim
+                for claim in left_claims[1:]
+                if _claim_scopes_conflict(anchor, claim)
+            ]
         overlap_collisions: List[Dict[str, Any]] = []
         for right_key in scope_keys[index + 1 :]:
             pair_key = (left_key, right_key)
             if pair_key in consumed_pairs:
                 continue
-            if not _claim_scopes_overlap(left_claims[0], scoped_claims[right_key][0]):
+            if not _claim_scopes_conflict(left_claims[0], scoped_claims[right_key][0]):
                 continue
             consumed_pairs.add(pair_key)
             overlap_collisions.extend(scoped_claims[right_key])
@@ -6734,12 +8903,23 @@ def build_active_claims_snapshot(
     claim_collisions = _claim_collision_rows(active_claims)
     seed_speed_overview = build_session_cohort_overview(
         status,
+        repo_root=repo_root,
         limit=SEED_SPEED_SNAPSHOT_OVERVIEW_LIMIT,
         now=now,
         orphan_after=orphan_after,
     )
     seed_speed_hint = build_seed_speed_status(
         seed_speed_overview,
+        limit=SESSION_COHORT_OVERVIEW_LIMIT,
+    )
+    overview_cards_hint = build_session_cohort_cards_only_overview(
+        build_session_cohort_overview(
+            status,
+            repo_root=repo_root,
+            limit=SESSION_COHORT_OVERVIEW_LIMIT,
+            now=now,
+            orphan_after=orphan_after,
+        ),
         limit=SESSION_COHORT_OVERVIEW_LIMIT,
     )
     stable_payload = {
@@ -6750,6 +8930,12 @@ def build_active_claims_snapshot(
             "first_action_kind": seed_speed_hint.get("first_action_kind"),
             "first_action_command": seed_speed_hint.get("first_action_command"),
             "heartbeat_gap_claim_sessions": seed_speed_hint.get("heartbeat_gap_claim_sessions") or [],
+        },
+        "overview_cards_hint": {
+            "counts": overview_cards_hint.get("counts") or {},
+            "monitor_card_count": len(overview_cards_hint.get("monitor_cards") or []),
+            "awareness_card_count": len(overview_cards_hint.get("awareness_cards") or []),
+            "repair_row_count": len(overview_cards_hint.get("repair_rows") or []),
         },
     }
     canonical = json.dumps(stable_payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
@@ -6770,6 +8956,7 @@ def build_active_claims_snapshot(
         "active_claims": active_claims,
         "claim_collisions": claim_collisions,
         "seed_speed_hint": seed_speed_hint,
+        "overview_cards_hint": overview_cards_hint,
         "refresh_command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh",
     }
 
@@ -7054,10 +9241,11 @@ def active_claim_collisions_for_paths(
     *,
     status: Mapping[str, Any] | None = None,
     session_id: str | None = None,
+    now: datetime | None = None,
 ) -> List[Dict[str, Any]]:
     """Return active Work Ledger path claims that overlap requested paths."""
     status_payload = status if status is not None else load_runtime_status(repo_root)
-    snapshot = build_active_claims_snapshot(repo_root, status_payload)
+    snapshot = build_active_claims_snapshot(repo_root, status_payload, now=now)
     owner_session_id = str(session_id or "").strip()
     requested_paths: List[str] = []
     for path in paths:
@@ -7088,10 +9276,282 @@ def active_claim_collisions_for_paths(
                     "actor": claim.get("actor"),
                     "claim_id": claim.get("claim_id"),
                     "claim_path": claim_path,
+                    "claim_intent": claim.get("claim_intent"),
+                    "conflict_scope_kind": claim.get("conflict_scope_kind"),
+                    "conflict_mode": claim.get("conflict_mode"),
                     "leased_until": claim.get("leased_until"),
                 }
             )
     return collisions
+
+
+def _unique_nonempty(values: Iterable[Any]) -> List[str]:
+    seen: List[str] = []
+    for value in values:
+        token = str(value or "").strip()
+        if token and token not in seen:
+            seen.append(token)
+    return seen
+
+
+def _contention_collision_claim_path(collision: Mapping[str, Any]) -> str:
+    claim = collision.get("claim") if isinstance(collision.get("claim"), Mapping) else {}
+    return str(
+        collision.get("claim_path")
+        or collision.get("path")
+        or claim.get("path")
+        or claim.get("scope_id")
+        or ""
+    ).strip()
+
+
+def _contention_collision_claim_id(collision: Mapping[str, Any]) -> str:
+    claim = collision.get("claim") if isinstance(collision.get("claim"), Mapping) else {}
+    return str(collision.get("claim_id") or claim.get("claim_id") or "").strip()
+
+
+def _contention_collision_lease(collision: Mapping[str, Any]) -> str:
+    claim = collision.get("claim") if isinstance(collision.get("claim"), Mapping) else {}
+    return str(collision.get("leased_until") or claim.get("leased_until") or "").strip()
+
+
+def _contention_collision_requested_surface(collision: Mapping[str, Any]) -> str:
+    claim = collision.get("claim") if isinstance(collision.get("claim"), Mapping) else {}
+    return str(
+        collision.get("requested_path")
+        or collision.get("path")
+        or collision.get("scope_id")
+        or claim.get("path")
+        or claim.get("scope_id")
+        or claim.get("td_id")
+        or claim.get("work_item_id")
+        or ""
+    ).strip()
+
+
+def build_shared_substrate_contention_envelope(
+    *,
+    requested_paths: Sequence[Any] | None = None,
+    collisions: Sequence[Mapping[str, Any]] | None = None,
+    requester_session_id: str | None = None,
+    require_exclusive: bool = True,
+) -> Dict[str, Any]:
+    """Build the first responder packet for claimed shared-substrate contention.
+
+    A live claim should block unsafe mutation, but it should also expose the
+    existing owner surface and the legal coordination moves. This envelope keeps
+    agents from stopping at "file is claimed" prose.
+    """
+    collision_rows = [row for row in list(collisions or []) if isinstance(row, Mapping)]
+    requested_surfaces = _unique_nonempty(
+        list(requested_paths or [])
+        + [_contention_collision_requested_surface(row) for row in collision_rows]
+    )
+    requester = str(requester_session_id or "").strip()
+    owner_map: Dict[str, Dict[str, Any]] = {}
+    for row in collision_rows:
+        session_id = str(row.get("session_id") or "unknown").strip() or "unknown"
+        owner = owner_map.setdefault(
+            session_id,
+            {
+                "session_id": session_id,
+                "actor": row.get("actor"),
+                "held_paths": [],
+                "requested_paths": [],
+                "claim_ids": [],
+                "leased_until_max": None,
+            },
+        )
+        claim_path = _contention_collision_claim_path(row)
+        if claim_path and claim_path not in owner["held_paths"]:
+            owner["held_paths"].append(claim_path)
+        requested = _contention_collision_requested_surface(row)
+        if requested and requested not in owner["requested_paths"]:
+            owner["requested_paths"].append(requested)
+        claim_id = _contention_collision_claim_id(row)
+        if claim_id and claim_id not in owner["claim_ids"]:
+            owner["claim_ids"].append(claim_id)
+        leased_until = _contention_collision_lease(row)
+        if leased_until and (
+            not owner["leased_until_max"] or leased_until > owner["leased_until_max"]
+        ):
+            owner["leased_until_max"] = leased_until
+        if not owner.get("actor") and row.get("actor"):
+            owner["actor"] = row.get("actor")
+
+    owner_sessions: List[Dict[str, Any]] = []
+    for session_id, owner in sorted(owner_map.items()):
+        held_paths = list(owner.get("held_paths") or [])
+        first_held = held_paths[0] if held_paths else "<held-path-or-surface>"
+        claim_ids = list(owner.get("claim_ids") or [])
+        release_selector = (
+            f"--claim-id {_quote_cli(claim_ids[0])}"
+            if claim_ids
+            else "--path <held-path-or-surface>"
+        )
+        brief_parts = [
+            f"--target-session-id {_quote_cli(session_id)}",
+            "--target-class settlement_obligation_owner",
+            "--requested-action release_after_landing",
+            "--result requested",
+            "--coordination-brief",
+            "--requester-label '<requesting thread>'",
+            "--blocked-on '<blocking condition or missing companion contract>'",
+            "--validation-status '<current validation state>'",
+            f"--held-path {_quote_cli(first_held)}",
+        ]
+        if requester:
+            brief_parts.insert(5, f"--requester-session-id {_quote_cli(requester)}")
+        owner_sessions.append(
+            {
+                **owner,
+                "read_full_session_command": _wl_command(
+                    "session-status",
+                    f"--session-id {_quote_cli(session_id)} --full",
+                ),
+                "existing_surface_readback": {
+                    "rule": (
+                        "Treat the owner session as the current surface for this "
+                        "shared substrate slice before creating a parallel surface "
+                        "or recutting the same path elsewhere."
+                    ),
+                    "command": _wl_command(
+                        "session-status",
+                        f"--session-id {_quote_cli(session_id)} --full",
+                    ),
+                    "held_surface": first_held,
+                    "reentry_condition": (
+                        "owner releases the claim, lands the held surface, or accepts "
+                        "a handoff/fan-in request for the named held surface"
+                    ),
+                },
+                "coordination_brief_command": _wl_command(
+                    "session-yield-request",
+                    *brief_parts,
+                ),
+                "handoff_or_release_request": {
+                    "command": _wl_command(
+                        "session-yield-request",
+                        *brief_parts,
+                    ),
+                    "use_when": (
+                        "your validation or landing is blocked by this live owner "
+                        "claim and the remaining work cannot be split onto a "
+                        "genuinely disjoint path"
+                    ),
+                },
+                "release_claim_command_template": _wl_command(
+                    "session-release-claim",
+                    f"--session-id {_quote_cli(session_id)}",
+                    release_selector,
+                    "--reason handoff_or_landed_elsewhere",
+                ),
+            }
+        )
+
+    mutation_check_args = [
+        f"--path {_quote_cli(path)}"
+        for path in requested_surfaces
+        if path and not path.startswith("td_")
+    ]
+    claim_session_filter_args = [
+        f"--path {_quote_cli(path)}"
+        for path in requested_surfaces
+        if path and not path.startswith("td_")
+    ]
+    if require_exclusive:
+        mutation_check_args.append("--require-exclusive")
+    if requester:
+        mutation_check_args.append(f"--session-id {_quote_cli(requester)}")
+
+    status = "blocked_by_live_owner_claims" if collision_rows and require_exclusive else (
+        "watch_live_owner_claims" if collision_rows else "clear"
+    )
+    return {
+        "schema": SHARED_SUBSTRATE_CONTENTION_ENVELOPE_SCHEMA,
+        "status": status,
+        "requested_surfaces": requested_surfaces,
+        "collision_count": len(collision_rows),
+        "owner_session_count": len(owner_sessions),
+        "owner_sessions": owner_sessions,
+        "first_response_rule": (
+            "A live owner claim blocks direct mutation, not discovery or coordination. "
+            "Read the owner session, reuse or wait for its existing surface, send a "
+            "coordination brief, or switch only to a genuinely disjoint claimed lane."
+        ),
+        "failure_response_floor": (
+            "Do not report only 'I did not edit because the path was claimed'. Include "
+            "the owner session, held surface, lease, blocking condition, coordination "
+            "request command, and re-entry condition."
+        ),
+        "blocked_frontier_contract": {
+            "schema": "shared_substrate_blocked_frontier_contract_v0",
+            "status": "active" if owner_sessions else "no_live_owner_frontier",
+            "rule": (
+                "A live claim on the same shared substrate is a merge frontier, not "
+                "a terminal no-op and not permission to clone the surface. Read the "
+                "owner session, reuse its current surface, request release or handoff "
+                "when fan-in is blocked, or split only truly disjoint companion paths."
+            ),
+            "accepted_parallelism": [
+                "same_owner_continuation",
+                "owner_acknowledged_handoff_or_release",
+                "claimed_disjoint_companion_surface",
+                "blocked_receipt_with_exact_owner_and_reentry_condition",
+            ],
+            "invalid_parallelism": [
+                "parallel_unclaimed_edit_to_the_same_path",
+                "new_parallel_surface_created_only_because_owner_path_is_claimed",
+                "CAP_or_chat_only_closeout_when_a_disjoint_owner_lane_exists",
+            ],
+            "required_blocked_receipt_fields": [
+                "owner_session_id",
+                "held_surface",
+                "leased_until",
+                "blocking_condition",
+                "coordination_request_command",
+                "reentry_condition",
+            ],
+        },
+        "surface_discovery_commands": {
+            "claim_session_cards": _wl_command(
+                "session-claims",
+                "--refresh --session-summary --limit 12 --cards-only",
+                *claim_session_filter_args,
+            ),
+            "mutation_check": _wl_command("mutation-check", *mutation_check_args),
+        },
+        "safe_continuation_lanes": [
+            {
+                "lane": "read_existing_owner_surface",
+                "allowed": True,
+                "command_field": "owner_sessions[].read_full_session_command",
+            },
+            {
+                "lane": "request_land_release_or_handoff",
+                "allowed": bool(owner_sessions),
+                "command_field": "owner_sessions[].coordination_brief_command",
+            },
+            {
+                "lane": "claim_disjoint_sibling_surface",
+                "allowed": True,
+                "command": _wl_command(
+                    "session-preflight",
+                    "--session-id <your-session-id>",
+                    "--path <disjoint-path>",
+                    "--heartbeat-current-pass-line '<public current pass>'",
+                ),
+            },
+            {
+                "lane": "capture_blocked_residual",
+                "allowed": True,
+                "condition": (
+                    "Only when owner-surface coordination cannot proceed and the "
+                    "blocked contract needs a durable re-entry condition."
+                ),
+            },
+        ],
+    }
 
 
 def write_active_claims_snapshot(repo_root: Path, status: Mapping[str, Any]) -> Dict[str, Any]:
@@ -7182,7 +9642,12 @@ def load_active_claims_snapshot(
     return payload
 
 
-def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
+def rebuild_runtime_status(
+    payload: Mapping[str, Any],
+    *,
+    repo_root: Path | None = None,
+) -> Dict[str, Any]:
+    effective_repo_root = repo_root or _REBUILD_RUNTIME_STATUS_REPO_ROOT
     status = _default_status()
     sessions = payload.get("sessions") if isinstance(payload.get("sessions"), Mapping) else {}
     normalized_sessions: Dict[str, Dict[str, Any]] = {}
@@ -7236,6 +9701,10 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
         session["has_activity"] = bool(session.get("has_activity"))
         session["touched_work"] = bool(session.get("touched_work"))
         session["stale"] = bool(session.get("stale"))
+        _compact_inactive_external_session_payload(session)
+        _compact_ended_released_claims(session)
+        _compact_ended_external_metadata(session)
+        _compact_ended_pass_heartbeat(session)
         session["open_todos_touched_this_session"] = int(
             session.get("open_todos_touched_this_session") or 0
         )
@@ -7281,7 +9750,7 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
         if isinstance(entry, Mapping)
     ][-RECENT_SWEEP_EVENTS_LIMIT:]
     status["counts"] = counts
-    overview = build_session_cohort_overview(status)
+    overview = build_session_cohort_overview(status, repo_root=effective_repo_root)
     status["cohort_overview"] = overview
     status["triggers"] = {
         "stale_session_ready": counts["stale_append_obligations"] > 0,
@@ -7298,7 +9767,7 @@ def rebuild_runtime_status(payload: Mapping[str, Any]) -> Dict[str, Any]:
 
 
 def _write_runtime_status(repo_root: Path, status: Mapping[str, Any]) -> Dict[str, Any]:
-    rebuilt = rebuild_runtime_status(status)
+    rebuilt = _rebuild_runtime_status_with_repo_root(status, repo_root)
     _atomic_write_runtime_json(_runtime_status_path(repo_root), rebuilt)
     write_active_claims_snapshot(repo_root, rebuilt)
     return rebuilt
@@ -7343,12 +9812,11 @@ def observe_external_session(
     return rows[0]
 
 
-def observe_external_sessions(
+def _prepare_external_session_observations(
     repo_root: Path,
     *,
     observations: Sequence[Mapping[str, Any]],
 ) -> List[Dict[str, Any]]:
-    """Batch-upsert host-observed sessions with one runtime-status rebuild/write."""
     prepared: List[Dict[str, Any]] = []
     for observation in observations:
         token = str(observation.get("session_id") or "").strip()
@@ -7372,81 +9840,107 @@ def observe_external_sessions(
                 "metadata": dict(observation.get("metadata") or {}),
             }
         )
+    return prepared
+
+
+def _apply_external_session_observations_to_status(
+    status: Dict[str, Any],
+    *,
+    prepared: Sequence[Mapping[str, Any]],
+    observed_at: str,
+) -> List[Dict[str, Any]]:
     if not prepared:
         return []
-    observed_at = work_ledger.utc_now()
+    sessions = dict(status.get("sessions") or {})
     results: List[Dict[str, Any]] = []
-    with work_ledger.file_lock(_runtime_lock_path(repo_root)):
-        status = _load_runtime_status_for_session_scan(repo_root)
-        sessions = dict(status.get("sessions") or {})
-        for row in prepared:
-            token = row["session_id"]
-            existing = dict(sessions.get(token) or {})
-            created = not bool(existing)
-            signal_iso = row["signal_iso"]
-            existing_signal = _session_last_signal_at(existing) if existing else None
-            parsed_signal = _parse_iso_datetime(signal_iso)
-            if existing_signal is not None and (
-                parsed_signal is None or existing_signal > parsed_signal
-            ):
-                signal_iso = existing_signal.isoformat()
-            context = row["context"]
-            session = {
-                **existing,
+    for row in prepared:
+        token = str(row["session_id"])
+        existing = dict(sessions.get(token) or {})
+        created = not bool(existing)
+        signal_iso = str(row["signal_iso"])
+        existing_signal = _session_last_signal_at(existing) if existing else None
+        parsed_signal = _parse_iso_datetime(signal_iso)
+        if existing_signal is not None and (
+            parsed_signal is None or existing_signal > parsed_signal
+        ):
+            signal_iso = existing_signal.isoformat()
+        context = row["context"]
+        session = {
+            **existing,
+            "session_id": token,
+            "actor": row["actor"],
+            "phase_id": context["phase_id"],
+            "family_id": context["family_id"],
+            "read_receipt_id": existing.get("read_receipt_id"),
+            "bootstrapped_at": existing.get("bootstrapped_at") or row["started_iso"],
+            "bootstrap_received": bool(existing.get("bootstrap_received")),
+            "bootstrap_slice_td_ids": list(existing.get("bootstrap_slice_td_ids") or []),
+            "bootstrap_slice_count": int(existing.get("bootstrap_slice_count") or 0),
+            "has_activity": True,
+            "touched_work": bool(existing.get("touched_work")),
+            "touched_td_ids": list(existing.get("touched_td_ids") or []),
+            "touched_work_item_ids": list(existing.get("touched_work_item_ids") or []),
+            "claims": list(existing.get("claims") or []),
+            "queries": int(existing.get("queries") or 0),
+            "writes": int(existing.get("writes") or 0),
+            "session_had_ledger_append": bool(existing.get("session_had_ledger_append")),
+            "append_exempt": bool(existing.get("append_exempt")),
+            "append_exempt_reason": existing.get("append_exempt_reason"),
+            "append_exempt_refs": list(existing.get("append_exempt_refs") or []),
+            "append_exempted_at": existing.get("append_exempted_at"),
+            "last_activity_at": signal_iso,
+            "last_query_at": existing.get("last_query_at"),
+            "last_append_at": existing.get("last_append_at"),
+            "ended_at": None,
+            "end_action": None,
+            "stale": bool(existing.get("stale")),
+            "stale_reason": existing.get("stale_reason"),
+            "open_todos_touched_this_session": int(
+                existing.get("open_todos_touched_this_session") or 0
+            ),
+            "external_observed": True,
+            "external_source": row["source"],
+            "external_title": row["title"] or str(existing.get("external_title") or "").strip(),
+            "external_metadata": row["metadata"] or dict(existing.get("external_metadata") or {}),
+            "pass_heartbeat": dict(existing.get("pass_heartbeat") or {})
+            if isinstance(existing.get("pass_heartbeat"), Mapping)
+            else None,
+            "first_observed_at": existing.get("first_observed_at") or observed_at,
+            "last_observed_at": observed_at,
+        }
+        sessions[token] = session
+        results.append(
+            {
+                "schema": "work_ledger_external_session_observation_v1",
+                "status": "created" if created else "updated",
                 "session_id": token,
                 "actor": row["actor"],
                 "phase_id": context["phase_id"],
                 "family_id": context["family_id"],
-                "read_receipt_id": existing.get("read_receipt_id"),
-                "bootstrapped_at": existing.get("bootstrapped_at") or row["started_iso"],
-                "bootstrap_received": bool(existing.get("bootstrap_received")),
-                "bootstrap_slice_td_ids": list(existing.get("bootstrap_slice_td_ids") or []),
-                "bootstrap_slice_count": int(existing.get("bootstrap_slice_count") or 0),
-                "has_activity": True,
-                "touched_work": bool(existing.get("touched_work")),
-                "touched_td_ids": list(existing.get("touched_td_ids") or []),
-                "touched_work_item_ids": list(existing.get("touched_work_item_ids") or []),
-                "claims": list(existing.get("claims") or []),
-                "queries": int(existing.get("queries") or 0),
-                "writes": int(existing.get("writes") or 0),
-                "session_had_ledger_append": bool(existing.get("session_had_ledger_append")),
-                "append_exempt": bool(existing.get("append_exempt")),
-                "append_exempt_reason": existing.get("append_exempt_reason"),
-                "append_exempt_refs": list(existing.get("append_exempt_refs") or []),
-                "append_exempted_at": existing.get("append_exempted_at"),
                 "last_activity_at": signal_iso,
-                "last_query_at": existing.get("last_query_at"),
-                "last_append_at": existing.get("last_append_at"),
-                "ended_at": None,
-                "end_action": None,
-                "stale": bool(existing.get("stale")),
-                "stale_reason": existing.get("stale_reason"),
-                "open_todos_touched_this_session": int(
-                    existing.get("open_todos_touched_this_session") or 0
-                ),
-                "external_observed": True,
-                "external_source": row["source"],
-                "external_title": row["title"] or str(existing.get("external_title") or "").strip(),
-                "external_metadata": row["metadata"] or dict(existing.get("external_metadata") or {}),
-                "pass_heartbeat": dict(existing.get("pass_heartbeat") or {})
-                if isinstance(existing.get("pass_heartbeat"), Mapping)
-                else None,
-                "first_observed_at": existing.get("first_observed_at") or observed_at,
-                "last_observed_at": observed_at,
             }
-            sessions[token] = session
-            results.append(
-                {
-                    "schema": "work_ledger_external_session_observation_v1",
-                    "status": "created" if created else "updated",
-                    "session_id": token,
-                    "actor": row["actor"],
-                    "phase_id": context["phase_id"],
-                    "family_id": context["family_id"],
-                    "last_activity_at": signal_iso,
-                }
-            )
-        status["sessions"] = sessions
+        )
+    status["sessions"] = sessions
+    return results
+
+
+def observe_external_sessions(
+    repo_root: Path,
+    *,
+    observations: Sequence[Mapping[str, Any]],
+) -> List[Dict[str, Any]]:
+    """Batch-upsert host-observed sessions with one runtime-status rebuild/write."""
+    prepared = _prepare_external_session_observations(repo_root, observations=observations)
+    if not prepared:
+        return []
+    observed_at = work_ledger.utc_now()
+    with work_ledger.file_lock(_runtime_lock_path(repo_root)):
+        status = _load_runtime_status_for_session_scan(repo_root)
+        results = _apply_external_session_observations_to_status(
+            status,
+            prepared=prepared,
+            observed_at=observed_at,
+        )
         saved = _write_runtime_status(repo_root, status)
     for result in results:
         result["generated_at"] = saved.get("generated_at")
@@ -7505,6 +9999,8 @@ def bootstrap_session(
     claim_lease_minutes: float = 30.0,
     claim_note: str | None = None,
     require_exclusive_claims: bool = False,
+    pass_heartbeat: Mapping[str, Any] | None = None,
+    external_observations: Sequence[Mapping[str, Any]] | None = None,
 ) -> Dict[str, Any]:
     context = work_ledger.resolve_phase_context(repo_root, phase_id=phase_id, family_id=family_id)
     projection = work_ledger.load_projection(
@@ -7519,6 +10015,12 @@ def bootstrap_session(
     claim_requests = _prepare_claim_scope_requests(repo_root, claim_scopes or [])
     claim_results: List[Dict[str, Any]] = []
     claimed_result_indexes: List[int] = []
+    initial_pass_heartbeat = None
+    prepared_external_observations = _prepare_external_session_observations(
+        repo_root,
+        observations=external_observations or [],
+    )
+    external_observation_results: List[Dict[str, Any]] = []
     # Housekeeping: expire old leases, sweep crashed orphan sessions BEFORE
     # minting this session so the new seed sees a clean cohort view and never
     # sweeps itself. Both are folded into the bootstrap transaction so the hot
@@ -7526,6 +10028,12 @@ def bootstrap_session(
     sweep_report: Dict[str, Any] = {"orphan_sweep": None, "claim_expiry": None}
     with work_ledger.file_lock(_runtime_lock_path(repo_root)):
         status = _load_runtime_status_for_session_scan(repo_root)
+        if prepared_external_observations:
+            external_observation_results = _apply_external_session_observations_to_status(
+                status,
+                prepared=prepared_external_observations,
+                observed_at=work_ledger.utc_now(),
+            )
         if auto_sweep:
             current = datetime.now(timezone.utc)
             try:
@@ -7615,7 +10123,25 @@ def bootstrap_session(
                 note=claim_note,
                 require_exclusive=require_exclusive_claims,
             )
+            sessions = dict(status.get("sessions") or {})
+        if isinstance(pass_heartbeat, Mapping):
+            session = dict(sessions.get(session_id) or {})
+            initial_pass_heartbeat = _apply_pass_heartbeat_to_session(
+                session,
+                session_id=session_id,
+                pass_state=str(pass_heartbeat.get("pass_state") or "inspecting"),
+                current_pass_line=pass_heartbeat.get("current_pass_line"),
+                last_pass_result_line=pass_heartbeat.get("last_pass_result_line"),
+                td_id=pass_heartbeat.get("td_id"),
+                scope_refs=pass_heartbeat.get("scope_refs") or [],
+                pass_id=pass_heartbeat.get("pass_id"),
+                source=str(pass_heartbeat.get("source") or "manual_cli"),
+            )
+            sessions[session_id] = session
+            status["sessions"] = sessions
         saved = _write_runtime_status(repo_root, status)
+        for result in external_observation_results:
+            result["generated_at"] = saved.get("generated_at")
         for result_index in claimed_result_indexes:
             claim_results[result_index]["generated_at"] = saved.get("generated_at")
         if auto_sweep:
@@ -7635,6 +10161,8 @@ def bootstrap_session(
         "auto_sweep": sweep_report,
         "claims": claim_results,
         "cohort_overview": saved.get("cohort_overview"),
+        "pass_heartbeat": initial_pass_heartbeat or {},
+        "external_observations": external_observation_results,
     }
     payload["additional_context"] = format_bootstrap_context(payload)
     return payload
@@ -7712,90 +10240,23 @@ def mark_session_pass_heartbeat(
     pass_id: str | None = None,
     source: str = "manual_cli",
 ) -> Dict[str, Any]:
-    current_line = _public_pass_line(
-        current_pass_line,
-        limit=PASS_CURRENT_LINE_LIMIT,
-        field_name="current_pass_line",
-    )
-    result_line = _public_pass_line(
-        last_pass_result_line,
-        limit=PASS_RESULT_LINE_LIMIT,
-        field_name="last_pass_result_line",
-    )
-    state = _normalize_pass_state(pass_state)
-    source_token = _normalize_pass_source(source)
-    incoming_scope_refs = _normalize_scope_refs(scope_refs)
     with work_ledger.file_lock(_runtime_lock_path(repo_root)):
         status = _load_runtime_status_for_session_scan(repo_root)
         sessions = dict(status.get("sessions") or {})
         session = dict(sessions.get(session_id) or {})
         if not session:
             return status
-        now_dt = datetime.now(timezone.utc)
-        now = now_dt.isoformat()
-        existing = (
-            dict(session.get("pass_heartbeat") or {})
-            if isinstance(session.get("pass_heartbeat"), Mapping)
-            else {}
+        _apply_pass_heartbeat_to_session(
+            session,
+            session_id=session_id,
+            pass_state=pass_state,
+            current_pass_line=current_pass_line,
+            last_pass_result_line=last_pass_result_line,
+            td_id=td_id,
+            scope_refs=scope_refs,
+            pass_id=pass_id,
+            source=source,
         )
-        previous_line = str(existing.get("current_pass_line") or "").strip()
-        pass_seq = int(existing.get("pass_seq") or 0)
-        resolved_pass_id = str(pass_id or existing.get("pass_id") or "").strip()
-        if current_line and current_line != previous_line:
-            pass_seq += 1
-            resolved_pass_id = str(pass_id or "").strip() or mint_pass_id()
-        elif not resolved_pass_id:
-            pass_seq += 1
-            resolved_pass_id = mint_pass_id()
-
-        merged_scope_refs = _normalize_scope_refs(
-            list(existing.get("scope_refs") or []) + incoming_scope_refs
-        )
-        heartbeat: Dict[str, Any] = {
-            "schema": PASS_HEARTBEAT_SCHEMA,
-            "session_id": session_id,
-            "actor": session.get("actor"),
-            "phase_id": session.get("phase_id"),
-            "family_id": session.get("family_id"),
-            "pass_id": resolved_pass_id,
-            "pass_seq": pass_seq,
-            "pass_state": state,
-            "current_pass_line": (
-                current_line if current_line is not None else existing.get("current_pass_line")
-            ),
-            "last_pass_result_line": (
-                result_line if result_line is not None else existing.get("last_pass_result_line")
-            ),
-            "scope_refs": merged_scope_refs,
-            "updated_at": now,
-            "expires_at": (now_dt + ACTIVE_SESSION_ORPHAN_AFTER).isoformat(),
-            "current_pass_updated_at": (
-                now if current_line is not None else existing.get("current_pass_updated_at")
-            ),
-            "last_pass_completed_at": (
-                now if result_line is not None else existing.get("last_pass_completed_at")
-            ),
-            "source": source_token,
-        }
-        session["pass_heartbeat"] = heartbeat
-        session["has_activity"] = True
-        session["last_activity_at"] = now
-        session["last_activity_action"] = "session-heartbeat"
-        touched_ids = list(session.get("touched_td_ids") or [])
-        touched_work_item_ids = list(session.get("touched_work_item_ids") or [])
-        target_id = str(td_id or "").strip()
-        if target_id:
-            session["touched_work"] = True
-            if _looks_like_work_item_id(target_id):
-                if target_id not in touched_work_item_ids:
-                    touched_work_item_ids.append(target_id)
-            elif target_id not in touched_ids:
-                touched_ids.append(target_id)
-        session["touched_td_ids"] = touched_ids
-        session["touched_work_item_ids"] = touched_work_item_ids
-        touched_count = len(touched_ids) + len(touched_work_item_ids)
-        if touched_count:
-            session["open_todos_touched_this_session"] = touched_count
         sessions[session_id] = session
         status["sessions"] = sessions
         return _write_runtime_status(repo_root, status)
@@ -8036,9 +10497,84 @@ def _normalize_claim_scope(claim: Mapping[str, Any]) -> tuple[str, str]:
     return scope_kind, scope_id
 
 
+def _normalize_claim_intent(value: Any) -> str:
+    token = str(value or CLAIM_INTENT_HARD_MUTATION).strip()
+    if token not in CLAIM_INTENTS:
+        return CLAIM_INTENT_HARD_MUTATION
+    return token
+
+
+def _normalize_claim_conflict_scope_kind(value: Any, fallback: str | None = None) -> str | None:
+    token = str(value or fallback or "").strip()
+    if not token:
+        return None
+    if token not in CLAIM_CONFLICT_SCOPE_KINDS:
+        return fallback if fallback in CLAIM_CONFLICT_SCOPE_KINDS else None
+    return token
+
+
+def _claim_conflict_mode(claim: Mapping[str, Any]) -> str:
+    intent = _normalize_claim_intent(claim.get("claim_intent"))
+    if intent in BLOCKING_CLAIM_INTENTS:
+        return "blocking"
+    return "cooperative"
+
+
 def _looks_like_work_item_id(value: object) -> bool:
     token = str(value or "").strip()
     return bool(token and not token.startswith("td_") and WORK_ITEM_ID_RE.fullmatch(token))
+
+
+def _looks_like_repo_path_token(value: object) -> bool:
+    token = str(value or "").strip()
+    if not token:
+        return False
+    if token.startswith("td_") or _looks_like_work_item_id(token):
+        return False
+    return token.startswith("/") or "/" in token
+
+
+def _normalize_path_token_for_claim_overlap(
+    path_token: str,
+    *,
+    repo_root: Path | None = None,
+) -> str:
+    token = str(path_token or "").strip()
+    if not token:
+        return ""
+    if repo_root is not None:
+        try:
+            return _normalize_repo_claim_path(repo_root, token)
+        except ValueError:
+            pass
+    if token.startswith("./"):
+        return token[2:]
+    return token
+
+
+def _path_token_claimed_by_path_claim(
+    path_token: str,
+    claimed_paths: Iterable[str],
+    *,
+    repo_root: Path | None = None,
+) -> bool:
+    token = _normalize_path_token_for_claim_overlap(path_token, repo_root=repo_root)
+    if not token:
+        return False
+    for claimed in claimed_paths:
+        claim_token = _normalize_path_token_for_claim_overlap(
+            str(claimed or ""),
+            repo_root=repo_root,
+        )
+        if not claim_token:
+            continue
+        try:
+            if _path_scope_overlaps(claim_token, token):
+                return True
+        except (TypeError, ValueError):
+            if claim_token == token:
+                return True
+    return False
 
 
 def _normalize_repo_claim_path(repo_root: Path, value: str) -> str:
@@ -8095,6 +10631,8 @@ def _extend_claim_record(
     leased_until: str,
     note: str | None,
     require_exclusive: bool,
+    claim_intent: str | None = None,
+    conflict_scope_kind: str | None = None,
 ) -> tuple[Dict[str, Any], bool]:
     updated = dict(claim)
     changed = False
@@ -8109,6 +10647,29 @@ def _extend_claim_record(
         changed = True
     if require_exclusive and not bool(updated.get("require_exclusive")):
         updated["require_exclusive"] = True
+        changed = True
+    incoming_intent = _normalize_claim_intent(claim_intent)
+    existing_intent = _normalize_claim_intent(updated.get("claim_intent"))
+    if incoming_intent != existing_intent and (
+        existing_intent != CLAIM_INTENT_HARD_MUTATION
+        or incoming_intent == CLAIM_INTENT_HARD_MUTATION
+    ):
+        updated["claim_intent"] = incoming_intent
+        changed = True
+    if "claim_intent" not in updated:
+        updated["claim_intent"] = existing_intent
+        changed = True
+    scope_kind, _ = _normalize_claim_scope(updated)
+    incoming_conflict_scope = _normalize_claim_conflict_scope_kind(conflict_scope_kind, scope_kind)
+    existing_conflict_scope = _normalize_claim_conflict_scope_kind(
+        updated.get("conflict_scope_kind"),
+        scope_kind,
+    )
+    if incoming_conflict_scope and incoming_conflict_scope != existing_conflict_scope:
+        updated["conflict_scope_kind"] = incoming_conflict_scope
+        changed = True
+    elif "conflict_scope_kind" not in updated and existing_conflict_scope:
+        updated["conflict_scope_kind"] = existing_conflict_scope
         changed = True
     return updated, changed
 
@@ -8137,15 +10698,30 @@ def _claim_scopes_overlap(left: Mapping[str, Any], right: Mapping[str, Any]) -> 
     return left_id == right_id
 
 
+def _claim_scopes_conflict(left: Mapping[str, Any], right: Mapping[str, Any]) -> bool:
+    if not _claim_scopes_overlap(left, right):
+        return False
+    return "blocking" in {_claim_conflict_mode(left), _claim_conflict_mode(right)}
+
+
 def _compact_claim(claim: Mapping[str, Any]) -> Dict[str, Any]:
     scope_kind, scope_id = _normalize_claim_scope(claim)
     td_id = str(claim.get("td_id") or "").strip()
     path = str(claim.get("path") or "").strip()
     work_item_id = str(claim.get("work_item_id") or "").strip()
+    claim_intent = _normalize_claim_intent(claim.get("claim_intent"))
+    conflict_scope_kind = _normalize_claim_conflict_scope_kind(
+        claim.get("conflict_scope_kind"),
+        scope_kind,
+    )
     return {
         "claim_id": str(claim.get("claim_id") or ""),
         "scope_kind": scope_kind or None,
         "scope_id": scope_id or None,
+        "claim_intent": claim_intent,
+        "conflict_scope_kind": conflict_scope_kind,
+        "conflict_mode": _claim_conflict_mode(claim),
+        "require_exclusive": bool(claim.get("require_exclusive")),
         "td_id": "" if scope_kind == CLAIM_SCOPE_WORK_ITEM else td_id or (scope_id if scope_kind == CLAIM_SCOPE_THREAD else ""),
         "path": path or (scope_id if scope_kind == CLAIM_SCOPE_PATH else ""),
         "work_item_id": work_item_id or (scope_id if scope_kind == CLAIM_SCOPE_WORK_ITEM else ""),
@@ -8156,6 +10732,30 @@ def _compact_claim(claim: Mapping[str, Any]) -> Dict[str, Any]:
         "note": str(claim.get("note") or "").strip() or None,
         "release_reason": claim.get("release_reason"),
     }
+
+
+def _collision_has_existing_exclusive_claim(collisions: Sequence[Mapping[str, Any]]) -> bool:
+    for collision in collisions:
+        if not isinstance(collision, Mapping):
+            continue
+        claim = collision.get("claim")
+        if isinstance(claim, Mapping) and bool(claim.get("require_exclusive")):
+            return True
+    return False
+
+
+def _claim_collision_refusal_reason(
+    *,
+    require_exclusive: bool,
+    collisions: Sequence[Mapping[str, Any]],
+) -> str | None:
+    if not collisions:
+        return None
+    if require_exclusive:
+        return "exclusive_claim_refused_due_to_collision"
+    if _collision_has_existing_exclusive_claim(collisions):
+        return "claim_refused_due_to_existing_exclusive_claim"
+    return None
 
 
 def _session_active_claims(
@@ -8430,8 +11030,8 @@ def _mark_orphan_sessions_in_status(
 def _prepare_claim_scope_requests(
     repo_root: Path,
     scopes: Sequence[Mapping[str, Any]],
-) -> List[Dict[str, str]]:
-    requests: List[Dict[str, str]] = []
+) -> List[Dict[str, Any]]:
+    requests: List[Dict[str, Any]] = []
     for scope in scopes:
         scope_kind_token = str(scope.get("scope_kind") or "").strip()
         if scope_kind_token not in CLAIM_SCOPE_KINDS:
@@ -8451,10 +11051,17 @@ def _prepare_claim_scope_requests(
             raise ValueError("scope_id is required for session-claim")
         if scope_kind_token == CLAIM_SCOPE_WORK_ITEM and not _looks_like_work_item_id(scope_token):
             raise ValueError("work_item_id claim requires a Task Ledger WorkItem-shaped id")
+        claim_intent = _normalize_claim_intent(scope.get("claim_intent"))
+        conflict_scope_kind = _normalize_claim_conflict_scope_kind(
+            scope.get("conflict_scope_kind"),
+            scope_kind_token,
+        )
         requests.append(
             {
                 "scope_kind": scope_kind_token,
                 "scope_id": scope_token,
+                "claim_intent": claim_intent,
+                "conflict_scope_kind": conflict_scope_kind,
                 "td_id": scope_token if scope_kind_token == CLAIM_SCOPE_THREAD else "",
                 "path": scope_token if scope_kind_token == CLAIM_SCOPE_PATH else "",
                 "work_item_id": scope_token if scope_kind_token == CLAIM_SCOPE_WORK_ITEM else "",
@@ -8467,7 +11074,7 @@ def _apply_claim_scope_requests_to_status(
     status: Dict[str, Any],
     *,
     session_id: str,
-    requests: Sequence[Mapping[str, str]],
+    requests: Sequence[Mapping[str, Any]],
     now: datetime,
     leased_until: str,
     note: str | None = None,
@@ -8493,7 +11100,7 @@ def _apply_claim_scope_requests_to_status(
             if other.get("ended_at"):
                 continue
             for claim in _session_active_claims(other, now=now):
-                if not _claim_scopes_overlap(target_claim, claim):
+                if not _claim_scopes_conflict(target_claim, claim):
                     continue
                 collisions.append(
                     {
@@ -8502,12 +11109,27 @@ def _apply_claim_scope_requests_to_status(
                         "claim": _compact_claim(claim),
                     }
                 )
-        if collisions and require_exclusive:
+        refusal_reason = _claim_collision_refusal_reason(
+            require_exclusive=require_exclusive,
+            collisions=collisions,
+        )
+        if refusal_reason is not None:
+            contention_envelope = build_shared_substrate_contention_envelope(
+                requested_paths=[
+                    target_claim["path"]
+                    or target_claim["td_id"]
+                    or target_claim["work_item_id"]
+                    or target_claim["scope_id"]
+                ],
+                collisions=collisions,
+                requester_session_id=token,
+                require_exclusive=True,
+            )
             results.append(
                 {
                     "schema": "work_ledger_claim_result_v1",
                     "status": "refused",
-                    "reason": "exclusive_claim_refused_due_to_collision",
+                    "reason": refusal_reason,
                     "session_id": token,
                     "scope_kind": target_claim["scope_kind"],
                     "scope_id": target_claim["scope_id"],
@@ -8515,6 +11137,7 @@ def _apply_claim_scope_requests_to_status(
                     "path": target_claim["path"],
                     "work_item_id": target_claim["work_item_id"],
                     "collisions": collisions,
+                    "contention_envelope": contention_envelope,
                 }
             )
             continue
@@ -8526,6 +11149,8 @@ def _apply_claim_scope_requests_to_status(
                 leased_until=leased_until,
                 note=note,
                 require_exclusive=require_exclusive,
+                claim_intent=str(target_claim.get("claim_intent") or ""),
+                conflict_scope_kind=str(target_claim.get("conflict_scope_kind") or ""),
             )
             claims[existing_index] = updated_claim
             claimed_result_indexes.append(len(results))
@@ -8542,6 +11167,23 @@ def _apply_claim_scope_requests_to_status(
                     "work_item_id": target_claim["work_item_id"],
                     "claim": _compact_claim(updated_claim),
                     "collisions": collisions,
+                    **(
+                        {
+                            "contention_envelope": build_shared_substrate_contention_envelope(
+                                requested_paths=[
+                                    target_claim["path"]
+                                    or target_claim["td_id"]
+                                    or target_claim["work_item_id"]
+                                    or target_claim["scope_id"]
+                                ],
+                                collisions=collisions,
+                                requester_session_id=token,
+                                require_exclusive=False,
+                            )
+                        }
+                        if collisions
+                        else {}
+                    ),
                 }
             )
             continue
@@ -8553,6 +11195,8 @@ def _apply_claim_scope_requests_to_status(
             "td_id": target_claim["td_id"],
             "path": target_claim["path"],
             "work_item_id": target_claim["work_item_id"],
+            "claim_intent": target_claim.get("claim_intent"),
+            "conflict_scope_kind": target_claim.get("conflict_scope_kind"),
             "claimed_at": now_iso,
             "leased_until": leased_until,
             "released_at": None,
@@ -8575,6 +11219,23 @@ def _apply_claim_scope_requests_to_status(
                 "work_item_id": target_claim["work_item_id"],
                 "claim": _compact_claim(claim_record),
                 "collisions": collisions,
+                **(
+                    {
+                        "contention_envelope": build_shared_substrate_contention_envelope(
+                            requested_paths=[
+                                target_claim["path"]
+                                or target_claim["td_id"]
+                                or target_claim["work_item_id"]
+                                or target_claim["scope_id"]
+                            ],
+                            collisions=collisions,
+                            requester_session_id=token,
+                            require_exclusive=False,
+                        )
+                    }
+                    if collisions
+                    else {}
+                ),
             }
         )
 
@@ -8613,6 +11274,8 @@ def claim_work_scope(
     lease_minutes: float = 30.0,
     note: str | None = None,
     require_exclusive: bool = False,
+    claim_intent: str = CLAIM_INTENT_HARD_MUTATION,
+    conflict_scope_kind: str | None = None,
 ) -> Dict[str, Any]:
     """Record a forward-looking lease on a td_* or repo-relative path.
 
@@ -8632,6 +11295,11 @@ def claim_work_scope(
         scope_token = _normalize_repo_claim_path(repo_root, scope_token)
     if not token or not scope_token:
         raise ValueError("session_id and scope_id are required for session-claim")
+    normalized_claim_intent = _normalize_claim_intent(claim_intent)
+    normalized_conflict_scope_kind = _normalize_claim_conflict_scope_kind(
+        conflict_scope_kind,
+        scope_kind_token,
+    )
     lease = _clamp_lease(timedelta(minutes=float(lease_minutes or 0)))
     now = datetime.now(timezone.utc)
     with work_ledger.file_lock(_runtime_lock_path(repo_root)):
@@ -8649,6 +11317,8 @@ def claim_work_scope(
         target_claim = {
             "scope_kind": scope_kind_token,
             "scope_id": scope_token,
+            "claim_intent": normalized_claim_intent,
+            "conflict_scope_kind": normalized_conflict_scope_kind,
             "td_id": scope_token if scope_kind_token == CLAIM_SCOPE_THREAD else "",
             "path": scope_token if scope_kind_token == CLAIM_SCOPE_PATH else "",
             "work_item_id": scope_token if scope_kind_token == CLAIM_SCOPE_WORK_ITEM else "",
@@ -8660,7 +11330,7 @@ def claim_work_scope(
             if other.get("ended_at"):
                 continue
             for claim in _session_active_claims(other, now=now):
-                if not _claim_scopes_overlap(target_claim, claim):
+                if not _claim_scopes_conflict(target_claim, claim):
                     continue
                 collisions.append(
                     {
@@ -8669,11 +11339,15 @@ def claim_work_scope(
                         "claim": _compact_claim(claim),
                     }
                 )
-        if collisions and require_exclusive:
+        refusal_reason = _claim_collision_refusal_reason(
+            require_exclusive=require_exclusive,
+            collisions=collisions,
+        )
+        if refusal_reason is not None:
             return {
                 "schema": "work_ledger_claim_result_v1",
                 "status": "refused",
-                "reason": "exclusive_claim_refused_due_to_collision",
+                "reason": refusal_reason,
                 "session_id": token,
                 "scope_kind": scope_kind_token,
                 "scope_id": scope_token,
@@ -8681,6 +11355,12 @@ def claim_work_scope(
                 "path": scope_token if scope_kind_token == CLAIM_SCOPE_PATH else "",
                 "work_item_id": scope_token if scope_kind_token == CLAIM_SCOPE_WORK_ITEM else "",
                 "collisions": collisions,
+                "contention_envelope": build_shared_substrate_contention_envelope(
+                    requested_paths=[scope_token],
+                    collisions=collisions,
+                    requester_session_id=token,
+                    require_exclusive=True,
+                ),
             }
 
         claims = list(session.get("claims") or [])
@@ -8691,6 +11371,8 @@ def claim_work_scope(
                 leased_until=(now + lease).isoformat(),
                 note=note,
                 require_exclusive=require_exclusive,
+                claim_intent=normalized_claim_intent,
+                conflict_scope_kind=normalized_conflict_scope_kind,
             )
             claims[existing_index] = updated_claim
             session["claims"] = claims
@@ -8723,6 +11405,18 @@ def claim_work_scope(
                 "claim": _compact_claim(updated_claim),
                 "collisions": collisions,
                 "generated_at": saved.get("generated_at"),
+                **(
+                    {
+                        "contention_envelope": build_shared_substrate_contention_envelope(
+                            requested_paths=[scope_token],
+                            collisions=collisions,
+                            requester_session_id=token,
+                            require_exclusive=False,
+                        )
+                    }
+                    if collisions
+                    else {}
+                ),
             }
 
         claim_record = {
@@ -8732,6 +11426,8 @@ def claim_work_scope(
             "td_id": scope_token if scope_kind_token == CLAIM_SCOPE_THREAD else "",
             "path": scope_token if scope_kind_token == CLAIM_SCOPE_PATH else "",
             "work_item_id": scope_token if scope_kind_token == CLAIM_SCOPE_WORK_ITEM else "",
+            "claim_intent": normalized_claim_intent,
+            "conflict_scope_kind": normalized_conflict_scope_kind,
             "claimed_at": now.isoformat(),
             "leased_until": (now + lease).isoformat(),
             "released_at": None,
@@ -8770,6 +11466,18 @@ def claim_work_scope(
         "claim": _compact_claim(claim_record),
         "collisions": collisions,
         "generated_at": saved.get("generated_at"),
+        **(
+            {
+                "contention_envelope": build_shared_substrate_contention_envelope(
+                    requested_paths=[scope_token],
+                    collisions=collisions,
+                    requester_session_id=token,
+                    require_exclusive=False,
+                )
+            }
+            if collisions
+            else {}
+        ),
     }
 
 
@@ -8781,12 +11489,21 @@ def claim_work_scopes(
     lease_minutes: float = 30.0,
     note: str | None = None,
     require_exclusive: bool = False,
+    claim_intent: str = CLAIM_INTENT_HARD_MUTATION,
+    conflict_scope_kind: str | None = None,
 ) -> List[Dict[str, Any]]:
     """Record multiple forward-looking leases with one runtime-status rebuild/write."""
     token = str(session_id or "").strip()
     if not token:
         raise ValueError("session_id is required for session-claim")
-    requests = _prepare_claim_scope_requests(repo_root, scopes)
+    scope_rows: list[dict[str, Any]] = []
+    for scope in scopes:
+        row = dict(scope)
+        row.setdefault("claim_intent", claim_intent)
+        if conflict_scope_kind is not None:
+            row.setdefault("conflict_scope_kind", conflict_scope_kind)
+        scope_rows.append(row)
+    requests = _prepare_claim_scope_requests(repo_root, scope_rows)
     if not requests:
         return []
 
@@ -8819,6 +11536,8 @@ def claim_work_thread(
     lease_minutes: float = 30.0,
     note: str | None = None,
     require_exclusive: bool = False,
+    claim_intent: str = CLAIM_INTENT_HARD_MUTATION,
+    conflict_scope_kind: str | None = None,
 ) -> Dict[str, Any]:
     """Record a forward-looking lease on a td_*.
 
@@ -8832,6 +11551,8 @@ def claim_work_thread(
             lease_minutes=lease_minutes,
             note=note,
             require_exclusive=require_exclusive,
+            claim_intent=claim_intent,
+            conflict_scope_kind=conflict_scope_kind,
         )
     return claim_work_scope(
         repo_root,
@@ -8841,6 +11562,8 @@ def claim_work_thread(
         lease_minutes=lease_minutes,
         note=note,
         require_exclusive=require_exclusive,
+        claim_intent=claim_intent,
+        conflict_scope_kind=conflict_scope_kind,
     )
 
 
@@ -8852,6 +11575,8 @@ def claim_work_item(
     lease_minutes: float = 30.0,
     note: str | None = None,
     require_exclusive: bool = False,
+    claim_intent: str = CLAIM_INTENT_HARD_MUTATION,
+    conflict_scope_kind: str | None = None,
 ) -> Dict[str, Any]:
     """Record a forward-looking lease on a Task Ledger WorkItem id."""
     return claim_work_scope(
@@ -8862,6 +11587,8 @@ def claim_work_item(
         lease_minutes=lease_minutes,
         note=note,
         require_exclusive=require_exclusive,
+        claim_intent=claim_intent,
+        conflict_scope_kind=conflict_scope_kind,
     )
 
 
@@ -8873,6 +11600,8 @@ def claim_work_path(
     lease_minutes: float = 30.0,
     note: str | None = None,
     require_exclusive: bool = False,
+    claim_intent: str = CLAIM_INTENT_HARD_MUTATION,
+    conflict_scope_kind: str | None = None,
 ) -> Dict[str, Any]:
     """Record a forward-looking lease on a repo-relative file or directory path."""
     return claim_work_scope(
@@ -8883,6 +11612,8 @@ def claim_work_path(
         lease_minutes=lease_minutes,
         note=note,
         require_exclusive=require_exclusive,
+        claim_intent=claim_intent,
+        conflict_scope_kind=conflict_scope_kind,
     )
 
 

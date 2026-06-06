@@ -1,0 +1,28 @@
+{
+  "schema_version": "tool_server_pressure_inventory_negative_case_v1",
+  "expected_negative_case_id": "owner_release_overclaim",
+  "claimed_inventory": {
+    "schema": "tool_server_pressure_inventory_v1",
+    "rows": [],
+    "summary": {
+      "active_owner_pressure_groups": [
+        {
+          "process_kind": "mcp_tool_helper",
+          "owner_status": "active_session_chain",
+          "budget": 2,
+          "count": 4,
+          "excess_count": 2,
+          "recommended_action": "request_owner_release",
+          "owner_release_request": {
+            "schema": "helper_owner_release_request_v1",
+            "process_kind": "mcp_tool_helper",
+            "owner_status": "active_session_chain",
+            "requested_action": "release_tool_lease",
+            "result": "killed",
+            "safety": {"no_process_signal_sent": true}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -6,6 +6,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
+from microcosm_core.macro_tools import agent_observability_store, agent_trace_route_repair
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
@@ -27,6 +30,8 @@ from microcosm_core.macro_tools.agent_session_attribution import (
 )
 from microcosm_core.macro_tools.bridge_resume import (
     SCHEMA_VERSION as BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION,
+    SOURCE_REF as BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
+    TARGET_REF as BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REF,
     build_public_bridge_dispatch_yield_resume_view,
     load_public_bridge_dispatch_yield_resume_bundle,
 )
@@ -53,6 +58,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
+    EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     OBSERVABILITY_CARD_SCHEMA_VERSION,
@@ -68,10 +74,13 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     run_observability_bundle,
     run_route_compliance_audit_bundle,
     run_session_attribution_bundle,
+    run_harness_configuration_audit_bundle,
 )
+from microcosm_core.schemas import DuplicateJsonKeyError
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = MICROCOSM_ROOT.parent
 OBS_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime/input"
 OBS_BUNDLE_INPUT = (
     MICROCOSM_ROOT
@@ -96,6 +105,11 @@ SESSION_ATTRIBUTION_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_session_attribution_bundle"
+)
+HARNESS_CONFIGURATION_AUDIT_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_harness_configuration_audit_bundle"
 )
 MULTI_AGENT_FANIN_BUNDLE_INPUT = (
     MICROCOSM_ROOT
@@ -130,6 +144,246 @@ SOURCE_MODULE_VALIDATION_REF_PREFIX = (
 )
 
 
+def _sanitized_structurer_clip_from_commands(
+    commands: list[str],
+    *,
+    schema_version: str = "agent_trace_lossless_clip_v2",
+) -> dict[str, Any]:
+    return {
+        "schema_version": schema_version,
+        "source_integrity": {
+            "exact_source_text_in_attachment": False,
+            "source_text_attachment_field": "omitted_for_public_route_analytics",
+        },
+        "command_ledger": {
+            "schema_version": "agent_trace_command_ledger_v1",
+            "records": [
+                {
+                    "id": f"cmd_{index + 1:04d}",
+                    "command": command,
+                    "normalized_command": command,
+                    "source_line_range": {"start": (index * 4) + 1, "end": (index * 4) + 1},
+                    "command_line_range": {"start": (index * 4) + 2, "end": (index * 4) + 2},
+                    "output_line_count": 12 if "kernel.py" in command else 3,
+                    "output_char_count": 512 if "kernel.py" in command else 128,
+                }
+                for index, command in enumerate(commands)
+            ],
+        },
+    }
+
+
+def _replace_trace_analytics_session_with_structurer_clip(
+    bundle: Path,
+    *,
+    session_id: str,
+    commands: list[str],
+) -> dict[str, Any]:
+    trace_path = bundle / "trace_analytics_spans.json"
+    trace_payload = json.loads(trace_path.read_text(encoding="utf-8"))
+    session = next(
+        row for row in trace_payload["sessions"] if row["session_id"] == session_id
+    )
+    session.pop("spans", None)
+    session["agent_trace_structurer_clip"] = _sanitized_structurer_clip_from_commands(
+        commands
+    )
+    trace_path.write_text(
+        json.dumps(trace_payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return session
+
+
+def _replace_trace_analytics_session(
+    bundle: Path,
+    *,
+    original_session_id: str,
+    replacement: dict[str, Any],
+) -> None:
+    trace_path = bundle / "trace_analytics_spans.json"
+    trace_payload = json.loads(trace_path.read_text(encoding="utf-8"))
+    trace_payload["sessions"] = [
+        replacement if row.get("session_id") == original_session_id else row
+        for row in trace_payload["sessions"]
+    ]
+    trace_path.write_text(
+        json.dumps(trace_payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _copy_primary_fixture_with_route_analytics(public_root: Path) -> Path:
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    input_dir = fixture / "input"
+    shutil.copytree(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT / "source_modules",
+        input_dir / "source_modules",
+    )
+    shutil.copy2(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT / "trace_analytics_spans.json",
+        input_dir / "trace_analytics_spans.json",
+    )
+    shutil.copy2(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT / "source_module_manifest.json",
+        input_dir / "source_module_manifest.json",
+    )
+    return fixture
+
+
+def _find_live_trace_session(
+    pattern_id: str,
+    *,
+    agent: str | None = None,
+) -> tuple[dict[str, Any], str, str]:
+    patterns = json.loads((REPO_ROOT / "codex/hologram/process/patterns.json").read_text())
+    live_ledger_session_ids = {
+        row["session_id"]
+        for row in json.loads((REPO_ROOT / "codex/hologram/process/ledger.json").read_text())[
+            "sessions"
+        ]
+    }
+    row = next(
+        item for item in patterns["patterns"] if item["pattern_id"] == pattern_id
+    )
+    session_ids = [
+        session_id
+        for session_id in row.get("session_id_hits") or []
+        if session_id in live_ledger_session_ids
+    ]
+    state_dirs = sorted((REPO_ROOT / "state/agent_telemetry/process").iterdir(), reverse=True)
+    for session_id in session_ids:
+        for state_dir in state_dirs:
+            sessions_path = state_dir / "sessions.jsonl"
+            spans_path = state_dir / "spans.jsonl"
+            if not sessions_path.is_file() or not spans_path.is_file():
+                continue
+            session_rows = [
+                json.loads(line)
+                for line in sessions_path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+            session_row = next(
+                (
+                    candidate
+                    for candidate in session_rows
+                    if candidate.get("session_id") == session_id
+                    and (agent is None or candidate.get("agent") == agent)
+                ),
+                None,
+            )
+            if session_row is None:
+                continue
+            span_count = sum(
+                1
+                for line in spans_path.read_text(encoding="utf-8").splitlines()
+                if line.strip() and json.loads(line).get("session_id") == session_id
+            )
+            if span_count:
+                return (
+                    session_row,
+                    sessions_path.relative_to(REPO_ROOT).as_posix(),
+                    spans_path.relative_to(REPO_ROOT).as_posix(),
+                )
+    raise AssertionError(f"No live trace session found for pattern {pattern_id!r}")
+
+
+def _build_real_trace_session_entry(
+    pattern_id: str,
+    *,
+    agent: str | None = None,
+    expected: dict[str, Any] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    session_row, sessions_ref, spans_ref = _find_live_trace_session(
+        pattern_id,
+        agent=agent,
+    )
+    claim = agent_route_observability_runtime._real_trace_route_state_claim(session_row)
+    session = {
+        "session_id": session_row["session_id"],
+        "started_at": session_row["started_at"],
+        "ended_at": session_row["ended_at"],
+        "expected": expected
+        or {
+            "route_compliance_score": claim["route_compliance_score"],
+            "required_anti_patterns": claim["anti_pattern_ids"],
+            "required_mode_signals": claim["route_lease_mode_signals"],
+        },
+        "real_trace_receipt": {
+            "schema_version": (
+                agent_route_observability_runtime.REAL_TRACE_RECEIPT_SCHEMA_VERSION
+            ),
+            "ledger_ref": "codex/hologram/process/ledger.json",
+            "sessions_ref": sessions_ref,
+            "spans_ref": spans_ref,
+            "route_state_claim": claim,
+            "route_state_fingerprint": agent_route_observability_runtime._stable_hash(
+                claim
+            ),
+        },
+    }
+    return session, claim
+
+
+def test_route_observability_paper_module_carries_source_backed_packet() -> None:
+    paper_module = (
+        MICROCOSM_ROOT / "paper_modules/agent_route_observability_runtime.md"
+    ).read_text(encoding="utf-8")
+    standard = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "standards/std_microcosm_agent_route_observability_runtime.json"
+        ).read_text(encoding="utf-8")
+    )
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    organ = next(
+        row
+        for row in registry["implemented_organs"]
+        if row["organ_id"] == "agent_route_observability_runtime"
+    )
+
+    assert "## Source-Backed Doctrine Packet" in paper_module
+    assert organ["evidence_class"] in paper_module
+    assert organ["claim_ceiling"] in paper_module
+    assert organ["validator_command"] in paper_module
+    assert standard["authority_boundary"] in paper_module
+    assert "does not inspect live sessions" in paper_module
+    assert "body_in_receipt=false" in paper_module
+
+    required_refs = [
+        "core/organ_registry.json::implemented_organs[organ_id=agent_route_observability_runtime]",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_route_observability_runtime]",
+        "standards/std_microcosm_agent_route_observability_runtime.json",
+        "src/microcosm_core/organs/agent_route_observability_runtime.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+        "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
+        "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+    ]
+    for ref in required_refs:
+        assert ref in paper_module
+
+    for receipt_ref in organ["generated_receipts"]:
+        assert receipt_ref in paper_module
+
+    for phrase in [
+        "actor-axis mismatch",
+        "missing route lease",
+        "private transcript body",
+        "duplicate trace id",
+        "route-compliance overclaim",
+        "hook-shadow budget overrun",
+        "Re-entry conditions",
+    ]:
+        assert phrase in paper_module
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -160,7 +414,6 @@ def test_route_observability_trace_loader_streams_jsonl_without_materializing_fi
     trace_path = tmp_path / "agent_trace.jsonl"
     trace_path.write_text(
         '{"trace_id":"trace_001","route_id":"entry"}\n'
-        '["skip non-object rows"]\n'
         "\n"
         '{"trace_id":"trace_002","route_id":"context_pack"}\n',
         encoding="utf-8",
@@ -180,21 +433,67 @@ def test_route_observability_trace_loader_streams_jsonl_without_materializing_fi
     ]
 
 
+def test_route_observability_trace_loader_rejects_duplicate_jsonl_keys(
+    tmp_path: Path,
+) -> None:
+    trace_path = tmp_path / "agent_trace.jsonl"
+    trace_path.write_text(
+        '{"trace_id":"trace_001","trace_id":"trace_002","route_id":"entry"}\n',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError) as excinfo:
+        agent_route_observability_runtime._load_jsonl(trace_path)
+
+    assert f"{trace_path}:1" in str(excinfo.value)
+
+
 def test_route_observability_source_line_count_streams_without_materializing_file(
     tmp_path: Path, monkeypatch
 ) -> None:
     source_path = tmp_path / "source.py"
+    empty_source_path = tmp_path / "empty.py"
     source_path.write_text("alpha\n\nomega\n", encoding="utf-8")
+    empty_source_path.write_text("", encoding="utf-8")
     original_read_text = Path.read_text
 
     def guarded_read_text(self: Path, *args: Any, **kwargs: Any) -> str:
-        if self == source_path:
+        if self in (source_path, empty_source_path):
             raise AssertionError("source line counting should stream rows")
         return original_read_text(self, *args, **kwargs)
 
     monkeypatch.setattr(Path, "read_text", guarded_read_text)
 
     assert agent_route_observability_runtime._source_line_count(source_path) == 3
+    assert agent_route_observability_runtime._source_line_count(empty_source_path) == 1
+
+
+def test_route_observability_digest_helpers_stream_without_read_bytes(
+    tmp_path: Path, monkeypatch
+) -> None:
+    source_path = tmp_path / "source.py"
+    source_bytes = b"alpha\nomega\n"
+    source_path.write_bytes(source_bytes)
+    original_read_bytes = Path.read_bytes
+
+    def guarded_read_bytes(self: Path, *args: Any, **kwargs: Any) -> bytes:
+        if self == source_path:
+            raise AssertionError("observability digest helpers should stream bytes")
+        return original_read_bytes(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read_bytes)
+
+    expected_digest = hashlib.sha256(source_bytes).hexdigest()
+    assert agent_route_observability_runtime._sha256_ref(source_path) == (
+        f"sha256:{expected_digest}"
+    )
+    assert agent_route_observability_runtime._file_sha256(source_path) == expected_digest
+    assert agent_route_observability_runtime._file_size_bytes(source_path) == len(
+        source_bytes
+    )
+    assert agent_observability_store._file_sha256(source_path) == (
+        f"sha256:{expected_digest}"
+    )
 
 
 def test_agent_route_observability_source_module_manifests_make_body_copy_contract_explicit() -> None:
@@ -202,13 +501,25 @@ def test_agent_route_observability_source_module_manifests_make_body_copy_contra
         AGENT_ROUTE_OBSERVABILITY_EXAMPLES_ROOT.glob("*/source_module_manifest.json")
     )
 
-    assert len(manifests) == 9
+    assert len(manifests) == 10
     module_count = 0
     for manifest_path in manifests:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+        is_route_compliance_manifest = (
+            manifest_path.parent.name == "exported_route_compliance_audit_bundle"
+        )
+        if is_route_compliance_manifest:
+            assert manifest["source_import_class"] == (
+                agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_MIXED_SOURCE_IMPORT_CLASS
+            )
+            assert manifest["body_copied_material_count"] == (
+                len(agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS)
+            )
+            assert manifest["public_reference_sanitized_material_count"] == 1
+        else:
+            assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+            assert manifest["body_copied_material_count"] == len(manifest["modules"])
         assert manifest["body_in_receipt"] is False
-        assert manifest["body_copied_material_count"] == len(manifest["modules"])
         for row in manifest["modules"]:
             module_count += 1
             digest = str(row["sha256"]).removeprefix("sha256:")
@@ -216,17 +527,46 @@ def test_agent_route_observability_source_module_manifests_make_body_copy_contra
             target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
             target_path = MICROCOSM_ROOT / target_ref
             actual_digest = f"sha256:{hashlib.sha256(target_path.read_bytes()).hexdigest()}"
+            is_sanitized_row = (
+                is_route_compliance_manifest
+                and row["path"]
+                == agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH
+            )
 
-            assert row["source_import_class"] == "copied_non_secret_macro_body"
-            assert row["body_copied"] is True
+            if is_sanitized_row:
+                assert row["source_import_class"] == (
+                    agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_IMPORT_CLASS
+                )
+                assert row["source_to_target_relation"] == (
+                    agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION
+                )
+                assert row["public_reference_sanitized"] is True
+                assert row["body_copied"] is False
+                assert row["source_sha256"] != expected_digest
+                assert row["target_sha256"] == expected_digest
+                assert row["sha256_match"] is False
+                assert row["sanitization_receipt"]["status"] == "transformed"
+                assert row["sanitization_receipt"]["public_safe"] is True
+                assert row["sanitization_receipt"]["blocker_count"] == 0
+                assert row["sanitization_receipt"]["target_sha256"] == expected_digest
+            else:
+                assert row["source_import_class"] == "copied_non_secret_macro_body"
+                if is_route_compliance_manifest:
+                    assert row["source_to_target_relation"] == "exact_copy"
+                assert row["body_copied"] is True
+                assert row["source_sha256"] == expected_digest
+                assert row["target_sha256"] == expected_digest
+                assert row["sha256_match"] is True
             assert row["body_in_receipt"] is False
             assert row["body_text_in_receipt"] is False
-            assert row["source_open_payload_boundary"].startswith(
-                "body_in_bundle_source_modules_not_receipt"
-            )
-            assert row["source_sha256"] == expected_digest
-            assert row["target_sha256"] == expected_digest
-            assert row["sha256_match"] is True
+            if is_sanitized_row:
+                assert row["source_open_payload_boundary"].startswith(
+                    "body_in_bundle_source_modules_public_reference_sanitized_not_receipt"
+                )
+            else:
+                assert row["source_open_payload_boundary"].startswith(
+                    "body_in_bundle_source_modules_not_receipt"
+                )
             assert actual_digest == expected_digest
             assert row["anchor_count"] == len(row.get("required_anchors", []))
             assert row["validation_refs"]
@@ -235,7 +575,33 @@ def test_agent_route_observability_source_module_manifests_make_body_copy_contra
                 for ref in row["validation_refs"]
             )
 
-    assert module_count == 25
+    assert module_count == 31
+
+
+def test_agent_trace_route_repair_body_verification_reports_source_and_target_digests() -> None:
+    view = build_public_agent_trace_route_repair_view(
+        load_public_agent_trace_route_repair_bundle(AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT)
+    )
+    verification = view["body_import_verification"]
+
+    source_path = MICROCOSM_ROOT.parent / agent_trace_route_repair.SOURCE_REFS[0]
+    target_path = MICROCOSM_ROOT / agent_trace_route_repair.TARGET_REF.removeprefix(
+        "microcosm-substrate/"
+    )
+    source_digest = f"sha256:{hashlib.sha256(source_path.read_bytes()).hexdigest()}"
+    target_digest = f"sha256:{hashlib.sha256(target_path.read_bytes()).hexdigest()}"
+
+    assert verification["verification_status"] == "verified"
+    assert verification["source_to_target_relation"] == "source_faithful_public_light_edit"
+    assert verification["source_ref"] == agent_trace_route_repair.SOURCE_REFS[0]
+    assert verification["target_ref"] == agent_trace_route_repair.TARGET_REF
+    assert verification["source_body_digest"] == source_digest
+    assert verification["target_body_digest"] == target_digest
+    assert verification["body_in_receipt"] is False
+    assert any(
+        "validate-agent-trace-route-repair-bundle" in ref
+        for ref in verification["runtime_consumed_by"]
+    )
 
 
 def test_agent_route_observability_runtime_observes_required_negative_cases(
@@ -284,6 +650,15 @@ def test_agent_route_observability_runtime_observes_required_negative_cases(
     assert result["egress_mirror"]["private_state_read"] is False
     assert result["egress_mirror"]["provider_payload_read"] is False
     assert result["egress_mirror"]["browser_hud_cockpit_state_read"] is False
+    assert result["primary_route_trace_analytics"]["status"] == "pass"
+    assert result["primary_route_trace_analytics"]["source_bound_primary_run"] is True
+    assert result["primary_route_trace_analytics"]["source_binding"] == (
+        "exported_route_compliance_audit_bundle"
+    )
+    assert result["primary_route_source_manifest"]["status"] == "pass"
+    assert result["primary_route_source_manifest"][
+        "all_exact_live_source_digests_matched"
+    ] is True
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -292,6 +667,663 @@ def test_agent_route_observability_runtime_observes_required_negative_cases(
         for path in live_receipt_dir.glob("*.json")
     } if live_receipt_dir.exists() else {}
     assert after == before
+
+
+def test_agent_route_observability_primary_run_principle_lens_ignores_declared_compact_flags(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    lens_path = fixture / "input/agent_principle_lens_receipt.json"
+    payload = json.loads(lens_path.read_text(encoding="utf-8"))
+    for row in payload["compact_admission_receipts"]:
+        row["selected_ids_preserved"] = False
+        row["runtime_doctrine_type_preserved"] = False
+        row["all_agent_principles_route_preserved"] = False
+        row["selected_principle_cards_route_preserved"] = False
+        row["agent_operating_packet_route_preserved"] = False
+    lens_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = result["agent_principle_lens"]["compact_admission_receipts"]
+    assert result["status"] == "pass"
+    assert all(row["decision"] == "accepted" for row in decisions)
+    assert all(
+        row["derived_from"] == "agent_principle_lens_route_and_authority_fields"
+        for row in decisions
+    )
+    assert all(row["declared_selected_ids_preserved"] is False for row in decisions)
+
+
+def test_agent_route_observability_primary_run_principle_lens_recomputes_missing_selected_id(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    lens_path = fixture / "input/agent_principle_lens_receipt.json"
+    payload = json.loads(lens_path.read_text(encoding="utf-8"))
+    payload["selected_ids"] = [
+        principle_id
+        for principle_id in payload["selected_ids"]
+        if principle_id != "pri_144"
+    ]
+    for row in payload["compact_admission_receipts"]:
+        row["selected_ids_preserved"] = True
+    lens_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = result["agent_principle_lens"]["compact_admission_receipts"]
+    assert result["status"] == "blocked"
+    assert result["agent_principle_lens"]["status"] == "blocked"
+    assert all(row["decision"] == "blocked" for row in decisions)
+    assert all(
+        "AGENT_PRINCIPLE_COMPACT_HANDLE_MISSING" in row["error_codes"]
+        for row in decisions
+    )
+    assert any(
+        row["error_code"] == "AGENT_PRINCIPLE_LENS_SELECTED_ID_MISSING"
+        for row in result["findings"]
+    )
+
+
+def test_agent_route_observability_primary_run_principle_lens_rejects_row_body_overclaim(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    lens_path = fixture / "input/agent_principle_lens_receipt.json"
+    payload = json.loads(lens_path.read_text(encoding="utf-8"))
+    payload["compact_admission_receipts"][0]["row_bodies_exported"] = True
+    payload["compact_admission_receipts"][0]["selected_ids_preserved"] = True
+    lens_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decision = result["agent_principle_lens"]["compact_admission_receipts"][0]
+    assert result["status"] == "blocked"
+    assert result["agent_principle_lens"]["status"] == "blocked"
+    assert decision["decision"] == "blocked"
+    assert "AGENT_PRINCIPLE_COMPACT_AUTHORITY_OVERCLAIM" in decision["error_codes"]
+    assert decision["derived_from"] == "agent_principle_lens_route_and_authority_fields"
+
+
+def test_agent_route_observability_primary_run_derives_route_overclaim_from_evidence(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    overclaim = next(row for row in rows if row["event_id"] == "trace_route_overclaim")
+    overclaim["route_compliance_status"] = "blocked"
+    overclaim["error_codes"] = []
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "pass"
+    assert decisions["trace_route_overclaim"]["declared_route_compliance_status"] == "blocked"
+    assert decisions["trace_route_overclaim"]["decision"] == "rejected"
+    assert decisions["trace_route_overclaim"]["derived_from"] == "trace_event_evidence"
+    assert "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE" in (
+        decisions["trace_route_overclaim"]["error_codes"]
+    )
+
+
+def test_agent_route_observability_primary_run_ignores_baked_route_error_codes(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    good_row = next(row for row in rows if row["event_id"] == "trace_behavior_change")
+    good_row["error_codes"] = ["MISSING_ROUTE_LEASE", "DECLARED_ONLY_FAILURE"]
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "pass"
+    assert decisions["trace_behavior_change"]["decision"] == "accepted"
+    assert decisions["trace_behavior_change"]["error_codes"] == []
+    assert decisions["trace_behavior_change"]["derived_from"] == "trace_event_evidence"
+
+
+def test_agent_route_observability_primary_run_accepts_resolved_behavior_evidence_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    behavior_row = next(row for row in rows if row["event_id"] == "trace_behavior_change")
+    behavior_row["require_behavior_change_evidence_ref_resolution"] = True
+    rows.append(
+        {
+            "event_id": "trace_fix_001",
+            "actor_axis": "type_a_substrate",
+            "claims_mutation_authority": False,
+            "requires_route_lease": False,
+            "route_compliance_status": "pass",
+            "claims_behavior_change": False,
+            "behavior_change_evidence_trace_ids": [],
+            "lease_consumed": True,
+            "first_action_after_lease": "record_public_trace_fix",
+            "selected_lane_id": "direct_local",
+        }
+    )
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "pass"
+    assert decisions["trace_behavior_change"]["decision"] == "accepted"
+    assert decisions["trace_behavior_change"]["error_codes"] == []
+
+
+def test_agent_route_observability_primary_run_rejects_unresolved_behavior_evidence_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    behavior_row = next(row for row in rows if row["event_id"] == "trace_behavior_change")
+    behavior_row["require_behavior_change_evidence_ref_resolution"] = True
+    behavior_row["behavior_change_evidence_trace_ids"] = ["missing_public_trace"]
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "blocked"
+    assert result["route_compliance"]["status"] == "blocked"
+    assert "behavior_change_evidence_trace_ref_missing" in (
+        result["route_compliance"]["unexpected_negative_cases"]
+    )
+    assert "BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING" in (
+        decisions["trace_behavior_change"]["error_codes"]
+    )
+
+
+def test_agent_route_observability_primary_run_validates_copied_trace_analytics(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = _copy_primary_fixture_with_route_analytics(public_root)
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    analytics = result["primary_route_trace_analytics"]
+    assert result["status"] == "pass"
+    assert analytics["status"] == "pass"
+    assert analytics["source_binding"] == "primary_fixture"
+    assert analytics["source_module_path"] == "source_modules/system/lib/agent_execution_trace.py"
+    assert analytics["average_route_compliance"] == pytest.approx(0.967)
+    assert analytics["session_count"] == 3
+    assert "system/lib/agent_execution_trace.py::_compute_route_compliance" in (
+        analytics["source_functions_invoked"]
+    )
+    assert analytics["body_in_receipt"] is False
+
+
+def test_agent_route_observability_primary_run_trace_analytics_perturbation_blocks(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = _copy_primary_fixture_with_route_analytics(public_root)
+    trace_path = fixture / "input/trace_analytics_spans.json"
+    trace_payload = json.loads(trace_path.read_text(encoding="utf-8"))
+    grep_first_session = next(
+        row
+        for row in trace_payload["sessions"]
+        if row["session_id"] == "synthetic_grep_before_kernel"
+    )
+    first_span = grep_first_session["spans"][0]
+    first_span["action_kind"] = "kernel_command"
+    first_span["command"] = "./repo-python kernel.py --preflight"
+    first_span["normalized_command"] = "./repo-python kernel.py --preflight"
+    first_span["kernel_flags"] = ["--preflight"]
+    first_span["is_kernel_shape"] = True
+    first_span["is_grep_shape"] = False
+    trace_path.write_text(
+        json.dumps(trace_payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["primary_route_trace_analytics"]["status"] == "blocked"
+    assert "ROUTE_TRACE_ANALYTICS_SCORE_MISMATCH" in result["error_codes"]
+    assert "ROUTE_TRACE_ANALYTICS_ANTI_PATTERN_MISSING" in result["error_codes"]
+    assert result["primary_route_trace_analytics"]["body_in_receipt"] is False
+
+
+def test_agent_route_observability_primary_run_rejects_stale_copied_source_module(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = _copy_primary_fixture_with_route_analytics(public_root)
+    manifest_path = fixture / "input/source_module_manifest.json"
+    source_path = fixture / "input/source_modules/system/lib/agent_execution_trace.py"
+    source_path.write_text(
+        source_path.read_text(encoding="utf-8") + "\n# stale self-consistent copy\n",
+        encoding="utf-8",
+    )
+    stale_digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    stale_line_count = len(source_path.read_text(encoding="utf-8").splitlines())
+    stale_byte_count = source_path.stat().st_size
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = next(
+        item
+        for item in manifest["modules"]
+        if item["path"] == "source_modules/system/lib/agent_execution_trace.py"
+    )
+    row["sha256"] = stale_digest
+    row["source_sha256"] = f"sha256:{stale_digest}"
+    row["target_sha256"] = f"sha256:{stale_digest}"
+    row["line_count"] = stale_line_count
+    row["byte_count"] = stale_byte_count
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["primary_route_source_manifest"]["status"] == "blocked"
+    assert "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
+    assert "ROUTE_COMPLIANCE_AUDIT_LIVE_SOURCE_TARGET_DIGEST_MISMATCH" in (
+        result["error_codes"]
+    )
+
+
+def test_agent_route_observability_primary_run_rejects_egress_declared_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    egress_path = fixture / "input/egress_mirror_cases.json"
+    payload = json.loads(egress_path.read_text(encoding="utf-8"))
+    case = payload["cases"][0]
+    case["expected_violation"] = False
+    case["expected_decision"] = "allow_with_fresh_authority"
+    egress_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decision = result["egress_mirror"]["egress_mirror_decisions"][0]
+    assert result["status"] == "blocked"
+    assert result["egress_mirror"]["status"] == "blocked"
+    assert decision["decision"] == "block"
+    assert decision["declared_decision"] == "allow_with_fresh_authority"
+    assert decision["derived_from"] == "egress_detector_evidence"
+    assert "EGRESS_MIRROR_DECLARED_DECISION_MISMATCH" in decision["error_codes"]
+    assert "EGRESS_MIRROR_DECLARED_VIOLATION_MISMATCH" in decision["error_codes"]
+
+
+def test_agent_route_observability_primary_run_egress_perturbation_changes_verdict(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    egress_path = fixture / "input/egress_mirror_cases.json"
+    payload = json.loads(egress_path.read_text(encoding="utf-8"))
+    case = payload["cases"][0]
+    case["durable_binding_present"] = True
+    case["fresh_authority_present"] = True
+    case["expected_violation"] = False
+    case["expected_decision"] = "allow_with_fresh_authority"
+    egress_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decision = result["egress_mirror"]["egress_mirror_decisions"][0]
+    assert result["status"] == "pass"
+    assert result["egress_mirror"]["egress_violation_count"] == 2
+    assert result["egress_mirror"]["egress_allowed_count"] == 4
+    assert decision["decision"] == "allow_with_fresh_authority"
+    assert decision["expected_violation"] is False
+    assert decision["error_codes"] == []
+
+
+def test_agent_route_observability_primary_run_egress_blocks_private_boundary_breach(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    egress_path = fixture / "input/egress_mirror_cases.json"
+    payload = json.loads(egress_path.read_text(encoding="utf-8"))
+    case = payload["cases"][3]
+    case["private_state_read"] = True
+    case["expected_violation"] = False
+    case["expected_decision"] = "allow_with_fresh_authority"
+    egress_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decision = result["egress_mirror"]["egress_mirror_decisions"][3]
+    assert result["status"] == "blocked"
+    assert result["egress_mirror"]["status"] == "blocked"
+    assert decision["decision"] == "allow_with_fresh_authority"
+    assert "EGRESS_MIRROR_PRIVATE_STATE_BOUNDARY_BREACH" in decision["error_codes"]
+
+
+def test_agent_route_observability_primary_run_egress_blocks_unknown_detector(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    egress_path = fixture / "input/egress_mirror_cases.json"
+    payload = json.loads(egress_path.read_text(encoding="utf-8"))
+    case = payload["cases"][3]
+    case["detector_id"] = "unknown_detector"
+    case["expected_violation"] = False
+    case["expected_decision"] = "allow_with_fresh_authority"
+    egress_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decision = result["egress_mirror"]["egress_mirror_decisions"][3]
+    assert result["status"] == "blocked"
+    assert result["egress_mirror"]["status"] == "blocked"
+    assert decision["decision"] == "block"
+    assert "EGRESS_MIRROR_DECLARED_DECISION_MISMATCH" in decision["error_codes"]
+    assert "EGRESS_MIRROR_DECLARED_VIOLATION_MISMATCH" in decision["error_codes"]
+
+
+def test_agent_route_observability_primary_run_consumes_trace_analytics_sources(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    shutil.copy2(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT / "trace_analytics_spans.json",
+        fixture / "input/trace_analytics_spans.json",
+    )
+    shutil.copytree(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT / "source_modules",
+        fixture / "input/source_modules",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    analytics = result["primary_route_trace_analytics"]
+    assert result["status"] == "pass"
+    assert analytics["status"] == "pass"
+    assert analytics["session_count"] == 3
+    assert analytics["source_module_path"] == (
+        "source_modules/system/lib/agent_execution_trace.py"
+    )
+    assert "system/lib/agent_execution_trace.py::_compute_route_compliance" in (
+        analytics["source_functions_invoked"]
+    )
+    assert analytics["body_in_receipt"] is False
+
+
+def test_agent_route_observability_primary_run_accepts_resolved_behavior_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    behavior_change = next(row for row in rows if row["event_id"] == "trace_behavior_change")
+    behavior_change["require_behavior_change_evidence_ref_resolution"] = True
+    behavior_change["behavior_change_evidence_trace_ids"] = ["trace_missing_lease"]
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "pass"
+    assert decisions["trace_behavior_change"]["decision"] == "accepted"
+    assert "BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING" not in result["error_codes"]
+
+
+def test_agent_route_observability_primary_run_rejects_unresolved_behavior_ref(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    fixture = public_root / "fixtures/first_wave/agent_route_observability_runtime"
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        fixture,
+    )
+    trace_path = fixture / "input/agent_trace.jsonl"
+    rows = [
+        json.loads(line)
+        for line in trace_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    behavior_change = next(row for row in rows if row["event_id"] == "trace_behavior_change")
+    behavior_change["require_behavior_change_evidence_ref_resolution"] = True
+    trace_path.write_text(
+        "\n".join(json.dumps(row, sort_keys=True) for row in rows) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run(
+        fixture / "input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    decisions = {
+        row["event_id"]: row for row in result["route_compliance"]["route_compliance_decisions"]
+    }
+    assert result["status"] == "blocked"
+    assert decisions["trace_behavior_change"]["decision"] == "rejected"
+    assert "BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING" in result["error_codes"]
+    assert "BEHAVIOR_CHANGE_EVIDENCE_TRACE_REF_MISSING" in (
+        decisions["trace_behavior_change"]["error_codes"]
+    )
 
 
 def test_agent_route_observability_receipts_are_public_relative_and_redacted(
@@ -410,6 +1442,124 @@ def test_agent_route_observability_exported_bundle_validates_runtime_shape(
     assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
 
 
+def test_agent_route_observability_exported_bundle_rejects_source_digest_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/exported_observability_bundle"
+    )
+    shutil.copytree(OBS_BUNDLE_INPUT, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_observability_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest"]["status"] == "blocked"
+    assert "OBSERVABILITY_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    assert result["private_state_scan"]["status"] == "pass"
+
+
+@pytest.mark.parametrize(
+    ("bundle_input", "runner", "expected_error_code"),
+    [
+        (
+            ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT,
+            run_route_compliance_audit_bundle,
+            "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            COMPUTER_USE_BUNDLE_INPUT,
+            run_computer_use_action_trace_bundle,
+            "COMPUTER_USE_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            SESSION_ATTRIBUTION_BUNDLE_INPUT,
+            run_session_attribution_bundle,
+            "SESSION_ATTRIBUTION_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            HARNESS_CONFIGURATION_AUDIT_BUNDLE_INPUT,
+            run_harness_configuration_audit_bundle,
+            "HARNESS_CONFIGURATION_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            MULTI_AGENT_FANIN_BUNDLE_INPUT,
+            run_multi_agent_fanin_bundle,
+            "MULTI_AGENT_FANIN_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT,
+            run_bridge_dispatch_yield_resume_bundle,
+            "BRIDGE_RESUME_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            CONTROLLER_HEARTBEAT_BUNDLE_INPUT,
+            run_controller_heartbeat_bundle,
+            "CONTROLLER_HEARTBEAT_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT,
+            run_agent_trace_route_repair_bundle,
+            "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+        (
+            AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT,
+            run_agent_observability_store_bundle,
+            "AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_DIGEST_MISMATCH",
+        ),
+    ],
+)
+def test_agent_route_companion_bundles_reject_source_digest_mismatch(
+    tmp_path: Path,
+    bundle_input: Path,
+    runner: Any,
+    expected_error_code: str,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime"
+        / bundle_input.name
+    )
+    shutil.copytree(bundle_input, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0]["sha256"] = "0" * 64
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = runner(
+        bundle,
+        public_root
+        / "receipts/first_wave/agent_route_observability_runtime"
+        / bundle_input.name,
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_manifest"]["status"] == "blocked"
+    assert expected_error_code in result["error_codes"]
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+
+
 def test_agent_route_observability_bundle_card_reuses_fresh_receipt(
     tmp_path: Path,
     monkeypatch,
@@ -516,6 +1666,42 @@ def test_agent_route_observability_bundle_card_exposes_private_scan_blocker(
     assert "hits" not in _walk_keys(card)
 
 
+def test_agent_route_observability_exported_bundle_rejects_nested_forbidden_payload_key(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+    route_events_path = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_observability_bundle/route_events.json"
+    )
+    payload = json.loads(route_events_path.read_text(encoding="utf-8"))
+    payload["route_events"][0]["metadata"] = {
+        "provider_payload": "redacted body should not be present as a payload key"
+    }
+    route_events_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_observability_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/exported_observability_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["forbidden_payload_keys"] == ["provider_payload"]
+    assert "OBSERVABILITY_BUNDLE_FORBIDDEN_PAYLOAD_KEY" in result["error_codes"]
+    assert result["body_in_receipt"] is False
+
+
 def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
     tmp_path: Path,
 ) -> None:
@@ -562,6 +1748,24 @@ def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
     assert payload["exact_source_body_import"]["source_body_digests"] == (
         payload["exact_source_body_import"]["target_body_digests"]
     )
+    forbidden_keys = {
+        "raw_transcript_body",
+        "transcript_body",
+        "provider_payload",
+        "browser_hud_state",
+        "browser_hud_cockpit_state",
+        "account_session_state",
+        "credential_value",
+        "cookie",
+        "password",
+        "secret_value",
+        "api_key",
+        "access_token",
+        "refresh_token",
+        "recipient_send_payload",
+        "raw_payload_available",
+    }
+    assert forbidden_keys.isdisjoint(_walk_keys(payload))
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["private_state_scan"]["hits"]:
@@ -584,6 +1788,38 @@ def test_route_compliance_audit_bundle_validates_runtime_shape(
     assert result["trace_count"] == 5
     assert result["accepted_decision_count"] == 2
     assert result["rejected_decision_count"] == 3
+    assert result["trace_analytics"]["status"] == "pass"
+    assert result["trace_analytics"]["session_count"] == 3
+    assert result["trace_analytics"]["source_module_path"] == (
+        "source_modules/system/lib/agent_execution_trace.py"
+    )
+    assert result["trace_analytics"]["average_route_compliance"] == pytest.approx(0.967)
+    assert "system/lib/agent_execution_trace.py::_compute_route_compliance" in (
+        result["trace_analytics"]["source_functions_invoked"]
+    )
+    assert result["trace_analytics"]["pattern_counts"][
+        "anti_pattern_grep_before_kernel"
+    ] == 1
+    assert result["trace_analytics"]["pattern_counts"][
+        "positive_kernel_ladder_climb"
+    ] == 1
+    assert result["trace_analytics"]["route_lease_mode_control_counts"][
+        "full_output_kernel_bloat"
+    ] == 1
+    analytics_by_session = {
+        row["session_id"]: row for row in result["trace_analytics"]["sessions"]
+    }
+    assert analytics_by_session["synthetic_grep_before_kernel"][
+        "route_compliance"
+    ]["score"] == 0.9
+    assert analytics_by_session["synthetic_grep_before_kernel"][
+        "route_compliance"
+    ]["violations"] == [
+        {"rule": "grep_before_kernel", "grep_span": 0, "kernel_span": 1}
+    ]
+    assert analytics_by_session["synthetic_route_lease_output_bloat"][
+        "route_lease_mode_control"
+    ]["signal_counts"]["full_output_kernel_bloat"] == 1
     assert result["actor_axis_mismatch_count"] == 1
     assert result["authority_rejection_count"] == 1
     assert result["duplicate_trace_event_ids"] == []
@@ -612,8 +1848,13 @@ def test_route_compliance_audit_bundle_validates_runtime_shape(
     assert result["metadata_envelope_only"] is True
     assert result["body_in_receipt"] is False
     assert result["copied_macro_source_count"] == 7
+    assert result["public_reference_sanitized_source_count"] == 1
     assert result["source_module_manifest"]["status"] == "pass"
     assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert (
+        result["source_module_manifest"]["all_exact_source_target_digests_matched"]
+        is True
+    )
     assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
     assert result["source_module_manifest"]["all_expected_byte_counts_matched"] is True
     assert result["source_module_manifest"]["body_in_receipt"] is False
@@ -623,7 +1864,545 @@ def test_route_compliance_audit_bundle_validates_runtime_shape(
     assert result["exact_source_body_import"]["source_body_digests"] == (
         result["exact_source_body_import"]["target_body_digests"]
     )
+    assert len(result["exact_source_body_import"]["source_body_digests"]) == 7
     assert result["exact_source_body_import"]["body_in_receipt"] is False
+    sanitized_import = result["public_reference_sanitized_body_import"]
+    assert sanitized_import["verification_mode"] == (
+        "public_reference_sanitizer_receipt_and_target_digest_match"
+    )
+    assert sanitized_import["source_to_target_relation"] == (
+        agent_route_observability_runtime.ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION
+    )
+    assert len(sanitized_import["source_body_digests"]) == 1
+    assert len(sanitized_import["target_body_digests"]) == 1
+    assert sanitized_import["source_body_digests"] != sanitized_import["target_body_digests"]
+    assert sanitized_import["sanitization_receipts"][0]["blocker_count"] == 0
+    assert sanitized_import["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_mutated_trace_analytics(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    trace_path = bundle / "trace_analytics_spans.json"
+    trace_payload = json.loads(trace_path.read_text(encoding="utf-8"))
+    grep_first_session = next(
+        row
+        for row in trace_payload["sessions"]
+        if row["session_id"] == "synthetic_grep_before_kernel"
+    )
+    first_span = grep_first_session["spans"][0]
+    first_span["action_kind"] = "kernel_command"
+    first_span["command"] = "./repo-python kernel.py --preflight"
+    first_span["normalized_command"] = "./repo-python kernel.py --preflight"
+    first_span["kernel_flags"] = ["--preflight"]
+    first_span["is_kernel_shape"] = True
+    first_span["is_grep_shape"] = False
+    trace_path.write_text(
+        json.dumps(trace_payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "ROUTE_TRACE_ANALYTICS_SCORE_MISMATCH" in result["error_codes"]
+    assert "ROUTE_TRACE_ANALYTICS_ANTI_PATTERN_MISSING" in result["error_codes"]
+    finding_subjects = {
+        row["subject_id"] for row in result["trace_analytics"]["findings"]
+    }
+    assert "synthetic_grep_before_kernel" in finding_subjects
+    assert "synthetic_grep_before_kernel:anti_pattern_grep_before_kernel" in (
+        finding_subjects
+    )
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_accepts_sanitized_agent_trace_structurer_trace(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    _replace_trace_analytics_session_with_structurer_clip(
+        bundle,
+        session_id="synthetic_route_compliant_ladder",
+        commands=[
+            "./repo-python kernel.py --preflight",
+            './repo-python kernel.py --entry "microcosm route" --context-budget 12000',
+            (
+                "sed -n '1,120p' "
+                "microcosm-substrate/src/microcosm_core/organs/"
+                "agent_route_observability_runtime.py"
+            ),
+        ],
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["trace_analytics"]["status"] == "pass"
+    assert result["trace_analytics"][
+        "agent_trace_structurer_trace_schema_version"
+    ] == "agent_route_observability_runtime_agent_trace_structurer_trace_v1"
+    analytics_by_session = {
+        row["session_id"]: row for row in result["trace_analytics"]["sessions"]
+    }
+    real_trace = analytics_by_session["synthetic_route_compliant_ladder"]
+    assert real_trace["trace_source"] == "agent_trace_structurer_command_ledger"
+    assert real_trace["route_compliance"]["score"] == 1.0
+    assert "positive_kernel_ladder_climb" in real_trace["anti_pattern_ids"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_raw_agent_trace_structurer_body(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    session = _replace_trace_analytics_session_with_structurer_clip(
+        bundle,
+        session_id="synthetic_route_compliant_ladder",
+        commands=[
+            "./repo-python kernel.py --preflight",
+            './repo-python kernel.py --entry "microcosm route" --context-budget 12000',
+        ],
+    )
+    session["agent_trace_structurer_clip"]["source_text"] = (
+        "raw copied trace body should stay outside public route analytics"
+    )
+    trace_path = bundle / "trace_analytics_spans.json"
+    trace_payload = json.loads(trace_path.read_text(encoding="utf-8"))
+    trace_payload["sessions"][0] = session
+    trace_path.write_text(
+        json.dumps(trace_payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "AGENT_TRACE_STRUCTURER_RAW_BODY_FIELD" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_mutated_agent_trace_structurer_trace(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    _replace_trace_analytics_session_with_structurer_clip(
+        bundle,
+        session_id="synthetic_route_compliant_ladder",
+        commands=[
+            (
+                "rg route_compliance microcosm-substrate/src/microcosm_core/"
+                "organs/agent_route_observability_runtime.py"
+            ),
+            "./repo-python kernel.py --preflight",
+            (
+                "sed -n '1,120p' "
+                "microcosm-substrate/src/microcosm_core/organs/"
+                "agent_route_observability_runtime.py"
+            ),
+        ],
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "ROUTE_TRACE_ANALYTICS_SCORE_MISMATCH" in result["error_codes"]
+    assert "ROUTE_TRACE_ANALYTICS_ANTI_PATTERN_MISSING" in result["error_codes"]
+    analytics_by_session = {
+        row["session_id"]: row for row in result["trace_analytics"]["sessions"]
+    }
+    mutated_trace = analytics_by_session["synthetic_route_compliant_ladder"]
+    assert mutated_trace["trace_source"] == "agent_trace_structurer_command_ledger"
+    assert mutated_trace["route_compliance"]["score"] < 1.0
+    assert "anti_pattern_grep_before_kernel" in mutated_trace["anti_pattern_ids"]
+    finding_subjects = {
+        row["subject_id"] for row in result["trace_analytics"]["findings"]
+    }
+    assert "synthetic_route_compliant_ladder" in finding_subjects
+    assert "synthetic_route_compliant_ladder:positive_kernel_ladder_climb" in (
+        finding_subjects
+    )
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_accepts_real_trace_receipt_replay(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, live_claim = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["trace_analytics"]["status"] == "pass"
+    analytics_by_session = {
+        row["session_id"]: row for row in result["trace_analytics"]["sessions"]
+    }
+    replayed = analytics_by_session[real_session["session_id"]]
+    assert replayed["trace_source"] == "real_agent_execution_trace_receipt"
+    assert replayed["route_compliance"]["score"] == live_claim["route_compliance_score"]
+    assert replayed["real_trace_replay"]["schema_version"] == (
+        agent_route_observability_runtime.REAL_TRACE_RECEIPT_SCHEMA_VERSION
+    )
+    assert replayed["real_trace_replay"]["ledger_ref"] == "codex/hologram/process/ledger.json"
+    assert replayed["real_trace_replay"]["body_in_receipt"] is False
+    assert "positive_kernel_ladder_climb" in replayed["anti_pattern_ids"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_real_trace_route_state_claim_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, _ = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    real_session["real_trace_receipt"]["route_state_claim"]["route_compliance_score"] = 0.0
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "REAL_TRACE_ROUTE_STATE_CLAIM_MISMATCH" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_missing_real_trace_route_state_claim(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, _ = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    real_session["real_trace_receipt"].pop("route_state_claim")
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "REAL_TRACE_ROUTE_STATE_CLAIM_MISSING" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_incomplete_real_trace_route_state_claim(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, _ = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    real_session["real_trace_receipt"]["route_state_claim"].pop("anti_pattern_ids")
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "REAL_TRACE_ROUTE_STATE_CLAIM_INCOMPLETE" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_missing_real_trace_fingerprint(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, _ = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    real_session["real_trace_receipt"].pop("route_state_fingerprint")
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "REAL_TRACE_ROUTE_STATE_FINGERPRINT_MISSING" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_rejects_real_trace_fingerprint_mismatch(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, _ = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    real_session["real_trace_receipt"]["route_state_fingerprint"] = "0" * 64
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "REAL_TRACE_ROUTE_STATE_FINGERPRINT_MISMATCH" in result["error_codes"]
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_does_not_echo_real_trace_expected_score(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle"
+    )
+    shutil.copytree(ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT, bundle)
+    real_session, live_claim = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    claimed_score = float(live_claim["route_compliance_score"])
+    wrong_score = 0.0 if claimed_score != 0.0 else 1.0
+    real_session["expected"]["route_compliance_score"] = wrong_score
+    _replace_trace_analytics_session(
+        bundle,
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=real_session,
+    )
+
+    result = run_route_compliance_audit_bundle(
+        bundle,
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["trace_analytics"]["status"] == "blocked"
+    assert "ROUTE_TRACE_ANALYTICS_SCORE_MISMATCH" in result["error_codes"]
+    analytics_by_session = {
+        row["session_id"]: row for row in result["trace_analytics"]["sessions"]
+    }
+    replayed = analytics_by_session[real_session["session_id"]]
+    assert replayed["trace_source"] == "real_agent_execution_trace_receipt"
+    assert replayed["route_compliance"]["score"] == claimed_score
+    assert replayed["route_compliance"]["score"] != wrong_score
+    assert result["trace_analytics"]["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_real_trace_perturbation_changes_verdict(
+    tmp_path: Path,
+) -> None:
+    positive_bundle = tmp_path / "positive"
+    negative_bundle = tmp_path / "negative"
+    for root in (positive_bundle, negative_bundle):
+        shutil.copytree(MICROCOSM_ROOT / "core", root / "microcosm-substrate/core")
+        shutil.copytree(
+            ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT,
+            root
+            / "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle",
+        )
+
+    positive_session, positive_claim = _build_real_trace_session_entry(
+        "positive_kernel_ladder_climb",
+        agent="codex",
+    )
+    _replace_trace_analytics_session(
+        positive_bundle
+        / "microcosm-substrate/examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle",
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=positive_session,
+    )
+    positive_result = run_route_compliance_audit_bundle(
+        positive_bundle
+        / "microcosm-substrate/examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle",
+        positive_bundle
+        / "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    degraded_session, _ = _build_real_trace_session_entry(
+        "anti_pattern_cold_boot_missing_info",
+        agent="codex",
+    )
+    degraded_session["expected"] = {
+        "route_compliance_score": positive_claim["route_compliance_score"],
+        "required_anti_patterns": ["positive_kernel_ladder_climb"],
+        "required_mode_signals": positive_claim["route_lease_mode_signals"],
+    }
+    _replace_trace_analytics_session(
+        negative_bundle
+        / "microcosm-substrate/examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle",
+        original_session_id="synthetic_route_compliant_ladder",
+        replacement=degraded_session,
+    )
+    negative_result = run_route_compliance_audit_bundle(
+        negative_bundle
+        / "microcosm-substrate/examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle",
+        negative_bundle
+        / "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert positive_result["status"] == "pass"
+    assert positive_result["trace_analytics"]["status"] == "pass"
+    assert negative_result["status"] == "blocked"
+    assert negative_result["trace_analytics"]["status"] == "blocked"
+    assert "ROUTE_TRACE_ANALYTICS_ANTI_PATTERN_MISSING" in negative_result["error_codes"]
+    analytics_by_session = {
+        row["session_id"]: row for row in negative_result["trace_analytics"]["sessions"]
+    }
+    replayed = analytics_by_session[degraded_session["session_id"]]
+    assert replayed["trace_source"] == "real_agent_execution_trace_receipt"
+    assert replayed["route_compliance"]["score"] == positive_claim["route_compliance_score"]
+    assert "anti_pattern_cold_boot_missing_info" in replayed["anti_pattern_ids"]
+    assert "positive_kernel_ladder_climb" not in replayed["anti_pattern_ids"]
+    assert negative_result["trace_analytics"]["body_in_receipt"] is False
 
 
 def test_route_compliance_audit_bundle_receipt_is_public_safe(
@@ -677,12 +2456,26 @@ def test_route_compliance_audit_bundle_receipt_is_public_safe(
     assert payload["private_data_equivalence_claim"] is False
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["copied_macro_source_count"] == 7
+    assert payload["public_reference_sanitized_source_count"] == 1
+    assert payload["trace_analytics"]["status"] == "pass"
+    assert payload["trace_analytics"]["body_in_receipt"] is False
+    assert payload["trace_analytics"]["route_lease_mode_control_counts"][
+        "full_output_kernel_bloat"
+    ] == 1
     assert payload["source_module_manifest"]["status"] == "pass"
     assert payload["source_module_manifest"]["body_in_receipt"] is False
     assert payload["exact_source_body_import"]["body_in_receipt"] is False
     assert payload["exact_source_body_import"]["source_body_digests"] == (
         payload["exact_source_body_import"]["target_body_digests"]
     )
+    assert len(payload["exact_source_body_import"]["source_body_digests"]) == 7
+    sanitized_import = payload["public_reference_sanitized_body_import"]
+    assert sanitized_import["body_in_receipt"] is False
+    assert sanitized_import["source_body_digests"] != (
+        sanitized_import["target_body_digests"]
+    )
+    assert sanitized_import["sanitization_receipts"][0]["public_safe"] is True
+    assert sanitized_import["sanitization_receipts"][0]["blocker_count"] == 0
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["private_state_scan"]["hits"]:
@@ -788,9 +2581,104 @@ def test_session_attribution_exported_bundle_receipt_is_public_safe(
         assert not Path(hit["path"]).is_absolute()
 
 
+def test_harness_configuration_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_harness_configuration_audit_bundle(
+        HARNESS_CONFIGURATION_AUDIT_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_harness_configuration_audit_bundle"
+    assert result["bundle_id"] == "public_agent_harness_configuration_audit_runtime_example"
+    assert result["snapshot_count"] == 3
+    assert result["clean_snapshot_count"] == 1
+    assert result["finding_count"] == 2
+    assert result["quarantined_snapshot_count"] == 1
+    assert result["summary"]["code_counts"] == {
+        "INVALID_SKILL_TYPE": 1,
+        "MISSING_STOP_HOOK_TIMEOUT": 1,
+    }
+    assert result["copied_macro_source_count"] == 2
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    assert result["harness_input_validation"]["metadata_envelope_only"] is True
+    assert result["harness_policy"]["forbidden_authority_rejected"] is True
+    assert result["authority_ceiling"]["live_local_settings_read"] is False
+    assert result["authority_ceiling"]["raw_settings_body_exported"] is False
+    assert result["authority_ceiling"]["raw_hook_body_exported"] is False
+    assert result["authority_ceiling"]["raw_skill_body_exported"] is False
+    assert result["authority_ceiling"]["credential_or_cookie_exported"] is False
+    assert result["private_state_scan"]["blocking_hit_count"] == 0
+    assert result["exact_source_body_import"]["body_in_receipt"] is False
+    assert result["exact_source_body_import"]["source_body_digests"] == (
+        result["exact_source_body_import"]["target_body_digests"]
+    )
+    assert all(row["raw_settings_body_exported"] is False for row in result["snapshot_rows"])
+    assert all(row["raw_hook_body_exported"] is False for row in result["snapshot_rows"])
+    assert all(row["raw_skill_body_exported"] is False for row in result["snapshot_rows"])
+
+
+def test_harness_configuration_exported_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_harness_configuration_audit_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/exported_harness_configuration_audit_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH
+    ]
+    receipt_file = public_root / EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_settings_body" not in _walk_keys(payload)
+    assert "raw_hook_body" not in _walk_keys(payload)
+    assert "raw_skill_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_harness_configuration_audit_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["live_local_settings_read"] is False
+    assert payload["raw_settings_body_exported"] is False
+    assert payload["raw_hook_body_exported"] is False
+    assert payload["raw_skill_body_exported"] is False
+    assert payload["copied_macro_source_count"] == 2
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["source_body_digests"] == (
+        payload["exact_source_body_import"]["target_body_digests"]
+    )
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+
+
 def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/continuation_packet.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/continuation_packet.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
     result = run_multi_agent_fanin_bundle(
         MULTI_AGENT_FANIN_BUNDLE_INPUT,
         tmp_path / "receipts/first_wave/agent_route_observability_runtime",
@@ -838,12 +2726,19 @@ def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
     assert result["expected_summary_validation"]["actual_summary"][
         "up_propagation_count"
     ] == 2
-    assert result["body_import_verification"]["verification_mode"] == (
-        "source_faithful_public_refactor"
+    body_import = result["body_import_verification"]
+    assert body_import["verification_status"] == "verified"
+    assert body_import["verification_mode"] == "verified_light_edit_recipe"
+    assert body_import["source_to_target_relation"] == (
+        "source_faithful_public_light_edit"
     )
-    assert result["body_import_verification"]["target_ref"] == (
+    assert body_import["source_ref"] == "system/lib/continuation_packet.py"
+    assert body_import["target_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py"
     )
+    assert body_import["source_body_digest"] == f"sha256:{source_digest}"
+    assert body_import["target_body_digest"] == f"sha256:{target_digest}"
+    assert body_import["body_in_receipt"] is False
     assert result["exact_source_body_import"]["verification_mode"] == (
         "exact_source_digest_match"
     )
@@ -935,6 +2830,12 @@ def test_multi_agent_fanin_imports_exact_continuation_packet_source_body() -> No
 def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
+    source = MICROCOSM_ROOT.parent / BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF
+    target = MICROCOSM_ROOT / BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REF.removeprefix(
+        "microcosm-substrate/"
+    )
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
     result = run_bridge_dispatch_yield_resume_bundle(
         BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT,
         tmp_path / "receipts/first_wave/agent_route_observability_runtime",
@@ -968,11 +2869,21 @@ def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
     assert {
         row["reason"] for row in result["activity_reports"]
     } == {"already_injected", "no_delta"}
+    assert result["body_import_verification"]["verification_status"] == "verified"
     assert result["body_import_verification"]["verification_mode"] == (
-        "source_faithful_public_refactor"
+        "verified_light_edit_recipe"
+    )
+    assert result["body_import_verification"]["source_ref"] == (
+        BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF
     )
     assert result["body_import_verification"]["target_ref"] == (
-        "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py"
+        BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REF
+    )
+    assert result["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert result["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
     )
     assert result["exact_source_body_import"]["verification_mode"] == (
         "exact_source_digest_match"
@@ -983,6 +2894,20 @@ def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
     assert result["exact_source_body_import"]["source_body_digest"] == (
         result["exact_source_body_import"]["target_body_digest"]
     )
+
+
+def test_bridge_dispatch_yield_resume_loader_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    bundle_input = tmp_path / "exported_bridge_dispatch_yield_resume_bundle"
+    shutil.copytree(BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT, bundle_input)
+    (bundle_input / "bundle_manifest.json").write_text(
+        '{"bundle_id":"bridge_resume_a","bundle_id":"bridge_resume_b"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError):
+        load_public_bridge_dispatch_yield_resume_bundle(bundle_input)
 
 
 def test_bridge_dispatch_yield_resume_receipt_is_public_safe(tmp_path: Path) -> None:
@@ -1065,8 +2990,10 @@ def test_bridge_dispatch_imports_exact_bridge_resume_source_body() -> None:
 
 
 def test_bridge_resume_imports_public_macro_body_refactor() -> None:
-    source = MICROCOSM_ROOT.parent / "tools/meta/bridge/bridge_resume.py"
-    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/bridge_resume.py"
+    source = MICROCOSM_ROOT.parent / BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF
+    target = MICROCOSM_ROOT / BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REF.removeprefix(
+        "microcosm-substrate/"
+    )
     source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
     target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
     view = build_public_bridge_dispatch_yield_resume_view(
@@ -1089,6 +3016,26 @@ def test_bridge_resume_imports_public_macro_body_refactor() -> None:
     assert view["schema_version"] == BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION
     assert view["summary"]["trigger_written_count"] == 2
     assert view["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert view["body_import_verification"]["verification_status"] == "verified"
+    assert view["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+    assert view["body_import_verification"]["source_to_target_relation"] == (
+        "source_faithful_public_light_edit"
+    )
+    assert view["body_import_verification"]["source_ref"] == (
+        BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF
+    )
+    assert view["body_import_verification"]["target_ref"] == (
+        BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REF
+    )
+    assert view["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert view["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert view["body_import_verification"]["body_in_receipt"] is False
     assert material["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )
@@ -1145,6 +3092,20 @@ def test_controller_heartbeat_bundle_validates_runtime_shape(tmp_path: Path) -> 
     assert result["body_import_verification"]["target_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py"
     )
+
+
+def test_controller_heartbeat_loader_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    bundle_input = tmp_path / "exported_controller_heartbeat_bundle"
+    shutil.copytree(CONTROLLER_HEARTBEAT_BUNDLE_INPUT, bundle_input)
+    (bundle_input / "bundle_manifest.json").write_text(
+        '{"bundle_id":"controller_heartbeat_a","bundle_id":"controller_heartbeat_b"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError):
+        load_public_controller_heartbeat_bundle(bundle_input)
 
 
 def test_controller_heartbeat_receipt_is_public_safe(tmp_path: Path) -> None:
@@ -1296,7 +3257,7 @@ def test_agent_trace_route_repair_bundle_validates_runtime_shape(tmp_path: Path)
     assert source_manifest["status"] == "pass"
     assert source_manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert source_manifest["body_in_receipt"] is False
-    assert source_manifest["module_count"] == 3
+    assert source_manifest["module_count"] == 4
     assert source_manifest["required_module_count"] == 3
     assert source_manifest["copied_macro_source_count"] == 3
     assert source_manifest["all_expected_digests_matched"] is True
@@ -1332,6 +3293,20 @@ def test_agent_trace_route_repair_bundle_validates_runtime_shape(tmp_path: Path)
         "./repo-python kernel.py --pulse",
         './repo-python kernel.py --entry "<task>" --context-budget 12000',
     ]
+
+
+def test_agent_trace_route_repair_loader_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    bundle_input = tmp_path / "exported_agent_trace_route_repair_bundle"
+    shutil.copytree(AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT, bundle_input)
+    (bundle_input / "bundle_manifest.json").write_text(
+        '{"bundle_id":"route_repair_a","bundle_id":"route_repair_b"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError):
+        load_public_agent_trace_route_repair_bundle(bundle_input)
 
 
 def test_agent_trace_route_repair_receipt_is_public_safe(tmp_path: Path) -> None:
@@ -1409,6 +3384,9 @@ def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
         "source_modules/system/lib/agent_execution_trace.py": (
             MICROCOSM_ROOT.parent / "system/lib/agent_execution_trace.py"
         ),
+        "source_modules/system/lib/strict_json.py": (
+            MICROCOSM_ROOT.parent / "system/lib/strict_json.py"
+        ),
         "source_modules/codex/standards/std_agent_execution_trace.json": (
             MICROCOSM_ROOT.parent / "codex/standards/std_agent_execution_trace.json"
         ),
@@ -1459,8 +3437,11 @@ def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
     assert material["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )
-    assert material["body_import_verification"]["target_body_digest"] == (
+    assert view["body_import_verification"]["target_body_digest"] == (
         f"sha256:{target_digest}"
+    )
+    assert view["body_import_verification"]["source_to_target_relation"] == (
+        "source_faithful_public_light_edit"
     )
     assert material["body_import_verification"]["verification_mode"] == (
         "verified_light_edit_recipe"
@@ -1515,6 +3496,20 @@ def test_agent_observability_store_bundle_validates_runtime_shape(tmp_path: Path
         "verified_light_edit_recipe"
     )
     assert all(row["decision"] == "accepted" for row in result["event_decisions"])
+
+
+def test_agent_observability_store_loader_rejects_duplicate_json_keys(
+    tmp_path: Path,
+) -> None:
+    bundle_input = tmp_path / "exported_agent_observability_store_bundle"
+    shutil.copytree(AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT, bundle_input)
+    (bundle_input / "bundle_manifest.json").write_text(
+        '{"bundle_id":"observability_store_a","bundle_id":"observability_store_b"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError):
+        load_public_agent_observability_store_bundle(bundle_input)
 
 
 def test_agent_observability_store_receipt_is_public_safe(tmp_path: Path) -> None:
@@ -1704,27 +3699,18 @@ def test_continuation_packet_imports_public_macro_body_refactor() -> None:
         },
         generated_at="2026-05-24T03:55:00+00:00",
     )
-    protocol = json.loads(
-        (
-            MICROCOSM_ROOT
-            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
-        ).read_text(encoding="utf-8")
-    )
-    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
-    material = by_material["continuation_packet_body_import"]
-
     assert target.is_file()
     assert source_digest != target_digest
     assert packet["schema_version"] == CONTINUATION_PACKET_SCHEMA_VERSION
     assert packet["wait_kind"] == "resume_contract"
     assert packet["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
-    assert material["body_import_verification"]["source_body_digest"] == (
+    assert packet["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )
-    assert material["body_import_verification"]["target_body_digest"] == (
+    assert packet["body_import_verification"]["target_body_digest"] == (
         f"sha256:{target_digest}"
     )
-    assert material["body_import_verification"]["verification_mode"] == (
+    assert packet["body_import_verification"]["verification_mode"] == (
         "verified_light_edit_recipe"
     )
 
@@ -1930,7 +3916,20 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
     assert {row["path"] for row in manifest["modules"]} == {
         "source_modules/codex/standards/std_agent_execution_trace.json",
         "source_modules/system/lib/agent_execution_trace.py",
+        "source_modules/system/lib/strict_json.py",
     }
+
+
+def test_computer_use_trace_loader_rejects_duplicate_json_keys(tmp_path: Path) -> None:
+    bundle_input = tmp_path / "exported_computer_use_action_trace_bundle"
+    shutil.copytree(COMPUTER_USE_BUNDLE_INPUT, bundle_input)
+    (bundle_input / "bundle_manifest.json").write_text(
+        '{"bundle_id":"trace_a","bundle_id":"trace_b"}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(DuplicateJsonKeyError):
+        build_public_computer_use_trace(bundle_input)
 
 
 def test_session_attribution_imports_exact_public_macro_body() -> None:
@@ -1959,3 +3958,24 @@ def test_session_attribution_imports_exact_public_macro_body() -> None:
     assert source_digest == bundle_source_digest
     assert view["schema_version"] == SESSION_ATTRIBUTION_SCHEMA_VERSION
     assert view["summary"]["total"] >= 5
+
+
+def test_harness_configuration_imports_exact_public_macro_bodies() -> None:
+    source_pairs = [
+        (
+            MICROCOSM_ROOT.parent / "tools/meta/audit/harness_audit.py",
+            HARNESS_CONFIGURATION_AUDIT_BUNDLE_INPUT
+            / "source_modules/tools/meta/audit/harness_audit.py",
+        ),
+        (
+            MICROCOSM_ROOT.parent / "codex/standards/std_agent_entrypoint_audit.json",
+            HARNESS_CONFIGURATION_AUDIT_BUNDLE_INPUT
+            / "source_modules/codex/standards/std_agent_entrypoint_audit.json",
+        ),
+    ]
+
+    for source, bundle_source in source_pairs:
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
+        assert bundle_source.is_file()
+        assert source_digest == bundle_source_digest

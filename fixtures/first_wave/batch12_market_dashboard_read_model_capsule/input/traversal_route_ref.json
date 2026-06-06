@@ -1,0 +1,14 @@
+{
+  "body_in_receipt": false,
+  "case_id": "traversal_route_ref",
+  "error_codes": [
+    "BATCH12_MDRM_TRAVERSAL_ROUTE_REF"
+  ],
+  "expected_error_fragment": "route_ref contains traversal",
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_market_dashboard_negative_case_v1",
+  "set": {
+    "drilldown_index.source_refs.src1.route_ref": "/api/market/intelligence/drilldown/../secret"
+  },
+  "strict": false
+}

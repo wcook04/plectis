@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
 
 from microcosm_core.runtime_shell import RuntimeShell
+from runtime_fixture_tree import copy_microcosm_runtime_root
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -17,13 +17,12 @@ LEGACY_TERMS = [
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
-    public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
-    shutil.copytree(MICROCOSM_ROOT / "src", public_root / "src")
-    shutil.copytree(MICROCOSM_ROOT / "receipts/first_wave", public_root / "receipts/first_wave")
-    shutil.copytree(MICROCOSM_ROOT / "receipts/preflight", public_root / "receipts/preflight")
-    return public_root
+    return copy_microcosm_runtime_root(
+        tmp_path,
+        MICROCOSM_ROOT,
+        static_refs=("examples", "src"),
+        mutable_refs=("core", "receipts/first_wave", "receipts/preflight"),
+    )
 
 
 def test_runtime_shell_source_keeps_payload_boundary_vocab_current() -> None:
