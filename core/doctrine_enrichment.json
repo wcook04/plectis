@@ -1946,7 +1946,7 @@
       "one_line": "Performing an irreversible mutation with no compensator, no rollback record, no compare-and-swap guard, and no declared irreversible boundary.",
       "deep": "AP-8 is the failure AX-9 exists to refuse: writing a real effect into the world while assuming it can always be taken back, when nothing was put in place to take it back. It bites because the happy path looks identical whether or not a guard exists; the gap only appears when two writers race, a parent state has already moved, or a step half-lands and there is no recorded way to undo it. The repair is to make every effect declare its own reversibility up front: a compensator or an explicitly named irreversible boundary, multi-step effects landing under compare-and-swap against an expected parent, and same-path writes held to a single writer. This connects to the evidence model through provenance and freshness rather than through a label: a write is only safe to treat as landed when the state it assumed is still the state it is acting on, and a record of how to reverse it travels with the effect rather than being assumed after the fact.",
       "formal": {
-        "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e) \\;\\wedge\\; \\neg\\,\\mathrm{irreversible\\text{-}boundary}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
+        "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e) \\;\\wedge\\; \\neg\\,\\mathrm{irreversible-boundary}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
         "reads": "Landing an effect e while no compensator reverses it, no irreversible boundary is declared for it, and no compare-and-swap guards it against the parent state having moved.",
         "symbols": [
           {
@@ -1958,7 +1958,7 @@
             "meaning": "a compensator that would reverse the effect"
           },
           {
-            "sym": "\\mathrm{irreversible\\text{-}boundary}(e)",
+            "sym": "\\mathrm{irreversible-boundary}(e)",
             "meaning": "an explicit declaration that the effect cannot be undone"
           },
           {
