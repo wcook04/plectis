@@ -1597,6 +1597,11 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
         command="pytest",
     )
     card = compact_agent_entry_card(payload)
+    source_checkout_command = (
+        "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine "
+        "run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input "
+        "--out receipts/first_wave/proof_diagnostic_evidence_spine --card"
+    )
 
     assert payload["status"] == "pass"
     assert payload["task_route"]["requested_task"] == task
@@ -1604,7 +1609,19 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
     assert payload["task_route"]["selected_task_route_found"] is True
     assert payload["task_route"]["task_class"] == "formal-methods"
     assert payload["task_route"]["primary_organ_id"] == "proof_diagnostic_evidence_spine"
+    assert payload["task_route"]["source_checkout_first_command"] == source_checkout_command
+    assert payload["selected_viewer_route"]["source_checkout_next_action"] == (
+        source_checkout_command
+    )
+    assert payload["viewer_first_action_router"]["routes"]["human"][
+        "source_checkout_next_action"
+    ] == source_checkout_command
+    assert payload["read_run_order"][1]["source_checkout_run"] == source_checkout_command
     assert card["task_route"]["selected_task_class"] == "formal-methods"
+    assert card["task_route"]["source_checkout_first_command"] == source_checkout_command
+    assert card["selected_viewer_route"]["source_checkout_next_action"] == (
+        source_checkout_command
+    )
     assert (
         "agent-entry-composition --task formal-methods"
         in card["drilldowns"]["full_json"]

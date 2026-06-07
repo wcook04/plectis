@@ -3414,6 +3414,19 @@ def _is_runnable_public_command(command: str, *, allow_project_placeholder: bool
     return False
 
 
+def _source_checkout_command(command: str) -> str | None:
+    command = command.strip()
+    if not command:
+        return None
+    if command.startswith("PYTHONPATH=src "):
+        return command
+    if command == "microcosm":
+        return "PYTHONPATH=src python3 -m microcosm_core"
+    if command.startswith("microcosm "):
+        return f"PYTHONPATH=src python3 -m microcosm_core {command[len('microcosm '):]}"
+    return None
+
+
 def _list_has_text(values: Any) -> bool:
     return any(bool(item.strip()) for item in _strings(values))
 
@@ -3700,6 +3713,9 @@ def _build_read_run_order(
                 {
                     "kind": "selected_task_route_after_human_entry",
                     "run": task_route_card.get("first_command"),
+                    "source_checkout_run": task_route_card.get(
+                        "source_checkout_first_command"
+                    ),
                     "read": [
                         task_route_card.get("source_ref"),
                         task_route_card.get("drilldown_target"),
@@ -3733,6 +3749,9 @@ def _build_viewer_modes(
         or "microcosm tour --card <project>"
     )
     task_class = str(task_route_card.get("task_class") or DEFAULT_TASK)
+    task_source_checkout_command = str(
+        task_route_card.get("source_checkout_first_command") or ""
+    )
     task_evidence = [
         str(task_route_card.get("source_ref") or ""),
         str(task_route_card.get("evidence_ref") or ""),
@@ -3809,7 +3828,7 @@ def _build_viewer_modes(
         first_action=human_first_action,
         next_action=human_next_action,
         source_checkout_first_action=None,
-        source_checkout_next_action=None,
+        source_checkout_next_action=task_source_checkout_command or None,
         authority_boundary=(
             "Human entry is interpretive/read authority only; it does not authorize "
             "release, proof correctness, source mutation, provider calls, hosted "
@@ -4254,6 +4273,9 @@ def build_agent_entry_composition(
         "primary_organ_id": selected_route.get("primary_organ_id"),
         "primary_display_name": selected_route.get("primary_display_name"),
         "first_command": selected_route.get("first_command"),
+        "source_checkout_first_command": _source_checkout_command(
+            str(selected_route.get("first_command") or "")
+        ),
         "authority_ceiling": selected_route.get("allowed_authority"),
         "authority_boundary": selected_route.get("authority_boundary"),
         "drilldown_target": selected_route.get("drilldown_target"),
@@ -4486,6 +4508,9 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
             "primary_organ_id": task_route.get("primary_organ_id"),
             "primary_display_name": task_route.get("primary_display_name"),
             "first_command": task_route.get("first_command"),
+            "source_checkout_first_command": task_route.get(
+                "source_checkout_first_command"
+            ),
             "drilldown_target": task_route.get("drilldown_target"),
             "evidence_ref": task_route.get("evidence_ref"),
             "receipt_ref": task_route.get("receipt_ref"),
