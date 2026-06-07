@@ -205,9 +205,13 @@ def _normalize_task_class(task: str | None) -> str:
         "skeptical-reviewer",
         "ai safety",
         "show me ai safety",
+        "show me the ai safety",
         "show-me-ai-safety",
+        "show-me-the-ai-safety",
         "show_me_ai_safety",
+        "show_me_the_ai_safety",
         "show me ai-safety",
+        "show me the ai-safety",
     }:
         return "ai-safety"
     if value in {
