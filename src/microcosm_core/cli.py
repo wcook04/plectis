@@ -480,7 +480,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
+  microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
   microcosm spine --card          read the compact runtime spine lens

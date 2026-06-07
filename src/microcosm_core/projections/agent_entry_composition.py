@@ -478,6 +478,8 @@ def _normalize_task_class(task: str | None) -> str:
         "run the tests",
         "run-the-tests",
         "run_the_tests",
+        "receipt",
+        "receipts",
         "show me receipts",
         "show-me-receipts",
         "show_me_receipts",

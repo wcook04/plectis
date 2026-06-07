@@ -376,11 +376,12 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     )
     task_hint = (
         "microcosm agent-entry-composition --task "
-        "{agent-entry|getting-started|evaluation|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
+        "{agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
     )
     assert task_hint in output
     for task_class in [
         "getting-started",
+        "receipts",
         "agent-evaluation",
         "lean",
         "theorem-proving",

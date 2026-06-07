@@ -757,6 +757,36 @@ def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) ->
 @pytest.mark.parametrize(
     "task",
     [
+        "receipts",
+        "receipt",
+        "show me receipts",
+        "what do the receipts mean",
+    ],
+)
+def test_agent_entry_card_aliases_receipt_questions_to_evaluation_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "evaluation"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "evaluation"
+    assert payload["task_route"]["primary_organ_id"] == "cold_reader_route_map"
+    assert card["task_route"]["selected_task_class"] == "evaluation"
+    assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "show me Lean",
         "Lean proofs",
         "show me Lean proofs",
