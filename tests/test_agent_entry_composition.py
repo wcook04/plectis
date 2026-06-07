@@ -1640,6 +1640,7 @@ def test_agent_entry_card_aliases_audio_phrases_to_audio_route(task: str) -> Non
         "math parts",
         "show me math stuff",
         "show me math parts",
+        "show me the math parts",
         "mathematical parts",
         "show me the mathematical parts",
         "formal verification",
