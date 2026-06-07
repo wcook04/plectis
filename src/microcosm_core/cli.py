@@ -537,6 +537,18 @@ Interpretation:
   the next inspect card or owning validator/builder.
 """
 
+EVIDENCE_HELP_EPILOG = """Reviewer path:
+  microcosm evidence list <project> --limit 25
+  microcosm evidence inspect --project <project> <evidence_ref>
+
+Interpretation:
+  Receipts are evidence drilldowns after behavior is visible. They can show
+  source refs, schema versions, command witnesses, and boundary fields; they do
+  not by themselves authorize release, provider calls, source mutation, proof
+  correctness, trading advice, private-root equivalence, or whole-system
+  correctness.
+"""
+
 PUBLIC_LENS_COMMAND_HELP = (
     ("workingness", "show behavior evidence and failure modes"),
     ("prediction-lens", "inspect prediction ledger behavior and receipts"),
@@ -2383,6 +2395,9 @@ def main(argv: list[str] | None = None) -> int:
     evidence_parser = subparsers.add_parser(
         "evidence",
         help="list or inspect evidence after behavior is visible",
+        description="List or inspect evidence refs after behavior is visible.",
+        epilog=EVIDENCE_HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command")
     evidence_list_parser = evidence_subparsers.add_parser(

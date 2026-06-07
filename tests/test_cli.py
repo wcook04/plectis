@@ -625,6 +625,24 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
     assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 
+def test_cli_evidence_help_explains_receipt_interpretation() -> None:
+    help_result = _run_microcosm_cli("evidence", "--help")
+
+    assert help_result.returncode == 0, help_result.stderr
+    output = help_result.stdout
+    assert "Reviewer path:" in output
+    assert "microcosm evidence list <project> --limit 25" in output
+    assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert "Receipts are evidence drilldowns after behavior is visible" in output
+    assert "source refs, schema versions, command witnesses" in output
+    assert "not by themselves authorize release" in output
+    assert "provider calls" in output
+    assert "source mutation" in output
+    assert "proof" in output
+    assert "correctness" in output
+    assert "whole-system" in output
+
+
 def test_cli_public_reveal_walkthrough_help_names_fixture_and_boundary() -> None:
     help_result = _run_microcosm_cli("public-reveal-walkthrough", "--help")
 
