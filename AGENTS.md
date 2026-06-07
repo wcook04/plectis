@@ -83,9 +83,11 @@ cold-reader comprehension check. These commands do not create release, hosting,
 proof, production, provider-call, source-mutation, or financial-advice
 authority.
 
-Before publishing, handing off, or treating the standalone clone as verified,
-run `make ci`. It is the public GitHub Actions entry and expands to editable
-install, public tests, source-form smoke, and package-install smoke
+Before the full test floor, run `make check` for the fastest public preflight.
+It should print `Microcosm preflight: organ evidence-class registry loads
+cleanly.` Before publishing, handing off, or treating the standalone clone as
+verified, run `make ci`. It is the public GitHub Actions entry and expands to
+editable install, public tests, source-form smoke, and package-install smoke
 verification.
 
 Do not launch multiple raw `pytest` processes against this root in parallel
