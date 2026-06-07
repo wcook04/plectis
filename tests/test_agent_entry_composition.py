@@ -603,7 +603,13 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
         "show me finance stuff",
         "show me the finance parts",
         "show me the financial parts",
+        "show me forecasts",
+        "show me the forecasts",
+        "forecast evaluation",
+        "market forecasts",
         "financial",
+        "forecast",
+        "forecasts",
         "market",
     ],
 )
