@@ -512,6 +512,17 @@ Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 """
 
+EVIDENCE_INSPECT_HELP = """Reads one evidence card.
+
+Interpretation:
+  status=pass means the inspect command produced the card; it is not release,
+  proof-correctness, trading, security, or private-root equivalence authority.
+  payload_summary is the safe shape/ref summary of the underlying receipt;
+  inspect cards do not export source bodies.
+  Use the listed evidence_ref and schema_version to decide whether you need
+  the underlying receipt path or the owning validator/builder.
+"""
+
 PUBLIC_LENS_COMMAND_HELP = (
     ("workingness", "show behavior evidence and failure modes"),
     ("prediction-lens", "inspect prediction ledger behavior and receipts"),
@@ -2252,6 +2263,9 @@ def main(argv: list[str] | None = None) -> int:
     evidence_inspect_parser = evidence_subparsers.add_parser(
         "inspect",
         help="inspect one runtime receipt or project evidence ref",
+        description="Inspect one runtime receipt or project evidence ref as a safe evidence card.",
+        epilog=EVIDENCE_INSPECT_HELP,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     evidence_inspect_parser.add_argument(
         "--project",

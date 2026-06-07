@@ -193,6 +193,20 @@ def test_cli_evidence_list_rejects_negative_limit(capsys) -> None:
     assert "argument --limit: must be >= 0" in stderr
 
 
+def test_cli_evidence_inspect_help_explains_receipt_card_boundary(capsys) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["evidence", "inspect", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Reads one evidence card." in output
+    assert "status=pass means the inspect command produced the card" in output
+    assert "payload_summary is the safe shape/ref summary" in output
+    assert "inspect cards do not export source bodies" in output
+    assert "not release" in output
+    assert "private-root equivalence authority" in output
+
+
 def test_project_evidence_list_only_reads_returned_limit(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
