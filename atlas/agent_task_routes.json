@@ -1563,7 +1563,7 @@
       ]
     }
   ],
-  "route_count": 32,
+  "route_count": 33,
   "routes": [
     {
       "allowed_authority": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
@@ -9005,6 +9005,196 @@
       },
       "stop_condition": "Stop when the first command or named receipt is visible, the selected organ card is opened, and the card's claim ceiling is named before any broader conclusion.",
       "task_class": "getting-started"
+    },
+    {
+      "allowed_authority": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+      "authority_boundary": "Task routing only. This row selects public organs from the frozen atlas; it does not authorize release, hosted deployment, provider calls, source mutation, private-root equivalence, proof correctness, trading advice, or whole-system correctness.",
+      "drilldown_target": "ORGANS.md#cold-reader-route-map",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=cold_reader_route_map]",
+      "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+      "organ_count": 2,
+      "primary_display_name": "Cold Reader Route Map",
+      "primary_organ_id": "cold_reader_route_map",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]",
+      "relevant_organs": [
+        {
+          "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=cold_reader_route_map]",
+          "capsule_id": "paper_module.cold_reader_route_map",
+          "capsule_join_status": "direct",
+          "claim_ceiling": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
+          "compression_authority_ceiling": "Public route-map fixture, exported-bundle receipts, and copied non-secret macro cold-entry body evidence only; no route-registry authority, provider call, source mutation, release approval, private-data equivalence, trading or financial advice, or whole-system correctness.",
+          "compression_card": "Cold-Reader Route Map is the public first-run route membrane. It validates route rows, route-to-receipt bindings, ordinal first-run sequencing, command/docs/receipt refs, release/provider/private-source overclaim rejection, exact copied macro cold-entry source modules, and body-free receipts so a cold agent can see what to run first and what proof bounds each row.",
+          "concept_ref": "organ_doctrine_row:cold_reader_route_map.concept_binding",
+          "display_name": "Cold Reader Route Map",
+          "drilldown_target": "ORGANS.md#cold-reader-route-map",
+          "evidence_class": "semantic_validator",
+          "evidence_strength_rank": 5,
+          "family": "entry_and_reveal",
+          "first_command": "microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+          "mechanism_ref": "organ_doctrine_row:cold_reader_route_map.mechanism_binding",
+          "one_line": "The public cold-reader route-map fixture validates first-run command order, docs refs, receipt refs, authority ceilings, copied cold-entry source-module digests, and private-state exclusion without becoming route-registry authority.",
+          "organ_id": "cold_reader_route_map",
+          "paper_module_ref": "paper_modules/cold_reader_route_map.md",
+          "receipt_refs": [
+            "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+            "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+            "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+            "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+          ],
+          "source_relation_handle": {
+            "edge_count": 185,
+            "query": "microcosm organ-topology --organ cold_reader_route_map",
+            "source_ref_count": 5,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=cold_reader_route_map]",
+            "source_shard_ref_count": 21,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 21,
+            "validation_ref_count": 3
+          },
+          "standard_ref": "standards/std_microcosm_cold_reader_route_map.json",
+          "wires_to": [
+            "navigation_hologram_route_plane",
+            "agent_route_observability_runtime",
+            "pattern_binding_contract",
+            "doctrine_fact_claim_audit",
+            "pattern_assimilation_step",
+            "routing_anti_patterns_registry",
+            "self_ignorance_coverage_ledger",
+            "voice_to_doctrine_self_improvement_loop"
+          ]
+        },
+        {
+          "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=public_reveal_walkthrough]",
+          "capsule_id": "paper_module.public_reveal_walkthrough",
+          "capsule_join_status": "direct",
+          "claim_ceiling": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
+          "compression_authority_ceiling": "Public reveal fixture and exported-bundle receipts only; no release, hosted deployment, publication, recipient work, provider call, secret export, private-root equivalence, Lean/Lake execution, source mutation, or whole-system correctness.",
+          "compression_card": "Public Reveal Walkthrough is the source-backed public-entry membrane for Microcosm. It checks the declared reveal steps, runnable command set, evidence refs, claim-floor phrases, secret-exclusion scan, source-open body import manifest, runtime-bundle shape, and four overclaim negative cases while keeping copied bodies out of receipts and release/provider/private-equivalence claims out of scope.",
+          "concept_ref": "organ_doctrine_row:public_reveal_walkthrough.concept_binding",
+          "display_name": "Public Reveal Walkthrough",
+          "drilldown_target": "ORGANS.md#public-reveal-walkthrough",
+          "evidence_class": "bounded_runtime_computation",
+          "evidence_strength_rank": 4,
+          "family": "entry_and_reveal",
+          "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+          "mechanism_ref": "organ_doctrine_row:public_reveal_walkthrough.mechanism_binding",
+          "one_line": "The public reveal walkthrough validates a ten-minute cold-reader path through commands, routes, evidence refs, source-open body imports, negative cases, and authority ceilings without claiming release readiness or private-root equivalence.",
+          "organ_id": "public_reveal_walkthrough",
+          "paper_module_ref": "paper_modules/public_reveal_walkthrough.md",
+          "receipt_refs": [
+            "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+            "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+            "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+            "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+            "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
+          ],
+          "source_relation_handle": {
+            "edge_count": 121,
+            "query": "microcosm organ-topology --organ public_reveal_walkthrough",
+            "source_ref_count": 5,
+            "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=public_reveal_walkthrough]",
+            "source_shard_ref_count": 19,
+            "target_ref_count": 5,
+            "target_shard_ref_count": 19,
+            "validation_ref_count": 2
+          },
+          "standard_ref": "standards/std_microcosm_public_reveal_walkthrough.json",
+          "wires_to": [
+            "batch12_release_claim_language_gate",
+            "mechanistic_interpretability_circuit_attribution_replay",
+            "batch8_audio_level_rms_port",
+            "batch8_validator_checker_capsule"
+          ]
+        }
+      ],
+      "route_role": "agent_task_class_to_organ_selector",
+      "source_relation_summary": {
+        "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
+        "edge_count": 306,
+        "example_edges": [
+          {
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "codex/doctrine/skills/kernel/bootstrap.md",
+            "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md"
+          },
+          {
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "codex/doctrine/skills/kernel/navigation_seed.md",
+            "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/navigation_seed.md"
+          },
+          {
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "docs/agent_entry_reference.md",
+            "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_entry_reference.md"
+          },
+          {
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "microcosm-substrate/src/microcosm_core/organs/public_reveal_walkthrough.py",
+            "target_ref": "microcosm-substrate/examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/microcosm_core/organs/public_reveal_walkthrough.py"
+          },
+          {
+            "relation_type": "source_file.copied_to_public_target",
+            "source_ref": "state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
+            "target_ref": "microcosm-substrate/examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json"
+          }
+        ],
+        "organ_with_source_relation_count": 2,
+        "output_schema": "microcosm_organ_relationship_topology_card_v0",
+        "query_examples": [
+          "microcosm organ-topology --organ cold_reader_route_map",
+          "microcosm organ-topology --relation-type file_to_file --source-ref codex/doctrine/skills/kernel/bootstrap.md",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --entry \"<task>\" --context-budget 12000]'",
+          "microcosm organ-topology --validation-ref microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+          "microcosm organ-topology --organ public_reveal_walkthrough"
+        ],
+        "relation_type_counts": {
+          "source_file.copied_to_public_target": 10,
+          "source_file.validated_by_ref": 25,
+          "source_shard.retained_as_public_target_shard": 40,
+          "source_shard.validated_by_ref": 101,
+          "target_file.shares_macro_source_with_target_file": 4,
+          "target_file.validated_by_ref": 25,
+          "target_shard.validated_by_ref": 101
+        },
+        "source": "organ-surface-contract::coverage.source_module_file_graph",
+        "source_ref_count": 10,
+        "source_shard_ref_count": 40,
+        "target_ref_count": 10,
+        "target_shard_ref_count": 40,
+        "task_class": "interesting-parts",
+        "top_source_refs": [
+          "codex/doctrine/skills/kernel/bootstrap.md",
+          "codex/doctrine/skills/kernel/navigation_seed.md",
+          "docs/agent_entry_reference.md",
+          "docs/agent_instruction_router.md",
+          "microcosm-substrate/src/microcosm_core/organs/public_reveal_walkthrough.py"
+        ],
+        "top_source_shard_refs": [
+          "codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --entry \"<task>\" --context-budget 12000]",
+          "codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --info]",
+          "codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --preflight]"
+        ],
+        "top_target_refs": [
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/navigation_seed.md",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_entry_reference.md",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_instruction_router.md",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
+        ],
+        "top_target_shard_refs": [
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --entry \"<task>\" --context-budget 12000]",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --info]",
+          "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md::required_anchor[./repo-python kernel.py --preflight]"
+        ],
+        "top_validation_refs": [
+          "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_public_reveal_walkthrough.py::test_public_reveal_exported_bundle_validates_runtime_shape"
+        ],
+        "validation_ref_count": 5
+      },
+      "stop_condition": "Stop when the first command or named receipt is visible, the selected organ card is opened, and the card's claim ceiling is named before any broader conclusion.",
+      "task_class": "interesting-parts"
     },
     {
       "allowed_authority": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
@@ -16780,7 +16970,7 @@
     "core/public_standard_pressure.json",
     "organ-surface-contract::coverage.source_module_file_graph"
   ],
-  "source_relation_route_count": 32,
+  "source_relation_route_count": 33,
   "source_relation_summary": {
     "authority_boundary": "Generated atlas route rows consume compact source-module relation handles; organ-topology remains dynamic edge authority.",
     "organ_count": 82,

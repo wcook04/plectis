@@ -509,6 +509,26 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         "microcosm organ-topology --organ cold_reader_route_map"
     )
 
+    interesting_parts = {
+        row["task_class"]: row for row in route_model["routes"]
+    }["interesting-parts"]
+    assert interesting_parts["primary_organ_id"] == "cold_reader_route_map"
+    interesting_part_organs = {
+        row["organ_id"] for row in interesting_parts["relevant_organs"]
+    }
+    assert {"public_reveal_walkthrough", "cold_reader_route_map"}.issubset(
+        interesting_part_organs
+    )
+    assert interesting_parts["first_command"] == (
+        "microcosm cold-reader-route-map run-route-map-bundle --input "
+        "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle "
+        "--out receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+    )
+    assert (
+        "trading advice" in interesting_parts["authority_boundary"]
+        and "whole-system correctness" in interesting_parts["authority_boundary"]
+    )
+
 
 def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> None:
     result = build(MICROCOSM_ROOT, write=False)
@@ -561,5 +581,10 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     assert "Stop when the first command or named receipt is visible" in text
     assert "`agent-entry`" in text
     assert "`organ_doctrine_row:cold_reader_route_map.concept_binding`" in text
-    for task_class in ("getting-started", "formal-methods", "ai-safety"):
+    for task_class in (
+        "getting-started",
+        "interesting-parts",
+        "formal-methods",
+        "ai-safety",
+    ):
         assert f"`{task_class}`" in text
