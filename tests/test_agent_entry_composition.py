@@ -716,6 +716,8 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
         "show me the interesting parts",
         "show me cool parts",
         "show me the cool parts",
+        "what are the cool parts",
+        "show me the highlights",
         "show me what's interesting",
         "what is worth looking at",
         "what should I look at first",
