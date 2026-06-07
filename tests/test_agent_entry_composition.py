@@ -702,6 +702,74 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "show me research workflows",
+        "show me mechanistic interpretability",
+        "show me chemistry",
+        "show me materials chemistry",
+    ],
+)
+def test_agent_entry_card_aliases_research_specialties_to_research_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "research-workflows"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "research-workflows"
+    assert (
+        payload["task_route"]["primary_organ_id"]
+        == "research_replication_rubric_artifact_replay"
+    )
+    assert card["task_route"]["selected_task_class"] == "research-workflows"
+    assert (
+        "agent-entry-composition --task research-workflows"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
+        "market boundary",
+        "show me market boundary",
+        "show me the market boundary",
+    ],
+)
+def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "market-boundary"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "market-boundary"
+    assert payload["task_route"]["primary_organ_id"] == "batch7_secondary_runtime_capsule"
+    assert card["task_route"]["selected_task_class"] == "market-boundary"
+    assert (
+        "agent-entry-composition --task market-boundary"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "math",
         "mathematics",
         "formal math",

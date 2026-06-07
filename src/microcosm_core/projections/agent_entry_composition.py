@@ -715,6 +715,50 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "interesting-parts"
     if value in {
+        "research",
+        "research workflows",
+        "research-workflows",
+        "research_workflows",
+        "show me research",
+        "show-me-research",
+        "show_me_research",
+        "show me research workflows",
+        "show-me-research-workflows",
+        "show_me_research_workflows",
+        "mechanistic interpretability",
+        "mechanistic-interpretability",
+        "mechanistic_interpretability",
+        "show me mechanistic interpretability",
+        "show-me-mechanistic-interpretability",
+        "show_me_mechanistic_interpretability",
+        "chemistry",
+        "materials chemistry",
+        "materials-chemistry",
+        "materials_chemistry",
+        "show me chemistry",
+        "show-me-chemistry",
+        "show_me_chemistry",
+        "show me materials chemistry",
+        "show-me-materials-chemistry",
+        "show_me_materials_chemistry",
+    }:
+        return "research-workflows"
+    if value in {
+        "market boundary",
+        "market-boundary",
+        "market_boundary",
+        "show market boundary",
+        "show-market-boundary",
+        "show_market_boundary",
+        "show me market boundary",
+        "show-me-market-boundary",
+        "show_me_market_boundary",
+        "show me the market boundary",
+        "show-me-the-market-boundary",
+        "show_me_the_market_boundary",
+    }:
+        return "market-boundary"
+    if value in {
         "finance",
         "financial",
         "forecast",
