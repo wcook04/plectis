@@ -196,6 +196,23 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "agent-entry"
     if value in {
+        "architecture",
+        "architectural",
+        "show me architecture",
+        "show-me-architecture",
+        "show_me_architecture",
+        "show me the architecture",
+        "show-me-the-architecture",
+        "show_me_the_architecture",
+        "what is the architecture",
+        "what-is-the-architecture",
+        "what_is_the_architecture",
+        "how is this built",
+        "how-is-this-built",
+        "how_is_this_built",
+    }:
+        return "architecture"
+    if value in {
         "ai-safety",
         "ai_safety",
         "safety",
