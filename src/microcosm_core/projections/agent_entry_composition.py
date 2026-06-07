@@ -74,6 +74,28 @@ ROUTE_OWNER_ROUTE_ALIASES = {
     "route-owner",
     "route_owner",
 }
+AI_SAFETY_ROUTE_ALIASES = {
+    "ai safety",
+    "ai-safety",
+    "ai_safety",
+    "ai safety parts",
+    "ai-safety-parts",
+    "ai_safety_parts",
+    "show me ai safety",
+    "show-me-ai-safety",
+    "show_me_ai_safety",
+    "show me the ai safety",
+    "show-me-the-ai-safety",
+    "show_me_the_ai_safety",
+    "show me ai safety parts",
+    "show-me-ai-safety-parts",
+    "show_me_ai_safety_parts",
+    "show me the ai safety parts",
+    "show-me-the-ai-safety-parts",
+    "show_me_the_ai_safety_parts",
+    "show me ai-safety parts",
+    "show me the ai-safety parts",
+}
 CARD_FILENAME = "agent_entry_composition_card.json"
 RECEIPT_FILENAME = "agent_entry_composition_receipt.json"
 TYPE_A_READER_ID = "type_a_agent"
@@ -3413,13 +3435,21 @@ def _task_alias_resolution(
                     "without claiming novelty, release readiness, or domain correctness."
                     if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
                     else (
-                        "Route-owner questions use the agent-entry route because "
-                        "that route exposes the owner surfaces to inspect or patch: "
-                        "atlas/entry_packet.json, atlas/agent_task_routes.json, "
-                        "organ registries, source modules, receipts, standards, "
-                        "and the projection builder."
-                        if requested_key in ROUTE_OWNER_ROUTE_ALIASES
-                        else "The requested task is accepted as an alias for the selected route."
+                        "AI-safety questions use the ai-safety route because it "
+                        "selects agent reliability and safety replay organs, "
+                        "evidence classes, first commands, and authority ceilings "
+                        "without claiming safety validation, benchmark scores, "
+                        "provider execution, release readiness, or domain correctness."
+                        if requested_key in AI_SAFETY_ROUTE_ALIASES
+                        else (
+                            "Route-owner questions use the agent-entry route because "
+                            "that route exposes the owner surfaces to inspect or patch: "
+                            "atlas/entry_packet.json, atlas/agent_task_routes.json, "
+                            "organ registries, source modules, receipts, standards, "
+                            "and the projection builder."
+                            if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                            else "The requested task is accepted as an alias for the selected route."
+                        )
                     )
                 )
             )

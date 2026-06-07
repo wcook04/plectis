@@ -387,6 +387,30 @@ def test_agent_entry_card_aliases_safety_questions_to_safety_route(task: str) ->
     assert "agent-entry-composition --task ai-safety" in card["drilldowns"]["full_json"]
 
 
+def test_agent_entry_card_explains_ai_safety_alias_boundary() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="show me the AI-safety parts",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "ai-safety"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "AI-safety questions use the ai-safety route"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert "safety validation" in payload["task_route"]["alias_resolution"]["reason"]
+    assert "benchmark scores" in payload["task_route"]["alias_resolution"]["reason"]
+    assert "domain correctness" in payload["task_route"]["alias_resolution"]["reason"]
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+
+
 @pytest.mark.parametrize(
     "task",
     [
