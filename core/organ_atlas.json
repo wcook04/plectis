@@ -292,8 +292,8 @@
       ]
     },
     {
-      "agent_gloss": "An agent runs it to check, against copied non-secret readiness rows, whether the recorded Mathlib import probe passed and therefore which consumer cases are allowed versus blocked before routing proof or premise work. It validates and projects the recorded accounting only; it does not itself import Mathlib, run Lean, or prove anything.",
-      "claim_ceiling_restated": "It only projects and gate-checks recorded corpus/toolchain readiness accounting and re-verifies recorded source digests and leakage guards. It does not run Lean or Lake, prove theorem correctness, claim Mathlib is available beyond the recorded failed probe, benchmark corpora, score model performance, call providers, or authorize release or publication.",
+      "agent_gloss": "An agent runs it to check, against copied non-secret readiness rows, whether the Mathlib import probe passed and therefore which consumer cases are allowed versus blocked before routing proof or premise work. It validates and projects the recorded accounting and, when a Lean toolchain is present, runs a bounded Std/Mathlib import probe; it does not run a full Lake build or prove anything.",
+      "claim_ceiling_restated": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove theorem correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, call providers, or authorize release or publication.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
       "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
