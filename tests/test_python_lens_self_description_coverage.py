@@ -274,6 +274,57 @@ def test_coupling_governed_in_tree_zones_excluded_from_owned_authoring() -> None
     )
 
 
+def test_manifest_custody_oracle_excludes_runner_outside_dir_heuristic(tmp_path: Path) -> None:
+    # An organ runner can live OUTSIDE organs/ (real example: organ
+    # pattern_assimilation_step -> microcosm_core.validators.acceptance). The
+    # directory heuristic would miss it; the manifest oracle must exclude it, or
+    # Batch B (validators) would author custody code and break `microcosm spine`.
+    project = _coverage_project(tmp_path)
+    (project / "core").mkdir()
+    (project / "core/organ_registry.json").write_text(
+        json.dumps(
+            {
+                "implemented_organs": [
+                    {"organ_id": "demo_organ", "runner": "microcosm_core.special.custody_runner"}
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    custody_dir = project / "src/microcosm_core/special"
+    custody_dir.mkdir(parents=True)
+    (custody_dir / "custody_runner.py").write_text(
+        "def main():\n    return 0\n", encoding="utf-8"
+    )
+
+    custody = project_substrate._load_manifest_custody_paths(project)
+    assert "src/microcosm_core/special/custody_runner.py" in custody
+    # The directory heuristic alone does NOT catch it (it's not under organs/).
+    assert (
+        project_substrate._is_imported_source_bundle(
+            "src/microcosm_core/special/custody_runner.py"
+        )
+        is False
+    )
+    # But the manifest oracle does — basis is manifest_provenance.
+    assert (
+        project_substrate._custody_basis(
+            "src/microcosm_core/special/custody_runner.py", custody
+        )
+        == "manifest_provenance"
+    )
+
+    lens = project_substrate.python_lens(project, write_state=False)
+    queue = lens["authoring_queue"]
+    queued = {r["path"] for r in queue["queue_rows"]}
+    # The manifest-declared runner is excluded from the owned queue.
+    assert "src/microcosm_core/special/custody_runner.py" not in queued
+    # ...and the exclusion is recorded with an honest custody_basis.
+    classification = queue["custody_classification"]
+    assert classification["by_basis"].get("manifest_provenance", 0) >= 1
+    assert classification["manifest_custody_paths_loaded"] >= 1
+
+
 def test_full_cli_carries_queue_and_compact_defers_it(capsys, tmp_path: Path) -> None:
     project = _coverage_project(tmp_path)
     # --full emits the raw payload: the campaign consumes the full queue_rows.

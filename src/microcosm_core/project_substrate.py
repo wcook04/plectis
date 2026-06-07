@@ -1103,6 +1103,64 @@ def _is_imported_source_bundle(path: str) -> bool:
     )
 
 
+def _load_manifest_custody_paths(project: Path) -> set[str]:
+    """Authoritative custody paths declared by source manifests, if present.
+
+    Reads ``core/organ_registry.json`` (organ ``runner`` modules) and
+    ``core/substrate_substitution_ledger.json`` (``microcosm_target_refs``) to
+    build the set of files the substrate itself declares as exact-copy / source-
+    custody. Returns relative posix paths. Empty (graceful) for projects without
+    these manifests, e.g. scratch test projects.
+    """
+    custody: set[str] = set()
+    registry = project / "core/organ_registry.json"
+    if registry.is_file():
+        try:
+            rows = json.loads(registry.read_text(encoding="utf-8")).get(
+                "implemented_organs", []
+            )
+        except (json.JSONDecodeError, OSError):
+            rows = []
+        for row in rows if isinstance(rows, list) else []:
+            runner = row.get("runner") if isinstance(row, dict) else None
+            if isinstance(runner, str) and runner.startswith("microcosm_core."):
+                custody.add("src/" + runner.replace(".", "/") + ".py")
+    ledger = project / "core/substrate_substitution_ledger.json"
+    if ledger.is_file():
+        try:
+            disp = json.loads(ledger.read_text(encoding="utf-8")).get(
+                "organ_substrate_dispositions", []
+            )
+        except (json.JSONDecodeError, OSError):
+            disp = []
+        for row in disp if isinstance(disp, list) else []:
+            for ref in (row.get("microcosm_target_refs") or []) if isinstance(row, dict) else []:
+                p = (ref.get("path") if isinstance(ref, dict) else str(ref)).split("::")[0].strip()
+                if p.endswith(".py"):
+                    custody.add(p)
+    return custody
+
+
+def _custody_basis(path: str, manifest_custody_paths: set[str]) -> str | None:
+    """Why a path is source-custody (not owned authoring), or None if owned.
+
+    Reports the evidence basis so the health board is honest about whether an
+    exclusion is manifest-backed or only a directory heuristic:
+    ``manifest_provenance`` > ``imported_bundle`` > ``directory_coupling_marker``.
+    """
+    if path in manifest_custody_paths:
+        return "manifest_provenance"
+    lower = path.lower()
+    parts = set(Path(path).parts)
+    if {"examples", "fixtures", ".venv", "site-packages"} & parts or any(
+        marker in lower for marker in ("source_modules/", "source_artifacts/", "_bundle/")
+    ):
+        return "imported_bundle"
+    if any(marker in f"/{lower}/" for marker in CODE_LENS_COUPLING_GOVERNED_MARKERS):
+        return "directory_coupling_marker"
+    return None
+
+
 def _code_lens_criticality(
     path: str, symbol_name: str, source_class: str
 ) -> tuple[str, int]:
@@ -1423,18 +1481,24 @@ def _code_lens_authoring_queue(
     *,
     include_done: bool = False,
     preview_limit: int = 40,
+    manifest_custody_paths: set[str] | None = None,
 ) -> dict[str, Any]:
     """Ranked authoring work-list over Microcosm-owned symbols.
 
     Ranks every owned symbol by release criticality then current quality tier so
-    a usage-funded campaign authors the release spine first. Imported example
-    bundles are excluded — they are source-custody surfaces, not owned
-    compliance surfaces. Returns summary counts plus a bounded preview; the full
-    ranked list is in ``queue_rows`` for a campaign driver to consume.
+    a usage-funded campaign authors the release spine first. Source-custody
+    surfaces (imported bundles + in-tree exact-copy/macro-body zones) are
+    excluded; ``custody_classification`` reports, with an honest ``custody_basis``
+    (manifest_provenance vs imported_bundle vs directory_coupling_marker), why
+    each candidate path was excluded. Returns summary counts plus a bounded
+    preview; the full ranked list is in ``queue_rows``.
     """
+    manifest_custody_paths = manifest_custody_paths or set()
     rows: list[dict[str, Any]] = []
     by_batch: dict[str, int] = {}
     by_criticality: dict[str, int] = {}
+    custody_basis_counts: dict[str, int] = {}
+    custody_paths_seen: set[str] = set()
     owned_total = 0
     owned_real = 0
     for row in symbol_capsule_rows:
@@ -1442,7 +1506,14 @@ def _code_lens_authoring_queue(
         path = str(row.get("path") or "")
         if source_class not in CODE_LENS_OWNED_SOURCE_CLASSES:
             continue
-        if _is_imported_source_bundle(path):
+        # Exclusion is the union of the directory heuristic and manifest evidence
+        # (organ runners + ledger refs): organ runners can live outside organs/
+        # (e.g. a runner under validators/), so the manifest is authoritative.
+        if _is_imported_source_bundle(path) or path in manifest_custody_paths:
+            if path not in custody_paths_seen:
+                custody_paths_seen.add(path)
+                basis = _custody_basis(path, manifest_custody_paths) or "imported_bundle"
+                custody_basis_counts[basis] = custody_basis_counts.get(basis, 0) + 1
             continue
         owned_total += 1
         tier = str(row.get("quality_tier") or QUALITY_TIER_LOCATOR_ONLY)
@@ -1507,6 +1578,17 @@ def _code_lens_authoring_queue(
         "by_batch_counts": dict(sorted(by_batch.items())),
         "by_criticality_counts": dict(sorted(by_criticality.items())),
         "batch_order": sorted(set(CODE_LENS_BATCH_BY_CRITICALITY.values())),
+        "custody_classification": {
+            "excluded_candidate_paths": len(custody_paths_seen),
+            "by_basis": dict(sorted(custody_basis_counts.items())),
+            "manifest_custody_paths_loaded": len(manifest_custody_paths),
+            "basis_meaning": (
+                "manifest_provenance = declared by organ_registry/substitution "
+                "ledger; imported_bundle = examples/fixtures/source bundles; "
+                "directory_coupling_marker = in-tree organs/macro_tools/engine_room "
+                "exact-copy zone (heuristic, not yet manifest-confirmed)"
+            ),
+        },
         "queue_preview_limit": preview_limit,
         "queue_preview": rows[:preview_limit],
         "omitted_queue_row_count": max(0, len(rows) - preview_limit),
@@ -2335,7 +2417,10 @@ def python_lens(
         len(path_rows),
         deferred=first_screen_summary,
     )
-    authoring_queue = _code_lens_authoring_queue(symbol_capsule_rows)
+    authoring_queue = _code_lens_authoring_queue(
+        symbol_capsule_rows,
+        manifest_custody_paths=_load_manifest_custody_paths(project),
+    )
     navigation_assay = {
         "schema_version": "microcosm_python_navigation_assay_v1",
         "assay_id": "std_python_microcosm_navigation_assay",
