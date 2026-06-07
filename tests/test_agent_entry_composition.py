@@ -374,7 +374,12 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
 
 @pytest.mark.parametrize(
     "task",
-    ["interesting", "what is interesting here", "show me the interesting parts"],
+    [
+        "interesting",
+        "what is interesting here",
+        "show me the interesting parts",
+        "show me what's interesting",
+    ],
 )
 def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
     task: str,
