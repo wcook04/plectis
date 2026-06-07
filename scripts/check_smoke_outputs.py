@@ -287,6 +287,15 @@ def print_summary(summary: dict[str, Any]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry that validates Microcosm smoke receipts against the public floor.
+
+    - Teleology: Post-`make smoke` gate confirming the smoke receipts exist and assert the public floor (release/provider not authorized, zero private-path hits, required surface counts).
+    - Guarantee: On all checks passing, prints a compact pass summary and returns 0; on any failure prints "fail" + reason to stderr and returns 1.
+    - Fails: missing/empty/invalid receipt, wrong status, or a violated floor (e.g. release_authorized not false, private path hits) -> SmokeCheckError -> caught, exit 1.
+    - Reads: .microcosm/smoke/*.json and *.txt receipts under --smoke-out (via check_smoke_outputs).
+    - When-needed: CI/operator validation that a smoke run produced safe, complete receipts before trusting the build.
+    - Escalates-to: check_smoke_outputs (the receipt-by-receipt assertions).
+    """
     parser = argparse.ArgumentParser(
         description="Validate Microcosm smoke receipts and print a compact pass summary.",
     )

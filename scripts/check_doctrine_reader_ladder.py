@@ -186,6 +186,15 @@ def _fmt(report: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry for the doctrine reader-ladder accessibility gate.
+
+    - Teleology: Operator/CI front door enforcing each enrichment object's lay layer (plain reading + bounded analogy with maps/boundary, no laundering, banned visible term, or affirmative overclaim).
+    - Guarantee: Prints a human or --json report (or, with --explain ID, one record's reader_ladder + audit); with --check returns 1 if any record is defective, else 0.
+    - Fails: --explain on an unknown id -> "no record <ID>" on stderr, exit 2; missing/invalid --path -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback.
+    - Reads: core/doctrine_enrichment.json (or --path).
+    - When-needed: CI-gating or debugging the lay reader layer; --explain to inspect one record's ladder.
+    - Escalates-to: run (full audit), audit_record (per-record lay-field checks).
+    """
     ap = argparse.ArgumentParser(description="Doctrine reader-ladder accessibility gate.")
     ap.add_argument("--path", default=str(REPO_DEFAULT))
     ap.add_argument("--check", action="store_true", help="exit 1 on any defect")

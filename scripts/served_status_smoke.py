@@ -28,6 +28,14 @@ def served_status_smoke(
     host: str = "127.0.0.1",
     timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
+    """Serve the runtime shell, fetch /project/status, and record a public-safe smoke receipt.
+
+    - Teleology: end-to-end check that the served status endpoint returns a card with no private-path leakage.
+    - Guarantee: starts/stops an ephemeral server, fetches the status card, and writes a receipt to `out`.
+    - Fails: any private-path needle found in the served body -> receipt status 'blocked'.
+    - Reads: project tree served by RuntimeShell at the /project/status endpoint.
+    - Writes: `out` receipt JSON.
+    """
     shell = RuntimeShell(public_root)
     project_path = project.expanduser()
     if not project_path.is_absolute():
@@ -79,6 +87,14 @@ def served_status_smoke(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Parse args, run the served-status smoke, and return its exit code.
+
+    - Teleology: CLI entry that runs the served /project/status public-safety smoke from the shell.
+    - Guarantee: writes the smoke receipt to --out and returns 0 only when status is 'pass'.
+    - Fails: receipt status != 'pass' (private-path leak) -> returns exit code 1.
+    - Reads: --root public root and --project tree.
+    - Writes: --out receipt JSON.
+    """
     parser = argparse.ArgumentParser(
         description="Fetch served /project/status and record a public-safe smoke receipt.",
     )

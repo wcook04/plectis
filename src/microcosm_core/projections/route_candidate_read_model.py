@@ -475,6 +475,15 @@ def compile_paths(root: str | Path | None = None, out: str | Path | None = None)
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: build and validate the Microcosm route-candidate read model.
+
+    - Teleology: command-line front door producing the ranked route-candidate projection consumed by the route-mining controller.
+    - Guarantee: prints the validated payload as JSON and, when --out is given, writes the read model plus receipt; returns 0 iff status is "pass".
+    - Reads: --root microcosm-substrate (atlas routes, organ registry, evidence classes, observability receipts).
+    - Writes: optional --out directory (route_candidate_read_model.json + receipt) via compile_paths.
+    - When-needed: refreshing the projection-only route-candidate ranking for the selector.
+    - Fails: validation status != "pass" -> nonzero exit -> return code 1.
+    """
     parser = argparse.ArgumentParser(description="Build the Microcosm route-candidate read model.")
     parser.add_argument("--root", default=None)
     parser.add_argument("--out", default=None)

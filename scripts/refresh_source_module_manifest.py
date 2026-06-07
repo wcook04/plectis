@@ -513,6 +513,14 @@ def refresh_manifest(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Parse args, refresh the source-module manifest, print the result, and return its exit code.
+
+    - Teleology: CLI front door for refreshing declared exact-copy source-module bodies/digests from public macro refs.
+    - Guarantee: prints the refresh result JSON; with --write applied changes only when the run reaches status 'pass'.
+    - Fails: boundary block, missing/mismatched source, or non-normalizable relation -> result status 'blocked' -> returns exit code 1.
+    - Reads: --manifest JSON and the declared macro source files.
+    - Writes: stdout always; with --write, refreshed target files and the manifest itself.
+    """
     parser = argparse.ArgumentParser(
         description="Refresh declared exact-copy source module manifest rows."
     )

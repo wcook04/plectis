@@ -252,6 +252,28 @@ def test_authoring_queue_excludes_imported_fixture_bundles(tmp_path: Path) -> No
     assert cls == "trivial_or_imported"
 
 
+def test_coupling_governed_in_tree_zones_excluded_from_owned_authoring() -> None:
+    # organs/, macro_tools/, engine_room/ carry exact-copy macro bodies that must
+    # byte-match upstream (the macro_body_import_floor coupling gate). Authoring
+    # them breaks `microcosm spine`, so they must be excluded from the owned queue
+    # even though they live under src/ with main()/validate_* entrypoints.
+    for path in (
+        "src/microcosm_core/organs/batch11_saturation_engines_capsule.py",
+        "src/microcosm_core/macro_tools/bridge_resume.py",
+        "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+    ):
+        assert project_substrate._is_imported_source_bundle(path) is True
+        cls, _rank = project_substrate._code_lens_criticality(path, "main", "source_module")
+        assert cls == "trivial_or_imported"
+    # A genuinely-owned native src file is NOT excluded.
+    assert (
+        project_substrate._is_imported_source_bundle(
+            "src/microcosm_core/runtime_shell.py"
+        )
+        is False
+    )
+
+
 def test_full_cli_carries_queue_and_compact_defers_it(capsys, tmp_path: Path) -> None:
     project = _coverage_project(tmp_path)
     # --full emits the raw payload: the campaign consumes the full queue_rows.

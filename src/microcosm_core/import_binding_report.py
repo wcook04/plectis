@@ -247,6 +247,15 @@ def build_partial_import_binding_report(root: str | Path) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: build and emit the partial import-binding gap report (full report or card).
+
+    - Teleology: surface organs whose example bodies are imported but not bound to acceptance/fixture authority.
+    - Guarantee: prints the report (or compact card with `--card`) JSON and always returns 0; optionally writes it to `--out`.
+    - Fails: None for normal runs (report status is always `pass`); a malformed `--out` parent dir would raise from the atomic write.
+    - Reads: acceptance, substitution-ledger, manifest, and receipt JSON under `--root` (read-only; report-only, no mutation).
+    - Writes: `--out` JSON file when provided.
+    - When-needed: invoked from the shell or test harness, not from library code.
+    """
     parser = argparse.ArgumentParser(prog="microcosm import-binding-report")
     parser.add_argument("--root", default=".")
     parser.add_argument("--out")

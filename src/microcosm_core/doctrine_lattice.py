@@ -9541,6 +9541,17 @@ def write_entry_card(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry to build, write, or check the doctrine-lattice projections and corpora.
+
+    - Teleology: single build/check front door for the doctrine lattice (coverage, axiom/principle/anti-principle/concept/mechanism corpora, entry card, doctrine projection).
+    - Guarantee: the requested write/check/status action runs against the resolved root, prints its JSON result, and exit code matches that result's status.
+    - Fails: bad args -> argparse error -> SystemExit(2); any check or write whose status/parity is not pass -> return 1.
+    - Reads: routing source of record, PRINCIPLES.md/ANTI_PRINCIPLES.md, entry-packet specimens, mechanism registry, existing projection files under root.
+    - Writes (only with --write-* flags): coverage projection, corpus JSON+markdown, entry card, and doctrine projection/graph/health surfaces.
+    - When-needed: regenerating or validating doctrine-lattice generated artifacts before commit.
+    - Escalates-to: write/validate corpus functions, write/validate_doctrine_projection, write/validate_coverage_projection, build/validate_entry_card.
+    """
+
     parser = argparse.ArgumentParser(description="Build or check the Microcosm doctrine lattice coverage projection.")
     parser.add_argument("--root", default=None, help="Microcosm root. Defaults to detected package/check-out root.")
     parser.add_argument("--out", default=None, help="Output path. Defaults to core/doctrine_lattice_coverage.json under root.")

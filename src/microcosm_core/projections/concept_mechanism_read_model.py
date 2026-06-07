@@ -824,6 +824,16 @@ def compile_paths(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint compiling the Microcosm concept/mechanism projection read model.
+
+    - Teleology: builds the concept/mechanism read model from an entry packet (and optional pressure input) for shell-driven runs.
+    - Guarantee: parses argv, calls compile_paths with the required --entry-packet, prints the JSON payload, and returns 0 iff status == "pass" else 1.
+    - Fails: missing required --entry-packet -> argparse exits nonzero; non-pass compile status -> exit code 1.
+    - Reads: argv, the --entry-packet file, and optional --pressure file.
+    - Writes: payload to --out when provided; stdout.
+    - When-needed: regenerating the concept/mechanism read model.
+    - Escalates-to: compile_paths.
+    """
     parser = argparse.ArgumentParser(
         description="Compile a Microcosm concept/mechanism projection read model."
     )

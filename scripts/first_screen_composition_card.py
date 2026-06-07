@@ -32,6 +32,12 @@ __all__ = (
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the argparse parser for the first-screen composition card CLI.
+
+    - Teleology: defines the CLI surface (root/project-label/format/reader) for the standalone first-screen card script.
+    - Guarantee: returns an ArgumentParser whose parsed args carry root, project_label, format, and reader.
+    - Fails: None (constructs and returns a parser; no I/O).
+    """
     parser = argparse.ArgumentParser(
         prog="first_screen_composition_card",
         description="Emit the Microcosm first-screen composition card.",
@@ -63,6 +69,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Emit the first-screen composition card as JSON or terminal text and return its exit code.
+
+    - Teleology: standalone entrypoint so the first-screen card can be emitted without the full microcosm console.
+    - Guarantee: prints the composition payload (JSON or reader-focused text card) to stdout.
+    - Fails: card payload status != 'pass' -> non-pass result -> returns exit code 1.
+    - Reads: the Microcosm root tree via first_screen_composition_card.
+    - Writes: stdout only.
+    """
     args = build_parser().parse_args(argv)
     payload = first_screen_composition_card(args.root, project_label=args.project_label)
     if args.format == "text":

@@ -169,6 +169,17 @@ def run_probe(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry that runs the cold-clone probe and emits its receipt.
+
+    - Teleology: proves a fresh checkout can bootstrap the first-wave suite with no private state, gating the public clone story.
+    - Guarantee: on return, a probe receipt for the chosen suite is written to the `--emit` path and exit code matches its status.
+    - Fails: invalid/missing `--emit` -> argparse error -> SystemExit(2); probe blocked (bad suite, missing fixtures, secret leak, missing receipts) -> return 1.
+    - Reads: cwd fixtures under fixtures/first_wave/, secret-exclusion scan, pattern-binding receipts.
+    - Writes: receipt JSON at the `--emit` path; mirrored pattern-binding receipts under the checkout root.
+    - When-needed: verifying a cold clone bootstraps cleanly before release.
+    - Escalates-to: run_probe, validate_secret_exclusion_scan, validate_pattern_binding.
+    """
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--suite", default="first-wave", choices=SUPPORTED_SUITES)
     parser.add_argument("--emit", required=True)

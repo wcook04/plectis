@@ -147,6 +147,12 @@ def build_status_card(root: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser for the doctrine-projection CLI.
+
+    - Teleology: Single source of truth for the doctrine-projection CLI surface (per-corpus write/check flags plus aggregate/status flags) so main and any caller share one option set.
+    - Guarantee: Returns a configured ArgumentParser with --root and the full write/check/status flag family; performs no IO and no parsing.
+    - Fails: None.
+    """
     parser = argparse.ArgumentParser(
         prog="build_doctrine_projection",
         description="Generate doctrine-lattice JSON, markdown, graph, health, and atlas projections.",
@@ -276,6 +282,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry that dispatches doctrine-lattice corpus write/check/status actions.
+
+    - Teleology: Operator/CI front door over microcosm_core.doctrine_lattice; routes one selected mode (per-corpus write/check, single-instance write, aggregate surfaces, status card, or default projection) to the right lattice function.
+    - Guarantee: Prints a JSON result for the chosen mode and returns 0 iff that mode's status/parity is pass; with write flags the targeted JSON/markdown corpus + aggregate surfaces are (re)written under --root.
+    - Fails: missing/invalid source registries, corpus, or projection surfaces -> exception from the lattice functions -> uncaught traceback; or parity/validation mismatch -> nonzero exit with a "blocked"/non-pass status payload.
+    - Reads: standards/std_microcosm_*.json, core/standards_registry.json, the per-kind corpora, and existing projection surfaces (mode-dependent).
+    - Writes: axiom/principle/anti_principle/concept/mechanism/organ/paper_module/skill JSON+markdown and doctrine projection/graph/health/coverage/entry-card surfaces (only on write-family flags).
+    - When-needed: regenerating or validating any doctrine-lattice instance corpus or aggregate projection surface.
+    - Escalates-to: microcosm_core.doctrine_lattice write_*/validate_*/build_* functions; build_status_card for the --status-only/--card lane.
+    """
     args = build_parser().parse_args(argv)
     root = args.root.resolve()
     if args.status_only or args.card:

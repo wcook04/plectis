@@ -298,6 +298,15 @@ def _fmt(report: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry for the doctrine formal-statement soundness gate.
+
+    - Teleology: Operator/CI front door enforcing symbol/formula agreement on every enrichment `formal` block (no dangling declared symbol, no undefined free var or named operator).
+    - Guarantee: Prints a human or --json report (or, with --explain ID, the extracted atoms for one record); with --check returns 1 if any record is defective, else 0.
+    - Fails: --explain on an unknown id -> "no record <ID>" on stderr, exit 2; missing/invalid --path -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback.
+    - Reads: core/doctrine_enrichment.json (or --path).
+    - When-needed: CI-gating or debugging doctrine formal blocks; --explain to inspect one record's symbol atoms.
+    - Escalates-to: run (full audit), audit_record + atoms (per-record symbol extraction).
+    """
     ap = argparse.ArgumentParser(description="Doctrine formal-statement soundness gate.")
     ap.add_argument("--path", default=str(REPO_DEFAULT), help="doctrine_enrichment.json")
     ap.add_argument("--check", action="store_true", help="exit 1 on any defect")

@@ -2132,6 +2132,15 @@ def build_organ_relationship_topology_card(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: audit accepted Microcosm organ discoverability surfaces.
+
+    - Teleology: command-line front door to the organ-surface contract audit and its topology query surface.
+    - Guarantee: prints the full audit payload, the card, or a filtered relationship-topology card as JSON; returns 0 iff payload status is "pass".
+    - Reads: --root microcosm-substrate via build_organ_surface_contract.
+    - Writes: optional --out JSON file via write_json_atomic.
+    - When-needed: auditing organ surface completeness or querying organ relationship edges from the shell.
+    - Fails: payload status != "pass" -> nonzero exit -> return code 1.
+    """
     parser = argparse.ArgumentParser(
         prog="organ-surface-contract",
         description="Audit accepted Microcosm organ discoverability surfaces.",

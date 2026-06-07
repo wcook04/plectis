@@ -1504,6 +1504,14 @@ def _verify_main(argv: list[str] | None = None) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: dispatch the skeptic flight-recorder generate/verify subcommands.
+
+    - Teleology: single command-line dispatcher routing to packet generation (default) or no-rerun packet verification.
+    - Guarantee: routes "verify"/"replay-check" to _verify_main, "generate" (or no subcommand) to _generate_main, and returns that handler's exit code.
+    - Reads: sys.argv when argv is None.
+    - When-needed: producing or re-verifying a public-safe replay packet from the shell.
+    - Fails: None directly; delegated handlers return nonzero on blocked/invalid packets.
+    """
     args = list(sys.argv[1:] if argv is None else argv)
     if args and args[0] in {"verify", "replay-check"}:
         return _verify_main(args[1:])

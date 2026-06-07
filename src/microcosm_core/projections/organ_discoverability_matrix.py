@@ -809,6 +809,16 @@ def compile_paths(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint building the Microcosm accepted-organ discoverability matrix.
+
+    - Teleology: regenerates/validates the discoverability matrix over accepted organs from the shell.
+    - Guarantee: parses argv, calls compile_paths, prints the JSON payload, and returns 0 unless --check is set and validation.status != "pass" (then 1).
+    - Fails: --check with non-pass validation -> exit code 1; missing/invalid root surfaces inside compile_paths.
+    - Reads: argv and the substrate root compile_paths walks.
+    - Writes: payload to --out when provided; stdout.
+    - When-needed: regenerating or checking the organ discoverability matrix.
+    - Escalates-to: compile_paths.
+    """
     parser = argparse.ArgumentParser(
         description="Build the Microcosm accepted-organ discoverability matrix."
     )

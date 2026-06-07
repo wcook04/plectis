@@ -367,6 +367,15 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm macro-en
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: run the macro engines gallery composition and emit its receipt.
+
+    - Teleology: give the cold-reader macro-engines composition receipt a runnable `run` front door.
+    - Guarantee: prints the gallery receipt JSON and returns 0 when status is `pass`, 1 when `blocked`.
+    - Fails: missing subcommand -> argparse error (exit 2); blocked probe/digest gallery -> exit 1.
+    - Reads: accepted organ registry, acceptance, and example manifests under MICROCOSM_ROOT plus per-organ fixture inputs.
+    - Writes: the gallery receipt (and per-organ probe receipts) under `--out`.
+    - When-needed: invoked from the shell or test harness, not from library code (call `run()` directly there).
+    """
     parser = argparse.ArgumentParser(prog="microcosm macro-engines-gallery")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")

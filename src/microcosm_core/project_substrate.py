@@ -853,11 +853,24 @@ def _python_package_root(rel: str) -> str | None:
 
 
 def _python_entrypoint_module_name(target: str) -> str | None:
+    """Extract the importable module name from a console-script target string.
+
+    - Teleology: lets entrypoint-row building resolve a pyproject console-script target to the module that backs it.
+    - Guarantee: returns the dotted module portion before any ``:func``/``[extras]`` suffix, stripped; None when empty.
+    - Fails: target with no module part (e.g. ":func") -> empty after strip -> returns None.
+    """
     module_name = target.split(":", 1)[0].split("[", 1)[0].strip()
     return module_name or None
 
 
 def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None:
+    """Resolve a dotted module name to a real on-disk file ref under the project.
+
+    - Teleology: grounds a console-script's module in an actual source path so entrypoint rows cite verifiable refs.
+    - Guarantee: returns the first existing candidate path (src/ or root, .py or package __init__.py) as a posix ref; None if none exist.
+    - Fails: empty module name or no matching file on disk -> returns None.
+    - Reads: candidate source files under the given project root.
+    """
     module_parts = [part for part in module_name.split(".") if part]
     if not module_parts:
         return None
@@ -878,6 +891,13 @@ def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None
 def _python_console_entrypoint_rows(
     project: Path, pyproject_refs: list[str]
 ) -> list[dict[str, Any]]:
+    """Build grounded console-script entrypoint rows from a project's pyproject files.
+
+    - Teleology: surfaces declared CLI entrypoints as the python lens's runnable-surface evidence rows.
+    - Guarantee: returns one row per ``[project.scripts]`` entry with script name, declaration ref, target, resolved module/target_ref, deduped grounded refs, and source-body boundary fields.
+    - Fails: undecodable pyproject TOML -> that file skipped; blank/non-string script target -> that entry skipped; never raises.
+    - Reads: each pyproject_ref's TOML and the candidate module files under project.
+    """
     rows: list[dict[str, Any]] = []
     for pyproject_ref in pyproject_refs:
         try:
@@ -1046,18 +1066,36 @@ CODE_LENS_CRITICALITY_CLASSES = (
 )
 
 
-def _is_imported_source_bundle(path: str) -> bool:
-    """True for imported/fixture bundle paths that are custody, not owned code.
+# In-tree exact-copy / macro-body-import zones. Files under these dirs carry
+# imported macro source bodies that must byte-match upstream (the source-capsule
+# / macro_body_import_floor coupling gate). Authoring docstrings into them breaks
+# that coupling and blocks `microcosm spine`, so they are custody, not owned
+# authoring targets — even though they live under src/.
+CODE_LENS_COUPLING_GOVERNED_MARKERS = (
+    "/organs/",
+    "/macro_tools/",
+    "/engine_room/",
+)
 
-    Microcosm imports macro source into ``examples/`` and ``fixtures/`` as
-    ``source_modules``/``source_artifacts`` bundles. These are source-custody
-    surfaces governed by the source-capsule standard, NOT owned compliance
-    surfaces — a usage-funded authoring campaign must not target them, or it
-    would author imported code it does not own.
+
+def _is_imported_source_bundle(path: str) -> bool:
+    """True for paths that are source-custody, not owned authoring targets.
+
+    Two categories are excluded from the owned authoring queue:
+    1. Imported bundles under ``examples/`` / ``fixtures/`` as
+       ``source_modules``/``source_artifacts`` — imported macro source.
+    2. In-tree exact-copy / macro-body-import zones (``organs/``,
+       ``macro_tools/``, ``engine_room/``) whose bodies must byte-match upstream
+       under the coupling gate; authoring them breaks ``microcosm spine``.
+
+    A usage-funded authoring campaign must not target either, or it would mutate
+    code it does not own and break source coupling.
     """
     lower = path.lower()
     parts = set(Path(path).parts)
     if {"examples", "fixtures", ".venv", "site-packages"} & parts:
+        return True
+    if any(marker in f"/{lower}/" for marker in CODE_LENS_COUPLING_GOVERNED_MARKERS):
         return True
     return any(
         marker in lower
@@ -4307,6 +4345,12 @@ def _print_json(payload: Any) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Construct the argparse parser for the microcosm-project CLI.
+
+    - Teleology: declares every project-substrate subcommand (init, index, catalog, architecture, python-lens, patterns, route, compile, graph, explain, work, observe, evidence) so the CLI is one wired surface.
+    - Guarantee: returns a configured ArgumentParser with all subparsers, nested work/evidence subcommands, and flags registered.
+    - Fails: None (pure parser construction; no I/O).
+    """
     parser = argparse.ArgumentParser(prog="microcosm-project")
     subparsers = parser.add_subparsers(dest="command")
     init_parser = subparsers.add_parser("init")
@@ -4366,6 +4410,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint dispatching microcosm-project subcommands to their handlers.
+
+    - Teleology: the single shell front door for the project-substrate lens (compile/index/route/work/observe/evidence over a target project).
+    - Guarantee: parses argv, runs the matched subcommand, prints its JSON result, and returns the handler's exit code; prints help and returns 2 when no subcommand matches.
+    - Fails: unknown/missing command -> help printed -> return 2 (no exception).
+    - Reads: argv and, via handlers, the target project tree and its .microcosm state.
+    - Writes: handler side effects (e.g. init/compile/work materialize .microcosm artifacts); stdout.
+    - When-needed: running the microcosm-project CLI from the shell.
+    - Escalates-to: build_parser plus the per-command handlers (init_project, compile_project, propose_routes, run_work, observe_project, inspect_evidence, ...).
+    """
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.command == "init":

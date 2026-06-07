@@ -249,6 +249,17 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-je
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry for the Crown Jewel demo `run` subcommand.
+
+    - Teleology: single public showcase command that exercises five flagship organs plus runtime-safety checks under one receipt.
+    - Guarantee: on `run`, the demo executes, a receipt is printed, and exit code matches its pass/blocked status.
+    - Fails: no/unknown subcommand -> argparse error -> SystemExit(2); any organ or hard runtime check fails -> status blocked -> return 1.
+    - Reads: public example bundles under examples/ for each organ and runtime check.
+    - Writes: crown_jewel_demo_receipt.json plus per-organ/runtime receipts under `--out` (default receipts/first_wave/crown_jewel_demo).
+    - When-needed: demonstrating the curated organ set end-to-end on public fixtures.
+    - Escalates-to: run, _runtime_safety_checks, the five organ runners.
+    """
+
     parser = argparse.ArgumentParser(prog="microcosm crown-jewel-demo")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")

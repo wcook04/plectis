@@ -4831,6 +4831,16 @@ def compile_paths(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint composing the Microcosm Type A cold-agent entry card.
+
+    - Teleology: lets the agent-entry composition projection be built/validated from the shell for a chosen task and viewer.
+    - Guarantee: parses argv, calls compile_paths, prints the JSON payload, and returns 0 unless --check is set and status != "pass" (then 1).
+    - Fails: --check with non-pass status -> exit code 1; missing/invalid root inputs surface inside compile_paths.
+    - Reads: argv and the substrate root compile_paths walks.
+    - Writes: payload to --out when provided; stdout.
+    - When-needed: regenerating or checking the cold-agent entry card.
+    - Escalates-to: compile_paths.
+    """
     parser = argparse.ArgumentParser(
         description="Compose the Microcosm Type A cold-agent entry card."
     )

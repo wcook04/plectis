@@ -31,6 +31,12 @@ from microcosm_core.projections.organ_atlas import build  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser for the organ-atlas CLI.
+
+    - Teleology: Defines the organ-atlas CLI surface (--root/--write/--check) in one place so main and callers share a stable option set.
+    - Guarantee: Returns a configured ArgumentParser; performs no IO and no parsing.
+    - Fails: None.
+    """
     parser = argparse.ArgumentParser(
         prog="build_organ_atlas",
         description="Generate organ atlas entry surfaces from public substrate.",
@@ -48,6 +54,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry that builds, writes, or drift-checks the organ atlas projection.
+
+    - Teleology: Thin operator/CI front door over microcosm_core.projections.organ_atlas.build, projecting the organ registries into atlas entry surfaces that carry no authority above each organ's own claim ceiling.
+    - Guarantee: Prints a status/coverage/drift summary JSON; with --write the generated atlas files are written; returns 0 iff status is "pass" and (under --check) no drift remains.
+    - Fails: build status != pass -> exit 1 with blocking_reasons in the summary; or --check with on-disk drift from the rendered atlas -> exit 1.
+    - Reads: core/organ_registry.json, organ_families.json, organ_atlas.json, organ_evidence_classes.json, architecture_kernel.json (via build).
+    - Writes: generated organ-atlas entry-surface files (only with --write).
+    - When-needed: regenerating organ atlas surfaces after registry edits, or CI-gating that on-disk atlas matches source.
+    - Escalates-to: microcosm_core.projections.organ_atlas.build.
+    """
     args = build_parser().parse_args(argv)
     result = build(args.root, write=args.write)
     summary: dict[str, Any] = {

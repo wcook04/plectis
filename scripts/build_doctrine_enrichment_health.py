@@ -165,6 +165,16 @@ def build_health(root: Path) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry for the doctrine-enrichment coverage health projection.
+
+    - Teleology: CLI front door that builds/writes/checks the enrichment coverage projection so agents and CI see doctrine reader-field completeness at a glance.
+    - Guarantee: Prints the health JSON; with --write rewrites core/doctrine_enrichment_health.json; with --check returns 0 iff status is "complete" (full coverage, sound formulas, sound reader ladders).
+    - Fails: missing/invalid core/doctrine_enrichment.json or corpus -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback, nonzero exit.
+    - Reads: core/doctrine_enrichment.json, axioms/principles/anti_principles corpora (via build_health, run_soundness, run_reader_ladder).
+    - Writes: core/doctrine_enrichment_health.json (only with --write).
+    - When-needed: deciding whether doctrine reader enrichment is complete before a dissemination build or as a CI gate.
+    - Escalates-to: check_doctrine_formal_soundness.run, check_doctrine_reader_ladder.run for the structural sub-gates it folds in.
+    """
     parser = argparse.ArgumentParser(prog="build_doctrine_enrichment_health")
     parser.add_argument("--root", type=Path, default=MICROCOSM_ROOT)
     parser.add_argument("--write", action="store_true", help="write the health projection")

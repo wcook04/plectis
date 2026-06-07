@@ -2782,6 +2782,15 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: generate a public Microcosm export, or assess an existing release receipt.
+
+    - Teleology: command-line front door to the release-export pipeline and its candidate-invalidation check.
+    - Guarantee: with --out, writes the standalone microcosm-substrate/ export and prints the release receipt (or summary); with --assess-candidate, prints a re-validation assessment instead.
+    - Reads: --root source tree, and --assess-candidate receipt JSON / --compare-ref git ref.
+    - Writes: --out/<microcosm-substrate> export directory and bounded receipts via build_release_export.
+    - When-needed: producing or re-validating a public release artifact.
+    - Fails: --out and --assess-candidate both absent -> parser.error; export status != "pass" or assessment not gate_eligible -> return code 1.
+    """
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.release_export",
         description="Generate a standalone public Microcosm folder with a bounded release-export receipt.",

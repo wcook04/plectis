@@ -159,6 +159,14 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Parse args and run the installed-console package smoke against a fresh venv.
+
+    - Teleology: CLI entry that proves Microcosm installs from source and its installed console card commands stay public-safe.
+    - Guarantee: on return the fresh venv was built, the package installed, and all card checks passed without private-path leaks.
+    - Fails: install/check failure or private-marker leak -> run_package_smoke raises SystemExit with a nonzero/diagnostic exit.
+    - Reads: --source-root pyproject tree; --python interpreter.
+    - Writes: --work-dir venv, installed package, and captured card output files.
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Install Microcosm into a fresh venv from the local source tree and "

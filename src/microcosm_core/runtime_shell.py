@@ -22681,6 +22681,14 @@ class RuntimeShell:
         project: str | Path | None = None,
         max_requests: int | None = None,
     ) -> ThreadingHTTPServer:
+        """Build (but do not run) the Microcosm runtime-shell HTTP observatory server.
+
+        - Teleology: stands up the read-only HTTP surface that serves the observatory HTML and JSON runtime/route/evidence lenses over a cached project model.
+        - Guarantee: returns a bound, warmed RuntimeShellHTTPServer on (host, port); caller drives serve_forever; honors an optional max_requests self-shutdown.
+        - Reads: project path resolved against self.root; lens/observatory payloads built lazily on first request.
+        - When-needed: launching the local runtime observatory ("serve" command).
+        - Fails: max_requests < 1 -> raises ValueError; bind failure -> OSError from server construction.
+        """
         from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
         if max_requests is not None and max_requests < 1:
@@ -23573,6 +23581,13 @@ class RuntimeShell:
                 self,
                 poll_interval: float = RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
             ) -> None:
+                """Run the request loop with the shell's tuned poll interval.
+
+                - Teleology: overrides the default poll cadence so shutdown (e.g. max_requests self-shutdown) is reacted to promptly.
+                - Guarantee: blocks serving requests until shutdown() is called, polling at RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL by default.
+                - When-needed: driving the runtime-shell server returned by RuntimeShell.serve.
+                - Fails: None beyond the underlying ThreadingHTTPServer loop.
+                """
                 super().serve_forever(poll_interval=poll_interval)
 
         class Handler(BaseHTTPRequestHandler):
@@ -23827,6 +23842,13 @@ def _nonnegative_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Construct the microcosm-runtime CLI argument parser.
+
+    - Teleology: single source of truth for the runtime-shell subcommand surface (lenses, run, serve, route, work, evidence).
+    - Guarantee: returns an ArgumentParser whose subparsers cover every runtime-shell command that main dispatches.
+    - When-needed: parsing runtime-shell CLI args, or introspecting the available subcommands.
+    - Fails: None.
+    """
     parser = argparse.ArgumentParser(prog="microcosm-runtime")
     subparsers = parser.add_subparsers(dest="command")
     status_parser = subparsers.add_parser("status")
@@ -23938,6 +23960,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
+    """CLI entry: parse runtime-shell args and dispatch to the selected RuntimeShell lens/command.
+
+    - Teleology: command-line front door to every runtime-shell lens, the demo runner, and the HTTP observatory server.
+    - Guarantee: runs the chosen subcommand on a RuntimeShell, prints its JSON, and returns its exit code; "serve" blocks until interrupt/close.
+    - Reads: argv and optional root for RuntimeShell construction.
+    - When-needed: invoking any runtime-shell command from the shell or "python -m microcosm_core.runtime_shell".
+    - Fails: no/unknown command -> prints help -> return code 2; "serve" KeyboardInterrupt -> return code 130.
+    """
     parser = build_parser()
     args = parser.parse_args(argv)
     shell = RuntimeShell(root=root) if root is not None else RuntimeShell()
