@@ -761,6 +761,14 @@ not authorize release, hosted deployment, publication, recipient work, provider
 calls, secret export, private-data equivalence, proof correctness, trading
 advice, or whole-system correctness.
 """,
+    "agent-benchmark-integrity-anti-gaming-replay": """Runnable fixture example:
+  microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out /tmp/microcosm-agent-benchmark-integrity
+
+Boundary: validates a public benchmark-integrity replay bundle and writes
+receipts. It does not run a live benchmark, score agent capability, call
+providers, access private or hidden-gold bodies, mutate source, claim product
+progress, or authorize release.
+""",
 }
 
 

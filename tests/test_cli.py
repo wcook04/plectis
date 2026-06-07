@@ -644,6 +644,30 @@ def test_cli_public_reveal_walkthrough_help_names_fixture_and_boundary() -> None
     assert "whole-system correctness" in output
 
 
+def test_cli_agent_benchmark_integrity_help_names_fixture_and_boundary() -> None:
+    help_result = _run_microcosm_cli(
+        "agent-benchmark-integrity-anti-gaming-replay",
+        "--help",
+    )
+
+    assert help_result.returncode == 0, help_result.stderr
+    output = help_result.stdout
+    assert "Runnable fixture example:" in output
+    assert (
+        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+        "run-benchmark-integrity-bundle --input "
+        "examples/agent_benchmark_integrity_anti_gaming_replay/"
+        "exported_benchmark_integrity_bundle --out "
+        "/tmp/microcosm-agent-benchmark-integrity"
+    ) in output
+    assert "validates a public benchmark-integrity replay bundle" in output
+    assert "does not run a live benchmark" in output
+    assert "score agent capability" in output
+    assert "call\nproviders" in output
+    assert "access private or hidden-gold bodies" in output
+    assert "authorize release" in output
+
+
 def test_root_doc_microcosm_commands_are_discoverable_from_root_help() -> None:
     root_help = _run_microcosm_cli("--help")
     assert root_help.returncode == 0, root_help.stderr
