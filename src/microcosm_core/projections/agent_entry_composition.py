@@ -213,6 +213,24 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "architecture"
     if value in {
+        "navigation",
+        "navigate",
+        "navigating",
+        "show me navigation",
+        "show-me-navigation",
+        "show_me_navigation",
+        "show me the navigation",
+        "show-me-the-navigation",
+        "show_me_the_navigation",
+        "how do i navigate this",
+        "how-do-i-navigate-this",
+        "how_do_i_navigate_this",
+        "how do i navigate",
+        "how-do-i-navigate",
+        "how_do_i_navigate",
+    }:
+        return "navigation"
+    if value in {
         "ai-safety",
         "ai_safety",
         "safety",
