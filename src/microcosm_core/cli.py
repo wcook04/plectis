@@ -652,7 +652,7 @@ Alias note: reviewer, skeptical-reviewer, and skeptical-review route to the
 ai-safety task route. Use evaluation for the cold route-map/receipt evaluator
 path; receipt/evidence meaning questions route there too. Use agent-entry for
 the general cold-agent entry path. "What is interesting here?" routes to
-interesting-parts.
+interesting-parts. "Show me formal methods" routes to formal-methods.
 
 Boundary: this card selects public route metadata and first commands; it does
 not authorize release, provider calls, source mutation, private-root
