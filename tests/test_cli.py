@@ -1218,6 +1218,15 @@ def test_cli_first_screen_accepts_interesting_parts_alias(
     assert "Reader branch: GitHub visitor" in text
     assert "Command: microcosm hello --reader interesting-parts ." in text
     assert "Text card: microcosm first-screen --format text --reader interesting-parts ." in text
+    assert (
+        "Interesting-parts selector: `microcosm agent-entry-composition --root . "
+        "--task interesting-parts --viewer human --card --check`"
+    ) in text
+    assert (
+        "Source-only: `PYTHONPATH=src python3 -m microcosm_core "
+        "agent-entry-composition --root . --task interesting-parts "
+        "--viewer human --card --check`"
+    ) in text
     assert "Proof: `microcosm tour --card .`" in text
 
 

@@ -40,6 +40,7 @@ READER_ROUTE_ALIASES = {
     "type-a-agent": "type_a_agent",
     "domain-specialist": "domain_specialist",
 }
+INTERESTING_PARTS_ALIASES = {"interesting_parts", "interesting-parts"}
 READER_ROUTE_ALIAS_HINT = (
     "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
     "reviewer, type-a-agent, domain-specialist"
@@ -4131,6 +4132,14 @@ def _reader_branch_lines(
         if source_task_selector:
             line = f"{line} | Source-only: `{source_task_selector}`"
         task_selector_lines.append(line)
+    if display_reader_id in INTERESTING_PARTS_ALIASES:
+        task_selector_lines.append(
+            "  Interesting-parts selector: "
+            "`microcosm agent-entry-composition --root . --task interesting-parts "
+            "--viewer human --card --check` | Source-only: "
+            "`PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
+            "--root . --task interesting-parts --viewer human --card --check`"
+        )
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         (
