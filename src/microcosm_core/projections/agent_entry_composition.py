@@ -209,6 +209,14 @@ def _normalize_task_class(task: str | None) -> str:
         "how to evaluate",
         "how-to-evaluate",
         "how_to_evaluate",
+        "check",
+        "checks",
+        "run checks",
+        "run-checks",
+        "run_checks",
+        "run the checks",
+        "run-the-checks",
+        "run_the_checks",
     }:
         return "evaluation"
     if value in {

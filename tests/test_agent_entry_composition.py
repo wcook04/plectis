@@ -310,7 +310,7 @@ def test_agent_entry_card_aliases_skeptical_review_to_safety_route() -> None:
 
 
 @pytest.mark.parametrize(
-    "task", ["how do I evaluate it", "how to evaluate", "evaluate"]
+    "task", ["how do I evaluate it", "how to evaluate", "evaluate", "run the checks"]
 )
 def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     task: str,
