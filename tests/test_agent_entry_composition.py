@@ -497,6 +497,9 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "show me the receipts",
         "what do receipts mean",
         "what do these receipts mean",
+        "explain receipts",
+        "explain the receipts",
+        "explain evidence",
         "what does the evidence mean",
     ],
 )
