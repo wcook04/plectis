@@ -367,7 +367,10 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
 
 
-@pytest.mark.parametrize("task", ["interesting", "what is interesting here"])
+@pytest.mark.parametrize(
+    "task",
+    ["interesting", "what is interesting here", "show me the interesting parts"],
+)
 def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
     task: str,
 ) -> None:
