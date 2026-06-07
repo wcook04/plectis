@@ -408,6 +408,10 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
         "CLI help",
         "getting started",
         "get started",
+        "how do I install it",
+        "how do I run it",
+        "does this run",
+        "can I run this",
     ],
 )
 def test_agent_entry_card_aliases_command_help_questions_to_getting_started_route(
