@@ -726,6 +726,10 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "where is the evidence",
         "explain evidence",
         "what does the evidence mean",
+        "what fails",
+        "failure modes",
+        "known gaps",
+        "limitations",
         "what claims does this repo refuse",
     ],
 )
