@@ -190,6 +190,9 @@ def _normalize_task_class(task: str | None) -> str:
         "what is this?",
         "what-is-this",
         "what_is_this",
+        "what does this do",
+        "what-does-this-do",
+        "what_does_this_do",
     }:
         return "agent-entry"
     if value in {

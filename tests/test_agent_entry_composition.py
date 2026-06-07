@@ -312,7 +312,7 @@ def test_agent_entry_card_aliases_safety_questions_to_safety_route(task: str) ->
     assert "agent-entry-composition --task ai-safety" in card["drilldowns"]["full_json"]
 
 
-@pytest.mark.parametrize("task", ["what is this", "what is this?"])
+@pytest.mark.parametrize("task", ["what is this", "what is this?", "what does this do"])
 def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
     task: str,
 ) -> None:
