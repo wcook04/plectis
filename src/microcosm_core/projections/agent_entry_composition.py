@@ -40,6 +40,23 @@ INTERESTING_PARTS_ROUTE_ALIASES = {
     "what-is-interesting-here",
     "what_is_interesting_here",
 }
+ROUTE_OWNER_ROUTE_ALIASES = {
+    "where do i patch a route",
+    "where-do-i-patch-a-route",
+    "where_do_i_patch_a_route",
+    "where do i patch the route",
+    "where-do-i-patch-the-route",
+    "where_do_i_patch_the_route",
+    "what owns this route",
+    "what-owns-this-route",
+    "what_owns_this_route",
+    "who owns this route",
+    "who-owns-this-route",
+    "who_owns_this_route",
+    "route owner",
+    "route-owner",
+    "route_owner",
+}
 CARD_FILENAME = "agent_entry_composition_card.json"
 RECEIPT_FILENAME = "agent_entry_composition_receipt.json"
 TYPE_A_READER_ID = "type_a_agent"
@@ -3372,7 +3389,15 @@ def _task_alias_resolution(
                 "because it shows bounded public first-run and reveal surfaces "
                 "without claiming novelty, release readiness, or domain correctness."
                 if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
-                else "The requested task is accepted as an alias for the selected route."
+                else (
+                    "Route-owner questions use the agent-entry route because "
+                    "that route exposes the owner surfaces to inspect or patch: "
+                    "atlas/entry_packet.json, atlas/agent_task_routes.json, "
+                    "organ registries, source modules, receipts, standards, "
+                    "and the projection builder."
+                    if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                    else "The requested task is accepted as an alias for the selected route."
+                )
             )
         )
     )

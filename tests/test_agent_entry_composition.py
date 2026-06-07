@@ -1359,6 +1359,31 @@ def test_agent_entry_card_keeps_receipt_proof_question_traceable() -> None:
     )
 
 
+def test_agent_entry_card_explains_route_owner_alias_boundary() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="where do I patch a route",
+        viewer="type_a_agent",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "agent-entry"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "Route-owner questions use the agent-entry route"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert "atlas/agent_task_routes.json" in payload["task_route"][
+        "alias_resolution"
+    ]["reason"]
+    assert "projection builder" in payload["task_route"]["alias_resolution"]["reason"]
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+
+
 @pytest.mark.parametrize(
     "task",
     [
