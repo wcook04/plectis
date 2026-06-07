@@ -472,6 +472,10 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
     [
         "show me navigation",
         "show me the navigation",
+        "show me routes",
+        "show me the routes",
+        "show me route map",
+        "show me the route map",
         "how do I navigate this",
         "how do I navigate",
     ],
