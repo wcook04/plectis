@@ -645,12 +645,13 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
         "Use evaluation for the cold route-map/receipt evaluator\n"
         "path; receipt/evidence meaning questions route there too"
     ) in help_result.stdout
-    assert '"What is interesting here?" routes to\ninteresting-parts' in help_result.stdout
+    assert '"What is this?" routes there too' in help_result.stdout
+    assert '"What is\ninteresting here?" routes to interesting-parts' in help_result.stdout
     assert (
-        '"Show me formal methods" routes to formal-methods'
+        '"Show me formal methods" routes\nto formal-methods'
         in help_result.stdout
     )
-    assert '"Show\nme AI safety" routes to ai-safety' in help_result.stdout
+    assert '"Show me AI safety" routes to ai-safety' in help_result.stdout
     assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 

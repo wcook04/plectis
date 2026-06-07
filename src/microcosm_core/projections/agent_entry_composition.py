@@ -181,7 +181,16 @@ def _normalize_task_class(task: str | None) -> str:
     value = (task or "").strip().lower()
     if not value:
         return DEFAULT_TASK
-    if value in {"agent-entry", "agent_entry", "type-a-agent", "type_a_agent"}:
+    if value in {
+        "agent-entry",
+        "agent_entry",
+        "type-a-agent",
+        "type_a_agent",
+        "what is this",
+        "what is this?",
+        "what-is-this",
+        "what_is_this",
+    }:
         return "agent-entry"
     if value in {
         "ai-safety",
