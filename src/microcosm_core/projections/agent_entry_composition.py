@@ -265,6 +265,7 @@ def _accepted_organ_glance(task_routes: dict[str, Any]) -> dict[str, Any]:
 
 def _normalize_task_class(task: str | None) -> str:
     value = (task or "").strip().lower()
+    natural_key = value.replace("_", " ").replace("-", " ")
     if not value:
         return DEFAULT_TASK
     if value in {
@@ -3213,7 +3214,7 @@ def _normalize_task_class(task: str | None) -> str:
         "show_me_theorem_provers",
     }:
         return "theorem-proving"
-    if value in {
+    formal_methods_aliases = {
         "formal math",
         "math",
         "mathematics",
@@ -3397,7 +3398,8 @@ def _normalize_task_class(task: str | None) -> str:
         "does_this_prove_correctness",
         "is_this_proof_correct",
         "show_me_proof_correctness",
-    }:
+    }
+    if value in formal_methods_aliases or natural_key in formal_methods_aliases:
         return "formal-methods"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):
         return "agent-entry"

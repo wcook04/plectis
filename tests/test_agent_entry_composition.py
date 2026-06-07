@@ -1775,6 +1775,7 @@ def test_agent_entry_card_aliases_audio_phrases_to_audio_route(task: str) -> Non
         "show me the formal methods",
         "show me formal methods stuff",
         "show me the formal methods parts",
+        "show me the formal-methods parts",
         "show me formal verification",
         "show me the formal verification parts",
         "show me proof stuff",
