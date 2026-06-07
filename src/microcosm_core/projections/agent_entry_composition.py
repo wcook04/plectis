@@ -196,6 +196,14 @@ def _normalize_task_class(task: str | None) -> str:
         "skeptical-reviewer",
     }:
         return "ai-safety"
+    if value in {
+        "interesting",
+        "interesting-parts",
+        "interesting_parts",
+        "show-me-interesting-parts",
+        "show_me_interesting_parts",
+    }:
+        return "interesting-parts"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):
         return "agent-entry"
     return value.replace("_", "-").replace(" ", "-")

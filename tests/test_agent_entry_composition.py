@@ -307,6 +307,28 @@ def test_agent_entry_card_aliases_skeptical_review_to_safety_route() -> None:
     assert "agent-entry-composition --task ai-safety" in card["drilldowns"]["full_json"]
 
 
+def test_agent_entry_card_aliases_interesting_to_interesting_parts_route() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="interesting",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == "interesting"
+    assert payload["task_route"]["selected_task_class"] == "interesting-parts"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "interesting-parts"
+    assert payload["task_route"]["primary_organ_id"] == "cold_reader_route_map"
+    assert card["task_route"]["selected_task_class"] == "interesting-parts"
+    assert (
+        "agent-entry-composition --task interesting-parts"
+        in card["drilldowns"]["full_json"]
+    )
+
+
 def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
