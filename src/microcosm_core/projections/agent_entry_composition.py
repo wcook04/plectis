@@ -298,8 +298,11 @@ def _normalize_task_class(task: str | None) -> str:
         "show-me-the-math",
         "show_me_the_math",
         "show me formal methods",
+        "show me the formal methods",
         "show-me-formal-methods",
+        "show-me-the-formal-methods",
         "show_me_formal_methods",
+        "show_me_the_formal_methods",
     }:
         return "formal-methods"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):

@@ -396,7 +396,14 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
 
 
 @pytest.mark.parametrize(
-    "task", ["math", "formal math", "show me the math", "show me formal methods"]
+    "task",
+    [
+        "math",
+        "formal math",
+        "show me the math",
+        "show me formal methods",
+        "show me the formal methods",
+    ],
 )
 def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> None:
     payload = build_agent_entry_composition(
