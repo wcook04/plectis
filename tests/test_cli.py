@@ -625,6 +625,25 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
     assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 
+def test_cli_public_reveal_walkthrough_help_names_fixture_and_boundary() -> None:
+    help_result = _run_microcosm_cli("public-reveal-walkthrough", "--help")
+
+    assert help_result.returncode == 0, help_result.stderr
+    output = help_result.stdout
+    assert "Runnable fixture example:" in output
+    assert (
+        "microcosm public-reveal-walkthrough run --input "
+        "fixtures/first_wave/public_reveal_walkthrough/input --out "
+        "/tmp/microcosm-public-reveal-walkthrough"
+    ) in output
+    assert "validates bounded public reveal behavior" in output
+    assert "does\nnot authorize release" in output
+    assert "hosted deployment" in output
+    assert "provider\ncalls" in output
+    assert "private-data equivalence" in output
+    assert "whole-system correctness" in output
+
+
 def test_root_doc_microcosm_commands_are_discoverable_from_root_help() -> None:
     root_help = _run_microcosm_cli("--help")
     assert root_help.returncode == 0, root_help.stderr

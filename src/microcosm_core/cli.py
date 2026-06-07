@@ -753,6 +753,14 @@ It does not run Lean/Lake, claim Mathlib availability beyond probe status,
 prove theorem correctness, expose proof bodies, call providers, mutate source,
 or authorize release.
 """,
+    "public-reveal-walkthrough": """Runnable fixture example:
+  microcosm public-reveal-walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out /tmp/microcosm-public-reveal-walkthrough
+
+Boundary: validates bounded public reveal behavior and writes receipts. It does
+not authorize release, hosted deployment, publication, recipient work, provider
+calls, secret export, private-data equivalence, proof correctness, trading
+advice, or whole-system correctness.
+""",
 }
 
 
