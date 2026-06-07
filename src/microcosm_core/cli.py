@@ -723,6 +723,14 @@ It is not investment or trading advice, uses no live market data, claims no
 track record or performance result, mutates no optimizer, and does not
 authorize release.
 """,
+    "proof-diagnostic-evidence-spine": """Runnable fixture example:
+  microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out /tmp/microcosm-proof-diagnostic-evidence-spine
+
+Boundary: validates declared proof-diagnostic evidence metadata and writes
+receipts. It does not run Lean/Lake, prove theorem correctness, expose proof
+bodies, call providers, mutate source, turn a passing check into proof
+authority, or authorize release/publication.
+""",
     "formal-math-readiness-gate": """Runnable fixture example:
   microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out /tmp/microcosm-formal-readiness-gate
 

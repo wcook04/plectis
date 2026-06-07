@@ -51,6 +51,27 @@ def test_cli_formal_math_readiness_help_names_fixture_and_boundary(
     assert "authorize release" in output
 
 
+def test_cli_proof_diagnostic_help_names_fixture_and_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["proof-diagnostic-evidence-spine", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Runnable fixture example:" in output
+    assert (
+        "microcosm proof-diagnostic-evidence-spine run --input "
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input --out "
+        "/tmp/microcosm-proof-diagnostic-evidence-spine"
+    ) in output
+    assert "validates declared proof-diagnostic evidence metadata" in output
+    assert "It does not run Lean/Lake" in output
+    assert "prove theorem correctness" in output
+    assert "turn a passing check into proof\nauthority" in output
+    assert "authorize release/publication" in output
+
+
 def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     status = cli.main(["intake"])
 
