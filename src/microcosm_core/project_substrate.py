@@ -129,6 +129,25 @@ STD_PYTHON_CONTRACT_ATOMS = (
 )
 SELF_DESCRIPTION_BAND_AUTHORED = "authored"
 SELF_DESCRIPTION_BAND_LOCATOR_ONLY = "locator_only"
+# Core contract triad: the spine atoms that distinguish a real authored capsule
+# from a gameable prose docstring. Quality-tier ladder is ordered weakest->
+# strongest so the scoreboard cannot be cheated by adding empty docstrings.
+SELF_DESCRIPTION_CORE_TRIAD = ("Teleology", "Guarantee", "Fails")
+SELF_DESCRIPTION_ROUTING_ATOMS = ("When-needed", "Escalates-to")
+QUALITY_TIER_LOCATOR_ONLY = "locator_only"
+QUALITY_TIER_AUTHORED_BARE = "authored_bare"
+QUALITY_TIER_AUTHORED_MINIMAL = "authored_minimal"
+QUALITY_TIER_AUTHORED_CONTRACT = "authored_contract"
+QUALITY_TIER_AUTHORED_ROUTING = "authored_routing"
+SELF_DESCRIPTION_QUALITY_TIERS = (
+    QUALITY_TIER_LOCATOR_ONLY,
+    QUALITY_TIER_AUTHORED_BARE,
+    QUALITY_TIER_AUTHORED_MINIMAL,
+    QUALITY_TIER_AUTHORED_CONTRACT,
+    QUALITY_TIER_AUTHORED_ROUTING,
+)
+# Tiers at or above this index count as real authored coverage for release math.
+SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER = QUALITY_TIER_AUTHORED_CONTRACT
 PROBE_DISPOSITION_OUTCOMES = [
     "file_local_defect",
     "standard_amendment_candidate",
@@ -953,15 +972,49 @@ def _detect_docstring_atoms(docstring: str | None) -> list[str]:
     return present
 
 
+def _self_description_quality_tier(has_docstring: bool, atoms: list[str]) -> str:
+    """Un-gameable quality ladder over a symbol's authored atoms.
+
+    A bare prose docstring with no contract atoms lands at ``authored_bare``
+    (presence without contract), so the scoreboard cannot be inflated by empty
+    docstrings. Real coverage starts at ``authored_contract`` (the Teleology/
+    Guarantee/Fails triad) and peaks at ``authored_routing`` (triad plus a
+    navigation atom).
+    """
+    if not has_docstring:
+        return QUALITY_TIER_LOCATOR_ONLY
+    atom_set = set(atoms)
+    if not atom_set:
+        return QUALITY_TIER_AUTHORED_BARE
+    has_triad = all(atom in atom_set for atom in SELF_DESCRIPTION_CORE_TRIAD)
+    if not has_triad:
+        return QUALITY_TIER_AUTHORED_MINIMAL
+    if any(atom in atom_set for atom in SELF_DESCRIPTION_ROUTING_ATOMS):
+        return QUALITY_TIER_AUTHORED_ROUTING
+    return QUALITY_TIER_AUTHORED_CONTRACT
+
+
+def _quality_tier_is_real_coverage(tier: str) -> bool:
+    floor = SELF_DESCRIPTION_QUALITY_TIERS.index(
+        SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER
+    )
+    try:
+        return SELF_DESCRIPTION_QUALITY_TIERS.index(tier) >= floor
+    except ValueError:
+        return False
+
+
 def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
     """Presence-only authored-atom metadata for one symbol capsule.
 
-    Classifies the symbol's self-description band and which contract atoms its
-    docstring names, without exporting the docstring body.
+    Classifies the symbol's self-description band, its un-gameable quality tier,
+    and which contract atoms its docstring names, without exporting the
+    docstring body.
     """
     docstring = ast.get_docstring(node)
     has_docstring = docstring is not None
     atoms = _detect_docstring_atoms(docstring)
+    quality_tier = _self_description_quality_tier(has_docstring, atoms)
     return {
         "has_docstring": has_docstring,
         "self_description_band": (
@@ -969,9 +1022,97 @@ def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
             if has_docstring
             else SELF_DESCRIPTION_BAND_LOCATOR_ONLY
         ),
+        "quality_tier": quality_tier,
+        "is_real_coverage": _quality_tier_is_real_coverage(quality_tier),
         "authored_contract_atoms": atoms,
         "authored_atom_count": len(atoms),
     }
+
+
+# Release-criticality classes for the authoring queue, ordered most->least
+# critical. Rank 0 is the release spine that must be authored first.
+CODE_LENS_CRITICALITY_CLASSES = (
+    "public_entrypoint",
+    "validator",
+    "source_custody",
+    "organ_runner",
+    "route_selector",
+    "builder_projection",
+    "evidence_receipt",
+    "owned_core",
+    "script",
+    "test_negative_case",
+    "trivial_or_imported",
+)
+
+
+def _is_imported_source_bundle(path: str) -> bool:
+    """True for imported/fixture bundle paths that are custody, not owned code.
+
+    Microcosm imports macro source into ``examples/`` and ``fixtures/`` as
+    ``source_modules``/``source_artifacts`` bundles. These are source-custody
+    surfaces governed by the source-capsule standard, NOT owned compliance
+    surfaces — a usage-funded authoring campaign must not target them, or it
+    would author imported code it does not own.
+    """
+    lower = path.lower()
+    parts = set(Path(path).parts)
+    if {"examples", "fixtures", ".venv", "site-packages"} & parts:
+        return True
+    return any(
+        marker in lower
+        for marker in ("source_modules/", "source_artifacts/", "_bundle/")
+    )
+
+
+def _code_lens_criticality(
+    path: str, symbol_name: str, source_class: str
+) -> tuple[str, int]:
+    """Classify a symbol's release criticality for the authoring queue.
+
+    Heuristic over path + symbol name + source class. Owned code earns a real
+    rank; imported example/fixture bundles and plain tests sink to the bottom so
+    the campaign spends usage on the release spine, not on custody-only surfaces.
+    """
+    lower_path = path.lower()
+    name = symbol_name.split(".")[-1].lower()
+    full = symbol_name.lower()
+    if source_class == "example_module" or _is_imported_source_bundle(path):
+        return "trivial_or_imported", CODE_LENS_CRITICALITY_CLASSES.index(
+            "trivial_or_imported"
+        )
+    if source_class in {"test_module", "test_support"}:
+        cls = "test_negative_case"
+        return cls, CODE_LENS_CRITICALITY_CLASSES.index(cls)
+    if "validators/" in lower_path or name.startswith("validate") or "validator" in name:
+        cls = "validator"
+    elif (
+        lower_path.endswith("cli.py")
+        or name in {"main", "build_parser", "serve", "run_server"}
+        or name.startswith("serve")
+        or "entrypoint" in name
+    ):
+        cls = "public_entrypoint"
+    elif any(
+        token in full
+        for token in ("source_capsule", "source_coupling", "import", "export", "manifest", "provenance", "custody")
+    ):
+        cls = "source_custody"
+    elif any(token in full for token in ("organ", "_run_work", "run_work", "board", "result_emit", "emit_result")):
+        cls = "organ_runner"
+    elif name.startswith("route") or name.endswith("_route") or "navigation" in name or "propose_routes" in full:
+        cls = "route_selector"
+    elif name.startswith(("build_", "_build_", "compile", "project", "_project")) or "projection" in full or "atlas" in full:
+        cls = "builder_projection"
+    elif any(token in full for token in ("evidence", "receipt", "observe", "ledger")):
+        cls = "evidence_receipt"
+    elif source_class == "script":
+        cls = "script"
+    elif source_class in {"source_module", "package_init", "python_module"}:
+        cls = "owned_core"
+    else:
+        cls = "trivial_or_imported"
+    return cls, CODE_LENS_CRITICALITY_CLASSES.index(cls)
 
 
 def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
@@ -1102,13 +1243,25 @@ def _python_self_description_coverage(
     """
     total = len(symbol_capsule_rows)
     authored = 0
+    real_coverage = 0
     atom_histogram: dict[str, int] = {}
     by_source_class: dict[str, dict[str, int]] = {}
+    quality_band_counts: dict[str, int] = {
+        tier: 0 for tier in SELF_DESCRIPTION_QUALITY_TIERS
+    }
+    release_critical_total = 0
+    release_critical_real = 0
+    critical_floor = CODE_LENS_CRITICALITY_CLASSES.index("owned_core")
     for row in symbol_capsule_rows:
         band = row.get("self_description_band")
         is_authored = band == SELF_DESCRIPTION_BAND_AUTHORED
         if is_authored:
             authored += 1
+        tier = str(row.get("quality_tier") or QUALITY_TIER_LOCATOR_ONLY)
+        quality_band_counts[tier] = quality_band_counts.get(tier, 0) + 1
+        is_real = _quality_tier_is_real_coverage(tier)
+        if is_real:
+            real_coverage += 1
         for atom in row.get("authored_contract_atoms", []) or []:
             atom_histogram[atom] = atom_histogram.get(atom, 0) + 1
         source_class = str(row.get("source_class") or "python_module")
@@ -1121,8 +1274,23 @@ def _python_self_description_coverage(
             bucket["authored"] += 1
         else:
             bucket["locator_only"] += 1
+        _cls, rank = _code_lens_criticality(
+            str(row.get("path") or ""),
+            str(row.get("symbol_name") or ""),
+            source_class,
+        )
+        if rank < critical_floor:
+            release_critical_total += 1
+            if is_real:
+                release_critical_real += 1
     locator_only = total - authored
     authored_ratio = round(authored / total, 4) if total else 0.0
+    real_coverage_ratio = round(real_coverage / total, 4) if total else 0.0
+    release_critical_ratio = (
+        round(release_critical_real / release_critical_total, 4)
+        if release_critical_total
+        else 0.0
+    )
     if deferred:
         coverage_band = "deferred_first_screen_summary"
     elif total == 0:
@@ -1138,14 +1306,29 @@ def _python_self_description_coverage(
         round(module_with_docstring / module_count, 4) if module_count else 0.0
     )
     return {
-        "schema_version": "microcosm_python_self_description_coverage_v1",
+        "schema_version": "microcosm_python_self_description_coverage_v2",
         "standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
         "scan_deferred": deferred,
         "total_symbol_capsules": total,
         "authored_symbol_capsules": authored,
         "locator_only_symbol_capsules": locator_only,
         "authored_ratio": authored_ratio,
+        "real_coverage_symbol_capsules": real_coverage,
+        "real_coverage_ratio": real_coverage_ratio,
         "coverage_band": coverage_band,
+        "quality_band_counts": quality_band_counts,
+        "quality_tier_ladder": list(SELF_DESCRIPTION_QUALITY_TIERS),
+        "real_coverage_floor_tier": SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER,
+        "release_critical_coverage": {
+            "critical_symbols": release_critical_total,
+            "real_coverage_symbols": release_critical_real,
+            "ratio": release_critical_ratio,
+            "critical_classes": [
+                cls
+                for cls in CODE_LENS_CRITICALITY_CLASSES
+                if CODE_LENS_CRITICALITY_CLASSES.index(cls) < critical_floor
+            ],
+        },
         "authored_atom_histogram": dict(sorted(atom_histogram.items())),
         "contract_atom_vocabulary": list(STD_PYTHON_CONTRACT_ATOMS),
         "by_source_class": dict(sorted(by_source_class.items())),
@@ -1155,10 +1338,14 @@ def _python_self_description_coverage(
             "ratio": module_ratio,
         },
         "metric_meaning": (
-            "authored = symbol carries a docstring; locator_only = capsule is a "
-            "path/name/kind/span locator with no authored self-description. Atom "
-            "presence is detected by name from the std_python contract vocabulary; "
-            "docstring prose is not exported"
+            "authored = symbol carries a docstring; real_coverage = quality_tier "
+            ">= authored_contract (the Teleology/Guarantee/Fails triad), which a "
+            "bare docstring cannot reach; locator_only = path/name/kind/span "
+            "locator with no authored self-description. release_critical_coverage "
+            "scopes real_coverage to release-spine classes (entrypoints, "
+            "validators, source custody, organ runners, routes, builders, "
+            "receipts). Atom presence is detected by name; docstring prose is not "
+            "exported"
         ),
         "source_bodies_exported": False,
         "authority": (
@@ -1170,6 +1357,190 @@ def _python_self_description_coverage(
             "atom vocabulary change"
         ),
     }
+
+
+CODE_LENS_BATCH_BY_CRITICALITY = {
+    "public_entrypoint": "A_public_entrypoint_spine",
+    "validator": "B_validator_authority_spine",
+    "source_custody": "C_source_custody_spine",
+    "organ_runner": "D_organ_runner_spine",
+    "route_selector": "D_organ_runner_spine",
+    "builder_projection": "E_builders_projections",
+    "evidence_receipt": "E_builders_projections",
+    "test_negative_case": "F_selected_tests",
+    "owned_core": "G_owned_core_tail",
+    "script": "G_owned_core_tail",
+    "trivial_or_imported": "Z_excluded_not_owned_compliance",
+}
+CODE_LENS_OWNED_SOURCE_CLASSES = (
+    "source_module",
+    "script",
+    "package_init",
+    "python_module",
+)
+
+
+def _code_lens_authoring_queue(
+    symbol_capsule_rows: list[dict[str, Any]],
+    *,
+    include_done: bool = False,
+    preview_limit: int = 40,
+) -> dict[str, Any]:
+    """Ranked authoring work-list over Microcosm-owned symbols.
+
+    Ranks every owned symbol by release criticality then current quality tier so
+    a usage-funded campaign authors the release spine first. Imported example
+    bundles are excluded — they are source-custody surfaces, not owned
+    compliance surfaces. Returns summary counts plus a bounded preview; the full
+    ranked list is in ``queue_rows`` for a campaign driver to consume.
+    """
+    rows: list[dict[str, Any]] = []
+    by_batch: dict[str, int] = {}
+    by_criticality: dict[str, int] = {}
+    owned_total = 0
+    owned_real = 0
+    for row in symbol_capsule_rows:
+        source_class = str(row.get("source_class") or "python_module")
+        path = str(row.get("path") or "")
+        if source_class not in CODE_LENS_OWNED_SOURCE_CLASSES:
+            continue
+        if _is_imported_source_bundle(path):
+            continue
+        owned_total += 1
+        tier = str(row.get("quality_tier") or QUALITY_TIER_LOCATOR_ONLY)
+        is_real = _quality_tier_is_real_coverage(tier)
+        if is_real:
+            owned_real += 1
+            if not include_done:
+                continue
+        cls, rank = _code_lens_criticality(
+            path,
+            str(row.get("symbol_name") or ""),
+            source_class,
+        )
+        batch = CODE_LENS_BATCH_BY_CRITICALITY.get(cls, "G_owned_core_tail")
+        by_batch[batch] = by_batch.get(batch, 0) + 1
+        by_criticality[cls] = by_criticality.get(cls, 0) + 1
+        # tier_gap: distance below the real-coverage floor (bigger = needier).
+        tier_index = (
+            SELF_DESCRIPTION_QUALITY_TIERS.index(tier)
+            if tier in SELF_DESCRIPTION_QUALITY_TIERS
+            else 0
+        )
+        floor_index = SELF_DESCRIPTION_QUALITY_TIERS.index(
+            SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER
+        )
+        rows.append(
+            {
+                "symbol_id": row.get("symbol_id"),
+                "path": row.get("path"),
+                "symbol_name": row.get("symbol_name"),
+                "symbol_kind": row.get("symbol_kind"),
+                "source_class": source_class,
+                "criticality_class": cls,
+                "criticality_rank": rank,
+                "current_quality_tier": tier,
+                "is_real_coverage": is_real,
+                "tier_gap": max(0, floor_index - tier_index),
+                "suggested_batch": batch,
+                **_source_body_boundary_row(),
+            }
+        )
+    rows.sort(
+        key=lambda r: (
+            r["criticality_rank"],
+            -r["tier_gap"],
+            str(r["path"]),
+            str(r["symbol_name"]),
+        )
+    )
+    owned_needing = len(rows) if not include_done else sum(
+        1 for r in rows if not r["is_real_coverage"]
+    )
+    return {
+        "schema_version": "microcosm_code_lens_authoring_queue_v1",
+        "standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
+        "owned_symbol_total": owned_total,
+        "owned_real_coverage": owned_real,
+        "owned_needing_authoring": owned_needing,
+        "owned_real_coverage_ratio": (
+            round(owned_real / owned_total, 4) if owned_total else 0.0
+        ),
+        "by_batch_counts": dict(sorted(by_batch.items())),
+        "by_criticality_counts": dict(sorted(by_criticality.items())),
+        "batch_order": sorted(set(CODE_LENS_BATCH_BY_CRITICALITY.values())),
+        "queue_preview_limit": preview_limit,
+        "queue_preview": rows[:preview_limit],
+        "omitted_queue_row_count": max(0, len(rows) - preview_limit),
+        "queue_rows": rows,
+        "metric_meaning": (
+            "ranked owned symbols below the real-coverage floor, most release-"
+            "critical first; a usage-funded authoring campaign consumes this top-"
+            "down. Imported example bundles are excluded as custody surfaces"
+        ),
+        "source_bodies_exported": False,
+        "authority": (
+            "generated_project_local_authoring_queue_not_release_authority"
+        ),
+        "reentry_condition": (
+            "rerun after authoring atoms or after the quality-tier ladder changes"
+        ),
+    }
+
+
+def _authoring_queue_card(queue: dict[str, Any]) -> dict[str, Any]:
+    """Lean card view of the authoring queue: summary counts only, no rows.
+
+    Keeps the CLI card under its byte budget; the full ``queue_rows`` and
+    preview stay in the ``--full`` lens payload for a campaign driver that calls
+    ``python_lens`` directly.
+    """
+    if not isinstance(queue, dict) or not queue:
+        return {}
+    keep = (
+        "schema_version",
+        "owned_symbol_total",
+        "owned_real_coverage",
+        "owned_needing_authoring",
+        "owned_real_coverage_ratio",
+        "by_batch_counts",
+    )
+    card = {key: queue[key] for key in keep if key in queue}
+    card["queue_rows_omitted"] = len(queue.get("queue_rows", []) or [])
+    card["full_queue_route"] = "python-lens --full <project> ['authoring_queue']"
+    return card
+
+
+def _self_description_coverage_card(coverage: dict[str, Any]) -> dict[str, Any]:
+    """Lean card view of coverage: scalars + quality bands, no static vocab lists.
+
+    The full atom histogram, source-class breakdown, vocabulary, and ladder stay
+    in the ``--full`` lens; the card keeps the release-relevant scalars.
+    """
+    if not isinstance(coverage, dict) or not coverage:
+        return {}
+    keep = (
+        "schema_version",
+        "scan_deferred",
+        "coverage_band",
+        "total_symbol_capsules",
+        "authored_symbol_capsules",
+        "locator_only_symbol_capsules",
+        "authored_ratio",
+        "real_coverage_symbol_capsules",
+        "real_coverage_ratio",
+        "quality_band_counts",
+        "source_bodies_exported",
+    )
+    card = {key: coverage[key] for key in keep if key in coverage}
+    critical = coverage.get("release_critical_coverage")
+    if isinstance(critical, dict):
+        card["release_critical_coverage"] = {
+            "critical_symbols": critical.get("critical_symbols", 0),
+            "real_coverage_symbols": critical.get("real_coverage_symbols", 0),
+            "ratio": critical.get("ratio", 0.0),
+        }
+    return card
 
 
 def _python_route_probe_tasks(route_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1926,6 +2297,7 @@ def python_lens(
         len(path_rows),
         deferred=first_screen_summary,
     )
+    authoring_queue = _code_lens_authoring_queue(symbol_capsule_rows)
     navigation_assay = {
         "schema_version": "microcosm_python_navigation_assay_v1",
         "assay_id": "std_python_microcosm_navigation_assay",
@@ -2124,15 +2496,19 @@ def python_lens(
         "symbol_capsule_count": len(symbol_capsule_rows),
         "graph_edge_count": len(import_edges),
         "self_description_coverage": self_description_coverage,
+        "authoring_queue": authoring_queue,
         "self_description_contract": {
-            "schema_version": "microcosm_python_self_description_contract_v0",
+            "schema_version": "microcosm_python_self_description_contract_v1",
             "summary": (
-                "Every Python symbol capsule is classified as authored "
-                "(docstring present) or locator_only (path/name/kind/span only). "
-                "Authored capsules expose which std_python contract atoms their "
-                "docstring names. This contract makes the lens honest about its "
-                "own self-description coverage; it does not export source bodies "
-                "or assert docstring quality."
+                "Every Python symbol capsule is classified by self_description_band "
+                "(authored | locator_only) and an un-gameable quality_tier "
+                "(locator_only < authored_bare < authored_minimal < "
+                "authored_contract < authored_routing). Authored capsules expose "
+                "which std_python contract atoms their docstring names. The "
+                "authoring_queue ranks owned symbols below the real-coverage floor "
+                "by release criticality so a usage-funded campaign authors the "
+                "spine first. No source bodies are exported and docstring quality "
+                "beyond atom presence is not asserted."
             ),
             "donor_standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
             "contract_atom_vocabulary": list(STD_PYTHON_CONTRACT_ATOMS),
@@ -2140,11 +2516,15 @@ def python_lens(
                 SELF_DESCRIPTION_BAND_AUTHORED,
                 SELF_DESCRIPTION_BAND_LOCATOR_ONLY,
             ],
+            "quality_tier_ladder": list(SELF_DESCRIPTION_QUALITY_TIERS),
+            "real_coverage_floor_tier": SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER,
+            "criticality_classes": list(CODE_LENS_CRITICALITY_CLASSES),
             "source_classes_tracked": True,
             "promotion_residual": (
                 "standalone std_microcosm_code_lens.json + TypeScript/JavaScript "
                 "language adapters + organ-scoped organ-code-lens route + authored "
-                "prose-atom export policy remain captured WorkItems"
+                "prose-atom export policy + usage-funded authoring campaign remain "
+                "captured WorkItems"
             ),
             "authority": (
                 "inline_code_lens_self_description_contract_not_release_or_"
@@ -2280,8 +2660,17 @@ def python_lens_card(
         "source_span_count": lens.get("source_span_count", 0),
         "symbol_capsule_count": lens.get("symbol_capsule_count", 0),
         "graph_edge_count": lens.get("graph_edge_count", 0),
-        "self_description_coverage": lens.get("self_description_coverage", {}),
-        "self_description_contract": lens.get("self_description_contract", {}),
+        "self_description_coverage": _self_description_coverage_card(
+            lens.get("self_description_coverage", {})
+        ),
+        "authoring_queue": _authoring_queue_card(lens.get("authoring_queue", {})),
+        "self_description_contract_ref": {
+            "schema_version": lens.get("self_description_contract", {}).get(
+                "schema_version"
+            ),
+            "full_lens_command": "microcosm python-lens --full <project>",
+            "note": "full self_description_contract is in the --full lens payload",
+        },
         "readiness_checks": checks,
         "passing_check_count": lens.get("passing_check_count", 0),
         "missing_check_count": lens.get("missing_check_count", 0),
