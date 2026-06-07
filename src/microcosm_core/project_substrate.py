@@ -105,6 +105,30 @@ STD_PYTHON_NAVIGATION_LADDER = [
     "graph_context",
     "source_span",
 ]
+# Controlled docstring-atom vocabulary mirrored from macro
+# codex/standards/std_python.py::navigation_contract (contract_atoms +
+# optional_contract_atoms). These are detected by NAME only; their authored
+# prose is never exported, so source_bodies_exported stays False.
+STD_PYTHON_CONTRACT_ATOMS = (
+    "Teleology",
+    "Mechanism",
+    "Guarantee",
+    "Forbid",
+    "Fails",
+    "Warns",
+    "Reads",
+    "Writes",
+    "Locks",
+    "Orders",
+    "Schema",
+    "Couples",
+    "Non-goal",
+    "When-needed",
+    "Escalates-to",
+    "Navigation-group",
+)
+SELF_DESCRIPTION_BAND_AUTHORED = "authored"
+SELF_DESCRIPTION_BAND_LOCATOR_ONLY = "locator_only"
 PROBE_DISPOSITION_OUTCOMES = [
     "file_local_defect",
     "standard_amendment_candidate",
@@ -908,6 +932,48 @@ def _python_symbol_kind(node: ast.AST) -> str:
     return "function"
 
 
+def _detect_docstring_atoms(docstring: str | None) -> list[str]:
+    """Return canonical std_python contract-atom names present in a docstring.
+
+    Detects atom *keys* only (``Teleology:``, ``Guarantee:``, ...) by scanning
+    line starts; the authored prose after the colon is never captured or
+    returned, so this stays metadata-about-source, not a source-body export.
+    """
+    if not docstring:
+        return []
+    present: list[str] = []
+    lines = docstring.splitlines()
+    for atom in STD_PYTHON_CONTRACT_ATOMS:
+        marker = f"{atom}:"
+        for raw in lines:
+            stripped = raw.strip().lstrip("-*").strip()
+            if stripped.startswith(marker):
+                present.append(atom)
+                break
+    return present
+
+
+def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
+    """Presence-only authored-atom metadata for one symbol capsule.
+
+    Classifies the symbol's self-description band and which contract atoms its
+    docstring names, without exporting the docstring body.
+    """
+    docstring = ast.get_docstring(node)
+    has_docstring = docstring is not None
+    atoms = _detect_docstring_atoms(docstring)
+    return {
+        "has_docstring": has_docstring,
+        "self_description_band": (
+            SELF_DESCRIPTION_BAND_AUTHORED
+            if has_docstring
+            else SELF_DESCRIPTION_BAND_LOCATOR_ONLY
+        ),
+        "authored_contract_atoms": atoms,
+        "authored_atom_count": len(atoms),
+    }
+
+
 def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
     line_count = max(1, len(text.splitlines()))
     module_span = {
@@ -940,6 +1006,7 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
 
     source_span_rows = [module_span]
     symbol_capsule_rows: list[dict[str, Any]] = []
+    source_class = _python_lens_role({"path": rel})
 
     def visit_scope(node: ast.AST, parents: list[str]) -> None:
         body = getattr(node, "body", [])
@@ -969,8 +1036,10 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
                         "path": rel,
                         "symbol_name": qualname,
                         "symbol_kind": symbol_kind,
+                        "source_class": source_class,
                         "source_span_ref": span_id,
                         "depth_band": "symbol_capsule",
+                        **_symbol_self_description(child),
                         **_source_body_boundary_row(),
                     }
                 )
@@ -1011,6 +1080,95 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
         "symbol_capsule_rows": symbol_capsule_rows,
         "import_edges": import_edges[:48],
         "parse_error": None,
+    }
+
+
+def _python_self_description_coverage(
+    symbol_capsule_rows: list[dict[str, Any]],
+    module_docstring_refs: list[str],
+    module_count: int,
+    deferred: bool = False,
+) -> dict[str, Any]:
+    """Honest authored-vs-locator coverage over the symbol capsule graph.
+
+    Turns a flat count of capsules ("35k symbol_capsule rows") into the
+    release-relevant split: how many capsules are authored (carry a docstring),
+    how many are locator-only, which contract atoms are actually used, and how
+    that breaks down by source class. Presence-derived only; no source bodies.
+
+    ``deferred`` is True in compact/first-screen scan mode, where the full
+    symbol walk is skipped; the band reports the deferral honestly instead of
+    claiming ``no_symbols`` over an unscanned tree.
+    """
+    total = len(symbol_capsule_rows)
+    authored = 0
+    atom_histogram: dict[str, int] = {}
+    by_source_class: dict[str, dict[str, int]] = {}
+    for row in symbol_capsule_rows:
+        band = row.get("self_description_band")
+        is_authored = band == SELF_DESCRIPTION_BAND_AUTHORED
+        if is_authored:
+            authored += 1
+        for atom in row.get("authored_contract_atoms", []) or []:
+            atom_histogram[atom] = atom_histogram.get(atom, 0) + 1
+        source_class = str(row.get("source_class") or "python_module")
+        bucket = by_source_class.setdefault(
+            source_class,
+            {"total": 0, "authored": 0, "locator_only": 0},
+        )
+        bucket["total"] += 1
+        if is_authored:
+            bucket["authored"] += 1
+        else:
+            bucket["locator_only"] += 1
+    locator_only = total - authored
+    authored_ratio = round(authored / total, 4) if total else 0.0
+    if deferred:
+        coverage_band = "deferred_first_screen_summary"
+    elif total == 0:
+        coverage_band = "no_symbols"
+    elif authored_ratio >= 0.75:
+        coverage_band = "authored_rich"
+    elif authored_ratio >= 0.25:
+        coverage_band = "mixed_self_description"
+    else:
+        coverage_band = "indexed_not_self_describing"
+    module_with_docstring = len(module_docstring_refs)
+    module_ratio = (
+        round(module_with_docstring / module_count, 4) if module_count else 0.0
+    )
+    return {
+        "schema_version": "microcosm_python_self_description_coverage_v1",
+        "standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
+        "scan_deferred": deferred,
+        "total_symbol_capsules": total,
+        "authored_symbol_capsules": authored,
+        "locator_only_symbol_capsules": locator_only,
+        "authored_ratio": authored_ratio,
+        "coverage_band": coverage_band,
+        "authored_atom_histogram": dict(sorted(atom_histogram.items())),
+        "contract_atom_vocabulary": list(STD_PYTHON_CONTRACT_ATOMS),
+        "by_source_class": dict(sorted(by_source_class.items())),
+        "module_docstring_coverage": {
+            "modules_with_docstring": module_with_docstring,
+            "total_modules": module_count,
+            "ratio": module_ratio,
+        },
+        "metric_meaning": (
+            "authored = symbol carries a docstring; locator_only = capsule is a "
+            "path/name/kind/span locator with no authored self-description. Atom "
+            "presence is detected by name from the std_python contract vocabulary; "
+            "docstring prose is not exported"
+        ),
+        "source_bodies_exported": False,
+        "authority": (
+            "generated_project_local_self_description_coverage_not_release_"
+            "or_static_analysis_or_docstring_quality_authority"
+        ),
+        "reentry_condition": (
+            "rerun after Python docstrings, symbols, or the std_python contract "
+            "atom vocabulary change"
+        ),
     }
 
 
@@ -1762,6 +1920,12 @@ def python_lens(
         "graph_context": len(import_edges),
         "source_span": len(source_span_rows),
     }
+    self_description_coverage = _python_self_description_coverage(
+        symbol_capsule_rows,
+        module_docstring_refs,
+        len(path_rows),
+        deferred=first_screen_summary,
+    )
     navigation_assay = {
         "schema_version": "microcosm_python_navigation_assay_v1",
         "assay_id": "std_python_microcosm_navigation_assay",
@@ -1775,6 +1939,7 @@ def python_lens(
             "source_span",
         ],
         "depth_band_coverage": depth_band_coverage,
+        "self_description_coverage": self_description_coverage,
         "route_probe_tasks": route_probe_tasks,
         "probe_dispositions": probe_dispositions,
         "probe_disposition_counts": disposition_counts,
@@ -1849,6 +2014,7 @@ def python_lens(
             "endpoint": python_navigation_route["endpoint"],
             "canonical_depth_ladder": STD_PYTHON_NAVIGATION_LADDER,
             "depth_band_coverage": depth_band_coverage,
+            "self_description_coverage": self_description_coverage,
             "file_card_count": len(path_rows),
             "symbol_capsule_count": len(symbol_capsule_rows),
             "graph_edge_count": len(import_edges),
@@ -1957,6 +2123,34 @@ def python_lens(
         "source_span_count": len(source_span_rows),
         "symbol_capsule_count": len(symbol_capsule_rows),
         "graph_edge_count": len(import_edges),
+        "self_description_coverage": self_description_coverage,
+        "self_description_contract": {
+            "schema_version": "microcosm_python_self_description_contract_v0",
+            "summary": (
+                "Every Python symbol capsule is classified as authored "
+                "(docstring present) or locator_only (path/name/kind/span only). "
+                "Authored capsules expose which std_python contract atoms their "
+                "docstring names. This contract makes the lens honest about its "
+                "own self-description coverage; it does not export source bodies "
+                "or assert docstring quality."
+            ),
+            "donor_standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
+            "contract_atom_vocabulary": list(STD_PYTHON_CONTRACT_ATOMS),
+            "self_description_bands": [
+                SELF_DESCRIPTION_BAND_AUTHORED,
+                SELF_DESCRIPTION_BAND_LOCATOR_ONLY,
+            ],
+            "source_classes_tracked": True,
+            "promotion_residual": (
+                "standalone std_microcosm_code_lens.json + TypeScript/JavaScript "
+                "language adapters + organ-scoped organ-code-lens route + authored "
+                "prose-atom export policy remain captured WorkItems"
+            ),
+            "authority": (
+                "inline_code_lens_self_description_contract_not_release_or_"
+                "static_analysis_authority"
+            ),
+        },
         "readiness_checks": checks,
         "passing_check_count": sum(1 for row in checks if row["status"] == PASS),
         "missing_check_count": sum(1 for row in checks if row["status"] != PASS),
@@ -2086,6 +2280,8 @@ def python_lens_card(
         "source_span_count": lens.get("source_span_count", 0),
         "symbol_capsule_count": lens.get("symbol_capsule_count", 0),
         "graph_edge_count": lens.get("graph_edge_count", 0),
+        "self_description_coverage": lens.get("self_description_coverage", {}),
+        "self_description_contract": lens.get("self_description_contract", {}),
         "readiness_checks": checks,
         "passing_check_count": lens.get("passing_check_count", 0),
         "missing_check_count": lens.get("missing_check_count", 0),
@@ -2097,6 +2293,9 @@ def python_lens_card(
                 "canonical_depth_ladder", []
             ),
             "depth_band_coverage": navigation_assay.get("depth_band_coverage", {}),
+            "self_description_coverage": navigation_assay.get(
+                "self_description_coverage", {}
+            ),
             "probe_disposition_counts": navigation_assay.get(
                 "probe_disposition_counts", {}
             ),
