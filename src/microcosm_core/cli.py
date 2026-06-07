@@ -3192,6 +3192,7 @@ def main(argv: list[str] | None = None) -> int:
     cold_reader_parser = _add_bundle_parser(subparsers, "cold-reader-route-map")
     cold_reader_parser.add_argument("action", choices=["run", "run-route-map-bundle"])
     _add_input_out(cold_reader_parser)
+    cold_reader_parser.add_argument("--card", action="store_true")
 
     navigation_parser = _add_bundle_parser(
         subparsers, "navigation-hologram-route-plane"
@@ -4082,9 +4083,10 @@ def main(argv: list[str] | None = None) -> int:
             standards_meta_args.extend(["--acceptance-out", args.acceptance_out])
         return standards_meta_diagnostics.main(standards_meta_args)
     if args.command == "cold-reader-route-map":
-        return cold_reader_route_map.main(
-            [args.action, "--input", args.input, "--out", args.out]
-        )
+        cold_reader_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.card:
+            cold_reader_args.append("--card")
+        return cold_reader_route_map.main(cold_reader_args)
     if args.command == "navigation-hologram-route-plane":
         return navigation_hologram_route_plane.main(
             [args.action, "--input", args.input, "--out", args.out]

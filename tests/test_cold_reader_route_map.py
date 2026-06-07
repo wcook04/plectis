@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import microcosm_core.organs.cold_reader_route_map as cold_reader_route_map
+from microcosm_core import cli
 from microcosm_core.organs.cold_reader_route_map import (
     BUNDLE_RESULT_NAME,
     CARD_SCHEMA_VERSION,
@@ -595,3 +596,31 @@ def test_cold_reader_bundle_card_reuses_fresh_receipt(
     assert cached_card["freshness_basis"]["missing_path_count"] == 0
     assert cached_card["route_map"]["front_door_command_count"] == 3
     assert len(cached_stdout.encode("utf-8")) < receipt_path.stat().st_size
+
+
+def test_cold_reader_bundle_card_is_available_from_top_level_cli(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+
+    assert (
+        cli.main(
+            [
+                "cold-reader-route-map",
+                "run-route-map-bundle",
+                "--input",
+                str(BUNDLE_INPUT),
+                "--out",
+                str(out_dir),
+                "--card",
+            ]
+        )
+        == 0
+    )
+    card = json.loads(capsys.readouterr().out)
+
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["route_map"]["route_count"] == 10
+    assert card["output_economy"]["source_bodies_exported"] is False

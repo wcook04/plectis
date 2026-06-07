@@ -522,7 +522,7 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
     assert interesting_parts["first_command"] == (
         "microcosm cold-reader-route-map run-route-map-bundle --input "
         "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle "
-        "--out receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+        "--out receipts/runtime_shell/demo_project/organs/cold_reader_route_map --card"
     )
     assert (
         "trading advice" in interesting_parts["authority_boundary"]
