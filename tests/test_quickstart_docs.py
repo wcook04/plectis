@@ -56,6 +56,15 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
     assert "authority: pass" in quickstart
     assert "workingness: clear" in quickstart
     assert "served status: pass" in quickstart
+    assert "make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder" in (
+        quickstart
+    )
+    assert (
+        "make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder"
+        in quickstart
+    )
+    assert "blocked/non-zero command evidence" in quickstart
+    assert "not a release, standards, provider-call" in quickstart
     assert quickstart.index("- `/workingness-card`") < quickstart.index(
         "Open `/workingness` only"
     )

@@ -153,6 +153,18 @@ package check:
 make package-smoke
 ```
 
+For a reviewer-grade replay packet that preserves command output digests,
+authority ceilings, private-path scans, and blocked/non-zero command evidence
+without rerunning the substrate during verification, run:
+
+```bash
+make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder
+make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder
+```
+
+This is an evaluation artifact, not a release, standards, provider-call,
+proof-correctness, or production-readiness authority.
+
 For a cold clone, treat `make ci` as the public green floor. `make validate`
 adds the doctrine-lattice drift check and is the maintainer pre-commit gate
 when you are changing doctrine-lattice projection inputs or generated entry
