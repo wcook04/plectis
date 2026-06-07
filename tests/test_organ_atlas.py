@@ -60,6 +60,17 @@ def test_atlas_model_is_complete_and_non_overclaiming() -> None:
     assert model["blocking_reasons"] == []
 
 
+def test_first_commands_are_copyable_from_package_root() -> None:
+    model = load_model(MICROCOSM_ROOT)
+    for family in model["families"]:
+        for card in family["cards"]:
+            first_command = card["first_command"]
+            assert " microcosm-substrate/" not in first_command, (
+                "first commands are shown to readers already inside the "
+                f"package root: {card['organ_id']} -> {first_command}"
+            )
+
+
 def test_generated_files_are_in_sync_with_substrate() -> None:
     """Generated atlas files must match `--write` output exactly."""
     result = build(MICROCOSM_ROOT, write=False)

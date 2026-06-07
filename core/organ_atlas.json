@@ -156,7 +156,7 @@
       "claim_ceiling_restated": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
       "evidence_class": "algorithmic_projection",
       "family": "formal_math_and_proof",
-      "first_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input microcosm-substrate/fixtures/first_wave/proof_diagnostic_evidence_spine/input --out microcosm-substrate/receipts/first_wave/proof_diagnostic_evidence_spine",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
       "human_gloss": "An evidence checkpoint that sits in front of formal-proof work. It reads the diagnostic records left by earlier proof-pipeline steps and writes a \"diagnostic board\" listing which checks were accepted, which were rejected, and why. The board shows exactly what evidence was kept, and refuses to let raw model output, a stale record, or a merely-passing check get inflated into a claim that the math is actually correct. It only organizes and judges existing records; it never runs a proof checker itself.",
       "organ_id": "proof_diagnostic_evidence_spine",
       "paper_module_ref": "core/paper_module_capsules.json#paper_module.proof_diagnostic_evidence_spine",
