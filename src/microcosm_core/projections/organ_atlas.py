@@ -1229,6 +1229,12 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
         "`source_relation_summary` handles for every relevant organ. Use "
         "`microcosm organ-topology` for dynamic file and shard edge drilldown."
     )
+    out.append(
+        "If the installed `microcosm` console is not on `PATH` in a source-only "
+        "checkout, run the same command through "
+        "`PYTHONPATH=src python3 -m microcosm_core ...`, or install it with the "
+        "Quickstart command first."
+    )
     out.append("")
     out.append("## Agent Task Route Table")
     out.append("")
