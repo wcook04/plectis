@@ -52,6 +52,15 @@ def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> 
     assert payload["selected_viewer_route"]["source_checkout_selection_command"] == (
         SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND
     )
+    assert payload["selected_viewer_route"]["routes"]["type_a_agent"][
+        "source_checkout_first_safe_action"
+    ] == "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+    assert payload["selected_viewer_route"]["routes"]["type_a_agent"][
+        "source_checkout_next_action"
+    ] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root ."
+    )
 
     first_screen = payload["first_screen_type_a_route"]
     assert first_screen["reader_id"] == "type_a_agent"
@@ -140,11 +149,25 @@ def test_agent_entry_card_dogfoods_type_a_and_human_viewer_routes() -> None:
     assert router["routes"]["type_a_agent"]["first_safe_action"] == (
         "microcosm first-screen --card <project>"
     )
+    assert router["routes"]["type_a_agent"]["source_checkout_first_safe_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+    )
+    assert router["routes"]["type_a_agent"]["source_checkout_next_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root ."
+    )
     assert router["routes"]["human"]["first_safe_action"] == "microcosm hello <project>"
 
     type_a = viewer_modes["type_a_agent"]
     assert type_a["first_safe_action"] == "microcosm first-screen --card <project>"
     assert type_a["next_action"] == "microcosm organ-surface-contract --card --root ."
+    assert type_a["source_checkout_first_safe_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+    )
+    assert type_a["source_checkout_next_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root ."
+    )
     assert "source mutation" in type_a["authority_boundary"]
     assert type_a["evidence_refs"]
     assert "re-entry" in type_a["reentry_condition"].lower()

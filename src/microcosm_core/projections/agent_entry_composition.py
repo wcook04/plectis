@@ -31,6 +31,13 @@ SOURCE_CHECKOUT_SELECT_VIEWER_COMMAND = (
     "PYTHONPATH=src python3 -m microcosm_core agent-entry-composition "
     "--root . --task agent-entry --viewer {type_a_agent|human} --card"
 )
+SOURCE_CHECKOUT_FIRST_SCREEN_CARD_COMMAND = (
+    "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+)
+SOURCE_CHECKOUT_ORGAN_SURFACE_CONTRACT_COMMAND = (
+    "PYTHONPATH=src python3 -m microcosm_core "
+    "organ-surface-contract --card --root ."
+)
 ENTRY_PACKET_REF = "atlas/entry_packet.json"
 TASK_ROUTES_REF = "atlas/agent_task_routes.json"
 ORGAN_GLANCE_REF = "atlas/agent_task_routes.json::organ_glance_ladder"
@@ -3434,6 +3441,8 @@ def _viewer_mode(
     drilldown_if_needed: list[str],
     source_refs: list[str],
     task_class: str,
+    source_checkout_first_action: str | None = None,
+    source_checkout_next_action: str | None = None,
 ) -> dict[str, Any]:
     return {
         "viewer": viewer_id,
@@ -3443,6 +3452,8 @@ def _viewer_mode(
         "viewer_question": viewer_question,
         "first_safe_action": first_action,
         "next_action": next_action,
+        "source_checkout_first_safe_action": source_checkout_first_action,
+        "source_checkout_next_action": source_checkout_next_action,
         "authority_boundary": authority_boundary,
         "evidence_refs": evidence_refs,
         "stop_condition": stop_condition,
@@ -3524,6 +3535,10 @@ def _viewer_route_summary(mode: dict[str, Any]) -> dict[str, Any]:
         "branch_label": mode.get("branch_label"),
         "first_safe_action": mode.get("first_safe_action"),
         "next_action": mode.get("next_action"),
+        "source_checkout_first_safe_action": mode.get(
+            "source_checkout_first_safe_action"
+        ),
+        "source_checkout_next_action": mode.get("source_checkout_next_action"),
         "authority_boundary": mode.get("authority_boundary"),
         "evidence_refs": mode.get("evidence_refs"),
         "stop_condition": mode.get("stop_condition"),
@@ -3571,6 +3586,12 @@ def _selected_viewer_entry(selected_viewer_route: dict[str, Any]) -> dict[str, A
         "first_safe_action": selected_viewer_route.get("first_safe_action"),
         "first_safe_actions": selected_viewer_route.get("first_safe_actions"),
         "next_action": selected_viewer_route.get("next_action"),
+        "source_checkout_first_safe_action": selected_viewer_route.get(
+            "source_checkout_first_safe_action"
+        ),
+        "source_checkout_next_action": selected_viewer_route.get(
+            "source_checkout_next_action"
+        ),
         "authority_boundary": selected_viewer_route.get("authority_boundary"),
         "evidence_refs": selected_viewer_route.get("evidence_refs"),
         "stop_condition": selected_viewer_route.get("stop_condition"),
@@ -3596,6 +3617,15 @@ def _build_read_run_order(
         "kind": "selected_viewer_route",
         "run": selected_viewer_route.get("first_safe_action")
         or selected_viewer_route.get("first_safe_actions"),
+        "source_checkout_run": selected_viewer_route.get(
+            "source_checkout_first_safe_action"
+        )
+        or {
+            viewer_id: route.get("source_checkout_first_safe_action")
+            for viewer_id, route in _as_dict(
+                selected_viewer_route.get("routes")
+            ).items()
+        },
         "read": selected_viewer_route.get("source_refs")
         or {
             viewer_id: route.get("source_refs")
@@ -3726,6 +3756,8 @@ def _build_viewer_modes(
             or task_route_card.get("first_command")
             or ""
         ),
+        source_checkout_first_action=SOURCE_CHECKOUT_FIRST_SCREEN_CARD_COMMAND,
+        source_checkout_next_action=SOURCE_CHECKOUT_ORGAN_SURFACE_CONTRACT_COMMAND,
         authority_boundary=(
             f"{first_screen_route.get('authority_ceiling')}. "
             f"{task_route_card.get('authority_boundary')}"
@@ -3776,6 +3808,8 @@ def _build_viewer_modes(
         ),
         first_action=human_first_action,
         next_action=human_next_action,
+        source_checkout_first_action=None,
+        source_checkout_next_action=None,
         authority_boundary=(
             "Human entry is interpretive/read authority only; it does not authorize "
             "release, proof correctness, source mutation, provider calls, hosted "
@@ -4286,6 +4320,12 @@ def build_agent_entry_composition(
             row["viewer"]: {
                 "first_safe_action": row.get("first_safe_action"),
                 "next_action": row.get("next_action"),
+                "source_checkout_first_safe_action": row.get(
+                    "source_checkout_first_safe_action"
+                ),
+                "source_checkout_next_action": row.get(
+                    "source_checkout_next_action"
+                ),
                 "authority_boundary": row.get("authority_boundary"),
                 "stop_condition": row.get("stop_condition"),
                 "reentry_condition": row.get("reentry_condition"),
@@ -4373,6 +4413,29 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
     organ_route = _as_dict(payload.get("organ_discoverability_matrix_route"))
     omission_receipt = _as_dict(payload.get("omission_receipt"))
     validation = _as_dict(payload.get("validation"))
+    router = _as_dict(payload.get("viewer_first_action_router"))
+    router_routes = _as_dict(router.get("routes"))
+    compact_router = {
+        "schema": router.get("schema"),
+        "viewer_families": router.get("viewer_families"),
+        "select_viewer_command": router.get("select_viewer_command"),
+        "source_checkout_select_viewer_command": router.get(
+            "source_checkout_select_viewer_command"
+        ),
+        "routes": {
+            viewer_id: {
+                "first_safe_action": _as_dict(route).get("first_safe_action"),
+                "next_action": _as_dict(route).get("next_action"),
+                "source_checkout_first_safe_action": _as_dict(route).get(
+                    "source_checkout_first_safe_action"
+                ),
+                "source_checkout_next_action": _as_dict(route).get(
+                    "source_checkout_next_action"
+                ),
+            }
+            for viewer_id, route in router_routes.items()
+        },
+    }
     macro_floor = [
         {
             "organ_id": row.get("organ_id"),
@@ -4398,11 +4461,17 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
             "branch_label": selected_viewer_route.get("branch_label"),
             "first_safe_action": selected_viewer_route.get("first_safe_action"),
             "next_action": selected_viewer_route.get("next_action"),
+            "source_checkout_first_safe_action": selected_viewer_route.get(
+                "source_checkout_first_safe_action"
+            ),
+            "source_checkout_next_action": selected_viewer_route.get(
+                "source_checkout_next_action"
+            ),
             "stop_condition": selected_viewer_route.get("stop_condition"),
             "authority_boundary": selected_viewer_route.get("authority_boundary"),
             "evidence_refs": selected_viewer_route.get("evidence_refs", []),
         },
-        "viewer_first_action_router": payload.get("viewer_first_action_router"),
+        "viewer_first_action_router": compact_router,
         "first_screen_type_a_route": {
             "reader_id": first_screen_route.get("reader_id"),
             "route_command": first_screen_route.get("route_command"),

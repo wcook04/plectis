@@ -416,6 +416,14 @@ def _source_checkout_commands(project_label: str) -> dict[str, str]:
             "first-screen --card",
             project_label,
         ),
+        "first_screen_full": _source_checkout_command(
+            "first-screen --full",
+            project_label,
+        ),
+        "organ_surface_contract": (
+            "PYTHONPATH=src python3 -m microcosm_core "
+            "organ-surface-contract --card --root ."
+        ),
         "agent_entry_selector": (
             "PYTHONPATH=src python3 -m microcosm_core "
             "agent-entry-composition --root . --task agent-entry "
@@ -620,6 +628,18 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     "`microcosm organ-surface-contract --card --root .`."
                 ),
                 "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"first-screen --card {project_label}`. If you need "
+                    "`doctrine_effect_frame`, run `PYTHONPATH=src python3 -m "
+                    f"microcosm_core first-screen --full {project_label}` before "
+                    "reading it; then run `PYTHONPATH=src python3 -m "
+                    "microcosm_core organ-surface-contract --card --root .`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    "organ-surface-contract --card --root .`"
+                ),
                 "success_criterion": (
                     "Can name the agent first-read path, distinguish mechanisms "
                     "from validators/projections, and identify the owner surface "
@@ -773,6 +793,18 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     "`microcosm organ-surface-contract --card --root .`."
                 ),
                 "proof_surface": "`microcosm organ-surface-contract --card --root .`",
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"first-screen --card {project_label}`. If you need "
+                    "`doctrine_effect_frame`, run `PYTHONPATH=src python3 -m "
+                    f"microcosm_core first-screen --full {project_label}` before "
+                    "reading it; then run `PYTHONPATH=src python3 -m "
+                    "microcosm_core organ-surface-contract --card --root .`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    "organ-surface-contract --card --root .`"
+                ),
                 "exit_check": (
                     "name the first-read path, mechanism status, and owner surface"
                 ),
@@ -3743,18 +3775,25 @@ def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
     for row in routes:
         if not isinstance(row, dict):
             continue
-        compact_routes.append(
-            {
-                "reader_route_id": row.get("reader_route_id"),
-                "label": row.get("label"),
-                "terminal_command": row.get("terminal_command"),
-                "text_projection_command": row.get("text_projection_command"),
-                "first_action": row.get("first_action"),
-                "proof_surface": row.get("proof_surface"),
-                "exit_check": row.get("exit_check"),
-                "not_a_claim": row.get("not_a_claim"),
-            }
-        )
+        compact_row = {
+            "reader_route_id": row.get("reader_route_id"),
+            "label": row.get("label"),
+            "terminal_command": row.get("terminal_command"),
+            "text_projection_command": row.get("text_projection_command"),
+            "first_action": row.get("first_action"),
+            "proof_surface": row.get("proof_surface"),
+            "exit_check": row.get("exit_check"),
+            "not_a_claim": row.get("not_a_claim"),
+        }
+        if row.get("source_checkout_first_action"):
+            compact_row["source_checkout_first_action"] = row.get(
+                "source_checkout_first_action"
+            )
+        if row.get("source_checkout_proof_surface"):
+            compact_row["source_checkout_proof_surface"] = row.get(
+                "source_checkout_proof_surface"
+            )
+        compact_routes.append(compact_row)
     return compact_routes
 
 
@@ -4008,6 +4047,15 @@ def _reader_branch_lines(
             f"--reader {display_reader_id}",
             1,
         )
+    source_first_action = packet.get("source_checkout_first_action")
+    source_proof = packet.get("source_checkout_proof_surface")
+    first_action_line = f"  First action: {packet['first_action']}"
+    proof_line = f"  Proof: {packet['proof_surface']}"
+    if source_first_action and source_proof:
+        first_action_line = (
+            f"{first_action_line} Source-only first action: {source_first_action}"
+        )
+        proof_line = f"{proof_line} | Source-only proof: {source_proof}"
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         (
@@ -4015,8 +4063,8 @@ def _reader_branch_lines(
             f"Text card: {text_projection_command}"
         ),
         f"  Question: {route['first_question']}",
-        f"  First action: {packet['first_action']}",
-        f"  Proof: {packet['proof_surface']}",
+        first_action_line,
+        proof_line,
         f"  Success: {packet['success_criterion']}",
     ]
 

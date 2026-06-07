@@ -140,6 +140,14 @@ def test_cli_hello_can_focus_type_a_agent_branch(
         "`microcosm organ-surface-contract --card --root .`."
     ) in output
     assert "Proof: `microcosm organ-surface-contract --card --root .`" in output
+    assert (
+        "Source-only first action: Run `PYTHONPATH=src python3 -m "
+        "microcosm_core first-screen --card .`."
+    ) in output
+    assert (
+        "Source-only proof: `PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root .`"
+    ) in output
     assert "mechanisms from validators/projections" in output
     assert "Reader branch: GitHub visitor" not in output
     assert "Reader branch: Safety/evals" not in output
@@ -253,6 +261,15 @@ def test_cli_first_screen_json_is_compact_by_default(
         "PYTHONPATH=src python3 -m microcosm_core tour --card ."
     )
     assert payload["reader_route_menu"]["source_checkout_commands"][
+        "first_screen_full"
+    ] == "PYTHONPATH=src python3 -m microcosm_core first-screen --full ."
+    assert payload["reader_route_menu"]["source_checkout_commands"][
+        "organ_surface_contract"
+    ] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root ."
+    )
+    assert payload["reader_route_menu"]["source_checkout_commands"][
         "agent_entry_selector"
     ] == (
         "PYTHONPATH=src python3 -m microcosm_core "
@@ -306,6 +323,10 @@ def test_cli_first_screen_json_is_compact_by_default(
     )
     assert route_by_id["type_a_agent"]["proof_surface"] == (
         "`microcosm organ-surface-contract --card --root .`"
+    )
+    assert route_by_id["type_a_agent"]["source_checkout_proof_surface"] == (
+        "`PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root .`"
     )
     assert "video_storyboard_packet" not in payload
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False

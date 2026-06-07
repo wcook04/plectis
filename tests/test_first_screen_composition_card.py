@@ -232,6 +232,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert menu_by_id["type_a_agent"]["proof_surface"] == (
         "`microcosm organ-surface-contract --card --root .`"
     )
+    assert menu_by_id["type_a_agent"]["source_checkout_proof_surface"] == (
+        "`PYTHONPATH=src python3 -m microcosm_core "
+        "organ-surface-contract --card --root .`"
+    )
     assert menu_by_id["type_a_agent"]["not_a_claim"] == (
         "agent_autonomy_or_source_mutation_ready"
     )
@@ -1494,6 +1498,13 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "first_screen_card": (
             "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
         ),
+        "first_screen_full": (
+            "PYTHONPATH=src python3 -m microcosm_core first-screen --full ."
+        ),
+        "organ_surface_contract": (
+            "PYTHONPATH=src python3 -m microcosm_core "
+            "organ-surface-contract --card --root ."
+        ),
         "agent_entry_selector": (
             "PYTHONPATH=src python3 -m microcosm_core "
             "agent-entry-composition --root . --task agent-entry "
@@ -1898,6 +1909,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "`microcosm organ-surface-contract --card --root .`."
             ),
             "proof": "`microcosm organ-surface-contract --card --root .`",
+            "source_proof": (
+                "`PYTHONPATH=src python3 -m microcosm_core "
+                "organ-surface-contract --card --root .`"
+            ),
             "success": "mechanisms from validators/projections",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1940,6 +1955,9 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "  Question: " in text
         assert f"  First action: {assertions['first_action']}" in text
         assert f"  Proof: {assertions['proof']}" in text
+        if "source_proof" in assertions:
+            assert "Source-only first action: Run `PYTHONPATH=src python3 -m " in text
+            assert f"Source-only proof: {assertions['source_proof']}" in text
         assert assertions["success"] in text
         assert "Authority ceiling:" in text
         assert "Public handles:" in text
