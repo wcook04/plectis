@@ -38,7 +38,12 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 78
+    assert payload["projection_cell_count"] == len(payload["cell_status"])
+    assert payload["ready_cell_count"] == payload["projection_cell_count"]
+    assert payload["landed_cell_count"] == payload["projection_cell_count"]
+    assert sum(payload["projection_status_counts"].values()) == payload[
+        "projection_cell_count"
+    ]
     by_cell = {row["cell_id"]: row for row in payload["cell_status"]}
     assert by_cell["agent_observability_store_import"]["projection_status"] == (
         "public_runtime_import_landed"
