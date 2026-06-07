@@ -247,6 +247,20 @@ def test_cli_evidence_list_rejects_negative_limit(capsys) -> None:
     assert "argument --limit: must be >= 0" in stderr
 
 
+def test_cli_evidence_list_help_explains_reviewer_drilldown(capsys) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["evidence", "list", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Lists compact evidence refs." in output
+    assert "microcosm evidence list <project> --limit 25" in output
+    assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert "bounded receipt index after behavior is visible" in output
+    assert "not a release" in output
+    assert "schema_version" in output
+
+
 def test_cli_evidence_inspect_help_explains_receipt_card_boundary(capsys) -> None:
     with pytest.raises(SystemExit) as excinfo:
         cli.main(["evidence", "inspect", "--help"])

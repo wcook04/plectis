@@ -525,6 +525,18 @@ Interpretation:
   the underlying receipt path or the owning validator/builder.
 """
 
+EVIDENCE_LIST_HELP = """Lists compact evidence refs.
+
+Reviewer path:
+  microcosm evidence list <project> --limit 25
+  microcosm evidence inspect --project <project> <evidence_ref>
+
+Interpretation:
+  The list is a bounded receipt index after behavior is visible, not a release
+  badge or proof of correctness. Use evidence_ref plus schema_version to choose
+  the next inspect card or owning validator/builder.
+"""
+
 PUBLIC_LENS_COMMAND_HELP = (
     ("workingness", "show behavior evidence and failure modes"),
     ("prediction-lens", "inspect prediction ledger behavior and receipts"),
@@ -2326,6 +2338,9 @@ def main(argv: list[str] | None = None) -> int:
     evidence_list_parser = evidence_subparsers.add_parser(
         "list",
         help="list compact evidence refs; omit project for runtime receipts",
+        description="List compact evidence refs without opening receipt bodies.",
+        epilog=EVIDENCE_LIST_HELP,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     evidence_list_parser.add_argument(
         "project",
