@@ -293,10 +293,11 @@ def test_agent_entry_card_allows_selected_public_task_route() -> None:
     assert payload["validation"]["errors"] == []
 
 
-def test_agent_entry_card_aliases_skeptical_review_to_safety_route() -> None:
+@pytest.mark.parametrize("task", ["skeptical-review", "show me AI safety"])
+def test_agent_entry_card_aliases_safety_questions_to_safety_route(task: str) -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
-        task="skeptical-review",
+        task=task,
         viewer="human",
         command="pytest",
     )

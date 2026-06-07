@@ -650,6 +650,7 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
         '"Show me formal methods" routes to formal-methods'
         in help_result.stdout
     )
+    assert '"Show\nme AI safety" routes to ai-safety' in help_result.stdout
     assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 
