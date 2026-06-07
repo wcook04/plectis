@@ -896,6 +896,8 @@ def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
         "show me proof parts",
         "show me proofs",
         "proofs",
+        "proof checking",
+        "show me proof checking",
         "proof system",
         "proof correctness",
         "does this prove correctness",
@@ -1042,6 +1044,8 @@ def test_agent_entry_card_aliases_lean_questions_to_lean_route(task: str) -> Non
         "show me theorem proving",
         "show me the theorem proving",
         "show me theorem proving parts",
+        "theorem prover",
+        "show me theorem prover",
     ],
 )
 def test_agent_entry_card_aliases_theorem_proving_questions_to_theorem_proving_route(
