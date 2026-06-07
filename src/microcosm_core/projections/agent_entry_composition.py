@@ -21,6 +21,11 @@ RECEIPT_ROUTE_ALIASES = {
     "receipts",
     "receipt",
 }
+GETTING_STARTED_CHECK_ROUTE_ALIASES = {
+    "run the checks",
+    "run-the-checks",
+    "run_the_checks",
+}
 CARD_FILENAME = "agent_entry_composition_card.json"
 RECEIPT_FILENAME = "agent_entry_composition_receipt.json"
 TYPE_A_READER_ID = "type_a_agent"
@@ -702,6 +707,8 @@ def _normalize_task_class(task: str | None) -> str:
         "show-me-cli-help",
         "show_me_cli_help",
     }:
+        return "getting-started"
+    if value in GETTING_STARTED_CHECK_ROUTE_ALIASES:
         return "getting-started"
     if value in {
         "architecture",
@@ -3338,7 +3345,13 @@ def _task_alias_resolution(
         "that route carries the cold route-map, receipt refs, evidence classes, "
         "and authority ceilings."
         if requested_key in RECEIPT_ROUTE_ALIASES
-        else "The requested task is accepted as an alias for the selected route."
+        else (
+            "Run-the-checks questions use the getting-started route because "
+            "that route carries the cold-clone verification floor and "
+            "copyable check commands."
+            if requested_key in GETTING_STARTED_CHECK_ROUTE_ALIASES
+            else "The requested task is accepted as an alias for the selected route."
+        )
     )
     return {
         "status": "alias_resolved",

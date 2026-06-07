@@ -656,6 +656,7 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
         "can I run this",
         "can I run it",
         "make package-smoke",
+        "run the checks",
     ],
 )
 def test_agent_entry_card_aliases_command_help_questions_to_getting_started_route(
@@ -679,6 +680,32 @@ def test_agent_entry_card_aliases_command_help_questions_to_getting_started_rout
         "first_command"
     ]
     assert card["task_route"]["selected_task_class"] == "getting-started"
+    assert (
+        "agent-entry-composition --task getting-started"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+def test_agent_entry_card_keeps_run_the_checks_alias_traceable() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="run the checks",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == "run the checks"
+    assert payload["task_route"]["selected_task_class"] == "getting-started"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "cold-clone verification floor"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
     assert (
         "agent-entry-composition --task getting-started"
         in card["drilldowns"]["full_json"]
@@ -1157,7 +1184,6 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "replay packet",
         "command transcript",
         "output digests",
-        "run the checks",
         "run the tests",
         "run check",
         "run preflight",
