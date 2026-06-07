@@ -4,10 +4,21 @@ import re
 from pathlib import Path
 import tomllib
 
+import pytest
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 CI_WORKFLOW = MICROCOSM_ROOT / ".github/workflows/ci.yml"
 PYPROJECT = MICROCOSM_ROOT / "pyproject.toml"
+SHA_PIN_RE = re.compile(r"^[a-f0-9]{40}$", re.I)
+PUBLIC_ACTION_TAG_RE = re.compile(
+    r"^\s*#\s*Public action tag:\s*"
+    r"(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@(?P<tag>[^\s.]+)"
+)
+GITHUB_ACTION_USES_RE = re.compile(
+    r"^\s*uses:\s*"
+    r"(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@(?P<ref>[^\s#]+)"
+)
 
 
 def _setuptools_floor(build_requires: list[str]) -> tuple[int, ...]:
@@ -28,6 +39,103 @@ def _ci_python_versions(workflow: str) -> tuple[str, ...]:
     )
 
 
+def _github_action_rows(workflow: str) -> tuple[dict[str, str | bool | int], ...]:
+    lines = workflow.splitlines()
+    rows: list[dict[str, str | bool | int]] = []
+    for index, line in enumerate(lines):
+        uses_match = GITHUB_ACTION_USES_RE.match(line)
+        if not uses_match:
+            continue
+
+        public_tag = ""
+        public_repo = ""
+        comment_line = 0
+        for prior_index in range(index - 1, -1, -1):
+            prior = lines[prior_index].strip()
+            if not prior:
+                continue
+            tag_match = PUBLIC_ACTION_TAG_RE.match(prior)
+            if tag_match:
+                public_repo = tag_match.group("repo")
+                public_tag = f"{public_repo}@{tag_match.group('tag')}"
+                comment_line = prior_index + 1
+            break
+
+        rows.append(
+            {
+                "line": index + 1,
+                "repo": uses_match.group("repo"),
+                "ref": uses_match.group("ref"),
+                "pin_is_sha": bool(SHA_PIN_RE.fullmatch(uses_match.group("ref"))),
+                "public_repo": public_repo,
+                "public_tag": public_tag,
+                "public_tag_comment_line": comment_line,
+            }
+        )
+    return tuple(rows)
+
+
+def _assert_inspectable_pinned_github_actions(
+    workflow: str,
+    *,
+    required_public_tags: set[str],
+) -> None:
+    rows = _github_action_rows(workflow)
+    assert rows, "CI workflow must declare at least one GitHub Action step"
+
+    for row in rows:
+        action = f"{row['repo']}@{row['ref']}"
+        assert row["pin_is_sha"], (
+            f"{action} must stay pinned by a 40-character SHA; put the "
+            "recognizable upstream tag in the adjacent Public action tag comment"
+        )
+        assert row["public_tag"], (
+            f"{action} must have an adjacent Public action tag comment so "
+            "first-read/tests can identify the upstream action without relaxing the pin"
+        )
+        assert row["public_repo"] == row["repo"], (
+            f"Public action tag {row['public_tag']} must name the same action "
+            f"as pinned ref {action}"
+        )
+
+    observed_public_tags = {
+        str(row["public_tag"])
+        for row in rows
+        if row["public_tag"]
+    }
+    assert required_public_tags <= observed_public_tags
+
+
+def test_github_action_identity_guard_rejects_unpinned_refs() -> None:
+    workflow = (
+        "steps:\n"
+        "  - name: Check out repository\n"
+        "    # Public action tag: actions/checkout@v4. The workflow pins the action by SHA below.\n"
+        "    uses: actions/checkout@v4\n"
+    )
+
+    with pytest.raises(AssertionError, match="must stay pinned"):
+        _assert_inspectable_pinned_github_actions(
+            workflow,
+            required_public_tags={"actions/checkout@v4"},
+        )
+
+
+def test_github_action_identity_guard_rejects_mismatched_comments() -> None:
+    workflow = (
+        "steps:\n"
+        "  - name: Check out repository\n"
+        "    # Public action tag: actions/setup-python@v5. The workflow pins the action by SHA below.\n"
+        "    uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5\n"
+    )
+
+    with pytest.raises(AssertionError, match="must name the same action"):
+        _assert_inspectable_pinned_github_actions(
+            workflow,
+            required_public_tags={"actions/setup-python@v5"},
+        )
+
+
 def test_public_repo_has_inspectable_github_actions_ci() -> None:
     assert CI_WORKFLOW.is_file()
 
@@ -44,11 +152,13 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "cancel-in-progress: true",
         "timeout-minutes: 30",
         'python-version: ["3.11", "3.12", "3.13"]',
-        "actions/checkout@v4",
-        "actions/setup-python@v5",
         "run: make ci",
     ):
         assert required in workflow
+    _assert_inspectable_pinned_github_actions(
+        workflow,
+        required_public_tags={"actions/checkout@v4", "actions/setup-python@v5"},
+    )
 
     for duplicated_command in (
         'python -m pip install -e ".[test]"',
