@@ -757,6 +757,37 @@ def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) ->
 @pytest.mark.parametrize(
     "task",
     [
+        "show me Lean",
+        "Lean proofs",
+        "show me Lean proofs",
+        "show me the Lean proofs",
+    ],
+)
+def test_agent_entry_card_aliases_lean_questions_to_lean_route(task: str) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "lean"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "lean"
+    assert payload["task_route"]["primary_organ_id"] == "proof_diagnostic_evidence_spine"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "lean"
+    assert "agent-entry-composition --task lean" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "theorem proving",
         "show me theorem proving",
         "show me the theorem proving",

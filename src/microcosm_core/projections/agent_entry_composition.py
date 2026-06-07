@@ -622,6 +622,25 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "finance"
     if value in {
+        "lean",
+        "lean proof",
+        "lean-proof",
+        "lean_proof",
+        "lean proofs",
+        "lean-proofs",
+        "lean_proofs",
+        "show me lean",
+        "show-me-lean",
+        "show_me_lean",
+        "show me lean proofs",
+        "show-me-lean-proofs",
+        "show_me_lean_proofs",
+        "show me the lean proofs",
+        "show-me-the-lean-proofs",
+        "show_me_the_lean_proofs",
+    }:
+        return "lean"
+    if value in {
         "theorem proving",
         "theorem-proving",
         "theorem_proving",
