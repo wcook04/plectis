@@ -603,6 +603,12 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
         "standalone export",
         "export artifact",
         "release export",
+        "source mutation",
+        "source files mutated",
+        "does this mutate source",
+        "does Microcosm mutate source",
+        "will this mutate source",
+        "does this change source files",
     ],
 )
 def test_agent_entry_card_aliases_source_authority_to_authority_boundary_route(
