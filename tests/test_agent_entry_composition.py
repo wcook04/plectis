@@ -587,6 +587,41 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "web UI",
+        "show me UI",
+        "open browser",
+        "local server",
+        "serve docs",
+        "local observatory",
+    ],
+)
+def test_agent_entry_card_aliases_browser_questions_to_frontend_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "frontend"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "frontend"
+    assert payload["task_route"]["primary_organ_id"] == "batch7_station_runtime_capsule"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "frontend"
+    assert "agent-entry-composition --task frontend" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "show me security",
         "show me the security",
         "show me security parts",
