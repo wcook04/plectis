@@ -413,6 +413,24 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "finance"
     if value in {
+        "theorem proving",
+        "theorem-proving",
+        "theorem_proving",
+        "show me theorem proving",
+        "show-me-theorem-proving",
+        "show_me_theorem_proving",
+        "show me the theorem proving",
+        "show-me-the-theorem-proving",
+        "show_me_the_theorem_proving",
+        "show me theorem proving parts",
+        "show-me-theorem-proving-parts",
+        "show_me_theorem_proving_parts",
+        "show me the theorem proving parts",
+        "show-me-the-theorem-proving-parts",
+        "show_me_the_theorem_proving_parts",
+    }:
+        return "theorem-proving"
+    if value in {
         "formal math",
         "math",
         "show me the math",

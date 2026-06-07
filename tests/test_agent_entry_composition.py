@@ -587,6 +587,42 @@ def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) ->
     assert "agent-entry-composition --task finance" in card["drilldowns"]["full_json"]
 
 
+@pytest.mark.parametrize(
+    "task",
+    [
+        "theorem proving",
+        "show me theorem proving",
+        "show me the theorem proving",
+        "show me theorem proving parts",
+    ],
+)
+def test_agent_entry_card_aliases_theorem_proving_questions_to_theorem_proving_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "theorem-proving"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "theorem-proving"
+    assert payload["task_route"]["primary_organ_id"] == "proof_diagnostic_evidence_spine"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "theorem-proving"
+    assert (
+        "agent-entry-composition --task theorem-proving"
+        in card["drilldowns"]["full_json"]
+    )
+
+
 def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
