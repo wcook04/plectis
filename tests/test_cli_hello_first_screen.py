@@ -53,8 +53,8 @@ def test_cli_hello_prints_shared_first_screen_card(
     assert "-> /project/first-screen -> /project/observatory-card" in output
     assert "Counts are receipt-backed handles" in output
     assert (
-        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
-        "domain-specialist"
+        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reviewer, type-a-agent, domain-specialist"
     ) in output
     assert "No release, hosted publication, provider-call" in output
     assert "reader_routes" not in output
@@ -152,6 +152,8 @@ def test_cli_hello_can_focus_type_a_agent_branch(
     [
         ("cold_cloner", "GitHub visitor", "public_github_visitor"),
         ("cold-cloner", "GitHub visitor", "public_github_visitor"),
+        ("interesting_parts", "GitHub visitor", "public_github_visitor"),
+        ("interesting-parts", "GitHub visitor", "public_github_visitor"),
         ("skeptical_reviewer", "Safety/evals", "safety_evals_engineer"),
         ("skeptical-reviewer", "Safety/evals", "safety_evals_engineer"),
         ("reviewer", "Safety/evals", "safety_evals_engineer"),
@@ -444,6 +446,6 @@ def test_cli_help_names_hello_as_first_screen_route(
         "<project> branch by reader"
     ) in output
     assert (
-        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
-        "domain-specialist"
+        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reviewer, type-a-agent, domain-specialist"
     ) in output

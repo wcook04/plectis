@@ -1574,8 +1574,8 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     ]
     assert card["reader_route_menu"]["default_command"] == "microcosm hello ."
     assert card["reader_route_menu"]["alias_hint"] == (
-        "reader aliases: cold-cloner, skeptical-reviewer, type-a-agent, "
-        "domain-specialist"
+        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reviewer, type-a-agent, domain-specialist"
     )
     assert card["reader_route_menu"]["shared_behavior_command"] == (
         "microcosm tour --card ."
@@ -1762,8 +1762,8 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "selected_route_id, state refs, source_files_mutated=false"
     ) in text
     assert (
-        "reader aliases: cold-cloner, skeptical-reviewer, type-a-agent, "
-        "domain-specialist"
+        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reviewer, type-a-agent, domain-specialist"
     ) in text
     assert (
         "GitHub visitor: microcosm hello --reader public_github_visitor . | Proof: "

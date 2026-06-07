@@ -135,8 +135,10 @@ open [AGENT_ROUTES.md](AGENT_ROUTES.md); for human specialty browsing, open
 
 The `--reader` flag accepts canonical route ids plus copyable aliases for the
 most common first touches: `cold_cloner` / `cold-cloner` opens the public
-GitHub visitor branch, `skeptical_reviewer` / `skeptical-reviewer` opens the
-safety/evals branch, `reviewer` also opens that same safety/evals branch,
+GitHub visitor branch, `interesting_parts` / `interesting-parts` opens that
+same public visitor branch for "what is interesting here?" questions,
+`skeptical_reviewer` / `skeptical-reviewer` opens the safety/evals branch,
+`reviewer` also opens that same safety/evals branch,
 `agent` / `type-a-agent` opens the repo-reading agent
 branch, and `domain_specialist` / `domain-specialist` opens the canonical
 specialty branch. The card echoes the requested alias or route id for

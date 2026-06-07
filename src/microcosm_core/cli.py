@@ -86,6 +86,8 @@ TEXT_READER_CHOICES = (
     "type_a_agent",
     "cold_cloner",
     "cold-cloner",
+    "interesting_parts",
+    "interesting-parts",
     "skeptical_reviewer",
     "skeptical-reviewer",
     "reviewer",
@@ -475,7 +477,7 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
   microcosm hello --reader {cold_cloner|skeptical_reviewer|agent|domain_specialist} <project> branch by reader
-  reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
+  reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
   microcosm agent-entry-composition --task {agent-entry|ai-safety|reviewer} emit Type A/human route card

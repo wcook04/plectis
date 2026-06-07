@@ -65,6 +65,8 @@ microcosm legibility-scorecard
 
 The reader aliases are shortcuts into existing first-screen branches, not new
 routes: `cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch,
+`interesting_parts` / `interesting-parts` maps to that same public visitor
+branch for "what is interesting here?" questions,
 `skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch,
 and `agent` / `type-a-agent` maps to the repo-reading agent branch.
 `domain_specialist` / `domain-specialist` is the specialty reader branch; it

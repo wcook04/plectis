@@ -1021,7 +1021,8 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "microcosm evidence inspect <project> <ref>" in cold_start
     assert "microcosm status --card <project>" in cold_start
     assert "`cold_cloner` maps to `public_github_visitor`" in cold_start
-    assert "`skeptical_reviewer` maps to `safety_evals_engineer`" in cold_start
+    assert "`interesting_parts` / `interesting-parts` maps to that same public visitor" in cold_start
+    assert "`skeptical_reviewer` maps to `safety_evals_engineer`" in normalized_cold_start
     assert "and `agent` maps to" in cold_start
     assert "`type_a_agent`" in cold_start
     assert "six cold reader branches" in normalized_cold_start

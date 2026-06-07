@@ -362,8 +362,8 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "<project> branch by reader"
     ) in output
     assert (
-        "reader aliases: cold-cloner, skeptical-reviewer, reviewer, "
-        "type-a-agent, domain-specialist"
+        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reviewer, type-a-agent, domain-specialist"
     ) in output
     assert (
         "microcosm tour --card <project> build .microcosm and read "
@@ -1051,6 +1051,21 @@ def test_cli_first_screen_text_projection_is_package_backed(
     assert "reader_routes" not in text
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
+
+
+def test_cli_first_screen_accepts_interesting_parts_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(
+        ["first-screen", "--format", "text", "--reader", "interesting-parts", "."]
+    )
+
+    text = capsys.readouterr().out
+    assert status == 0
+    assert "Reader branch: GitHub visitor" in text
+    assert "Command: microcosm hello --reader interesting-parts ." in text
+    assert "Text card: microcosm first-screen --format text --reader interesting-parts ." in text
+    assert "Proof: `microcosm tour --card .`" in text
 
 
 def test_cli_first_screen_json_projection_preserves_shared_first_command(

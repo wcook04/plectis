@@ -89,6 +89,8 @@ behavior, route state, evidence classes, failure envelopes, and authority
 ceilings before sending you into full receipt drilldowns.
 The reader-specific `hello` aliases are a shortcut into the same card:
 `cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch,
+`interesting_parts` / `interesting-parts` maps to that same public visitor
+branch for "what is interesting here?" questions,
 `skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch,
 and `agent` / `type-a-agent` maps to the repo-reading agent branch.
 `domain_specialist` / `domain-specialist` is the specialty reader branch and

@@ -141,10 +141,12 @@ expect `release_authorized=false` until a separate operator decision exists.
 `atlas/entry_packet.json::reader_first_screen_routes` names the six cold
 reader branches after the shared `microcosm tour --card <project>` card:
 
-The `hello` card also accepts three public-reader aliases for the most common
+The `hello` card also accepts public-reader aliases for the most common
 entry pressures: `cold_cloner` maps to `public_github_visitor`,
-`skeptical_reviewer` maps to `safety_evals_engineer`, and `agent` maps to
-`type_a_agent`. Aliases are shortcuts into these existing branches, not new
+`interesting_parts` / `interesting-parts` maps to that same public visitor
+branch for "what is interesting here?" questions, `skeptical_reviewer` maps
+to `safety_evals_engineer`, and `agent` maps to `type_a_agent`.
+Aliases are shortcuts into these existing branches, not new
 routes; the card echoes the requested alias or route id for copy/paste while
 resolving it to the existing branch.
 

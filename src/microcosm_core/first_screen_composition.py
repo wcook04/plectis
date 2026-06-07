@@ -31,6 +31,8 @@ READER_LABELS = {
 READER_ROUTE_ALIASES = {
     "cold_cloner": "public_github_visitor",
     "cold-cloner": "public_github_visitor",
+    "interesting_parts": "public_github_visitor",
+    "interesting-parts": "public_github_visitor",
     "skeptical_reviewer": "safety_evals_engineer",
     "skeptical-reviewer": "safety_evals_engineer",
     "reviewer": "safety_evals_engineer",
@@ -39,8 +41,8 @@ READER_ROUTE_ALIASES = {
     "domain-specialist": "domain_specialist",
 }
 READER_ROUTE_ALIAS_HINT = (
-    "reader aliases: cold-cloner, skeptical-reviewer, reviewer, type-a-agent, "
-    "domain-specialist"
+    "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+    "reviewer, type-a-agent, domain-specialist"
 )
 DENIED_AUTHORITY_KEYS = (
     "release_authority",
