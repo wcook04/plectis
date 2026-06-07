@@ -489,6 +489,8 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
         "what is source authority",
         "show me source authority",
         "authority boundary",
+        "authority boundaries",
+        "what are the authority boundaries",
     ],
 )
 def test_agent_entry_card_aliases_source_authority_to_authority_boundary_route(
@@ -683,6 +685,7 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "where is the evidence",
         "explain evidence",
         "what does the evidence mean",
+        "what claims does this repo refuse",
     ],
 )
 def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
@@ -845,6 +848,7 @@ def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
         "proof system",
         "proof correctness",
         "does this prove correctness",
+        "is this proof correct",
         "show me proof correctness",
     ],
 )
