@@ -130,6 +130,15 @@ Open `/workingness` only when you need the full per-organ failure-envelope map.
 
 ## 4. Verify The Public Floor
 
+For the fastest preflight before the full test floor, run:
+
+```bash
+make check
+```
+
+It should print `Microcosm preflight: organ evidence-class registry loads
+cleanly.`
+
 ```bash
 make ci
 ```

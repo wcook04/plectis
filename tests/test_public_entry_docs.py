@@ -116,6 +116,8 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "/project/observatory-card",
         "/workingness-card",
         "Open `/workingness` only when you need the full per-organ failure-envelope map.",
+        "make check",
+        "Microcosm preflight: organ evidence-class registry loads\ncleanly.",
         "make ci",
         "make package-smoke",
         "package-install smoke",
