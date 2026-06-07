@@ -451,6 +451,9 @@ def test_agent_entry_card_aliases_command_help_questions_to_getting_started_rout
         "how is this built",
         "show me specs",
         "where are the specs",
+        "which files are generated",
+        "what files can I edit",
+        "is AGENT_ROUTES generated",
     ],
 )
 def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
@@ -475,6 +478,43 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
     ]
     assert card["task_route"]["selected_task_class"] == "architecture"
     assert "agent-entry-composition --task architecture" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
+        "source authority",
+        "where is source authority",
+        "what is source authority",
+        "show me source authority",
+        "authority boundary",
+    ],
+)
+def test_agent_entry_card_aliases_source_authority_to_authority_boundary_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "authority-boundary"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "authority-boundary"
+    assert payload["task_route"]["primary_organ_id"] == "batch5_authority_systems_capsule"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "authority-boundary"
+    assert (
+        "agent-entry-composition --task authority-boundary"
+        in card["drilldowns"]["full_json"]
+    )
 
 
 @pytest.mark.parametrize(
