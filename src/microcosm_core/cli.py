@@ -514,6 +514,20 @@ Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 """
 
+STATUS_HELP_EPILOG = """Cold-clone check path:
+  microcosm status --card <project>
+  make check
+  make smoke
+  make ci
+
+Interpretation:
+  The status card is the compact route/state/evidence lens after the first
+  local run. `make check` is the fast preflight, `make smoke` validates the
+  public smoke route, and `make ci` is the public green floor. None of these
+  commands authorize release, provider calls, source mutation, proof
+  correctness, private-root equivalence, or whole-system correctness.
+"""
+
 EVIDENCE_INSPECT_HELP = """Reads one evidence card.
 
 Interpretation:
@@ -2114,6 +2128,9 @@ def main(argv: list[str] | None = None) -> int:
     status_parser = subparsers.add_parser(
         "status",
         help="show runtime status or compact first-screen card",
+        description="Show runtime status or compact first-screen card.",
+        epilog=STATUS_HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     status_parser.add_argument(
         "--card",

@@ -606,6 +606,26 @@ def test_cli_status_card_help_explains_alias_and_boundaries() -> None:
     assert "credential-equivalent live-access authority" in output
 
 
+def test_cli_status_help_names_cold_clone_check_path() -> None:
+    help_result = _run_microcosm_cli("status", "--help")
+
+    assert help_result.returncode == 0, help_result.stderr
+    output = help_result.stdout
+    assert "Cold-clone check path:" in output
+    assert "microcosm status --card <project>" in output
+    assert "make check" in output
+    assert "make smoke" in output
+    assert "make ci" in output
+    assert "status card is the compact route/state/evidence lens" in output
+    assert "fast preflight" in output
+    assert "public green floor" in output
+    assert "authorize release" in output
+    assert "provider calls" in output
+    assert "source mutation" in output
+    assert "proof" in output
+    assert "whole-system" in output
+
+
 def test_cli_agent_entry_composition_help_describes_task_route_selector() -> None:
     help_result = _run_microcosm_cli("agent-entry-composition", "--help")
 
