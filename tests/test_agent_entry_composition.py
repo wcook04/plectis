@@ -1279,6 +1279,34 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
 
 
+def test_agent_entry_card_keeps_receipts_alias_traceable() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="receipts",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == "receipts"
+    assert payload["task_route"]["selected_task_class"] == "evaluation"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "Receipt/evidence meaning questions use the evaluation route"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+    assert "agent-entry-composition --task receipts" in card["drilldowns"][
+        "full_json"
+    ]
+    assert "agent-entry-composition --root . --task receipts" in card["drilldowns"][
+        "source_checkout_full_json"
+    ]
+
+
 @pytest.mark.parametrize(
     "task",
     [
@@ -1781,7 +1809,15 @@ def test_agent_entry_card_aliases_receipt_questions_to_evaluation_route(
     assert payload["task_route"]["task_class"] == "evaluation"
     assert payload["task_route"]["primary_organ_id"] == "cold_reader_route_map"
     assert card["task_route"]["selected_task_class"] == "evaluation"
-    assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
+    if task in {"receipts", "receipt"}:
+        assert f"agent-entry-composition --task {task}" in card["drilldowns"][
+            "full_json"
+        ]
+    else:
+        assert (
+            "agent-entry-composition --task evaluation"
+            in card["drilldowns"]["full_json"]
+        )
 
 
 @pytest.mark.parametrize(

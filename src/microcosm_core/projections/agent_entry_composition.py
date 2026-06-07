@@ -17,6 +17,10 @@ from microcosm_core.schemas import read_json_strict
 SCHEMA = "microcosm_agent_entry_composition_projection_v0"
 RECEIPT_SCHEMA = "microcosm_agent_entry_composition_receipt_v0"
 DEFAULT_TASK = "agent-entry"
+RECEIPT_ROUTE_ALIASES = {
+    "receipts",
+    "receipt",
+}
 CARD_FILENAME = "agent_entry_composition_card.json"
 RECEIPT_FILENAME = "agent_entry_composition_receipt.json"
 TYPE_A_READER_ID = "type_a_agent"
@@ -3320,6 +3324,42 @@ def _normalize_task_class(task: str | None) -> str:
     return value.replace("_", "-").replace(" ", "-")
 
 
+def _task_alias_resolution(
+    requested_task: str | None, selected_task_class: str
+) -> dict[str, Any] | None:
+    requested = (requested_task or DEFAULT_TASK).strip()
+    requested_key = requested.lower()
+    if not requested or requested_key == selected_task_class:
+        return None
+    if _normalize_task_class(requested) != selected_task_class:
+        return None
+    reason = (
+        "Receipt/evidence meaning questions use the evaluation route because "
+        "that route carries the cold route-map, receipt refs, evidence classes, "
+        "and authority ceilings."
+        if requested_key in RECEIPT_ROUTE_ALIASES
+        else "The requested task is accepted as an alias for the selected route."
+    )
+    return {
+        "status": "alias_resolved",
+        "requested_task": requested,
+        "selected_task_class": selected_task_class,
+        "reason": reason,
+        "authority_boundary": (
+            "Alias resolution selects existing public route metadata; it does "
+            "not create a new route or change receipt authority."
+        ),
+    }
+
+
+def _compact_drilldown_task_arg(task_route: dict[str, Any]) -> str:
+    selected = str(task_route.get("selected_task_class") or DEFAULT_TASK)
+    requested = str(task_route.get("requested_task") or "").strip()
+    if requested.lower() in RECEIPT_ROUTE_ALIASES:
+        return shlex.quote(requested)
+    return shlex.quote(selected)
+
+
 def _normalize_viewer(viewer: str | None) -> str:
     value = (viewer or ALL_VIEWERS).strip().lower().replace("-", "_")
     if value in {"", ALL_VIEWERS}:
@@ -4281,6 +4321,7 @@ def build_agent_entry_composition(
         ),
         "requested_task": task or DEFAULT_TASK,
         "selected_task_class": task_class,
+        "alias_resolution": _task_alias_resolution(task or DEFAULT_TASK, task_class),
         "selected_task_route_found": selected_task_route_found,
         "task_class": selected_route.get("task_class"),
         "primary_organ_id": selected_route.get("primary_organ_id"),
@@ -4448,6 +4489,7 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
     organ_route = _as_dict(payload.get("organ_discoverability_matrix_route"))
     omission_receipt = _as_dict(payload.get("omission_receipt"))
     validation = _as_dict(payload.get("validation"))
+    drilldown_task_arg = _compact_drilldown_task_arg(task_route)
     router = _as_dict(payload.get("viewer_first_action_router"))
     router_routes = _as_dict(router.get("routes"))
     compact_router = {
@@ -4525,6 +4567,7 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
         "task_route": {
             "requested_task": task_route.get("requested_task"),
             "selected_task_class": task_route.get("selected_task_class"),
+            "alias_resolution": task_route.get("alias_resolution"),
             "selected_task_route_found": task_route.get("selected_task_route_found"),
             "task_class": task_route.get("task_class"),
             "primary_organ_id": task_route.get("primary_organ_id"),
@@ -4572,13 +4615,13 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
         "drilldowns": {
             "full_json": (
                 "microcosm agent-entry-composition "
-                f"--task {task_route.get('selected_task_class') or DEFAULT_TASK} "
+                f"--task {drilldown_task_arg} "
                 "--viewer <viewer>"
             ),
             "source_checkout_full_json": (
                 "PYTHONPATH=src python3 -m microcosm_core "
                 "agent-entry-composition --root . "
-                f"--task {task_route.get('selected_task_class') or DEFAULT_TASK} "
+                f"--task {drilldown_task_arg} "
                 "--viewer <viewer>"
             ),
             "organ_matrix": ORGAN_DISCOVERABILITY_MATRIX_COMMAND,
