@@ -330,14 +330,14 @@ Microcosm keeps the pattern synthetic and replay-only: the organ validates
 visible policy verdicts, side-effect logs, rollback receipts, and cold replay
 without granting live mutation authority.
 
-## Authority Ceiling
+## Public Scope
 
-This organ is synthetic, public, source-open replay authority only. It validates
-fixture and exported-bundle receipts plus copied non-secret macro bodies with
-digest provenance. It does not use standing credentials, access live cloud or
-account systems, call providers, mutate source, approve irreversible mutations,
-export proof bodies or policy vote bodies, claim benchmark safety, publish,
-host, or authorize release.
+This organ is a synthetic, public, source-open replay. It validates fixture and
+exported-bundle receipts plus copied non-secret macro bodies with digest
+provenance. The replay stays inside local files and does not use standing
+credentials, access live cloud or account systems, call providers, mutate
+source, expose private proofs, expose policy-vote bodies, or claim benchmark
+safety.
 
 ## Re-Entry Conditions
 
