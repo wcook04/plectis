@@ -529,6 +529,15 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         and "whole-system correctness" in interesting_parts["authority_boundary"]
     )
 
+    finance = {row["task_class"]: row for row in route_model["routes"]}["finance"]
+    assert finance["primary_organ_id"] == "finance_forecast_evaluation_spine"
+    finance_organs = {row["organ_id"] for row in finance["relevant_organs"]}
+    assert "finance_forecast_evaluation_spine" in finance_organs
+    assert "public_reveal_walkthrough" not in finance_organs
+    assert "mathematical_strategy_atlas_hypothesis_scorer" not in finance_organs
+    assert "agentic_vulnerability_discovery_patch_proof_replay" not in finance_organs
+    assert "investment advice" in finance["allowed_authority"]
+
 
 def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> None:
     result = build(MICROCOSM_ROOT, write=False)

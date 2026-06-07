@@ -388,8 +388,7 @@
       "specialty": [
         "formal-methods",
         "theorem-proving",
-        "lean",
-        "finance"
+        "lean"
       ],
       "wires_to": [],
       "axiom_refs": [
@@ -445,8 +444,7 @@
       "specialty": [
         "formal-methods",
         "theorem-proving",
-        "lean",
-        "finance"
+        "lean"
       ],
       "wires_to": [
         "corpus_readiness_mathlib_absence_gate",
@@ -1982,8 +1980,7 @@
       "specialty": [
         "getting-started",
         "interesting-parts",
-        "evaluation",
-        "finance"
+        "evaluation"
       ],
       "wires_to": [
         "batch12_release_claim_language_gate",
@@ -2085,7 +2082,6 @@
       "specialty": [
         "research-workflows",
         "forecasting",
-        "finance",
         "provider-ops"
       ],
       "wires_to": [
@@ -2837,8 +2833,7 @@
       "specialty": [
         "ai-safety",
         "agent-evaluation",
-        "red-teaming",
-        "finance"
+        "red-teaming"
       ],
       "wires_to": [],
       "principle_refs": [
@@ -2894,8 +2889,7 @@
       "display_name": "Materials Chemistry Closed Loop Lab Safety Replay",
       "specialty": [
         "research-workflows",
-        "forecasting",
-        "finance"
+        "forecasting"
       ],
       "wires_to": [
         "spatial_world_model_counterfactual_simulation_replay"
