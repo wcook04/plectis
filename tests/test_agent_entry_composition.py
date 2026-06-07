@@ -294,7 +294,13 @@ def test_agent_entry_card_allows_selected_public_task_route() -> None:
 
 
 @pytest.mark.parametrize(
-    "task", ["skeptical-review", "show me AI safety", "show me the AI safety"]
+    "task",
+    [
+        "skeptical-review",
+        "show me AI safety",
+        "show me the AI safety",
+        "show me the AI safety parts",
+    ],
 )
 def test_agent_entry_card_aliases_safety_questions_to_safety_route(task: str) -> None:
     payload = build_agent_entry_composition(
