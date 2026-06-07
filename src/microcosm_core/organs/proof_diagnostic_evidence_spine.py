@@ -2546,6 +2546,20 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         private_scan = {}
     expected_cases = result.get("expected_negative_cases", {})
     observed_cases = result.get("observed_negative_cases", {})
+    source_fingerprint_status = result.get("source_fingerprint_status")
+    source_fingerprint_interpretation = {
+        "status": source_fingerprint_status,
+        "meaning": (
+            "stale source fingerprints are retained as expected diagnostic "
+            "evidence in this fixture; they do not make the card proof, source, "
+            "release, or theorem-correctness authority"
+            if source_fingerprint_status == "stale"
+            else "source fingerprints match this fixture's recorded public refs"
+        ),
+        "next_drilldown": (
+            "rerun without --card or inspect proof_evidence_validation_receipt.json"
+        ),
+    }
     return {
         **common,
         "expected_negative_case_count": len(expected_cases)
@@ -2560,7 +2574,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "provider_policy_rejection_count": len(
             result.get("provider_policy_rejection_ids", [])
         ),
-        "source_fingerprint_status": result.get("source_fingerprint_status"),
+        "source_fingerprint_status": source_fingerprint_status,
+        "source_fingerprint_interpretation": source_fingerprint_interpretation,
         "body_material_status": result.get("body_material_status"),
         "evidence_anchor_status": result.get("evidence_anchor_status"),
         "error_code_count": len(result.get("error_codes", [])),

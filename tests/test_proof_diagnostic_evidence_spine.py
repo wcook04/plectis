@@ -1175,6 +1175,12 @@ def test_proof_diagnostic_evidence_spine_card_is_available_from_top_level_cli(
     assert card["status"] == "pass"
     assert card["organ_id"] == "proof_diagnostic_evidence_spine"
     assert card["input_mode"] == "fixture_regression"
+    assert card["source_fingerprint_status"] == "stale"
+    assert card["source_fingerprint_interpretation"]["status"] == "stale"
+    assert (
+        "retained as expected diagnostic evidence"
+        in card["source_fingerprint_interpretation"]["meaning"]
+    )
     assert "proof_receipts" in card["omitted_full_payload_keys"]
 
 
