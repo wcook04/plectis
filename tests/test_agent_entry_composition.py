@@ -500,6 +500,11 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
         "authority boundary",
         "authority boundaries",
         "what are the authority boundaries",
+        "what is not allowed",
+        "what is not authorized",
+        "what does this not prove",
+        "what does this not authorize",
+        "can I publish this",
     ],
 )
 def test_agent_entry_card_aliases_source_authority_to_authority_boundary_route(
