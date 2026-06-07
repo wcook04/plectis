@@ -243,6 +243,14 @@ def _normalize_task_class(task: str | None) -> str:
         "interesting_parts",
         "show-me-interesting-parts",
         "show_me_interesting_parts",
+        "show me interesting parts",
+        "what is interesting here",
+        "what-is-interesting-here",
+        "what_is_interesting_here",
+        "what's interesting here",
+        "whats interesting here",
+        "whats-interesting-here",
+        "whats_interesting_here",
     }:
         return "interesting-parts"
     if value in {

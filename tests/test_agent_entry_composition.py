@@ -344,17 +344,20 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
 
 
-def test_agent_entry_card_aliases_interesting_to_interesting_parts_route() -> None:
+@pytest.mark.parametrize("task", ["interesting", "what is interesting here"])
+def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
+    task: str,
+) -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
-        task="interesting",
+        task=task,
         viewer="human",
         command="pytest",
     )
     card = compact_agent_entry_card(payload)
 
     assert payload["status"] == "pass"
-    assert payload["task_route"]["requested_task"] == "interesting"
+    assert payload["task_route"]["requested_task"] == task
     assert payload["task_route"]["selected_task_class"] == "interesting-parts"
     assert payload["task_route"]["selected_task_route_found"] is True
     assert payload["task_route"]["task_class"] == "interesting-parts"
