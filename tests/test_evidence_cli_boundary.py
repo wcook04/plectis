@@ -67,6 +67,16 @@ def test_cli_evidence_list_preserves_initialized_project_success(
     assert payload["project_ref"] == project.as_posix()
     assert payload["evidence_count"] == 1
     assert payload["evidence"][0]["evidence_ref"] == ".microcosm/evidence/routes.json"
+    assert payload["evidence"][0]["inspect_command"] == (
+        "microcosm evidence inspect --project "
+        f"{project.as_posix()} .microcosm/evidence/routes.json"
+    )
+    assert payload["inspect_drilldown"] == {
+        "command_template": "microcosm evidence inspect --project <project> <evidence_ref>",
+        "project_key": "project_ref",
+        "row_key": "evidence_ref",
+        "field": "payload_summary",
+    }
 
 
 def test_cli_observe_preserves_initialized_project_ref(
@@ -182,6 +192,9 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert payload["limit"] == 2
     assert payload["truncated"] is True
     assert len(payload["evidence"]) == 2
+    assert payload["evidence"][0]["inspect_command"].startswith(
+        f"microcosm evidence inspect --project {project.as_posix()} "
+    )
 
 
 def test_cli_evidence_list_rejects_negative_limit(capsys) -> None:
@@ -282,6 +295,9 @@ def test_project_evidence_list_streams_nested_refs_without_glob(
         ".microcosm/evidence/nested/proof.json",
         ".microcosm/evidence/routes.json",
     ]
+    assert payload["evidence"][0]["inspect_command"].endswith(
+        ".microcosm/evidence/nested/proof.json"
+    )
 
 
 def test_project_evidence_limited_path_selection_preserves_count_and_order(

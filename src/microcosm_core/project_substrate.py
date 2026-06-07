@@ -2874,6 +2874,7 @@ def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
+    project_ref = _project_arg_ref(project_path, project)
     evidence_dir = _evidence_dir(project)
     evidence_count, returned_paths = _bounded_sorted_paths(
         _iter_files_under(evidence_dir, suffix=".json"),
@@ -2892,6 +2893,9 @@ def list_evidence(
         rows.append(
             {
                 "evidence_ref": evidence_ref,
+                "inspect_command": (
+                    f"microcosm evidence inspect --project {project_ref} {evidence_ref}"
+                ),
                 "schema_version": payload.get("schema_version"),
                 "status": payload.get("status", "unknown"),
                 "project_id": payload.get("project_id", _project_name(project)),
@@ -2905,11 +2909,19 @@ def list_evidence(
         )
     return {
         **_base_payload("microcosm_project_evidence_list_v1", project),
-        "project_ref": _project_arg_ref(project_path, project),
+        "project_ref": project_ref,
         "evidence_count": evidence_count,
         "returned_evidence_count": len(rows),
         "limit": limit,
         "truncated": len(rows) < evidence_count,
+        "inspect_drilldown": {
+            "command_template": (
+                "microcosm evidence inspect --project <project> <evidence_ref>"
+            ),
+            "project_key": "project_ref",
+            "row_key": "evidence_ref",
+            "field": "payload_summary",
+        },
         "evidence": rows,
     }
 
