@@ -782,6 +782,9 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
     "task",
     [
         "show me research workflows",
+        "show me research parts",
+        "show me science parts",
+        "show me science workflows",
         "show me mechanistic interpretability",
         "show me chemistry",
         "show me materials chemistry",
