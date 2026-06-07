@@ -350,6 +350,7 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
         "evaluate",
         "how can I run the checks",
         "run the checks",
+        "show me the receipts",
         "what do receipts mean",
         "what do these receipts mean",
         "what does the evidence mean",
