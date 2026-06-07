@@ -376,7 +376,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     )
     assert (
         "microcosm agent-entry-composition --task "
-        "{agent-entry|ai-safety|reviewer} emit Type A/human route card"
+        "{agent-entry|ai-safety|formal-methods|reviewer} emit Type A/human route card"
     ) in output
     assert "microcosm agent-entry-composition --task agent-entry emit" not in output
     assert (
