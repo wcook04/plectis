@@ -205,6 +205,36 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "agent-entry"
     if value in {
+        "getting-started",
+        "getting_started",
+        "get started",
+        "get-started",
+        "get_started",
+        "getting started",
+        "getting_started",
+        "start",
+        "commands",
+        "what commands exist",
+        "what-commands-exist",
+        "what_commands_exist",
+        "show commands",
+        "show-commands",
+        "show_commands",
+        "show me commands",
+        "show-me-commands",
+        "show_me_commands",
+        "cli help",
+        "cli-help",
+        "cli_help",
+        "show cli help",
+        "show-cli-help",
+        "show_cli_help",
+        "show me cli help",
+        "show-me-cli-help",
+        "show_me_cli_help",
+    }:
+        return "getting-started"
+    if value in {
         "architecture",
         "architectural",
         "show me architecture",

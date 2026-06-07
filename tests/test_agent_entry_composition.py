@@ -399,6 +399,44 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "what commands exist",
+        "show me commands",
+        "show me CLI help",
+        "CLI help",
+        "getting started",
+        "get started",
+    ],
+)
+def test_agent_entry_card_aliases_command_help_questions_to_getting_started_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "getting-started"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "getting-started"
+    assert payload["task_route"]["primary_organ_id"] == "cold_reader_route_map"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "getting-started"
+    assert (
+        "agent-entry-composition --task getting-started"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "show me architecture",
         "show me the architecture",
         "what is the architecture",
