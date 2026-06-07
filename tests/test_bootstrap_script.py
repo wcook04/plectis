@@ -41,6 +41,7 @@ def test_bootstrap_help_is_no_side_effect_public_entry() -> None:
     assert ".microcosm/cold_clone_probe.json" in result.stdout
     assert "Microcosm cold-clone probe passed" in result.stdout
     assert "receipt: <receipt path>" in result.stdout
+    assert "check: make smoke" in result.stdout
     assert "next: README.md#public-repo-map and README.md#component-map" in result.stdout
     assert result.stderr == ""
 
@@ -117,6 +118,7 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
             f"microcosm_core.cold_clone_probe --suite first-wave "
             f"--emit {receipt}"
         ),
+        "check: make smoke",
         "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert not argv_log.exists()
@@ -143,16 +145,16 @@ def test_bootstrap_custom_emit_writes_bound_probe_receipt(tmp_path: Path) -> Non
         "Microcosm cold-clone probe passed",
         "suite: first-wave",
         f"receipt: {receipt}",
+        "check: make smoke",
         "next: README.md#public-repo-map and README.md#component-map",
     ]
     payload = json.loads(receipt.read_text(encoding="utf-8"))
     assert payload["schema_version"] == "cold_clone_probe_receipt_v1"
     assert payload["status"] == "pass"
-    assert payload["emit_ref"] == str(receipt)
-    assert payload["receipt_paths"][0] == str(receipt)
-    assert payload["command"] == (
-        f"./bootstrap.sh --suite first-wave --emit {receipt}"
-    )
+    expected_suffix = f"{tmp_path.name}/{receipt.name}"
+    assert payload["emit_ref"].endswith(expected_suffix)
+    assert payload["receipt_paths"][0] == payload["emit_ref"]
+    assert payload["command"].endswith(f" --emit {payload['emit_ref']}")
     assert payload["secret_exclusion_scan"]["status"] == "pass"
     assert payload["private_state_scan"]["status"] == "pass"
 
@@ -186,6 +188,7 @@ def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:
         "Microcosm cold-clone probe passed",
         "suite: first-wave",
         "receipt: receipts/cold_clone_probe_test.json",
+        "check: make smoke",
         "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
@@ -220,6 +223,7 @@ def test_bootstrap_default_emit_uses_ignored_local_state(tmp_path: Path) -> None
         "Microcosm cold-clone probe passed",
         "suite: first-wave",
         "receipt: .microcosm/cold_clone_probe.json",
+        "check: make smoke",
         "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
