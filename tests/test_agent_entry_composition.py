@@ -573,6 +573,8 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show me the formal methods",
         "show me formal methods stuff",
         "show me the formal methods parts",
+        "show me formal verification",
+        "show me the formal verification parts",
         "show me proof stuff",
         "show me proof parts",
     ],
