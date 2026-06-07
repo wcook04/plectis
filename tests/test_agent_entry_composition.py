@@ -867,6 +867,9 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
     [
         "show me finance",
         "show me finance stuff",
+        "finance stuff",
+        "finance parts",
+        "financial parts",
         "show me the finance parts",
         "show me the financial parts",
         "is this financial advice",
