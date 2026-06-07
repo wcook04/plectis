@@ -374,10 +374,21 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "first-screen card"
         in output
     )
-    assert (
+    task_hint = (
         "microcosm agent-entry-composition --task "
-        "{agent-entry|ai-safety|evaluation|finance|formal-methods|interesting-parts|reviewer} emit Type A/human route card"
-    ) in output
+        "{agent-entry|getting-started|evaluation|agent-evaluation|ai-safety|finance|formal-methods|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
+    )
+    assert task_hint in output
+    for task_class in [
+        "getting-started",
+        "agent-evaluation",
+        "theorem-proving",
+        "architecture",
+        "navigation",
+        "security",
+        "compliance",
+    ]:
+        assert task_class in task_hint
     assert "microcosm agent-entry-composition --task agent-entry emit" not in output
     assert (
         "microcosm status --card <project> read the compressed "
