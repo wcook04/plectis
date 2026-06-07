@@ -306,6 +306,8 @@ def test_agent_entry_card_allows_selected_public_task_route() -> None:
         "AI safety evals",
         "AI safety parts",
         "show me safety evals",
+        "agent safety",
+        "security evals",
         "show me agent safety",
         "where is AI safety",
         "alignment evaluation",
@@ -802,6 +804,8 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
         "how do I view it",
         "how do I open it",
         "does it have a UI",
+        "browser UI",
+        "macos app",
     ],
 )
 def test_agent_entry_card_aliases_browser_questions_to_frontend_route(
@@ -1152,6 +1156,7 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
         "what is worth seeing",
         "why should I look at this",
         "best parts",
+        "crown jewels",
         "most interesting parts",
         "most notable parts",
         "what should I look at",
@@ -1205,6 +1210,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
     "task",
     [
         "domain specialist",
+        "show me the domain specialist path",
         "domain expert",
         "specialist",
         "expert review",
@@ -1231,6 +1237,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show me materials chemistry",
         "materials lab",
         "spatial world model",
+        "robotics",
         "prediction reconciliation",
     ],
 )
