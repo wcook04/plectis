@@ -476,8 +476,8 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
-  microcosm hello --reader {cold_cloner|skeptical_reviewer|agent|domain_specialist} <project> branch by reader
-  reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
+  microcosm hello --reader {cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} <project> branch by reader
+  reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
   microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card

@@ -41,7 +41,7 @@ READER_ROUTE_ALIASES = {
     "domain-specialist": "domain_specialist",
 }
 READER_ROUTE_ALIAS_HINT = (
-    "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+    "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
     "reviewer, type-a-agent, domain-specialist"
 )
 DENIED_AUTHORITY_KEYS = (

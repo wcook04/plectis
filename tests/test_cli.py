@@ -358,11 +358,11 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "First-screen route:" in output
     assert (
         "microcosm hello --reader "
-        "{cold_cloner|skeptical_reviewer|agent|domain_specialist} "
+        "{cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} "
         "<project> branch by reader"
     ) in output
     assert (
-        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
         "reviewer, type-a-agent, domain-specialist"
     ) in output
     assert (

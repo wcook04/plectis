@@ -53,7 +53,7 @@ def test_cli_hello_prints_shared_first_screen_card(
     assert "-> /project/first-screen -> /project/observatory-card" in output
     assert "Counts are receipt-backed handles" in output
     assert (
-        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
         "reviewer, type-a-agent, domain-specialist"
     ) in output
     assert "No release, hosted publication, provider-call" in output
@@ -442,10 +442,10 @@ def test_cli_help_names_hello_as_first_screen_route(
     assert "print the cold-entry one-screen card" in output
     assert (
         "microcosm hello --reader "
-        "{cold_cloner|skeptical_reviewer|agent|domain_specialist} "
+        "{cold_cloner|interesting_parts|skeptical_reviewer|reviewer|agent|domain_specialist} "
         "<project> branch by reader"
     ) in output
     assert (
-        "reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, "
+        "reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, "
         "reviewer, type-a-agent, domain-specialist"
     ) in output
