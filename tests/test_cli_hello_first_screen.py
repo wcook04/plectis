@@ -124,6 +124,32 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
     assert "Reader branch: Peer developer" not in output
 
 
+def test_cli_hello_can_focus_skeptical_reviewer_source_only_handoff(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--reader", "skeptical_reviewer", "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert "Reader branch: Safety/evals" in output
+    assert "Command: microcosm hello --reader skeptical_reviewer ." in output
+    assert (
+        "First action: Run `microcosm tour --card .` first, then "
+        "`microcosm status --card .`."
+    ) in output
+    assert (
+        "Source-only first action: Run `PYTHONPATH=src python3 -m "
+        "microcosm_core tour --card .` first, then "
+        "`PYTHONPATH=src python3 -m microcosm_core status --card .`."
+    ) in output
+    assert (
+        "Source-only proof: `PYTHONPATH=src python3 -m microcosm_core "
+        "authority --card` plus `PYTHONPATH=src python3 -m "
+        "microcosm_core workingness --card`"
+    ) in output
+    assert "Reader branch: Type A agent" not in output
+
+
 def test_cli_hello_can_focus_type_a_agent_branch(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -301,6 +327,14 @@ def test_cli_first_screen_json_is_compact_by_default(
     )
     assert route_by_id["safety_evals_engineer"]["first_action"] == (
         "Run `microcosm tour --card .` first, then `microcosm status --card .`."
+    )
+    assert route_by_id["safety_evals_engineer"]["source_checkout_first_action"] == (
+        "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` first, then "
+        "`PYTHONPATH=src python3 -m microcosm_core status --card .`."
+    )
+    assert route_by_id["safety_evals_engineer"]["source_checkout_proof_surface"] == (
+        "`PYTHONPATH=src python3 -m microcosm_core authority --card` plus "
+        "`PYTHONPATH=src python3 -m microcosm_core workingness --card`"
     )
     assert route_by_id["hiring_reviewer"]["first_action"] == (
         "Run `microcosm legibility-scorecard`, then `microcosm tour --card .`."

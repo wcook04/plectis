@@ -564,6 +564,17 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                 "proof_surface": (
                     "`microcosm authority --card` plus `microcosm workingness --card`"
                 ),
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}` first, then "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"status --card {project_label}`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core authority --card` "
+                    "plus `PYTHONPATH=src python3 -m microcosm_core "
+                    "workingness --card`"
+                ),
                 "success_criterion": (
                     "Can cite the evidence-class ceilings and the body-copy validator "
                     "boundary without inferring maturity or release readiness."
@@ -706,6 +717,17 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 ),
                 "proof_surface": (
                     "`microcosm authority --card` plus `microcosm workingness --card`"
+                ),
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}` first, then "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"status --card {project_label}`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core authority --card` "
+                    "plus `PYTHONPATH=src python3 -m microcosm_core "
+                    "workingness --card`"
                 ),
                 "exit_check": "cite evidence-class ceilings and body-copy boundaries",
                 "not_a_claim": "safety_evaluation_complete",
