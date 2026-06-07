@@ -384,6 +384,7 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     [
         "interesting",
         "what is interesting here",
+        "show me interesting stuff",
         "show me the interesting parts",
         "show me what's interesting",
     ],
