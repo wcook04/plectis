@@ -518,6 +518,7 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
     [
         "show me security",
         "show me the security",
+        "is this safe",
         "is this secure",
         "security review",
     ],
@@ -603,6 +604,8 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "what are the caveats",
         "what caveats exist",
         "what claims are refused",
+        "show me release boundaries",
+        "is this safe to publish",
         "show me claim ceilings",
         "is this production ready",
         "show me checks",
