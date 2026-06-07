@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from microcosm_core.projections.agent_entry_composition import (
     MACRO_IMPORT_ROUTE_ORGANS,
     ORGAN_DISCOVERABILITY_MATRIX_COMMAND,
@@ -325,6 +327,29 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route() -> No
     assert card["task_route"]["selected_task_class"] == "interesting-parts"
     assert (
         "agent-entry-composition --task interesting-parts"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+@pytest.mark.parametrize("task", ["math", "formal math", "show me the math"])
+def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "formal-methods"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "formal-methods"
+    assert payload["task_route"]["primary_organ_id"] == "proof_diagnostic_evidence_spine"
+    assert card["task_route"]["selected_task_class"] == "formal-methods"
+    assert (
+        "agent-entry-composition --task formal-methods"
         in card["drilldowns"]["full_json"]
     )
 

@@ -204,6 +204,21 @@ def _normalize_task_class(task: str | None) -> str:
         "show_me_interesting_parts",
     }:
         return "interesting-parts"
+    if value in {
+        "formal math",
+        "math",
+        "show me the math",
+        "formal",
+        "formal-math",
+        "formal_math",
+        "formal-methods",
+        "formal_methods",
+        "formal-math-path",
+        "formal_math_path",
+        "show-me-the-math",
+        "show_me_the_math",
+    }:
+        return "formal-methods"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):
         return "agent-entry"
     return value.replace("_", "-").replace(" ", "-")
