@@ -578,9 +578,14 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
     [
         "show me security",
         "show me the security",
+        "show me security parts",
+        "show me sandbox parts",
+        "show me memory poisoning",
+        "show me prompt injection",
         "is this safe",
         "is this secure",
         "security review",
+        "red team",
     ],
 )
 def test_agent_entry_card_aliases_security_questions_to_security_route(
