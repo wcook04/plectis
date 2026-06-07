@@ -550,6 +550,7 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     )
     assert "Evidence / doctrine / drilldown" in text
     assert "atlas/agent_task_routes.json" in text
+    assert "top-level `routes` as an array of rows keyed by `task_class`" in text
     assert "`source_relation_summary`" in text
     assert "`microcosm organ-topology`" in text
     assert "ORGANS.md#find-your-specialty" in text

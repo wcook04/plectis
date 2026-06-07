@@ -1224,6 +1224,7 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
         "inside the listed authority boundary, then open the drilldown card before "
         "making a broader claim. The JSON read model is "
         "[atlas/agent_task_routes.json](atlas/agent_task_routes.json); it keeps "
+        "top-level `routes` as an array of rows keyed by `task_class`, with "
         "`standard_ref`, `paper_module_ref`, `concept_ref`, `mechanism_ref`, and "
         "`source_relation_summary` handles for every relevant organ. Use "
         "`microcosm organ-topology` for dynamic file and shard edge drilldown."
