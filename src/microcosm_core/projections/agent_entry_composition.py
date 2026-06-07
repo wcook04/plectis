@@ -197,6 +197,21 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "ai-safety"
     if value in {
+        "evaluate",
+        "evaluation",
+        "evaluating",
+        "how do i evaluate it",
+        "how-do-i-evaluate-it",
+        "how_do_i_evaluate_it",
+        "how do i evaluate this",
+        "how-do-i-evaluate-this",
+        "how_do_i_evaluate_this",
+        "how to evaluate",
+        "how-to-evaluate",
+        "how_to_evaluate",
+    }:
+        return "evaluation"
+    if value in {
         "interesting",
         "interesting-parts",
         "interesting_parts",

@@ -309,6 +309,33 @@ def test_agent_entry_card_aliases_skeptical_review_to_safety_route() -> None:
     assert "agent-entry-composition --task ai-safety" in card["drilldowns"]["full_json"]
 
 
+@pytest.mark.parametrize(
+    "task", ["how do I evaluate it", "how to evaluate", "evaluate"]
+)
+def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "evaluation"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "evaluation"
+    assert payload["task_route"]["primary_organ_id"] == "cold_reader_route_map"
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "evaluation"
+    assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
+
+
 def test_agent_entry_card_aliases_interesting_to_interesting_parts_route() -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
