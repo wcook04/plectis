@@ -108,6 +108,35 @@ def test_cli_evidence_list_preserves_initialized_project_success(
     _assert_evidence_interpretation(payload)
 
 
+def test_cli_evidence_list_accepts_explicit_json_flag(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    evidence_dir = project / ".microcosm" / "evidence"
+    evidence_dir.mkdir(parents=True)
+    (evidence_dir / "routes.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "microcosm_project_routes_v1",
+                "status": "pass",
+                "project_id": "ready-project",
+                "created_at": "2026-05-28T00:00:00+00:00",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    assert cli.main(["evidence", "list", project.as_posix(), "--json"]) == 0
+    payload = _payload(capsys)
+
+    assert payload["status"] == "pass"
+    assert payload["project_ref"] == project.as_posix()
+    assert payload["evidence_count"] == 1
+    assert payload["evidence"][0]["evidence_ref"] == ".microcosm/evidence/routes.json"
+    _assert_evidence_interpretation(payload)
+
+
 def test_cli_observe_preserves_initialized_project_ref(
     capsys, tmp_path: Path
 ) -> None:
@@ -291,6 +320,7 @@ def test_cli_evidence_list_help_explains_reviewer_drilldown(capsys) -> None:
     assert "bounded receipt index after behavior is visible" in output
     assert "not a release" in output
     assert "schema_version" in output
+    assert "--json" in output
 
 
 def test_cli_evidence_inspect_help_explains_receipt_card_boundary(capsys) -> None:

@@ -2440,6 +2440,11 @@ def main(argv: list[str] | None = None) -> int:
         default=25,
         help="maximum rows to print; use 0 for the full list",
     )
+    evidence_list_parser.add_argument(
+        "--json",
+        action="store_true",
+        help="accepted for explicit JSON output; evidence list already prints JSON",
+    )
     evidence_inspect_parser = evidence_subparsers.add_parser(
         "inspect",
         help="inspect one runtime receipt or project evidence ref",

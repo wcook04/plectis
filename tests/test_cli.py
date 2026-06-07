@@ -1085,6 +1085,36 @@ def test_cli_root_evidence_list_can_be_bounded(
     assert len(payload["evidence"]) == 2
 
 
+def test_cli_root_evidence_list_accepts_explicit_json_flag(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    receipt_path = public_root / "receipts/runtime_shell/demo/result.json"
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "demo_receipt_v1",
+                "status": "pass",
+                "organ_id": "demo_organ",
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(cli, "MICROCOSM_ROOT", public_root)
+
+    assert cli.main(["evidence", "list", "--json", "--limit", "1"]) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "pass"
+    assert payload["evidence_list_mode"] == "compact_runtime_evidence_index_v1"
+    assert payload["receipt_count"] == 1
+    assert payload["returned_receipt_count"] == 1
+    assert len(payload["evidence"]) == 1
+
+
 def test_runtime_evidence_list_only_summarizes_returned_limit(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
