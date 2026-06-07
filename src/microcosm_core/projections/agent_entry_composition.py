@@ -538,18 +538,36 @@ def _build_read_run_order(
         },
     ]
     if selected_viewer == HUMAN_VIEWER_ID:
-        order = [
-            viewer_step,
-            {
-                "kind": "optional_drilldown_after_human_first_action",
-                "run": selected_viewer_route.get("next_action"),
-                "read": selected_viewer_route.get("drilldown_if_needed"),
-                "why": (
-                    "Human entry stops at hello/tour unless the operator asks for "
-                    "evidence or owner-surface drilldown."
-                ),
-            },
-        ]
+        task_class = str(task_route_card.get("task_class") or DEFAULT_TASK)
+        if task_class == DEFAULT_TASK:
+            order = [
+                viewer_step,
+                {
+                    "kind": "optional_drilldown_after_human_first_action",
+                    "run": selected_viewer_route.get("next_action"),
+                    "read": selected_viewer_route.get("drilldown_if_needed"),
+                    "why": (
+                        "Human entry stops at hello/tour unless the operator asks for "
+                        "evidence or owner-surface drilldown."
+                    ),
+                },
+            ]
+        else:
+            order = [
+                viewer_step,
+                {
+                    "kind": "selected_task_route_after_human_entry",
+                    "run": task_route_card.get("first_command"),
+                    "read": [
+                        task_route_card.get("source_ref"),
+                        task_route_card.get("drilldown_target"),
+                    ],
+                    "why": (
+                        "A task-specific human entry should expose the selected route "
+                        "command, card, and authority ceiling before broad inventory."
+                    ),
+                },
+            ]
     else:
         order = [viewer_step, *shared_steps]
     return [{**row, "step": index + 1} for index, row in enumerate(order)]
@@ -629,6 +647,14 @@ def _build_viewer_modes(
         "atlas/entry_packet.json::reader_first_screen_routes."
         "reader_selection_card.selection_rows[reader_id=public_github_visitor]"
     )
+    human_next_action = shared_prerequisite
+    human_stop_condition = human_stop
+    if task_class != DEFAULT_TASK:
+        human_next_action = str(task_route_card.get("first_command") or shared_prerequisite)
+        human_stop_condition = (
+            "You can name the selected task route, primary organ, evidence class, "
+            "first command, and authority ceiling without claiming domain correctness."
+        )
     human_mode = _viewer_mode(
         viewer_id=HUMAN_VIEWER_ID,
         task_class=task_class,
@@ -637,7 +663,7 @@ def _build_viewer_modes(
             "What should a human read or run first, and what trust boundary should they keep?"
         ),
         first_action=human_first_action,
-        next_action=shared_prerequisite,
+        next_action=human_next_action,
         authority_boundary=(
             "Human entry is interpretive/read authority only; it does not authorize "
             "release, proof correctness, source mutation, provider calls, hosted "
@@ -648,15 +674,20 @@ def _build_viewer_modes(
             str(task_route_card.get("receipt_ref") or ""),
             str(task_route_card.get("evidence_ref") or ""),
         ],
-        stop_condition=human_stop,
+        stop_condition=human_stop_condition,
         reentry_condition=str(omission_receipt.get("reentry_condition") or ""),
         anti_overread_warning=human_anti_overread,
         drilldown_if_needed=[
             "README.md::Public Repo Map",
             "AGENTS.md::Fast Entry For Cold Agents",
+            str(task_route_card.get("source_ref") or ""),
             str(task_route_card.get("drilldown_target") or ""),
         ],
-        source_refs=[human_source_ref, "README.md::Public Repo Map"],
+        source_refs=[
+            human_source_ref,
+            "README.md::Public Repo Map",
+            str(task_route_card.get("source_ref") or ""),
+        ],
     )
     return [type_a_mode, human_mode]
 

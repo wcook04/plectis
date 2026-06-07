@@ -276,6 +276,18 @@ def test_agent_entry_card_allows_selected_public_task_route() -> None:
     assert payload["task_route"]["primary_organ_id"] == (
         "agent_benchmark_integrity_anti_gaming_replay"
     )
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert (
+        payload["selected_viewer_route"]["stop_condition"]
+        == "You can name the selected task route, primary organ, evidence class, first command, and authority ceiling without claiming domain correctness."
+    )
+    assert payload["read_run_order"][1]["kind"] == (
+        "selected_task_route_after_human_entry"
+    )
+    assert payload["read_run_order"][1]["run"] == payload["task_route"]["first_command"]
+    assert payload["task_route"]["source_ref"] in payload["read_run_order"][1]["read"]
     assert payload["validation"]["errors"] == []
 
 
