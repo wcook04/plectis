@@ -183,6 +183,40 @@ def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert "body_redacted" not in payload
 
 
+@pytest.mark.parametrize(
+    ("command", "example", "boundary_text"),
+    [
+        (
+            "evidence-cells",
+            "microcosm evidence-cells --card .",
+            "resolves proof-language claims to public evidence-cell metadata",
+        ),
+        (
+            "proof-loop-depth",
+            "microcosm proof-loop-depth --card .",
+            "maps the public formal-math gate chain and receipt refs as metadata",
+        ),
+    ],
+)
+def test_cli_formal_public_lens_help_names_reader_route_and_boundary(
+    command: str,
+    example: str,
+    boundary_text: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main([command, "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Formal-methods reader route:" in output
+    assert example in output
+    assert boundary_text in output
+    assert "It does not run Lean/Lake" in output
+    assert "authorize" in output
+    assert "release" in output
+
+
 def test_cli_verifier_lab_execution_spine_lens_smoke(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

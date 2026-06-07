@@ -556,6 +556,23 @@ PUBLIC_LENS_COMMANDS = frozenset(command for command, _ in PUBLIC_LENS_COMMAND_H
 PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset(
     {"circuit-attribution", "intake", "workingness"}
 )
+PUBLIC_LENS_EPILOGS = {
+    "evidence-cells": """Formal-methods reader route:
+  microcosm evidence-cells --card .
+
+Boundary: resolves proof-language claims to public evidence-cell metadata and
+receipt refs. It does not run Lean/Lake, expose proof bodies, certify theorem
+correctness, call providers, mutate source, or authorize release.
+""",
+    "proof-loop-depth": """Formal-methods reader route:
+  microcosm proof-loop-depth --card .
+
+Boundary: maps the public formal-math gate chain and receipt refs as metadata.
+It does not run Lean/Lake, prove theorem correctness, export proof bodies,
+claim benchmark performance, call providers, mutate source, or authorize
+release.
+""",
+}
 
 PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-binding": "validate exported pattern/source-route bundles",
@@ -647,6 +664,17 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
     "workstream-driver-recency-coalescer": "run workstream driver recency coalescer bundle",
 }
 
+PUBLIC_BUNDLE_COMMAND_EPILOGS = {
+    "formal-math-readiness-gate": """Runnable fixture example:
+  microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out /tmp/microcosm-formal-readiness-gate
+
+Boundary: validates declared formal-math readiness metadata and writes receipts.
+It does not run Lean/Lake, claim Mathlib availability beyond probe status,
+prove theorem correctness, expose proof bodies, call providers, mutate source,
+or authorize release.
+""",
+}
+
 
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--root", required=True)
@@ -686,7 +714,13 @@ def _add_public_lens_parsers(subparsers) -> None:
         "import-projector": "emit the compact public import-projector contract lens",
     }
     for command, help_text in PUBLIC_LENS_COMMAND_HELP:
-        parser = subparsers.add_parser(command, help=help_text)
+        kwargs = {"help": help_text}
+        epilog = PUBLIC_LENS_EPILOGS.get(command)
+        if epilog:
+            kwargs["description"] = help_text
+            kwargs["epilog"] = epilog
+            kwargs["formatter_class"] = argparse.RawDescriptionHelpFormatter
+        parser = subparsers.add_parser(command, **kwargs)
         parser.add_argument(
             "--card",
             action="store_true",
@@ -725,6 +759,10 @@ ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset(
 def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
     help_text = PUBLIC_BUNDLE_COMMAND_HELP[command]
     kwargs = {"description": help_text}
+    epilog = PUBLIC_BUNDLE_COMMAND_EPILOGS.get(command)
+    if epilog:
+        kwargs["epilog"] = epilog
+        kwargs["formatter_class"] = argparse.RawDescriptionHelpFormatter
     if command in ROOT_HELP_BUNDLE_COMMANDS:
         kwargs["help"] = help_text
     return subparsers.add_parser(command, **kwargs)

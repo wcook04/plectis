@@ -11,6 +11,26 @@ from microcosm_core import cli
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_cli_formal_math_readiness_help_names_fixture_and_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["formal-math-readiness-gate", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Runnable fixture example:" in output
+    assert (
+        "microcosm formal-math-readiness-gate run --input "
+        "fixtures/first_wave/formal_math_readiness_gate/input --out "
+        "/tmp/microcosm-formal-readiness-gate"
+    ) in output
+    assert "validates declared formal-math readiness metadata" in output
+    assert "It does not run Lean/Lake" in output
+    assert "prove theorem correctness" in output
+    assert "authorize release" in output
+
+
 def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     status = cli.main(["intake"])
 
