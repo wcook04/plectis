@@ -126,6 +126,24 @@ def _source_body_boundary_row() -> dict[str, Any]:
     }
 
 
+def _evidence_interpretation_boundary() -> dict[str, Any]:
+    return {
+        "evidence_interpretation": {
+            "status_pass_means": (
+                "the evidence card was produced and bounded; it is not release, "
+                "proof-correctness, trading, security, or private-root equivalence authority"
+            ),
+            "payload_summary_means": (
+                "safe shape/ref summary of the underlying receipt, not source body export"
+            ),
+            "next_step": (
+                "use evidence_ref and schema_version to decide whether to open the "
+                "underlying receipt path or the owning validator/builder"
+            ),
+        }
+    }
+
+
 def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
     return public_payload_boundary(
         boundary_id=PROJECT_PYTHON_LENS_BOUNDARY_ID,
@@ -2923,6 +2941,7 @@ def list_evidence(
             "field": "payload_summary",
         },
         "evidence": rows,
+        **_evidence_interpretation_boundary(),
     }
 
 
@@ -3627,6 +3646,7 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
             **_base_payload("microcosm_project_evidence_card_v1", project),
             "status": "not_found",
             "evidence_ref": evidence_ref,
+            **_evidence_interpretation_boundary(),
         }
     safe_keys = {
         "schema_version",
@@ -3649,6 +3669,7 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
         "evidence": {key: payload.get(key) for key in safe_keys if key in payload},
         "payload_summary": _evidence_payload_summary(payload),
         **_source_body_boundary_row(),
+        **_evidence_interpretation_boundary(),
     }
 
 

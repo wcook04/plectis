@@ -13,6 +13,18 @@ def _payload(capsys) -> dict:
     return json.loads(capsys.readouterr().out)
 
 
+def _assert_evidence_interpretation(payload: dict) -> None:
+    interpretation = payload["evidence_interpretation"]
+    assert "not release" in interpretation["status_pass_means"]
+    assert "proof-correctness" in interpretation["status_pass_means"]
+    assert (
+        "private-root equivalence authority" in interpretation["status_pass_means"]
+    )
+    assert "safe shape/ref summary" in interpretation["payload_summary_means"]
+    assert "not source body export" in interpretation["payload_summary_means"]
+    assert "owning validator/builder" in interpretation["next_step"]
+
+
 def test_cli_evidence_list_fails_closed_for_missing_project(capsys, tmp_path: Path) -> None:
     missing = tmp_path / "missing-project"
 
@@ -77,6 +89,7 @@ def test_cli_evidence_list_preserves_initialized_project_success(
         "row_key": "evidence_ref",
         "field": "payload_summary",
     }
+    _assert_evidence_interpretation(payload)
 
 
 def test_cli_observe_preserves_initialized_project_ref(
@@ -130,6 +143,7 @@ def test_cli_evidence_inspect_accepts_project_shorthand(
     assert shorthand_payload["payload_summary"]["count_fields"]["route_count"] >= 2
     assert "readme_onboarding_route" in shorthand_payload["payload_summary"]["route_ids"]
     assert shorthand_payload["payload_summary"]["list_field_counts"]["routes"] >= 2
+    _assert_evidence_interpretation(shorthand_payload)
 
     assert cli.main(["evidence", "inspect", "--project", project.as_posix(), ref]) == 0
     project_flag_payload = _payload(capsys)
@@ -137,6 +151,7 @@ def test_cli_evidence_inspect_accepts_project_shorthand(
     assert project_flag_payload["status"] == "pass"
     assert project_flag_payload["project_ref"] == project.as_posix()
     assert project_flag_payload["evidence_ref"] == ref
+    _assert_evidence_interpretation(project_flag_payload)
 
 
 def test_cli_evidence_inspect_infers_current_project_for_microcosm_ref(
@@ -161,6 +176,31 @@ def test_cli_evidence_inspect_infers_current_project_for_microcosm_ref(
     assert payload["project_ref"] == "."
     assert payload["schema_version"] == "microcosm_project_evidence_card_v1"
     assert payload["evidence_ref"] == ref
+    _assert_evidence_interpretation(payload)
+
+
+def test_cli_evidence_inspect_not_found_keeps_interpretation_boundary(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    (project / ".microcosm" / "evidence").mkdir(parents=True)
+
+    assert (
+        cli.main(
+            [
+                "evidence",
+                "inspect",
+                project.as_posix(),
+                ".microcosm/evidence/missing.json",
+            ]
+        )
+        == 1
+    )
+    payload = _payload(capsys)
+
+    assert payload["status"] == "not_found"
+    assert payload["evidence_ref"] == ".microcosm/evidence/missing.json"
+    _assert_evidence_interpretation(payload)
 
 
 def test_cli_evidence_list_limit_bounds_initialized_project(
@@ -195,6 +235,7 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert payload["evidence"][0]["inspect_command"].startswith(
         f"microcosm evidence inspect --project {project.as_posix()} "
     )
+    _assert_evidence_interpretation(payload)
 
 
 def test_cli_evidence_list_rejects_negative_limit(capsys) -> None:
