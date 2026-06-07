@@ -3108,6 +3108,10 @@ def test_cli_tour_card_smoke(
         "microcosm observe --card examples/runtime_shell/demo_project"
         in payload["next_commands"]
     )
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core observe --card "
+        "examples/runtime_shell/demo_project"
+    ) in payload["source_checkout_next_commands"]
     assert payload["status_card"]["command"] == "microcosm status --card <project>"
     assert payload["surface_statuses"]["compile"] == "pass"
     assert payload["surface_statuses"]["state_write"] == "pass"

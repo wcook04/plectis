@@ -5049,6 +5049,14 @@ def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[st
     }
 
 
+def _source_checkout_cli_command(command: str) -> str:
+    if command.startswith("microcosm "):
+        return "PYTHONPATH=src python3 -m microcosm_core " + command.removeprefix(
+            "microcosm "
+        )
+    return command
+
+
 def _compact_tour_card_body_floor_defects(
     defect_preview: object,
     *,
@@ -9834,6 +9842,15 @@ class RuntimeShell:
                 "microcosm proof-lab --out /tmp/microcosm-proof-lab",
                 f"microcosm observe --card {project_ref}",
                 f"microcosm tour {project_ref}",
+            ],
+            "source_checkout_next_commands": [
+                _source_checkout_cli_command(f"microcosm status --card {project_ref}"),
+                _source_checkout_cli_command("microcosm workingness --card"),
+                _source_checkout_cli_command(
+                    "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+                ),
+                _source_checkout_cli_command(f"microcosm observe --card {project_ref}"),
+                _source_checkout_cli_command(f"microcosm tour {project_ref}"),
             ],
             "safe_to_show": {
                 "project_local_state_refs_visible": True,

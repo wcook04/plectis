@@ -3053,6 +3053,25 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         "microcosm observe --card examples/runtime_shell/demo_project",
         "microcosm tour examples/runtime_shell/demo_project",
     ]
+    assert card["source_checkout_next_commands"] == [
+        (
+            "PYTHONPATH=src python3 -m microcosm_core status --card "
+            "examples/runtime_shell/demo_project"
+        ),
+        "PYTHONPATH=src python3 -m microcosm_core workingness --card",
+        (
+            "PYTHONPATH=src python3 -m microcosm_core proof-lab --out "
+            "/tmp/microcosm-proof-lab"
+        ),
+        (
+            "PYTHONPATH=src python3 -m microcosm_core observe --card "
+            "examples/runtime_shell/demo_project"
+        ),
+        (
+            "PYTHONPATH=src python3 -m microcosm_core tour "
+            "examples/runtime_shell/demo_project"
+        ),
+    ]
     assert card["output_economy"]["full_route_cards_exported"] is False
     assert card["output_economy"]["route_cards_by_id_exported"] is False
     assert card["output_economy"]["full_command_path_exported"] is False
