@@ -153,6 +153,11 @@ package check:
 make package-smoke
 ```
 
+For a cold clone, treat `make ci` as the public green floor. `make validate`
+adds the doctrine-lattice drift check and is the maintainer pre-commit gate
+when you are changing doctrine-lattice projection inputs or generated entry
+cards; it is not a broader release, proof-correctness, or production claim.
+
 For a review artifact outside this checkout, run:
 
 ```bash
