@@ -376,6 +376,7 @@ def test_agent_entry_card_aliases_benchmark_questions_to_agent_evaluation_route(
         "what is this repository",
         "what is this project",
         "what does this do",
+        "what can I ask",
     ],
 )
 def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
@@ -526,6 +527,10 @@ def test_agent_entry_card_aliases_source_authority_to_authority_boundary_route(
         "show me the routes",
         "show me route map",
         "show me the route map",
+        "what routes exist",
+        "show me task classes",
+        "show me the command map",
+        "how do I find the right command",
         "how do I navigate this",
         "how do I navigate",
         "show me docs",
