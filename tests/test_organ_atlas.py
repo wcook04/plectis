@@ -69,6 +69,10 @@ def test_first_commands_are_copyable_from_package_root() -> None:
                 "first commands are shown to readers already inside the "
                 f"package root: {card['organ_id']} -> {first_command}"
             )
+            assert not first_command.startswith("python -m "), (
+                "source-checkout first commands should use python3 or the "
+                f"installed console script: {card['organ_id']} -> {first_command}"
+            )
 
 
 def test_generated_files_are_in_sync_with_substrate() -> None:
