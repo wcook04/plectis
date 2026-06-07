@@ -650,6 +650,8 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "how can I evaluate it",
         "how to evaluate",
         "evaluate",
+        "evaluate it",
+        "evaluate this repo",
         "review this",
         "what are the risks",
         "what is broken",
