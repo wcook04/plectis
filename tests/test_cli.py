@@ -612,6 +612,17 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
     assert help_result.returncode == 0, help_result.stderr
     assert "task string to normalize into an agent task route" in help_result.stdout
     assert "task string to normalize into the agent-entry route" not in help_result.stdout
+    assert "Task selector examples:" in help_result.stdout
+    assert (
+        "microcosm agent-entry-composition --task evaluation --viewer human --card --check"
+        in help_result.stdout
+    )
+    assert (
+        "reviewer, skeptical-reviewer, and skeptical-review route to the\n"
+        "ai-safety task route"
+    ) in help_result.stdout
+    assert "Use evaluation for the cold route-map/receipt evaluator\npath" in help_result.stdout
+    assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 
 def test_root_doc_microcosm_commands_are_discoverable_from_root_help() -> None:

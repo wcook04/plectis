@@ -616,6 +616,20 @@ mutation, proof correctness, trading advice, private-root equivalence, or
 whole-system correctness.
 """
 
+AGENT_ENTRY_COMPOSITION_HELP_EPILOG = """Task selector examples:
+  microcosm agent-entry-composition --task agent-entry --viewer human --card --check
+  microcosm agent-entry-composition --task evaluation --viewer human --card --check
+  microcosm agent-entry-composition --task ai-safety --viewer human --card --check
+
+Alias note: reviewer, skeptical-reviewer, and skeptical-review route to the
+ai-safety task route. Use evaluation for the cold route-map/receipt evaluator
+path, or agent-entry for the general cold-agent entry path.
+
+Boundary: this card selects public route metadata and first commands; it does
+not authorize release, provider calls, source mutation, private-root
+equivalence, proof correctness, trading advice, or whole-system correctness.
+"""
+
 PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-binding": "validate exported pattern/source-route bundles",
     "pattern-route-readiness": "validate pattern route-readiness bundle",
@@ -2197,6 +2211,8 @@ def main(argv: list[str] | None = None) -> int:
             "task route, organ evidence, standards, and macro route body floor "
             "into one runnable entry card."
         ),
+        epilog=AGENT_ENTRY_COMPOSITION_HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     agent_entry_parser.add_argument(
         "--task",
