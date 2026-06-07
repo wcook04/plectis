@@ -665,6 +665,14 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
 }
 
 PUBLIC_BUNDLE_COMMAND_EPILOGS = {
+    "finance-forecast-evaluation-spine": """Runnable fixture example:
+  microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out /tmp/microcosm-finance-forecast-evaluation-spine
+
+Boundary: validates synthetic forecast-evaluation fixtures and writes receipts.
+It is not investment or trading advice, uses no live market data, claims no
+track record or performance result, mutates no optimizer, and does not
+authorize release.
+""",
     "formal-math-readiness-gate": """Runnable fixture example:
   microcosm formal-math-readiness-gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out /tmp/microcosm-formal-readiness-gate
 
@@ -742,6 +750,7 @@ def _add_public_lens_parsers(subparsers) -> None:
 ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset(
     {
         "pattern-route-readiness",
+        "finance-forecast-evaluation-spine",
         "finance-eval-spine",
         "executable-doctrine-grammar",
         "formal-math-readiness-gate",

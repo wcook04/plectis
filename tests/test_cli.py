@@ -485,6 +485,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "authority",
         "run",
         "pattern-route-readiness",
+        "finance-forecast-evaluation-spine",
         "finance-eval-spine",
         "executable-doctrine-grammar",
         "formal-math-readiness-gate",
