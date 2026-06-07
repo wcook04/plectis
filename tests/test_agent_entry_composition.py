@@ -842,6 +842,7 @@ def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
         "show me math",
         "show me the math",
         "show me math stuff",
+        "show me math parts",
         "show me the mathematical parts",
         "show me formal methods",
         "show me the formal methods",
