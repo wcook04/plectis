@@ -286,6 +286,12 @@ def _normalize_task_class(task: str | None) -> str:
         "show me the finance",
         "show-me-the-finance",
         "show_me_the_finance",
+        "show me financial parts",
+        "show-me-financial-parts",
+        "show_me_financial_parts",
+        "show me the financial parts",
+        "show-me-the-financial-parts",
+        "show_me_the_financial_parts",
     }:
         return "finance"
     if value in {
