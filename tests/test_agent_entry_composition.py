@@ -410,6 +410,42 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "show me security",
+        "show me the security",
+        "is this secure",
+        "security review",
+    ],
+)
+def test_agent_entry_card_aliases_security_questions_to_security_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "security"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "security"
+    assert (
+        payload["task_route"]["primary_organ_id"]
+        == "agent_memory_temporal_conflict_replay"
+    )
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "security"
+    assert "agent-entry-composition --task security" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "how do I evaluate it",
         "how can I evaluate it",
         "how to evaluate",
