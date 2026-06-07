@@ -518,6 +518,10 @@ def _normalize_task_class(task: str | None) -> str:
     if value in {
         "formal math",
         "math",
+        "mathematics",
+        "show math",
+        "show-math",
+        "show_math",
         "show me the math",
         "show me math stuff",
         "show-me-math-stuff",
