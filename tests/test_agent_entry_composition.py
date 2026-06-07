@@ -439,7 +439,14 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
 
 
 @pytest.mark.parametrize(
-    "task", ["show me finance", "show me the financial parts", "financial", "market"]
+    "task",
+    [
+        "show me finance",
+        "show me the finance parts",
+        "show me the financial parts",
+        "financial",
+        "market",
+    ],
 )
 def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) -> None:
     payload = build_agent_entry_composition(
