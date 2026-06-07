@@ -361,12 +361,18 @@ def _normalize_task_class(task: str | None) -> str:
         "show me formal methods",
         "show me the formal methods",
         "show me formal methods stuff",
+        "show me formal methods parts",
+        "show me the formal methods parts",
         "show-me-formal-methods",
         "show-me-the-formal-methods",
         "show-me-formal-methods-stuff",
+        "show-me-formal-methods-parts",
+        "show-me-the-formal-methods-parts",
         "show_me_formal_methods",
         "show_me_the_formal_methods",
         "show_me_formal_methods_stuff",
+        "show_me_formal_methods_parts",
+        "show_me_the_formal_methods_parts",
     }:
         return "formal-methods"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):

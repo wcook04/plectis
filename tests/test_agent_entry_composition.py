@@ -422,6 +422,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show me formal methods",
         "show me the formal methods",
         "show me formal methods stuff",
+        "show me the formal methods parts",
     ],
 )
 def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> None:
