@@ -144,6 +144,26 @@ def _evidence_interpretation_boundary() -> dict[str, Any]:
     }
 
 
+def _evidence_full_payload_drilldown(
+    *, project_ref: str, evidence_ref: str
+) -> dict[str, str]:
+    project_prefix = project_ref.rstrip("/")
+    if project_prefix in {"", "."}:
+        local_json_path = f"./{evidence_ref}"
+    else:
+        local_json_path = f"{project_prefix}/{evidence_ref}"
+    return {
+        "path": local_json_path,
+        "command": f"python3 -m json.tool {local_json_path}",
+        "meaning": "open the complete local JSON receipt behind this compact card",
+        "authority_boundary": (
+            "full local JSON is drilldown evidence only; it does not authorize "
+            "release, provider calls, source mutation, proof correctness, trading "
+            "advice, private-root equivalence, or whole-system correctness"
+        ),
+    }
+
+
 def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
     return public_payload_boundary(
         boundary_id=PROJECT_PYTHON_LENS_BOUNDARY_ID,
@@ -3639,13 +3659,19 @@ def compile_project(
 
 def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
+    project_ref = _project_arg_ref(project_path, project)
     rel = evidence_ref.removeprefix(f"{STATE_DIR}/")
     payload = _read_project_json(project, rel)
     if not payload:
         return {
             **_base_payload("microcosm_project_evidence_card_v1", project),
+            "project_ref": project_ref,
             "status": "not_found",
             "evidence_ref": evidence_ref,
+            "full_payload_drilldown": _evidence_full_payload_drilldown(
+                project_ref=project_ref,
+                evidence_ref=evidence_ref,
+            ),
             **_evidence_interpretation_boundary(),
         }
     safe_keys = {
@@ -3665,9 +3691,14 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
     }
     return {
         **_base_payload("microcosm_project_evidence_card_v1", project),
+        "project_ref": project_ref,
         "evidence_ref": evidence_ref,
         "evidence": {key: payload.get(key) for key in safe_keys if key in payload},
         "payload_summary": _evidence_payload_summary(payload),
+        "full_payload_drilldown": _evidence_full_payload_drilldown(
+            project_ref=project_ref,
+            evidence_ref=evidence_ref,
+        ),
         **_source_body_boundary_row(),
         **_evidence_interpretation_boundary(),
     }

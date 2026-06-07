@@ -535,8 +535,9 @@ Interpretation:
   proof-correctness, trading, security, or private-root equivalence authority.
   payload_summary is the safe shape/ref summary of the underlying receipt;
   inspect cards do not export source bodies.
-  Use the listed evidence_ref and schema_version to decide whether you need
-  the underlying receipt path or the owning validator/builder.
+  Use full_payload_drilldown.command when you need the complete local JSON
+  behind the compact card, then use evidence_ref and schema_version to decide
+  whether you need the owning validator/builder.
 """
 
 EVIDENCE_LIST_HELP = """Lists compact evidence refs.

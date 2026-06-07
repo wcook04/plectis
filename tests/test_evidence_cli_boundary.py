@@ -25,6 +25,22 @@ def _assert_evidence_interpretation(payload: dict) -> None:
     assert "owning validator/builder" in interpretation["next_step"]
 
 
+def _assert_full_payload_drilldown(
+    payload: dict, *, project_ref: str, evidence_ref: str
+) -> None:
+    drilldown = payload["full_payload_drilldown"]
+    project_prefix = project_ref.rstrip("/")
+    if project_prefix in {"", "."}:
+        expected_path = f"./{evidence_ref}"
+    else:
+        expected_path = f"{project_prefix}/{evidence_ref}"
+    assert drilldown["path"] == expected_path
+    assert drilldown["command"] == f"python3 -m json.tool {expected_path}"
+    assert "complete local JSON receipt" in drilldown["meaning"]
+    assert "drilldown evidence only" in drilldown["authority_boundary"]
+    assert "proof correctness" in drilldown["authority_boundary"]
+
+
 def test_cli_evidence_list_fails_closed_for_missing_project(capsys, tmp_path: Path) -> None:
     missing = tmp_path / "missing-project"
 
@@ -143,6 +159,11 @@ def test_cli_evidence_inspect_accepts_project_shorthand(
     assert shorthand_payload["payload_summary"]["count_fields"]["route_count"] >= 2
     assert "readme_onboarding_route" in shorthand_payload["payload_summary"]["route_ids"]
     assert shorthand_payload["payload_summary"]["list_field_counts"]["routes"] >= 2
+    _assert_full_payload_drilldown(
+        shorthand_payload,
+        project_ref=project.as_posix(),
+        evidence_ref=ref,
+    )
     _assert_evidence_interpretation(shorthand_payload)
 
     assert cli.main(["evidence", "inspect", "--project", project.as_posix(), ref]) == 0
@@ -151,6 +172,11 @@ def test_cli_evidence_inspect_accepts_project_shorthand(
     assert project_flag_payload["status"] == "pass"
     assert project_flag_payload["project_ref"] == project.as_posix()
     assert project_flag_payload["evidence_ref"] == ref
+    _assert_full_payload_drilldown(
+        project_flag_payload,
+        project_ref=project.as_posix(),
+        evidence_ref=ref,
+    )
     _assert_evidence_interpretation(project_flag_payload)
 
 
@@ -176,6 +202,7 @@ def test_cli_evidence_inspect_infers_current_project_for_microcosm_ref(
     assert payload["project_ref"] == "."
     assert payload["schema_version"] == "microcosm_project_evidence_card_v1"
     assert payload["evidence_ref"] == ref
+    _assert_full_payload_drilldown(payload, project_ref=".", evidence_ref=ref)
     _assert_evidence_interpretation(payload)
 
 
@@ -200,6 +227,11 @@ def test_cli_evidence_inspect_not_found_keeps_interpretation_boundary(
 
     assert payload["status"] == "not_found"
     assert payload["evidence_ref"] == ".microcosm/evidence/missing.json"
+    _assert_full_payload_drilldown(
+        payload,
+        project_ref=project.as_posix(),
+        evidence_ref=".microcosm/evidence/missing.json",
+    )
     _assert_evidence_interpretation(payload)
 
 
@@ -271,6 +303,7 @@ def test_cli_evidence_inspect_help_explains_receipt_card_boundary(capsys) -> Non
     assert "status=pass means the inspect command produced the card" in output
     assert "payload_summary is the safe shape/ref summary" in output
     assert "inspect cards do not export source bodies" in output
+    assert "full_payload_drilldown.command" in output
     assert "not release" in output
     assert "private-root equivalence authority" in output
 
