@@ -562,6 +562,9 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
         "show me interesting stuff",
         "show me the interesting parts",
         "show me what's interesting",
+        "what is worth looking at",
+        "what should I look at first",
+        "where should I start",
     ],
 )
 def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
