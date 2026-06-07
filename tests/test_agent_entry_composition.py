@@ -296,7 +296,10 @@ def test_agent_entry_card_allows_selected_public_task_route() -> None:
 @pytest.mark.parametrize(
     "task",
     [
+        "reviewer",
+        "skeptical review",
         "skeptical-review",
+        "skeptical reviewer",
         "show me AI safety",
         "show me the AI safety",
         "show me the AI safety parts",
@@ -489,6 +492,9 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "how can I evaluate it",
         "how to evaluate",
         "evaluate",
+        "review this",
+        "what are the risks",
+        "what is broken",
         "show me checks",
         "what checks can I run",
         "how do I run checks",

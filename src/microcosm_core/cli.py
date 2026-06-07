@@ -480,7 +480,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   reader aliases: cold-cloner, interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm agent-entry-composition --task {agent-entry|ai-safety|evaluation|finance|formal-methods|interesting-parts|reviewer} emit Type A/human route card
+  microcosm agent-entry-composition --task {agent-entry|ai-safety|evaluation|finance|formal-methods|interesting-parts} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
   microcosm spine --card          read the compact runtime spine lens
@@ -650,10 +650,11 @@ AGENT_ENTRY_COMPOSITION_HELP_EPILOG = """Task selector examples:
 
 Alias note: reviewer, skeptical-reviewer, and skeptical-review route to the
 ai-safety task route. Use evaluation for the cold route-map/receipt evaluator
-path; receipt/evidence meaning questions route there too. Use agent-entry for
-the general cold-agent entry path; "What is this?" routes there too. "What is
-interesting here?" routes to interesting-parts. "Show me formal methods" routes
-to formal-methods. "Show me AI safety" routes to ai-safety.
+path; receipt/evidence meaning, review, risk, and brokenness questions route
+there too. Use agent-entry for the general cold-agent entry path; "What is
+this?" routes there too. "What is interesting here?" routes to
+interesting-parts. "Show me formal methods" routes to formal-methods. "Show me
+AI safety" routes to ai-safety.
 
 Boundary: this card selects public route metadata and first commands; it does
 not authorize release, provider calls, source mutation, private-root
