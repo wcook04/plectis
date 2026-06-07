@@ -64,6 +64,14 @@
       "unenriched_ids": []
     }
   },
+  "reader_ladder": {
+    "checked": 49,
+    "defects": [],
+    "gate": "scripts/check_doctrine_reader_ladder.py",
+    "note": "Plain reading + bounded analogy present and laundering-free; analogy fidelity and boundary honesty are reviewed, not counted.",
+    "sound": 49,
+    "unsound": 0
+  },
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
   "source_of_record": "core/doctrine_enrichment.json",

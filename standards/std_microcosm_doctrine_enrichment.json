@@ -8,7 +8,8 @@
   "consumed_by": [
     "tools/meta/dissemination/build_microcosm_public_site.py (doctrine_cards renderer)",
     "microcosm-substrate/scripts/build_doctrine_enrichment_health.py (coverage projection)",
-    "microcosm-substrate/scripts/check_doctrine_formal_soundness.py (formal-statement soundness gate)"
+    "microcosm-substrate/scripts/check_doctrine_formal_soundness.py (formal-statement soundness gate)",
+    "microcosm-substrate/scripts/check_doctrine_reader_ladder.py (reader-ladder accessibility gate)"
   ],
   "authority_boundary": "Enrichment is reader content, not law and not support evidence. The formal_clause source of record stays in core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), and ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause. The axiom support-cover validator does not read this file, so an example or enforcement route named here never computes support, never raises a claim ceiling, and never becomes anti-axiom rejection. A generated page may expose this content but cannot raise the authority of the source it explains (P-15).",
   "envelope": {
@@ -32,8 +33,24 @@
         "text": "The tempting failure the object exists to refuse."
       },
       "enforced_in": "Public component ids where the object is witnessed or governs, rendered as links.",
-      "does_not_prove": "The explicit bound: what the object and its example do NOT establish."
+      "does_not_prove": "The explicit bound: what the object and its example do NOT establish.",
+      "reader_ladder": {
+        "plain": "One short, literal lay sentence (no jargon, no symbols). A non-expert grasps the point from this alone, before any disclosure opens.",
+        "analogy": {
+          "text": "One concrete, familiar everyday analogy that preserves the object's exact core invariant.",
+          "maps": "List of {doctrine, analogy} correspondences making the analogy's fidelity inspectable (the anti-laundering map).",
+          "boundary": "Where the analogy STOPS: what it does not prove or imply. Mandatory; an analogy without a boundary is a laundering vector."
+        },
+        "why_it_matters": "Why a reader should care, in practical terms.",
+        "common_misread": "The tempting but wrong takeaway."
+      }
     }
+  },
+  "reader_ladder_invariant": {
+    "statement": "The reader ladder is a governed reader primitive, not decoration. Every object carries a plain reading and a bounded analogy. The analogy must preserve the object's core invariant (the maps make that inspectable) and must name its limit (the boundary). An analogy without a boundary is the same laundering failure the doctrine refuses: it lets a vivid metaphor stand in for doctrine the source never carried.",
+    "ladder_order": ["plain", "analogy", "analogy.boundary", "expert reading (governs/requires/refuses + formal.reads)", "formal statement (latex/symbols)", "support/non-laundering boundary (does_not_prove)"],
+    "accessibility_rules": "Lay fields use literal language first, short sentences, no jargon, no symbols, no public-vocab-banned visible terms, and make no proof/guarantee claim in the affirmative fields (plain, analogy.text, why_it_matters); a 'does not prove' disclaimer belongs in the boundary or common_misread. The analogy is optional support for understanding, never the only explanation and never proof.",
+    "gate": "scripts/check_doctrine_reader_ladder.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_reader_ladder.py)"
   },
   "formal_soundness_invariant": {
     "statement": "A formal block is sound when the symbol table and the formula agree (no undefined symbol, no dangling symbol) and the formula does not assert more than the source clause. This is a reader-soundness property of symbol/formula agreement, NOT a proof of mathematical correctness or of axiom support; correctness is reviewed, soundness is gated.",
@@ -44,7 +61,8 @@
     "An example is reader illustration, never a support case; it does not pass the support_case_shape and does not raise support.",
     "An enforced_in route is a navigation aid, not proof that the object is obligation-supported or complete.",
     "The latex rendering is a projection of the source clause and cannot become a competing source of record.",
-    "Coverage of an enrichment field is presence, not correctness; correctness is reviewed, not counted."
+    "An analogy is reader illustration, never proof; it explains the object and is bounded by an explicit limit, and it never establishes the object or computes support.",
+    "Coverage of an enrichment field is presence, not correctness; correctness (formal soundness, analogy fidelity, boundary honesty) is reviewed and gated, not counted."
   ],
   "anti_claims": [
     "This standard does not flip source authority for any axiom, principle, or anti-principle.",

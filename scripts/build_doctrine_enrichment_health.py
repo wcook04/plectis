@@ -23,6 +23,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_doctrine_formal_soundness import run as run_soundness  # noqa: E402
+from check_doctrine_reader_ladder import run as run_reader_ladder  # noqa: E402
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -128,7 +129,24 @@ def build_health(root: Path) -> dict[str, Any]:
         "gate": "scripts/check_doctrine_formal_soundness.py",
         "note": "Symbol/formula agreement, not mathematical correctness; correctness is reviewed, not counted.",
     }
-    complete = coverage_complete and soundness["unsound"] == 0
+    # Reader-ladder accessibility: every object carries a plain reading and a
+    # bounded analogy (plain + analogy.text + maps + boundary + why_it_matters +
+    # common_misread), with no laundering, banned visible term, or lay overclaim.
+    # Like soundness, this is structural agreement, not a clarity score.
+    ladder = run_reader_ladder(enrichment_path)
+    reader_ladder = {
+        "checked": ladder["total"],
+        "sound": ladder["clean"],
+        "unsound": ladder["defective"],
+        "defects": [
+            {"id": r["id"], "issues": r["issues"]}
+            for r in ladder["results"]
+            if not r["clean"]
+        ],
+        "gate": "scripts/check_doctrine_reader_ladder.py",
+        "note": "Plain reading + bounded analogy present and laundering-free; analogy fidelity and boundary honesty are reviewed, not counted.",
+    }
+    complete = coverage_complete and soundness["unsound"] == 0 and reader_ladder["unsound"] == 0
     return {
         "schema_version": "microcosm_doctrine_enrichment_health_v1",
         "source_of_record": ENRICHMENT_REL,
@@ -141,6 +159,7 @@ def build_health(root: Path) -> dict[str, Any]:
         "kinds": kinds,
         "incomplete": all_missing,
         "formal_soundness": soundness,
+        "reader_ladder": reader_ladder,
         "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
     }
 
