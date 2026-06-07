@@ -211,18 +211,22 @@ def _normalize_task_class(task: str | None) -> str:
         "show me the ai safety",
         "show me ai safety parts",
         "show me the ai safety parts",
+        "show me ai safety stuff",
         "show-me-ai-safety",
         "show-me-the-ai-safety",
         "show-me-ai-safety-parts",
         "show-me-the-ai-safety-parts",
+        "show-me-ai-safety-stuff",
         "show_me_ai_safety",
         "show_me_the_ai_safety",
         "show_me_ai_safety_parts",
         "show_me_the_ai_safety_parts",
+        "show_me_ai_safety_stuff",
         "show me ai-safety",
         "show me the ai-safety",
         "show me ai-safety parts",
         "show me the ai-safety parts",
+        "show me ai-safety stuff",
     }:
         return "ai-safety"
     if value in {
