@@ -289,6 +289,19 @@ def _normalize_task_class(task: str | None) -> str:
         "show me ai-safety parts",
         "show me the ai-safety parts",
         "show me ai-safety stuff",
+        "ml",
+        "machine learning",
+        "machine-learning",
+        "machine_learning",
+        "show me ml",
+        "show-me-ml",
+        "show_me_ml",
+        "show me ai parts",
+        "show-me-ai-parts",
+        "show_me_ai_parts",
+        "show me machine learning parts",
+        "show-me-machine-learning-parts",
+        "show_me_machine_learning_parts",
     }:
         return "ai-safety"
     if value in {
