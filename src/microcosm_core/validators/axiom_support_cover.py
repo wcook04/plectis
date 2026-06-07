@@ -163,6 +163,16 @@ def _principle_obligation_groundings(root: Path) -> dict[str, list[str]]:
 
 
 def _basis_digest(root: Path, rels: tuple[Path, ...]) -> str:
+    """Deterministic ``sha256:`` digest over ordered (relpath, file-bytes) pairs.
+
+    - Teleology: protects the reproducibility/basis-attestation claim of every support-cover receipt against silent input drift across the named registry/source files.
+    - Guarantee: returns ``"sha256:" + hexdigest`` covering each rel's posix path plus its bytes (or the literal ``b"<missing>"`` sentinel when the file is unreadable), so identical inputs always yield the identical string.
+    - Fails: None (OSError on a missing/unreadable file is caught and folded in as ``<missing>``; it never raises and has no failure envelope).
+    - Reads: each ``root/rel`` file's raw bytes.
+    - Writes: None.
+    - When-needed: when an agent must confirm two receipts were derived from byte-identical basis inputs before trusting their support claims.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a digest is reproducibility evidence, not freshness or correctness proof.
+    """
     digest = hashlib.sha256()
     for rel in rels:
         digest.update(rel.as_posix().encode("utf-8"))
@@ -218,6 +228,17 @@ def _checker_scope_order_registry(root: Path) -> dict[str, Any]:
 
 
 def _authority_scope_order_registry(root: Path) -> dict[str, Any]:
+    """Load + validate the source-owned authority-scope order registry.
+
+    - Teleology: protects the authority-ceiling lattice (read-only vs source-binding authority scope) against a source order file that disagrees with the validator's hardcoded ``AUTHORITY_SCOPE_ORDER``.
+    - Guarantee: on success returns a dict with payload, order_values (== ``AUTHORITY_SCOPE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's authority-scope order.
+    - Fails: non-dict JSON, ``component_id != "authority_scope"``, or ``order_values`` not matching ``AUTHORITY_SCOPE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing or malformed JSON).
+    - Reads: ``core/axiom_support_authority_scope_order.json``.
+    - Writes: None.
+    - When-needed: when an agent must trust that the authority-scope ceiling values used downstream are the source-owned, in-sync order.
+    - Escalates-to: ``core/axiom_support_authority_scope_order.json`` source span and ``AUTHORITY_SCOPE_ORDER`` constant.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates an order registry, not authority to mutate or release.
+    """
     payload = read_json_strict(root / AUTHORITY_SCOPE_ORDER_REL)
     if not isinstance(payload, dict):
         raise ValueError(f"{AUTHORITY_SCOPE_ORDER_REL.as_posix()} must be a JSON object")
@@ -306,6 +327,17 @@ def _domain_scope_order_registry(root: Path) -> dict[str, Any]:
 
 
 def _ceiling_dimension_registry(root: Path) -> dict[str, Any]:
+    """Load + validate the 8-component evidence-ceiling lattice and its sub-order owners.
+
+    - Teleology: protects the evidence-ceiling lattice claim (that every named ceiling dimension is source-registered with an allowed owner_status and matches ``std_microcosm_axiom`` evidence_ceiling_lattice) against a drifted, mis-owned, or partially-registered dimensions file.
+    - Guarantee: on success returns a dict carrying payload, component_order (== ``DEFAULT_CEILING_COMPONENTS``), components_by_id, order_owned (== ``COMPUTED_ORDER_OWNED_COMPONENTS`` set), explicitly_unowned, the six per-dimension sub-order registries (loaded only for order-owned dimensions), source_ref, and a basis_digest spanning exactly the loaded files.
+    - Fails: non-dict payload, non-list ``components``, ``component_order != DEFAULT_CEILING_COMPONENTS``, by_id keyset != component_order set, order_owned set != ``COMPUTED_ORDER_OWNED_COMPONENTS``, or any component lacking an allowed owner_status each raise ValueError; sub-registry loaders raise ValueError on their own mismatches.
+    - Reads: ``core/axiom_support_ceiling_dimensions.json`` plus each loaded sub-order file (checker_scope, provenance, authority_scope, projection_scope, freshness_state, domain_scope).
+    - Writes: None.
+    - When-needed: when an agent must trust that the full ceiling-component antichain is source-registered and in-sync before reading any per-obligation ceiling vector.
+    - Escalates-to: ``standards/std_microcosm_axiom.json::evidence_ceiling_lattice`` and ``core/axiom_support_ceiling_dimensions.json``.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates registry shape, not that any axiom is actually strong.
+    """
     payload = read_json_strict(root / CEILING_DIMENSIONS_REL)
     if not isinstance(payload, dict):
         raise ValueError(f"{CEILING_DIMENSIONS_REL.as_posix()} must be a JSON object")
@@ -518,7 +550,16 @@ def _authority_scope_component(
     binding: dict[str, Any],
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    """Classify read-only authority boundaries without granting mutation rights."""
+    """Classify read-only authority boundaries without granting mutation rights.
+
+    - Teleology: protects the authority-ceiling claim of an obligation (read-only validator vs source-bound read-only authority) against any reading that lets the validator's projection authority become mutation, release, or anti-axiom-rejection authority.
+    - Guarantee: returns a dict whose ``value`` is one of the registry's authority-scope order values (``source_binding_with_read_only_validator_authority`` when any binding material exists, else ``read_only_validator_projection_authority``), with material_counts and an explicit non_laundering_boundary string.
+    - Fails: when the computed value is not in the registry's order_values (e.g. registry None/empty), returns ``{value: None, status: "unknown_authority_scope_not_in_source_order:<value>"}`` rather than raising.
+    - Reads: only the in-memory ``binding`` and ``registry`` order_values (no disk access).
+    - Writes: None.
+    - When-needed: when an agent must read the authority ceiling for a single obligation without re-deriving it from source.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; read-only validator authority never becomes source-mutation, release, or rejection authority.
+    """
     witness_organs = list(binding.get("witness_organs", []))
     witness_surfaces = list(binding.get("witness_surfaces", []))
     negative_codes = list(binding.get("negative_case_codes", []))
@@ -746,7 +787,17 @@ def _negative_case_status_component(binding: dict[str, Any], root: Path) -> dict
 
 
 def _organ_receipt_negative_coverage_payload(root: Path, organ: str) -> dict[str, Any] | None:
-    """Return a complete, passing first-wave negative-case suite for an organ."""
+    """Return a complete, passing first-wave negative-case suite for an organ.
+
+    - Teleology: protects the anti-axiom-rejection ceiling against treating an organ's negative-case receipt as coverage unless that receipt actually records a complete and passing suite.
+    - Guarantee: returns a payload dict (organ_id, root-relative receipt_ref, expected list, observed map, status) ONLY when the receipt is a JSON object whose ``negative_case_coverage`` has an ``expected`` key, ``missing == []``, and top-level ``status == "pass"``; otherwise returns ``None``.
+    - Fails: missing/unreadable/invalid-JSON receipt -> caught (OSError, ValueError) -> returns ``None``; non-dict payload or incomplete/non-passing coverage -> returns ``None`` (no exception raised).
+    - Reads: ``receipts/first_wave/<organ>/<organ>_validation_receipt.json``.
+    - Writes: None.
+    - When-needed: when an agent needs the concrete observed/expected negative-case material for an organ before claiming receipt-level coverage exists.
+    - Escalates-to: the organ's first-wave validation receipt under ``receipts/first_wave/``.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; organ/endpoint receipt coverage is NOT a per-obligation anti-axiom rejection.
+    """
     receipt = root / RECEIPTS_FIRST_WAVE_REL / organ / f"{organ}_validation_receipt.json"
     try:
         payload = read_json_strict(receipt)
@@ -974,6 +1025,16 @@ def _ceiling_vector(
     by_organ: dict[str, dict[str, Any]],
     dimension_registry: dict[str, Any],
 ) -> dict[str, str]:
+    """Assemble the per-obligation ceiling vector across all registered components.
+
+    - Teleology: protects the evidence-ceiling claim per obligation by emitting a value for EVERY component in ``component_order``, so an unowned or uncomputed dimension surfaces as an explicit unknown rather than silently dropping out.
+    - Guarantee: returns a dict keyed by exactly ``dimension_registry["component_order"]``; order-owned components carry their computed value/status (evidence_class carries its status string), and any component without an order owner is filled with ``"unknown_no_order_owner"`` (others get a per-dimension ``unknown_no_*_material`` fallback).
+    - Fails: None — every code path resolves to a string per component; it does not reject, raise, or return a failure envelope.
+    - Reads: via component helpers, witness checker/test surfaces under ``root`` named by the binding (checker_scope, negative_case_status).
+    - Writes: None.
+    - When-needed: when an agent needs the full ceiling-dimension snapshot for one obligation without recomputing each component.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; an unknown component keeps support uncomputable, never strong.
+    """
     order_owned = set(dimension_registry["order_owned"])
     owned: dict[str, str] = {}
     if "evidence_class" in order_owned:
@@ -1032,6 +1093,14 @@ def _claim_ceiling_for_obligation(
 
     This is deliberately a read-model over evaluated evidence. It does not raise
     support from generated output; it only explains what blocks a stronger claim.
+
+    - Teleology: protects the strong-certification ceiling of a single obligation against any path that would let resolved bindings, receipt coverage, or generated output be read as a 'strong' claim.
+    - Guarantee: returns a dict with ``strong_certified`` hardwired ``False``, a ``strongest_allowed_claim`` chosen from a fixed enum (blocked_conflict_detected / blocked_binding_unresolved / partial_capped_by_layer_debt / not_strong_rejection_mapping_unverified / resolved_strength_uncomputable), an anti_axiom_rejection_status of verified/unverified, an enumerated witness_gaps list (one per binding issue, layer-debt, missing/declared-only negative case, unowned/uncomputed ceiling component, and rejection conflict/unverified), and an authority_boundary string.
+    - Fails: None — it is a pure read-model that always returns a ceiling dict; it never raises and never returns ``strong_certified: True``.
+    - Reads: only its in-memory arguments (no disk access).
+    - Writes: None.
+    - When-needed: when an agent must know the strongest claim allowed for an obligation and exactly which witness gaps block a stronger one.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; generated support-cover output is never source evidence and never certifies strong.
     """
     gaps: list[dict[str, str]] = []
     for issue in binding_issues:
@@ -1423,6 +1492,16 @@ def _organ_evidence_chain(root: Path, organ: str) -> dict[str, list[str]]:
 
 
 def _basis_digest_for_refs(root: Path, refs: list[str]) -> str:
+    """Deterministic ``sha256:`` digest over a deduplicated, sorted set of material refs.
+
+    - Teleology: protects the per-case/per-mapping reproducibility (``basis_env.basis_digest``) claim against drift in the witness/receipt/surface material a support case or rejection mapping cites.
+    - Guarantee: returns ``"sha256:" + hexdigest`` computed over each ref string and the bytes of its pre-``::`` path (or ``b"<missing>"`` when unreadable), iterating ``sorted(set(refs))`` so order/duplication of inputs never changes the result.
+    - Fails: None (OSError on a missing/unreadable ref path is caught and folded in as ``<missing>``); it never raises and has no failure envelope.
+    - Reads: the bytes of each ref's ``root/<ref-before-::>`` path.
+    - Writes: None.
+    - When-needed: when an agent must confirm two support cases or rejection mappings cite byte-identical material before trusting their basis_env attestation.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a digest attests reproducible inputs, not freshness or claim correctness.
+    """
     digest = hashlib.sha256()
     for ref in sorted(set(refs)):
         digest.update(ref.encode("utf-8"))

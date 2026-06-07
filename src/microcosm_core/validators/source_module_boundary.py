@@ -153,6 +153,13 @@ ANTI_CLAIM = (
 
 
 def _normalize_ref(ref: object) -> str:
+    """Normalize a ref to a stripped, leading-``./``-free string.
+
+    - Teleology: protects ref-comparison and classification from spurious mismatches caused by whitespace or ``./`` prefixes.
+    - Guarantee: returns a stripped string with all leading ``./`` segments removed; ``None``/falsy inputs yield ``""``.
+    - Fails: None (coerces any input via str(); cannot raise or return a failure envelope).
+    - Writes: None
+    """
     value = str(ref or "").strip()
     while value.startswith("./"):
         value = value[2:]
@@ -160,6 +167,13 @@ def _normalize_ref(ref: object) -> str:
 
 
 def _path_portion(ref: str) -> str:
+    """Extract the filesystem-path portion of a ref, dropping anchors/selectors.
+
+    - Teleology: protects path-component checks from being fooled by ``#anchor`` or ``::selector`` suffixes appended to a source ref.
+    - Guarantee: returns the stripped substring before any ``#``; when a ``::`` selector follows a path-like first segment (contains ``/`` or ends in .json/.jsonl/.py/.md/.lean) it returns only that path segment.
+    - Fails: None (pure string slicing; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     path = ref.split("#", 1)[0]
     if "::" in path:
         first, _rest = path.split("::", 1)
@@ -169,11 +183,25 @@ def _path_portion(ref: str) -> str:
 
 
 def _path_parts(ref: str) -> list[str]:
+    """Split a ref's path portion into non-empty ``/``-separated components.
+
+    - Teleology: protects component-level boundary checks (forbidden parts, ``..`` traversal, source_modules tail) by giving a normalized, separator-agnostic part list.
+    - Guarantee: returns the path portion (backslashes folded to ``/``) split on ``/`` with empty segments dropped; ``""`` ref yields ``[]``.
+    - Fails: None (pure; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     path = _path_portion(ref).replace("\\", "/")
     return [part for part in path.split("/") if part]
 
 
 def _row_id(row: dict[str, Any], fallback: str) -> str:
+    """Resolve a stable row identifier from known id keys, else a fallback.
+
+    - Teleology: protects finding-row provenance so blocked refs/claims trace back to a stable manifest row id rather than an anonymous path.
+    - Guarantee: returns the first nonempty stripped value among ROW_ID_KEYS (module_id/material_id/cell_id/witness_id/manifest_id/bundle_id); when none present returns the supplied fallback.
+    - Fails: None (always returns a string; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     for key in ROW_ID_KEYS:
         value = str(row.get(key) or "").strip()
         if value:
@@ -182,12 +210,26 @@ def _row_id(row: dict[str, Any], fallback: str) -> str:
 
 
 def _is_ref_field(key: str) -> bool:
+    """Decide whether a manifest key names a path-like source ref.
+
+    - Teleology: protects the ref-harvest scan from both misses (untracked ref keys) and false positives (policy/prose keys that end in ref-like suffixes).
+    - Guarantee: returns True iff key is not in NON_REF_KEYS AND (key is in REF_FIELD_KEYS or ends in one of _ref/_refs/_path/_paths); returns False otherwise.
+    - Fails: None (pure boolean predicate; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     if key in NON_REF_KEYS:
         return False
     return key in REF_FIELD_KEYS or key.endswith(REF_FIELD_SUFFIXES)
 
 
 def _string_ref_values(value: object, *, field_path: str) -> Iterator[tuple[str, str]]:
+    """Yield (field_path, normalized_ref) for every nonempty string under a ref field.
+
+    - Teleology: protects the ref scan from missing refs nested inside lists/dicts hung off a ref-shaped key.
+    - Guarantee: yields one (indexed/dotted field_path, normalized_ref) tuple per nonempty string leaf; recurses into lists (``[i]``) and dicts (``.key``); empty/normalized-away strings are skipped.
+    - Fails: None (generator over the value tree; non-str/list/dict leaves yield nothing; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     if isinstance(value, str):
         normalized = _normalize_ref(value)
         if normalized:
@@ -201,6 +243,13 @@ def _string_ref_values(value: object, *, field_path: str) -> Iterator[tuple[str,
 
 
 def _has_nonempty_value(row: dict[str, Any], keys: Iterable[str]) -> bool:
+    """Report whether any of the given keys holds a nonempty ref string or list.
+
+    - Teleology: protects claim-shape detection (has-source-ref / has-target) from treating blank or whitespace-only ref fields as present.
+    - Guarantee: returns True iff some key maps to a string that normalizes nonempty, or to a list containing at least one normalize-nonempty item; False otherwise.
+    - Fails: None (pure predicate; non-str/list values are ignored; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     for key in keys:
         value = row.get(key)
         if isinstance(value, str) and _normalize_ref(value):
@@ -211,6 +260,13 @@ def _has_nonempty_value(row: dict[str, Any], keys: Iterable[str]) -> bool:
 
 
 def _first_source_ref(row: dict[str, Any]) -> str:
+    """Return the first normalized source ref from the row's source fields.
+
+    - Teleology: protects blocked-claim findings by attaching a concrete source ref (for the ``ref`` field) when a row overclaims body material.
+    - Guarantee: returns the first normalize-nonempty value scanning SOURCE_REF_FIELD_KEYS (source_ref/source_refs/source_path/source_paths), descending into list values; returns ``""`` when none found.
+    - Fails: None (always returns a string; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     for key in SOURCE_REF_FIELD_KEYS:
         value = row.get(key)
         if isinstance(value, str) and _normalize_ref(value):
@@ -224,6 +280,13 @@ def _first_source_ref(row: dict[str, Any]) -> str:
 
 
 def _source_modules_tail(ref: object) -> str:
+    """Return the path tail after the ``source_modules`` component, else ``""``.
+
+    - Teleology: protects the path/target alignment check by reducing two refs to the body-identity tail under ``source_modules`` so a path↔target_ref mismatch can be detected.
+    - Guarantee: returns the ``/``-joined parts following the first ``source_modules`` component; returns ``""`` when no ``source_modules`` component is present.
+    - Fails: None (returns ``""`` on the ValueError-absent case; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     parts = _path_parts(_normalize_ref(ref))
     try:
         source_modules_index = parts.index("source_modules")
@@ -234,6 +297,13 @@ def _source_modules_tail(ref: object) -> str:
 
 
 def _looks_like_source_module_claim(row: dict[str, Any]) -> bool:
+    """Detect whether a dict row is a source-module import claim worth auditing.
+
+    - Teleology: protects the claim-overclaim scan from auditing arbitrary dicts by gating on rows that both name a source ref and carry an import-claim marker.
+    - Guarantee: returns True iff the row has a nonempty source ref (SOURCE_REF_FIELD_KEYS) AND contains at least one SOURCE_MODULE_CLAIM_MARKER_KEYS key (e.g. body_copied, copy_policy, material_class, source_to_target_relation); False otherwise.
+    - Fails: None (pure predicate; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     return _has_nonempty_value(row, SOURCE_REF_FIELD_KEYS) and any(
         key in row for key in SOURCE_MODULE_CLAIM_MARKER_KEYS
     )
@@ -246,7 +316,17 @@ def extract_source_module_claim_rows(
     prefix: str = "",
     inherited_row_id: str = "",
 ) -> list[dict[str, Any]]:
-    """Extract source-module claim rows that can overstate import authority."""
+    """Extract source-module claim rows that can overstate import authority.
+
+    - Teleology: protects the exact-copy import boundary from manifest rows that claim copied/source-faithful body material without a public source_modules target or that stash bodies in receipts.
+    - Guarantee: returns a list of finding-dicts (possibly empty), each carrying manifest_ref/field_path/row_id/ref plus one error_code in {source_module_body_in_receipt_claim, source_module_target_ref_missing, source_module_path_target_ref_mismatch} and a coordination_action; never reads referenced bodies.
+    - Fails: returns [] for any payload that is not a dict/list, contains no source-module claim markers, or whose claims already name a matching public target; recursion-only, raises nothing.
+    - Reads: in-memory payload dict/list only (the parsed manifest); no disk, no referenced bodies.
+    - Writes: None
+    - When-needed: trust when checking a manifest for body-material overclaims before an exact-copy refresh write.
+    - Escalates-to: evaluate_source_module_boundary (folds these into blocked_refs) / source_module_boundary_card_v1.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    """
 
     rows: list[dict[str, Any]] = []
     if isinstance(payload, dict):
@@ -354,7 +434,16 @@ def extract_source_ref_rows(
     prefix: str = "",
     inherited_row_id: str = "",
 ) -> list[dict[str, str]]:
-    """Extract path-like source-module refs without reading referenced bodies."""
+    """Extract path-like source-module refs without reading referenced bodies.
+
+    - Teleology: protects the source-ref classification gate by harvesting every path-like ref string from a manifest so none escape the boundary scan.
+    - Guarantee: returns a list (possibly empty) of {manifest_ref, field_path, row_id, ref} dicts for each string under a ref-shaped key (REF_FIELD_KEYS / *_ref/_refs/_path/_paths suffix, minus NON_REF_KEYS), with refs normalized via _normalize_ref; only nonempty refs are emitted.
+    - Fails: returns [] for non-dict/non-list payloads or payloads with no ref-shaped fields; recursion-only, raises nothing.
+    - Reads: in-memory payload dict/list only; never opens the referenced files.
+    - Writes: None
+    - When-needed: trust when enumerating candidate source refs to classify before exact-copy refresh.
+    - Escalates-to: _classify_source_ref (per-ref verdict) / evaluate_source_module_boundary.
+    """
 
     rows: list[dict[str, str]] = []
     if isinstance(payload, dict):
@@ -398,6 +487,17 @@ def extract_source_ref_rows(
 
 
 def _classify_source_ref(ref: str) -> dict[str, str] | None:
+    """Classify one source ref as boundary-safe (None) or blocked (finding dict).
+
+    - Teleology: protects the public exact-copy import boundary from refs pointing at host-private roots, parent traversal, raw operator voice, or credential/provider/session/HUD material.
+    - Guarantee: returns None when the normalized ref is a relative public macro path clearing every rule; otherwise returns a {error_code, reason} dict naming the first violated rule (source_ref_absolute_or_home_private_root, source_ref_parent_traversal, source_ref_raw_operator_voice, source_ref_forbidden_component:<part>, or source_ref_forbidden_boundary_text:<token>).
+    - Fails: an absolute/``~``/users//private/ root, a ``..`` path part, a raw_seed.md filename, a FORBIDDEN_COMPONENTS part, or a FORBIDDEN_SUBSTRINGS token -> returns the matching error_code finding dict; an empty/blank ref -> returns None (nothing to block).
+    - Reads: the ref string only; never opens the referenced file.
+    - Writes: None
+    - When-needed: trust as the per-ref verdict before allowing a source ref into an exact-copy refresh write.
+    - Escalates-to: evaluate_source_module_boundary (aggregates into blocked_refs) / source_module_boundary_card_v1.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    """
     value = _normalize_ref(ref)
     if not value:
         return None
@@ -455,6 +555,13 @@ def _classify_source_ref(ref: str) -> dict[str, str] | None:
 
 
 def _dedupe_rows(rows: Iterable[dict[str, str]]) -> list[dict[str, str]]:
+    """Collapse duplicate ref/claim rows by (manifest_ref, field_path, ref, error_code).
+
+    - Teleology: protects the boundary card's counts from double-counting the same ref/finding harvested twice across nested or repeated manifest structures.
+    - Guarantee: returns a new list keeping the first dict per (manifest_ref, field_path, ref, error_code) key, ordered by that sorted key tuple; copies each row (does not mutate inputs).
+    - Fails: None (empty iterable yields []; cannot raise or return a failure envelope).
+    - Writes: None
+    """
     unique: dict[tuple[str, str, str, str], dict[str, str]] = {}
     for row in rows:
         key = (
@@ -472,6 +579,17 @@ def evaluate_source_module_boundary(
     *,
     direct_refs: Iterable[str] = (),
 ) -> dict[str, Any]:
+    """Render the read-only source-module boundary card over manifests/direct refs.
+
+    - Teleology: protects the exact-copy refresh write from importing host-private, credential, provider-payload, raw-seed, or receipt-stashed source-module bodies before the digest/claim gates run.
+    - Guarantee: returns a source_module_boundary_card_v1 dict with status PASS iff there are zero blocked_refs (blocked refs + blocked claim rows), else BLOCKED; the card reports input_manifest_count/refs, source_ref/safe_ref/blocked_ref/blocked_source_module_claim counts, blocked_refs (each with error_code+coordination_action), safe_refs, body_in_receipt=False, boundary_policy, next_action, reentry_condition, and the fixed anti_claim.
+    - Fails: any source ref classified by _classify_source_ref, or any over-claiming source-module row, -> appended to blocked_refs and flips status to BLOCKED with next_action exclude_blocked_source_refs_before_exact_copy_refresh_write; in-memory only, raises nothing here.
+    - Reads: in-memory payloads (dict/list, or (manifest_ref, payload) tuples) and direct_refs strings; never opens referenced bodies.
+    - Writes: None
+    - When-needed: trust as the no-write first-screen verdict before any exact-copy source-module refresh.
+    - Escalates-to: main (CLI exit code) / source_module_boundary_card_v1 / downstream digest and claim gates.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    """
     ref_rows: list[dict[str, str]] = []
     blocked_claim_rows: list[dict[str, Any]] = []
     for payload in payloads:
@@ -566,6 +684,15 @@ def evaluate_source_module_boundary(
 
 
 def _load_manifest_rows(paths: Iterable[str]) -> list[tuple[str, Any]]:
+    """Load each manifest path into a (path, parsed-payload) tuple via strict JSON read.
+
+    - Teleology: protects the boundary card from malformed manifests by parsing each manifest strictly and pairing it with its path for provenance.
+    - Guarantee: returns one (path, payload) tuple per input path, payload parsed by read_json_strict; empty input yields [].
+    - Fails: a missing/unreadable/non-JSON manifest path -> read_json_strict raises (propagates; no tuple emitted for that path).
+    - Reads: each manifest JSON file at the given path on disk.
+    - Writes: None
+    - Escalates-to: microcosm_core.schemas.read_json_strict.
+    """
     rows: list[tuple[str, Any]] = []
     for path in paths:
         payload = read_json_strict(Path(path))
@@ -574,6 +701,17 @@ def _load_manifest_rows(paths: Iterable[str]) -> list[tuple[str, Any]]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entry: print the source-module boundary card and gate exit on ``--check``.
+
+    - Teleology: protects CI/pre-refresh pipelines by surfacing the boundary verdict as JSON and a nonzero exit when blocked refs/claims exist.
+    - Guarantee: prints the evaluate_source_module_boundary card as indented sorted JSON; returns 0 when status is PASS or ``--check`` was not passed, and 1 when ``--check`` is set and status is not PASS.
+    - Fails: a bad/unreadable ``--manifest`` path -> _load_manifest_rows raises (propagates); a blocked card under ``--check`` -> returns exit code 1.
+    - Reads: ``--manifest`` JSON files; ``--source-ref`` direct refs.
+    - Writes: None (stdout JSON only; no receipt persisted)
+    - When-needed: trust as the command-line gate before an exact-copy source-module refresh.
+    - Escalates-to: evaluate_source_module_boundary / source_module_boundary_card_v1.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Render a read-only source-module boundary card before exact-copy refresh."

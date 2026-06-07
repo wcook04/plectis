@@ -61,6 +61,16 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """Resolve the public microcosm-substrate root that anchors all public-relative refs.
+
+    - Teleology: protects every public-relative path/receipt resolution from anchoring at the wrong tree root (private parent or unrelated cwd).
+    - Guarantee: returns a Path that is either a parent named "microcosm-substrate" or a dir holding pyproject.toml + src/microcosm_core + core/private_state_forbidden_classes.json; else the resolved cwd.
+    - Fails: None — never raises; with no matching ancestor it returns Path.cwd().resolve(strict=False) as a best-effort fallback.
+    - Reads: filesystem ancestors (pyproject.toml, src/microcosm_core, core/private_state_forbidden_classes.json) for the marker check.
+    - Writes: None
+    - When-needed: trust when deriving the root that every downstream public-relative receipt/manifest/input path joins against.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -381,6 +391,14 @@ def _int_value(value: Any) -> int:
 
 
 def _normalize_public_ref(value: Any) -> str:
+    """Normalize a source/manifest ref to be public-root-relative.
+
+    - Teleology: protects public manifest/source refs in receipts from carrying a "microcosm-substrate/" prefix that would mis-join against an already-public root.
+    - Guarantee: returns the string with a leading "microcosm-substrate/" stripped, else the unchanged str(value or ""); a falsy value yields "".
+    - Fails: None — never raises; non-string input is coerced via str() and returned (possibly empty), never rejected.
+    - Writes: None
+    - When-needed: trust when reading a normalized ref out of a coverage row before joining it under public_root.
+    """
     text = str(value or "")
     public_root_prefix = "microcosm-substrate/"
     if text.startswith(public_root_prefix):
@@ -504,6 +522,17 @@ def _source_body_import_coverage(
 def _source_module_manifest_coverage(
     source_body_imports: dict[str, Any],
 ) -> dict[str, Any]:
+    """Project the source-body import coverage into a compact manifest-coverage receipt slice.
+
+    - Teleology: protects the acceptance-summary claim that every source-body import has a present, public manifest ref (no body smuggled into the receipt) from silently dropping that evidence.
+    - Guarantee: returns a dict carrying schema_version "microcosm_source_module_manifest_coverage_v1" plus the input's status, organ/ref counts, missing_source_manifest_refs, and body_in_receipt[_organs] verbatim.
+    - Fails: a source_body_imports dict missing any required key (status, source_body_import_organ_count, source_manifest_ref_count, missing_source_manifest_refs, body_in_receipt, body_in_receipt_organs) raises KeyError.
+    - Reads: in-memory source_body_imports dict (produced by _source_body_import_coverage); no I/O.
+    - Writes: None
+    - When-needed: inspect when reconciling the acceptance-summary source_module_manifest_coverage block against the fuller source_body_imports section.
+    - Escalates-to: _source_body_import_coverage (the authoritative computation) and core/fixture_manifests/*.fixture_manifest.json.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     return {
         "schema_version": "microcosm_source_module_manifest_coverage_v1",
         "status": source_body_imports["status"],
@@ -532,11 +561,30 @@ def _acceptance_summary_blockers(
 
 
 def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> Path:
+    """Pin a readiness row's fixture_manifest to its public fixture-manifest location.
+
+    - Teleology: protects manifest resolution from a readiness row pointing fixture_manifest at a macro/private path by keeping only the basename under the public dir.
+    - Guarantee: returns public_root / "core/fixture_manifests" / <basename-of-readiness fixture_manifest>; an empty/missing fixture_manifest yields the directory joined with "" (path to the fixture_manifests dir).
+    - Fails: None — never raises and does not check existence; existence is verified by callers (_manifest_input_paths / run_fixture_freshness emit MISSING_FIXTURE_MANIFEST).
+    - Reads: public_root and readiness_row["fixture_manifest"]; no filesystem read here.
+    - Writes: None
+    - When-needed: trust when mapping a per-organ readiness row to the manifest path used for hashing and input enumeration.
+    """
     macro_path = Path(str(readiness_row.get("fixture_manifest") or ""))
     return public_root / "core/fixture_manifests" / macro_path.name
 
 
 def _manifest_input_paths(manifest_path: Path) -> list[str]:
+    """Extract the declared input relative-paths from a fixture manifest.
+
+    - Teleology: protects the per-organ fixture-input fingerprint set from being computed off a missing or malformed manifest (which would silently fingerprint nothing).
+    - Guarantee: returns a list[str] of paths drawn from manifest["inputs"] (dict rows' "path" field or bare string rows); returns [] when the manifest file is absent, parses to a non-dict, or has no list-shaped inputs.
+    - Fails: a present manifest with invalid JSON propagates read_json_strict's parse error (e.g. JSONDecodeError/ValueError); absence or non-dict content returns [] rather than raising.
+    - Reads: the fixture manifest JSON at manifest_path (its "inputs" rows).
+    - Writes: None
+    - When-needed: trust when enumerating which fixture inputs an organ's freshness fingerprint covers.
+    - Escalates-to: read_json_strict (microcosm_core.schemas) and core/fixture_manifests/*.fixture_manifest.json.
+    """
     if not manifest_path.is_file():
         return []
     manifest = read_json_strict(manifest_path)

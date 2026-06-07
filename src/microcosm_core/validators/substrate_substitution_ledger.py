@@ -221,6 +221,16 @@ PROVER_SMOKE_COMMANDS = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """Resolve the public-root anchor used by every ledger surface.
+
+    - Teleology: protects the "validated against the real microcosm-substrate public root" claim from a wrong-root invocation that would scan an unrelated dir and false-PASS.
+    - Guarantee: returns a Path that is either an ancestor named `microcosm-substrate` / carrying the pyproject+src+forbidden-classes markers, else the resolved input path itself (never a silent CWD fallback).
+    - Fails: no marker in ancestry -> returns the resolved input path (not raised), so downstream ledger/registry reads miss and emit a clean `blocked` result rather than a false PASS.
+    - Reads: filesystem ancestry (pyproject.toml, src/microcosm_core, core/private_state_forbidden_classes.json).
+    - Writes: None.
+    - When-needed: trust as the root anchor before reading any ledger/registry/manifest path.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -272,10 +282,28 @@ def _normalize_sha256(value: Any) -> str:
 
 
 def _strip_public_root_prefix(ref: str) -> str:
+    """Normalize a ref to public-root-relative form.
+
+    - Teleology: protects ref-equality comparisons (source-authority role, manifest path joins) from a leading `microcosm-substrate/` prefix splitting one logical ref into two.
+    - Guarantee: returns `ref` with a single leading `microcosm-substrate/` removed if present, else `ref` unchanged.
+    - Fails: None — pure string transform; never rejects, raises, or returns a failure envelope.
+    - Writes: None.
+    """
     return ref.removeprefix("microcosm-substrate/")
 
 
 def _source_authority_role(source_ref: str, material_class: str | None = None) -> str:
+    """Classify a source ref into an authority role gating real-body credit.
+
+    - Teleology: protects the "real substrate body" claim from counting fixtures/receipts/generated-projection/runtime-artifact sources as real source bodies.
+    - Guarantee: returns exactly one role string (e.g. `fixture_regression_source`, `receipt_projection_source`, `runtime_*_source`, `generated_projection*_source`, `public_substrate_source`, or `external_or_macro_reference`) by ordered prefix/suffix/membership checks on the stripped ref.
+    - Fails: no rule matches -> returns `external_or_macro_reference` (default bucket, not an exception); never raises.
+    - Reads: the source_ref string and module constant ref-sets (no filesystem).
+    - Writes: None.
+    - When-needed: inspect when deciding whether a digest row may count toward real-body support; validator escalates several roles to `real_body_*_source_counted_as_substrate` issues.
+    - Escalates-to: validate_ledger_payload non-substrate-source issue ids; AP source-authority constants.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     clean = _strip_public_root_prefix(str(source_ref or ""))
     if clean in CONCURRENCY_MISSION_CONTROL_RECEIPT_SOURCE_REFS:
         return "concurrency_mission_control_seed_receipt_source"
@@ -349,6 +377,14 @@ def _accepted_registry_rows(public_root: Path) -> list[dict[str, Any]]:
 
 
 def _fixture_manifest(public_root: Path, organ_id: str) -> tuple[Path | None, dict[str, Any]]:
+    """Load an organ's fixture manifest if it exists.
+
+    - Teleology: feeds fixture-derived refs/counts into the ledger row while keeping fixtures input-only, never body authority.
+    - Guarantee: returns `(path, payload_dict)` when the per-organ fixture manifest file exists and parses to a dict; returns `(None, {})` when the file is absent.
+    - Fails: file absent -> returns `(None, {})` (no raise); a present-but-non-dict payload is coerced to `{}` while path is still returned.
+    - Reads: core/fixture_manifests/<organ_id>.fixture_manifest.json.
+    - Writes: None.
+    """
     path = public_root / FIXTURE_MANIFESTS_REL / f"{organ_id}.fixture_manifest.json"
     if not path.is_file():
         return None, {}
@@ -357,6 +393,14 @@ def _fixture_manifest(public_root: Path, organ_id: str) -> tuple[Path | None, di
 
 
 def _source_manifest_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
+    """Extract source_module_manifest refs declared inside a fixture's open-body imports.
+
+    - Teleology: supplies the manifest-ref set that backs digest/real-body accounting, so fixture-declared manifests join the same body verification path as direct manifests.
+    - Guarantee: returns a de-duplicated, order-preserving list of public-root-stripped refs from `source_open_body_imports.source_manifest_refs`; returns `[]` when that block is missing or not a dict.
+    - Fails: malformed/absent block -> returns `[]` (no raise); falsy refs are skipped.
+    - Reads: the in-memory fixture dict only (no filesystem).
+    - Writes: None.
+    """
     refs: list[str] = []
     source_open = fixture.get("source_open_body_imports")
     if isinstance(source_open, dict):
@@ -381,6 +425,14 @@ def _source_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
 
 
 def _direct_source_module_manifest_refs(public_root: Path, organ_id: str) -> list[str]:
+    """Discover on-disk source_module_manifest.json refs under an organ's examples tree.
+
+    - Teleology: anchors real-body accounting to actual examples/<organ>/ manifests so the ledger's body support is grounded in shipped files, not fixture claims.
+    - Guarantee: returns a sorted, de-duplicated list of public-root-relative display refs for every `source_module_manifest.json` regular file under examples/<organ_id>/; returns `[]` when that directory does not exist.
+    - Fails: examples/<organ_id> not a dir -> returns `[]` (no raise).
+    - Reads: examples/<organ_id>/**/source_module_manifest.json (recursive rglob).
+    - Writes: None.
+    """
     base = public_root / EXAMPLES_REL / organ_id
     if not base.is_dir():
         return []
@@ -393,6 +445,13 @@ def _direct_source_module_manifest_refs(public_root: Path, organ_id: str) -> lis
 
 
 def _manifest_path(public_root: Path, ref: str) -> Path:
+    """Join a manifest ref to its absolute path under the public root.
+
+    - Teleology: keeps manifest existence/digest checks anchored to the resolved public root so refs resolve under the validated tree, not the process CWD.
+    - Guarantee: returns `public_root / <ref with microcosm-substrate/ prefix stripped>`; existence is the caller's check, not asserted here.
+    - Fails: None — pure path join; never inspects the filesystem, raises, or returns a failure envelope.
+    - Writes: None.
+    """
     clean = _strip_public_root_prefix(ref)
     return public_root / clean
 
@@ -423,6 +482,14 @@ def _module_row_target_path(
 
 
 def _manifest_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    """Flatten a source_module_manifest into uniform per-body module rows.
+
+    - Teleology: protects digest/real-body accounting from manifest-shape drift by folding `modules`, `copied_macro_body_artifacts`, and `source_open_body_imports` into one row schema with normalized relation/digest/body flags.
+    - Guarantee: returns a list of dicts each carrying module_id/source_ref/target_ref/source_to_target_relation/sha256/body_copied/body_in_receipt, with artifact copy_policy mapped to a relation and open-body imports zipped by index.
+    - Fails: None — emits only what the manifest provides; missing blocks contribute zero rows rather than raising; never returns a failure envelope.
+    - Reads: the in-memory manifest dict (modules, copied_macro_body_artifacts, source_open_body_imports, source_digests).
+    - Writes: None.
+    """
     rows = list(_rows(manifest, "modules"))
     for artifact in _rows(manifest, "copied_macro_body_artifacts"):
         copy_policy = str(artifact.get("copy_policy") or "")
@@ -481,6 +548,17 @@ def _digest_relation_rows(
     public_root: Path,
     manifest_refs: list[str],
 ) -> tuple[list[dict[str, Any]], list[str], list[str], int, int, int]:
+    """Verify each manifest module's source/target/digest relation and tally real bodies.
+
+    - Teleology: protects the "real substrate body, digest-fresh, provenance-backed" claim from drifted/missing targets, fixture/receipt sources, and stale pinned exact-copies being counted as real.
+    - Guarantee: returns `(digest_rows, unique_macro_refs, unique_target_refs, supporting_body_count, receipt_body_count, digest_drift_disposition_count)`; each digest row carries computed actual/expected/source sha256, target/source existence, resolved relation, `status` (PASS only when target exists, target_digest matches, and any required source match holds), and `counts_as_real_body` only when body-copied + not-in-receipt + source role countable + relation present + target exists + status PASS (or non-exact-copy with matching target digest).
+    - Fails: missing manifest file -> appends a `status:target_missing` / `missing_manifest` digest row and skips it; drifted exact_copy -> `status:blocked` with a `digest_drift_disposition` and excluded from real-body count.
+    - Reads: each manifest_ref under public_root, each module target file, and source files under repo_root (public_root.parent) for sha256.
+    - Writes: None.
+    - When-needed: inspect when auditing whether an organ's claimed real bodies are digest-verified and provenance-clean.
+    - Escalates-to: validate_ledger_payload real_body_* issue ids; per-row status/counts_as_real_body fields.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     digest_rows: list[dict[str, Any]] = []
     macro_refs: list[str] = []
     target_refs: list[str] = []
@@ -649,6 +727,13 @@ def _examples_fixtures_consistency(
 
 
 def _public_commands(organ_id: str, validator_command: str) -> list[str]:
+    """Assemble the public, runnable exercise commands for an organ row.
+
+    - Teleology: backs the "real capsule has a runnable public exercise command connected to its body" claim that the validator enforces against real_substrate_capsule rows.
+    - Guarantee: returns `[validator_command]` (omitting it when empty) plus the two PROVER_SMOKE_COMMANDS appended only for organ_id `verifier_lab_kernel`.
+    - Fails: None — always returns a list (possibly empty); never raises or returns a failure envelope. (Emptiness is later flagged downstream by real_capsule_missing_public_exercise_command, not here.)
+    - Writes: None.
+    """
     commands = [validator_command] if validator_command else []
     if organ_id == "verifier_lab_kernel":
         commands.extend(PROVER_SMOKE_COMMANDS)
@@ -1345,6 +1430,17 @@ def validate_ledger_payload(
     public_root: str | Path,
     validation_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Validate a substrate-substitution ledger payload against registry + body evidence.
+
+    - Teleology: the release-trust gate protecting the public "fixture-only rows are not impressive; real-substrate counts come only from verified real bodies" claim from fixtures-as-authority, stale name-promise axes, demoted-but-accepted organs, and non-substrate sources counted as real.
+    - Guarantee: returns a result dict with `status` = PASS only when zero issues, else `blocked`; carries issue_count, the full issues list, accepted_organ_count, checked_row_count, and `fixture_only_authority_banned` = (not issues). Recomputes expected name_promise axis + next_repair per organ and flags any divergence.
+    - Fails: each violation (accepted organ missing row, row without accepted organ, invalid disposition, demoted-still-accepted, fixture-echo-not-demoted, retained-fixture counts-as-progress, real-capsule missing ceiling/command/body/manifest/digest, real-body from fixture/receipt/generated/runtime/formal/concurrency source, exact-copy drift, count divergence, stale name-promise) appends an issue and forces `status:blocked` (exit 1 via main).
+    - Reads: registry-derived accepted ids (via validation_context or rebuilt), each row's digest_relation/name_promise/claim_ceiling, and summary.count_reconciliation.
+    - Writes: None — read-only; returns a receipt dict, does not mutate the ledger.
+    - When-needed: trust as the authority on whether a ledger payload is release-safe; inspect `issues` for the concrete failing organ/field.
+    - Escalates-to: std organ-registry authority floor + tests/test_organ_registry_authority_floor.py; per-issue issue_id.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     root = _public_root_for_path(public_root)
     issues: list[dict[str, Any]] = []
     rows = _rows(payload, "organ_substrate_dispositions")
@@ -1847,6 +1943,13 @@ def _json_diff_value_for_json(value: Any) -> Any:
 
 
 def _json_payload_sha256(value: Any) -> str:
+    """Compute a stable content digest of a JSON-serializable value.
+
+    - Teleology: gives settlement receipts a reproducible current/rebuilt/drift/path-set hash so a review's "this is the exact payload I settled" claim is verifiable.
+    - Guarantee: returns `sha256:<hex>` over `json.dumps(value, sort_keys=True, separators=(",",":"))`, so logically-equal payloads hash identically regardless of key order.
+    - Fails: raises TypeError if `value` is not JSON-serializable (json.dumps); no failure-envelope return.
+    - Writes: None.
+    """
     body = json.dumps(value, sort_keys=True, separators=(",", ":"))
     return "sha256:" + hashlib.sha256(body.encode("utf-8")).hexdigest()
 
@@ -1859,6 +1962,14 @@ def _organ_id_from_diff_path(path: tuple[str, ...]) -> str:
 
 
 def _digest_row_for_diff_path(payload: dict[str, Any], path: tuple[str, ...]) -> dict[str, Any]:
+    """Recover the enclosing digest-relation row for a JSON diff path.
+
+    - Teleology: lets drift settlement read the rebuilt row's provenance/digest fields so a bucket/verdict decision is grounded in real evidence, not just the changed field name.
+    - Guarantee: returns the nearest ancestor dict along `path` that carries both a relation/ref marker key and a digest key (source/target/relation set intersected with expected/actual/source sha256 set); returns `{}` when no enclosing digest row is found.
+    - Fails: path resolves to no qualifying dict -> returns `{}` (no raise); callers treat `{}` as no-evidence and route to review.
+    - Reads: the in-memory payload at sub-paths (no filesystem).
+    - Writes: None.
+    """
     for end in range(len(path), 0, -1):
         value = _json_diff_value(payload, path[:end])
         if not isinstance(value, dict):
@@ -2017,6 +2128,16 @@ def _claim_ceiling_settlement_rows(
     rebuilt: dict[str, Any],
     paths: list[tuple[str, ...]],
 ) -> list[dict[str, Any]]:
+    """Settle each claim-ceiling diff into a review verdict.
+
+    - Teleology: protects the public claim-ceiling (authority-ceiling) surface from a stale-projection or conflicting rewrite being auto-applied without review.
+    - Guarantee: returns one row per claim_ceiling-axis diff path, each with verdict in {claim_ceiling_conflict (a side MISSING), claim_ceiling_unchanged (equal), claim_ceiling_safe_narrowing (safe-narrowing predicate), claim_ceiling_stale_projection (else)}, and `mutation_eligible_without_review` True ONLY for unchanged/safe_narrowing; review_required is its negation.
+    - Fails: a changed-but-not-safe ceiling -> verdict `claim_ceiling_stale_projection`, review_required True, mutation_eligible False (blocks auto-write); a MISSING side -> `claim_ceiling_conflict`, blocking.
+    - Reads: current/rebuilt ledger values at each claim_ceiling diff path; claim_ceiling_source recorded as core/organ_registry.json.
+    - Writes: None.
+    - When-needed: inspect before auto-applying any rebuilt claim ceiling.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     rows = []
     for path in paths:
         if _writer_drift_axis(path) != "claim_ceiling":
@@ -2060,6 +2181,15 @@ def _normalised_text(value: Any) -> str:
 
 
 def _is_safe_claim_ceiling_narrowing(current_value: Any, rebuilt_value: Any) -> bool:
+    """Decide whether a claim-ceiling change is a safe, auto-applicable narrowing.
+
+    - Teleology: protects the authority-ceiling surface by letting ONLY a strict narrowing (generic ceiling -> longer, explicitly-bounded ceiling) skip human review, never a widening or rephrase.
+    - Guarantee: returns True only when both values are str, the normalised current text is a member of GENERIC_CLAIM_CEILINGS, and the rebuilt text is strictly longer and contains both `validates only` and `does not`; returns False otherwise.
+    - Fails: non-str inputs, non-generic current, or rebuilt lacking the bounding phrases / not longer -> returns False (treated as review-required upstream); never raises.
+    - Reads: the two values and the GENERIC_CLAIM_CEILINGS constant (no filesystem).
+    - Writes: None.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     if not isinstance(current_value, str) or not isinstance(rebuilt_value, str):
         return False
     current_text = _normalised_text(current_value)
@@ -2076,6 +2206,14 @@ def _digest_bucket_for_path(
     path: tuple[str, ...],
     rebuilt: dict[str, Any],
 ) -> str:
+    """Bucket a digest-relation diff path by the kind of drift it represents.
+
+    - Teleology: routes a digest change to a settlement bucket so body-count/relation/source-moved changes get review while pure metadata refreshes can be mechanical, protecting real-body accounting from silent reclassification.
+    - Guarantee: returns exactly one bucket string keyed off the changed field and the enclosing rebuilt digest row — relation_reclassification, body_count_disposition_change, historical_pinned_drift, exact_copy_hash_refresh, source_moved_target_stale, target_moved_source_stale, or digest_metadata_refresh.
+    - Fails: None — every path falls through to `digest_metadata_refresh` default; never raises or returns a failure envelope. (Blocking is decided later by _digest_settlement_verdict.)
+    - Reads: the rebuilt payload's enclosing digest row (relation + sha256 fields); no filesystem.
+    - Writes: None.
+    """
     field = path[-1] if path else ""
     rebuilt_row = _digest_row_for_diff_path(rebuilt, path)
     relation = str(rebuilt_row.get("source_to_target_relation") or "")
@@ -2115,6 +2253,15 @@ def _digest_bucket_for_path(
 
 
 def _digest_row_has_verified_exact_copy_evidence(row: dict[str, Any]) -> bool:
+    """Test whether a digest row carries genuine verified-exact-copy evidence.
+
+    - Teleology: gates auto-promotion of a relation/body-count change so only a row whose digests actually match may be promoted without review, protecting real-body credit from being granted to unverified exact-copies.
+    - Guarantee: returns True only when relation is in VERIFIED_EXACT_COPY_RELATIONS, a source_ref or target_ref is present, an actual_target_sha256 is present, AND it equals either the source_sha256 or the expected_sha256; returns False otherwise.
+    - Fails: missing relation/material-ref/actual digest, or no matching source/expected digest -> returns False (no auto-promotion); never raises.
+    - Reads: the in-memory digest row fields only (no filesystem).
+    - Writes: None.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     relation = str(row.get("source_to_target_relation") or "")
     expected_digest = str(row.get("expected_sha256") or "")
     actual_digest = str(row.get("actual_target_sha256") or "")
@@ -2139,6 +2286,16 @@ def _digest_settlement_verdict(
     current_value: Any,
     rebuilt_value: Any,
 ) -> tuple[str, bool, bool, bool]:
+    """Decide the settlement verdict and review/mutation flags for one digest diff.
+
+    - Teleology: protects real-body accounting by requiring verified-exact-copy evidence before any promotion (status/relation/body-count) is auto-applied; everything else routes to owner review.
+    - Guarantee: returns `(verdict, review_required, mutation_eligible_without_review, aggregate_counter)`; mechanical refresh and evidence-backed promotions return review_required False / mutation_eligible True; relation/body-count/historical/source-moved changes without evidence return review_required True / mutation_eligible False; derived aggregate counters return `(... , True, False, True)` pending row proof.
+    - Fails: any unrecognized or evidence-lacking change -> a `*_requires_review` / `*_requires_refresh` verdict with review_required True, blocking auto-write; never raises.
+    - Reads: the rebuilt payload's enclosing digest row plus the field name and current/rebuilt values (no filesystem).
+    - Writes: None.
+    - When-needed: inspect to understand why a specific digest change is blocking or auto-applicable.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     field = path[-1] if path else ""
     rebuilt_row = _digest_row_for_diff_path(rebuilt, path)
     if bucket in {"digest_metadata_refresh", "exact_copy_hash_refresh"}:
@@ -2185,6 +2342,15 @@ def _digest_settlement_rows(
     rebuilt: dict[str, Any],
     paths: list[tuple[str, ...]],
 ) -> list[dict[str, Any]]:
+    """Build per-path digest settlement rows with bucket + verdict + blocking flags.
+
+    - Teleology: produces the digest-axis evidence rows that decide whether a generated-ledger refresh may proceed, protecting real-body/digest claims from unreviewed mutation.
+    - Guarantee: returns one row per digest_relation-axis diff path, each carrying organ_id, json-pointer path, field, bucket, current/rebuilt value, settlement_verdict, review_required, mutation_eligible_without_review, aggregate_counter, and `blocking` (= review_required), derived from _digest_bucket_for_path + _digest_settlement_verdict.
+    - Fails: an evidence-lacking digest change -> a row with review_required/blocking True (caller treats as blocked_pending_drift_settlement); never raises.
+    - Reads: current/rebuilt ledger values at each digest diff path (no filesystem).
+    - Writes: None — returns rows; _promote_eligible_digest_aggregate_rows may later mutate them in place.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     rows = []
     for path in paths:
         if _writer_drift_axis(path) != "digest_relation":
@@ -2220,6 +2386,15 @@ def _digest_settlement_rows(
 
 
 def _promote_eligible_digest_aggregate_rows(rows: list[dict[str, Any]]) -> None:
+    """In-place promote derived aggregate-counter rows whose organ has no blocking row.
+
+    - Teleology: protects real-body counters from being auto-refreshed while any underlying per-row digest change for the SAME organ is still pending review.
+    - Guarantee: mutates only rows where `aggregate_counter` is truthy and whose organ_id is NOT in the blocked set; for those it sets settlement_verdict=`derived_body_count_counter_from_verified_rows`, review_required False, mutation_eligible_without_review True, blocking False. Returns None.
+    - Fails: an organ with any non-aggregate blocking-bucket row that is not mutation-eligible -> its aggregate rows stay blocked (unchanged); empty input -> early return; never raises.
+    - Reads: the rows list only (no filesystem).
+    - Writes: None to disk — mutates the passed-in row dicts in place.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     if not rows:
         return
     blocked_organs = {
@@ -2330,6 +2505,17 @@ def _settlement_receipt_from_payloads(
     *,
     write_scope: str = "full",
 ) -> dict[str, Any]:
+    """Build the no-write drift-settlement receipt comparing current vs rebuilt ledger.
+
+    - Teleology: gates a generated-ledger refresh behind a review receipt so the ledger (a release-trust surface) is never auto-overwritten while any claim-ceiling/digest/non-settlement-axis change is unsettled.
+    - Guarantee: returns a receipt dict with `status` = PASS (no paths), `blocked_pending_drift_settlement` (any blocked bucket), or `ready_for_reviewed_generated_ledger_refresh`; carries content digests of current/rebuilt/drift/path-set, per-axis counts, claim/digest verdict rows, blocked-bucket samples, mutation_plan, reentry_condition, `write_performed: False`, and `authority_posture: settlement_receipt_not_source_authority`.
+    - Fails: any blocking claim-ceiling verdict, blocking digest bucket, or non-settlement axis change -> status `blocked_pending_drift_settlement`, mutation_plan `no_generated_ledger_write` (caller refuses to write).
+    - Reads: the in-memory current/rebuilt payloads only; performs no filesystem read or write itself.
+    - Writes: None — `write_performed` is always False here; the actual write is the caller's (write_ledger).
+    - When-needed: inspect before passing --write --confirm-rebuild-drift; preserve as the review evidence.
+    - Escalates-to: write_ledger gate + LEDGER_REL path; the receipt's reentry_condition.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     paths = _json_diff_paths(current, rebuilt)
     path_set = [_json_pointer(path) for path in paths]
     writer_drift = _classify_rebuild_drift(current, rebuilt, write_scope=write_scope)

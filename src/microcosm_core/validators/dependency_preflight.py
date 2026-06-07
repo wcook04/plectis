@@ -25,6 +25,17 @@ DEFERRED_ORGAN_IDS = ["formal_math_lean_proof_organ"]
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """Resolve the public substrate root that scopes all preflight path display and scanning.
+
+    - Teleology: protects the public-root boundary claim (private-path display + forbidden-class scope) from leaking host/absolute or out-of-tree roots into the receipt.
+    - Guarantee: returns a resolved directory Path that either is named ``microcosm-substrate`` or carries the public markers (``pyproject.toml`` + ``src/microcosm_core`` + ``core/private_state_forbidden_classes.json``), walking ``start`` and its parents.
+    - Fails: no marker found in any ancestor -> no raise; falls back to ``Path.cwd().resolve(strict=False)`` (returns cwd, never an error envelope).
+    - Reads: filesystem only (presence of pyproject.toml / src/microcosm_core / core/private_state_forbidden_classes.json); reads no manifest payload.
+    - Writes: None
+    - When-needed: trust when establishing which root scopes public-relative display and private-state scanning for a given out_path.
+    - Escalates-to: microcosm-substrate/core/private_state_forbidden_classes.json (the marker that confirms a true public root).
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -69,6 +80,17 @@ def _fixture_input_exists(public_root: Path, rel: str) -> bool:
 
 
 def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, Any]) -> Path:
+    """Resolve the public-tree fixture-manifest path for an organ, never trusting a macro path.
+
+    - Teleology: protects the fixture-presence claim from following a macro/foreign ``fixture_manifest`` path; re-homes it under the public ``core/fixture_manifests`` tree.
+    - Guarantee: returns ``public_root/core/fixture_manifests/<name>`` using only the macro manifest's basename; prefers the existing file, else the canonical ``<organ_id>.fixture_manifest.json`` if it exists, else the basename path.
+    - Fails: None (cannot raise or return an error; when no file exists it returns a Path whose ``.is_file()`` is False, which the caller treats as absent).
+    - Reads: filesystem presence under public_root/core/fixture_manifests/; reads no JSON body.
+    - Writes: None
+    - When-needed: trust when locating the public manifest for an accepted organ before checking inputs.
+    - Escalates-to: core/fixture_manifests/<organ_id>.fixture_manifest.json (canonical public manifest).
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     macro_manifest = Path(str(row.get("fixture_manifest") or ""))
     manifest_name = macro_manifest.name or f"{organ_id}.fixture_manifest.json"
     manifest_path = public_root / "core/fixture_manifests" / manifest_name
@@ -81,6 +103,17 @@ def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, An
 
 
 def _public_manifest_inputs(manifest_path: Path) -> list[str]:
+    """Extract declared fixture input path strings from a public fixture manifest.
+
+    - Teleology: protects the fixture-input-presence claim by reading inputs from the public manifest rather than trusting macro readiness rows.
+    - Guarantee: returns a list of input path strings drawn from ``manifest["inputs"]`` (each dict row's ``path`` or each bare string row); returns ``[]`` when the file is absent, the payload is not a dict, or ``inputs`` is not a list.
+    - Fails: malformed/non-JSON manifest -> ``read_json_strict`` raises (json/value error) and propagates; a present-but-non-dict payload returns ``[]`` (no raise).
+    - Reads: <manifest_path> JSON body via read_json_strict; consumes only the ``inputs`` key.
+    - Writes: None
+    - When-needed: trust when enumerating which fixture input paths must exist on disk for an accepted organ.
+    - Escalates-to: core/fixture_manifests/<organ_id>.fixture_manifest.json (the ``inputs`` array it parses).
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     if not manifest_path.is_file():
         return []
     manifest = read_json_strict(manifest_path)
@@ -141,6 +174,17 @@ def _evidence_class_rows(public_root: Path) -> list[dict[str, Any]]:
 
 
 def _authority_snapshot(public_root: Path) -> dict[str, Any]:
+    """Load the public runtime-shell authority snapshot used to check organ/surface lens convergence.
+
+    - Teleology: protects the public-authority convergence claim (organ/surface lens coverage) from a missing or non-dict ``public_authority_map.json`` snapshot.
+    - Guarantee: returns the snapshot dict from ``public_root/receipts/runtime_shell/public_authority_map.json`` when it is a dict; returns ``{}`` when the file is absent or the payload is not a dict.
+    - Fails: malformed/non-JSON snapshot -> ``read_json_strict`` raises and propagates; an empty ``{}`` return downstream drives a ``missing_snapshot_projection`` lifecycle defect (not an exception here).
+    - Reads: receipts/runtime_shell/public_authority_map.json via read_json_strict.
+    - Writes: None
+    - When-needed: trust when reconciling accepted organs against published authority/lens rows.
+    - Escalates-to: receipts/runtime_shell/public_authority_map.json (AUTHORITY_SNAPSHOT_REL).
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    """
     path = public_root / AUTHORITY_SNAPSHOT_REL
     if not path.is_file():
         return {}

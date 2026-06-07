@@ -30,6 +30,16 @@ RECEIPT_FORWARD_NEEDLES = (
 
 
 def _public_relative(root: Path, path: Path) -> str:
+    """Render a path as a public-root-relative posix string for receipt emission.
+
+    - Teleology: protects the receipt's `receipt_paths` claim from leaking absolute/private filesystem prefixes outside the public root.
+    - Guarantee: returns `path` made relative to `root` (both resolved strict=False) as a posix string when `path` is under `root`.
+    - Fails: when `path` is not under `root`, `relative_to` raises ValueError which is caught and the raw `path.as_posix()` is returned (no relativization, no exception) — so an out-of-root path is returned verbatim, not rejected.
+    - Reads: filesystem path components only (no file contents).
+    - Writes: None
+    - When-needed: trust when reading `receipt_paths` to know an emitted path is public-root-relative; inspect when the path looks absolute (out-of-root fallback fired).
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; out-of-root paths are returned unredacted.
+    """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
     except ValueError:
@@ -66,14 +76,44 @@ def _without_fenced_code_blocks(text: str) -> str:
 
 
 def _private_hits(text: str) -> list[str]:
+    """Return the private-leak needles found verbatim in `text`.
+
+    - Teleology: protects the `private_paths_absent` public-safety claim by surfacing which private-path/secret markers (`PRIVATE_HIT_NEEDLES`: home roots, repo path, Chrome support dir, secret-key prefix) appear in a public-facing string.
+    - Guarantee: returns the sublist of `PRIVATE_HIT_NEEDLES` for which `needle in text` is true, in declaration order; empty list means none of those exact needles were present.
+    - Fails: substring match only; cannot raise on a `str` input and returns `[]` when no needle matches (no exception, no failure envelope at this layer).
+    - Reads: in-memory string; the `PRIVATE_HIT_NEEDLES` denylist constant.
+    - Writes: None
+    - When-needed: inspect when `private_paths_absent` is False to see which marker leaked.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a fixed substring denylist is not complete secret/private-path detection.
+    """
     return [needle for needle in PRIVATE_HIT_NEEDLES if needle in text]
 
 
 def _has_private_hits(text: str) -> bool:
+    """Boolean predicate: does `text` contain any private-leak needle.
+
+    - Teleology: protects the `private_paths_absent` public-safety gate by collapsing `_private_hits` to a pass/fail signal over a single public-facing string (README first screen, observatory HTML, state-file lines).
+    - Guarantee: returns True iff `_private_hits(text)` is non-empty, i.e. at least one `PRIVATE_HIT_NEEDLES` marker is a substring of `text`; otherwise False.
+    - Fails: cannot raise or return an error envelope on a `str` input; returns False when no needle matches.
+    - Reads: in-memory string via `_private_hits`; the `PRIVATE_HIT_NEEDLES` denylist constant.
+    - Writes: None
+    - When-needed: trust as the leaf predicate behind the `private_paths_absent` assertion; True on any checked surface flips that assertion False and emits LAUNCH_COMPRESSION_PRIVATE_PATHS_ABSENT_FAILED.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; False is not proof of public-safety, only absence of these exact substrings.
+    """
     return bool(_private_hits(text))
 
 
 def _jsonable_has_private_hits(value: Any) -> bool:
+    """Recursively test a JSON-able value (str/dict/list/tuple) for private-leak needles.
+
+    - Teleology: protects the `private_paths_absent` gate against private-path/secret markers hiding anywhere inside the compiled + runtime-lens payloads (`private_hit_payloads`), including nested dict keys and list items.
+    - Guarantee: returns True iff some reachable string — a dict key (coerced via `str(key)`), a dict value, a list/tuple element, or a bare string — contains a `PRIVATE_HIT_NEEDLES` marker per `_has_private_hits`; recurses depth-first across dict/list/tuple.
+    - Fails: non-str/dict/list/tuple leaves (int, None, bool, float) return False; no exception or error envelope is produced for any in-memory value.
+    - Reads: the in-memory JSON-able value; the `PRIVATE_HIT_NEEDLES` denylist via `_has_private_hits`.
+    - Writes: None
+    - When-needed: trust when confirming a runtime-lens / compile payload carries no listed private marker before it feeds `private_paths_absent`.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; non-JSON leaf types and non-listed secrets are not inspected.
+    """
     if isinstance(value, str):
         return _has_private_hits(value)
     if isinstance(value, dict):
@@ -87,6 +127,17 @@ def _jsonable_has_private_hits(value: Any) -> bool:
 
 
 def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
+    """Scan `.json`/`.jsonl` state files line-by-line for private-leak needles.
+
+    - Teleology: protects the `private_paths_absent` gate by checking on-disk local state (`.microcosm` STATE_DIR walk) for private-path/secret markers before the launch surface is declared public-safe.
+    - Guarantee: returns True on the first line of any `.json`/`.jsonl` path that contains a `PRIVATE_HIT_NEEDLES` marker per `_has_private_hits`; returns False only after every such file streams clean; non-`.json`/`.jsonl` suffixes are skipped.
+    - Fails: an OSError opening/reading a file is caught and that file is skipped (continue), not raised — an unreadable state file is treated as no-hit, so it cannot block on IO error.
+    - Reads: each `.json`/`.jsonl` file under the supplied paths, opened utf-8 errors='ignore', streamed by line; the `PRIVATE_HIT_NEEDLES` denylist.
+    - Writes: None
+    - When-needed: trust as the disk-state arm of `private_paths_absent`; True means a state file leaked a listed marker and flips that assertion False.
+    - Escalates-to: STATE_DIR layout via project_substrate; inspect the offending `.json`/`.jsonl` file when True.
+    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; skipped suffixes, unreadable files, and non-listed secrets are not covered.
+    """
     for path in paths:
         if path.suffix not in {".json", ".jsonl"}:
             continue
