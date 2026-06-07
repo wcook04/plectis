@@ -36,6 +36,23 @@ def test_cli_public_lens_commands_accept_card_alias(
         assert status in {0, 1}
 
 
+def test_cli_legibility_scorecard_help_names_reader_route_and_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["legibility-scorecard", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Repo-reading agent route:" in output
+    assert "microcosm legibility-scorecard" in output
+    assert "PYTHONPATH=src python3 -m microcosm_core legibility-scorecard" in output
+    assert "first-screen legibility and boundary gaps" in output
+    assert "does not prove reader comprehension" in output
+    assert "authorize release or\npublication" in output
+    assert "benchmark/score progress authority" in output
+
+
 def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     status = cli.main(["prediction-lens"])
 

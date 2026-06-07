@@ -594,6 +594,16 @@ It does not run Lean/Lake, prove theorem correctness, export proof bodies,
 claim benchmark performance, call providers, mutate source, or authorize
 release.
 """,
+    "legibility-scorecard": """Repo-reading agent route:
+  microcosm legibility-scorecard
+  PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
+
+Boundary: reports first-screen legibility and boundary gaps as a public
+read-model. It does not prove reader comprehension, authorize release or
+publication, claim private-root equivalence, call providers, mutate source,
+prove mathematical correctness, create benchmark/score progress authority, or
+certify production readiness.
+""",
 }
 
 AUTHORITY_HELP_EPILOG = """Skeptical-reviewer route:
