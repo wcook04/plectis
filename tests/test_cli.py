@@ -1221,6 +1221,28 @@ def test_cli_first_screen_accepts_interesting_parts_alias(
     assert "Proof: `microcosm tour --card .`" in text
 
 
+def test_cli_first_screen_domain_specialist_names_task_selector(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(
+        ["first-screen", "--format", "text", "--reader", "domain_specialist", "."]
+    )
+
+    text = capsys.readouterr().out
+    assert status == 0
+    assert "Reader branch: Domain specialist" in text
+    assert (
+        "Task selector: `microcosm agent-entry-composition --root . --task <domain> "
+        "--viewer human --card --check`"
+    ) in text
+    assert (
+        "Source-only: `PYTHONPATH=src python3 -m microcosm_core "
+        "agent-entry-composition --root . --task <domain> "
+        "--viewer human --card --check`"
+    ) in text
+    assert "financial advice" not in text.lower()
+
+
 def test_cli_first_screen_json_projection_preserves_shared_first_command(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

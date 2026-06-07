@@ -638,6 +638,15 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     "`PYTHONPATH=src python3 -m microcosm_core "
                     f"tour --card {project_label}`"
                 ),
+                "task_selector_command": (
+                    "microcosm agent-entry-composition --root . --task <domain> "
+                    "--viewer human --card --check"
+                ),
+                "source_checkout_task_selector_command": (
+                    "PYTHONPATH=src python3 -m microcosm_core "
+                    "agent-entry-composition --root . --task <domain> "
+                    "--viewer human --card --check"
+                ),
                 "success_criterion": (
                     "Can map a domain to a specialty route and name the evidence "
                     "class and authority ceiling without claiming domain correctness."
@@ -4114,6 +4123,14 @@ def _reader_branch_lines(
             f"{first_action_line} Source-only first action: {source_first_action}"
         )
         proof_line = f"{proof_line} | Source-only proof: {source_proof}"
+    task_selector = packet.get("task_selector_command")
+    source_task_selector = packet.get("source_checkout_task_selector_command")
+    task_selector_lines = []
+    if task_selector:
+        line = f"  Task selector: `{task_selector}`"
+        if source_task_selector:
+            line = f"{line} | Source-only: `{source_task_selector}`"
+        task_selector_lines.append(line)
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         (
@@ -4122,6 +4139,7 @@ def _reader_branch_lines(
         ),
         f"  Question: {route['first_question']}",
         first_action_line,
+        *task_selector_lines,
         proof_line,
         f"  Success: {packet['success_criterion']}",
     ]
