@@ -9,7 +9,7 @@ This is the agent-facing selector over the frozen organ atlas. Start here when y
 ## How to use this table
 
 Pick the `task_class` that matches the job, run the first command only inside the listed authority boundary, then open the drilldown card before making a broader claim. The JSON read model is [atlas/agent_task_routes.json](atlas/agent_task_routes.json); it keeps top-level `routes` as an array of rows keyed by `task_class`, with `standard_ref`, `paper_module_ref`, `concept_ref`, `mechanism_ref`, and `source_relation_summary` handles for every relevant organ. Use `microcosm organ-topology` for dynamic file and shard edge drilldown.
-If the installed `microcosm` console is not on `PATH` in a source-only checkout, run the same command through `PYTHONPATH=src python3 -m microcosm_core ...`, or install it with the Quickstart command first.
+If the installed `microcosm` console is not on `PATH` in a source-only checkout, run the same command through `PYTHONPATH=src python3 -m microcosm_core ...`. If that command imports package dependencies that your system Python lacks, run the Quickstart install first and use `.venv/bin/python -m microcosm_core ...` or the installed console.
 
 ## Agent Task Route Table
 

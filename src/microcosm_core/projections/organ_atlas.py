@@ -1232,8 +1232,10 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
     out.append(
         "If the installed `microcosm` console is not on `PATH` in a source-only "
         "checkout, run the same command through "
-        "`PYTHONPATH=src python3 -m microcosm_core ...`, or install it with the "
-        "Quickstart command first."
+        "`PYTHONPATH=src python3 -m microcosm_core ...`. If that command imports "
+        "package dependencies that your system Python lacks, run the Quickstart "
+        "install first and use `.venv/bin/python -m microcosm_core ...` or the "
+        "installed console."
     )
     out.append("")
     out.append("## Agent Task Route Table")

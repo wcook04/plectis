@@ -552,6 +552,7 @@ def test_agent_routes_md_exposes_task_table_and_deferral_targets() -> None:
     assert "atlas/agent_task_routes.json" in text
     assert "top-level `routes` as an array of rows keyed by `task_class`" in text
     assert "PYTHONPATH=src python3 -m microcosm_core ..." in text
+    assert ".venv/bin/python -m microcosm_core ..." in text
     assert "`source_relation_summary`" in text
     assert "`microcosm organ-topology`" in text
     assert "ORGANS.md#find-your-specialty" in text
