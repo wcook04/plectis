@@ -620,6 +620,16 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     "`ORGANS.md#find-your-specialty` plus "
                     f"`microcosm tour --card {project_label}`"
                 ),
+                "source_checkout_first_action": (
+                    "Open `ORGANS.md#find-your-specialty`, then run "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`ORGANS.md#find-your-specialty` plus "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`"
+                ),
                 "success_criterion": (
                     "Can map a domain to a specialty route and name the evidence "
                     "class and authority ceiling without claiming domain correctness."
@@ -788,6 +798,16 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 "proof_surface": (
                     "`ORGANS.md#find-your-specialty` plus "
                     f"`microcosm tour --card {project_label}`"
+                ),
+                "source_checkout_first_action": (
+                    "Open `ORGANS.md#find-your-specialty`, then run "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`."
+                ),
+                "source_checkout_proof_surface": (
+                    "`ORGANS.md#find-your-specialty` plus "
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`"
                 ),
                 "exit_check": (
                     "map a domain to a specialty route without inferring domain correctness"

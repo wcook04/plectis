@@ -223,6 +223,14 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "`ORGANS.md#find-your-specialty` plus "
         "`microcosm tour --card <project>`"
     )
+    assert menu_by_id["domain_specialist"]["source_checkout_first_action"] == (
+        "Open `ORGANS.md#find-your-specialty`, then run "
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`."
+    )
+    assert menu_by_id["domain_specialist"]["source_checkout_proof_surface"] == (
+        "`ORGANS.md#find-your-specialty` plus "
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`"
+    )
     assert menu_by_id["domain_specialist"]["not_a_claim"] == (
         "domain_expertise_or_domain_correctness_complete"
     )
@@ -1855,6 +1863,11 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "`microcosm status --card .`."
             ),
             "proof": "`microcosm authority --card` plus `microcosm workingness --card`",
+            "source_first_action": (
+                "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
+                "first, then `PYTHONPATH=src python3 -m microcosm_core status "
+                "--card .`."
+            ),
             "source_proof": (
                 "`PYTHONPATH=src python3 -m microcosm_core authority --card` "
                 "plus `PYTHONPATH=src python3 -m microcosm_core workingness "
@@ -1905,6 +1918,14 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "`microcosm tour --card .`."
             ),
             "proof": "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`",
+            "source_first_action": (
+                "Open `ORGANS.md#find-your-specialty`, then run "
+                "`PYTHONPATH=src python3 -m microcosm_core tour --card .`."
+            ),
+            "source_proof": (
+                "`ORGANS.md#find-your-specialty` plus "
+                "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
+            ),
             "success": "domain correctness",
             "absent": [
                 "Reader branch: GitHub visitor",
@@ -1923,6 +1944,13 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
                 "`microcosm organ-surface-contract --card --root .`."
             ),
             "proof": "`microcosm organ-surface-contract --card --root .`",
+            "source_first_action": (
+                "Run `PYTHONPATH=src python3 -m microcosm_core first-screen "
+                "--card .`. If you need `doctrine_effect_frame`, run "
+                "`PYTHONPATH=src python3 -m microcosm_core first-screen --full "
+                ".` before reading it; then run `PYTHONPATH=src python3 -m "
+                "microcosm_core organ-surface-contract --card --root .`."
+            ),
             "source_proof": (
                 "`PYTHONPATH=src python3 -m microcosm_core "
                 "organ-surface-contract --card --root .`"
@@ -1970,7 +1998,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert f"  First action: {assertions['first_action']}" in text
         assert f"  Proof: {assertions['proof']}" in text
         if "source_proof" in assertions:
-            assert "Source-only first action: Run `PYTHONPATH=src python3 -m " in text
+            assert (
+                f"Source-only first action: {assertions['source_first_action']}"
+                in text
+            )
             assert f"Source-only proof: {assertions['source_proof']}" in text
         assert assertions["success"] in text
         assert "Authority ceiling:" in text

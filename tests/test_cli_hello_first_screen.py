@@ -349,6 +349,14 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert route_by_id["domain_specialist"]["proof_surface"] == (
         "`ORGANS.md#find-your-specialty` plus `microcosm tour --card .`"
     )
+    assert route_by_id["domain_specialist"]["source_checkout_first_action"] == (
+        "Open `ORGANS.md#find-your-specialty`, then run "
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card .`."
+    )
+    assert route_by_id["domain_specialist"]["source_checkout_proof_surface"] == (
+        "`ORGANS.md#find-your-specialty` plus "
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
+    )
     assert route_by_id["type_a_agent"]["first_action"] == (
         "Run `microcosm first-screen --card .`. "
         "If you need `doctrine_effect_frame`, run "
