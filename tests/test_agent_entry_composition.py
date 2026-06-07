@@ -446,6 +446,45 @@ def test_agent_entry_card_aliases_security_questions_to_security_route(
 @pytest.mark.parametrize(
     "task",
     [
+        "show me compliance",
+        "show me the compliance",
+        "is this compliant",
+        "compliance review",
+    ],
+)
+def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "compliance"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "compliance"
+    assert payload["task_route"]["primary_organ_id"] == "batch8_compliance_pipeline_capsule"
+    assert " validate-bundle " in payload["task_route"]["first_command"]
+    assert (
+        "examples/batch8_compliance_pipeline_capsule/"
+        "exported_batch8_compliance_pipeline_capsule_bundle"
+        in payload["task_route"]["first_command"]
+    )
+    assert payload["selected_viewer_route"]["next_action"] == payload["task_route"][
+        "first_command"
+    ]
+    assert card["task_route"]["selected_task_class"] == "compliance"
+    assert "agent-entry-composition --task compliance" in card["drilldowns"]["full_json"]
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "how do I evaluate it",
         "how can I evaluate it",
         "how to evaluate",

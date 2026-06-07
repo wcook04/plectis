@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -186,6 +189,48 @@ def test_batch8_compliance_pipeline_bundle_uses_standalone_witness(
     assert (
         by_engine["baseline_companion_scanner_contract"]["scan_input_mode"]
         == "standalone_copied_source_contract"
+    )
+
+
+def test_batch8_compliance_pipeline_bundle_cli_runs_from_public_checkout(
+    tmp_path: Path,
+) -> None:
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(MICROCOSM_ROOT / "src")
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "microcosm_core",
+            "batch8-compliance-pipeline-capsule",
+            "validate-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE.relative_to(MICROCOSM_ROOT)),
+            "--out",
+            str(tmp_path / "public-checkout-receipts"),
+        ],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    payload = json.loads(completed.stdout)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_batch8_compliance_pipeline_capsule_bundle"
+    by_engine = {row["engine_id"]: row for row in payload["exercise"]["engines"]}
+    assert (
+        by_engine["pipeline_observe_compile_helpers"]["source_contract_present"]
+        is True
+    )
+    assert (
+        by_engine["pipeline_dispatch_process_boundary_contract"][
+            "dispatch_boundary_present"
+        ]
+        is True
     )
 
 

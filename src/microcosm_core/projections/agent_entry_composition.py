@@ -282,6 +282,23 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "security"
     if value in {
+        "compliance",
+        "compliant",
+        "show me compliance",
+        "show-me-compliance",
+        "show_me_compliance",
+        "show me the compliance",
+        "show-me-the-compliance",
+        "show_me_the_compliance",
+        "is this compliant",
+        "is-this-compliant",
+        "is_this_compliant",
+        "compliance review",
+        "compliance-review",
+        "compliance_review",
+    }:
+        return "compliance"
+    if value in {
         "evaluate",
         "evaluation",
         "evaluating",

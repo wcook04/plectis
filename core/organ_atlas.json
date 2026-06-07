@@ -4620,7 +4620,7 @@
       "claim_ceiling_restated": "validates declared public Batch 8 compliance pipeline capsule contract only; no full compliance-ledger freshness, provider dispatch, model dispatch, source mutation, raw-seed mutation, release, publication, private data equivalence, or whole-system correctness",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
-      "first_command": "microcosm batch8-compliance-pipeline-capsule run --input fixtures/first_wave/batch8_compliance_pipeline_capsule/input --out receipts/first_wave/batch8_compliance_pipeline_capsule --acceptance-out receipts/acceptance/first_wave/batch8_compliance_pipeline_capsule_fixture_acceptance.json",
+      "first_command": "microcosm batch8-compliance-pipeline-capsule validate-bundle --input examples/batch8_compliance_pipeline_capsule/exported_batch8_compliance_pipeline_capsule_bundle --out /tmp/microcosm-batch8-compliance-pipeline-capsule",
       "human_gloss": "This organ imports the compliance adapter registry, compliance coverage and baseline scanners, Microcosm compliance adapter, bounded compliance-ledger builder, and observe pipeline stages as public runnable substrate. Running it shows how registered compliance adapters, bounded no-write checks, baseline companion scans, digest normalization, observe-plan helper selection, and dispatch/process boundaries fit together without refreshing the live ledger or dispatching providers.",
       "organ_id": "batch8_compliance_pipeline_capsule",
       "paper_module_ref": "paper_modules/batch8_compliance_pipeline_capsule.md",

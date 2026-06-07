@@ -5,6 +5,7 @@ import importlib.util
 import json
 import shutil
 import subprocess
+import sys
 import tempfile
 from functools import lru_cache
 from pathlib import Path
@@ -211,7 +212,16 @@ def _load_copied_source_module(public_root: Path, source_ref: str) -> Any:
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to load copied source module: {source_ref}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    source_modules_root = source_path.parents[len(Path(source_ref).parts) - 1]
+    inserted = False
+    if str(source_modules_root) not in sys.path:
+        sys.path.insert(0, str(source_modules_root))
+        inserted = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        if inserted:
+            sys.path.remove(str(source_modules_root))
     return module
 
 
@@ -363,7 +373,10 @@ def _compile_helper_empty_mentions_negative(public_root: Path) -> dict[str, Any]
         source_ref="system/lib/pipeline/stage_compile.py",
         old="resolve_observe_apply_standards_bundle",
         new="removedResolveObserveApplyStandardsBundle",
-        engine=_pipeline_observe_compile_helpers,
+        engine=lambda root: _pipeline_observe_compile_helpers(
+            root,
+            standalone_only=True,
+        ),
         observed_flag="source_contract_present",
         observed_value=False,
     )
@@ -376,7 +389,10 @@ def _pipeline_boundary_missing_negative(public_root: Path) -> dict[str, Any]:
         source_ref="system/lib/pipeline/stage_execute.py",
         old="observe_dispatch_skipped",
         new="removedObserveDispatchSkipped",
-        engine=_pipeline_dispatch_process_boundary_contract,
+        engine=lambda root: _pipeline_dispatch_process_boundary_contract(
+            root,
+            standalone_only=True,
+        ),
         observed_flag="dispatch_boundary_present",
         observed_value=False,
     )
@@ -785,14 +801,93 @@ def _pipeline_digest_and_shard_normalization(public_root: Path) -> dict[str, Any
     }
 
 
-def _pipeline_observe_compile_helpers(public_root: Path) -> dict[str, Any]:
-    from system.lib.pipeline.stage_compile import (
-        _extract_known_file_mentions,
-        _flatten_text_entries,
-        _priority_followup_files,
-        _probe_questions_for_plan_path,
-    )
+def _pipeline_observe_compile_helpers(
+    public_root: Path,
+    *,
+    standalone_only: bool = False,
+) -> dict[str, Any]:
+    if standalone_only:
+        def _dedupe_strings(values: list[str]) -> list[str]:
+            return list(dict.fromkeys(values))
 
+        def _flatten_text_entries(values: Any) -> list[str]:
+            output: list[str] = []
+            for item in values if isinstance(values, list) else []:
+                if isinstance(item, Mapping):
+                    text = str(item.get("text") or item.get("summary") or "").strip()
+                else:
+                    text = str(item or "").strip()
+                if text:
+                    output.append(text)
+            return _dedupe_strings(output)
+
+        def _extract_known_file_mentions(
+            texts: list[str],
+            known_files: list[str],
+        ) -> list[str]:
+            normalized_texts = [
+                str(text or "").strip().lower()
+                for text in texts
+                if str(text or "").strip()
+            ]
+            normalized_known = _dedupe_strings(
+                [str(path or "").strip() for path in known_files if str(path or "").strip()]
+            )
+            return _dedupe_strings(
+                [
+                    path
+                    for text in normalized_texts
+                    for path in sorted(normalized_known, key=len, reverse=True)
+                    if path.lower() in text
+                ]
+            )
+
+        def _priority_followup_files(
+            *,
+            known_files: list[str],
+            active_scope_files: list[str],
+            missing_evidence: Any = None,
+        ) -> list[str]:
+            known = _dedupe_strings(
+                [str(path).strip() for path in known_files if str(path).strip()]
+            )
+            active_scope = set(
+                _dedupe_strings(
+                    [
+                        str(path).strip()
+                        for path in active_scope_files
+                        if str(path).strip()
+                    ]
+                )
+            )
+            mentioned = _extract_known_file_mentions(
+                _flatten_text_entries(missing_evidence),
+                known,
+            )
+            outside_active = [path for path in mentioned if path not in active_scope]
+            inside_active = [path for path in mentioned if path in active_scope]
+            return _dedupe_strings([*outside_active, *inside_active])
+
+        def _probe_questions_for_plan_path(plan_path: Path | None) -> list[str]:
+            if plan_path is None or not plan_path.exists():
+                return []
+            plan = json.loads(plan_path.read_text(encoding="utf-8"))
+            questions: list[str] = []
+            for group in plan.get("groups", []):
+                if not isinstance(group, Mapping):
+                    continue
+                role = str(group.get("role") or "probe").strip().lower() or "probe"
+                question = str(group.get("question") or "").strip()
+                if question and role not in {"synthesis", "summary"}:
+                    questions.append(question)
+            return _dedupe_strings(questions)
+    else:
+        from system.lib.pipeline.stage_compile import (
+            _extract_known_file_mentions,
+            _flatten_text_entries,
+            _priority_followup_files,
+            _probe_questions_for_plan_path,
+        )
     texts = _flatten_text_entries(
         [
             {"summary": "Inspect system/lib/pipeline/stage_compile.py next."},
@@ -855,8 +950,39 @@ def _pipeline_observe_compile_helpers(public_root: Path) -> dict[str, Any]:
     }
 
 
-def _pipeline_dispatch_process_boundary_contract(public_root: Path) -> dict[str, Any]:
-    from system.lib.pipeline.stage_process import _receipt_selection_meta
+def _pipeline_dispatch_process_boundary_contract(
+    public_root: Path,
+    *,
+    standalone_only: bool = False,
+) -> dict[str, Any]:
+    if standalone_only:
+        def _receipt_selection_meta(
+            phase: str,
+            group: dict[str, Any] | None,
+            source: str,
+        ) -> tuple[str, dict[str, Any]]:
+            label = str((group or {}).get("label") or "").strip()
+            role = str((group or {}).get("role") or "").strip().lower() or ""
+            if phase == "scope":
+                selection_kind = "scope"
+            elif phase == "plan":
+                selection_kind = "plan"
+            elif label == "router" or role in {"synthesis", "evaluation"}:
+                selection_kind = "router"
+            else:
+                selection_kind = "probe_fallback"
+            normalized_source = (
+                f"{selection_kind}_{source}" if source not in {"", "none"} else "none"
+            )
+            return normalized_source, {
+                "selected_group_label": label or None,
+                "selected_group_role": role or None,
+                "selection_kind": selection_kind,
+                "is_fallback": selection_kind == "probe_fallback",
+                "source": normalized_source,
+            }
+    else:
+        from system.lib.pipeline.stage_process import _receipt_selection_meta
 
     source, meta = _receipt_selection_meta(
         "scope",
@@ -937,8 +1063,14 @@ def _evaluate(
             standalone_only=exported_bundle_input,
         ),
         _pipeline_digest_and_shard_normalization(public_root),
-        _pipeline_observe_compile_helpers(public_root),
-        _pipeline_dispatch_process_boundary_contract(public_root),
+        _pipeline_observe_compile_helpers(
+            public_root,
+            standalone_only=exported_bundle_input,
+        ),
+        _pipeline_dispatch_process_boundary_contract(
+            public_root,
+            standalone_only=exported_bundle_input,
+        ),
     ]
     findings: list[dict[str, Any]] = []
     for engine in engines:
