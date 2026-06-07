@@ -205,6 +205,20 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "interesting-parts"
     if value in {
+        "finance",
+        "financial",
+        "forecasting",
+        "market",
+        "markets",
+        "show me finance",
+        "show-me-finance",
+        "show_me_finance",
+        "show me the finance",
+        "show-me-the-finance",
+        "show_me_the_finance",
+    }:
+        return "finance"
+    if value in {
         "formal math",
         "math",
         "show me the math",

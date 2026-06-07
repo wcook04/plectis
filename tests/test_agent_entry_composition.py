@@ -354,6 +354,26 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
     )
 
 
+@pytest.mark.parametrize("task", ["show me finance", "financial", "market"])
+def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "finance"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "finance"
+    assert payload["task_route"]["primary_organ_id"] == "finance_forecast_evaluation_spine"
+    assert card["task_route"]["selected_task_class"] == "finance"
+    assert "agent-entry-composition --task finance" in card["drilldowns"]["full_json"]
+
+
 def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,
