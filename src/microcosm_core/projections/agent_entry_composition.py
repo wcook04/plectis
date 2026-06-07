@@ -240,6 +240,26 @@ def _normalize_task_class(task: str | None) -> str:
     }:
         return "navigation"
     if value in {
+        "agent-evaluation",
+        "agent_evaluation",
+        "benchmark",
+        "benchmarks",
+        "benchmark integrity",
+        "benchmark-integrity",
+        "benchmark_integrity",
+        "show me benchmarks",
+        "show-me-benchmarks",
+        "show_me_benchmarks",
+        "show me evals",
+        "show-me-evals",
+        "show_me_evals",
+        "agent evals",
+        "agent-evals",
+        "agent_evals",
+        "agent evaluation",
+    }:
+        return "agent-evaluation"
+    if value in {
         "ai-safety",
         "ai_safety",
         "safety",

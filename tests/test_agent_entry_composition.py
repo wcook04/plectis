@@ -331,6 +331,42 @@ def test_agent_entry_card_aliases_safety_questions_to_safety_route(task: str) ->
 @pytest.mark.parametrize(
     "task",
     [
+        "show me benchmarks",
+        "show me evals",
+        "benchmark integrity",
+        "agent evals",
+        "agent evaluation",
+    ],
+)
+def test_agent_entry_card_aliases_benchmark_questions_to_agent_evaluation_route(
+    task: str,
+) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "agent-evaluation"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "agent-evaluation"
+    assert payload["task_route"]["primary_organ_id"] == (
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    assert card["task_route"]["selected_task_class"] == "agent-evaluation"
+    assert (
+        "agent-entry-composition --task agent-evaluation"
+        in card["drilldowns"]["full_json"]
+    )
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
         "what is this",
         "what is this?",
         "what is this repo",
