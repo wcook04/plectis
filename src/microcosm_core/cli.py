@@ -559,6 +559,14 @@ PUBLIC_LENS_CARD_AWARE_COMMANDS = frozenset(
     {"circuit-attribution", "intake", "workingness"}
 )
 PUBLIC_LENS_EPILOGS = {
+    "workingness": """Skeptical-reviewer route:
+  microcosm workingness --card
+  microcosm workingness
+
+Boundary: status describes map generation, while card_status describes bounded
+failure-envelope debt. Accepted status and source-body counts are not evidence
+strength, release readiness, score progress, or whole-system correctness.
+""",
     "evidence-cells": """Formal-methods reader route:
   microcosm evidence-cells --card .
 
@@ -575,6 +583,16 @@ claim benchmark performance, call providers, mutate source, or authorize
 release.
 """,
 }
+
+AUTHORITY_HELP_EPILOG = """Skeptical-reviewer route:
+  microcosm authority --card
+  microcosm authority
+
+Boundary: the authority card exposes false ceilings and count scopes before the
+full map. A passing card does not authorize release, provider calls, source
+mutation, proof correctness, trading advice, private-root equivalence, or
+whole-system correctness.
+"""
 
 PUBLIC_BUNDLE_COMMAND_HELP = {
     "pattern-binding": "validate exported pattern/source-route bundles",
@@ -2200,6 +2218,9 @@ def main(argv: list[str] | None = None) -> int:
     authority_parser = subparsers.add_parser(
         "authority",
         help="show authority ceilings and anti-claims",
+        description="show authority ceilings and anti-claims",
+        epilog=AUTHORITY_HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     authority_parser.add_argument(
         "--card",

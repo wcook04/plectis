@@ -71,6 +71,40 @@ def test_cli_authority_card_is_compact_first_screen_lens(
     assert "organ_authority" not in payload
 
 
+def test_cli_authority_help_explains_skeptical_reviewer_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["authority", "--help"])
+
+    output = capsys.readouterr().out
+
+    assert excinfo.value.code == 0
+    assert "Skeptical-reviewer route:" in output
+    assert "microcosm authority --card" in output
+    assert "false ceilings and count scopes" in output
+    assert "does not authorize release" in output
+    assert "proof correctness" in output
+    assert "private-root equivalence" in output
+
+
+def test_cli_workingness_help_explains_skeptical_reviewer_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["workingness", "--help"])
+
+    output = capsys.readouterr().out
+
+    assert excinfo.value.code == 0
+    assert "Skeptical-reviewer route:" in output
+    assert "microcosm workingness --card" in output
+    assert "card_status describes bounded" in output
+    assert "not evidence" in output
+    assert "release readiness" in output
+    assert "whole-system correctness" in output
+
+
 def test_cli_intake_card_is_compact_first_screen_lens(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
