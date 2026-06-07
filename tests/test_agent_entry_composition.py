@@ -443,7 +443,10 @@ def test_agent_entry_card_aliases_command_help_questions_to_getting_started_rout
         "show me architecture",
         "show me the architecture",
         "what is the architecture",
+        "where is the architecture",
         "how is this built",
+        "show me specs",
+        "where are the specs",
     ],
 )
 def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
@@ -481,6 +484,9 @@ def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
         "show me the route map",
         "how do I navigate this",
         "how do I navigate",
+        "show me docs",
+        "show me documentation",
+        "where are the docs",
     ],
 )
 def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
