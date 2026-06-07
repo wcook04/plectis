@@ -1473,6 +1473,29 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
     )
 
 
+def test_agent_entry_card_explains_interesting_alias_boundary() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="what is interesting here",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "interesting-parts"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "bounded public first-run and reveal surfaces"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert "novelty" in payload["task_route"]["alias_resolution"]["reason"]
+    assert "domain correctness" in payload["task_route"]["alias_resolution"]["reason"]
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+
+
 @pytest.mark.parametrize(
     "task",
     [

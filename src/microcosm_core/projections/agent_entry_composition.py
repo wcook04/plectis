@@ -29,6 +29,17 @@ GETTING_STARTED_CHECK_ROUTE_ALIASES = {
     "run-the-checks",
     "run_the_checks",
 }
+INTERESTING_PARTS_ROUTE_ALIASES = {
+    "interesting",
+    "interesting-parts",
+    "interesting_parts",
+    "what is interesting",
+    "what-is-interesting",
+    "what_is_interesting",
+    "what is interesting here",
+    "what-is-interesting-here",
+    "what_is_interesting_here",
+}
 CARD_FILENAME = "agent_entry_composition_card.json"
 RECEIPT_FILENAME = "agent_entry_composition_receipt.json"
 TYPE_A_READER_ID = "type_a_agent"
@@ -3356,7 +3367,13 @@ def _task_alias_resolution(
             "that route carries the cold-clone verification floor and "
             "copyable check commands."
             if requested_key in GETTING_STARTED_CHECK_ROUTE_ALIASES
-            else "The requested task is accepted as an alias for the selected route."
+            else (
+                "Interesting-parts questions use the existing entry/reveal route "
+                "because it shows bounded public first-run and reveal surfaces "
+                "without claiming novelty, release readiness, or domain correctness."
+                if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
+                else "The requested task is accepted as an alias for the selected route."
+            )
         )
     )
     return {
