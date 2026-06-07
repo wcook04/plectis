@@ -3442,13 +3442,25 @@ def _task_alias_resolution(
                         "provider execution, release readiness, or domain correctness."
                         if requested_key in AI_SAFETY_ROUTE_ALIASES
                         else (
-                            "Route-owner questions use the agent-entry route because "
-                            "that route exposes the owner surfaces to inspect or patch: "
-                            "atlas/entry_packet.json, atlas/agent_task_routes.json, "
-                            "organ registries, source modules, receipts, standards, "
-                            "and the projection builder."
-                            if requested_key in ROUTE_OWNER_ROUTE_ALIASES
-                            else "The requested task is accepted as an alias for the selected route."
+                            "Finance questions use the finance route because it selects "
+                            "synthetic forecast-evaluation and market-shaped fixture "
+                            "organs, evidence classes, first commands, and authority "
+                            "ceilings without claiming investment advice, live market "
+                            "data, track records, performance, trading authority, or "
+                            "domain correctness."
+                            if selected_task_class == "finance"
+                            else (
+                                "Route-owner questions use the agent-entry route because "
+                                "that route exposes the owner surfaces to inspect or patch: "
+                                "atlas/entry_packet.json, atlas/agent_task_routes.json, "
+                                "organ registries, source modules, receipts, standards, "
+                                "and the projection builder."
+                                if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                                else (
+                                    "The requested task is accepted as an alias for the "
+                                    "selected route."
+                                )
+                            )
                         )
                     )
                 )

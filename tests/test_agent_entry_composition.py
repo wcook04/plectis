@@ -1919,6 +1919,29 @@ def test_agent_entry_card_aliases_finance_phrases_to_finance_route(task: str) ->
     assert "agent-entry-composition --task finance" in card["drilldowns"]["full_json"]
 
 
+def test_agent_entry_card_explains_finance_alias_boundary() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="show me the finance parts",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "finance"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    reason = payload["task_route"]["alias_resolution"]["reason"]
+    assert "Finance questions use the finance route" in reason
+    assert "synthetic forecast-evaluation" in reason
+    assert "investment advice" in reason
+    assert "live market data" in reason
+    assert "trading authority" in reason
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+
+
 @pytest.mark.parametrize(
     "task",
     [
