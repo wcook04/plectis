@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core import cli
 from microcosm_core.organs import proof_diagnostic_evidence_spine as proof_spine
 from microcosm_core.organs.proof_diagnostic_evidence_spine import (
     EXPECTED_NEGATIVE_CASES,
@@ -1146,6 +1147,35 @@ def test_proof_diagnostic_evidence_spine_card_reuses_fresh_bundle_receipt(
     assert cached_card["copied_macro_body_artifact_count"] == len(
         PUBLIC_RING2_ARTIFACT_IMPORTS
     )
+
+
+def test_proof_diagnostic_evidence_spine_card_is_available_from_top_level_cli(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "receipts"
+
+    assert (
+        cli.main(
+            [
+                "proof-diagnostic-evidence-spine",
+                "run",
+                "--input",
+                str(PROOF_FIXTURE_INPUT),
+                "--out",
+                str(out_dir),
+                "--card",
+            ]
+        )
+        == 0
+    )
+    card = json.loads(capsys.readouterr().out)
+
+    assert card["schema_version"] == "proof_diagnostic_evidence_spine_card_v1"
+    assert card["status"] == "pass"
+    assert card["organ_id"] == "proof_diagnostic_evidence_spine"
+    assert card["input_mode"] == "fixture_regression"
+    assert "proof_receipts" in card["omitted_full_payload_keys"]
 
 
 def test_proof_diagnostic_fixture_manifest_exposes_ring2_body_floor() -> None:

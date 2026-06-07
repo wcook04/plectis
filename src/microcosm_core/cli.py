@@ -2651,6 +2651,7 @@ def main(argv: list[str] | None = None) -> int:
     proof_parser = _add_bundle_parser(subparsers, "proof-diagnostic-evidence-spine")
     proof_parser.add_argument("action", choices=["run", "run-evidence-bundle"])
     _add_input_out(proof_parser)
+    proof_parser.add_argument("--card", action="store_true")
 
     formal_math_parser = _add_bundle_parser(subparsers, "formal-math-readiness-gate")
     formal_math_parser.add_argument("action", choices=["run", "run-readiness-bundle", "plan"])
@@ -3675,9 +3676,10 @@ def main(argv: list[str] | None = None) -> int:
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "proof-diagnostic-evidence-spine":
-        return proof_diagnostic_evidence_spine.main(
-            [args.action, "--input", args.input, "--out", args.out]
-        )
+        proof_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.card:
+            proof_args.append("--card")
+        return proof_diagnostic_evidence_spine.main(proof_args)
     if args.command == "formal-math-readiness-gate":
         formal_math_args = [args.action, "--input", args.input]
         if args.out:
