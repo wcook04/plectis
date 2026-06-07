@@ -686,6 +686,9 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show me the formal verification parts",
         "show me proof stuff",
         "show me proof parts",
+        "proof correctness",
+        "does this prove correctness",
+        "show me proof correctness",
     ],
 )
 def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> None:

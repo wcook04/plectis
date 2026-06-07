@@ -676,6 +676,9 @@ def _normalize_task_class(task: str | None) -> str:
         "show me the formal verification parts",
         "show me proof stuff",
         "show me proof parts",
+        "proof correctness",
+        "does this prove correctness",
+        "show me proof correctness",
         "show-me-formal-methods",
         "show-me-the-formal-methods",
         "show-me-formal-methods-stuff",
@@ -687,6 +690,9 @@ def _normalize_task_class(task: str | None) -> str:
         "show-me-the-formal-verification-parts",
         "show-me-proof-stuff",
         "show-me-proof-parts",
+        "proof-correctness",
+        "does-this-prove-correctness",
+        "show-me-proof-correctness",
         "show_me_formal_methods",
         "show_me_the_formal_methods",
         "show_me_formal_methods_stuff",
@@ -698,6 +704,9 @@ def _normalize_task_class(task: str | None) -> str:
         "show_me_the_formal_verification_parts",
         "show_me_proof_stuff",
         "show_me_proof_parts",
+        "proof_correctness",
+        "does_this_prove_correctness",
+        "show_me_proof_correctness",
     }:
         return "formal-methods"
     if "agent" in value and ("entry" in value or "first" in value or "cold" in value):
