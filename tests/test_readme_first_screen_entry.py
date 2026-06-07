@@ -213,6 +213,14 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     assert direct_hello in direct_path
     assert direct_path.index(direct_hello) < direct_path.index(direct_tour_card)
     assert direct_first_screen_card in direct_path
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25"
+        in direct_path
+    )
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json"
+        in direct_path
+    )
     assert "python3 -m microcosm_core.cli" not in direct_path
     assert "microcosm hello ." in installed_path
     assert "microcosm first-screen --card ." in installed_path

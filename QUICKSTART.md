@@ -175,4 +175,7 @@ checking. Use `microcosm evidence list . --limit 25` for a bounded receipt
 index, then inspect a listed project ref with
 `microcosm evidence inspect . .microcosm/evidence/routes.json` or
 `microcosm evidence inspect --project . .microcosm/evidence/routes.json`.
+If you are staying source-only, use
+`PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25` and
+`PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json`.
 Use `--limit 0` only when you intentionally want the full list.

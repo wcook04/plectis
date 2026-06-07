@@ -131,6 +131,8 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "microcosm evidence list . --limit 25",
         "microcosm evidence inspect . .microcosm/evidence/routes.json",
         "microcosm evidence inspect --project . .microcosm/evidence/routes.json",
+        "PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25",
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json",
         "--limit 0",
     ):
         assert phrase in quickstart

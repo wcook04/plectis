@@ -273,6 +273,8 @@ PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
 PYTHONPATH=src python3 scripts/skeptic_flight_recorder.py --root . --out /tmp/microcosm-flight-recorder
 PYTHONPATH=src python3 scripts/skeptic_flight_recorder.py verify /tmp/microcosm-flight-recorder --root .
+PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25
+PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json
 PYTHONPATH=src python3 -m microcosm_core observe --card .
 PYTHONPATH=src python3 -m microcosm_core observe .
 ```
