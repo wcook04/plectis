@@ -142,6 +142,23 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _source_checkout_command(command: str) -> str | None:
+    command = command.strip()
+    if not command:
+        return None
+    if command.startswith("PYTHONPATH=src "):
+        return command
+    if command == "microcosm":
+        return "PYTHONPATH=src python3 -m microcosm_core"
+    if command.startswith("microcosm "):
+        return f"PYTHONPATH=src python3 -m microcosm_core {command[len('microcosm '):]}"
+    if command.startswith("python -m microcosm_core"):
+        return command.replace("python -m", "PYTHONPATH=src python3 -m", 1)
+    if command.startswith("python3 -m microcosm_core"):
+        return command.replace("python3 -m", "PYTHONPATH=src python3 -m", 1)
+    return None
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -621,14 +638,21 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
     steps = _rows(payload, "steps")
     normalized_steps: list[dict[str, Any]] = []
     command_refs: list[str] = []
+    source_checkout_command_refs: list[str] = []
     evidence_refs: list[str] = []
     substrate_refs: list[str] = []
     for row in steps:
         step_id = str(row.get("step_id") or "step")
         commands = [str(item) for item in row.get("commands", []) if isinstance(item, str)]
+        source_checkout_commands = [
+            source_command
+            for command in commands
+            if (source_command := _source_checkout_command(command))
+        ]
         inspect_refs = [str(item) for item in row.get("inspect_refs", []) if isinstance(item, str)]
         step_evidence = [str(item) for item in row.get("evidence_refs", []) if isinstance(item, str)]
         command_refs.extend(commands)
+        source_checkout_command_refs.extend(source_checkout_commands)
         evidence_refs.extend(step_evidence)
         substrate_refs.extend(inspect_refs)
         normalized_steps.append(
@@ -636,6 +660,7 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
                 "step_id": step_id,
                 "minute_range": row.get("minute_range"),
                 "commands": commands,
+                "source_checkout_commands": source_checkout_commands,
                 "inspect_refs": inspect_refs,
                 "evidence_refs": step_evidence,
                 "expected_signal": row.get("expected_signal"),
@@ -689,6 +714,7 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
         ),
         None,
     )
+    source_checkout_first_command = next(iter(source_checkout_command_refs), None)
     if status != PASS:
         findings.append(
             _finding(
@@ -711,7 +737,9 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
         "substrate_ref_count": len(set(substrate_refs)),
         "steps": normalized_steps,
         "commands": sorted(set(command_refs)),
+        "source_checkout_commands": sorted(set(source_checkout_command_refs)),
         "first_command": first_command,
+        "source_checkout_first_command": source_checkout_first_command,
         "evidence_refs": sorted(set(evidence_refs)),
         "substrate_refs": sorted(set(substrate_refs)),
         "findings": findings,
@@ -923,6 +951,7 @@ def _build_result(
         "evidence_ref_count": walkthrough["evidence_ref_count"],
         "substrate_ref_count": walkthrough["substrate_ref_count"],
         "commands": walkthrough["commands"],
+        "source_checkout_commands": walkthrough["source_checkout_commands"],
         "evidence_refs": sorted(set(walkthrough["evidence_refs"]) | set(evidence["evidence_refs"])),
         "substrate_refs": walkthrough["substrate_refs"],
         "public_runtime_refs": sorted(
@@ -936,6 +965,7 @@ def _build_result(
             "time_budget_minutes": walkthrough["time_budget_minutes"],
             "step_count": walkthrough["step_count"],
             "first_command": walkthrough["first_command"],
+            "source_checkout_first_command": walkthrough["source_checkout_first_command"],
             "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
             "evidence_is_drilldown": True,
             "release_authorized": False,
@@ -988,6 +1018,7 @@ def _common_receipt(
         "evidence_ref_count",
         "substrate_ref_count",
         "commands",
+        "source_checkout_commands",
         "evidence_refs",
         "substrate_refs",
         "public_runtime_refs",
@@ -1273,6 +1304,9 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "evidence_ref_count": result.get("evidence_ref_count"),
             "substrate_ref_count": result.get("substrate_ref_count"),
             "first_command": reveal_board.get("first_command"),
+            "source_checkout_first_command": reveal_board.get(
+                "source_checkout_first_command"
+            ),
             "primary_loop": reveal_board.get("primary_loop"),
             "evidence_is_drilldown": reveal_board.get("evidence_is_drilldown") is True,
         },

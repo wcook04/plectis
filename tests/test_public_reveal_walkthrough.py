@@ -80,6 +80,15 @@ def _commands_by_step(result: dict[str, Any]) -> dict[str, list[str]]:
     }
 
 
+def _source_checkout_commands_by_step(result: dict[str, Any]) -> dict[str, list[str]]:
+    steps = result["reveal_board"]["steps"]
+    return {
+        str(step["step_id"]): list(step["source_checkout_commands"])
+        for step in steps
+        if isinstance(step, dict)
+    }
+
+
 def _copy_public_reveal_root(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     public_root.mkdir()
@@ -101,6 +110,12 @@ def _microcosm_command_argv(command: str, scratch: Path) -> list[str]:
     parts = shlex.split(command.replace(SCRATCH_WALKTHROUGH_REF, scratch.as_posix()))
     assert parts[0] == "microcosm"
     return parts[1:]
+
+
+def _source_checkout_command_argv(command: str, scratch: Path) -> list[str]:
+    parts = shlex.split(command.replace(SCRATCH_WALKTHROUGH_REF, scratch.as_posix()))
+    assert parts[:4] == ["PYTHONPATH=src", "python3", "-m", "microcosm_core"]
+    return parts[4:]
 
 
 def test_public_reveal_sha256_streams_source_module_digest(
@@ -146,6 +161,12 @@ def test_public_reveal_walkthrough_observes_negative_cases(tmp_path: Path) -> No
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["reveal_board"]["primary_loop"].startswith("repo -> .microcosm")
     assert result["reveal_board"]["first_command"] == "python -m pip install -e '.[test]'"
+    assert result["reveal_board"]["source_checkout_first_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch"
+    )
+    assert result["reveal_board"]["steps"][0]["source_checkout_commands"] == [
+        "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch"
+    ]
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
@@ -281,6 +302,13 @@ def test_public_reveal_exported_bundle_validates_runtime_shape(tmp_path: Path) -
     assert "microcosm status" not in result["commands"]
     assert result["reveal_board"]["release_authorized"] is False
     assert result["reveal_board"]["first_command"] == "python -m pip install -e '.[test]'"
+    assert result["reveal_board"]["source_checkout_first_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch"
+    )
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core authority --card"
+        in result["source_checkout_commands"]
+    )
     assert result["public_claim"].startswith("Microcosm turns a repo")
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["source_module_manifest_status"] == "pass"
@@ -450,15 +478,20 @@ def test_public_reveal_scratch_compile_explain_commands_are_copy_paste_valid(
         command="pytest",
     )
     commands_by_step = _commands_by_step(result)
+    source_commands_by_step = _source_checkout_commands_by_step(result)
     compile_command = next(
         command
         for command in commands_by_step["install_and_compile"]
         if command.startswith("microcosm compile ")
     )
+    source_compile_command = source_commands_by_step["install_and_compile"][0]
     explain_command = commands_by_step["inspect_route_explanation"][0]
     scratch = tmp_path / "microcosm-scratch"
 
     assert compile_command == f"microcosm compile {SCRATCH_WALKTHROUGH_REF}"
+    assert source_compile_command == (
+        f"PYTHONPATH=src python3 -m microcosm_core compile {SCRATCH_WALKTHROUGH_REF}"
+    )
     assert explain_command == (
         f"microcosm explain {SCRATCH_WALKTHROUGH_REF} missing_tests_route"
     )
@@ -466,6 +499,13 @@ def test_public_reveal_scratch_compile_explain_commands_are_copy_paste_valid(
     assert microcosm_cli.main(_microcosm_command_argv(compile_command, scratch)) == 0
     compiled = json.loads(capsys.readouterr().out)
     assert compiled["selected_route_id"] == "missing_tests_route"
+
+    assert (
+        microcosm_cli.main(_source_checkout_command_argv(source_compile_command, scratch))
+        == 0
+    )
+    source_compiled = json.loads(capsys.readouterr().out)
+    assert source_compiled["selected_route_id"] == compiled["selected_route_id"]
 
     assert microcosm_cli.main(_microcosm_command_argv(explain_command, scratch)) == 0
     explanation = json.loads(capsys.readouterr().out)
