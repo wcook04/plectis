@@ -502,6 +502,10 @@ def test_agent_entry_card_aliases_command_help_questions_to_getting_started_rout
         "which files are generated",
         "what files can I edit",
         "is AGENT_ROUTES generated",
+        "is ORGANS generated",
+        "what owns generated docs",
+        "regenerate routes",
+        "build generated docs",
     ],
 )
 def test_agent_entry_card_aliases_architecture_questions_to_architecture_route(
