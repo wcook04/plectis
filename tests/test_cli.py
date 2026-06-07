@@ -676,6 +676,14 @@ def test_cli_evidence_help_explains_receipt_interpretation() -> None:
     assert "Reviewer path:" in output
     assert "microcosm evidence list <project> --limit 25" in output
     assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence list <project> "
+        "--limit 25"
+    ) in output
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect --project "
+        "<project> <evidence_ref>"
+    ) in output
     assert "Receipts are evidence drilldowns after behavior is visible" in output
     assert "source refs, schema versions, command witnesses" in output
     assert "not by themselves authorize release" in output

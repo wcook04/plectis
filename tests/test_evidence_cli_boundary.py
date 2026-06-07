@@ -36,6 +36,9 @@ def _assert_full_payload_drilldown(
         expected_path = f"{project_prefix}/{evidence_ref}"
     assert drilldown["path"] == expected_path
     assert drilldown["command"] == f"python3 -m json.tool {expected_path}"
+    assert drilldown["source_checkout_command"] == (
+        f"python3 -m json.tool {expected_path}"
+    )
     assert "complete local JSON receipt" in drilldown["meaning"]
     assert "drilldown evidence only" in drilldown["authority_boundary"]
     assert "proof correctness" in drilldown["authority_boundary"]
@@ -99,8 +102,16 @@ def test_cli_evidence_list_preserves_initialized_project_success(
         "microcosm evidence inspect --project "
         f"{project.as_posix()} .microcosm/evidence/routes.json"
     )
+    assert payload["evidence"][0]["source_checkout_inspect_command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect --project "
+        f"{project.as_posix()} .microcosm/evidence/routes.json"
+    )
     assert payload["inspect_drilldown"] == {
         "command_template": "microcosm evidence inspect --project <project> <evidence_ref>",
+        "source_checkout_command_template": (
+            "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
+            "--project <project> <evidence_ref>"
+        ),
         "project_key": "project_ref",
         "row_key": "evidence_ref",
         "field": "payload_summary",
@@ -296,6 +307,10 @@ def test_cli_evidence_list_limit_bounds_initialized_project(
     assert payload["evidence"][0]["inspect_command"].startswith(
         f"microcosm evidence inspect --project {project.as_posix()} "
     )
+    assert payload["evidence"][0]["source_checkout_inspect_command"].startswith(
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect --project "
+        f"{project.as_posix()} "
+    )
     _assert_evidence_interpretation(payload)
 
 
@@ -317,6 +332,14 @@ def test_cli_evidence_list_help_explains_reviewer_drilldown(capsys) -> None:
     assert "Lists compact evidence refs." in output
     assert "microcosm evidence list <project> --limit 25" in output
     assert "microcosm evidence inspect --project <project> <evidence_ref>" in output
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence list <project> "
+        "--limit 25"
+    ) in output
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core evidence inspect --project "
+        "<project> <evidence_ref>"
+    ) in output
     assert "bounded receipt index after behavior is visible" in output
     assert "not a release" in output
     assert "schema_version" in output

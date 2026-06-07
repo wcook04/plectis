@@ -155,6 +155,7 @@ def _evidence_full_payload_drilldown(
     return {
         "path": local_json_path,
         "command": f"python3 -m json.tool {local_json_path}",
+        "source_checkout_command": f"python3 -m json.tool {local_json_path}",
         "meaning": "open the complete local JSON receipt behind this compact card",
         "authority_boundary": (
             "full local JSON is drilldown evidence only; it does not authorize "
@@ -2934,6 +2935,10 @@ def list_evidence(
                 "inspect_command": (
                     f"microcosm evidence inspect --project {project_ref} {evidence_ref}"
                 ),
+                "source_checkout_inspect_command": (
+                    "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
+                    f"--project {project_ref} {evidence_ref}"
+                ),
                 "schema_version": payload.get("schema_version"),
                 "status": payload.get("status", "unknown"),
                 "project_id": payload.get("project_id", _project_name(project)),
@@ -2955,6 +2960,10 @@ def list_evidence(
         "inspect_drilldown": {
             "command_template": (
                 "microcosm evidence inspect --project <project> <evidence_ref>"
+            ),
+            "source_checkout_command_template": (
+                "PYTHONPATH=src python3 -m microcosm_core evidence inspect "
+                "--project <project> <evidence_ref>"
             ),
             "project_key": "project_ref",
             "row_key": "evidence_ref",

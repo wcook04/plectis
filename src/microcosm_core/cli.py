@@ -545,6 +545,8 @@ EVIDENCE_LIST_HELP = """Lists compact evidence refs.
 Reviewer path:
   microcosm evidence list <project> --limit 25
   microcosm evidence inspect --project <project> <evidence_ref>
+  PYTHONPATH=src python3 -m microcosm_core evidence list <project> --limit 25
+  PYTHONPATH=src python3 -m microcosm_core evidence inspect --project <project> <evidence_ref>
 
 Interpretation:
   The list is a bounded receipt index after behavior is visible, not a release
@@ -555,6 +557,8 @@ Interpretation:
 EVIDENCE_HELP_EPILOG = """Reviewer path:
   microcosm evidence list <project> --limit 25
   microcosm evidence inspect --project <project> <evidence_ref>
+  PYTHONPATH=src python3 -m microcosm_core evidence list <project> --limit 25
+  PYTHONPATH=src python3 -m microcosm_core evidence inspect --project <project> <evidence_ref>
 
 Interpretation:
   Receipts are evidence drilldowns after behavior is visible. They can show
