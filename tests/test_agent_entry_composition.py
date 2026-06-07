@@ -862,6 +862,7 @@ def test_agent_entry_card_aliases_navigation_questions_to_navigation_route(
         "does it have a UI",
         "browser UI",
         "macos app",
+        "macOS capsule",
     ],
 )
 def test_agent_entry_card_aliases_browser_questions_to_frontend_route(
@@ -1245,6 +1246,8 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
         "show me around",
         "show me math finance ai safety formal methods",
         "show me domains",
+        "domain routes",
+        "show me domain routes",
         "domain tour",
     ],
 )
@@ -1286,6 +1289,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "specialty index",
         "find my specialty",
         "find your specialty",
+        "which specialty",
         "where are specialties",
         "show me research workflows",
         "show me research parts",
@@ -1293,6 +1297,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show science",
         "show me science parts",
         "show me science workflows",
+        "science replays",
         "scientific workflows",
         "show me mechanistic interpretability",
         "biology",
@@ -1302,8 +1307,11 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "materials science",
         "show me materials chemistry",
         "materials lab",
+        "lab safety",
         "spatial world model",
+        "spatial simulation",
         "robotics",
+        "robotics route",
         "prediction reconciliation",
     ],
 )
@@ -1366,6 +1374,37 @@ def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
         "agent-entry-composition --task market-boundary"
         in card["drilldowns"]["full_json"]
     )
+
+
+@pytest.mark.parametrize(
+    "task",
+    [
+        "audio",
+        "audio rms",
+        "rms",
+        "rms level",
+        "audio level",
+        "audio level rms",
+        "audio level rms port",
+    ],
+)
+def test_agent_entry_card_aliases_audio_phrases_to_audio_route(task: str) -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task=task,
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == task
+    assert payload["task_route"]["selected_task_class"] == "audio"
+    assert payload["task_route"]["selected_task_route_found"] is True
+    assert payload["task_route"]["task_class"] == "audio"
+    assert payload["task_route"]["primary_organ_id"] == "batch8_audio_level_rms_port"
+    assert card["task_route"]["selected_task_class"] == "audio"
+    assert "agent-entry-composition --task audio" in card["drilldowns"]["full_json"]
 
 
 @pytest.mark.parametrize(
@@ -1502,6 +1541,7 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
         "not financial advice",
         "forecast",
         "forecasts",
+        "forecasting workflows",
         "market",
         "market parts",
         "market dashboard",
