@@ -14,6 +14,10 @@
         "reads": "A claim over a basis is admissible exactly when some certificate and checker accept it, and the claim's strength is bounded above by the strength of that check.",
         "symbols": [
           {
+            "sym": "\\mathrm{adm}(\\varphi, B)",
+            "meaning": "the claim is admissible over its basis"
+          },
+          {
             "sym": "\\varphi",
             "meaning": "a claim"
           },
@@ -28,6 +32,10 @@
           {
             "sym": "K",
             "meaning": "a checker that recomputes the verdict"
+          },
+          {
+            "sym": "\\mathrm{strength}",
+            "meaning": "the position a claim or a check holds in the evidence order, with bare assertion at the bottom"
           },
           {
             "sym": "\\sqsubseteq",
@@ -62,6 +70,10 @@
         "latex": "\\mathrm{trust}(\\varphi) \\;\\Rightarrow\\; \\exists\\, c.\\ K(c) = \\mathsf{accept} \\;\\wedge\\; K \\notin \\mathrm{producer}(c) \\;\\wedge\\; |K| \\sqsubseteq \\mathrm{small}",
         "reads": "A claim is trusted only when some certificate is accepted by a checker K that is separate from whatever produced the certificate and is small enough to audit.",
         "symbols": [
+          {
+            "sym": "\\mathrm{trust}(\\varphi)",
+            "meaning": "the claim is trusted"
+          },
           {
             "sym": "\\varphi",
             "meaning": "a claim seeking trust"
@@ -110,9 +122,13 @@
       "one_line": "Authority over an effect is derived at the moment of acting from dereferenced tokens, policy, proof, and world-state; holding a standing credential is not itself authority.",
       "deep": "Microcosm refuses to treat a credential as the thing that grants power. Authority for a subject to cause an effect is computed at the point of action from the tokens actually dereferenced, the governing policy, the proof references, and the current world-state, so that ambient identity, a long-lived key, or simply having a tool reachable confers nothing on its own. This is the claim and evidence model applied to action rather than to assertion: just as a label is bottom evidence until something recomputes it, a credential is bottom authority until a derivation over policy and proof admits the specific effect. It bites hardest at the confused-deputy boundary, where a component holds broad standing power and is steered into exercising it on someone else's behalf; here the bound on what may happen has to be derived per effect from declared scope and approval, not inherited from whatever the holder could in principle do.",
       "formal": {
-        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tok}), \\mathrm{policy}, \\mathrm{proof}, \\mathrm{world}\\big) = \\mathsf{grant}",
-        "reads": "A subject is authorized for an effect exactly when a derivation over the dereferenced tokens, policy, proof, and world-state grants it; merely holding a credential does not by itself imply that authorization.",
+        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tok}), \\mathrm{policy}, \\mathrm{proof}, \\mathrm{world}\\big) = \\mathsf{grant}; \\quad \\neg\\big(\\mathrm{holds}(u, \\mathrm{cred}) \\Rightarrow \\mathsf{grant}\\big)",
+        "reads": "A subject is authorized for an effect exactly when the authorizer's derivation over the dereferenced tokens, governing policy, proof references, and world-state grants it; merely holding a standing credential never on its own implies a grant.",
         "symbols": [
+          {
+            "sym": "\\mathrm{auth}(u, e)",
+            "meaning": "subject u is authorized to cause effect e"
+          },
           {
             "sym": "u",
             "meaning": "the subject requesting an effect"
@@ -122,20 +138,32 @@
             "meaning": "the effect to be authorized"
           },
           {
+            "sym": "F",
+            "meaning": "the authorizer's derivation over its inputs"
+          },
+          {
             "sym": "\\mathrm{deref}(\\mathrm{tok})",
             "meaning": "the tokens actually dereferenced, not merely presented"
           },
           {
-            "sym": "\\mathrm{proof}",
-            "meaning": "the policy, proof references, and world-state the authorizer derives over"
+            "sym": "\\mathrm{policy}",
+            "meaning": "the governing policy"
           },
           {
-            "sym": "\\mathrm{holds}(u, \\mathrm{cred})",
-            "meaning": "the subject possesses a standing credential"
+            "sym": "\\mathrm{proof}",
+            "meaning": "the proof references the authorizer derives over"
+          },
+          {
+            "sym": "\\mathrm{world}",
+            "meaning": "the current world-state"
           },
           {
             "sym": "\\mathsf{grant}",
             "meaning": "the authorizer's derived decision to permit the effect"
+          },
+          {
+            "sym": "\\mathrm{holds}(u, \\mathrm{cred})",
+            "meaning": "the subject merely possesses a standing credential"
           }
         ]
       },
@@ -171,16 +199,32 @@
             "meaning": "a derived artifact"
           },
           {
+            "sym": "f",
+            "meaning": "the deterministic derivation from basis to artifact"
+          },
+          {
             "sym": "B",
             "meaning": "its declared content basis (the inputs it is computed from)"
           },
           {
+            "sym": "\\mathrm{id}(a)",
+            "meaning": "the artifact's identity"
+          },
+          {
             "sym": "H(B)",
-            "meaning": "the digest that serves as the artifact's identity"
+            "meaning": "the digest of the basis that serves as that identity"
+          },
+          {
+            "sym": "\\mathrm{reuse}(a)",
+            "meaning": "serving the stored artifact instead of recomputing"
           },
           {
             "sym": "B'",
             "meaning": "the current basis at reuse time"
+          },
+          {
+            "sym": "\\mathrm{recompute}",
+            "meaning": "rederiving the artifact rather than reusing it"
           },
           {
             "sym": "\\bot",
@@ -221,23 +265,39 @@
           },
           {
             "sym": "\\bigsqcap",
-            "meaning": "meet: the weakest of the parts"
+            "meaning": "the meet (greatest lower bound) taken over the parts"
+          },
+          {
+            "sym": "\\mathrm{parts}(c)",
+            "meaning": "the parts the composite is built from"
+          },
+          {
+            "sym": "p",
+            "meaning": "a part of the composite"
+          },
+          {
+            "sym": "\\mathrm{evidence}(p)",
+            "meaning": "the evidence available for part p"
           },
           {
             "sym": "\\bot",
-            "meaning": "blocked, the fail-closed bottom"
+            "meaning": "bottom: blocked, the default when a part's evidence is absent"
           },
           {
             "sym": "\\mathrm{status}'(c)",
-            "meaning": "the status assigned by a later stage"
+            "meaning": "a later status proposed for the same composite"
           },
           {
             "sym": "\\sqsupset",
-            "meaning": "claims a higher status than"
+            "meaning": "strictly higher in the trust order than"
           },
           {
             "sym": "d",
-            "meaning": "a new derivation that would license the raise"
+            "meaning": "a fresh derivation"
+          },
+          {
+            "sym": "\\mathrm{derives}(d, \\mathrm{status}'(c))",
+            "meaning": "derivation d establishes the higher status"
           }
         ]
       },
@@ -382,6 +442,10 @@
           {
             "sym": "T",
             "meaning": "a declared sanitising transform"
+          },
+          {
+            "sym": "\\mathrm{declared}(T)",
+            "meaning": "the transform is declared, not stamped at the door"
           }
         ]
       },
@@ -425,6 +489,10 @@
             "meaning": "a declared irreversible boundary for e"
           },
           {
+            "sym": "\\mathrm{multi}(e)",
+            "meaning": "the effect e is a multi-step effect"
+          },
+          {
             "sym": "\\mathrm{parent}(e) = \\mathrm{head}",
             "meaning": "the compare-and-swap expected-parent check still holds"
           },
@@ -459,9 +527,13 @@
       "one_line": "A claim about live state is a cached read, valid only while it carries when it was taken, what it was read from, and how to recompute it.",
       "deep": "A number that describes a moving system stops being true the moment the system moves, so Microcosm treats every claim over live state as a cached read rather than a fact. To be admissible such a claim has to carry four things: the value, the time it was taken, the basis it was read from, and the rule for recomputing it; a bare value with none of these is a frozen snapshot wearing the costume of a current reading. This is where the evidence model meets time: the admissibility floor decides whether a claim counts at all, and this axiom adds that a live claim's strength decays with its own staleness unless its declared basis still holds. It bites hardest on the things that look most authoritative, the running counts and dashboard totals, because those are exactly the values a reader assumes are fresh.",
       "formal": {
-        "latex": "\\mathrm{adm}(\\varphi) \\iff \\varphi = \\langle v, t, B, \\rho \\rangle \\;\\wedge\\; \\big(\\mathrm{holds}(B, t) \\;\\vee\\; \\varphi = \\rho(B)\\big)",
+        "latex": "\\mathrm{adm}(\\varphi) \\;\\Rightarrow\\; \\varphi = \\langle v, t, B, \\rho \\rangle \\;\\wedge\\; \\big(\\mathrm{holds}(B, t) \\;\\vee\\; \\varphi = \\rho(B)\\big)",
         "reads": "A live-state claim is admissible only when it carries a value, an as-of time, a basis, and a rederive rule, and either its declared basis still holds at that time or the claim has been recomputed by that rule.",
         "symbols": [
+          {
+            "sym": "\\mathrm{adm}(\\varphi)",
+            "meaning": "the claim varphi is admissible over live state"
+          },
           {
             "sym": "\\varphi",
             "meaning": "a claim over live state"
@@ -515,6 +587,10 @@
         "latex": "\\mathrm{authority}(d) \\;\\Rightarrow\\; d \\in L(G) \\;\\wedge\\; \\mathrm{obligations}(d) \\neq \\emptyset \\;\\wedge\\; \\mathrm{anticlaim}(d) \\quad \\mathrm{else}\\ d \\in \\mathrm{Proj}",
         "reads": "A doctrine artifact carries authority only when an executable grammar accepts it and it presents receipt obligations and an anti-claim; otherwise it is held as a projection.",
         "symbols": [
+          {
+            "sym": "\\mathrm{authority}(d)",
+            "meaning": "the doctrine artifact d carries governing authority"
+          },
           {
             "sym": "d",
             "meaning": "a doctrine artifact (standard, contract, rule)"
@@ -573,12 +649,20 @@
             "meaning": "any such artifact"
           },
           {
+            "sym": "\\varphi",
+            "meaning": "a claim the artifact carries"
+          },
+          {
             "sym": "\\mathrm{claims}(a)",
             "meaning": "the claims the artifact carries"
           },
           {
             "sym": "\\mathrm{adm}",
             "meaning": "the admissibility floor from AX-1"
+          },
+          {
+            "sym": "\\mathrm{adm}_{\\mathrm{ext}}(\\varphi)",
+            "meaning": "the same admissibility relation applied to an external claim"
           }
         ]
       },
@@ -610,16 +694,28 @@
         "reads": "Trust a verdict only if a checker recomputes it from the basis and also rejects the negative fixture built to fool it.",
         "symbols": [
           {
+            "sym": "\\mathrm{trust}(\\varphi)",
+            "meaning": "a builder is willing to trust the verdict on a claim"
+          },
+          {
+            "sym": "\\varphi",
+            "meaning": "the verdict being claimed"
+          },
+          {
             "sym": "K(B)",
-            "meaning": "the verdict recomputed from the basis"
+            "meaning": "the verdict a checker recomputes from the basis"
+          },
+          {
+            "sym": "B",
+            "meaning": "the lower-level evidence the checker runs over"
           },
           {
             "sym": "B_{\\mathrm{neg}}",
-            "meaning": "a negative fixture where the lie should fail"
+            "meaning": "a negative fixture built so the cheap lie should fail"
           },
           {
             "sym": "\\mathsf{reject}",
-            "meaning": "the checker's refusal on that fixture"
+            "meaning": "the checker's refusal on that negative fixture"
           }
         ]
       },
@@ -651,8 +747,12 @@
         "reads": "A claim's strength is bounded above by the meet of the strengths of exactly the checks that actually decide it; the ceiling is the weakest deciding component, not the most impressive one.",
         "symbols": [
           {
+            "sym": "\\mathrm{strength}(\\varphi)",
+            "meaning": "the strength a claim is allowed to assert"
+          },
+          {
             "sym": "\\varphi",
-            "meaning": "a claim being made"
+            "meaning": "the claim being made"
           },
           {
             "sym": "K_{i}",
@@ -660,7 +760,7 @@
           },
           {
             "sym": "B",
-            "meaning": "the basis the checks run over"
+            "meaning": "the basis the deciding checks run over"
           },
           {
             "sym": "\\bigsqcap",
@@ -701,8 +801,12 @@
         "reads": "Trust a verdict only when a small checker rereads a certificate and accepts, the trusted base is that checker alone, and the producer that emitted the certificate is not inside it.",
         "symbols": [
           {
+            "sym": "\\mathrm{trust}(\\varphi)",
+            "meaning": "a builder is willing to trust the verdict on a claim"
+          },
+          {
             "sym": "\\varphi",
-            "meaning": "a claim being trusted"
+            "meaning": "the claim being trusted"
           },
           {
             "sym": "K",
@@ -715,6 +819,10 @@
           {
             "sym": "\\mathrm{tcb}(\\varphi)",
             "meaning": "the trusted base the claim rests on"
+          },
+          {
+            "sym": "\\mathrm{producer}",
+            "meaning": "the large component that emitted the certificate, kept outside the trusted base"
           },
           {
             "sym": "\\notin",
@@ -747,9 +855,13 @@
       "one_line": "Authority to mutate is derived from dereferenced proof, policy, and current world state; a credential, role name, or trusted-session phrasing authorizes nothing on its own.",
       "deep": "P-4 is the authority leg of the claim model, the way P-1 is the evidence leg: before an effect lands, recompute whether it is authorized rather than reading authority off who is asking. Authorization for a subject and an effect comes from dereferenced proof references, the governing policy, rollback or result-record evidence, and current world state; standing credentials, an admin role name, or trusted-session phrasing are ambient identity, which carries no authority by itself. This is the confused-deputy failure stated as a rule: a component holding a powerful capability must still derive permission for each effect, and tool authority is bounded by declared identity, scope, approval, and side-effect records, not by the tool merely being available. It bites because possession reads as permission almost everywhere, so a pipeline that trusts a present credential passes its own path while granting reach nothing actually authorized.",
       "formal": {
-        "latex": "\\mathrm{auth}(u, e) \\iff \\mathrm{auth}(u, e) = F\\big(\\mathrm{deref}(\\mathrm{tokens}), \\mathrm{policy}, \\mathrm{proofs}, \\mathrm{world}\\big) \\;\\wedge\\; \\neg\\,\\mathrm{from}(\\mathrm{auth}, \\mathrm{identity})",
-        "reads": "A subject is authorized for an effect only when that authorization is computed from dereferenced tokens, policy, proof references, and current world state, and never from ambient identity alone.",
+        "latex": "\\mathrm{auth}(u, e) \\iff F\\big(\\mathrm{deref}(\\mathrm{tokens}), \\mathrm{policy}, \\mathrm{proofs}, \\mathrm{world}\\big) = \\mathsf{grant} \\;\\wedge\\; \\neg\\big(\\mathrm{identity}(u) \\Rightarrow \\mathsf{grant}\\big)",
+        "reads": "A subject is authorized for an effect exactly when the authorizer's derivation over the dereferenced tokens, governing policy, proof references, and world state grants it; holding an ambient credential or role name never on its own implies a grant.",
         "symbols": [
+          {
+            "sym": "\\mathrm{auth}(u, e)",
+            "meaning": "a subject is authorized for an effect"
+          },
           {
             "sym": "u",
             "meaning": "a subject requesting an effect"
@@ -759,16 +871,32 @@
             "meaning": "the effect or mutation it wants to land"
           },
           {
+            "sym": "F",
+            "meaning": "the function deriving authorization from the dereferenced tokens, policy, proofs, and world state"
+          },
+          {
             "sym": "\\mathrm{deref}(\\mathrm{tokens})",
             "meaning": "the capabilities the presented tokens actually dereference to"
           },
           {
-            "sym": "F",
-            "meaning": "the function deriving authorization from policy, proofs, and world state"
+            "sym": "\\mathrm{policy}",
+            "meaning": "the governing policy"
           },
           {
-            "sym": "\\mathrm{identity}",
-            "meaning": "ambient credentials or role name, insufficient on their own"
+            "sym": "\\mathrm{proofs}",
+            "meaning": "the proof references and rollback or result-record evidence"
+          },
+          {
+            "sym": "\\mathrm{world}",
+            "meaning": "current world state"
+          },
+          {
+            "sym": "\\mathsf{grant}",
+            "meaning": "the authorizer's grant of the effect"
+          },
+          {
+            "sym": "\\mathrm{identity}(u)",
+            "meaning": "the subject's ambient credential or role name, insufficient on its own"
           }
         ]
       },
@@ -801,6 +929,10 @@
         "latex": "\\mathrm{reuse}(a, B') \\;\\Rightarrow\\; \\mathrm{id}(a) = H(B') \\;\\wedge\\; B' \\neq \\emptyset \\quad \\mathrm{else}\\ \\mathsf{recompute}",
         "reads": "A prior result may be reused for an incoming basis only when the result's stored content id equals the digest of that basis and the basis is non-empty; otherwise recompute.",
         "symbols": [
+          {
+            "sym": "\\mathrm{reuse}(a, B')",
+            "meaning": "a prior result is served for an incoming basis instead of recomputed"
+          },
           {
             "sym": "a",
             "meaning": "a prior result eligible for reuse"
@@ -851,16 +983,28 @@
         "reads": "A composite's status is the meet of its parts' statuses; a part with no evidence sits at blocked; and a later status may exceed an earlier one only when a new derivation justifies the rise.",
         "symbols": [
           {
+            "sym": "\\mathrm{status}",
+            "meaning": "the status assigned to a composite or part, ordered with blocked at the bottom"
+          },
+          {
             "sym": "c",
             "meaning": "a composite whose status is being computed"
+          },
+          {
+            "sym": "\\bigsqcap",
+            "meaning": "meet: the weakest of the part statuses"
+          },
+          {
+            "sym": "p",
+            "meaning": "a part the composite is built from"
           },
           {
             "sym": "\\mathrm{parts}(c)",
             "meaning": "the parts the composite is built from"
           },
           {
-            "sym": "\\bigsqcap",
-            "meaning": "meet: the weakest of the part statuses"
+            "sym": "\\mathrm{evidence}(p)",
+            "meaning": "the admissible evidence held for that part"
           },
           {
             "sym": "\\emptyset",
@@ -872,7 +1016,11 @@
           },
           {
             "sym": "\\sqsupset",
-            "meaning": "claims a higher status than"
+            "meaning": "claims a strictly higher status than"
+          },
+          {
+            "sym": "\\mathrm{derivation}",
+            "meaning": "a fresh derivation that justifies the rise; the primed status is the later stage"
           }
         ]
       },
@@ -905,6 +1053,10 @@
         "reads": "If a report concludes coverage over a domain, that domain must be declared and finite; for anything outside it the report's status is unknown, and unknown is not the same as proven-absent.",
         "symbols": [
           {
+            "sym": "\\mathrm{covers}",
+            "meaning": "the report concludes coverage over a domain"
+          },
+          {
             "sym": "r",
             "meaning": "a coverage report"
           },
@@ -913,12 +1065,20 @@
             "meaning": "the declared finite domain it covers"
           },
           {
+            "sym": "\\mathrm{declared}",
+            "meaning": "the domain is explicitly declared and finite"
+          },
+          {
             "sym": "x",
             "meaning": "an item, possibly outside the declared domain"
           },
           {
-            "sym": "\\mathrm{status}(r, x)",
-            "meaning": "what the report says about x"
+            "sym": "\\mathrm{status}",
+            "meaning": "what the report says about an item"
+          },
+          {
+            "sym": "\\mathrm{unknown}",
+            "meaning": "the coverage tag for anything outside the declared domain"
           },
           {
             "sym": "\\bot",
@@ -954,24 +1114,32 @@
         "reads": "A partial computation may return an Ok result only when its precondition holds; when the precondition fails it must return a typed refusal carrying a reason and its evidence, not a value.",
         "symbols": [
           {
+            "sym": "\\mathrm{run}(g, x)",
+            "meaning": "evaluating the partial computation g on input x"
+          },
+          {
             "sym": "g",
             "meaning": "a partial computation that can fail"
+          },
+          {
+            "sym": "x",
+            "meaning": "the input to g"
+          },
+          {
+            "sym": "\\mathsf{Ok}(y)",
+            "meaning": "an admissible result value y"
           },
           {
             "sym": "\\mathrm{Pre}(g, x)",
             "meaning": "the declared precondition for running g on input x"
           },
           {
-            "sym": "\\mathsf{Ok}(y)",
-            "meaning": "an admissible result value"
+            "sym": "\\neg",
+            "meaning": "the precondition does not hold"
           },
           {
             "sym": "\\mathsf{Refusal}(r, \\epsilon)",
             "meaning": "a typed refusal carrying reason r and evidence \\epsilon"
-          },
-          {
-            "sym": "\\neg",
-            "meaning": "the precondition does not hold"
           }
         ]
       },
@@ -1007,23 +1175,35 @@
             "meaning": "a value crossing a boundary"
           },
           {
+            "sym": "\\to",
+            "meaning": "the value crosses into the sink"
+          },
+          {
             "sym": "s",
             "meaning": "a sink (a public or privileged destination)"
           },
           {
-            "sym": "\\mathrm{prov}(x)",
+            "sym": "\\mathrm{prov}",
             "meaning": "the provenance class carried with x"
           },
           {
-            "sym": "\\mathrm{policy}(s)",
+            "sym": "\\sqsubseteq",
+            "meaning": "sits within what the sink policy admits"
+          },
+          {
+            "sym": "\\mathrm{policy}",
             "meaning": "what the sink is allowed to admit"
           },
           {
-            "sym": "\\mathrm{ceil}(x)",
+            "sym": "\\mathrm{ceil}",
             "meaning": "the scope limit carried with x"
           },
           {
-            "sym": "\\mathrm{declared}(x \\to s)",
+            "sym": "\\mathrm{carried}",
+            "meaning": "the scope limit is propagated across the crossing, not stamped at the endpoint"
+          },
+          {
+            "sym": "\\mathrm{declared}",
             "meaning": "the crossing is recorded as only declared, not propagated"
           }
         ]
@@ -1052,28 +1232,40 @@
       "one_line": "A write, release, or import counts as landed only after a durable ordered record, a compensator or declared irreversible boundary, a compare-and-swap on the expected parent, and a single-writer hold on its path.",
       "deep": "P-10 is AX-9 turned into the discipline a builder runs before any effect is allowed to be real. A write, a release step, a claim release, a source import, or a rollback-shaped operation is not landed because it ran; it is landed only when ordered transaction evidence exists for it, when it carries a compensator or a declared irreversible boundary, when a compare-and-swap confirms the parent it expected has not moved, and when a single writer holds its path. This connects to the claim and evidence model because a landed effect is itself a claim about the world, and an effect with no compensation and no concurrency guard is a confident assertion that nobody can recompute or undo. It bites hardest in the gap between two steps: the moment a lock releases before the durable record is written, or two writers race the same path on a stale parent, is exactly where an unrecoverable, unauthorised, or doubled effect slips through.",
       "formal": {
-        "latex": "\\mathrm{landed}(e) \\;\\Rightarrow\\; \\mathrm{durable}(e) \\;\\wedge\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\mathrm{cas}(\\mathrm{parent}(e)) \\;\\wedge\\; |\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1",
-        "reads": "An effect may be treated as landed only if a durable ordered record exists for it, it carries a compensator or a declared irreversible boundary, a compare-and-swap confirms its expected parent is unchanged, and at most one writer holds its path.",
+        "latex": "\\mathrm{landed}(e) \\;\\Rightarrow\\; \\mathrm{durable}(e) \\;\\wedge\\; \\big(\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)\\big) \\;\\wedge\\; \\big(\\mathrm{multi}(e) \\Rightarrow \\mathrm{cas}(\\mathrm{parent}(e)) \\wedge |\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1\\big)",
+        "reads": "An effect lands only if it is durable and declares a compensator or an irreversible boundary; and when it is multi-step, only under a compare-and-swap on its expected parent with at most one writer on its path.",
         "symbols": [
           {
+            "sym": "\\mathrm{landed}(e)",
+            "meaning": "the effect e is treated as landed"
+          },
+          {
             "sym": "e",
-            "meaning": "an effect: a write, release, import, or rollback-shaped operation"
+            "meaning": "an effect"
           },
           {
             "sym": "\\mathrm{durable}(e)",
-            "meaning": "an ordered durable record of the effect exists"
+            "meaning": "e is recorded durably"
           },
           {
-            "sym": "\\mathrm{comp}(e) \\vee \\mathrm{irrev}(e)",
-            "meaning": "the effect carries a compensator or a declared irreversible boundary"
+            "sym": "\\mathrm{comp}(e)",
+            "meaning": "a declared compensator that can reverse e"
+          },
+          {
+            "sym": "\\mathrm{irrev}(e)",
+            "meaning": "a declared irreversible boundary for e"
+          },
+          {
+            "sym": "\\mathrm{multi}(e)",
+            "meaning": "e is a multi-step effect"
           },
           {
             "sym": "\\mathrm{cas}(\\mathrm{parent}(e))",
-            "meaning": "a compare-and-swap confirms the expected parent did not move"
+            "meaning": "a compare-and-swap on e's expected parent"
           },
           {
             "sym": "|\\mathrm{writers}(\\mathrm{path}(e))| \\leq 1",
-            "meaning": "at most one writer holds the effect's path"
+            "meaning": "at most one writer holds e's path"
           }
         ]
       },
@@ -1103,11 +1295,15 @@
       "deep": "P-11 is AX-10 turned into a writing discipline: a number about live state is a cached read, not a standing fact, and a cached read is only as trustworthy as its invalidation contract. So counts, \"current\" states, route totals, CI floors, and readiness signals are admissible in durable prose only when they carry the time they were read, the basis they came from, and a route that re-derives them; if any of those is missing, the honest form is a dated snapshot or no claim at all. This connects to the claim and evidence model because an unbound live value is the temporal version of an echoed label: it keeps asserting yesterday's reading as today's truth with nothing recomputing it. The route is the load-bearing half; without it a confident number silently drifts away from the basis it was supposed to track.",
       "formal": {
         "latex": "\\mathrm{durable}(v) \\;\\Rightarrow\\; \\exists\\, t, B, \\rho.\\ v = \\rho(B) \\;\\wedge\\; \\mathrm{asof}(v) = t \\quad \\mathrm{else}\\ \\mathrm{demote}(v)",
-        "reads": "A volatile value may stand in durable prose only if it carries a read time and a route that recomputes it from its basis; otherwise it is demoted to a dated snapshot or dropped.",
+        "reads": "A volatile value may stand in durable prose only if there exist a read time, a basis, and a route such that the value re-derives from that basis and carries that time as its as-of stamp; otherwise it is demoted to a dated snapshot or kept out of durable prose.",
         "symbols": [
           {
+            "sym": "\\mathrm{durable}(v)",
+            "meaning": "the value v stands in durable prose"
+          },
+          {
             "sym": "v",
-            "meaning": "a volatile value such as a count, current state, or readiness signal"
+            "meaning": "a volatile value such as a count, current state, route total, CI floor, or readiness signal"
           },
           {
             "sym": "t",
@@ -1122,8 +1318,12 @@
             "meaning": "the route that re-derives the value from the basis"
           },
           {
-            "sym": "\\mathrm{demote}",
-            "meaning": "mark as a dated snapshot or keep out of durable prose"
+            "sym": "\\mathrm{asof}(v)",
+            "meaning": "the as-of read time stamped on v"
+          },
+          {
+            "sym": "\\mathrm{demote}(v)",
+            "meaning": "mark v as a dated snapshot or keep it out of durable prose"
           }
         ]
       },
@@ -1206,19 +1406,23 @@
       "deep": "P-13 is AX-12 turned into a build habit: the standards, paper modules, ledgers, routes, generated views, and release wording the system produces about itself must clear the same floor those same artifacts impose on any other shard. It bites because self-referential copy is where overclaiming is easiest to smuggle in; a page describing the system is still a claim, and a confident self-assessment that would never survive the evidence floor it applies elsewhere is exactly the special pleading this principle removes. It connects straight to the claim and evidence model: a meta artifact's wording is admissible only under the same recompute-or-demote check as external work, and the wording gate that polices other shards is pointed back at the system's own release copy. Removing the exemption is what lets the system state its own limits in public without that statement quietly becoming a new unchecked claim.",
       "formal": {
         "latex": "\\forall\\, a \\in \\mathcal{M}.\\ \\forall\\, \\varphi \\in \\mathrm{claims}(a).\\ \\mathrm{floor}(\\varphi) = \\mathrm{floor}_{\\mathrm{ext}}(\\varphi)",
-        "reads": "For every meta artifact the system produces about itself and every claim it carries, the claim must clear the same evidence and refusal floor as an external claim.",
+        "reads": "For every meta artifact the system produces about itself and every claim that artifact carries, the claim must clear the same evidence, anti-claim, and refusal floor as an external claim.",
         "symbols": [
           {
             "sym": "\\mathcal{M}",
-            "meaning": "the system's meta artifacts: its own standards, pages, ledgers, routes, and release wording"
+            "meaning": "the system's meta artifacts: its own standards, paper modules, ledgers, routes, generated projections, and release wording"
           },
           {
             "sym": "a",
             "meaning": "any such meta artifact"
           },
           {
+            "sym": "\\varphi",
+            "meaning": "a claim carried by the artifact a"
+          },
+          {
             "sym": "\\mathrm{claims}(a)",
-            "meaning": "the claims that artifact carries"
+            "meaning": "the claims that artifact a carries"
           },
           {
             "sym": "\\mathrm{floor}",
@@ -1255,9 +1459,13 @@
       "one_line": "A reusable value is fully routed only when it carries both its content basis (which bytes or rows it came from) and its provenance (where it may flow and how strongly it may be claimed); either half alone leaves it underspecified.",
       "deep": "P-14 joins the two halves the system tracks about any value that travels or gets reused: its content basis, the exact bytes or rows it was computed from, and its provenance, the trust class and ceiling that say where it may flow and how strongly it may be claimed. Carrying only the basis lets a value be cached and rederived correctly but says nothing about whether it is safe to expose; carrying only provenance labels its trust but loses the digest that detects when the underlying source drifts. The principle is that a shard missing either side is not fully routed, because reuse, freshness, and disclosure are three questions the system answers together rather than one at a time. It sits where caching meets information flow: a reused result record, a source import, or a work-landing attempt has to declare what it was built from and what it is allowed to become before anything downstream may trust it.",
       "formal": {
-        "latex": "\\mathrm{routed}(v) \\iff \\mathrm{basis}(v) \\neq \\emptyset \\;\\wedge\\; \\mathrm{prov}(v) \\neq \\emptyset \\;\\wedge\\; \\big(\\mathrm{drift}(\\mathrm{basis}(v)) \\Rightarrow \\mathrm{recompute}(v)\\big)",
-        "reads": "A value is fully routed only when it carries a declared content basis and a provenance class with ceiling, and a change in that basis forces it to be recomputed rather than reused.",
+        "latex": "\\mathrm{routed}(v) \\;\\Rightarrow\\; \\mathrm{basis}(v) \\neq \\emptyset \\;\\wedge\\; \\mathrm{prov}(v) \\neq \\emptyset \\;\\wedge\\; \\big(\\mathrm{drift}(\\mathrm{basis}(v)) \\Rightarrow \\mathrm{recompute}(v)\\big)",
+        "reads": "A value is fully routed only when it carries a non-empty basis and a non-empty provenance, and any drift in its basis forces a recompute.",
         "symbols": [
+          {
+            "sym": "\\mathrm{routed}(v)",
+            "meaning": "v is fully routed: it carries both basis and provenance and recomputes on drift"
+          },
           {
             "sym": "v",
             "meaning": "a reusable or travelling value (result record, import, work-landing)"
@@ -1273,6 +1481,10 @@
           {
             "sym": "\\mathrm{drift}",
             "meaning": "the basis digest no longer matches its source"
+          },
+          {
+            "sym": "\\mathrm{recompute}(v)",
+            "meaning": "v must be re-derived from source rather than reused"
           },
           {
             "sym": "\\emptyset",
@@ -1306,23 +1518,43 @@
       "deep": "P-15 is what stops the website you are reading from becoming an authority in its own right. A generated doc, a card, a route map, or a paper module may expose a source truth, but it can never raise that truth's strength. A projection's ceiling is bounded by the meet of its source's support, freshness, provenance, and grammar validity, so the moment any of those slips, the projection has to recompute from source or demote. This is the principle that lets the system publish freely without the act of publishing inflating what was published. It is also why this page repeatedly tells you what it cannot prove: the page is downstream of its source and inherits that source's limits.",
       "formal": {
         "latex": "\\mathrm{ceil}(\\mathrm{proj}) \\sqsubseteq \\mathrm{support}(\\mathrm{src}) \\sqcap \\mathrm{fresh}(\\mathrm{src}) \\sqcap \\mathrm{prov}(\\mathrm{src}) \\sqcap \\mathrm{grammar}(\\mathrm{src})",
-        "reads": "A projection's ceiling is at most the meet of its source's support, freshness, provenance, and grammar validity.",
+        "reads": "A projection's ceiling is at most the meet of its source's support, freshness, provenance, and grammar validity; it can expose the source but never upgrade it.",
         "symbols": [
           {
+            "sym": "\\mathrm{ceil}",
+            "meaning": "the strongest claim the projection may carry"
+          },
+          {
             "sym": "\\mathrm{proj}",
-            "meaning": "a generated view (doc, card, projection)"
+            "meaning": "a generated view (doc, markdown summary, route card, paper module)"
+          },
+          {
+            "sym": "\\sqsubseteq",
+            "meaning": "is at most as strong as, in the authority lattice"
+          },
+          {
+            "sym": "\\mathrm{support}",
+            "meaning": "the source's evidence support level"
           },
           {
             "sym": "\\mathrm{src}",
-            "meaning": "the source it draws from"
+            "meaning": "the source the projection draws from"
+          },
+          {
+            "sym": "\\mathrm{fresh}",
+            "meaning": "the source's freshness, whether its basis is still current"
+          },
+          {
+            "sym": "\\mathrm{prov}",
+            "meaning": "the source's provenance class and scope limit"
+          },
+          {
+            "sym": "\\mathrm{grammar}",
+            "meaning": "the source's grammar validity, whether it is in the executable grammar"
           },
           {
             "sym": "\\sqcap",
             "meaning": "meet: the weakest of the components"
-          },
-          {
-            "sym": "\\mathrm{ceil}",
-            "meaning": "the strongest claim the projection may carry"
           }
         ]
       },
@@ -1360,8 +1592,12 @@
       "does_not_prove": "Binding one write to its transaction scope does not make P-16 a witness for AX-3 or AX-9, and the example does not establish that every write path in the system carries the full bundle; it operationalises specific grounding obligations and inherits no authority beyond them.",
       "formal": {
         "latex": "\\mathrm{auth}(m, t) \\iff \\mathrm{derived}(m) \\;\\wedge\\; \\mathrm{effect}(m) \\in \\mathrm{scope}(t) \\;\\wedge\\; \\mathrm{parent}_{\\mathrm{obs}}(t) = \\mathrm{parent}_{\\mathrm{exp}}(m) \\;\\wedge\\; \\mathrm{comp}(m) \\;\\wedge\\; \\mathrm{landed}(m, t)",
-        "reads": "A mutation m is authorized within transaction t exactly when its permission is derived rather than possessed, its effect falls inside the declared scope, the observed parent state equals the parent the write expected, a compensator or declared boundary is present, and landing evidence exists for this transaction.",
+        "reads": "A mutation m is authorized within transaction t exactly when its permission is derived rather than possessed, its effect falls inside the transaction's declared write scope, the observed parent state equals the parent the write expected, a compensator or declared irreversible boundary is present, and landing evidence exists for this transaction.",
         "symbols": [
+          {
+            "sym": "\\mathrm{auth}(m, t)",
+            "meaning": "mutation m is authorized within transaction t"
+          },
           {
             "sym": "m",
             "meaning": "a proposed mutation (write effect)"
@@ -1375,8 +1611,16 @@
             "meaning": "permission derived from policy, proof, and world state, not a standing credential"
           },
           {
+            "sym": "\\mathrm{effect}(m)",
+            "meaning": "the write effect m would apply"
+          },
+          {
             "sym": "\\mathrm{scope}(t)",
             "meaning": "the declared write scope of the transaction"
+          },
+          {
+            "sym": "\\mathrm{parent}_{\\mathrm{obs}}(t)",
+            "meaning": "the parent state actually observed for the transaction"
           },
           {
             "sym": "\\mathrm{parent}_{\\mathrm{exp}}(m)",
@@ -1412,24 +1656,36 @@
         "reads": "An edge mutation is admitted only when exactly one source row carries it, that row's content basis is declared, the mutation writes against the row's current parent state, and the resulting edge is grammar-admissible.",
         "symbols": [
           {
+            "sym": "\\mathrm{mutate}(e)",
+            "meaning": "an edge is added to or removed from a registry of look-alike rows"
+          },
+          {
             "sym": "e",
-            "meaning": "a lattice edge being added or removed"
+            "meaning": "the lattice edge being added or removed"
           },
           {
             "sym": "\\exists!\\, r",
             "meaning": "exactly one source row"
           },
           {
-            "sym": "\\mathrm{basis}(r)",
-            "meaning": "the row's declared content basis (AX-4)"
+            "sym": "\\mathrm{row}(e)",
+            "meaning": "the source row that carries the edge"
+          },
+          {
+            "sym": "\\mathrm{declared}(\\mathrm{basis}(r))",
+            "meaning": "the row's content basis is declared and recomputed on drift (AX-4)"
+          },
+          {
+            "sym": "\\mathrm{parent}(e)",
+            "meaning": "the parent state the writer commits the edge against"
           },
           {
             "sym": "\\mathrm{cas}(r)",
-            "meaning": "the row's current parent state the writer checks against (AX-9)"
+            "meaning": "the row's current compare-and-swap parent state under a single writer (AX-9)"
           },
           {
             "sym": "\\mathrm{grammar}(e)",
-            "meaning": "the edge is admissible under the executable grammar (AX-11)"
+            "meaning": "the resulting edge is admissible under the executable grammar (AX-11)"
           }
         ]
       },
@@ -1458,36 +1714,52 @@
       "one_line": "A staged law, standard, component, or view becomes active authority only when its owner boundary, source row, generated parity, validation record, and status change all land in one governed transaction; partial admission stays pressure.",
       "deep": "P-18 is the rule that stops a half-finished change from being treated as done. A staged law, standard, component, or generated view is not active authority until its owner boundary, its source row, its generated parity, its validation record, and its status change have all landed inside the same governed transaction, or until an explicit blocked record holds the frontier open instead. The hard case is the one builders trip over: a view generated from a source that another live owner is still holding dirty is still outside fan-in, because the basis under it can move before it lands, so the honest move is to request handoff, wait for the owner to land, or write the blocked record rather than treat the view as current. This connects the claim, evidence, and authority model at the moment of admission: derived authority must arrive as one compare-and-swap, single-writer transaction (AX-3, AX-9), carry its grammar and records (AX-11), and the system holds its own staged doctrine to the same gate (AX-12), so any component admitted before the others is residual pressure, not authority.",
       "formal": {
-        "latex": "\\mathrm{active}(x) \\iff \\bigsqcap_{c \\in \\mathrm{req}(x)} \\mathrm{landed}(c, \\tau) = \\top \\;\\wedge\\; \\mathrm{single}(\\tau) \\quad \\mathrm{else}\\ x \\in R \\;\\vee\\; \\mathrm{blocked}(x)",
-        "reads": "A staged item is active only when every required component (owner boundary, source row, parity, validation record, status change) has landed in one single-writer transaction; otherwise it stays in the residual-pressure set, or a blocked record holds the frontier.",
+        "latex": "\\mathrm{active}(x) \\;\\Rightarrow\\; \\bigsqcap_{c \\in \\mathrm{req}(x)} \\mathrm{landed}(c, \\tau) = \\top \\;\\wedge\\; \\mathrm{single}(\\tau); \\quad \\mathrm{else}\\ x \\in R \\;\\vee\\; \\mathrm{blocked}(x)",
+        "reads": "A work item carries active authority only when every required dependency has landed under a single transaction; otherwise it stays as residual pressure or blocked.",
         "symbols": [
           {
+            "sym": "\\mathrm{active}(x)",
+            "meaning": "x carries active authority"
+          },
+          {
             "sym": "x",
-            "meaning": "a staged law, standard, component, or view"
-          },
-          {
-            "sym": "\\mathrm{req}(x)",
-            "meaning": "the required components: owner boundary, source row, parity, validation record, status change"
-          },
-          {
-            "sym": "\\tau",
-            "meaning": "one governed transaction"
-          },
-          {
-            "sym": "\\mathrm{single}(\\tau)",
-            "meaning": "the transaction has a single writer and compare-and-swap parent"
+            "meaning": "a work item"
           },
           {
             "sym": "\\bigsqcap",
-            "meaning": "meet: all components must have landed"
+            "meaning": "the meet taken over the required dependencies"
+          },
+          {
+            "sym": "c",
+            "meaning": "a required dependency"
+          },
+          {
+            "sym": "\\mathrm{req}(x)",
+            "meaning": "the dependencies x requires"
+          },
+          {
+            "sym": "\\mathrm{landed}(c, \\tau)",
+            "meaning": "dependency c has landed in transaction tau"
+          },
+          {
+            "sym": "\\tau",
+            "meaning": "the activating transaction"
+          },
+          {
+            "sym": "\\top",
+            "meaning": "top: fully landed"
+          },
+          {
+            "sym": "\\mathrm{single}(\\tau)",
+            "meaning": "a single transaction covers the fan-in"
           },
           {
             "sym": "R",
-            "meaning": "typed residual pressure, not yet active"
+            "meaning": "residual pressure: not yet active"
           },
           {
             "sym": "\\mathrm{blocked}(x)",
-            "meaning": "an explicit blocked record preserving the frontier"
+            "meaning": "x is blocked"
           }
         ]
       },
@@ -1516,8 +1788,8 @@
       "one_line": "A missing relation is typed pressure, not an edge; it becomes an edge only when the current source row names it and the target resolves.",
       "deep": "P-19 is the discipline that keeps the system's own map honest as it grows. A missing neighbour in the lattice is a typed residual pressure, not a fact: before anyone wires it, classify the declared domain, the source row, the target resolution, the fillability, the evidence floor, and the anti-claim. A candidate route, a basename match, a singleton guess, or a stale projection row is still pressure; it becomes an edge only when a current source row names the relation and the target resolves under the builder. The same floor runs in both directions between the doctrine and the system it governs: a law constrains the system through source-derived edges, and the system can refine a law only through source-owned obligations, witnesses, negative cases, and unfinished-coverage rows. Neither direction is support proof, and neither is permission to launder pressure into an edge or to whiten a health card.",
       "formal": {
-        "latex": "e \\in E \\iff \\mathrm{source}(e) \\;\\wedge\\; \\mathrm{resolves}(\\tau(e)) \\quad \\mathrm{else}\\ e \\in R",
-        "reads": "An edge e is admitted only when a current source row names it and its target resolves under the builder; otherwise e stays in the residual-pressure set R.",
+        "latex": "e \\in E \\iff \\mathrm{source}(e) \\;\\wedge\\; \\mathrm{resolves}(\\tau(e)); \\quad \\mathrm{else}\\ e \\in R \\;\\wedge\\; \\mathrm{typed}(e)",
+        "reads": "An edge e is admitted only when a current source row names it and its target resolves under the builder; otherwise e is not absence but typed residual pressure in R, carrying its declared domain, evidence floor, and anti-claim until a source row resolves it.",
         "symbols": [
           {
             "sym": "e",
@@ -1525,7 +1797,15 @@
           },
           {
             "sym": "E",
-            "meaning": "admitted edges"
+            "meaning": "the admitted edges"
+          },
+          {
+            "sym": "\\mathrm{source}(e)",
+            "meaning": "a current source row names the relation"
+          },
+          {
+            "sym": "\\mathrm{resolves}(\\tau(e))",
+            "meaning": "the target resolves under the builder"
           },
           {
             "sym": "\\tau(e)",
@@ -1533,7 +1813,11 @@
           },
           {
             "sym": "R",
-            "meaning": "typed residual pressure, not yet an edge"
+            "meaning": "the typed residual-pressure set: pressure, not an edge yet"
+          },
+          {
+            "sym": "\\mathrm{typed}(e)",
+            "meaning": "the residual carries a declared domain, source row, target, fillability, evidence floor, and anti-claim"
           }
         ]
       },
@@ -1565,24 +1849,32 @@
         "reads": "A doctrine record may be read as current authority only when it carries its bound result records, evidence refs, declared omissions, anti-claims, and scope limit; missing any of these, it stays a projection below its source.",
         "symbols": [
           {
-            "sym": "r",
-            "meaning": "a doctrine record (its JSON, markdown, routing edge, or public copy)"
-          },
-          {
             "sym": "\\mathrm{auth}(r)",
-            "meaning": "treating the record as current authority"
+            "meaning": "reading the record back as current substrate authority"
           },
           {
-            "sym": "\\mathrm{rec}",
-            "meaning": "the validator result records bound on the record"
+            "sym": "r",
+            "meaning": "a doctrine record: its JSON, markdown, routing edge, or public copy"
+          },
+          {
+            "sym": "\\mathrm{bound}(r, \\mathrm{rec})",
+            "meaning": "the validator result records are bound on the record (AX-11)"
           },
           {
             "sym": "\\mathrm{evid}",
-            "meaning": "evidence refs and declared omissions"
+            "meaning": "the evidence refs bound on the record"
+          },
+          {
+            "sym": "\\mathrm{omit}",
+            "meaning": "the declared omissions bound on the record"
+          },
+          {
+            "sym": "\\mathrm{anti}",
+            "meaning": "the anti-claims bound on the record"
           },
           {
             "sym": "\\mathrm{ceil}",
-            "meaning": "the scope limit the record may carry"
+            "meaning": "the scope limit, the authority ceiling the record may carry (AX-12)"
           }
         ]
       },
@@ -1614,6 +1906,10 @@
         "latex": "\\mathrm{emit}(v) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(B) = v",
         "reads": "Emitting a value v as a verdict while no checker recomputes v from the basis.",
         "symbols": [
+          {
+            "sym": "\\mathrm{emit}(v)",
+            "meaning": "emitting v as a verdict by repeating it"
+          },
           {
             "sym": "v",
             "meaning": "a declared label or verdict"
@@ -1655,6 +1951,10 @@
         "latex": "\\mathrm{trust}(\\varphi) \\;\\wedge\\; \\neg\\,\\exists\\, K.\\ K(c) = \\mathsf{accept} \\;\\vee\\; \\mathrm{grant}(s, e) \\;\\wedge\\; \\neg\\,\\mathrm{deref}(\\mathrm{auth}(s, e))",
         "reads": "Trusting a claim while no small checker accepts its certificate, or granting a subject an effect while authority for it was never derived by dereference from tokens, policy, and proof against world state.",
         "symbols": [
+          {
+            "sym": "\\mathrm{trust}(\\varphi)",
+            "meaning": "trusting claim varphi on the basis of its producer rather than a check"
+          },
           {
             "sym": "\\varphi",
             "meaning": "a claim trusted on the basis of its producer"
@@ -1707,8 +2007,16 @@
         "reads": "Reporting a tally of passing parts as the standing of the whole while some part has no admissible witness, so the claimed status rises above the meet of the parts that an uncovered part should pin to the bottom.",
         "symbols": [
           {
+            "sym": "\\mathrm{report}(n)",
+            "meaning": "reporting the count n as the standing of the whole"
+          },
+          {
             "sym": "n",
             "meaning": "a count, tally, or rank reported as maturity"
+          },
+          {
+            "sym": "\\mathrm{pass}",
+            "meaning": "a passing part counted into the tally"
           },
           {
             "sym": "p",
@@ -1717,6 +2025,10 @@
           {
             "sym": "\\bot",
             "meaning": "blocked: a part with no admissible witness"
+          },
+          {
+            "sym": "\\mathrm{status}(\\mathrm{whole})",
+            "meaning": "the claimed standing of the whole composite"
           },
           {
             "sym": "\\bigsqcap_{p} \\mathrm{status}(p)",
@@ -1760,12 +2072,20 @@
             "meaning": "a cached result being reused"
           },
           {
+            "sym": "\\mathrm{reuse}(a)",
+            "meaning": "result a is served from cache"
+          },
+          {
+            "sym": "\\mathrm{key}(a)",
+            "meaning": "the key the cache is addressed by"
+          },
+          {
             "sym": "\\mathrm{handle}",
             "meaning": "a name, path, route, label, or producer used as the key"
           },
           {
-            "sym": "H(B)",
-            "meaning": "a digest of the content basis B"
+            "sym": "H",
+            "meaning": "a content digest of a basis"
           },
           {
             "sym": "B_{\\mathrm{now}}",
@@ -1803,8 +2123,8 @@
       "one_line": "Reading a missing witness as a settled negative outside a declared finite domain, so absence of proof is reported as proof of absence.",
       "deep": "AP-5 is the failure AX-6 exists to refuse: turning a gap in evidence into a positive verdict of nothing-there. A required obligation with no admissible witness is an open coverage gap, not a refutation; it can be closed as a negative only inside a declared finite domain where every case is enumerable. This bites because it is the comfortable direction to round: a quiet absence reads as reassurance, and a coverage map that prints absent as clear looks finished when it has only stopped looking. It connects to the claim and evidence model through a distinction the system holds by construction: a missing witness is unknown, which is held separate from a value at the bottom of the evidence order, and unknown is kept distinct from a fail-closed block where an in-domain obligation has no admissible witness; collapsing any of these into proven-absent launders an open gap into a certified claim it cannot support.",
       "formal": {
-        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi) \\quad \\mathrm{outside}\\ \\mathrm{declared\\,finite}\\ D",
-        "reads": "Concluding the negation of a claim from the mere absence of its proof, when the reasoning is not confined to a declared finite domain where coverage can be closed.",
+        "latex": "\\neg\\,\\mathrm{proven}(\\varphi) \\;\\Rightarrow\\; \\mathrm{proven}(\\neg\\varphi) \\;\\wedge\\; \\neg\\,\\mathrm{finite}(D)",
+        "reads": "Concluding the negation of a claim from the mere absence of its proof, when the domain is not a declared finite one where coverage can be closed.",
         "symbols": [
           {
             "sym": "\\varphi",
@@ -1815,12 +2135,16 @@
             "meaning": "an admissible derivation exists for the claim"
           },
           {
-            "sym": "\\neg\\varphi",
+            "sym": "\\mathrm{proven}(\\neg\\varphi)",
             "meaning": "the negation asserted from that absence"
           },
           {
+            "sym": "\\mathrm{finite}(D)",
+            "meaning": "D is a declared finite domain where closed-world coverage is valid"
+          },
+          {
             "sym": "D",
-            "meaning": "a declared finite domain where closed-world coverage is valid"
+            "meaning": "the domain the reasoning ranges over"
           }
         ]
       },
@@ -1854,6 +2178,10 @@
           {
             "sym": "\\mathrm{Pre}(x)",
             "meaning": "the declared precondition the computation needs to hold"
+          },
+          {
+            "sym": "\\mathrm{emit}(g(x))",
+            "meaning": "emitting the partial computation's value as a result"
           },
           {
             "sym": "g(x)",
@@ -1894,7 +2222,7 @@
       "deep": "AP-7 is the failure AX-8 exists to refuse: a value crosses into a public or privileged sink carrying trust it never earned. It bites because the final step usually looks clean, so a pipeline that copies a private-adjacent body, a provider payload, a prompt instruction, or raw operator voice into a published page passes its own checks while leaking, since nothing recomputed where the value came from or what was done to it on the way. The repair follows the boundary model directly: a provenance class and ceiling must travel with the value, and untrusted material may reach the sink only through a declared transform whose output the sink's policy admits, never a clean label stamped on at the door. This is the membrane that lets the system publish from private-adjacent source at all, because the act of crossing is gated by carried provenance rather than by how the endpoint happens to look.",
       "formal": {
         "latex": "(x \\to s) \\;\\wedge\\; \\mathrm{label}(x) \\sqsupset \\mathrm{policy}(s) \\;\\wedge\\; \\neg\\,\\exists\\, T.\\ \\big(s = T(x) \\;\\wedge\\; \\mathrm{declared}(T)\\big)",
-        "reads": "A flow carries x into a sink s while x's label sits above what the sink may admit and no declared transform produced s from x.",
+        "reads": "A flow carries x into a sink s while x's carried provenance label sits above what the sink's policy may admit, and no declared sanitizing transform produced s from x.",
         "symbols": [
           {
             "sym": "x",
@@ -1918,7 +2246,11 @@
           },
           {
             "sym": "T",
-            "meaning": "a declared sanitizing transform that was not applied"
+            "meaning": "a declared sanitizing transform"
+          },
+          {
+            "sym": "\\mathrm{declared}(T)",
+            "meaning": "T is a declared sanitizing transform whose output the sink's policy admits"
           }
         ]
       },
@@ -1947,8 +2279,12 @@
       "deep": "AP-8 is the failure AX-9 exists to refuse: writing a real effect into the world while assuming it can always be taken back, when nothing was put in place to take it back. It bites because the happy path looks identical whether or not a guard exists; the gap only appears when two writers race, a parent state has already moved, or a step half-lands and there is no recorded way to undo it. The repair is to make every effect declare its own reversibility up front: a compensator or an explicitly named irreversible boundary, multi-step effects landing under compare-and-swap against an expected parent, and same-path writes held to a single writer. This connects to the evidence model through provenance and freshness rather than through a label: a write is only safe to treat as landed when the state it assumed is still the state it is acting on, and a record of how to reverse it travels with the effect rather than being assumed after the fact.",
       "formal": {
         "latex": "\\mathrm{effect}(e) \\;\\wedge\\; \\neg\\,\\exists\\, c.\\ \\mathrm{compensates}(c, e) \\;\\wedge\\; \\neg\\,\\mathrm{irreversible-boundary}(e) \\;\\wedge\\; \\neg\\,\\mathrm{cas}(e, \\mathrm{parent})",
-        "reads": "Landing an effect e while no compensator reverses it, no irreversible boundary is declared for it, and no compare-and-swap guards it against the parent state having moved.",
+        "reads": "An effect e is landed while no compensator reverses it, no irreversible boundary is declared for it, and no compare-and-swap guards it against the parent state having advanced.",
         "symbols": [
+          {
+            "sym": "\\mathrm{effect}(e)",
+            "meaning": "e is a real effect being written to the world"
+          },
           {
             "sym": "e",
             "meaning": "an effect being written to the world"
@@ -1958,12 +2294,16 @@
             "meaning": "a compensator that would reverse the effect"
           },
           {
+            "sym": "\\mathrm{compensates}(c, e)",
+            "meaning": "c is a compensator that reverses effect e"
+          },
+          {
             "sym": "\\mathrm{irreversible-boundary}(e)",
             "meaning": "an explicit declaration that the effect cannot be undone"
           },
           {
             "sym": "\\mathrm{cas}(e, \\mathrm{parent})",
-            "meaning": "a compare-and-swap guard checking the parent state has not advanced"
+            "meaning": "a compare-and-swap guard checking the parent state has not advanced under e"
           }
         ]
       },
@@ -2001,6 +2341,10 @@
             "meaning": "a value written into durable text"
           },
           {
+            "sym": "\\mathrm{durable}(\\varphi)",
+            "meaning": "the value is frozen into durable prose"
+          },
+          {
             "sym": "\\mathrm{live}(\\varphi)",
             "meaning": "the value is a read of moving state (a count, a current total, a readiness signal)"
           },
@@ -2015,6 +2359,10 @@
           {
             "sym": "r",
             "meaning": "the route that recomputes it"
+          },
+          {
+            "sym": "\\mathrm{carries}(\\varphi, a, b, r)",
+            "meaning": "the value carries its as-of time, basis, and rederive route"
           }
         ]
       },
@@ -2103,6 +2451,10 @@
             "meaning": "any such artifact"
           },
           {
+            "sym": "\\varphi",
+            "meaning": "a claim carried by the artifact about the system"
+          },
+          {
             "sym": "\\mathrm{claims}(a)",
             "meaning": "the claims the artifact carries about the system"
           },
@@ -2148,8 +2500,16 @@
             "meaning": "a claim that carries real weight"
           },
           {
+            "sym": "\\mathrm{basis}(\\varphi)",
+            "meaning": "the basis the claim is grounded on"
+          },
+          {
             "sym": "B_{\\mathrm{syn}}",
             "meaning": "the synthetic fixture it is grounded on"
+          },
+          {
+            "sym": "\\mathrm{avail}(B_{\\mathrm{real}})",
+            "meaning": "the public-safe real material was available to read"
           },
           {
             "sym": "B_{\\mathrm{real}}",
@@ -2158,6 +2518,10 @@
           {
             "sym": "H(B_{\\mathrm{real}})",
             "meaning": "the content hash of that real basis"
+          },
+          {
+            "sym": "\\mathrm{strength}(\\varphi)",
+            "meaning": "the evidence strength the claim is allowed to carry"
           },
           {
             "sym": "\\bot",
@@ -2189,28 +2553,28 @@
       "one_line": "Treating a generated result record as if it were hand-authored source, severing it from the basis that produced it.",
       "deep": "AP-13 is the lineage confusion that AX-4 and AX-11 exist to refuse: mistaking a generated result record for the hand-authored source it was derived from. A generated record is a function of a basis, so its identity is the hash of that basis, and its authority can never exceed the basis it recomputes from; the moment it is read as source, it is cut loose from that basis, so drift no longer forces a recompute and a hand-edit to the record becomes an orphan with nothing underneath it. It is tempting because a generated record often looks authored, carries a confident verdict, and is the artifact already on disk, so the cheaper move is to cite it or edit it in place rather than fix the source and regenerate. The repair is to keep the kinds apart by construction: source is hand-authored and content-addresses its outputs, a generated record stays below its basis and is rebuilt from it, and a parity check refuses the record whenever it has drifted from the source it claims to project.",
       "formal": {
-        "latex": "\\mathrm{generated}(r) \\;\\wedge\\; r = f(B) \\;\\wedge\\; \\big(\\mathrm{treat\\_as\\_source}(r) \\;\\vee\\; \\mathrm{id}(r) \\neq H(B)\\big) \\;\\Rightarrow\\; \\mathsf{reject}",
-        "reads": "If a generated record r is a function of a basis B, then treating r as hand-authored source, or letting its identity come apart from the hash of that basis, is rejected.",
+        "latex": "\\mathrm{generated}(r) \\;\\wedge\\; r = f(B) \\;\\wedge\\; \\mathrm{treated}(r) \\;\\Rightarrow\\; \\mathsf{reject}",
+        "reads": "A generated artifact, derived from a basis by a builder, is rejected when it is treated as if it were hand-authored source.",
         "symbols": [
           {
+            "sym": "\\mathrm{generated}(r)",
+            "meaning": "r is a generated artifact"
+          },
+          {
             "sym": "r",
-            "meaning": "a generated result record"
+            "meaning": "a generated artifact such as a receipt or projection"
           },
           {
-            "sym": "f(B)",
-            "meaning": "the derivation that produces r from a basis B"
+            "sym": "f",
+            "meaning": "the generator from basis to artifact"
           },
           {
-            "sym": "H(B)",
-            "meaning": "the content-addressed identity of that basis"
+            "sym": "B",
+            "meaning": "the content basis r is derived from"
           },
           {
-            "sym": "\\mathrm{id}(r)",
-            "meaning": "the identity the record is bound to"
-          },
-          {
-            "sym": "\\mathsf{reject}",
-            "meaning": "the refusal the anti-principle requires"
+            "sym": "\\mathrm{treated}(r)",
+            "meaning": "r is treated as hand-authored source"
           }
         ]
       },
@@ -2239,24 +2603,24 @@
       "one_line": "Letting public documentation imply hosted release, provider-call authority, source mutation, financial advice, product readiness, affiliation, or whole private-system release the system never actually holds.",
       "deep": "AP-14 is the inflation the release floor exists to refuse: a public page quietly granting itself a release-grade authority it cannot back. The danger is that all seven implied authorities (a hosted service, the right to call a provider, permission to mutate the source, financial advice, product readiness, a claimed affiliation, or release of the whole private system) are stated for free in prose, while the thing that would actually hold each one is absent. It bites across three floors at once: AX-5, because an in-scope claim with no admissible witness must fail closed rather than read as granted; AX-8, because a release-grade implication is private-adjacent material that may reach a public sink only through a declared transform, not by being asserted at the page; and AX-12, because the system's own copy is held to the same evidence floor it imposes on any other work. The repair is to state only the authority a witness backs, and to demote the public claim to its bounded scope the moment the witness is missing.",
       "formal": {
-        "latex": "\\mathrm{implies}(d, \\alpha) \\;\\wedge\\; \\alpha \\in \\Lambda \\;\\wedge\\; \\neg\\,\\exists\\, w.\\ \\mathrm{witness}(w, \\alpha) \\;\\Rightarrow\\; \\mathsf{reject}(d)",
-        "reads": "If a public document implies one of the seven release-grade authorities while no admissible witness actually holds that authority, the document is rejected.",
+        "latex": "\\mathrm{implies}(d, \\alpha) \\;\\wedge\\; \\alpha \\in \\Lambda \\;\\Rightarrow\\; \\mathsf{reject}(d)",
+        "reads": "If a public artifact lets a reader infer any hosted-release, provider-call, source-mutation, financial, product-readiness, affiliation, or whole-system release authority, it is rejected.",
         "symbols": [
           {
             "sym": "d",
-            "meaning": "a public document or page"
+            "meaning": "a public doctrine artifact or doc"
+          },
+          {
+            "sym": "\\mathrm{implies}(d, \\alpha)",
+            "meaning": "d lets a reader infer authority alpha"
           },
           {
             "sym": "\\alpha",
-            "meaning": "an implied release-grade authority"
+            "meaning": "an implied authority"
           },
           {
             "sym": "\\Lambda",
-            "meaning": "the seven forbidden authorities: hosting, provider call, source mutation, advice, readiness, affiliation, whole-system release"
-          },
-          {
-            "sym": "\\mathrm{witness}(w, \\alpha)",
-            "meaning": "an admissible witness that actually holds the authority"
+            "meaning": "the inflated-authority set: hosted release, provider-call, source-mutation, financial advice, product readiness, affiliation, or whole-system release"
           }
         ]
       },
@@ -2286,19 +2650,35 @@
       "deep": "AP-15 is the overclaim the system polices in its own packaging. It is mechanism theater: using heavy field words, proof, verifier, information flow, world model, benchmark integrity, when the public mechanism behind them only checks that a record has the right shape. It is tempting because the vocabulary impresses, and the gap between \"checks a schema\" and \"proves a property\" is invisible to a casual reader. The repair is to name what the mechanism actually computes, hold the claim to that, and reserve the strong words for the few places that earn them, such as a real verifier run.",
       "formal": {
         "latex": "\\mathrm{name} \\in \\{\\mathrm{proof}, \\mathrm{verifier}, \\ldots\\} \\;\\wedge\\; \\mathrm{checks}(\\mathrm{shape}) \\;\\wedge\\; \\neg\\,\\mathrm{checks}(\\mathrm{claim})",
-        "reads": "Using a strong field name while the mechanism checks only the shape of a record and not the claim that name implies.",
+        "reads": "Using a strong field name drawn from words like proof or verifier while the mechanism checks only the shape of a record and not the claim that name implies.",
         "symbols": [
           {
             "sym": "\\mathrm{name}",
             "meaning": "the borrowed field word"
           },
           {
+            "sym": "\\mathrm{proof}",
+            "meaning": "a strong field word the name may borrow, such as proof"
+          },
+          {
+            "sym": "\\mathrm{verifier}",
+            "meaning": "a strong field word the name may borrow, such as verifier"
+          },
+          {
+            "sym": "\\mathrm{checks}(\\mathrm{shape})",
+            "meaning": "the mechanism validates only the form of a record"
+          },
+          {
             "sym": "\\mathrm{shape}",
             "meaning": "the form of a record, which the mechanism does check"
           },
           {
+            "sym": "\\mathrm{checks}(\\mathrm{claim})",
+            "meaning": "the mechanism would decide the property the word implies"
+          },
+          {
             "sym": "\\mathrm{claim}",
-            "meaning": "the property the word implies, which it does not"
+            "meaning": "the property the word implies, which it does not check"
           }
         ]
       },
@@ -2330,6 +2710,10 @@
         "reads": "Displaying an effect of a source s on a downstream receiver r as observed, while no witness establishes the effect relation from s to r.",
         "symbols": [
           {
+            "sym": "\\mathrm{shows}(\\mathrm{effect}(s, r))",
+            "meaning": "the page displays the effect of s on r as an observed runtime result"
+          },
+          {
             "sym": "s",
             "meaning": "the source asserting it had a downstream effect"
           },
@@ -2344,6 +2728,10 @@
           {
             "sym": "w",
             "meaning": "a witness of the effect relation, traced across the steps from s to r"
+          },
+          {
+            "sym": "\\mathrm{witness}(w, s \\to r)",
+            "meaning": "a witness establishing the effect relation from s to r, observed at the receiver"
           },
           {
             "sym": "s \\to r",
@@ -2379,6 +2767,14 @@
         "reads": "If a projection's authority would exceed its source's, reject it: a generated view can expose source authority but never raise it.",
         "symbols": [
           {
+            "sym": "\\mathrm{auth}(\\mathrm{proj})",
+            "meaning": "the authority the projection claims"
+          },
+          {
+            "sym": "\\mathrm{auth}(\\mathrm{src})",
+            "meaning": "the authority the executable contract holds"
+          },
+          {
             "sym": "\\mathrm{proj}",
             "meaning": "a generated page, card, or summary"
           },
@@ -2389,6 +2785,10 @@
           {
             "sym": "\\sqsupset",
             "meaning": "claims more authority than"
+          },
+          {
+            "sym": "\\mathsf{reject}",
+            "meaning": "the refusal the anti-principle requires"
           }
         ]
       },

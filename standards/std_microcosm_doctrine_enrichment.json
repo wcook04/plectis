@@ -7,7 +7,8 @@
   "source_of_record": "microcosm-substrate/core/doctrine_enrichment.json",
   "consumed_by": [
     "tools/meta/dissemination/build_microcosm_public_site.py (doctrine_cards renderer)",
-    "microcosm-substrate/scripts/build_doctrine_enrichment_health.py (coverage projection)"
+    "microcosm-substrate/scripts/build_doctrine_enrichment_health.py (coverage projection)",
+    "microcosm-substrate/scripts/check_doctrine_formal_soundness.py (formal-statement soundness gate)"
   ],
   "authority_boundary": "Enrichment is reader content, not law and not support evidence. The formal_clause source of record stays in core/axiom_organ_routing.json (axioms), PRINCIPLES.md (principles), and ANTI_PRINCIPLES.md (anti-principles); the latex here is a reviewed reader rendering of that clause. The axiom support-cover validator does not read this file, so an example or enforcement route named here never computes support, never raises a claim ceiling, and never becomes anti-axiom rejection. A generated page may expose this content but cannot raise the authority of the source it explains (P-15).",
   "envelope": {
@@ -17,8 +18,8 @@
       "deep": "Two to four sentences of load-bearing reading: the substance, not drama. Richer per line than a restated title.",
       "formal": {
         "latex": "Source LaTeX for the formal statement, within the bounded build-time grammar (no environments, no \\not, no underscores inside \\mathrm). Renders to offline HTML; out-of-grammar input degrades to code with a recorded render gap.",
-        "reads": "Plain-language reading of the formula.",
-        "symbols": "List of {sym, meaning} entries naming each symbol used."
+        "reads": "Plain-language reading of the formula. It must read THIS formula faithfully and must not claim more than the source clause (necessity stated as implication, a definitional criterion as a biconditional).",
+        "symbols": "List of {sym, meaning} entries. The table must be SOUND with respect to the formula: every free variable and every named operator (\\mathrm{...}, \\mathcal{...}) used in the latex has an entry, and every declared entry appears in the latex (no dangling symbol). Standard logical / relational / lattice connectives, grouping delimiters, and self-describing \\mathsf{...} verdict constants are common vocabulary and need no entry."
       },
       "governs": "The problem or boundary the object governs.",
       "requires": "What the object requires.",
@@ -33,6 +34,11 @@
       "enforced_in": "Public component ids where the object is witnessed or governs, rendered as links.",
       "does_not_prove": "The explicit bound: what the object and its example do NOT establish."
     }
+  },
+  "formal_soundness_invariant": {
+    "statement": "A formal block is sound when the symbol table and the formula agree (no undefined symbol, no dangling symbol) and the formula does not assert more than the source clause. This is a reader-soundness property of symbol/formula agreement, NOT a proof of mathematical correctness or of axiom support; correctness is reviewed, soundness is gated.",
+    "gate": "scripts/check_doctrine_formal_soundness.py (--check exits non-zero on any defect; consumed by build_doctrine_enrichment_health.py and tests/test_doctrine_formal_soundness.py)",
+    "source_of_record_ceiling": "The latex may not exceed the formal_clause it renders (axiom_organ_routing.json for axioms, PRINCIPLES.md / ANTI_PRINCIPLES.md for principles / anti-principles). Necessity is rendered as implication; only a definitional criterion is rendered as a biconditional."
   },
   "non_laundering_rules": [
     "An example is reader illustration, never a support case; it does not pass the support_case_shape and does not raise support.",

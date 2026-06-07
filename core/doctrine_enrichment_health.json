@@ -1,6 +1,15 @@
 {
   "authority_boundary": "Coverage projection over reader enrichment. Presence, not correctness, and never support evidence. Generated; do not hand-edit.",
+  "coverage_complete": true,
   "enriched_objects": 49,
+  "formal_soundness": {
+    "checked": 49,
+    "defects": [],
+    "gate": "scripts/check_doctrine_formal_soundness.py",
+    "note": "Symbol/formula agreement, not mathematical correctness; correctness is reviewed, not counted.",
+    "sound": 49,
+    "unsound": 0
+  },
   "incomplete": [],
   "kinds": {
     "anti_principle": {

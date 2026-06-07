@@ -21,6 +21,9 @@ import sys
 from pathlib import Path
 from typing import Any
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from check_doctrine_formal_soundness import run as run_soundness  # noqa: E402
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 ENRICHMENT_REL = "core/doctrine_enrichment.json"
@@ -96,21 +99,48 @@ def build_health(root: Path) -> dict[str, Any]:
 
     total = sum(k["total"] for k in kinds.values())
     enriched_total = sum(k["enriched"] for k in kinds.values())
-    complete = all(
+    coverage_complete = all(
         kinds[kind]["enriched"] == kinds[kind]["total"]
         and not kinds[kind]["partial_records"]
         for kind in kinds
     )
+
+    # Formal-statement soundness: every symbol in a formula is defined and every
+    # declared symbol is used. This is a structural check the coverage counts
+    # cannot see (a record can have a `formal` field that renders yet declare a
+    # dangling symbol or use an undefined operator). Correctness of the maths is
+    # still reviewed, not counted; this only enforces symbol/formula agreement.
+    sound = run_soundness(enrichment_path)
+    soundness = {
+        "checked": sound["total"],
+        "sound": sound["clean"],
+        "unsound": sound["defective"],
+        "defects": [
+            {
+                "id": r["id"],
+                "dangling": r["dangling"],
+                "undefined_vars": r["undefined_vars"],
+                "undefined_ops": r["undefined_ops"],
+            }
+            for r in sound["results"]
+            if not r["clean"]
+        ],
+        "gate": "scripts/check_doctrine_formal_soundness.py",
+        "note": "Symbol/formula agreement, not mathematical correctness; correctness is reviewed, not counted.",
+    }
+    complete = coverage_complete and soundness["unsound"] == 0
     return {
         "schema_version": "microcosm_doctrine_enrichment_health_v1",
         "source_of_record": ENRICHMENT_REL,
         "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
         "authority_boundary": "Coverage projection over reader enrichment. Presence, not correctness, and never support evidence. Generated; do not hand-edit.",
         "status": "complete" if complete else "partial",
+        "coverage_complete": coverage_complete,
         "total_objects": total,
         "enriched_objects": enriched_total,
         "kinds": kinds,
         "incomplete": all_missing,
+        "formal_soundness": soundness,
         "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
     }
 
