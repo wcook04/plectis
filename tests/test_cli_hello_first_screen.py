@@ -208,6 +208,15 @@ def test_cli_hello_accepts_public_reader_aliases_without_new_routes(
 
     assert f"Reader branch: {branch_label}" in output
     assert f"Command: microcosm hello --reader {alias} ." in output
+    if canonical_reader == "public_github_visitor":
+        assert (
+            "Source-only first action: Run `PYTHONPATH=src python3 -m "
+            "microcosm_core tour --card .` after this card."
+        ) in output
+        assert (
+            "Source-only proof: `PYTHONPATH=src python3 -m microcosm_core "
+            "tour --card .`"
+        ) in output
     if alias != canonical_reader:
         assert f"Command: microcosm hello --reader {canonical_reader} ." not in output
     assert output.count("Reader branch:") == 1
@@ -324,6 +333,13 @@ def test_cli_first_screen_json_is_compact_by_default(
     }
     assert route_by_id["public_github_visitor"]["first_action"] == (
         "Run `microcosm tour --card .` after this card."
+    )
+    assert route_by_id["public_github_visitor"]["source_checkout_first_action"] == (
+        "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
+        "after this card."
+    )
+    assert route_by_id["public_github_visitor"]["source_checkout_proof_surface"] == (
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
     )
     assert route_by_id["safety_evals_engineer"]["first_action"] == (
         "Run `microcosm tour --card .` first, then `microcosm status --card .`."

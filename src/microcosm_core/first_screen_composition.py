@@ -548,6 +548,14 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                     f"Run `microcosm tour --card {project_label}` after this card."
                 ),
                 "proof_surface": f"`microcosm tour --card {project_label}`",
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}` after this card."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`"
+                ),
                 "success_criterion": (
                     "Can find the first runnable local command and name the "
                     "release, hosting, and private-data claims this repo refuses."
@@ -707,6 +715,14 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     f"Run `microcosm tour --card {project_label}` after this card."
                 ),
                 "proof_surface": f"`microcosm tour --card {project_label}`",
+                "source_checkout_first_action": (
+                    "Run `PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}` after this card."
+                ),
+                "source_checkout_proof_surface": (
+                    "`PYTHONPATH=src python3 -m microcosm_core "
+                    f"tour --card {project_label}`"
+                ),
                 "exit_check": "find the first runnable local command and anti-claims",
                 "not_a_claim": "publication_or_reader_success_ready",
                 "authority": "focused_projection_only_not_publication_readiness",

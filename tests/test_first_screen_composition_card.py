@@ -188,6 +188,13 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert menu_by_id["public_github_visitor"]["first_action"] == (
         "Run `microcosm tour --card <project>` after this card."
     )
+    assert menu_by_id["public_github_visitor"]["source_checkout_first_action"] == (
+        "Run `PYTHONPATH=src python3 -m microcosm_core tour --card <project>` "
+        "after this card."
+    )
+    assert menu_by_id["public_github_visitor"]["source_checkout_proof_surface"] == (
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`"
+    )
     assert menu_by_id["safety_evals_engineer"]["first_action"] == (
         "Run `microcosm tour --card <project>` first, then "
         "`microcosm status --card <project>`."
@@ -1847,6 +1854,13 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
             "label": "GitHub visitor",
             "first_action": "Run `microcosm tour --card .` after this card.",
             "proof": "`microcosm tour --card .`",
+            "source_first_action": (
+                "Run `PYTHONPATH=src python3 -m microcosm_core tour --card .` "
+                "after this card."
+            ),
+            "source_proof": (
+                "`PYTHONPATH=src python3 -m microcosm_core tour --card .`"
+            ),
             "success": "release, hosting, and private-data claims",
             "absent": [
                 "Reader branch: Safety/evals",
