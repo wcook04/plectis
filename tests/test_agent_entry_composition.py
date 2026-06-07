@@ -1333,6 +1333,32 @@ def test_agent_entry_card_keeps_receipts_alias_traceable() -> None:
     ]
 
 
+def test_agent_entry_card_keeps_receipt_proof_question_traceable() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="what do receipts prove",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["requested_task"] == "what do receipts prove"
+    assert payload["task_route"]["selected_task_class"] == "evaluation"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "Receipt/evidence meaning questions use the evaluation route"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+    assert (
+        "agent-entry-composition --task 'what do receipts prove'"
+        in card["drilldowns"]["full_json"]
+    )
+
+
 @pytest.mark.parametrize(
     "task",
     [

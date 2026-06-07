@@ -20,6 +20,9 @@ DEFAULT_TASK = "agent-entry"
 RECEIPT_ROUTE_ALIASES = {
     "receipts",
     "receipt",
+    "what do receipts prove",
+    "what-do-receipts-prove",
+    "what_do_receipts_prove",
 }
 GETTING_STARTED_CHECK_ROUTE_ALIASES = {
     "run the checks",
