@@ -650,7 +650,8 @@ AGENT_ENTRY_COMPOSITION_HELP_EPILOG = """Task selector examples:
 
 Alias note: reviewer, skeptical-reviewer, and skeptical-review route to the
 ai-safety task route. Use evaluation for the cold route-map/receipt evaluator
-path, or agent-entry for the general cold-agent entry path.
+path; receipt/evidence meaning questions route there too. Use agent-entry for
+the general cold-agent entry path.
 
 Boundary: this card selects public route metadata and first commands; it does
 not authorize release, provider calls, source mutation, private-root

@@ -641,7 +641,10 @@ def test_cli_agent_entry_composition_help_describes_task_route_selector() -> Non
         "reviewer, skeptical-reviewer, and skeptical-review route to the\n"
         "ai-safety task route"
     ) in help_result.stdout
-    assert "Use evaluation for the cold route-map/receipt evaluator\npath" in help_result.stdout
+    assert (
+        "Use evaluation for the cold route-map/receipt evaluator\n"
+        "path; receipt/evidence meaning questions route there too"
+    ) in help_result.stdout
     assert "does\nnot authorize release, provider calls" in help_result.stdout
 
 
