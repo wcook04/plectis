@@ -3840,7 +3840,7 @@ def _build_viewer_modes(
         ),
         first_action=human_first_action,
         next_action=human_next_action,
-        source_checkout_first_action=None,
+        source_checkout_first_action=_source_checkout_command(human_first_action),
         source_checkout_next_action=task_source_checkout_command or None,
         authority_boundary=(
             "Human entry is interpretive/read authority only; it does not authorize "

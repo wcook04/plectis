@@ -175,6 +175,9 @@ def test_agent_entry_card_dogfoods_type_a_and_human_viewer_routes() -> None:
         "organ-surface-contract --card --root ."
     )
     assert router["routes"]["human"]["first_safe_action"] == "microcosm hello <project>"
+    assert router["routes"]["human"]["source_checkout_first_safe_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core hello <project>"
+    )
 
     type_a = viewer_modes["type_a_agent"]
     assert type_a["first_safe_action"] == "microcosm first-screen --card <project>"
@@ -193,6 +196,9 @@ def test_agent_entry_card_dogfoods_type_a_and_human_viewer_routes() -> None:
 
     human = viewer_modes["human"]
     assert human["first_safe_action"] == "microcosm hello <project>"
+    assert human["source_checkout_first_safe_action"] == (
+        "PYTHONPATH=src python3 -m microcosm_core hello <project>"
+    )
     assert human["next_action"] == "microcosm tour --card <project>"
     assert "interpretive/read authority" in human["authority_boundary"]
     assert "README.md::Public Repo Map" in human["drilldown_if_needed"]
