@@ -943,6 +943,9 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
         "forecast",
         "forecasts",
         "market",
+        "show me markets",
+        "prediction markets",
+        "show me prediction markets",
         "trading",
     ],
 )
