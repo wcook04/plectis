@@ -48,6 +48,13 @@ FORBIDDEN_README_PHRASES = [
 
 
 def _public_relative(root: Path, path: Path) -> str:
+    """Render a receipt-safe relative path so emitted paths never leak host roots.
+
+    - Teleology: keeps receipt path fields project-relative so the public density receipt never embeds an absolute host/sandbox root.
+    - Guarantee: returns the POSIX relative path of `path` under `root` when containment holds; otherwise returns `path.as_posix()` verbatim.
+    - Fails: never raises; on a non-containment ValueError it falls back to the absolute-style POSIX string of `path`.
+    - When-needed: tracing why a `receipt_paths` entry is absolute instead of project-relative.
+    """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
     except ValueError:
@@ -55,6 +62,15 @@ def _public_relative(root: Path, path: Path) -> str:
 
 
 def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
+    """Audit the architecture-kernel manifest for research-prototype posture and primitive density.
+
+    - Teleology: enforces that the kernel manifest declares research-prototype posture, a non-release ceiling, a pattern surface, and a dense-enough primitive set with runtime hooks.
+    - Guarantee: returns (findings, blocking_codes); appends a `KERNEL_*` code for each violated invariant (posture, `release_authorized is not False`, pattern-surface shape/state_ref/private-body ceiling, fewer than 7 primitive rows, missing required primitive fields, missing `microcosm explain` runtime command).
+    - Fails: never raises here; non-conformance surfaces as `KERNEL_*` blocking codes plus structured findings; an absent manifest yields whatever empty/default `manifest.get` returns.
+    - When-needed: diagnosing why density validation reports a kernel-posture or primitive-density block.
+    - Escalates-to: REQUIRED_PRIMITIVE_FIELDS / REQUIRED_PATTERN_SURFACE_FIELDS constants and `load_kernel_manifest` for the source manifest shape.
+    - Non-goal: passing here does not authorize release; it only attests manifest density and the declared release ceiling, not actual safety of the kernel.
+    """
     manifest = load_kernel_manifest(root)
     findings: list[dict[str, Any]] = []
     blocking_codes: list[str] = []
@@ -106,6 +122,13 @@ def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
+    """Coerce a payload list field into dict-only rows for tolerant downstream iteration.
+
+    - Teleology: normalizes possibly-malformed JSON list fields into a clean list of dict rows so callers never crash on non-list or mixed-type values.
+    - Guarantee: returns a list containing only the dict elements of `payload[key]`; returns `[]` when the value is missing or not a list.
+    - Fails: never raises; malformed input degrades to an empty or filtered list.
+    - When-needed: understanding why a patterns/routes/work_items section appears empty despite present-but-malformed data.
+    """
     value = payload.get(key, [])
     if not isinstance(value, list):
         return []
@@ -113,10 +136,24 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _has_json_file(path: Path) -> bool:
+    """Report whether a directory tree contains at least one JSON payload file.
+
+    - Teleology: cheap existence probe used to assert that a required directory (e.g. route explanations) actually carries JSON content.
+    - Guarantee: returns True iff `path` is a directory and `_iter_json_payload_files` yields at least one `.json` file in its tree; otherwise False.
+    - Fails: never raises; a missing or non-directory path returns False, and scandir errors inside the iterator are swallowed.
+    - When-needed: diagnosing a PROJECT_ROUTE_EXPLANATION_MISSING block where the explanations directory exists but is empty.
+    """
     return path.is_dir() and any(_iter_json_payload_files(path))
 
 
 def _iter_json_payload_files(root: Path):
+    """Recursively yield every `.json` file under a root, tolerating filesystem errors.
+
+    - Teleology: provides the single recursive JSON-discovery primitive that explanation/state scans build on, isolating all scandir error handling in one place.
+    - Guarantee: yields a `Path` for each regular `.json` file (symlinks not followed) found anywhere beneath `root`, depth-first.
+    - Fails: never raises; per-entry OSError is skipped and a scandir failure on `root` ends the generator with no yields.
+    - When-needed: confirming which JSON files a density scan actually visits when a file appears to be silently ignored.
+    """
     try:
         with os.scandir(root) as entries:
             for entry in entries:
@@ -132,11 +169,25 @@ def _iter_json_payload_files(root: Path):
 
 
 def _iter_state_payload_files(state: Path):
+    """Enumerate the `.microcosm` payload files a host-path leak scan must inspect.
+
+    - Teleology: defines the exact file set (all JSON plus the events JSONL stream) scanned for absolute host-path leakage in project state.
+    - Guarantee: yields every `.json` file under `state`, then always yields `state / "events.jsonl"` (whether or not it exists; callers re-check `is_file`).
+    - Fails: never raises; the trailing events path is emitted unconditionally and existence is the caller's responsibility.
+    - When-needed: verifying coverage of the PROJECT_STATE_HOST_PATH_LEAK scan over a project's `.microcosm` directory.
+    """
     yield from _iter_json_payload_files(state)
     yield state / "events.jsonl"
 
 
 def _explanation_ref(explanations: Path, path: Path) -> str:
+    """Build the stable `.microcosm/explanations/...` ref used to name explanation findings.
+
+    - Teleology: gives every explanation-file finding a portable, project-relative reference instead of a host-absolute path.
+    - Guarantee: returns `.microcosm/explanations/<rel>` where `<rel>` is `path` relative to `explanations`, falling back to just the filename when containment fails.
+    - Fails: never raises; a non-containment ValueError degrades the ref to `.microcosm/explanations/<basename>`.
+    - When-needed: correlating a `project_explanation_*` finding back to its on-disk explanation file.
+    """
     try:
         rel = path.resolve(strict=False).relative_to(explanations.resolve(strict=False))
     except ValueError:
@@ -145,11 +196,29 @@ def _explanation_ref(explanations: Path, path: Path) -> str:
 
 
 def _file_contains_any(path: Path, markers: tuple[str, ...]) -> bool:
+    """Stream a file line-by-line testing for any forbidden marker substring (leak probe).
+
+    - Teleology: the substring oracle behind host-path leak detection; reads lazily so large state files do not load fully into memory.
+    - Guarantee: returns True iff at least one of `markers` appears as a substring on any line of `path`; decoding errors are ignored, not failed on.
+    - Fails: raises OSError if `path` cannot be opened (caller pre-filters with `is_file`); never raises on malformed bytes (`errors="ignore"`).
+    - When-needed: confirming whether a specific state file actually contains an absolute host root before trusting a leak verdict.
+    - Non-goal: a False result attests only that the literal markers are absent; it does not certify the file is free of all sensitive content.
+    """
     with path.open("r", encoding="utf-8", errors="ignore") as handle:
         return any(any(marker in line for marker in markers) for line in handle)
 
 
 def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
+    """Audit one imported project's `.microcosm` state for density, binding closure, and host-path safety.
+
+    - Teleology: proves an imported real-substrate project has the full local-state spine (architecture/graph/routes/work/truth surfaces), resolved pattern+standard bindings, complete work-transaction contracts, a passing non-release truth-readiness surface, and no absolute host-path leakage.
+    - Guarantee: returns (findings, blocking_codes); appends a `PROJECT_*` code for each violated invariant — missing required state files, thin graph (`edge_count < 6`), missing/invalid pattern surface, unresolved route/explanation pattern refs, missing/unresolved explanation pattern+standard bindings, missing or contract-incomplete work transactions, non-passing or release-authorized truth-readiness surface, missing observatory endpoints/command, and any state file containing the project root or `/Users/`.
+    - Guarantee: the truth-readiness checks explicitly require `source_files_mutated is False` and `release_authorized is False`, so a project claiming release or source mutation is flagged, not passed.
+    - Fails: never raises for content violations (they become `PROJECT_*` codes + findings); may surface filesystem/JSON errors from `read_json_if_exists`, `_file_contains_any`, or `project_substrate.compile_project_card` on unreadable inputs.
+    - When-needed: diagnosing exactly which project-side invariant blocked a density receipt for a given imported project.
+    - Escalates-to: `project_substrate.compile_project_card` for the truth-readiness surface, and the per-finding `state_ref`/`explanation_ref` strings for the offending file.
+    - Non-goal: passing here does not authorize release, hosting, provider calls, source mutation, or private-root equivalence; it attests local-state density and host-path safety only, and asserts (not proves) the project's own non-release ceiling.
+    """
     findings: list[dict[str, Any]] = []
     blocking_codes: list[str] = []
     state = project / ".microcosm"
@@ -397,6 +466,16 @@ def validate_density(
     command: str,
     project: str | Path | None = None,
 ) -> dict[str, Any]:
+    """Validate public research-kernel density end-to-end and write the atomic verdict receipt.
+
+    - Teleology: the single public entrypoint that fuses README posture, kernel manifest density, optional imported-project state, and a private-state scan into one research_kernel_density receipt with a hard non-release authority ceiling.
+    - Guarantee: writes a `research_kernel_density_receipt_v1` receipt to `out_path` (atomically via `write_json_atomic`) and returns it; `status` is `PASS` iff `blocking_codes` is empty, else `"blocked"`; `blocking_codes` is the sorted unique union of README, kernel, project, and PRIVATE_STATE_SCAN codes.
+    - Guarantee: the receipt always carries `authority_ceiling` with every authorization field False and an `anti_claim` disclaiming hosted release, provider calls, source mutation, and secret export; `density_assertions.release_authorized` is hardcoded False; the embedded private-state scan has `forbidden_output_fields` stripped before serialization.
+    - Fails: returns a `status="blocked"` receipt (does not raise) when any posture/density/binding/leak invariant fails; may raise OSError from reading README or from `write_json_atomic` on an unwritable `out_path`.
+    - When-needed: gating or auditing whether the public microcosm slice (plus an optional imported project) meets research-prototype density before any downstream packaging step.
+    - Escalates-to: std research-kernel density contract and the on-disk receipt at `out_path`; `_kernel_findings` / `_project_findings` / `scan_paths` for per-domain detail.
+    - Non-goal: a PASS proves prototype posture, local-state density, and import pressure only; it does NOT authorize hosted release, credentialed provider calls, source mutation, secret export, private-root equivalence, or whole-system correctness.
+    """
     public_root = Path(root).resolve(strict=False)
     output_file = Path(out_path)
     readme = public_root / "README.md"
@@ -492,6 +571,13 @@ def validate_density(
 
 
 def _parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the density validator.
+
+    - Teleology: declares the command-line surface (`--root`, `--out`, optional `--project`) that maps shell invocation onto `validate_density`.
+    - Guarantee: returns an ArgumentParser requiring `--root` and `--out` and accepting an optional `--project`.
+    - Fails: never raises at construction; parsing missing required args later exits the process via argparse with code 2.
+    - When-needed: confirming the exact accepted flags before scripting the validator.
+    """
     parser = argparse.ArgumentParser(description="Validate public research-kernel density")
     parser.add_argument("--root", required=True)
     parser.add_argument("--out", required=True)
@@ -500,6 +586,14 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint: parse args, run density validation, and return a shell exit code.
+
+    - Teleology: adapts the command line to `validate_density`, reconstructing a host-safe `command` string (project shown by name only) for the receipt.
+    - Guarantee: invokes `validate_density` with the parsed root/out/project and returns 0 iff the resulting receipt `status == PASS`, else 1.
+    - Fails: returns 1 on a blocked receipt; argparse exits with code 2 on bad args; propagates any OSError raised while writing the receipt.
+    - When-needed: running the validator as `python -m microcosm_core.validators.research_kernel_density` and interpreting its exit status in a gate.
+    - Escalates-to: `validate_density` for the full receipt and `_parser` for the accepted flags.
+    """
     args = _parser().parse_args(argv)
     project_display = Path(args.project).name if args.project else None
     command = (

@@ -140,6 +140,14 @@ ACCEPTED_PUBLIC_ORGANS = [
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """Resolve the public substrate root that anchors display paths and policy lookups.
+
+    - Teleology: give every receipt path and forbidden-class lookup a stable public anchor so output never leaks absolute host paths.
+    - Guarantee: returns a Path whose name is "microcosm-substrate" or that contains pyproject.toml + src/microcosm_core + core/private_state_forbidden_classes.json; else returns the resolved cwd.
+    - Fails: never raises; falls back to Path.cwd().resolve(strict=False) when no marker directory is found above the input path.
+    - When-needed: inspect when display paths or the forbidden-class policy resolve against the wrong root.
+    - Escalates-to: microcosm_core.secret_exclusion_scan.public_relative_path and core/private_state_forbidden_classes.json on disk.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
@@ -153,15 +161,39 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display_path(path: Path, *, public_root: Path) -> str:
+    """Render a path relative to the public root for receipt-safe display.
+
+    - Teleology: keep every path written into the receipt scrubbed of host-absolute prefixes.
+    - Guarantee: returns the public_relative_path string of path computed against public_root.
+    - Fails: never raises here; defers entirely to public_relative_path, which returns a relative-or-basename string.
+    - When-needed: inspect when a receipt path shows an unexpected absolute or wrongly-rooted form.
+    - Escalates-to: microcosm_core.secret_exclusion_scan.public_relative_path.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _registry_rows(registry: dict[str, Any]) -> list[dict[str, Any]]:
+    """Extract the dict-shaped standard rows from a parsed registry object.
+
+    - Teleology: normalize the registry "standards" array into the row list every downstream check iterates.
+    - Guarantee: returns a list containing only the dict members of registry["standards"]; non-dict entries are dropped.
+    - Fails: never raises; missing "standards" key yields [] via .get default.
+    - When-needed: inspect when registry row counts differ from the on-disk standards array length.
+    - Escalates-to: core/standards_registry.json::standards on disk.
+    """
     rows = registry.get("standards", [])
     return [row for row in rows if isinstance(row, dict)]
 
 
 def _standard_file_for(row: dict[str, Any], standards_dir: Path) -> Path:
+    """Resolve the on-disk JSON file backing a single registry row.
+
+    - Teleology: bind each registry row to the concrete standard file the validator must load and shape-check.
+    - Guarantee: returns row["path"] (absolute as-is, or joined under standards_dir.parent if relative); else standards_dir/<standard_id>.json.
+    - Fails: never raises; an empty/missing path falls through to the id-derived filename even if no file exists there.
+    - When-needed: inspect when a standard reports missing-file despite the JSON existing under a different path.
+    - Escalates-to: the resolved Path and core/standards_registry.json::standards[].path.
+    """
     path = str(row.get("path") or "").strip()
     if path:
         candidate = Path(path)
@@ -171,6 +203,14 @@ def _standard_file_for(row: dict[str, Any], standards_dir: Path) -> Path:
 
 
 def _load_standard(path: Path) -> dict[str, Any] | None:
+    """Load and shape-gate a single standard JSON file into a dict or None.
+
+    - Teleology: provide a strict, miss-tolerant loader so absent or malformed standard files become a recorded gap, not a crash.
+    - Guarantee: returns the parsed dict when path is a file holding a JSON object; returns None when the file is missing or the payload is not a dict.
+    - Fails: missing/non-dict -> None; a present-but-invalid-JSON file raises through read_json_strict.
+    - When-needed: inspect when a standard is reported missing despite existing, or when invalid JSON aborts validation.
+    - Escalates-to: microcosm_core.schemas.read_json_strict and the standard file at path.
+    """
     if not path.is_file():
         return None
     payload = read_json_strict(path)
@@ -180,6 +220,15 @@ def _load_standard(path: Path) -> dict[str, Any] | None:
 
 
 def _acceptance_status(acceptance: dict[str, Any]) -> dict[str, Any]:
+    """Reconcile the acceptance plan's accepted organs against the expected public set.
+
+    - Teleology: assert the acceptance plan lists exactly the ACCEPTED_PUBLIC_ORGANS allow-list with no gaps or strays.
+    - Guarantee: returns status PASS only when missing_accepted_organs and unexpected_accepted_organs are both empty; otherwise status "blocked_acceptance_mismatch"; always echoes accepted/missing/unexpected/deferred lists plus lean_lake_authorized and release_authorized flags.
+    - Fails: never raises; returns {"status": "blocked_acceptance_mismatch", ...} when the plan's accepted set diverges from ACCEPTED_PUBLIC_ORGANS.
+    - When-needed: inspect when the registry receipt reports an acceptance mismatch.
+    - Escalates-to: the acceptance plan JSON and the ACCEPTED_PUBLIC_ORGANS constant in this module.
+    - Non-goal: passing does not accept organs, activate standards, or authorize release; release_authorized/lean_lake_authorized are echoed plan fields, not grants.
+    """
     accepted = [
         str(row.get("organ_id"))
         for row in acceptance.get("accepted_current_authority_organs", [])
@@ -206,6 +255,15 @@ def _acceptance_status(acceptance: dict[str, Any]) -> dict[str, Any]:
 
 
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    """Strip the forbidden-class field listing from a scan result before it is written.
+
+    - Teleology: ensure the secret-exclusion scan summary written into a public receipt never echoes the forbidden-class definitions themselves.
+    - Guarantee: returns a shallow copy of scan with the "forbidden_output_fields" key removed; all other keys preserved.
+    - Fails: never raises; absent key is a no-op pop.
+    - When-needed: inspect when receipt scan output unexpectedly contains or omits forbidden-class detail.
+    - Escalates-to: microcosm_core.secret_exclusion_scan.scan_paths output shape.
+    - Non-goal: removing the field does not weaken the scan verdict; blocking_hit_count and the pass/fail decision are unchanged.
+    """
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
     return safe
@@ -215,6 +273,15 @@ def _accepted_organ_standard_contract_alignment(
     loaded_standards: list[tuple[dict[str, Any], str, dict[str, Any]]],
     organ_registry: dict[str, Any],
 ) -> dict[str, Any]:
+    """Verify every organ-evidence-claiming standard aligns with its accepted organ registry row.
+
+    - Teleology: stop a standard from claiming accepted-organ evidence fields unless the named organ is actually accepted_current_authority and the evidence values match.
+    - Guarantee: returns status PASS only when no errors accrue; checks only standards whose contract_projection_basis carries an ORGAN_EVIDENCE_BASIS_KEYS field, asserting registry status, source_authority, runtime acceptance statuses/refs, and per-key evidence equality against the organ row.
+    - Fails: never raises; returns {"status": "blocked", "errors": [...]} with coded entries (e.g. organ_evidence_basis_without_accepted_organ_registry_row, organ_evidence_basis_mismatch) when a claimed standard diverges.
+    - When-needed: inspect when the receipt's accepted_organ_standard_contract_alignment is blocked or an organ-backed standard fails promotion.
+    - Escalates-to: core/organ_registry.json::implemented_organs and the ACCEPTED_ORGAN_BACKED_* constants in this module.
+    - Non-goal: passing does not accept organs, activate standards, or authorize release; draft standards without evidence-basis fields are deliberately not promoted.
+    """
     accepted_organs = {
         str(row.get("organ_id")): row
         for row in organ_registry.get("implemented_organs", [])
@@ -233,6 +300,14 @@ def _accepted_organ_standard_contract_alignment(
         actual: Any,
         path: str,
     ) -> None:
+        """Append one coded alignment error to the enclosing errors accumulator.
+
+        - Teleology: give the alignment loop a single structured-error sink so every mismatch records standard_id, code, expected, actual, and path.
+        - Guarantee: appends exactly one dict with those five keys to the closure's errors list.
+        - Fails: never raises; mutates the enclosing errors list in place and returns None.
+        - When-needed: inspect when reading the structure of accepted_organ_standard_contract_alignment["errors"].
+        - Escalates-to: the parent _accepted_organ_standard_contract_alignment return shape.
+        """
         errors.append(
             {
                 "standard_id": standard_id,
@@ -341,11 +416,27 @@ def _accepted_organ_standard_contract_alignment(
 
 
 def _increment(counter: dict[str, int], key: object) -> None:
+    """Bump a string-keyed tally, coercing None to the "unspecified" bucket.
+
+    - Teleology: accumulate gap/admission tallies with a stable string key even when the source field is None.
+    - Guarantee: increments counter[str(key)] by 1, or counter["unspecified"] when key is None; mutates counter in place.
+    - Fails: never raises; non-None keys are stringified via str().
+    - When-needed: inspect when a count bucket appears under "unspecified" instead of an expected status value.
+    - Escalates-to: the counts_by_* maps in the admission and activation-gap summaries.
+    """
     label = str(key if key is not None else "unspecified")
     counter[label] = counter.get(label, 0) + 1
 
 
 def _unique_strings(*values: Any) -> list[str]:
+    """Flatten string and list-of-string inputs into a deduplicated, order-preserving list.
+
+    - Teleology: merge a standard's source-declared used_by_organs with the registry row's copy into one clean id list.
+    - Guarantee: returns stripped, non-empty, first-seen-order-unique strings drawn from str values and the str members of list values; everything else is ignored.
+    - Fails: never raises; non-str / non-list arguments and non-str list members are silently skipped.
+    - When-needed: inspect when a used_by_organs edge list contains duplicates, blanks, or unexpected ordering.
+    - Escalates-to: the call site in _used_by_organ_admission_summary.
+    """
     strings: list[str] = []
     seen: set[str] = set()
     for value in values:
@@ -366,6 +457,14 @@ def _unique_strings(*values: Any) -> list[str]:
 
 
 def _relationships(payload: Any) -> dict[str, Any]:
+    """Safely extract the relationships dict from an arbitrary payload.
+
+    - Teleology: give the admission summary a uniform way to read relationships off either a standard or its nested standard_payload.
+    - Guarantee: returns payload["relationships"] when payload is a dict and that value is a dict; otherwise returns an empty dict.
+    - Fails: never raises; any non-dict input or non-dict relationships value yields {}.
+    - When-needed: inspect when used_by_organs edges are not picked up from a standard's relationships block.
+    - Escalates-to: the standard JSON relationships / standard_payload.relationships fields.
+    """
     if isinstance(payload, dict):
         relationships = payload.get("relationships")
         if isinstance(relationships, dict):
@@ -374,6 +473,14 @@ def _relationships(payload: Any) -> dict[str, Any]:
 
 
 def _contract_projection_status(standard: dict[str, Any]) -> str:
+    """Classify a standard as active-governed-v2 or legacy/draft from its schema and status.
+
+    - Teleology: label each standard's contract maturity for the admission summary without mutating or promoting it.
+    - Guarantee: returns "active_v2_governed_json" when schema_version == ACTIVE_STANDARD_SCHEMA_VERSION and status == ACTIVE_STANDARD_STATUS; otherwise "legacy_or_draft_standard_contract".
+    - Fails: never raises; any other field combination resolves to the legacy/draft label.
+    - When-needed: inspect when a standard is bucketed as legacy/draft despite appearing active.
+    - Escalates-to: ACTIVE_STANDARD_SCHEMA_VERSION / ACTIVE_STANDARD_STATUS constants and the standard JSON.
+    """
     if (
         standard.get("schema_version") == ACTIVE_STANDARD_SCHEMA_VERSION
         and standard.get("status") == ACTIVE_STANDARD_STATUS
@@ -386,7 +493,15 @@ def _used_by_organ_admission_summary(
     loaded_standards: list[tuple[dict[str, Any], str, dict[str, Any]]],
     organ_registry: dict[str, Any],
 ) -> dict[str, Any]:
-    """Classify source-declared standard.used_by.organ pressure without accepting it."""
+    """Classify source-declared standard.used_by.organ pressure without accepting it.
+
+    - Teleology: turn each standard's used_by_organs edges into read-only re-entry metadata that names which targets are accepted vs unresolved.
+    - Guarantee: returns status "computed" with edge/resolved/unresolved counts, per-status tallies, sorted unresolved_details, and explicit anti_claims; an edge is "accepted_current_authority" only when its target organ is accepted in the organ registry.
+    - Fails: never raises; absence of edges yields zero counts and empty detail lists, status stays "computed".
+    - When-needed: inspect when reconciling which standards reference not-yet-accepted organs or auditing used_by edges.
+    - Escalates-to: core/organ_registry.json::implemented_organs and the standard relationships.used_by_organs fields.
+    - Non-goal: does not accept organs, activate standards, prove runtime use, or authorize release; unresolved edges are re-entry metadata, not failures.
+    """
     organ_rows = {
         str(row.get("organ_id")): row
         for row in organ_registry.get("implemented_organs", [])
@@ -537,7 +652,15 @@ def _used_by_organ_admission_summary(
 def _activation_witness_gap_summary(
     loaded_standards: list[tuple[dict[str, Any], str, dict[str, Any]]],
 ) -> dict[str, Any]:
-    """Classify standard activation gaps without activating any standard."""
+    """Classify standard activation gaps without activating any standard.
+
+    - Teleology: surface which standards are not yet schema-v2/active as read-only re-entry metadata, never flipping their status.
+    - Guarantee: returns status "computed" with detail rows and counts for every standard whose schema_version != ACTIVE_STANDARD_SCHEMA_VERSION or status != ACTIVE_STANDARD_STATUS; standards already active produce no detail.
+    - Fails: never raises; no gaps yields detail_count 0 with empty count maps, status stays "computed".
+    - When-needed: inspect when auditing which standards remain draft/legacy relative to the active contract version.
+    - Escalates-to: ACTIVE_STANDARD_SCHEMA_VERSION / ACTIVE_STANDARD_STATUS and the per-standard JSON.
+    - Non-goal: does not activate standards, flip schema/status authority, or authorize release; a listed gap is metadata, not a failed validation.
+    """
     details: list[dict[str, Any]] = []
     counts_by_gap_id: dict[str, int] = {}
     counts_by_registry_status: dict[str, int] = {}
@@ -608,6 +731,15 @@ def validate_standards_registry(
     *,
     command: str,
 ) -> dict[str, Any]:
+    """Validate the public standards registry and write its source-safe receipt.
+
+    - Teleology: be the single front door that proves the standards index, its files, and the acceptance plan are shape-consistent and secret-free, then persist that proof.
+    - Guarantee: writes a standards_registry_validation_receipt_v1 atomically to out_path and returns it; status is PASS only when there are no duplicate ids, no missing files, no missing required fields, no count mismatch, acceptance PASS, organ-standard alignment PASS, and zero blocking secret hits; otherwise status "blocked".
+    - Fails: raises ValueError when the registry or acceptance JSON is not an object; otherwise never raises — defects are reported as status "blocked" with populated diagnostic fields.
+    - When-needed: inspect when a standards-registry validation reports blocked or you need the authoritative receipt shape.
+    - Escalates-to: the written receipt at out_path, microcosm_core.secret_exclusion_scan, core/organ_registry.json, and AGENTS.md / std_paper_module standards.
+    - Non-goal: PASS proves only source-file shape and acceptance-plan consistency; it does not authorize release, hosted deployment, publication, recipient work, provider calls, secret export, or treat standard_count as completeness/readiness/maturity.
+    """
     registry_file = Path(registry_path)
     standards_root = Path(standards_dir)
     acceptance_file = Path(acceptance_path)
@@ -744,6 +876,14 @@ def validate_standards_registry(
 
 
 def _build_parser() -> argparse.ArgumentParser:
+    """Build the argparse parser for the standards-registry CLI.
+
+    - Teleology: define the required CLI inputs (--registry, --standards-dir, --acceptance, --out) for the module entrypoint.
+    - Guarantee: returns an ArgumentParser whose four arguments are all required=True.
+    - Fails: never raises at build time; argparse raises SystemExit at parse time when a required argument is absent.
+    - When-needed: inspect when adjusting or auditing the CLI surface of this validator.
+    - Escalates-to: the main() consumer and python -m microcosm_core.validators.standards_registry --help.
+    """
     parser = argparse.ArgumentParser(description="Validate public standards registry")
     parser.add_argument("--registry", required=True)
     parser.add_argument("--standards-dir", required=True)
@@ -753,6 +893,15 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint: parse args, run registry validation, return a process exit code.
+
+    - Teleology: expose validate_standards_registry as a runnable module whose exit code gates CI/release scripts.
+    - Guarantee: returns 0 when the written receipt status == PASS, else 1; reconstructs the command string recorded in the receipt.
+    - Fails: argparse raises SystemExit on missing required args; validate_standards_registry raises ValueError on non-object registry/acceptance JSON.
+    - When-needed: inspect when wiring this validator into a script or diagnosing its exit-code behavior.
+    - Escalates-to: validate_standards_registry and the receipt at --out.
+    - Non-goal: a 0 exit code attests source-file/acceptance shape only, not release, completeness, or runtime use.
+    """
     parser = _build_parser()
     args = parser.parse_args(argv)
     command = (

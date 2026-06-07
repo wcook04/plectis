@@ -47,6 +47,14 @@ def _public_relative(root: Path, path: Path) -> str:
 
 
 def _read_text_or_empty(path: Path) -> str:
+    """Read a file's full utf-8 text, returning "" instead of raising on absence/IO error.
+
+    - Teleology: gives the launch-compression validator a missing-tolerant source reader so README/pyproject absence degrades to empty-string assertions rather than crashing the receipt build.
+    - Guarantee: returns `path.read_text(encoding="utf-8")` when `path.is_file()` is true; returns "" when the path is not a file or an OSError occurs during read.
+    - Fails: never raises on a `Path` input; OSError during read is caught and collapsed to "" (missing/unreadable file is indistinguishable from empty here).
+    - Reads: the full contents of `path` if it is a file.
+    - Writes: None
+    """
     try:
         return path.read_text(encoding="utf-8") if path.is_file() else ""
     except OSError:
@@ -54,6 +62,14 @@ def _read_text_or_empty(path: Path) -> str:
 
 
 def _first_lines(path: Path, count: int) -> str:
+    """Read at most `count` leading lines of a file, newline-stripped and rejoined with "\\n".
+
+    - Teleology: produces the bounded README "first screen" slice the validator inspects for the one-line-identity / quickstart assertions without loading the whole file.
+    - Guarantee: returns the first `count` lines of `path`, each stripped of trailing CR/LF and joined by "\\n"; returns "" when `count <= 0` or an OSError occurs opening/reading the file.
+    - Fails: never raises on a `Path` input; non-positive `count` short-circuits to "" and OSError is caught and collapsed to "".
+    - Reads: up to `count` lines streamed from `path` (utf-8).
+    - Writes: None
+    """
     if count <= 0:
         return ""
     try:
@@ -64,6 +80,14 @@ def _first_lines(path: Path, count: int) -> str:
 
 
 def _without_fenced_code_blocks(text: str) -> str:
+    """Strip triple-backtick fenced code blocks (and their fence lines) from markdown text.
+
+    - Teleology: lets the `first_screen_not_receipt_forward` assertion test prose-only README intro, so example commands inside ``` fences do not falsely trip the receipt-forward needle scan.
+    - Guarantee: returns `text` with every line inside a ```-delimited fence removed and both fence-delimiter lines dropped, surviving lines rejoined by "\\n"; a fence opened but never closed drops all remaining lines.
+    - Fails: never raises on a `str` input; cannot signal an unbalanced fence (it just consumes to end of text).
+    - Reads: the in-memory string only.
+    - Writes: None
+    """
     kept: list[str] = []
     in_fence = False
     for line in text.splitlines():
@@ -151,6 +175,14 @@ def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
 
 
 def _walk_files(root: Path) -> Iterator[Path]:
+    """Recursively yield every regular file under `root`, not following symlinks, IO-error tolerant.
+
+    - Teleology: provides the symlink-safe, missing-tolerant file enumeration that feeds the on-disk private-state scan (`_walk_state_files`) without escaping the tree via symlinked dirs.
+    - Guarantee: yields a `Path` for each non-symlink regular file in the `root` subtree (depth-first), descending only into real subdirectories; symlinked dirs/files are not followed.
+    - Fails: never raises; an OSError on scandir(root) ends that level silently (return), a per-entry OSError skips that entry (continue) — unreadable dirs/entries are omitted, not surfaced.
+    - Reads: directory entries (names + dirent type) under `root`; not file contents.
+    - Writes: None
+    """
     try:
         with os.scandir(root) as entries:
             for entry in entries:
@@ -166,6 +198,14 @@ def _walk_files(root: Path) -> Iterator[Path]:
 
 
 def _walk_state_files(project: Path) -> Iterator[Path]:
+    """Yield every file under the project's local `.microcosm` state dir (STATE_DIR).
+
+    - Teleology: scopes the private-leak disk scan to the compiled local state directory the launch loop creates, so `_state_files_have_private_hits` checks only generated state, not the whole project.
+    - Guarantee: yields each non-symlink regular file under `project / project_substrate.STATE_DIR` via `_walk_files`; an absent STATE_DIR yields nothing.
+    - Fails: never raises; inherits `_walk_files` IO-error tolerance (missing/unreadable dirs produce an empty stream).
+    - Reads: directory entries under the project STATE_DIR; not file contents.
+    - Writes: None
+    """
     yield from _walk_files(project / project_substrate.STATE_DIR)
 
 
@@ -176,6 +216,17 @@ def validate_launch_compression(
     *,
     command: str,
 ) -> dict[str, Any]:
+    """Validate that the public first screen + one-command local loop expose `repo -> .microcosm` safely, and emit a launch_compression receipt.
+
+    - Teleology: the launch-compression release gate — proves the README first screen is identity/quickstart-forward (not receipt-forward), every runtime lens passes with its authority ceiling pinned False, and no private path/secret leaks into the public-facing surfaces.
+    - Guarantee: compiles the project with runtime receipt writes suppressed, builds a boolean `assertions` map (first-screen copy, per-lens status==PASS + endpoint/command visibility + authority-ceiling denials + `private_paths_absent`), turns every False assertion into a sorted `LAUNCH_COMPRESSION_<KEY>_FAILED` code, appends `LAUNCH_COMPRESSION_PRIVATE_STATE_SCAN_BLOCKED` if the private_state scan reports blocking hits, sets status=PASS when no blocking codes else "blocked", atomically writes the receipt to `out_path`, and returns that receipt dict.
+    - Fails: never raises on a failed check — failures are recorded as `blocking_codes` and status "blocked" in the returned/written receipt; the env-var restore is finally-guarded; genuine IO/import errors (compile_project, RuntimeShell, write_json_atomic) propagate.
+    - Reads: README.md/pyproject.toml/AGENTS.md under `root`; the project tree + its `.microcosm` state via `compile_project` and STATE_DIR walk; all RuntimeShell lens payloads; the forbidden-classes policy.
+    - Writes: the receipt JSON at `out_path` (atomic); temporarily sets `MICROCOSM_RUNTIME_RECEIPT_WRITES=0` and restores the prior value.
+    - When-needed: inspect when a launch/first-screen/public-safety gate is "blocked" — read `blocking_codes` to see which assertion or the private-state scan failed.
+    - Escalates-to: the written `launch_compression_receipt_v1` at `out_path` (assertions + blocking_codes + private_state_scan); the launch_compression test suite; `private_state_scan.scan_paths` for the secret/path scan detail.
+    - Non-goal: does not authorize hosted release, publication, hosting, credentialed provider calls, source mutation, private-root equivalence, or proof/benchmark correctness — receipt `authority_ceiling` pins all of these False and PASS means only "this public surface is compression-faithful and leak-free for the listed needles", not whole-system correctness.
+    """
     public_root = Path(root).resolve(strict=False)
     project_path = Path(project).expanduser().resolve(strict=False)
     output_file = Path(out_path)
@@ -1218,6 +1269,14 @@ def validate_launch_compression(
 
 
 def _parser() -> argparse.ArgumentParser:
+    """Build the CLI argument parser for the launch-compression checker.
+
+    - Teleology: defines the command-line contract (`--root`, `--project`, `--out`) that lets the validator run as `python -m microcosm_core.validators.launch_compression`.
+    - Guarantee: returns an ArgumentParser requiring `--root`, `--project`, and `--out`; parsing without all three triggers argparse's usage error.
+    - Fails: never raises at construction; missing required args surface at parse time as argparse SystemExit(2) with a usage message.
+    - Reads: nothing (pure parser definition).
+    - Writes: None
+    """
     parser = argparse.ArgumentParser(description="Validate Microcosm launch compression")
     parser.add_argument("--root", required=True)
     parser.add_argument("--project", required=True)
@@ -1226,6 +1285,16 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint: run launch-compression validation and return a pass/fail exit code.
+
+    - Teleology: the process-level shell that wires parsed args into `validate_launch_compression` and maps the receipt status onto a shell exit code for CI/release gating.
+    - Guarantee: parses `argv` (or sys.argv), runs the validator writing a receipt to `--out`, and returns 0 when the receipt status == PASS, else 1.
+    - Fails: returns 1 (not 0) on any "blocked" receipt; argparse exits 2 on missing/invalid args; exceptions raised inside `validate_launch_compression` propagate as a nonzero process exit.
+    - Reads: argv plus everything `validate_launch_compression` reads (README/pyproject/project tree/state).
+    - Writes: the receipt JSON at `--out` via `validate_launch_compression`.
+    - When-needed: inspect when the launch-compression check is wired into a script/CI gate and you need its exit semantics.
+    - Escalates-to: the receipt written at `--out` (status + blocking_codes); `validate_launch_compression` for what each code means.
+    """
     args = _parser().parse_args(argv)
     command = (
         "python -m microcosm_core.validators.launch_compression "

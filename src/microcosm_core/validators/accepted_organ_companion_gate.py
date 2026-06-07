@@ -44,6 +44,12 @@ DEFAULT_VALIDATION_STATUS = (
 
 
 def _normalize_path(path: object) -> str:
+    """Canonicalize a path-ish value for set comparison against companion paths.
+
+    - Teleology: collapse declared/required/claim path spellings to one form so companion membership compares by value, not by accidental "./"-prefix or whitespace.
+    - Guarantee: returns a stripped string with every leading "./" removed; None/empty/non-str inputs become "".
+    - Fails: never raises; non-string inputs are coerced via str() and may yield "".
+    """
     value = str(path or "").strip()
     while value.startswith("./"):
         value = value[2:]
@@ -51,6 +57,12 @@ def _normalize_path(path: object) -> str:
 
 
 def _candidate_path(row: dict[str, Any]) -> str:
+    """Pick the path a claim row is asserting ownership over.
+
+    - Teleology: Work Ledger rows name their held surface under several keys; this normalizes them to one comparable path for companion matching.
+    - Guarantee: returns the first non-empty normalized value among path/scope_id/scope_ref/held_surface, else "".
+    - Fails: never raises; a row with none of those keys (or only empties) returns "".
+    """
     for key in ("path", "scope_id", "scope_ref", "held_surface"):
         value = _normalize_path(row.get(key))
         if value:
@@ -59,13 +71,26 @@ def _candidate_path(row: dict[str, Any]) -> str:
 
 
 def extract_claim_rows(payload: object) -> list[dict[str, Any]]:
-    """Extract Work Ledger-like claim rows from cards, status, or raw payloads."""
+    """Extract Work Ledger-like claim rows from cards, status, or raw payloads.
+
+    - Teleology: public entry that lets the gate accept a card, status dump, or raw Work Ledger blob and recover the claim rows hidden anywhere inside it.
+    - Guarantee: returns a flat list of claim-row dicts harvested recursively; each row that lacked an own session id inherits the nearest enclosing owner_session_id/session_id.
+    - Fails: never raises; payloads with no claim-shaped dict (no path or no claim_id/leased_until/session/collision marker) return [].
+    - When-needed: inspect when feeding companion-owner detection from an arbitrary JSON shape and you need the claim-row normalization rules.
+    - Escalates-to: _extract_claim_rows (the recursive implementation) and _candidate_path / _claim_session_id for per-row field semantics.
+    """
     return _extract_claim_rows(payload)
 
 
 def _extract_claim_rows(
     payload: object, *, inherited_session_id: str = ""
 ) -> list[dict[str, Any]]:
+    """Recursively harvest claim rows, threading enclosing session ownership downward.
+
+    - Teleology: walk an arbitrarily nested dict/list payload and collect every claim-shaped dict while propagating the closest owner_session_id so child rows inherit ownership.
+    - Guarantee: returns claim-row dicts in document order; a dict is kept only if it has a candidate path AND a claim_id/leased_until/current-session/collision_sessions signal, with owner_session_id backfilled from the inherited id when the row had none.
+    - Fails: never raises; scalars and claim-less containers contribute nothing and yield [].
+    """
     rows: list[dict[str, Any]] = []
     if isinstance(payload, dict):
         current_session_id = str(
@@ -100,6 +125,12 @@ def _extract_claim_rows(
 
 
 def _claim_is_active(row: dict[str, Any]) -> bool:
+    """Decide whether a claim row still holds its surface.
+
+    - Teleology: only live ownership pressure should block; this collapses status/state and lease fields into one liveness verdict.
+    - Guarantee: returns False for INACTIVE statuses, True for ACTIVE statuses, else True only when leased_until is set and released_at is absent.
+    - Fails: never raises; missing/unknown status with no live lease returns False.
+    """
     status = str(row.get("status") or row.get("state") or "").lower()
     if status in INACTIVE_CLAIM_STATUSES:
         return False
@@ -109,6 +140,12 @@ def _claim_is_active(row: dict[str, Any]) -> bool:
 
 
 def _claim_session_id(row: dict[str, Any]) -> str:
+    """Resolve the owning session id of a claim row.
+
+    - Teleology: actor-vs-other ownership comparison needs one canonical session id regardless of which key carries it.
+    - Guarantee: returns owner_session_id if set, else session_id, else "".
+    - Fails: never raises; a row with neither key returns "".
+    """
     return str(row.get("owner_session_id") or row.get("session_id") or "")
 
 
@@ -118,6 +155,15 @@ def _blocking_claims(
     actor_session_id: str | None,
     companion_paths: set[str],
 ) -> list[dict[str, Any]]:
+    """Select live foreign claims that sit on required companion paths.
+
+    - Teleology: identify which other-session claims actually obstruct the scoped landing of the companion packet.
+    - Guarantee: returns one deterministic blocker dict per active claim whose path is in companion_paths and whose owner differs from actor_session_id, sorted by (path, owner_session_id, claim_id), each carrying a request_owner_land_release_or_handoff coordination_action.
+    - Fails: never raises; rows off-path, inactive, or owned by the actor are skipped; no qualifying claims yields [].
+    - When-needed: inspect when a companion gate reports blocking_claims and you need the membership/liveness/self-ownership filter rules.
+    - Escalates-to: _claim_is_active and _claim_session_id for the per-row predicates; evaluate_companion_gate for how blockers become BLOCKED status.
+    - Non-goal: presence of zero blockers does not authorize release or landing; it only clears this one ownership-pressure check.
+    """
     blockers: list[dict[str, Any]] = []
     for row in claim_rows:
         path = _candidate_path(row)
@@ -142,6 +188,12 @@ def _blocking_claims(
 
 
 def _shell_join(argv: Iterable[str]) -> str:
+    """Render an argv list as a copy-paste-safe shell command string.
+
+    - Teleology: generated yield-request commands must paste cleanly even when paths or labels contain spaces/quotes.
+    - Guarantee: returns the argv parts shlex-quoted and space-joined into one string.
+    - Fails: never raises; an empty iterable returns "".
+    """
     return " ".join(shlex.quote(str(part)) for part in argv)
 
 
@@ -153,6 +205,12 @@ def _yield_request_command(
     blocked_on: str,
     validation_status: str,
 ) -> str:
+    """Build the paste-ready work_ledger.py session-yield-request command for one blocker.
+
+    - Teleology: turn a detected blocking claim into the exact CLI an agent runs to ask the owning session to land-and-release.
+    - Guarantee: returns a shell-quoted command targeting blocker.owner_session_id with class settlement_obligation_owner, action release_after_landing, result requested, and the blocker path plus requester/blocked-on/validation-status fields embedded.
+    - Fails: never raises; emits a string regardless of field content (does not validate that the session id exists).
+    """
     return _shell_join(
         [
             "./repo-python",
@@ -189,6 +247,13 @@ def _coordination_requests(
     blocked_on: str,
     validation_status: str,
 ) -> list[dict[str, Any]]:
+    """Assemble paste-ready coordination requests for every owned blocker.
+
+    - Teleology: give the actor a ready list of who to ask, for which path, with the exact yield command, when blockers exist.
+    - Guarantee: returns one request dict (target_session_id, held_path, claim_id, leased_until, command) per blocker that has an owner_session_id.
+    - Fails: never raises; returns [] when requester_session_id is falsy or when no blocker carries an owner_session_id.
+    - Escalates-to: _yield_request_command for the command shape; evaluate_companion_gate exposes the result as coordination_requests.
+    """
     if not requester_session_id:
         return []
     requests: list[dict[str, Any]] = []
@@ -224,6 +289,15 @@ def evaluate_companion_gate(
     validation_status: str = DEFAULT_VALIDATION_STATUS,
     required_companion_paths: Iterable[str] = ACCEPTED_ORGAN_COMPANION_PATHS,
 ) -> dict[str, Any]:
+    """Render the read-only accepted-organ companion-gate card (packet completeness + owner pressure).
+
+    - Teleology: the core checker proving a scoped accepted-organ landing both declares all required companion paths and faces no live foreign Work Ledger owner on them.
+    - Guarantee: returns a SCHEMA_VERSION-stamped card whose status is PASS only when no required companion path is missing AND no other-session active claim sits on a required path; otherwise BLOCKED, with missing_companion_paths, blocking_claims, coordination_requests, a routed next_action, reentry_condition, and the ANTI_CLAIM string.
+    - Fails: never raises; the card is the result envelope (status=BLOCKED with populated missing/blocking lists encodes failure, not an exception).
+    - When-needed: inspect before landing or preflighting an accepted-organ companion packet, or when triaging why such a packet is BLOCKED.
+    - Escalates-to: std accepted-organ companion-gate contract and full transaction preflight (DEFAULT_VALIDATION_STATUS says rerun it); _blocking_claims / _coordination_requests for the owner-pressure detail.
+    - Non-goal: a PASS card does not authorize release, acceptance, publication, private-root equivalence, or bypassing an owning session — see anti_claim; it gates only companion completeness and visible ownership pressure.
+    """
     required = tuple(_normalize_path(path) for path in required_companion_paths)
     required_set = set(required)
     declared = sorted({_normalize_path(path) for path in declared_paths if path})
@@ -279,6 +353,13 @@ def evaluate_companion_gate(
 
 
 def _load_claim_rows(path: str | None) -> list[dict[str, Any]]:
+    """Load and flatten claim rows from an optional Work Ledger JSON file.
+
+    - Teleology: adapt the CLI's --claims-json file into the claim-row list the gate consumes.
+    - Guarantee: returns extract_claim_rows over the strictly-parsed file contents; a falsy path returns [].
+    - Fails: propagates read_json_strict errors (missing file / malformed or non-strict JSON) to the caller; it does not swallow them.
+    - Escalates-to: microcosm_core.schemas.read_json_strict for parse-failure semantics; extract_claim_rows for row recovery.
+    """
     if not path:
         return []
     payload = read_json_strict(Path(path))
@@ -286,6 +367,15 @@ def _load_claim_rows(path: str | None) -> list[dict[str, Any]]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint: print the companion-gate card and signal blocked status via exit code.
+
+    - Teleology: expose evaluate_companion_gate as a read-only command for preflight scripts and operators.
+    - Guarantee: prints the card as sorted indented JSON to stdout and returns 0 when status is PASS or --check was not given; returns 1 only when --check is set and status is not PASS.
+    - Fails: argparse exits nonzero on bad flags; a supplied --claims-json that is missing/malformed propagates read_json_strict errors (no card printed).
+    - When-needed: inspect when wiring this gate into a CI/preflight step or interpreting its exit code.
+    - Escalates-to: evaluate_companion_gate for the card contract; --check is the nonzero-on-blocked switch.
+    - Non-goal: a zero exit does not authorize release/landing — it only reports companion completeness and ownership pressure (see the card anti_claim).
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Render a read-only card for the accepted-organ companion packet gate."
