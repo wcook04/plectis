@@ -1305,6 +1305,31 @@ def test_agent_entry_card_aliases_evaluation_questions_to_evaluation_route(
     assert "agent-entry-composition --task evaluation" in card["drilldowns"]["full_json"]
 
 
+def test_agent_entry_card_explains_evaluation_alias_boundary() -> None:
+    payload = build_agent_entry_composition(
+        root=MICROCOSM_ROOT,
+        task="how do I evaluate it",
+        viewer="human",
+        command="pytest",
+    )
+    card = compact_agent_entry_card(payload)
+
+    assert payload["status"] == "pass"
+    assert payload["task_route"]["selected_task_class"] == "evaluation"
+    assert payload["task_route"]["alias_resolution"]["status"] == "alias_resolved"
+    assert (
+        "Evaluation questions use the evaluation route"
+        in payload["task_route"]["alias_resolution"]["reason"]
+    )
+    assert "public reveal surface" in payload["task_route"]["alias_resolution"][
+        "reason"
+    ]
+    assert "proof-correctness" in payload["task_route"]["alias_resolution"]["reason"]
+    assert card["task_route"]["alias_resolution"] == payload["task_route"][
+        "alias_resolution"
+    ]
+
+
 def test_agent_entry_card_keeps_receipts_alias_traceable() -> None:
     payload = build_agent_entry_composition(
         root=MICROCOSM_ROOT,

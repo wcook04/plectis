@@ -29,6 +29,23 @@ GETTING_STARTED_CHECK_ROUTE_ALIASES = {
     "run-the-checks",
     "run_the_checks",
 }
+EVALUATION_ROUTE_ALIASES = {
+    "how do i evaluate it",
+    "how-do-i-evaluate-it",
+    "how_do_i_evaluate_it",
+    "how can i evaluate it",
+    "how-can-i-evaluate-it",
+    "how_can_i_evaluate_it",
+    "how do i evaluate this",
+    "how-do-i-evaluate-this",
+    "how_do_i_evaluate_this",
+    "how can i evaluate this",
+    "how-can-i-evaluate-this",
+    "how_can_i_evaluate_this",
+    "how to evaluate",
+    "how-to-evaluate",
+    "how_to_evaluate",
+}
 INTERESTING_PARTS_ROUTE_ALIASES = {
     "interesting",
     "interesting-parts",
@@ -3385,18 +3402,25 @@ def _task_alias_resolution(
             "copyable check commands."
             if requested_key in GETTING_STARTED_CHECK_ROUTE_ALIASES
             else (
-                "Interesting-parts questions use the existing entry/reveal route "
-                "because it shows bounded public first-run and reveal surfaces "
-                "without claiming novelty, release readiness, or domain correctness."
-                if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
+                "Evaluation questions use the evaluation route because it "
+                "joins the cold route-map, public reveal surface, receipt refs, "
+                "evidence classes, and authority ceilings before any maturity, "
+                "release, or proof-correctness inference."
+                if requested_key in EVALUATION_ROUTE_ALIASES
                 else (
-                    "Route-owner questions use the agent-entry route because "
-                    "that route exposes the owner surfaces to inspect or patch: "
-                    "atlas/entry_packet.json, atlas/agent_task_routes.json, "
-                    "organ registries, source modules, receipts, standards, "
-                    "and the projection builder."
-                    if requested_key in ROUTE_OWNER_ROUTE_ALIASES
-                    else "The requested task is accepted as an alias for the selected route."
+                    "Interesting-parts questions use the existing entry/reveal route "
+                    "because it shows bounded public first-run and reveal surfaces "
+                    "without claiming novelty, release readiness, or domain correctness."
+                    if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
+                    else (
+                        "Route-owner questions use the agent-entry route because "
+                        "that route exposes the owner surfaces to inspect or patch: "
+                        "atlas/entry_packet.json, atlas/agent_task_routes.json, "
+                        "organ registries, source modules, receipts, standards, "
+                        "and the projection builder."
+                        if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                        else "The requested task is accepted as an alias for the selected route."
+                    )
                 )
             )
         )
