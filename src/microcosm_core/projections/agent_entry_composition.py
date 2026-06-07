@@ -3655,12 +3655,18 @@ def _build_read_run_order(
         {
             "kind": "first_screen",
             "run": first_screen_route.get("route_command"),
+            "source_checkout_run": _source_checkout_command(
+                str(first_screen_route.get("route_command") or "")
+            ),
             "read": first_screen_route.get("source_ref"),
             "why": "Establish the Type A first-screen route and claim ceiling before mutation.",
         },
         {
             "kind": "task_route",
             "run": task_route_card.get("first_command"),
+            "source_checkout_run": task_route_card.get(
+                "source_checkout_first_command"
+            ),
             "read": task_route_card.get("source_ref"),
             "why": "Dereference the task class into relevant organs, evidence refs, and stop conditions.",
         },
@@ -3679,6 +3685,9 @@ def _build_read_run_order(
         {
             "kind": "organ_discoverability_matrix",
             "run": ORGAN_DISCOVERABILITY_MATRIX_COMMAND,
+            "source_checkout_run": _source_checkout_command(
+                ORGAN_DISCOVERABILITY_MATRIX_COMMAND
+            ),
             "read": [ORGAN_DISCOVERABILITY_MATRIX_REF],
             "why": (
                 "Use the matrix to classify accepted-organ discoverability gaps "
@@ -3688,6 +3697,10 @@ def _build_read_run_order(
         {
             "kind": "macro_body_floor",
             "run": [row.get("first_command") for row in macro_floor],
+            "source_checkout_run": [
+                _source_checkout_command(str(row.get("first_command") or ""))
+                for row in macro_floor
+            ],
             "read": [row.get("standards", {}).get("paper_module_ref") for row in macro_floor],
             "why": "Use imported macro route bodies as the mechanism curriculum before broad inventory.",
         },
@@ -4470,6 +4483,15 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
         for row in _as_list(payload.get("macro_import_route_body_floor"))
         if isinstance(row, dict)
     ]
+    compact_read_run_order = [
+        {
+            key: row.get(key)
+            for key in ("step", "kind", "run", "source_checkout_run", "read")
+            if row.get(key) is not None
+        }
+        for row in _as_list(payload.get("read_run_order"))
+        if isinstance(row, dict)
+    ]
 
     return drop_none({
         "schema": "microcosm_agent_entry_composition_compact_card_v0",
@@ -4531,7 +4553,7 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
         },
         "organ_discoverability_matrix_route": organ_route,
         "macro_import_route_body_floor": macro_floor,
-        "read_run_order": payload.get("read_run_order", []),
+        "read_run_order": compact_read_run_order,
         "authority_ceiling": {
             "release_authority": payload.get("release_authority"),
             "source_mutation_authority": payload.get("source_mutation_authority"),

@@ -94,7 +94,13 @@ def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> 
         "human": "microcosm hello <project>",
     }
     assert payload["read_run_order"][1]["run"] == first_screen["route_command"]
+    assert payload["read_run_order"][1]["source_checkout_run"] == (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+    )
     assert payload["read_run_order"][2]["run"] == task_route["first_command"]
+    assert payload["read_run_order"][2]["source_checkout_run"] == (
+        task_route["source_checkout_first_command"]
+    )
     organ_glance = payload["accepted_organ_glance"]
     assert organ_glance["source_ref"] == ORGAN_GLANCE_REF
     assert organ_glance["first_family_label"] == "Entry & Reveal"
@@ -128,7 +134,19 @@ def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> 
     assert ORGAN_DISCOVERABILITY_MATRIX_REF in discoverability_route["read"]
     assert payload["read_run_order"][4]["kind"] == "organ_discoverability_matrix"
     assert payload["read_run_order"][4]["run"] == ORGAN_DISCOVERABILITY_MATRIX_COMMAND
+    assert payload["read_run_order"][4]["source_checkout_run"] == (
+        "PYTHONPATH=src python3 -m microcosm_core "
+        "organ-discoverability-matrix --root . --check"
+    )
     assert payload["read_run_order"][5]["kind"] == "macro_body_floor"
+    assert payload["read_run_order"][5]["source_checkout_run"][0] == (
+        task_route["source_checkout_first_command"]
+    )
+    card = compact_agent_entry_card(payload)
+    assert card["read_run_order"][1]["source_checkout_run"] == (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card <project>"
+    )
+    assert "why" not in card["read_run_order"][1]
     assert "re-entry" in payload["omission_receipt"]["reentry_condition"].lower()
 
 
