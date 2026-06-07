@@ -745,6 +745,11 @@ def test_organ_surface_contract_cli_emits_compact_card(
     ] > 0
     assert source_module_file_graph["shared_source_ref_count"] > 0
     assert source_module_file_graph["top_validation_refs"]
+    assert source_module_file_graph["preview_limit"] == 5
+    assert len(source_module_file_graph["top_validation_refs"]) <= 5
+    assert len(source_module_file_graph["top_shared_source_refs"]) <= 5
+    assert source_module_file_graph["top_validation_refs_omitted_count"] > 0
+    assert source_module_file_graph["top_shared_source_refs_omitted_count"] > 0
     assert "not_source_semantics" in source_module_file_graph["authority"]
     organ_relationship_topology = card["organ_relationship_topology"]
     assert organ_relationship_topology["schema_version"] == (
@@ -778,6 +783,9 @@ def test_organ_surface_contract_cli_emits_compact_card(
     assert organ_relationship_topology["relation_type_counts"][
         "source_file.validated_by_ref"
     ] > 0
+    assert organ_relationship_topology["preview_limit"] == 5
+    assert len(organ_relationship_topology["mixed_language_organs"]) <= 5
+    assert organ_relationship_topology["mixed_language_organs_omitted_count"] > 0
     assert organ_relationship_topology["relation_type_counts"][
         "source_shard.retained_as_public_target_shard"
     ] > 0

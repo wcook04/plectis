@@ -18,6 +18,7 @@ from microcosm_core.schemas import read_json_strict
 
 
 SCHEMA_VERSION = "microcosm_organ_surface_contract_v0"
+CARD_PREVIEW_LIMIT = 5
 AUTHORITY_POSTURE = "derived_surface_audit_not_source_authority"
 ENTRY_ROUTE_REF = "atlas/entry_packet.json::concept_mechanism_entry_route"
 CONCEPT_STANDARD_REF = "standards/std_microcosm_concept.json"
@@ -1844,6 +1845,13 @@ def build_card(payload: dict[str, Any]) -> dict[str, Any]:
     ]
     query_affordances = source_language_adjacency["query_affordances"]
     topology_query_affordances = organ_relationship_topology["query_affordances"]
+    top_shared_source_refs = source_module_file_graph["query_affordances"][
+        "top_shared_source_refs"
+    ]
+    top_validation_refs = source_module_file_graph["query_affordances"][
+        "top_validation_refs"
+    ]
+    mixed_language_organs = topology_query_affordances["mixed_language_organs"]
     return {
         "schema_version": "microcosm_organ_surface_contract_card_v0",
         "status": payload["status"],
@@ -1950,12 +1958,15 @@ def build_card(payload: dict[str, Any]) -> dict[str, Any]:
             "shared_source_ref_count": source_module_file_graph[
                 "query_affordances"
             ]["shared_source_ref_count"],
-            "top_shared_source_refs": source_module_file_graph[
-                "query_affordances"
-            ]["top_shared_source_refs"],
-            "top_validation_refs": source_module_file_graph[
-                "query_affordances"
-            ]["top_validation_refs"],
+            "top_shared_source_refs": top_shared_source_refs[:CARD_PREVIEW_LIMIT],
+            "top_shared_source_refs_omitted_count": max(
+                0, len(top_shared_source_refs) - CARD_PREVIEW_LIMIT
+            ),
+            "top_validation_refs": top_validation_refs[:CARD_PREVIEW_LIMIT],
+            "top_validation_refs_omitted_count": max(
+                0, len(top_validation_refs) - CARD_PREVIEW_LIMIT
+            ),
+            "preview_limit": CARD_PREVIEW_LIMIT,
             "authority": source_module_file_graph["authority"],
         },
         "organ_relationship_topology": {
@@ -1985,9 +1996,11 @@ def build_card(payload: dict[str, Any]) -> dict[str, Any]:
             "accepted_without_source_modules": topology_query_affordances[
                 "accepted_without_source_modules"
             ],
-            "mixed_language_organs": topology_query_affordances[
-                "mixed_language_organs"
-            ],
+            "mixed_language_organs": mixed_language_organs[:CARD_PREVIEW_LIMIT],
+            "mixed_language_organs_omitted_count": max(
+                0, len(mixed_language_organs) - CARD_PREVIEW_LIMIT
+            ),
+            "preview_limit": CARD_PREVIEW_LIMIT,
             "authority": organ_relationship_topology["authority"],
             "anti_claims": organ_relationship_topology["anti_claims"],
         },
