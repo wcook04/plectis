@@ -11,6 +11,26 @@ from microcosm_core import cli
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_cli_cold_reader_route_map_help_names_fixture_and_boundary(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["cold-reader-route-map", "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert "Runnable fixture example:" in output
+    assert (
+        "microcosm cold-reader-route-map run-route-map-bundle --input "
+        "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out "
+        "/tmp/microcosm-cold-reader-route-map"
+    ) in output
+    assert "validates the declared public route-map bundle" in output
+    assert "projection-only route metadata" in output
+    assert "source\nmutation permission" in output
+    assert "release/publication authority" in output
+
+
 def test_cli_formal_math_readiness_help_names_fixture_and_boundary(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

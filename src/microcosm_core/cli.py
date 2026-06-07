@@ -685,6 +685,14 @@ PUBLIC_BUNDLE_COMMAND_HELP = {
 }
 
 PUBLIC_BUNDLE_COMMAND_EPILOGS = {
+    "cold-reader-route-map": """Runnable fixture example:
+  microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out /tmp/microcosm-cold-reader-route-map
+
+Boundary: validates the declared public route-map bundle and writes receipts.
+It is projection-only route metadata, not route-registry authority, source
+mutation permission, provider-call authority, release/publication authority,
+financial advice, private-data equivalence, or whole-system correctness.
+""",
     "finance-forecast-evaluation-spine": """Runnable fixture example:
   microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out /tmp/microcosm-finance-forecast-evaluation-spine
 
