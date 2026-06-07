@@ -689,6 +689,7 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "mathematics",
         "formal math",
         "show math",
+        "show me math",
         "show me the math",
         "show me math stuff",
         "show me the mathematical parts",
