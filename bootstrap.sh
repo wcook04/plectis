@@ -31,7 +31,7 @@ Success output:
   Microcosm cold-clone probe passed
   suite: <suite>
   receipt: <receipt path>
-  check: make smoke
+  check: make smoke (source-only)
   next: README.md#public-repo-map and README.md#component-map
 USAGE
 }
@@ -130,7 +130,7 @@ if [[ "$dry_run" == "1" ]]; then
   printf 'command:'
   printf ' %q' "PYTHONPATH=$PYTHONPATH" "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
   printf '\n'
-  printf 'check: make smoke\n'
+  printf 'check: make smoke (source-only)\n'
   printf 'next: README.md#public-repo-map and README.md#component-map\n'
   exit 0
 fi
@@ -140,5 +140,5 @@ fi
 printf 'Microcosm cold-clone probe passed\n'
 printf 'suite: %s\n' "$suite"
 printf 'receipt: %s\n' "$emit"
-printf 'check: make smoke\n'
+printf 'check: make smoke (source-only)\n'
 printf 'next: README.md#public-repo-map and README.md#component-map\n'
