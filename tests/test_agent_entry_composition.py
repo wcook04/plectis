@@ -894,9 +894,12 @@ def test_agent_entry_card_aliases_interesting_to_interesting_parts_route(
         "show me research parts",
         "show me science parts",
         "show me science workflows",
+        "scientific workflows",
         "show me mechanistic interpretability",
+        "replication",
         "show me chemistry",
         "show me materials chemistry",
+        "materials lab",
     ],
 )
 def test_agent_entry_card_aliases_research_specialties_to_research_route(
@@ -1035,6 +1038,8 @@ def test_agent_entry_card_aliases_math_to_formal_methods_route(task: str) -> Non
         "market",
         "show me markets",
         "prediction markets",
+        "prediction ledger",
+        "prediction lens",
         "show me prediction markets",
         "trading",
     ],
