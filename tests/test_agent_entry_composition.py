@@ -840,6 +840,9 @@ def test_agent_entry_card_aliases_market_boundary_to_market_boundary_route(
         "show me the formal verification parts",
         "show me proof stuff",
         "show me proof parts",
+        "show me proofs",
+        "proofs",
+        "proof system",
         "proof correctness",
         "does this prove correctness",
         "show me proof correctness",
@@ -945,6 +948,8 @@ def test_agent_entry_card_aliases_receipt_questions_to_evaluation_route(
     "task",
     [
         "show me Lean",
+        "show me Lean stuff",
+        "show me Lean parts",
         "Lean proofs",
         "show me Lean proofs",
         "show me the Lean proofs",
