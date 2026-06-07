@@ -452,6 +452,7 @@ def test_agent_entry_card_aliases_command_help_questions_to_getting_started_rout
         "what is the architecture",
         "where is the architecture",
         "how is this built",
+        "how is this organized",
         "show me specs",
         "where are the specs",
         "which files are generated",
