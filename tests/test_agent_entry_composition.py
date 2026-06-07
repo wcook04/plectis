@@ -413,6 +413,9 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
         "get started",
         "how do I install it",
         "how do I run it",
+        "run without installing",
+        "source-only install",
+        "source only",
         "does this run",
         "can I run this",
     ],
@@ -666,6 +669,10 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "show me release boundaries",
         "is this safe to publish",
         "show me claim ceilings",
+        "what is the public floor",
+        "show me public floor",
+        "what is the verification floor",
+        "show me verification floor",
         "is this production ready",
         "show me checks",
         "what checks can I run",
@@ -676,6 +683,7 @@ def test_agent_entry_card_aliases_compliance_questions_to_compliance_route(
         "make check",
         "make ci",
         "run make ci",
+        "what does make ci do",
         "run tests",
         "test it",
         "how do I test it",
@@ -1097,24 +1105,25 @@ def test_agent_entry_card_cli_writes_projection_and_receipt(tmp_path: Path) -> N
     assert receipt["selected_task_class"] == "agent-entry"
     assert receipt["selected_viewer"] == "all"
     assert receipt["selected_viewer_route_kind"] == "viewer_route_set"
-    assert card["artifact_paths"]["card_path"].startswith("<repo-root>/")
-    assert card["artifact_paths"]["receipt_path"].startswith("<repo-root>/")
+    public_path_prefixes = ("<repo-root>/", "<host-temp>/")
+    assert card["artifact_paths"]["card_path"].startswith(public_path_prefixes)
+    assert card["artifact_paths"]["receipt_path"].startswith(public_path_prefixes)
     assert card["artifact_paths"]["card_path"].endswith(
         "/agent_entry_composition_card.json"
     )
     assert card["artifact_paths"]["receipt_path"].endswith(
         "/agent_entry_composition_receipt.json"
     )
-    assert receipt["artifact_paths"]["card_path"].startswith("<repo-root>/")
-    assert receipt["artifact_paths"]["receipt_path"].startswith("<repo-root>/")
+    assert receipt["artifact_paths"]["card_path"].startswith(public_path_prefixes)
+    assert receipt["artifact_paths"]["receipt_path"].startswith(public_path_prefixes)
     assert receipt["artifact_paths"]["card_path"].endswith(
         "/agent_entry_composition_card.json"
     )
     assert receipt["artifact_paths"]["receipt_path"].endswith(
         "/agent_entry_composition_receipt.json"
     )
-    assert receipt["card_path"].startswith("<repo-root>/")
-    assert receipt["receipt_path"].startswith("<repo-root>/")
+    assert receipt["card_path"].startswith(public_path_prefixes)
+    assert receipt["receipt_path"].startswith(public_path_prefixes)
     assert receipt["card_path"].endswith("/agent_entry_composition_card.json")
     assert receipt["receipt_path"].endswith("/agent_entry_composition_receipt.json")
     assert receipt["validation"]["status"] == "pass"
