@@ -338,6 +338,7 @@ def test_agent_entry_card_aliases_identity_questions_to_agent_entry_route(
     "task",
     [
         "how do I evaluate it",
+        "how can I evaluate it",
         "how to evaluate",
         "evaluate",
         "run the checks",
