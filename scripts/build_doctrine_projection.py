@@ -72,6 +72,16 @@ STATUS_SURFACE_RELS = (
 
 
 def _surface_status(root: Path, rel: str) -> dict[str, Any]:
+    """Read one generated doctrine-projection surface and summarize its availability.
+
+    - Teleology: build a single compact status row (existence, size, counts, schema/id) for a projection surface without re-running the full builder.
+    - Guarantee: returns a dict with `path`, `exists`, and a `status` of "missing", "invalid_json", or "available"; for available JSON surfaces it adds schema_version, projection_status/id, and selected node/edge/coverage counts; for non-JSON it adds line_count.
+    - Fails: never raises for missing or malformed surfaces — missing -> status "missing", undecodable JSON -> status "invalid_json" with the error string; only an OSError on stat/read of an existing file would propagate.
+    - Reads: the generated surface at `root/rel` (size/mtime via stat, body via read_text/json.loads).
+    - When-needed: when an agent needs projection availability/counts but not a full --check rebuild.
+    - Escalates-to: build_doctrine_projection.py --check for full parity validation; the doctrine_lattice builder that regenerates the surface.
+    - Non-goal: does not validate parity or correctness of the surface, nor authorize treating the projection as source-of-truth.
+    """
     path = root / rel
     row: dict[str, Any] = {
         "path": rel,
@@ -124,6 +134,16 @@ def _surface_status(root: Path, rel: str) -> dict[str, Any]:
 
 
 def build_status_card(root: Path) -> dict[str, Any]:
+    """Aggregate per-surface status rows into the doctrine-projection status card.
+
+    - Teleology: cheap read-only availability card over the five doctrine-projection surfaces, replacing ad-hoc JSON probes and a full --check when only availability/counts are wanted.
+    - Guarantee: returns a status-card dict (schema microcosm_doctrine_projection_status_card_v1) whose `status` is "available" iff every surface row is "available", else "blocked"; carries one row per STATUS_SURFACE_RELS plus the missing_or_invalid path list.
+    - Fails: never raises beyond a propagating OSError from reading an existing surface; missing/invalid surfaces are reported as a "blocked" status, not an exception.
+    - Reads: the five generated surfaces in STATUS_SURFACE_RELS (via _surface_status).
+    - When-needed: the --status-only/--card lane, when an agent needs a glanceable projection-health card.
+    - Escalates-to: build_doctrine_projection.py --check (full_validation_command) for parity validation; the doctrine_lattice builder that regenerates these surfaces.
+    - Non-goal: this is a generated read-only projection of availability; it does not authorize release or treat the surfaces as source authority.
+    """
     rows = [_surface_status(root, rel) for rel in STATUS_SURFACE_RELS]
     missing_or_invalid = [
         row["path"]

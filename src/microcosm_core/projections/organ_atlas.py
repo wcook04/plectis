@@ -118,12 +118,35 @@ CLAIM_CEILING_LINE = (
 
 
 def _rows(payload: Any, key: str) -> list[dict[str, Any]]:
+    """Pull a list-of-dicts field from a loaded registry/ledger payload.
+
+    - Teleology: shared defensive accessor so every projection reader tolerates
+      malformed or missing source-registry shapes without exploding.
+    - Guarantee: returns only the dict elements under ``payload[key]``; returns
+      ``[]`` when ``payload`` is not a dict or the key is absent/non-list.
+    - Fails: never raises; non-dict payload or missing key yields ``[]``.
+    - Reads: in-memory payload already loaded from a ``core/*.json`` registry.
+    - Non-goal: does not validate row schemas, authorize release, or treat the
+      filtered rows as source-of-truth authority.
+    """
     if not isinstance(payload, dict):
         return []
     return [row for row in payload.get(key, []) if isinstance(row, dict)]
 
 
 def _accepted_registry_rows(root: Path) -> list[dict[str, Any]]:
+    """Read the accepted-authority organ rows from the registry of record.
+
+    - Teleology: the single chokepoint that decides which organs are public
+      atlas members, by filtering the registry to accepted-current-authority.
+    - Guarantee: returns only ``implemented_organs`` rows whose ``status`` is
+      ``accepted_current_authority``; never includes draft/superseded rows.
+    - Fails: raises whatever ``read_json_strict`` raises on missing/invalid
+      ``core/organ_registry.json``; otherwise returns ``[]`` when none accepted.
+    - Reads: ``core/organ_registry.json`` (``REGISTRY_REL``).
+    - Non-goal: does not authorize release, source-body export, or any claim
+      above each accepted organ's own registry-stated claim ceiling.
+    """
     registry = read_json_strict(root / REGISTRY_REL)
     return [
         row
@@ -133,7 +156,20 @@ def _accepted_registry_rows(root: Path) -> list[dict[str, Any]]:
 
 
 def _paper_module_ref(root: Path, organ_id: str, gloss: dict[str, Any]) -> str | None:
-    """Best-effort paper-module path for an organ (used for drilldown links)."""
+    """Best-effort paper-module path for an organ (used for drilldown links).
+
+    - Teleology: resolves a real on-disk paper-module path so atlas cards can
+      offer a verifiable drilldown link instead of a dangling reference.
+    - Guarantee: returns a repo-relative path only when the referenced file
+      actually exists on disk; otherwise returns ``None``.
+    - Fails: returns ``None`` when no declared/derived path resolves to a file;
+      may raise via ``read_json_strict`` only when a referenced capsule doc is
+      itself malformed JSON.
+    - Reads: ``gloss['paper_module_ref']``, ``paper_modules/<organ_id>.md``, and
+      capsule docs for fragment resolution.
+    - Non-goal: does not author the paper module, authorize release, or assert
+      the linked module is correct.
+    """
     declared = str(gloss.get("paper_module_ref") or "").strip()
     if declared:
         if (root / declared).is_file():
@@ -156,6 +192,18 @@ def _paper_module_ref(root: Path, organ_id: str, gloss: dict[str, Any]) -> str |
 
 
 def _paper_module_capsules(root: Path) -> list[dict[str, Any]]:
+    """Load the paper-module capsule rows used for one-line/card compression.
+
+    - Teleology: source the compression substrate (one_line/card/authority
+      ceiling) that the atlas glance ladder and route rows project.
+    - Guarantee: returns the ``paper_modules`` dict rows from the capsule file;
+      returns ``[]`` when the capsule file is absent.
+    - Fails: returns ``[]`` on a missing file; raises via ``read_json_strict``
+      only when the present file is invalid JSON.
+    - Reads: ``core/paper_module_capsules.json`` (``PAPER_MODULE_CAPSULES_REL``).
+    - Non-goal: does not author capsules, authorize release, or treat the
+      compression text as proof authority.
+    """
     path = root / PAPER_MODULE_CAPSULES_REL
     if not path.is_file():
         return []
@@ -164,7 +212,16 @@ def _paper_module_capsules(root: Path) -> list[dict[str, Any]]:
 
 
 def _capsule_index(capsules: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Build supported organ/paper-module lookup keys for capsule compression."""
+    """Build supported organ/paper-module lookup keys for capsule compression.
+
+    - Teleology: precompute every alias (capsule id, legacy projection path,
+      organ-subject ref) so per-organ capsule lookup is one dict hit.
+    - Guarantee: returns a key->capsule map where first-writer wins per key
+      (``setdefault``); empty keys are skipped.
+    - Fails: never raises; non-dict subjects are skipped and yield a smaller map.
+    - Non-goal: does not deduplicate capsule bodies, validate refs, or authorize
+      treating the index as authority over the registry.
+    """
     index: dict[str, dict[str, Any]] = {}
     for row in capsules:
         capsule_id = str(row.get("id") or "").strip()
@@ -193,6 +250,18 @@ def _capsule_for_gloss(
     gloss: dict[str, Any],
     capsule_by_key: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, Any] | None, str]:
+    """Resolve the compression capsule for one organ via ordered alias keys.
+
+    - Teleology: bind each organ card to its compression source, preferring an
+      exact paper-module match before falling back to bridged refs.
+    - Guarantee: returns ``(capsule, status)`` where status is ``direct`` for an
+      organ-keyed capsule, ``paper_module_ref_bridge`` for a bridged ref, or
+      ``missing`` with ``None`` when no alias resolves.
+    - Fails: never raises on lookup; may raise via ``_paper_module_ref`` only if
+      a referenced capsule doc is malformed JSON.
+    - Reads: ``gloss['paper_module_ref']`` plus the prebuilt ``capsule_by_key``.
+    - Non-goal: does not author capsules or authorize release/proof authority.
+    """
     declared = str(gloss.get("paper_module_ref") or "").strip()
     lookup_keys: list[str] = []
     if declared:
@@ -224,6 +293,16 @@ def _capsule_for_gloss(
 
 
 def _capsule_subject_refs(row: dict[str, Any], kind: str) -> set[str]:
+    """Collect a capsule row's subject refs of one kind (organ/mechanism).
+
+    - Teleology: classify capsules by what they describe so capsule accounting
+      can separate organ-backed from mechanism-only rows.
+    - Guarantee: returns the set of ``ref`` strings for subjects whose ``kind``
+      matches; empty set when none match.
+    - Fails: never raises; non-dict or kind-mismatched subjects are skipped.
+    - Non-goal: does not validate the refs resolve, nor authorize any release
+      or correctness claim from subject membership.
+    """
     refs: set[str] = set()
     for subject in row.get("subjects") or []:
         if isinstance(subject, dict) and subject.get("kind") == kind and subject.get("ref"):
@@ -232,7 +311,17 @@ def _capsule_subject_refs(row: dict[str, Any], kind: str) -> set[str]:
 
 
 def _organ_doctrine_by_id(root: Path) -> dict[str, dict[str, Any]]:
-    """Projected concept/mechanism rows keyed by accepted organ id."""
+    """Projected concept/mechanism rows keyed by accepted organ id.
+
+    - Teleology: index the concept/mechanism read-model so card merge can attach
+      doctrine bindings and surface refs per organ in O(1).
+    - Guarantee: returns a map from ``organ_id`` to its doctrine row for every
+      row that carries an ``organ_id``.
+    - Fails: raises whatever ``build_organ_doctrine_rows`` raises on bad source;
+      otherwise rows lacking ``organ_id`` are dropped.
+    - Reads: the concept/mechanism read model via ``build_organ_doctrine_rows``.
+    - Non-goal: does not author doctrine or authorize release/proof authority.
+    """
     return {
         str(row.get("organ_id")): row
         for row in build_organ_doctrine_rows(root)
@@ -241,17 +330,45 @@ def _organ_doctrine_by_id(root: Path) -> dict[str, dict[str, Any]]:
 
 
 def _first_n_sorted(values: set[str], limit: int) -> list[str]:
+    """Deterministically pick the first N non-empty values in sorted order.
+
+    - Teleology: keep generated handles stable and bounded so the projection is
+      byte-reproducible and small enough for route rows.
+    - Guarantee: returns up to ``limit`` truthy values in ascending sort order.
+    - Fails: never raises; empty input or ``limit<=0`` yields ``[]``.
+    - Non-goal: does not rank by importance or authorize the truncated list as
+      a complete inventory.
+    """
     return sorted(value for value in values if value)[:limit]
 
 
 def _organ_topology_command(*parts: str) -> str:
-    """Render a shell-safe public drilldown command."""
+    """Render a shell-safe public drilldown command.
+
+    - Teleology: emit copy-pasteable ``microcosm organ-topology`` drilldowns in
+      generated docs without shell-injection hazards.
+    - Guarantee: returns a single space-joined command with every part
+      ``shlex.quote``-escaped, prefixed with ``microcosm organ-topology``.
+    - Fails: never raises; zero extra parts yields the bare base command.
+    - Non-goal: does not execute the command or authorize what it returns.
+    """
     return " ".join(
         shlex.quote(part) for part in ("microcosm", "organ-topology", *parts)
     )
 
 
 def _edge_sort_key(edge: dict[str, Any]) -> tuple[int, str, str, str, str]:
+    """Order a source-module relation edge by relation priority then refs.
+
+    - Teleology: give example-edge selection a stable, priority-aware order so
+      the most load-bearing relation types surface first and output is
+      reproducible.
+    - Guarantee: returns a sort tuple (priority rank, source_ref, target_ref,
+      source_shard_ref, validation_ref); unknown relation types rank 99.
+    - Fails: never raises; missing fields coerce to ``""``.
+    - Reads: ``SOURCE_RELATION_PRIORITY`` for the rank lookup.
+    - Non-goal: does not filter edges or authorize the top edges as authority.
+    """
     relation_type = str(edge.get("relation_type") or "")
     return (
         SOURCE_RELATION_PRIORITY.get(relation_type, 99),
@@ -263,7 +380,17 @@ def _edge_sort_key(edge: dict[str, Any]) -> tuple[int, str, str, str, str]:
 
 
 def _source_relation_edge_handle(edge: dict[str, Any]) -> dict[str, Any]:
-    """Compact, body-free handle for one source-module relation edge."""
+    """Compact, body-free handle for one source-module relation edge.
+
+    - Teleology: expose enough of a macro->public relation edge to route into
+      ``organ-topology`` while never carrying source bodies into the projection.
+    - Guarantee: returns only the whitelisted ref/anchor keys that are truthy on
+      the edge; no body text, digests, or private paths are included.
+    - Fails: never raises; an empty edge yields ``{}``.
+    - Reads: the relation-type/ref/anchor fields of one edge dict.
+    - Non-goal: does not authorize source-body export, public-safe equivalence,
+      or treating the handle as the edge authority (that stays in organ-topology).
+    """
     keys = (
         "relation_type",
         "source_ref",
@@ -280,6 +407,19 @@ def _source_relation_summary_for_organ(
     organ_id: str,
     edges: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """Summarize one organ's source-module edges into a body-free handle.
+
+    - Teleology: compress a macro->public file/shard relation set into counts,
+      top refs, and drilldown commands an agent can act on without bodies.
+    - Guarantee: returns a dict with per-ref counts, sorted top-N refs, relation
+      counts, ``query_examples``, and at most 3 ``example_edges``; carries an
+      ``authority_boundary`` pointing edge truth to ``organ-topology``.
+    - Fails: never raises; an empty ``edges`` list yields zero counts and empty
+      ref/example lists.
+    - Reads: the source/target file/shard and validation refs on each edge.
+    - Non-goal: does not export source bodies, claim public-safe equivalence, or
+      authorize release; the summary is a router, not the edge authority.
+    """
     relation_counts = Counter(
         str(edge.get("relation_type") or "") for edge in edges if edge.get("relation_type")
     )
@@ -367,7 +507,18 @@ def _source_relation_summary_for_organ(
 
 
 def _source_relation_summaries_by_organ(root: Path) -> dict[str, dict[str, Any]]:
-    """Build compact source-module relation handles keyed by organ id."""
+    """Build compact source-module relation handles keyed by organ id.
+
+    - Teleology: pull the source-module file graph from the surface contract and
+      reduce it to one body-free handle per organ for atlas/route rows.
+    - Guarantee: returns ``{organ_id: summary}`` only for organs with at least
+      one dict edge; returns ``{}`` when the file graph is not a dict.
+    - Fails: raises whatever ``build_organ_surface_contract`` raises on bad
+      source; ``KeyError`` if the contract lacks ``coverage.source_module_file_graph``.
+    - Reads: ``build_organ_surface_contract(root)['coverage']['source_module_file_graph']``.
+    - Non-goal: does not export source bodies or authorize the handles as the
+      dynamic edge authority (that remains ``microcosm organ-topology``).
+    """
     payload = build_organ_surface_contract(root)
     file_graph = payload["coverage"]["source_module_file_graph"]
     edges_by_organ = file_graph.get("edges_by_organ", {})
@@ -389,6 +540,19 @@ def _route_source_relation_summary(
     task_class: str,
     organ_summaries: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """Aggregate per-organ source-relation handles into one task-class handle.
+
+    - Teleology: roll the relevant organs' body-free relation handles up to a
+      single task-route (or architecture) summary without losing drilldowns.
+    - Guarantee: returns a dict summing edge/ref counts, merging relation counts
+      and top refs, capping ``query_examples`` and ``example_edges`` to 5; carries
+      an ``authority_boundary`` deferring edge truth to ``organ-topology``.
+    - Fails: never raises; an empty ``organ_summaries`` yields zero counts and
+      empty lists.
+    - Reads: the count/top-ref/example fields of each per-organ summary.
+    - Non-goal: does not export source bodies or authorize the aggregate as the
+      edge authority or as a release signal.
+    """
     relation_counts: Counter[str] = Counter()
     source_refs: set[str] = set()
     target_refs: set[str] = set()
@@ -485,7 +649,17 @@ def _source_relation_route_handle(
     organ_id: str,
     summary: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
-    """Small per-organ pointer for generated route rows."""
+    """Small per-organ pointer for generated route rows.
+
+    - Teleology: give each route-row organ a tiny relation pointer (ref path,
+      counts, one query) so the route stays compact but drillable.
+    - Guarantee: returns a dict with the ``edges_by_organ`` ref handle, the
+      per-ref counts, and the first query example; returns ``None`` when no
+      summary is provided.
+    - Fails: never raises; missing summary fields default to 0 / empty string.
+    - Reads: the count fields and ``query_examples`` of the per-organ summary.
+    - Non-goal: does not export edge bodies or authorize the handle as authority.
+    """
     if not isinstance(summary, dict):
         return None
     query_examples = summary.get("query_examples") or []
@@ -505,6 +679,18 @@ def _source_relation_route_handle(
 
 
 def _source_relation_md_line(card: dict[str, Any]) -> str:
+    """Render the ORGANS.md "Source relations" line for one organ card.
+
+    - Teleology: present a card's body-free source-edge counts plus a copyable
+      drilldown inside the generated organ atlas.
+    - Guarantee: returns a single markdown string; when no summary exists,
+      returns a "no source-module edges recorded" line with a base drilldown.
+    - Fails: never raises for a well-formed card; ``KeyError`` only if the card
+      lacks ``organ_id``.
+    - Reads: ``card['source_relation_summary']`` and ``card['organ_id']``.
+    - Escalates-to: ``microcosm organ-topology`` for the live edge authority.
+    - Non-goal: does not export source bodies or assert release/correctness.
+    """
     organ_id = str(card["organ_id"])
     summary = card.get("source_relation_summary")
     query = _organ_topology_command("--organ", organ_id)
@@ -533,7 +719,18 @@ def _source_relation_md_line(card: dict[str, Any]) -> str:
 
 
 def _architecture_source_relation_summary(model: dict[str, Any]) -> dict[str, Any]:
-    """Aggregate body-free source relation handles across all accepted organs."""
+    """Aggregate body-free source relation handles across all accepted organs.
+
+    - Teleology: build the architecture-page-wide source-relation rollup from
+      every card's per-organ handle.
+    - Guarantee: returns a ``_route_source_relation_summary`` keyed to the
+      ``architecture`` task class over all card summaries present in the model.
+    - Fails: never raises; cards without a dict summary are skipped, yielding a
+      zero-count aggregate when none are present.
+    - Reads: ``model['families'][*]['cards'][*]['source_relation_summary']``.
+    - Non-goal: does not export source bodies or authorize release; edge truth
+      stays in ``organ-topology``.
+    """
     summaries = [
         summary
         for family in model.get("families", [])
@@ -545,7 +742,16 @@ def _architecture_source_relation_summary(model: dict[str, Any]) -> dict[str, An
 
 
 def _architecture_source_relation_commands(summary: dict[str, Any]) -> list[str]:
-    """Pick stable architecture drilldowns from the aggregate relation summary."""
+    """Pick stable architecture drilldowns from the aggregate relation summary.
+
+    - Teleology: choose a small, deterministic set of ``organ-topology`` commands
+      for the architecture page's "route into topology" block.
+    - Guarantee: returns at most 5 de-duplicated command strings, seeded from the
+      summary's query examples then top source/shard/validation refs.
+    - Fails: never raises; an empty summary yields ``[]``.
+    - Reads: ``query_examples`` and ``top_*`` refs on the aggregate summary.
+    - Non-goal: does not execute commands or authorize them as edge authority.
+    """
     commands: list[str] = []
     for example in summary.get("query_examples") or []:
         command = str(example)
@@ -596,6 +802,28 @@ def load_model(root: str | Path) -> dict[str, Any]:
     the merged ``families`` (each with resolved organ cards), the evidence-class
     legend, the kernel primitives, and coverage counts. Fails closed: any
     registry/family/gloss mismatch or empty gloss field blocks the model.
+
+    - Teleology: the single merged, honesty-validated atlas model that every
+      render path and the public-entry drift gate consume.
+    - Guarantee: returns ``status='pass'`` only when registry/family/gloss
+      coverage, anti-overclaim, negated-ceiling, specialty, wires_to, and capsule
+      compression checks all pass; otherwise ``status='blocked'`` with the
+      offending checks listed in ``blocking_reasons`` and ``coverage``.
+    - Fails: never raises on honesty failures (records them and blocks); raises
+      via ``read_json_strict`` only when a required ``core/*.json`` is missing or
+      malformed.
+    - When-needed: inspect when building/checking the atlas, debugging a blocked
+      build, or auditing what is accepted into the public organ spine.
+    - Reads: ``core/organ_registry.json``, ``core/organ_families.json``,
+      ``core/organ_atlas.json``, ``core/organ_evidence_classes.json``,
+      ``core/substrate_substitution_ledger.json``,
+      ``core/paper_module_capsules.json``, ``core/architecture_kernel.json``.
+    - Escalates-to: ``microcosm_core.validators.public_entry_docs`` and
+      ``tests/test_organ_atlas.py`` for the contract; the source registries above
+      for authority.
+    - Non-goal: a passing model does not authorize release, hosted deployment,
+      provider calls, source mutation, private-root equivalence, or proof
+      authority above each organ's own claim ceiling.
     """
     root = Path(root)
     registry_rows = _accepted_registry_rows(root)
@@ -944,12 +1172,30 @@ def load_model(root: str | Path) -> dict[str, Any]:
 
 
 def _anchor(label: str) -> str:
-    """GitHub-flavored heading anchor: lowercase, drop punctuation, spaces -> hyphens."""
+    """GitHub-flavored heading anchor: lowercase, drop punctuation, spaces -> hyphens.
+
+    - Teleology: produce stable in-doc anchors so generated cross-links between
+      ORGANS.md/ARCHITECTURE.md resolve.
+    - Guarantee: returns a lowercased slug with punctuation stripped and spaces
+      replaced by hyphens.
+    - Fails: never raises; an empty label yields ``""``.
+    - Non-goal: does not guarantee global uniqueness or authorize the anchor as
+      a stable external API.
+    """
     slug = re.sub(r"[^a-z0-9 -]", "", label.lower())
     return slug.replace(" ", "-")
 
 
 def _strength_bar(rank: Any) -> str:
+    """Render an evidence-strength rank as an ``N/5`` legend cell.
+
+    - Teleology: show each organ's evidence-strength rank as a bounded legend,
+      explicitly not a maturity or release score.
+    - Guarantee: returns ``"<int>/5"`` for an int-coercible rank; ``"?"`` when
+      the rank is missing or non-numeric.
+    - Fails: never raises; ``TypeError``/``ValueError`` are caught and return "?".
+    - Non-goal: does not assert the rank is a quality/maturity/release signal.
+    """
     try:
         n = int(rank)
     except (TypeError, ValueError):
@@ -958,33 +1204,101 @@ def _strength_bar(rank: Any) -> str:
 
 
 def _one_line(value: Any) -> str:
+    """Collapse any value to a single whitespace-normalized line.
+
+    - Teleology: keep generated table cells and bullets one line so markdown
+      tables and the glance ladder stay well-formed.
+    - Guarantee: returns the string form of ``value`` with all runs of
+      whitespace collapsed to single spaces and ends trimmed.
+    - Fails: never raises; ``None``/falsey input yields ``""``.
+    - Non-goal: does not escape markdown; pair with ``_md_cell`` for table cells.
+    """
     return " ".join(str(value or "").split())
 
 
 def _md_cell(value: Any) -> str:
+    """One-line a value and escape pipes for safe markdown table cells.
+
+    - Teleology: prevent stray ``|`` in organ text from breaking generated
+      markdown tables.
+    - Guarantee: returns a single line with every ``|`` backslash-escaped.
+    - Fails: never raises; falsey input yields ``""``.
+    - Non-goal: does not escape brackets/links; use ``_md_link_label`` for those.
+    """
     return _one_line(value).replace("|", "\\|")
 
 
 def _md_link_label(value: Any) -> str:
+    """One-line a value and escape brackets for safe markdown link labels.
+
+    - Teleology: keep ``[label](target)`` link text from breaking when a label
+      contains square brackets.
+    - Guarantee: returns a single line with ``[`` and ``]`` backslash-escaped.
+    - Fails: never raises; falsey input yields ``""``.
+    - Non-goal: does not escape pipes; use ``_md_cell`` for table cells.
+    """
     return _one_line(value).replace("[", "\\[").replace("]", "\\]")
 
 
 def _organ_anchor(card: dict[str, Any]) -> str:
+    """Build the cross-file ORGANS.md drilldown anchor for an organ card.
+
+    - Teleology: let route rows and aggregates link from any generated doc back
+      to the organ's full card in ORGANS.md.
+    - Guarantee: returns ``ORGANS.md#<anchor>`` derived from the card's
+      ``display_name`` (falling back to ``organ_id``).
+    - Fails: ``KeyError`` only if the card lacks both ``display_name`` and
+      ``organ_id``; otherwise never raises.
+    - Reads: ``card['display_name']`` then ``card['organ_id']``.
+    - Non-goal: does not verify the anchor exists in the rendered file.
+    """
     title = str(card.get("display_name") or card["organ_id"])
     return f"ORGANS.md#{_anchor(title)}"
 
 
 def _organ_anchor_local(card: dict[str, Any]) -> str:
+    """Build the in-page (#fragment) anchor for an organ card.
+
+    - Teleology: link within ORGANS.md (glance ladder -> full card) without a
+      file prefix.
+    - Guarantee: returns ``#<anchor>`` derived from ``display_name`` (fallback
+      ``organ_id``).
+    - Fails: ``KeyError`` only if the card lacks both keys; otherwise never raises.
+    - Reads: ``card['display_name']`` then ``card['organ_id']``.
+    - Non-goal: does not verify the target heading is rendered.
+    """
     title = str(card.get("display_name") or card["organ_id"])
     return f"#{_anchor(title)}"
 
 
 def _organ_local_link(card: dict[str, Any]) -> str:
+    """Render a full in-page markdown link to an organ card.
+
+    - Teleology: emit ``[display name](#anchor)`` links in the specialty index so
+      readers jump straight to a card.
+    - Guarantee: returns a markdown link with a bracket-escaped label and the
+      card's local anchor target.
+    - Fails: ``KeyError`` only if the card lacks both ``display_name`` and
+      ``organ_id``; otherwise never raises.
+    - Reads: ``card['display_name']`` then ``card['organ_id']``.
+    - Non-goal: does not verify the anchor resolves in the rendered file.
+    """
     label = card.get("display_name") or card["organ_id"]
     return f"[{_md_link_label(label)}]({_organ_anchor_local(card)})"
 
 
 def _capsule_accounting_md(model: dict[str, Any]) -> str:
+    """Render the "why the counts are honest" capsule-accounting paragraph.
+
+    - Teleology: explain in-doc why accepted-organ, capsule, and paper-module
+      counts legitimately differ, pre-empting a false "missing organ" read.
+    - Guarantee: returns a markdown paragraph stating the four counts and the
+      mechanism-only / unused-capsule reconciliation, plus the count boundary.
+    - Fails: never raises; missing accounting fields render as ``None`` text.
+    - Reads: ``model['capsule_accounting']``.
+    - Non-goal: does not recompute the counts (it formats them) or authorize
+      any release/completeness claim from count parity.
+    """
     accounting = model.get("capsule_accounting") or {}
     used_mechanism_only = accounting.get("mechanism_only_capsules_used_by_accepted_organs") or []
     unused_capsules = accounting.get("capsule_rows_not_used_by_accepted_organs") or []
@@ -1008,6 +1322,18 @@ def _capsule_accounting_md(model: dict[str, Any]) -> str:
 
 
 def _organ_glance_row(card: dict[str, Any], family_label: str) -> dict[str, Any]:
+    """Project one organ card into a compact glance-ladder row.
+
+    - Teleology: give the JSON read model a small per-organ row (one_line, card,
+      authority ceiling, first command, drilldown) for the glance ladder.
+    - Guarantee: returns a dict carrying the card's compression fields with the
+      authority ceiling exposed under three alias keys and a stable drilldown
+      target; missing fields default to ``""``.
+    - Fails: ``KeyError`` only if the card lacks ``organ_id``; otherwise never
+      raises.
+    - Reads: the compression/identity fields of one merged card.
+    - Non-goal: does not re-rank organs or authorize release/proof authority.
+    """
     authority_ceiling = card.get("compression_authority_ceiling") or ""
     drilldown_target = _organ_anchor(card)
     return {
@@ -1031,6 +1357,17 @@ def _organ_glance_row(card: dict[str, Any], family_label: str) -> dict[str, Any]
 
 
 def _organ_glance_ladder(model: dict[str, Any]) -> list[dict[str, Any]]:
+    """Project the whole model into a family-grouped glance ladder.
+
+    - Teleology: the "every organ in one line" structure the JSON read model
+      exposes, preserving canonical family order.
+    - Guarantee: returns a list of family dicts each with its label, organ count,
+      and ``_organ_glance_row`` rows for its cards.
+    - Fails: never raises for a well-formed model; an empty ``families`` yields
+      ``[]``.
+    - Reads: ``model['families']`` and each card within.
+    - Non-goal: does not re-order families/organs or authorize release.
+    """
     families: list[dict[str, Any]] = []
     for fam in model.get("families", []):
         family_label = str(fam.get("label") or fam.get("family_id") or "")
@@ -1053,12 +1390,40 @@ def _primary_route_card(cards: list[dict[str, Any]]) -> dict[str, Any]:
 
     The family/atlas order is already curated. Do not silently re-rank routes
     by evidence strength; the task row remains a selector, not a maturity score.
+
+    - Teleology: pick the atlas-ordered first organ as a task class's primary
+      route, deliberately honoring curated order over evidence strength.
+    - Guarantee: returns ``cards[0]`` unchanged; never reorders by rank/score.
+    - Fails: raises ``IndexError`` if ``cards`` is empty (callers pass non-empty
+      task-class card lists).
+    - Non-goal: does not rank by maturity or authorize the primary as a quality
+      or release signal.
     """
     return cards[0]
 
 
 def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
-    """Build the generated agent task-route read model from atlas cards."""
+    """Build the generated agent task-route read model from atlas cards.
+
+    - Teleology: project the merged model into the GENERATED
+      ``atlas/agent_task_routes.json`` read model that selects organs by task
+      class for agents.
+    - Guarantee: returns a dict with ``schema_version``, ``source_refs``,
+      ``generation`` (do-not-hand-edit marker), per-task ``routes`` with a
+      primary organ + relevant organs + source-relation handles, the glance
+      ladder, and capsule accounting.
+    - Fails: never raises for a passing model; ``KeyError`` if called on a
+      malformed model lacking ``families``/``coverage``.
+    - When-needed: inspect when building the routes file or debugging which organ
+      a task class resolves to.
+    - Reads: ``model['families']`` cards and ``model['coverage']``.
+    - Writes: nothing directly; ``build(write=True)`` serializes this to
+      ``atlas/agent_task_routes.json``.
+    - Escalates-to: ``scripts/build_organ_atlas.py --write`` to regenerate;
+      ``load_model`` for the upstream source registries.
+    - Non-goal: the projection is not source authority and authorizes no release,
+      provider calls, source mutation, or whole-system correctness.
+    """
     by_task: dict[str, list[dict[str, Any]]] = {}
     for fam in model["families"]:
         for card in fam["cards"]:
@@ -1202,6 +1567,24 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
 
 
 def render_agent_routes_md(model: dict[str, Any]) -> str:
+    """Render the GENERATED AGENT_ROUTES.md task-route table from the model.
+
+    - Teleology: the human/agent-readable markdown projection of the task-route
+      read model, with first commands, source-relation handles, and stop
+      conditions per task class.
+    - Guarantee: returns the full AGENT_ROUTES.md text including the
+      do-not-hand-edit marker, the claim-ceiling line, and one table row per
+      task class.
+    - Fails: never raises for a passing model; inherits any error from
+      ``render_agent_task_routes_json`` on a malformed model.
+    - When-needed: inspect when checking AGENT_ROUTES.md drift or task routing.
+    - Reads: the merged model (via ``render_agent_task_routes_json``).
+    - Writes: nothing directly; ``build(write=True)`` writes the returned text to
+      ``AGENT_ROUTES.md``.
+    - Escalates-to: ``scripts/build_organ_atlas.py --write`` to regenerate.
+    - Non-goal: not source authority; authorizes no release, provider calls, or
+      whole-system correctness.
+    """
     route_model = render_agent_task_routes_json(model)
     out: list[str] = []
     out.append("# Microcosm Agent Task Routes")
@@ -1298,6 +1681,24 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
 
 
 def render_organs_md(model: dict[str, Any]) -> str:
+    """Render the GENERATED ORGANS.md atlas (glance ladder + full cards).
+
+    - Teleology: the comprehension layer over every accepted organ — at-a-glance
+      one-lines, specialty index, evidence-class legend, and per-organ cards.
+    - Guarantee: returns the full ORGANS.md text with the do-not-hand-edit
+      marker, the claim-ceiling line, and a card per organ stating what it does
+      NOT authorize.
+    - Fails: never raises for a passing model; ``KeyError`` if called on a model
+      lacking ``families``/``coverage``/``class_profiles``.
+    - When-needed: inspect when checking ORGANS.md drift or an organ's card copy.
+    - Reads: ``model['families']``, ``model['coverage']``,
+      ``model['class_profiles']``, ``model['capsule_accounting']``.
+    - Writes: nothing directly; ``build(write=True)`` writes it to ``ORGANS.md``.
+    - Escalates-to: ``scripts/build_organ_atlas.py --write``; the source
+      registries via ``load_model`` for authority.
+    - Non-goal: not source authority; authorizes no release, provider calls,
+      source mutation, private-root equivalence, or proof authority.
+    """
     out: list[str] = []
     out.append("# Microcosm Organ Atlas")
     out.append("")
@@ -1511,6 +1912,27 @@ def render_organs_md(model: dict[str, Any]) -> str:
 
 
 def render_architecture_md(model: dict[str, Any]) -> str:
+    """Render the GENERATED ARCHITECTURE.md system-shape page from the model.
+
+    - Teleology: the top-down architecture projection — identity, runtime loop,
+      claim/evidence loop, source-module routing, kernel primitives, organ
+      families, wiring map, and the import/drift membrane.
+    - Guarantee: returns the full ARCHITECTURE.md text with the do-not-hand-edit
+      marker, mermaid diagrams that resolve to real commands/files, and the
+      claim-ceiling line.
+    - Fails: never raises for a passing model; ``KeyError`` if called on a model
+      lacking ``families``/``coverage``/``kernel_primitives``.
+    - When-needed: inspect when checking ARCHITECTURE.md drift or the rendered
+      system shape.
+    - Reads: ``model['families']``, ``model['coverage']``,
+      ``model['kernel_primitives']``, per-card ``source_relation_summary``.
+    - Writes: nothing directly; ``build(write=True)`` writes it to
+      ``ARCHITECTURE.md``.
+    - Escalates-to: ``scripts/build_organ_atlas.py --write``; ``organ-topology``
+      for live source-edge truth.
+    - Non-goal: not source authority; authorizes no release, hosted deployment,
+      provider calls, source mutation, or proof/production authority.
+    """
     out: list[str] = []
     out.append("# Microcosm Architecture at a Glance")
     out.append("")
@@ -1768,6 +2190,29 @@ def build(root: str | Path, *, write: bool) -> dict[str, Any]:
 
     In ``--check`` callers, pass ``write=False`` and compare the returned
     rendered outputs to the on-disk files.
+
+    - Teleology: the single build/check entrypoint that renders all four
+      generated atlas surfaces and either writes them or reports drift.
+    - Guarantee: returns a dict with ``status``, ``blocking_reasons``,
+      ``coverage``, ``drift`` (files differing from on-disk), ``wrote`` (paths
+      written), and the rendered outputs. Writes ORGANS.md, ARCHITECTURE.md,
+      AGENT_ROUTES.md, and ``atlas/agent_task_routes.json`` ONLY when
+      ``write=True`` AND ``model['status'] == 'pass'``; on write, ``drift`` is
+      cleared.
+    - Fails: never raises on honesty failures (a blocked model writes nothing and
+      returns ``status='blocked'``); raises via ``load_model`` only on missing or
+      malformed ``core/*.json`` sources.
+    - When-needed: inspect when generating the atlas (``--write``) or running the
+      drift gate (``--check``).
+    - Reads: the source registries via ``load_model``; existing on-disk generated
+      files for drift comparison.
+    - Writes: ``ORGANS.md``, ``ARCHITECTURE.md``, ``AGENT_ROUTES.md``,
+      ``atlas/agent_task_routes.json`` (only when write=True and status passes).
+    - Escalates-to: ``scripts/build_organ_atlas.py`` (CLI wrapper) and
+      ``microcosm_core.validators.public_entry_docs`` (the drift gate).
+    - Non-goal: writing the files does not authorize release, hosted deployment,
+      provider calls, source mutation, private-root equivalence, or proof
+      authority above each organ's own claim ceiling.
     """
     root = Path(root)
     model = load_model(root)

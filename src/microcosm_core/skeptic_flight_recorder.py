@@ -96,6 +96,15 @@ SELECTED_JSON_KEYS = (
 
 @dataclass(frozen=True)
 class CommandSpec:
+    """Frozen plan for one probe command: its public display argv vs the private argv actually run.
+
+    - Teleology: split the human/public-safe `display_argv` from the real `actual_argv` so the packet can publish a redacted command without leaking the private subprocess invocation.
+    - Guarantee: an immutable record carrying command_id, display_argv, actual_argv, stdout/stderr relpaths, and timeout_seconds (default 60); never mutated after construction.
+    - Fails: never raises; frozen-dataclass assignment after init raises FrozenInstanceError.
+    - When-needed: inspecting which commands the recorder runs and how their public projection is derived.
+    - Escalates-to: command_plan (the builder that constructs every CommandSpec).
+    """
+
     command_id: str
     display_argv: list[str]
     actual_argv: list[str]
@@ -106,6 +115,15 @@ class CommandSpec:
 
 @dataclass(frozen=True)
 class RunnerResult:
+    """Frozen capture of one subprocess outcome: return code, raw stdout/stderr bytes, wall duration.
+
+    - Teleology: the transport object between a Runner and the recorder, carrying raw evidence bytes so digests and outputs are taken from exactly what ran.
+    - Guarantee: an immutable record with returncode:int, stdout:bytes, stderr:bytes, duration_seconds:float; bytes are the unmodified process output.
+    - Fails: never raises; frozen-dataclass assignment after init raises FrozenInstanceError.
+    - When-needed: tracing how a command's bytes flow from runner into the per-command receipt.
+    - Escalates-to: default_runner (the default Runner that produces this) and _execute_command (the consumer).
+    """
+
     returncode: int
     stdout: bytes
     stderr: bytes
@@ -117,19 +135,47 @@ SourceSnapshotter = Callable[[Path], dict[str, str]]
 
 
 def utc_now() -> str:
+    """Return the current UTC instant as a second-resolution ISO-8601 timestamp.
+
+    - Teleology: single deterministic clock source so packets and receipts stamp time consistently.
+    - Guarantee: returns an ISO-8601 string in UTC with microseconds dropped (e.g. "2026-06-08T00:00:00+00:00").
+    - Fails: never raises under normal operation.
+    """
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def default_out_dir(now: str | None = None) -> Path:
+    """Derive the default timestamped output directory under DEFAULT_OUT_ROOT.
+
+    - Teleology: give each recorder run a unique, sortable, filesystem-safe destination without colliding prior runs.
+    - Guarantee: returns DEFAULT_OUT_ROOT / <stamp>, where stamp is the timestamp with ":" stripped and "+00:00" folded to "Z".
+    - Fails: never raises; returns a Path even if the directory does not yet exist.
+    - Reads: utc_now() when `now` is not supplied.
+    """
     stamp = (now or utc_now()).replace(":", "").replace("+00:00", "Z")
     return DEFAULT_OUT_ROOT / stamp
 
 
 def sha256_bytes(data: bytes) -> str:
+    """Return the hex SHA-256 digest of an in-memory byte string.
+
+    - Teleology: the content-addressing primitive backing every digest field the verifier later re-checks.
+    - Guarantee: returns the lowercase 64-char hex SHA-256 of `data`; identical bytes always yield the same digest.
+    - Fails: raises TypeError if `data` is not bytes-like.
+    - Escalates-to: sha256_file (the streaming on-disk equivalent).
+    """
     return hashlib.sha256(data).hexdigest()
 
 
 def sha256_file(path: Path) -> str:
+    """Return the hex SHA-256 digest of a file, read in 1 MiB chunks.
+
+    - Teleology: digest large output/source files without loading them whole, so the packet can bind to exact on-disk bytes.
+    - Guarantee: returns the lowercase 64-char hex SHA-256 of the file's full byte content at `path`.
+    - Reads: the file at `path` (binary).
+    - Fails: raises OSError (e.g. FileNotFoundError, PermissionError) if `path` cannot be opened or read.
+    - Escalates-to: sha256_bytes (the in-memory equivalent used for argv/packet payloads).
+    """
     digest = hashlib.sha256()
     with path.open("rb") as fh:
         for chunk in iter(lambda: fh.read(1024 * 1024), b""):
@@ -138,11 +184,25 @@ def sha256_file(path: Path) -> str:
 
 
 def _write_text(path: Path, text: str) -> None:
+    """Write UTF-8 text to a path, creating parent directories first.
+
+    - Teleology: small mkdir-then-write helper for the human card and disposable-project fixtures.
+    - Guarantee: parent dirs exist and `path` contains exactly `text` as UTF-8 after a successful call.
+    - Writes: the file at `path`.
+    - Fails: raises OSError on mkdir/write failure (permissions, read-only filesystem).
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
+    """Atomically write a JSON payload via a temp file then rename.
+
+    - Teleology: ensure the packet/receipt file is never observed half-written by writing to `<name>.tmp` then replacing.
+    - Guarantee: on success `path` holds deterministic JSON (indent=2, sort_keys, trailing newline); the swap is atomic on the same filesystem.
+    - Writes: `path` (and a transient `<name>.tmp` sibling).
+    - Fails: raises TypeError if `payload` is not JSON-serializable; raises OSError on mkdir/write/replace failure.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(f"{path.name}.tmp")
     tmp.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -150,6 +210,13 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
 
 
 def _relative_display(path: Path, root: Path) -> str:
+    """Render a path relative to root as a POSIX string, falling back to absolute.
+
+    - Teleology: prefer repo-relative refs in packet output so receipts read portably across machines.
+    - Guarantee: returns `path` relative to `root` (POSIX separators) when `path` is under `root`; otherwise the absolute POSIX string.
+    - Non-goal: does NOT redact private needles; absolute fallbacks may still expose private paths — _safe_path_ref is the redaction boundary.
+    - Fails: never raises; the ValueError from a non-subpath is caught and handled.
+    """
     try:
         return path.relative_to(root).as_posix()
     except ValueError:
@@ -157,6 +224,14 @@ def _relative_display(path: Path, root: Path) -> str:
 
 
 def _private_needles(root: Path) -> list[tuple[str, str]]:
+    """Build the (class, substring) needle set whose presence in output marks a private-path leak.
+
+    - Teleology: define what "private" means for this run by extending the static FORBIDDEN_OUTPUT_NEEDLES with the resolved package root.
+    - Guarantee: returns FORBIDDEN_OUTPUT_NEEDLES plus a ("package_root_absolute_path", <resolved root>) pair when the root resolves to a non-empty string.
+    - Reads: the resolved absolute path of `root` (filesystem, non-strict).
+    - Non-goal: does not itself scan, redact, or authorize anything; it only enumerates the leak vocabulary consumed by _safe_path_ref and _scan_private_needles.
+    - Fails: never raises; non-strict resolve does not require the path to exist.
+    """
     needles = list(FORBIDDEN_OUTPUT_NEEDLES)
     root_ref = root.resolve(strict=False).as_posix()
     if root_ref:
@@ -165,6 +240,14 @@ def _private_needles(root: Path) -> list[tuple[str, str]]:
 
 
 def _safe_path_ref(path: Path, root: Path) -> str:
+    """Render a path for output, redacting to `<private-path:NAME>` if it carries a private needle.
+
+    - Teleology: the single redaction chokepoint that keeps absolute/private paths out of published packet and receipt fields.
+    - Guarantee: returns the relative display when clean; returns "<private-path:<basename>>" when the display contains any private needle for `root`.
+    - Reads: _private_needles(root) (which reads the resolved root path).
+    - Non-goal: does not authorize export of the underlying file; only sanitizes the textual reference to it.
+    - Fails: never raises.
+    """
     ref = _relative_display(path, root)
     if any(needle and needle in ref for _, needle in _private_needles(root)):
         return f"<private-path:{path.name}>"
@@ -172,6 +255,14 @@ def _safe_path_ref(path: Path, root: Path) -> str:
 
 
 def _private_needle_classes_in_text(text: str, root: Path) -> list[str]:
+    """Return the classes of private needles that appear as substrings of `text`.
+
+    - Teleology: scan a freeform string (e.g. a serialized public argv) for leaked private path markers.
+    - Guarantee: returns the list of needle_class labels whose needle substring occurs in `text`; empty list means clean.
+    - Reads: _private_needles(root).
+    - Non-goal: does not redact `text`; it only classifies which leak categories are present for callers to act on.
+    - Fails: never raises.
+    """
     return [
         needle_class
         for needle_class, needle in _private_needles(root)
@@ -180,6 +271,13 @@ def _private_needle_classes_in_text(text: str, root: Path) -> list[str]:
 
 
 def _resolve_packet_ref(value: str, *, root: Path, packet_dir: Path) -> Path:
+    """Resolve a packet-stored relative ref against root then packet_dir.
+
+    - Teleology: re-locate output/card files at verify time when the packet only stored portable relative refs.
+    - Guarantee: returns the path as-is if absolute; else the first of root/value or packet_dir/value that exists; else root/value (so a non-existent ref still resolves under root for reporting).
+    - Reads: filesystem existence of the root- and packet-anchored candidates.
+    - Fails: never raises; a missing target is returned as a non-existent Path, not an error.
+    """
     candidate = Path(value).expanduser()
     if candidate.is_absolute():
         return candidate
@@ -193,10 +291,24 @@ def _resolve_packet_ref(value: str, *, root: Path, packet_dir: Path) -> Path:
 
 
 def _command_display(command: Iterable[str]) -> str:
+    """Join a command's tokens into a single space-separated display string.
+
+    - Teleology: render the public display argv as one human-readable line in the packet.
+    - Guarantee: returns the tokens joined by single spaces, in order.
+    - Fails: raises TypeError if any element is not a string.
+    """
     return " ".join(command)
 
 
 def _public_subprocess_argv(argv: list[str], root: Path) -> list[str]:
+    """Project a private subprocess argv into a public-safe argv for the packet.
+
+    - Teleology: publish what command ran without leaking absolute interpreter paths or out-of-root absolute arguments.
+    - Guarantee: returns a new list where absolute paths under `root` become root-relative POSIX refs, an absolute python/repo-python interpreter becomes "<name>", and all other tokens pass through verbatim.
+    - Reads: the resolved absolute path of `root`; resolves each absolute argv path (non-strict).
+    - Non-goal: not a completeness guarantee — tokens that are neither under-root nor a recognized interpreter pass through unchanged and are re-scanned downstream by the private-needle check.
+    - Fails: never raises; ValueError from relative_to is caught per-token.
+    """
     public: list[str] = []
     root_resolved = root.resolve(strict=False)
     for value in argv:
@@ -214,6 +326,14 @@ def _public_subprocess_argv(argv: list[str], root: Path) -> list[str]:
 
 
 def create_disposable_project(project_dir: Path) -> None:
+    """Materialize a throwaway minimal Python project for probe commands to run against.
+
+    - Teleology: give the recorder a controlled, private-free target so probe commands act on a sandbox, never on the real repo source.
+    - Guarantee: after the call `project_dir` is freshly recreated with src/app/__init__.py (VALUE=1), tests/test_app.py, README.md, and pyproject.toml.
+    - Writes: deletes any pre-existing `project_dir`, then writes the fixture tree under it.
+    - When-needed: understanding what surface the probe commands inspect (it is the disposable project, not repo source).
+    - Fails: raises OSError on rmtree/mkdir/write failure (e.g. permissions, path in use).
+    """
     if project_dir.exists():
         shutil.rmtree(project_dir)
     (project_dir / "src/app").mkdir(parents=True)
@@ -231,11 +351,28 @@ def create_disposable_project(project_dir: Path) -> None:
 
 
 def provider_env_key(key: str) -> bool:
+    """Classify whether an environment variable name looks like a provider/secret credential.
+
+    - Teleology: the predicate that decides which env vars get stripped before any subprocess, enforcing the no-provider-calls ceiling.
+    - Guarantee: returns True iff `key` uppercased contains any PROVIDER_ENV_MARKERS substring (OPENAI, ANTHROPIC, API_KEY, SECRET, ...).
+    - Reads: the module constant PROVIDER_ENV_MARKERS.
+    - Non-goal: heuristic by name only — does not inspect values and does not guarantee every credential shape is caught.
+    - Fails: raises AttributeError if `key` is not a string.
+    """
     upper = key.upper()
     return any(marker in upper for marker in PROVIDER_ENV_MARKERS)
 
 
 def subprocess_env(root: Path) -> tuple[dict[str, str], dict[str, Any]]:
+    """Build the credential-stripped, receipt-suppressed environment for probe subprocesses, plus its policy receipt.
+
+    - Teleology: enforce the recorder's authority ceiling at the process boundary so probe commands cannot make provider calls or write receipts.
+    - Guarantee: returns (env, policy) where env is os.environ minus every provider_env_key, with PYTHONPATH prepended to <root>/src and MICROCOSM_*_RECEIPT_WRITES="0" and NO_COLOR="1"; policy records provider_calls_authorized=False and the count/names of removed keys.
+    - Reads: os.environ and `root`.
+    - Non-goal: does not authorize provider calls or receipt writes — it positively disables them; the env is a copy, os.environ itself is untouched.
+    - Fails: never raises under normal operation.
+    - Escalates-to: build_flight_recorder_packet (consumer) and the packet's recorder_integrity.provider_env_policy receipt.
+    """
     env = dict(os.environ)
     removed = sorted(key for key in env if provider_env_key(key))
     for key in removed:
@@ -254,6 +391,14 @@ def subprocess_env(root: Path) -> tuple[dict[str, str], dict[str, Any]]:
 
 
 def _iter_source_snapshot_paths(root: Path) -> list[Path]:
+    """Enumerate the source files to fingerprint, preferring git-tracked over a filtered walk.
+
+    - Teleology: define the source-custody surface whose before/after digests prove the recorder mutated nothing.
+    - Guarantee: returns git-tracked files under `root` when available; otherwise a sorted os.walk excluding SOURCE_SNAPSHOT_SKIP_DIRS / SKIP_SUFFIXES and .DS_Store/.pyc/.pyo.
+    - Reads: git ls-files (via _git_tracked_paths) or the `root` directory tree.
+    - Non-goal: not a security boundary on its own; it selects which paths participate in the mutation check, not whether mutation is allowed.
+    - Fails: never raises; git failures fall back to the walk.
+    """
     git_paths = _git_tracked_paths(root)
     if git_paths:
         return git_paths
@@ -276,6 +421,14 @@ def _iter_source_snapshot_paths(root: Path) -> list[Path]:
 
 
 def _git_tracked_paths(root: Path) -> list[Path]:
+    """Return the git-tracked files under `root` via `git ls-files`, or empty on any failure.
+
+    - Teleology: prefer the version-control file set as the source-custody surface so digests match exactly what is committed.
+    - Guarantee: returns a sorted list of existing tracked files under `root`; returns [] if root is outside a repo, git is absent/errors, or no files match.
+    - Reads: runs `git rev-parse --show-toplevel` and `git ls-files -z` scoped to `root` (subprocess).
+    - Non-goal: does not mutate the repo and does not include untracked files; absence of git is handled, not signalled as error.
+    - Fails: never raises; OSError/SubprocessError and non-zero git return codes are caught and yield [].
+    """
     try:
         git_root_result = subprocess.run(
             ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
@@ -317,6 +470,15 @@ def _git_tracked_paths(root: Path) -> list[Path]:
 
 
 def source_snapshot(root: Path) -> dict[str, str]:
+    """Fingerprint every source file under root into a {relative_path: sha256} map.
+
+    - Teleology: the before/after evidence anchor for source_mutation_check — a content snapshot of the custody surface.
+    - Guarantee: returns a dict mapping each readable source file's relative POSIX path to its hex SHA-256; unreadable files are skipped.
+    - Reads: the files enumerated by _iter_source_snapshot_paths(root); digests each via sha256_file.
+    - Non-goal: does not mutate or authorize anything; OSError on a file drops that entry rather than aborting.
+    - When-needed: comparing repo state immediately before vs after a recorder run.
+    - Fails: never raises; per-file OSError is caught and the file omitted.
+    """
     snapshot: dict[str, str] = {}
     for path in _iter_source_snapshot_paths(root):
         try:
@@ -328,6 +490,15 @@ def source_snapshot(root: Path) -> dict[str, str]:
 
 
 def source_mutation_check(before: dict[str, str], after: dict[str, str]) -> dict[str, Any]:
+    """Diff two source snapshots into a mutation receipt (pass iff no change/add/remove).
+
+    - Teleology: prove the recorder did not mutate tracked source during its run — the central no-mutation custody claim.
+    - Guarantee: returns a dict with status "pass" iff no changed/added/removed paths, else "blocked"; carries source_files_mutated bool, per-class counts, first-20 path samples, and a truncated flag.
+    - Reads: only its two in-memory snapshot dicts; touches no filesystem.
+    - Non-goal: cannot attribute changes to the recorder vs concurrent edits — it reports that mutation occurred, not who caused it.
+    - When-needed: deciding whether a packet may claim clean source custody.
+    - Fails: never raises; returns the blocked envelope on any difference.
+    """
     before_keys = set(before)
     after_keys = set(after)
     changed = sorted(key for key in before_keys & after_keys if before[key] != after[key])
@@ -349,6 +520,15 @@ def source_mutation_check(before: dict[str, str], after: dict[str, str]) -> dict
 
 
 def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[CommandSpec]:
+    """Construct the ordered list of probe CommandSpecs the recorder will execute.
+
+    - Teleology: the authoritative registry of which Microcosm first-screen/runtime/proof commands form the replay packet and where each writes its output.
+    - Guarantee: returns a list of CommandSpec covering hello, first-screen/tour/status/authority/workingness cards, legibility-scorecard, version, stripping-guard, observe, proof-lab, run, served-status smoke, and check-smoke-outputs — each with public display argv, private `-m microcosm_core` argv, and stdout/stderr relpaths under `out_dir`.
+    - Reads: only computes relative refs from `root`/`out_dir`; runs nothing.
+    - When-needed: to see or extend the set of commands whose evidence the packet attests.
+    - Fails: never raises.
+    - Escalates-to: build_flight_recorder_packet (which executes this plan via _execute_command).
+    """
     project_ref = _relative_display(out_dir / "work/project", root)
     smoke_ref = _relative_display(out_dir / "smoke", root)
     served_status_ref = f"{smoke_ref}/served-status-card.json"
@@ -483,6 +663,15 @@ def command_plan(root: Path, out_dir: Path, python_executable: str) -> list[Comm
 
 
 def default_runner(spec: CommandSpec, cwd: Path, env: dict[str, str]) -> RunnerResult:
+    """Execute one CommandSpec's private argv as a subprocess and capture its result.
+
+    - Teleology: the default Runner that turns a planned command into raw evidence bytes under the credential-stripped env.
+    - Guarantee: returns a RunnerResult with the real returncode, captured stdout/stderr bytes, and duration; on timeout returns returncode 124 with a "TIMEOUT after Ns" marker appended to stderr.
+    - Reads: runs spec.actual_argv in `cwd` with `env`, honoring spec.timeout_seconds.
+    - When-needed: as the injection point if a caller wants to substitute a fake runner in tests.
+    - Fails: does not propagate TimeoutExpired (folded into the 124 envelope); other subprocess/OSError exceptions propagate to the caller.
+    - Escalates-to: _execute_command (which records the RunnerResult into a per-command receipt).
+    """
     start = time.monotonic()
     try:
         completed = subprocess.run(
@@ -513,6 +702,12 @@ def default_runner(spec: CommandSpec, cwd: Path, env: dict[str, str]) -> RunnerR
 
 
 def _parse_json_bytes(data: bytes) -> dict[str, Any] | None:
+    """Best-effort decode raw stdout bytes into a JSON object, else None.
+
+    - Teleology: detect whether a probe command emitted a structured card so the recorder can extract selected fields vs a text summary.
+    - Guarantee: returns the decoded dict when `data` is valid UTF-8 JSON whose top level is an object; returns None for invalid UTF-8, invalid JSON, or a non-object top level.
+    - Fails: never raises; UnicodeDecodeError and JSONDecodeError are caught and yield None.
+    """
     try:
         payload = json.loads(data.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError):
@@ -521,10 +716,25 @@ def _parse_json_bytes(data: bytes) -> dict[str, Any] | None:
 
 
 def _selected_json_fields(payload: dict[str, Any]) -> dict[str, Any]:
+    """Project a command's JSON card down to the allow-listed SELECTED_JSON_KEYS.
+
+    - Teleology: keep only safe summary fields in the packet, dropping raw payload bodies that could carry private content.
+    - Guarantee: returns a dict containing exactly the SELECTED_JSON_KEYS that exist in `payload`, with original values.
+    - Reads: the module constant SELECTED_JSON_KEYS.
+    - Non-goal: an allow-list, not a redactor — it never authorizes embedding non-selected body fields into the packet.
+    - Fails: never raises.
+    """
     return {key: payload[key] for key in SELECTED_JSON_KEYS if key in payload}
 
 
 def _text_summary(data: bytes) -> dict[str, Any]:
+    """Summarize non-JSON stdout into a compact {line_count, first_line, nonempty} record.
+
+    - Teleology: capture a bounded description of plain-text command output without embedding the full body in the packet.
+    - Guarantee: returns line_count (int), first_line (str, empty if none), and nonempty (bool) computed from the decoded, stripped text.
+    - Non-goal: does not retain the full text in-packet; the raw bytes remain only in the on-disk output file bound by digest.
+    - Fails: never raises; undecodable bytes are replaced via errors="replace".
+    """
     text = data.decode("utf-8", errors="replace").strip()
     lines = text.splitlines()
     return {
@@ -542,6 +752,15 @@ def _execute_command(
     env: dict[str, str],
     runner: Runner,
 ) -> dict[str, Any]:
+    """Run one command, persist its raw output to disk, and build its public per-command receipt.
+
+    - Teleology: convert a CommandSpec plus a Runner into a digest-bound, private-safe evidence record for the packet.
+    - Guarantee: writes raw stdout/stderr bytes under `out_dir`, then returns a record with public argv, public subprocess argv, an argv sha256, output paths+digests+byte counts, return code/duration, and either selected_json_fields (with reported_status/card_status when present) or selected_text_fields.
+    - Writes: <out_dir>/<spec.stdout_relpath> and <stderr_relpath>.
+    - Non-goal: never serializes spec.actual_argv into the record; only the public projection and a digest of the private argv are emitted.
+    - Fails: propagates OSError from output writes; runner exceptions other than the handled timeout propagate.
+    - Escalates-to: build_flight_recorder_packet (aggregator) and the on-disk output files referenced by the record.
+    """
     result = runner(spec, root, env)
     stdout_path = out_dir / spec.stdout_relpath
     stderr_path = out_dir / spec.stderr_relpath
@@ -583,6 +802,15 @@ def _execute_command(
 
 
 def _scan_private_needles(paths: Iterable[Path], root: Path) -> dict[str, Any]:
+    """Scan a set of files for private-path needles and return a leak receipt.
+
+    - Teleology: the output-side firewall proving no published file contains a forbidden absolute/private path needle.
+    - Guarantee: returns status "pass" iff no file contains any private needle, else "blocked"; carries private_path_hit_count, first-20 redacted hits (path+needle_class), a truncated flag, and the needle_classes list.
+    - Reads: the text content of each path in `paths`; resolves needles via _private_needles(root).
+    - Non-goal: substring scan only — proves needle-absence for the listed files, not whole-system public-safety or release authorization.
+    - When-needed: gating whether a packet/receipt is safe to publish.
+    - Fails: never raises; per-file OSError is caught and that file skipped (treated as no-hit).
+    """
     hits: list[dict[str, Any]] = []
     needle_classes = [
         "home_directory_absolute_path",
@@ -612,6 +840,13 @@ def _scan_private_needles(paths: Iterable[Path], root: Path) -> dict[str, Any]:
 
 
 def _collect_output_paths(command_records: list[dict[str, Any]], out_dir: Path) -> list[Path]:
+    """Resolve the existing stdout/stderr output files referenced by command records.
+
+    - Teleology: gather the on-disk raw evidence files for downstream scanning from the receipts that reference them.
+    - Guarantee: returns the list of existing files named by each record's stdout_path/stderr_path, anchoring relative refs under out_dir's parent.
+    - Reads: filesystem existence of each referenced path.
+    - Fails: never raises; non-string or non-existent refs are skipped.
+    """
     paths: list[Path] = []
     for record in command_records:
         for key in ("stdout_path", "stderr_path"):
@@ -628,6 +863,13 @@ def _collect_output_paths(command_records: list[dict[str, Any]], out_dir: Path) 
 
 
 def _command_status_summary(command_records: list[dict[str, Any]]) -> dict[str, Any]:
+    """Aggregate per-command receipts into nonzero-exit and blocked-status counts/ids.
+
+    - Teleology: feed the evaluator verdict by summarizing which commands failed or self-reported blocked, without discarding their evidence.
+    - Guarantee: returns command_count, nonzero_return_code_count + ids, blocked_reported_status_count + ids (status or card_status == "blocked"), and all_commands_executed.
+    - Non-goal: does not suppress or "fix" failures — it preserves them as counts/ids for refused-claim construction.
+    - Fails: raises KeyError if a record lacks "command_id" or "return_code".
+    """
     nonzero = [row["command_id"] for row in command_records if row["return_code"] != 0]
     blocked = [
         row["command_id"]
@@ -646,6 +888,13 @@ def _command_status_summary(command_records: list[dict[str, Any]]) -> dict[str, 
 
 
 def _merge_evidence_class_counts(command_records: list[dict[str, Any]]) -> dict[str, int]:
+    """Sum per-command evidence_class_counts into one sorted aggregate map.
+
+    - Teleology: roll up the evidence-class tallies each card reported into a single packet-level summary.
+    - Guarantee: returns a key-sorted dict summing integer values found under each record's selected_json_fields.evidence_class_counts; non-dict/non-int (incl. bool) entries are ignored.
+    - Non-goal: does not invent classes; only aggregates counts the commands themselves emitted.
+    - Fails: never raises; malformed records are skipped.
+    """
     counts: dict[str, int] = {}
     for record in command_records:
         selected = record.get("selected_json_fields")
@@ -661,6 +910,13 @@ def _merge_evidence_class_counts(command_records: list[dict[str, Any]]) -> dict[
 
 
 def _authority_false_keys(command_records: list[dict[str, Any]]) -> dict[str, list[str]]:
+    """Collect, per command, the authority_ceiling keys each card reported as False.
+
+    - Teleology: surface the negative authority claims (what each command says it is NOT allowed to do) as evaluator evidence.
+    - Guarantee: returns {command_id: sorted_false_keys} for every record whose selected_json_fields.authority_ceiling has at least one False value; commands with none are omitted.
+    - Non-goal: does not assert authority — it only reports the ceiling the commands themselves published.
+    - Fails: raises KeyError only if a qualifying record lacks "command_id"; malformed selected fields are skipped.
+    """
     rows: dict[str, list[str]] = {}
     for record in command_records:
         selected = record.get("selected_json_fields")
@@ -676,6 +932,14 @@ def _authority_false_keys(command_records: list[dict[str, Any]]) -> dict[str, li
 
 
 def _human_card(packet: dict[str, Any]) -> str:
+    """Render the packet into the human-readable Markdown flight-recorder card.
+
+    - Teleology: a generated at-a-glance projection of the machine packet (status, verdict, mutation/leak/provider integrity, drilldowns, refused claims).
+    - Guarantee: returns a Markdown string summarizing packet status, evaluator verdict, command counts, integrity receipts, drilldown refs, and the refused-claims list (or a no-blocked note).
+    - Non-goal: a projection, not authority — derived entirely from `packet`; editing the card changes nothing and the card digest is later bound by build_flight_recorder_packet.
+    - Fails: raises KeyError if the packet is missing expected verdict/integrity keys.
+    - Escalates-to: build_flight_recorder_packet (the builder that writes this card and records its sha256).
+    """
     verdict = packet["evaluator_verdict"]
     integrity = packet["recorder_integrity"]
     lines = [
@@ -719,18 +983,38 @@ def _human_card(packet: dict[str, Any]) -> str:
 
 
 def _packet_payload_sha256(packet: dict[str, Any]) -> str:
+    """Compute the self-excluding SHA-256 over a packet's payload.
+
+    - Teleology: bind the packet to a tamper-evident digest the verifier can recompute, excluding the digest field itself.
+    - Guarantee: returns the hex SHA-256 of the canonical (sort_keys) JSON of `packet` with any "packet_payload_sha256" key removed from the copy.
+    - Non-goal: operates on a shallow copy; the input `packet` is not mutated.
+    - Fails: raises TypeError if the packet contains non-JSON-serializable values.
+    - Escalates-to: verify_flight_recorder_packet (which recomputes this to detect drift).
+    """
     payload = dict(packet)
     payload.pop("packet_payload_sha256", None)
     return sha256_bytes(json.dumps(payload, sort_keys=True).encode("utf-8"))
 
 
 def _check_row(check_id: str, status: str, **fields: Any) -> dict[str, Any]:
+    """Construct one verifier check-result row with id, status, and extra fields.
+
+    - Teleology: uniform shape for every entry in a verification receipt's `checks` list.
+    - Guarantee: returns a dict starting with check_id and status, merged with any keyword fields (later keys win on collision with the base two).
+    - Fails: never raises.
+    """
     row: dict[str, Any] = {"check_id": check_id, "status": status}
     row.update(fields)
     return row
 
 
 def _receipt_status(statuses: set[str]) -> str:
+    """Collapse a set of accumulated verifier statuses into one prioritized receipt status.
+
+    - Teleology: choose the single worst-case label for the receipt so a clean run reads "packet_valid" and any failure surfaces deterministically.
+    - Guarantee: returns "packet_valid" for an empty set; otherwise the first matching of the fixed severity order (private_path_leak, source_mutation_seen, digest_mismatch, packet_stale, concurrent_churn_possible), falling back to the alphabetically-first status.
+    - Fails: never raises.
+    """
     if not statuses:
         return "packet_valid"
     for status in (
@@ -746,6 +1030,13 @@ def _receipt_status(statuses: set[str]) -> str:
 
 
 def _load_packet(packet_path: Path) -> tuple[dict[str, Any] | None, str | None]:
+    """Load a packet JSON file into (packet_dict, None) or (None, error_code).
+
+    - Teleology: a non-raising loader so the verifier can convert read/parse failures into a blocked receipt instead of crashing.
+    - Guarantee: returns (dict, None) on a valid JSON object; (None, "packet_read_error:<Exc>") on OSError, (None, "packet_json_decode_error") on bad JSON, (None, "packet_json_not_object") on a non-object top level.
+    - Reads: the file at `packet_path` (UTF-8).
+    - Fails: never raises; OSError and JSONDecodeError are captured into the error string.
+    """
     try:
         payload = json.loads(packet_path.read_text(encoding="utf-8"))
     except OSError as exc:
@@ -763,6 +1054,15 @@ def _command_receipt_checks(
     root: Path,
     packet_dir: Path,
 ) -> tuple[list[dict[str, Any]], list[Path], set[str], dict[str, Any]]:
+    """Re-verify each command receipt: required fields, public-argv safety, and output digests.
+
+    - Teleology: the no-rerun core of verification — prove every recorded command's evidence is structurally intact, public-safe, and digest-matching.
+    - Guarantee: returns (checks, raw_paths, statuses, summary); adds "private_path_leak" if a receipt serializes actual_argv or any public argv carries a private needle, "digest_mismatch" if a referenced output's sha256 no longer matches, and "packet_stale" for missing fields/outputs or shape errors; raw_paths are the existing matched output files.
+    - Reads: re-hashes each referenced stdout/stderr file via sha256_file; resolves refs via _resolve_packet_ref.
+    - Non-goal: does not rerun commands; correctness is digest-equivalence to the recorded run, not re-execution.
+    - Fails: never raises; bad shapes are folded into blocked check rows and status flags.
+    - Escalates-to: verify_flight_recorder_packet (caller) and the receipt's command_receipts block.
+    """
     checks: list[dict[str, Any]] = []
     raw_paths: list[Path] = []
     statuses: set[str] = set()
@@ -959,6 +1259,14 @@ def _command_receipt_checks(
 
 
 def _authority_ceiling_check(packet: dict[str, Any]) -> tuple[dict[str, Any], set[str]]:
+    """Verify the packet still asserts a non-authorizing ceiling and preserved its refusals.
+
+    - Teleology: prove the packet did not silently gain authority — provider/source/release stay unauthorized, only selected fields are stored, a ceiling is recorded, and blocked/nonzero evidence is preserved as refused claims.
+    - Guarantee: returns (check_row, statuses); status "pass" only when policy flags are all False, selected_fields_only is True, at least one authority_ceiling/safe_to_show False set exists, and refusals are preserved; otherwise a blocked row and "packet_stale".
+    - Reads: only the in-memory `packet`; no filesystem.
+    - Non-goal: does not grant or evaluate authority itself; it audits that the recorded ceiling was kept intact.
+    - Fails: never raises; missing/odd structure becomes the blocked envelope.
+    """
     statuses: set[str] = set()
     commands = packet.get("commands")
     if not isinstance(commands, list):
@@ -1038,6 +1346,14 @@ def _authority_ceiling_check(packet: dict[str, Any]) -> tuple[dict[str, Any], se
 
 
 def _source_mutation_receipt_check(packet: dict[str, Any]) -> tuple[dict[str, Any], set[str]]:
+    """Re-check the packet's recorded source-mutation receipt at verify time.
+
+    - Teleology: confirm the original no-mutation custody claim is present and clean, and flag concurrent churn when it is not.
+    - Guarantee: returns (check_row, statuses); status "pass" only when source_files_mutated is not True and the recorded mutation status == "pass"; otherwise adds "source_mutation_seen" (and "concurrent_churn_possible" when any changed/added/removed count is nonzero) with a blocked row.
+    - Reads: packet.recorder_integrity.source_mutation_check; no filesystem.
+    - Non-goal: does not re-snapshot the tree; it validates the receipt the recorder already produced.
+    - Fails: never raises; a missing receipt becomes a blocked "packet_stale" row.
+    """
     statuses: set[str] = set()
     integrity = packet.get("recorder_integrity")
     mutation = (
@@ -1093,6 +1409,17 @@ def verify_flight_recorder_packet(
     receipt_path: Path | None = None,
     verified_at: str | None = None,
 ) -> dict[str, Any]:
+    """Verify an existing flight-recorder packet against its own digests and policy WITHOUT rerunning commands.
+
+    - Teleology: the public no-rerun audit entrypoint — re-prove a packet's schema, payload/card/output digests, public-argv safety, authority ceiling, source-mutation receipt, and provider-env policy.
+    - Guarantee: returns a verification receipt dict whose `status` is "packet_valid" only when all checks pass; otherwise the prioritized failure label (private_path_leak / source_mutation_seen / digest_mismatch / packet_stale / concurrent_churn_possible) with per-check rows; provider_calls_authorized stays False and no_substrate_rerun stays True.
+    - Reads: <packet_dir>/flight-recorder-packet.json, the card, and every referenced raw output (re-hashed); resolves refs under `root`.
+    - Writes: <packet_dir>/flight-recorder-verification.json (or `receipt_path`) when write_receipt is True, with a post-write private-path re-scan that can downgrade status if the receipt itself would leak.
+    - When-needed: to trust a previously generated packet without re-executing substrate commands.
+    - Non-goal: does NOT rerun probes, mutate source, authorize release, or assert whole-system correctness — only digest/policy equivalence to the recorded run.
+    - Fails: never raises on a missing/corrupt packet (returns a blocked receipt); _write_json may raise OSError if the receipt cannot be written.
+    - Escalates-to: _verify_main (CLI wrapper); std public-entry release authority remains separate from this verifier.
+    """
     root = root.expanduser().resolve(strict=False)
     packet_dir = packet_dir.expanduser()
     if not packet_dir.is_absolute():
@@ -1289,6 +1616,17 @@ def build_flight_recorder_packet(
     snapshotter: SourceSnapshotter = source_snapshot,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
+    """Run all probe commands in a sandbox and emit the skeptic flight-recorder packet, card, and digests.
+
+    - Teleology: the public builder that GENERATES the replay packet — execute Microcosm commands against a disposable project under a credential-stripped env, then attest source-was-not-mutated, no private path leaked, and refused claims preserved.
+    - Guarantee: returns and writes a packet dict with status "pass" only when the final private-path scan and source mutation check both pass (else "blocked"); records per-command receipts, evaluator verdict, integrity receipts, the human card, and self-binding human_card_sha256 + packet_payload_sha256.
+    - Reads: snapshots source before/after via `snapshotter`; runs command_plan commands via `runner`.
+    - Writes: <out_dir>/flight-recorder-packet.json, flight-recorder-card.md, the disposable project tree, and every command's stdout/stderr file.
+    - When-needed: to produce a fresh public-safe replay/evidence bundle for the Microcosm CLI surface.
+    - Non-goal: does NOT authorize release, provider calls, or source mutation, and a "pass" packet attests scanned safety only — not whole-system correctness; output is a generated projection, not source-of-truth authority.
+    - Fails: propagates OSError from filesystem writes; a clean run never raises on probe failures (they are preserved as refused claims).
+    - Escalates-to: verify_flight_recorder_packet (re-checks this output) and _generate_main (CLI wrapper).
+    """
     root = root.expanduser().resolve(strict=False)
     out_dir = out_dir.expanduser()
     if not out_dir.is_absolute():
@@ -1411,6 +1749,16 @@ def build_flight_recorder_packet(
 
 
 def _generate_main(argv: list[str] | None = None) -> int:
+    """CLI handler for `generate`: build a packet and print a JSON summary with an exit code.
+
+    - Teleology: shell adapter over build_flight_recorder_packet, mapping packet outcome to a process exit code.
+    - Guarantee: parses --root/--out/--python/--strict, builds the packet, prints a sorted JSON summary, and returns 0 on a passing packet, 1 when packet status != "pass", or 2 under --strict when the evaluator verdict is not "clear".
+    - Reads: argv (or sys.argv) and the disk surface build_flight_recorder_packet reads.
+    - Writes: the packet/card/output files via the builder; prints summary to stdout.
+    - When-needed: invoked by main() for the default/`generate` subcommand.
+    - Fails: argparse exits the process on bad arguments; builder OSErrors propagate.
+    - Escalates-to: build_flight_recorder_packet.
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Compose Microcosm first-screen/runtime/proof commands into a "
@@ -1461,6 +1809,16 @@ def _generate_main(argv: list[str] | None = None) -> int:
 
 
 def _verify_main(argv: list[str] | None = None) -> int:
+    """CLI handler for `verify`/`replay-check`: verify a packet dir and print a JSON summary.
+
+    - Teleology: shell adapter over verify_flight_recorder_packet, mapping receipt validity to a process exit code.
+    - Guarantee: parses packet_dir/--root/--receipt-out/--no-write-receipt, verifies the packet, prints a sorted JSON summary, and returns 0 iff receipt status == "packet_valid" else 1.
+    - Reads: argv (or sys.argv) and the packet/output files the verifier reads.
+    - Writes: the verification receipt via the verifier unless --no-write-receipt; prints summary to stdout.
+    - When-needed: invoked by main() for the `verify`/`replay-check` subcommands.
+    - Fails: argparse exits the process on bad arguments; verifier write OSErrors propagate.
+    - Escalates-to: verify_flight_recorder_packet.
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Verify an existing Microcosm skeptic flight-recorder packet "

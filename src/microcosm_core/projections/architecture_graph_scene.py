@@ -72,6 +72,15 @@ def stable_json_hash(payload: Any, *, length: int = 32) -> str:
 
 
 def _sha256_file(path: Path) -> str:
+    """Compute a streamed ``sha256:``-prefixed digest of one source file.
+
+    - Teleology: per-file content digest that lets the scene fingerprint detect when a source JSON body changed on disk, not just its row counts.
+    - Guarantee: returns ``"sha256:" + hexdigest`` over the file's bytes, read in 1 MiB chunks so arbitrarily large files hash without loading whole into memory.
+    - Fails: ``FileNotFoundError`` / ``OSError`` if ``path`` is absent or unreadable; the open is not guarded.
+    - When-needed: explaining why ``source_fingerprint`` moved when row-shape is unchanged.
+    - Reads: the file at ``path`` (one of the ``SOURCE_REFS`` JSON sources).
+    - Non-goal: not a public-safety or integrity attestation; does not authorize source-body export or release.
+    """
     hasher = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -80,10 +89,27 @@ def _sha256_file(path: Path) -> str:
 
 
 def _rows(payload: Mapping[str, Any], key: str) -> list[dict[str, Any]]:
+    """Extract the dict rows under one key of a loaded source document.
+
+    - Teleology: defensive row accessor so malformed/non-dict entries in a source list cannot poison downstream node/edge construction.
+    - Guarantee: returns a list containing only the ``dict`` items of ``payload[key]``; a missing key or non-list value yields ``[]``.
+    - Fails: never raises for mapping input; non-dict members are silently dropped rather than erroring.
+    - When-needed: reasoning about why a source row was excluded from the scene before it reached node building.
+    - Non-goal: does not validate row schema/content and grants no source-mutation or release authority.
+    """
     return [row for row in payload.get(key, []) if isinstance(row, dict)]
 
 
 def _source_hashes(root: Path) -> dict[str, str]:
+    """Map each public source ref to the sha256 digest of its on-disk body.
+
+    - Teleology: assembles the per-source digest table that feeds the scene's content fingerprint, binding the projection to exact source bytes.
+    - Guarantee: returns ``{public_source_ref(rel): "sha256:<hex>"}`` for every path in ``SOURCE_REFS``, keyed by the public ``microcosm-substrate/`` ref.
+    - Fails: ``FileNotFoundError`` / ``OSError`` (via ``_sha256_file``) if any ``SOURCE_REFS`` file under ``root`` is missing or unreadable.
+    - When-needed: diagnosing a fingerprint change down to which specific source file moved.
+    - Reads: every file in ``SOURCE_REFS`` resolved under ``root`` (organ_families/registry/atlas/architecture_kernel JSON).
+    - Non-goal: does not check public-safety of source bodies and grants no export/release authority.
+    """
     return {
         public_source_ref(rel_path): _sha256_file(root / rel_path)
         for rel_path in SOURCE_REFS
@@ -91,6 +117,15 @@ def _source_hashes(root: Path) -> dict[str, str]:
 
 
 def _scene_revision(source_fingerprint: str, *, focus_id: str | None = None) -> str:
+    """Derive the deterministic ``gsc_`` revision id for a scene state.
+
+    - Teleology: stamps a stable revision label that changes iff the adapter version, source schema, source fingerprint, or default focus changes — the delta-detection key.
+    - Guarantee: returns ``"gsc_" + stable_json_hash({adapter_version, source_schema, source_fingerprint, default_projection, focus_id}, length=20)``; identical inputs always yield the same id.
+    - Fails: never raises; an empty/None ``focus_id`` folds to ``""`` in the hashed payload.
+    - When-needed: explaining why two scene builds report different revisions.
+    - Escalates-to: ``stable_json_hash`` and the ``source_fingerprint`` inputs for what actually moved.
+    - Non-goal: not a cryptographic version stamp and not a release or public-safety claim.
+    """
     digest = stable_json_hash(
         {
             "adapter_version": ADAPTER_VERSION,
@@ -105,6 +140,15 @@ def _scene_revision(source_fingerprint: str, *, focus_id: str | None = None) -> 
 
 
 def _display_label(row: Mapping[str, Any], fallback: str) -> str:
+    """Pick a human display label for a component node from its source row.
+
+    - Teleology: gives every wired-component node a readable label, preferring source-declared naming over a derived id so the map is legible.
+    - Guarantee: returns the stripped ``display_name`` else ``label`` from ``row`` if non-empty; otherwise the ``fallback`` id title-cased with underscores replaced by spaces.
+    - Fails: never raises; missing/blank fields fall through to the title-cased ``fallback``.
+    - When-needed: tracing why a node renders a given label versus its raw organ id.
+    - Reads: the ``display_name`` / ``label`` fields of an ``organ_atlas.json`` organ row.
+    - Non-goal: does not validate or sanitize label content for public exposure.
+    """
     value = str(row.get("display_name") or row.get("label") or "").strip()
     if value:
         return value
@@ -112,6 +156,16 @@ def _display_label(row: Mapping[str, Any], fallback: str) -> str:
 
 
 def _load_source_model(root: Path) -> dict[str, Any]:
+    """Load and join the four public source JSONs into the scene's input model.
+
+    - Teleology: the single source-custody read step — pulls families, the accepted-organ registry slice, atlas cards, and kernel primitives into one normalized model so the builder never touches raw files again.
+    - Guarantee: returns ``{families, accepted_ids, atlas_by_id, family_of_component, primitive_rows, source_hashes, interaction_model}`` where only organs with ``status == "accepted_current_authority"`` are admitted and atlas/family membership is restricted to those accepted ids.
+    - Fails: ``read_json_strict`` raises (FileNotFoundError / JSON decode error) if any of organ_families/organ_registry/organ_atlas/architecture_kernel JSON is missing or malformed.
+    - When-needed: diagnosing why a component is absent from the scene (likely not accepted) or why source_hashes changed.
+    - Reads: ``core/organ_families.json``, ``core/organ_registry.json``, ``core/organ_atlas.json``, ``core/architecture_kernel.json`` under ``root``.
+    - Escalates-to: ``SOURCE_REFS`` and ``_source_hashes`` for the exact source bytes this model was built from.
+    - Non-goal: does not validate source-body public-safety, does not mutate source, and grants no release authority.
+    """
     families_doc = read_json_strict(root / "core/organ_families.json")
     registry_doc = read_json_strict(root / "core/organ_registry.json")
     atlas_doc = read_json_strict(root / "core/organ_atlas.json")
@@ -167,6 +221,14 @@ def _load_source_model(root: Path) -> dict[str, Any]:
 
 
 def _focus_path(focus_id: str, label: str, node_ids: list[str], edge_ids: list[str]) -> dict[str, Any]:
+    """Build one focus-path record (a named, renderable node/edge subset).
+
+    - Teleology: uniform constructor for the scene's saved camera targets so each focus carries the same ``id/label/node_ids/edge_ids`` shape the excerpt builder consumes.
+    - Guarantee: returns ``{"id", "label", "node_ids", "edge_ids"}`` echoing the arguments verbatim; no validation that the referenced ids exist in the scene.
+    - Fails: never raises; membership integrity is deferred to ``validate_graph_scene`` (``focus_path_member_missing``).
+    - When-needed: tracing the composition of a focus before integrity validation runs.
+    - Non-goal: does not check that ids resolve and grants no release authority.
+    """
     return {
         "id": focus_id,
         "label": label,
@@ -176,6 +238,15 @@ def _focus_path(focus_id: str, label: str, node_ids: list[str], edge_ids: list[s
 
 
 def _build_scene_rows(model: Mapping[str, Any]) -> dict[str, Any]:
+    """Project the source model into clusters, nodes, edges, and focus paths.
+
+    - Teleology: the core generation step that turns the loaded model into the renderable graph — area nodes bound to the shared path, the kernel-primitive spine sequence, and source-declared ``wires_to`` component edges.
+    - Guarantee: returns ``{clusters, nodes, edges, focus_paths, wire_pairs}`` where every wiring edge is relation ``declared_dependency_untyped``, only ``wires_to`` targets present in the accepted atlas are linked, and each node/edge carries a ``provenance.source_ref``.
+    - Fails: never raises for a well-formed model; rows with blank ``family_id`` / ``primitive_id`` and untargeted wirings are skipped rather than erroring.
+    - When-needed: diagnosing missing nodes/edges or why a wiring pair did not render.
+    - Escalates-to: ``validate_graph_scene`` for the integrity check over what this emitted, and the per-edge ``provenance.source_ref`` for origin.
+    - Non-goal: emits no typed/causal/maturity relation — ``wires_to`` stays untyped; this is generated projection, not source authority or a release claim.
+    """
     clusters = [
         {"id": "cluster:areas", "label": "Microcosm areas", "kind": "overview"},
         {"id": "cluster:shared_spine", "label": "Shared architecture spine", "kind": "spine"},
@@ -430,6 +501,15 @@ def validate_graph_scene(scene: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _build_manifest(scene: Mapping[str, Any]) -> dict[str, Any]:
+    """Summarize a built scene into a compact ``graph_scene_manifest_v1`` header.
+
+    - Teleology: the bandwidth-bounded scene header — counts and kind/relation histograms a client reads to orient before (or instead of) pulling the full node/edge payload.
+    - Guarantee: returns a ``graph_scene_manifest_v1`` dict carrying scene_id/source identity/revision, node-edge-cluster-focus counts, sorted ``node_kind_counts`` and ``relation_type_counts``, available/default focus ids, resolver_refs, the embedded ``validation``, and a fixed ``authority_posture`` of ``public_microcosm_projection_not_source_authority``.
+    - Fails: ``KeyError`` if ``scene`` lacks required keys (``scene_id``/``source_schema``/``source_fingerprint``/``revision``/``core_version``/``default_focus_id``/``validation``); built scenes always provide them.
+    - When-needed: building or reading the manifest header for the public packet.
+    - Escalates-to: the full ``scene`` and ``build_architecture_graph_scene`` when counts are insufficient.
+    - Non-goal: a derived projection header, not source-of-truth authority and not a release claim.
+    """
     nodes = [row for row in scene.get("nodes", []) if isinstance(row, dict)]
     edges = [row for row in scene.get("edges", []) if isinstance(row, dict)]
     clusters = [row for row in scene.get("clusters", []) if isinstance(row, dict)]
@@ -517,6 +597,15 @@ def build_default_focus_excerpt(
 
 
 def _build_delta_manifest(scene: Mapping[str, Any], previous_revision: str | None = None) -> dict[str, Any]:
+    """Compare a scene's revision against a prior one into a delta header.
+
+    - Teleology: lets a client decide whether to re-fetch — reports whether this scene's revision differs from the caller-supplied ``previous_revision`` without diffing full payloads.
+    - Guarantee: returns a ``graph_scene_delta_manifest_v1`` dict echoing scene_id/revision/source_fingerprint plus ``changed`` = None when ``previous_revision`` is None else ``previous_revision != scene["revision"]``, and carries the manifest counts/relation_type_counts.
+    - Fails: ``KeyError`` if ``scene`` lacks ``manifest``/``scene_id``/``revision``/``source_fingerprint``; built scenes provide them.
+    - When-needed: computing a cheap change signal against a client's last-known revision.
+    - Escalates-to: ``_scene_revision`` / ``source_fingerprint`` for what moved when ``changed`` is True.
+    - Non-goal: a coarse changed/unchanged signal, not a structural diff and not a release authority claim.
+    """
     manifest = scene["manifest"]
     return {
         "schema": DELTA_MANIFEST_SCHEMA,

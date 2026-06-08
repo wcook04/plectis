@@ -33,6 +33,12 @@ DEFAULT_EMIT_REF = ".microcosm/cold_clone_probe.json"
 
 
 def _path_exists(path: Path) -> bool:
+    """OSError-tolerant existence probe for a filesystem path.
+
+    - Teleology: let receipt-mirroring loops test for a path without aborting on permission/IO errors on a fresh clone.
+    - Guarantee: returns True iff `path.exists()` succeeds and is truthy; returns False on any OSError.
+    - Fails: never raises; OSError is swallowed and reported as False.
+    """
     try:
         return path.exists()
     except OSError:
@@ -40,6 +46,12 @@ def _path_exists(path: Path) -> bool:
 
 
 def _path_is_file(path: Path) -> bool:
+    """OSError-tolerant regular-file probe for a filesystem path.
+
+    - Teleology: gate fixture/receipt presence checks on a fresh clone without crashing on IO errors.
+    - Guarantee: returns True iff `path.is_file()` succeeds and is truthy; returns False on any OSError.
+    - Fails: never raises; OSError is swallowed and reported as False.
+    """
     try:
         return path.is_file()
     except OSError:
@@ -47,6 +59,15 @@ def _path_is_file(path: Path) -> bool:
 
 
 def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
+    """Copy freshly-generated pattern-binding receipts into their canonical clone-root slots.
+
+    - Teleology: after the pattern-binding validator runs into a scratch dir, materialize its receipts at the stable PATTERN_RECEIPTS paths the probe expects.
+    - Guarantee: for each canonical receipt ref that is absent under `root_path` but present in `source_dir`, copies the file into place (creating parents); the validation-result receipt is rewritten with `receipt_paths` set to PATTERN_RECEIPTS.
+    - Fails: never returns a value; existing destinations and source files absent from `source_dir` are skipped. Filesystem/IO or JSON-decode errors (read_json_strict, copyfile, write_text) propagate to the caller.
+    - Reads: source receipt files under `source_dir`; the mirrored validation-result JSON (via read_json_strict).
+    - Writes: missing receipt files under `root_path` at PATTERN_RECEIPTS; rewrites pattern_binding_validation_result.json with the canonical receipt_paths list.
+    - When-needed: when reconciling why a probe reports MISSING_PATTERN_BINDING_RECEIPT despite a passing validator run.
+    """
     for receipt_ref in PATTERN_RECEIPTS:
         destination = root_path / receipt_ref
         if _path_exists(destination):
@@ -67,6 +88,12 @@ def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
 
 
 def _bootstrap_command(suite: str, emit_ref: str) -> str:
+    """Render the shell-safe bootstrap invocation recorded in the probe receipt.
+
+    - Teleology: give the receipt a reproducible, copy-pasteable command that reproduces this probe run.
+    - Guarantee: returns the `./bootstrap.sh --suite <suite> --emit <emit_ref>` string with both arguments shell-quoted via shlex.quote.
+    - Fails: never raises; pure string formatting over its inputs.
+    """
     return f"./bootstrap.sh --suite {shlex.quote(suite)} --emit {shlex.quote(emit_ref)}"
 
 
@@ -75,6 +102,17 @@ def run_probe(
     suite: str = "first-wave",
     emit_ref: str | Path = DEFAULT_EMIT_REF,
 ) -> dict[str, Any]:
+    """Run the cold-clone bootstrap probe over a checkout root and return its receipt.
+
+    - Teleology: prove a fresh checkout can bootstrap the named first-wave suite with no private state leaking, gating the public-clone story; the core organ behind the CLI.
+    - Guarantee: returns a receipt dict whose `status` is "pass" only when the suite is supported, all REQUIRED_INPUTS fixtures exist, the secret-exclusion scan passes, pattern-binding validates, and all PATTERN_RECEIPTS are present; on pass it carries the secret-exclusion scan, observed first-wave receipts, and receipt_paths.
+    - Fails: never raises (the one risky call, validate_secret_exclusion_scan, is caught); instead returns a non-pass receipt — status "blocked_invalid_input" (UNKNOWN_COLD_CLONE_SUITE), "blocked_dependency_missing" (MISSING_FIXTURE_INPUT or MISSING_PATTERN_BINDING_RECEIPT), "blocked_command_unavailable" (COMMAND_UNAVAILABLE), or "blocked_secret_exclusion" (SECRET_EXCLUSION_SCAN_BLOCKED).
+    - Reads: REQUIRED_INPUTS fixtures under `root`/fixtures/first_wave/; the secret-exclusion scan; pattern-binding input fixtures and receipts.
+    - Writes: pattern-binding receipts into a scratch dir under `root`/.microcosm/ and mirrors missing canonical receipts (via _mirror_missing_pattern_receipts); does not itself write the `--emit` file (the CLI does).
+    - When-needed: when verifying a cold clone bootstraps cleanly and privately before release.
+    - Escalates-to: validate_secret_exclusion_scan, validate_pattern_binding, and the emitted receipt itself as the higher-fidelity evidence surface.
+    - Non-goal: does not authorize release, public-safe equivalence beyond the secret-exclusion + pattern-binding checks, or whole-system correctness.
+    """
     root_path = Path(root)
     emit_ref_text = str(emit_ref)
     receipt = base_receipt(

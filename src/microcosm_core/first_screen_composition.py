@@ -99,10 +99,24 @@ BOUNDED_OBSERVATORY_REQUEST_COUNT = 7
 
 
 def _observatory_serve_command(project_label: str) -> str:
+    """Build the localhost observatory serve command string for the project label.
+
+    - Teleology: keep the browser read-model serve command copyable from a single string builder.
+    - Guarantee: returns a `microcosm serve <label> --host 127.0.0.1 --port 8765` string bound to localhost only.
+    - Fails: never raises; always returns a localhost-pinned string, never a hosted/public bind.
+    - Non-goal: does not start a server, authorize hosting, or imply release readiness.
+    """
     return f"microcosm serve {project_label} --host 127.0.0.1 --port 8765"
 
 
 def _bounded_observatory_serve_command(project_label: str) -> str:
+    """Build the request-bounded observatory serve command for smoke validation.
+
+    - Teleology: give first-screen route smokes a serve command that self-terminates after a fixed request count.
+    - Guarantee: returns the localhost serve command suffixed with `--max-requests 7` (BOUNDED_OBSERVATORY_REQUEST_COUNT).
+    - Fails: never raises; always returns a bounded localhost command string.
+    - Non-goal: does not run the server, authorize hosting, or guarantee the smoke passes.
+    """
     return (
         f"{_observatory_serve_command(project_label)} "
         f"--max-requests {BOUNDED_OBSERVATORY_REQUEST_COUNT}"
@@ -110,17 +124,41 @@ def _bounded_observatory_serve_command(project_label: str) -> str:
 
 
 def _json_cache_key(path: Path) -> tuple[str, int, int]:
+    """Derive a content-sensitive cache key (resolved path, mtime_ns, size) for a JSON file.
+
+    - Teleology: let the lru_cache invalidate a parsed JSON object when the on-disk file changes.
+    - Guarantee: returns (resolved posix path, st_mtime_ns, st_size); the tuple changes whenever the file is rewritten.
+    - Fails: raises OSError (FileNotFoundError) when `path` does not exist, since it stats the file.
+    - Reads: the filesystem stat of `path` (no body parse here).
+    """
     stat = path.stat()
     return path.resolve().as_posix(), stat.st_mtime_ns, stat.st_size
 
 
 @lru_cache(maxsize=128)
 def _load_json_object(path_ref: str, mtime_ns: int, size: int) -> Any:
+    """Strict-parse a JSON file at path_ref, memoized on (path, mtime_ns, size).
+
+    - Teleology: source-custody read path that parses public JSON once per file revision.
+    - Guarantee: returns the strict-parsed JSON value for path_ref; identical (path, mtime, size) reuses the cached parse.
+    - Fails: raises StrictJsonError on malformed/duplicate-key JSON and OSError when the file is unreadable.
+    - Reads: the JSON file at `path_ref` via read_json_strict.
+    - Non-goal: does not validate schema, authorize source-body export, or assert public-safe equivalence.
+    """
     del mtime_ns, size
     return read_json_strict(Path(path_ref))
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
+    """Load the first-screen composition root standard JSON object from `root`.
+
+    - Teleology: source-custody loader for the governing standard the card is validated against.
+    - Guarantee: returns the parsed standard dict at root/STANDARD_REF (standards/std_microcosm_first_screen_composition_root.json).
+    - Fails: raises TypeError when the file is not a JSON object; propagates StrictJsonError/OSError from the loader when missing or malformed.
+    - Reads: `standards/std_microcosm_first_screen_composition_root.json` under `root`.
+    - Escalates-to: STANDARD_REF as the authority the card mirrors; first_screen_composition_card consumes this.
+    - Non-goal: does not authorize release or treat the standard as whole-system correctness.
+    """
     payload = _load_json_object(*_json_cache_key(root / STANDARD_REF))
     if not isinstance(payload, dict):
         raise TypeError(f"{STANDARD_REF} must contain a JSON object")
@@ -128,12 +166,24 @@ def _load_standard(root: Path) -> dict[str, Any]:
 
 
 def _string_set(rows: Any) -> set[str]:
+    """Coerce an arbitrary value into a set of its string elements.
+
+    - Teleology: normalize standard-declared list fields into comparable string sets for parity checks.
+    - Guarantee: returns a set of the str items in `rows`; non-list input yields an empty set.
+    - Fails: never raises; non-string and non-list inputs are silently dropped.
+    """
     if not isinstance(rows, list):
         return set()
     return {str(row) for row in rows if isinstance(row, str)}
 
 
 def _reader_route_ids(rows: Any) -> set[str]:
+    """Extract the set of reader_route_id values present in a list of row dicts.
+
+    - Teleology: pull the reader-route id set from any reader surface for route-parity comparison.
+    - Guarantee: returns the set of truthy `reader_route_id` strings across dict rows; non-list input yields an empty set.
+    - Fails: never raises; rows without a reader_route_id key are skipped.
+    """
     if not isinstance(rows, list):
         return set()
     return {
@@ -144,15 +194,35 @@ def _reader_route_ids(rows: Any) -> set[str]:
 
 
 def normalize_reader_route_id(reader_id: str) -> str:
+    """Resolve a reader-route alias (e.g. cold-cloner, reviewer) to its canonical reader_route_id.
+
+    - Teleology: public alias normalizer so CLI/text callers can pass human-friendly reader names.
+    - Guarantee: returns the canonical id from READER_ROUTE_ALIASES when `reader_id` is an alias, else returns `reader_id` unchanged.
+    - Fails: never raises; unknown ids pass through verbatim (validity is enforced separately by callers like first_screen_text_card).
+    - When-needed: when mapping a user-supplied reader token to the six canonical READER_ROUTE_IDS.
+    - Escalates-to: READER_ROUTE_ALIASES / READER_ROUTE_IDS constants in this module.
+    """
     return READER_ROUTE_ALIASES.get(reader_id, reader_id)
 
 
 def _ordered_reader_route_ids(route_ids: set[str]) -> list[str]:
+    """Order a reader-route id set: canonical ids first, then extras sorted.
+
+    - Teleology: produce a stable, deterministic reader-id ordering for parity receipts.
+    - Guarantee: returns canonical READER_ROUTE_IDS present in `route_ids` (in canonical order) followed by sorted unknown extras.
+    - Fails: never raises; an empty set yields an empty list.
+    """
     known_ids = [route_id for route_id in READER_ROUTE_IDS if route_id in route_ids]
     return known_ids + sorted(route_ids - REQUIRED_ROUTE_IDS)
 
 
 def _surface_list(payload: dict[str, Any], surface_id: str, list_key: str) -> list[Any]:
+    """Safely read payload[surface_id][list_key] as a list.
+
+    - Teleology: defensive accessor for nested list fields of a composition payload.
+    - Guarantee: returns the list at payload[surface_id][list_key], or an empty list when any level is missing or non-list.
+    - Fails: never raises on missing keys or wrong types; returns `[]` instead.
+    """
     surface = payload.get(surface_id, {})
     if not isinstance(surface, dict):
         return []
@@ -165,6 +235,13 @@ def _standard_surface_present(
     payload: dict[str, Any],
     validation_check_ids: set[str],
 ) -> bool:
+    """Decide whether a standard-required surface is present in payload or as a validation check.
+
+    - Teleology: tolerate surface renames so receipt-contract parity survives alias drift.
+    - Guarantee: returns True when surface_id or any of its STANDARD_SURFACE_ALIASES appears as a payload key or a validation-check id.
+    - Fails: never raises; an unknown surface with no alias hit returns False.
+    - Reads: STANDARD_SURFACE_ALIASES for the alias expansion.
+    """
     aliases = {surface_id, *STANDARD_SURFACE_ALIASES.get(surface_id, ())}
     return any(alias in payload for alias in aliases) or any(
         alias in validation_check_ids for alias in aliases
@@ -176,6 +253,15 @@ def _standard_backed_first_screen_scan(
     standard: dict[str, Any],
     validation_check_ids: set[str],
 ) -> dict[str, Any]:
+    """Scan the composition payload against the loaded standard and emit a pass/blocked contract receipt.
+
+    - Teleology: prove the generated card mirrors the standard's required fields, validator id, reader-route parity, and denied-authority flags.
+    - Guarantee: returns a `microcosm_standard_backed_first_screen_scan_v1` dict whose `status` is "pass" only when every `checks` entry is True; reports per-surface route_parity, reader_command_parity, denied_authority_flags, and a `missing` breakdown.
+    - Fails: never raises; mismatches surface as `status="blocked"` with the failing check flagged False, never an exception.
+    - When-needed: when verifying the card has not drifted from std_microcosm_first_screen_composition_root.json.
+    - Escalates-to: STANDARD_REF and the validator_contract.validator_id it cross-checks; the receipt asserts scanner-contract-only authority, not release or reader success.
+    - Non-goal: does not authorize release, reader success, or whole-system correctness.
+    """
     validator_contract = standard.get("validator_contract", {})
     receipt_contract = standard.get("receipt_contract", {})
     required_fields = _string_set(standard.get("required_fields", []))
@@ -344,6 +430,14 @@ def _standard_backed_first_screen_scan(
 
 
 def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
+    """Tolerantly load a public registry/receipt JSON object under `root`, defaulting to empty.
+
+    - Teleology: source-custody read for optional public inputs (organ/standards/workingness/fixture manifests) that may be absent.
+    - Guarantee: returns the parsed dict at root/ref, or `{}` when the file is missing, unreadable, malformed, or not a JSON object.
+    - Fails: never raises; StrictJsonError and OSError are swallowed and degrade to `{}`.
+    - Reads: the public JSON file at `ref` relative to `root`.
+    - Non-goal: does not authorize source-body export, public-safe equivalence, or release; missing inputs silently narrow the card, never error it.
+    """
     try:
         payload = _load_json_object(*_json_cache_key(root / ref))
     except (StrictJsonError, OSError):
@@ -354,12 +448,24 @@ def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
 
 
 def _collection_count(value: Any) -> int | None:
+    """Return len(value) when value is a collection, else None.
+
+    - Teleology: derive a count from a registry collection field without trusting a scalar count field.
+    - Guarantee: returns the length for dict/list/tuple input; returns None for any other type.
+    - Fails: never raises; non-collections yield None.
+    """
     if isinstance(value, (dict, list, tuple)):
         return len(value)
     return None
 
 
 def _non_negative_int(value: Any) -> int | None:
+    """Return value when it is a non-negative, non-bool int, else None.
+
+    - Teleology: accept only honest count scalars from registries, rejecting bools and negatives.
+    - Guarantee: returns the int when `value` is an int >= 0 and not a bool; returns None otherwise.
+    - Fails: never raises; True/False and negative or non-int values yield None.
+    """
     if isinstance(value, bool):
         return None
     if isinstance(value, int) and value >= 0:
@@ -368,6 +474,12 @@ def _non_negative_int(value: Any) -> int | None:
 
 
 def _first_count(*candidates: int | None) -> int | None:
+    """Return the first non-None candidate count in priority order.
+
+    - Teleology: pick the highest-fidelity available count (e.g. fixture manifest before stale workingness fallback).
+    - Guarantee: returns the first argument that is not None; returns None only when every candidate is None.
+    - Fails: never raises; all-None input yields None.
+    """
     for candidate in candidates:
         if candidate is not None:
             return candidate
@@ -375,17 +487,36 @@ def _first_count(*candidates: int | None) -> int | None:
 
 
 def _strings(value: Any) -> list[str]:
+    """Coerce a value into a list of its non-empty string elements.
+
+    - Teleology: normalize id-list fields (e.g. body_material_ids) into clean string lists.
+    - Guarantee: returns the truthy str items of `value` in order; non-list input yields an empty list.
+    - Fails: never raises; non-string and empty-string items are dropped.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _public_text(value: Any) -> str:
+    """Flatten any value to single-spaced ASCII-only text.
+
+    - Teleology: public-safe text guard that collapses whitespace and drops non-ASCII before a value reaches a reader card.
+    - Guarantee: returns whitespace-collapsed, ASCII-only text; None/empty becomes "".
+    - Fails: never raises; non-ASCII characters are silently discarded.
+    - Non-goal: not a private-data redactor; it sanitizes shape, it does not authorize export of restricted content.
+    """
     text = " ".join(str(value or "").split())
     return text.encode("ascii", "ignore").decode("ascii")
 
 
 def _public_excerpt(value: Any, max_chars: int) -> str:
+    """Produce an ASCII, word-bounded excerpt of value capped at max_chars.
+
+    - Teleology: keep glance/one-line excerpts inside the first-screen budget without mid-word truncation.
+    - Guarantee: returns _public_text(value) when within max_chars; otherwise a word-bounded prefix ending in "..." no longer than the cap.
+    - Fails: never raises; over-long input is truncated, not rejected.
+    """
     text = _public_text(value)
     if len(text) <= max_chars:
         return text
@@ -394,6 +525,12 @@ def _public_excerpt(value: Any, max_chars: int) -> str:
 
 
 def _positive_count(row: Any) -> bool:
+    """Report whether a scale-count row carries a strictly positive integer count.
+
+    - Teleology: gate display logic on rows whose `count` is a real positive int.
+    - Guarantee: returns True only when `row` is a dict with a non-bool int `count` > 0; False otherwise.
+    - Fails: never raises; missing/bool/non-positive counts return False.
+    """
     return (
         isinstance(row, dict)
         and isinstance(row.get("count"), int)
@@ -403,10 +540,25 @@ def _positive_count(row: Any) -> bool:
 
 
 def _source_checkout_command(command: str, project_label: str) -> str:
+    """Build a no-install `PYTHONPATH=src python3 -m microcosm_core <command> <label>` invocation.
+
+    - Teleology: keep the source-checkout (no pip install) entry path copyable for cold cloners.
+    - Guarantee: returns the PYTHONPATH-prefixed module invocation string for the given subcommand and project label.
+    - Fails: never raises; pure string formatting.
+    - Non-goal: does not run anything or imply a package install / release path.
+    """
     return f"PYTHONPATH=src python3 -m microcosm_core {command} {project_label}"
 
 
 def _source_checkout_commands(project_label: str) -> dict[str, str]:
+    """Build the source-checkout fallback command set (hello, tour, status, first-screen, contracts).
+
+    - Teleology: projection of the no-install entry commands so the card never assumes a pip install.
+    - Guarantee: returns a `microcosm_source_checkout_commands_v1` dict mapping each entry surface to its PYTHONPATH module invocation, with an explicit fallback-not-install authority field.
+    - Fails: never raises; deterministic string construction from `project_label`.
+    - Escalates-to: _source_checkout_command builds each row; consumed by first_screen_composition_card and the text card.
+    - Non-goal: does not install, run, or claim package-install or release readiness.
+    """
     return {
         "schema_version": "microcosm_source_checkout_commands_v1",
         "purpose": "keep_the_no_install_entry_path_copyable_after_hello",
@@ -435,6 +587,14 @@ def _source_checkout_commands(project_label: str) -> dict[str, str]:
 
 
 def _reader_routes(project_label: str) -> list[dict[str, Any]]:
+    """Build the six reader-route rows (first question, next commands, evidence focus) for the card.
+
+    - Teleology: generated reader-typed entry rows so each audience gets a first question and inspection order.
+    - Guarantee: returns a list of six route dicts (one per READER_ROUTE_ID) each declaring branch_authority = "selects_next_inspection_surface_only".
+    - Fails: never raises; pure deterministic construction from `project_label`.
+    - Escalates-to: REQUIRED_ROUTE_IDS parity is enforced by _standard_backed_first_screen_scan / _validation_checks.
+    - Non-goal: does not authorize reader success, release, or reader-specific claim ceilings.
+    """
     return [
         {
             "reader_route_id": "public_github_visitor",
@@ -531,6 +691,14 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
 
 
 def _reader_landing_packets(project_label: str) -> dict[str, Any]:
+    """Build the reader-landing packets that turn each route into one action/proof/success/next.
+
+    - Teleology: generated per-reader "one screen" packets (first action, proof surface, success criterion, next drilldown).
+    - Guarantee: returns a `microcosm_reader_landing_packets_v1` dict with one packet per reader route, each carrying an inspection-order-only authority field.
+    - Fails: never raises; deterministic construction from `project_label`.
+    - Escalates-to: consumed by _reader_packet_map and the text card; parity checked by _validation_checks.
+    - Non-goal: does not authorize reader success, safety approval, hiring assessment, or release.
+    """
     return {
         "schema_version": "microcosm_reader_landing_packets_v1",
         "purpose": "turn_reader_routes_into_first_action_proof_success_packets",
@@ -695,6 +863,14 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
 
 
 def _reader_route_menu(project_label: str) -> dict[str, Any]:
+    """Build the copyable reader-route menu (terminal + text-projection commands per reader).
+
+    - Teleology: generated menu so reader-typed first screens are copyable without separate entry artifacts.
+    - Guarantee: returns a `microcosm_reader_route_menu_v1` dict whose `routes` carry the exact `microcosm hello --reader <id>` and `microcosm first-screen --format text --reader <id>` commands the standard scan expects, plus a `safe_to_show` block with all export/release flags False.
+    - Fails: never raises; deterministic construction from `project_label`.
+    - Escalates-to: command parity is asserted by _standard_backed_first_screen_scan.reader_command_parity.
+    - Non-goal: does not create a new entry artifact, claim reader success, or claim release.
+    """
     return {
         "schema_version": "microcosm_reader_route_menu_v1",
         "purpose": (
@@ -897,6 +1073,14 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
 
 
 def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
+    """Build the behavior-proof packet naming the shared first command and its success fields.
+
+    - Teleology: generated packet that turns the shared first run into inspectable success conditions.
+    - Guarantee: returns a `microcosm_behavior_proof_packet_v1` dict with command, `writes_state: True`, `.microcosm` state_dir, the proof_fields to read (front_door_status.status, selected_route_id, state_inspection, source_files_mutated=False), and a local-receipt-not-release authority.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: the actual `microcosm tour --card` run that writes .microcosm/ and front_door_status.
+    - Non-goal: does not authorize release, proof correctness, or safety evaluation.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_behavior_proof_packet_v1",
@@ -935,6 +1119,13 @@ def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
 
 
 def _pre_install_probe_packet() -> dict[str, Any]:
+    """Build the bounded cold-clone pre-install probe packet (bootstrap command + receipt ref).
+
+    - Teleology: generated handle for the `./bootstrap.sh` probe that runs before install and writes ignored local state.
+    - Guarantee: returns a `microcosm_pre_install_probe_v1` dict with command, dry-run command, receipt_ref (.microcosm/cold_clone_probe.json), and a safe_to_show block with release/provider/source-mutation all False.
+    - Fails: never raises; returns a constant packet.
+    - Non-goal: does not run bootstrap, authorize provider calls, source mutation, or release.
+    """
     return {
         "schema_version": "microcosm_pre_install_probe_v1",
         "command": "./bootstrap.sh",
@@ -952,6 +1143,14 @@ def _pre_install_probe_packet() -> dict[str, Any]:
 
 
 def _first_run_ladder(project_label: str) -> dict[str, Any]:
+    """Build the first-run ladder (map -> behavior proof -> status -> reader branch) packet.
+
+    - Teleology: generated copyable run order so the first screen precedes the long quickstart inventory.
+    - Guarantee: returns a `microcosm_first_run_ladder_v1` dict whose `steps` carry per-step command, source_checkout_command, writes_microcosm_state flag, expected_surface, success_read, and a step-scoped authority; embeds the pre-install probe.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: each step's `microcosm` command and the behavior_proof_packet it points at.
+    - Non-goal: does not run the ladder or claim quickstart-inventory completeness or release.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     status_card_command = f"microcosm status --card {project_label}"
@@ -1008,6 +1207,14 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
 
 
 def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
+    """Build the ordered first-viewport slot manifest shared by CLI/README/browser/JSON/video.
+
+    - Teleology: generated single-screen composition contract that fixes slot order before the long inventory.
+    - Guarantee: returns a `microcosm_first_viewport_manifest_v1` dict with ordered `slots`, a `problem_shape_slot_map`, consumer_surfaces, and a `safe_to_show` block with export/release flags False; every slot repeats must_preserve and must_not_claim.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: the per-slot source_packet builders (first_run_ladder, reader_route_menu, evidence_count_frame, discipline_comparison_strip).
+    - Non-goal: does not render, create a new claim, or claim renderer/release authority.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     bounded_serve_command = _bounded_observatory_serve_command(project_label)
@@ -1159,6 +1366,13 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
 
 
 def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
+    """Build the local-state receipt trail naming each .microcosm artifact the first run writes.
+
+    - Teleology: generated trail showing what the shared first run writes without expanding raw state.
+    - Guarantee: returns a `microcosm_local_state_receipt_trail_v1` dict listing catalog/routes/events/evidence/graph state_refs under `.microcosm`, each with a `not_authority_for` boundary.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not authorize private-root equivalence, release, or proof correctness; refs are behavior evidence, not source mutation.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_local_state_receipt_trail_v1",
@@ -1207,6 +1421,13 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
 
 
 def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
+    """Build the compact first-contact surface map (route/work/events/evidence/graph/observatory/proof/status).
+
+    - Teleology: generated handle map compressing the route-work-event-evidence-graph chain plus observatory/proof handles for cold readers.
+    - Guarantee: returns a `microcosm_first_contact_surface_refs_v1` dict with required_surface_ids and a `surfaces` map of commands/state_refs, plus a safe_to_show block where body_text_exported, source_files_mutated, provider_calls_authorized, and release_authorized are all False.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not export source bodies, authorize provider/source mutation, or claim release or proof correctness.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     status_card_command = f"microcosm status --card {project_label}"
     observe_command = f"microcosm observe --card {project_label}"
@@ -1316,6 +1537,13 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
 
 
 def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
+    """Build the overclaim tripwire matrix mapping common cold-reader overclaims to valid bounded reads.
+
+    - Teleology: generated translation table so frequent overclaims (release-ready, organ-count, low-import, private-root, hosted) resolve to a defensible read plus a check surface.
+    - Guarantee: returns a `microcosm_overclaim_tripwire_matrix_v1` dict whose `rows` each pair an overclaim with a valid_read, check_surface, and reader_rule.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: not a marketing or release surface; it bounds claims, it does not make them.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_overclaim_tripwire_matrix_v1",
@@ -1378,6 +1606,13 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
 
 
 def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
+    """Build the per-reader exit criteria (when the first screen has done its job) packet.
+
+    - Teleology: generated stop rules telling each reader when they can choose a drilldown without the command inventory.
+    - Guarantee: returns a `microcosm_reader_exit_criteria_v1` dict with one criterion per reader route, each declaring exit_when, next_if_not_met, and a not_a_claim.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not authorize reader success or release.
+    """
     return {
         "schema_version": "microcosm_reader_exit_criteria_v1",
         "purpose": "tell_cold_readers_when_the_first_screen_has_done_its_job",
@@ -1450,6 +1685,14 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
 
 
 def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
+    """Build the 60-second cold-entry video storyboard packet bound to the same first-screen commands.
+
+    - Teleology: generated presentation plan so a video/screenshot board projects the first-screen beats without inventing new claims.
+    - Guarantee: returns a `microcosm_video_storyboard_packet_v1` dict with timeboxed `beats`, allowed_artifact_forms, a `safe_to_show` block (private/provider/live-session/release flags False), and an explicit anti_claim.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: first_screen_composition_card as the named source_projection every beat points back to.
+    - Non-goal: not a release artifact, benchmark, hosted demo, or private-root equivalence claim.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     status_card_command = f"microcosm status --card {project_label}"
     observatory_command = _bounded_observatory_serve_command(project_label)
@@ -1537,6 +1780,14 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
 
 
 def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
+    """Build the artifact-fit matrix binding every cold-entry form to one source card.
+
+    - Teleology: generated matrix asserting terminal/README/browser/JSON/video forms are projections over one first-screen contract.
+    - Guarantee: returns a `microcosm_first_screen_artifact_fit_matrix_v1` dict naming source_of_truth = first_screen_composition_card, with per-surface rows (must_preserve/must_not_claim) and a safe_to_show block where export/new-release-artifact flags are False.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: the named source_projection per row (first_screen_text_card, first_screen_compact_card, readme_entry_contract, observatory_landing_frame).
+    - Non-goal: does not create a new release artifact or reader-specific claim ceiling.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     first_screen_json_command = f"microcosm first-screen --card {project_label}"
@@ -1666,6 +1917,13 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
 
 
 def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
+    """Build the cold-entry problem map binding each problem shape to an existing first-screen packet.
+
+    - Teleology: generated map explaining why each first-screen packet exists, without creating a second entry artifact.
+    - Guarantee: returns a `microcosm_cold_entry_problem_map_v1` dict whose `rows` resolve each problem_shape_id to a primary_packet, first_surface, proof_surface, and not_claim, plus a safe_to_show block with export/release flags False.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not create a new entry artifact or claim strategy/release authority.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
@@ -1772,6 +2030,14 @@ def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
 
 
 def _evidence_count_frame() -> dict[str, Any]:
+    """Build the evidence-count interpretation frame (counts are accounting, not scores).
+
+    - Teleology: generated frame fixing how a reader must interpret evidence-class counts.
+    - Guarantee: returns a constant dict declaring interpretation="accounting_not_maturity_score", forbidden_reads (maturity/readiness/completeness/progress), and authoritative_count_sources with their roles.
+    - Fails: never raises; returns a constant frame.
+    - Escalates-to: EVIDENCE_CLASS_REGISTRY_REF (legend_ref) and the fixture-manifest/workingness count sources it names.
+    - Non-goal: does not score maturity, readiness, or progress.
+    """
     return {
         "interpretation": "accounting_not_maturity_score",
         "legend_ref": EVIDENCE_CLASS_REGISTRY_REF,
@@ -1814,6 +2080,14 @@ def _evidence_count_frame() -> dict[str, Any]:
 
 
 def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str]]:
+    """Flatten the public organ_glance_ladder into organ rows plus the set of family ids.
+
+    - Teleology: source-custody reader that projects the public agent-task-routes glance ladder into a flat row list for the substrate glance.
+    - Guarantee: returns (rows, families) where rows are family-stamped organ dicts and families is the set of family ids; a missing or malformed ladder yields ([], set()).
+    - Fails: never raises; absent file or wrong types degrade to empty results.
+    - Reads: `atlas/agent_task_routes.json::organ_glance_ladder` under `root`.
+    - Non-goal: does not authorize source-body export, evidence-strength, or release.
+    """
     routes = _load_public_json(root, AGENT_TASK_ROUTES_REF)
     ladder = routes.get("organ_glance_ladder", []) if isinstance(routes, dict) else []
     rows: list[dict[str, Any]] = []
@@ -1847,6 +2121,14 @@ def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str
 
 
 def _representative_substrate_glance(root: Path) -> dict[str, Any]:
+    """Build a family-diverse, capped sample of real public organs for the first screen.
+
+    - Teleology: generated projection showing actual public organ substance before any drilldown, capped before it becomes an inventory.
+    - Guarantee: returns a `microcosm_representative_substrate_glance_v1` dict with up to SUBSTRATE_GLANCE_SAMPLE_LIMIT family-diverse `examples`, total_organ_count/family_count, source_refs, and a safe_to_show block with export/release/whole-system flags False.
+    - Fails: never raises; an empty or missing ladder yields zero examples, not an error.
+    - Reads: `atlas/agent_task_routes.json::organ_glance_ladder` (via _organ_glance_ladder_rows) under `root`.
+    - Non-goal: does not claim inventory completeness, evidence strength, readiness, or whole-system correctness.
+    """
     rows, families = _organ_glance_ladder_rows(root)
     examples: list[dict[str, Any]] = []
     selected_families: set[str] = set()
@@ -1944,6 +2226,14 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
 
 
 def _implemented_organ_ids(organ_registry: dict[str, Any]) -> list[str]:
+    """Extract the list of organ_id strings from an organ registry's implemented_organs.
+
+    - Teleology: source-custody accessor giving the implemented-organ id list that drives fixture-manifest counting.
+    - Guarantee: returns the str organ_ids from registry["implemented_organs"]; a missing or non-list field yields an empty list.
+    - Fails: never raises; rows without a string organ_id are skipped.
+    - Reads: the in-memory `implemented_organs` rows of the passed organ registry dict.
+    - Non-goal: does not assert the organs work, are released, or are whole-system correct.
+    """
     rows = organ_registry.get("implemented_organs")
     if not isinstance(rows, list):
         return []
@@ -1958,6 +2248,15 @@ def _source_open_body_import_count_from_fixture_manifests(
     root: Path,
     organ_ids: list[str],
 ) -> dict[str, Any]:
+    """Sum source-open body-material counts across per-organ fixture manifests.
+
+    - Teleology: source-custody digest that derives the verified source-open body-import count from fixture manifests before any stale workingness fallback.
+    - Guarantee: returns a dict with material_count, rows_with_imports, manifest_count, and source_field/source_ref/fallback_ref; counts are None when no manifest was found, else the summed positive `source_open_body_imports.body_material_count` (falling back to `body_copied_material_count`/id length).
+    - Fails: never raises; missing or malformed manifests are skipped (manifest_count reflects how many were read).
+    - Reads: `core/fixture_manifests/<organ_id>.fixture_manifest.json` under `root`.
+    - Escalates-to: WORKINGNESS_MAP_REF as the declared fallback_ref when manifests are absent.
+    - Non-goal: counts a declared copy boundary only; does not authorize source-body export, public-safe equivalence, or release.
+    """
     material_count = 0
     rows_with_imports = 0
     manifest_count = 0
@@ -2004,6 +2303,14 @@ def _source_open_body_import_count_from_fixture_manifests(
 
 
 def _evidence_class_legend(root: Path) -> dict[str, Any]:
+    """Build the evidence-class claim-boundary legend from the evidence-class registry.
+
+    - Teleology: generated public legend naming, per evidence class, what a count can and cannot claim.
+    - Guarantee: returns a `microcosm_evidence_class_legend_v1` dict with per-class claim_ceiling/evaluator_basis/strength fields in EVIDENCE_CLASS_DISPLAY_ORDER, a missing_profiles list for absent classes, and the registry's authority_boundary/anti_claim.
+    - Fails: never raises; a missing registry yields empty classes and lists every display-order id under missing_profiles.
+    - Reads: `core/organ_evidence_classes.json` under `root`.
+    - Non-goal: it is a claim-boundary legend, not a benchmark, release gate, or maturity score.
+    """
     registry = _load_public_json(root, EVIDENCE_CLASS_REGISTRY_REF)
     class_profiles = registry.get("class_profiles", {})
     if not isinstance(class_profiles, dict):
@@ -2056,6 +2363,14 @@ def _evidence_class_legend(root: Path) -> dict[str, Any]:
 
 
 def _scale_frame(root: Path) -> dict[str, Any]:
+    """Build the public scale-count frame from organ/standards registries, workingness map, and fixture manifests.
+
+    - Teleology: generated breadth frame presenting public counts as receipt-backed handles, not scores.
+    - Guarantee: returns a dict whose `public_scale_counts` carry per-count `count` (or None), `source_ref`, and `read_as` boundary, preferring fixture-manifest source-open counts over the workingness fallback; includes scale_handles and a count_reader_rule.
+    - Fails: never raises; absent registries yield None counts via tolerant loads, not an error.
+    - Reads: `core/organ_registry.json`, `core/standards_registry.json`, `receipts/runtime_shell/workingness_failure_map.json`, and fixture manifests under `root`.
+    - Non-goal: counts are pointers into owner receipts; they do not claim maturity, readiness, completeness, or whole-system correctness.
+    """
     organ_registry = _load_public_json(root, ORGAN_REGISTRY_REF)
     standards_registry = _load_public_json(root, STANDARDS_REGISTRY_REF)
     workingness_map = _load_public_json(root, WORKINGNESS_MAP_REF)
@@ -2177,6 +2492,13 @@ def _scale_frame(root: Path) -> dict[str, Any]:
 
 
 def _comparison_frame() -> dict[str, Any]:
+    """Build the entry-discipline comparison frame (failure modes vs Microcosm discipline).
+
+    - Teleology: generated prose frame making rigor visible without claim inflation.
+    - Guarantee: returns a constant dict listing common_entry_failure_modes, microcosm_entry_discipline, and a reader_effect.
+    - Fails: never raises; returns a constant frame.
+    - Non-goal: makes no superiority, benchmark, or release claim.
+    """
     return {
         "purpose": "make_rigor_visible_without_claim_inflation",
         "common_entry_failure_modes": [
@@ -2199,6 +2521,13 @@ def _comparison_frame() -> dict[str, Any]:
 
 
 def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
+    """Build the discipline comparison strip rendering Microcosm rigor as inspectable boundaries.
+
+    - Teleology: generated strip showing what Microcosm does differently from a typical cold-entry surface as boundaries, not superiority claims.
+    - Guarantee: returns a `microcosm_discipline_comparison_strip_v1` dict whose `rows` pair an ordinary_entry_pattern with the Microcosm boundary per comparison_id.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: not a benchmark, superiority, or maturity claim.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_discipline_comparison_strip_v1",
@@ -2278,6 +2607,13 @@ def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
 
 
 def _doctrine_effect_frame() -> dict[str, Any]:
+    """Build the doctrine-effect frame translating doctrine handles into mistakes-prevented.
+
+    - Teleology: generated frame showing doctrine as mistake prevention, not ceremony, each tied to a first-screen surface.
+    - Guarantee: returns a `microcosm_doctrine_effect_frame_v1` dict whose `effect_rows` map each doctrine_handle (CONSTITUTION/AXIOMS/PRINCIPLES/CONCEPTS/MECHANISMS/ANTI_PRINCIPLES) to what it prevents, its visible_effect, and first_screen_surface.
+    - Fails: never raises; returns a constant frame.
+    - Non-goal: an interpretation frame only, not the doctrine source; governance prose is not a credential.
+    """
     return {
         "schema_version": "microcosm_doctrine_effect_frame_v1",
         "purpose": "show_doctrine_as_mistake_prevention_not_ceremony",
@@ -2361,6 +2697,13 @@ def _doctrine_effect_frame() -> dict[str, Any]:
 
 
 def _readme_entry_contract(project_label: str) -> dict[str, Any]:
+    """Build the README entry-order contract placing the first-screen card before the inventory.
+
+    - Teleology: generated documentation-order contract making the package-backed first-screen card the README entry surface.
+    - Guarantee: returns a `microcosm_readme_entry_contract_v1` dict with required_markdown_order rows (surface/command must_precede pairs) and a consumer_rule preserving drilldowns after the first screen.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: a documentation-order contract, not a runtime proof or release authority.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     first_screen_json_command = f"microcosm first-screen --card {project_label}"
@@ -2418,6 +2761,14 @@ def _readme_entry_contract(project_label: str) -> dict[str, Any]:
 
 
 def _entry_surface_contract(project_label: str) -> dict[str, Any]:
+    """Build the entry-surface contract naming the package/text/script projection surfaces.
+
+    - Teleology: generated contract telling README/CLI/observatory consumers which package functions to reuse and what to preserve.
+    - Guarantee: returns a dict naming shared_behavior_surface, package_surface (first_screen_composition_card), text_projection_surface, script_surface, a consumer_rule listing the packets to preserve, and a format_contract.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: first_screen_composition_card and first_screen_text_card as the named package surfaces.
+    - Non-goal: a reuse contract, not a runtime proof or release authority.
+    """
     return {
         "shared_behavior_surface": f"microcosm tour --card {project_label}",
         "package_surface": (
@@ -2448,6 +2799,13 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
 
 
 def _runnable_structural_join(project_label: str) -> dict[str, Any]:
+    """Build the runnable-to-structural join prose binding the local run to the larger substrate.
+
+    - Teleology: generated prose joining the folder-local first run to the broader public structure it exercises.
+    - Guarantee: returns a dict with local_behavior, structural_context, and a join_rule requiring the first run to name the larger structure without copying deeper bodies.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not claim private-root equivalence or release.
+    """
     return {
         "local_behavior": (
             f"`microcosm tour --card {project_label}` is the first folder-local behavior surface: "
@@ -2462,6 +2820,14 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
 
 
 def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
+    """Build the observatory landing frame reusing the first-screen card as the browser landing.
+
+    - Teleology: generated frame making the hello first-screen card the localhost browser landing, not a separate cold-entry artifact.
+    - Guarantee: returns a `microcosm_observatory_landing_frame_v1` dict with serve/bounded-validation commands, localhost endpoints, required_visible_handles, drilldown_order, and an authority_boundary denying release/hosting/provider/source-mutation/private-equivalence.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: first_screen_text_card as the named source_projection the browser landing reuses.
+    - Non-goal: a localhost read-model boundary; it authorizes no hosting, release, or whole-system correctness.
+    """
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
     serve_command = _observatory_serve_command(project_label)
@@ -2551,6 +2917,14 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
 
 
 def _drilldowns(project_label: str) -> list[dict[str, str]]:
+    """Build the ordered list of post-first-screen drilldown handles (commands/endpoints/refs).
+
+    - Teleology: generated drilldown index pointing past the first screen to observatory, status, authority, workingness, and standard refs.
+    - Guarantee: returns a list of drilldown dicts each carrying a drilldown_id plus a command, endpoint, or ref.
+    - Fails: never raises; deterministic from `project_label`.
+    - Escalates-to: STANDARD_REF and the observatory/authority/workingness commands it lists.
+    - Non-goal: handles for further inspection; not release or proof authority.
+    """
     return [
         {
             "drilldown_id": "observatory_server",
@@ -2606,6 +2980,15 @@ def _drilldowns(project_label: str) -> list[dict[str, str]]:
 
 
 def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
+    """Compute the boolean self-consistency checks over an assembled composition payload.
+
+    - Teleology: validation entrypoint proving the card's internal surfaces (reader parity, command parity, anti-claims, safe_to_show flags, boundaries) are coherent.
+    - Guarantee: returns an ordered `dict[str, bool]` of named checks; each value is True only when that surface satisfies its contract (e.g. reader_route_ids match REQUIRED_ROUTE_IDS, denied-authority flags are False).
+    - Fails: never raises; missing or malformed surfaces yield a False check, never an exception.
+    - When-needed: when diagnosing why first_screen_composition_card.validation.status is "blocked".
+    - Escalates-to: first_screen_composition_card folds this into validation.checks alongside the standard-backed scan.
+    - Non-goal: internal-consistency only; does not authorize release, reader success, or whole-system correctness.
+    """
     route_ids = {
         str(route.get("reader_route_id"))
         for route in payload.get("reader_routes", [])
@@ -3724,6 +4107,13 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
 
 
 def _state_write_boundary(project_label: str) -> dict[str, Any]:
+    """Build the state-write boundary declaring the card itself writes no .microcosm state.
+
+    - Teleology: generated boundary separating this composition card (no writes) from the shared first command (which writes state).
+    - Guarantee: returns a `microcosm_first_screen_state_write_boundary_v1` dict asserting this_card_writes_microcosm_state=False, shared_first_command_writes_state=True, and a safe_to_show block with source-mutation/provider/release/proof flags False.
+    - Fails: never raises; deterministic from `project_label`.
+    - Non-goal: does not mutate source, authorize provider calls, release, or proof correctness.
+    """
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_first_screen_state_write_boundary_v1",
@@ -3752,6 +4142,16 @@ def first_screen_composition_card(
     *,
     project_label: str = "<project>",
 ) -> dict[str, Any]:
+    """Assemble the full first-screen composition card and validate it against the standard.
+
+    - Teleology: the module's primary builder/projection entrypoint; composes every reader/proof/scale/doctrine packet into one public first-screen contract derived from the standard.
+    - Guarantee: returns a `microcosm_first_screen_composition_card_v1` dict mirroring the standard's authority_ceiling/anti_claim/omission_receipt/public_private_boundary and carrying `validation.status` ("pass" only when all internal checks and the standard-backed scan pass) plus a top-level `status`.
+    - Fails: raises TypeError/StrictJsonError/OSError only if the governing standard JSON is missing or malformed (via _load_standard); a coherent-but-noncompliant payload returns status="blocked", not an exception.
+    - When-needed: when producing the canonical machine first-screen card or checking standard compliance.
+    - Reads: `standards/std_microcosm_first_screen_composition_root.json` plus public organ/standards/workingness/fixture-manifest inputs under `root`.
+    - Escalates-to: STANDARD_REF as source authority; first_screen_compact_card / first_screen_text_card project this output; the validator_id names the governing validator contract.
+    - Non-goal: GENERATED projection — does not authorize release, hosting, provider calls, source mutation, private-root equivalence, or whole-system correctness, and is not itself source-of-truth.
+    """
     root = Path(root)
     standard = _load_standard(root)
     source_checkout_commands = _source_checkout_commands(project_label)
@@ -3837,6 +4237,13 @@ def first_screen_composition_card(
 
 
 def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """Project the reader-route-menu rows into compact reader-route rows for the compact card.
+
+    - Teleology: generated slimming of menu rows to the fields the compact public card carries.
+    - Guarantee: returns a list of compact route dicts (id/label/commands/first_action/proof/exit/not_a_claim), adding source-checkout fields only when present; non-dict rows are skipped.
+    - Fails: never raises; a missing/empty menu yields an empty list.
+    - Non-goal: a projection of existing rows; adds no new claim or authority.
+    """
     route_menu = payload.get("reader_route_menu", {})
     routes = route_menu.get("routes", []) if isinstance(route_menu, dict) else []
     compact_routes: list[dict[str, Any]] = []
@@ -3866,6 +4273,13 @@ def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """Project the first-run-ladder steps into compact step rows for the compact card.
+
+    - Teleology: generated slimming of ladder steps to the keys the compact card shows.
+    - Guarantee: returns a list of step dicts limited to step_id/command/source_checkout_command/expected_surface/writes_microcosm_state/authority where present; non-dict rows are skipped.
+    - Fails: never raises; a missing/empty ladder yields an empty list.
+    - Non-goal: a projection; adds no new step or claim.
+    """
     ladder = payload.get("first_run_ladder", {})
     steps = ladder.get("steps", []) if isinstance(ladder, dict) else []
     compact_steps: list[dict[str, Any]] = []
@@ -3890,6 +4304,13 @@ def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _compact_scale_counts(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Project the scale frame into the three headline counts (organs/standards/source-open) for the compact card.
+
+    - Teleology: generated reduction of public_scale_counts to the count + read_as the compact card surfaces.
+    - Guarantee: returns a dict keyed by implemented_organs/public_standards/source_open_materials, each {count, read_as}; absent rows are omitted.
+    - Fails: never raises; a missing scale frame yields an empty dict.
+    - Non-goal: a projection; counts stay accounting handles, not scores or authority.
+    """
     scale_frame = payload.get("scale_frame", {})
     counts = (
         scale_frame.get("public_scale_counts", {})
@@ -3913,6 +4334,13 @@ def _compact_scale_counts(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
+    """Project the full validation block into a compact pass/fail summary for the compact card.
+
+    - Teleology: generated reduction of validation.checks to a status + counts + failed-check list.
+    - Guarantee: returns a dict with source_status, validator_id, checks_passed_count, check_count, and failed_checks (every check whose value is not True).
+    - Fails: never raises; a missing validation block yields zero counts and an empty failed list.
+    - Non-goal: a projection of computed checks; runs no new validation and grants no release authority.
+    """
     validation = payload.get("validation", {})
     checks = validation.get("checks", {}) if isinstance(validation, dict) else {}
     failed = [
@@ -3930,6 +4358,13 @@ def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
+    """Project the representative substrate glance into a compact glance for the compact card.
+
+    - Teleology: generated reduction of the glance to source refs, counts, and slim example rows.
+    - Guarantee: returns a dict with source_refs/sample_limit/total_organ_count, example_display_names, families, and slim example dicts (id/name/family/excerpt fields).
+    - Fails: never raises; a missing glance yields None-valued fields and empty example lists.
+    - Non-goal: a projection; examples remain handles, not inventory or readiness claims.
+    """
     glance = payload.get("representative_substrate_glance", {})
     examples = glance.get("examples", []) if isinstance(glance, dict) else []
     rows = [row for row in examples if isinstance(row, dict)]
@@ -3961,6 +4396,15 @@ def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
+    """Project a full composition card into the stdout-budgeted compact public card.
+
+    - Teleology: public projection giving consumers a summary-first card under a char budget while preserving full-contract drilldowns.
+    - Guarantee: returns a `microcosm_first_screen_compact_card_v1` dict carrying the source status, compact reader-route/first-run/evidence/validation projections, the authority_ceiling/anti_claim/public_private_boundary, and an omission_receipt naming the omitted full-contract keys and the full-contract command.
+    - Fails: never raises; missing payload sections degrade to None/empty compact fields, not an exception.
+    - When-needed: when emitting `microcosm first-screen --card` output.
+    - Escalates-to: the full card via output_policy.full_contract_command (`microcosm first-screen --full`).
+    - Non-goal: a GENERATED compact projection of an existing card; authorizes no release and is not source-of-truth.
+    """
     project_label = str(payload.get("project_label") or "<project>")
     route_menu = payload.get("reader_route_menu", {})
     state_boundary = payload.get("state_write_boundary", {})
@@ -4048,6 +4492,12 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index the payload's reader_routes by reader_route_id.
+
+    - Teleology: generated lookup so the text card can fetch a route row by id.
+    - Guarantee: returns a dict mapping each reader_route_id to its route dict; non-dict rows are skipped.
+    - Fails: never raises; a missing reader_routes list yields an empty dict.
+    """
     return {
         str(route.get("reader_route_id")): route
         for route in payload.get("reader_routes", [])
@@ -4056,6 +4506,12 @@ def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index the payload's reader_landing_packets by reader_route_id.
+
+    - Teleology: generated lookup so the text card can fetch a landing packet by id.
+    - Guarantee: returns a dict mapping each reader_route_id to its packet dict; non-dict packets are skipped.
+    - Fails: never raises; a missing/malformed reader_landing_packets yields an empty dict.
+    """
     landing_packets = payload.get("reader_landing_packets", {})
     if not isinstance(landing_packets, dict):
         return {}
@@ -4067,6 +4523,12 @@ def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _reader_menu_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index the payload's reader_route_menu routes by reader_route_id.
+
+    - Teleology: generated lookup so the text card can fetch a menu row (terminal/text commands) by id.
+    - Guarantee: returns a dict mapping each reader_route_id to its menu row dict; non-dict rows are skipped.
+    - Fails: never raises; a missing/malformed reader_route_menu yields an empty dict.
+    """
     route_menu = payload.get("reader_route_menu", {})
     if not isinstance(route_menu, dict):
         return {}
@@ -4084,6 +4546,13 @@ def _reader_branch_lines(
     reader_id: str,
     display_reader_id: str | None = None,
 ) -> list[str]:
+    """Render the reader-branch text lines for one reader id (or all readers).
+
+    - Teleology: generated text-card section turning the route/packet/menu maps into reader-branch lines.
+    - Guarantee: for reader_id="all" returns one summary line plus a per-reader command/proof line for every READER_ROUTE_ID; for a specific id returns that reader's command, question, first action, proof, and success lines, rewriting the alias label when display_reader_id differs.
+    - Fails: raises KeyError if the requested reader_id (or a canonical id under "all") is absent from the supplied maps; callers pass maps built from the same payload.
+    - Reads: READER_LABELS, READER_ROUTE_IDS, and INTERESTING_PARTS_ALIASES for labels/aliases.
+    """
     if reader_id == "all":
         return [
             f"Reader branches; {READER_ROUTE_ALIAS_HINT}:",
@@ -4155,6 +4624,13 @@ def _reader_branch_lines(
 
 
 def _scale_summary_line(payload: dict[str, Any]) -> str:
+    """Render the one-line public-handles summary (organ/standard/source-open counts) for the text card.
+
+    - Teleology: generated single line compressing the headline scale counts into the text card.
+    - Guarantee: returns a "Public handles: ..." line citing implemented_organs, public_standards, and source_open_materials counts.
+    - Fails: raises KeyError when scale_frame.public_scale_counts or those count rows are absent (direct subscripting); callers pass a fully assembled card payload.
+    - Non-goal: counts are accounting handles, not maturity or readiness scores.
+    """
     counts = payload["scale_frame"]["public_scale_counts"]
     organs = counts["implemented_organs"]["count"]
     standards = counts["public_standards"]["count"]
@@ -4167,6 +4643,13 @@ def _scale_summary_line(payload: dict[str, Any]) -> str:
 
 
 def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
+    """Render the one-line evidence-class summary for the text card.
+
+    - Teleology: generated single line naming the evidence classes (or pointing at the registry when incomplete).
+    - Guarantee: returns the full evidence-class line when all EVIDENCE_CLASS_DISPLAY_ORDER ids are present in the legend, else a line pointing at core/organ_evidence_classes.json.
+    - Fails: never raises; a missing legend falls back to the registry-pointer line.
+    - Non-goal: names claim ceilings, not maturity or release scores.
+    """
     class_ids = {
         str(row.get("evidence_class"))
         for row in payload.get("evidence_class_legend", {}).get("classes", [])
@@ -4181,6 +4664,13 @@ def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
 
 
 def _substrate_glance_lines(payload: dict[str, Any]) -> list[str]:
+    """Render the substrate-glance text lines (real organ examples) for the text card.
+
+    - Teleology: generated lines showing a few real public organs plus their source ref in the text card.
+    - Guarantee: returns excerpted "Substrate glance: ..." lines with a source line when examples exist; falls back to a single ORGAN_ATLAS_REF pointer line when none do.
+    - Fails: never raises; absent examples degrade to the atlas-pointer line.
+    - Non-goal: examples are handles from the public glance ladder, not readiness or inventory claims.
+    """
     glance = payload.get("representative_substrate_glance", {})
     examples = glance.get("examples", []) if isinstance(glance, dict) else []
     rows = [row for row in examples if isinstance(row, dict)]
@@ -4204,6 +4694,15 @@ def _substrate_glance_lines(payload: dict[str, Any]) -> list[str]:
 
 
 def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
+    """Project a composition card into the terminal-sized text first screen for a reader.
+
+    - Teleology: public text projection rendering the same card as a budget-bounded terminal screen, optionally focused on one reader.
+    - Guarantee: returns a newline-terminated text card (<= TEXT_CARD_MAX_LINES lines) over the same authority ceiling; `reader_id="all"` shows every reader branch, an alias focuses one.
+    - Fails: raises ValueError when `reader_id` is not in TEXT_READER_CHOICES or when the assembled card would exceed the line budget.
+    - When-needed: when emitting `microcosm first-screen --format text` or the browser/observatory text landing.
+    - Escalates-to: first_screen_composition_card as the source card this projects; normalize_reader_route_id resolves the alias.
+    - Non-goal: a GENERATED text projection; authorizes no release, hosting, provider calls, or whole-system correctness.
+    """
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
     display_reader_id = reader_id

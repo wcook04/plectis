@@ -58,32 +58,77 @@ COMPLETED_PRODUCT_DISPOSITIONS = {
 
 
 def _load_json(path: Path) -> dict[str, Any]:
+    """Strict-load a JSON source file used by this projection.
+
+    - Teleology: single chokepoint for reading source registries/atlas/entry-packet inputs into the projection.
+    - Guarantee: returns the parsed JSON object via read_json_strict for an existing, well-formed file.
+    - Fails: missing file or malformed JSON -> read_json_strict raises (FileNotFoundError / JSON decode error).
+    - Reads: the `path` argument (entry packet, pressure, organ_registry.json, organ_atlas.json).
+    - Non-goal: does not validate schema, authorize source-body export, or assert public-safe equivalence.
+    """
     return read_json_strict(path)
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
+    """Coerce an arbitrary value to a dict for tolerant source-shape reads.
+
+    - Teleology: defensive accessor so malformed/missing nested source fields never crash the projection.
+    - Guarantee: returns `value` when it is a dict, otherwise an empty dict.
+    - Fails: never raises; non-dict input degrades to {}.
+    """
     return value if isinstance(value, dict) else {}
 
 
 def _as_list(value: Any) -> list[Any]:
+    """Coerce an arbitrary value to a list for tolerant source-shape reads.
+
+    - Teleology: defensive accessor so missing/scalar source collections iterate as empty instead of crashing.
+    - Guarantee: returns `value` when it is a list, otherwise an empty list.
+    - Fails: never raises; non-list input degrades to [].
+    """
     return value if isinstance(value, list) else []
 
 
 def _strings(value: Any) -> list[str]:
+    """Filter a value down to its non-empty string members.
+
+    - Teleology: normalize source ref/field collections into clean string lists for set checks and ref comparison.
+    - Guarantee: returns only the items of `value` that are non-blank strings, preserving order.
+    - Fails: never raises; non-list or non-string content is dropped, yielding [].
+    """
     return [item for item in _as_list(value) if isinstance(item, str) and item.strip()]
 
 
 def _add_error(
     errors: list[dict[str, str]], *, path: str, code: str, message: str
 ) -> None:
+    """Append one structured validation error to the running error list.
+
+    - Teleology: uniform error record shape feeding the projection/pressure validation receipt.
+    - Guarantee: mutates `errors` in place by appending {"path", "code", "message"}; returns None.
+    - Fails: never raises; appends unconditionally.
+    - Writes: the passed-in `errors` list (the validation receipt's `errors` field).
+    """
     errors.append({"path": path, "code": code, "message": message})
 
 
 def _has_text(row: dict[str, Any], key: str) -> bool:
+    """Report whether a row carries a non-blank string under `key`.
+
+    - Teleology: presence predicate for required text fields (e.g. consumer_receipt.receipt_id).
+    - Guarantee: returns True iff row[key] is a string with non-whitespace content, else False.
+    - Fails: never raises; missing key or non-string value returns False.
+    """
     return isinstance(row.get(key), str) and bool(row[key].strip())
 
 
 def _ref_list(*values: Any) -> list[str]:
+    """Merge several ref collections into one order-preserving deduplicated string list.
+
+    - Teleology: combine activation/specimen/consumer ref sources into a single projection row ref list.
+    - Guarantee: returns the union of non-blank strings across `values`, first-seen order, no duplicates.
+    - Fails: never raises; non-string content in any source is dropped.
+    """
     refs: list[str] = []
     seen: set[str] = set()
     for value in values:
@@ -95,10 +140,23 @@ def _ref_list(*values: Any) -> list[str]:
 
 
 def _copy_json(value: Any) -> Any:
+    """Deep-copy a JSON-like value before embedding it in a projection row.
+
+    - Teleology: prevent aliasing source bindings into the read model so later mutation cannot leak back to source.
+    - Guarantee: returns a deep copy of `value`; the result shares no mutable structure with the input.
+    - Fails: never raises for JSON-shaped data; copy.deepcopy may raise only on non-copyable objects (not expected here).
+    """
     return copy.deepcopy(value)
 
 
 def _find_consumer(route: dict[str, Any], consumer_id: str) -> dict[str, Any]:
+    """Locate the declared projection-consumer row for `consumer_id` in the entry route.
+
+    - Teleology: prove the read model is declared by the route's projection_consumers, not a parallel surface.
+    - Guarantee: returns the matching consumer dict from route.projection_consumers, or {} if absent.
+    - Fails: never raises; unknown consumer_id or missing collection returns {}.
+    - Reads: route["projection_consumers"] (from atlas/entry_packet.json::concept_mechanism_entry_route).
+    """
     for row in _as_list(route.get("projection_consumers")):
         if isinstance(row, dict) and row.get("consumer_id") == consumer_id:
             return row
@@ -106,6 +164,13 @@ def _find_consumer(route: dict[str, Any], consumer_id: str) -> dict[str, Any]:
 
 
 def _pressure_row_by_id(pressure_payload: dict[str, Any] | None) -> dict[str, Any]:
+    """Find the projection-consumer preservation pressure row by its standard_id.
+
+    - Teleology: bind the read model to the public_standard_pressure row that mandates field preservation.
+    - Guarantee: returns the pressure row whose standard_id == PRESSURE_ROW_ID, else {} (incl. when payload is None).
+    - Fails: never raises; None payload or missing row returns {}.
+    - Reads: pressure_payload["rows"] (from core/public_standard_pressure.json).
+    """
     if pressure_payload is None:
         return {}
     for row in _as_list(pressure_payload.get("rows")):
@@ -115,6 +180,14 @@ def _pressure_row_by_id(pressure_payload: dict[str, Any] | None) -> dict[str, An
 
 
 def _accepted_organ_rows(root: Path) -> list[dict[str, Any]]:
+    """Read the organ registry and return only accepted-current-authority organ rows.
+
+    - Teleology: source-custody read that anchors the organ-doctrine projection to the registry's accepted set.
+    - Guarantee: returns each implemented_organs row with status=="accepted_current_authority" and a truthy organ_id.
+    - Fails: missing/malformed core/organ_registry.json -> _load_json (read_json_strict) raises; otherwise [] when none qualify.
+    - Reads: core/organ_registry.json::implemented_organs under `root`.
+    - Non-goal: does not authorize source-body export, release, or assert these organs are product-complete or domain-correct.
+    """
     registry = _load_json(root / "core/organ_registry.json")
     return [
         row
@@ -126,6 +199,14 @@ def _accepted_organ_rows(root: Path) -> list[dict[str, Any]]:
 
 
 def _organ_atlas_by_id(root: Path) -> dict[str, dict[str, Any]]:
+    """Index the organ atlas by organ_id for per-organ enrichment lookups.
+
+    - Teleology: source-custody read providing atlas card fields (family, gloss, refs) keyed for the doctrine rows.
+    - Guarantee: returns {organ_id -> atlas row} for every atlas row carrying a truthy organ_id.
+    - Fails: missing/malformed core/organ_atlas.json -> _load_json (read_json_strict) raises; otherwise {} when empty.
+    - Reads: core/organ_atlas.json::organs under `root`.
+    - Non-goal: does not authorize source-body export, release, or treat the atlas as source-of-truth correctness.
+    """
     atlas = _load_json(root / "core/organ_atlas.json")
     return {
         str(row.get("organ_id")): row
@@ -135,6 +216,13 @@ def _organ_atlas_by_id(root: Path) -> dict[str, dict[str, Any]]:
 
 
 def _organ_paper_module_ref(root: Path, organ_id: str, atlas_row: dict[str, Any]) -> str:
+    """Resolve the paper-module discoverability ref for an organ doctrine row.
+
+    - Teleology: give each organ row a stable paper-module handle, preferring the atlas-declared ref.
+    - Guarantee: returns the atlas row's non-blank `paper_module_ref` when present, else the conventional `paper_modules/<organ_id>.md` posix path (returned whether or not that file exists on disk).
+    - Fails: never raises; absence of a declared ref falls back to the conventional path string.
+    - Reads: atlas_row["paper_module_ref"]; probes `root/paper_modules/<organ_id>.md` for existence only.
+    """
     declared = str(atlas_row.get("paper_module_ref") or "").strip()
     if declared:
         return declared
@@ -145,6 +233,13 @@ def _organ_paper_module_ref(root: Path, organ_id: str, atlas_row: dict[str, Any]
 
 
 def _first_microcosm_command(value: str) -> str:
+    """Normalize an atlas first-command string into a canonical `microcosm ...` CLI ref.
+
+    - Teleology: derive a stable, public CLI handle for an organ row from heterogeneous first-command strings.
+    - Guarantee: returns `microcosm <tail>` when `value` invokes `-m microcosm_core.cli`, the original when it already starts with `microcosm`, else "".
+    - Fails: never raises; unparseable shell (ValueError from shlex) and unmatched shapes both return "".
+    - Reads: the `value` string argument (atlas first_command / validator_command).
+    """
     try:
         parts = shlex_split(value)
     except ValueError:
@@ -159,13 +254,29 @@ def _first_microcosm_command(value: str) -> str:
 
 
 def shlex_split(value: str) -> list[str]:
+    """Shell-tokenize a command string (thin wrapper over the stdlib `shlex.split`).
+
+    - Teleology: isolated, mockable shell-splitting seam for command-ref normalization.
+    - Guarantee: returns shlex.split(value) tokens for a well-formed string.
+    - Fails: unbalanced quotes -> shlex.split raises ValueError (caught by _first_microcosm_command).
+    """
     import shlex
 
     return shlex.split(value)
 
 
 def build_organ_doctrine_rows(root: str | Path | None = None) -> list[dict[str, Any]]:
-    """Project accepted organs into concept/mechanism rows without a second registry."""
+    """Project accepted organs into concept/mechanism rows without a second registry.
+
+    - Teleology: derive a per-organ concept/mechanism discoverability projection from the registry+atlas, never a parallel concept inventory.
+    - Guarantee: returns one row per accepted-current-authority organ, each carrying concept_binding/mechanism_binding (with anti-glossary and anti-feature-prose rules), surface_refs, validator_refs, omission_receipt, anti_claims, and a derived authority_boundary.
+    - Fails: missing/malformed core/organ_registry.json or core/organ_atlas.json -> read_json_strict raises; otherwise [] when no organs are accepted.
+    - Reads: core/organ_registry.json::implemented_organs and core/organ_atlas.json::organs under the resolved root.
+    - Writes: returns rows in memory only (no file written here).
+    - When-needed: assembling the organ_doctrine section of the read model, or inspecting accepted-organ discoverability handles.
+    - Escalates-to: build_concept_mechanism_projection_read_model (caller) and validate_concept_mechanism_projection_read_model (row-shape guard).
+    - Non-goal: does not authorize source-body export, release, product completeness, or private-root equivalence; rows are generated wiring, not source authority.
+    """
 
     resolved_root = Path(root).resolve() if root is not None else microcosm_root()
     accepted = _accepted_organ_rows(resolved_root)
@@ -275,6 +386,15 @@ def _projection_row(
     specimen: dict[str, Any],
     consumer: dict[str, Any],
 ) -> dict[str, Any]:
+    """Build one activation-derived projection-consumer row preserving proof-critical fields.
+
+    - Teleology: project a single activation receipt + its specimen + the consumer into a read-model row that keeps proof handles while omitting bulky/private source.
+    - Guarantee: returns a row carrying every REQUIRED_PRESERVED_FIELD (pressure_id, selected_specimen_id, residual_disposition, concept/mechanism_binding, validator_refs, receipt_refs, omission_receipt, anti_claims, authority_boundary), with bindings deep-copied and source/route/activation refs set back to SOURCE_ROUTE_REF.
+    - Fails: never raises; absent fields fall back to defaults (e.g. receipt_id -> "missing_activation_receipt", empty ref lists).
+    - Reads: the `activation`, `specimen`, and `consumer` dicts (slices of concept_mechanism_entry_route).
+    - Escalates-to: validate_concept_mechanism_projection_read_model (asserts row field preservation and boundary).
+    - Non-goal: does not authorize a parallel concept index, release, or frontend-completion authority.
+    """
     receipt_id = str(activation.get("receipt_id") or "missing_activation_receipt")
     specimen_id = str(activation.get("selected_specimen_id") or "")
     validator_refs = _ref_list(activation.get("validator_refs"), specimen.get("validator_refs"))
@@ -330,6 +450,17 @@ def build_concept_mechanism_projection_read_model(
     consumer_id: str = DEFAULT_CONSUMER_ID,
     command: str = "concept-mechanism-projection-read-model",
 ) -> dict[str, Any]:
+    """Build the full Microcosm concept/mechanism projection read-model payload.
+
+    - Teleology: compile a derived read model over the entry route's specimens, activation receipts, and accepted organs so downstream frontend/HUD work consumes a bounded contract instead of authoring a parallel concept index.
+    - Guarantee: returns a payload dict (schema=SCHEMA) with activation-derived `rows`, `organ_doctrine`/`organ_doctrine_rows`, a `consumer_receipt`, field-preservation contract, embedded source-population validation and `projection_validation`, merged `errors`, and a final `status` of "pass" iff both the population receipt and projection validation pass, else "blocked".
+    - Fails: never raises on contract violations (failures surface as status=="blocked" plus `errors`); only missing/malformed source JSON read by build_organ_doctrine_rows raises.
+    - Reads: entry_packet.concept_mechanism_entry_route, optional pressure_payload, and (via build_organ_doctrine_rows) organ_registry.json / organ_atlas.json under `root`.
+    - Writes: returns the payload in memory; file emission happens in compile_paths.
+    - When-needed: regenerating the read model, or checking whether the projection currently passes its source+shape contract.
+    - Escalates-to: validate_concept_mechanism_projection_read_model and validate_concept_mechanism_population (the validators it folds), and tests/test_concept_mechanism_projection_read_model.py.
+    - Non-goal: this is a derived projection — it does not create a concept registry, complete frontend product work, authorize release, or replace the source route.
+    """
     route = _as_dict(entry_packet.get("concept_mechanism_entry_route"))
     consumer = _find_consumer(route, consumer_id)
     population_receipt = validate_concept_mechanism_population(
@@ -468,6 +599,14 @@ def build_concept_mechanism_projection_read_model(
 def _validate_pressure(
     pressure_payload: dict[str, Any] | None, errors: list[dict[str, str]]
 ) -> bool:
+    """Check that the public pressure exposes the projection-consumer preservation contract.
+
+    - Teleology: ensure the read model is anchored to a public_standard_pressure row whose route_refs mandate the consumer/population/activation/validator surfaces.
+    - Guarantee: returns False and appends a missing-row error when the pressure row is absent; otherwise returns True after appending one error per required route_ref not present.
+    - Fails: never raises; all defects are recorded into `errors`.
+    - Reads: pressure_payload (core/public_standard_pressure.json) via _pressure_row_by_id.
+    - Writes: the `errors` list (validation receipt).
+    """
     row = _pressure_row_by_id(pressure_payload)
     if not row:
         _add_error(
@@ -499,6 +638,16 @@ def validate_concept_mechanism_projection_read_model(
     *,
     pressure_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Validate a projection read-model payload against the derived-projection contract.
+
+    - Teleology: enforce that the read model stays a derived projection — declared by the route, source-anchored, field-preserving, and refusing parallel-concept-index / product-completion authority.
+    - Guarantee: returns a receipt {schema=VALIDATION_SCHEMA, status, row_count, pressure_checked, parallel_concept_index_authorized=False, errors}; status=="pass" iff `errors` is empty, else "blocked". Checks schema, banned parallel-index keys, source route/refs, authority posture, consumer declaration, field-preservation contract, consumer receipt, every projection and organ-doctrine row, and the pressure contract.
+    - Fails: never raises; every violation is appended to `errors` and reflected by status=="blocked".
+    - Reads: the `payload` dict and optional pressure_payload; no filesystem access.
+    - When-needed: gating the read model before it is trusted or written, or diagnosing why a build returned "blocked".
+    - Escalates-to: tests/test_concept_mechanism_projection_read_model.py::test_projection_read_model_preserves_proof_critical_fields and the validators/concept_mechanism_population validator.
+    - Non-goal: does not authorize release, frontend completion, or treat a passing projection as source-of-truth authority.
+    """
     errors: list[dict[str, str]] = []
     if payload.get("schema") != SCHEMA:
         _add_error(
@@ -801,6 +950,17 @@ def compile_paths(
     consumer_id: str,
     command: str,
 ) -> dict[str, Any]:
+    """Load source paths, build the read model, and (optionally) write the generated artifacts.
+
+    - Teleology: filesystem driver tying entry-packet/pressure paths to the in-memory builder and to the generated read-model + receipt JSON files.
+    - Guarantee: returns the built payload; when `out` is given, ensures the dir exists and writes sorted-key `concept_mechanism_projection_read_model.json` and `..._receipt.json` (the payload's consumer_receipt) into it.
+    - Fails: missing/malformed entry-packet or pressure JSON -> read_json_strict raises; unwritable `out` -> OSError from mkdir/write_text. The payload itself may carry status=="blocked" without raising.
+    - Reads: entry_packet_path (and resolves root as its parent.parent), optional pressure_path.
+    - Writes: out/concept_mechanism_projection_read_model.json and out/concept_mechanism_projection_read_model_receipt.json when `out` is provided (generated artifacts, not source authority).
+    - When-needed: regenerating the on-disk read model from the CLI or a build step.
+    - Escalates-to: build_concept_mechanism_projection_read_model (the builder) and main (the CLI adapter).
+    - Non-goal: does not authorize release or treat the written JSON as source-of-truth authority over the entry route.
+    """
     pressure_payload = _load_json(pressure_path) if pressure_path else None
     root = entry_packet_path.resolve(strict=False).parent.parent
     payload = build_concept_mechanism_projection_read_model(

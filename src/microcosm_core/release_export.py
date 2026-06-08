@@ -316,10 +316,21 @@ PROJECTION_FINDING_SAMPLE_LIMIT = 12
 
 
 def _sha256_bytes(data: bytes) -> str:
+    """
+    - Teleology: canonical in-memory digest helper so artifact-payload hashing is reproducible.
+    - Guarantee: returns the lowercase hex SHA-256 of the given bytes.
+    - Fails: never raises for bytes input; propagates TypeError only if a non-bytes-like object is passed.
+    """
     return hashlib.sha256(data).hexdigest()
 
 
 def _sha256_file(path: Path) -> str:
+    """
+    - Teleology: streaming file digest so per-file inventory sha256 does not load whole files into memory.
+    - Guarantee: returns the lowercase hex SHA-256 of the file at path, read in 1 MiB chunks.
+    - Fails: missing/unreadable path -> OSError from path.open.
+    - Reads: the bytes of the file at the given path.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -328,6 +339,11 @@ def _sha256_file(path: Path) -> str:
 
 
 def _is_relative_to(path: Path, possible_parent: Path) -> bool:
+    """
+    - Teleology: containment test used to keep exports out of the source root and detect escaping symlinks.
+    - Guarantee: returns True iff path is relative_to possible_parent, else False; never raises on a non-relative path.
+    - Fails: never raises; ValueError from relative_to is caught and folded to False.
+    """
     try:
         path.relative_to(possible_parent)
     except ValueError:
@@ -336,6 +352,11 @@ def _is_relative_to(path: Path, possible_parent: Path) -> bool:
 
 
 def _public_role(rel: str) -> str:
+    """
+    - Teleology: assign each exported public path a coarse role label for the inventory receipt.
+    - Guarantee: returns a stable role string (e.g. public_entry_document, runtime_source, receipt_evidence) for the given posix rel path; unknown tops fall back to public_artifact_member.
+    - Fails: never raises; always returns one of the fixed role strings.
+    """
     top = rel.split("/", 1)[0]
     if top == ".github":
         return "ci_workflow"
@@ -392,6 +413,12 @@ def _public_role(rel: str) -> str:
 
 
 def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
+    """
+    - Teleology: single source of truth for why a tree entry is excluded from the export (caches, residue, bytecode, OS metadata).
+    - Guarantee: returns a reason string when the rel path matches a skip rule, else None; pure path classification with no I/O.
+    - Fails: never raises; returns None for paths that are not skip candidates.
+    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
+    """
     parts = rel.parts
     if not parts:
         return None
@@ -409,6 +436,12 @@ def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
 
 
 def _source_residue_rows(root: Path) -> list[dict[str, str]]:
+    """
+    - Teleology: pre-seed the exclusion ledger with local/nested-release residue roots that must never be exported.
+    - Guarantee: returns excluded-row dicts (status=excluded, reason=root_local_or_nested_release_residue) for each SKIPPED_ROOT_NAMES entry that exists under root.
+    - Fails: never raises; returns [] when no residue roots exist.
+    - Reads: existence of SKIPPED_ROOT_NAMES entries directly under root.
+    """
     rows: list[dict[str, str]] = []
     for name in sorted(SKIPPED_ROOT_NAMES):
         candidate = root / name
@@ -424,6 +457,15 @@ def _source_residue_rows(root: Path) -> list[dict[str, str]]:
 
 
 def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], list[str]]:
+    """
+    - Teleology: walk the source root under the public allowlist, deciding per-entry keep/exclude so only public-safe material reaches the artifact.
+    - Guarantee: returns (kept files, excluded rows, missing include refs); symlinks, skip-rule matches, and receipt private-path content are excluded with a reason, not copied.
+    - Fails: never raises for normal trees; OS errors from os.walk on an unreadable subtree propagate.
+    - Reads: DEFAULT_INCLUDE_REFS under root plus per-file content for receipt private-path exclusion.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond its skip/exclusion checks, release, or whole-system correctness.
+    - When-needed: tracing why a file is included or excluded from the generated export.
+    - Escalates-to: _skip_reason / _source_receipt_private_path_exclusion and build_release_export inventory_receipt.
+    """
     files: list[Path] = []
     excluded: list[dict[str, str]] = _source_residue_rows(root)
     missing: list[str] = []
@@ -527,6 +569,13 @@ def _copy_allowed_files(
     root: Path,
     target: Path,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """
+    - Teleology: materialize the kept files into the artifact tree and build the per-file inventory, redacting concrete home paths in source_modules.
+    - Guarantee: each allowed file is copied to target/<rel>; text files under a source_modules path get concrete /Users/<name> rewritten to /Users/example; returns sorted inventory rows (path/role/size/sha256) and sorted home-redaction rows.
+    - Fails: unwritable destination or unreadable source -> OSError; binary/large files are copied verbatim without redaction.
+    - Reads: the source files in `files`; Writes: redacted-or-verbatim copies under target.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond home-path redaction, release, or whole-system correctness.
+    """
     inventory: list[dict[str, Any]] = []
     home_redaction_rows: list[dict[str, Any]] = []
     for source in files:
@@ -568,11 +617,22 @@ def _copy_allowed_files(
 
 
 def _artifact_payload_hash(inventory: list[dict[str, Any]]) -> str:
+    """
+    - Teleology: bind the whole inventory to one digest so the candidate artifact is hash-identifiable.
+    - Guarantee: returns the SHA-256 of the JSON-serialized inventory (ascii, sorted keys); identical inventories yield identical hashes.
+    - Fails: non-JSON-serializable inventory contents -> TypeError from json.dumps.
+    """
     serialized = json.dumps(inventory, ensure_ascii=True, sort_keys=True).encode("utf-8")
     return _sha256_bytes(serialized)
 
 
 def _inventory_covers_ref(inventory_paths: set[str], ref: str) -> bool:
+    """
+    - Teleology: decide whether a required public ref is present in the exported inventory (file or directory prefix).
+    - Guarantee: returns True iff the normalized ref equals an inventory path or is a directory prefix of one.
+    - Fails: never raises; returns False when no inventory path covers the ref.
+    - Reads: the set of exported inventory paths.
+    """
     normalized = ref.rstrip("/")
     return normalized in inventory_paths or any(
         path.startswith(f"{normalized}/") for path in inventory_paths
@@ -580,6 +640,12 @@ def _inventory_covers_ref(inventory_paths: set[str], ref: str) -> bool:
 
 
 def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None:
+    """
+    - Teleology: bounded text reader so content scans skip binaries and oversized files.
+    - Guarantee: returns decoded UTF-8 text for files with a TEXT_SUFFIXES suffix and size <= max_bytes, else None.
+    - Fails: never raises on decode failure (UnicodeDecodeError -> None); OSError from stat on a vanished path propagates.
+    - Reads: the text of the candidate path when small and text-suffixed.
+    """
     if path.suffix not in TEXT_SUFFIXES:
         return None
     try:
@@ -591,7 +657,13 @@ def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None
 
 
 def _iter_artifact_paths(target: Path) -> Iterator[Path]:
-    """Yield artifact paths deterministically without materializing the tree."""
+    """Yield artifact paths deterministically without materializing the tree.
+
+    - Teleology: deterministic recursive walk of the artifact so residue/secret/symlink scans see a stable order without materializing a list.
+    - Guarantee: yields every path under target in sorted-name, parent-before-child order; symlinked dirs are not descended (follow_symlinks=False).
+    - Fails: never raises; an unreadable directory yields nothing for that subtree (OSError swallowed).
+    - Reads: directory entries under target.
+    """
 
     try:
         entries = sorted(os.scandir(target), key=lambda entry: entry.name)
@@ -610,6 +682,12 @@ def _iter_artifact_paths(target: Path) -> Iterator[Path]:
 
 
 def _iter_artifact_files(target: Path) -> Iterator[Path]:
+    """
+    - Teleology: file-only view of the artifact walk for content scans.
+    - Guarantee: yields only non-symlink regular files under target, in _iter_artifact_paths order.
+    - Fails: never raises; non-files and symlinks are skipped.
+    - Reads: the artifact tree under target.
+    """
     for path in _iter_artifact_paths(target):
         if path.is_symlink():
             continue
@@ -618,6 +696,13 @@ def _iter_artifact_files(target: Path) -> Iterator[Path]:
 
 
 def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None:
+    """
+    - Teleology: source-custody guard that keeps receipts carrying the absolute source root or non-synthetic host temp paths out of the export.
+    - Guarantee: returns receipt_absolute_source_root_excluded or receipt_host_temp_path_excluded when a receipts/* text file leaks those needles, else None.
+    - Fails: never raises; non-receipt paths, binaries, and clean receipts return None.
+    - Reads: the text body of the candidate receipts/* file and the source root posix string.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond this needle check, release, or whole-system correctness.
+    """
     rel = path.relative_to(root)
     if not rel.parts or rel.parts[0] != "receipts":
         return None
@@ -632,6 +717,13 @@ def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None
 
 
 def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[str, str]]:
+    """
+    - Teleology: post-copy private-path leak detector over the materialized artifact (source root, source parent, operator home, host temp).
+    - Guarantee: returns hit rows (path + public-redacted needle + kind) for every artifact text file containing a private needle; needle values in the receipt are already redacted placeholders.
+    - Fails: never raises; binaries and clean files contribute no hits.
+    - Reads: every artifact text file plus source_root, its parent, and Path.home() posix strings.
+    - Non-goal: does not authorize release; absence of hits is a bounded scan, not a complete privacy audit.
+    """
     hits: list[dict[str, str]] = []
     private_needles: list[tuple[str, str, str]] = []
     source_root_text = source_root.as_posix()
@@ -663,6 +755,13 @@ def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[s
 
 
 def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
+    """
+    - Teleology: bounded strong-secret pattern scan (private keys, inline api/secret assignments) over the artifact.
+    - Guarantee: returns rows (path + matched pattern, body_in_receipt=False) for every artifact text file matching a STRONG_SECRET_PATTERNS regex.
+    - Fails: never raises; raw secret bodies are never placed in the returned rows.
+    - Reads: every artifact text file.
+    - Non-goal: does not authorize release and is not a complete secret audit; it is a bounded pattern pass.
+    """
     hits: list[dict[str, str]] = []
     for path in _iter_artifact_files(target):
         rel = path.relative_to(target).as_posix()
@@ -682,6 +781,12 @@ def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
 
 
 def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
+    """
+    - Teleology: prove the materialized artifact carries no forbidden private-root, generated-state, nested-self-export, cache, or bytecode residue.
+    - Guarantee: returns a violation row (path + reason) for every artifact path matching a residue rule; empty list means no residue found.
+    - Fails: never raises; pure path classification over the artifact walk.
+    - Reads: the artifact tree under target.
+    """
     violations: list[dict[str, str]] = []
     for path in _iter_artifact_paths(target):
         rel = path.relative_to(target)
@@ -707,6 +812,12 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
 
 
 def _artifact_symlink_refs(target: Path) -> list[dict[str, Any]]:
+    """
+    - Teleology: enumerate symlinks in the artifact and whether each resolves inside the artifact, for the standalone-severance gate.
+    - Guarantee: returns one row per symlink (path + target_within_artifact bool + body_in_receipt=False); any symlink at all is later treated as a severance blocker.
+    - Fails: target.resolve(strict=True) on a missing artifact root -> FileNotFoundError; per-link resolve errors fold target_within_artifact to False.
+    - Reads: symlink entries under target and their resolved targets.
+    """
     rows: list[dict[str, Any]] = []
     target_root = target.resolve(strict=True)
     for path in _iter_artifact_paths(target):
@@ -739,6 +850,14 @@ def _standalone_severance_receipt(
     install_smoke_receipt: dict[str, Any],
     projection_freshness_receipt: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    - Teleology: source-custody receipt proving the generated tree is a self-contained public folder (required refs present, no residue/symlink/private/secret leak, gates pass).
+    - Guarantee: returns a microcosm_standalone_severance_receipt_v1 dict with status pass iff blocking_codes is empty; claim_level is install-verified only when install smoke passed.
+    - Fails: never raises; defects surface as blocking_codes and status=blocked, not exceptions.
+    - Reads: inventory, exclusion/authority/runnable/install/projection receipts, and the artifact symlink set.
+    - Non-goal: per its own anti_claim, proves only bounded standalone shape; not publication authority or private-macro equivalence.
+    - Escalates-to: build_release_export receipt['standalone_severance_receipt'] and the standalone test guards.
+    """
     inventory_paths = {str(row["path"]) for row in inventory}
     required_missing = [
         ref
@@ -847,6 +966,12 @@ def _standalone_severance_receipt(
 
 
 def _flatten_data_file_refs(pyproject: dict[str, Any]) -> set[str]:
+    """
+    - Teleology: collect declared setuptools data-file refs so LICENSE/NOTICE/PROVENANCE packaging coverage can be checked.
+    - Guarantee: returns the set of string data-file patterns declared under tool.setuptools.data-files; missing/malformed tables yield an empty set.
+    - Fails: never raises; non-dict/non-list shapes are skipped defensively.
+    - Reads: the parsed pyproject tool.setuptools.data-files mapping.
+    """
     tool = pyproject.get("tool") if isinstance(pyproject.get("tool"), dict) else {}
     setuptools = tool.get("setuptools") if isinstance(tool.get("setuptools"), dict) else {}
     data_files = (
@@ -865,6 +990,12 @@ def _flatten_data_file_refs(pyproject: dict[str, Any]) -> set[str]:
 
 
 def _pyproject_payload(target: Path) -> dict[str, Any]:
+    """
+    - Teleology: tolerant loader for the exported pyproject so materials/license checks have its metadata.
+    - Guarantee: returns the parsed pyproject.toml dict, or {} when the file is absent or fails to parse.
+    - Fails: never raises; OSError and TOMLDecodeError are caught and folded to {}.
+    - Reads: target/pyproject.toml.
+    """
     path = target / "pyproject.toml"
     if not path.is_file():
         return {}
@@ -880,6 +1011,14 @@ def _materials_ledger(
     inventory: list[dict[str, Any]],
     artifact: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    - Teleology: source-custody/materials receipt binding LICENSE-NOTICE-PROVENANCE chain, license expression, dependency summary, and SBOM status.
+    - Guarantee: returns a microcosm_public_materials_ledger_v1 dict; license_notice status passes only when required refs are present, license is Apache-2.0, and LICENSE/NOTICE/PROVENANCE are export-or-data covered.
+    - Fails: never raises; missing material or wrong license -> status=blocked; SBOM is reported not_generated, never claimed complete.
+    - Reads: inventory paths and target/pyproject.toml metadata.
+    - Non-goal: does not authorize release or claim a complete dependency SBOM / transitive license review.
+    - Escalates-to: _pyproject_payload / _flatten_data_file_refs and the publication package-registry checklist.
+    """
     inventory_paths = {str(row["path"]) for row in inventory}
     required_missing = [
         ref
@@ -971,6 +1110,13 @@ def _materials_ledger(
 
 
 def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
+    """
+    - Teleology: source-custody guard that the artifact carries no private git history (.git/.gitmodules) and must seed a fresh public repo.
+    - Guarantee: returns a microcosm_publication_history_receipt_v1 dict; status passes iff no git metadata refs are found in the artifact.
+    - Fails: never raises; any .git/.gitmodules ref -> status=blocked with source_private_history_exported True (first 20 refs sampled).
+    - Reads: the artifact path tree for git-metadata refs.
+    - Non-goal: does not authorize publication; it only names the fresh-public-repo rule.
+    """
     git_metadata_refs: list[str] = []
     for path in _iter_artifact_paths(target):
         rel = path.relative_to(target).as_posix()
@@ -1001,6 +1147,12 @@ def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
 
 
 def _hit_boundary_context(text: str, *, start: int, end: int) -> str:
+    """
+    - Teleology: classify a review-pattern match as a suspect positive claim or an explicit boundary/anti-claim context, to suppress false positives.
+    - Guarantee: returns boundary_or_anti_claim_context when a negation/boundary marker precedes or surrounds the match, else suspect_positive_claim.
+    - Fails: never raises; pure substring window classification.
+    - Reads: the surrounding text window of the matched span.
+    """
     before = text[max(0, start - 120) : start].lower()
     window = text[max(0, start - 120) : min(len(text), end + 120)].lower()
     boundary_markers = (
@@ -1029,6 +1181,13 @@ def _scan_review_patterns(
     schema_version: str,
     scan_id: str,
 ) -> dict[str, Any]:
+    """
+    - Teleology: scan the artifact for claim-language or finance-promotion patterns and split hits into release-candidate vs authorization blocking.
+    - Guarantee: returns a scan dict (given schema/scan_id) with status pass iff release_candidate_blocking_hit_count is zero; boundary-context hits are reported but non-blocking, bodies excluded.
+    - Fails: never raises; matches in anti-claim context do not block; hits list is capped at 50 with an overflow count.
+    - Reads: every artifact text file against the supplied pattern rows.
+    - Non-goal: does not authorize release; per its anti_claim, boundary-context hits neither authorize nor block by themselves.
+    """
     hits: list[dict[str, Any]] = []
     for path in _iter_artifact_files(target):
         rel = path.relative_to(target).as_posix()
@@ -1104,6 +1263,13 @@ def _privacy_review_receipt(
     exclusion_receipt: dict[str, Any],
     authority_receipt: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    - Teleology: fold the exclusion receipt into a bounded artifact privacy review for the release-assurance bundle.
+    - Guarantee: returns a microcosm_privacy_release_review_receipt_v1 dict; status passes iff no private-path hits, no strong-secret hits, and bounded secret scan passed.
+    - Fails: never raises; any of those conditions -> status=blocked with the matching PRIVACY_* code.
+    - Reads: exclusion_receipt private-path/secret hit lists and authority_receipt flags.
+    - Non-goal: bounded artifact scan only; not a complete personal-data audit of any private workspace.
+    """
     bounded_secret = exclusion_receipt.get("bounded_secret_exclusion_scan") or {}
     private_path_hits = list(exclusion_receipt.get("private_path_hits") or [])
     strong_secret_hits = list(exclusion_receipt.get("strong_secret_hits") or [])
@@ -1137,6 +1303,12 @@ def _privacy_review_receipt(
 
 
 def _operator_publication_checklists() -> dict[str, Any]:
+    """
+    - Teleology: surface the operator-review publication checklists (github/package/site) as not-yet-run gates.
+    - Guarantee: returns a microcosm_operator_publication_checklists_v1 dict with release_authorized/publish_authorized False and every checklist marked not_run_operator_review_required.
+    - Fails: never raises; constant projection of PUBLICATION_REVIEW_CHECKLISTS.
+    - Non-goal: checklist presence does not mean any publication surface was reviewed or launched.
+    """
     return {
         "schema_version": "microcosm_operator_publication_checklists_v1",
         "status": "operator_review_required",
@@ -1159,6 +1331,14 @@ def _operator_publication_checklists() -> dict[str, Any]:
 
 
 def _release_substance_selector(target: Path) -> dict[str, Any]:
+    """
+    - Teleology: make the evidence truth floor a release-candidate substance gate for the assurance bundle.
+    - Guarantee: returns a microcosm_release_substance_selector_v1 dict echoing the truth-floor status/counts and embedding the full truth-floor receipt.
+    - Fails: never raises here; status mirrors audit_evidence_truth_floor(target) and is blocked when that floor is blocked.
+    - Reads: audit_evidence_truth_floor over the artifact.
+    - Non-goal: does not promote fixture evidence, authorize publication, or replace owner review of candidate rows.
+    - Escalates-to: validators/evidence_truth_floor.py (audit_evidence_truth_floor) and its source/registry refs.
+    """
     truth_floor = audit_evidence_truth_floor(target)
     return {
         "schema_version": "microcosm_release_substance_selector_v1",
@@ -1190,6 +1370,14 @@ def _release_assurance_receipt(
     exclusion_receipt: dict[str, Any],
     authority_receipt: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    - Teleology: Release Assurance v2 aggregator binding materials, publication-history, claim/finance scans, privacy, and the substance selector into one candidate verdict.
+    - Guarantee: returns a RELEASE_ASSURANCE_SCHEMA_VERSION dict; status/release_candidate_status pass iff no candidate blocking code; release/publish/hosted authorized are hard False with operator_review_required.
+    - Fails: never raises; sub-receipt failures surface as release_candidate_blocking_codes; review work surfaces as release_authorization_blocking_codes.
+    - Reads: inventory, artifact, exclusion and authority receipts plus the artifact tree.
+    - Non-goal: validates the candidate and names review work; does not publish, authorize release, or prove complete legal/privacy/security review.
+    - Escalates-to: build_release_export receipt['release_assurance_v2'] and the operator publication gate.
+    """
     materials = _materials_ledger(target, inventory=inventory, artifact=artifact)
     publication_history = _artifact_publication_history_receipt(target)
     claim_language = _scan_review_patterns(
@@ -1280,6 +1468,11 @@ def _release_assurance_receipt(
 
 
 def _expected_sentinel_fixture_path(path_ref: object) -> bool:
+    """
+    - Teleology: whitelist the known sentinel/fixture paths that legitimately contain forbidden-term examples.
+    - Guarantee: returns True for the forbidden-classes policy file, any tests/* path, forbidden-terms fixtures, and the pattern-binding reference capsule.
+    - Fails: never raises; any other path returns False.
+    """
     path = str(path_ref)
     return (
         path == "core/private_state_forbidden_classes.json"
@@ -1290,12 +1483,24 @@ def _expected_sentinel_fixture_path(path_ref: object) -> bool:
 
 
 def _expected_bounded_secret_scan_hit(hit: dict[str, Any]) -> bool:
+    """
+    - Teleology: decide whether a bounded-secret-scan hit is an expected sentinel/target-only case rather than a real leak.
+    - Guarantee: returns True when the hit is forbidden_class target_only_not_source or lands on an expected sentinel fixture path.
+    - Fails: never raises; unexpected hits return False and become blocking.
+    """
     if hit.get("forbidden_class") == "target_only_not_source":
         return True
     return _expected_sentinel_fixture_path(hit.get("path"))
 
 
 def _secret_scan(target: Path) -> dict[str, Any]:
+    """
+    - Teleology: run the bounded forbidden-class secret-exclusion scan over the artifact, separating expected sentinels from real leaks.
+    - Guarantee: returns the scan dict with status pass iff there are no unexpected hits; otherwise status=blocked with unexpected hit count/paths.
+    - Fails: missing core/private_state_forbidden_classes.json -> status=blocked MISSING_SECRET_EXCLUSION_POLICY; never raises for present policy.
+    - Reads: target/core/private_state_forbidden_classes.json and every artifact file.
+    - Non-goal: bounded policy-driven scan only; does not authorize release or claim a complete secret audit.
+    """
     policy_path = target / "core/private_state_forbidden_classes.json"
     if not policy_path.is_file():
         return {
@@ -1357,11 +1562,22 @@ def _projection_finding_diagnostics(
     target: Path,
     temp_root: Path,
 ) -> dict[str, Any]:
+    """
+    - Teleology: summarize projection-bundle negative-case findings with private paths redacted, for the freshness receipt.
+    - Guarantee: returns redacted error-code counts, subject-id sample, and a capped finding sample; artifact/temp/host-temp paths are rewritten to placeholders.
+    - Fails: never raises; non-list findings are treated as empty; samples are bounded by the module limits.
+    - Reads: the in-memory findings list (no file I/O).
+    """
     if not isinstance(findings, list):
         findings = []
     rows = [row for row in findings if isinstance(row, dict)]
 
     def _safe_string(value: object) -> str:
+        """
+        - Teleology: redact artifact/temp/host-temp absolute paths out of one projection-finding string.
+        - Guarantee: returns the string with target, temp_root, and host-temp roots rewritten to placeholders; empty/None -> empty string.
+        - Fails: never raises; non-string values are coerced via str().
+        """
         text = str(value or "")
         if not text:
             return ""
@@ -1420,6 +1636,11 @@ def _projection_finding_diagnostics(
 
 
 def _invalid_projection_freshness_receipt() -> dict[str, Any]:
+    """
+    - Teleology: canonical blocked receipt when the projection-freshness receipt JSON is unreadable/invalid.
+    - Guarantee: returns a blocked dict with source_status invalid_json, INVALID_PROJECTION_FRESHNESS_RECEIPT codes, runtime check not_run, release_authorized False.
+    - Fails: never raises; constant blocked envelope.
+    """
     invalid_code = "INVALID_PROJECTION_FRESHNESS_RECEIPT"
     return {
         "status": "blocked",
@@ -1437,6 +1658,14 @@ def _invalid_projection_freshness_receipt() -> dict[str, Any]:
 
 
 def _projection_freshness(target: Path) -> dict[str, Any]:
+    """
+    - Teleology: source-custody freshness gate proving the exported macro-projection bundle receipt is present, valid, and re-runs to a passing shape.
+    - Guarantee: returns a dict with status pass iff the receipt status is pass, no error codes, and the runtime re-run is pass/not_run; release_authorized is always False.
+    - Fails: missing receipt -> blocked MISSING_PROJECTION_FRESHNESS_RECEIPT; unreadable/non-dict JSON -> _invalid_projection_freshness_receipt; never raises.
+    - Reads: target/<PROJECTION_FRESHNESS_RECEIPT_REF> and the exported_projection_import_bundle (re-run in a temp dir).
+    - Non-goal: does not authorize release or assert macro-system equivalence beyond projection-shape freshness.
+    - Escalates-to: organs/macro_projection_import_protocol.run_projection_bundle and the freshness receipt ref.
+    """
     receipt_path = target / PROJECTION_FRESHNESS_RECEIPT_REF
     if not receipt_path.is_file():
         return {
@@ -1521,12 +1750,22 @@ def _projection_freshness(target: Path) -> dict[str, Any]:
 
 
 def _redact_local(text: str, *, target: Path, source_root: Path) -> str:
+    """
+    - Teleology: strip local artifact and source-root absolute paths from captured command output.
+    - Guarantee: returns text with target -> <release-artifact> and source_root -> <source-root> substituted.
+    - Fails: never raises; non-matching text is returned unchanged.
+    """
     redacted = text.replace(target.as_posix(), "<release-artifact>")
     redacted = redacted.replace(source_root.as_posix(), "<source-root>")
     return redacted
 
 
 def _display_argv(argv: list[str | Path]) -> list[str]:
+    """
+    - Teleology: stringify a display argv so receipts never embed Path objects.
+    - Guarantee: returns a list of str for each argv element.
+    - Fails: never raises for str/Path elements.
+    """
     return [str(part) for part in argv]
 
 
@@ -1539,6 +1778,12 @@ def _command_receipt_row(
     target: Path,
     source_root: Path,
 ) -> dict[str, Any]:
+    """
+    - Teleology: capture one smoke/install subprocess result as a privacy-redacted receipt row.
+    - Guarantee: returns a row with status pass iff return_code is 0, redacted stdout/stderr byte counts, and private-path-hit flags; raw bodies are excluded (body_in_receipt False).
+    - Fails: never raises; a non-zero return code yields status=blocked rather than an exception.
+    - Reads: the CompletedProcess stdout/stderr (redacted against target and source_root).
+    """
     stdout = _redact_local(completed.stdout, target=target, source_root=source_root)
     stderr = _redact_local(completed.stderr, target=target, source_root=source_root)
     return {
@@ -1560,6 +1805,11 @@ def _command_receipt_row(
 
 
 def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
+    """
+    - Teleology: roll command rows up to a single pass/blocked status, treating any private-path hit as blocking.
+    - Guarantee: returns pass iff every row has status pass and no stdout/stderr private-path hit, else blocked.
+    - Fails: never raises; expects rows shaped by _command_receipt_row.
+    """
     blocked = [
         row
         for row in rows
@@ -1571,6 +1821,12 @@ def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
 
 
 def _git_output(root: Path, args: list[str]) -> str | None:
+    """
+    - Teleology: best-effort git stdout reader for source-identity and commit-diff queries.
+    - Guarantee: returns stripped stdout on a zero-exit git command, else None.
+    - Fails: never raises; OSError/SubprocessError/timeout and non-zero exit all fold to None.
+    - Reads: git output for the given args under root.
+    """
     try:
         completed = subprocess.run(
             ["git", "-C", str(root), *args],
@@ -1587,6 +1843,12 @@ def _git_output(root: Path, args: list[str]) -> str | None:
 
 
 def _git_success(root: Path, args: list[str]) -> bool:
+    """
+    - Teleology: boolean git predicate (e.g. ancestor check) for the invalidation assessment.
+    - Guarantee: returns True iff the git command exits zero, else False.
+    - Fails: never raises; subprocess errors/timeout fold to False.
+    - Reads: git exit status for the given args under root.
+    """
     try:
         completed = subprocess.run(
             ["git", "-C", str(root), *args],
@@ -1601,6 +1863,13 @@ def _git_success(root: Path, args: list[str]) -> bool:
 
 
 def _source_identity(root: Path) -> dict[str, Any]:
+    """
+    - Teleology: source-custody fingerprint binding the candidate to a git HEAD and reporting worktree dirtiness.
+    - Guarantee: returns status available with git_head, source_root_ref, clean-vs-worktree-delta kind, and a bounded dirty-path sample; status unavailable when not a git tree.
+    - Fails: never raises; missing HEAD/toplevel -> status unavailable with null head and empty samples.
+    - Reads: git rev-parse HEAD/--show-toplevel and git status --short for root.
+    - Non-goal: does not authorize release; clean HEAD is a gate input, not authorization.
+    """
     head = _git_output(root, ["rev-parse", "HEAD"])
     git_root_text = _git_output(root, ["rev-parse", "--show-toplevel"])
     if not head or not git_root_text:
@@ -1647,6 +1916,11 @@ def _source_identity(root: Path) -> dict[str, Any]:
 
 
 def _release_material_path_cone(source_root_ref: str | None) -> dict[str, Any]:
+    """
+    - Teleology: define which path prefixes are release material vs status-projection-only, for invalidation classification.
+    - Guarantee: returns a microcosm_release_material_path_cone_v1 dict with release-material, macro-assimilation, and status-projection-only prefixes plus the materiality rules.
+    - Fails: never raises; a null source_root_ref falls back to the artifact dir name.
+    """
     source_root = (source_root_ref or ARTIFACT_DIR_NAME).strip("/")
     release_material_prefixes = [f"{source_root}/"] if source_root else []
     macro_assimilation_prefixes = [
@@ -1670,6 +1944,11 @@ def _release_material_path_cone(source_root_ref: str | None) -> dict[str, Any]:
 
 
 def _path_has_prefix(path: str, prefixes: list[str] | tuple[str, ...]) -> bool:
+    """
+    - Teleology: prefix-membership test used to classify changed paths against the materiality cone.
+    - Guarantee: returns True iff the normalized path equals or is prefixed by any supplied prefix.
+    - Fails: never raises; empty prefixes yield False.
+    """
     normalized = path.strip("/")
     return any(
         normalized == prefix.rstrip("/") or normalized.startswith(prefix)
@@ -1678,6 +1957,11 @@ def _path_has_prefix(path: str, prefixes: list[str] | tuple[str, ...]) -> bool:
 
 
 def _classify_release_candidate_path(path: str, *, source_root_ref: str | None) -> str:
+    """
+    - Teleology: classify one changed path into a materiality class for candidate invalidation.
+    - Guarantee: returns macro_assimilation_material_change / release_material_change / release_status_projection_only_change / unrelated_macro_mainline_change by first-match precedence.
+    - Fails: never raises; unmatched paths classify as unrelated_macro_mainline_change.
+    """
     cone = _release_material_path_cone(source_root_ref)
     if _path_has_prefix(path, cone["macro_assimilation_material_prefixes"]):
         return "macro_assimilation_material_change"
@@ -1694,6 +1978,12 @@ def _git_commits_after(
     frozen_head: str,
     compare_ref: str,
 ) -> list[dict[str, Any]]:
+    """
+    - Teleology: list commits (with changed paths) between the frozen candidate head and a compare ref.
+    - Guarantee: returns ordered commit dicts (commit/subject/sorted changed_paths) from git log frozen..compare; empty list when git output is unavailable.
+    - Fails: never raises; null git output -> [].
+    - Reads: git log --name-only between frozen_head and compare_ref under root.
+    """
     raw = _git_output(
         root,
         [
@@ -1739,6 +2029,14 @@ def assess_candidate_invalidation(
     *,
     compare_ref: str = "HEAD",
 ) -> dict[str, Any]:
+    """
+    - Teleology: public re-validation entrypoint deciding whether commits after a frozen release candidate invalidate it.
+    - Guarantee: returns a RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION dict; candidate_validity_result is stale_requires_rehearsal on material change, gate_eligible when gate-ready and non-material, else historical_only.
+    - Fails: source_root resolve(strict=True) on a missing path -> FileNotFoundError; missing frozen/compare head or non-ancestor -> assessment_status unavailable/not_ancestor with historical_only, never raises.
+    - Reads: the candidate packet identity plus git rev-parse/merge-base/log under source_root.
+    - When-needed: checking whether a previously generated release candidate is still promotable.
+    - Escalates-to: _git_commits_after / _classify_release_candidate_path and the release_candidate_packet it was derived from.
+    """
     source_root_path = Path(source_root).expanduser().resolve(strict=True)
     identity = release_candidate_packet.get("candidate_identity") or {}
     source = identity.get("source") or {}
@@ -1900,6 +2198,12 @@ def assess_candidate_invalidation(
 def _release_candidate_warning_rows(
     source_identity: dict[str, Any],
 ) -> list[dict[str, Any]]:
+    """
+    - Teleology: assemble the external-warning rows (governance-backlog + dirty-source) that feed the authorization gate.
+    - Guarantee: returns the base EXTERNAL_WARNING_CLASSIFICATION_ROWS plus a source_tree_dirty_at_export authorization-blocking row when dirty_source_path_count > 0.
+    - Fails: never raises; non-positive/absent dirty count adds no extra row.
+    - Reads: source_identity dirty_source_path_count.
+    """
     rows = [dict(row) for row in EXTERNAL_WARNING_CLASSIFICATION_ROWS]
     dirty_count = source_identity.get("dirty_source_path_count")
     if isinstance(dirty_count, int) and dirty_count > 0:
@@ -1927,6 +2231,12 @@ def _release_authorization_gate(
     release_authorization_blocking_warning_count: int,
     source_identity_status: str,
 ) -> dict[str, Any]:
+    """
+    - Teleology: describe the (never auto-invoked) explicit release-authorization gate and its additional required inputs.
+    - Guarantee: returns a gate dict with invoked False and release_authorized_after_gate False, listing requirements and any additional inputs (source identity, clean/authorized dirty source).
+    - Fails: never raises; constant projection conditioned on the two integer/str inputs.
+    - Non-goal: does not authorize release; it only names what an explicit operator gate would require.
+    """
     additional_inputs: list[str] = []
     if source_identity_status != "available":
         additional_inputs.append("source_identity_available")
@@ -1952,6 +2262,13 @@ def _release_authorization_gate(
 def _release_authorization_gate_decision(
     candidate_packet: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    - Teleology: dry-run decision (deny/defer/ready) over a candidate packet for whether operator release authorization is eligible.
+    - Guarantee: returns a microcosm_release_authorization_gate_decision_v1 dict with dry_run True and release_authorization_allowed_now False; decision is deny on hard codes, defer on source-identity codes, else ready_pending_operator_authorization.
+    - Fails: never raises; all defects surface as blocking_codes/required_actions, never exceptions.
+    - Reads: candidate packet validation_summary, authority_state, warning classification, and source identity.
+    - Non-goal: never promotes release; only the explicit operator gate receipt can authorize.
+    """
     validation = candidate_packet.get("validation_summary") or {}
     authority = candidate_packet.get("authority_state") or {}
     gate = authority.get("release_authorization_gate") or {}
@@ -2100,6 +2417,14 @@ def _release_candidate_packet(
     release_assurance_receipt: dict[str, Any],
     blocking_codes: list[str],
 ) -> dict[str, Any]:
+    """
+    - Teleology: assemble the full validated-candidate packet (identity, validation summary, authority, warnings, gate decision, invalidation) under the no-authorization ceiling.
+    - Guarantee: returns a microcosm_release_candidate_packet_v1 dict; status blocked on blocking_codes/release-blocking warnings else pass[_with_external_warnings]; embeds the dry-run gate decision and invalidation assessment.
+    - Fails: never raises here; source identity comes from git and degrades to unavailable rather than raising.
+    - Reads: source identity via git plus the supplied artifact and sub-receipts.
+    - Non-goal: describes a candidate boundary; does not authorize publication (only the explicit gate can).
+    - Escalates-to: _release_authorization_gate_decision and assess_candidate_invalidation.
+    """
     source = _source_identity(source_root)
     warning_rows = _release_candidate_warning_rows(source)
     release_blocking_warning_count = sum(
@@ -2270,6 +2595,14 @@ def _release_candidate_packet(
 
 
 def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) -> dict[str, Any]:
+    """
+    - Teleology: prove the exported package runs hello/first-screen from outside the source root via -m microcosm_core.
+    - Guarantee: returns a status (pass iff all command rows pass with no private-path leak) plus per-command redacted rows, asserting release-artifact PYTHONPATH (not source tree) was used.
+    - Fails: a smoke command exceeding timeout_seconds -> subprocess.TimeoutExpired; non-zero exits yield status=blocked rather than raising.
+    - Reads: runs python -m microcosm_core against a temp scratch project using target/src on PYTHONPATH.
+    - When-needed: confirming the generated artifact is runnable as a standalone module.
+    - Escalates-to: build_release_export runnable_receipt and the runnable-smoke blocking code.
+    """
     commands = [
         ("hello", ["hello", "<smoke-project>"]),
         ("first_screen", ["first-screen", "<smoke-project>"]),
@@ -2325,12 +2658,22 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
 
 
 def _venv_bin_path(venv: Path, name: str) -> Path:
+    """
+    - Teleology: resolve the console-script path inside an install prefix across OSes.
+    - Guarantee: returns <venv>/(bin|Scripts)/<name>[.exe] for the current platform.
+    - Fails: never raises; pure path construction, existence not checked here.
+    """
     bin_dir = venv / ("Scripts" if os.name == "nt" else "bin")
     suffix = ".exe" if os.name == "nt" else ""
     return bin_dir / f"{name}{suffix}"
 
 
 def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """
+    - Teleology: roll install-smoke command rows into a summary asserting installed-package (not source-tree) execution.
+    - Guarantee: returns a status (pass iff every row passes with no private-path leak) plus mode/flags marking installed-prefix and isolated-artifact-copy usage.
+    - Fails: never raises; failing rows yield status=blocked.
+    """
     return {
         "status": _receipt_status_from_rows(rows),
         "mode": "outside_source_root_package_prefix_install",
@@ -2356,6 +2699,14 @@ def _run_install_smoke(
     source_root: Path,
     timeout_seconds: int = 120,
 ) -> dict[str, Any]:
+    """
+    - Teleology: pip-install the isolated artifact copy into a temp prefix and run console-script commands to prove a real install path works.
+    - Guarantee: returns an install-smoke summary (status pass iff install plus all console commands pass with no leak); a failed install or missing prefix short-circuits to a blocked summary.
+    - Fails: install or a command exceeding timeout_seconds -> subprocess.TimeoutExpired; non-zero exits/missing console script yield status=blocked, not exceptions.
+    - Reads: copies target into a temp dir; runs pip install --prefix and the installed `microcosm` console script.
+    - When-needed: confirming wheel/console-script install support before claiming installed-mode.
+    - Escalates-to: build_release_export install_smoke_receipt and wheel_install_supported authority.
+    """
     rows: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="microcosm-release-install-smoke-") as tmp:
         tmp_root = Path(tmp)
@@ -2492,6 +2843,12 @@ def _run_install_smoke(
 
 
 def _prepare_target(root: Path, out: Path, *, force: bool) -> Path:
+    """
+    - Teleology: create the artifact target directory while refusing to write inside or over the source root.
+    - Guarantee: returns target=<out>/microcosm-substrate, freshly created; with force it replaces an existing target.
+    - Fails: output inside source root or target == source root -> ValueError; existing target without force -> FileExistsError; missing root -> FileNotFoundError from resolve(strict=True).
+    - Reads: resolves root and out; Writes: creates (and with force removes) the target directory.
+    """
     source_root = root.resolve(strict=True)
     output_root = out.expanduser().resolve(strict=False)
     if _is_relative_to(output_root, source_root):
@@ -2515,6 +2872,15 @@ def build_release_export(
     run_smoke: bool = True,
     command: str = "release-export",
 ) -> dict[str, Any]:
+    """
+    - Teleology: top-level release-export builder: materialize the public artifact, run every gate, and write the bounded release receipt.
+    - Guarantee: returns the microcosm_release_export_receipt_v1 dict (status pass iff blocking_codes empty) and writes it to target/<RELEASE_RECEIPT_REF>; every authority flag (release/publish/hosted/provider/source-mutation/equivalence) is hard False.
+    - Fails: out inside/equal source root -> ValueError; existing target without force -> FileExistsError; smoke timeouts propagate; gate failures surface as blocking_codes + status=blocked, not exceptions.
+    - Reads: the allowlisted source tree under root; Writes: the <out>/microcosm-substrate artifact and its release receipt.
+    - When-needed: generating a public release artifact and its evidence receipt.
+    - Non-goal: does not authorize release, publication, hosted launch, private-root equivalence, or claim a complete secret audit.
+    - Escalates-to: RELEASE_RECEIPT_REF on disk, release_export_summary, and the standalone/assurance/candidate sub-receipts.
+    """
     source_root = Path(root).expanduser().resolve(strict=True)
     target = _prepare_target(source_root, Path(out), force=force)
     allowed_files, excluded_rows, missing_include_refs = _iter_allowed_files(source_root)
@@ -2700,6 +3066,14 @@ def build_release_export(
 
 
 def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[str, Any]:
+    """
+    - Teleology: project the full release receipt into a compact stdout summary for the CLI --summary path.
+    - Guarantee: returns a microcosm_release_export_summary_v1 dict echoing status, candidate/authorization blocking codes, artifact identity, validation/authority/gate slices; the full receipt on disk stays authoritative.
+    - Fails: never raises; missing nested keys degrade to None via defensive `or {}` lookups.
+    - Reads: the in-memory release receipt and the target path.
+    - Non-goal: compact projection only; does not authorize release, publication, hosting, provider calls, or private-root equivalence.
+    - Escalates-to: the full receipt at release_receipt_path (RELEASE_RECEIPT_REF).
+    """
     artifact = receipt.get("artifact") or {}
     authority = receipt.get("authority_receipt") or {}
     candidate = receipt.get("release_candidate_packet") or {}

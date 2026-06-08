@@ -38,6 +38,15 @@ REQUIRED_FIELDS = ("deep", "formal", "governs", "requires", "refuses", "example"
 
 
 def _corpus_ids(root: Path, kind: str) -> list[str]:
+    """List the object ids present in one doctrine-kind instance corpus.
+
+    - Teleology: enumerate the axiom/principle/anti-principle ids that enrichment coverage is measured against, drawn from the generated JSON instances.
+    - Guarantee: returns the sorted-by-path list of `id` values for every well-formed JSON instance under the kind's directory/glob that carries a truthy `id`.
+    - Fails: never raises for bad data — files that fail json.JSONDecodeError or lack an `id` are skipped; a missing directory yields an empty list. Only KIND_DIRS[kind] KeyError for an unknown kind would propagate.
+    - Reads: the per-kind instance JSON files under root/<subdir>/<glob> (e.g. axioms/AX-*.json).
+    - When-needed: when reconciling which corpus ids the health projection treats as the coverage denominator.
+    - Non-goal: does not validate instance contents or authorize the corpus as source authority; id enumeration only.
+    """
     subdir, glob = KIND_DIRS[kind]
     ids: list[str] = []
     for path in sorted((root / subdir).glob(glob)):
@@ -51,6 +60,15 @@ def _corpus_ids(root: Path, kind: str) -> list[str]:
 
 
 def _has_field(record: dict[str, Any], field: str) -> bool:
+    """Decide whether one enrichment record meaningfully populates a reader field.
+
+    - Teleology: the per-field presence predicate that drives the coverage counts; encodes the shape each REQUIRED_FIELD must take to count as present.
+    - Guarantee: returns True iff the field carries real content per its kind — `formal` needs a non-empty latex string, `example`/`counterexample` a non-empty text string, `enforced_in` a non-empty list, and any other field a non-empty stringified value.
+    - Fails: never raises; absent/empty/wrong-typed values return False.
+    - Reads: the in-memory `record` dict only.
+    - When-needed: when explaining why a record was counted enriched/partial for a given field.
+    - Non-goal: PRESENCE only — does not judge correctness, fidelity, or render-validity of the field.
+    """
     value = record.get(field)
     if field == "formal":
         return isinstance(value, dict) and bool(str(value.get("latex") or "").strip())
@@ -64,6 +82,16 @@ def _has_field(record: dict[str, Any], field: str) -> bool:
 
 
 def build_health(root: Path) -> dict[str, Any]:
+    """Build the doctrine-enrichment coverage-health projection for a root.
+
+    - Teleology: project per-kind reader-enrichment completeness (how many doctrine objects are enriched and carry each reader field) plus the folded-in formal-soundness and reader-ladder structural gates.
+    - Guarantee: returns a health dict (schema microcosm_doctrine_enrichment_health_v1) with per-kind totals/enriched/field counts/partials, an `incomplete` list, and a `status` of "complete" iff coverage is full AND formal soundness AND reader-ladder report zero unsound; else "partial".
+    - Fails: raises json.JSONDecodeError / FileNotFoundError if core/doctrine_enrichment.json is missing or malformed; sub-gate exceptions from run_soundness/run_reader_ladder propagate.
+    - Reads: core/doctrine_enrichment.json (source of record) and the axiom/principle/anti-principle instance corpora (via _corpus_ids); delegates to run_soundness and run_reader_ladder over the enrichment file.
+    - When-needed: when deciding whether reader enrichment is complete before a dissemination build or as the data behind the --check CI gate.
+    - Escalates-to: check_doctrine_formal_soundness.run and check_doctrine_reader_ladder.run for the structural sub-gates; the dissemination build's LaTeX-render test for render correctness.
+    - Non-goal: measures PRESENCE not correctness, is never support evidence, and the emitted artifact is a generated projection — not source authority and not release authorization.
+    """
     enrichment_path = root / ENRICHMENT_REL
     enrichment = json.loads(enrichment_path.read_text(encoding="utf-8"))
     by_id: dict[str, dict[str, Any]] = {}

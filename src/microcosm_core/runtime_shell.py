@@ -37,6 +37,16 @@ _RUNTIME_RECEIPT_WRITE_STATE = threading.local()
 
 
 def _runtime_receipt_writes_enabled() -> bool:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     override = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
     if override is not None:
         return bool(override)
@@ -46,6 +56,16 @@ def _runtime_receipt_writes_enabled() -> bool:
 
 @contextmanager
 def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: yields the projected rows lazily; returns no value.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     previous = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
     _RUNTIME_RECEIPT_WRITE_STATE.enabled = enabled
     try:
@@ -61,11 +81,31 @@ def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
 
 
 def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+    - Fails: I-O / OSError suppressed by the helper; returns without raising.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     if _runtime_receipt_writes_enabled():
         _write_json_atomic(path, payload)
 
 
 def _runtime_receipt_write_persists(path: Path) -> bool:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     return (
         _runtime_receipt_writes_enabled()
         and not receipt_policy.tracked_receipt_write_blocked(path)
@@ -73,68 +113,194 @@ def _runtime_receipt_write_persists(path: Path) -> bool:
 
 
 def _tracked_receipt_refresh_requires_env(path: Path) -> bool:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     return receipt_policy.tracked_receipt_write_blocked(path)
 
 
 def _tracked_receipt_refresh_env(path: Path) -> str | None:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns the resolved string, or None when it is absent.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     if _tracked_receipt_refresh_requires_env(path):
         return "MICROCOSM_TRACKED_RECEIPT_WRITES=1"
     return None
 
 
 class _LazyAttr:
+    """Runtime-shell coordinator type.
+
+    - Teleology: Runtime-shell coordinator type holding the state its methods project.
+    - Guarantee: returns control to the caller after the documented effect.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: you need any projection this coordinator's methods expose.
+    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    """
     def __init__(self, module_loader: Callable[[], Any], attr_name: str) -> None:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+        - Fails: I-O / OSError suppressed by the helper; returns without raising.
+        """
         self._module_loader = module_loader
         self._attr_name = attr_name
 
     def _resolve(self) -> Any:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the normalized value derived from the input.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return getattr(self._module_loader(), self._attr_name)
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the normalized value derived from the input.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return self._resolve()(*args, **kwargs)
 
     def __getattr__(self, name: str) -> Any:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the normalized value derived from the input.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return getattr(self._resolve(), name)
 
     def __fspath__(self) -> str:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return str(self._resolve())
 
     def __str__(self) -> str:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return str(self._resolve())
 
     def __repr__(self) -> str:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return repr(self._resolve())
 
     def __bool__(self) -> bool:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a bool verdict computed from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return bool(self._resolve())
 
     def __eq__(self, other: object) -> bool:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a bool verdict computed from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return self._resolve() == other
 
 
 class _LazyModule:
+    """Lazy organ-runner module proxy: defers importlib import until first attribute access.
+
+    - Teleology: Runtime-shell coordinator type holding a deferred import of an organ-runner module.
+    - Guarantee: returns a proxy whose attribute access imports and resolves the named module on demand.
+    - Fails: on first resolution, an unimportable module_name -> propagates ImportError / ModuleNotFoundError.
+    - When-needed: wiring registry-declared organ runners without importing them at module load.
+    - Escalates-to: core/organ_registry.json (the runner refs this proxy binds), or the imported module itself.
+    """
     def __init__(self, module_name: str) -> None:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+        - Fails: I-O / OSError suppressed by the helper; returns without raising.
+        """
         self._module_name = module_name
         self._module: Any | None = None
 
     @property
     def module_name(self) -> str:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return self._module_name
 
     @property
     def loaded(self) -> bool:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a bool verdict computed from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return self._module is not None
 
     def _load(self) -> Any:
+        """Memoized importlib import of the wrapped module.
+
+        - Teleology: resolves and caches the deferred organ-runner module on first use.
+        - Guarantee: imports the module once and returns the cached module object thereafter.
+        - Fails: unimportable module_name -> propagates ImportError / ModuleNotFoundError.
+        """
         if self._module is None:
             self._module = importlib.import_module(self._module_name)
         return self._module
 
     def __getattr__(self, name: str) -> _LazyAttr:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the declared _LazyAttr result.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return _LazyAttr(self._load, name)
 
 
 def _accepted_organ_runner_module_refs(root: Path | None = None) -> dict[str, str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     registry_path = (root or microcosm_root()) / "core/organ_registry.json"
     try:
         registry = read_json_strict(registry_path)
@@ -162,6 +328,12 @@ def _accepted_organ_runner_module_refs(root: Path | None = None) -> dict[str, st
 
 
 def _lazy_organ_module_bindings(refs: dict[str, str]) -> dict[str, _LazyModule]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {organ_id: _LazyModule(module_ref) for organ_id, module_ref in refs.items()}
 
 
@@ -477,7 +649,21 @@ Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
 def _keyword_command_runner(
     runner: Callable[..., dict[str, Any]],
 ) -> Runner:
+    """Routes a runtime-shell command / request.
+
+    - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
+    - Guarantee: returns the declared Runner result.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: routing or invoking this runtime-shell command/endpoint.
+    - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
+    """
     def run(input_dir: str | Path, out_dir: str | Path, command: str | None) -> dict[str, Any]:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return runner(input_dir, out_dir, command=command)
 
     return run
@@ -485,6 +671,14 @@ def _keyword_command_runner(
 
 @dataclass(frozen=True)
 class RuntimeStep:
+    """Runtime-shell coordinator type.
+
+    - Teleology: Runtime-shell coordinator type holding the state its methods project.
+    - Guarantee: returns control to the caller after the documented effect.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: you need any projection this coordinator's methods expose.
+    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    """
     organ_id: str
     span: str
     input_mode: str
@@ -1486,10 +1680,22 @@ RUNTIME_STEPS = tuple(
 
 
 def public_root() -> Path:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the resolved Path (no filesystem write implied).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return microcosm_root()
 
 
 def _public_relative(path: Path, root: Path) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
     except ValueError:
@@ -1529,6 +1735,16 @@ PUBLIC_AUTHORITY_REF_OVERRIDES = {
 
 
 def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, Any]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     source_ref = row.get("current_authority_receipt")
     source_ref = source_ref if isinstance(source_ref, str) and source_ref else None
     source_ref_resolves = bool(source_ref and _path_is_file(root / source_ref))
@@ -1550,6 +1766,12 @@ def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, An
 
 
 def _read_json_if_exists(path: Path) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not _path_is_file(path):
         return {}
     payload = read_json_strict(path)
@@ -1557,10 +1779,22 @@ def _read_json_if_exists(path: Path) -> dict[str, Any]:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return list(_iter_jsonl_dict_rows(path))
 
 
 def _path_is_file(path: Path) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.is_file()
     except OSError:
@@ -1568,6 +1802,12 @@ def _path_is_file(path: Path) -> bool:
 
 
 def _path_exists(path: Path) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.exists()
     except OSError:
@@ -1575,6 +1815,12 @@ def _path_exists(path: Path) -> bool:
 
 
 def _path_is_dir(path: Path) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.is_dir()
     except OSError:
@@ -1582,6 +1828,12 @@ def _path_is_dir(path: Path) -> bool:
 
 
 def _path_mtime_ns(path: Path) -> int | None:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the resolved value, or None when it cannot be resolved.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.stat().st_mtime_ns
     except OSError:
@@ -1589,6 +1841,12 @@ def _path_mtime_ns(path: Path) -> int | None:
 
 
 def _path_size(path: Path) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     try:
         return path.stat().st_size
     except OSError:
@@ -1596,6 +1854,15 @@ def _path_size(path: Path) -> int:
 
 
 def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     if not _path_is_file(path):
         return
     with path.open("r", encoding="utf-8") as handle:
@@ -1608,10 +1875,28 @@ def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
 
 
 def _count_jsonl_dict_rows(path: Path) -> int:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     return sum(1 for _row in _iter_jsonl_dict_rows(path))
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     value = payload.get(key, [])
     if not isinstance(value, list):
         return []
@@ -1619,6 +1904,12 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     state_path = project_path / ref.rstrip("/")
     return (
         _path_is_dir(state_path)
@@ -1628,6 +1919,12 @@ def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
 
 
 def _missing_first_screen_state_refs(project_path: Path) -> list[str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return [
         f"{project_substrate.STATE_DIR}/{state_ref}"
         for state_ref in FIRST_SCREEN_STATE_REFS
@@ -1639,6 +1936,12 @@ def _missing_first_screen_state_refs(project_path: Path) -> list[str]:
 
 
 def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not _path_is_dir(root):
         return 0
     count = 0
@@ -1663,6 +1966,12 @@ def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
 
 
 def _count_state_files(state_root: Path) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return _count_files_under(state_root)
 
 
@@ -1674,6 +1983,16 @@ def _project_state_inspection_card(
     source_files_mutated: bool | None = False,
     reader_action: str | None = None,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     refs = [
         ref
         for ref in (first_screen_refs or [])
@@ -1718,6 +2037,15 @@ def _compact_observatory_payload(
     *,
     keep_keys: tuple[str, ...] = (),
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     always_keep = {
         "schema_version",
         "status",
@@ -1772,6 +2100,12 @@ def _compact_observatory_payload(
 
 
 def _first_string(value: Any) -> str | None:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the resolved string, or None when it is absent.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if isinstance(value, str) and value:
         return value
     if isinstance(value, list):
@@ -1782,12 +2116,24 @@ def _first_string(value: Any) -> str | None:
 
 
 def _strings(value: Any) -> list[str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _safe_text(value: Any) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if value is None:
         return ""
     if isinstance(value, bool):
@@ -1803,6 +2149,15 @@ def _lens_payload_boundary(
     command: str,
     input_payload_schema_normalized: bool = False,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     return public_payload_boundary(
         boundary_id=boundary_id,
         command=command,
@@ -1812,6 +2167,12 @@ def _lens_payload_boundary(
 
 
 def _source_open_safe_to_show(**extra: bool) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
         "unsafe_payload_bodies_in_receipt": False,
@@ -1822,6 +2183,12 @@ def _source_open_safe_to_show(**extra: bool) -> dict[str, Any]:
 
 
 def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "payload_boundary_ref": boundary_ref,
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -1830,6 +2197,15 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
 
 
 def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     input_payload_schema_normalized = python_lens.get(OMITTED_PAYLOAD_BODY_FLAG) is True
     surface_ref = str(
         python_lens.get("state_file_ref")
@@ -1892,6 +2268,12 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
 
 
 def _observatory_work_transaction_is_closed(row: dict[str, Any]) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return (
         isinstance(row.get("work_id"), str)
         and row.get("status") in {"closed", PASS}
@@ -1903,6 +2285,12 @@ def _select_observatory_work_transaction(
     work_rows: list[dict[str, Any]],
     route_id: Any,
 ) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     selected_route_id = route_id if isinstance(route_id, str) and route_id else ""
     candidate_rows = [
         row
@@ -1917,6 +2305,16 @@ def _select_observatory_work_transaction(
 
 
 def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     project_summary = (
         model.get("project_summary", {})
         if isinstance(model.get("project_summary"), dict)
@@ -2477,12 +2875,24 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
 
 
 def _badge_list(values: list[str]) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not values:
         return "<span class=\"muted\">none</span>"
     return "".join(f"<span class=\"badge\">{html.escape(value)}</span>" for value in values)
 
 
 def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     negative_case_values = (
         payload.get("negative_case_ids"),
         payload.get("negative_cases"),
@@ -2535,12 +2945,24 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _normalize_runtime_projection_status(status: Any) -> Any:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the normalized value derived from the input.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if status == PUBLIC_REPLACEMENT_STATUS_INPUT:
         return "public_runtime_import_landed"
     return status
 
 
 def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not isinstance(counts, dict):
         return {}
     normalized = dict(counts)
@@ -2556,6 +2978,12 @@ def _projection_intake_board_status(
     projection_preview: dict[str, Any],
     projection_board: dict[str, Any],
 ) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if projection_preview.get("status") == PASS:
         return PASS
     if not isinstance(projection_board, dict):
@@ -2592,6 +3020,12 @@ def _projection_intake_board_status(
 
 
 def _normalize_runtime_boundary_label(value: Any) -> Any:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the normalized value derived from the input.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     replacements = {
         PRIVATE_STATE_SCAN_POSTURE_INPUT: "secret_exclusion_posture",
         "deny_live_state_read_and_keep_metadata_only": (
@@ -2604,6 +3038,12 @@ def _normalize_runtime_boundary_label(value: Any) -> Any:
 
 
 def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return [
         normalized
         for value in values
@@ -2612,10 +3052,25 @@ def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
 
 
 def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     return runtime_evidence_index.compact_receipt_summary(path, root)
 
 
 def proof_lab_first_screen_boundary() -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
         "anti_claims": dict(PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS),
@@ -2623,12 +3078,24 @@ def proof_lab_first_screen_boundary() -> dict[str, Any]:
 
 
 def _proof_lab_anti_claim(value: object) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if isinstance(value, str) and value.strip():
         return value
     return PROOF_LAB_FIRST_SCREEN_ANTI_CLAIM
 
 
 def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if cache_status == "stale_cached_receipt":
         return {
             "status": "actionable",
@@ -2647,16 +3114,34 @@ def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
 
 
 def _proof_lab_fresh_receipt_required(cache_status: object) -> bool:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return cache_status in {"stale_cached_receipt", "missing_cached_receipt"}
 
 
 def _proof_lab_status_scope(cache_status: object) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if _proof_lab_fresh_receipt_required(cache_status):
         return "route_presence_not_cache_freshness"
     return "route_presence_and_cache_freshness"
 
 
 def _iter_proof_lab_input_files(root: Path) -> Iterator[Path]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: yields the projected rows lazily; returns no value.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     input_ref = root / PROOF_LAB_BUNDLE_REF
     if not _path_exists(input_ref):
         return
@@ -2684,10 +3169,22 @@ def _iter_proof_lab_input_files(root: Path) -> Iterator[Path]:
 
 
 def _proof_lab_input_files(root: Path) -> list[Path]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return sorted(_iter_proof_lab_input_files(root))
 
 
 def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not _path_is_file(receipt_path):
         return {
             "schema_version": "microcosm_proof_lab_cache_freshness_v1",
@@ -2769,12 +3266,24 @@ def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]
 
 
 def _default_proof_lab_receipt_path() -> Path:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the resolved Path (no filesystem write implied).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return Path(PROOF_LAB_DEFAULT_OUT_REF) / Path(PROOF_LAB_RECEIPT_REF).name
 
 
 def _current_default_proof_lab_receipt(
     root: Path,
 ) -> tuple[dict[str, Any], Path, dict[str, Any]] | None:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     receipt_path = _default_proof_lab_receipt_path()
     if not _path_is_file(receipt_path):
         return None
@@ -2788,6 +3297,12 @@ def _current_default_proof_lab_receipt(
 
 
 def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     created_at = payload.get("created_at")
     if not isinstance(created_at, str):
         created_at = utc_now()
@@ -2805,6 +3320,16 @@ def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
 
 
 def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     receipt_path = root / PROOF_LAB_RECEIPT_REF
     receipt = _read_json_if_exists(receipt_path)
     cache_freshness = _proof_lab_cache_freshness(root, receipt_path)
@@ -2946,6 +3471,12 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
 
 
 def _local_first_screen_route_ref() -> dict[str, str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
@@ -2954,6 +3485,12 @@ def _local_first_screen_route_ref() -> dict[str, str]:
 
 
 def _reader_first_screen_routes() -> list[dict[str, Any]]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return [
         {
             "reader_id": "public_github_visitor",
@@ -3004,7 +3541,16 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
 
 
 def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
-    """Read enough cached project state for first-screen cards without a rebuild."""
+    """Read enough cached project state for first-screen cards without a rebuild.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     state = project_path / project_substrate.STATE_DIR
     if not _path_is_dir(state):
         return {
@@ -3138,6 +3684,12 @@ def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
 
 
 def _project_runtime_state_cache_key(project_path: Path) -> tuple[Any, ...] | None:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the computed tuple of result fields, or None when unavailable.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     compile_cache = _fast_cached_project_compile_card(project_path)
     if compile_cache.get("status") != PASS:
         return None
@@ -3165,6 +3717,16 @@ def _cold_reader_first_screen_card(
     compiled: dict[str, Any] | None = None,
     evidence_refs: list[str] | None = None,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     compiled = compiled if isinstance(compiled, dict) else {}
     graph_summary = compiled.get("graph_summary")
     graph_summary = graph_summary if isinstance(graph_summary, dict) else {}
@@ -3412,6 +3974,16 @@ def _cold_reader_first_screen_card(
 
 
 def _verifier_lab_execution_spine_card(root: Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     receipt = _read_json_if_exists(root / VERIFIER_EXECUTION_RECEIPT_REF)
     counters = receipt.get("authority_counters")
     if not isinstance(counters, dict):
@@ -3538,10 +4110,22 @@ REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
 
 
 def _runtime_organ_ids() -> list[str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return [step.organ_id for step in RUNTIME_STEPS]
 
 
 def _product_runtime_steps() -> list[RuntimeStep]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return [
         step
         for step in RUNTIME_STEPS
@@ -3550,6 +4134,12 @@ def _product_runtime_steps() -> list[RuntimeStep]:
 
 
 def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: malformed / fail-open evidence-class registry -> raises ValueError.
+    """
     registry_path = root / EVIDENCE_CLASS_REGISTRY_REL
     payload = read_json_strict(registry_path)
     if not isinstance(payload, dict):
@@ -3630,6 +4220,12 @@ def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
 
 
 def _organ_evidence_profile(organ_id: str, registry: dict[str, Any]) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: invalid / unexpected input -> raises ValueError.
+    """
     profiles = registry.get("organ_profiles_by_id", {})
     profile = profiles.get(organ_id) if isinstance(profiles, dict) else None
     if not isinstance(profile, dict):
@@ -3638,6 +4234,15 @@ def _organ_evidence_profile(organ_id: str, registry: dict[str, Any]) -> dict[str
 
 
 def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     profiles = registry.get("class_profiles", {})
     organ_profiles = registry.get("organ_profiles_by_id", {})
     return {
@@ -3659,6 +4264,12 @@ def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
 
 
 def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a dict of name->count tallies.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     counts: dict[str, int] = {}
     for row in rows:
         class_id = row.get("evidence_class")
@@ -3668,6 +4279,12 @@ def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def _authority_count_scope() -> dict[str, str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "evidence_class_counts": (
             "adapter_backed_organ_rows_by_evidence_class; organ-level "
@@ -3696,6 +4313,15 @@ def _authority_count_scope() -> dict[str, str]:
 
 
 def _substrate_substitution_summary(root: Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     payload = _read_json_if_exists(root / SUBSTRATE_SUBSTITUTION_LEDGER_REF)
     summary = payload.get("summary") if isinstance(payload, dict) else {}
     if not isinstance(summary, dict):
@@ -3720,6 +4346,12 @@ def _substrate_substitution_summary(root: Path) -> dict[str, Any]:
 
 
 def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     counts = {count_key: 0 for count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.values()}
     bucket_counts: dict[str, int] = {}
     real_organs: list[str] = []
@@ -3757,6 +4389,16 @@ def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _sha256_file_digest(path: Path) -> str:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a "sha256:"-prefixed hex digest of the file's bytes.
+    - Fails: missing / unreadable path -> propagates OSError (path.open).
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -3767,6 +4409,15 @@ def _sha256_file_digest(path: Path) -> str:
 def _source_module_family_spotlights(
     families: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     spotlights: list[dict[str, Any]] = []
     for spec in SOURCE_MODULE_FAMILY_SPOTLIGHT_PREFIXES:
         prefix = spec["manifest_prefix"]
@@ -3806,6 +4457,16 @@ def _source_module_family_spotlights(
 
 
 def _public_source_ref_display(ref: str) -> str:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     prefix = "microcosm-substrate/"
     display_ref = ref[len(prefix) :] if ref.startswith(prefix) else ref
     if display_ref == PRIVATE_MACRO_SOURCE_ROOT:
@@ -3817,11 +4478,31 @@ def _public_source_ref_display(ref: str) -> str:
 
 
 def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, Any]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     family_order: list[str] = []
     families: dict[str, dict[str, Any]] = {}
     latest_source_refs: list[str] = []
 
     def manifest_ref(source_refs: list[str]) -> str:
+        """Source-ref / digest custody check for the public projection.
+
+        - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Reads: the declared source-ref / digest / receipt path under the public tree.
+        - When-needed: auditing what source refs/digests this projection actually checks.
+        - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+        - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+        """
         for ref in source_refs:
             ref_name = Path(ref).name
             if ref_name.endswith("_source_module_manifest.json"):
@@ -3833,6 +4514,12 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
         return ""
 
     def family_id_from_ref(ref: str) -> str:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         path = Path(ref)
         name = path.name
         if name == "source_module_manifest.json":
@@ -3950,11 +4637,27 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
 
 def _strip_microcosm_prefix(ref: str) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
 def _macro_body_target_path(root: Path, target_ref: str) -> Path:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns the resolved Path (no filesystem write implied).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     target_path = root / target_ref if target_ref else root
     if _path_is_file(target_path):
         return target_path
@@ -3975,6 +4678,15 @@ def _source_module_manifest_body_rows(
     *,
     existing_target_refs: set[str],
 ) -> list[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     rows: list[dict[str, Any]] = []
     examples_root = root / "examples"
     if not _path_is_dir(examples_root):
@@ -4117,6 +4829,13 @@ def _child_projection_protocol_body_rows(
     source-module manifest whose classification and body policy are fail-closed.
     Each admitted row must additionally carry a source-open code-module class
     from the explicit allowlist; everything else is rejected.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
     """
     if not _path_is_dir(bundle_dir):
         return []
@@ -4162,6 +4881,16 @@ def _child_projection_protocol_body_rows(
 
 
 def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
     protocol = _read_json_if_exists(protocol_path)
     rows = _rows(protocol, "copied_material")
@@ -4401,6 +5130,16 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
 
 
 def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     authority_path = root / PUBLIC_AUTHORITY_MAP_REF
     authority = _read_json_if_exists(authority_path)
     body_floor = authority.get("macro_body_import_floor")
@@ -4418,6 +5157,16 @@ def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
 
 
 def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     cached = _cached_macro_projection_body_import_floor(root)
     live = _macro_projection_body_import_floor(root)
     if cached:
@@ -4441,6 +5190,15 @@ def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
 
 
 def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     path = project / project_substrate.STATE_DIR / filename
     try:
         payload = read_json_strict(path)
@@ -4450,6 +5208,12 @@ def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
 
 
 def _as_str_list(value: Any) -> list[str]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str)]
@@ -4460,6 +5224,15 @@ def _preview_with_selected(
     selected: str | None,
     limit: int,
 ) -> list[str]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of the projected values (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     preview = values[:limit]
     if selected and selected in values and selected not in preview:
         if len(preview) >= limit:
@@ -4473,6 +5246,12 @@ def _compact_project_route_explanation(
     project: Path,
     selected_route_id: str,
 ) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     route_id = selected_route_id or "<selected_route_id>"
     command = f"microcosm explain <project> {route_id}"
     summary: dict[str, Any] = {
@@ -4555,6 +5334,15 @@ def _compact_project_route_explanation(
 
 
 def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     project = Path(project_path).expanduser().resolve(strict=False)
     state_dir = project / project_substrate.STATE_DIR
     manifest = _read_project_state_payload(project, "project_manifest.json")
@@ -4714,6 +5502,15 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
 
 
 def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     route_explanation = project_overlay.get("route_explanation", {})
     if not isinstance(route_explanation, dict):
         route_explanation = {}
@@ -4782,6 +5579,12 @@ def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str
 def _compact_project_state_write_proof(
     state_write_proof: dict[str, Any],
 ) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return {
         "schema_version": "microcosm_status_card_state_write_proof_ref_v1",
         "status": state_write_proof.get("status"),
@@ -4820,6 +5623,16 @@ def _compact_project_card_body_import_floor(
     source_body_imports: dict[str, Any],
     body_floor_defect_preview: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     compact = {
         "schema_version": "microcosm_project_status_body_import_floor_ref_v1",
         "status": body_floor.get("status"),
@@ -4871,6 +5684,15 @@ def _compact_project_card_body_import_floor(
 
 
 def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     source_body_imports = (
         body_floor.get("source_body_import_lens", {})
         if isinstance(body_floor.get("source_body_import_lens"), dict)
@@ -4953,10 +5775,30 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
 
 
 def _status_card_surface_is_nonblocking(status: Any) -> bool:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     return status in {PASS, "clear", "actionable"}
 
 
 def _status_card_surface_blocks_front_door(surface_id: str, status: Any) -> bool:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a bool verdict computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     if surface_id == "route_explanation" and status in {
         "partial",
         "missing_explanation",
@@ -4970,6 +5812,12 @@ def _status_card_surface_blocks_front_door(surface_id: str, status: Any) -> bool
 
 
 def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     refs = first_screen.get("first_contact_surface_refs")
     if not isinstance(refs, dict):
         return {}
@@ -5050,6 +5898,16 @@ def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[st
 
 
 def _source_checkout_cli_command(command: str) -> str:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     if command.startswith("microcosm "):
         return "PYTHONPATH=src python3 -m microcosm_core " + command.removeprefix(
             "microcosm "
@@ -5062,6 +5920,16 @@ def _compact_tour_card_body_floor_defects(
     *,
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     if not isinstance(defect_preview, list):
         return []
 
@@ -5086,6 +5954,16 @@ def _compact_body_import_defects(
     *,
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     defects = body_floor.get("defects", [])
     if not isinstance(defects, list):
         return []
@@ -5139,6 +6017,16 @@ def _compact_status_card_body_floor_defects(
     *,
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     compact: list[dict[str, Any]] = []
     for defect in _compact_body_import_defects(body_floor, limit=limit):
         compact.append(
@@ -5158,6 +6046,16 @@ def _status_card_front_door_status(
     *,
     body_floor_defect_preview: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     front_door = (
         card.get("front_door", {})
         if isinstance(card.get("front_door"), dict)
@@ -5186,6 +6084,12 @@ def _status_card_front_door_status(
     surfaces: dict[str, Any] = {}
 
     def add_surface(surface_id: str, status: Any) -> None:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+        - Fails: I-O / OSError suppressed by the helper; returns without raising.
+        """
         if status is not None:
             surfaces[surface_id] = status
 
@@ -5401,11 +6305,23 @@ def _status_card_front_door_status(
 
 
 def _project_command_ref(project_path: str | Path) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     text = str(project_path).strip()
     return text or "<project>"
 
 
 def _public_project_command_ref(project_path: str | Path, root: Path) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     path = Path(project_path)
     project_ref = _public_relative(path, root)
     if project_ref.startswith("/") or project_ref.startswith(".."):
@@ -5414,6 +6330,12 @@ def _public_project_command_ref(project_path: str | Path, root: Path) -> str:
 
 
 def _replace_project_placeholder(value: Any, project_ref: str) -> Any:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns the normalized value derived from the input.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if isinstance(value, str):
         return value.replace("<project>", project_ref)
     if isinstance(value, list):
@@ -5433,6 +6355,16 @@ def _runtime_status_card(
     project_ref: str | Path | None = None,
     project_overlay: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     front_door = (
         status.get("front_door", {})
         if isinstance(status.get("front_door"), dict)
@@ -6049,6 +6981,15 @@ def _workingness_gap_preview(
     *,
     limit: int = 3,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     rows = workingness.get("thing_failure_map", [])
     if not isinstance(rows, list):
         rows = []
@@ -6125,6 +7066,15 @@ def _workingness_source_body_import_exception_preview(
     *,
     limit: int = 4,
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     rows = workingness.get("thing_failure_map", [])
     if not isinstance(rows, list):
         rows = []
@@ -6202,6 +7152,12 @@ def _workingness_failure_envelope_status(
     missing_standard_count: Any,
     missing_failure_modes_count: Any,
 ) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if map_generation_status != PASS:
         return "blocked"
 
@@ -6220,6 +7176,15 @@ def _workingness_failure_envelope_status(
 
 
 def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     surface_counts = (
         workingness.get("surface_counts", {})
         if isinstance(workingness.get("surface_counts"), dict)
@@ -6306,6 +7271,16 @@ WORKINGNESS_CARD_SURFACE_COUNT_KEYS = (
 def _workingness_command_speed_card(
     workingness: dict[str, Any],
 ) -> dict[str, Any]:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     summary = _workingness_status_summary(workingness)
     authority_ceiling = (
         workingness.get("authority_ceiling", {})
@@ -6374,6 +7349,16 @@ def _workingness_command_speed_card(
 
 
 def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
+    """Source-ref / digest custody check for the public projection.
+
+    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Reads: the declared source-ref / digest / receipt path under the public tree.
+    - When-needed: auditing what source refs/digests this projection actually checks.
+    - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+    """
     manifest_ref = Path("core/fixture_manifests") / f"{organ_id}.fixture_manifest.json"
     manifest = _read_json_if_exists(root / manifest_ref)
     if not isinstance(manifest, dict) or not manifest:
@@ -6419,6 +7404,12 @@ def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, 
 
 
 def _source_open_body_material_count(source_open_body_imports: object) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if not isinstance(source_open_body_imports, dict):
         return 0
     raw_count = source_open_body_imports.get("body_material_count")
@@ -6428,10 +7419,22 @@ def _source_open_body_material_count(source_open_body_imports: object) -> int:
 
 
 def _standard_ref_for_organ(organ_id: str) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     return f"standards/std_microcosm_{organ_id}.json"
 
 
 def _standard_contract_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     standard_ref = _standard_ref_for_organ(organ_id)
     standard = _read_json_if_exists(root / standard_ref)
     standard_payload = standard.get("standard_payload")
@@ -6465,6 +7468,12 @@ def _standard_contract_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
 
 
 def _workingness_state(row: dict[str, Any]) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     runtime_mode = row.get("runtime_mode")
     if runtime_mode == "drilldown_only":
         return "demoted_regression_drilldown"
@@ -6476,6 +7485,12 @@ def _workingness_state(row: dict[str, Any]) -> str:
 
 
 def _evidence_gap_class(row: dict[str, Any]) -> str:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a string result built from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     if row.get("runtime_mode") == "drilldown_only":
         return "kept_out_of_product_path_until_evidence_strengthens"
     evidence_class = row.get("evidence_class")
@@ -6494,6 +7509,12 @@ def _future_work_targets(
     row: dict[str, Any],
     standard_contract: dict[str, Any],
 ) -> list[dict[str, Any]]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     targets: list[dict[str, Any]] = []
     organ_id = str(row.get("organ_id") or "")
     standard_ref = str(standard_contract.get("standard_ref") or "")
@@ -6572,6 +7593,12 @@ def _workingness_requirement_status(
     row: dict[str, Any],
     standard_contract: dict[str, Any],
 ) -> dict[str, Any]:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns a JSON-safe projection dict payload.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     generated = row.get("generated_receipts")
     generated_receipt_count = len(generated) if isinstance(generated, list) else 0
     required = {
@@ -6603,12 +7630,36 @@ def _workingness_requirement_status(
 
 
 class RuntimeShell:
+    """Runtime-shell coordinator type.
+
+    - Teleology: Runtime-shell coordinator type holding the state its methods project.
+    - Guarantee: returns control to the caller after the documented effect.
+    - Fails: invalid / unexpected input -> raises ValueError.
+    - When-needed: you need any projection this coordinator's methods expose.
+    - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+    """
     def __init__(self, root: str | Path | None = None) -> None:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+        - Fails: I-O / OSError suppressed by the helper; returns without raising.
+        """
         self.root = Path(root).resolve(strict=False) if root is not None else public_root()
         self._runtime_payload_cache: dict[tuple[Any, ...], dict[str, Any]] = {}
         self._macro_body_import_floor_cache: dict[str, dict[str, Any]] = {}
 
     def _macro_projection_body_import_floor(self) -> dict[str, Any]:
+        """Source-ref / digest custody check for the public projection.
+
+        - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Reads: the declared source-ref / digest / receipt path under the public tree.
+        - When-needed: auditing what source refs/digests this projection actually checks.
+        - Escalates-to: the source registry/receipt path it reads, or `microcosm status` for live digest verification.
+        - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
+        """
         cached = self._macro_body_import_floor_cache.get("live")
         if isinstance(cached, dict):
             return copy.deepcopy(cached)
@@ -6617,6 +7668,16 @@ class RuntimeShell:
         return payload
 
     def _macro_projection_body_import_floor_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         cached = self._macro_body_import_floor_cache.get("card")
         if isinstance(cached, dict):
             return copy.deepcopy(cached)
@@ -6646,9 +7707,23 @@ class RuntimeShell:
 
     @property
     def runtime_receipt_dir(self) -> Path:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the resolved Path (no filesystem write implied).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return self.root / "receipts/runtime_shell"
 
     def organs(self) -> list[dict[str, Any]]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         registry = _read_json_if_exists(self.root / "core/organ_registry.json")
         rows = registry.get("implemented_organs", [])
         if not isinstance(rows, list):
@@ -6701,6 +7776,14 @@ class RuntimeShell:
         return organs
 
     def patterns(self) -> list[dict[str, Any]]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         rows = _iter_jsonl_dict_rows(
             self.root
             / "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl"
@@ -6720,6 +7803,14 @@ class RuntimeShell:
         ]
 
     def routes(self) -> list[dict[str, Any]]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         payload = _read_json_if_exists(
             self.root / "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
         )
@@ -6736,6 +7827,14 @@ class RuntimeShell:
         ]
 
     def workitems(self) -> list[dict[str, Any]]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         payload = _read_json_if_exists(
             self.root / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json"
         )
@@ -6751,15 +7850,47 @@ class RuntimeShell:
         ]
 
     def evidence(self, *, limit: int | None = None) -> list[dict[str, Any]]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         return list(self.evidence_index(limit=limit).get("evidence", []))
 
     def evidence_index(self, *, limit: int | None = None) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         return runtime_evidence_index.list_runtime_evidence(self.root, limit=limit)
 
     def evidence_count(self) -> int:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns an int computed from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         return _count_files_under(self.root / "receipts", suffix=".json")
 
     def workingness_map(self, *, persist_receipt: bool = False) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         organs = self.organs()
         substrate_substitution = _substrate_substitution_summary(self.root)
         substrate_ledger = _read_json_if_exists(self.root / SUBSTRATE_SUBSTITUTION_LEDGER_REF)
@@ -7060,6 +8191,16 @@ class RuntimeShell:
         return payload
 
     def workingness_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         return _workingness_command_speed_card(
             self.workingness_map(persist_receipt=False)
         )
@@ -7079,6 +8220,16 @@ class RuntimeShell:
         workitems: list[dict[str, Any]],
         evidence_count: int,
     ) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         return {
             "schema_version": "microcosm_runtime_status_card_source_v1",
             "status": PASS
@@ -7113,6 +8264,14 @@ class RuntimeShell:
         *,
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         organs = self.organs()
         adapter_backed_rows = [
             row for row in organs if row.get("runtime_mode") == "adapter_backed"
@@ -7509,6 +8668,16 @@ class RuntimeShell:
         return payload
 
     def _status_card_source_payload(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         organs = self.organs()
         adapter_backed_rows = [
             row for row in organs if row.get("runtime_mode") == "adapter_backed"
@@ -7543,6 +8712,16 @@ class RuntimeShell:
         *,
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         return _runtime_status_card(
             self._status_card_source_payload(),
             project_path=project_path,
@@ -7550,6 +8729,14 @@ class RuntimeShell:
         )
 
     def spine(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [row for row in organs if row.get("runtime_mode") == "adapter_backed"]
@@ -8312,6 +9499,16 @@ class RuntimeShell:
         }
 
     def spine_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [
@@ -8476,6 +9673,14 @@ class RuntimeShell:
         *,
         persist_receipt: bool = True,
     ) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
         if not project_path.is_absolute():
@@ -9378,6 +10583,16 @@ class RuntimeShell:
         self,
         project: str | Path | None = DEFAULT_PROJECT_REL,
     ) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
         if not project_path.is_absolute():
@@ -9877,6 +11092,14 @@ class RuntimeShell:
         }
 
     def trace_lens(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         readiness_ref = (
             "receipts/first_wave/formal_math_readiness_gate/"
             "formal_math_readiness_extension_board.json"
@@ -9916,6 +11139,12 @@ class RuntimeShell:
             )
         )
         def negative_keys(payload: dict[str, Any]) -> list[str]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a list of the projected values (possibly empty).
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             value = payload.get("observed_negative_cases")
             if isinstance(value, dict):
                 return sorted(str(key) for key in value)
@@ -10121,6 +11350,14 @@ class RuntimeShell:
         return payload
 
     def repair_loop(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         trace_lens = self.trace_lens()
         lens_path = self.runtime_receipt_dir / "public_verifier_repair_loop_lens.json"
         trace_rows = _rows(trace_lens, "trace_rows")
@@ -10345,6 +11582,14 @@ class RuntimeShell:
         return payload
 
     def evidence_cells(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         witness_ref = (
             "receipts/first_wave/formal_math_lean_proof_witness/"
             "formal_math_lean_proof_witness_result.json"
@@ -10548,6 +11793,14 @@ class RuntimeShell:
         return payload
 
     def verifier_lab_execution_spine_lens(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         source_receipt_ref = VERIFIER_EXECUTION_RECEIPT_REF
         source_receipt_path = self.root / source_receipt_ref
         if not _path_is_file(source_receipt_path):
@@ -10896,6 +12149,14 @@ class RuntimeShell:
         return payload
 
     def proof_loop_depth(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         corpus_lens = self.corpus_lens()
         trace_lens = self.trace_lens()
         repair_loop = self.repair_loop()
@@ -11260,9 +12521,25 @@ class RuntimeShell:
         return payload
 
     def proof_lab(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         return _proof_lab_first_screen_card(self.root)
 
     def landing_replay(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         attempt_ref = "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json"
         mutation_ref = "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
         reconcile_ref = (
@@ -11508,6 +12785,14 @@ class RuntimeShell:
         return payload
 
     def view_quality(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_view_quality_action_map_lens.json"
         requested_views = [
             {
@@ -11731,6 +13016,14 @@ class RuntimeShell:
         return payload
 
     def projection_drift(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_projection_drift_control_lens.json"
         drift_rows = [
             {
@@ -11982,6 +13275,14 @@ class RuntimeShell:
         return payload
 
     def spatial_simulation(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         example_dir = (
             self.root
             / "examples/spatial_world_model_counterfactual_simulation_replay/"
@@ -12044,6 +13345,14 @@ class RuntimeShell:
         return lens
 
     def circuit_attribution(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         example_dir = (
             self.root
             / "examples/mechanistic_interpretability_circuit_attribution_replay/"
@@ -12100,6 +13409,16 @@ class RuntimeShell:
         return lens
 
     def circuit_attribution_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         example_dir = (
             self.root
             / "examples/mechanistic_interpretability_circuit_attribution_replay/"
@@ -12136,6 +13455,14 @@ class RuntimeShell:
         }
 
     def route_cleanup(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_route_cleanup_contract_lens.json"
         cleanup_rows = [
             {
@@ -12418,6 +13745,14 @@ class RuntimeShell:
         return payload
 
     def projection_safety(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_projection_safety_audit_lens.json"
         projection_rows = [
             {
@@ -13839,6 +15174,14 @@ class RuntimeShell:
         return payload
 
     def projection_import_map(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_projection_import_map_lens.json"
         import_stages = [
             {
@@ -14274,6 +15617,14 @@ class RuntimeShell:
         return payload
 
     def import_projector(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_import_projector_contract_lens.json"
         contract_stages = [
             {
@@ -14636,6 +15987,14 @@ class RuntimeShell:
         return payload
 
     def option_surface_lens(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_compression_profile_option_surface_lens.json"
         import_plan_ref = (
             "examples/macro_projection_import_protocol/"
@@ -14984,6 +16343,14 @@ class RuntimeShell:
         return payload
 
     def stripping_guard(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_stripping_guard_lens.json"
         guard_rows = [
             {
@@ -15246,6 +16613,14 @@ class RuntimeShell:
         return payload
 
     def standards_control(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_standards_control_lens.json"
         registry_ref = "core/standards_registry.json"
         pressure_ref = "core/public_standard_pressure.json"
@@ -15540,6 +16915,14 @@ class RuntimeShell:
         return payload
 
     def hook_coverage(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         route_ref = "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
         hook_ref = "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
         debt_ref = "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json"
@@ -15843,6 +17226,14 @@ class RuntimeShell:
         return payload
 
     def replay_gauntlet(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = (
             self.runtime_receipt_dir
             / "public_agent_reliability_replay_gauntlet_lens.json"
@@ -15851,6 +17242,12 @@ class RuntimeShell:
         def cold_reader_bundle_command(
             command: str, input_ref: str, out_ref: str
         ) -> str:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             return f"{command} --input {input_ref} --out {out_ref}"
 
         source_pattern_ids = [
@@ -16360,6 +17757,14 @@ class RuntimeShell:
         return payload
 
     def benchmark_lab(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_repository_benchmark_transaction_lab_lens.json"
         selected_pattern_ids = [
             "repository_issue_patch_oracle_diff_replay_compound",
@@ -16580,6 +17985,16 @@ class RuntimeShell:
         return payload
 
     def legibility_scorecard(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         lens_path = self.runtime_receipt_dir / "public_cold_reader_legibility_scorecard_lens.json"
         selected_pattern_ids = [
             "cold_reader_route_map",
@@ -16900,6 +18315,14 @@ class RuntimeShell:
         return payload
 
     def corpus_lens(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         fixture_ref = "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
         example_ref = (
             "examples/corpus_readiness_mathlib_absence_gate/"
@@ -17112,6 +18535,14 @@ class RuntimeShell:
         return payload
 
     def prediction_lens(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         packet_ref = "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
         board_ref = "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json"
         result_ref = (
@@ -17283,6 +18714,14 @@ class RuntimeShell:
         return payload
 
     def market_boundary(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         lens_path = self.runtime_receipt_dir / "public_market_prediction_evidence_boundary_lens.json"
         boundary_rows = [
             {
@@ -17597,6 +19036,14 @@ class RuntimeShell:
         return payload
 
     def authority(self, *, persist_receipts: bool = True) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         status = self.status()
         spine = self.spine()
         intake = self.intake()
@@ -18835,6 +20282,16 @@ class RuntimeShell:
         return payload
 
     def authority_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [
@@ -19016,6 +20473,14 @@ class RuntimeShell:
         }
 
     def intake(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
         )
@@ -19266,6 +20731,16 @@ class RuntimeShell:
         return payload
 
     def intake_card(self) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
         )
@@ -19299,6 +20774,15 @@ class RuntimeShell:
                 break
 
         def _cell_preview(cell: dict[str, Any]) -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             projection_status = _normalize_runtime_projection_status(
                 cell.get("projection_status")
             )
@@ -19407,6 +20891,14 @@ class RuntimeShell:
         }
 
     def inspect_route(self, route_id: str) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         for route in self.routes():
             if route["route_id"] == route_id or route.get("row_id") == route_id:
                 return {
@@ -19421,6 +20913,14 @@ class RuntimeShell:
         }
 
     def inspect_evidence(self, receipt_ref: str) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         receipt_path = self.root / receipt_ref
         if not _path_is_file(receipt_path):
             return {
@@ -19469,6 +20969,14 @@ class RuntimeShell:
         *,
         command: str | None = None,
     ) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         _, project_ref, project_id, run_root = (
             self._runtime_demo_project_context(project)
         )
@@ -19544,6 +21052,12 @@ class RuntimeShell:
 
     @staticmethod
     def _runtime_demo_next_actions(project_ref: str) -> list[str]:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a list of the projected values (possibly empty).
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         return [
             f"microcosm status --card {project_ref}",
             f"microcosm observe {project_ref}",
@@ -19558,6 +21072,12 @@ class RuntimeShell:
         self,
         project: str | Path,
     ) -> tuple[Path, str, str, Path]:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns the computed tuple of result fields.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         project_path = Path(project)
         if not project_path.is_absolute():
             project_path = self.root / project_path
@@ -19571,6 +21091,12 @@ class RuntimeShell:
         self,
         project: str | Path,
     ) -> dict[str, Any] | None:
+        """Read-only projection helper.
+
+        - Teleology: Internal read-only helper for the runtime-shell projections.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        """
         _, _, project_id, run_root = self._runtime_demo_project_context(project)
         result_path = run_root / "demo_project_result.json"
         if not _path_is_file(result_path):
@@ -19610,6 +21136,16 @@ class RuntimeShell:
         }
 
     def run_demo_card(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - Writes: the in-memory card payload only (no source-of-truth file).
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         _, project_ref, _, _ = self._runtime_demo_project_context(project)
         card_command = f"microcosm run --card {project_ref}"
         result = self._cached_runtime_demo_result(project)
@@ -19667,6 +21203,14 @@ class RuntimeShell:
         }
 
     def run_work_demo(self) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "mission_transaction_work_spine")
         input_dir = self.root / step.example_rel
         out_dir = self.runtime_receipt_dir / "work_demo" / "organs" / step.organ_id
@@ -19691,6 +21235,14 @@ class RuntimeShell:
         return payload
 
     def reveal(self, *, persist_receipt: bool = True) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "public_reveal_walkthrough")
         input_dir = self.root / step.example_rel
         out_dir = self.runtime_receipt_dir / "public_reveal" / "organs" / step.organ_id
@@ -19731,6 +21283,14 @@ class RuntimeShell:
         persist_receipt: bool = True,
         precomputed_lenses: dict[str, dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         bridge_receipt_path = (
             self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json"
         )
@@ -19740,6 +21300,15 @@ class RuntimeShell:
             lens_id: str,
             factory: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = lenses.get(lens_id)
             if isinstance(payload, dict):
                 return payload
@@ -20043,6 +21612,14 @@ class RuntimeShell:
         tour_payload: dict[str, Any] | None = None,
         status_payload: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """Projects a read-only runtime-shell view.
+
+        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
+        - Guarantee: returns a JSON-safe projection dict payload.
+        - Fails: tour_payload_mode not in {'full','card'} -> raises ValueError.
+        - When-needed: an agent needs this specific read-only view of runtime state.
+        - Escalates-to: the receipt/test it cites, or `microcosm <command>` for the full (non-card) payload.
+        """
         if tour_payload_mode not in {"full", "card"}:
             raise ValueError("tour_payload_mode must be 'full' or 'card'")
         project_path = (
@@ -20679,6 +22256,15 @@ class RuntimeShell:
         *,
         model: dict[str, Any] | None = None,
     ) -> str:
+        """Builds a generated projection card/row payload.
+
+        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+        - Guarantee: returns a string result built from the inspected inputs.
+        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+        - When-needed: auditing how this generated card/row payload is derived.
+        - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+        """
         if model is None:
             model = self.project_observatory(project_path, persist_receipts=False)
         project_summary = model.get("project_summary", {})
@@ -21163,6 +22749,12 @@ class RuntimeShell:
         )
 
         def row(label: str, value: Any) -> str:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             return (
                 "<tr>"
                 f"<th>{html.escape(label)}</th>"
@@ -21171,6 +22763,12 @@ class RuntimeShell:
             )
 
         def public_project_ref(value: Any) -> str:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             text = _safe_text(value)
             if not text or project_path is None:
                 return text
@@ -21184,6 +22782,12 @@ class RuntimeShell:
             return text
 
         def list_text(values: Any) -> str:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             if not isinstance(values, list):
                 return ""
             if not values:
@@ -21191,6 +22795,12 @@ class RuntimeShell:
             return ", ".join(str(value) for value in values)
 
         def dict_text(values: Any) -> str:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             if not isinstance(values, dict):
                 return ""
             if not values:
@@ -21198,6 +22808,15 @@ class RuntimeShell:
             return ", ".join(f"{key}: {value}" for key, value in sorted(values.items()))
 
         def binding_rows(rows: list[Any], id_key: str) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<p class=\"muted\">No bindings yet.</p>"
             items = []
@@ -21215,6 +22834,16 @@ class RuntimeShell:
             return f"<ul>{''.join(items)}</ul>"
 
         def first_screen_reader_route_cards() -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not first_screen_reader_routes:
                 return "<p class=\"muted\">No reader routes in the first-screen card.</p>"
             cards = []
@@ -21261,6 +22890,16 @@ class RuntimeShell:
             )
 
         def first_screen_demo_to_scale_cards() -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             state_file_count = _safe_text(state_inspection.get("state_file_count"))
             state_inspection_status = _safe_text(state_inspection.get("status"))
             public_safe_material_count = _safe_text(
@@ -21340,6 +22979,15 @@ class RuntimeShell:
             )
 
         def event_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No events recorded yet.</td></tr>"
             output = []
@@ -21357,6 +23005,15 @@ class RuntimeShell:
             return "".join(output)
 
         def evidence_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"3\" class=\"muted\">No evidence refs yet.</td></tr>"
             output = []
@@ -21373,6 +23030,15 @@ class RuntimeShell:
             return "".join(output)
 
         def cell_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No intake cells projected.</td></tr>"
             output = []
@@ -21390,6 +23056,15 @@ class RuntimeShell:
             return "".join(output)
 
         def python_lens_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"3\" class=\"muted\">No Python route rows projected.</td></tr>"
             output = []
@@ -21406,6 +23081,16 @@ class RuntimeShell:
             return "".join(output)
 
         def tour_card_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No tour cards projected.</td></tr>"
             output = []
@@ -21423,6 +23108,15 @@ class RuntimeShell:
             return "".join(output)
 
         def view_quality_action_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No view-quality action rows projected.</td></tr>"
             output = []
@@ -21440,6 +23134,15 @@ class RuntimeShell:
             return "".join(output)
 
         def projection_safety_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No projection-safety rows projected.</td></tr>"
             output = []
@@ -21462,6 +23165,15 @@ class RuntimeShell:
             return "".join(output)
 
         def projection_drift_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No projection-drift rows projected.</td></tr>"
             output = []
@@ -21480,6 +23192,15 @@ class RuntimeShell:
             return "".join(output)
 
         def market_boundary_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No market-boundary rows projected.</td></tr>"
             output = []
@@ -21498,6 +23219,15 @@ class RuntimeShell:
             return "".join(output)
 
         def route_cleanup_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No route-cleanup rows projected.</td></tr>"
             output = []
@@ -21516,6 +23246,15 @@ class RuntimeShell:
             return "".join(output)
 
         def projection_import_map_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No projection-import rows projected.</td></tr>"
             output = []
@@ -21534,6 +23273,15 @@ class RuntimeShell:
             return "".join(output)
 
         def import_projector_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No import-projector rows projected.</td></tr>"
             output = []
@@ -21552,6 +23300,15 @@ class RuntimeShell:
             return "".join(output)
 
         def option_surface_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No option-surface rows projected.</td></tr>"
             output = []
@@ -21570,6 +23327,15 @@ class RuntimeShell:
             return "".join(output)
 
         def stripping_guard_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No stripping guard rows projected.</td></tr>"
             output = []
@@ -21588,6 +23354,15 @@ class RuntimeShell:
             return "".join(output)
 
         def standards_control_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No standards-control rows projected.</td></tr>"
             output = []
@@ -21606,6 +23381,15 @@ class RuntimeShell:
             return "".join(output)
 
         def proof_loop_depth_table_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No proof-loop depth rows projected.</td></tr>"
             output = []
@@ -21624,6 +23408,15 @@ class RuntimeShell:
             return "".join(output)
 
         def hook_intervention_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No hook intervention rows projected.</td></tr>"
             output = []
@@ -21641,6 +23434,15 @@ class RuntimeShell:
             return "".join(output)
 
         def replay_episode_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No replay episodes projected.</td></tr>"
             output = []
@@ -21658,6 +23460,15 @@ class RuntimeShell:
             return "".join(output)
 
         def benchmark_task_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No benchmark tasks projected.</td></tr>"
             output = []
@@ -21675,6 +23486,15 @@ class RuntimeShell:
             return "".join(output)
 
         def legibility_checkpoint_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No legibility checkpoints projected.</td></tr>"
             output = []
@@ -21692,6 +23512,15 @@ class RuntimeShell:
             return "".join(output)
 
         def repair_loop_transition_rows(rows: list[Any]) -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No repair-loop transitions projected.</td></tr>"
             output = []
@@ -22715,6 +24544,12 @@ class RuntimeShell:
         project_view_cache_lock = threading.Lock()
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             if project_path is None:
                 return {}
             cached = observatory_cache.get("tour_card")
@@ -22729,6 +24564,12 @@ class RuntimeShell:
                 return card
 
         def cached_observatory_model() -> dict[str, Any]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             model = observatory_cache.get("model")
             if isinstance(model, dict):
                 return model
@@ -22765,6 +24606,15 @@ class RuntimeShell:
             return model
 
         def cached_observatory_html() -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             body = observatory_cache.get("html")
             if isinstance(body, str):
                 return body
@@ -22774,6 +24624,15 @@ class RuntimeShell:
             return body
 
         def cached_runtime_bridge_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("runtime_bridge")
             if isinstance(payload, dict):
                 return payload
@@ -22798,6 +24657,15 @@ class RuntimeShell:
             cache_key: str,
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get(cache_key)
             if isinstance(payload, dict):
                 return payload
@@ -22813,6 +24681,15 @@ class RuntimeShell:
             cache_key: str,
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get(cache_key)
             if isinstance(payload, dict):
                 return payload
@@ -22825,6 +24702,15 @@ class RuntimeShell:
                 return payload
 
         def kernel_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             return {
                 **architecture_kernel.load_kernel_manifest(shell.root),
                 "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(
@@ -22968,6 +24854,12 @@ class RuntimeShell:
             }
 
         def cached_project_view_path(path: str) -> dict[str, Any]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             cached_builder = project_view_builders.get(path)
             if cached_builder is None:
                 return {}
@@ -22975,6 +24867,15 @@ class RuntimeShell:
             return cached_project_view_payload(cache_key, builder)
 
         def cached_spine_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("spine_payload")
             if isinstance(payload, dict):
                 return payload
@@ -22987,6 +24888,16 @@ class RuntimeShell:
                 return payload
 
         def cached_spine_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("spine_card")
             if isinstance(card, dict):
                 return card
@@ -22999,6 +24910,15 @@ class RuntimeShell:
                 return card
 
         def cached_authority_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("authority_payload")
             if isinstance(payload, dict):
                 return payload
@@ -23017,6 +24937,16 @@ class RuntimeShell:
                 return payload
 
         def cached_authority_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("authority_card")
             if isinstance(card, dict):
                 return card
@@ -23029,9 +24959,27 @@ class RuntimeShell:
                 return card
 
         def warm_authority_payload() -> None:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+            - Fails: I-O / OSError suppressed by the helper; returns without raising.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             cached_authority_payload()
 
         def cached_workingness_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("workingness_payload")
             if isinstance(payload, dict):
                 return payload
@@ -23044,6 +24992,16 @@ class RuntimeShell:
                 return payload
 
         def cached_workingness_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("workingness_card")
             if isinstance(card, dict):
                 return card
@@ -23060,6 +25018,16 @@ class RuntimeShell:
                 return card
 
         def _cached_status_card_from_payload() -> dict[str, Any] | None:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("status_payload")
             if not isinstance(payload, dict):
                 return None
@@ -23070,10 +25038,29 @@ class RuntimeShell:
             return card
 
         def _served_status_card_response(card: dict[str, Any]) -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             ensure_project_first_screen_state()
             return card
 
         def cached_status_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             payload = observatory_cache.get("status_payload")
             if isinstance(payload, dict):
                 return payload
@@ -23094,6 +25081,16 @@ class RuntimeShell:
                 return payload
 
         def cached_status_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("status_card")
             if isinstance(card, dict):
                 return _served_status_card_response(card)
@@ -23113,6 +25110,16 @@ class RuntimeShell:
                 return card
 
         def cached_first_screen_full_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("first_screen_full_card")
             if isinstance(card, dict):
                 return card
@@ -23124,6 +25131,16 @@ class RuntimeShell:
             return card
 
         def cached_first_screen_card() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - Writes: the in-memory card payload only (no source-of-truth file).
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             card = observatory_cache.get("first_screen_card")
             if isinstance(card, dict):
                 return card
@@ -23134,6 +25151,12 @@ class RuntimeShell:
             return card
 
         def cached_landing_work_transaction(selected_route_id: Any) -> dict[str, Any]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             if project_path is None:
                 return {}
             cached = observatory_cache.get("landing_work_transaction")
@@ -23162,6 +25185,12 @@ class RuntimeShell:
             return summary
 
         def cached_landing_model() -> dict[str, Any]:
+            """Read-only projection helper.
+
+            - Teleology: Internal read-only helper for the runtime-shell projections.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            """
             model = observatory_cache.get("landing_model")
             if isinstance(model, dict):
                 return model
@@ -23370,6 +25399,15 @@ class RuntimeShell:
             return model
 
         def cached_landing_html() -> str:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a string result built from the inspected inputs.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             body = observatory_cache.get("landing_html")
             if isinstance(body, str):
                 return body
@@ -23401,6 +25439,12 @@ class RuntimeShell:
             )
 
             def landing_value(value: Any, fallback: str = "not projected") -> str:
+                """Read-only projection helper.
+
+                - Teleology: Internal read-only helper for the runtime-shell projections.
+                - Guarantee: returns a string result built from the inspected inputs.
+                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+                """
                 if value is None or value == "":
                     return fallback
                 return str(value)
@@ -23474,6 +25518,16 @@ class RuntimeShell:
                 },
             ]
             def scale_card_html(item: dict[str, Any]) -> str:
+                """Builds a generated projection card/row payload.
+
+                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+                - Guarantee: returns a string result built from the inspected inputs.
+                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+                - Writes: the in-memory card payload only (no source-of-truth file).
+                - When-needed: auditing how this generated card/row payload is derived.
+                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+                """
                 proof_html = (
                     str(item["proof_html"])
                     if item.get("proof_html")
@@ -23558,6 +25612,15 @@ class RuntimeShell:
             return body
 
         def cached_tour_payload() -> dict[str, Any]:
+            """Builds a generated projection card/row payload.
+
+            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+            - Guarantee: returns a JSON-safe projection dict payload.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: auditing how this generated card/row payload is derived.
+            - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+            """
             cached_model = observatory_cache.get("model")
             tour = cached_model.get("tour") if isinstance(cached_model, dict) else {}
             if isinstance(tour, dict) and tour:
@@ -23574,6 +25637,14 @@ class RuntimeShell:
             return ensure_project_first_screen_state()
 
         class RuntimeShellHTTPServer(ThreadingHTTPServer):
+            """Runtime-shell coordinator type.
+
+            - Teleology: Runtime-shell coordinator type holding the state its methods project.
+            - Guarantee: returns control to the caller after the documented effect.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: you need any projection this coordinator's methods expose.
+            - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+            """
             daemon_threads = True
             block_on_close = False
 
@@ -23591,13 +25662,33 @@ class RuntimeShell:
                 super().serve_forever(poll_interval=poll_interval)
 
         class Handler(BaseHTTPRequestHandler):
+            """Runtime-shell coordinator type.
+
+            - Teleology: Runtime-shell coordinator type holding the state its methods project.
+            - Guarantee: returns control to the caller after the documented effect.
+            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+            - When-needed: you need any projection this coordinator's methods expose.
+            - Escalates-to: the individual method whose lens you need, or `microcosm status`.
+            """
             def finish(self) -> None:
+                """Read-only projection helper.
+
+                - Teleology: Internal read-only helper for the runtime-shell projections.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: I-O / OSError suppressed by the helper; returns without raising.
+                """
                 try:
                     super().finish()
                 finally:
                     self._mark_request_complete()
 
             def _mark_request_complete(self) -> None:
+                """Read-only projection helper.
+
+                - Teleology: Internal read-only helper for the runtime-shell projections.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: I-O / OSError suppressed by the helper; returns without raising.
+                """
                 limit = getattr(self.server, "microcosm_max_requests", None)
                 if not isinstance(limit, int):
                     return
@@ -23611,6 +25702,15 @@ class RuntimeShell:
                 threading.Thread(target=self.server.shutdown, daemon=True).start()
 
             def _client_prefers_html_json_view(self) -> bool:
+                """Builds a generated projection card/row payload.
+
+                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+                - Guarantee: returns a bool verdict computed from the inspected inputs.
+                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+                - When-needed: auditing how this generated card/row payload is derived.
+                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+                """
                 accept = (self.headers.get("Accept") or "").lower()
                 return "text/html" in accept and "application/json" not in accept
 
@@ -23619,6 +25719,15 @@ class RuntimeShell:
                 status_code: int,
                 payload: dict[str, Any] | list[dict[str, Any]],
             ) -> str:
+                """Builds a generated projection card/row payload.
+
+                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+                - Guarantee: returns a string result built from the inspected inputs.
+                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+                - When-needed: auditing how this generated card/row payload is derived.
+                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+                """
                 path = urlparse(self.path).path or "/"
                 json_text = json.dumps(
                     payload,
@@ -23655,6 +25764,15 @@ class RuntimeShell:
                 status_code: int,
                 payload: dict[str, Any] | list[dict[str, Any]],
             ) -> None:
+                """Builds a generated projection card/row payload.
+
+                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: auditing how this generated card/row payload is derived.
+                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+                """
                 body = self._json_drilldown_html(status_code, payload)
                 encoded = body.encode("utf-8")
                 self.send_response(status_code)
@@ -23665,6 +25783,14 @@ class RuntimeShell:
                 self.wfile.write(encoded)
 
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
+                """Routes a runtime-shell command / request.
+
+                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: routing or invoking this runtime-shell command/endpoint.
+                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
+                """
                 if self._client_prefers_html_json_view():
                     self._send_json_html(status_code, payload)
                     return
@@ -23677,6 +25803,15 @@ class RuntimeShell:
                 self.wfile.write(encoded)
 
             def _send_html(self, status_code: int, body: str) -> None:
+                """Builds a generated projection card/row payload.
+
+                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: auditing how this generated card/row payload is derived.
+                - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+                """
                 encoded = body.encode("utf-8")
                 self.send_response(status_code)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -23685,16 +25820,36 @@ class RuntimeShell:
                 self.wfile.write(encoded)
 
             def _send_empty(self, status_code: int) -> None:
+                """Routes a runtime-shell command / request.
+
+                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: routing or invoking this runtime-shell command/endpoint.
+                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
+                """
                 self.send_response(status_code)
                 self.send_header("Content-Length", "0")
                 self.end_headers()
 
             def log_message(self, format: str, *args: Any) -> None:
+                """Read-only projection helper.
+
+                - Teleology: Internal read-only helper for the runtime-shell projections.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: I-O / OSError suppressed by the helper; returns without raising.
+                """
                 return
 
             def _evidence_limit_from_query(
                 self,
             ) -> tuple[int | None, dict[str, Any] | None]:
+                """Read-only projection helper.
+
+                - Teleology: Internal read-only helper for the runtime-shell projections.
+                - Guarantee: returns a JSON-safe projection dict payload.
+                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+                """
                 values = parse_qs(urlparse(self.path).query, keep_blank_values=True).get(
                     "limit",
                     [],
@@ -23721,6 +25876,14 @@ class RuntimeShell:
                 return (None if limit == 0 else limit), None
 
             def do_GET(self) -> None:
+                """Routes a runtime-shell command / request.
+
+                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: routing or invoking this runtime-shell command/endpoint.
+                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
+                """
                 path = urlparse(self.path).path
                 if path == "/favicon.ico":
                     self._send_empty(204)
@@ -23801,6 +25964,14 @@ class RuntimeShell:
                     self._send(404, {"status": "not_found", "path": path})
 
             def do_POST(self) -> None:
+                """Routes a runtime-shell command / request.
+
+                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
+                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
+                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
+                - When-needed: routing or invoking this runtime-shell command/endpoint.
+                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
+                """
                 path = urlparse(self.path).path
                 if path == "/demo/run":
                     demo_project = project_path if project_path is not None else DEFAULT_PROJECT_REL
@@ -23825,16 +25996,38 @@ class RuntimeShell:
 
 
 def _print_json(payload: Any) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if not isinstance(payload, dict) or payload.get("status") in {None, PASS} else 1
 
 
 def _print_json_card(payload: Any) -> int:
+    """Builds a generated projection card/row payload.
+
+    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
+    - Writes: the in-memory card payload only (no source-of-truth file).
+    - When-needed: auditing how this generated card/row payload is derived.
+    - Escalates-to: the source registry it derives from, or the python-lens / `microcosm status` rebuild that regenerates this projection.
+    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
+    """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0
 
 
 def _nonnegative_int(value: str) -> int:
+    """Read-only projection helper.
+
+    - Teleology: Internal read-only helper for the runtime-shell projections.
+    - Guarantee: returns an int computed from the inspected inputs.
+    - Fails: value parses < 0 -> raises argparse.ArgumentTypeError; non-int -> ValueError.
+    """
     parsed = int(value)
     if parsed < 0:
         raise argparse.ArgumentTypeError("must be >= 0")

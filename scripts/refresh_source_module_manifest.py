@@ -197,6 +197,16 @@ def _public_safety_transform_descriptions(transform: dict[str, Any]) -> list[str
 
 
 def _public_safe_ref_transform(ref: str) -> tuple[str, dict[str, Any]]:
+    """Run the canonical public-safety sanitizer over one source/provenance ref string.
+
+    - Teleology: single-ref custody normalizer that routes a source_ref through the public reference sanitizer so private roots never leak into refreshed manifest rows.
+    - Guarantee: returns (text, receipt); on a clean ref returns (ref, {}); on replacements returns (sanitized_text, public_safe_transform_receipt); on a blocker returns (ref, {"status": "blocked", "public_safe": False}) leaving the ref unchanged.
+    - Fails: never raises; sanitizer blockers surface as the {"status": "blocked", "public_safe": False} receipt, not an exception; empty ref short-circuits to (ref, {}).
+    - When-needed: inspect when deciding whether a single source/provenance ref is public-safe before folding it into a refreshed manifest row.
+    - Reads: only the in-memory `ref` argument (no filesystem read).
+    - Escalates-to: tools.meta.microcosm_public_safety.public_reference_sanitizer (sanitize_public_reference_text / public_safe_transform_receipt) for the authoritative blocker/replacement rules.
+    - Non-goal: does not authorize source export, release, or assert public-safety beyond what the sanitizer's replacement/blocker rules cover.
+    """
     if not ref:
         return ref, {}
     sanitization = sanitize_public_reference_text(ref, path=ref)
@@ -213,6 +223,17 @@ def _bundle_manifest_source_root_transform(
     write: bool,
     public_safe_normalize: bool,
 ) -> dict[str, Any]:
+    """Normalize the sibling bundle_manifest.json `source_root` provenance to a public-safe ref.
+
+    - Teleology: source-ref custody helper that strips private macro/vault roots from the bundle manifest's source_root so the refresh stays public-safe.
+    - Guarantee: returns a status dict ('not_requested' | 'missing' | 'blocked' | 'unchanged' | 'transformed'); only on 'transformed' with write=True is bundle_manifest.json rewritten (source_root + source_root_public_safe_transform) via write_json_atomic.
+    - Fails: never raises; non-JSON-object bundle manifest -> {"status": "blocked", findings: ["bundle_manifest_not_json_object"]}; sanitizer blocker on source_root -> {"status": "blocked", ...}.
+    - When-needed: inspect when a public-safe refresh must rewrite or verify the bundle manifest's declared source_root provenance label.
+    - Reads: the sibling bundle_manifest.json `source_root` field.
+    - Writes: with write=True on a transform, bundle_manifest.json's source_root and source_root_public_safe_transform.
+    - Escalates-to: public_reference_sanitizer.sanitize_public_reference_text / public_safe_transform_receipt; the bundle_manifest.json is the artifact this rewrites.
+    - Non-goal: does not authorize source export, release, or treat the rewritten provenance label as authority over the real private root.
+    """
     bundle_manifest_path = Path(manifest_path).parent / "bundle_manifest.json"
     if not public_safe_normalize:
         return {"status": "not_requested", "write_applied": False}
@@ -261,6 +282,17 @@ def refresh_manifest(
     write: bool,
     public_safe_normalize: bool = False,
 ) -> dict[str, Any]:
+    """Refresh declared exact-copy source-module rows: re-copy bodies, recompute digests, fold provenance.
+
+    - Teleology: source-custody engine that re-binds each manifest row's target body/sha256 to its declared macro source ref, after the source-module boundary gate passes, optionally applying public-safe normalization.
+    - Guarantee: returns a `source_module_manifest_refresh_result_v1` dict; status is 'pass' only when rows refreshed, no findings, every target_expected_digest_match true, and bundle-manifest transform not blocked; with write+pass the manifest and target bytes are persisted via write_json_atomic.
+    - Fails: non-object manifest -> raises ValueError; boundary status != 'pass', missing/non-file source, or non-public-safe-normalizable / non-exact_copy relation -> status 'blocked' with per-row findings (never raises).
+    - When-needed: inspect when a manifest row's target body or digest drifts from its macro source, or when verifying the exact-copy custody contract before release.
+    - Reads: the `--manifest` JSON, each declared macro source file body, and the sibling bundle_manifest.json source_root.
+    - Writes: with write=True, refreshed target files plus the manifest itself (digests, byte/line counts, relation, public-safe transforms).
+    - Escalates-to: microcosm_core.validators.source_module_boundary.evaluate_source_module_boundary and the public_reference_sanitizer; the manifest is the source-of-record this projection re-derives.
+    - Non-goal: does not authorize private source export, source mutation outside declared targets, public-safe equivalence beyond the sanitizer's checks, release, or provider access.
+    """
     manifest = read_json_strict(Path(manifest_path))
     if not isinstance(manifest, dict):
         raise ValueError("source module manifest must be a JSON object")

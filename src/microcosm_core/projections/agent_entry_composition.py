@@ -153,23 +153,57 @@ PROJECTION_AUTHORITY_POSTURE = (
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
+    """Coerce an untrusted source-JSON value to a dict.
+
+    - Teleology: defensive read coercion so projection code never trusts a JSON node's shape.
+    - Guarantee: returns value unchanged when it is a dict, else a fresh empty dict.
+    - Fails: never raises; non-dict input degrades to {}.
+    """
     return value if isinstance(value, dict) else {}
 
 
 def _as_list(value: Any) -> list[Any]:
+    """Coerce an untrusted source-JSON value to a list.
+
+    - Teleology: defensive read coercion so projection code can iterate without isinstance checks at each call.
+    - Guarantee: returns value unchanged when it is a list, else a fresh empty list.
+    - Fails: never raises; non-list input degrades to [].
+    """
     return value if isinstance(value, list) else []
 
 
 def _strings(value: Any) -> list[str]:
+    """Filter a value to its non-blank string items.
+
+    - Teleology: normalize ref/command lists read from source JSON to usable, non-empty strings.
+    - Guarantee: returns the list of items that are strings with non-whitespace content; order preserved.
+    - Fails: never raises; non-list or non-string members are dropped.
+    """
     return [item for item in _as_list(value) if isinstance(item, str) and item.strip()]
 
 
 def _load_json(path: Path) -> dict[str, Any]:
+    """Read a source-JSON file and coerce it to a dict.
+
+    - Teleology: single read door for the source registries/packets this projection derives from.
+    - Guarantee: returns the parsed top-level object as a dict, or {} when the parsed payload is not a dict.
+    - Fails: propagates read_json_strict errors (missing file / invalid JSON); non-dict top-level degrades to {}.
+    - Reads: the JSON file at path (entry_packet.json, agent_task_routes.json, organ registries).
+    - Non-goal: does not authorize source-body export, release, or whole-system correctness.
+    """
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
 
 
 def _rows_by_id(payload: dict[str, Any], key: str) -> dict[str, dict[str, Any]]:
+    """Index a source-registry list under `key` by each row's organ_id.
+
+    - Teleology: turn organ_registry/atlas/evidence list payloads into id-keyed lookups for card composition.
+    - Guarantee: returns a dict mapping each row's non-empty organ_id to that row; rows without organ_id are skipped.
+    - Fails: never raises; missing key, non-list value, or non-dict rows yield an empty/partial map.
+    - Reads: payload[key] (e.g. implemented_organs / organs / organ_evidence_classes).
+    - Non-goal: does not authorize source mutation, release, or whole-system correctness.
+    """
     rows: dict[str, dict[str, Any]] = {}
     for row in _as_list(payload.get(key)):
         if not isinstance(row, dict):
@@ -181,6 +215,14 @@ def _rows_by_id(payload: dict[str, Any], key: str) -> dict[str, dict[str, Any]]:
 
 
 def _route_rows_by_task(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index agent_task_routes `routes` by their task_class.
+
+    - Teleology: let the builder dereference a normalized task class to its route row.
+    - Guarantee: returns a dict mapping each route's non-empty task_class to that route row; others skipped.
+    - Fails: never raises; missing/non-list "routes" or non-dict rows yield an empty/partial map.
+    - Reads: payload["routes"] from atlas/agent_task_routes.json.
+    - Non-goal: does not authorize route creation, source mutation, or release.
+    """
     rows: dict[str, dict[str, Any]] = {}
     for row in _as_list(payload.get("routes")):
         if not isinstance(row, dict):
@@ -192,6 +234,16 @@ def _route_rows_by_task(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _accepted_organ_glance(task_routes: dict[str, Any]) -> dict[str, Any]:
+    """Project the one-line-per-organ glance from the organ_glance_ladder.
+
+    - Teleology: give a cold agent every accepted organ in one line per row before the full matrix/macro floor.
+    - Guarantee: returns a generated glance dict (schema microcosm_agent_entry_accepted_organ_glance_v0) with compacted families, organ_count, capsule_accounting, join-status counts, and an anti_claim; carries no source authority.
+    - Fails: never raises; missing/non-list ladder rows degrade to an empty families list with zero counts.
+    - Reads: task_routes["organ_glance_ladder"] and ["capsule_accounting"] (ORGAN_GLANCE_REF).
+    - When-needed: composing the entry card, or auditing accepted-organ row completeness.
+    - Escalates-to: ORGAN_GLANCE_REF source rows and ORGANS.md drilldown; this is a derived projection, not source-of-truth.
+    - Non-goal: not a release, proof, maturity, source-mutation, provider-call, or whole-system-correctness authority.
+    """
     families = [
         row
         for row in _as_list(task_routes.get("organ_glance_ladder"))
@@ -264,6 +316,15 @@ def _accepted_organ_glance(task_routes: dict[str, Any]) -> dict[str, Any]:
 
 
 def _normalize_task_class(task: str | None) -> str:
+    """Resolve a free-text task/question into a canonical task-class slug.
+
+    - Teleology: route the many natural-language ways agents phrase a task onto a stable set of task classes the route table is keyed by.
+    - Guarantee: returns a known task-class slug (e.g. "agent-entry", "getting-started", "architecture") when the input matches an alias set, DEFAULT_TASK for blank input, else a hyphenated normalization of the raw input.
+    - Fails: never raises; an unrecognized phrase falls through to a best-effort hyphenated slug.
+    - When-needed: when an agent's task phrase selects the wrong route, patch the alias sets here.
+    - Escalates-to: atlas/agent_task_routes.json routes (the route bodies these slugs key into).
+    - Non-goal: does not create routes, mutate source, or authorize release.
+    """
     value = (task or "").strip().lower()
     natural_key = value.replace("_", " ").replace("-", " ")
     if not value:
@@ -3409,6 +3470,15 @@ def _normalize_task_class(task: str | None) -> str:
 def _task_alias_resolution(
     requested_task: str | None, selected_task_class: str
 ) -> dict[str, Any] | None:
+    """Explain why a requested alias resolved onto the selected task class.
+
+    - Teleology: make alias→route resolution legible so an agent sees that a synonym was accepted, not silently rerouted.
+    - Guarantee: returns None when the request equals the selected class or does not normalize to it; otherwise returns a dict with status "alias_resolved", the request/selected pair, a route-specific reason, and an authority_boundary.
+    - Fails: never raises; non-matching or identity requests return None.
+    - When-needed: rendering the task_route card when requested_task differs from the selected class.
+    - Escalates-to: _normalize_task_class (the alias mapping) and atlas/agent_task_routes.json.
+    - Non-goal: does not create a new route or change receipt authority.
+    """
     requested = (requested_task or DEFAULT_TASK).strip()
     requested_key = requested.lower()
     if not requested or requested_key == selected_task_class:
@@ -3482,6 +3552,13 @@ def _task_alias_resolution(
 
 
 def _compact_drilldown_task_arg(task_route: dict[str, Any]) -> str:
+    """Pick the shell-safe --task argument for the compact card's drilldown command.
+
+    - Teleology: emit a copy-pasteable drilldown that preserves a receipt-alias request when the agent asked one.
+    - Guarantee: returns shlex.quote of the requested task when it is a receipt-route alias, else shlex.quote of the selected task class (DEFAULT_TASK fallback).
+    - Fails: never raises; missing fields fall back to the quoted DEFAULT_TASK.
+    - Reads: task_route["requested_task"] and ["selected_task_class"].
+    """
     selected = str(task_route.get("selected_task_class") or DEFAULT_TASK)
     requested = str(task_route.get("requested_task") or "").strip()
     if requested.lower() in RECEIPT_ROUTE_ALIASES:
@@ -3490,6 +3567,12 @@ def _compact_drilldown_task_arg(task_route: dict[str, Any]) -> str:
 
 
 def _normalize_viewer(viewer: str | None) -> str:
+    """Resolve a viewer alias into a canonical viewer id.
+
+    - Teleology: let callers pass type-a/human/operator synonyms and still select one stable viewer branch.
+    - Guarantee: returns ALL_VIEWERS for blank/"all", TYPE_A_READER_ID for type-a synonyms, HUMAN_VIEWER_ID for human/operator/reviewer synonyms, else the normalized input.
+    - Fails: never raises; an unknown value passes through normalized (underscored, lowercased).
+    """
     value = (viewer or ALL_VIEWERS).strip().lower().replace("-", "_")
     if value in {"", ALL_VIEWERS}:
         return ALL_VIEWERS
@@ -3501,6 +3584,13 @@ def _normalize_viewer(viewer: str | None) -> str:
 
 
 def _type_a_reader_row(entry_packet: dict[str, Any]) -> dict[str, Any]:
+    """Locate the Type A reader's selection row in the entry packet.
+
+    - Teleology: source the Type A first-screen route fields (command, stop, anti-overread) from the entry packet.
+    - Guarantee: returns the selection row whose reader_id == TYPE_A_READER_ID, or {} when absent.
+    - Fails: never raises; missing nested keys or non-dict rows degrade to {}.
+    - Reads: entry_packet.reader_first_screen_routes.reader_selection_card.selection_rows.
+    """
     selection_card = _as_dict(
         _as_dict(entry_packet.get("reader_first_screen_routes")).get(
             "reader_selection_card"
@@ -3513,6 +3603,13 @@ def _type_a_reader_row(entry_packet: dict[str, Any]) -> dict[str, Any]:
 
 
 def _reader_rows_by_id(entry_packet: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index the entry-packet reader selection rows by reader_id.
+
+    - Teleology: let viewer-mode building look up any reader (e.g. public_github_visitor) by id.
+    - Guarantee: returns a dict mapping each selection row's reader_id to that row; rows without reader_id skipped.
+    - Fails: never raises; missing nested keys or non-dict rows yield an empty/partial map.
+    - Reads: entry_packet.reader_first_screen_routes.reader_selection_card.selection_rows.
+    """
     selection_card = _as_dict(
         _as_dict(entry_packet.get("reader_first_screen_routes")).get(
             "reader_selection_card"
@@ -3526,6 +3623,13 @@ def _reader_rows_by_id(entry_packet: dict[str, Any]) -> dict[str, dict[str, Any]
 
 
 def _reader_detail_rows_by_id(entry_packet: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index the entry-packet per-reader detail routes by reader_id.
+
+    - Teleology: source next/followup commands for a reader from the detailed routes list.
+    - Guarantee: returns a dict mapping each detail route's reader_id to that row; rows without reader_id skipped.
+    - Fails: never raises; missing "routes" or non-dict rows yield an empty/partial map.
+    - Reads: entry_packet.reader_first_screen_routes.routes.
+    """
     route_packet = _as_dict(entry_packet.get("reader_first_screen_routes"))
     rows: dict[str, dict[str, Any]] = {}
     for row in _as_list(route_packet.get("routes")):
@@ -3535,10 +3639,22 @@ def _reader_detail_rows_by_id(entry_packet: dict[str, Any]) -> dict[str, dict[st
 
 
 def _source_ref(ref: str, organ_id: str) -> str:
+    """Format an organ-scoped source-ref pointer string.
+
+    - Teleology: stamp organ cards with a precise "which row in which source" pointer for drilldown.
+    - Guarantee: returns the ref string suffixed with "[organ_id=<organ_id>]".
+    - Fails: never raises; produces a string for any inputs.
+    """
     return f"{ref}[organ_id={organ_id}]"
 
 
 def _command_tokens(command: str) -> list[str]:
+    """Tokenize a command string with shell-like splitting.
+
+    - Teleology: support runnable-command shape checks without executing anything.
+    - Guarantee: returns shlex.split(command) on success, or [] when the string cannot be lexed.
+    - Fails: never raises; a shlex ValueError (e.g. unbalanced quotes) is caught and returns [].
+    """
     try:
         return shlex.split(command)
     except ValueError:
@@ -3546,6 +3662,14 @@ def _command_tokens(command: str) -> list[str]:
 
 
 def _is_runnable_public_command(command: str, *, allow_project_placeholder: bool = False) -> bool:
+    """Decide whether a command is a public-safe, runnable command shape.
+
+    - Teleology: gate which command strings the entry card may surface, blocking private/raw-seed/provider references and unexpanded placeholders.
+    - Guarantee: returns True only for non-empty `microcosm ...` or `[PYTHONPATH=...] python3 -m microcosm_core...` shapes that contain no banned token; with allow_project_placeholder a single `<project>` token is tolerated, otherwise any `<`/`>` returns False.
+    - Fails: never raises; empty, banned (raw_seed.md, obsidian/, provider payload, operator thread, HUD/browser), unlexable, or non-microcosm commands return False.
+    - When-needed: validating first_command/route_command runnable shape before showing it.
+    - Non-goal: shape-only check; does not execute the command, prove it works, authorize provider calls, or authorize release.
+    """
     if not command or any(
         banned in command
         for banned in (
@@ -3584,6 +3708,13 @@ def _is_runnable_public_command(command: str, *, allow_project_placeholder: bool
 
 
 def _source_checkout_command(command: str) -> str | None:
+    """Translate an installed-console command into its source-checkout (no-install) form.
+
+    - Teleology: give source-only readers a `PYTHONPATH=src python3 -m microcosm_core ...` invocation alongside the `microcosm ...` form.
+    - Guarantee: returns the command unchanged when already PYTHONPATH=src-prefixed; rewrites a `microcosm`/`microcosm <args>` command to the module form; returns None for blank or non-matching commands.
+    - Fails: never raises; unrecognized command shapes return None.
+    - Non-goal: an invocation hint only; adds no source-mutation, release, provider-call, or private-root authority.
+    """
     command = command.strip()
     if not command:
         return None
@@ -3597,10 +3728,24 @@ def _source_checkout_command(command: str) -> str | None:
 
 
 def _list_has_text(values: Any) -> bool:
+    """Report whether a value contains at least one non-blank string.
+
+    - Teleology: support entry-experience checks that require visible evidence refs.
+    - Guarantee: returns True iff `_strings(values)` yields at least one non-whitespace string.
+    - Fails: never raises; non-list / empty input returns False.
+    """
     return any(bool(item.strip()) for item in _strings(values))
 
 
 def _doctrine_rows_by_organ(root: Path) -> dict[str, dict[str, Any]]:
+    """Index organ doctrine rows (concept/mechanism/surface bindings) by organ_id.
+
+    - Teleology: join standards/concept/mechanism surface refs onto organ cards.
+    - Guarantee: returns a dict mapping organ_id to its doctrine row, built from build_organ_doctrine_rows(root); rows without organ_id skipped.
+    - Fails: propagates errors from build_organ_doctrine_rows (e.g. missing source under root); otherwise non-dict rows are skipped.
+    - Reads: the concept/mechanism read model derived from root (DOCTRINE_ROW_REF).
+    - Escalates-to: microcosm_core.projections.concept_mechanism_read_model.build_organ_doctrine_rows.
+    """
     return {
         str(row.get("organ_id")): row
         for row in build_organ_doctrine_rows(root)
@@ -3626,6 +3771,12 @@ def _viewer_mode(
     source_checkout_first_action: str | None = None,
     source_checkout_next_action: str | None = None,
 ) -> dict[str, Any]:
+    """Assemble one viewer-mode route dict from its named fields.
+
+    - Teleology: standard constructor so every viewer branch carries the same route-scent fields (question, first/next action, boundary, evidence, stop/re-entry).
+    - Guarantee: returns a dict with all viewer-mode keys populated from the keyword arguments; values are passed through unchanged.
+    - Fails: never raises; a pure structural constructor.
+    """
     return {
         "viewer": viewer_id,
         "viewer_family": viewer_id,
@@ -3647,6 +3798,14 @@ def _viewer_mode(
 
 
 def _entry_experience_check(mode: dict[str, Any]) -> dict[str, Any]:
+    """Score one viewer mode for route-scent completeness.
+
+    - Teleology: catch a viewer branch that would land an agent without a visible first action, boundary, evidence, stop/re-entry, or anti-overread warning.
+    - Guarantee: returns a check dict (schema microcosm_entry_experience_check_v0) with per-field visibility booleans, route_scent strong/weak, status "pass" iff no failure_codes else "blocked", and the failure_codes list.
+    - Fails: never raises; absent/blank fields are recorded as failure_codes (status "blocked"), not exceptions.
+    - When-needed: building entry_experience_checks and validating viewer modes.
+    - Escalates-to: validate_agent_entry_composition (which gates on these statuses).
+    """
     first_action = str(mode.get("first_safe_action") or "")
     authority_boundary = str(mode.get("authority_boundary") or "")
     anti_overread = str(mode.get("anti_overread_warning") or "")
@@ -3712,6 +3871,12 @@ def _entry_experience_check(mode: dict[str, Any]) -> dict[str, Any]:
 
 
 def _viewer_route_summary(mode: dict[str, Any]) -> dict[str, Any]:
+    """Project a viewer mode down to its route-summary fields.
+
+    - Teleology: compact per-viewer route used inside the all-viewer route set.
+    - Guarantee: returns a dict with the route-scent subset (label, first/next action, source-checkout variants, boundary, evidence, stop/re-entry, source_refs) read from mode; missing keys become None.
+    - Fails: never raises; a pure structural projection.
+    """
     return {
         "viewer": mode.get("viewer"),
         "branch_label": mode.get("branch_label"),
@@ -3733,6 +3898,13 @@ def _viewer_route_summary(mode: dict[str, Any]) -> dict[str, Any]:
 def _selected_viewer_route(
     selected_viewer: str, viewer_modes: list[dict[str, Any]]
 ) -> dict[str, Any]:
+    """Select the route for one viewer, or a route-set when viewer is "all".
+
+    - Teleology: resolve `selected_viewer` to a single concrete branch, or a route set that forces an explicit viewer selection.
+    - Guarantee: for a concrete viewer returns that mode dict (or {} if absent); for ALL_VIEWERS returns a route-set dict (schema microcosm_selected_viewer_route_set_v0) with per-viewer summaries, first actions, the selection command, and requires_viewer_selection True.
+    - Fails: never raises; an unknown concrete viewer yields {}.
+    - When-needed: composing selected_viewer_route / read-run order.
+    """
     viewer_by_id = {str(row.get("viewer")): row for row in viewer_modes}
     if selected_viewer != ALL_VIEWERS:
         return _as_dict(viewer_by_id.get(selected_viewer))
@@ -3761,6 +3933,12 @@ def _selected_viewer_route(
 
 
 def _selected_viewer_entry(selected_viewer_route: dict[str, Any]) -> dict[str, Any]:
+    """Build the top-salience entry block from the selected viewer route.
+
+    - Teleology: surface the one thing to read first (selected viewer's first action + boundary) above the macro curriculum.
+    - Guarantee: returns a dict (schema microcosm_selected_viewer_entry_v0) carrying the route's viewer, first action(s), next action, boundary, evidence, stop condition, and a salience_rule; missing fields become None.
+    - Fails: never raises; a pure structural projection of the input route.
+    """
     return {
         "schema": "microcosm_selected_viewer_entry_v0",
         "viewer": selected_viewer_route.get("viewer"),
@@ -3794,6 +3972,14 @@ def _build_read_run_order(
     accepted_organ_glance: dict[str, Any],
     macro_floor: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
+    """Compose the ordered read/run steps for the selected viewer.
+
+    - Teleology: give the agent a single ordered path (viewer branch first, then first-screen, task route, glance, matrix, macro floor) instead of an undifferentiated bundle.
+    - Guarantee: returns a list of step dicts, each carrying run/source_checkout_run/read/why and a 1-based "step"; human viewer gets a short stop-or-drilldown order, other viewers get the full shared sequence.
+    - Fails: never raises; missing route fields degrade to None entries within steps.
+    - Reads: selected_viewer_route, first_screen_route, task_route_card, accepted_organ_glance, macro_floor.
+    - Non-goal: produces a reading order projection only; does not run any step or authorize mutation/release.
+    """
     viewer_step = {
         "step": 1,
         "kind": "selected_viewer_route",
@@ -3920,6 +4106,14 @@ def _build_viewer_modes(
     task_route_card: dict[str, Any],
     omission_receipt: dict[str, Any],
 ) -> list[dict[str, Any]]:
+    """Build the Type A and human viewer-mode route branches.
+
+    - Teleology: derive both reader branches (commands, evidence refs, boundaries, stop/re-entry) from the entry packet, first-screen route, and task route.
+    - Guarantee: returns a two-element list [type_a_mode, human_mode], each a _viewer_mode dict; fields fall back to safe public-command/boundary defaults when source rows are missing.
+    - Fails: never raises; absent entry-packet rows degrade to default commands and boundaries.
+    - Reads: entry_packet reader rows/details, first_screen_route, task_route_card, omission_receipt.reentry_condition.
+    - Non-goal: a derived projection; does not authorize release, provider calls, source mutation, or private-root equivalence.
+    """
     reader_rows = _reader_rows_by_id(entry_packet)
     reader_detail_rows = _reader_detail_rows_by_id(entry_packet)
     type_a_detail = _as_dict(reader_detail_rows.get(TYPE_A_READER_ID))
@@ -4048,6 +4242,14 @@ def _organ_card(
     doctrine_by_id: dict[str, dict[str, Any]],
     role: str,
 ) -> dict[str, Any]:
+    """Compose one organ's entry card by joining registry/atlas/evidence/doctrine rows.
+
+    - Teleology: give each relevant or macro-floor organ a single card with first command, evidence class, claim ceiling, source/receipt refs, and standards bindings.
+    - Guarantee: returns an organ-card dict keyed by organ_id with role, display_name, evidence_class, first_command (+ runnable-shape flag), claim_ceiling, evidence_refs (registry/atlas/evidence/receipts), standards refs, and a projection authority_boundary; current_authority_receipt is prepended to receipt_refs when present.
+    - Fails: never raises; missing organ rows in any index degrade to {} lookups and a title-cased display_name fallback.
+    - Reads: ORGAN_REGISTRY_REF, ORGAN_ATLAS_REF, EVIDENCE_CLASSES_REF rows and the organ's doctrine surface_refs.
+    - Non-goal: organ-card projection, not source authority; read the refs/receipts before any source drilldown, mutation, or release claim.
+    """
     registry = _as_dict(registry_by_id.get(organ_id))
     atlas = _as_dict(atlas_by_id.get(organ_id))
     evidence = _as_dict(evidence_by_id.get(organ_id))
@@ -4094,10 +4296,25 @@ def _organ_card(
 
 
 def _add_error(errors: list[dict[str, str]], *, path: str, code: str, message: str) -> None:
+    """Append a structured validation error to the errors accumulator.
+
+    - Teleology: keep validation findings uniform (path/code/message) for the validation receipt.
+    - Guarantee: appends {"path", "code", "message"} to `errors` in place; returns None.
+    - Fails: never raises; mutates the passed list only.
+    """
     errors.append({"path": path, "code": code, "message": message})
 
 
 def validate_agent_entry_composition(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate a composed agent-entry payload against the projection contract.
+
+    - Teleology: prove the entry card kept its schema, authority posture, required source refs, runnable commands, accepted-organ glance shape, macro floor, viewer modes, and explicit non-authority flags before it is trusted.
+    - Guarantee: returns a validation dict (schema {SCHEMA}_validation_v0) with status "pass" iff no errors else "blocked", an error_count, and the structured errors list; the input payload is not mutated.
+    - Fails: never raises; every contract breach is recorded as an error (e.g. bad_schema, missing_source_ref, first_screen_command_not_runnable_shape, projection_overclaims_authority) and flips status to "blocked".
+    - When-needed: after building a payload, or when an entry card is suspected of drifting/overclaiming.
+    - Escalates-to: the source refs in REQUIRED_TOP_LEVEL_SOURCE_REFS and the projection builder build_agent_entry_composition.
+    - Non-goal: validates projection shape only; does not authorize release, source mutation, or whole-system correctness.
+    """
     errors: list[dict[str, str]] = []
     if payload.get("schema") != SCHEMA:
         _add_error(
@@ -4384,6 +4601,15 @@ def build_agent_entry_composition(
     viewer: str | None = None,
     command: str = "agent-entry-composition",
 ) -> dict[str, Any]:
+    """Compose the task-and-viewer-conditioned cold-agent entry card from source JSON.
+
+    - Teleology: the projection builder that turns entry_packet/agent_task_routes/organ registries into one self-validating entry card (first-screen route, selected task route, accepted-organ glance, viewer modes, macro floor, read-run order, anti-claim).
+    - Guarantee: returns a generated payload dict (schema SCHEMA) with explicit release/source_mutation/provider_call/private_root authority flags all False, an embedded validation result, and status set from that validation ("pass"/"blocked").
+    - Fails: propagates read_json_strict errors when required source files under root are missing/invalid; a malformed-but-readable substrate yields status "blocked" with validation errors rather than raising.
+    - When-needed: regenerating the entry card, or inspecting which organs/routes a task class selects.
+    - Escalates-to: validate_agent_entry_composition, compile_paths (artifact writer), and the REQUIRED_TOP_LEVEL_SOURCE_REFS source rows this derives from.
+    - Non-goal: a derived projection, not source-of-truth; does not authorize release, source mutation, provider calls, or private-root equivalence.
+    """
     resolved_root = Path(root).resolve() if root is not None else microcosm_root()
     entry_packet = _load_json(resolved_root / ENTRY_PACKET_REF)
     task_routes = _load_json(resolved_root / TASK_ROUTES_REF)
@@ -4603,7 +4829,15 @@ def build_agent_entry_composition(
 
 
 def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
-    """Return the first-entry view without expanding every organ row."""
+    """Return the first-entry view without expanding every organ row.
+
+    - Teleology: a budget-friendly compact projection of the full entry card for first contact, keeping route handles and authority ceiling while dropping full organ bodies.
+    - Guarantee: returns a generated compact dict (schema microcosm_agent_entry_composition_compact_card_v0) carrying selected-viewer entry/route, first-screen route, task route, accepted-organ glance summary, macro floor stubs, compact read-run order, authority-ceiling flags, anti_claim, omission receipt, validation summary, and copyable drilldown commands; keys whose value is None are dropped.
+    - Fails: never raises; absent sections in the input payload degrade to empty/None-pruned subtrees.
+    - When-needed: when an agent needs the entry card under a tight context budget before the full JSON.
+    - Escalates-to: the full payload from build_agent_entry_composition and its drilldown commands.
+    - Non-goal: a compact projection of an already-built payload; does not re-derive from source or authorize release/source mutation.
+    """
     def drop_none(value: Any) -> Any:
         if isinstance(value, dict):
             return {key: drop_none(row) for key, row in value.items() if row is not None}
@@ -4766,6 +5000,16 @@ def compile_paths(
     out: str | Path | None = None,
     command: str = "agent-entry-composition",
 ) -> dict[str, Any]:
+    """Build the entry card and, when `out` is given, write the card + receipt artifacts.
+
+    - Teleology: the file-writing entrypoint that materializes the generated entry card and a companion provenance receipt for downstream consumers.
+    - Guarantee: returns the built payload; when out is not None, atomically writes the card to out/CARD_FILENAME and a receipt (schema RECEIPT_SCHEMA) to out/RECEIPT_FILENAME, and stamps payload["artifact_paths"]; when out is None nothing is written.
+    - Fails: propagates build_agent_entry_composition source-read errors and write_json_atomic I/O errors (e.g. unwritable out dir); a blocked validation does not raise (status carried in card/receipt).
+    - Writes: <out>/agent_entry_composition_card.json and <out>/agent_entry_composition_receipt.json.
+    - When-needed: regenerating the on-disk entry card/receipt artifacts.
+    - Escalates-to: build_agent_entry_composition (source derivation) and validate_agent_entry_composition.
+    - Non-goal: writes a derived projection + receipt, not source-of-truth; does not authorize release or source mutation.
+    """
     payload = build_agent_entry_composition(
         root=root, task=task, viewer=viewer, command=command
     )

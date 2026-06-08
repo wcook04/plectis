@@ -35,17 +35,41 @@ DEFAULT_OUT = MICROCOSM_ROOT / "receipts/first_wave/crown_jewel_demo"
 
 
 def _sha256_json(payload: object) -> str:
+    """Stable content digest of a JSON-able payload for receipt fingerprinting.
+
+    - Teleology: give each organ/runtime result a deterministic identity in the receipt without inlining its body.
+    - Guarantee: returns the hex SHA-256 of the canonically serialized (sort_keys, str-coerced) payload; identical payloads yield identical digests.
+    - Fails: never raises for JSON-able input; non-serializable objects fall back to `str()` via `default=str` rather than erroring.
+    - Reads: nothing on disk; hashes only the in-memory payload.
+    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness; it is a fingerprint only.
+    """
     text = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _file_digest(path: Path) -> str | None:
+    """Hex SHA-256 of a written artifact, used to fingerprint sidecar output in the receipt.
+
+    - Teleology: bind a receipt row to the exact bytes of an emitted file without copying its contents into the receipt.
+    - Guarantee: returns the hex SHA-256 of the file's bytes when `path` is a regular file; returns None when it is missing or not a file.
+    - Fails: never raises for the missing-file case; returns None instead. Read errors on an existing file (permissions/IO) propagate as OSError.
+    - Reads: the bytes at `path` (a generated sidecar/receipt artifact).
+    - Non-goal: does not authorize source-body export, public-safe equivalence, or release; it only fingerprints already-emitted output.
+    """
     if not path.is_file():
         return None
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _rel(path: Path) -> str:
+    """Render a path as a microcosm-root-relative posix ref for portable receipt refs.
+
+    - Teleology: keep receipt path refs root-relative and host-agnostic so they do not leak the absolute private filesystem layout.
+    - Guarantee: returns the posix path relative to MICROCOSM_ROOT when `path` is under it; otherwise returns the path's own posix form unchanged.
+    - Fails: never raises; the out-of-root case is caught (ValueError) and falls back to `path.as_posix()`.
+    - Reads: only the in-memory path plus MICROCOSM_ROOT; no filesystem read (resolve uses strict=False).
+    - Non-goal: does not authorize release or guarantee the referenced path exists; it only normalizes the ref string.
+    """
     try:
         return path.resolve(strict=False).relative_to(MICROCOSM_ROOT).as_posix()
     except ValueError:
@@ -53,6 +77,15 @@ def _rel(path: Path) -> str:
 
 
 def _organ_card(organ_id: str, result: dict[str, Any]) -> dict[str, Any]:
+    """Compact one organ run's result into a body-free receipt card.
+
+    - Teleology: project a verbose organ result into a fixed-shape, fingerprint-only card for the crown-jewel receipt (no organ body inlined).
+    - Guarantee: returns a dict carrying organ_id, the organ's reported status, receipt_refs, a result_digest over (status/exercise/source_module_status/observed_negative_cases), negative-case count, missing_negative_cases, anti_claim, and `body_in_receipt: False`.
+    - Fails: never raises; missing keys default via `.get(...)` (status None, empty lists), so a partial result still yields a well-formed card.
+    - Reads: only the in-memory `result` dict from the organ runner; no disk read.
+    - Escalates-to: the underlying organ runner's own receipt under out_dir/organs/<organ_id> for full-fidelity status and negative cases.
+    - Non-goal: does not validate or re-run the organ; it transcribes whatever the runner reported and authorizes no release.
+    """
     receipt_refs = [str(ref) for ref in result.get("receipt_paths", [])]
     return {
         "organ_id": organ_id,
@@ -84,11 +117,29 @@ def _run_organ(
     out_dir: Path,
     runner: Callable[..., dict[str, Any]],
 ) -> dict[str, Any]:
+    """Run one flagship organ on its public example bundle and return its receipt card.
+
+    - Teleology: the single per-organ execution seam — resolve the example input under root, invoke the organ's runner into a per-organ out dir, and card the result.
+    - Guarantee: invokes `runner(MICROCOSM_ROOT/input_ref, out_dir/organs/organ_id)` and returns its `_organ_card`; the runner writes its own receipts under that out dir.
+    - Fails: a missing/invalid bundle or a runner exception propagates from `runner` (this wrapper adds no catch); a non-"pass" organ status surfaces in the returned card's `status`.
+    - When-needed: when adding/exercising one organ in the demo or tracing a single organ's status independent of the full run.
+    - Escalates-to: `_organ_card` for card shape and the organ runner's receipts under out_dir/organs/<organ_id> for full fidelity.
+    - Non-goal: does not aggregate pass/blocked across organs (that is `run`) and authorizes no release.
+    """
     result = runner(MICROCOSM_ROOT / input_ref, out_dir / "organs" / organ_id)
     return _organ_card(organ_id, result)
 
 
 def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
+    """Exercise the three runtime-safety containment probes and return their receipt cards.
+
+    - Teleology: prove bounded runtime behavior (durable work-landing replay, command-output sidecar containment, work-landing control validation) alongside the organ set, body-free.
+    - Guarantee: returns a 3-element list of body-free check cards (durable_agent_work_landing_replay, command_output_sidecar, work_landing_control_spine), each with status, receipt ref(s), and a digest; the control-spine check captures its redirected stdout digest and flags `known_blocker` when its status != "pass".
+    - Fails: never returns partial silently for a card whose probe returns a dict; a probe raising (missing bundle/IO) propagates. The control-spine probe's own non-pass is recorded as a known blocker, not an exception.
+    - When-needed: when verifying the demo's runtime-safety surface or diagnosing why the crown-jewel run reports a runtime hard failure vs. a known blocker.
+    - Escalates-to: receipts under out_dir/runtime_safety/* and the sidecar workspace under out_dir/sidecar_workspace for each probe's full output.
+    - Non-goal: does not prove full concurrent-mutation protection or production safety; each card's anti_claim bounds the proof to the fixture, and it authorizes no release.
+    """
     checks: list[dict[str, Any]] = []
     durable_result = durable_agent_work_landing_replay.run_work_landing_bundle(
         MICROCOSM_ROOT
@@ -174,6 +225,16 @@ def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
 
 
 def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-jewel-demo run") -> dict[str, Any]:
+    """Execute the full Crown Jewel demo: five organs + runtime-safety checks under one receipt.
+
+    - Teleology: the public board-emitter that runs the curated showcase end-to-end on public fixtures and writes one top-level pass/blocked receipt.
+    - Guarantee: runs five organ runners and the three runtime-safety probes, atomically writes crown_jewel_demo_receipt.json at out_dir, and returns the receipt payload; `status` is "pass" iff no organ failed and no non-excused runtime hard failure occurred, else "blocked".
+    - Fails: any organ/runtime probe raising (missing bundle/IO) propagates; otherwise never raises — a failing organ or hard runtime check yields `status: "blocked"` with `organ_failures`/`runtime_hard_failures` populated. The work_landing_control_spine check is excluded from hard failures and recorded as a known blocker.
+    - Writes: crown_jewel_demo_receipt.json plus per-organ receipts under out_dir/organs/* and runtime receipts under out_dir/runtime_safety/* and out_dir/sidecar_workspace.
+    - When-needed: demonstrating the flagship organ set + runtime safety on public fixtures, or producing the receipt the CLI/main prints.
+    - Escalates-to: SCHEMA_VERSION `microcosm_crown_jewel_demo_receipt_v1` receipt at receipt_ref; `_run_organ`/`_runtime_safety_checks` and their per-probe receipts for full fidelity.
+    - Non-goal: per ANTI_CLAIM, does not claim production release, live market data, provider execution, full concurrent-mutation protection, source-mutation authority, or private-root equivalence.
+    """
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
     organs = [
