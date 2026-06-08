@@ -199,6 +199,196 @@ def _canonical_json(payload: dict[str, Any]) -> str:
     return json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
 
+def _short_digest(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]
+
+
+def _artifact_class(path: str) -> str:
+    suffix = Path(path).suffix.lower()
+    if path.endswith("search-index.json"):
+        return "search_index"
+    if path.startswith("sites/microcosm/") and suffix == ".html":
+        return "rendered_html"
+    if suffix == ".json":
+        return "public_json"
+    if suffix == ".md":
+        return "source_markdown"
+    if suffix in {".yaml", ".yml", ".toml"}:
+        return "source_config"
+    if suffix in {".ts", ".tsx", ".py"}:
+        return "source_code"
+    return "public_bound_artifact"
+
+
+def _rendered_path_or_url(path: str) -> str | None:
+    if path.startswith("sites/microcosm/"):
+        return path
+    if path.startswith("microcosm-substrate/"):
+        return "sites/microcosm/<generated-from-source>"
+    return None
+
+
+def _owner_surface(hit: dict[str, Any], artifact_class: str) -> str:
+    path = str(hit["path"])
+    group_id = str(hit.get("group_id") or "")
+    if path.startswith("sites/microcosm/"):
+        return "microcosm_public_site_projection"
+    if path.startswith("microcosm-substrate/"):
+        return "microcosm_substrate_source"
+    if artifact_class in {"public_json", "source_config"}:
+        return f"publication_manifest:{group_id}:config"
+    return f"publication_manifest:{group_id}:source"
+
+
+def _generated_from(hit: dict[str, Any], artifact_class: str) -> str | None:
+    path = str(hit["path"])
+    group_id = str(hit.get("group_id") or "")
+    if path.startswith("sites/microcosm/"):
+        return "microcosm_public_site_builder"
+    if artifact_class in {"search_index", "rendered_html"}:
+        return "public_projection_builder"
+    return f"publication_manifest:{group_id}"
+
+
+def _audience(hit: dict[str, Any]) -> str:
+    classification = str(hit["classification"])
+    if classification == "boundary_or_negative_context":
+        return "maintainer_or_meta_reader"
+    if classification == "needs_review":
+        return "public_reader_review"
+    return "public_reader"
+
+
+def _speech_act(hit: dict[str, Any]) -> str:
+    classification = str(hit["classification"])
+    phrase_family = str(hit["phrase_family"])
+    phrase_id = str(hit["phrase_id"])
+    if classification == "boundary_or_negative_context":
+        return "meta_boundary_example"
+    if classification == "needs_review":
+        return "ambiguous_public_claim_label"
+    if phrase_family == "private_control_plane_leak":
+        if phrase_id == "release_authorization_disclaimer":
+            return "private_release_authorization_disclaimer"
+        if phrase_id == "internal_release_control_state":
+            return "private_release_state_disclosure"
+        return "private_release_authority_reference"
+    return "public_capability_or_readiness_claim"
+
+
+def _phrase_subtype(hit: dict[str, Any]) -> str:
+    phrase_id = str(hit["phrase_id"])
+    text = f"{hit.get('match', '')}\n{hit.get('line_text', '')}".lower()
+    if phrase_id == "release_authorization_disclaimer":
+        return "negative_authorization_disclaimer"
+    if phrase_id == "internal_release_control_state":
+        if "release_action" in text or "release action" in text:
+            return "machine_release_state"
+        if "route to" in text:
+            return "private_owner_routing"
+        return "public_toggle_state"
+    if phrase_id == "release_authority_surface":
+        if "owner" in text:
+            return "private_owner_routing"
+        if "gate" in text:
+            return "private_gate_reference"
+        return "authority_language"
+    return phrase_id
+
+
+def _triage_disposition(hit: dict[str, Any], artifact_class: str) -> str:
+    classification = str(hit["classification"])
+    if classification == "boundary_or_negative_context":
+        return "test_or_meta_example_allowed"
+    if classification == "needs_review":
+        return "needs_operator_decision"
+    if str(hit["phrase_family"]) == "private_control_plane_leak":
+        if str(hit["phrase_id"]) == "internal_release_control_state" and artifact_class in {
+            "public_json",
+            "search_index",
+        }:
+            return "exclude_from_public_projection"
+        if artifact_class in {"rendered_html", "search_index"}:
+            return "claim_blocked_owner_reentry"
+        return "source_rewrite"
+    return "source_rewrite"
+
+
+def _rewrite_strategy(hit: dict[str, Any], disposition: str) -> str:
+    phrase_id = str(hit["phrase_id"])
+    if disposition == "test_or_meta_example_allowed":
+        return "Keep only as explicit forbidden-example or policy-test text."
+    if disposition == "needs_operator_decision":
+        return "Operator must decide whether this is public claim copy or a harmless label."
+    if disposition == "exclude_from_public_projection":
+        return "Remove private release state from public JSON/search projection or replace with public artifact limits."
+    if phrase_id == "release_authorization_disclaimer":
+        return "Replace release-authorization disclaimers with public artifact semantics and current evidence limits."
+    if phrase_id == "release_authority_surface":
+        return "Name the public evidence status without exposing release owners, gates, or authorization mechanics."
+    if phrase_id == "internal_release_control_state":
+        return "Move release-control state to private receipts; public copy should state only public-visible availability."
+    return "Downgrade readiness/release wording to evidence-backed, non-release public description."
+
+
+def _canonical_public_boundary_triage(hits: list[dict[str, Any]]) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    disposition_counts: dict[str, int] = {}
+    for hit in sorted(
+        hits,
+        key=lambda row: (
+            str(row["classification"]),
+            str(row["path"]),
+            int(row["line"]),
+            str(row["phrase_id"]),
+            str(row["match"]).lower(),
+        ),
+    ):
+        artifact_class = _artifact_class(str(hit["path"]))
+        disposition = _triage_disposition(hit, artifact_class)
+        disposition_counts[disposition] = disposition_counts.get(disposition, 0) + 1
+        line_text = str(hit.get("line_text") or "")
+        rows.append(
+            {
+                "row_id": "rclg_"
+                + _short_digest(
+                    "|".join(
+                        [
+                            str(hit["path"]),
+                            str(hit["line"]),
+                            str(hit["phrase_id"]),
+                            str(hit["match"]).lower(),
+                            line_text,
+                        ]
+                    )
+                ),
+                "source_path": str(hit["path"]),
+                "rendered_path_or_url": _rendered_path_or_url(str(hit["path"])),
+                "artifact_class": artifact_class,
+                "audience": _audience(hit),
+                "speech_act": _speech_act(hit),
+                "phrase_family": str(hit["phrase_family"]),
+                "phrase_id": str(hit["phrase_id"]),
+                "phrase_subtype": _phrase_subtype(hit),
+                "line": int(hit["line"]),
+                "line_text_or_redacted_excerpt": line_text[:280],
+                "disposition": disposition,
+                "rewrite_strategy": _rewrite_strategy(hit, disposition),
+                "owner_surface": _owner_surface(hit, artifact_class),
+                "claim_status": str(hit["classification"]),
+                "generated_from": _generated_from(hit, artifact_class),
+                "safe_to_autofix": False,
+                "validation_ref": "./repo-python tools/meta/dissemination/release_claim_language_gate.py --check --assert-clear",
+            }
+        )
+    return {
+        "schema_version": "release_claim_language_gate_public_boundary_triage_v0",
+        "canonical_occurrence_count": len(rows),
+        "disposition_counts": dict(sorted(disposition_counts.items())),
+        "rows": rows,
+    }
+
+
 def _read_manifest(path: Path) -> dict[str, Any]:
     payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     if not isinstance(payload, dict):
@@ -387,6 +577,8 @@ def build_gate(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
 
     active_claim_count = classification_counts.get("active_claim_blocker", 0)
     needs_review_count = classification_counts.get("needs_review", 0)
+    public_copy_clean = active_claim_count == 0 and needs_review_count == 0
+    canonical_triage = _canonical_public_boundary_triage(hits)
     status = (
         "active_claim_blocked"
         if active_claim_count
@@ -397,8 +589,13 @@ def build_gate(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     return {
         "schema_version": "release_claim_language_gate_v0",
         "status": status,
+        "receipt_fresh": True,
+        "receipt_fresh_scope": "builder assertion for this rendered payload; --check is the live freshness authority",
+        "public_copy_clean": public_copy_clean,
         "public_toggle": "red",
+        "release_toggle": "red",
         "release_action": "none",
+        "active_blocker_count": active_claim_count,
         "source_authority": "private_repo",
         "projection_authority": "manifest_driven_public_projection",
         "purpose": (
@@ -411,14 +608,18 @@ def build_gate(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "claim_surface_file_count": len(claim_files),
             "risky_phrase_hit_count": len(hits),
             "active_claim_blocker_count": active_claim_count,
+            "active_blocker_count": active_claim_count,
             "needs_review_count": needs_review_count,
             "boundary_or_negative_context_count": classification_counts.get(
                 "boundary_or_negative_context", 0
             ),
+            "public_copy_clean": public_copy_clean,
+            "receipt_fresh": True,
             "does_not_authorize_release": True,
         },
         "classification_counts": dict(sorted(classification_counts.items())),
         "phrase_counts": dict(sorted(phrase_counts.items())),
+        "canonical_public_boundary_triage": canonical_triage,
         "scan_policy": {
             "manifest": PUBLICATION_MANIFEST.as_posix(),
             "included_groups": sorted(CLAIM_SURFACE_GROUPS),
@@ -494,11 +695,33 @@ def main(argv: list[str] | None = None) -> int:
     rendered = _canonical_json(payload)
     if args.check:
         if not output.exists():
-            print(json.dumps({"ok": False, "missing": _rel(output, repo_root)}, sort_keys=True))
+            print(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "checked": True,
+                        "receipt_fresh": False,
+                        "public_copy_clean": payload["public_copy_clean"],
+                        "missing": _rel(output, repo_root),
+                    },
+                    sort_keys=True,
+                )
+            )
             return 1
         current = output.read_text(encoding="utf-8")
         if current != rendered:
-            print(json.dumps({"ok": False, "mismatch": _rel(output, repo_root)}, sort_keys=True))
+            print(
+                json.dumps(
+                    {
+                        "ok": False,
+                        "checked": True,
+                        "receipt_fresh": False,
+                        "public_copy_clean": payload["public_copy_clean"],
+                        "mismatch": _rel(output, repo_root),
+                    },
+                    sort_keys=True,
+                )
+            )
             return 1
 
     if not args.check:
@@ -508,14 +731,21 @@ def main(argv: list[str] | None = None) -> int:
     result = {
         "ok": True,
         "checked": bool(args.check),
+        "receipt_fresh": True,
+        "public_copy_clean": payload["public_copy_clean"],
         "path": _rel(output, repo_root),
         "status": payload["status"],
         "public_toggle": payload["public_toggle"],
+        "release_toggle": payload["release_toggle"],
         "risky_phrase_hit_count": payload["summary"]["risky_phrase_hit_count"],
         "active_claim_blocker_count": payload["summary"]["active_claim_blocker_count"],
+        "active_blocker_count": payload["summary"]["active_blocker_count"],
         "needs_review_count": payload["summary"]["needs_review_count"],
+        "canonical_public_boundary_occurrence_count": payload[
+            "canonical_public_boundary_triage"
+        ]["canonical_occurrence_count"],
     }
-    if args.assert_clear and payload["status"] != "clear_boundary_only":
+    if args.assert_clear and not payload["public_copy_clean"]:
         result["ok"] = False
         print(json.dumps(result, sort_keys=True))
         return 2
