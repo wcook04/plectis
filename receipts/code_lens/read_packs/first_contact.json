@@ -1,0 +1,922 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "compile_ms": 0.104,
+  "evidence_refs": [
+    "core/organ_atlas.json",
+    "core/component_public_synopses.json",
+    "receipts/code_lens/code_lens_join_index_v0.json"
+  ],
+  "export_band": "presence_only",
+  "goal": "understand this substrate",
+  "membrane": {
+    "active_band": "presence_only",
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "membrane_version": "atom_value_membrane_v0"
+  },
+  "mode": "tutorial",
+  "non_goals": [
+    "not source-body export",
+    "not a control-flow / data-flow graph",
+    "not release approval",
+    "not whole-system correctness"
+  ],
+  "open_source_when": [
+    "you must mutate the organ's owned code",
+    "you must prove or reproduce a claim from source",
+    "the read pack marks a needs_spot_review or unresolved ref"
+  ],
+  "receipt_refs": [],
+  "schema_version": "microcosm_comprehension_read_pack_v0",
+  "selected_edges": [],
+  "selected_nodes": [
+    {
+      "families": [
+        {
+          "count": 22,
+          "family": "import_projection_and_drift",
+          "organs": [
+            {
+              "display_name": "World Model Projection Drift Control Room",
+              "organ_id": "world_model_projection_drift_control_room",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Macro Projection Import Protocol",
+              "organ_id": "macro_projection_import_protocol",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Unsurfaced Macro Primitives Capsule",
+              "organ_id": "batch6_unsurfaced_primitives_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "finance"
+              ]
+            },
+            {
+              "display_name": "Authority Systems Source Capsule",
+              "organ_id": "batch5_authority_systems_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "authority-boundary",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Trace, Code-Map & Scheduling Engines Capsule",
+              "organ_id": "batch7_macro_engines_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Oracle Sibling Source Capsule",
+              "organ_id": "batch7_oracle_sibling_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "oracle-boundary"
+              ]
+            },
+            {
+              "display_name": "Demo Take Console Source Capsule",
+              "organ_id": "batch7_demo_take_console_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "desktop-capture-boundary"
+              ]
+            },
+            {
+              "display_name": "Tools-Tail Primitives Capsule",
+              "organ_id": "batch8_tools_tail_primitives_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Policy Engines Capsule",
+              "organ_id": "batch8_policy_engines_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "finance"
+              ]
+            },
+            {
+              "display_name": "Audio Level RMS Port",
+              "organ_id": "batch8_audio_level_rms_port",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "audio"
+              ]
+            },
+            {
+              "display_name": "Surface Atlas Layout Port",
+              "organ_id": "batch8_station_surface_atlas_layout_port",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "frontend"
+              ]
+            },
+            {
+              "display_name": "Structural Theses Finance Capsule",
+              "organ_id": "batch8_structural_theses_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "finance"
+              ]
+            },
+            {
+              "display_name": "Engine Room Demo",
+              "organ_id": "engine_room_demo",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Backend & Governance Engines Capsule",
+              "organ_id": "batch9_macro_engines_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "frontend"
+              ]
+            },
+            {
+              "display_name": "Governance & Compiler Mechanisms Capsule",
+              "organ_id": "batch10_governance_compilers_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "finance"
+              ]
+            },
+            {
+              "display_name": "Saturation Engines Capsule",
+              "organ_id": "batch11_saturation_engines_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Tool Server Pressure Inventory",
+              "organ_id": "tool_server_pressure_inventory",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Compliance Pipeline Capsule",
+              "organ_id": "batch8_compliance_pipeline_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "compliance"
+              ]
+            },
+            {
+              "display_name": "Live Source Drift Capsule",
+              "organ_id": "batch10_live_source_drift_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Secondary Runtime Source Capsule",
+              "organ_id": "batch7_secondary_runtime_capsule",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control",
+                "frontend",
+                "market-boundary"
+              ]
+            },
+            {
+              "display_name": "Release Claim-Language Gate",
+              "organ_id": "batch12_release_claim_language_gate",
+              "specialty": [
+                "source-import",
+                "provenance",
+                "drift-control"
+              ]
+            },
+            {
+              "display_name": "Frontend Work/Market Cockpit Capsule",
+              "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+              "specialty": [
+                "source-import",
+                "frontend-boundary",
+                "market-boundary",
+                "provenance"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 18,
+          "family": "formal_math_and_proof",
+          "organs": [
+            {
+              "display_name": "Proof Diagnostic Evidence Spine",
+              "organ_id": "proof_diagnostic_evidence_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Readiness Gate",
+              "organ_id": "formal_math_readiness_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Corpus Readiness Mathlib Absence Gate",
+              "organ_id": "corpus_readiness_mathlib_absence_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
+              "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Tactic Portfolio Availability Probe",
+              "organ_id": "tactic_portfolio_availability_probe",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Target Shape Tactic Routing Gate",
+              "organ_id": "target_shape_tactic_routing_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Lean Std Premise Index",
+              "organ_id": "lean_std_premise_index",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Formal Math Premise Retrieval",
+              "organ_id": "formal_math_premise_retrieval",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Verifier Trace Repair Loop",
+              "organ_id": "formal_math_verifier_trace_repair_loop",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Evidence Cell Anchor Resolver",
+              "organ_id": "formal_evidence_cell_anchor_resolver",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Undeclared Library Prior Symbol Classifier",
+              "organ_id": "undeclared_library_prior_symbol_classifier",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
+              "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Lean Proof Witness",
+              "organ_id": "formal_math_lean_proof_witness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Kernel",
+              "organ_id": "verifier_lab_kernel",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Execution Spine",
+              "organ_id": "verifier_lab_execution_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof Derived Governed Mutation Authorization",
+              "organ_id": "proof_derived_governed_mutation_authorization",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Certificate Kernel Execution Lab",
+              "organ_id": "certificate_kernel_execution_lab",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof / Control / Runtime Import Capsule",
+              "organ_id": "batch4_proof_authority_runtime",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 17,
+          "family": "agent_reliability_and_safety",
+          "organs": [
+            {
+              "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+              "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Provider Context Recipe Budget Policy",
+              "organ_id": "provider_context_recipe_budget_policy",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Agent Route Observability Runtime",
+              "organ_id": "agent_route_observability_runtime",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Agent Monitor Redteam Falsification Replay",
+              "organ_id": "agent_monitor_redteam_falsification_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Agent Sabotage Scheming Monitor Replay",
+              "organ_id": "agent_sabotage_scheming_monitor_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Agent Memory Temporal Conflict Replay",
+              "organ_id": "agent_memory_temporal_conflict_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "security"
+              ]
+            },
+            {
+              "display_name": "Sleeper Memory Poisoning Quarantine Replay",
+              "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "security"
+              ]
+            },
+            {
+              "display_name": "MCP Tool Authority Replay",
+              "organ_id": "mcp_tool_authority_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Belief State Process Reward Replay",
+              "organ_id": "belief_state_process_reward_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Agent Sandbox Policy Escape Replay",
+              "organ_id": "agent_sandbox_policy_escape_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "security"
+              ]
+            },
+            {
+              "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+              "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Agentic Vulnerability Discovery Patch Proof Replay",
+              "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Agent Closeout Faithfulness Audit",
+              "organ_id": "agent_closeout_faithfulness_audit",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Bounded Autonomy Campaign Packet",
+              "organ_id": "bounded_autonomy_campaign_packet",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming"
+              ]
+            },
+            {
+              "display_name": "Cold-Eval Honesty Capsule",
+              "organ_id": "batch10_cold_eval_honesty_capsule",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Validator Checker Capsule",
+              "organ_id": "batch8_validator_checker_capsule",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Station Runtime Evidence Capsule",
+              "organ_id": "batch7_station_runtime_capsule",
+              "specialty": [
+                "ai-safety",
+                "agent-evaluation",
+                "red-teaming",
+                "frontend"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 10,
+          "family": "architecture_and_navigation",
+          "organs": [
+            {
+              "display_name": "Pattern Binding Contract",
+              "organ_id": "pattern_binding_contract",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Executable Doctrine Grammar",
+              "organ_id": "executable_doctrine_grammar",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Navigation Hologram Route Plane",
+              "organ_id": "navigation_hologram_route_plane",
+              "specialty": [
+                "agent-entry",
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Pattern Assimilation Step",
+              "organ_id": "pattern_assimilation_step",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Standards Meta Diagnostics",
+              "organ_id": "standards_meta_diagnostics",
+              "specialty": [
+                "agent-entry",
+                "architecture",
+                "navigation",
+                "doctrine",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Voice To Doctrine Self Improvement Loop",
+              "organ_id": "voice_to_doctrine_self_improvement_loop",
+              "specialty": [
+                "agent-entry",
+                "architecture",
+                "navigation",
+                "doctrine",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Cognitive Operator Registry",
+              "organ_id": "cognitive_operator_registry",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Routing Anti Patterns Registry",
+              "organ_id": "routing_anti_patterns_registry",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Doctrine Fact Claim Audit",
+              "organ_id": "doctrine_fact_claim_audit",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            },
+            {
+              "display_name": "Self Ignorance Coverage Ledger",
+              "organ_id": "self_ignorance_coverage_ledger",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "doctrine"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 8,
+          "family": "research_and_science_replays",
+          "organs": [
+            {
+              "display_name": "Research Replication Rubric Artifact Replay",
+              "organ_id": "research_replication_rubric_artifact_replay",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Spatial World Model Counterfactual Simulation Replay",
+              "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+              "specialty": [
+                "research-workflows",
+                "forecasting"
+              ]
+            },
+            {
+              "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+              "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Prediction Oracle Reconciliation",
+              "organ_id": "prediction_oracle_reconciliation",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Materials Chemistry Closed Loop Lab Safety Replay",
+              "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+              "specialty": [
+                "research-workflows",
+                "forecasting"
+              ]
+            },
+            {
+              "display_name": "Finance Forecast Evaluation Spine",
+              "organ_id": "finance_forecast_evaluation_spine",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "finance"
+              ]
+            },
+            {
+              "display_name": "Market Dashboard Read-Model Capsule",
+              "organ_id": "batch12_market_dashboard_read_model_capsule",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "finance",
+                "frontend"
+              ]
+            },
+            {
+              "display_name": "Prediction Market Board Capsule",
+              "organ_id": "batch12_prediction_market_board_capsule",
+              "specialty": [
+                "research-workflows",
+                "forecasting",
+                "finance",
+                "provider-ops"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 5,
+          "family": "work_landing_and_continuity",
+          "organs": [
+            {
+              "display_name": "Mission Transaction Work Spine",
+              "organ_id": "mission_transaction_work_spine",
+              "specialty": [
+                "agent-concurrency",
+                "workflow-engineering",
+                "continuity",
+                "work-ledger"
+              ]
+            },
+            {
+              "display_name": "Durable Agent Work Landing Replay",
+              "organ_id": "durable_agent_work_landing_replay",
+              "specialty": [
+                "workflow-engineering",
+                "continuity"
+              ]
+            },
+            {
+              "display_name": "Bridge Phase Continuity Runtime",
+              "organ_id": "bridge_phase_continuity_runtime",
+              "specialty": [
+                "workflow-engineering",
+                "continuity"
+              ]
+            },
+            {
+              "display_name": "Workstream Driver Recency Coalescer",
+              "organ_id": "workstream_driver_recency_coalescer",
+              "specialty": [
+                "workflow-engineering",
+                "continuity",
+                "frontend",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Concurrency Mission Control",
+              "organ_id": "concurrency_mission_control",
+              "specialty": [
+                "agent-concurrency",
+                "workflow-engineering",
+                "continuity",
+                "provider-ops",
+                "work-ledger"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 2,
+          "family": "entry_and_reveal",
+          "organs": [
+            {
+              "display_name": "Public Reveal Walkthrough",
+              "organ_id": "public_reveal_walkthrough",
+              "specialty": [
+                "getting-started",
+                "interesting-parts",
+                "evaluation"
+              ]
+            },
+            {
+              "display_name": "Cold Reader Route Map",
+              "organ_id": "cold_reader_route_map",
+              "specialty": [
+                "agent-entry",
+                "getting-started",
+                "interesting-parts",
+                "evaluation",
+                "provider-ops"
+              ]
+            }
+          ]
+        }
+      ],
+      "kind": "family_roster"
+    },
+    {
+      "by_evidence_class": {
+        "algorithmic_projection": 27,
+        "bounded_runtime_computation": 6,
+        "external_subprocess_witness": 6,
+        "semantic_validator": 20,
+        "verified_macro_body_import": 23
+      },
+      "kind": "evidence_distribution"
+    }
+  ],
+  "source_span_escalation": [],
+  "specificity_risks": [
+    {
+      "custody_split": {
+        "directory_coupling_marker": 81,
+        "owned": 1
+      },
+      "kind": "runner_custody",
+      "note": "Most organ runners are exact-copy macro bodies (directory_coupling_marker); comprehend them via registry metadata + receipts, not by reading the runner.",
+      "runners_resolved": 82
+    }
+  ],
+  "summary": {
+    "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+    "what_this_is": "Microcosm is a local-first, source-open substrate of 82 runtime organs across 7 families. Comprehend it through governed metadata -- glosses, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
+    "what_to_inspect_next": [
+      "microcosm comprehend --first-contact",
+      "microcosm comprehend --slice authority",
+      "microcosm comprehend --organ <organ_id>",
+      "microcosm comprehend --slice organs"
+    ]
+  }
+}

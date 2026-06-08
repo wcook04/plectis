@@ -1,0 +1,1176 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "compile_ms": 0.113,
+  "evidence_refs": [],
+  "export_band": "presence_only",
+  "goal": "list all organs",
+  "membrane": {
+    "active_band": "presence_only",
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "membrane_version": "atom_value_membrane_v0"
+  },
+  "mode": "reference",
+  "non_goals": [
+    "not source-body export",
+    "not a control-flow / data-flow graph",
+    "not release approval",
+    "not whole-system correctness"
+  ],
+  "open_source_when": [
+    "you must mutate the organ's owned code",
+    "you must prove or reproduce a claim from source",
+    "the read pack marks a needs_spot_review or unresolved ref"
+  ],
+  "receipt_refs": [],
+  "schema_version": "microcosm_comprehension_read_pack_v0",
+  "selected_edges": [],
+  "selected_nodes": [
+    {
+      "display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Recomputes benchmark pass and quarantine verdicts and rejects gaming tricks like test-set peeking."
+    },
+    {
+      "display_name": "Agent Closeout Faithfulness Audit",
+      "evidence_class": "external_subprocess_witness",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_closeout_faithfulness_audit",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves."
+    },
+    {
+      "display_name": "Agent Memory Temporal Conflict Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "security"
+      ],
+      "synopsis": "Replays a memory edit-and-delete to show stale facts get flagged before they sway an answer."
+    },
+    {
+      "display_name": "Agent Monitor Redteam Falsification Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Replays honest and deceptive agent runs and quarantines any verdict missing its backing evidence."
+    },
+    {
+      "display_name": "Agent Route Observability Runtime",
+      "evidence_class": "semantic_validator",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_route_observability_runtime",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Checks a recorded agent run for a clean trail and the authority limit it declared up front."
+    },
+    {
+      "display_name": "Agent Sabotage Scheming Monitor Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Audits a hidden-goal catch claim for the steps, suspicion scores, and counterfactual it needs."
+    },
+    {
+      "display_name": "Agent Sandbox Policy Escape Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "security"
+      ],
+      "synopsis": "Maps sandboxed agent actions to show each was approved or blocked before running, then rolled back."
+    },
+    {
+      "display_name": "Agentic Vulnerability Discovery Patch Proof Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Lays out a found-and-fixed bug claim as a consistent evidence chain with no real attack material."
+    },
+    {
+      "display_name": "Cold-Eval Honesty Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "batch10_cold_eval_honesty_capsule",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Runs a copied route-quality simulator and checks its all-B scorecard against the original code."
+    },
+    {
+      "display_name": "Frontend Work/Market Cockpit Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch10_frontend_work_market_cockpit_capsule",
+      "specialty": [
+        "source-import",
+        "frontend-boundary",
+        "market-boundary",
+        "provenance"
+      ],
+      "synopsis": "Verifies copied work-lens and market-cockpit code for read-only state and honest, advice-free signals."
+    },
+    {
+      "display_name": "Governance & Compiler Mechanisms Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch10_governance_compilers_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "finance"
+      ],
+      "synopsis": "Checks thirteen copied governance and compiler routines against the code they were copied from."
+    },
+    {
+      "display_name": "Live Source Drift Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch10_live_source_drift_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Compares four copied router and landing routines against current code to surface stale copies."
+    },
+    {
+      "display_name": "Saturation Engines Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch11_saturation_engines_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Verifies twelve copied engine routines and computes each failure probe from inputs, not echoes."
+    },
+    {
+      "display_name": "Market Dashboard Read-Model Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "batch12_market_dashboard_read_model_capsule",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "finance",
+        "frontend"
+      ],
+      "synopsis": "Runs a copied market-dashboard reader to catch broken links, stale feeds, and trading overclaims."
+    },
+    {
+      "display_name": "Prediction Market Board Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "batch12_prediction_market_board_capsule",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "finance",
+        "provider-ops"
+      ],
+      "synopsis": "Replays imported quant market math on test rows, with duplicate retention and seven refusals."
+    },
+    {
+      "display_name": "Release Claim-Language Gate",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch12_release_claim_language_gate",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Flags affirmative open-source and production-ready wording while allowing safe boundary notes."
+    },
+    {
+      "display_name": "Proof / Control / Runtime Import Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "batch4_proof_authority_runtime",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Checks fourteen proof, control, and runtime parts as one unit that rejects every overclaim."
+    },
+    {
+      "display_name": "Authority Systems Source Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch5_authority_systems_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "authority-boundary",
+        "drift-control"
+      ],
+      "synopsis": "Replays eight authority and systems checks, rejecting provider, proof, and release overclaims."
+    },
+    {
+      "display_name": "Unsurfaced Macro Primitives Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch6_unsurfaced_primitives_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "finance"
+      ],
+      "synopsis": "Exposes eleven real but under-surfaced parts and rejects private-state and overclaim cases."
+    },
+    {
+      "display_name": "Demo Take Console Source Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch7_demo_take_console_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "desktop-capture-boundary"
+      ],
+      "synopsis": "Replays the recording console's Swift logic without launching the app or capturing audio."
+    },
+    {
+      "display_name": "Trace, Code-Map & Scheduling Engines Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch7_macro_engines_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Runs fifteen trace, code-map, and scheduling engines on test data, blocking truth overclaims."
+    },
+    {
+      "display_name": "Oracle Sibling Source Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch7_oracle_sibling_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "oracle-boundary"
+      ],
+      "synopsis": "Replays subject-index and truth-diff logic on copied code, rejecting reasoning overclaims."
+    },
+    {
+      "display_name": "Secondary Runtime Source Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch7_secondary_runtime_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "frontend",
+        "market-boundary"
+      ],
+      "synopsis": "Runs eight trace, graph, and market engines on test rows without fetching live markets."
+    },
+    {
+      "display_name": "Station Runtime Evidence Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "batch7_station_runtime_capsule",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "frontend"
+      ],
+      "synopsis": "Checks console boot and instrument logic on copied code without starting the live screen."
+    },
+    {
+      "display_name": "Audio Level RMS Port",
+      "evidence_class": "algorithmic_projection",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_audio_level_rms_port",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "audio"
+      ],
+      "synopsis": "Computes the audio loudness math on test arrays without opening a microphone or capturing input."
+    },
+    {
+      "display_name": "Compliance Pipeline Capsule",
+      "evidence_class": "semantic_validator",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_compliance_pipeline_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "compliance"
+      ],
+      "synopsis": "Runs six compliance scanners on test data without touching the live record or any provider."
+    },
+    {
+      "display_name": "Policy Engines Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_policy_engines_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "finance"
+      ],
+      "synopsis": "Maps three policy engines over test data without model calls or live campaign execution."
+    },
+    {
+      "display_name": "Surface Atlas Layout Port",
+      "evidence_class": "algorithmic_projection",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_station_surface_atlas_layout_port",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "frontend"
+      ],
+      "synopsis": "Solves the map band-and-lane layout on test nodes without rendering a browser screen."
+    },
+    {
+      "display_name": "Structural Theses Finance Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_structural_theses_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "finance"
+      ],
+      "synopsis": "Runs a copied finance-thesis model through dated test cases with no live market data or advice."
+    },
+    {
+      "display_name": "Tools-Tail Primitives Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_tools_tail_primitives_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "provider-ops"
+      ],
+      "synopsis": "Exercises four copied helper tools over fixed inputs without touching live systems or data."
+    },
+    {
+      "display_name": "Validator Checker Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "batch8_validator_checker_capsule",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Runs the real validator code over public examples so its safety checks stay inspectable."
+    },
+    {
+      "display_name": "Backend & Governance Engines Capsule",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "batch9_macro_engines_capsule",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "frontend"
+      ],
+      "synopsis": "Exercises thirteen copied backend and governance engines over fixed public test cases."
+    },
+    {
+      "display_name": "Belief State Process Reward Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "belief_state_process_reward_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Checks that each agent-step reward in a recorded run is backed by a real verifier, not a trick."
+    },
+    {
+      "display_name": "Bounded Autonomy Campaign Packet",
+      "evidence_class": "external_subprocess_witness",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "bounded_autonomy_campaign_packet",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Drafts proposed work from coverage gaps and proves it cannot repair or rewrite the code itself."
+    },
+    {
+      "display_name": "Bridge Phase Continuity Runtime",
+      "evidence_class": "semantic_validator",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "bridge_phase_continuity_runtime",
+      "specialty": [
+        "workflow-engineering",
+        "continuity"
+      ],
+      "synopsis": "Replays a paused job to prove the rules for safely resuming it hold and reject duplicate resumes."
+    },
+    {
+      "display_name": "Certificate Kernel Execution Lab",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "certificate_kernel_execution_lab",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Runs the Lean verifier over a small public proof project and reports which rows it accepted."
+    },
+    {
+      "display_name": "Cognitive Operator Registry",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "cognitive_operator_registry",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine",
+        "provider-ops"
+      ],
+      "synopsis": "Checks the catalog of named thinking-moves so each is fully described and backed by evidence."
+    },
+    {
+      "display_name": "Cold Reader Route Map",
+      "evidence_class": "semantic_validator",
+      "family": "entry_and_reveal",
+      "kind": "organ_synopsis",
+      "organ_id": "cold_reader_route_map",
+      "specialty": [
+        "agent-entry",
+        "getting-started",
+        "interesting-parts",
+        "evaluation",
+        "provider-ops"
+      ],
+      "synopsis": "Verifies the first-run guided path so every step names a real command, doc, and evidence."
+    },
+    {
+      "display_name": "Concurrency Mission Control",
+      "evidence_class": "verified_macro_body_import",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "concurrency_mission_control",
+      "specialty": [
+        "agent-concurrency",
+        "workflow-engineering",
+        "continuity",
+        "provider-ops",
+        "work-ledger"
+      ],
+      "synopsis": "Runs copied claim-coordination code so duplicate, stale, and conflicting claims get blocked."
+    },
+    {
+      "display_name": "Corpus Readiness Mathlib Absence Gate",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Gates proof work on a recorded Lean readiness report, blocking tasks while the math library is missing."
+    },
+    {
+      "display_name": "Doctrine Fact Claim Audit",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "doctrine_fact_claim_audit",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Checks that public fact rows state the right count and point at live, anchored code."
+    },
+    {
+      "display_name": "Durable Agent Work Landing Replay",
+      "evidence_class": "semantic_validator",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "durable_agent_work_landing_replay",
+      "specialty": [
+        "workflow-engineering",
+        "continuity"
+      ],
+      "synopsis": "Audits recorded work-claims so each cites files, validates before commit, and proves HEAD moved."
+    },
+    {
+      "display_name": "Engine Room Demo",
+      "evidence_class": "semantic_validator",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "engine_room_demo",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Runs proof, runtime, security, and routing demos through bounded public examples with stated limits."
+    },
+    {
+      "display_name": "Executable Doctrine Grammar",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "executable_doctrine_grammar",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Checks that example standards files declare their purpose, rule, records, and what they do not claim."
+    },
+    {
+      "display_name": "Finance Forecast Evaluation Spine",
+      "evidence_class": "external_subprocess_witness",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "finance_forecast_evaluation_spine",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "finance"
+      ],
+      "synopsis": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice."
+    },
+    {
+      "display_name": "Formal Evidence Cell Anchor Resolver",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Resolves each proof-flavored math claim to named evidence and flags ones that overreach or lack backing."
+    },
+    {
+      "display_name": "Formal Math Lean Proof Witness",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "formal_math_lean_proof_witness",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text."
+    },
+    {
+      "display_name": "Formal Math Premise Retrieval",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "formal_math_premise_retrieval",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Shows which lemmas a plain search surfaces per query and proves it never leaks proof text or answer keys."
+    },
+    {
+      "display_name": "Formal Math Readiness Gate",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "formal_math_readiness_gate",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Reads declared math setups and lists which proof tactics may be attempted versus blocked."
+    },
+    {
+      "display_name": "Formal Math Verifier Trace Repair Loop",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Replays how a proof lab turns verifier failures into fixes, with no promotion without a fresh re-run."
+    },
+    {
+      "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ],
+      "synopsis": "Replays an agent run to show untrusted text was gated before any sensitive action, leaking no secret."
+    },
+    {
+      "display_name": "Lean Std Premise Index",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "lean_std_premise_index",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Lists a fixed catalog of public Lean building blocks and confirms none hides proof text or test answers."
+    },
+    {
+      "display_name": "Macro Projection Import Protocol",
+      "evidence_class": "verified_macro_body_import",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "macro_projection_import_protocol",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control"
+      ],
+      "synopsis": "Gates private-to-public imports, accepting only non-secret files with matching fingerprints and sources."
+    },
+    {
+      "display_name": "Materials Chemistry Closed Loop Lab Safety Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "specialty": [
+        "research-workflows",
+        "forecasting"
+      ],
+      "synopsis": "Replays a self-driving lab loop as records, with safety gates and no real chemicals, robot, or lab."
+    },
+    {
+      "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Picks a first-guess proof strategy from a problem's tags and flags any it cannot map."
+    },
+    {
+      "display_name": "MCP Tool Authority Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "mcp_tool_authority_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Audits a recorded tool-use log to confirm each action was scoped, approved, undoable, and fenced."
+    },
+    {
+      "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "provider-ops"
+      ],
+      "synopsis": "Records which model features drove an answer, each tied to checkable evidence."
+    },
+    {
+      "display_name": "Mission Transaction Work Spine",
+      "evidence_class": "algorithmic_projection",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "mission_transaction_work_spine",
+      "specialty": [
+        "agent-concurrency",
+        "workflow-engineering",
+        "continuity",
+        "work-ledger"
+      ],
+      "synopsis": "Replays work-landing cases to show why each change is allowed to land or blocked."
+    },
+    {
+      "display_name": "Navigation Hologram Route Plane",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "navigation_hologram_route_plane",
+      "specialty": [
+        "agent-entry",
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Audits a folder's navigation so browse rows never pose as the source of truth."
+    },
+    {
+      "display_name": "Pattern Assimilation Step",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "pattern_assimilation_step",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Verifies each landed task filed exactly one learning record naming what it changed."
+    },
+    {
+      "display_name": "Pattern Binding Contract",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "pattern_binding_contract",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Checks each reusable pattern names its source, its rule, and what it does not claim."
+    },
+    {
+      "display_name": "Prediction Oracle Reconciliation",
+      "evidence_class": "algorithmic_projection",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "prediction_oracle_reconciliation",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "provider-ops"
+      ],
+      "synopsis": "Replays a forecast against the discipline a careful predictor would have to defend."
+    },
+    {
+      "display_name": "Proof Derived Governed Mutation Authorization",
+      "evidence_class": "semantic_validator",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Proves each change carried proof and two approvals before it was allowed to run."
+    },
+    {
+      "display_name": "Proof Diagnostic Evidence Spine",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Sorts proof-pipeline checks into accepted or rejected without inflating a pass."
+    },
+    {
+      "display_name": "Provider Context Recipe Budget Policy",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "provider_context_recipe_budget_policy",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "provider-ops"
+      ],
+      "synopsis": "Checks context bundles stay within size limits and carry no answer keys."
+    },
+    {
+      "display_name": "Public Reveal Walkthrough",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "entry_and_reveal",
+      "kind": "organ_synopsis",
+      "organ_id": "public_reveal_walkthrough",
+      "specialty": [
+        "getting-started",
+        "interesting-parts",
+        "evaluation"
+      ],
+      "synopsis": "Binds the first-time reader tour to evidence so each count leads to a source."
+    },
+    {
+      "display_name": "Research Replication Rubric Artifact Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "specialty": [
+        "research-workflows",
+        "forecasting",
+        "provider-ops"
+      ],
+      "synopsis": "Audits whether a paper-replication claim carries the full evidence trail."
+    },
+    {
+      "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Scores how much proof support a premise search found, problem by problem."
+    },
+    {
+      "display_name": "Routing Anti Patterns Registry",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "routing_anti_patterns_registry",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Indexes the navigation mistakes agents repeat and guards the public list."
+    },
+    {
+      "display_name": "Self Ignorance Coverage Ledger",
+      "evidence_class": "algorithmic_projection",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "self_ignorance_coverage_ledger",
+      "specialty": [
+        "architecture",
+        "navigation",
+        "doctrine"
+      ],
+      "synopsis": "Compares expected against built entities to report known coverage gaps."
+    },
+    {
+      "display_name": "Sleeper Memory Poisoning Quarantine Replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "kind": "organ_synopsis",
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "specialty": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming",
+        "security"
+      ],
+      "synopsis": "Replays how a tampered agent memory gets quarantined, blocked, and deleted with an audit trail."
+    },
+    {
+      "display_name": "Spatial World Model Counterfactual Simulation Replay",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "research_and_science_replays",
+      "kind": "organ_synopsis",
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "specialty": [
+        "research-workflows",
+        "forecasting"
+      ],
+      "synopsis": "Replays six what-if robotics scenes to show what a spatial prediction claim is built from."
+    },
+    {
+      "display_name": "Standards Meta Diagnostics",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "standards_meta_diagnostics",
+      "specialty": [
+        "agent-entry",
+        "architecture",
+        "navigation",
+        "doctrine",
+        "provider-ops"
+      ],
+      "synopsis": "Confirms every accepted part still ties to a written rule, a run command, and a saved proof."
+    },
+    {
+      "display_name": "Tactic Portfolio Availability Probe",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "tactic_portfolio_availability_probe",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Maps which Lean proof tactics a recorded run marked usable before any code relies on one."
+    },
+    {
+      "display_name": "Target Shape Tactic Routing Gate",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "target_shape_tactic_routing_gate",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ],
+      "synopsis": "Records an allow-or-reject decision and reason for each proof tactic before any proof runs."
+    },
+    {
+      "display_name": "Tool Server Pressure Inventory",
+      "evidence_class": "semantic_validator",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "tool_server_pressure_inventory",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "provider-ops"
+      ],
+      "synopsis": "Flags detached helper processes and release pressure from synthetic rows, not live hosts."
+    },
+    {
+      "display_name": "Undeclared Library Prior Symbol Classifier",
+      "evidence_class": "algorithmic_projection",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Detects when a checked Lean proof cites a library result outside its approved set."
+    },
+    {
+      "display_name": "Verifier Lab Execution Spine",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "verifier_lab_execution_spine",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Runs Lean on small bounded proof attempts in a temp copy and records what passed or failed."
+    },
+    {
+      "display_name": "Verifier Lab Kernel",
+      "evidence_class": "semantic_validator",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "verifier_lab_kernel",
+      "specialty": [
+        "formal-methods",
+        "theorem-proving",
+        "lean",
+        "provider-ops"
+      ],
+      "synopsis": "Folds nine proof checks into one report labeling each line by which source actually backs it."
+    },
+    {
+      "display_name": "Voice To Doctrine Self Improvement Loop",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "kind": "organ_synopsis",
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "specialty": [
+        "agent-entry",
+        "architecture",
+        "navigation",
+        "doctrine",
+        "provider-ops"
+      ],
+      "synopsis": "Verifies each lesson changed a named owner page with evidence before the loop closes."
+    },
+    {
+      "display_name": "Workstream Driver Recency Coalescer",
+      "evidence_class": "semantic_validator",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "workstream_driver_recency_coalescer",
+      "specialty": [
+        "workflow-engineering",
+        "continuity",
+        "frontend",
+        "provider-ops"
+      ],
+      "synopsis": "Groups work-change rows by driver, newest first, from a copied frontend grouping helper."
+    },
+    {
+      "display_name": "World Model Projection Drift Control Room",
+      "evidence_class": "semantic_validator",
+      "family": "import_projection_and_drift",
+      "kind": "organ_synopsis",
+      "organ_id": "world_model_projection_drift_control_room",
+      "specialty": [
+        "source-import",
+        "provenance",
+        "drift-control",
+        "provider-ops"
+      ],
+      "synopsis": "Pinpoints where a projected world-model copy drifted from its real source, with repair routes."
+    }
+  ],
+  "source_span_escalation": [],
+  "specificity_risks": [],
+  "summary": {
+    "what_not_to_trust": "",
+    "what_this_is": "82 organs, one synopsis line each.",
+    "what_to_inspect_next": [
+      "microcosm comprehend --organ <organ_id>"
+    ]
+  }
+}

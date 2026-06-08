@@ -210,6 +210,7 @@ def _nonnegative_int(value: str) -> int:
 
 first_screen_composition = _LazyModule("microcosm_core.first_screen_composition")
 project_substrate = _LazyModule("microcosm_core.project_substrate")
+comprehension = _LazyModule("microcosm_core.comprehension")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
 resource_root = _LazyModule("microcosm_core.resource_root")
@@ -634,6 +635,10 @@ FIRST_SCREEN_HELP = """First-screen route:
   reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
+  microcosm comprehend --first-contact  compile the source-body-free comprehension read pack (cold-agent first move, no source reread)
+  microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
+  microcosm comprehend --slice {authority|organs} authority-boundary or organ-roster read pack
+  microcosm comprehension-assay   prove the read packs answer cold-agent questions without opening source
   microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
@@ -3744,6 +3749,39 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(voice_to_doctrine_parser)
     voice_to_doctrine_parser.add_argument("--acceptance-out")
 
+    comprehend_parser = subparsers.add_parser(
+        "comprehend",
+        help="compile a source-body-free comprehension read pack (cold-agent first contact)",
+    )
+    comprehend_parser.add_argument(
+        "--first-contact",
+        action="store_true",
+        help="compile the substrate-orientation read pack (default when no selector given)",
+    )
+    comprehend_parser.add_argument("--organ", help="comprehend a single organ by id")
+    comprehend_parser.add_argument(
+        "--slice",
+        dest="slice_name",
+        choices=["first-contact", "authority", "organs"],
+        help="compile a named comprehension slice",
+    )
+    comprehend_parser.add_argument("--goal", help="freeform goal routed to a mode")
+    comprehend_parser.add_argument(
+        "--rebuild-cache",
+        action="store_true",
+        help="materialize prebuilt read-pack receipts under receipts/code_lens/read_packs/",
+    )
+    comprehend_parser.add_argument(
+        "--root", help="substrate root override (defaults to the package root)"
+    )
+    comprehension_assay_parser = subparsers.add_parser(
+        "comprehension-assay",
+        help="run the cold-agent comprehension assay over the read packs",
+    )
+    comprehension_assay_parser.add_argument(
+        "--root", help="substrate root override (defaults to the package root)"
+    )
+
     args = parser.parse_args(argv)
     if args.command == "init":
         return project_substrate.main(["init", args.project])
@@ -4625,6 +4663,33 @@ def main(argv: list[str] | None = None) -> int:
                 args.out,
             ]
         )
+    if args.command == "comprehend":
+        comprehend_root = Path(args.root) if args.root else None
+        if args.rebuild_cache:
+            return _print_json(
+                comprehension.build_cached_read_packs(comprehend_root), exit_code=0
+            )
+        if args.organ:
+            pack = comprehension.comprehend(
+                root=comprehend_root, mode="organ", organ_id=args.organ
+            )
+        elif args.goal:
+            pack = comprehension.comprehend(root=comprehend_root, goal=args.goal)
+        elif args.slice_name:
+            pack = comprehension.comprehend(root=comprehend_root, mode=args.slice_name)
+        else:
+            pack = comprehension.comprehend(root=comprehend_root, mode="first-contact")
+        return _print_json(pack, exit_code=0)
+    if args.command == "comprehension-assay":
+        assay = comprehension.run_comprehension_assay(
+            Path(args.root) if args.root else None
+        )
+        assay_ok = (
+            assay["answerable_without_source_pct"] >= 80.0
+            and assay["wrong_authority_claims"] == 0
+            and assay["source_body_leaks"] == 0
+        )
+        return _print_json(assay, exit_code=0 if assay_ok else 1)
     parser.print_help()
     return 2
 

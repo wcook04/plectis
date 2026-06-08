@@ -1,0 +1,493 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "compile_ms": 0.189,
+  "evidence_refs": [
+    "core/organ_atlas.json",
+    "core/organ_evidence_classes.json"
+  ],
+  "export_band": "presence_only",
+  "goal": "inspect the authority boundary",
+  "membrane": {
+    "active_band": "presence_only",
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "membrane_version": "atom_value_membrane_v0"
+  },
+  "mode": "reference",
+  "non_goals": [
+    "not source-body export",
+    "not a control-flow / data-flow graph",
+    "not release approval",
+    "not whole-system correctness"
+  ],
+  "open_source_when": [
+    "you must mutate the organ's owned code",
+    "you must prove or reproduce a claim from source",
+    "the read pack marks a needs_spot_review or unresolved ref"
+  ],
+  "receipt_refs": [],
+  "schema_version": "microcosm_comprehension_read_pack_v0",
+  "selected_edges": [],
+  "selected_nodes": [
+    {
+      "by_evidence_class": {
+        "algorithmic_projection": 27,
+        "bounded_runtime_computation": 6,
+        "external_subprocess_witness": 6,
+        "semantic_validator": 20,
+        "verified_macro_body_import": 23
+      },
+      "kind": "evidence_distribution"
+    },
+    {
+      "by_organ": [
+        {
+          "claim_ceiling": "validates only the declared public pattern-binding and route-readiness contract over public fixtures, substrate bundle structure, pattern-ledger row refs, binding sidecars, authority handles, and negative cases; does not certify the private pattern ledger, hosted-public readiness, release, publication, provider calls, private-data equivalence, whole-system correctness, or promote mined pattern rows into standalone public leaves",
+          "evidence_class": "semantic_validator",
+          "organ_id": "pattern_binding_contract"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "executable_doctrine_grammar"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "proof_diagnostic_evidence_spine"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "formal_math_readiness_gate"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "corpus_readiness_mathlib_absence_gate"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "mathematical_strategy_atlas_hypothesis_scorer"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "tactic_portfolio_availability_probe"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "target_shape_tactic_routing_gate"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "lean_std_premise_index"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "formal_math_premise_retrieval"
+        },
+        {
+          "claim_ceiling": "repair-loop evidence and deterministic public toy rerun only, not theorem correctness, Lean/Lake execution, release, benchmark, or provider authority",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "formal_math_verifier_trace_repair_loop"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "formal_evidence_cell_anchor_resolver"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "undeclared_library_prior_symbol_classifier"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "ring2_premise_retrieval_precision_recall_harness"
+        },
+        {
+          "claim_ceiling": "bounded public runtime validation over digest-verified copied macro pattern provenance bodies and body-free benchmark-integrity replay rows only; not benchmark scores, SWE-bench performance, provider execution, live repo mutation, product progress, or release authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "provider_context_recipe_budget_policy"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "formal_math_lean_proof_witness"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "verifier_lab_kernel"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "verifier_lab_execution_spine"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "navigation_hologram_route_plane"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "mission_transaction_work_spine"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "durable_agent_work_landing_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "research_replication_rubric_artifact_replay"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "world_model_projection_drift_control_room"
+        },
+        {
+          "claim_ceiling": "bounded in-process runtime computation only, not domain correctness, release, benchmark, or product authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "spatial_world_model_counterfactual_simulation_replay"
+        },
+        {
+          "claim_ceiling": "bounded public toy transformer runtime plus public runtime receipt validation only, not private model transparency, benchmark, release, provider-call, product, or private model internals authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "mechanistic_interpretability_circuit_attribution_replay"
+        },
+        {
+          "claim_ceiling": "validates only public recorded route-feedback and observability metadata fixtures, including route-lease consumption, trace attribution, hook-shadow advisory status, anti-pattern debt retirement, behavior-change evidence gates, and public macro body import refs; does not read live operator/provider/browser/HUD/account state, mutate Task Ledger or source, install hooks, certify runtime behavior, authorize pattern assimilation, private-root equivalence, release, publication, or whole-system correctness",
+          "evidence_class": "semantic_validator",
+          "organ_id": "agent_route_observability_runtime"
+        },
+        {
+          "claim_ceiling": "validates only declared public synthetic bridge-continuity fixtures over continuation packets, heartbeat boundaries, resource-pressure dispatch blocks, resume-once semantics, duplicate-resume rejection, worker-skip dedupe, closeout receipts, tracked receipt-write gates, negative cases, and private-state scan boundaries; does not run live bridge transport, call providers, read operator HUD/browser/phase-runtime/private-memory state, prove provider or UI uptime, land work, mutate source, authorize private-root equivalence, release, publication, or whole-system correctness",
+          "evidence_class": "semantic_validator",
+          "organ_id": "bridge_phase_continuity_runtime"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "pattern_assimilation_step"
+        },
+        {
+          "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "public_reveal_walkthrough"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "macro_projection_import_protocol"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "prediction_oracle_reconciliation"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "standards_meta_diagnostics"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "cold_reader_route_map"
+        },
+        {
+          "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed monitor-verdict spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live agent execution, monitor product performance, control-eval scores, safety validation, benchmark scores, provider calls, source mutation, release, publication, or product authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "agent_monitor_redteam_falsification_replay"
+        },
+        {
+          "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live sabotage, live agent execution, exploit instructions, credentials or account material, private reasoning export, harmful payloads, monitor product performance, deployment-risk claims, benchmark scores, provider calls, source mutation, release, publication, or product authority",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "agent_sabotage_scheming_monitor_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "agent_memory_temporal_conflict_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "sleeper_memory_poisoning_quarantine_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "mcp_tool_authority_replay"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "proof_derived_governed_mutation_authorization"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "belief_state_process_reward_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "agent_sandbox_policy_escape_replay"
+        },
+        {
+          "claim_ceiling": "algorithmic projection and one public generated trace-input taint propagation only, not live external tool use, domain robustness, benchmark, release, or source mutation authority",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "agentic_vulnerability_discovery_patch_proof_replay"
+        },
+        {
+          "claim_ceiling": "artifact safety/refusal validation only, not wetlab execution, materials discovery, robot command, live assay, release, benchmark, or provider authority",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "materials_chemistry_closed_loop_lab_safety_replay"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "certificate_kernel_execution_lab"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "voice_to_doctrine_self_improvement_loop"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "cognitive_operator_registry"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "routing_anti_patterns_registry"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "agent_closeout_faithfulness_audit"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "doctrine_fact_claim_audit"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "self_ignorance_coverage_ledger"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "bounded_autonomy_campaign_packet"
+        },
+        {
+          "claim_ceiling": "tool witness only, not general proof authority",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "finance_forecast_evaluation_spine"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch4_proof_authority_runtime"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch6_unsurfaced_primitives_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not live provider dispatch, proof success, process signal authority, generated-state mutation authority, source mutation, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch5_authority_systems_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch7_macro_engines_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not Oracle reasoning, provider or bridge authority, source mutation, semantic truth, complete coverage, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch7_oracle_sibling_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not app launch, screen or microphone capture authority, model dispatch, source mutation, complete UI coverage, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch7_demo_take_console_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch8_tools_tail_primitives_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch8_policy_engines_capsule"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "batch8_audio_level_rms_port"
+        },
+        {
+          "claim_ceiling": "projection mechanics only, not domain correctness",
+          "evidence_class": "algorithmic_projection",
+          "organ_id": "batch8_station_surface_atlas_layout_port"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch8_structural_theses_capsule"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "engine_room_demo"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch9_macro_engines_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch10_governance_compilers_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch11_saturation_engines_capsule"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "tool_server_pressure_inventory"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "workstream_driver_recency_coalescer"
+        },
+        {
+          "claim_ceiling": "validates declared public contract only",
+          "evidence_class": "semantic_validator",
+          "organ_id": "batch8_compliance_pipeline_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch10_live_source_drift_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch10_cold_eval_honesty_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch8_validator_checker_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "concurrency_mission_control"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch7_station_runtime_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not browser or wallet access, live market data, investment advice, source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch7_secondary_runtime_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch12_market_dashboard_read_model_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch12_prediction_market_board_capsule"
+        },
+        {
+          "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch12_release_claim_language_gate"
+        },
+        {
+          "claim_ceiling": "verified non-secret frontend source-body import only, not live UI correctness, Task Ledger or Work Ledger mutation authority, market advice, source mutation, release, or publication",
+          "evidence_class": "verified_macro_body_import",
+          "organ_id": "batch10_frontend_work_market_cockpit_capsule"
+        }
+      ],
+      "kind": "claim_ceilings"
+    },
+    {
+      "kind": "authority_boundary",
+      "text": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
+    }
+  ],
+  "source_span_escalation": [],
+  "specificity_risks": [],
+  "summary": {
+    "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+    "what_this_is": "Authority map of the substrate: every organ carries an evidence class and a restated claim ceiling. Glosses and projections are navigation metadata, not source authority.",
+    "what_to_inspect_next": [
+      "microcosm comprehend --organ <organ_id> for a single organ's ceiling",
+      "core/organ_evidence_classes.json for evidence-class definitions"
+    ]
+  }
+}

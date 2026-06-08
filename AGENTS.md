@@ -56,6 +56,8 @@ microcosm hello --reader skeptical_reviewer .
 microcosm hello --reader agent .
 microcosm hello --reader domain_specialist .
 microcosm first-screen --card .
+microcosm comprehend --first-contact
+microcosm comprehend --organ <organ_id>
 microcosm tour --card .
 microcosm status --card .
 microcosm authority --card
@@ -76,6 +78,11 @@ for copy/paste while resolving it to the selected branch.
 
 Read those outputs as the first contract: `microcosm hello` is the no-write
 human card, `microcosm first-screen --card` is the compact JSON reader map,
+`microcosm comprehend --first-contact` is the source-body-free comprehension
+read pack that answers "what is this substrate, what does each organ do, and
+what may I trust" without rereading source (drill in with
+`microcosm comprehend --organ <organ_id>` and prove it with
+`microcosm comprehension-assay`),
 `microcosm tour --card` is the shared state-writing behavior proof,
 `microcosm status --card` is the compressed public evidence map,
 `microcosm authority --card` is the claim ceiling, `microcosm workingness --card`
