@@ -1,0 +1,9 @@
+{
+  "body_in_receipt": false,
+  "case_id": "private_control_plane_public_reader_blocks",
+  "error_codes": [
+    "BATCH12_RELEASE_PRIVATE_CONTROL_PLANE_LEAK"
+  ],
+  "fixture_role": "negative_case_label_not_verdict_authority",
+  "schema_version": "batch12_release_claim_language_gate_negative_case_v1"
+}

@@ -24,7 +24,9 @@
     "negative_floor": [
       "affirmative_open_source_production_ready_blocks",
       "assert_clear_returns_exit_2",
-      "bare production-ready claim blocked without release authority"
+      "private_control_plane_public_reader_blocks",
+      "bare production-ready claim blocked without release authority",
+      "negative release/publication authorization disclaimers blocked as public-reader private-control-plane leaks"
     ],
     "denied_authority": [
       "release approval",
@@ -53,7 +55,8 @@
   ],
   "negative_case_codes": [
     "BATCH12_RELEASE_CLAIM_ACTIVE_BLOCKER",
-    "BATCH12_RELEASE_CLAIM_ASSERT_CLEAR_EXIT_2"
+    "BATCH12_RELEASE_CLAIM_ASSERT_CLEAR_EXIT_2",
+    "BATCH12_RELEASE_PRIVATE_CONTROL_PLANE_LEAK"
   ],
   "organ_id": "batch12_release_claim_language_gate",
   "public_private_boundary": {
@@ -114,7 +117,8 @@
   ],
   "required_negative_cases": [
     "affirmative_open_source_production_ready_blocks",
-    "assert_clear_returns_exit_2"
+    "assert_clear_returns_exit_2",
+    "private_control_plane_public_reader_blocks"
   ],
   "schema_version": "public_microcosm_standard_v2",
   "source_refs": [
@@ -127,6 +131,7 @@
       "source module digest drifts without refreshing the exact copy and manifest",
       "validator accepts missing or malformed required fixture inputs",
       "validator accepts stable negative-case regressions",
+      "public-reader copy exposes private release/publication authorization, owner, gate, or red-toggle status language as a boundary disclaimer",
       "receipts include copied body text, private refs, provider payload bodies, credentials, or live state",
       "capsule is treated as release, source-mutation, private-root, provider, or whole-system authority"
     ],
@@ -147,13 +152,13 @@
     "require copied macro source modules and source_module_manifest provenance",
     "verify source-to-target digest equality and required anchors",
     "execute the public fixture exercise without invoking providers, live accounts, or source mutation",
-    "require stable negative-case ids and error codes",
+    "require stable negative-case ids and error codes, including public-reader private-control-plane leak cases",
     "keep release, publication, provider dispatch, private-root equivalence, source mutation, and whole-system correctness authority false",
     "keep copied source bodies under source_modules only; receipts expose refs, hashes, counts, verdicts, and omissions but not body text"
   ],
   "validator_contract": {
     "command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json",
-    "expected_negative_case_count": 2,
+    "expected_negative_case_count": 3,
     "expected_source_module_count": 1,
     "required": true,
     "runtime_bundle_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch12_release_claim_language_gate run-release-claim-language-gate-bundle --input examples/batch12_release_claim_language_gate/exported_batch12_release_claim_language_gate_bundle --out /tmp/batch12_release_claim_language_gate_bundle_receipts",

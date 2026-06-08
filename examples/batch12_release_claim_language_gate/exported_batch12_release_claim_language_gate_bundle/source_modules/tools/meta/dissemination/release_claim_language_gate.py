@@ -51,31 +51,64 @@ FINGERPRINT_EXCLUDED_SCAN_PATHS = {
 RISKY_PHRASES = [
     {
         "id": "release_ready",
+        "family": "claim_overreach",
         "pattern": r"\brelease[- ]ready\b|\bready to publish\b|\bpublication[- ]ready\b|\bpublish[- ]ready\b",
     },
     {
         "id": "open_source",
+        "family": "claim_overreach",
         "pattern": r"\bopen[- ]source(?:d)?\b|\bopen sourced\b",
     },
     {
         "id": "source_available",
+        "family": "claim_overreach",
         "pattern": r"\bsource[- ]available\b",
     },
     {
         "id": "clean_clone_proven",
+        "family": "claim_overreach",
         "pattern": r"\bclean[- ]clone proven\b|\bclean clone proof\b",
     },
     {
         "id": "publicly_reproducible",
+        "family": "claim_overreach",
         "pattern": r"\bpublicly reproducible\b|\bpublic reproduction\b",
     },
     {
         "id": "publicly_released",
+        "family": "claim_overreach",
         "pattern": r"\bpublicly released\b|\bpublic release\b",
     },
     {
         "id": "production_ready",
+        "family": "claim_overreach",
         "pattern": r"\bproduction[- ]ready\b|\binstall target\b",
+    },
+    {
+        "id": "release_authorization_disclaimer",
+        "family": "private_control_plane_leak",
+        "pattern": (
+            r"\b(?:does\s+not|doesn't|do\s+not|don't|cannot|not)\s+"
+            r"(?:authorize|authorise|approve|grant)\s+"
+            r"(?:a\s+)?(?:public\s+)?(?:release|publication|publishing|hosting|recipient\s+sends?)\b"
+        ),
+    },
+    {
+        "id": "release_authority_surface",
+        "family": "private_control_plane_leak",
+        "pattern": (
+            r"\b(?:release|publication|publishing|hosting|recipient\s+sends?)\s+"
+            r"(?:authority|authorization|authorisation|approval|gate|owner|decision)\b"
+        ),
+    },
+    {
+        "id": "internal_release_control_state",
+        "family": "private_control_plane_leak",
+        "pattern": (
+            r"\b(?:public\s+toggle\s+remains\s+(?:red|no[- ]go)|"
+            r"release\s+action:\s*none|release_action\"\s*:\s*\"none|"
+            r"route\s+to\s+(?:the\s+)?(?:dissemination|release)\s+(?:owner|gate))\b"
+        ),
     },
 ]
 NEGATIVE_CONTEXT_MARKERS = [
@@ -128,6 +161,18 @@ NEGATIVE_CONTEXT_MARKERS = [
     "release_action\": \"none\"",
     "release action: none",
     "critique and guidance only",
+]
+META_FORBIDDEN_CONTEXT_MARKERS = [
+    "banned framing",
+    "banned framings",
+    "blocked phrase",
+    "blocked phrases",
+    "forbidden phrase",
+    "forbidden current wording",
+    "incorrect wording",
+    "do_not_assert",
+    "do_not_claim",
+    "forbidden_current_wording",
 ]
 
 
@@ -235,6 +280,7 @@ def _classify_hit(
     line: str,
     context: str,
     *,
+    phrase_family: str = "claim_overreach",
     in_fenced_block: bool = False,
 ) -> tuple[str, str]:
     normalized_context = context.lower()
@@ -242,6 +288,20 @@ def _classify_hit(
     context_has_negative_marker = any(
         marker in normalized_context for marker in NEGATIVE_CONTEXT_MARKERS
     )
+    context_has_meta_marker = any(
+        marker in normalized_context for marker in META_FORBIDDEN_CONTEXT_MARKERS
+    )
+    line_has_meta_marker = any(marker in normalized_line for marker in META_FORBIDDEN_CONTEXT_MARKERS)
+    if phrase_family == "private_control_plane_leak":
+        if line_has_meta_marker or (in_fenced_block and context_has_meta_marker):
+            return (
+                "boundary_or_negative_context",
+                "private control-plane wording is present only as explicitly forbidden example text",
+            )
+        return (
+            "active_claim_blocker",
+            "public-reader copy must not expose release/publication authorization or private control-plane status language",
+        )
     if any(marker in normalized_line for marker in NEGATIVE_CONTEXT_MARKERS):
         return (
             "boundary_or_negative_context",
@@ -284,11 +344,13 @@ def _scan_file(repo_root: Path, file_row: dict[str, Any]) -> list[dict[str, Any]
                 classification, reason = _classify_hit(
                     line,
                     context,
+                    phrase_family=str(phrase.get("family") or "claim_overreach"),
                     in_fenced_block=_inside_fenced_block(lines, line_number - 1),
                 )
                 hits.append(
                     {
                         "phrase_id": phrase["id"],
+                        "phrase_family": str(phrase.get("family") or "claim_overreach"),
                         "match": match.group(0),
                         "classification": classification,
                         "classification_reason": reason,
@@ -364,6 +426,7 @@ def build_gate(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "fingerprint_excluded_scan_paths": sorted(FINGERPRINT_EXCLUDED_SCAN_PATHS),
             "risky_phrase_ids": [str(row["id"]) for row in RISKY_PHRASES],
             "negative_context_markers": NEGATIVE_CONTEXT_MARKERS,
+            "meta_forbidden_context_markers": META_FORBIDDEN_CONTEXT_MARKERS,
             "does_not_modify_scanned_files": True,
         },
         "claim_surfaces": claim_files,
@@ -386,6 +449,11 @@ def build_gate(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "publicly reproducible",
                 "publicly released",
                 "production ready",
+                "does not authorize release",
+                "release authority",
+                "publication authority",
+                "release gate owner",
+                "public toggle remains red/no-go",
             ],
         },
         "rerun_after_copy_or_manifest_change": [

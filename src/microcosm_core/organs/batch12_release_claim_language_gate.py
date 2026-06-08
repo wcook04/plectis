@@ -38,6 +38,9 @@ EXPECTED_NEGATIVE_CASES = {
         "BATCH12_RELEASE_CLAIM_ACTIVE_BLOCKER",
     ),
     "assert_clear_returns_exit_2": ("BATCH12_RELEASE_CLAIM_ASSERT_CLEAR_EXIT_2",),
+    "private_control_plane_public_reader_blocks": (
+        "BATCH12_RELEASE_PRIVATE_CONTROL_PLANE_LEAK",
+    ),
 }
 
 AUTHORITY_CEILING = {
@@ -63,6 +66,8 @@ SOURCE_REQUIRED_ANCHORS = {
     "tools/meta/dissemination/release_claim_language_gate.py": (
         "RISKY_PHRASES",
         "NEGATIVE_CONTEXT_MARKERS",
+        "META_FORBIDDEN_CONTEXT_MARKERS",
+        "private_control_plane_leak",
         "def _classify_hit",
         "def build_gate",
     )
@@ -385,6 +390,26 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
         publication_gate = (
             module.build_gate(publication_root) if publication_fixture_written else {}
         )
+        control_plane_fixture = dict(fixture)
+        control_plane_fixture["active_file"] = "private_control_plane_leak.md"
+        control_plane_fixture["active_text"] = str(
+            fixture.get("private_control_plane_leak_text")
+            or (
+                "This public page does not authorize release; release authority "
+                "remains with the dissemination owner.\n"
+            )
+        )
+        control_plane_root = Path(tmp) / "private_control_plane"
+        control_plane_root.mkdir(parents=True)
+        control_plane_fixture_written = _write_gate_fixture(
+            control_plane_root,
+            control_plane_fixture,
+            active=True,
+            findings=findings,
+        )
+        control_plane_gate = (
+            module.build_gate(control_plane_root) if control_plane_fixture_written else {}
+        )
 
     if findings:
         blocked = _blocked_exercise(findings)
@@ -418,6 +443,20 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
             "computed": assert_clear_code == 2 and assert_clear_payload.get("ok") is False,
             "observed": {"exit_code": assert_clear_code, "payload": assert_clear_payload},
         },
+        {
+            "case_id": "private_control_plane_public_reader_blocks",
+            "computed": control_plane_gate.get("status") == "active_claim_blocked"
+            and any(
+                hit.get("phrase_family") == "private_control_plane_leak"
+                for hit in control_plane_gate.get("hits", [])
+                if isinstance(hit, Mapping)
+                and hit.get("classification") == "active_claim_blocker"
+            ),
+            "observed": {
+                "status": control_plane_gate.get("status"),
+                "active_phrase_ids": _active_phrase_ids(control_plane_gate),
+            },
+        },
     ]
     release_claim_perturbation = {
         "probe_id": "publication_source_availability_overclaim_text_perturbation",
@@ -425,10 +464,15 @@ def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, An
         "safe_status": _gate_status(safe_gate),
         "active_status": _gate_status(active_gate),
         "publication_overclaim_status": _gate_status(publication_gate),
+        "private_control_plane_status": _gate_status(control_plane_gate),
         "active_phrase_ids": _active_phrase_ids(active_gate),
         "publication_overclaim_phrase_ids": _active_phrase_ids(publication_gate),
+        "private_control_plane_phrase_ids": _active_phrase_ids(control_plane_gate),
         "verdict_moved": _gate_status(safe_gate) == "clear_boundary_only"
         and _gate_status(publication_gate) == "active_claim_blocked",
+        "private_control_plane_leak_blocked": (
+            _gate_status(control_plane_gate) == "active_claim_blocked"
+        ),
         "not_release_authority": True,
     }
     positive_boundary_clear = (

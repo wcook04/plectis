@@ -98,14 +98,45 @@ def test_batch12_release_claim_language_gate_runs_macro_mechanism(
     assert perturbation["safe_status"] == "clear_boundary_only"
     assert perturbation["active_status"] == "active_claim_blocked"
     assert perturbation["publication_overclaim_status"] == "active_claim_blocked"
+    assert perturbation["private_control_plane_status"] == "active_claim_blocked"
     assert perturbation["verdict_moved"] is True
+    assert perturbation["private_control_plane_leak_blocked"] is True
     assert perturbation["not_release_authority"] is True
     assert set(perturbation["publication_overclaim_phrase_ids"]) >= {
         "publicly_released",
         "release_ready",
         "source_available",
     }
+    assert set(perturbation["private_control_plane_phrase_ids"]) >= {
+        "release_authorization_disclaimer",
+        "release_authority_surface",
+    }
     assert result["body_in_receipt"] is False
+
+
+def test_batch12_release_claim_language_gate_blocks_public_control_plane_disclaimer(
+    tmp_path: Path,
+) -> None:
+    input_dir = _copy_input_with_fixture(
+        tmp_path,
+        private_control_plane_leak_text=(
+            "This page does not authorize release; publication authority remains "
+            "with a private gate owner.\n"
+        ),
+    )
+
+    result = run(
+        input_dir,
+        tmp_path / "receipts/first_wave/batch12_release_claim_language_gate",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    active_hits = result["exercise"]["active_gate_summary"]
+    assert active_hits["active_claim_blocker_count"] >= 2
+    perturbation = result["exercise"]["release_claim_perturbation"]
+    assert perturbation["private_control_plane_leak_blocked"] is True
+    assert "BATCH12_RELEASE_PRIVATE_CONTROL_PLANE_LEAK" in result["error_codes"]
 
 
 def test_batch12_release_claim_language_gate_bundle_validates_runtime_shape(
