@@ -99,6 +99,32 @@ cold-reader comprehension check. These commands do not create release, hosting,
 proof, production, provider-call, source-mutation, or financial-advice
 authority.
 
+## Default Reflexes
+
+These are passive defaults: you invoke them yourself the instant the trigger
+holds. No one has to tell you. They exist because the most common failure here
+is reasoning about the whole substrate from the one slice you happened to open.
+
+- **Comprehension reflex.** If you ever catch yourself assessing, summarizing,
+  scoring, or judging Microcosm from only the part you looked at (the tell:
+  "based on the part I worked on…"), or you have just arrived cold, then before
+  you answer run `microcosm comprehend --self-model` — add
+  `--profile whole_substrate_map` to read every organ's essence at once.
+  Comprehend the whole substrate first, then speak.
+- **Calibration-before-claim reflex.** If you ever are about to state how good,
+  complete, ready, or impressive something is, first read its `claim_ceiling`
+  and the self-model's `thin_or_projection_surfaces`. Infer quality from the
+  evidence; never assert it. The thinness is surfaced on purpose, not hidden —
+  most organ runners are exact-copy macro bodies, and the self-model says so.
+- **Custody-before-trust reflex.** If you ever are about to treat an organ's
+  runner as deep owned code, check `runner_custody_basis` first. An exact-copy
+  macro body is comprehended via registry metadata and receipts, not by reading
+  the copy as if it were authored here.
+- **Escalate-only-when-needed reflex.** If you ever are about to open a source
+  file, confirm you are mutating or proving. Otherwise stay in the
+  source-body-free read packs. When unsure which packet to open,
+  `microcosm comprehend --packet-atlas` is the menu.
+
 Before the full test floor, run `make check` for the fastest public preflight.
 It should print `Microcosm preflight: organ evidence-class registry loads
 cleanly.` Before publishing, handing off, or treating the standalone clone as
