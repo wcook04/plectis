@@ -168,7 +168,7 @@ formal-result correctness, or production-readiness decision.
 For a cold clone, treat `make ci` as the public green floor. `make validate`
 adds the doctrine-lattice drift check and is the maintainer pre-commit gate
 when you are changing doctrine-lattice projection inputs or generated entry
-cards; it is not a broader launch, formal-result correctness, or production claim.
+cards; it is not a broader release, proof-correctness, or production claim.
 
 For a review artifact outside this checkout, run:
 
@@ -177,7 +177,9 @@ make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
 ```
 
 That export writes a candidate standalone folder and a review receipt inside
-the artifact. The receipt records a local review export, not a launch operation.
+the artifact. The receipt path is
+`receipts/release/release_export_receipt.json`; it records a local review
+export, not a launch operation, and keeps `release_authorized=false`.
 
 Before sharing that folder, validate the exported artifact as its own clone:
 
@@ -193,10 +195,10 @@ stays inside local review scope.
 
 Microcosm is a local source-open research runtime. These commands stay scoped
 to local inspection, tests, source-linked records, and result evidence; launch
-operations, hosted sharing, external model access, source-file changes, proof
-correctness, trading or financial decisions, production security claims,
-private-system equivalence, and account-secret or session export are outside
-that scope.
+operations, hosted sharing, provider calls, external model access, source mutation,
+source-file changes, proof correctness, trading or financial decisions,
+production security claims, private-root equivalence, private-system equivalence,
+and account-secret or session export are outside that scope.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are

@@ -151,12 +151,12 @@ extra doctrine.
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
 | Peer developer | `microcosm tour --card <project>`, then `microcosm observe --card <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`; use `microcosm observe <project>` for full event rows. |
 | Domain specialist | `microcosm hello --reader domain_specialist <project>`, then [ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty) and `microcosm tour --card <project>` | Specialty-to-organ route, evidence class, scope limit, and the explicit non-claim of domain-level conclusions or specialist review. |
-| Repo-reading agent | `microcosm comprehend --packet-atlas` (the navigable packet menu — pick the packet matching your goal), then `microcosm comprehend --first-contact` (then `microcosm comprehend --organ <organ_id>` for any component), then `microcosm hello --reader agent <project>`, `microcosm first-screen --card <project>`, and `microcosm organ-surface-contract --card --root .`. Source-only: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact` and `PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check`. | A source-body-free comprehension read pack (what the substrate is, what each organ does, what may be trusted, and the exact source spans to open only when mutating or proving), the agent first-read path, the owner surface to patch if the route misleads, mechanism/validator/projection boundaries, and the source-file change ceiling. |
+| Repo-reading agent | `microcosm comprehend --packet-atlas` (the navigable packet menu — pick the packet matching your goal), then `microcosm comprehend --first-contact` (then `microcosm comprehend --organ <organ_id>` for any component), then `microcosm hello --reader agent <project>`, `microcosm first-screen --card <project>`, and `microcosm organ-surface-contract --card --root .`. Source-only: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact`, `PYTHONPATH=src python3 -m microcosm_core hello --reader agent <project>`, and `PYTHONPATH=src python3 -m microcosm_core agent-entry-composition --root . --task agent-entry --viewer type_a_agent --card --check`. | A source-body-free comprehension read pack (what the substrate is, what each organ does, what may be trusted, and the exact source spans to open only when mutating or proving), the agent first-read path, the owner surface to patch if the route misleads, mechanism/validator/projection boundaries, and the source-mutation ceiling. |
 
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
 subprocess receipts, algorithmic projections, metadata-only rows, or explicit
-omissions. Most projects do not publish that boundary; Microcosm puts it on the
+omissions. They are not benchmark scores. Most projects do not publish that boundary; Microcosm puts it on the
 first screen so strong claims stay narrow.
 
 Read the evidence class counters as a claim-boundary legend:
@@ -462,7 +462,7 @@ code, doctrine, tool output, receipt output, proof body, or runtime behavior.
 The exclusion set is narrow: secrets and secret-equivalent live access
 (`.env` files, API keys, tokens, passwords, private keys, browser state, browser
 profiles, keychains, account sessions, and direct secret-bearing payloads),
-source notes, slurs or abusive wording, personal material, and other clearly
+source notes, raw operator voice, slurs or abusive wording, personal material, and other clearly
 unsafe or non-releasable content. Public-state labels, provenance, activation,
 or maturity are not reasons to ship a fake stand-in. Hosted launch and recipient
 sends are operational decisions outside this repo; they do not block
@@ -953,8 +953,8 @@ The public package carries the accepted public runtime organs behind the local
 substrate loop. Treat that as a public entry inventory/read-model over
 `core/organ_registry.json` and `core/organ_evidence_classes.json`, not a product progress meter.
 `accepted_current_authority`, organ counts, and adapter-backed counts are
-inventory-only route-alignment metadata, not product progress, release posture, product
-completeness, proof authority, private-system equivalence, or whole-system correctness. These rows stay scoped to evidence boundaries, and the prediction and market organs are
+inventory-only route-alignment metadata, not product progress, release readiness,
+product completeness, proof authority, private-system equivalence, or whole-system correctness. These rows stay scoped to evidence boundaries, and the prediction and market organs are
 not trading or financial decisions.
 
 **Read the organs through the generated atlas, not a flat list:**

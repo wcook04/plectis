@@ -174,7 +174,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "`task_class`",
         "atlas/agent_task_routes.json",
         "ORGANS.md#find-your-specialty",
-        "Stop when the first command or named receipt is visible"
+        "Stop when the first command or named result record is visible"
     ]
 }
 
@@ -1089,7 +1089,7 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
     expected_set = set(expected_organs)
     docs: dict[str, Any] = {}
     doc_specs = {
-        "README.md": ("## Internal Runtime Spine", None),
+        "README.md": ("## Internal Runtime Spine", "## "),
         "AGENTS.md": (
             "## Accepted Public Runtime Spine",
             "## Concept And Mechanism Entry",
@@ -1102,8 +1102,11 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
         section = ""
         if start_heading in text:
             section = text.split(start_heading, 1)[1]
-            if end_heading and end_heading in section:
-                section = section.split(end_heading, 1)[0]
+            if end_heading:
+                if end_heading == "## ":
+                    section = section.split("\n## ", 1)[0]
+                elif end_heading in section:
+                    section = section.split(end_heading, 1)[0]
         tokens = re.findall(r"`([a-z0-9_]+)`", section)
         counts: dict[str, int] = {}
         for tok in tokens:
@@ -1130,7 +1133,7 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
         inline_coverage_claim = bool(
             re.search(
                 r"\b(all|every|each)\b[^.]{0,120}\borgans?\b[^.]{0,120}"
-                r"(below|here|enumerat|listed|inline)",
+                r"\b(below|here|enumerat\w*|listed|inline)\b",
                 section_normalized,
             )
         )
@@ -1307,7 +1310,8 @@ def _agent_task_route_projection(
             "task_class",
             "relevant_organs",
             "first_command",
-            "allowed_authority",
+            "allowed_scope",
+            "authority_boundary",
             "evidence_ref",
             "receipt_ref",
             "stop_condition",
@@ -1333,7 +1337,7 @@ def _agent_task_route_projection(
                 for field in (
                     "display_name",
                     "first_command",
-                    "claim_ceiling",
+                    "scope_limit",
                     "drilldown_target",
                 )
             ):
