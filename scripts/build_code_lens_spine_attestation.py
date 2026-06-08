@@ -146,6 +146,7 @@ def build_attestation(
             "release_critical_coverage_after": (ca.get("release_critical_coverage", {}) or {}).get("ratio"),
             "quality_band_delta": _band_delta(cb, ca),
             "custody_classification_after": (after.get("authoring_queue", {}) or {}).get("custody_classification"),
+            "specificity_v3_after": ca.get("specificity_v3"),
             "source_bodies_exported": False,
             "proof_commands": proof_commands,
         },

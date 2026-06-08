@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import argparse
 import ast
-from collections import deque
+from collections import Counter, deque
 from collections.abc import Iterable, Iterator
 import hashlib
 import json
 import os
+import re
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -148,6 +149,40 @@ SELF_DESCRIPTION_QUALITY_TIERS = (
 )
 # Tiers at or above this index count as real authored coverage for release math.
 SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER = QUALITY_TIER_AUTHORED_CONTRACT
+# Atom specificity bands (specificity_v3): the anti-theater layer over
+# real-coverage atoms. A symbol can clear the triad floor (authored_contract)
+# yet carry a generic boilerplate Guarantee/Fails repeated across many symbols
+# (e.g. recursed nested closures). specificity_v3 separates atoms that reference
+# concrete code behavior from generic-template duplicates. Counts only; the
+# docstring prose is never exported.
+ATOM_SPECIFICITY_BODY_SPECIFIC = "body_specific"
+ATOM_SPECIFICITY_GENERIC_UNIQUE = "generic_unique"
+ATOM_SPECIFICITY_TEMPLATE_GENERIC = "template_generic"
+ATOM_SPECIFICITY_NOT_APPLICABLE = "not_applicable"
+# A normalized Guarantee+Fails fingerprint shared by >= this many real-coverage
+# symbols is treated as a generic template rather than authored specificity.
+ATOM_TEMPLATE_DUP_THRESHOLD = 3
+# Criticality classes whose authored atoms make a claim and therefore should
+# carry a Non-goal ceiling; missing it flags the symbol for spot review.
+ATOM_AUTHORITY_SENSITIVE_CLASSES = frozenset(
+    {
+        "validator",
+        "source_custody",
+        "public_entrypoint",
+        "builder_projection",
+        "evidence_receipt",
+    }
+)
+# Tokens that signal a Guarantee/Fails atom references concrete code behavior:
+# exception type names, a return-envelope dict literal, a concrete file ref, a
+# path-like ref, or a quoted literal/key.
+_BODY_SPECIFIC_TOKEN_RE = re.compile(
+    r"[A-Z][A-Za-z0-9]*(?:Error|Exception)\b"
+    r"|\{"
+    r"|\.(?:py|json|jsonl|md|toml)\b"
+    r"|/[a-z_][a-z0-9_/]+"
+    r"|\"[^\"]{2,}\"|'[^']{2,}'"
+)
 PROBE_DISPOSITION_OUTCOMES = [
     "file_local_defect",
     "standard_amendment_candidate",
@@ -1319,6 +1354,78 @@ def _detect_docstring_atoms(docstring: str | None) -> list[str]:
     return present
 
 
+def _atom_line_text(docstring: str, atom: str) -> str:
+    """Return the prose after one atom marker, used internally only.
+
+    - Teleology: the single internal accessor for an atom's authored text, so
+      specificity scoring can inspect Guarantee/Fails wording without any other
+      surface touching docstring prose.
+    - Guarantee: returns the stripped text after the first ``<atom>:`` line
+      marker; "" when the atom is absent. The return value is consumed only to
+      derive booleans and a one-way fingerprint, never placed in the payload.
+    - Fails: never raises (pure string scan).
+    - Reads: only the supplied docstring.
+    - Non-goal: not a docstring-export surface; callers must not emit the result.
+    """
+    for raw in docstring.splitlines():
+        stripped = raw.strip().lstrip("-*").strip()
+        if stripped.startswith(f"{atom}:"):
+            return stripped[len(atom) + 1:].strip()
+    return ""
+
+
+def _atom_specificity_signal(
+    docstring: str | None, atoms: list[str]
+) -> dict[str, Any]:
+    """Local specificity signal for one real-coverage symbol (source-body-free).
+
+    Inspects the Guarantee/Fails atom *text* internally to decide whether the
+    atoms reference concrete behavior (exception names, return envelopes, paths,
+    quoted keys) versus generic boilerplate, and emits a one-way fingerprint of
+    the normalized Guarantee+Fails text for cross-symbol template detection. The
+    prose itself is never returned, so the capsule stays metadata-about-source.
+
+    - Teleology: the per-symbol half of specificity_v3 -- it turns atom wording
+      into a body_specific/generic signal plus a dedup fingerprint without
+      exporting the wording.
+    - Guarantee: returns atom_specificity (body_specific | generic_unique |
+      not_applicable), a 12-hex atom_fingerprint ("" when not applicable), and
+      atom_has_non_goal; not_applicable whenever the triad is absent.
+    - Fails: never raises (string scan + sha1 only).
+    - Reads: only the supplied docstring; the prose never leaves this function.
+    - Non-goal: not a final classification (the coverage pass confirms
+      template_generic via cross-symbol fingerprint frequency) and not authority.
+    """
+    has_non_goal = "Non-goal" in atoms
+    triad = all(atom in atoms for atom in SELF_DESCRIPTION_CORE_TRIAD)
+    if not docstring or not triad:
+        return {
+            "atom_specificity": ATOM_SPECIFICITY_NOT_APPLICABLE,
+            "atom_fingerprint": "",
+            "atom_has_non_goal": has_non_goal,
+        }
+    combined = (
+        f"{_atom_line_text(docstring, 'Guarantee')}\n"
+        f"{_atom_line_text(docstring, 'Fails')}"
+    )
+    body_specific = bool(_BODY_SPECIFIC_TOKEN_RE.search(combined))
+    normalized = re.sub(r"\s+", " ", combined.lower()).strip()
+    fingerprint = (
+        hashlib.sha1(normalized.encode("utf-8")).hexdigest()[:12]
+        if normalized
+        else ""
+    )
+    return {
+        "atom_specificity": (
+            ATOM_SPECIFICITY_BODY_SPECIFIC
+            if body_specific
+            else ATOM_SPECIFICITY_GENERIC_UNIQUE
+        ),
+        "atom_fingerprint": fingerprint,
+        "atom_has_non_goal": has_non_goal,
+    }
+
+
 def _self_description_quality_tier(has_docstring: bool, atoms: list[str]) -> str:
     """Un-gameable quality ladder over a symbol's authored atoms.
 
@@ -1379,6 +1486,7 @@ def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
     has_docstring = docstring is not None
     atoms = _detect_docstring_atoms(docstring)
     quality_tier = _self_description_quality_tier(has_docstring, atoms)
+    specificity = _atom_specificity_signal(docstring, atoms)
     return {
         "has_docstring": has_docstring,
         "self_description_band": (
@@ -1390,6 +1498,9 @@ def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
         "is_real_coverage": _quality_tier_is_real_coverage(quality_tier),
         "authored_contract_atoms": atoms,
         "authored_atom_count": len(atoms),
+        "atom_specificity": specificity["atom_specificity"],
+        "atom_fingerprint": specificity["atom_fingerprint"],
+        "atom_has_non_goal": specificity["atom_has_non_goal"],
     }
 
 
@@ -1740,6 +1851,9 @@ def _python_self_description_coverage(
     release_critical_total = 0
     release_critical_real = 0
     critical_floor = CODE_LENS_CRITICALITY_CLASSES.index("owned_core")
+    # specificity_v3 accumulators (real-coverage symbols only)
+    spec_fingerprints: list[str] = []
+    spec_rows: list[tuple[str, str, bool, bool]] = []
     for row in symbol_capsule_rows:
         band = row.get("self_description_band")
         is_authored = band == SELF_DESCRIPTION_BAND_AUTHORED
@@ -1771,6 +1885,18 @@ def _python_self_description_coverage(
             release_critical_total += 1
             if is_real:
                 release_critical_real += 1
+        if is_real:
+            fingerprint = str(row.get("atom_fingerprint") or "")
+            local_specificity = str(
+                row.get("atom_specificity") or ATOM_SPECIFICITY_GENERIC_UNIQUE
+            )
+            authority_sensitive = _cls in ATOM_AUTHORITY_SENSITIVE_CLASSES
+            has_non_goal = bool(row.get("atom_has_non_goal"))
+            spec_rows.append(
+                (fingerprint, local_specificity, authority_sensitive, has_non_goal)
+            )
+            if fingerprint:
+                spec_fingerprints.append(fingerprint)
     locator_only = total - authored
     authored_ratio = round(authored / total, 4) if total else 0.0
     real_coverage_ratio = round(real_coverage / total, 4) if total else 0.0
@@ -1793,6 +1919,58 @@ def _python_self_description_coverage(
     module_ratio = (
         round(module_with_docstring / module_count, 4) if module_count else 0.0
     )
+    fingerprint_counts = Counter(spec_fingerprints)
+    template_fingerprints = {
+        fp
+        for fp, count in fingerprint_counts.items()
+        if count >= ATOM_TEMPLATE_DUP_THRESHOLD
+    }
+    spec_bands = {
+        ATOM_SPECIFICITY_BODY_SPECIFIC: 0,
+        ATOM_SPECIFICITY_GENERIC_UNIQUE: 0,
+        ATOM_SPECIFICITY_TEMPLATE_GENERIC: 0,
+    }
+    authority_sensitive_authored = 0
+    needs_spot_review = 0
+    for fingerprint, local_specificity, authority_sensitive, has_non_goal in spec_rows:
+        if fingerprint and fingerprint in template_fingerprints:
+            band = ATOM_SPECIFICITY_TEMPLATE_GENERIC
+        else:
+            band = local_specificity
+        spec_bands[band] = spec_bands.get(band, 0) + 1
+        if authority_sensitive:
+            authority_sensitive_authored += 1
+            if not has_non_goal:
+                needs_spot_review += 1
+    evaluated = len(spec_rows)
+    specificity_v3 = {
+        "schema_version": "microcosm_code_lens_specificity_v3",
+        "evaluated_real_coverage_symbols": evaluated,
+        "bands": spec_bands,
+        "body_specific_ratio": (
+            round(spec_bands[ATOM_SPECIFICITY_BODY_SPECIFIC] / evaluated, 4)
+            if evaluated
+            else 0.0
+        ),
+        "template_generic_ratio": (
+            round(spec_bands[ATOM_SPECIFICITY_TEMPLATE_GENERIC] / evaluated, 4)
+            if evaluated
+            else 0.0
+        ),
+        "distinct_guarantee_fingerprints": len(fingerprint_counts),
+        "template_fingerprint_count": len(template_fingerprints),
+        "max_fingerprint_repeat": (
+            max(fingerprint_counts.values()) if fingerprint_counts else 0
+        ),
+        "template_dup_threshold": ATOM_TEMPLATE_DUP_THRESHOLD,
+        "authority_sensitive_authored": authority_sensitive_authored,
+        "needs_spot_review": needs_spot_review,
+        "source_bodies_exported": False,
+        "non_goal": (
+            "counts only; never exports docstring prose; a specificity read-model, "
+            "not docstring-quality, release, or static-analysis authority"
+        ),
+    }
     return {
         "schema_version": "microcosm_python_self_description_coverage_v2",
         "standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
@@ -1807,6 +1985,7 @@ def _python_self_description_coverage(
         "quality_band_counts": quality_band_counts,
         "quality_tier_ladder": list(SELF_DESCRIPTION_QUALITY_TIERS),
         "real_coverage_floor_tier": SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER,
+        "specificity_v3": specificity_v3,
         "release_critical_coverage": {
             "critical_symbols": release_critical_total,
             "real_coverage_symbols": release_critical_real,
@@ -2070,6 +2249,16 @@ def _self_description_coverage_card(coverage: dict[str, Any]) -> dict[str, Any]:
             "critical_symbols": critical.get("critical_symbols", 0),
             "real_coverage_symbols": critical.get("real_coverage_symbols", 0),
             "ratio": critical.get("ratio", 0.0),
+        }
+    specificity = coverage.get("specificity_v3")
+    if isinstance(specificity, dict):
+        card["specificity_v3"] = {
+            "evaluated_real_coverage_symbols": specificity.get(
+                "evaluated_real_coverage_symbols", 0
+            ),
+            "bands": specificity.get("bands", {}),
+            "template_generic_ratio": specificity.get("template_generic_ratio", 0.0),
+            "needs_spot_review": specificity.get("needs_spot_review", 0),
         }
     return card
 
