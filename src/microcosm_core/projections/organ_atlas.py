@@ -7,11 +7,11 @@ Single render path shared by:
 - ``tests/test_organ_atlas.py`` (coverage + honesty contract).
 
 The atlas is a projection, not source authority. Organ identity, evidence
-class, claim ceiling, and receipts come from ``core/organ_registry.json``; the
+class, scope limits, and receipts come from ``core/organ_registry.json``; the
 reader-facing grouping comes from ``core/organ_families.json``; the
 plain-language glosses come from ``core/organ_atlas.json``. Nothing here
-authorizes release, hosting, provider calls, source mutation, private-root
-equivalence, or proof authority above each organ's own claim ceiling.
+is a release, hosting, external-model, source-change, private-system, or
+formal-result correctness decision beyond each organ's stated public scope.
 """
 
 from __future__ import annotations
@@ -108,13 +108,98 @@ NEGATION_CUES = (
     "instead of",
 )
 
-CLAIM_CEILING_LINE = (
-    "Family labels and counts are navigation metadata, not maturity, completeness, "
-    "or release signals. Evidence classes are accounting for what each organ proves, "
-    "not scores. Nothing here authorizes release, hosted deployment, provider calls, "
-    "source mutation, private-root equivalence, or proof authority above each organ's "
-    "own claim ceiling."
+PUBLIC_SCOPE_LINE = (
+    "Family labels and counts are navigation metadata: use them to browse and compare "
+    "source-linked components, not as maturity, completeness, or release signals. "
+    "Evidence classes describe bounded result-record strength for each component. "
+    "The public scope stops at local inspection, source records, fixture replay, "
+    "and component-specific evidence."
 )
+
+CLAIM_CEILING_LINE = PUBLIC_SCOPE_LINE
+
+_PUBLIC_SCOPE_SUBS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bauthority[ -]ceilings?\b", re.IGNORECASE), "scope limits"),
+    (re.compile(r"\bclaim[ -]ceilings?\b", re.IGNORECASE), "scope limits"),
+    (re.compile(r"\bauthority_ceiling\b", re.IGNORECASE), "scope_limit"),
+    (re.compile(r"\banti[- ]claims?\b", re.IGNORECASE), "scope boundaries"),
+    (re.compile(r"\btask ledger\b", re.IGNORECASE), "work log"),
+    (re.compile(r"\bwork ledger\b", re.IGNORECASE), "work log"),
+    (re.compile(r"\braw[ -]seed\b", re.IGNORECASE), "source note"),
+    (re.compile(r"\braw operator voice\b", re.IGNORECASE), "source notes"),
+    (re.compile(r"\broute-registry authority\b", re.IGNORECASE), "route registry control"),
+    (re.compile(r"\bdoctrine promotion\b", re.IGNORECASE), "doctrine changes"),
+    (re.compile(r"\bgenerated-region\b", re.IGNORECASE), "generated area"),
+    (re.compile(r"\bcontrol-plane\b", re.IGNORECASE), "internal control"),
+    (re.compile(r"\bdoes not authori[sz]e\b", re.IGNORECASE), "excludes"),
+    (re.compile(r"\bauthori[sz]es no\b", re.IGNORECASE), "excludes"),
+    (re.compile(r"\bauthori[sz]ing release\b", re.IGNORECASE), "granting launch control"),
+    (re.compile(r"\bauthori[sz]e release\b", re.IGNORECASE), "include release operations"),
+    (re.compile(r"\brelease-scope decision\b", re.IGNORECASE), "operational launch decision"),
+    (re.compile(r"\bpublishing-scope decision\b", re.IGNORECASE), "public sharing decision"),
+    (re.compile(r"\brelease (?:approval|authority|authorization|readiness)\b", re.IGNORECASE), "release-scope decision"),
+    (re.compile(r"\bpublication (?:approval|authority|readiness)\b", re.IGNORECASE), "publishing-scope decision"),
+    (re.compile(r"\brelease status\b", re.IGNORECASE), "launch status"),
+    (re.compile(r"\brelease signal\b", re.IGNORECASE), "launch signal"),
+    (re.compile(r"\brelease posture\b", re.IGNORECASE), "launch posture"),
+    (re.compile(r"\brelease claim\b", re.IGNORECASE), "launch claim"),
+    (re.compile(r"\bpublication claims?\b", re.IGNORECASE), "public-sharing claims"),
+    (re.compile(r"\bpublication\b", re.IGNORECASE), "public sharing"),
+    (re.compile(r"\brelease\b", re.IGNORECASE), "launch"),
+    (re.compile(r"\bhosted-public readiness\b", re.IGNORECASE), "hosted-public posture"),
+    (re.compile(r"\bhosted publication\b", re.IGNORECASE), "hosted sharing"),
+    (re.compile(r"\bproduction[- ]ready\b", re.IGNORECASE), "deployment-posture"),
+    (re.compile(r"\bproduction readiness\b", re.IGNORECASE), "deployment posture"),
+    (re.compile(r"\bprivate-root\b", re.IGNORECASE), "private-system"),
+    (re.compile(r"\bprivate-state\b", re.IGNORECASE), "non-public-state"),
+    (re.compile(r"\bprivate runtime export\b", re.IGNORECASE), "non-public runtime export"),
+    (re.compile(r"\bprivate body export\b", re.IGNORECASE), "non-public body export"),
+    (re.compile(r"\bprivate source refs?\b", re.IGNORECASE), "non-public source refs"),
+    (re.compile(r"\bprivate refs?\b", re.IGNORECASE), "non-public refs"),
+    (re.compile(r"\bprivate paths?\b", re.IGNORECASE), "non-public paths"),
+    (re.compile(r"\bcredentials?\b", re.IGNORECASE), "account secrets"),
+    (re.compile(r"\bcredentialed\b", re.IGNORECASE), "secret-backed"),
+    (re.compile(r"\bcookies\b", re.IGNORECASE), "browser state"),
+    (re.compile(r"\baccount/session\b", re.IGNORECASE), "account or browser"),
+    (re.compile(r"\bbrowser/hud\b", re.IGNORECASE), "browser UI"),
+    (re.compile(r"\bcockpit state\b", re.IGNORECASE), "operator UI state"),
+    (re.compile(r"\bprovider payload bodies\b", re.IGNORECASE), "model-output data bodies"),
+    (re.compile(r"\bprovider payloads?\b", re.IGNORECASE), "model-output data"),
+    (re.compile(r"\bprovider calls?\b", re.IGNORECASE), "external model access"),
+    (re.compile(r"\bprovider dispatch\b", re.IGNORECASE), "external model access"),
+    (re.compile(r"\bprovider dispatcher\b", re.IGNORECASE), "external model service"),
+    (re.compile(r"\bprovider execution\b", re.IGNORECASE), "external model service"),
+    (re.compile(r"\bcall providers\b", re.IGNORECASE), "use external model services"),
+    (re.compile(r"\bsource[- ]mutation(?: authority)?\b", re.IGNORECASE), "source-file changes"),
+    (re.compile(r"\bsource/doctrine mutation\b", re.IGNORECASE), "source/doctrine edits"),
+    (re.compile(r"\blive runtime authority\b", re.IGNORECASE), "live runtime control"),
+    (re.compile(r"\blive invocation\b", re.IGNORECASE), "live run"),
+    (re.compile(r"\bmutate sources?\b", re.IGNORECASE), "change source files"),
+    (re.compile(r"\bproof[- ]correctness\b", re.IGNORECASE), "formal-result correctness"),
+    (re.compile(r"\btheorem correctness\b", re.IGNORECASE), "formal-result correctness"),
+    (re.compile(r"\bdoes not prove\b", re.IGNORECASE), "does not establish"),
+    (re.compile(r"\bnot proof\b", re.IGNORECASE), "bounded evidence"),
+    (re.compile(r"\bnot source authority\b", re.IGNORECASE), "source-linked only"),
+    (re.compile(r"\bnot production\b", re.IGNORECASE), "outside production claims"),
+    (re.compile(r"\bbenchmark scores?\b", re.IGNORECASE), "benchmark claims"),
+    (re.compile(r"\bbenchmark standing\b", re.IGNORECASE), "benchmark claims"),
+    (re.compile(r"\bmarket truth\b", re.IGNORECASE), "market-level conclusions"),
+    (re.compile(r"\bfinancial advice\b", re.IGNORECASE), "financial decisions"),
+    (re.compile(r"\binvestment advice\b", re.IGNORECASE), "investment decisions"),
+    (re.compile(r"\binvestment decisions?\b", re.IGNORECASE), "investment-related actions"),
+    (re.compile(r"\btrading advice\b", re.IGNORECASE), "trading decisions"),
+    (re.compile(r"\bpolicy vote\b", re.IGNORECASE), "governance-vote"),
+    (re.compile(r"\bdomain correctness\b", re.IGNORECASE), "domain-level conclusions"),
+    (re.compile(r"\bexpert review\b", re.IGNORECASE), "specialist review"),
+)
+
+
+def _public_scope_text(value: Any) -> str:
+    """Render internal claim-boundary prose as public reader scope language."""
+    text = str(value or "").strip()
+    for pattern, replacement in _PUBLIC_SCOPE_SUBS:
+        text = pattern.sub(replacement, text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def _rows(payload: Any, key: str) -> list[dict[str, Any]]:
@@ -1334,15 +1419,15 @@ def _organ_glance_row(card: dict[str, Any], family_label: str) -> dict[str, Any]
     - Reads: the compression/identity fields of one merged card.
     - Non-goal: does not re-rank organs or authorize release/proof authority.
     """
-    authority_ceiling = card.get("compression_authority_ceiling") or ""
+    authority_ceiling = _public_scope_text(card.get("compression_authority_ceiling") or "")
     drilldown_target = _organ_anchor(card)
     return {
         "organ_id": card["organ_id"],
         "display_name": card.get("display_name") or card["organ_id"],
         "family": card.get("family"),
         "family_label": family_label,
-        "one_line": card.get("one_line") or "",
-        "card": card.get("compression_card") or "",
+        "one_line": _public_scope_text(card.get("one_line") or ""),
+        "card": _public_scope_text(card.get("compression_card") or ""),
         "authority_ceiling": authority_ceiling,
         "authority_boundary": authority_ceiling,
         "claim_ceiling_restated": authority_ceiling,
@@ -1421,8 +1506,8 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
       ``atlas/agent_task_routes.json``.
     - Escalates-to: ``scripts/build_organ_atlas.py --write`` to regenerate;
       ``load_model`` for the upstream source registries.
-    - Non-goal: the projection is not source authority and authorizes no release,
-      provider calls, source mutation, or whole-system correctness.
+    - Non-goal: the projection is not source authority and is not a release,
+      external-model, source-change, or whole-system correctness decision.
     """
     by_task: dict[str, list[dict[str, Any]]] = {}
     for fam in model["families"]:
@@ -1457,15 +1542,17 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                     "family": card.get("family"),
                     "evidence_class": card.get("evidence_class"),
                     "evidence_strength_rank": card.get("evidence_strength_rank"),
-                    "one_line": card.get("one_line"),
-                    "compression_card": card.get("compression_card"),
-                    "compression_authority_ceiling": card.get(
-                        "compression_authority_ceiling"
+                    "one_line": _public_scope_text(card.get("one_line")),
+                    "compression_card": _public_scope_text(
+                        card.get("compression_card")
+                    ),
+                    "compression_authority_ceiling": _public_scope_text(
+                        card.get("compression_authority_ceiling")
                     ),
                     "capsule_id": card.get("capsule_id"),
                     "capsule_join_status": card.get("capsule_join_status"),
                     "first_command": card.get("first_command"),
-                    "claim_ceiling": card.get("claim_ceiling_restated"),
+                    "scope_limit": _public_scope_text(card.get("claim_ceiling_restated")),
                     "receipt_refs": receipts,
                     "acceptance_ref": card.get("acceptance"),
                     "standard_ref": card.get("standard"),
@@ -1497,7 +1584,7 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                 or primary["organ_id"],
                 "relevant_organs": relevant_organs,
                 "first_command": primary.get("first_command"),
-                "allowed_authority": primary.get("claim_ceiling_restated"),
+                "allowed_scope": _public_scope_text(primary.get("claim_ceiling_restated")),
                 "evidence_ref": (
                     f"core/organ_registry.json::implemented_organs"
                     f"[organ_id={primary['organ_id']}]"
@@ -1508,17 +1595,15 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                     source_relation_summaries,
                 ),
                 "stop_condition": (
-                    "Stop when the first command or named receipt is visible, "
-                    "the selected organ card is opened, and the card's claim "
-                    "ceiling is named before any broader conclusion."
+                    "Stop when the first command or named result record is visible, "
+                    "the selected component card is opened, and the card's scope "
+                    "limit is named before any broader conclusion."
                 ),
                 "drilldown_target": _organ_anchor(primary),
                 "authority_boundary": (
-                    "Task routing only. This row selects public organs from the "
-                    "frozen atlas; it does not authorize release, hosted "
-                    "deployment, provider calls, source mutation, private-root "
-                    "equivalence, proof correctness, trading advice, or whole-system "
-                    "correctness."
+                    "Task routing only. This row selects public components from the "
+                    "frozen atlas; its scope is local task selection, source-linked "
+                    "records, and component-specific evidence."
                 ),
             }
         )
@@ -1559,8 +1644,8 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
         "source_relation_summary": model.get("source_relation_summary"),
         "authority_boundary": (
             "Agent task routes are selectors over accepted public organ cards. "
-            "Authority remains on each organ's registry row, generated receipts, "
-            "and claim ceiling."
+        "Scope remains on each component's registry row, generated result records, "
+        "and public scope limit."
         ),
         "routes": routes,
     }
@@ -1604,7 +1689,7 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append(
         "Pick the `task_class` that matches the job, run the first command only "
-        "inside the listed authority boundary, then open the drilldown card before "
+        "inside the listed scope boundary, then open the drilldown card before "
         "making a broader claim. The JSON read model is "
         "[atlas/agent_task_routes.json](atlas/agent_task_routes.json); it keeps "
         "top-level `routes` as an array of rows keyed by `task_class`, with "
@@ -1646,7 +1731,7 @@ def render_agent_routes_md(model: dict[str, Any]) -> str:
         if query_examples:
             source_bits.append(f"`{_md_cell(query_examples[0])}`")
         authority = (
-            f"{_md_cell(route['allowed_authority'])} "
+            f"{_md_cell(route['allowed_scope'])} "
             f"Stop: {_md_cell(route['stop_condition'])}"
         )
         evidence_bits = [
@@ -1717,7 +1802,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
         "They bind to one shared spine — the architecture kernel "
         "(`project -> catalog -> pattern -> standard -> route -> work -> event -> "
         "evidence -> explanation -> assimilation`), the evidence-class registry, and "
-        "the authority ceiling. A few are **wired** to other named surfaces; each "
+        "the scope limit. A few are **wired** to other named surfaces; each "
         "card says which. See [ARCHITECTURE.md](ARCHITECTURE.md) for the system shape "
         "and [README.md](README.md) for the first run."
     )
@@ -1729,7 +1814,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
     out.append(
         "This is the lowest faithful pass over the public substrate: one row per "
         "accepted organ, grouped in canonical family order with Entry & Reveal "
-        "first. One-lines and authority ceilings come from "
+        "first. One-lines and scope limits come from "
         f"`{PAPER_MODULE_CAPSULES_REL}::paper_modules[*].compression`; organ "
         "identity and commands come from the accepted registry/atlas model."
     )
@@ -1739,12 +1824,14 @@ def render_organs_md(model: dict[str, Any]) -> str:
         out.append("")
         for card in fam["cards"]:
             title = card.get("display_name") or card["organ_id"]
-            one_line = _md_cell(card.get("one_line") or "")
+            one_line = _md_cell(_public_scope_text(card.get("one_line") or ""))
             command = _md_cell(card.get("first_command") or "")
             authority = _md_cell(
-                card.get("compression_authority_ceiling")
-                or card.get("claim_ceiling_restated")
-                or ""
+                _public_scope_text(
+                    card.get("compression_authority_ceiling")
+                    or card.get("claim_ceiling_restated")
+                    or ""
+                )
             )
             paper_module = card.get("paper_module")
             drill = f"[full card]({_organ_anchor_local(card)})"
@@ -1758,7 +1845,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
                 f"{one_line} "
                 f"Evidence `{_md_cell(card.get('evidence_class') or '?')}`; "
                 f"first command `{command}`; "
-                f"claim ceiling: {authority}; "
+                f"scope limit: {authority}; "
                 f"drilldown: {drill}; "
                 f"provenance `{capsule_id}` (`{join_status}`)."
             )
@@ -1775,7 +1862,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
         "family sections below for per-organ cards."
     )
     out.append("")
-    out.append("### What this does not authorize")
+    out.append("### Where the public scope stops")
     out.append("")
     out.append(CLAIM_CEILING_LINE)
     out.append("")
@@ -1784,7 +1871,7 @@ def render_organs_md(model: dict[str, Any]) -> str:
     out.append(
         "Each card carries: **What it makes visible** (plain language) · "
         "**For agents** (what to run it for) · **First command** (copyable) · "
-        "**Does not authorize** (the claim ceiling) · **Wiring** (standalone or "
+        "**Scope limit** (where the evidence stops) · **Wiring** (standalone or "
         "wired) · **Source relations** (body-free file/shard edge handle) · "
         "**Drill down** (paper module, standard, concept/mechanism row, "
         "validator command, acceptance receipt)."
@@ -1797,13 +1884,13 @@ def render_organs_md(model: dict[str, Any]) -> str:
         "claim-boundary legend, not a score."
     )
     out.append("")
-    out.append("| Evidence class | Strength | Claim ceiling | Counts as substrate progress |")
+    out.append("| Evidence class | Strength | Scope limit | Counts as substrate progress |")
     out.append("|---|---|---|---|")
     profiles = model.get("class_profiles", {})
     for class_id in sorted(profiles):
         prof = profiles[class_id]
         rank = _strength_bar(prof.get("evidence_strength_rank"))
-        ceiling = str(prof.get("claim_ceiling", "")).replace("|", "\\|")
+        ceiling = _public_scope_text(prof.get("claim_ceiling", "")).replace("|", "\\|")
         counts = "yes" if prof.get("counts_as_real_substrate_progress") else "no (regression/smoke)"
         out.append(f"| `{class_id}` | {rank} | {ceiling} | {counts} |")
     out.append("")
@@ -1871,12 +1958,17 @@ def render_organs_md(model: dict[str, Any]) -> str:
                 f"`{disposition}` · real bodies `{real_count}` · "
                 f"receipt bodies `{receipt_count}` · fixture role `{fixture_role}`"
             )
-            out.append(f"- **What it makes visible:** {card['human_gloss']}")
-            out.append(f"- **For agents:** {card['agent_gloss']}")
+            out.append(
+                f"- **What it makes visible:** {_public_scope_text(card['human_gloss'])}"
+            )
+            out.append(f"- **For agents:** {_public_scope_text(card['agent_gloss'])}")
             out.append(f"- **First command:** `{card['first_command']}`")
-            out.append(f"- **Does not authorize:** {card['claim_ceiling_restated']}")
+            out.append(f"- **Scope limit:** {_public_scope_text(card['claim_ceiling_restated'])}")
             wiring = card.get("standalone_or_wired") or "standalone_specimen"
-            note = card.get("wiring_note") or "binds only to the shared kernel + evidence/authority spine"
+            note = _public_scope_text(
+                card.get("wiring_note")
+                or "binds only to the shared kernel + evidence/scope spine"
+            )
             out.append(f"- **Wiring:** {wiring} — {note}")
             out.append(f"- **Source relations:** {_source_relation_md_line(card)}")
             wires_to = card.get("wires_to") or []
@@ -1943,7 +2035,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
         "larger AI-native workflow system thinks, routes, records work, binds "
         "evidence, and limits its own claims. It turns a folder into local "
         "`.microcosm/` state without mutating your source files, calling external "
-        "model providers, or claiming release/proof/production authority."
+        "model providers, while keeping release, proof, and production claims outside the public scope."
     )
     out.append("")
     out.append(
@@ -1987,7 +2079,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append(
         "Every claim travels with its evidence class, its proof surface, and the "
-        "ceiling on what it is allowed to mean. This is the discipline that keeps "
+        "scope of what it is allowed to mean. This is the discipline that keeps "
         "counts honest."
     )
     out.append("")
@@ -1995,8 +2087,8 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("flowchart LR")
     out.append('  Claim["Public claim<br/>(route / organ / count)"] --> Class["Evidence class<br/>core/organ_evidence_classes.json"]')
     out.append('  Class --> Proof["Validator / receipt / source ref<br/>core/organ_registry.json"]')
-    out.append('  Proof --> Ceiling["Authority ceiling<br/>microcosm authority --card"]')
-    out.append('  Ceiling --> Anti["Anti-claim<br/>(what it does NOT authorize)"]')
+    out.append('  Proof --> Ceiling["Scope limit<br/>microcosm authority --card"]')
+    out.append('  Ceiling --> Anti["Boundary<br/>(where the claim stops)"]')
     out.append('  Anti --> Drill["Drilldown: paper module / fixture / receipt"]')
     out.append("```")
     out.append("")
@@ -2106,7 +2198,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
         node = "".join(part[:1].upper() for part in fid.split("_"))[:4] or "F"
         out.append(f'  S --> {node}["{fam["label"]} ({fam["organ_count"]})"]')
     out.append("  S --> V[Validators + receipts]")
-    out.append("  S --> AC[Authority ceiling]")
+    out.append("  S --> AC[Scope limit]")
     out.append("```")
     out.append("")
     out.append("| Family | Organs | What it helps you do |")
@@ -2157,7 +2249,8 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append(
         "Public carries private by default, but only through a membrane: non-secret "
         "macro bodies are copied with digests and omission receipts; projections are "
-        "watched for drift; nothing claims source authority or release."
+        "watched for drift; nothing converts these records into source-of-record "
+        "status or a release operation."
     )
     out.append("")
     out.append("```mermaid")
@@ -2170,7 +2263,7 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("  Omit --> Receipt")
     out.append('  Receipt --> Intake["microcosm intake"]')
     out.append('  Intake --> Drift["microcosm drift-control"]')
-    out.append('  Drift --> Ceiling["No live repair · no source authority · no release"]')
+    out.append('  Drift --> Ceiling["Local inspection · source records · release scope unchanged"]')
     out.append("```")
     out.append("")
     out.append(f"> {CLAIM_CEILING_LINE}")

@@ -84,9 +84,9 @@ PYTHONPATH=src python3 -m microcosm_core workingness --card
 PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 ```
 
-Read those as a first-screen contract, not a release badge. They show local
-behavior, route state, evidence classes, failure envelopes, and authority
-ceilings before sending you into full receipt drilldowns.
+Read those as a first-screen contract, not a launch badge. They show local
+behavior, route state, evidence classes, failure envelopes, and scope limits
+before sending you into full receipt drilldowns.
 The reader-specific `hello` aliases are a shortcut into the same card:
 `cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch,
 `interesting_parts` / `interesting-parts` maps to that same public visitor
@@ -154,7 +154,7 @@ make package-smoke
 ```
 
 For a reviewer-grade replay packet that preserves command output digests,
-authority ceilings, private-path scans, and blocked/non-zero command evidence
+scope limits, private-path scans, and blocked/non-zero command evidence
 without rerunning the substrate during verification, run:
 
 ```bash
@@ -162,13 +162,13 @@ make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder
 make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder
 ```
 
-This is an evaluation artifact, not a release, standards, provider-call,
-proof-correctness, or production-readiness authority.
+This is an evaluation artifact, not a launch, standards, external-model,
+formal-result correctness, or production-readiness decision.
 
 For a cold clone, treat `make ci` as the public green floor. `make validate`
 adds the doctrine-lattice drift check and is the maintainer pre-commit gate
 when you are changing doctrine-lattice projection inputs or generated entry
-cards; it is not a broader release, proof-correctness, or production claim.
+cards; it is not a broader launch, formal-result correctness, or production claim.
 
 For a review artifact outside this checkout, run:
 
@@ -176,9 +176,8 @@ For a review artifact outside this checkout, run:
 make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
 ```
 
-That export writes a candidate standalone folder and a
-`receipts/release/release_export_receipt.json` inside the artifact. It still
-keeps `release_authorized=false`.
+That export writes a candidate standalone folder and a review receipt inside
+the artifact. The receipt records a local review export, not a launch operation.
 
 Before sharing that folder, validate the exported artifact as its own clone:
 
@@ -187,15 +186,17 @@ cd /tmp/microcosm-substrate-export/microcosm-substrate
 make ci
 ```
 
-This checks standalone install, tests, and smoke from the exported root. It does
-not authorize release.
+This checks standalone install, tests, and smoke from the exported root. It
+stays inside local review scope.
 
 ## Boundaries
 
-Microcosm is a local source-open research runtime. These commands do not
-authorize release, hosted publication, provider calls, source mutation, proof
-correctness, trading or financial advice, production security claims,
-private-root equivalence, or credential/session export.
+Microcosm is a local source-open research runtime. These commands stay scoped
+to local inspection, tests, source-linked records, and result evidence; launch
+operations, hosted sharing, external model access, source-file changes, proof
+correctness, trading or financial decisions, production security claims,
+private-system equivalence, and account-secret or session export are outside
+that scope.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are
