@@ -1,0 +1,115 @@
+{
+  "authority_ceiling": {
+    "private_root_equivalence_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "whole_system_correctness_authorized": false
+  },
+  "non_goals": [
+    "not release approval",
+    "not source-body export",
+    "not static-analysis correctness",
+    "not whole-system correctness"
+  ],
+  "predicate": {
+    "custody_classification_after": {
+      "basis_meaning": "manifest_provenance = declared by organ_registry/substitution ledger; imported_bundle = examples/fixtures/source bundles; directory_coupling_marker = in-tree organs/macro_tools/engine_room exact-copy zone (heuristic, not yet manifest-confirmed)",
+      "by_basis": {
+        "directory_coupling_marker": 26,
+        "imported_bundle": 5,
+        "manifest_provenance": 93
+      },
+      "excluded_candidate_paths": 124,
+      "manifest_custody_paths_loaded": 533
+    },
+    "proof_commands": [
+      "py_compile 25/25 OK",
+      "format-guard: grep '- Atom:' == 0",
+      "per-file AST symbol-set identity vs HEAD: 0 executable change",
+      "microcosm spine == pass (exit 0)",
+      "python-lens --full: release-critical 0.6746->0.9452, authored_bare 1862->1825",
+      "pytest lens+project_substrate+cli: 105 passed, 1 pre-existing (agent_entry_composition help)"
+    ],
+    "quality_band_delta": {
+      "authored_bare": {
+        "after": 1825,
+        "before": 1862,
+        "delta": -37
+      },
+      "authored_contract": {
+        "after": 1204,
+        "before": 717,
+        "delta": 487
+      },
+      "authored_minimal": {
+        "after": 421,
+        "before": 421,
+        "delta": 0
+      },
+      "authored_routing": {
+        "after": 1158,
+        "before": 749,
+        "delta": 409
+      },
+      "locator_only": {
+        "after": 30433,
+        "before": 31291,
+        "delta": -858
+      }
+    },
+    "queue_by_batch_after": {
+      "C_source_custody_spine": 1,
+      "D_organ_runner_spine": 2,
+      "E_builders_projections": 4,
+      "G_owned_core_tail": 67
+    },
+    "queue_by_batch_before": {
+      "B_validator_authority_spine": 5,
+      "C_source_custody_spine": 46,
+      "D_organ_runner_spine": 64,
+      "E_builders_projections": 119,
+      "G_owned_core_tail": 736
+    },
+    "real_coverage_ratio_after": 0.0674,
+    "real_coverage_ratio_before": 0.0418,
+    "release_critical_coverage_after": 0.9452,
+    "release_critical_coverage_before": 0.6746,
+    "source_bodies_exported": false
+  },
+  "schema_version": "microcosm_code_lens_spine_attestation_v1",
+  "subject": {
+    "head_after": "2a54595c11",
+    "head_before": "8b188d89a9",
+    "repo": "microcosm-substrate",
+    "touched_path_count": 25,
+    "touched_paths": [
+      "scripts/build_doctrine_enrichment_health.py",
+      "scripts/build_doctrine_projection.py",
+      "scripts/refresh_source_module_manifest.py",
+      "src/microcosm_core/architecture_kernel.py",
+      "src/microcosm_core/cold_clone_probe.py",
+      "src/microcosm_core/crown_jewel_demo.py",
+      "src/microcosm_core/first_screen_composition.py",
+      "src/microcosm_core/import_binding_report.py",
+      "src/microcosm_core/macro_engines_gallery.py",
+      "src/microcosm_core/private_state_scan.py",
+      "src/microcosm_core/project_substrate.py",
+      "src/microcosm_core/projections/agent_entry_composition.py",
+      "src/microcosm_core/projections/architecture_graph_scene.py",
+      "src/microcosm_core/projections/concept_mechanism_read_model.py",
+      "src/microcosm_core/projections/organ_atlas.py",
+      "src/microcosm_core/projections/organ_discoverability_matrix.py",
+      "src/microcosm_core/projections/organ_surface_contract.py",
+      "src/microcosm_core/projections/route_candidate_read_model.py",
+      "src/microcosm_core/receipts.py",
+      "src/microcosm_core/release_export.py",
+      "src/microcosm_core/resource_root.py",
+      "src/microcosm_core/runtime_evidence_index.py",
+      "src/microcosm_core/runtime_shell.py",
+      "src/microcosm_core/secret_exclusion_scan.py",
+      "src/microcosm_core/skeptic_flight_recorder.py"
+    ]
+  }
+}
