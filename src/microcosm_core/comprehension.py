@@ -35,7 +35,10 @@ makes that boundary explicit:
 """
 from __future__ import annotations
 
+import ast
+import hashlib
 import json
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -96,6 +99,25 @@ _START_HERE_ROUTES = [
     "microcosm comprehend --organ <organ_id>",
     "microcosm comprehend --slice organs",
 ]
+
+# --- atom_value_membrane_v1: the local_semantic_excerpt band -----------------------
+# This band is the FIRST sanctioned exporter of authored docstring-atom prose, and it
+# is deliberately bounded: owned source only (custody-gated), per-atom char cap, secret
+# and private-path scrubbing, and NEVER written into the committed presence_only cache.
+LOCAL_EXCERPT_SCHEMA = "microcosm_atom_value_excerpt_v1"
+HARD_ASSAY_SCHEMA = "microcosm_hard_comprehension_assay_v1"
+# The owned package root whose authored atoms may be excerpted locally.
+OWNED_EXCERPT_ROOT = "src/microcosm_core/"
+# Per-atom character cap and total per-file pack byte budget for excerpts.
+MAX_ATOM_CHARS = 240
+MAX_EXCERPT_PACK_BYTES = 60000
+# Secret-shape and private-home-path patterns: any atom value matching is DROPPED
+# (never emitted), so an excerpt pack cannot leak a credential or an operator path.
+_SECRET_SHAPE_RE = re.compile(
+    r"sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}"
+    r"|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY",
+)
+_PRIVATE_PATH_RE = re.compile(r"/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+")
 
 
 def default_root() -> Path:
@@ -619,6 +641,247 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     return "first-contact", None, note
 
 
+# --- atom_value_membrane_v1: bounded, custody-gated local excerpt extraction -------
+
+def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
+    """Extract ONE atom's bounded prose value from a docstring (local-band exporter).
+
+    - Teleology: the sanctioned local exporter of a single authored atom's value, so
+      a cold agent can read a symbol's Guarantee/Fails/Non-goal without opening source.
+    - Guarantee: returns the stripped text following the first ``<atom>:`` line marker,
+      joined across continuation lines up to the next atom marker or a blank line, then
+      truncated to MAX_ATOM_CHARS with an ellipsis; "" when the atom is absent.
+    - Fails: never raises (pure string scan).
+    - Reads: only the supplied docstring.
+    - Non-goal: never returns the whole docstring, the summary line, or source body;
+      one bounded atom value only.
+    """
+    stop_markers = tuple(f"{a}:" for a in vocab)
+    collected: list[str] = []
+    capturing = False
+    for raw in docstring.splitlines():
+        stripped = raw.strip().lstrip("-*").strip()
+        if not capturing:
+            if stripped.startswith(f"{atom}:"):
+                collected.append(stripped[len(atom) + 1:].strip())
+                capturing = True
+            continue
+        if not stripped or any(stripped.startswith(m) for m in stop_markers):
+            break
+        collected.append(stripped)
+    value = " ".join(part for part in collected if part).strip()
+    if len(value) > MAX_ATOM_CHARS:
+        value = value[: MAX_ATOM_CHARS - 1].rstrip() + "…"
+    return value
+
+
+def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
+    """Return a 12-hex provenance fingerprint over a symbol's emitted atom values.
+
+    - Teleology: stamp each excerpt row so it is a drilldown hint tied to its source,
+      not free-floating authority.
+    - Guarantee: returns the first 12 hex chars of a sha256 over name + sorted values.
+    - Fails: never raises.
+    """
+    blob = symbol_name + "|" + json.dumps(atom_values, sort_keys=True, ensure_ascii=True)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
+
+
+def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
+    """Extract bounded, custody-gated atom-value excerpts from ONE owned source file.
+
+    - Teleology: activate the local_semantic_excerpt band -- turn a file's authored
+      docstring atoms into a bounded local read model so the comprehend route is
+      powered by real code semantics, not just atlas metadata.
+    - Guarantee: returns a microcosm_atom_value_excerpt_v1 dict; emits symbol rows
+      (name, source_span_ref, fingerprint, bounded atom_values) ONLY when the path is
+      under src/microcosm_core/ AND the manifest custody oracle reports it owned
+      (_custody_basis is None); secret-shaped or private-home-path atom values are
+      dropped and counted, never emitted; total bytes are capped at MAX_EXCERPT_PACK_BYTES.
+    - Fails: returns eligible=False with a reason for non-owned/custody-bound/unreadable
+      paths; never raises.
+    - Reads: the manifest custody oracle + the owned source file's docstrings only.
+    - Writes: nothing.
+    - Non-goal: never exports source bodies, the summary line, custody-bound runners,
+      example/fixture/generated source, or anything into the public presence_only cache.
+    - Escalates-to: project_substrate._load_manifest_custody_paths / _custody_basis as
+      the authoritative custody signal.
+    """
+    from . import project_substrate as ps
+
+    base = root or default_root()
+    rel = str(rel_path).strip().lstrip("./")
+    result: dict[str, Any] = {
+        "schema_version": LOCAL_EXCERPT_SCHEMA,
+        "export_band": "local_semantic_excerpt",
+        "path": rel,
+        "eligible": False,
+        "custody_basis": None,
+        "symbols": [],
+        "symbol_count": 0,
+        "limits": {
+            "max_atom_chars": MAX_ATOM_CHARS,
+            "max_pack_bytes": MAX_EXCERPT_PACK_BYTES,
+            "source_body_export_authorized": False,
+        },
+        "leak_guard": {"secret_shapes_dropped": 0, "private_paths_dropped": 0},
+        "omitted_for_budget": 0,
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+    }
+    manifest_custody = ps._load_manifest_custody_paths(base)
+    basis = ps._custody_basis(rel, manifest_custody)
+    result["custody_basis"] = basis or "owned"
+    if not rel.startswith(OWNED_EXCERPT_ROOT) or basis is not None:
+        result["reason"] = (
+            f"not owned-excerpt-eligible (custody_basis={basis or 'outside_owned_root'})"
+        )
+        return result
+    try:
+        source = (base / rel).read_text(encoding="utf-8")
+        tree = ast.parse(source)
+    except (OSError, SyntaxError, ValueError) as exc:
+        result["reason"] = f"unreadable: {exc.__class__.__name__}"
+        return result
+    result["eligible"] = True
+    vocab = ps.STD_PYTHON_CONTRACT_ATOMS
+    total_bytes = 0
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            continue
+        doc = ast.get_docstring(node)
+        if not doc:
+            continue
+        atom_values: dict[str, str] = {}
+        for atom in ps._detect_docstring_atoms(doc):
+            value = _atom_value(doc, atom, vocab)
+            if not value:
+                continue
+            if _SECRET_SHAPE_RE.search(value):
+                result["leak_guard"]["secret_shapes_dropped"] += 1
+                continue
+            if _PRIVATE_PATH_RE.search(value):
+                result["leak_guard"]["private_paths_dropped"] += 1
+                continue
+            atom_values[atom] = value
+        if not atom_values:
+            continue
+        row = {
+            "symbol_name": node.name,
+            "source_span_ref": f"{rel}:{node.lineno}",
+            "fingerprint": _excerpt_fingerprint(node.name, atom_values),
+            "atom_values": atom_values,
+        }
+        row_bytes = len(json.dumps(row, ensure_ascii=True))
+        if total_bytes + row_bytes > MAX_EXCERPT_PACK_BYTES:
+            result["omitted_for_budget"] += 1
+            continue
+        total_bytes += row_bytes
+        result["symbols"].append(row)
+    result["symbol_count"] = len(result["symbols"])
+    return result
+
+
+def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
+    """Compile a local_semantic_excerpt read pack for one owned source file.
+
+    - Teleology: the "read the code's self-description without opening the code"
+      primitive -- surface an owned file's authored atoms as a bounded local read pack.
+    - Guarantee: returns an explanation-mode pack with export_band=local_semantic_excerpt
+      carrying semantic_excerpts (bounded atom values), a source-span escalation row, and
+      an excerpt_guard; a non-eligible path yields found=False with the custody reason.
+    - Fails: never raises.
+    - Reads: extract_atom_excerpts for the file.
+    - Non-goal: not a public-cache surface; this pack is local-only and never presence_only.
+    """
+    base = root or default_root()
+    excerpts = extract_atom_excerpts(base, rel_path)
+    rel = excerpts["path"]
+    pack = _pack_skeleton("explanation", f"read the authored atoms of {rel}")
+    pack["export_band"] = "local_semantic_excerpt"
+    pack["intent_class"] = "reference"
+    pack["path"] = rel
+    if not excerpts["eligible"]:
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = (
+            f"{rel} is not owned-excerpt-eligible ({excerpts.get('reason')}); its atoms "
+            "stay behind the membrane. Comprehend it via organ/registry metadata instead."
+        )
+        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["semantic_excerpts"] = []
+        pack["excerpt_guard"] = {"custody_basis": excerpts["custody_basis"]}
+        return pack
+    pack["found"] = True
+    count = excerpts["symbol_count"]
+    pack["summary"]["what_this_is"] = (
+        f"{count} authored symbols in {rel}, read as bounded atom-value excerpts "
+        "(Teleology/Guarantee/Fails/...), no source bodies."
+    )
+    pack["summary"]["what_to_inspect_next"] = [
+        f"open {rel} only to mutate or prove; the atoms are the read model"
+    ]
+    pack["summary"]["what_not_to_trust"] = (
+        "Atom excerpts are the symbols' own authored claims -- bounded and local-only. "
+        "They are not proof and not a release or authority signal."
+    )
+    pack["semantic_excerpts"] = excerpts["symbols"]
+    pack["source_span_escalation"] = [
+        {
+            "path": rel,
+            "symbols": [s["symbol_name"] for s in excerpts["symbols"]][:20],
+        }
+    ]
+    pack["excerpt_guard"] = {
+        **excerpts["leak_guard"],
+        "omitted_for_budget": excerpts["omitted_for_budget"],
+        "custody_basis": excerpts["custody_basis"],
+    }
+    return pack
+
+
+def _attach_organ_excerpts(
+    pack: dict[str, Any], root: Path | None, organ_id: str, inputs: dict[str, Any]
+) -> dict[str, Any]:
+    """Enrich an organ pack with owned-source atom excerpts from its code_loci.
+
+    - Teleology: let an organ pack carry the authored atoms of its OWNED governing
+      code, while honestly noting that custody-bound runners stay behind the membrane.
+    - Guarantee: flips export_band to local_semantic_excerpt and adds semantic_excerpts
+      (owned code_loci paths with atom values) plus excerpt_custody_notes (the loci that
+      are custody-bound / non-owned and therefore not excerpted).
+    - Fails: never raises; an organ with no owned loci yields empty excerpts + notes.
+    - Reads: extract_atom_excerpts per code_loci path.
+    - Non-goal: never excerpts a custody-bound or non-owned locus.
+    """
+    atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
+    loci = atlas_row.get("code_loci") or []
+    excerpts: list[dict[str, Any]] = []
+    custody_notes: list[dict[str, Any]] = []
+    for locus in loci if isinstance(loci, list) else []:
+        if not isinstance(locus, dict) or not locus.get("path"):
+            continue
+        path = str(locus["path"])
+        extracted = extract_atom_excerpts(root, path)
+        if extracted["eligible"] and extracted["symbols"]:
+            excerpts.append(
+                {
+                    "path": path,
+                    "symbols": extracted["symbols"],
+                    "guard": {
+                        **extracted["leak_guard"],
+                        "omitted_for_budget": extracted["omitted_for_budget"],
+                    },
+                }
+            )
+        else:
+            custody_notes.append(
+                {"path": path, "custody_basis": extracted["custody_basis"]}
+            )
+    pack["export_band"] = "local_semantic_excerpt"
+    pack["semantic_excerpts"] = excerpts
+    pack["excerpt_custody_notes"] = custody_notes
+    return pack
+
+
 _MODE_COMPILERS = {
     "first-contact": lambda inputs, organ_id: compile_first_contact(inputs),
     "authority": lambda inputs, organ_id: compile_authority(inputs),
@@ -633,26 +896,37 @@ def comprehend(
     mode: str = "first-contact",
     organ_id: str | None = None,
     goal: str | None = None,
+    path: str | None = None,
+    with_excerpts: bool = False,
     inputs: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Compile one read pack and stamp its compile latency.
 
-    - Teleology: the single dispatch a CLI or test calls to get a goal-specific pack.
-    - Guarantee: returns the compiled pack with an added compile_ms float; a goal string
-      overrides mode/organ_id via route_goal and records the routing note.
+    - Teleology: the single dispatch a CLI or test calls to get a goal-specific pack,
+      including the local_semantic_excerpt path/organ modes.
+    - Guarantee: returns the compiled pack with an added compile_ms float; mode="path"
+      compiles an owned-file excerpt pack; with_excerpts enriches an organ pack with
+      owned atom excerpts; a goal string overrides mode/organ_id via route_goal.
     - Fails: ValueError on an unknown mode or a source-body-leaking join index.
     - Reads: the substrate inputs (loaded here unless ``inputs`` is supplied).
     - Writes: nothing.
+    - Non-goal: never writes excerpts into the committed presence_only cache.
     """
     start = time.perf_counter()
-    bundle = inputs if inputs is not None else load_inputs(root)
+    base_root = root or default_root()
+    bundle = inputs if inputs is not None else load_inputs(base_root)
     routing_note = None
     if goal:
         mode, organ_id, routing_note = route_goal(goal, bundle)
-    compiler = _MODE_COMPILERS.get(mode)
-    if compiler is None:
-        raise ValueError(f"unknown comprehension mode: {mode!r}")
-    pack = compiler(bundle, organ_id)
+    if mode == "path":
+        pack = compile_path_excerpts(base_root, path or "")
+    else:
+        compiler = _MODE_COMPILERS.get(mode)
+        if compiler is None:
+            raise ValueError(f"unknown comprehension mode: {mode!r}")
+        pack = compiler(bundle, organ_id)
+        if mode == "organ" and with_excerpts and pack.get("found"):
+            _attach_organ_excerpts(pack, base_root, organ_id or "", bundle)
     if routing_note:
         pack["routing_note"] = routing_note
     pack["compile_ms"] = round((time.perf_counter() - start) * 1000, 3)
@@ -822,5 +1096,81 @@ def run_comprehension_assay(
         "max_pack_bytes": max_bytes,
         "max_compile_ms": round(max_ms, 3),
         "results": results,
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+    }
+
+
+def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
+    """True when at least one excerpt symbol exposes a value for the named atom.
+
+    - Teleology: the hard-assay predicate proving the local band actually carries a
+      given authored atom's value, not merely that a symbol exists.
+    - Guarantee: returns True iff some row's atom_values contains ``atom``.
+    - Fails: never raises.
+    - Reads: only the supplied excerpt rows.
+    """
+    return any(atom in (s.get("atom_values") or {}) for s in symbols)
+
+
+def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
+    """Run the hard assay that requires real authored atom-value content.
+
+    - Teleology: prove the local_semantic_excerpt band carries actual code semantics
+      (Teleology/Guarantee/Fails/Non-goal values) AND that its guards hold -- the v0
+      assay only proved presence_only orientation; this proves the rail carries fuel.
+    - Guarantee: returns a HARD_ASSAY_SCHEMA dict with answerable_with_atom_values_pct
+      over questions that each require an emitted atom value, plus excerpt_leak_count
+      (secret/private shapes found in the emitted excerpts -- must be 0) and
+      custody_violation_count (custody-bound files that wrongly produced excerpts --
+      must be 0); all metrics are computed, not asserted.
+    - Fails: never raises on content; ValueError only on a leaking join index (via load).
+    - Reads: the owned comprehension module's atoms + one custody-bound runner.
+    - Writes: nothing.
+    - Non-goal: does not call any LLM; "answerable" means the atom value is present.
+    """
+    base = root or default_root()
+    owned_target = "src/microcosm_core/comprehension.py"
+    owned = extract_atom_excerpts(base, owned_target)
+    inputs = load_inputs(base)
+    custody_target = next(
+        (
+            n.get("runner_source_ref")
+            for n in inputs.get("join_by_organ", {}).values()
+            if n.get("runner_custody_basis") == "directory_coupling_marker"
+            and n.get("runner_source_ref")
+        ),
+        None,
+    )
+    custody = (
+        extract_atom_excerpts(base, custody_target)
+        if custody_target
+        else {"eligible": False, "symbols": []}
+    )
+
+    symbols = owned["symbols"]
+    custody_clean = not (custody.get("eligible") and custody.get("symbols"))
+    questions = [
+        ("owned file yields >=10 excerpted symbols", owned.get("symbol_count", 0) >= 10),
+        ("some symbol exposes a Teleology value", _symbols_expose_atom(symbols, "Teleology")),
+        ("some symbol exposes a Guarantee value", _symbols_expose_atom(symbols, "Guarantee")),
+        ("some symbol exposes a Fails value", _symbols_expose_atom(symbols, "Fails")),
+        ("some symbol exposes a Non-goal value", _symbols_expose_atom(symbols, "Non-goal")),
+        ("a custody-bound runner yields zero excerpts", custody_clean),
+    ]
+    answered = sum(1 for _q, ok in questions if ok)
+    emitted = json.dumps(owned, ensure_ascii=True)
+    leak_count = len(_SECRET_SHAPE_RE.findall(emitted)) + len(_PRIVATE_PATH_RE.findall(emitted))
+    return {
+        "schema_version": HARD_ASSAY_SCHEMA,
+        "owned_target": owned_target,
+        "owned_symbols_excerpted": owned.get("symbol_count", 0),
+        "custody_target": custody_target,
+        "custody_target_excerpted_symbols": len(custody.get("symbols", [])),
+        "questions": len(questions),
+        "answerable_with_atom_values_pct": round(100.0 * answered / len(questions), 1),
+        "excerpt_leak_count": leak_count,
+        "custody_violation_count": 0 if custody_clean else 1,
+        "guard_drops": owned.get("leak_guard", {}),
+        "results": [{"q": q, "ok": ok} for q, ok in questions],
         "authority_ceiling": dict(AUTHORITY_CEILING),
     }

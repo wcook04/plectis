@@ -231,3 +231,132 @@ def test_live_substrate_assay_invariants() -> None:
     assert assay["source_body_leaks"] == 0
     # Latency stays far under the 300ms first-contact SLO (no SQLite needed).
     assert assay["max_compile_ms"] < 100.0
+
+
+# --- atom_value_membrane_v1: local_semantic_excerpt band ---------------------------
+
+def _write_owned_module(
+    root: Path,
+    rel: str,
+    *,
+    n_symbols: int = 3,
+    secret_value: str | None = None,
+    private_value: str | None = None,
+) -> None:
+    """Write an owned (or coupling-zone) source module with authored atoms."""
+    path = root / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    parts = ['"""Fixture module."""', ""]
+    for i in range(n_symbols):
+        guarantee = "returns a bounded list of projected rows from the manifest"
+        fails = "missing input -> raises OSError; malformed -> ValueError"
+        if secret_value and i == 0:
+            guarantee = f"returns the cached token {secret_value} for the row"
+        if private_value and i == 0:
+            fails = f"on error writes a dump under {private_value} then re-raises"
+        parts += [
+            f"def owned_fn_{i}(value):",
+            '    """Owned fixture function.',
+            "",
+            f"    - Teleology: owned helper {i} authored for the excerpt test.",
+            f"    - Guarantee: {guarantee}.",
+            f"    - Fails: {fails}.",
+            "    - Non-goal: does not authorize source-body export or release.",
+            '    """',
+            "    return []",
+            "",
+        ]
+    path.write_text("\n".join(parts))
+
+
+def test_path_excerpts_emit_bounded_owned_atom_values(tmp_path: Path) -> None:
+    _write_owned_module(tmp_path, "src/microcosm_core/sample_owned.py", n_symbols=2)
+    pack = C.comprehend(root=tmp_path, mode="path", path="src/microcosm_core/sample_owned.py")
+    assert pack["export_band"] == "local_semantic_excerpt"
+    assert pack["found"] is True
+    assert len(pack["semantic_excerpts"]) == 2
+    row = pack["semantic_excerpts"][0]
+    assert "Guarantee" in row["atom_values"] and "Non-goal" in row["atom_values"]
+    assert row["source_span_ref"].startswith("src/microcosm_core/sample_owned.py:")
+    assert len(row["fingerprint"]) == 12
+    # every atom value respects the char cap
+    for value in row["atom_values"].values():
+        assert len(value) <= C.MAX_ATOM_CHARS
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_coupling_zone_path_is_refused(tmp_path: Path) -> None:
+    _write_owned_module(tmp_path, "src/microcosm_core/organs/runner.py")
+    ex = C.extract_atom_excerpts(tmp_path, "src/microcosm_core/organs/runner.py")
+    assert ex["eligible"] is False
+    assert ex["custody_basis"] == "directory_coupling_marker"
+    assert ex["symbols"] == []
+
+
+def test_outside_owned_root_is_refused(tmp_path: Path) -> None:
+    _write_owned_module(tmp_path, "examples/bundle/mod.py")
+    ex = C.extract_atom_excerpts(tmp_path, "examples/bundle/mod.py")
+    assert ex["eligible"] is False
+    assert ex["symbols"] == []
+
+
+def test_secret_and_private_path_values_are_dropped(tmp_path: Path) -> None:
+    # Build the shapes at runtime so this test file contains no literal secret.
+    secret = "sk-" + "A" * 22
+    private = "/Users/" + "operator/secret"
+    _write_owned_module(
+        tmp_path,
+        "src/microcosm_core/leaky.py",
+        n_symbols=1,
+        secret_value=secret,
+        private_value=private,
+    )
+    ex = C.extract_atom_excerpts(tmp_path, "src/microcosm_core/leaky.py")
+    assert ex["eligible"] is True
+    # The Guarantee (secret) and Fails (private path) atoms were dropped, not emitted.
+    body = json.dumps(ex)
+    assert secret not in body
+    assert private not in body
+    assert ex["leak_guard"]["secret_shapes_dropped"] == 1
+    assert ex["leak_guard"]["private_paths_dropped"] == 1
+
+
+def test_excerpt_pack_respects_byte_budget(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(C, "MAX_EXCERPT_PACK_BYTES", 200)
+    _write_owned_module(tmp_path, "src/microcosm_core/big.py", n_symbols=6)
+    ex = C.extract_atom_excerpts(tmp_path, "src/microcosm_core/big.py")
+    assert ex["omitted_for_budget"] > 0
+    assert ex["symbol_count"] < 6
+
+
+def test_organ_with_excerpts_notes_custody_bound_loci(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    # alpha_validator's code_loci points at a coupling-zone runner -> noted, not excerpted.
+    _write_owned_module(tmp_path, "src/microcosm_core/organs/alpha_validator.py")
+    pack = C.comprehend(
+        root=tmp_path, mode="organ", organ_id="alpha_validator", with_excerpts=True
+    )
+    assert pack["export_band"] == "local_semantic_excerpt"
+    notes = {n["path"]: n["custody_basis"] for n in pack["excerpt_custody_notes"]}
+    assert "src/microcosm_core/organs/alpha_validator.py" in notes
+
+
+def test_presence_only_cache_never_carries_excerpts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    C.build_cached_read_packs(tmp_path)
+    cache_dir = tmp_path / "receipts/code_lens/read_packs"
+    for name in ("first_contact.json", "authority.json", "organs_index.json"):
+        pack = json.loads((cache_dir / name).read_text())
+        assert pack["export_band"] == "presence_only"
+        assert "semantic_excerpts" not in pack
+        assert "atom_values" not in json.dumps(pack)
+
+
+def test_hard_assay_invariants_on_live_root() -> None:
+    """The hard assay must carry real atom values with zero leaks/custody violations."""
+    hard = C.run_hard_comprehension_assay(C.default_root())
+    assert hard["owned_symbols_excerpted"] >= 10
+    assert hard["answerable_with_atom_values_pct"] >= 80.0
+    assert hard["excerpt_leak_count"] == 0
+    assert hard["custody_violation_count"] == 0
+    assert hard["custody_target_excerpted_symbols"] == 0

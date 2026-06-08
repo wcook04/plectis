@@ -3767,6 +3767,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     comprehend_parser.add_argument("--goal", help="freeform goal routed to a mode")
     comprehend_parser.add_argument(
+        "--path",
+        help="owned source file to read as bounded atom-value excerpts (local_semantic_excerpt band)",
+    )
+    comprehend_parser.add_argument(
+        "--with-excerpts",
+        action="store_true",
+        help="enrich an --organ pack with owned-source atom excerpts (local band)",
+    )
+    comprehend_parser.add_argument(
         "--rebuild-cache",
         action="store_true",
         help="materialize prebuilt read-pack receipts under receipts/code_lens/read_packs/",
@@ -3777,6 +3786,11 @@ def main(argv: list[str] | None = None) -> int:
     comprehension_assay_parser = subparsers.add_parser(
         "comprehension-assay",
         help="run the cold-agent comprehension assay over the read packs",
+    )
+    comprehension_assay_parser.add_argument(
+        "--hard",
+        action="store_true",
+        help="run the hard assay requiring real atom-value content + custody/leak guards",
     )
     comprehension_assay_parser.add_argument(
         "--root", help="substrate root override (defaults to the package root)"
@@ -4669,9 +4683,16 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(
                 comprehension.build_cached_read_packs(comprehend_root), exit_code=0
             )
-        if args.organ:
+        if args.path:
             pack = comprehension.comprehend(
-                root=comprehend_root, mode="organ", organ_id=args.organ
+                root=comprehend_root, mode="path", path=args.path
+            )
+        elif args.organ:
+            pack = comprehension.comprehend(
+                root=comprehend_root,
+                mode="organ",
+                organ_id=args.organ,
+                with_excerpts=args.with_excerpts,
             )
         elif args.goal:
             pack = comprehension.comprehend(root=comprehend_root, goal=args.goal)
@@ -4681,9 +4702,16 @@ def main(argv: list[str] | None = None) -> int:
             pack = comprehension.comprehend(root=comprehend_root, mode="first-contact")
         return _print_json(pack, exit_code=0)
     if args.command == "comprehension-assay":
-        assay = comprehension.run_comprehension_assay(
-            Path(args.root) if args.root else None
-        )
+        assay_root = Path(args.root) if args.root else None
+        if args.hard:
+            hard = comprehension.run_hard_comprehension_assay(assay_root)
+            hard_ok = (
+                hard["answerable_with_atom_values_pct"] >= 80.0
+                and hard["excerpt_leak_count"] == 0
+                and hard["custody_violation_count"] == 0
+            )
+            return _print_json(hard, exit_code=0 if hard_ok else 1)
+        assay = comprehension.run_comprehension_assay(assay_root)
         assay_ok = (
             assay["answerable_without_source_pct"] >= 80.0
             and assay["wrong_authority_claims"] == 0
