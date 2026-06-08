@@ -175,13 +175,13 @@ def test_organs_index_lists_every_organ_with_synopsis(tmp_path: Path) -> None:
     assert "binding rows" in rows["alpha_validator"]["synopsis"]
 
 
-def test_goal_routes_to_organ_authority_and_deferred_slice(tmp_path: Path) -> None:
+def test_goal_routes_to_organ_authority_and_math_packet(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     bundle = C.load_inputs(tmp_path)
     assert C.route_goal("tell me about alpha_validator", bundle)[:2] == ("organ", "alpha_validator")
     assert C.route_goal("what am I allowed to trust", bundle)[0] == "authority"
-    mode, _organ, note = C.route_goal("show me all the math proofs", bundle)
-    assert mode == "first-contact" and note and "deferred" in note
+    # v2: math is a first-class packet now, no longer a deferred-to-first-contact note.
+    assert C.route_goal("show me all the math proofs", bundle)[0] == "math"
 
 
 def test_packs_never_leak_raw_atom_bullets(tmp_path: Path) -> None:
@@ -213,11 +213,12 @@ def test_assay_meets_thresholds_on_fixture(tmp_path: Path) -> None:
     assert assay["sample_organ"] == "alpha_validator"
 
 
-def test_cache_build_writes_three_packs(tmp_path: Path) -> None:
+def test_cache_build_writes_presence_only_packs(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     manifest = C.build_cached_read_packs(tmp_path)
     names = {p["name"] for p in manifest["packs"]}
-    assert names == {"first_contact", "authority", "organs_index"}
+    # v2: the packet atlas joins the prebuilt presence_only entry packs.
+    assert names == {"first_contact", "authority", "organs_index", "packet_atlas"}
     for entry in manifest["packs"]:
         assert (tmp_path / entry["path"]).is_file()
         assert entry["bytes"] > 0
@@ -345,7 +346,7 @@ def test_presence_only_cache_never_carries_excerpts(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     C.build_cached_read_packs(tmp_path)
     cache_dir = tmp_path / "receipts/code_lens/read_packs"
-    for name in ("first_contact.json", "authority.json", "organs_index.json"):
+    for name in ("first_contact.json", "authority.json", "organs_index.json", "packet_atlas.json"):
         pack = json.loads((cache_dir / name).read_text())
         assert pack["export_band"] == "presence_only"
         assert "semantic_excerpts" not in pack
@@ -360,3 +361,187 @@ def test_hard_assay_invariants_on_live_root() -> None:
     assert hard["excerpt_leak_count"] == 0
     assert hard["custody_violation_count"] == 0
     assert hard["custody_target_excerpted_symbols"] == 0
+
+
+# === Comprehension Packet Compiler v2: packet atlas + slices + route assay =========
+
+
+def test_packet_atlas_lists_every_spec_and_default_entry(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="packet-atlas")
+    assert pack["schema_version"] == C.PACKET_ATLAS_SCHEMA
+    assert pack["default_entry"] == "first_contact"
+    ids = [n["packet_id"] for n in pack["selected_nodes"]]
+    assert ids == [s["packet_id"] for s in C.PACKET_SPECS]
+    for row in pack["selected_nodes"]:
+        assert row["command"] and row["when_needed"]
+        assert row["export_band"] in ("presence_only", "local_semantic_excerpt")
+        assert "max_bytes" in row and "slo_ms" in row
+    assert "closed" in pack["sqlite_gate"]
+
+
+def test_packet_atlas_is_presence_only_and_carries_no_excerpts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="packet-atlas")
+    assert pack["export_band"] == "presence_only"
+    assert "semantic_excerpts" not in pack
+    assert "atom_values" not in json.dumps(pack)
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_every_next_packet_resolves_to_a_known_packet() -> None:
+    known = {s["packet_id"] for s in C.PACKET_SPECS}
+    for spec in C.PACKET_SPECS:
+        for nxt in spec["next_packets"]:
+            assert nxt in known, f"{spec['packet_id']} -> unknown next_packet {nxt}"
+    # The entry packet cannot be a dead end.
+    assert C._SPEC_BY_ID["first_contact"]["next_packets"]
+
+
+def test_every_spec_mode_is_dispatchable() -> None:
+    for spec in C.PACKET_SPECS:
+        mode = spec["mode"]
+        assert mode in C._MODE_COMPILERS or mode in ("path", "mutation_plan")
+
+
+def test_organ_cluster_is_substantive_for_a_family(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(
+        root=tmp_path, mode="organ_cluster", target="import_projection_and_drift"
+    )
+    assert pack["found"] is True
+    assert pack["family"] == "import_projection_and_drift"
+    assert pack["packet_kind"] == "explanation"
+    organs = [n["organ_id"] for n in pack["selected_nodes"] if n.get("kind") == "organ"]
+    assert "beta_projection" in organs
+    assert "mechanisms" in pack["shared_refs"]
+    assert any(n.get("kind") == "evidence_distribution" for n in pack["selected_nodes"])
+
+
+def test_organ_cluster_chooser_when_family_unknown(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="organ_cluster", target="")
+    assert pack["found"] is False
+    fams = {n["family"] for n in pack["selected_nodes"]}
+    assert "import_projection_and_drift" in fams
+
+
+def test_math_packet_names_family_and_defers_proof_internal_edges(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="math")
+    assert pack["family"] == "formal_math_and_proof"
+    assert pack["export_band"] == "presence_only"
+    edge_classes = {d["edge_class"] for d in pack["deferred_edges"]}
+    assert "proof_internal_structure" in edge_classes
+    assert "proof" in pack["summary"]["what_this_is"].lower()
+
+
+def test_claim_trace_chains_claim_validator_and_receipts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="claim_trace", target="alpha_validator")
+    assert pack["found"] is True
+    assert pack["packet_kind"] == "proof_trace"
+    kinds = {n["kind"] for n in pack["selected_nodes"]}
+    assert {"claim", "validator"} <= kinds
+    assert "receipts/first_wave/alpha_validator/acceptance.json" in pack["receipt_refs"]
+    assert {d["edge_class"] for d in pack["deferred_edges"]} == {"claim_node_ontology"}
+
+
+def test_flow_packet_orders_validator_runner_receipts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="flow", target="alpha_validator")
+    assert pack["found"] is True
+    stages = [n["role"] for n in pack["selected_nodes"] if n.get("kind") == "flow_stage"]
+    assert stages == ["validator", "runner", "receipts"]
+    assert {d["edge_class"] for d in pack["deferred_edges"]} == {"cross_organ_route_topology"}
+
+
+def test_claim_trace_and_flow_chooser_when_target_blank(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    for mode in ("claim_trace", "flow"):
+        pack = C.comprehend(root=tmp_path, mode=mode, target="")
+        assert pack["found"] is False
+
+
+def test_mutation_plan_organ_is_local_band_and_custody_safe(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/organs/alpha_validator.py")
+    pack = C.comprehend(root=tmp_path, mode="mutation_plan", target="alpha_validator")
+    assert pack["export_band"] == "local_semantic_excerpt"
+    assert pack["mutation_steps"]
+    # alpha_validator's loci are custody-bound -> noted, never excerpted.
+    assert pack.get("semantic_excerpts", []) == []
+    notes = {n["path"] for n in pack.get("excerpt_custody_notes", [])}
+    assert "src/microcosm_core/organs/alpha_validator.py" in notes
+    # The macro-body warning fires.
+    assert any("macro body" in s for s in pack["summary"]["what_to_inspect_next"])
+
+
+def test_mutation_plan_path_target_excerpts_owned_file(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/widget.py", n_symbols=3)
+    pack = C.comprehend(
+        root=tmp_path, mode="mutation_plan", target="src/microcosm_core/widget.py"
+    )
+    assert pack["found"] is True
+    assert pack["export_band"] == "local_semantic_excerpt"
+    assert pack["semantic_excerpts"][0]["path"] == "src/microcosm_core/widget.py"
+    assert pack["semantic_excerpts"][0]["symbols"]
+
+
+def test_every_packet_is_stamped_with_identity_and_within_budget(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    _write_owned_module(tmp_path, "src/microcosm_core/widget.py", n_symbols=2)
+    targets = {
+        "organ_cluster": "import_projection_and_drift",
+        "organ": "alpha_validator",
+        "claim_trace": "alpha_validator",
+        "flow": "alpha_validator",
+        "mutation_plan": "src/microcosm_core/widget.py",
+        "path": "src/microcosm_core/widget.py",
+    }
+    for spec in C.PACKET_SPECS:
+        mode = spec["mode"]
+        kwargs: dict = {"root": tmp_path, "mode": mode}
+        if mode == "path":
+            kwargs["path"] = targets["path"]
+        else:
+            kwargs["target"] = targets.get(mode)
+        pack = C.comprehend(**kwargs)
+        assert pack["packet_id"] == spec["packet_id"]
+        assert pack["packet_kind"] == spec["packet_kind"]
+        assert pack["next_packets"] == spec["next_packets"]
+        assert pack["budget"]["within_budget"] is True
+
+
+def test_prebuilt_cache_includes_packet_atlas_without_excerpts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    man = C.build_cached_read_packs(tmp_path)
+    names = {p["name"] for p in man["packs"]}
+    assert "packet_atlas" in names
+    atlas = json.loads(
+        (tmp_path / "receipts/code_lens/read_packs/packet_atlas.json").read_text()
+    )
+    assert atlas["schema_version"] == C.PACKET_ATLAS_SCHEMA
+    assert "semantic_excerpts" not in atlas
+
+
+def test_route_goal_fixtures_land_on_expected_packets_live() -> None:
+    """Every cold-agent goal must route to the right packet on the real substrate."""
+    bundle = C.load_inputs(C.default_root())
+    for goal, expected in C._PACKET_ROUTE_FIXTURES:
+        mode, _t, _n = C.route_goal(goal, bundle)
+        got = (C._SPEC_BY_MODE.get(mode) or {}).get("packet_id")
+        assert got == expected, f"{goal!r} routed to {got}, expected {expected}"
+
+
+def test_packet_route_assay_is_green_on_live_root() -> None:
+    """The atlas must navigate: 100% routing, no overclaim/leak/budget/scent failure."""
+    assay = C.run_packet_route_assay(C.default_root())
+    assert assay["packet_route_accuracy_pct"] == 100.0
+    assert assay["authority_overclaim_count"] == 0
+    assert assay["public_excerpt_leak_count"] == 0
+    assert assay["budget_violations"] == 0
+    assert assay["next_packet_link_coverage_pct"] == 100.0
+    assert assay["first_contact_has_scent"] is True
+    assert "closed" in assay["sqlite_gate"]

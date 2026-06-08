@@ -5,7 +5,14 @@
     "static_analysis_authority": false,
     "whole_system_correctness_authorized": false
   },
-  "compile_ms": 0.104,
+  "budget": {
+    "actual_bytes": 18097,
+    "band": "standard",
+    "max_bytes": 72000,
+    "target_bytes": 24000,
+    "within_budget": true
+  },
+  "compile_ms": 0.63,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -36,6 +43,12 @@
     "membrane_version": "atom_value_membrane_v0"
   },
   "mode": "tutorial",
+  "next_packets": [
+    "authority",
+    "organ_cluster",
+    "organs_index",
+    "mutation_plan"
+  ],
   "non_goals": [
     "not source-body export",
     "not a control-flow / data-flow graph",
@@ -47,6 +60,8 @@
     "you must prove or reproduce a claim from source",
     "the read pack marks a needs_spot_review or unresolved ref"
   ],
+  "packet_id": "first_contact",
+  "packet_kind": "explanation",
   "receipt_refs": [],
   "schema_version": "microcosm_comprehension_read_pack_v0",
   "selected_edges": [],

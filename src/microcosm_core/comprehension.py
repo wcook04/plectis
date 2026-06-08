@@ -45,6 +45,8 @@ from typing import Any
 
 READ_PACK_SCHEMA = "microcosm_comprehension_read_pack_v0"
 ASSAY_SCHEMA = "microcosm_cold_agent_comprehension_assay_v0"
+PACKET_ATLAS_SCHEMA = "microcosm_comprehension_packet_atlas_v0"
+PACKET_ROUTE_ASSAY_SCHEMA = "microcosm_packet_route_assay_v0"
 
 # atom_value_membrane_v0 -- the export contract every read pack declares. Only the
 # presence_only band is active in v0; the richer bands are declared but dormant so a
@@ -614,31 +616,49 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
-    """Route a freeform goal string to a comprehension mode.
+    """Route a freeform goal string to a comprehension packet mode + target.
 
-    - Teleology: let a cold agent ask in words and still land on a bounded pack.
-    - Guarantee: returns (mode, organ_id, note) where mode is one of first-contact,
-      organ, authority, organs; organ_id is set when the goal names a known organ; note
-      flags deferred slices (math/claims/flows) honestly.
+    - Teleology: let a cold agent ask in words and still land on the right bounded
+      packet -- the information-scent router behind --goal and the packet-route assay.
+    - Guarantee: returns (mode, target, note); mode is a known packet mode; target is an
+      organ id (organ/claim_trace/flow/mutation), a family (organ_cluster), or a path
+      (path/mutation) when the goal names one; note is reserved for honest deferrals.
     - Fails: never raises; an empty/unknown goal routes to first-contact.
-    - Reads: the in-memory inputs (organ id set) only.
+    - Reads: the in-memory inputs (organ id + family sets) only.
+    - Non-goal: explicit CLI flags always override this fuzzy router.
     """
     text = (goal or "").lower()
-    for oid in inputs.get("atlas_by_organ", {}):
-        if oid.lower() in text:
-            return "organ", oid, None
-    if any(word in text for word in ("authority", "trust", "ceiling", "allowed", "safe to")):
+    organ = next(
+        (oid for oid in inputs.get("atlas_by_organ", {}) if oid.lower() in text), None
+    )
+    families = {str(r.get("family")) for r in inputs.get("atlas_by_organ", {}).values()}
+    family = next(
+        (f for f in families if f and (f in text or f.replace("_", " ") in text)), None
+    )
+    path = next(
+        (tok for tok in text.split() if tok.endswith(".py") or "/" in tok), None
+    )
+    if any(w in text for w in ("patch", "change", "fix", "mutate", "edit", "modify", "refactor")):
+        return "mutation_plan", organ or path, None
+    if path:
+        return "path", path, None
+    if any(w in text for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")):
+        return "math", None, None
+    if any(w in text for w in ("claim", "prove", "proven", "receipt", "justif", "validate")):
+        return "claim_trace", organ, None
+    if any(w in text for w in ("flow", "how does", "pipeline", "execution", "run order")):
+        return "flow", organ, None
+    if any(w in text for w in ("cluster", "family", "subsystem", "group of", "category")):
+        return "organ_cluster", family, None
+    if any(w in text for w in ("authority", "trust", "ceiling", "allowed", "safe to")):
         return "authority", None, None
-    if any(word in text for word in ("list", "roster", "inventory", "all organs", "what organs")):
+    if any(w in text for w in ("list", "roster", "inventory", "all organs", "what organs")):
         return "organs", None, None
-    note = None
-    if any(word in text for word in ("math", "proof", "claim", "flow", "trace")):
-        note = (
-            "math/claims/flows slices are deferred to a later strike (need join-index v1 "
-            "organ->mechanism/standard and claim->validator->receipt edges); returning "
-            "first-contact."
-        )
-    return "first-contact", None, note
+    if any(w in text for w in ("atlas", "menu", "which packet", "what packets", "packets")):
+        return "packet-atlas", None, None
+    if organ:
+        return "organ", organ, None
+    return "first-contact", None, None
 
 
 # --- atom_value_membrane_v1: bounded, custody-gated local excerpt extraction -------
@@ -882,11 +902,708 @@ def _attach_organ_excerpts(
     return pack
 
 
+# === comprehension_packet_atlas_v0 ================================================
+# A comprehension packet is an attested, source-body-free OPERATING CONTEXT, not just a
+# response: a named, byte-budgeted, atlas-linked read pack for one situation a cold
+# agent actually enters. The packet atlas is the navigable menu over these packets.
+# PACKET_SPECS below is the single source of truth -- the dispatcher, the atlas
+# projection, and the packet-route assay all read it, so the menu can never advertise a
+# packet that does not compile, and every next_packet scent link is checkable on disk.
+
+# Compile-configuration byte bands (the "what size is each packet?" question). A spec
+# names the band it targets; the compiler stamps actual bytes and a within/over verdict.
+PACKET_BUDGETS: dict[str, dict[str, int]] = {
+    "compact": {"target_bytes": 8000, "max_bytes": 16000},
+    "standard": {"target_bytes": 24000, "max_bytes": 72000},
+    "full_local": {"target_bytes": 150000, "max_bytes": 240000},
+}
+
+# The SQLite/FTS5 backend gate stays CLOSED while JSON + the read-pack cache meet every
+# packet's SLO. It opens only on measured pressure, never on instinct.
+SQLITE_GATE = (
+    "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal "
+    "routing or atom-excerpt search misses an SLO or needs ranked full-text search"
+)
+
+# The packet registry. packet_id is the public name; mode is the dispatch key; budget
+# names a PACKET_BUDGETS band; next_packets are the information-scent links a reader
+# follows (each must resolve to a packet_id -- the route assay enforces it).
+PACKET_SPECS: list[dict[str, Any]] = [
+    {
+        "packet_id": "packet_atlas",
+        "packet_kind": "reference",
+        "mode": "packet-atlas",
+        "when_needed": "cold clone, first move: which packet answers my question?",
+        "command": "microcosm comprehend --packet-atlas",
+        "inputs": ["packet_specs"],
+        "export_band": "presence_only",
+        "cache_policy": "prebuilt",
+        "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
+        "budget": "compact",
+        "slo_ms": 200,
+        "data_status": "full",
+        "next_packets": ["first_contact", "authority", "organs_index"],
+    },
+    {
+        "packet_id": "first_contact",
+        "packet_kind": "explanation",
+        "mode": "first-contact",
+        "when_needed": "new clone: what is this substrate and where do I start?",
+        "command": "microcosm comprehend --first-contact",
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "prebuilt",
+        "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["authority", "organ_cluster", "organs_index", "mutation_plan"],
+    },
+    {
+        "packet_id": "authority",
+        "packet_kind": "reference",
+        "mode": "authority",
+        "when_needed": "before acting: what is authoritative vs projection, and what does passing NOT authorize?",
+        "command": "microcosm comprehend --slice authority",
+        "inputs": ["join_index", "organ_atlas"],
+        "export_band": "presence_only",
+        "cache_policy": "prebuilt",
+        "cache_ref": "receipts/code_lens/read_packs/authority.json",
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["organ", "claim_trace"],
+    },
+    {
+        "packet_id": "organs_index",
+        "packet_kind": "reference",
+        "mode": "organs",
+        "when_needed": "what organs exist? one synopsis line each",
+        "command": "microcosm comprehend --slice organs",
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "prebuilt",
+        "cache_ref": "receipts/code_lens/read_packs/organs_index.json",
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["organ", "organ_cluster"],
+    },
+    {
+        "packet_id": "organ_cluster",
+        "packet_kind": "explanation",
+        "mode": "organ_cluster",
+        "when_needed": "understand a whole family/subsystem at once (the middle doll)",
+        "command": "microcosm comprehend --slice cluster --family <family>",
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "standard",
+        "slo_ms": 500,
+        "data_status": "full",
+        "next_packets": ["organ", "math", "claim_trace"],
+    },
+    {
+        "packet_id": "organ",
+        "packet_kind": "explanation",
+        "mode": "organ",
+        "when_needed": "understand one organ: purpose, first command, custody, ceiling",
+        "command": "microcosm comprehend --organ <organ_id>",
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "compact",
+        "slo_ms": 200,
+        "data_status": "full",
+        "next_packets": ["claim_trace", "flow", "mutation_plan"],
+    },
+    {
+        "packet_id": "math",
+        "packet_kind": "explanation",
+        "mode": "math",
+        "when_needed": "where are the formal-math / proof surfaces and what do they claim?",
+        "command": "microcosm comprehend --slice math",
+        "inputs": ["join_index", "organ_atlas"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "standard",
+        "slo_ms": 500,
+        "data_status": "substantive_with_deferred_edges",
+        "next_packets": ["organ", "claim_trace", "organ_cluster"],
+    },
+    {
+        "packet_id": "claim_trace",
+        "packet_kind": "proof_trace",
+        "mode": "claim_trace",
+        "when_needed": "how is a claim justified? claim -> validator -> receipt -> ceiling",
+        "command": "microcosm comprehend --slice claims --organ <organ_id>",
+        "inputs": ["join_index", "organ_atlas"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "compact",
+        "slo_ms": 300,
+        "data_status": "substantive_with_deferred_edges",
+        "next_packets": ["flow", "organ", "authority"],
+    },
+    {
+        "packet_id": "flow",
+        "packet_kind": "proof_trace",
+        "mode": "flow",
+        "when_needed": "how does execution flow? validator -> runner -> receipt",
+        "command": "microcosm comprehend --slice flows --organ <organ_id>",
+        "inputs": ["join_index", "organ_atlas"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "compact",
+        "slo_ms": 300,
+        "data_status": "substantive_with_deferred_edges",
+        "next_packets": ["claim_trace", "organ", "mutation_plan"],
+    },
+    {
+        "packet_id": "mutation_plan",
+        "packet_kind": "how_to",
+        "mode": "mutation_plan",
+        "when_needed": "I want to change something safely: what to inspect, test, refresh",
+        "command": "microcosm comprehend --mutation <organ_id|path>",
+        "inputs": ["join_index", "organ_atlas", "local_excerpts"],
+        "export_band": "local_semantic_excerpt",
+        "cache_policy": "local_on_demand",
+        "cache_ref": None,
+        "budget": "full_local",
+        "slo_ms": 800,
+        "data_status": "substantive_local",
+        "next_packets": ["organ", "claim_trace", "path"],
+    },
+    {
+        "packet_id": "path",
+        "packet_kind": "reference",
+        "mode": "path",
+        "when_needed": "read a file's authored atom values without opening source",
+        "command": "microcosm comprehend --path <owned_file>",
+        "inputs": ["owned_source"],
+        "export_band": "local_semantic_excerpt",
+        "cache_policy": "local_on_demand",
+        "cache_ref": None,
+        "budget": "full_local",
+        "slo_ms": 800,
+        "data_status": "full",
+        "next_packets": ["mutation_plan", "organ"],
+    },
+]
+
+_SPEC_BY_MODE: dict[str, dict[str, Any]] = {s["mode"]: s for s in PACKET_SPECS}
+_SPEC_BY_ID: dict[str, dict[str, Any]] = {s["packet_id"]: s for s in PACKET_SPECS}
+
+
+def packet_spec_for_mode(mode: str) -> dict[str, Any] | None:
+    """Return the packet spec whose dispatch mode is ``mode`` (or None).
+
+    - Teleology: let comprehend stamp a compiled pack with its packet identity/budget.
+    - Guarantee: returns the spec dict for a known dispatch mode, else None.
+    - Fails: never raises.
+    - Reads: the in-memory _SPEC_BY_MODE map only.
+    """
+    return _SPEC_BY_MODE.get(mode)
+
+
+def _budget_for(spec: dict[str, Any]) -> dict[str, int]:
+    """Resolve a spec's named budget band to {target_bytes, max_bytes}.
+
+    - Teleology: turn the spec's symbolic budget band into concrete byte bounds.
+    - Guarantee: returns the PACKET_BUDGETS entry, defaulting to the standard band.
+    - Fails: never raises.
+    - Reads: PACKET_BUDGETS only.
+    """
+    return PACKET_BUDGETS.get(str(spec.get("budget")), PACKET_BUDGETS["standard"])
+
+
+def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any]:
+    """Stamp a compiled pack with its packet identity, byte-budget verdict, and scent.
+
+    - Teleology: make every compiled pack self-describe as an atlas packet -- its id,
+      kind, measured bytes vs budget, and the next_packets a reader should follow.
+    - Guarantee: adds packet_id, packet_kind, next_packets, and a budget block with
+      band/target/max/actual bytes and within_budget; returns the same pack.
+    - Fails: never raises.
+    - Reads: the spec and the pack's own serialized size.
+    - Writes: mutates the pack in place.
+    - Non-goal: never alters the pack's export_band or authority ceiling.
+    """
+    budget = _budget_for(spec)
+    actual = len(json.dumps(pack, ensure_ascii=True))
+    pack["packet_id"] = spec["packet_id"]
+    pack["packet_kind"] = spec["packet_kind"]
+    pack["next_packets"] = list(spec.get("next_packets") or [])
+    pack["budget"] = {
+        "band": spec.get("budget"),
+        "target_bytes": budget["target_bytes"],
+        "max_bytes": budget["max_bytes"],
+        "actual_bytes": actual,
+        "within_budget": actual <= budget["max_bytes"],
+    }
+    return pack
+
+
+def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
+    """Collect the distinct resolved refs of ``key`` across organ rows, by frequency.
+
+    - Teleology: surface the doctrine a family/cluster shares so its pack shows a spine.
+    - Guarantee: returns resolved ref strings sorted by descending occurrence then name;
+      handles list-valued fields (mechanism_refs) and scalar fields (paper_module_ref).
+    - Fails: never raises.
+    - Reads: only the supplied rows.
+    """
+    counts: dict[str, int] = {}
+    for row in rows:
+        value = row.get(key)
+        if isinstance(value, list):
+            refs = _resolved_refs(value)
+        elif value:
+            refs = [str(value)]
+        else:
+            refs = []
+        for ref in refs:
+            counts[ref] = counts.get(ref, 0) + 1
+    return [r for r, _ in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]
+
+
+def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
+    """Compile the navigable packet menu -- the cold-agent first move.
+
+    - Teleology: answer "which packet answers my question?" by projecting the packet
+      registry into a presence_only menu with byte budgets, cache state, and scent links.
+    - Guarantee: returns a PACKET_ATLAS_SCHEMA pack whose selected_nodes list every
+      PACKET_SPEC's {packet_id, packet_kind, when_needed, command, export_band,
+      cache_policy, budget band+bytes, slo_ms, data_status, next_packets}; carries
+      default_entry, the per-packet SLO table, and the (closed) SQLite gate; a cached
+      packet reports its real on-disk byte size.
+    - Fails: never raises; a missing cache file simply omits cached_bytes.
+    - Reads: PACKET_SPECS and any prebuilt cache files under the resolved root.
+    - Non-goal: never compiles or inlines the packets themselves (it is the index).
+    """
+    root = inputs.get("root") or default_root()
+    pack = _pack_skeleton("reference", "which comprehension packet should I use?")
+    pack["schema_version"] = PACKET_ATLAS_SCHEMA
+    pack["summary"]["what_this_is"] = (
+        f"{len(PACKET_SPECS)} comprehension packets. Each is a bounded, source-body-free "
+        "operating context for one situation. Enter through first_contact, or pick the "
+        "packet that matches your goal."
+    )
+    pack["summary"]["what_to_inspect_next"] = [s["command"] for s in PACKET_SPECS[:5]]
+    pack["summary"]["what_not_to_trust"] = (
+        "A packet is a navigation read model, never release/source-export/correctness "
+        "authority; local_semantic_excerpt packets are local-only and never cached."
+    )
+    rows: list[dict[str, Any]] = []
+    for spec in PACKET_SPECS:
+        budget = _budget_for(spec)
+        row = {
+            "kind": "packet",
+            "packet_id": spec["packet_id"],
+            "packet_kind": spec["packet_kind"],
+            "when_needed": spec["when_needed"],
+            "command": spec["command"],
+            "export_band": spec["export_band"],
+            "cache_policy": spec["cache_policy"],
+            "budget_band": spec["budget"],
+            "target_bytes": budget["target_bytes"],
+            "max_bytes": budget["max_bytes"],
+            "slo_ms": spec["slo_ms"],
+            "data_status": spec["data_status"],
+            "next_packets": list(spec.get("next_packets") or []),
+        }
+        cache_ref = spec.get("cache_ref")
+        if cache_ref:
+            row["cache_ref"] = cache_ref
+            cached = root / cache_ref
+            if cached.exists():
+                row["cached_bytes"] = len(cached.read_text())
+        rows.append(row)
+    pack["selected_nodes"] = rows
+    pack["default_entry"] = "first_contact"
+    pack["slo_ms_by_packet"] = {s["packet_id"]: s["slo_ms"] for s in PACKET_SPECS}
+    pack["sqlite_gate"] = SQLITE_GATE
+    pack["evidence_refs"] = ["src/microcosm_core/comprehension.py#PACKET_SPECS"]
+    return pack
+
+
+def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]:
+    """Compile the family/subsystem read pack -- the whole-family-at-once middle doll.
+
+    - Teleology: answer "what is this subsystem and which organs compose it?" so an
+      agent can grasp a family before drilling into one organ.
+    - Guarantee: returns an explanation pack for the named family with member organs
+      (id, display_name, specialty, evidence_class, synopsis), the shared mechanism/
+      concept/paper refs, and the evidence-class distribution; returns a chooser pack
+      (found False) listing all families when family is blank or unknown.
+    - Fails: never raises.
+    - Reads: the in-memory inputs bundle only.
+    - Non-goal: never reads runner source or docstring atoms.
+    """
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    synopsis_by = inputs.get("synopsis_by_organ", {})
+    roster = _family_roster(list(atlas_by.values()))
+    known = {entry["family"] for entry in roster}
+    if not family or family not in known:
+        pack = _pack_skeleton("reference", "choose an organ family")
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = f"Name a family. {len(known)} exist."
+        pack["summary"]["what_to_inspect_next"] = [
+            f"microcosm comprehend --slice cluster --family {entry['family']}"
+            for entry in roster
+        ]
+        pack["selected_nodes"] = roster
+        return pack
+    members = sorted(
+        oid for oid, r in atlas_by.items() if str(r.get("family")) == family
+    )
+    pack = _pack_skeleton("explanation", f"comprehend the {family} family")
+    pack["found"] = True
+    pack["family"] = family
+    pack["summary"]["what_this_is"] = (
+        f"The {family} family: {len(members)} organs sharing a specialty."
+    )
+    pack["summary"]["what_to_inspect_next"] = [
+        f"microcosm comprehend --organ {m}" for m in members[:6]
+    ]
+    pack["summary"]["what_not_to_trust"] = (
+        "Family grouping is navigation metadata; each organ carries its own claim ceiling."
+    )
+    pack["selected_nodes"] = [
+        {
+            "kind": "organ",
+            "organ_id": m,
+            "display_name": (atlas_by.get(m) or {}).get("display_name"),
+            "specialty": (atlas_by.get(m) or {}).get("specialty"),
+            "evidence_class": (join_by.get(m) or {}).get("evidence_class"),
+            "synopsis": synopsis_by.get(m, ""),
+        }
+        for m in members
+    ]
+    member_rows = [atlas_by.get(m) or {} for m in members]
+    pack["shared_refs"] = {
+        "mechanisms": _shared_refs(member_rows, "mechanism_refs"),
+        "concepts": _shared_refs(member_rows, "concept_refs"),
+        "paper_modules": _shared_refs(member_rows, "paper_module_ref"),
+    }
+    pack["selected_nodes"].append(
+        {
+            "kind": "evidence_distribution",
+            "by_evidence_class": _evidence_distribution(
+                [join_by.get(m) or {} for m in members]
+            ),
+        }
+    )
+    return pack
+
+
+def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
+    """Compile the formal-math / proof surfaces read pack.
+
+    - Teleology: answer "where is the mathematics/proof and what does it claim?" by
+      gathering the formal_math_and_proof organs with their proof evidence and ceilings.
+    - Guarantee: returns an explanation pack listing each proof-family organ's
+      {organ_id, display_name, claim_ceiling, validator_command, paper_module_ref,
+      evidence_class, receipt_count}, the shared proof mechanisms, and a deferred_edges
+      block naming the proof-internal structure (theorem->lemma) still behind v1.
+    - Fails: never raises; degrades to an empty member list if the family is absent.
+    - Reads: the in-memory inputs bundle only.
+    - Non-goal: never runs Lean, opens proof bodies, or asserts domain correctness.
+    """
+    family = "formal_math_and_proof"
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    members = sorted(
+        oid for oid, r in atlas_by.items() if str(r.get("family")) == family
+    )
+    pack = _pack_skeleton("explanation", "where are the math/proof surfaces?")
+    pack["family"] = family
+    pack["summary"]["what_this_is"] = (
+        f"{len(members)} formal-math / proof organs. Each records diagnostics or gates "
+        "over proof evidence; none runs Lean or asserts domain correctness here."
+    )
+    pack["summary"]["what_to_inspect_next"] = [
+        f"microcosm comprehend --slice claims --organ {m}" for m in members[:4]
+    ]
+    pack["summary"]["what_not_to_trust"] = (
+        "Passing a proof-evidence gate is projection mechanics, not proof of any theorem."
+    )
+    pack["selected_nodes"] = [
+        {
+            "kind": "proof_organ",
+            "organ_id": m,
+            "display_name": (atlas_by.get(m) or {}).get("display_name"),
+            "claim_ceiling": (join_by.get(m) or {}).get("claim_ceiling"),
+            "validator_command": (join_by.get(m) or {}).get("validator_command"),
+            "paper_module_ref": (atlas_by.get(m) or {}).get("paper_module_ref"),
+            "evidence_class": (join_by.get(m) or {}).get("evidence_class"),
+            "receipt_count": (join_by.get(m) or {}).get("receipt_count"),
+        }
+        for m in members
+    ]
+    member_rows = [atlas_by.get(m) or {} for m in members]
+    pack["shared_refs"] = {
+        "mechanisms": _shared_refs(member_rows, "mechanism_refs"),
+        "paper_modules": _shared_refs(member_rows, "paper_module_ref"),
+    }
+    pack["deferred_edges"] = [
+        {
+            "edge_class": "proof_internal_structure",
+            "missing": "theorem -> lemma -> tactic edges inside a proof organ",
+            "would_come_from": "a Lean-aware proof-graph builder (join-index v2)",
+            "next_packet": "claim_trace",
+        }
+    ]
+    return pack
+
+
+def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
+    """Compile the claim-justification trace for one organ: claim -> validator -> receipt.
+
+    - Teleology: answer "how is this organ's public claim justified, and what bounds it?"
+      by chaining its claim ceiling to the validator command and the receipts it emits.
+    - Guarantee: returns a proof_trace pack for ``target`` with the claim ceiling (atlas
+      restated + join), the validator_command that re-establishes it, the
+      authority_receipt, the emits_receipt edges, and evidence_class; carries a
+      deferred_edges block for the first-class claim-node ontology still behind v1.
+    - Fails: returns a chooser pack (found False) listing organs by ceiling when target
+      is blank/unknown.
+    - Reads: the in-memory inputs bundle only.
+    - Non-goal: never opens validator source or receipt bodies; pointers only.
+    """
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    if not target or (target not in atlas_by and target not in join_by):
+        pack = _pack_skeleton("reference", "choose an organ to trace")
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = (
+            "Name an organ to trace its claim -> validator -> receipt."
+        )
+        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["selected_nodes"] = [
+            {"organ_id": oid, "claim_ceiling": (join_by.get(oid) or {}).get("claim_ceiling")}
+            for oid in sorted(set(atlas_by) | set(join_by))[:20]
+        ]
+        return pack
+    atlas_row = atlas_by.get(target) or {}
+    join_node = join_by.get(target) or {}
+    pack = _pack_skeleton("proof_trace", f"trace the claim for {target}")
+    pack["found"] = True
+    pack["organ_id"] = target
+    pack["summary"]["what_this_is"] = (
+        f"Claim trace for {target}: what it claims, how to re-establish it, what bounds it."
+    )
+    pack["summary"]["what_to_inspect_next"] = [
+        str(join_node.get("validator_command") or "")
+    ]
+    pack["summary"]["what_not_to_trust"] = str(atlas_row.get("claim_ceiling_restated") or "")
+    pack["selected_nodes"] = [
+        {
+            "kind": "claim",
+            "organ_id": target,
+            "claim_ceiling": join_node.get("claim_ceiling"),
+            "claim_ceiling_restated": atlas_row.get("claim_ceiling_restated"),
+            "evidence_class": join_node.get("evidence_class"),
+            "evidence_strength_rank": join_node.get("evidence_strength_rank"),
+            "truth_accounting_bucket": join_node.get("truth_accounting_bucket"),
+        },
+        {
+            "kind": "validator",
+            "validator_command": join_node.get("validator_command"),
+            "note": "run this to re-establish the claim; it does not authorize release",
+        },
+    ]
+    pack["selected_edges"] = _organ_edges(inputs.get("join_index"), target)
+    receipts = [
+        e.get("to") for e in pack["selected_edges"] if e.get("kind") == "emits_receipt"
+    ]
+    if join_node.get("authority_receipt"):
+        receipts.insert(0, join_node.get("authority_receipt"))
+    pack["receipt_refs"] = receipts
+    pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
+    pack["deferred_edges"] = [
+        {
+            "edge_class": "claim_node_ontology",
+            "missing": "a first-class claim node distinct from the per-organ ceiling",
+            "would_come_from": "join-index v2 claim extraction",
+            "next_packet": "flow",
+        }
+    ]
+    return pack
+
+
+def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
+    """Compile the execution-flow trace for one organ: validator -> runner -> receipt.
+
+    - Teleology: answer "how does this organ run and what does it leave behind?" by
+      ordering its validator command, runner module, and emitted receipts.
+    - Guarantee: returns a proof_trace pack for ``target`` whose selected_nodes are the
+      ordered flow stages (validator -> runner/custody -> receipts) and whose
+      deferred_edges names the cross-organ ROUTE topology still behind v1.
+    - Fails: returns a chooser pack (found False) when target is blank/unknown.
+    - Reads: the in-memory inputs bundle only.
+    - Non-goal: never opens runner source; it orders pointers, not bodies.
+    """
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    if not target or (target not in atlas_by and target not in join_by):
+        pack = _pack_skeleton("reference", "choose an organ flow")
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = (
+            "Name an organ to order its validator -> runner -> receipt flow."
+        )
+        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        pack["selected_nodes"] = [
+            {"organ_id": oid} for oid in sorted(set(atlas_by) | set(join_by))[:20]
+        ]
+        return pack
+    atlas_row = atlas_by.get(target) or {}
+    join_node = join_by.get(target) or {}
+    edges = _organ_edges(inputs.get("join_index"), target)
+    receipts = [e.get("to") for e in edges if e.get("kind") == "emits_receipt"]
+    pack = _pack_skeleton("proof_trace", f"trace the flow for {target}")
+    pack["found"] = True
+    pack["organ_id"] = target
+    pack["summary"]["what_this_is"] = (
+        f"Execution flow for {target}: run the validator, it exercises the runner, which "
+        f"emits {len(receipts)} receipt(s)."
+    )
+    pack["summary"]["what_to_inspect_next"] = [str(join_node.get("validator_command") or "")]
+    pack["summary"]["what_not_to_trust"] = str(atlas_row.get("claim_ceiling_restated") or "")
+    pack["selected_nodes"] = [
+        {
+            "kind": "flow_stage",
+            "stage": 1,
+            "role": "validator",
+            "command": join_node.get("validator_command"),
+        },
+        {
+            "kind": "flow_stage",
+            "stage": 2,
+            "role": "runner",
+            "runner_module": join_node.get("runner_module"),
+            "runner_source_ref": join_node.get("runner_source_ref"),
+            "runner_custody_basis": join_node.get("runner_custody_basis"),
+        },
+        {"kind": "flow_stage", "stage": 3, "role": "receipts", "receipts": receipts},
+    ]
+    pack["selected_edges"] = edges
+    pack["receipt_refs"] = receipts
+    pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
+    pack["deferred_edges"] = [
+        {
+            "edge_class": "cross_organ_route_topology",
+            "missing": "a route node fanning one entry point across multiple organs",
+            "would_come_from": "join-index v2 route extraction",
+            "next_packet": "claim_trace",
+        }
+    ]
+    return pack
+
+
+def compile_mutation_plan(
+    inputs: dict[str, Any], root: Path | None, target: str
+) -> dict[str, Any]:
+    """Compile the safe-mutation plan for an organ or owned path (local band).
+
+    - Teleology: answer "I want to change this safely -- what do I inspect, test, and
+      refresh, and what must I not touch?" before editing.
+    - Guarantee: returns a how_to pack (export_band local_semantic_excerpt) with the
+      code_loci to open, owned atom excerpts for owned loci, the validator_command to
+      run after editing, the receipts to refresh, and custody/authority warnings;
+      resolves ``target`` as a source path (has / or .py) or an organ id.
+    - Fails: returns a chooser pack (found False) when target is blank/unknown.
+    - Reads: the inputs bundle plus extract_atom_excerpts on owned loci.
+    - Writes: nothing.
+    - Non-goal: never excerpts a custody-bound runner; never authorizes the change.
+    """
+    base = root or default_root()
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    if target and (target.endswith(".py") or "/" in target):
+        pack = _pack_skeleton("how_to", f"plan a mutation to {target}")
+        pack["found"] = True
+        pack["target"] = target
+        pack["export_band"] = "local_semantic_excerpt"
+        extracted = extract_atom_excerpts(base, target)
+        pack["summary"]["what_this_is"] = f"Mutation plan for the file {target}."
+        pack["summary"]["what_to_inspect_next"] = [target]
+        pack["summary"]["what_not_to_trust"] = (
+            "A read pack does not authorize the change; run the owning organ's validator "
+            "and refresh its receipts after editing."
+        )
+        if extracted["eligible"] and extracted["symbols"]:
+            pack["semantic_excerpts"] = [
+                {
+                    "path": target,
+                    "symbols": extracted["symbols"],
+                    "guard": {
+                        **extracted["leak_guard"],
+                        "omitted_for_budget": extracted["omitted_for_budget"],
+                    },
+                }
+            ]
+        else:
+            pack["excerpt_custody_notes"] = [
+                {"path": target, "custody_basis": extracted["custody_basis"]}
+            ]
+        pack["source_span_escalation"] = [{"path": target, "symbols": []}]
+        return pack
+    if not target or (target not in atlas_by and target not in join_by):
+        pack = _pack_skeleton("reference", "choose a mutation target")
+        pack["found"] = False
+        pack["summary"]["what_this_is"] = (
+            "Name an organ id or an owned source path to plan a safe change."
+        )
+        pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+        return pack
+    atlas_row = atlas_by.get(target) or {}
+    join_node = join_by.get(target) or {}
+    pack = _pack_skeleton("how_to", f"plan a mutation to organ {target}")
+    pack["found"] = True
+    pack["organ_id"] = target
+    pack["export_band"] = "local_semantic_excerpt"
+    pack["summary"]["what_this_is"] = f"Safe-mutation plan for organ {target}."
+    pack["summary"]["what_not_to_trust"] = str(atlas_row.get("claim_ceiling_restated") or "")
+    inspect = [f"validator (run after editing): {join_node.get('validator_command')}"]
+    if join_node.get("runner_custody_basis") == "directory_coupling_marker":
+        inspect.append(
+            "WARNING: the runner is an exact-copy macro body -- do NOT edit the runner; "
+            "change the source module it imports, then refresh the copy."
+        )
+    pack["summary"]["what_to_inspect_next"] = inspect
+    _attach_organ_excerpts(pack, base, target, inputs)
+    edges = _organ_edges(inputs.get("join_index"), target)
+    pack["receipt_refs"] = [e.get("to") for e in edges if e.get("kind") == "emits_receipt"]
+    pack["source_span_escalation"] = _organ_source_spans(atlas_row, join_node)
+    pack["mutation_steps"] = [
+        "open the source_span_escalation paths below (owned loci only)",
+        f"run the validator: {join_node.get('validator_command')}",
+        "refresh the receipts the organ emits (receipt_refs)",
+    ]
+    pack["warnings"] = [
+        "this plan is local-only and is never cached into the committed presence_only cache",
+        "editing does not bypass the authority ceiling; validation + receipts are required",
+    ]
+    return pack
+
+
 _MODE_COMPILERS = {
-    "first-contact": lambda inputs, organ_id: compile_first_contact(inputs),
-    "authority": lambda inputs, organ_id: compile_authority(inputs),
-    "organs": lambda inputs, organ_id: compile_organs_index(inputs),
-    "organ": lambda inputs, organ_id: compile_organ(inputs, organ_id or ""),
+    "first-contact": lambda inputs, target: compile_first_contact(inputs),
+    "authority": lambda inputs, target: compile_authority(inputs),
+    "organs": lambda inputs, target: compile_organs_index(inputs),
+    "organ": lambda inputs, target: compile_organ(inputs, target or ""),
+    "packet-atlas": lambda inputs, target: compile_packet_atlas(inputs),
+    "organ_cluster": lambda inputs, target: compile_organ_cluster(inputs, target or ""),
+    "math": lambda inputs, target: compile_math(inputs),
+    "claim_trace": lambda inputs, target: compile_claim_trace(inputs, target or ""),
+    "flow": lambda inputs, target: compile_flow(inputs, target or ""),
 }
 
 
@@ -895,18 +1612,21 @@ def comprehend(
     root: Path | None = None,
     mode: str = "first-contact",
     organ_id: str | None = None,
+    target: str | None = None,
     goal: str | None = None,
     path: str | None = None,
     with_excerpts: bool = False,
     inputs: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Compile one read pack and stamp its compile latency.
+    """Compile one comprehension packet and stamp its identity, budget, and latency.
 
-    - Teleology: the single dispatch a CLI or test calls to get a goal-specific pack,
-      including the local_semantic_excerpt path/organ modes.
-    - Guarantee: returns the compiled pack with an added compile_ms float; mode="path"
-      compiles an owned-file excerpt pack; with_excerpts enriches an organ pack with
-      owned atom excerpts; a goal string overrides mode/organ_id via route_goal.
+    - Teleology: the single dispatch a CLI or test calls to get a goal-shaped packet --
+      first-contact, the packet atlas, an organ/cluster/math/claim_trace/flow read, or a
+      local_semantic_excerpt path/mutation_plan packet.
+    - Guarantee: returns the compiled pack with packet_id/packet_kind/next_packets and a
+      budget verdict (when the mode is a registered packet) plus a compile_ms float;
+      ``target`` (falling back to organ_id) carries the organ/family/path argument; a
+      goal string overrides mode/target via route_goal.
     - Fails: ValueError on an unknown mode or a source-body-leaking join index.
     - Reads: the substrate inputs (loaded here unless ``inputs`` is supplied).
     - Writes: nothing.
@@ -915,20 +1635,26 @@ def comprehend(
     start = time.perf_counter()
     base_root = root or default_root()
     bundle = inputs if inputs is not None else load_inputs(base_root)
+    target = target if target is not None else organ_id
     routing_note = None
     if goal:
-        mode, organ_id, routing_note = route_goal(goal, bundle)
+        mode, target, routing_note = route_goal(goal, bundle)
     if mode == "path":
-        pack = compile_path_excerpts(base_root, path or "")
+        pack = compile_path_excerpts(base_root, path or target or "")
+    elif mode == "mutation_plan":
+        pack = compile_mutation_plan(bundle, base_root, target or path or "")
     else:
         compiler = _MODE_COMPILERS.get(mode)
         if compiler is None:
             raise ValueError(f"unknown comprehension mode: {mode!r}")
-        pack = compiler(bundle, organ_id)
+        pack = compiler(bundle, target)
         if mode == "organ" and with_excerpts and pack.get("found"):
-            _attach_organ_excerpts(pack, base_root, organ_id or "", bundle)
+            _attach_organ_excerpts(pack, base_root, target or "", bundle)
     if routing_note:
         pack["routing_note"] = routing_note
+    spec = packet_spec_for_mode(mode)
+    if spec is not None:
+        _stamp_packet_identity(pack, spec)
     pack["compile_ms"] = round((time.perf_counter() - start) * 1000, 3)
     return pack
 
@@ -938,24 +1664,29 @@ def build_cached_read_packs(
 ) -> dict[str, Any]:
     """Materialize the prebuilt first-contact / authority / organs read packs.
 
-    - Teleology: Level-1 cache -- commit the entry packs so a cold clone can read them
-      without running the compiler, and so the comprehension surface is inspectable.
-    - Guarantee: writes first_contact.json, authority.json, organs_index.json under
-      receipts/code_lens/read_packs/ and returns a manifest of {path, bytes} per pack.
+    - Teleology: Level-1 cache -- commit the presence_only entry packs (including the
+      packet atlas) so a cold clone can read them without running the compiler.
+    - Guarantee: writes first_contact.json, authority.json, organs_index.json, and
+      packet_atlas.json under receipts/code_lens/read_packs/ and returns a manifest of
+      {name, path, bytes} per pack; packet_atlas is built last so it reports the other
+      caches' real on-disk sizes.
     - Fails: OSError if the output directory cannot be created/written.
     - Reads: the substrate inputs once.
-    - Writes: the three prebuilt read-pack receipts.
-    - Non-goal: does not prebuild per-organ packs (82 of them stay on-demand).
+    - Writes: the four prebuilt presence_only read-pack receipts.
+    - Non-goal: never prebuilds local_semantic_excerpt packs (path/mutation_plan stay
+      on-demand and local-only) or per-organ packs (82 of them stay on-demand).
     """
     base = root or default_root()
     target = out_dir or (base / "receipts/code_lens/read_packs")
     target.mkdir(parents=True, exist_ok=True)
     bundle = load_inputs(base)
+    bundle["root"] = base
     manifest: dict[str, Any] = {"schema_version": READ_PACK_SCHEMA, "packs": []}
     for name, mode in (
         ("first_contact", "first-contact"),
         ("authority", "authority"),
         ("organs_index", "organs"),
+        ("packet_atlas", "packet-atlas"),
     ):
         pack = comprehend(mode=mode, inputs=bundle)
         body = json.dumps(pack, ensure_ascii=True, indent=2, sort_keys=True) + "\n"
@@ -1172,5 +1903,161 @@ def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
         "custody_violation_count": 0 if custody_clean else 1,
         "guard_drops": owned.get("leak_guard", {}),
         "results": [{"q": q, "ok": ok} for q, ok in questions],
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+    }
+
+
+# --- packet-route assay: does the atlas actually navigate? -------------------------
+
+# Routing fixtures: a goal a cold agent might type, and the packet_id it must land on.
+# These double as the "will it navigate" proof and guard route_goal against drift.
+_PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
+    ("I just cloned this repo, what is it?", "first_contact"),
+    ("where are the math and proof surfaces?", "math"),
+    ("how is this claim justified, what receipt proves it?", "claim_trace"),
+    ("how does execution flow here", "flow"),
+    ("what may I trust here?", "authority"),
+    ("list all organs", "organs_index"),
+    ("which packet should I use?", "packet_atlas"),
+    ("I want to change the import behaviour", "mutation_plan"),
+    ("read the atom values in src/microcosm_core/comprehension.py", "path"),
+]
+
+
+def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
+    """Pick a representative target so each parameterized packet can compile in the assay.
+
+    - Teleology: let the route assay actually compile organ/cluster/claim/flow/mutation
+      packets, not only the parameterless ones.
+    - Guarantee: returns a family name for organ_cluster, an owned path for path/
+      mutation_plan, a sample organ id for organ/claim_trace/flow, else None.
+    - Fails: never raises; returns None when no sample is available.
+    - Reads: the in-memory inputs bundle only.
+    """
+    if mode == "organ_cluster":
+        roster = _family_roster(list(inputs.get("atlas_by_organ", {}).values()))
+        return roster[0]["family"] if roster else None
+    if mode in ("path", "mutation_plan"):
+        return OWNED_EXCERPT_ROOT + "comprehension.py"
+    if mode in ("organ", "claim_trace", "flow"):
+        return next(iter(inputs.get("join_by_organ", {})), None) or next(
+            iter(inputs.get("atlas_by_organ", {})), None
+        )
+    return None
+
+
+def run_packet_route_assay(
+    root: Path | None = None, inputs: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    """Assay the packet atlas as a navigable product, not just an answer surface.
+
+    - Teleology: prove the atlas NAVIGATES -- goals route to the right packet, every
+      advertised packet compiles in-band/in-budget/leak-free, scent links resolve, and
+      the committed cache carries no excerpts -- so the menu can be trusted as the entry.
+    - Guarantee: returns a PACKET_ROUTE_ASSAY_SCHEMA dict with packet_route_accuracy_pct,
+      wrong_packet_count, authority_overclaim_count, public_excerpt_leak_count (packet +
+      cache), budget_violations, slo_violations, next_packet_link_coverage_pct,
+      first_contact_has_scent, packet_bytes_by_kind, the (closed) sqlite_gate, and per-
+      route / per-packet / per-cache result rows; all metrics are computed, not asserted.
+    - Fails: never raises on content; ValueError only on a leaking join index (via load).
+    - Reads: the substrate inputs once and any prebuilt cache files.
+    - Writes: nothing.
+    - Non-goal: does not call any LLM; routing is the deterministic route_goal mapping.
+    """
+    bundle = inputs if inputs is not None else load_inputs(root)
+    base = bundle.get("root") or default_root()
+    known_ids = set(_SPEC_BY_ID)
+
+    route_results: list[dict[str, Any]] = []
+    correct = 0
+    for goal, expected in _PACKET_ROUTE_FIXTURES:
+        mode, _t, _n = route_goal(goal, bundle)
+        got = (_SPEC_BY_MODE.get(mode) or {}).get("packet_id")
+        ok = got == expected
+        correct += 1 if ok else 0
+        route_results.append({"goal": goal, "expected": expected, "got": got, "ok": ok})
+
+    packet_checks: list[dict[str, Any]] = []
+    overclaim = 0
+    packet_leaks = 0
+    budget_violations = 0
+    slo_violations = 0
+    scent_resolved = 0
+    bytes_by_kind: dict[str, int] = {}
+    max_ms = 0.0
+    for spec in PACKET_SPECS:
+        mode = spec["mode"]
+        sample = _assay_sample_target(mode, bundle)
+        pack = comprehend(mode=mode, target=sample, inputs=bundle, root=base)
+        body = json.dumps(pack, ensure_ascii=True)
+        band_ok = pack.get("export_band") == spec["export_band"]
+        ceiling = pack.get("authority_ceiling") or {}
+        overclaimed = any(ceiling.get(k) for k in AUTHORITY_CEILING)
+        leaked = spec["export_band"] == "presence_only" and _pack_leaks_source_body(pack)
+        within = (pack.get("budget") or {}).get("within_budget", True)
+        nexts = pack.get("next_packets") or []
+        scent_ok = bool(nexts) and all(n in known_ids for n in nexts)
+        ms = float(pack.get("compile_ms") or 0.0)
+        overclaim += 1 if overclaimed else 0
+        packet_leaks += 1 if leaked else 0
+        budget_violations += 0 if within else 1
+        slo_violations += 0 if ms <= spec["slo_ms"] else 1
+        scent_resolved += 1 if scent_ok else 0
+        max_ms = max(max_ms, ms)
+        bytes_by_kind[spec["packet_id"]] = len(body)
+        packet_checks.append(
+            {
+                "packet_id": spec["packet_id"],
+                "mode": mode,
+                "band_ok": band_ok,
+                "overclaim": overclaimed,
+                "leaked": leaked,
+                "within_budget": within,
+                "scent_resolves": scent_ok,
+                "compile_ms": ms,
+                "bytes": len(body),
+            }
+        )
+
+    cache_checks: list[dict[str, Any]] = []
+    cache_leaks = 0
+    for spec in PACKET_SPECS:
+        ref = spec.get("cache_ref")
+        if not ref:
+            continue
+        cache_path = base / ref
+        if not cache_path.exists():
+            cache_checks.append({"cache_ref": ref, "present": False})
+            continue
+        doc = _load_json(cache_path) or {}
+        has_excerpts = bool(doc.get("semantic_excerpts"))
+        cache_leaks += 1 if has_excerpts else 0
+        cache_checks.append(
+            {
+                "cache_ref": ref,
+                "present": True,
+                "export_band": doc.get("export_band"),
+                "has_excerpts": has_excerpts,
+            }
+        )
+
+    total_routes = len(_PACKET_ROUTE_FIXTURES) or 1
+    return {
+        "schema_version": PACKET_ROUTE_ASSAY_SCHEMA,
+        "packets": len(PACKET_SPECS),
+        "packet_route_accuracy_pct": round(100.0 * correct / total_routes, 1),
+        "wrong_packet_count": total_routes - correct,
+        "authority_overclaim_count": overclaim,
+        "public_excerpt_leak_count": packet_leaks + cache_leaks,
+        "budget_violations": budget_violations,
+        "slo_violations": slo_violations,
+        "max_compile_ms": round(max_ms, 3),
+        "next_packet_link_coverage_pct": round(100.0 * scent_resolved / len(PACKET_SPECS), 1),
+        "first_contact_has_scent": bool(_SPEC_BY_ID["first_contact"].get("next_packets")),
+        "packet_bytes_by_kind": bytes_by_kind,
+        "sqlite_gate": SQLITE_GATE,
+        "route_results": route_results,
+        "packet_checks": packet_checks,
+        "cache_checks": cache_checks,
         "authority_ceiling": dict(AUTHORITY_CEILING),
     }

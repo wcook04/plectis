@@ -635,10 +635,13 @@ FIRST_SCREEN_HELP = """First-screen route:
   reader aliases: cold-cloner, interesting_parts/interesting-parts, skeptical-reviewer, reviewer, type-a-agent, domain-specialist
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
-  microcosm comprehend --first-contact  compile the source-body-free comprehension read pack (cold-agent first move, no source reread)
+  microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (cold-agent first move; pick the packet that matches your goal)
+  microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
-  microcosm comprehend --slice {authority|organs} authority-boundary or organ-roster read pack
-  microcosm comprehension-assay   prove the read packs answer cold-agent questions without opening source
+  microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
+  microcosm comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
+  microcosm comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
+  microcosm comprehension-assay [--hard|--packet-route] prove the packets answer / carry atoms / navigate without opening source
   microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
@@ -3762,10 +3765,24 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--slice",
         dest="slice_name",
-        choices=["first-contact", "authority", "organs"],
+        choices=["first-contact", "authority", "organs", "cluster", "math", "claims", "flows"],
         help="compile a named comprehension slice",
     )
-    comprehend_parser.add_argument("--goal", help="freeform goal routed to a mode")
+    comprehend_parser.add_argument(
+        "--family",
+        help="organ family for --slice cluster (e.g. formal_math_and_proof)",
+    )
+    comprehend_parser.add_argument(
+        "--mutation",
+        help="organ id or owned path to compile a safe-mutation plan (local band)",
+    )
+    comprehend_parser.add_argument(
+        "--packet-atlas",
+        dest="packet_atlas",
+        action="store_true",
+        help="print the packet atlas: the navigable menu of comprehension packets",
+    )
+    comprehend_parser.add_argument("--goal", help="freeform goal routed to a packet")
     comprehend_parser.add_argument(
         "--path",
         help="owned source file to read as bounded atom-value excerpts (local_semantic_excerpt band)",
@@ -3791,6 +3808,12 @@ def main(argv: list[str] | None = None) -> int:
         "--hard",
         action="store_true",
         help="run the hard assay requiring real atom-value content + custody/leak guards",
+    )
+    comprehension_assay_parser.add_argument(
+        "--packet-route",
+        dest="packet_route",
+        action="store_true",
+        help="run the packet-route assay: routing accuracy + per-packet band/budget/leak/scent",
     )
     comprehension_assay_parser.add_argument(
         "--root", help="substrate root override (defaults to the package root)"
@@ -4683,9 +4706,22 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(
                 comprehension.build_cached_read_packs(comprehend_root), exit_code=0
             )
-        if args.path:
+        slice_modes = {"claims": "claim_trace", "flows": "flow", "cluster": "organ_cluster"}
+        if args.packet_atlas:
+            pack = comprehension.comprehend(root=comprehend_root, mode="packet-atlas")
+        elif args.mutation:
+            pack = comprehension.comprehend(
+                root=comprehend_root, mode="mutation_plan", target=args.mutation
+            )
+        elif args.path:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="path", path=args.path
+            )
+        elif args.slice_name:
+            mode = slice_modes.get(args.slice_name, args.slice_name)
+            target = args.family if args.slice_name == "cluster" else args.organ
+            pack = comprehension.comprehend(
+                root=comprehend_root, mode=mode, target=target
             )
         elif args.organ:
             pack = comprehension.comprehend(
@@ -4696,8 +4732,6 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.goal:
             pack = comprehension.comprehend(root=comprehend_root, goal=args.goal)
-        elif args.slice_name:
-            pack = comprehension.comprehend(root=comprehend_root, mode=args.slice_name)
         else:
             pack = comprehension.comprehend(root=comprehend_root, mode="first-contact")
         return _print_json(pack, exit_code=0)
@@ -4711,6 +4745,16 @@ def main(argv: list[str] | None = None) -> int:
                 and hard["custody_violation_count"] == 0
             )
             return _print_json(hard, exit_code=0 if hard_ok else 1)
+        if args.packet_route:
+            route = comprehension.run_packet_route_assay(assay_root)
+            route_ok = (
+                route["packet_route_accuracy_pct"] >= 90.0
+                and route["authority_overclaim_count"] == 0
+                and route["public_excerpt_leak_count"] == 0
+                and route["budget_violations"] == 0
+                and route["first_contact_has_scent"]
+            )
+            return _print_json(route, exit_code=0 if route_ok else 1)
         assay = comprehension.run_comprehension_assay(assay_root)
         assay_ok = (
             assay["answerable_without_source_pct"] >= 80.0

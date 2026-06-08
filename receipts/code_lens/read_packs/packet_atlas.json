@@ -1,0 +1,309 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "budget": {
+    "actual_bytes": 7731,
+    "band": "compact",
+    "max_bytes": 16000,
+    "target_bytes": 8000,
+    "within_budget": true
+  },
+  "compile_ms": 0.685,
+  "default_entry": "first_contact",
+  "evidence_refs": [
+    "src/microcosm_core/comprehension.py#PACKET_SPECS"
+  ],
+  "export_band": "presence_only",
+  "goal": "which comprehension packet should I use?",
+  "membrane": {
+    "active_band": "presence_only",
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "membrane_version": "atom_value_membrane_v0"
+  },
+  "mode": "reference",
+  "next_packets": [
+    "first_contact",
+    "authority",
+    "organs_index"
+  ],
+  "non_goals": [
+    "not source-body export",
+    "not a control-flow / data-flow graph",
+    "not release approval",
+    "not whole-system correctness"
+  ],
+  "open_source_when": [
+    "you must mutate the organ's owned code",
+    "you must prove or reproduce a claim from source",
+    "the read pack marks a needs_spot_review or unresolved ref"
+  ],
+  "packet_id": "packet_atlas",
+  "packet_kind": "reference",
+  "receipt_refs": [],
+  "schema_version": "microcosm_comprehension_packet_atlas_v0",
+  "selected_edges": [],
+  "selected_nodes": [
+    {
+      "budget_band": "compact",
+      "cache_policy": "prebuilt",
+      "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
+      "command": "microcosm comprehend --packet-atlas",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "first_contact",
+        "authority",
+        "organs_index"
+      ],
+      "packet_id": "packet_atlas",
+      "packet_kind": "reference",
+      "slo_ms": 200,
+      "target_bytes": 8000,
+      "when_needed": "cold clone, first move: which packet answers my question?"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "prebuilt",
+      "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
+      "cached_bytes": 30938,
+      "command": "microcosm comprehend --first-contact",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "authority",
+        "organ_cluster",
+        "organs_index",
+        "mutation_plan"
+      ],
+      "packet_id": "first_contact",
+      "packet_kind": "explanation",
+      "slo_ms": 300,
+      "target_bytes": 24000,
+      "when_needed": "new clone: what is this substrate and where do I start?"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "prebuilt",
+      "cache_ref": "receipts/code_lens/read_packs/authority.json",
+      "cached_bytes": 25913,
+      "command": "microcosm comprehend --slice authority",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "organ",
+        "claim_trace"
+      ],
+      "packet_id": "authority",
+      "packet_kind": "reference",
+      "slo_ms": 300,
+      "target_bytes": 24000,
+      "when_needed": "before acting: what is authoritative vs projection, and what does passing NOT authorize?"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "prebuilt",
+      "cache_ref": "receipts/code_lens/read_packs/organs_index.json",
+      "cached_bytes": 41716,
+      "command": "microcosm comprehend --slice organs",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "organ",
+        "organ_cluster"
+      ],
+      "packet_id": "organs_index",
+      "packet_kind": "reference",
+      "slo_ms": 300,
+      "target_bytes": 24000,
+      "when_needed": "what organs exist? one synopsis line each"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --slice cluster --family <family>",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "organ",
+        "math",
+        "claim_trace"
+      ],
+      "packet_id": "organ_cluster",
+      "packet_kind": "explanation",
+      "slo_ms": 500,
+      "target_bytes": 24000,
+      "when_needed": "understand a whole family/subsystem at once (the middle doll)"
+    },
+    {
+      "budget_band": "compact",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --organ <organ_id>",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "claim_trace",
+        "flow",
+        "mutation_plan"
+      ],
+      "packet_id": "organ",
+      "packet_kind": "explanation",
+      "slo_ms": 200,
+      "target_bytes": 8000,
+      "when_needed": "understand one organ: purpose, first command, custody, ceiling"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --slice math",
+      "data_status": "substantive_with_deferred_edges",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "organ",
+        "claim_trace",
+        "organ_cluster"
+      ],
+      "packet_id": "math",
+      "packet_kind": "explanation",
+      "slo_ms": 500,
+      "target_bytes": 24000,
+      "when_needed": "where are the formal-math / proof surfaces and what do they claim?"
+    },
+    {
+      "budget_band": "compact",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --slice claims --organ <organ_id>",
+      "data_status": "substantive_with_deferred_edges",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "flow",
+        "organ",
+        "authority"
+      ],
+      "packet_id": "claim_trace",
+      "packet_kind": "proof_trace",
+      "slo_ms": 300,
+      "target_bytes": 8000,
+      "when_needed": "how is a claim justified? claim -> validator -> receipt -> ceiling"
+    },
+    {
+      "budget_band": "compact",
+      "cache_policy": "on_demand",
+      "command": "microcosm comprehend --slice flows --organ <organ_id>",
+      "data_status": "substantive_with_deferred_edges",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 16000,
+      "next_packets": [
+        "claim_trace",
+        "organ",
+        "mutation_plan"
+      ],
+      "packet_id": "flow",
+      "packet_kind": "proof_trace",
+      "slo_ms": 300,
+      "target_bytes": 8000,
+      "when_needed": "how does execution flow? validator -> runner -> receipt"
+    },
+    {
+      "budget_band": "full_local",
+      "cache_policy": "local_on_demand",
+      "command": "microcosm comprehend --mutation <organ_id|path>",
+      "data_status": "substantive_local",
+      "export_band": "local_semantic_excerpt",
+      "kind": "packet",
+      "max_bytes": 240000,
+      "next_packets": [
+        "organ",
+        "claim_trace",
+        "path"
+      ],
+      "packet_id": "mutation_plan",
+      "packet_kind": "how_to",
+      "slo_ms": 800,
+      "target_bytes": 150000,
+      "when_needed": "I want to change something safely: what to inspect, test, refresh"
+    },
+    {
+      "budget_band": "full_local",
+      "cache_policy": "local_on_demand",
+      "command": "microcosm comprehend --path <owned_file>",
+      "data_status": "full",
+      "export_band": "local_semantic_excerpt",
+      "kind": "packet",
+      "max_bytes": 240000,
+      "next_packets": [
+        "mutation_plan",
+        "organ"
+      ],
+      "packet_id": "path",
+      "packet_kind": "reference",
+      "slo_ms": 800,
+      "target_bytes": 150000,
+      "when_needed": "read a file's authored atom values without opening source"
+    }
+  ],
+  "slo_ms_by_packet": {
+    "authority": 300,
+    "claim_trace": 300,
+    "first_contact": 300,
+    "flow": 300,
+    "math": 500,
+    "mutation_plan": 800,
+    "organ": 200,
+    "organ_cluster": 500,
+    "organs_index": 300,
+    "packet_atlas": 200,
+    "path": 800
+  },
+  "source_span_escalation": [],
+  "specificity_risks": [],
+  "sqlite_gate": "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal routing or atom-excerpt search misses an SLO or needs ranked full-text search",
+  "summary": {
+    "what_not_to_trust": "A packet is a navigation read model, never release/source-export/correctness authority; local_semantic_excerpt packets are local-only and never cached.",
+    "what_this_is": "11 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
+    "what_to_inspect_next": [
+      "microcosm comprehend --packet-atlas",
+      "microcosm comprehend --first-contact",
+      "microcosm comprehend --slice authority",
+      "microcosm comprehend --slice organs",
+      "microcosm comprehend --slice cluster --family <family>"
+    ]
+  }
+}

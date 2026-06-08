@@ -5,7 +5,14 @@
     "static_analysis_authority": false,
     "whole_system_correctness_authorized": false
   },
-  "compile_ms": 0.113,
+  "budget": {
+    "actual_bytes": 33874,
+    "band": "standard",
+    "max_bytes": 72000,
+    "target_bytes": 24000,
+    "within_budget": true
+  },
+  "compile_ms": 0.754,
   "evidence_refs": [],
   "export_band": "presence_only",
   "goal": "list all organs",
@@ -32,6 +39,10 @@
     "membrane_version": "atom_value_membrane_v0"
   },
   "mode": "reference",
+  "next_packets": [
+    "organ",
+    "organ_cluster"
+  ],
   "non_goals": [
     "not source-body export",
     "not a control-flow / data-flow graph",
@@ -43,6 +54,8 @@
     "you must prove or reproduce a claim from source",
     "the read pack marks a needs_spot_review or unresolved ref"
   ],
+  "packet_id": "organs_index",
+  "packet_kind": "reference",
   "receipt_refs": [],
   "schema_version": "microcosm_comprehension_read_pack_v0",
   "selected_edges": [],
