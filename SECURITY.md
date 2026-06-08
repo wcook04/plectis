@@ -12,6 +12,25 @@ Before opening receipt trees or release-boundary fields, use the README
 through those public surfaces, especially the command cards, evidence
 fixtures, source capsules, validation shell, and release receipts.
 
+## Preferred Private Reporting Channel
+
+The launch-default private intake is GitHub Private Vulnerability Reporting on
+the public Microcosm repository:
+
+```text
+https://github.com/wcook04/microcosm-substrate/security/advisories/new
+```
+
+Before public release, the release gate must bind a current setting receipt that
+proves the standalone public repository exists and GitHub Private Vulnerability
+Reporting is enabled. If the GitHub "Report a vulnerability" button is not
+visible on the repository's Security/Advisories page, do not open a public issue
+with vulnerability details.
+
+No `security@` email route is published yet. Email intake is deferred until a
+final domain, monitored mailbox, SPF/DKIM/DMARC posture, and ownership boundary
+exist. There is no bug bounty.
+
 ## Reportable Boundary Failures
 
 Report an issue if public Microcosm material appears to expose or authorize:
@@ -99,3 +118,8 @@ handle; raw environment state is not.
 When reporting a suspected leak, include the path, command, receipt id, and a
 short redacted description. Do not paste the suspected secret, private payload,
 raw prompt body, or credential-equivalent value into the report.
+
+For suspected release-boundary, hosted-header, CI/supply-chain, or unsafe
+exploit-content issues, also include expected versus observed boundary and the
+smallest redacted reproduction detail that does not expose private state or
+live-target exploit steps.
