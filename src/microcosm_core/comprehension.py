@@ -47,6 +47,8 @@ READ_PACK_SCHEMA = "microcosm_comprehension_read_pack_v0"
 ASSAY_SCHEMA = "microcosm_cold_agent_comprehension_assay_v0"
 PACKET_ATLAS_SCHEMA = "microcosm_comprehension_packet_atlas_v0"
 PACKET_ROUTE_ASSAY_SCHEMA = "microcosm_packet_route_assay_v0"
+SELF_MODEL_SCHEMA = "microcosm_whole_system_self_model_v0"
+WHOLE_SYSTEM_ASSAY_SCHEMA = "microcosm_whole_system_comprehension_assay_v0"
 
 # atom_value_membrane_v0 -- the export contract every read pack declares. Only the
 # presence_only band is active in v0; the richer bands are declared but dormant so a
@@ -642,6 +644,15 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
+    if any(
+        w in text
+        for w in (
+            "whole system", "whole microcosm", "everything", "self model", "self-model",
+            "entire substrate", "operating picture", "all at once", "comprehend the whole",
+            "comprehend all", "understand the whole", "comprehend everything",
+        )
+    ):
+        return "self-model", None, None
     if any(w in text for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")):
         return "math", None, None
     if any(w in text for w in ("claim", "prove", "proven", "receipt", "justif", "validate")):
@@ -942,7 +953,22 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 200,
         "data_status": "full",
-        "next_packets": ["first_contact", "authority", "organs_index"],
+        "next_packets": ["self_model", "first_contact", "authority", "organs_index"],
+    },
+    {
+        "packet_id": "self_model",
+        "packet_kind": "explanation",
+        "mode": "self-model",
+        "when_needed": "comprehend the WHOLE substrate at once: every family, what's real vs thin, what not to claim",
+        "command": "microcosm comprehend --self-model",
+        "inputs": ["join_index", "organ_atlas", "synopses"],
+        "export_band": "presence_only",
+        "cache_policy": "prebuilt",
+        "cache_ref": "receipts/code_lens/read_packs/self_model.json",
+        "budget": "standard",
+        "slo_ms": 500,
+        "data_status": "full",
+        "next_packets": ["organs_index", "organ_cluster", "math", "authority", "mutation_plan"],
     },
     {
         "packet_id": "first_contact",
@@ -957,7 +983,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 300,
         "data_status": "full",
-        "next_packets": ["authority", "organ_cluster", "organs_index", "mutation_plan"],
+        "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
     },
     {
         "packet_id": "authority",
@@ -1594,12 +1620,259 @@ def compile_mutation_plan(
     return pack
 
 
+# === whole_system_self_model_v0 ===================================================
+# The self-model is the ENTIRE substrate compiled into one budgeted, source-body-free
+# packet a cold agent can read in a single context window -- so it comprehends the whole
+# Microcosm at once instead of judging it from whichever slice it happened to open. It
+# is deliberately calibrated, not promotional: the most load-bearing fields are
+# what_not_to_claim and thin_or_projection_surfaces, so quality is INFERRED from honest
+# self-understanding rather than asserted. Front anchor (read_me_first) + section index +
+# tail_recap mitigate the "lost in the middle" long-context failure mode.
+_SELF_MODEL_PROFILES = ("operating_picture", "whole_substrate_map", "public_reader")
+
+# The genuinely-missing edges, surfaced honestly in every self-model (not faked).
+_ALL_DEFERRED_EDGES = [
+    {"edge_class": "proof_internal_structure",
+     "missing": "theorem -> lemma -> tactic edges inside a proof organ",
+     "would_come_from": "join-index v2 Lean-aware proof-graph builder"},
+    {"edge_class": "cross_organ_route_topology",
+     "missing": "a route node fanning one entry point across multiple organs",
+     "would_come_from": "join-index v2 route extraction"},
+    {"edge_class": "claim_node_ontology",
+     "missing": "a first-class claim node distinct from the per-organ ceiling",
+     "would_come_from": "join-index v2 claim extraction"},
+]
+
+
+def _count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
+    """Count rows by a string field, returned high-to-low (shared distribution helper).
+
+    - Teleology: the one counter behind the self-model's calibration rollup so evidence
+      class / truth-accounting / strength distributions all read the same way.
+    - Guarantee: returns {value: count} sorted by descending count then value; a missing
+      field becomes "unspecified".
+    - Fails: never raises.
+    - Reads: only the supplied rows.
+    """
+    counts: dict[str, int] = {}
+    for row in rows:
+        value = str(row.get(key) or "unspecified")
+        counts[value] = counts.get(value, 0) + 1
+    return dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def _whole_substrate_rows(
+    families: list[dict[str, Any]],
+    atlas_by: dict[str, Any],
+    join_by: dict[str, Any],
+    synopsis_by: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Build the per-organ essence roster grouped by family (the comprehend-all payload).
+
+    - Teleology: let a cold agent read EVERY organ's essence + calibration in one pass --
+      the literal "comprehend all 82 organs at once" body.
+    - Guarantee: returns a list of {family, organ_count, organs:[{organ_id, essence,
+      evidence_class, evidence_strength_rank, truth_accounting_bucket, claim_ceiling,
+      first_command}]}; essence draws from the public synopsis then human gloss.
+    - Fails: never raises.
+    - Reads: only the supplied in-memory maps.
+    - Non-goal: never reads runner source or docstring atoms.
+    """
+    out: list[dict[str, Any]] = []
+    for entry in families:
+        rows: list[dict[str, Any]] = []
+        for organ_id in sorted(o["organ_id"] for o in entry["organs"]):
+            atlas_row = atlas_by.get(organ_id) or {}
+            join_node = join_by.get(organ_id) or {}
+            rows.append(
+                {
+                    "organ_id": organ_id,
+                    "essence": synopsis_by.get(organ_id, "") or atlas_row.get("human_gloss", ""),
+                    "evidence_class": join_node.get("evidence_class"),
+                    "evidence_strength_rank": join_node.get("evidence_strength_rank"),
+                    "truth_accounting_bucket": join_node.get("truth_accounting_bucket"),
+                    "claim_ceiling": join_node.get("claim_ceiling"),
+                    "first_command": atlas_row.get("first_command"),
+                }
+            )
+        out.append({"family": entry["family"], "organ_count": len(rows), "organs": rows})
+    return out
+
+
+def _public_reader_block(
+    health: dict[str, Any], atlas: dict[str, Any]
+) -> dict[str, Any]:
+    """Compile the public-safe, calibrated reader block (NOT a marketing summary).
+
+    - Teleology: let a skeptical external reader see what the system demonstrates, what it
+      explicitly does NOT, and where the known thinness is -- quality inferred from honesty.
+    - Guarantee: returns {what_it_demonstrates, what_it_does_not_demonstrate,
+      known_thinness, recommended_demo_path}; no house jargon, no release/correctness claim.
+    - Fails: never raises.
+    - Reads: only the supplied health rollup + atlas.
+    - Non-goal: never asserts impressiveness, release, or domain correctness.
+    """
+    macro_runners = (health.get("runner_custody_split") or {}).get("directory_coupling_marker", 0)
+    return {
+        "what_it_demonstrates": [
+            "A substrate that compiles a source-body-free, calibrated self-model a cold agent reads in one context window.",
+            "Per-organ authority ceilings + validator commands + receipts: every claim names how it is checked and what it does not authorize.",
+            "An anti-overclaim membrane: comprehension never exports source bodies or grants release / correctness.",
+        ],
+        "what_it_does_not_demonstrate": [
+            "Deep domain correctness: it does not run Lean or assert any theorem here.",
+            f"Owned-code depth across all organs: {macro_runners} of {health.get('organ_count')} runners are exact-copy macro bodies.",
+            "Production readiness, provider calls, or financial / safety advice.",
+        ],
+        "known_thinness": health.get("by_truth_accounting_bucket"),
+        "recommended_demo_path": [
+            "microcosm comprehend --self-model",
+            "microcosm comprehend --slice math",
+            "microcosm comprehend --slice claims --organ <a proof organ>",
+            "microcosm comprehension-assay --whole-system",
+        ],
+    }
+
+
+def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture") -> dict[str, Any]:
+    """Compile the whole-Microcosm self-model: the entire substrate in one budgeted packet.
+
+    - Teleology: let a cold agent comprehend the WHOLE substrate at once -- every family,
+      what is real vs thin, what must not be claimed, and where to drill down -- instead of
+      judging Microcosm from whichever slice it opened.
+    - Guarantee: returns a SELF_MODEL_SCHEMA pack with a front anchor (read_me_first), a
+      section index, major_subsystems (families), code_lens_health (evidence/truth-
+      accounting/strength/custody rollups), authority_membrane, thin_or_projection_surfaces
+      (skepticism made navigable), deferred_edges, recommended_drilldowns (the hub routing
+      to the specialized packets), and a tail_recap; profile whole_substrate_map adds the
+      per-organ essence roster, public_reader adds the calibrated external-reader block.
+    - Fails: never raises; an unknown profile falls back to operating_picture.
+    - Reads: the in-memory inputs bundle only (atlas + join index + synopses).
+    - Non-goal: never exports source bodies, asserts impressiveness, or grants release.
+    """
+    profile = profile if profile in _SELF_MODEL_PROFILES else "operating_picture"
+    atlas_by = inputs.get("atlas_by_organ", {})
+    join_by = inputs.get("join_by_organ", {})
+    synopsis_by = inputs.get("synopsis_by_organ", {})
+    atlas = inputs.get("atlas") or {}
+    join_organs = list(join_by.values())
+    rollup = ((inputs.get("join_index") or {}).get("rollup")) or {}
+    families = _family_roster(list(atlas_by.values()))
+    organ_count = len(atlas_by) or rollup.get("organ_count") or 0
+    custody_split = rollup.get("runner_custody_split") or _count_by(join_organs, "runner_custody_basis")
+    health = {
+        "organ_count": organ_count,
+        "edge_count": rollup.get("edge_count"),
+        "by_evidence_class": _count_by(join_organs, "evidence_class"),
+        "by_truth_accounting_bucket": _count_by(join_organs, "truth_accounting_bucket"),
+        "by_evidence_strength_rank": _count_by(join_organs, "evidence_strength_rank"),
+        "runner_custody_split": custody_split,
+        "synopsis_coverage": len(synopsis_by),
+    }
+    exact_copy = custody_split.get("directory_coupling_marker", 0)
+
+    pack = _pack_skeleton("explanation", "comprehend the whole Microcosm")
+    pack["schema_version"] = SELF_MODEL_SCHEMA
+    pack["context_profile"] = profile
+    pack["target_reader"] = "cold Type A / cold codebase reader"
+    # FRONT ANCHOR -- the strongest, load-bearing facts first (lost-in-the-middle guard).
+    pack["read_me_first"] = [
+        f"Microcosm is a {organ_count}-organ self-describing substrate; each organ is a bounded "
+        "capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
+        f"Custody truth: {exact_copy}/{organ_count} organ runners are EXACT-COPY macro bodies -- "
+        "comprehend them via registry metadata + receipts, not runner source.",
+        "Every read here is source-body-free (presence_only); nothing in this packet authorizes "
+        "release, source export, or whole-system correctness.",
+        f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
+        "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
+    ]
+    pack["summary"]["what_this_is"] = (
+        str(atlas.get("authority_boundary") or "A self-describing organ substrate.")
+    )
+    pack["summary"]["what_to_inspect_next"] = ["microcosm comprehend --slice organs"]
+    pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
+    pack["sections"] = [
+        "read_me_first", "major_subsystems", "code_lens_health", "authority_membrane",
+        "thin_or_projection_surfaces", "deferred_edges", "recommended_drilldowns", "tail_recap",
+    ]
+    pack["major_subsystems"] = [
+        {
+            "family": entry["family"],
+            "organ_count": entry["count"],
+            "drilldown": f"microcosm comprehend --slice cluster --family {entry['family']}",
+        }
+        for entry in families
+    ]
+    pack["code_lens_health"] = health
+    pack["authority_membrane"] = {
+        "bands": MEMBRANE_V0["bands"],
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+        "boundary": atlas.get("authority_boundary"),
+        "anti_claim": atlas.get("anti_claim"),
+    }
+    # THINNESS MADE NAVIGABLE -- where a skeptic should be skeptical, and how to probe it.
+    pack["thin_or_projection_surfaces"] = {
+        "note": "Where to be skeptical: these are projection / import surfaces, not deep domain capability.",
+        "exact_copy_macro_runners": exact_copy,
+        "copied_non_secret_macro_body_organs": health["by_truth_accounting_bucket"].get(
+            "copied_non_secret_macro_body", 0
+        ),
+        "projection_or_import_evidence_classes": {
+            k: v for k, v in health["by_evidence_class"].items()
+            if "projection" in k or "import" in k
+        },
+        "how_to_probe": "For any organ run --slice claims --organ <id> to see its validator_command + "
+        "receipts; an algorithmic_projection organ asserts projection mechanics only, not domain truth.",
+    }
+    pack["deferred_edges"] = _ALL_DEFERRED_EDGES
+    # The self-model is the HUB: it routes to the specialized packets rather than duplicating them.
+    pack["recommended_drilldowns"] = [
+        {"question": "what organs exist (one line each)?", "packet": "organs_index",
+         "command": "microcosm comprehend --slice organs"},
+        {"question": "understand a whole family?", "packet": "organ_cluster",
+         "command": "microcosm comprehend --slice cluster --family <f>"},
+        {"question": "where is the math / proof?", "packet": "math",
+         "command": "microcosm comprehend --slice math"},
+        {"question": "what may I trust?", "packet": "authority",
+         "command": "microcosm comprehend --slice authority"},
+        {"question": "how is a claim justified?", "packet": "claim_trace",
+         "command": "microcosm comprehend --slice claims --organ <id>"},
+        {"question": "how does an organ run?", "packet": "flow",
+         "command": "microcosm comprehend --slice flows --organ <id>"},
+        {"question": "change something safely?", "packet": "mutation_plan",
+         "command": "microcosm comprehend --mutation <id|path>"},
+        {"question": "read a file's atoms without opening source?", "packet": "path",
+         "command": "microcosm comprehend --path <owned_file>"},
+    ]
+    if profile == "whole_substrate_map":
+        pack["whole_substrate_map"] = _whole_substrate_rows(
+            families, atlas_by, join_by, synopsis_by
+        )
+    if profile == "public_reader":
+        pack["public_reader"] = _public_reader_block(health, atlas)
+    # TAIL RECAP -- repeat the core frame at the end (lost-in-the-middle guard).
+    pack["tail_recap"] = {
+        "core_frame": f"{organ_count} organs, {len(families)} families; {exact_copy}/{organ_count} "
+        "runners are exact-copy macro bodies; presence_only; authorizes nothing.",
+        "next_packet_if_lost": "microcosm comprehend --packet-atlas",
+        "to_comprehend_every_organ": "microcosm comprehend --self-model --profile whole_substrate_map",
+    }
+    pack["evidence_refs"] = [
+        "core/organ_atlas.json",
+        "receipts/code_lens/code_lens_join_index_v0.json",
+        "core/component_public_synopses.json",
+        "src/microcosm_core/comprehension.py#PACKET_SPECS",
+    ]
+    return pack
+
+
 _MODE_COMPILERS = {
     "first-contact": lambda inputs, target: compile_first_contact(inputs),
     "authority": lambda inputs, target: compile_authority(inputs),
     "organs": lambda inputs, target: compile_organs_index(inputs),
     "organ": lambda inputs, target: compile_organ(inputs, target or ""),
     "packet-atlas": lambda inputs, target: compile_packet_atlas(inputs),
+    "self-model": lambda inputs, target: compile_self_model(inputs, target or "operating_picture"),
     "organ_cluster": lambda inputs, target: compile_organ_cluster(inputs, target or ""),
     "math": lambda inputs, target: compile_math(inputs),
     "claim_trace": lambda inputs, target: compile_claim_trace(inputs, target or ""),
@@ -1686,6 +1959,7 @@ def build_cached_read_packs(
         ("first_contact", "first-contact"),
         ("authority", "authority"),
         ("organs_index", "organs"),
+        ("self_model", "self-model"),
         ("packet_atlas", "packet-atlas"),
     ):
         pack = comprehend(mode=mode, inputs=bundle)
@@ -2059,5 +2333,78 @@ def run_packet_route_assay(
         "route_results": route_results,
         "packet_checks": packet_checks,
         "cache_checks": cache_checks,
+        "authority_ceiling": dict(AUTHORITY_CEILING),
+    }
+
+
+# --- whole-system comprehension assay: can a cold reader comprehend ALL of it? -----
+
+# Each row is a global question whose answer must live in the self-model packet, keyed by
+# the dotted path that must be non-empty (+ an optional token that must appear under it).
+_WHOLE_SYSTEM_QUESTIONS: list[tuple[str, str, str | None]] = [
+    ("what is Microcosm?", "summary.what_this_is", None),
+    ("what are the major organ families?", "major_subsystems", None),
+    ("which surfaces are runtime vs projection vs custody/import?", "code_lens_health.by_evidence_class", None),
+    ("what is the real-vs-copied calibration?", "code_lens_health.by_truth_accounting_bucket", None),
+    ("what should NOT be claimed?", "authority_membrane.authority_ceiling", None),
+    ("where is the thinness / where to be skeptical?", "thin_or_projection_surfaces", None),
+    ("what remains deferred?", "deferred_edges", None),
+    ("which packet inspects one organ next?", "recommended_drilldowns", "organ"),
+    ("is there a front anchor?", "read_me_first", None),
+    ("is there a tail recap?", "tail_recap", None),
+]
+
+
+def run_whole_system_comprehension_assay(
+    root: Path | None = None, inputs: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    """Assay whether the self-model lets a cold reader comprehend the WHOLE substrate.
+
+    - Teleology: prove the self-model causes calibrated whole-system understanding -- a
+      cold reader can answer global questions, map every organ, see the thinness and the
+      caveats, and pick the right drilldown -- WITHOUT raw repo archaeology. This is the
+      show-don't-tell replacement for any "is it impressive?" question.
+    - Guarantee: returns a WHOLE_SYSTEM_ASSAY_SCHEMA dict with whole_system_answerability_pct,
+      every_organ_mapped (whole_substrate_map covers all atlas organs), overclaim_count,
+      source_body_leaks, thinness_surfaced, deferred_surfaced, front_anchor_present,
+      tail_recap_present, packet_bytes, and per-question rows; all metrics computed.
+    - Fails: never raises on content; ValueError only on a leaking join index (via load).
+    - Reads: the substrate inputs once.
+    - Writes: nothing.
+    - Non-goal: does not call any LLM and does not score "impressiveness".
+    """
+    bundle = inputs if inputs is not None else load_inputs(root)
+    base = bundle.get("root") or default_root()
+    pack = comprehend(mode="self-model", target="whole_substrate_map", inputs=bundle, root=base)
+    answered = 0
+    results: list[dict[str, Any]] = []
+    for question, key, token in _WHOLE_SYSTEM_QUESTIONS:
+        value = _dig(pack, key)
+        ok = bool(value) and (token is None or token in json.dumps(value, ensure_ascii=True))
+        answered += 1 if ok else 0
+        results.append({"q": question, "key": key, "answerable": ok})
+    ceiling = pack.get("authority_ceiling") or {}
+    overclaim = sum(1 for k in AUTHORITY_CEILING if ceiling.get(k))
+    leak = 1 if _pack_leaks_source_body(pack) else 0
+    mapped = sum(len(fam.get("organs", [])) for fam in pack.get("whole_substrate_map", []))
+    organ_total = len(bundle.get("atlas_by_organ", {}))
+    total_q = len(_WHOLE_SYSTEM_QUESTIONS) or 1
+    return {
+        "schema_version": WHOLE_SYSTEM_ASSAY_SCHEMA,
+        "profile": pack.get("context_profile"),
+        "whole_system_answerability_pct": round(100.0 * answered / total_q, 1),
+        "organs_mapped": mapped,
+        "organ_total": organ_total,
+        "every_organ_mapped": mapped >= organ_total and mapped > 0,
+        "overclaim_count": overclaim,
+        "wrong_authority_claims": overclaim,
+        "source_body_leaks": leak,
+        "public_excerpt_leak_count": leak,
+        "thinness_surfaced": bool(pack.get("thin_or_projection_surfaces")),
+        "deferred_surfaced": bool(pack.get("deferred_edges")),
+        "front_anchor_present": bool(pack.get("read_me_first")),
+        "tail_recap_present": bool(pack.get("tail_recap")),
+        "packet_bytes": len(json.dumps(pack, ensure_ascii=True)),
+        "results": results,
         "authority_ceiling": dict(AUTHORITY_CEILING),
     }
