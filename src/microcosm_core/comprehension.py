@@ -2187,6 +2187,7 @@ def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
 # These double as the "will it navigate" proof and guard route_goal against drift.
 _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("I just cloned this repo, what is it?", "first_contact"),
+    ("comprehend the whole microcosm at once", "self_model"),
     ("where are the math and proof surfaces?", "math"),
     ("how is this claim justified, what receipt proves it?", "claim_trace"),
     ("how does execution flow here", "flow"),

@@ -1,0 +1,264 @@
+{
+  "authority_ceiling": {
+    "release_authorized": false,
+    "source_body_export_authorized": false,
+    "static_analysis_authority": false,
+    "whole_system_correctness_authorized": false
+  },
+  "authority_membrane": {
+    "anti_claim": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+    "authority_ceiling": {
+      "release_authorized": false,
+      "source_body_export_authorized": false,
+      "static_analysis_authority": false,
+      "whole_system_correctness_authorized": false
+    },
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
+  },
+  "budget": {
+    "actual_bytes": 8564,
+    "band": "standard",
+    "max_bytes": 72000,
+    "target_bytes": 24000,
+    "within_budget": true
+  },
+  "code_lens_health": {
+    "by_evidence_class": {
+      "algorithmic_projection": 27,
+      "bounded_runtime_computation": 6,
+      "external_subprocess_witness": 6,
+      "semantic_validator": 20,
+      "verified_macro_body_import": 23
+    },
+    "by_evidence_strength_rank": {
+      "3": 27,
+      "4": 12,
+      "5": 43
+    },
+    "by_truth_accounting_bucket": {
+      "copied_non_secret_macro_body": 23,
+      "real_import_validation": 20,
+      "real_runtime_receipt": 12,
+      "source_faithful_refactor": 27
+    },
+    "edge_count": 424,
+    "organ_count": 82,
+    "runner_custody_split": {
+      "directory_coupling_marker": 81,
+      "owned": 1
+    },
+    "synopsis_coverage": 82
+  },
+  "compile_ms": 0.314,
+  "context_profile": "operating_picture",
+  "deferred_edges": [
+    {
+      "edge_class": "proof_internal_structure",
+      "missing": "theorem -> lemma -> tactic edges inside a proof organ",
+      "would_come_from": "join-index v2 Lean-aware proof-graph builder"
+    },
+    {
+      "edge_class": "cross_organ_route_topology",
+      "missing": "a route node fanning one entry point across multiple organs",
+      "would_come_from": "join-index v2 route extraction"
+    },
+    {
+      "edge_class": "claim_node_ontology",
+      "missing": "a first-class claim node distinct from the per-organ ceiling",
+      "would_come_from": "join-index v2 claim extraction"
+    }
+  ],
+  "evidence_refs": [
+    "core/organ_atlas.json",
+    "receipts/code_lens/code_lens_join_index_v0.json",
+    "core/component_public_synopses.json",
+    "src/microcosm_core/comprehension.py#PACKET_SPECS"
+  ],
+  "export_band": "presence_only",
+  "goal": "comprehend the whole Microcosm",
+  "major_subsystems": [
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family import_projection_and_drift",
+      "family": "import_projection_and_drift",
+      "organ_count": 22
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family formal_math_and_proof",
+      "family": "formal_math_and_proof",
+      "organ_count": 18
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family agent_reliability_and_safety",
+      "family": "agent_reliability_and_safety",
+      "organ_count": 17
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family architecture_and_navigation",
+      "family": "architecture_and_navigation",
+      "organ_count": 10
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family research_and_science_replays",
+      "family": "research_and_science_replays",
+      "organ_count": 8
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family work_landing_and_continuity",
+      "family": "work_landing_and_continuity",
+      "organ_count": 5
+    },
+    {
+      "drilldown": "microcosm comprehend --slice cluster --family entry_and_reveal",
+      "family": "entry_and_reveal",
+      "organ_count": 2
+    }
+  ],
+  "membrane": {
+    "active_band": "presence_only",
+    "bands": {
+      "local_semantic_excerpt": {
+        "exports": "bounded owned-source excerpts behind explicit local authority",
+        "requires": "source_body_export_authorized is False even when active",
+        "source_bodies": false,
+        "state": "dormant"
+      },
+      "presence_only": {
+        "exports": "names, public glosses, counts, refs, ceilings",
+        "source_bodies": false,
+        "state": "active"
+      },
+      "source_span_escalation": {
+        "exports": "exact path + symbol pointers only; open source to mutate or prove",
+        "source_bodies": false,
+        "state": "on_demand"
+      }
+    },
+    "membrane_version": "atom_value_membrane_v0"
+  },
+  "mode": "explanation",
+  "next_packets": [
+    "organs_index",
+    "organ_cluster",
+    "math",
+    "authority",
+    "mutation_plan"
+  ],
+  "non_goals": [
+    "not source-body export",
+    "not a control-flow / data-flow graph",
+    "not release approval",
+    "not whole-system correctness"
+  ],
+  "open_source_when": [
+    "you must mutate the organ's owned code",
+    "you must prove or reproduce a claim from source",
+    "the read pack marks a needs_spot_review or unresolved ref"
+  ],
+  "packet_id": "self_model",
+  "packet_kind": "explanation",
+  "read_me_first": [
+    "Microcosm is a 82-organ self-describing substrate; each organ is a bounded capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
+    "Custody truth: 81/82 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
+    "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, or whole-system correctness.",
+    "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow."
+  ],
+  "receipt_refs": [],
+  "recommended_drilldowns": [
+    {
+      "command": "microcosm comprehend --slice organs",
+      "packet": "organs_index",
+      "question": "what organs exist (one line each)?"
+    },
+    {
+      "command": "microcosm comprehend --slice cluster --family <f>",
+      "packet": "organ_cluster",
+      "question": "understand a whole family?"
+    },
+    {
+      "command": "microcosm comprehend --slice math",
+      "packet": "math",
+      "question": "where is the math / proof?"
+    },
+    {
+      "command": "microcosm comprehend --slice authority",
+      "packet": "authority",
+      "question": "what may I trust?"
+    },
+    {
+      "command": "microcosm comprehend --slice claims --organ <id>",
+      "packet": "claim_trace",
+      "question": "how is a claim justified?"
+    },
+    {
+      "command": "microcosm comprehend --slice flows --organ <id>",
+      "packet": "flow",
+      "question": "how does an organ run?"
+    },
+    {
+      "command": "microcosm comprehend --mutation <id|path>",
+      "packet": "mutation_plan",
+      "question": "change something safely?"
+    },
+    {
+      "command": "microcosm comprehend --path <owned_file>",
+      "packet": "path",
+      "question": "read a file's atoms without opening source?"
+    }
+  ],
+  "schema_version": "microcosm_whole_system_self_model_v0",
+  "sections": [
+    "read_me_first",
+    "major_subsystems",
+    "code_lens_health",
+    "authority_membrane",
+    "thin_or_projection_surfaces",
+    "deferred_edges",
+    "recommended_drilldowns",
+    "tail_recap"
+  ],
+  "selected_edges": [],
+  "selected_nodes": [],
+  "source_span_escalation": [],
+  "specificity_risks": [],
+  "summary": {
+    "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+    "what_this_is": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
+    "what_to_inspect_next": [
+      "microcosm comprehend --slice organs"
+    ]
+  },
+  "tail_recap": {
+    "core_frame": "82 organs, 7 families; 81/82 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
+    "next_packet_if_lost": "microcosm comprehend --packet-atlas",
+    "to_comprehend_every_organ": "microcosm comprehend --self-model --profile whole_substrate_map"
+  },
+  "target_reader": "cold Type A / cold codebase reader",
+  "thin_or_projection_surfaces": {
+    "copied_non_secret_macro_body_organs": 23,
+    "exact_copy_macro_runners": 81,
+    "how_to_probe": "For any organ run --slice claims --organ <id> to see its validator_command + receipts; an algorithmic_projection organ asserts projection mechanics only, not domain truth.",
+    "note": "Where to be skeptical: these are projection / import surfaces, not deep domain capability.",
+    "projection_or_import_evidence_classes": {
+      "algorithmic_projection": 27,
+      "verified_macro_body_import": 23
+    }
+  }
+}

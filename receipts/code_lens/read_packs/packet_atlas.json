@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 7731,
+    "actual_bytes": 8357,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
     "within_budget": true
   },
-  "compile_ms": 0.685,
+  "compile_ms": 0.95,
   "default_entry": "first_contact",
   "evidence_refs": [
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
@@ -43,6 +43,7 @@
   },
   "mode": "reference",
   "next_packets": [
+    "self_model",
     "first_contact",
     "authority",
     "organs_index"
@@ -68,12 +69,14 @@
       "budget_band": "compact",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
+      "cached_bytes": 9738,
       "command": "microcosm comprehend --packet-atlas",
       "data_status": "full",
       "export_band": "presence_only",
       "kind": "packet",
       "max_bytes": 16000,
       "next_packets": [
+        "self_model",
         "first_contact",
         "authority",
         "organs_index"
@@ -87,14 +90,38 @@
     {
       "budget_band": "standard",
       "cache_policy": "prebuilt",
+      "cache_ref": "receipts/code_lens/read_packs/self_model.json",
+      "cached_bytes": 10160,
+      "command": "microcosm comprehend --self-model",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "organs_index",
+        "organ_cluster",
+        "math",
+        "authority",
+        "mutation_plan"
+      ],
+      "packet_id": "self_model",
+      "packet_kind": "explanation",
+      "slo_ms": 500,
+      "target_bytes": 24000,
+      "when_needed": "comprehend the WHOLE substrate at once: every family, what's real vs thin, what not to claim"
+    },
+    {
+      "budget_band": "standard",
+      "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
-      "cached_bytes": 30938,
+      "cached_bytes": 30956,
       "command": "microcosm comprehend --first-contact",
       "data_status": "full",
       "export_band": "presence_only",
       "kind": "packet",
       "max_bytes": 72000,
       "next_packets": [
+        "self_model",
         "authority",
         "organ_cluster",
         "organs_index",
@@ -290,20 +317,21 @@
     "organ_cluster": 500,
     "organs_index": 300,
     "packet_atlas": 200,
-    "path": 800
+    "path": 800,
+    "self_model": 500
   },
   "source_span_escalation": [],
   "specificity_risks": [],
   "sqlite_gate": "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal routing or atom-excerpt search misses an SLO or needs ranked full-text search",
   "summary": {
     "what_not_to_trust": "A packet is a navigation read model, never release/source-export/correctness authority; local_semantic_excerpt packets are local-only and never cached.",
-    "what_this_is": "11 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
+    "what_this_is": "12 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Enter through first_contact, or pick the packet that matches your goal.",
     "what_to_inspect_next": [
       "microcosm comprehend --packet-atlas",
+      "microcosm comprehend --self-model",
       "microcosm comprehend --first-contact",
       "microcosm comprehend --slice authority",
-      "microcosm comprehend --slice organs",
-      "microcosm comprehend --slice cluster --family <family>"
+      "microcosm comprehend --slice organs"
     ]
   }
 }

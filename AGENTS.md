@@ -79,14 +79,17 @@ for copy/paste while resolving it to the selected branch.
 Read those outputs as the first contract: `microcosm hello` is the no-write
 human card, `microcosm first-screen --card` is the compact JSON reader map,
 `microcosm comprehend --packet-atlas` is the navigable menu of comprehension
-packets (pick the one matching your goal: first_contact, authority,
+packets (pick the one matching your goal: self_model, first_contact, authority,
 organ_cluster, math, claim_trace, flow, mutation_plan, path),
-`microcosm comprehend --first-contact` is the source-body-free comprehension
-read pack that answers "what is this substrate, what does each organ do, and
-what may I trust" without rereading source (drill in with
+`microcosm comprehend --self-model` compiles the WHOLE substrate into one
+budgeted packet so you comprehend every family, the real-vs-thin calibration,
+and what not to claim at once (`--profile whole_substrate_map` for all 82
+organ essences), `microcosm comprehend --first-contact` is the source-body-free
+comprehension read pack that answers "what is this substrate, what does each
+organ do, and what may I trust" without rereading source (drill in with
 `microcosm comprehend --organ <organ_id>`, trace a claim with
 `microcosm comprehend --slice claims --organ <organ_id>`, and prove the whole
-surface navigates with `microcosm comprehension-assay --packet-route`),
+surface comprehends with `microcosm comprehension-assay --whole-system`),
 `microcosm tour --card` is the shared state-writing behavior proof,
 `microcosm status --card` is the compressed public evidence map,
 `microcosm authority --card` is the claim ceiling, `microcosm workingness --card`

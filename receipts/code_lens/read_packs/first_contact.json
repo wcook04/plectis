@@ -12,7 +12,7 @@
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.63,
+  "compile_ms": 0.31,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -44,6 +44,7 @@
   },
   "mode": "tutorial",
   "next_packets": [
+    "self_model",
     "authority",
     "organ_cluster",
     "organs_index",

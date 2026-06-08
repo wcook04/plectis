@@ -217,8 +217,8 @@ def test_cache_build_writes_presence_only_packs(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     manifest = C.build_cached_read_packs(tmp_path)
     names = {p["name"] for p in manifest["packs"]}
-    # v2: the packet atlas joins the prebuilt presence_only entry packs.
-    assert names == {"first_contact", "authority", "organs_index", "packet_atlas"}
+    # v2/v3: the packet atlas + whole-system self-model join the prebuilt entry packs.
+    assert names == {"first_contact", "authority", "organs_index", "self_model", "packet_atlas"}
     for entry in manifest["packs"]:
         assert (tmp_path / entry["path"]).is_file()
         assert entry["bytes"] > 0
@@ -545,3 +545,97 @@ def test_packet_route_assay_is_green_on_live_root() -> None:
     assert assay["next_packet_link_coverage_pct"] == 100.0
     assert assay["first_contact_has_scent"] is True
     assert "closed" in assay["sqlite_gate"]
+
+
+# === Whole-Microcosm Self-Model v0: comprehend the entire substrate at once ========
+
+
+def test_self_model_operating_picture_has_anchor_health_and_recap(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model")
+    assert pack["schema_version"] == C.SELF_MODEL_SCHEMA
+    assert pack["context_profile"] == "operating_picture"
+    assert pack["export_band"] == "presence_only"
+    # Lost-in-the-middle guards: a front anchor and a tail recap must both exist.
+    assert pack["read_me_first"] and len(pack["read_me_first"]) >= 3
+    assert pack["tail_recap"]["core_frame"]
+    assert pack["sections"]
+    # Calibration sections present.
+    assert pack["code_lens_health"]["by_evidence_class"]
+    assert pack["authority_membrane"]["authority_ceiling"]
+    assert pack["recommended_drilldowns"]
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_self_model_whole_substrate_map_covers_every_organ(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model", target="whole_substrate_map")
+    mapped = sorted(
+        o["organ_id"] for fam in pack["whole_substrate_map"] for o in fam["organs"]
+    )
+    assert mapped == ["alpha_validator", "beta_projection"]
+    # Each organ row carries its essence + evidence-class calibration.
+    row = pack["whole_substrate_map"][0]["organs"][0]
+    assert "essence" in row and "evidence_class" in row and "claim_ceiling" in row
+
+
+def test_self_model_surfaces_thinness_honestly(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model")
+    thin = pack["thin_or_projection_surfaces"]
+    # alpha_validator's runner is a directory_coupling_marker (exact-copy macro body).
+    assert thin["exact_copy_macro_runners"] == 1
+    assert "how_to_probe" in thin
+    # The honest deferred edges are always surfaced, never hidden.
+    assert {d["edge_class"] for d in pack["deferred_edges"]} >= {"proof_internal_structure"}
+
+
+def test_self_model_public_reader_is_calibrated_not_promotional(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    pack = C.comprehend(root=tmp_path, mode="self-model", target="public_reader")
+    block = pack["public_reader"]
+    assert block["what_it_demonstrates"] and block["what_it_does_not_demonstrate"]
+    # Calibrated, not promotional: never asserts impressiveness in product-facing copy.
+    assert "impressive" not in json.dumps(pack).lower()
+
+
+def test_self_model_is_presence_only_and_carries_no_excerpts(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    for profile in ("operating_picture", "whole_substrate_map", "public_reader"):
+        pack = C.comprehend(root=tmp_path, mode="self-model", target=profile)
+        assert pack["export_band"] == "presence_only"
+        assert "semantic_excerpts" not in pack
+        assert "atom_values" not in json.dumps(pack)
+
+
+def test_route_goal_routes_whole_system_to_self_model(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    bundle = C.load_inputs(tmp_path)
+    for goal in ("comprehend the whole microcosm at once", "show me everything", "self-model"):
+        assert C.route_goal(goal, bundle)[0] == "self-model"
+
+
+def test_self_model_in_prebuilt_cache_and_atlas(tmp_path: Path) -> None:
+    _write_fixture(tmp_path)
+    C.build_cached_read_packs(tmp_path)
+    cached = json.loads(
+        (tmp_path / "receipts/code_lens/read_packs/self_model.json").read_text()
+    )
+    assert cached["schema_version"] == C.SELF_MODEL_SCHEMA
+    assert "semantic_excerpts" not in cached
+    atlas = C.comprehend(root=tmp_path, mode="packet-atlas")
+    assert "self_model" in [n["packet_id"] for n in atlas["selected_nodes"]]
+
+
+def test_whole_system_comprehension_assay_is_green_on_live_root() -> None:
+    """A cold reader must comprehend the WHOLE substrate from the self-model alone."""
+    assay = C.run_whole_system_comprehension_assay(C.default_root())
+    assert assay["whole_system_answerability_pct"] >= 90.0
+    assert assay["every_organ_mapped"] is True
+    assert assay["organs_mapped"] == assay["organ_total"]
+    assert assay["overclaim_count"] == 0
+    assert assay["source_body_leaks"] == 0
+    assert assay["thinness_surfaced"] is True
+    assert assay["deferred_surfaced"] is True
+    assert assay["front_anchor_present"] is True
+    assert assay["tail_recap_present"] is True

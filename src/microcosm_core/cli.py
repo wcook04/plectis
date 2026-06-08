@@ -636,12 +636,13 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen --card <project> emit the compact JSON first-screen card
   microcosm comprehend --packet-atlas  the navigable MENU of comprehension packets (cold-agent first move; pick the packet that matches your goal)
+  microcosm comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
   microcosm comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   microcosm comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   microcosm comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
   microcosm comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   microcosm comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
-  microcosm comprehension-assay [--hard|--packet-route] prove the packets answer / carry atoms / navigate without opening source
+  microcosm comprehension-assay [--hard|--packet-route|--whole-system] prove the packets answer / carry atoms / navigate / comprehend-the-whole without opening source
   microcosm agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm status-card <project> alias for the compact status lens
@@ -3782,6 +3783,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="print the packet atlas: the navigable menu of comprehension packets",
     )
+    comprehend_parser.add_argument(
+        "--self-model",
+        dest="self_model",
+        action="store_true",
+        help="compile the whole-Microcosm self-model: comprehend the entire substrate at once",
+    )
+    comprehend_parser.add_argument(
+        "--profile",
+        choices=["operating_picture", "whole_substrate_map", "public_reader"],
+        help="self-model profile (default operating_picture; whole_substrate_map = every organ)",
+    )
     comprehend_parser.add_argument("--goal", help="freeform goal routed to a packet")
     comprehend_parser.add_argument(
         "--path",
@@ -3814,6 +3826,12 @@ def main(argv: list[str] | None = None) -> int:
         dest="packet_route",
         action="store_true",
         help="run the packet-route assay: routing accuracy + per-packet band/budget/leak/scent",
+    )
+    comprehension_assay_parser.add_argument(
+        "--whole-system",
+        dest="whole_system",
+        action="store_true",
+        help="run the whole-system comprehension assay: can a cold reader comprehend ALL of it?",
     )
     comprehension_assay_parser.add_argument(
         "--root", help="substrate root override (defaults to the package root)"
@@ -4709,6 +4727,12 @@ def main(argv: list[str] | None = None) -> int:
         slice_modes = {"claims": "claim_trace", "flows": "flow", "cluster": "organ_cluster"}
         if args.packet_atlas:
             pack = comprehension.comprehend(root=comprehend_root, mode="packet-atlas")
+        elif args.self_model:
+            pack = comprehension.comprehend(
+                root=comprehend_root,
+                mode="self-model",
+                target=args.profile or "operating_picture",
+            )
         elif args.mutation:
             pack = comprehension.comprehend(
                 root=comprehend_root, mode="mutation_plan", target=args.mutation
@@ -4755,6 +4779,18 @@ def main(argv: list[str] | None = None) -> int:
                 and route["first_contact_has_scent"]
             )
             return _print_json(route, exit_code=0 if route_ok else 1)
+        if args.whole_system:
+            whole = comprehension.run_whole_system_comprehension_assay(assay_root)
+            whole_ok = (
+                whole["whole_system_answerability_pct"] >= 90.0
+                and whole["every_organ_mapped"]
+                and whole["overclaim_count"] == 0
+                and whole["source_body_leaks"] == 0
+                and whole["thinness_surfaced"]
+                and whole["front_anchor_present"]
+                and whole["tail_recap_present"]
+            )
+            return _print_json(whole, exit_code=0 if whole_ok else 1)
         assay = comprehension.run_comprehension_assay(assay_root)
         assay_ok = (
             assay["answerable_without_source_pct"] >= 80.0
