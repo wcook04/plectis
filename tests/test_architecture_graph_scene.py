@@ -125,6 +125,15 @@ def test_full_architecture_graph_scene_preserves_untyped_wire_authority() -> Non
         {"id": "spine", "focus_id": "shared_spine"},
         {"id": "wiring", "focus_id": "explicit_wiring"},
     ]
+    component_nodes = [
+        node for node in scene["nodes"] if str(node.get("id") or "").startswith("component:")
+    ]
+    assert len(component_nodes) == packet["summary"]["component_count"]
+    assert any(
+        node.get("kind") == "component"
+        and (node.get("metrics") or {}).get("declared_wiring_endpoint") is False
+        for node in component_nodes
+    )
 
 
 def test_architecture_graph_scene_source_fingerprint_is_stable_and_source_bound(

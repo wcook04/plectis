@@ -338,6 +338,7 @@ def _build_scene_rows(model: Mapping[str, Any]) -> dict[str, Any]:
         previous_node_id = node_id
 
     atlas_by_id: Mapping[str, Mapping[str, Any]] = model["atlas_by_id"]
+    all_component_ids = set(model["accepted_ids"])
     wired_component_ids: set[str] = set()
     wire_edge_ids: list[str] = []
     wire_pairs: list[dict[str, str]] = []
@@ -372,17 +373,18 @@ def _build_scene_rows(model: Mapping[str, Any]) -> dict[str, Any]:
                 }
             )
 
-    for component_id in sorted(wired_component_ids):
+    for component_id in sorted(all_component_ids):
         card = atlas_by_id.get(component_id, {})
         family_id = model["family_of_component"].get(component_id, str(card.get("family") or ""))
+        is_wired = component_id in wired_component_ids
         nodes.append(
             {
                 "id": f"component:{component_id}",
                 "label": _display_label(card, component_id),
-                "kind": "wired_component",
+                "kind": "wired_component" if is_wired else "component",
                 "parent_cluster_id": f"cluster:{family_id}" if family_id else "cluster:areas",
                 "state": "active",
-                "metrics": {"declared_wiring_endpoint": True},
+                "metrics": {"declared_wiring_endpoint": is_wired},
                 "provenance": {
                     "source_ref": public_source_ref("core/organ_atlas.json"),
                     "source_field": "organs",
@@ -406,7 +408,7 @@ def _build_scene_rows(model: Mapping[str, Any]) -> dict[str, Any]:
         _focus_path(
             "explicit_wiring",
             "Source-declared component wiring",
-            [f"component:{component_id}" for component_id in sorted(wired_component_ids)],
+            [f"component:{component_id}" for component_id in sorted(all_component_ids)],
             wire_edge_ids,
         ),
     ]
