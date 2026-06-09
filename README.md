@@ -156,8 +156,8 @@ extra doctrine.
 Evidence counts are accounting, not maturity scores. Low counts are not hidden:
 they tell you exactly which claims are backed by copied source bodies, external
 subprocess receipts, algorithmic projections, metadata-only rows, or explicit
-omissions. They are not benchmark scores. Most projects do not publish that boundary; Microcosm puts it on the
-first screen so strong claims stay narrow.
+omissions. Microcosm puts that evidence legend on the first screen so strong
+claims stay narrow.
 
 Read the evidence class counters as a claim-boundary legend:
 
@@ -462,11 +462,10 @@ code, doctrine, tool output, receipt output, proof body, or runtime behavior.
 The exclusion set is narrow: secrets and secret-equivalent live access
 (`.env` files, API keys, tokens, passwords, private keys, browser state, browser
 profiles, keychains, account sessions, and direct secret-bearing payloads),
-source notes, raw operator voice, slurs or abusive wording, personal material, and other clearly
-unsafe or non-releasable content. Public-state labels, provenance, activation,
-or maturity are not reasons to ship a fake stand-in. Hosted launch and recipient
-sends are operational decisions outside this repo; they do not block
-source-available content from being imported here.
+private notes, personal material, and other content that is unsafe for a public
+source package. Public-state labels, provenance, activation, or maturity are not
+reasons to ship a fake stand-in. Operational send decisions live outside this
+repo; they do not block source-available content from being imported here.
 
 Any `body_copied=true` claim must name the source file, target file, and
 validator or receipt that proves the import. A source ref, digest, label,

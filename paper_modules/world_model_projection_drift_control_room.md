@@ -282,14 +282,13 @@ Paper-module index validation from the repo root:
 
 ## Limitations
 
-The organ does not inspect private runtime bodies, export provider payloads,
-mutate macro source, repair live routes, promote doctrine, certify the copied
-macro bodies as complete source authority, authorize publication, authorize
-release, or establish whole-system correctness. It also does not claim that
-every possible world-model drift source is covered. Its claim is narrower: the
-named public drift rows are guarded by source refs, target refs, validation
-refs, fact-authority mesh, copied non-secret body evidence, body-free receipts,
-and negative-case rejection.
+The organ validates metadata-only drift receipts and public-source refs. It
+supports inspection of recorded drift rows; live repair, source control,
+doctrine promotion, model-output export, public sharing, and launch are outside
+the fixture. It also does not claim that every possible world-model drift source
+is covered. Its claim is narrower: the named public drift rows are guarded by
+source refs, target refs, validation refs, fact-authority mesh, copied source
+body evidence, metadata-only receipts, and negative-case rejection.
 
 ## Reader Evidence Routing
 

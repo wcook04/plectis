@@ -1379,7 +1379,7 @@
     },
     {
       "agent_gloss": "An agent runs this over recorded work-landing rows to confirm they satisfy the declared contract (each row cites owned claimed paths and owner-native validation refs; validation precedes the commit attempt; a \"committed-landed\" claim carries a declared HEAD-before != HEAD-after advance; metadata-blocked rows capture a blocker ref; Work Ledger closeout is cited) and to confirm the fixture's nine negative rows are each rejected with their expected error codes. It validates the recorded contract only; it does not execute Git or prove real-world landedness.",
-      "claim_ceiling_restated": "It validates only the declared public work-landing contract over recorded rows; it does not mutate Git, stage unrelated dirty paths, prove a commit actually landed, export private source bodies, call providers, publish/host, or authorize release.",
+      "claim_ceiling_restated": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, private body export, service operation, or distribution clearance.",
       "evidence_class": "semantic_validator",
       "family": "work_landing_and_continuity",
       "first_command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
@@ -1514,7 +1514,7 @@
     },
     {
       "agent_gloss": "An agent runs this to validate that a set of body-free drift rows each cite a source ref, repair route, validation ref, and target ref while keeping the forbidden booleans (source-authority, live-repair, source-mutation, doctrine-promotion, provider-export, private-export, release) false, and that the secret-exclusion scan passes with no body text emitted. The organ's fixture mode additionally asserts that the eight expected negative cases (missing source ref, missing validation ref, source-authority claim, live-repair authorization, private-runtime export, provider-payload export, automatic doctrine promotion, release claim) are rejected; the validation receipt records 8/8.",
-      "claim_ceiling_restated": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export provider payloads, or authorize publication or release.",
+      "claim_ceiling_restated": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine promotion, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
       "first_command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
@@ -1591,7 +1591,7 @@
     },
     {
       "agent_gloss": "An agent runs it to validate that the synthetic counterfactual-replay rows are well-formed (each cites scene-state, action-trace, predicted-state, transition-diff, oracle-check, and public sensor-packet refs plus limitation labels) and that every forbidden claim (private video export, raw sensor export, live robot/AV operation, real-world geographic accuracy, simulator-product claim, generated-video-only authority, benchmark scores, release) is rejected by a negative-case receipt.",
-      "claim_ceiling_restated": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows; it does not operate robots or AVs, claim real-world geographic accuracy, sell or validate a simulator product, treat generated video as authority, report benchmark scores, call providers, publish, host, or authorize release.",
+      "claim_ceiling_restated": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
       "evidence_class": "semantic_validator",
       "family": "research_and_science_replays",
       "first_command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",

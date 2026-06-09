@@ -34,9 +34,10 @@ Atlas card is linked from the same capsule edges; those projections help
 navigation but do not expand the authority ceiling.
 
 The proof boundary is declared public compliance and pipeline fixture evidence
-plus copied source-module digest checks only. Validation does not refresh the
-full compliance ledger, dispatch bridge/provider work, mutate raw seed, certify
-every compliance branch, authorize publication, or approve release.
+plus copied source-module digest checks only. Validation stays with bounded
+registry and helper checks; broader compliance refresh, bridge/provider work,
+source-record changes, complete branch certification, public sharing, and launch
+are outside this fixture.
 
 ## JSON Capsule Boundary
 
@@ -213,24 +214,25 @@ observability practice. Useful anchors include:
 
 Microcosm borrows the scanner, policy, provenance, and pipeline-stage shape,
 but the organ only validates bounded no-write behavior and pure helper
-mechanics. It does not refresh the full compliance ledger, dispatch providers,
-mutate raw seed, or certify every compliance branch.
+mechanics. It stays with bounded registry/helper checks; broader compliance
+refresh, provider work, source-record changes, and complete branch
+certification are outside this fixture.
 
 ## Authority Ceiling
 
 The capsule validates registry shape, bounded no-write compliance checks,
 baseline scanner truth accounting, and pure pipeline helper behavior. It does
-not refresh the full compliance ledger, dispatch bridge/provider work, mutate
-raw seed, or certify every compliance and pipeline branch.
+not refresh the full compliance ledger, dispatch bridge/provider work, change
+source records, or certify every compliance and pipeline branch.
 
 ## Claim Ceiling
 
 This paper module can claim a compliance pipeline fixture with a diagram view generated for this module and a navigable atlas card. It can explain registry shape checks, bounded no-write compliance probes, scanner truth accounting, pure pipeline helper behavior, and body-free receipts.
 
 It cannot claim full compliance-ledger refresh, bridge or provider dispatch,
-raw-seed mutation, complete compliance branch certification, publication
-approval, release approval, or whole-system correctness. Higher claims belong in
-the JSON capsule and regenerated projections first.
+source-record changes, complete compliance branch certification, public sharing,
+launch, or whole-system correctness. Higher claims belong in the JSON capsule
+and regenerated projections first.
 
 ## Validation Receipt Path
 
@@ -256,8 +258,8 @@ and public/private boundary checks. The focused test confirms the no-write
 runtime boundary, bundle validation, omission posture, and claim ceiling.
 
 This receipt path is reader-verifiable evidence only. It does not refresh the
-full compliance ledger, dispatch bridge or provider work, mutate raw seed,
-certify every compliance branch, authorize publication, or approve release.
+full compliance ledger, dispatch bridge or provider work, change source records,
+certify every compliance branch, authorize public sharing, or approve launch.
 
 ## Receipt Expectations
 

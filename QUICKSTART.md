@@ -193,12 +193,11 @@ stays inside local review scope.
 
 ## Boundaries
 
-Microcosm is a local source-open research runtime. These commands stay scoped
-to local inspection, tests, source-linked records, and result evidence; launch
-operations, hosted sharing, provider calls, external model access, source mutation,
-source-file changes, proof correctness, trading or financial decisions,
-production security claims, private-root equivalence, private-system equivalence,
-and account-secret or session export are outside that scope.
+Microcosm is a local source-open research runtime. These commands are for local
+inspection, tests, source-linked records, and result evidence. The public copy
+supports source review and reproducible local checks; stronger distribution,
+service, domain, security, or operational claims require their own release
+receipts.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are

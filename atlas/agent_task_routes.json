@@ -4501,7 +4501,7 @@
             "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
             "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
           ],
-          "scope_limit": "It validates only the declared public work-landing contract over recorded rows; it does not mutate Git, stage unrelated dirty paths, prove a commit actually landed, export private source bodies, use external model services, publish/host, or include launch operations.",
+          "scope_limit": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, non-public body export, service operation, or distribution clearance.",
           "source_relation_handle": {
             "edge_count": 132,
             "query": "microcosm organ-topology --organ durable_agent_work_landing_replay",
@@ -5482,7 +5482,7 @@
             "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
             "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
           ],
-          "scope_limit": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export model-output data, or authorize public sharing or launch.",
+          "scope_limit": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine changes, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
           "source_relation_handle": {
             "edge_count": 29,
             "query": "microcosm organ-topology --organ world_model_projection_drift_control_room",
@@ -6932,7 +6932,7 @@
             "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json",
             "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
           ],
-          "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows; it does not operate robots or AVs, claim real-world geographic accuracy, sell or validate a simulator product, treat generated video as authority, report benchmark claims, use external model services, publish, host, or include launch operations.",
+          "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
           "source_relation_handle": {
             "edge_count": 19,
             "query": "microcosm organ-topology --organ spatial_world_model_counterfactual_simulation_replay",
@@ -10733,7 +10733,7 @@
             "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
             "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
           ],
-          "scope_limit": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export model-output data, or authorize public sharing or launch.",
+          "scope_limit": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine changes, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
           "source_relation_handle": {
             "edge_count": 29,
             "query": "microcosm organ-topology --organ world_model_projection_drift_control_room",
@@ -12731,7 +12731,7 @@
             "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
             "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
           ],
-          "scope_limit": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export model-output data, or authorize public sharing or launch.",
+          "scope_limit": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine changes, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
           "source_relation_handle": {
             "edge_count": 29,
             "query": "microcosm organ-topology --organ world_model_projection_drift_control_room",
@@ -13837,7 +13837,7 @@
             "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json",
             "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
           ],
-          "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows; it does not operate robots or AVs, claim real-world geographic accuracy, sell or validate a simulator product, treat generated video as authority, report benchmark claims, use external model services, publish, host, or include launch operations.",
+          "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
           "source_relation_handle": {
             "edge_count": 19,
             "query": "microcosm organ-topology --organ spatial_world_model_counterfactual_simulation_replay",
@@ -14518,7 +14518,7 @@
             "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
             "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
           ],
-          "scope_limit": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export model-output data, or authorize public sharing or launch.",
+          "scope_limit": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine changes, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
           "source_relation_handle": {
             "edge_count": 29,
             "query": "microcosm organ-topology --organ world_model_projection_drift_control_room",
@@ -16493,7 +16493,7 @@
             "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
             "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
           ],
-          "scope_limit": "It validates only the declared public work-landing contract over recorded rows; it does not mutate Git, stage unrelated dirty paths, prove a commit actually landed, export private source bodies, use external model services, publish/host, or include launch operations.",
+          "scope_limit": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local closeout mechanics, not for live Git side effects, unrelated-path staging, non-public body export, service operation, or distribution clearance.",
           "source_relation_handle": {
             "edge_count": 132,
             "query": "microcosm organ-topology --organ durable_agent_work_landing_replay",

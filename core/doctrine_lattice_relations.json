@@ -2,7 +2,7 @@
   "schema_version": "microcosm_doctrine_lattice_relation_registry_v1",
   "registry_id": "public_microcosm_doctrine_lattice_relation_registry",
   "authority_boundary": "source_relation_grammar_for_public_microcosm_lattice_edges",
-  "anti_claim": "This registry governs typed doctrine lattice edge grammar only. It does not prove target quality, authorize release, or promote generated coverage rows into source doctrine.",
+  "anti_claim": "This registry defines the public relation grammar for doctrine-lattice edges. It supports source/ref navigation only; quality claims and generated coverage promotion require separate evidence.",
   "authority_classes": [
     "source_assertion",
     "derived_from_source",

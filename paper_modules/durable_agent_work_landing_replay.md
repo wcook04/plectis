@@ -275,11 +275,11 @@ whole-system correctness.
 
 ## Negative Cases
 
-The fixture rejects the nine named negative cases in `core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json`: missing validation evidence, validation recorded after a commit attempt, missing Work Ledger closeout, commit-landed language without a HEAD advance, live Git mutation authority, missing dirty-tree boundary, uncaptured metadata blockers, release overclaims, and private path/body leakage.
+The fixture rejects the nine named negative cases in `core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json`: missing validation evidence, validation recorded after a commit attempt, missing recorded closeout, commit-landed language without a HEAD advance, live Git side-effect authority, missing dirty-tree boundary, uncaptured metadata blockers, overbroad distribution claims, and non-public path/body leakage.
 
 ## Authority Ceiling
 
-This organ is source-open replay authority only. It validates public synthetic replay receipts and copied non-secret macro bodies with digest provenance. It does not mutate Git, stage unrelated dirty paths, prove arbitrary commits landed outside the replay, export private source bodies, run providers, publish, host, or authorize release.
+This organ is source-open replay evidence for synthetic result records and copied non-secret macro bodies with digest provenance. It supports local inspection of recorded work-landing mechanics, while operational distribution and live Git side effects stay outside the public fixture.
 
 ## Re-Entry Conditions
 

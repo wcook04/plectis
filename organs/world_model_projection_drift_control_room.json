@@ -72,7 +72,7 @@
   },
   "organ_id": "world_model_projection_drift_control_room",
   "organ_payload": {
-    "claim_ceiling": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export provider payloads, or authorize publication or release.",
+    "claim_ceiling": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine promotion, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
     "contract_version": "microcosm_organ_instance_payload_v1",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -96,7 +96,7 @@
         "AX-8",
         "AX-11"
       ],
-      "claim_ceiling_restated": "It only validates the declared public, body-free drift-receipt contract; it does not inspect private runtime bodies, mutate or claim authority over source, repair live routes, promote doctrine, export provider payloads, or authorize publication or release.",
+      "claim_ceiling_restated": "It only validates the declared public, metadata-only drift-receipt contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine promotion, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
       "code_loci": [
         {
           "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
