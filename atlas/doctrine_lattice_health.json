@@ -5521,8 +5521,10 @@
     "triad_skill_planned_unresolved_edge_count": 0,
     "triad_skill_resolved_edge_count": 435,
     "triad_skill_unresolved_edge_count": 0,
-    "unregistered_standard_file_count": 0,
-    "unregistered_standard_file_ids": [],
+    "unregistered_standard_file_count": 1,
+    "unregistered_standard_file_ids": [
+      "std_microcosm_doctrine_enrichment"
+    ],
     "used_by_organ_admission_counts_by_admission_status": {
       "target_organ_not_accepted_current_authority": 28
     },

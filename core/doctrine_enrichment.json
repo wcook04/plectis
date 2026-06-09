@@ -3735,11 +3735,11 @@
     {
       "id": "AP-14",
       "kind": "anti_principle",
-      "one_line": "Letting public documentation imply hosted release, provider-call authority, source mutation, financial advice, product readiness, affiliation, or whole private-system release the system never actually holds.",
-      "deep": "AP-14 is the inflation the release floor exists to refuse: a public page quietly granting itself a release-grade authority it cannot back. The danger is that all seven implied authorities (a hosted service, the right to call a provider, permission to mutate the source, financial advice, product readiness, a claimed affiliation, or release of the whole private system) are stated for free in prose, while the thing that would actually hold each one is absent. It bites across three floors at once: AX-5, because an in-scope claim with no admissible witness must fail closed rather than read as granted; AX-8, because a release-grade implication is private-adjacent material that may reach a public sink only through a declared transform, not by being asserted at the page; and AX-12, because the system's own copy is held to the same evidence floor it imposes on any other work. The repair is to state only the authority a witness backs, and to demote the public claim to its bounded scope the moment the witness is missing.",
+      "one_line": "Letting public documentation imply a hosted service, external service access, source-file mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence the public artifact never actually holds.",
+      "deep": "AP-14 is the inflation the evidence floor exists to refuse: a public page quietly granting itself an authority it cannot back. The danger is that all seven implied authorities (a hosted service, access to an external service, permission to mutate the source, financial or trading decisions, production readiness, an affiliation or endorsement, or equivalence with the whole private system) are stated for free in prose, while the witness that would actually hold each one is absent. The failure is the unbacked implication, not the implication itself: a backed authority may be stated at its bounded scope. It bites across three floors at once: AX-5, because an in-scope claim with no admissible witness must fail closed rather than read as granted; AX-8, because a public-authority implication is private-adjacent material that may reach a public sink only through a declared transform, not by being asserted at the page; and AX-12, because the system's own copy is held to the same evidence floor it imposes on any other work. The repair is to state only the authority a witness backs, and to demote or refuse the public claim the moment the witness is missing.",
       "formal": {
-        "latex": "\\mathrm{implies}(d, \\alpha) \\;\\wedge\\; \\alpha \\in \\Lambda \\;\\Rightarrow\\; \\mathsf{reject}(d)",
-        "reads": "If a public artifact lets a reader infer any hosted-release, provider-call, source-mutation, financial, product-readiness, affiliation, or whole-system release authority, it is rejected.",
+        "latex": "\\mathrm{implies}(d, \\alpha) \\;\\wedge\\; \\alpha \\in \\Lambda \\;\\wedge\\; \\neg\\,\\mathrm{witness}(d, \\alpha) \\;\\Rightarrow\\; \\mathsf{demote}(d, \\alpha) \\;\\vee\\; \\mathsf{refuse}(d, \\alpha)",
+        "reads": "If a public artifact lets a reader infer an authority from the inflated set and no admissible witness backs that authority, the claim is demoted to its bounded scope or refused. The bad thing is the unbacked implication, not implication itself.",
         "symbols": [
           {
             "sym": "d",
@@ -3755,13 +3755,17 @@
           },
           {
             "sym": "\\Lambda",
-            "meaning": "the inflated-authority set: hosted release, provider-call, source-mutation, financial advice, product readiness, affiliation, or whole-system release"
+            "meaning": "the inflated-authority set: hosted service, external service access, source-file mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence"
+          },
+          {
+            "sym": "\\mathrm{witness}(d, \\alpha)",
+            "meaning": "an admissible witness backs d's claim to authority alpha"
           }
         ]
       },
       "governs": "The boundary between what a public page implies and what authority the system actually holds.",
-      "requires": "Stating only the authority an admissible witness backs, and demoting the public claim to its bounded scope when the witness is absent.",
-      "refuses": "Letting public copy imply hosted release, provider-call authority, source mutation, financial advice, product readiness, affiliation, or whole private-system release that nothing holds.",
+      "requires": "Stating only the authority an admissible witness backs, and demoting or refusing the public claim when the witness is absent.",
+      "refuses": "Letting public copy imply a hosted service, external service access, source mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence that nothing holds.",
       "example": {
         "text": "The release wording gate scans the system's own public copy for release-grade language and blocks a line that would imply hosting, readiness, or whole-system release the system does not hold, so the claim is demoted to its bounded scope rather than published.",
         "refs": [
@@ -3776,26 +3780,26 @@
         "public_reveal_walkthrough",
         "cold_reader_route_map"
       ],
-      "does_not_prove": "Blocking inflated release language does not establish that any specific authority is in fact held; it only refuses the unbacked implication. The example is reader illustration and never counts as support that the system is hosted, released, affiliated, or product-ready.",
+      "does_not_prove": "Blocking inflated public-authority language does not establish that any specific authority is in fact held; it only refuses the unbacked implication. The example is reader illustration and never counts as support that the system is hosted, deployed, affiliated, or production-ready.",
       "reader_ladder": {
-        "plain": "The mistake of letting a public page's wording imply powers the system does not actually have, such as being a hosted, ready product, having an outside partner, being able to change its own source, or giving financial advice, when nothing behind the page backs any of that.",
+        "plain": "The mistake of letting a public page's wording imply powers the system does not have, such as being a hosted, ready product, having an outside partner, changing its own source, making financial decisions, or being the same thing as the larger private system, when nothing behind the page backs any of that.",
         "analogy": {
-          "text": "Hanging a 'Certified Fire Exit, open 24/7' sign on a door that has never passed inspection and is sometimes locked, so passers-by read an assurance the building was never given.",
+          "text": "Labeling a local prototype as a live production endpoint. The label may help a reader see what the prototype resembles, but it cannot grant the uptime, permissions, or partnerships that only the real production system carries.",
           "maps": [
             {
               "doctrine": "the public page implying an authority",
-              "analogy": "the certified-fire-exit sign on the door"
+              "analogy": "the 'production endpoint' label on the prototype"
             },
             {
               "doctrine": "the inflated set of unbacked powers",
-              "analogy": "the certified, always-open status the door does not actually have"
+              "analogy": "the uptime, permissions, and partnerships the prototype does not actually have"
             },
             {
               "doctrine": "demoting the claim to its bounded scope when no witness backs it",
-              "analogy": "replacing the sign with an honest 'Door, may be locked' label until a real inspection exists"
+              "analogy": "relabeling it an honest 'local prototype' until a real deployment exists"
             }
           ],
-          "boundary": "This shows only that wording must not claim a status nothing backs; it does not say the door is unsafe, and removing the false sign does not establish that the door is in fact a certified exit either way."
+          "boundary": "This shows only that a label must not promise a status nothing backs; it does not say the prototype is bad, and removing the inflated label does not settle whether the system could be deployed either way."
         },
         "why_it_matters": "A reader can trust that what a public page says about itself, like being hosted or ready or affiliated, is limited to what the system can actually back, not free-floating prose.",
         "potential_misread": "That impressive-sounding wording is harmless because it costs nothing and usually looks right. The tempting wrong belief is that stating a power is the same as holding it."

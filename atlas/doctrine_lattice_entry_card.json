@@ -112,7 +112,7 @@
     "standard_triad_skill_planned_unresolved_edge_count": 0,
     "standard_triad_skill_resolved_edge_count": 435,
     "standard_triad_skill_unresolved_edge_count": 0,
-    "standard_unregistered_file_count": 0,
+    "standard_unregistered_file_count": 1,
     "standard_used_by_organ_edge_count": 247,
     "standard_used_by_organ_missing_accepted_target_count": 28,
     "standard_used_by_organ_resolved_edge_count": 219,
@@ -163,9 +163,9 @@
     }
   ],
   "generation": {
-    "command": "python scripts/build_doctrine_projection.py --write-aggregate-surfaces",
-    "coverage_projection_digest": "d1aead53a6e77057b92c2dcf42cfd418d16127b115d12d028bcffbb91ec068a2",
-    "generated_at": "2026-06-06T14:50:51.908754Z",
+    "command": "python -m microcosm_core.doctrine_lattice --write-entry-card",
+    "coverage_projection_digest": "b11fa05f9effa05a84a2219465c343d03d4b10fd80f023bb593d32d17e3b3cfc",
+    "generated_at": "2026-06-09T23:05:51.038858Z",
     "generated_by": "microcosm_core.doctrine_lattice.build_entry_card"
   },
   "next_population_targets": [],
@@ -229,7 +229,7 @@
       "standard_triad_skill_missing_required_count": 0,
       "standard_triad_skill_planned_unresolved_edge_count": 0,
       "standard_triad_skill_resolved_edge_count": 435,
-      "standard_unregistered_file_count": 0,
+      "standard_unregistered_file_count": 1,
       "standard_used_by_organ_unresolved_edge_count": 28,
       "unregistered_lattice_edges": 0
     },

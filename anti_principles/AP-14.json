@@ -7,7 +7,7 @@
   ],
   "anti_principle_payload": {
     "contract_version": "microcosm_anti_principle_instance_payload_v1",
-    "failure_statement": "Letting public docs imply hosted release, provider-call authority, source-mutation authority, financial advice, product readiness, affiliation, or whole private-system release.",
+    "failure_statement": "Letting public docs imply a hosted service, external service access, source-file mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence that no admissible witness backs.",
     "guarded_axiom_ids": [
       "AX-5",
       "AX-8",
@@ -24,7 +24,7 @@
       "P-19",
       "P-20"
     ],
-    "legacy_heading": "AP-14 Release-authority inflation",
+    "legacy_heading": "AP-14 Public-authority inflation",
     "legacy_violated_axiom_text": "AX-5, AX-8, AX-12",
     "migration_contract": {
       "authority_flip_status": "not_flipped",
@@ -41,7 +41,7 @@
   },
   "authority_boundary": "public_anti_principle_json_instance_synchronized_from_legacy_markdown_receipt_bound_not_source_authority_flip",
   "created_at": "2026-06-02T00:00:00Z",
-  "failure_statement": "Letting public docs imply hosted release, provider-call authority, source-mutation authority, financial advice, product readiness, affiliation, or whole private-system release.",
+  "failure_statement": "Letting public docs imply a hosted service, external service access, source-file mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence that no admissible witness backs.",
   "guards": [
     "AX-5",
     "AX-8",
@@ -262,7 +262,7 @@
     }
   ],
   "status": "active",
-  "title": "Release-authority inflation",
+  "title": "Public-authority inflation",
   "validator_refs": [
     "validator.microcosm.anti_principle",
     "microcosm-substrate/scripts/build_doctrine_projection.py --check"

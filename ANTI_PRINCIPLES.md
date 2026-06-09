@@ -19,7 +19,7 @@ source of authority.
 | AP-11 Meta-artifact exemption | AX-12 | Exempting Microcosm's own receipts, docs, releases, generated projections, or validators from Microcosm's evidence gates. |
 | AP-12 Synthetic substrate substitution | AX-1, AX-4, AX-8 | Using synthetic fixtures as substitutes for available public-safe substrate. |
 | AP-13 Generated-receipt source inversion | AX-4, AX-11 | Treating generated receipts as hand-authored source. |
-| AP-14 Release-authority inflation | AX-5, AX-8, AX-12 | Letting public docs imply hosted release, provider-call authority, source-mutation authority, financial advice, product readiness, affiliation, or whole private-system release. |
+| AP-14 Public-authority inflation | AX-5, AX-8, AX-12 | Letting public docs imply a hosted service, external service access, source-file mutation, financial or trading decisions, production readiness, affiliation or endorsement, or private-system equivalence that no admissible witness backs. |
 | AP-15 Mechanism theater | AX-1, AX-2, AX-12 | Using field vocabulary such as proof, verifier, information flow, world model, or benchmark integrity when the public mechanism only validates a receipt or projection shape. |
 | AP-16 Receiver inflation | AX-8, AX-12 | Displaying a declared, inferred, or generated downstream target as an observed runtime effect without evidence of the effect relation. |
 | AP-17 Projection-as-source | AX-4, AX-11 | Letting a markdown page, generated card, atlas row, or compact receipt summary override the executable contract it summarizes. |
